@@ -24,3 +24,7 @@ We believe that email is an extremely important medium for people to communicate
 
 - Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
 - Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
+
+## License
+
+MIT License
