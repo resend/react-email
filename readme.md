@@ -22,5 +22,5 @@ We believe that email is an extremely important medium for people to communicate
 
 ## Author
 
-- Bu Kinoshita [@bukinoshita](https://twitter.com/bukinoshita)
-- Zeno Rocha[@zenorocha](https://twitter.com/zenorocha)
+- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
+- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
