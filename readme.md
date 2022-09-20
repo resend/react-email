@@ -20,6 +20,38 @@ It reduces the pain of coding responsive emails with dark mode support. It also 
 
 We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2022 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
 
+## Install
+
+Install one of the components from your command line.
+
+#### With yarn
+
+```sh
+yarn add -E @react-email/button -E
+```
+
+#### With npm
+
+```sh
+npm install --save-exact @react-email/button -E
+```
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button } from '@react-email/button';
+
+const Email = () => {
+  return (
+    <Button href="https://example.com" style={{ color: '#61dafb' }}>
+      Click me
+    </Button>
+  );
+};
+```
+
 ## Authors
 
 - Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))

@@ -11,39 +11,37 @@
 <a href="https://react.email">Twitter</a>
 </div>
 
-## Installation
+## Install
+
+Install component from your command line.
 
 #### With yarn
 
 ```sh
-yarn add -E @react-email/button
+yarn add -E @react-email/button -E
 ```
 
-#### With NPM
+#### With npm
 
 ```sh
-npm install --save-exact @react-email/button
+npm install --save-exact @react-email/button -E
 ```
 
-## Getting Started
+## Getting started
 
-Add the `Button` to your app first.
+Add the component to your email template. Include styles where needed.
 
 ```jsx
 import { Button } from '@react-email/button';
 
-const App = () => {
+const Email = () => {
   return (
-    <div>
-      <Button href="https://react.email">Button</Button>
-    </div>
+    <Button href="https://example.com" style={{ color: '#61dafb' }}>
+      Click me
+    </Button>
   );
 };
 ```
-
-## Documentation
-
-Find the full API reference on [official documentation](https://react.email).
 
 ## License
 
