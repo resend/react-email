@@ -19,3 +19,8 @@ It reduces the pain of coding responsive emails with dark mode support. It also 
 ## Why
 
 We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2022 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
+
+## Author
+
+- Bu Kinoshita [@bukinoshita](https://twitter.com/bukinoshita)
+- Zeno Rocha[@zenorocha](https://twitter.com/zenorocha)
