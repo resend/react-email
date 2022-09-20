@@ -27,13 +27,13 @@ Install one of the components from your command line.
 #### With yarn
 
 ```sh
-yarn add -E @react-email/button -E
+yarn add @react-email/button -E
 ```
 
 #### With npm
 
 ```sh
-npm install --save-exact @react-email/button -E
+npm install @react-email/button -E
 ```
 
 ## Getting started
