@@ -10,6 +10,14 @@
     },
     "dev": {
       "cache": false
+    },
+    "website#build": {
+      "dependsOn": [
+        "^build",
+        "$KLOTTY_API_KEY",
+        "$NEXT_PUBLIC_SUPABASE_ANON_KEY"
+      ],
+      "outputs": [".next/**"]
     }
   }
 }

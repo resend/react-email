@@ -1,0 +1,35 @@
+{
+  "name": "website",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@radix-ui/colors": "^0.1.8",
+    "@supabase/supabase-js": "^1.35.6",
+    "klotty": "^0.7.1",
+    "lottie-react": "^2.3.1",
+    "next": "12.2.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.19.1",
+    "@types/node": "18.7.1",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "18.0.6",
+    "autoprefixer": "10.4.11",
+    "eslint-config-custom": "*",
+    "next-transpile-modules": "9.0.0",
+    "postcss": "8.4.16",
+    "tailwind-config": "*",
+    "tailwindcss": "3.1.8",
+    "tsconfig": "*",
+    "typescript": "4.8.3"
+  }
+}
