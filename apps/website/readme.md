@@ -2,32 +2,30 @@
 
 This repo contains the source code for [react.email](https://react.email).
 
-## Getting Started
+## Development
 
-1. Install [NodeJS](http://nodejs.org/download/), if you don't have it yet.
-
-2. Now clone this repository:
+1. Clone the repository:
 
    ```sh
-   $ git clone https://github.com/klotty/react-email.git
+   git clone https://github.com/zenorocha/react-email.git
    ```
 
-3. Then go to the project's folder:
+2. Then go to the project's folder:
 
    ```sh
-   $ cd website
+   cd apps/website
    ```
 
-4. Install all dependencies:
+3. Install all dependencies:
 
    ```sh
-   $ yarn
+   yarn
    ```
 
-5. And finally run it:
+4. And finally run it:
 
    ```sh
-   $ yarn dev
+   yarn dev
    ```
 
 ## Deploy
@@ -35,7 +33,7 @@ This repo contains the source code for [react.email](https://react.email).
 If you're a collaborator, you can publish the site to GitHub Pages by running:
 
 ```sh
-$ yarn deploy
+yarn deploy
 ```
 
 ## License
