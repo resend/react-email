@@ -52,6 +52,22 @@ const Email = () => {
 };
 ```
 
+## Development
+
+#### Install dependencies
+
+  ```sh
+yarn install
+  ```
+
+#### Build and run packages
+
+  ```sh
+yarn dev
+  ```
+
+This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
+
 ## Authors
 
 - Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
