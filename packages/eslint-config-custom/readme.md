@@ -1,4 +1,4 @@
-![React Email eslint cover](../../.github/static/eslint-config-custom.png)
+![React Email eslint cover](https://react-email-assets.vercel.app/eslint-config-custom.png)
 
 <div align="center"><strong>react-email/eslint-config-custom</strong></div>
 <div align="center">An internal custom eslint configuration to all our components.</div>

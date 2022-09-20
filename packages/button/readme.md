@@ -1,4 +1,4 @@
-![React Email button cover](../../.github/static/button.png)
+![React Email button cover](https://react-email-assets.vercel.app/button.png)
 
 <div align="center"><strong>@react-email/button</strong></div>
 <div align="center">A React button component to help build emails.</div>
