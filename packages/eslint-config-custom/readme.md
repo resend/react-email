@@ -6,7 +6,7 @@
 <div align="center">
 <a href="https://react.email">Website</a> 
 <span> · </span>
-<a href="https://react.email">Documentation</a> 
+<a href="https://github.com/zenorocha/react-email">GitHub</a> 
 <span> · </span>
-<a href="https://react.email">Twitter</a>
+<a href="https://react.email/discord">Discord</a>
 </div>
