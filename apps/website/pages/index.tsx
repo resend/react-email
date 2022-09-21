@@ -6,14 +6,18 @@ import mailIcon from '../public/static/icons/mail.json';
 export default function Home() {
   const mailIconRef = React.useRef<LottieRefCurrentProps>(null);
   const [isSaving, setIsSaving] = React.useState(false);
-
+  const [submitLabel, setSubmitLabel] = React.useState('Notify me');
+  
   const onFormSubmit = async (e) => {
     try {
       e.preventDefault();
       setIsSaving(true);
+      setSubmitLabel('Done!');
 
-      const isProd = process.env.NODE_ENV === 'production'
-      const base = isProd ? 'https://react.email' : 'http://localhost:3000'
+      const isProd = process.env.NODE_ENV === 'production';
+      const base = isProd ? 'https://react.email' : 'http://localhost:3000';
+
+      mailIconRef.current.play();
 
       await fetch(`${base}/api/save`, {
         method: 'POST',
@@ -21,14 +25,13 @@ export default function Home() {
         body: JSON.stringify({
           email_address: e.target.email.value
         }),
-      })
-
-      mailIconRef.current.play();
+      });
     }
     catch(e) {
       alert('Something went wrong, try again later.');
     }
     finally {
+      e.target.reset();
       setIsSaving(false);
     }
   }
@@ -86,7 +89,7 @@ export default function Home() {
             </p>
             <form className="flex gap-2 mx-auto" onSubmit={onFormSubmit}>
               <input type="email" name="email" placeholder="you@example.com" className="outline-none bg-gray-3 hover:bg-gray-4 focus:bg-gray-4 w-44 text-sm px-4 h-10 rounded-full focus:ring-1 focus:ring-cyan-1 transition duration-300 ease-in-out caret-cyan-1" required />
-              <button className="box-border outline-none self-center relative inline-flex items-center justify-center rounded-full text-center font-semibold transition duration-300 ease-in-out bg-gray-12 text-gray-1 text-sm h-10 px-4 hover:bg-cyan-1 focus:bg-cyan-1" disabled={isSaving}>
+              <button className="box-border outline-none self-center relative w-32 inline-flex items-center justify-center rounded-full text-center font-semibold transition duration-300 ease-in-out bg-gray-12 text-gray-1 text-sm h-10 px-4 hover:bg-cyan-1 focus:bg-cyan-1" disabled={isSaving}>
                 <Lottie
                   lottieRef={mailIconRef}
                   className="mr-1 w-5 h-5"
@@ -94,7 +97,9 @@ export default function Home() {
                   loop={false}
                   autoplay={false}
                 />
-                <span className="relative top-px">Notify Me</span>
+                <span className="relative top-px">
+                  {submitLabel}
+                </span>
               </button>
             </form>
           </div>
