@@ -1,5 +1,4 @@
 import * as ReactDomServer from 'react-dom/server';
-import * as React from 'react';
 
 export const render = (component: React.ReactElement) => {
   const doctype =
