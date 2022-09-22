@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
+    "@react-email/a": "*",
     "@react-email/button": "*",
-    "@react-email/img": "^0.0.1",
+    "@react-email/img": "*",
     "lottie-react": "^2.3.1",
     "next": "12.2.3",
     "react": "18.2.0",

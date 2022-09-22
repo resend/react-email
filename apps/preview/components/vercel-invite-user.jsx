@@ -1,4 +1,5 @@
 import React from 'react';
+import { A } from '@react-email/a';
 import { Button } from '@react-email/button';
 import { Img } from '@react-email/img';
 
@@ -23,7 +24,7 @@ function VercelInviteUser() {
                       </tr>
                     </table>
                     <p style={text}>Hello zenorocha,</p>
-                    <p style={text}><strong>bukinoshita</strong> (<a href="mailto:bukinoshita@example.com" style={link}>bukinoshita@example.com</a>) has invited you to the <strong>My Project</strong> team on <strong>Vercel</strong>.</p>
+                    <p style={text}><strong>bukinoshita</strong> (<A href="mailto:bukinoshita@example.com">bukinoshita@example.com</A>) has invited you to the <strong>My Project</strong> team on <strong>Vercel</strong>.</p>
                     <table style={box} width="100%" border="0" cellSpacing="0" cellPadding="0">
                       <tr>
                         <td align="center">
@@ -52,7 +53,7 @@ function VercelInviteUser() {
                         </td>
                       </tr>
                     </table>
-                    <p style={text}><br />or copy and paste this URL into your browser: <a href="https://vercel.com/teams/invite/foo" target="_blank" style={link} rel="noreferrer">https://vercel.com/teams/invite/foo</a></p>
+                    <p style={text}><br />or copy and paste this URL into your browser: <A href="https://vercel.com/teams/invite/foo">https://vercel.com/teams/invite/foo</A></p>
                     <hr style={hr}></hr>
                     <p style={footer}>This invitation was intended for <span style={black}>zenorocha</span>.This invite was sent from <span style={black}>204.13.186.218</span> located in <span style={black}>São Paulo, Brazil</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account's safety, please reply to this email to get in touch with us.</p>
                   </div>
@@ -89,11 +90,6 @@ const h1 = {
   fontWeight: "normal",
   margin: "30px 0",
   padding: "0"
-};
-
-const link = {
-  color: "#067df7",
-  textDecoration: "none"
 };
 
 const text = {
