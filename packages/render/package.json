@@ -14,14 +14,24 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "lint": "TIMING=1 eslint src/**/*.ts* --fix",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "18.0.20",
+    "@babel/preset-react": "7.18.6",
+    "@types/jest": "28.1.7",
     "@types/react-dom": "18.0.6",
-    "eslint": "8.23.1",
+    "@types/react": "18.0.20",
+    "babel-jest": "28.1.3",
     "eslint-config-custom": "*",
-    "react": "18.2.0",
+    "eslint": "8.23.1",
+    "jest": "28.1.3",
+    "ts-jest": "28.0.8",
     "tsconfig": "*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
