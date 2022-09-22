@@ -6,8 +6,13 @@ export interface HtmlProps extends RootProps {}
 
 export const Html: React.FC<Readonly<HtmlProps>> = ({
   children,
+  lang = 'en',
   style,
   ...props
-}) => <html {...props}>{children}</html>;
+}) => (
+  <html lang={lang} {...props}>
+    {children}
+  </html>
+);
 
 Html.displayName = 'Html';
