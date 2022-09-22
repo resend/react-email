@@ -19,16 +19,16 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "react-dom": "^18.2.0"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
     "@types/jest": "28.1.7",
-    "@types/react-dom": "18.0.6",
     "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6",
     "babel-jest": "28.1.3",
-    "eslint-config-custom": "*",
     "eslint": "8.23.1",
+    "eslint-config-custom": "*",
     "jest": "28.1.3",
     "ts-jest": "28.0.8",
     "tsconfig": "*",
