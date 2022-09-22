@@ -6,6 +6,6 @@ module.exports = {
         destination: 'https://discord.gg/n2pWEjjNnD',
         permanent: true,
       },
-    ]
-  }
-}
+    ];
+  },
+};
