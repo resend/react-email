@@ -1,0 +1,32 @@
+{
+  "name": "@react-email/render",
+  "version": "0.0.1",
+  "description": "Transform React components into HTML email templates",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.23.1",
+    "eslint-config-custom": "*",
+    "react": "18.2.0",
+    "tsconfig": "*",
+    "tsup": "6.2.3",
+    "typescript": "4.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
