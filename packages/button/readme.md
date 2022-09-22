@@ -43,6 +43,13 @@ const Email = () => {
 };
 ```
 
+## Props
+
+| Name   | Type   | Default  | Description |
+| --     | --     | --       | --          |
+| href   | string |          | Link to be triggered when the button is clicked |
+| target | string | `_blank` | Specify the target attribute for the button link	 |
+
 ## License
 
 MIT License
