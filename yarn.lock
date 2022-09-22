@@ -812,7 +812,7 @@
   dependencies:
     cross-fetch "^3.1.5"
 
-"@supabase/realtime-js@^1.7.5":
+"@supabase/realtime-js@^1.7.4":
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-1.7.5.tgz#387f094655c11d5608df9a3039c5f01186a5f401"
   integrity sha512-nXuoxt7NE1NTI+G8WBim1K2gkUC8YE3e9evBUG+t6xwd9Sq+sSOrjcE0qJ8/Y631BCnLzlhX6yhFYQFh1oQDOg==
@@ -827,15 +827,15 @@
   dependencies:
     cross-fetch "^3.1.0"
 
-"@supabase/supabase-js@^1.35.6":
-  version "1.35.7"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.35.7.tgz#2d7a899f12b4772fe3a276a97d1702cedc302c7a"
-  integrity sha512-X+qCzmj5sH0dozagbLoK7LzysBaWoivO0gsAUAPPBQkQupQWuBfaOqG18gKhlfL0wp2PL888QzhQNScp/IwUfA==
+"@supabase/supabase-js@1.35.6":
+  version "1.35.6"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-1.35.6.tgz#df5a2c132035ab9e5462ed474587902b3e767a66"
+  integrity sha512-KDRXRr+kdGwruIUizZPALbe5YccMYFVyZJf1sFWKLncaLYSFiM6iKFnqCrNeQ4JFoZZiICkiTl1FUuai62jVpg==
   dependencies:
     "@supabase/functions-js" "^1.3.4"
     "@supabase/gotrue-js" "^1.22.21"
     "@supabase/postgrest-js" "^0.37.4"
-    "@supabase/realtime-js" "^1.7.5"
+    "@supabase/realtime-js" "^1.7.4"
     "@supabase/storage-js" "^1.7.2"
 
 "@swc/helpers@0.4.3":
@@ -3177,7 +3177,7 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-klotty@^0.7.1:
+klotty@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/klotty/-/klotty-0.7.1.tgz#6890de9dbb1864916b43dafb062e30ed737e3528"
   integrity sha512-LbcCxCG3236GpchsMhaCw/MdmyFfLlcLbDjLl8ucVRFXh89jWb+2fehsznVVShUcgKemcXGi9xY4JVA0OypfCA==
@@ -3261,7 +3261,7 @@ loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-lottie-react@^2.3.1:
+lottie-react@2.3.1, lottie-react@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/lottie-react/-/lottie-react-2.3.1.tgz#697060417bab027edb57ed45bda9d62e920d4040"
   integrity sha512-8cxd6XZZtECT6LoAhCftRdYrEpHxiouvB5EPiYA+TtCG5LHNYAdMS9IVIHcxKtWnpo7x16QfCLj1XLXZpaN81A==
