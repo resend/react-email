@@ -1,0 +1,22 @@
+{
+  "name": "utils",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "eslint": "8.21.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "tsup": "6.2.2",
+    "typescript": "4.7.4"
+  }
+}
