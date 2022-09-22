@@ -1,7 +1,7 @@
 ![React Email button cover](https://react-email-assets.vercel.app/button.png)
 
-<div align="center"><strong>@react-email/button</strong></div>
-<div align="center">A React button component to help build emails.</div>
+<div align="center"><strong>@react-email/render</strong></div>
+<div align="center">Transform React components into HTML email templates.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,29 +18,26 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/button -E
+yarn add @react-email/render -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/button -E
+npm install @react-email/render -E
 ```
 
 ## Getting started
 
-Add the component to your email template. Include styles where needed.
+Convert React components into a HTML string.
 
 ```jsx
-import { Button } from '@react-email/button';
+import { MyTemplate } from '../components/MyTemplate';
+import { render } from '@react-email/render';
 
-const Email = () => {
-  return (
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
-      Click me
-    </Button>
-  );
-};
+const html = render(
+  <MyTemplate firstName="Jim" />
+);
 ```
 
 ## License
