@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render renders the <A> component 1`] = `"<!DOCTYPE htmlPUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a target=\\"_blank\\" style=\\"color:#067df7;text-decoration:none\\" href=\\"https://example.com\\">Example</a>"`;
