@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@react-email/button';
+import { Img } from '@react-email/img';
 
 function VercelInviteUser() {
   return (
@@ -15,7 +16,7 @@ function VercelInviteUser() {
                       <tr>
                         <td align="center">
                           <div>
-                            <img src="https://assets.vercel.com/email/vercel.png" width="40" height="37" alt="Vercel" />
+                            <Img src="https://assets.vercel.com/email/vercel.png" width="40" height="37" alt="Vercel" />
                           </div>
                           <h1 style={h1}>Join <strong>My Project</strong> on <strong>Vercel</strong></h1>
                         </td>
@@ -29,9 +30,14 @@ function VercelInviteUser() {
                           <table style={spacing} border="0" cellPadding="0" cellSpacing="10">
                             <tr>
                               <td style={center} align="left" valign="middle">
-                                <img src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png" width="60" height="60" style={avatar} alt="zenorocha" /></td>
-                              <td style={center} align="left" valign="middle"><img src="https://assets.vercel.com/email/team-invite-arrow.png" width="12" height="9" alt="invited you to" /></td>
-                              <td style={center} align="left" valign="middle"><img src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png" width="60" height="60" style={secondaryAvatar} alt="My Project" /></td>
+                                <Img style={primaryAvatar} src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png" width="60" height="60" alt="zenorocha" />
+                              </td>
+                              <td style={center} align="left" valign="middle">
+                                <Img src="https://assets.vercel.com/email/team-invite-arrow.png" width="12" height="9" alt="invited you to" />
+                              </td>
+                              <td style={center} align="left" valign="middle">
+                                <Img style={secondaryAvatar} src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png" width="60" height="60" alt="My Project" />
+                              </td>
                             </tr>
                           </table>
                         </td>
@@ -105,19 +111,14 @@ const center = {
   verticalAlign: "middle"
 };
 
-const avatar = {
-  WebkitBorderRadius: "50%",
-  MozBorderRadius: "50%",
+const primaryAvatar = {
   borderRadius: "50%",
-  overflow: "hidden !important",
-  border: "1px solid transparent"
+  overflow: "hidden"
 };
 
 const secondaryAvatar = {
-  WebkitBorderRadius: "50%",
-  MozBorderRadius: "50%",
   borderRadius: "50%",
-  overflow: "hidden !important",
+  overflow: "hidden",
   border: "1px solid #eaeaea",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.12)"
 };
