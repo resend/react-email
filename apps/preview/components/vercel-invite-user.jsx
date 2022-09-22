@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@react-email/button';
 
 function VercelInviteUser() {
   return (
@@ -40,7 +41,7 @@ function VercelInviteUser() {
                       <tr>
                         <td align="center">
                           <div>
-                            <a style={btn} href="https://vercel.com/teams/invite/foo" target="_blank">JOIN TEAM</a>
+                            <Button style={btn} href="https://vercel.com/teams/invite/foo">JOIN TEAM</Button>
                           </div>
                         </td>
                       </tr>
