@@ -1,7 +1,7 @@
 {
   "name": "@react-email/html",
   "version": "0.0.1",
-  "description": "A React HTML component to help build emails",
+  "description": "A React html component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

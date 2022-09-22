@@ -1,7 +1,7 @@
 ![React Email HTML cover](https://react-email-assets.vercel.app/html.png)
 
 <div align="center"><strong>@react-email/html</strong></div>
-<div align="center">A React HTML component to help build emails.</div>
+<div align="center">A React html component to wrap emails.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
