@@ -19,7 +19,7 @@ class MyDocument extends Document {
     const GA_TRACKING_ID = 'UA-241872858-1';
 
     return (
-      <Html className="bg-gray-1 text-gray-12 font-sans selection:text-gray-1 selection:bg-[#61dafb]">
+      <Html className="bg-gray-1 text-gray-12 font-sans selection:text-gray-1 selection:bg-cyan-1">
         <Head>
           <link
             rel="icon"
