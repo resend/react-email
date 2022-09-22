@@ -32,7 +32,7 @@ npm install @react-email/img -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/img';
+import { Img } from '@react-email/img';
 
 const Email = () => {
   return (
