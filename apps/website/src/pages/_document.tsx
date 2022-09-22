@@ -19,14 +19,26 @@ class MyDocument extends Document {
     const GA_TRACKING_ID = 'UA-241872858-1';
 
     return (
-      <Html className="bg-gray-1 text-gray-12 font-sans">
+      <Html className="bg-gray-1 text-gray-12 font-sans selection:text-gray-1 selection:bg-cyan-1">
         <Head>
-          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
-          <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg" sizes="any" />
-          
+          <link
+            rel="icon"
+            type="image/x-icon"
+            href="/static/images/favicon.ico"
+          />
+          <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/static/images/favicon.svg"
+            sizes="any"
+          />
+
           <meta charSet="utf-8" />
           <meta property="og:type" content="website" />
-          <meta content="https://react.email/static/images/og.png" property="og:image" />
+          <meta
+            content="https://react.email/static/images/og.png"
+            property="og:image"
+          />
           <meta content="summary_large_image" name="twitter:card" />
 
           <script

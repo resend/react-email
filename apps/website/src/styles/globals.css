@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body ::selection {
-  background: #61dafb;
-  color: #000;
-}
-
 @font-face {
   font-family: 'Biotif';
   src: url('/static/fonts/Biotif-Regular.woff2') format('woff2'),
