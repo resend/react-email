@@ -11,6 +11,10 @@
     "dev": {
       "cache": false
     },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
     "website#build": {
       "dependsOn": [
         "^build",
