@@ -1,7 +1,7 @@
-![React Email divider cover](https://react-email-assets.vercel.app/divider.png)
+![React Email Hr cover](https://react-email-assets.vercel.app/hr.png)
 
-<div align="center"><strong>@react-email/divider</strong></div>
-<div align="center">A React divider component to help build emails.</div>
+<div align="center"><strong>@react-email/hr</strong></div>
+<div align="center">Display a divider that separates content areas in your email.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/divider -E
+yarn add @react-email/hr -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/divider -E
+npm install @react-email/hr -E
 ```
 
 ## Getting started
@@ -32,11 +32,11 @@ npm install @react-email/divider -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Divider } from '@react-email/divider';
+import { Hr } from '@react-email/hr';
 
 const Email = () => {
   return (
-    <Divider />
+    <Hr />
   );
 };
 ```

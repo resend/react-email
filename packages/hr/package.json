@@ -1,7 +1,7 @@
 {
-  "name": "@react-email/divider",
-  "version": "0.0.2",
-  "description": "A React divider component to help build emails",
+  "name": "@react-email/hr",
+  "version": "0.0.1",
+  "description": "Display a divider that separates content areas in your email",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

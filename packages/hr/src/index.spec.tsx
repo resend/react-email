@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Divider } from './index';
+import { Hr } from './index';
 import { render } from '../../render/src/index';
 
 describe('render', () => {
@@ -8,8 +8,8 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Divider> component', () => {
-    const actualOutput = render(<Divider />);
+  it('renders the <Hr> component', () => {
+    const actualOutput = render(<Hr />);
     expect(actualOutput).toMatchSnapshot();
   });
 });
