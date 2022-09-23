@@ -48,8 +48,8 @@ export const VercelInviteUser: React.FC<
                       </td>
                     </tr>
                   </table>
-                  <P>Hello zenorocha,</P>
-                  <P>
+                  <P style={text}>Hello zenorocha,</P>
+                  <P style={text}>
                     <strong>bukinoshita</strong> (
                     <A href="mailto:bukinoshita@example.com" style={link}>
                       bukinoshita@example.com
@@ -124,7 +124,7 @@ export const VercelInviteUser: React.FC<
                       </td>
                     </tr>
                   </table>
-                  <P>
+                  <P style={text}>
                     <br />
                     or copy and paste this URL into your browser:{' '}
                     <A
@@ -245,6 +245,7 @@ const footer = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '12px',
+  lineHeight: '24px',
 };
 
 export default VercelInviteUser;
