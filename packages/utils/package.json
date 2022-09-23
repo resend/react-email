@@ -1,16 +1,20 @@
 {
   "name": "utils",
   "version": "0.0.0",
+  "private": true,
   "main": "./dist/index.js",
+  "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist"
-  },
+  "files": [
+    "dist/**"
+  ],
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "clean": "rm -rf dist"
+    "build": "tsc",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsc -w",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "test": "jest"
   },
   "devDependencies": {
     "eslint": "8.21.0",
