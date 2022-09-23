@@ -11,9 +11,23 @@ jobs:
       - image: cimg/node:lts
     steps:
       - checkout
-      - node/install-packages:
-        pkg-manager: yarn
+      - restore_cache:
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "yarn.lock"}}
       - run:
-        command: yarn build
+          name: install packages
+          command: yarn
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "yarn.lock"}}
+          paths:
+            - ~/.yarn
       - run:
+          name: Run Lint
+          command: yarn lint
+      - run:
+        name: Run Test
         command: yarn test
+workflows:
+  orb-free-workflow:
+    jobs:
+      - test
