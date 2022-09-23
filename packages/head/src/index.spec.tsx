@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Head } from './index';
-import { render } from '../../render/src/index';
+import { render } from '@react-email/render';
 
 describe('render', () => {
   beforeEach(() => {
