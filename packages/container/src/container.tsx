@@ -12,21 +12,27 @@ export const Container = React.forwardRef<
   ContainerElement,
   Readonly<ContainerProps>
 >(({ children, style, ...props }, forwardedRef) => {
-  const styles = styleToString({
-    maxWidth: style?.maxWidth ? style?.maxWidth : '37.5em',
-    width: '100%',
-    margin: '0 auto',
-    ...style,
-  });
+  const styles = { maxWidth: '37.5em', ...style };
+  const inlineStyle = styleToString(styles);
 
   return (
-    <div
-      ref={forwardedRef}
-      dangerouslySetInnerHTML={{
-        __html: `<!--[if true]><table role="presentation" style="${styles}" align="center"><tr><td><![endif]--><div style="${styles}">${children}</div><!--[if true]></td></tr></table><![endif]-->`,
-      }}
-      {...props}
-    />
+    <>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso | IE]>
+            <table role="presentation" width="100%" align="center" style="${inlineStyle}"><tr><td></td><td style="width:37.5em;background:#ffffff">
+          <![endif]-->`,
+        }}
+      />
+      <div style={styles}>{children}</div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso | IE]>
+          </td><td></td></tr></table>
+          <![endif]-->`,
+        }}
+      />
+    </>
   );
 });
 
