@@ -52,6 +52,16 @@ const Email = () => {
 };
 ```
 
+## Components
+
+A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
+
+* [Html](https://github.com/zenorocha/react-email/tree/main/packages/html)
+* [Head](https://github.com/zenorocha/react-email/tree/main/packages/head)
+* [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
+* [Link](https://github.com/zenorocha/react-email/tree/main/packages/a)
+* [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
+
 ## Development
 
 #### Install dependencies
