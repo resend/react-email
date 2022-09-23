@@ -1,3 +1,4 @@
 module.exports = {
-  root: true
+  root: true,
+  extends: ['custom'],
 };
