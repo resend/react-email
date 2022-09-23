@@ -1,7 +1,7 @@
 ![React Email img cover](https://react-email-assets.vercel.app/p.png)
 
 <div align="center"><strong>@react-email/p</strong></div>
-<div align="center">A Paragraph component for write your content.</div>
+<div align="center">A paragraph is a block of text separated by some white space.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

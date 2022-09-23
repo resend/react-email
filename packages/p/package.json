@@ -1,7 +1,7 @@
 {
   "name": "@react-email/p",
   "version": "0.0.1",
-  "description": "A Paragraph component for write your content",
+  "description": "A paragraph is a block of text separated by some white space",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -19,7 +19,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "react": "^18.2.0"
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",

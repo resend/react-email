@@ -61,6 +61,8 @@ A set of standard components to help you build amazing emails without having to 
 * [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
 * [Link](https://github.com/zenorocha/react-email/tree/main/packages/a)
 * [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
+* [Divider](https://github.com/zenorocha/react-email/tree/main/packages/hr)
+* [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/p)
 
 ## Support
 
