@@ -6,27 +6,23 @@ A live preview right in your browser so you don't need to keep sending real emai
 
 1. Clone the repository:
 
-   ```sh
-   git clone https://github.com/zenorocha/react-email.git
-   ```
+```sh
+git clone https://github.com/zenorocha/react-email.git
+```
 
-2. Then go to the project's folder:
+2. Install all dependencies:
 
-   ```sh
-   cd apps/preview
-   ```
+```sh
+yarn
+```
 
-3. Install all dependencies:
+3. And finally run it:
 
-   ```sh
-   yarn
-   ```
+```sh
+yarn dev
+```
 
-4. And finally run it:
-
-   ```sh
-   yarn dev
-   ```
+The project will be running on port http://localhost:3000
 
 ## License
 
