@@ -1,5 +1,5 @@
 import VercelInviteUser from '../../components/vercel-invite-user';
-import { render } from '../../../../packages/render/dist/index';
+import { render } from '@react-email/render';
 
 export default async function preview(req, res) {
   try {
@@ -8,6 +8,6 @@ export default async function preview(req, res) {
 
     return res.end(html);
   } catch (e) {
-    res.status(500).json({ message: e.message })
+    res.status(500).json({ message: e.message });
   }
 }

@@ -19,7 +19,11 @@ class MyDocument extends Document {
     return (
       <Html className="bg-gray-1 text-gray-12 font-sans">
         <Head>
-          <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico" />
+          <link
+            rel="icon"
+            type="image/x-icon"
+            href="/static/images/favicon.ico"
+          />
         </Head>
         <body>
           <Main />
