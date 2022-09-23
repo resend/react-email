@@ -2,6 +2,7 @@ import React from 'react';
 import { A } from '@react-email/a';
 import { Button } from '@react-email/button';
 import { Img } from '@react-email/img';
+import { Divider } from '@react-email/divider';
 
 function VercelInviteUser() {
   return (
@@ -54,7 +55,7 @@ function VercelInviteUser() {
                       </tr>
                     </table>
                     <p style={text}><br />or copy and paste this URL into your browser: <A href="https://vercel.com/teams/invite/foo">https://vercel.com/teams/invite/foo</A></p>
-                    <hr style={hr}></hr>
+                    <Divider />
                     <p style={footer}>This invitation was intended for <span style={black}>zenorocha</span>.This invite was sent from <span style={black}>204.13.186.218</span> located in <span style={black}>São Paulo, Brazil</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account's safety, please reply to this email to get in touch with us.</p>
                   </div>
                 </td>
@@ -136,13 +137,6 @@ const btn = {
 
 const spacing = {
   marginBottom: "26px"
-};
-
-const hr = {
-  border: "none",
-  borderTop: "1px solid #eaeaea",
-  margin: "26px 0",
-  width: "100%"
 };
 
 const footer = {
