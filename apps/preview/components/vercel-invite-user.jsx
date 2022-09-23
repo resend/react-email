@@ -3,6 +3,7 @@ import { A } from '@react-email/a';
 import { Button } from '@react-email/button';
 import { Img } from '@react-email/img';
 import { Hr } from '@react-email/hr';
+import { P } from '@react-email/p';
 
 function VercelInviteUser() {
   return (
@@ -24,8 +25,8 @@ function VercelInviteUser() {
                         </td>
                       </tr>
                     </table>
-                    <p style={text}>Hello zenorocha,</p>
-                    <p style={text}><strong>bukinoshita</strong> (<A href="mailto:bukinoshita@example.com">bukinoshita@example.com</A>) has invited you to the <strong>My Project</strong> team on <strong>Vercel</strong>.</p>
+                    <P>Hello zenorocha,</P>
+                    <P><strong>bukinoshita</strong> (<A href="mailto:bukinoshita@example.com">bukinoshita@example.com</A>) has invited you to the <strong>My Project</strong> team on <strong>Vercel</strong>.</P>
                     <table style={box} width="100%" border="0" cellSpacing="0" cellPadding="0">
                       <tr>
                         <td align="center">
@@ -54,9 +55,9 @@ function VercelInviteUser() {
                         </td>
                       </tr>
                     </table>
-                    <p style={text}><br />or copy and paste this URL into your browser: <A href="https://vercel.com/teams/invite/foo">https://vercel.com/teams/invite/foo</A></p>
+                    <P><br />or copy and paste this URL into your browser: <A href="https://vercel.com/teams/invite/foo">https://vercel.com/teams/invite/foo</A></P>
                     <Hr style={hr} />
-                    <p style={footer}>This invitation was intended for <span style={black}>zenorocha</span>.This invite was sent from <span style={black}>204.13.186.218</span> located in <span style={black}>São Paulo, Brazil</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account's safety, please reply to this email to get in touch with us.</p>
+                    <P>This invitation was intended for <span style={black}>zenorocha</span>.This invite was sent from <span style={black}>204.13.186.218</span> located in <span style={black}>São Paulo, Brazil</span>. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account's safety, please reply to this email to get in touch with us.</P>
                   </div>
                 </td>
               </tr>
@@ -91,13 +92,6 @@ const h1 = {
   fontWeight: "normal",
   margin: "30px 0",
   padding: "0"
-};
-
-const text = {
-  color: "#000",
-  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-  fontSize: "14px",
-  lineHeight: "24px"
 };
 
 const black = {
