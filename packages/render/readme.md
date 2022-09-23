@@ -1,4 +1,4 @@
-![React Email button cover](https://react-email-assets.vercel.app/button.png)
+![React Email button cover](https://react-email-assets.vercel.app/render.png)
 
 <div align="center"><strong>@react-email/render</strong></div>
 <div align="center">Transform React components into HTML email templates.</div>
@@ -35,9 +35,7 @@ Convert React components into a HTML string.
 import { MyTemplate } from '../components/MyTemplate';
 import { render } from '@react-email/render';
 
-const html = render(
-  <MyTemplate firstName="Jim" />
-);
+const html = render(<MyTemplate firstName="Jim" />);
 ```
 
 ## License
