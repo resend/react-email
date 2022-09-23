@@ -32,7 +32,7 @@ npm install @react-email/container -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/container';
+import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 
 const Email = () => {
