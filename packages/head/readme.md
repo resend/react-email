@@ -1,4 +1,4 @@
-![React Email button cover](https://react-email-assets.vercel.app/button.png)
+![React Email button cover](https://react-email-assets.vercel.app/head.png)
 
 <div align="center"><strong>@react-email/head</strong></div>
 <div align="center">Contains head components, related to the document such as style and meta elements.</div>
