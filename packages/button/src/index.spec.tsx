@@ -1,6 +1,5 @@
-import * as React from 'react';
 import { Button } from './index';
-import { render } from '../../render/src/index';
+import { render } from '@react-email/render';
 
 describe('render', () => {
   beforeEach(() => {
