@@ -1,13 +1,20 @@
 import { render } from '@react-email/render';
+import { html } from 'js-beautify';
 import Head from 'next/head';
 import launchIcon from '../helpers/launch-icon.json';
+import eyeIcon from '../helpers/eye.json';
+import codeIcon from '../helpers/code.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import * as React from 'react';
 import { VercelInviteUser } from '../components/vercel-invite-user';
 
 export default function Home() {
   const launchIconRef = React.useRef<LottieRefCurrentProps>(null);
-  const html = render(<VercelInviteUser />);
+  const eyeIconRef = React.useRef<LottieRefCurrentProps>(null);
+  const codeIconRef = React.useRef<LottieRefCurrentProps>(null);
+  const markup = render(<VercelInviteUser />);
+
+  const [isPreview, setIsPreview] = React.useState(true);
 
   return (
     <>
@@ -38,35 +45,81 @@ export default function Home() {
               />
             </svg>
           </a>
-          <div className="flex">
-            <a
-              href="/api/preview"
-              target="_blank"
-              className="text-current transition duration-300 ease-in-out hover:opacity-60"
-              onMouseEnter={() => {
-                launchIconRef.current?.play();
-              }}
-              onMouseLeave={() => {
-                launchIconRef.current?.stop();
-              }}
-            >
-              <Lottie
-                lottieRef={launchIconRef}
-                className="mr-1 w-5 h-5"
-                animationData={launchIcon}
-                loop={false}
-                autoplay={false}
-              />
-            </a>
+          <div className="flex gap-2">
+            <div className="flex items-center justify-center">
+              <button
+                className={`text-current transition duration-300 ease-in-out p-2 border border-gray-600 rounded-l-lg ${isPreview ? 'bg-gray-600' : 'bg-transparent'}`}
+                onClick={() => { setIsPreview(true)} }
+                onMouseEnter={() => {
+                  eyeIconRef.current?.play();
+                }}
+                onMouseLeave={() => {
+                  eyeIconRef.current?.stop();
+                }}
+              >
+                <Lottie
+                  lottieRef={eyeIconRef}
+                  className="w-5 h-5"
+                  animationData={eyeIcon}
+                  loop={false}
+                  autoplay={false}
+                />
+              </button>
+              <button
+                className={`text-current transition duration-300 ease-in-out p-2 border border-gray-600 rounded-r-lg  ${!isPreview ? 'bg-gray-600' : 'bg-transparent'}`}
+                onClick={() => { setIsPreview(false)} }
+                onMouseEnter={() => {
+                  codeIconRef.current?.play();
+                }}
+                onMouseLeave={() => {
+                  codeIconRef.current?.stop();
+                }}
+              >
+                <Lottie
+                  lottieRef={codeIconRef}
+                  className="w-5 h-5"
+                  animationData={codeIcon}
+                  loop={false}
+                  autoplay={false}
+                />
+              </button>
+            </div>
+            <div className="flex items-center border-l ml-4 pl-6 border-gray-600">
+              <a
+                href="/api/preview"
+                target="_blank"
+                className="text-current transition duration-300 ease-in-out hover:opacity-60"
+                onMouseEnter={() => {
+                  launchIconRef.current?.play();
+                }}
+                onMouseLeave={() => {
+                  launchIconRef.current?.stop();
+                }}
+              >
+                <Lottie
+                  lottieRef={launchIconRef}
+                  className="mr-1 w-5 h-5"
+                  animationData={launchIcon}
+                  loop={false}
+                  autoplay={false}
+                />
+              </a>
+            </div>
           </div>
         </nav>
       </div>
 
-      <iframe
-        srcDoc={html}
-        className="w-full bg-white"
-        style={{ height: 'calc(100vh - 60px)' }}
-      />
+      {isPreview ? (
+        <iframe
+          srcDoc={markup}
+          className="w-full bg-white"
+          style={{ height: 'calc(100vh - 60px)' }}
+        />
+      ) : (
+        <pre className="max-w-6xl mx-auto pt-8 px-6 overflow-scroll text-xs">
+          <code>{html(markup)}</code>
+        </pre>
+      )}
     </>
   );
 }
