@@ -3,6 +3,7 @@ import { Button } from '@react-email/button';
 import { Img } from '@react-email/img';
 import * as React from 'react';
 import { Hr } from '@react-email/hr';
+import { P } from '@react-email/p';
 
 interface VercelInviteUserProps {}
 
@@ -47,15 +48,15 @@ export const VercelInviteUser: React.FC<
                       </td>
                     </tr>
                   </table>
-                  <p style={text}>Hello zenorocha,</p>
-                  <p style={text}>
+                  <P style={text}>Hello zenorocha,</P>
+                  <P style={text}>
                     <strong>bukinoshita</strong> (
                     <A href="mailto:bukinoshita@example.com" style={link}>
                       bukinoshita@example.com
                     </A>
                     ) has invited you to the <strong>My Project</strong> team on{' '}
                     <strong>Vercel</strong>.
-                  </p>
+                  </P>
                   <table
                     style={box}
                     width="100%"
@@ -123,7 +124,7 @@ export const VercelInviteUser: React.FC<
                       </td>
                     </tr>
                   </table>
-                  <p style={text}>
+                  <P style={text}>
                     <br />
                     or copy and paste this URL into your browser:{' '}
                     <A
@@ -134,9 +135,9 @@ export const VercelInviteUser: React.FC<
                     >
                       https://vercel.com/teams/invite/foo
                     </A>
-                  </p>
+                  </P>
                   <Hr style={hr} />
-                  <p style={footer}>
+                  <P style={footer}>
                     This invitation was intended for{' '}
                     <span style={black}>zenorocha</span>.This invite was sent
                     from <span style={black}>204.13.186.218</span> located in{' '}
@@ -144,7 +145,7 @@ export const VercelInviteUser: React.FC<
                     not expecting this invitation, you can ignore this email. If
                     you are concerned about your account's safety, please reply
                     to this email to get in touch with us.
-                  </p>
+                  </P>
                 </div>
               </td>
             </tr>
