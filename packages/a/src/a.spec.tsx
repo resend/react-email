@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { A } from './index';
 import { render } from '@react-email/render';
 
@@ -9,9 +8,7 @@ describe('render', () => {
   });
 
   it('renders the <A> component', () => {
-    const actualOutput = render(
-      <A href="https://example.com">Example</A>
-    );
+    const actualOutput = render(<A href="https://example.com">Example</A>);
     expect(actualOutput).toMatchSnapshot();
   });
 });
