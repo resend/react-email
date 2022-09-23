@@ -1,5 +1,6 @@
 import { A } from '@react-email/a';
 import { Button } from '@react-email/button';
+import { Container } from '@react-email/container';
 import { Img } from '@react-email/img';
 import * as React from 'react';
 import { Hr } from '@react-email/hr';
@@ -14,142 +15,132 @@ export const VercelInviteUser: React.FC<
     <table style={box} width="100%" border={0} cellSpacing="0" cellPadding="0">
       <tr>
         <td align="center">
-          <table
-            style={container}
-            width="600"
-            border={0}
-            cellSpacing="0"
-            cellPadding="40"
-          >
-            <tr>
-              <td align="center">
-                <div style={{ textAlign: 'left', ...section }}>
-                  <table
-                    style={box}
-                    width="100%"
-                    border={0}
-                    cellSpacing="0"
-                    cellPadding="0"
-                  >
-                    <tr>
-                      <td align="center">
-                        <div>
-                          <Img
-                            src="https://assets.vercel.com/email/vercel.png"
-                            width="40"
-                            height="37"
-                            alt="Vercel"
-                          />
-                        </div>
-                        <h1 style={h1}>
-                          Join <strong>My Project</strong> on{' '}
-                          <strong>Vercel</strong>
-                        </h1>
-                      </td>
-                    </tr>
-                  </table>
-                  <P style={text}>Hello zenorocha,</P>
-                  <P style={text}>
-                    <strong>bukinoshita</strong> (
-                    <A href="mailto:bukinoshita@example.com" style={link}>
-                      bukinoshita@example.com
-                    </A>
-                    ) has invited you to the <strong>My Project</strong> team on{' '}
-                    <strong>Vercel</strong>.
-                  </P>
-                  <table
-                    style={box}
-                    width="100%"
-                    border={0}
-                    cellSpacing="0"
-                    cellPadding="0"
-                  >
-                    <tr>
-                      <td align="center">
-                        <table
-                          style={spacing}
-                          border={0}
-                          cellPadding="0"
-                          cellSpacing="10"
-                        >
-                          <tr>
-                            <td style={center} align="left" valign="middle">
-                              <Img
-                                style={primaryAvatar}
-                                src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
-                                width="60"
-                                height="60"
-                                alt="zenorocha"
-                              />
-                            </td>
-                            <td style={center} align="left" valign="middle">
-                              <Img
-                                src="https://assets.vercel.com/email/team-invite-arrow.png"
-                                width="12"
-                                height="9"
-                                alt="invited you to"
-                              />
-                            </td>
-                            <td style={center} align="left" valign="middle">
-                              <Img
-                                style={secondaryAvatar}
-                                src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
-                                width="60"
-                                height="60"
-                                alt="My Project"
-                              />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                  <table
-                    style={box}
-                    width="100%"
-                    border={0}
-                    cellSpacing="0"
-                    cellPadding="0"
-                  >
-                    <tr>
-                      <td align="center">
-                        <div>
-                          <Button
-                            style={{ textAlign: 'center', ...btn }}
-                            href="https://vercel.com/teams/invite/foo"
-                          >
-                            JOIN TEAM
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-                  <P style={text}>
-                    <br />
-                    or copy and paste this URL into your browser:{' '}
-                    <A
-                      href="https://vercel.com/teams/invite/foo"
-                      target="_blank"
-                      style={link}
-                      rel="noreferrer"
+          <Container style={container}>
+            <div style={{ textAlign: 'left', ...section }}>
+              <table
+                style={box}
+                width="100%"
+                border={0}
+                cellSpacing="0"
+                cellPadding="0"
+              >
+                <tr>
+                  <td align="center">
+                    <div>
+                      <Img
+                        src="https://assets.vercel.com/email/vercel.png"
+                        width="40"
+                        height="37"
+                        alt="Vercel"
+                      />
+                    </div>
+                    <h1 style={h1}>
+                      Join <strong>My Project</strong> on{' '}
+                      <strong>Vercel</strong>
+                    </h1>
+                  </td>
+                </tr>
+              </table>
+              <P style={text}>Hello zenorocha,</P>
+              <P style={text}>
+                <strong>bukinoshita</strong> (
+                <A href="mailto:bukinoshita@example.com" style={link}>
+                  bukinoshita@example.com
+                </A>
+                ) has invited you to the <strong>My Project</strong> team on{' '}
+                <strong>Vercel</strong>.
+              </P>
+              <table
+                style={box}
+                width="100%"
+                border={0}
+                cellSpacing="0"
+                cellPadding="0"
+              >
+                <tr>
+                  <td align="center">
+                    <table
+                      style={spacing}
+                      border={0}
+                      cellPadding="0"
+                      cellSpacing="10"
                     >
-                      https://vercel.com/teams/invite/foo
-                    </A>
-                  </P>
-                  <Hr style={hr} />
-                  <P style={footer}>
-                    This invitation was intended for{' '}
-                    <span style={black}>zenorocha</span>.This invite was sent
-                    from <span style={black}>204.13.186.218</span> located in{' '}
-                    <span style={black}>São Paulo, Brazil</span>. If you were
-                    not expecting this invitation, you can ignore this email. If
-                    you are concerned about your account's safety, please reply
-                    to this email to get in touch with us.
-                  </P>
-                </div>
-              </td>
-            </tr>
-          </table>
+                      <tr>
+                        <td style={center} align="left" valign="middle">
+                          <Img
+                            style={primaryAvatar}
+                            src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
+                            width="60"
+                            height="60"
+                            alt="zenorocha"
+                          />
+                        </td>
+                        <td style={center} align="left" valign="middle">
+                          <Img
+                            src="https://assets.vercel.com/email/team-invite-arrow.png"
+                            width="12"
+                            height="9"
+                            alt="invited you to"
+                          />
+                        </td>
+                        <td style={center} align="left" valign="middle">
+                          <Img
+                            style={secondaryAvatar}
+                            src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
+                            width="60"
+                            height="60"
+                            alt="My Project"
+                          />
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <table
+                style={box}
+                width="100%"
+                border={0}
+                cellSpacing="0"
+                cellPadding="0"
+              >
+                <tr>
+                  <td align="center">
+                    <div>
+                      <Button
+                        style={{ textAlign: 'center', ...btn }}
+                        href="https://vercel.com/teams/invite/foo"
+                      >
+                        JOIN TEAM
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <P style={text}>
+                <br />
+                or copy and paste this URL into your browser:{' '}
+                <A
+                  href="https://vercel.com/teams/invite/foo"
+                  target="_blank"
+                  style={link}
+                  rel="noreferrer"
+                >
+                  https://vercel.com/teams/invite/foo
+                </A>
+              </P>
+              <Hr style={hr} />
+              <P style={footer}>
+                This invitation was intended for{' '}
+                <span style={black}>zenorocha</span>.This invite was sent from{' '}
+                <span style={black}>204.13.186.218</span> located in{' '}
+                <span style={black}>São Paulo, Brazil</span>. If you were not
+                expecting this invitation, you can ignore this email. If you are
+                concerned about your account's safety, please reply to this
+                email to get in touch with us.
+              </P>
+            </div>
+          </Container>
         </td>
       </tr>
     </table>
