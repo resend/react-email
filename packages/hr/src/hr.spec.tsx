@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Hr } from './index';
 import { render } from '@react-email/render';
 
