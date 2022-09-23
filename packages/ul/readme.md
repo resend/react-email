@@ -1,7 +1,7 @@
 ![React Email ul cover](https://react-email-assets.vercel.app/ul.png)
 
 <div align="center"><strong>@react-email/ul</strong></div>
-<div align="center">A React ul component to help build emails.</div>
+<div align="center">An unordered list component to help build emails.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

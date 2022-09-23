@@ -1,7 +1,7 @@
 {
   "name": "@react-email/ul",
-  "version": "0.0.2",
-  "description": "A React ul component to help build emails",
+  "version": "0.0.1",
+  "description": "An unordered list component to help build emails",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
