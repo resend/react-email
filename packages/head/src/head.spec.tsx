@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Head } from './index';
 import { render } from '@react-email/render';
 
@@ -12,12 +11,12 @@ describe('render', () => {
     const actualOutput = render(<Head />);
     expect(actualOutput).toMatchSnapshot();
   });
-  
+
   it('renders children components', () => {
     const actualOutput = render(
       <Head>
         <title>My email title</title>
-      </Head>
+      </Head>,
     );
     expect(actualOutput).toMatchSnapshot();
   });

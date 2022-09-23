@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { P } from './index';
+import { Hr } from './index';
 import { render } from '@react-email/render';
 
 describe('render', () => {
@@ -8,10 +7,8 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <P> component', () => {
-    const actualOutput = render(
-      <P>Lorem ipsum</P>
-    );
+  it('renders the <Hr> component', () => {
+    const actualOutput = render(<Hr />);
     expect(actualOutput).toMatchSnapshot();
   });
 });
