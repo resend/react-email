@@ -11,7 +11,7 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test"
+    "test": "turbo run test --passWithNoTests"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
