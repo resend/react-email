@@ -2,7 +2,7 @@ import { render } from '@react-email/render';
 import { html } from 'js-beautify';
 import Head from 'next/head';
 import * as React from 'react';
-import { VercelInviteUser } from '../components/vercel-invite-user';
+import { StripeWelcome } from '../components/stripe-welcome';
 import Logo from '../components/topbar/logo';
 import External from '../components/topbar/external';
 import Feedback from '../components/topbar/feedback';
@@ -10,7 +10,7 @@ import SendTest from '../components/topbar/send-test';
 import ToggleView from '../components/topbar/toggle-view';
 
 export default function Home() {
-  const markup = render(<VercelInviteUser />);
+  const markup = render(<StripeWelcome />);
   const [isPreview, setIsPreview] = React.useState(true);
 
   return (
