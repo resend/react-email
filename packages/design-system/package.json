@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "classnames": "2.3.2",
+    "prism-react-renderer": "1.3.5",
     "utils": "*"
   },
   "devDependencies": {
