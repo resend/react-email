@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import Highlight, { defaultProps } from 'prism-react-renderer';
+import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import * as React from 'react';
 import { IconButton } from '../icon-button';
 import { copyTextToClipboard } from 'utils';
@@ -7,6 +7,8 @@ import { IconClipboard, IconCheck } from '../icons';
 
 interface CodeProps {
   children: any;
+  className?: string;
+  language?: string;
 }
 
 const theme = {
@@ -43,21 +45,27 @@ const theme = {
   ],
 };
 
-export const Code: React.FC<Readonly<CodeProps>> = ({ children, ...props }) => {
+export const Code: React.FC<Readonly<CodeProps>> = ({
+  children,
+  className,
+  language = 'html',
+  ...props
+}) => {
   const [isCopied, setIsCopied] = React.useState(false);
-  const value = children.props.children.trim();
-  const className = children.props.className || '';
-  const matches = className.match(/language-(?<lang>.*)/);
-  const language =
-    matches && matches.groups && matches.groups.lang ? matches.groups.lang : '';
+  const value = children.trim();
 
   return (
-    <Highlight {...defaultProps} theme={theme} code={value} language={language}>
+    <Highlight
+      {...defaultProps}
+      theme={theme}
+      code={value}
+      language={language as Language}
+    >
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classnames(
             'relative my-8 w-full min-w-full max-w-full overflow-auto whitespace-pre rounded-md border border-gray-6 p-4 text-sm backdrop-blur-md',
-            children.props.className,
+            className,
           )}
           style={{
             lineHeight: '130%',
