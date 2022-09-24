@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
-    "@radix-ui/react-popover": "^1.0.0",
+    "@radix-ui/react-popover": "1.0.0",
     "@react-email/a": "*",
     "@react-email/button": "*",
     "@react-email/code": "*",
