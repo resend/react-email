@@ -1,4 +1,4 @@
-import { Ul } from './index';
+import { Ol } from './index';
 import { render } from '@react-email/render';
 
 describe('render', () => {
@@ -7,12 +7,12 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Ul> component', () => {
+  it('renders the <Ol> component', () => {
     const actualOutput = render(
-      <Ul>
+      <Ol>
         <li>foo</li>
         <li>bar</li>
-      </Ul>,
+      </Ol>,
     );
     expect(actualOutput).toMatchSnapshot();
   });
