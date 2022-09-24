@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-email/a": "*",
     "@react-email/button": "*",
+    "@react-email/code": "*",
     "@react-email/container": "*",
     "@react-email/hr": "*",
     "@react-email/img": "*",
