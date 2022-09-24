@@ -11,7 +11,10 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react && tailwindcss -i ./src/styles.css -o ./dist/styles.css",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch & tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
     "classnames": "2.3.2",
