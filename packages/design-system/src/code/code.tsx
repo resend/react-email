@@ -56,7 +56,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, ...props }) => {
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classnames(
-            'relative my-8 w-full min-w-full max-w-full overflow-auto whitespace-pre rounded-md border border-[#34343a] p-4 text-sm backdrop-blur-md',
+            'relative my-8 w-full min-w-full max-w-full overflow-auto whitespace-pre rounded-md border border-gray-6 p-4 text-sm backdrop-blur-md',
             children.props.className,
           )}
           style={{
