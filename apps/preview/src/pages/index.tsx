@@ -5,6 +5,8 @@ import * as React from 'react';
 import { VercelInviteUser } from '../components/vercel-invite-user';
 import Logo from '../components/topbar/logo';
 import External from '../components/topbar/external';
+import Feedback from '../components/topbar/feedback';
+import SendTest from '../components/topbar/send-test';
 import ToggleView from '../components/topbar/toggle-view';
 
 export default function Home() {
@@ -18,12 +20,18 @@ export default function Home() {
       </Head>
 
       <div className="w-full bg-gray-1 text-gray-12">
-        <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between m-2 p-2">
-          <Logo />
-          <div className="flex gap-2">
+        <nav className="max-w-6xl mx-auto flex items-center justify-between m-2 p-2">
+          <div className="w-60">
+            <Logo />
+          </div>
+          <div className="w-60">
             <ToggleView isPreview={isPreview} setIsPreview={setIsPreview} />
-            <div className="flex items-center border-l ml-4 pl-6 border-gray-8">
+          </div>
+          <div className="w-60 flex gap-2 justify-end">
+            <SendTest markup={markup} />
+            <div className="flex items-center border-l ml-2 pl-4 border-gray-8">
               <div className="flex gap-2 items-center justify-center">
+                <Feedback />
                 <External />
               </div>
             </div>
@@ -38,7 +46,7 @@ export default function Home() {
           style={{ height: 'calc(100vh - 60px)' }}
         />
       ) : (
-        <pre className="max-w-6xl mx-auto pt-8 px-6 overflow-scroll text-xs">
+        <pre className="max-w-6xl mx-auto pt-8 px-6 overflow-scroll text-xs border border-gray-8 rounded-lg">
           <code>{html(markup)}</code>
         </pre>
       )}

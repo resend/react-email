@@ -15,18 +15,18 @@ export default async function sendEmail(
   try {
     const data = req.body;
 
-    const saveEmail = supabase
+    const save = supabase
       .from('react_email_contacts')
       .insert([{ email_address: data.email_address }]);
 
-    const sendEmail = klotty.sendEmail({
+    const send = klotty.sendEmail({
       from: 'Zeno Rocha <zeno@react.email>',
       to: data.email_address,
       subject: `Coming soon: react.email`,
       html: `Thanks for subscribing! I'll send you a note when we have something new to share.<br /><br />Cheers,<br />Zeno Rocha`,
     });
 
-    await Promise.all([saveEmail, sendEmail]);
+    await Promise.all([save, send]);
 
     res.status(200).json({ message: 'Email sent' });
   } catch (error) {
