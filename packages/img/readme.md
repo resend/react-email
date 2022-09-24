@@ -35,27 +35,25 @@ Add the component to your email template. Include styles where needed.
 import { Img } from '@react-email/img';
 
 const Email = () => {
-  return (
-    <Img src="cat.jpg" alt="Cat" width="300" height="300" />
-  );
+  return <Img src="cat.jpg" alt="Cat" width="300" height="300" />;
 };
 ```
 
 ## Props
 
-| Name   | Type   | Default  | Description |
-| --     | --     | --       | --          |
-| alt    | string |          | Alternate description for an image |
-| src    | string |          | The path to the image |
-| width  | string |          | The width of an image in pixels |
-| height | string |          | The height of an image in pixels |
+| Name   | Type   | Default | Description                        |
+| ------ | ------ | ------- | ---------------------------------- |
+| alt    | string |         | Alternate description for an image |
+| src    | string |         | The path to the image              |
+| width  | string |         | The width of an image in pixels    |
+| height | string |         | The height of an image in pixels   |
 
 ## Support
 
 This component was tested using the most popular email clients.
 
 | <img src="https://react.email/static/images/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/images/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/images/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/images/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/images/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/images/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
-|-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | Gmail ✔                                                                                             | Apple Mail ✔                                                                                             | Outlook ✔                                                                                               | Yahoo! Mail ✔                                                                                                  | HEY ✔                                                                                           | Superhuman ✔                                                                                                  |
 
 ## License

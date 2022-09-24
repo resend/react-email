@@ -19,7 +19,7 @@ export default async function sendTest(
   if (req.method === 'POST') {
     try {
       const { to, subject, html } = req.body;
-      
+
       const ip = req.headers['x-vercel-forwarded-for'];
       const latitude = req.headers['x-vercel-ip-latitude'];
       const longitude = req.headers['x-vercel-ip-longitude'];
@@ -27,9 +27,8 @@ export default async function sendTest(
       const country = req.headers['x-vercel-ip-country'];
       const country_region = req.headers['x-vercel-ip-country-region'];
 
-      const save = supabase
-        .from('react_email_test_sends')
-        .insert([{
+      const save = supabase.from('react_email_test_sends').insert([
+        {
           to: [to],
           subject,
           html,
@@ -39,7 +38,8 @@ export default async function sendTest(
           city,
           country,
           country_region,
-        }]);
+        },
+      ]);
 
       const send = klotty.sendEmail({
         from: 'React Email <preview@react.email>',

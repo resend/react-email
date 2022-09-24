@@ -10,7 +10,7 @@ describe('render', () => {
 
   it('renders the <Code> component', () => {
     const container = render(
-      <Code style={{ maxWidth: '300px' }}>const foo = 'bar';</Code>
+      <Code style={{ maxWidth: '300px' }}>const foo = 'bar';</Code>,
     );
 
     expect(container).toMatchSnapshot();

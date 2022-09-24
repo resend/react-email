@@ -33,6 +33,9 @@ jobs:
           name: Run Lint
           command: yarn lint
       - run:
+          name: Run Format
+          command: yarn format:check
+      - run:
           name: Run Test
           command: yarn test
 
