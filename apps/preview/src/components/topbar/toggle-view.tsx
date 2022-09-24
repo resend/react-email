@@ -3,15 +3,27 @@ import codeIcon from '../../helpers/code.json';
 import eyeIcon from '../../helpers/eye.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 
-export default function ToggleView({ isPreview, setIsPreview }) {
+interface ToggleViewProps {
+  isPreview?: boolean;
+  setIsPreview: (status: boolean) => void;
+}
+
+export default function ToggleView({
+  isPreview,
+  setIsPreview,
+}: ToggleViewProps) {
   const codeIconRef = React.useRef<LottieRefCurrentProps>(null);
   const eyeIconRef = React.useRef<LottieRefCurrentProps>(null);
 
   return (
     <div className="flex items-center justify-center">
       <button
-        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-l-lg ${isPreview ? 'bg-gray-8' : 'bg-transparent'}`}
-        onClick={() => { setIsPreview(true)} }
+        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-l-lg ${
+          isPreview ? 'bg-gray-8' : 'bg-transparent'
+        }`}
+        onClick={() => {
+          setIsPreview(true);
+        }}
         onMouseEnter={() => {
           eyeIconRef.current?.play();
         }}
@@ -28,8 +40,12 @@ export default function ToggleView({ isPreview, setIsPreview }) {
         />
       </button>
       <button
-        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-r-lg  ${!isPreview ? 'bg-gray-8' : 'bg-transparent'}`}
-        onClick={() => { setIsPreview(false)} }
+        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-r-lg  ${
+          !isPreview ? 'bg-gray-8' : 'bg-transparent'
+        }`}
+        onClick={() => {
+          setIsPreview(false);
+        }}
         onMouseEnter={() => {
           codeIconRef.current?.play();
         }}
