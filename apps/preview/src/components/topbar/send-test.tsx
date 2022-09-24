@@ -3,7 +3,9 @@ import * as React from 'react';
 
 export default function TestEmail({ markup }: { markup: string }) {
   const [to, setTo] = React.useState('');
-  const [subject, setSubject] = React.useState('bukinoshita invited you to My Project team on Vercel');
+  const [subject, setSubject] = React.useState(
+    'bukinoshita invited you to My Project team on Vercel',
+  );
   const [isSending, setIsSending] = React.useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
@@ -21,7 +23,7 @@ export default function TestEmail({ markup }: { markup: string }) {
         }),
       });
     } catch (e) {
-      alert('Something went wrong. Please try again.')
+      alert('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);
     }
@@ -36,8 +38,14 @@ export default function TestEmail({ markup }: { markup: string }) {
       </Popover.Trigger>
       <Popover.Anchor />
       <Popover.Portal>
-        <Popover.Content align="end" className="w-80 -mt-10 p-3 bg-gray-1 border border-gray-8 rounded-lg">
-          <Popover.Close aria-label="Close" className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-gray-11 hover:text-gray-12 transition duration-300 ease-in-out rounded-full">
+        <Popover.Content
+          align="end"
+          className="w-80 -mt-10 p-3 bg-gray-1 border border-gray-8 rounded-lg"
+        >
+          <Popover.Close
+            aria-label="Close"
+            className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-gray-11 hover:text-gray-12 transition duration-300 ease-in-out rounded-full"
+          >
             ✕
           </Popover.Close>
           <form onSubmit={onFormSubmit}>
@@ -66,7 +74,10 @@ export default function TestEmail({ markup }: { markup: string }) {
               id="subject"
               required
             />
-            <input type="checkbox" className="appearance-none checked:bg-blue-500" />
+            <input
+              type="checkbox"
+              className="appearance-none checked:bg-blue-500"
+            />
             <div className="flex items-center justify-end">
               <button
                 type="submit"

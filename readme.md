@@ -56,37 +56,37 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-* [Html](https://github.com/zenorocha/react-email/tree/main/packages/html)
-* [Head](https://github.com/zenorocha/react-email/tree/main/packages/head)
-* [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
-* [Link](https://github.com/zenorocha/react-email/tree/main/packages/a)
-* [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
-* [Divider](https://github.com/zenorocha/react-email/tree/main/packages/hr)
-* [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/p)
-* [Container](https://github.com/zenorocha/react-email/tree/main/packages/container)
-* [Code](https://github.com/zenorocha/react-email/tree/main/packages/code)
+- [Html](https://github.com/zenorocha/react-email/tree/main/packages/html)
+- [Head](https://github.com/zenorocha/react-email/tree/main/packages/head)
+- [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
+- [Link](https://github.com/zenorocha/react-email/tree/main/packages/a)
+- [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
+- [Divider](https://github.com/zenorocha/react-email/tree/main/packages/hr)
+- [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/p)
+- [Container](https://github.com/zenorocha/react-email/tree/main/packages/container)
+- [Code](https://github.com/zenorocha/react-email/tree/main/packages/code)
 
 ## Support
 
 All components were tested using the most popular email clients.
 
 | <img src="https://react.email/static/images/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/images/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/images/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/images/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/images/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/images/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Gmail ✔                                                                                                                                                     | Apple Mail ✔                                                                                                                                                | Outlook ✔                                                                                                                                                     | Yahoo! Mail ✔                                                                                                                                                     | HEY ✔                                                                                                                                                     | Superhuman ✔                                                                                                                                                     |
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Gmail ✔                                                                                             | Apple Mail ✔                                                                                             | Outlook ✔                                                                                               | Yahoo! Mail ✔                                                                                                  | HEY ✔                                                                                           | Superhuman ✔                                                                                                  |
 
 ## Development
 
 #### Install dependencies
 
-  ```sh
+```sh
 yarn install
-  ```
+```
 
 #### Build and run packages
 
-  ```sh
+```sh
 yarn dev
-  ```
+```
 
 This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
 

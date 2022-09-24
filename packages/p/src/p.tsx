@@ -10,9 +10,9 @@ export const P = React.forwardRef<PElement, Readonly<PProps>>(
     <p
       ref={forwardedRef}
       style={{
-        fontSize: "14px",
-        lineHeight: "24px",
-        margin: "16px 0",
+        fontSize: '14px',
+        lineHeight: '24px',
+        margin: '16px 0',
         ...style,
       }}
       {...props}

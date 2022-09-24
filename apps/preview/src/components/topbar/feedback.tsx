@@ -21,7 +21,7 @@ export default function Feedback() {
         }),
       });
     } catch (e) {
-      alert('Something went wrong. Please try again.')
+      alert('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);
     }
@@ -50,14 +50,18 @@ export default function Feedback() {
       </Popover.Trigger>
       <Popover.Anchor />
       <Popover.Portal>
-        <Popover.Content align="end" className="w-80 -mt-6 p-3 bg-gray-1 border border-gray-8 rounded-lg">
-          <Popover.Close aria-label="Close" className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-gray-11 hover:text-gray-12 transition duration-300 ease-in-out rounded-full">
+        <Popover.Content
+          align="end"
+          className="w-80 -mt-6 p-3 bg-gray-1 border border-gray-8 rounded-lg"
+        >
+          <Popover.Close
+            aria-label="Close"
+            className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-gray-11 hover:text-gray-12 transition duration-300 ease-in-out rounded-full"
+          >
             ✕
           </Popover.Close>
           <form onSubmit={onFormSubmit}>
-            <label className="text-gray-10 text-xs uppercase">
-              Feedback
-            </label>
+            <label className="text-gray-10 text-xs uppercase">Feedback</label>
             <textarea
               autoFocus={true}
               className="h-28 w-full resize-none rounded-lg p-3 mt-1 text-sm outline-none border border-gray-8 bg-gray-3 focus:ring-1 focus:ring-gray-10 transition duration-300 ease-in-out"

@@ -9,7 +9,11 @@ describe('render', () => {
   });
 
   it('renders the <Ul> component', () => {
-    const actualOutput = render(<Ul><li>foo</li> <li>bar</li></Ul>);
+    const actualOutput = render(
+      <Ul>
+        <li>foo</li> <li>bar</li>
+      </Ul>,
+    );
     expect(actualOutput).toMatchSnapshot();
   });
 });

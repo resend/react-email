@@ -15,11 +15,11 @@ export default async function sendFeedback(
   if (req.method === 'OPTIONS') {
     return res.status(200).json({});
   }
-  
+
   if (req.method === 'POST') {
     try {
       const { message } = req.body;
-      
+
       const ip = req.headers['x-vercel-forwarded-for'];
       const latitude = req.headers['x-vercel-ip-latitude'];
       const longitude = req.headers['x-vercel-ip-longitude'];
@@ -27,9 +27,8 @@ export default async function sendFeedback(
       const country = req.headers['x-vercel-ip-country'];
       const country_region = req.headers['x-vercel-ip-country-region'];
 
-      const save = supabase
-        .from('react_email_feedbacks')
-        .insert([{
+      const save = supabase.from('react_email_feedbacks').insert([
+        {
           message,
           ip,
           latitude,
@@ -37,7 +36,8 @@ export default async function sendFeedback(
           city,
           country,
           country_region,
-        }]);
+        },
+      ]);
 
       const send = klotty.sendEmail({
         from: 'React Email <feedback@react.email>',
