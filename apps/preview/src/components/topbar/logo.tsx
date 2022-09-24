@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function External() {
+export default function Logo() {
   return (
     <a
       href="https://react.email"

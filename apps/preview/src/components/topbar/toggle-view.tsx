@@ -10,7 +10,7 @@ export default function ToggleView({ isPreview, setIsPreview }) {
   return (
     <div className="flex items-center justify-center">
       <button
-        className={`text-current transition duration-300 ease-in-out p-2 border border-gray-8 rounded-l-lg ${isPreview ? 'bg-gray-600' : 'bg-transparent'}`}
+        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-l-lg ${isPreview ? 'bg-gray-8' : 'bg-transparent'}`}
         onClick={() => { setIsPreview(true)} }
         onMouseEnter={() => {
           eyeIconRef.current?.play();
@@ -21,14 +21,14 @@ export default function ToggleView({ isPreview, setIsPreview }) {
       >
         <Lottie
           lottieRef={eyeIconRef}
-          className="w-5 h-5"
+          className="w-5 h-8"
           animationData={eyeIcon}
           loop={false}
           autoplay={false}
         />
       </button>
       <button
-        className={`text-current transition duration-300 ease-in-out p-2 border border-gray-8 rounded-r-lg  ${!isPreview ? 'bg-gray-600' : 'bg-transparent'}`}
+        className={`text-current transition duration-300 ease-in-out px-2 border border-gray-8 rounded-r-lg  ${!isPreview ? 'bg-gray-8' : 'bg-transparent'}`}
         onClick={() => { setIsPreview(false)} }
         onMouseEnter={() => {
           codeIconRef.current?.play();
@@ -39,7 +39,7 @@ export default function ToggleView({ isPreview, setIsPreview }) {
       >
         <Lottie
           lottieRef={codeIconRef}
-          className="w-5 h-5"
+          className="w-5 h-8"
           animationData={codeIcon}
           loop={false}
           autoplay={false}
