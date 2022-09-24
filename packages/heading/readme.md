@@ -1,4 +1,4 @@
-![React Email img cover](https://react-email-assets.vercel.app/p.png)
+![React Email img cover](https://react-email-assets.vercel.app/heading.png)
 
 <div align="center"><strong>@react-email/heading</strong></div>
 <div align="center">A block of heading text.</div>
