@@ -28,11 +28,8 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
 );
 
 const renderWhiteSpace = (text: string) => {
-  if (text.length < 70) {
-    return [...new Array(70)].map((value, index) => (
-      <span key={index}>&#847;&zwnj;&nbsp;</span>
-    ));
-  }
+  const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
+  return <div>{whiteSpaceCodes.repeat(70 - text.length)}</div>;
 };
 
 Preview.displayName = 'Preview';
