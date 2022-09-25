@@ -1,7 +1,7 @@
-![React Email img cover](https://react-email-assets.vercel.app/preview.png)
+![React Email preview cover](https://react-email-assets.vercel.app/preview.png)
 
 <div align="center"><strong>@react-email/preview</strong></div>
-<div align="center">Text that appears under the subject line in the inbox.</div>
+<div align="center">A preview text that will be displayed in the inbox of the recipient.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -35,7 +35,7 @@ Add the component to your email template. Include styles where needed.
 import { Preview } from '@react-email/preview';
 
 const Email = () => {
-  return <Preview text="Lorem ipsum" />;
+  return <Preview>Email preview text</Preview>;
 };
 ```
 

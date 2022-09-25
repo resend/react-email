@@ -1,7 +1,7 @@
 {
   "name": "@react-email/preview",
   "version": "0.0.1",
-  "description": "Text that appears under the subject line in the inbox",
+  "description": "A preview text that will be displayed in the inbox of the recipient",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
