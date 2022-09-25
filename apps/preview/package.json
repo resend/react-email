@@ -19,6 +19,7 @@
     "@react-email/hr": "*",
     "@react-email/img": "*",
     "@react-email/render": "*",
+    "@react-email/preview": "*",
     "js-beautify": "1.14.6",
     "lottie-react": "2.3.1",
     "next": "12.2.3",

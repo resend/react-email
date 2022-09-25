@@ -6,6 +6,7 @@ import * as React from 'react';
 import { Hr } from '@react-email/hr';
 import { P } from '@react-email/p';
 import { Code } from '@react-email/code';
+import { Preview } from '@react-email/preview';
 
 interface VercelInviteUserProps {}
 
@@ -14,6 +15,7 @@ export const VercelInviteUser: React.FC<
 > = () => {
   return (
     <table style={box} width="100%" border={0} cellSpacing="0" cellPadding="0">
+      <Preview text='Email preview text' />
       <tr>
         <td align="center">
           <Container style={container}>
