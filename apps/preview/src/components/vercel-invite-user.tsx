@@ -15,7 +15,7 @@ export const VercelInviteUser: React.FC<
 > = () => {
   return (
     <table style={box} width="100%" border={0} cellSpacing="0" cellPadding="0">
-      <Preview text='Email preview text' />
+      <Preview>Email preview text</Preview>
       <tr>
         <td align="center">
           <Container style={container}>

@@ -4,11 +4,11 @@ type PreviewElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 export interface PreviewProps extends RootProps {
-  text: string;
+  children: string;
 }
 
 export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
-  ({ text = '', ...props }, forwardedRef) => (
+  ({ children = '', ...props }, forwardedRef) => (
     <div
       ref={forwardedRef}
       style={{
@@ -21,14 +21,8 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
       }}
       {...props}
     >
-      {text ? (
-        <>
-          {text}
-          {renderWhiteSpace(text)}
-        </>
-      ) : (
-        ''
-      )}
+      {children}
+      {renderWhiteSpace(children)}
     </div>
   ),
 );
@@ -37,7 +31,7 @@ const renderWhiteSpace = (text: string) => {
   if (text.length < 70) {
     return [...new Array(70)].map((value, index) => (
       <span key={index}>&#847;&zwnj;&nbsp;</span>
-    ))
+    ));
   }
 };
 
