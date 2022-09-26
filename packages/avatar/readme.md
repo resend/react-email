@@ -69,4 +69,7 @@ This component was tested using the most popular email clients.
 ## License
 
 MIT License
+
+```
+
 ```
