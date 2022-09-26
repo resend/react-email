@@ -3,6 +3,7 @@ import { Button } from '@react-email/button';
 import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -27,7 +28,7 @@ export const VercelInviteUser: React.FC<
         <tr>
           <td align="center">
             <Container style={container}>
-              <div style={{ textAlign: 'left', ...section }}>
+              <div style={section}>
                 <table
                   style={box}
                   width="100%"
@@ -45,10 +46,10 @@ export const VercelInviteUser: React.FC<
                           alt="Vercel"
                         />
                       </div>
-                      <h1 style={h1}>
+                      <Heading as="h1" style={h1}>
                         Join <strong>My Project</strong> on{' '}
                         <strong>Vercel</strong>
-                      </h1>
+                      </Heading>
                     </td>
                   </tr>
                 </table>
@@ -119,7 +120,7 @@ export const VercelInviteUser: React.FC<
                     <td align="center">
                       <div>
                         <Button
-                          style={{ textAlign: 'center', ...btn }}
+                          style={btn}
                           href="https://vercel.com/teams/invite/foo"
                         >
                           JOIN TEAM
@@ -177,6 +178,7 @@ const container = {
 const section = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+  textAlign: 'left' as const,
   width: '465px',
 };
 
@@ -234,6 +236,7 @@ const btn = {
   fontWeight: 500,
   lineHeight: '50px',
   textDecoration: 'none',
+  textAlign: 'center' as const,
   width: '200px',
 };
 
