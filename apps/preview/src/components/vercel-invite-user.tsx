@@ -28,7 +28,7 @@ export const VercelInviteUser: React.FC<
         <tr>
           <td align="center">
             <Container style={container}>
-              <div style={{ textAlign: 'left', ...section }}>
+              <div style={section}>
                 <table
                   style={box}
                   width="100%"
@@ -120,7 +120,7 @@ export const VercelInviteUser: React.FC<
                     <td align="center">
                       <div>
                         <Button
-                          style={{ textAlign: 'center', ...btn }}
+                          style={btn}
                           href="https://vercel.com/teams/invite/foo"
                         >
                           JOIN TEAM
@@ -178,6 +178,7 @@ const container = {
 const section = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+  textAlign: 'left',
   width: '465px',
 };
 
@@ -235,6 +236,7 @@ const btn = {
   fontWeight: 500,
   lineHeight: '50px',
   textDecoration: 'none',
+  textAlign: 'center',
   width: '200px',
 };
 
