@@ -21,6 +21,7 @@
     "@react-email/hr": "*",
     "@react-email/html": "*",
     "@react-email/img": "*",
+    "@react-email/p": "*",
     "@react-email/render": "*",
     "design-system": "*",
     "lottie-react": "2.3.1",
