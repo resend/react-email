@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-type PElement = React.ElementRef<'p'>;
+type TextElement = React.ElementRef<'p'>;
 type RootProps = React.ComponentPropsWithoutRef<'p'>;
 
-export interface PProps extends RootProps {}
+export interface TextProps extends RootProps {}
 
-export const P = React.forwardRef<PElement, Readonly<PProps>>(
+export const Text = React.forwardRef<TextElement, Readonly<TextProps>>(
   ({ style, ...props }, forwardedRef) => (
     <p
       ref={forwardedRef}
@@ -20,4 +20,4 @@ export const P = React.forwardRef<PElement, Readonly<PProps>>(
   ),
 );
 
-P.displayName = 'P';
+Text.displayName = 'Text';
