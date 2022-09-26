@@ -3,6 +3,7 @@ import { Button } from '@react-email/button';
 import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -45,10 +46,10 @@ export const VercelInviteUser: React.FC<
                           alt="Vercel"
                         />
                       </div>
-                      <h1 style={h1}>
+                      <Heading as="h1" style={h1}>
                         Join <strong>My Project</strong> on{' '}
                         <strong>Vercel</strong>
-                      </h1>
+                      </Heading>
                     </td>
                   </tr>
                 </table>
