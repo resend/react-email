@@ -16,6 +16,8 @@
     "@react-email/button": "*",
     "@react-email/code": "*",
     "@react-email/container": "*",
+    "@react-email/head": "*",
+    "@react-email/heading": "*",
     "@react-email/hr": "*",
     "@react-email/img": "*",
     "@react-email/render": "*",
