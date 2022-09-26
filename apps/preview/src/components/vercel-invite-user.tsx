@@ -263,8 +263,8 @@ const footer = {
 
 const code = {
   display: 'inline-block',
-  padding: '16px',
-  width: '100%',
+  padding: '3.5%',
+  width: '93%',
   backgroundColor: '#000',
   borderRadius: '5px',
   color: '#fff',
