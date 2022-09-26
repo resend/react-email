@@ -1,6 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
-import inboxIcon from '../../helpers/inbox.json';
+import inboxIcon from '../../helpers/inbox-icon.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 
 export default function Feedback() {
