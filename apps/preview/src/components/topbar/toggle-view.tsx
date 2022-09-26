@@ -1,6 +1,6 @@
 import * as React from 'react';
-import codeIcon from '../../helpers/code.json';
-import eyeIcon from '../../helpers/eye.json';
+import codeIcon from '../../helpers/code-icon.json';
+import eyeIcon from '../../helpers/eye-icon.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 
 interface ToggleViewProps {
