@@ -17,7 +17,13 @@ export const VercelInviteUser: React.FC<
   return (
     <Html>
       <Head />
-      <table style={box} width="100%" border={0} cellSpacing="0" cellPadding="0">
+      <table
+        style={box}
+        width="100%"
+        border={0}
+        cellSpacing="0"
+        cellPadding="0"
+      >
         <tr>
           <td align="center">
             <Container style={container}>
@@ -145,9 +151,9 @@ export const VercelInviteUser: React.FC<
                   <span style={black}>zenorocha</span>.This invite was sent from{' '}
                   <span style={black}>204.13.186.218</span> located in{' '}
                   <span style={black}>São Paulo, Brazil</span>. If you were not
-                  expecting this invitation, you can ignore this email. If you are
-                  concerned about your account's safety, please reply to this
-                  email to get in touch with us.
+                  expecting this invitation, you can ignore this email. If you
+                  are concerned about your account's safety, please reply to
+                  this email to get in touch with us.
                 </P>
               </div>
             </Container>
