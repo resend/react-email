@@ -29,9 +29,7 @@ export default function External() {
           />
         </a>
       </Tooltip.Trigger>
-      <Tooltip.Content>
-        Open in new tab
-      </Tooltip.Content>
+      <Tooltip.Content>Open in new tab</Tooltip.Content>
     </Tooltip>
   );
 }
