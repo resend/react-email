@@ -178,7 +178,7 @@ const container = {
 const section = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-  textAlign: 'left',
+  textAlign: 'left' as const,
   width: '465px',
 };
 
@@ -236,7 +236,7 @@ const btn = {
   fontWeight: 500,
   lineHeight: '50px',
   textDecoration: 'none',
-  textAlign: 'center',
+  textAlign: 'center' as const,
   width: '200px',
 };
 
