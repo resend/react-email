@@ -47,6 +47,7 @@ Avatar with invitation
 const Email = () => {
   return <Avatar from="cat.jpg" fromAlt="Cat" to="dog.jpg" toAlt="Dog" />;
 };
+```
 
 ## Props
 
