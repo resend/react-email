@@ -19,6 +19,7 @@
     "@react-email/head": "*",
     "@react-email/heading": "*",
     "@react-email/hr": "*",
+    "@react-email/html": "*",
     "@react-email/img": "*",
     "@react-email/render": "*",
     "design-system": "*",
