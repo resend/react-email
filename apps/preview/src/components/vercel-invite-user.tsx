@@ -8,6 +8,7 @@ import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { P } from '@react-email/p';
+import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
 interface VercelInviteUserProps {}
@@ -18,6 +19,7 @@ export const VercelInviteUser: React.FC<
   return (
     <Html>
       <Head />
+      <Preview>Join bukinoshita on Vercel</Preview>
       <table
         style={box}
         width="100%"
