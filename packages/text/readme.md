@@ -1,7 +1,7 @@
-![React Email img cover](https://react-email-assets.vercel.app/p.png)
+![React Email text cover](https://react-email-assets.vercel.app/text.png)
 
-<div align="center"><strong>@react-email/p</strong></div>
-<div align="center">A block of text separated by some white space.</div>
+<div align="center"><strong>@react-email/text</strong></div>
+<div align="center">A block of text separated by blank spaces.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/p -E
+yarn add @react-email/text -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/p -E
+npm install @react-email/text -E
 ```
 
 ## Getting started
@@ -32,10 +32,10 @@ npm install @react-email/p -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { P } from '@react-email/p';
+import { Text } from '@react-email/text';
 
 const Email = () => {
-  return <P>Lorem ipsum</P>;
+  return <Text>Lorem ipsum</Text>;
 };
 ```
 

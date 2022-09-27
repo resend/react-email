@@ -1,4 +1,4 @@
-import { P } from './index';
+import { Text } from './index';
 import { render } from '@react-email/render';
 
 describe('render', () => {
@@ -7,8 +7,8 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <P> component', () => {
-    const actualOutput = render(<P>Lorem ipsum</P>);
+  it('renders the <Text> component', () => {
+    const actualOutput = render(<Text>Lorem ipsum</Text>);
     expect(actualOutput).toMatchSnapshot();
   });
 });

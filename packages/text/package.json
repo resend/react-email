@@ -1,7 +1,7 @@
 {
-  "name": "@react-email/p",
+  "name": "@react-email/text",
   "version": "0.0.1",
-  "description": "A block of text separated by some white space",
+  "description": "A block of text separated by blank spaces",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
