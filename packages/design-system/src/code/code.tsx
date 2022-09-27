@@ -3,7 +3,7 @@ import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import * as React from 'react';
 import { IconButton } from '../icon-button';
 import { copyTextToClipboard } from 'utils';
-import { IconClipboard, IconCheck } from '../icons';
+import { IconClipboard, IconCheck, IconDownload } from '../icons';
 
 interface CodeProps {
   children: any;
@@ -54,6 +54,11 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
 
+  const file = new File([value], 'template.html', {
+    type: 'text/html',
+  });
+  const url = URL.createObjectURL(file);
+
   return (
     <Highlight
       {...defaultProps}
@@ -84,6 +89,15 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           >
             {isCopied ? <IconCheck /> : <IconClipboard />}
           </IconButton>
+
+          <a
+            title="Download HTML"
+            href={url}
+            download={file.name}
+            className="text-gray-11 absolute top-3 right-8 hidden md:block"
+          >
+            <IconDownload />
+          </a>
 
           <div
             className="absolute right-0 top-0 h-px w-[300px]"
