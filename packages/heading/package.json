@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.0.0",
-    "react": "18.2.0"
+    "react": "18.2.0",
+    "utils": "*"
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
