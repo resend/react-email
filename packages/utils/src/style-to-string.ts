@@ -2,7 +2,7 @@
 
 export const styleToString = (style: React.CSSProperties | undefined) => {
   if(!style) {
-    return ''
+    return '';
   }
 
   return (Object.keys(style) as (keyof React.CSSProperties)[]).reduce(
