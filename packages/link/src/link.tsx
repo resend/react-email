@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-type AElement = React.ElementRef<'a'>;
+type LinkElement = React.ElementRef<'a'>;
 type RootProps = React.ComponentPropsWithoutRef<'a'>;
 
-export interface AProps extends RootProps {}
+export interface LinkProps extends RootProps {}
 
-export const A = React.forwardRef<AElement, Readonly<AProps>>(
+export const Link = React.forwardRef<LinkElement, Readonly<LinkProps>>(
   ({ target = '_blank', style, ...props }, forwardedRef) => (
     <a
       ref={forwardedRef}
@@ -20,4 +20,4 @@ export const A = React.forwardRef<AElement, Readonly<AProps>>(
   ),
 );
 
-A.displayName = 'A';
+Link.displayName = 'Link';

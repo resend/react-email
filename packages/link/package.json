@@ -1,5 +1,5 @@
 {
-  "name": "@react-email/a",
+  "name": "@react-email/link",
   "version": "0.0.1",
   "description": "A hyperlink to web pages, files, email addresses, or anything else a URL can address",
   "sideEffects": false,
