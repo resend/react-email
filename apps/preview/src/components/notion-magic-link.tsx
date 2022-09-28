@@ -58,10 +58,8 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td>
-                        <Code style={{ ...code, marginBottom: '14px' }}>
-                          sparo-ndigo-amurt-secan
-                        </Code>
+                      <td style={code}>
+                        <Code>sparo-ndigo-amurt-secan</Code>
                       </td>
                     </tr>
                     <tr>
@@ -70,6 +68,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           style={{
                             ...text,
                             color: '#ababab',
+                            marginTop: '14px',
                             marginBottom: '16px',
                           }}
                         >
@@ -80,6 +79,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           style={{
                             ...text,
                             color: '#ababab',
+                            marginTop: '12px',
                             marginBottom: '38px',
                           }}
                         >
