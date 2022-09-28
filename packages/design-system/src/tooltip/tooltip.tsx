@@ -14,9 +14,10 @@ export const TooltipRoot: React.FC<Readonly<TooltipProps>> = ({
   ...props
 }) => <Root {...props}>{children}</Root>;
 
-export const Tooltip = Object.assign(TooltipRoot, {
+export const Tooltip = {
+  Root: TooltipRoot,
   Arrow: TooltipArrow,
   Provider: TooltipProvider,
   Content: TooltipContent,
   Trigger: TooltipTrigger,
-});
+};
