@@ -23,9 +23,10 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
           border={0}
           cellSpacing="0"
           cellPadding="0"
+          align="center"
         >
           <tr>
-            <td align="center">
+            <td>
               <Container>
                 <div style={section}>
                   <table
@@ -34,15 +35,17 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                     border={0}
                     cellSpacing="0"
                     cellPadding="0"
+                    role="presentation"
                   >
                     <tr>
-                      <td>
+                      <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
                         <Heading as="h1" style={h1}>
                           Login
                         </Heading>
 
                         <A
-                          href="#"
+                          href="https://notion.so"
+                          target="_blank"
                           style={{
                             ...link,
                             display: 'block',
@@ -58,12 +61,26 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td style={code}>
-                        <Code>sparo-ndigo-amurt-secan</Code>
+                      <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
+                        <table
+                          width="100%"
+                          border={0}
+                          cellSpacing="0"
+                          cellPadding="0"
+                          role="presentation"
+                        >
+                          <tr>
+                            <td style={code}>
+                              <Code style={{ display: 'block' }}>
+                                sparo-ndigo-amurt-secan
+                              </Code>
+                            </td>
+                          </tr>
+                        </table>
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
                         <P
                           style={{
                             ...text,
@@ -89,7 +106,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                       </td>
                     </tr>
                     <tr>
-                      <td>
+                      <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
                         <Img
                           src="https://www.notion.so/images/logo_64@2x.png"
                           width="32"
@@ -128,13 +145,15 @@ const body = {
 
 const box = {
   width: '100% !important',
+  maxWidth: '600px',
 };
 
 const section = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   textAlign: 'left' as const,
-  width: '600px',
+  maxWidth: '600px',
+  width: '100%',
 };
 
 const h1 = {
