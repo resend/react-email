@@ -3,7 +3,7 @@ import { render } from '@react-email/render';
 
 const preformattedText = `body {
   color: red;
-}`
+}`;
 
 describe('render', () => {
   beforeEach(() => {

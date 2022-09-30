@@ -38,7 +38,7 @@ import { Pre } from '@react-email/pre';
 const Email = () => {
   return (
     <Html lang="en">
-      <Pre>foo          bar</Pre>
+      <Pre>{'foo          bar'}</Pre>
     </Html>
   );
 };
