@@ -12,7 +12,7 @@ export const Container = React.forwardRef<
   ContainerElement,
   Readonly<ContainerProps>
 >(({ children, style, ...props }, forwardedRef) => {
-  const styles: React.CSSProperties = { maxWidth: '37.5em', ...style };
+  const styles = { maxWidth: '37.5em', ...style };
   const inlineStyle = styleToString(styles);
 
   return (
