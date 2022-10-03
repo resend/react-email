@@ -15,7 +15,6 @@ export const Avatar = React.forwardRef<AvatarElement, Readonly<AvatarProps>>(
     return (
       <>
         <span
-          id="avatarContainer"
           style={avatarContainer}
           ref={forwardedRef}
           {...props}
