@@ -7,15 +7,8 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the simple <Avatar> component', () => {
-    const actualOutput = render(<Avatar from="cat.jpg" fromAlt="Cat" />);
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('renders the invited to <Avatar> with invitation component', () => {
-    const actualOutput = render(
-      <Avatar from="cat.jpg" fromAlt="Cat" to="cat.jpg" toAlt="Cat" />,
-    );
+  it('renders the <Avatar> component', () => {
+    const actualOutput = render(<Avatar src="cat.jpg" name=" My Cat" />);
     expect(actualOutput).toMatchSnapshot();
   });
 });
