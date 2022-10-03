@@ -1,5 +1,9 @@
-import { Ul } from './index';
+import { Pre } from './index';
 import { render } from '@react-email/render';
+
+const preformattedText = `body {
+  color: red;
+}`;
 
 describe('render', () => {
   beforeEach(() => {
@@ -7,13 +11,9 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Ul> component', () => {
-    const actualOutput = render(
-      <Ul>
-        <li>foo</li>
-        <li>bar</li>
-      </Ul>,
-    );
+  it('renders the <Pre> component', () => {
+    const actualOutput = render(<Pre>{preformattedText}</Pre>);
+
     expect(actualOutput).toMatchSnapshot();
   });
 });

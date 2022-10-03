@@ -1,4 +1,4 @@
-import { A } from '@react-email/a';
+import { Link } from '@react-email/link';
 import { Button } from '@react-email/button';
 import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
@@ -8,6 +8,7 @@ import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { P } from '@react-email/p';
+import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
 interface VercelInviteUserProps {}
@@ -18,6 +19,7 @@ export const VercelInviteUser: React.FC<
   return (
     <Html>
       <Head />
+      <Preview>Join bukinoshita on Vercel</Preview>
       <table
         style={box}
         width="100%"
@@ -56,9 +58,9 @@ export const VercelInviteUser: React.FC<
                 <P style={text}>Hello zenorocha,</P>
                 <P style={text}>
                   <strong>bukinoshita</strong> (
-                  <A href="mailto:bukinoshita@example.com" style={link}>
+                  <Link href="mailto:bukinoshita@example.com" style={link}>
                     bukinoshita@example.com
-                  </A>
+                  </Link>
                   ) has invited you to the <strong>My Project</strong> team on{' '}
                   <strong>Vercel</strong>.
                 </P>
@@ -132,14 +134,14 @@ export const VercelInviteUser: React.FC<
                 <P style={text}>
                   <br />
                   or copy and paste this URL into your browser:{' '}
-                  <A
+                  <Link
                     href="https://vercel.com/teams/invite/foo"
                     target="_blank"
                     style={link}
                     rel="noreferrer"
                   >
                     https://vercel.com/teams/invite/foo
-                  </A>
+                  </Link>
                 </P>
                 <P style={text}>
                   <br />

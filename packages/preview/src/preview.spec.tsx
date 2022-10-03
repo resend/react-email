@@ -1,4 +1,4 @@
-import { Ul } from './index';
+import { Preview } from './index';
 import { render } from '@react-email/render';
 
 describe('render', () => {
@@ -7,13 +7,8 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Ul> component', () => {
-    const actualOutput = render(
-      <Ul>
-        <li>foo</li>
-        <li>bar</li>
-      </Ul>,
-    );
+  it('renders the <Preview> component', () => {
+    const actualOutput = render(<Preview>Email preview text</Preview>);
     expect(actualOutput).toMatchSnapshot();
   });
 });

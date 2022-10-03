@@ -1,7 +1,7 @@
 {
-  "name": "@react-email/heading",
-  "version": "0.0.2",
-  "description": "A block of heading text",
+  "name": "@react-email/ol",
+  "version": "0.0.1",
+  "description": "An ordered list component to help build emails",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -21,9 +21,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
-    "@radix-ui/react-slot": "1.0.0",
-    "react": "18.2.0",
-    "utils": "*"
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
