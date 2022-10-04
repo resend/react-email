@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Code } from './index';
+import { Link } from './index';
 import { render } from '@react-email/render';
 
 describe('render', () => {
@@ -8,11 +7,10 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Code> component', () => {
+  it('renders the <Link> component', () => {
     const actualOutput = render(
-      <Code style={{ maxWidth: '300px' }}>const foo = 'bar';</Code>,
+      <Link href="https://example.com">Example</Link>,
     );
-
     expect(actualOutput).toMatchSnapshot();
   });
 });
