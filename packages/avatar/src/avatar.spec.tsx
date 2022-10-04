@@ -1,5 +1,5 @@
-import { Avatar } from './index';
 import { render } from '@react-email/render';
+import { Avatar, AvatarFallback, AvatarImage } from './index';
 
 describe('render', () => {
   beforeEach(() => {
@@ -8,7 +8,12 @@ describe('render', () => {
   });
 
   it('renders the <Avatar> component', () => {
-    const actualOutput = render(<Avatar src="cat.jpg" name=" My Cat" />);
+    const actualOutput = render(
+      <Avatar>
+        <AvatarImage src="cat.jpg" />
+        <AvatarFallback>My Cat</AvatarFallback>
+      </Avatar>,
+    );
     expect(actualOutput).toMatchSnapshot();
   });
 });

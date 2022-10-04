@@ -1,4 +1,4 @@
-![React Email img cover](https://react-email-assets.vercel.app/img.png)
+![React Email avatar cover](https://react-email-assets.vercel.app/avatar.png)
 
 <div align="center"><strong>@react-email/avatar</strong></div>
 <div align="center">Display an avatar in your email.</div>
@@ -34,10 +34,15 @@ Add the component to your email template. Include styles where needed.
 Avatar
 
 ```jsx
-import { Avatar } from '@react-email/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@react-email/avatar';
 
 const Email = () => {
-  return <Avatar src="cat.jpg" title="My Cat" />;
+  return (
+    <Avatar>
+      <AvatarImage src="cat.jpg" />
+      <AvatarFallback>My Cat</AvatarFallback>
+    </Avatar>
+  );
 };
 ```
 
@@ -46,7 +51,6 @@ const Email = () => {
 | Name | Type   | Default | Description           |
 | ---- | ------ | ------- | --------------------- |
 | src  | string |         | The path to the image |
-| name | string |         | Fallback to initials  |
 
 ## Support
 
