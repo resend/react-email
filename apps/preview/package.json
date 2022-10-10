@@ -22,6 +22,7 @@
     "@react-email/html": "*",
     "@react-email/img": "*",
     "@react-email/p": "*",
+    "@react-email/pre": "*",
     "@react-email/preview": "*",
     "@react-email/render": "*",
     "design-system": "*",
