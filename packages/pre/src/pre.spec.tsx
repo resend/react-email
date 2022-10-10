@@ -1,5 +1,9 @@
-import { A } from './index';
+import { Pre } from './index';
 import { render } from '@react-email/render';
+
+const preformattedText = `body {
+  color: red;
+}`;
 
 describe('render', () => {
   beforeEach(() => {
@@ -7,8 +11,9 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <A> component', () => {
-    const actualOutput = render(<A href="https://example.com">Example</A>);
+  it('renders the <Pre> component', () => {
+    const actualOutput = render(<Pre>{preformattedText}</Pre>);
+
     expect(actualOutput).toMatchSnapshot();
   });
 });
