@@ -18,7 +18,7 @@ export const Avatar = React.forwardRef<AvatarElement, Readonly<RootProps>>(
         overflow: 'hidden',
         width: '60px',
         height: '60px',
-        backgroundColor: '#eaeaea', 
+        backgroundColor: '#eaeaea',
         boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.12)',
         ...style,
       }}
