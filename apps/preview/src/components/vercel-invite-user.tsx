@@ -1,4 +1,4 @@
-import { Link } from '@react-email/link';
+import { Avatar, AvatarFallback, AvatarImage } from '@react-email/avatar';
 import { Button } from '@react-email/button';
 import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
@@ -7,6 +7,7 @@ import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
+import { Link } from '@react-email/link';
 import { P } from '@react-email/p';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
@@ -81,13 +82,10 @@ export const VercelInviteUser: React.FC<
                       >
                         <tr>
                           <td style={center} align="left" valign="middle">
-                            <Img
-                              style={primaryAvatar}
-                              src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
-                              width="60"
-                              height="60"
-                              alt="zenorocha"
-                            />
+                            <Avatar>
+                              <AvatarImage src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png" />
+                              <AvatarFallback>zenorocha</AvatarFallback>
+                            </Avatar>
                           </td>
                           <td style={center} align="left" valign="middle">
                             <Img
@@ -98,13 +96,13 @@ export const VercelInviteUser: React.FC<
                             />
                           </td>
                           <td style={center} align="left" valign="middle">
-                            <Img
-                              style={secondaryAvatar}
-                              src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
-                              width="60"
-                              height="60"
-                              alt="My Project"
-                            />
+                            <Avatar>
+                              <AvatarImage
+                                style={secondaryAvatar}
+                                src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
+                              />
+                              <AvatarFallback>My Project</AvatarFallback>
+                            </Avatar>
                           </td>
                         </tr>
                       </table>
@@ -215,14 +213,7 @@ const center = {
   verticalAlign: 'middle',
 };
 
-const primaryAvatar = {
-  borderRadius: '50%',
-  overflow: 'hidden',
-};
-
 const secondaryAvatar = {
-  borderRadius: '50%',
-  overflow: 'hidden',
   border: '1px solid #eaeaea',
   boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.12)',
 };
