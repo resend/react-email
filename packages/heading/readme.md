@@ -1,4 +1,4 @@
-![React Email img cover](https://react.email/static/images/readme/covers/heading.png)
+![React Email heading cover](https://react.email/static/images/readme/covers/heading.png)
 
 <div align="center"><strong>@react-email/heading</strong></div>
 <div align="center">A block of heading text.</div>
