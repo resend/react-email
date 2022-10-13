@@ -1,7 +1,7 @@
 ![React Email avatar cover](https://react.email/static/images/readme/covers/avatar.png)
 
 <div align="center"><strong>@react-email/avatar</strong></div>
-<div align="center">Display an avatar in your email.</div>
+<div align="center">Displays a profile picture or a fallback to the user initials.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -63,7 +63,3 @@ This component was tested using the most popular email clients.
 ## License
 
 MIT License
-
-```
-
-```

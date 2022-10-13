@@ -1,7 +1,7 @@
 {
   "name": "@react-email/avatar",
   "version": "0.0.1",
-  "description": "Display an avatar in your email",
+  "description": "Displays a profile picture or a fallback to the user initials.",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
