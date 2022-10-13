@@ -81,13 +81,13 @@ export const AvatarFallback = React.forwardRef<
     ref={forwardedRef}
     {...props}
   >
-    {abbreviete(children)}
+    {abbreviate(children)}
   </span>
 ));
 
 AvatarFallback.displayName = 'AvatarFallback';
 
-const abbreviete = (fallback: any): string => {
+const abbreviate = (fallback: any): string => {
   const text = fallback.toString();
   if (!text) {
     return '';
