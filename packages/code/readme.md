@@ -1,4 +1,4 @@
-![React Email code cover](https://react-email-assets.vercel.app/code.png)
+![React Email code cover](https://react.email/static/images/readme/covers/code.png)
 
 <div align="center"><strong>@react-email/code</strong></div>
 <div align="center">A block of code to be rendered in your email.</div>
