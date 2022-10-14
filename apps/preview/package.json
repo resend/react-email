@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@radix-ui/react-popover": "1.0.0",
+    "@react-email/avatar": "*",
     "@react-email/link": "*",
     "@react-email/button": "*",
     "@react-email/code": "*",

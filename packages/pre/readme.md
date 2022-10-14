@@ -1,4 +1,4 @@
-![React Email pre cover](https://react-email-assets.vercel.app/pre.png)
+![React Email pre cover](https://react.email/static/images/readme/covers/pre.png)
 
 <div align="center"><strong>@react-email/pre</strong></div>
 <div align="center">A block of preformatted text in your email</div>

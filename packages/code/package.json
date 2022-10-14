@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A block of code to be rendered in your email",
   "sideEffects": false,
   "main": "./dist/index.js",
