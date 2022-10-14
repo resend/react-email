@@ -143,11 +143,6 @@ export const VercelInviteUser: React.FC<
                     https://vercel.com/teams/invite/foo
                   </Link>
                 </P>
-                <P style={text}>
-                  <br />
-                  or execute the command below:
-                </P>
-                <Code style={code}>vercel join my-project-fzsQbPqFEW</Code>
                 <Hr style={hr} />
                 <P style={footer}>
                   This invitation was intended for{' '}
@@ -251,15 +246,6 @@ const footer = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '12px',
   lineHeight: '24px',
-};
-
-const code = {
-  display: 'inline-block',
-  padding: '16px',
-  width: '100%',
-  backgroundColor: '#000',
-  borderRadius: '5px',
-  color: '#fff',
 };
 
 export default VercelInviteUser;
