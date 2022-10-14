@@ -120,10 +120,12 @@ export const VercelInviteUser: React.FC<
                     <td align="center">
                       <div>
                         <Button
+                          pX={20}
+                          pY={12}
                           style={btn}
                           href="https://vercel.com/teams/invite/foo"
                         >
-                          JOIN TEAM
+                          Join the team
                         </Button>
                       </div>
                     </td>
@@ -230,7 +232,6 @@ const btn = {
   lineHeight: '50px',
   textDecoration: 'none',
   textAlign: 'center' as const,
-  width: '200px',
 };
 
 const spacing = {
