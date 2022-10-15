@@ -9,10 +9,10 @@ describe('render', () => {
   });
 
   it('renders the <Code> component', () => {
-    const container = render(
+    const actualOutput = render(
       <Code style={{ maxWidth: '300px' }}>const foo = 'bar';</Code>,
     );
 
-    expect(container).toMatchSnapshot();
+    expect(actualOutput).toMatchSnapshot();
   });
 });
