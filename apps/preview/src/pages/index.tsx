@@ -1,7 +1,7 @@
 import { render } from '@react-email/render';
 import Head from 'next/head';
 import * as React from 'react';
-import { VercelInviteUser } from '../components/vercel-invite-user';
+import { StripeWelcome } from '../components/stripe-welcome';
 import Logo from '../components/topbar/logo';
 import External from '../components/topbar/external';
 import Feedback from '../components/topbar/feedback';
