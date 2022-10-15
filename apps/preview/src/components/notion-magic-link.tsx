@@ -108,7 +108,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                     <tr>
                       <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
                         <Img
-                          src="https://www.notion.so/images/logo_64@2x.png"
+                          src="https://demo.react.email/static/images/notion-logo.png"
                           width="32"
                           height="32"
                           alt="Notion's Logo"

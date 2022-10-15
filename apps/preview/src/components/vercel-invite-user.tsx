@@ -42,7 +42,7 @@ export const VercelInviteUser: React.FC<
                     <td align="center">
                       <div style={{ marginTop: '32px' }}>
                         <Img
-                          src="https://assets.vercel.com/email/vercel.png"
+                          src="https://demo.react.email/static/images/vercel-logo.png"
                           width="40"
                           height="37"
                           alt="Vercel"
@@ -88,7 +88,7 @@ export const VercelInviteUser: React.FC<
                           </td>
                           <td style={center} align="left" valign="middle">
                             <Img
-                              src="https://assets.vercel.com/email/team-invite-arrow.png"
+                              src="https://demo.react.email/static/images/vercel-arrow.png"
                               width="12"
                               height="9"
                               alt="invited you to"

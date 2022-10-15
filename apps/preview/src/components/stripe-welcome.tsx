@@ -26,7 +26,7 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
             <Container style={container}>
               <div style={box}>
                 <Img
-                  src="/static/images/stripe-logo.png"
+                  src="https://demo.react.email/static/images/stripe-logo.png"
                   width="49"
                   height="21"
                   alt="Stripe"
