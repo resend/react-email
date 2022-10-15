@@ -1,10 +1,10 @@
-import { A } from '@react-email/a';
 import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
+import { Link } from '@react-email/link';
 import { P } from '@react-email/p';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
@@ -43,7 +43,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           Login
                         </Heading>
 
-                        <A
+                        <Link
                           href="https://notion.so"
                           target="_blank"
                           style={{
@@ -53,7 +53,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           }}
                         >
                           Click here to log in with this magic link
-                        </A>
+                        </Link>
 
                         <P style={{ ...text, marginBottom: '14px' }}>
                           Or, copy and paste this temporary login code:
@@ -114,13 +114,13 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           alt="Notion's Logo"
                         />
                         <P style={footer}>
-                          <A
+                          <Link
                             href="https://notion.so"
                             target="_blank"
                             style={{ ...link, color: '#898989' }}
                           >
                             Notion.so
-                          </A>
+                          </Link>
                           , the all-in-one-workspace
                           <br />
                           for your notes, tasks, wikis, and databases.
