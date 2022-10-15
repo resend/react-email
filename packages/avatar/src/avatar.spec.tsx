@@ -7,11 +7,20 @@ describe('render', () => {
     jest.resetModules();
   });
 
-  it('renders the <Avatar> component', () => {
+  it('renders the <Avatar> component with a <AvatarImage> component', () => {
     const actualOutput = render(
       <Avatar>
-        <AvatarImage src="cat.jpg" />
-        <AvatarFallback>My Cat</AvatarFallback>
+        <AvatarImage src="https://github.com/zenorocha.png" />
+        <AvatarFallback>Zeno Rocha</AvatarFallback>
+      </Avatar>,
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('renders the <Avatar> component with a <AvatarFallback> component', () => {
+    const actualOutput = render(
+      <Avatar>
+        <AvatarFallback>Zeno Rocha</AvatarFallback>
       </Avatar>,
     );
     expect(actualOutput).toMatchSnapshot();
