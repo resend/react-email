@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@react-email/avatar';
 import { Button } from '@react-email/button';
-import { Code } from '@react-email/code';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
