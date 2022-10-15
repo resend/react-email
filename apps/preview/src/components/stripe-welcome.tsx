@@ -41,6 +41,8 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
                   about your account right from your dashboard.
                 </P>
                 <Button
+                  pX={10}
+                  pY={10}
                   style={button}
                   href="https://dashboard.stripe.com/login"
                 >
@@ -144,12 +146,10 @@ const button = {
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
   fontSize: '16px',
   fontWeight: 'bold',
-  lineHeight: '38px',
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
   width: '100%',
-  height: '38px',
 };
 
 const footer = {
