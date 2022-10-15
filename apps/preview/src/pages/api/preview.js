@@ -1,4 +1,4 @@
-import VercelInviteUser from '../../components/vercel-invite-user';
+import VercelInviteUser from '../../components/templates/vercel-invite-user';
 import { render } from '@react-email/render';
 
 export default async function preview(req, res) {
