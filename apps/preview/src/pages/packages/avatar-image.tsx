@@ -1,8 +1,8 @@
 import { render } from '@react-email/render';
 import Head from 'next/head';
 import * as React from 'react';
-import Layout from '../components/layout';
-import Email from '../components/stripe-welcome';
+import Layout from '../../components/layout';
+import Email from '../../components/packages/avatar-image';
 
 export default function Preview() {
   const markup = render(<Email />, { pretty: true });
