@@ -2,7 +2,7 @@ import { render } from '@react-email/render';
 import Head from 'next/head';
 import * as React from 'react';
 import Layout from '../components/layout';
-import Email from '../components/vercel-invite-user';
+import Email from '../components/notion-magic-link';
 
 export default function Preview() {
   const markup = render(<Email />, { pretty: true });
