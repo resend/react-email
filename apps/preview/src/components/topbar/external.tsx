@@ -1,7 +1,6 @@
 import * as React from 'react';
 import launchIcon from '../../helpers/launch-icon.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
-import { Tooltip } from 'design-system';
 
 export default function External() {
   const launchIconRef = React.useRef<LottieRefCurrentProps>(null);
