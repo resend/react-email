@@ -7,29 +7,24 @@ export default function External() {
   const launchIconRef = React.useRef<LottieRefCurrentProps>(null);
 
   return (
-    <Tooltip>
-      <Tooltip.Trigger>
-        <a
-          href="/api/preview"
-          target="_blank"
-          className="text-current transition duration-300 ease-in-out hover:opacity-60"
-          onMouseEnter={() => {
-            launchIconRef.current?.play();
-          }}
-          onMouseLeave={() => {
-            launchIconRef.current?.stop();
-          }}
-        >
-          <Lottie
-            lottieRef={launchIconRef}
-            className="mr-1 w-5 h-5"
-            animationData={launchIcon}
-            loop={false}
-            autoplay={false}
-          />
-        </a>
-      </Tooltip.Trigger>
-      <Tooltip.Content>Open in new tab</Tooltip.Content>
-    </Tooltip>
+    <a
+      href="/api/preview"
+      target="_blank"
+      className="text-current transition duration-300 ease-in-out hover:opacity-60"
+      onMouseEnter={() => {
+        launchIconRef.current?.play();
+      }}
+      onMouseLeave={() => {
+        launchIconRef.current?.stop();
+      }}
+    >
+      <Lottie
+        lottieRef={launchIconRef}
+        className="mr-1 w-5 h-5"
+        animationData={launchIcon}
+        loop={false}
+        autoplay={false}
+      />
+    </a>
   );
 }
