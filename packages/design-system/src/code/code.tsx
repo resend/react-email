@@ -4,6 +4,7 @@ import * as React from 'react';
 import { IconButton } from '../icon-button';
 import { copyTextToClipboard } from 'utils';
 import { IconClipboard, IconCheck, IconDownload } from '../icons';
+import { Tooltip } from '../tooltip';
 
 interface CodeProps {
   children: any;
@@ -79,25 +80,29 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             boxShadow: 'rgb(0 0 0 / 10%) 0px 5px 30px -5px',
           }}
         >
-          <IconButton
-            className="absolute top-3 right-3 hidden md:block"
-            onClick={async () => {
-              setIsCopied(true);
-              await copyTextToClipboard(value);
-              setTimeout(() => setIsCopied(false), 3000);
-            }}
-          >
-            {isCopied ? <IconCheck /> : <IconClipboard />}
-          </IconButton>
+          <Tooltip>
+            <Tooltip.Trigger className="absolute top-3 right-3 hidden md:block">
+              <IconButton
+                onClick={async () => {
+                  setIsCopied(true);
+                  await copyTextToClipboard(value);
+                  setTimeout(() => setIsCopied(false), 3000);
+                }}
+              >
+                {isCopied ? <IconCheck /> : <IconClipboard />}
+              </IconButton>
+            </Tooltip.Trigger>
+            <Tooltip.Content>Copy to Clipboard</Tooltip.Content>
+          </Tooltip>
 
-          <a
-            title="Download HTML"
-            href={url}
-            download={file.name}
-            className="text-gray-11 absolute top-3 right-8 hidden md:block"
-          >
-            <IconDownload />
-          </a>
+          <Tooltip>
+            <Tooltip.Trigger className="text-gray-11 absolute top-3 right-8 hidden md:block">
+              <a title="Download HTML" href={url} download={file.name}>
+                <IconDownload />
+              </a>
+            </Tooltip.Trigger>
+            <Tooltip.Content>Download HTML</Tooltip.Content>
+          </Tooltip>
 
           <div
             className="absolute right-0 top-0 h-px w-[300px]"
