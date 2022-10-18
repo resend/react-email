@@ -1,6 +1,3 @@
-import { render } from '@react-email/render';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import * as React from 'react';
 import Logo from '../components/topbar/logo';
 import External from '../components/topbar/external';
