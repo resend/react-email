@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageHrProps {}
 
-export const PackageHr: React.FC<
-  Readonly<PackageHrProps>
-> = () => {
+export const PackageHr: React.FC<Readonly<PackageHrProps>> = () => {
   return (
     <Html>
       <Head />

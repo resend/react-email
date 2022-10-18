@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageHeadingProps {}
 
-export const PackageHeading: React.FC<
-  Readonly<PackageHeadingProps>
-> = () => {
+export const PackageHeading: React.FC<Readonly<PackageHeadingProps>> = () => {
   return (
     <Html>
       <Head />

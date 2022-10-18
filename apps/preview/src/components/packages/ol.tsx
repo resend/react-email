@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageOlProps {}
 
-export const PackageOl: React.FC<
-  Readonly<PackageOlProps>
-> = () => {
+export const PackageOl: React.FC<Readonly<PackageOlProps>> = () => {
   return (
     <Html>
       <Head />

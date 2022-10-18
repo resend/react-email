@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackagePreProps {}
 
-export const PackagePre: React.FC<
-  Readonly<PackagePreProps>
-> = () => {
+export const PackagePre: React.FC<Readonly<PackagePreProps>> = () => {
   return (
     <Html>
       <Head />

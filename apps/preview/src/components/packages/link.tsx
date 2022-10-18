@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageLinkProps {}
 
-export const PackageLink: React.FC<
-  Readonly<PackageLinkProps>
-> = () => {
+export const PackageLink: React.FC<Readonly<PackageLinkProps>> = () => {
   return (
     <Html>
       <Head />

@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageTextProps {}
 
-export const PackageText: React.FC<
-  Readonly<PackageTextProps>
-> = () => {
+export const PackageText: React.FC<Readonly<PackageTextProps>> = () => {
   return (
     <Html>
       <Head />

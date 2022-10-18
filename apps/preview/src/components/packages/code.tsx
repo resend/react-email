@@ -5,9 +5,7 @@ import * as React from 'react';
 
 interface PackageCodeProps {}
 
-export const PackageCode: React.FC<
-  Readonly<PackageCodeProps>
-> = () => {
+export const PackageCode: React.FC<Readonly<PackageCodeProps>> = () => {
   return (
     <Html>
       <Head />
