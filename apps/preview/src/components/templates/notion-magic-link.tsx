@@ -115,7 +115,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                         />
                         <Text style={footer}>
                           <Link
-                           Texthref="https://notion.so"
+                            href="https://notion.so"
                             target="_blank"
                             style={{ ...link, color: '#898989' }}
                           >
