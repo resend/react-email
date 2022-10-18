@@ -5,7 +5,7 @@ import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
-import { P } from '@react-email/p';
+import { Text } from '@react-email/text';
 import * as React from 'react';
 
 interface StripeWelcomeProps {}
@@ -32,14 +32,14 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
                   alt="Stripe"
                 />
                 <Hr style={hr} />
-                <P style={paragraph}>
+                <Text style={paragraph}>
                   Thanks for submitting your account information. You're now
                   ready to make live transactions with Stripe!
-                </P>
-                <P style={paragraph}>
+                </Text>
+                <Text style={paragraph}>
                   You can view your payments and a variety of other information
                   about your account right from your dashboard.
-                </P>
+                </Text>
                 <Button
                   pX={10}
                   pY={10}
@@ -49,14 +49,14 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
                   View your Stripe Dashboard
                 </Button>
                 <Hr style={hr} />
-                <P style={paragraph}>
+                <Text style={paragraph}>
                   If you haven't finished your integration, you might find our{' '}
                   <Link style={anchor} href="https://stripe.com/docs">
                     docs
                   </Link>{' '}
                   handy.
-                </P>
-                <P style={paragraph}>
+                </Text>
+                <Text style={paragraph}>
                   Once you're ready to start accepting payments, you'll just
                   need to use your live{' '}
                   <Link
@@ -72,8 +72,8 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
                     tutorial about account basics
                   </Link>
                   .
-                </P>
-                <P style={paragraph}>
+                </Text>
+                <Text style={paragraph}>
                   Finally, we've put together a{' '}
                   <Link
                     style={anchor}
@@ -82,20 +82,20 @@ export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
                     quick checklist
                   </Link>{' '}
                   to ensure your website conforms to card network standards.
-                </P>
-                <P style={paragraph}>
+                </Text>
+                <Text style={paragraph}>
                   We'll be here to help you with any step along the way. You can
                   find answers to most questions and get in touch with us on our{' '}
                   <Link style={anchor} href="https://support.stripe.com/">
                     support site
                   </Link>
                   .
-                </P>
-                <P style={paragraph}>— The Stripe team</P>
+                </Text>
+                <Text style={paragraph}>— The Stripe team</Text>
                 <Hr style={hr} />
-                <P style={footer}>
+                <Text style={footer}>
                   Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080
-                </P>
+                </Text>
               </div>
             </Container>
           </td>

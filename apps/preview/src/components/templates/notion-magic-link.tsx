@@ -5,7 +5,7 @@ import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
-import { P } from '@react-email/p';
+import { Text } from '@react-email/text';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
@@ -55,9 +55,9 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           Click here to log in with this magic link
                         </Link>
 
-                        <P style={{ ...text, marginBottom: '14px' }}>
+                        <Text style={{ ...text, marginBottom: '14px' }}>
                           Or, copy and paste this temporary login code:
-                        </P>
+                        </Text>
                       </td>
                     </tr>
                     <tr>
@@ -81,7 +81,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                     </tr>
                     <tr>
                       <td style={{ paddingLeft: '12px', paddingRight: '12px' }}>
-                        <P
+                        <Text
                           style={{
                             ...text,
                             color: '#ababab',
@@ -91,8 +91,8 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                         >
                           If you didn&apos;t try to login, you can safely ignore
                           this email.
-                        </P>
-                        <P
+                        </Text>
+                        <Text
                           style={{
                             ...text,
                             color: '#ababab',
@@ -102,7 +102,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                         >
                           Hint: You can set a permanent password in Settings &
                           members → My account.
-                        </P>
+                        </Text>
                       </td>
                     </tr>
                     <tr>
@@ -113,9 +113,9 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           height="32"
                           alt="Notion's Logo"
                         />
-                        <P style={footer}>
+                        <Text style={footer}>
                           <Link
-                            href="https://notion.so"
+                           Texthref="https://notion.so"
                             target="_blank"
                             style={{ ...link, color: '#898989' }}
                           >
@@ -124,7 +124,7 @@ export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
                           , the all-in-one-workspace
                           <br />
                           for your notes, tasks, wikis, and databases.
-                        </P>
+                        </Text>
                       </td>
                     </tr>
                   </table>

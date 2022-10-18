@@ -7,7 +7,7 @@ import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
-import { P } from '@react-email/p';
+import { Text } from '@react-email/text';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
@@ -55,15 +55,15 @@ export const VercelInviteUser: React.FC<
                     </td>
                   </tr>
                 </table>
-                <P style={text}>Hello zenorocha,</P>
-                <P style={text}>
+                <Text style={text}>Hello zenorocha,</Text>
+                <Text style={text}>
                   <strong>bukinoshita</strong> (
                   <Link href="mailto:bukinoshita@example.com" style={link}>
                     bukinoshita@example.com
                   </Link>
                   ) has invited you to the <strong>My Project</strong> team on{' '}
                   <strong>Vercel</strong>.
-                </P>
+                </Text>
                 <table
                   style={box}
                   width="100%"
@@ -130,7 +130,7 @@ export const VercelInviteUser: React.FC<
                     </td>
                   </tr>
                 </table>
-                <P style={text}>
+                <Text style={text}>
                   <br />
                   or copy and paste this URL into your browser:{' '}
                   <Link
@@ -141,9 +141,9 @@ export const VercelInviteUser: React.FC<
                   >
                     https://vercel.com/teams/invite/foo
                   </Link>
-                </P>
+                </Text>
                 <Hr style={hr} />
-                <P style={footer}>
+                <Text style={footer}>
                   This invitation was intended for{' '}
                   <span style={black}>zenorocha</span>.This invite was sent from{' '}
                   <span style={black}>204.13.186.218</span> located in{' '}
@@ -151,7 +151,7 @@ export const VercelInviteUser: React.FC<
                   expecting this invitation, you can ignore this email. If you
                   are concerned about your account's safety, please reply to
                   this email to get in touch with us.
-                </P>
+                </Text>
               </div>
             </Container>
           </td>
