@@ -97,11 +97,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
 
           <Tooltip>
             <Tooltip.Trigger className="text-gray-11 absolute top-3 right-8 hidden md:block">
-              <a
-                title="Download HTML"
-                href={url}
-                download={file.name}
-              >
+              <a title="Download HTML" href={url} download={file.name}>
                 <IconDownload />
               </a>
             </Tooltip.Trigger>
