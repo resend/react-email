@@ -1,0 +1,49 @@
+---
+title: "@react-email/html"
+sidebarTitle: "HTML"
+description: "A React html component to wrap emails."
+---
+
+import Support from "../snippets/support.mdx";
+import License from "../snippets/license.mdx";
+
+<img className="rounded-md" src="/images/components/html.png" alt="html" />
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh yarn
+yarn add @react-email/html -E
+```
+
+```sh npm
+npm install @react-email/html -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button } from "@react-email/button";
+import { Html } from "@react-email/html";
+
+const Email = () => {
+  return (
+    <Html lang="en">
+      <Button href="https://example.com" style={{ color: "#61dafb" }}>
+        Click me
+      </Button>
+    </Html>
+  );
+};
+```
+
+<Support />
+
+<License />

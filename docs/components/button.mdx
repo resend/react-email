@@ -1,0 +1,56 @@
+---
+title: "@react-email/button"
+sidebarTitle: "Button"
+description: "A React button component to help build emails."
+---
+
+import Support from "../snippets/support.mdx";
+import License from "../snippets/license.mdx";
+
+<img className="rounded-md" src="/images/components/button.png" alt="button" />
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh yarn
+yarn add @react-email/button -E
+```
+
+```sh npm
+npm install @react-email/button -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button } from "@react-email/button";
+
+const Email = () => {
+  return (
+    <Button href="https://example.com" style={{ color: "#61dafb" }}>
+      Click me
+    </Button>
+  );
+};
+```
+
+## Props
+
+<ResponseField name="href" type="string" required>
+  Link to be triggered when the button is clicked
+</ResponseField>
+
+<ResponseField name="target" type="string" default="_blank">
+  Specify the target attribute for the button link
+</ResponseField>
+
+<Support />
+
+<License />
