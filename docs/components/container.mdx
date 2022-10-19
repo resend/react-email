@@ -1,0 +1,51 @@
+---
+title: "@react-email/container"
+sidebarTitle: "Container"
+description: "The main wrapper that hold your content."
+---
+
+import Support from "../snippets/support.mdx";
+import License from "../snippets/license.mdx";
+
+<img
+  className="rounded-md"
+  src="/images/components/container.png"
+  alt="container"
+/>
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh yarn
+yarn add @react-email/container -E
+```
+
+```sh npm
+npm install @react-email/container -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Button } from "@react-email/button";
+import { Container } from "@react-email/container";
+
+const Email = () => {
+  return (
+    <Container>
+      <Button href="https://example.com" style={{ color: "#61dafb" }}>
+        Click me
+      </Button>
+    </Container>
+  );
+};
+```
+
+<License />
