@@ -69,6 +69,15 @@ A set of standard components to help you build amazing emails without having to 
 - [Pre](https://github.com/zenorocha/react-email/tree/main/packages/pre)
 - [Preview](https://github.com/zenorocha/react-email/tree/main/packages/preview)
 
+## Integrations
+
+Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
+
+- [Nodemailer](https://github.com/zenorocha/react-email/tree/main/examples/nodemailer)
+- [SendGrid](https://github.com/zenorocha/react-email/tree/main/examples/sendgrid)
+- [Postmark](https://github.com/zenorocha/react-email/tree/main/examples/postmark)
+- [AWS SES](https://github.com/zenorocha/react-email/tree/main/examples/aws-ses)
+
 ## Support
 
 All components were tested using the most popular email clients.
