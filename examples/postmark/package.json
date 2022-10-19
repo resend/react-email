@@ -1,0 +1,13 @@
+{
+  "name": "react-email-with-postmark",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@react-email/button": "*",
+    "@react-email/html": "*",
+    "@react-email/render": "*",
+    "postmark": "^3.0.14",
+    "react": "^18.2.0"
+  }
+}

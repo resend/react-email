@@ -1,0 +1,13 @@
+{
+  "name": "react-email-with-nodemailer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@react-email/button": "*",
+    "@react-email/html": "*",
+    "@react-email/render": "*",
+    "aws-sdk": "^2.1236.0",
+    "react": "^18.2.0"
+  }
+}
