@@ -1,0 +1,11 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "mintlify dev"
+  },
+  "dependencies": {
+    "mintlify": "^1.1.3"
+  }
+}
