@@ -1,11 +1,10 @@
 ---
-title: "@react-email/code"
-sidebarTitle: "Code"
-description: "A block of code to be rendered in your email."
+title: '@react-email/code'
+sidebarTitle: 'Code'
+description: 'A block of code to be rendered in your email.'
 ---
 
-import Support from "../snippets/support.mdx";
-import License from "../snippets/license.mdx";
+import Support from '../snippets/support.mdx';
 
 <img className="rounded-md" src="/docs/images/components/code.png" alt="code" />
 
@@ -30,16 +29,14 @@ npm install @react-email/code -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Container } from "@react-email/container";
-import { Code } from "@react-email/code";
+import { Container } from '@react-email/container';
+import { Code } from '@react-email/code';
 
 const Email = () => {
   return (
     <Container>
-      <Code style={{ color: "#000" }}>const foo = 'bar';</Code>
+      <Code style={{ color: '#000' }}>const foo = 'bar';</Code>
     </Container>
   );
 };
 ```
-
-<License />
