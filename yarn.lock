@@ -1002,13 +1002,6 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@react-email/p@*":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@react-email/p/-/p-0.0.1.tgz#15d31aaaad874dde932c04161c36e57ef483c0eb"
-  integrity sha512-MVm7ZCsrQTk3PMZAeFstDjzIrL2znucxKQaID5zx2dwmJlIG9Svkx7OMGGVxjyZasFRCp70xIknD/+XKSjAzrg==
-  dependencies:
-    react "18.2.0"
-
 "@rushstack/eslint-patch@^1.1.3":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
