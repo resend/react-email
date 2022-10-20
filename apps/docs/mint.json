@@ -47,6 +47,7 @@
         "components/head",
         "components/avatar",
         "components/button",
+        "components/text",
         "components/link",
         "components/image",
         "components/divider",
@@ -54,8 +55,7 @@
         "components/container",
         "components/code",
         "components/pre",
-        "components/preview",
-        "components/text"
+        "components/preview"
       ]
     },
     {
