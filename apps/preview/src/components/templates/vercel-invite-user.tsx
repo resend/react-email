@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@react-email/avatar';
+import { Avatar, AvatarImage } from '@react-email/avatar';
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
@@ -82,8 +82,12 @@ export const VercelInviteUser: React.FC<
                         <tr>
                           <td style={center} align="left" valign="middle">
                             <Avatar>
-                              <AvatarImage src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png" />
-                              <AvatarFallback>zenorocha</AvatarFallback>
+                              <AvatarImage
+                                style={avatar}
+                                src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
+                                width="64"
+                                height="64"
+                              />
                             </Avatar>
                           </td>
                           <td style={center} align="left" valign="middle">
@@ -97,10 +101,11 @@ export const VercelInviteUser: React.FC<
                           <td style={center} align="left" valign="middle">
                             <Avatar>
                               <AvatarImage
-                                style={secondaryAvatar}
+                                style={avatar}
                                 src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
+                                width="64"
+                                height="64"
                               />
-                              <AvatarFallback>My Project</AvatarFallback>
                             </Avatar>
                           </td>
                         </tr>
@@ -188,6 +193,10 @@ const h1 = {
   padding: '0',
 };
 
+const avatar = {
+  borderRadius: '100%',
+};
+
 const link = {
   color: '#067df7',
   textDecoration: 'none',
@@ -207,11 +216,6 @@ const black = {
 
 const center = {
   verticalAlign: 'middle',
-};
-
-const secondaryAvatar = {
-  border: '1px solid #eaeaea',
-  boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.12)',
 };
 
 const btn = {
