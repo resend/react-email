@@ -24,7 +24,7 @@ yarn add @react-email/render aws-sdk
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx components/Email.jsx
+```jsx email.jsx
 import * as React from 'react';
 import { Html } from '@react-email/html';
 import { Button } from '@react-email/button';
@@ -44,10 +44,10 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the AWS SES SDK to send it.
 
-```js
+```js index.tsx
 import { render } from '@react-email/render';
 import AWS from 'aws-sdk';
-import Email from '../components/Email';
+import { Email } from './email';
 
 AWS.config.update({ region: process.env.AWS_SES_REGION });
 
