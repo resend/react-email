@@ -38,8 +38,11 @@
   ],
   "navigation": [
     {
-      "group": "Home",
-      "pages": ["introduction"]
+      "group": "Overview",
+      "pages": [
+        "introduction",
+        "roadmap"
+      ]
     },
     {
       "group": "Components",
