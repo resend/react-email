@@ -41,6 +41,7 @@
       "group": "Overview",
       "pages": [
         "introduction",
+        "changelog",
         "roadmap"
       ]
     },
