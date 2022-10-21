@@ -1,0 +1,42 @@
+---
+title: 'Render'
+sidebarTitle: 'Render'
+description: 'A method to convert React components into a HTML string.'
+---
+
+<img className="rounded-md" src="/images/components/render.png" alt="render" />
+
+## Install
+
+Install package from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/render -E
+```
+
+```sh yarn
+yarn add @react-email/render -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Import an existing React component and convert into a HTML string.
+
+```jsx
+import { MyTemplate } from '../components/MyTemplate';
+import { render } from '@react-email/render';
+
+const html = render(<MyTemplate firstName="Jim" />, {
+  pretty: true,
+});
+```
+
+## Options
+
+<ResponseField name="pretty" type="boolean">
+  Beautify HTML output
+</ResponseField>

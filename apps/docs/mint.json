@@ -60,6 +60,12 @@
       ]
     },
     {
+      "group": "Utilities",
+      "pages": [
+        "utilities/render"
+      ]
+    },
+    {
       "group": "Integrations",
       "pages": [
         "integrations/nodemailer",
