@@ -41,6 +41,7 @@
       "group": "Overview",
       "pages": [
         "introduction",
+        "getting-started",
         "contributing",
         "changelog",
         "roadmap"

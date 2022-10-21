@@ -6,7 +6,11 @@ description: 'Build and send emails using React. High-quality, unstyled componen
 
 import Support from './snippets/support.mdx';
 
-<img className="rounded-md" src="/docs/images/react-email.png" at="React Email" />
+<img
+  className="rounded-md"
+  src="/docs/images/react-email.png"
+  at="React Email"
+/>
 
 ## Introduction
 
@@ -17,38 +21,6 @@ It reduces the pain of coding responsive emails with dark mode support. It also 
 
 We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2022 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
 
-## Install
-
-Install one of the components from your command line.
-
-<CodeGroup>
-
-```sh npm
-npm install @react-email/button -E
-```
-
-```sh yarn
-yarn add @react-email/button -E
-```
-
-</CodeGroup>
-
-## Getting started
-
-Add the component to your email template. Include styles where needed.
-
-```jsx
-import { Button } from '@react-email/button';
-
-const Email = () => {
-  return (
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
-      Click me
-    </Button>
-  );
-};
-```
-
 ## Components
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
@@ -57,12 +29,12 @@ A set of standard components to help you build amazing emails without having to 
   <Card title="HTML" icon={regular('code')} href="/components/html">
     A React html component to wrap emails.
   </Card>
-  <Card title="Head" icon={regular('rectangle-code')} href="/components/head">
-    Contains head components, related to the document such as style and meta
-    elements.
-  </Card>
-  <Card title="Avatar" icon={regular('circle-user')} href="/components/avatar">
-    Displays a profile picture or a fallback to the user initials.
+  <Card
+    title="Container"
+    icon={regular('objects-column')}
+    href="/components/container"
+  >
+    The main wrapper that hold your content.
   </Card>
   <Card
     title="Button"
@@ -74,55 +46,28 @@ A set of standard components to help you build amazing emails without having to 
   <Card title="Text" icon={regular('font')} href="/components/text">
     A block of text separated by blank spaces.
   </Card>
-  <Card title="Link" icon={regular('link')} href="/components/link">
-    A hyperlink to web pages, files, email addresses, or anything else a URL can
-    address.
+</CardGroup>
+
+## Integrations
+
+In order to use React Email with any email service provider, you'll need to convert the components made with React into a HTML string. This is done using the [render](/utilities/render) utility.
+
+<CardGroup>
+  <Card title="Nodemailer" href="/integrations/nodemailer">
+    Send email using Nodemailer
   </Card>
-  <Card title="Image" icon={regular('image')} href="/components/image">
-    Display an image in your email.
+  <Card title="SendGrid" href="/integrations/sendgrid">
+    Send email using SendGrid
   </Card>
-  <Card title="Divider" icon={regular('horizontal-rule')} href="/components/hr">
-    Display a divider that separates content areas in your email.
+  <Card title="Postmark" href="/integrations/postmark">
+    Send email using Postmark
   </Card>
-  <Card
-    title="Container"
-    icon={regular('objects-column')}
-    href="/components/container"
-  >
-    The main wrapper that hold your content.
-  </Card>
-  <Card title="Code" icon={regular('rectangle-code')} href="/components/code">
-    A block of code to be rendered in your email.
-  </Card>
-  <Card title="Pre" icon={regular('code-simple')} href="/components/pre">
-    A block of preformatted text in your email
-  </Card>
-  <Card
-    title="Preview"
-    icon={regular('magnifying-glass')}
-    href="/components/preview"
-  >
-    A preview text that will be displayed in the inbox of the recipient.
+  <Card title="AWS SES" href="/integrations/aws-ses">
+    Send email using AWS SES
   </Card>
 </CardGroup>
 
 <Support />
-
-## Development
-
-#### Install dependencies
-
-```sh
-yarn install
-```
-
-#### Build and run packages
-
-```sh
-yarn dev
-```
-
-This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
 
 ## Authors
 
