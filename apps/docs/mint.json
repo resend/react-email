@@ -73,6 +73,7 @@
     {
       "group": "Integrations",
       "pages": [
+        "integrations/overview",
         "integrations/nodemailer",
         "integrations/sendgrid",
         "integrations/postmark",
