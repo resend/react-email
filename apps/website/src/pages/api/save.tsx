@@ -2,6 +2,8 @@ import { Klotty } from 'klotty';
 import { createClient } from '@supabase/supabase-js';
 import { NextApiRequest, NextApiResponse } from 'next';
 import is from '@sindresorhus/is';
+import { render } from '@react-email/render';
+import Email from '../../components/react-email-survey';
 
 const klotty = new Klotty(process.env.KLOTTY_API_KEY);
 const supabaseUrl = 'https://ahszndesjmltbfzmckge.supabase.co';
@@ -19,11 +21,13 @@ export default async function sendEmail(
       .from('react_email_contacts')
       .insert([{ email_address: data.email_address }]);
 
+    const html = render(<Email />);
+
     const send = klotty.sendEmail({
-      from: 'Zeno Rocha <zeno@react.email>',
+      from: 'zeno@react.email',
       to: data.email_address,
-      subject: `Coming soon: react.email`,
-      html: `Thanks for subscribing! I'll send you a note when we have something new to share.<br /><br />Cheers,<br />Zeno Rocha`,
+      subject: '⚛️ React Email - Move up the line',
+      html,
     });
 
     await Promise.all([save, send]);
