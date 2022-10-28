@@ -1,14 +1,14 @@
-![React Email Hr cover](https://react.email/static/images/readme/covers/hr.png)
+![React Email HTML cover](https://react.email/static/images/readme/covers/html.png)
 
-<div align="center"><strong>@react-email/column</strong></div>
-<div align="center">Display a column that separates content areas vertically in your email.</div>
+<div align="center"><strong>@react-email/body</strong></div>
+<div align="center">A React body component to wrap emails.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
 <span> · </span>
-<a href="https://github.com/zenorocha/react-email">GitHub</a> 
+<a href="https://react.email">Documentation</a> 
 <span> · </span>
-<a href="https://react.email/discord">Discord</a>
+<a href="https://react.email">Twitter</a>
 </div>
 
 ## Install
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/column -E
+yarn add @react-email/html -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/column -E
+npm install @react-email/html -E
 ```
 
 ## Getting started
@@ -32,11 +32,25 @@ npm install @react-email/column -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Column } from '@react-email/column';
+import { Html } from '@react-email/html';
+import { Body } from '@react-email/body';
+import { Section } from '@react-email/section';
+import { Column } from '@react-email/section';
 
 const Email = () => {
-  return(
-    <Column>{/* Any content. */}<Column/>
+  return (
+    <Html lang="en">
+      <Body style={{ backgroundColor: '#61dafb' }}>
+        <Section>
+          <Column style={{ width: '50%'}}>
+              {/* First column */}
+          </Column>
+          <Column style={{ width: '50%'}}>
+              {/* Second column */}
+          </Column>
+        </Section>
+      </Body>
+    </Html>
   );
 };
 ```

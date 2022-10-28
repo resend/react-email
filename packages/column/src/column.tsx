@@ -10,14 +10,22 @@ export interface ColumnProps extends RootProps {
 export const Column = React.forwardRef<DivElement, Readonly<ColumnProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     const styleDefault = {
-      display: 'table-cell',
-      width: '50%',
+      display: 'inline-block',
+      width: '100%',
+      fontSize:'0px',
+      verticalAlign: 'top',
       ...style
     } 
 
     return(
-      <div ref={forwardedRef} style={styleDefault} {...props}>
-        {children}
+      <div
+        ref={forwardedRef}
+        style={styleDefault}
+        role="presentation"
+        {...props}>
+          <tbody>
+            {children}
+          </tbody>
       </div>
     )
   },
