@@ -14,14 +14,14 @@ export const ReactEmailSurvey: React.FC<Readonly<ReactEmailSurveyProps>> = () =>
   return (
     <Html>
       <Head />
-      <Preview>⚛️ React Email - Move up the line</Preview>
+      <Preview>We have a massive backlog in front of us, so we would love your input to help us prioritize what's most important to you.</Preview>
       <Text style={body}>Hey, it's Zeno Rocha.</Text>
-      <Text style={body}>We've been hard at work building React Email for you.</Text>
+      <Text style={body}>Thanks for signing up. We're super excited about React Email!</Text>
       <Text style={body}><em>Quick question: Which email service do you use? SendGrid? Postmark?</em></Text>
       <Text style={body}>We have a massive backlog in front of us, so we would love your input to help us <b>prioritize what's most important to you</b>.</Text>
       <Text style={body}>By filling up this form, you will also move up the waiting list, so what are you waiting for?</Text>
       <Text style={body}><Link href={link}>{link}</Link></Text>
-      <Text style={body}>Happy hacking!</Text>
+      <Text style={body}>Thanks!</Text>
       <Hr />
       <Text style={footer}>You are receiving this email because you opted in at react.email</Text>
       <Text style={footer}>185 Royal Way - Upland, CA 91786</Text>
