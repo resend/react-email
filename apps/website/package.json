@@ -11,6 +11,12 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
+    "@react-email/head": "0.0.2",
+    "@react-email/hr": "0.0.2",
+    "@react-email/html": "0.0.2",
+    "@react-email/link": "0.0.2",
+    "@react-email/preview": "0.0.2",
+    "@react-email/text": "0.0.2",
     "@sindresorhus/is": "5.3.0",
     "@supabase/supabase-js": "1.35.6",
     "klotty": "0.7.1",
