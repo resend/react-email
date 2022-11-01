@@ -5,8 +5,20 @@ description: 'A React button component to help build emails.'
 'og:image': 'https://react.email/docs/images/components/button.png'
 ---
 
+import { Button } from '@react-email/button';
 import Support from '../snippets/support.mdx';
 
+<div
+  className="not-prose my-4 w-full flex items-center justify-center h-[300px] rounded-xl border border-slate-200 dark:border-slate-800"
+  style={{
+    background:
+      'linear-gradient(90deg,#161616 10px,transparent 0%) 31%,linear-gradient(#161616 10px,transparent 0%) 20%,#303749',
+    backgroundSize: '12px 12px',
+  }}
+>
+  <Button href="/">Link button</Button>
+</div>
+  
 <Info>
   Semantics: Quite often in the email world we talk about buttons, when actually
   we mean links. Behind the scenes this is a `<a>` tag, that is styled like a `<button>` tag.

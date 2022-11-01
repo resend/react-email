@@ -5,7 +5,22 @@ description: 'Displays a profile picture or a fallback to the user initials.'
 'og:image': 'https://react.email/docs/images/components/avatar.png'
 ---
 
+import { Avatar, AvatarImage, AvatarFallback } from '@react-email/avatar';
 import Support from '../snippets/support.mdx';
+
+<div
+  className="not-prose w-full flex items-center justify-center h-[300px] rounded-xl border border-slate-200 dark:border-slate-800"
+  style={{
+    background:
+      'linear-gradient(90deg,#161616 10px,transparent 0%) 31%,linear-gradient(#161616 10px,transparent 0%) 20%,#303749',
+    backgroundSize: '12px 12px',
+  }}
+>
+  <Avatar>
+    <AvatarImage src="cat.jpg" />
+    <AvatarFallback>My Cat</AvatarFallback>
+  </Avatar>
+</div>
 
 ## Install
 
