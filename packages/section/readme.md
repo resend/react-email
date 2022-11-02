@@ -1,4 +1,4 @@
-![React Email Hr cover](https://react.email/static/images/readme/covers/hr.png)
+![React Email Section cover](https://react.email/static/images/readme/covers/section.png)
 
 <div align="center"><strong>@react-email/column</strong></div>
 <div align="center">Display a column that separates content areas vertically in your email.</div>
