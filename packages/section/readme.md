@@ -31,7 +31,6 @@ npm install @react-email/column -E
 
 Add the component to your email template. Include styles where needed.
 
-//TODO: Update usage example
 ```jsx
 import { Section } from '@react-email/section';
 

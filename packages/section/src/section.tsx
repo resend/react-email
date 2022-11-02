@@ -1,20 +1,20 @@
 import * as React from 'react';
 
-type DivElement = React.ElementRef<'table'>;
+type SectionElement = React.ElementRef<'table'>;
 type RootProps = React.ComponentPropsWithoutRef<'table'>;
 
 export interface SectionProps extends RootProps {
   style?: React.CSSProperties;
 }
 
-export const Section = React.forwardRef<DivElement, Readonly<SectionProps>>(
+export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     const styleDefault = {
       width: '100%',
-      ...style
-    } 
+      ...style,
+    };
 
-    return(
+    return (
       <table
         ref={forwardedRef}
         style={styleDefault}
@@ -23,16 +23,15 @@ export const Section = React.forwardRef<DivElement, Readonly<SectionProps>>(
         cellPadding={0}
         cellSpacing={0}
         role="presentation"
-        {...props}>
-          <tbody>
-              <tr>
-                <td>
-                  {children}
-                </td>
-              </tr>
-          </tbody>
+        {...props}
+      >
+        <tbody>
+          <tr>
+            <td>{children}</td>
+          </tr>
+        </tbody>
       </table>
-    )
+    );
   },
 );
 
