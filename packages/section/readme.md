@@ -1,7 +1,7 @@
 ![React Email Section cover](https://react.email/static/images/readme/covers/section.png)
 
-<div align="center"><strong>@react-email/column</strong></div>
-<div align="center">Display a column that separates content areas vertically in your email.</div>
+<div align="center"><strong>@react-email/section</strong></div>
+<div align="center">Display a section that can be formatted using columns</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/column -E
+yarn add @react-email/section -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/column -E
+npm install @react-email/section -E
 ```
 
 ## Getting started
