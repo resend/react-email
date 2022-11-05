@@ -1,3 +1,4 @@
+export * from './button';
 export * from './code';
 export * from './heading';
 export * from './icon-button';
