@@ -32,7 +32,6 @@ class MyDocument extends Document {
             href="/static/images/favicon.svg"
             sizes="any"
           />
-
           <meta charSet="utf-8" />
           <meta property="og:type" content="website" />
           <meta
@@ -40,23 +39,8 @@ class MyDocument extends Document {
             property="og:image"
           />
           <meta content="summary_large_image" name="twitter:card" />
-
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}');
-          `,
-            }}
-          />
         </Head>
-        <body>
+        <body className="h-screen overflow-hidden px-4">
           <Main />
           <NextScript />
         </body>

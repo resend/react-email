@@ -2,10 +2,10 @@ import { render } from '@react-email/render';
 import Head from 'next/head';
 import * as React from 'react';
 import Layout from '../components/layout';
-import Email from '../components/templates/vercel-invite-user';
+import { WorkOS } from '../components/templates/workos';
 
 export default function Preview() {
-  const markup = render(<Email />, { pretty: true });
+  const markup = render(<WorkOS />, { pretty: true });
   return (
     <>
       <Head>
