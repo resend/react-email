@@ -46,7 +46,10 @@ export default function Home() {
       <Image className="absolute top-0" src={bg} alt="Picture of the author" />
       <div className="relative z-100">
         <header className="max-w-5xl mx-auto h-[80px] flex items-center justify-between">
-          <Logo size="3" />
+          <Link href="/" className="flex items-center gap-2">
+            <Logo size="3" />
+            <Text size="4">react.email</Text>
+          </Link>
           <ul className="flex items-center gap-4">
             <li className="hover:opacity-80 transition ease-in-out duration-200">
               <Link href="https://github.com/zenorocha/react-email">
