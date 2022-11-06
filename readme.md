@@ -68,6 +68,7 @@ A set of standard components to help you build amazing emails without having to 
 - [Code](https://github.com/zenorocha/react-email/tree/main/packages/code)
 - [Pre](https://github.com/zenorocha/react-email/tree/main/packages/pre)
 - [Preview](https://github.com/zenorocha/react-email/tree/main/packages/preview)
+- [Column](https://github.com/zenorocha/react-email/tree/main/packages/column)
 - [Section](https://github.com/zenorocha/react-email/tree/main/packages/section)
 
 ## Integrations
