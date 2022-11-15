@@ -2,12 +2,13 @@ import * as React from 'react';
 import launchIcon from '../../helpers/launch-icon.json';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 
-export default function External() {
+export default function External({ path }: { path: string }) {
   const launchIconRef = React.useRef<LottieRefCurrentProps>(null);
 
   return (
     <a
-      href="/api/preview"
+      href={`/api/${path}`}
+      rel="noreferrer"
       target="_blank"
       className="text-current transition duration-300 ease-in-out hover:opacity-60"
       onMouseEnter={() => {

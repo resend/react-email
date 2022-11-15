@@ -8,9 +8,7 @@ import { Link } from '@react-email/link';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-interface StripeWelcomeProps {}
-
-export const StripeWelcome: React.FC<Readonly<StripeWelcomeProps>> = () => {
+export default function Email() {
   return (
     <Html>
       <Head />
@@ -159,5 +157,3 @@ const footer = {
   fontSize: '12px',
   lineHeight: '16px',
 };
-
-export default StripeWelcome;

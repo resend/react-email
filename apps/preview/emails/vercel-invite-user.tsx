@@ -11,11 +11,7 @@ import { Text } from '@react-email/text';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
-interface VercelInviteUserProps {}
-
-export const VercelInviteUser: React.FC<
-  Readonly<VercelInviteUserProps>
-> = () => {
+export default function Email() {
   return (
     <Html>
       <Head />
@@ -250,5 +246,3 @@ const footer = {
   fontSize: '12px',
   lineHeight: '24px',
 };
-
-export default VercelInviteUser;

@@ -9,9 +9,7 @@ import { Text } from '@react-email/text';
 import { Preview } from '@react-email/preview';
 import * as React from 'react';
 
-interface NotionMagicLinkProps {}
-
-export const NotionMagicLink: React.FC<Readonly<NotionMagicLinkProps>> = () => {
+export default function Email() {
   return (
     <Html>
       <Head />
@@ -198,5 +196,3 @@ const code = {
   border: '1px solid #eee',
   color: '#333',
 };
-
-export default NotionMagicLink;

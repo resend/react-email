@@ -9,7 +9,7 @@ import SendTest from '../components/topbar/send-test';
 import ToggleView from '../components/topbar/toggle-view';
 import { Code } from 'design-system';
 
-export default function Layout({ markup }: { markup: string }) {
+export default function Layout({ markup, path }: { markup: string, path: string }) {
   const [isPreview, setIsPreview] = React.useState(true);
 
   return (
@@ -27,7 +27,7 @@ export default function Layout({ markup }: { markup: string }) {
             <div className="flex items-center border-l ml-2 pl-4 border-gray-8">
               <div className="flex gap-2 items-center justify-center">
                 <Feedback />
-                <External />
+                <External path={path} />
               </div>
             </div>
           </div>
