@@ -3,8 +3,9 @@ import { render } from '@react-email/render';
 export default async function email(req, res) {
   try {
     const { path, json } = req.query;
+    const resolvedPath = path.length > 0 ? path.join('/') : path;
     
-    const Email = (await import(`../../../emails/${path}`)).default;
+    const Email = (await import(`../../../emails/${resolvedPath}`)).default;
     const markup = render(<Email />, { pretty: true });
     
     if (json) {

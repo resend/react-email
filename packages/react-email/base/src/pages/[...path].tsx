@@ -4,9 +4,10 @@ import React from 'react';
 
 export async function getServerSideProps({ params }: { params: any }) {
   const { path } = params;
+  const resolvedPath = path.length > 0 ? path.join('/') : path;
 
   try {
-    const req = await fetch(`http://localhost:3001/api/${path}?json=true`)
+    const req = await fetch(`http://localhost:3001/api/${resolvedPath}?json=true`)
     const { markup } = await req.json()
 
     return {
