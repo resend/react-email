@@ -160,7 +160,7 @@ export default function Email() {
       </table>
     </Html>
   );
-};
+}
 
 const box = {
   width: '100% !important',

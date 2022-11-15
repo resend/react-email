@@ -134,7 +134,7 @@ export default function Email() {
       </body>
     </Html>
   );
-};
+}
 
 const body = {
   padding: 0,

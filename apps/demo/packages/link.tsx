@@ -10,4 +10,4 @@ export default function Email() {
       <Link href="https://example.com">Example</Link>
     </Html>
   );
-};
+}

@@ -17,4 +17,4 @@ export default function Email() {
       </Button>
     </Html>
   );
-};
+}

@@ -10,4 +10,4 @@ export default function Email() {
       <Code style={{ maxWidth: '300px' }}>const foo = 'bar';</Code>
     </Html>
   );
-};
+}

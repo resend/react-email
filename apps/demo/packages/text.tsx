@@ -10,4 +10,4 @@ export default function Email() {
       <Text>Lorem ipsum</Text>
     </Html>
   );
-};
+}

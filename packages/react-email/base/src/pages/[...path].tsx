@@ -7,21 +7,28 @@ export async function getServerSideProps({ params }: { params: any }) {
   const resolvedPath = path.length > 0 ? path.join('/') : path;
 
   try {
-    const req = await fetch(`http://localhost:3001/api/${resolvedPath}?json=true`)
-    const { markup } = await req.json()
+    const req = await fetch(
+      `http://localhost:3001/api/${resolvedPath}?json=true`,
+    );
+    const { markup } = await req.json();
 
     return {
-      props: { markup, path }
-    }
-  }
-  catch(e) {
+      props: { markup, path },
+    };
+  } catch (e) {
     return {
-      props: {}
-    }
+      props: {},
+    };
   }
 }
 
-export default function Preview({ markup, path }: { markup: string, path: string }) {
+export default function Preview({
+  markup,
+  path,
+}: {
+  markup: string;
+  path: string;
+}) {
   return (
     <>
       <Head>

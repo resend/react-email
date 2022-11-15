@@ -13,4 +13,4 @@ export default function Email() {
       </Ol>
     </Html>
   );
-};
+}

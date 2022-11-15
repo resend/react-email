@@ -15,4 +15,4 @@ export default function Email() {
       <Heading as="h6">Heading 6</Heading>
     </Html>
   );
-};
+}

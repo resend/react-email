@@ -12,4 +12,4 @@ export default function Email() {
 }`}</Pre>
     </Html>
   );
-};
+}

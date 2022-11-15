@@ -9,7 +9,13 @@ import SendTest from '../components/topbar/send-test';
 import ToggleView from '../components/topbar/toggle-view';
 import { Code } from 'design-system';
 
-export default function Layout({ markup, path }: { markup: string, path: string }) {
+export default function Layout({
+  markup,
+  path,
+}: {
+  markup: string;
+  path: string;
+}) {
   const [isPreview, setIsPreview] = React.useState(true);
 
   return (

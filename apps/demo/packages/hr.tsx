@@ -10,4 +10,4 @@ export default function Email() {
       <Hr />
     </Html>
   );
-};
+}

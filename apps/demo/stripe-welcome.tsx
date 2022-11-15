@@ -101,7 +101,7 @@ export default function Email() {
       </table>
     </Html>
   );
-};
+}
 
 const main = {
   backgroundColor: '#f6f9fc',
