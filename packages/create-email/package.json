@@ -2,6 +2,13 @@
   "name": "create-email",
   "version": "0.0.2",
   "description": "The easiest way to get started with React Email",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^9.4.1",
+    "fs-extra": "^10.1.0"
+  },
+  "bin": {
+    "create-email": "src/index.js"
+  }
 }
