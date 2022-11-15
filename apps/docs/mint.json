@@ -41,10 +41,16 @@
       "group": "Overview",
       "pages": [
         "introduction",
-        "getting-started",
         "contributing",
         "changelog",
         "roadmap"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/automatic-setup",
+        "getting-started/manual-setup"
       ]
     },
     {

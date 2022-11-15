@@ -1,0 +1,99 @@
+---
+title: 'Manual Setup'
+sidebarTitle: 'Manual Setup'
+description: 'Create a brand-new folder with packages powered by React Email.'
+'og:image': 'https://react.email/docs/images/react-email.png'
+---
+
+import NextSteps from '../snippets/next-steps.mdx';
+
+## 1. Create directory
+
+Create a new folder called `emails` and initiliaze a new npm project:
+
+```sh
+mkdir emails
+cd emails
+npm init
+```
+
+## 2. Install dependencies
+
+Install the React Email package locally.
+
+<CodeGroup>
+
+```sh npm
+npm install react-email -E
+```
+
+```sh yarn
+yarn add react-email -E
+```
+
+</CodeGroup>
+
+## 3. Add scripts
+
+Include the following script in your `package.json` file.
+
+```json package.json
+{
+  "scripts": {
+    "dev": "email dev"
+  }
+}
+```
+
+## 4. Include email template
+
+Create a new file called `index.tsx` and add the following code:
+
+```jsx index.tsx
+import { Button } from '@react-email/button';
+import { Html } from '@react-email/html';
+import { Head } from '@react-email/head';
+import * as React from 'react';
+
+export default function Email() {
+  return (
+    <Html>
+      <Head />
+      <Button
+        pX={20}
+        pY={12}
+        href="https://example.com"
+        style={{ background: '#000', color: '#fff' }}
+      >
+        Click me
+      </Button>
+    </Html>
+  );
+}
+```
+
+## 5. Run locally
+
+Start the development server.
+
+<CodeGroup>
+
+```sh npm
+npm run dev
+```
+
+```sh yarn
+yarn dev
+```
+
+</CodeGroup>
+
+## 6. See changes live
+
+Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to see the changes.
+
+![Local Development](/docs/images/local-dev.png)
+
+## 7. Next steps
+
+<NextSteps />
