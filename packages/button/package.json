@@ -1,6 +1,6 @@
 {
   "name": "@react-email/button",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A React button component to help build emails",
   "sideEffects": false,
   "main": "./dist/index.js",
