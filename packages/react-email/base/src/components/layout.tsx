@@ -1,13 +1,10 @@
-import { render } from '@react-email/render';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import * as React from 'react';
 import Logo from '../components/topbar/logo';
 import External from '../components/topbar/external';
 import Feedback from '../components/topbar/feedback';
 import SendTest from '../components/topbar/send-test';
 import ToggleView from '../components/topbar/toggle-view';
-import { Code } from 'design-system';
+import { Code } from '../components/code';
 
 export default function Layout({
   markup,

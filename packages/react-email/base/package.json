@@ -28,7 +28,6 @@
     "@react-email/render": "*",
     "@react-email/text": "*",
     "@react-email/ul": "*",
-    "design-system": "*",
     "lottie-react": "2.3.1",
     "next": "12.2.3",
     "react": "18.2.0",
