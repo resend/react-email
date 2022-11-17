@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A live preview of your emails right in your browser.",
   "main": "src/index.js",
   "license": "MIT",
