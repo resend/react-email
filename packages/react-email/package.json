@@ -6,9 +6,10 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^9.4.1",
-    "fs-extra": "^10.1.0",
+    "copy": "^0.3.2",
     "inquirer": "^9.1.4",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "shelljs": "^0.8.5"
   },
   "bin": {
     "email": "src/index.js"
