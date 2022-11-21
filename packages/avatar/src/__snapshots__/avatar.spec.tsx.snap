@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`render renders the <Avatar> component with a <AvatarFallback> component 1`] = `"<!DOCTYPE htmlPUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><span><span>Zeno Rocha</span></span>"`;
-
-exports[`render renders the <Avatar> component with a <AvatarImage> component 1`] = `"<!DOCTYPE htmlPUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><span><img src=\\"https://github.com/zenorocha.png\\"/><span>Zeno Rocha</span></span>"`;
