@@ -58,7 +58,6 @@
       "pages": [
         "components/html",
         "components/head",
-        "components/avatar",
         "components/button",
         "components/text",
         "components/link",
