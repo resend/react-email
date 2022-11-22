@@ -1,4 +1,4 @@
-![React Email cover](https://react.email/static/images/readme/covers/react-email.png)
+![React Email cover](https://assets.react.email/github/react-email.png)
 
 <div align="center"><strong>React Email</strong></div>
 <div align="center">Build and send emails using React.<br />High-quality, unstyled components for creating emails.</div>
