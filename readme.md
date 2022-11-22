@@ -1,7 +1,5 @@
-![React Email Cover](https://assets.react.email/github/react-email.png)
-
 <div align="center"><strong>React Email</strong></div>
-<div align="center">Build and send emails using React.<br />High-quality, unstyled components for creating emails.</div>
+<div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
