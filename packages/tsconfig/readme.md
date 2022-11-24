@@ -1,4 +1,4 @@
-![React Email tsconfig cover](https://react.email/static/images/readme/covers/tsconfig.png)
+![React Email tsconfig cover](https://assets.react.email/covers/tsconfig.png)
 
 <div align="center"><strong>react-email/tsconfig</strong></div>
 <div align="center">An internal custom Typescript configuration to all our components.</div>
