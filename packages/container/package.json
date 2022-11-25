@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "lint": "eslint",
     "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
