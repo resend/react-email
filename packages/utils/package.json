@@ -13,7 +13,7 @@
     "build": "tsc",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc -w",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "lint": "eslint",
     "test": "jest --passWithNoTests"
   },
   "devDependencies": {
