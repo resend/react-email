@@ -1,0 +1,8 @@
+preview/.next
+preview/vscode
+preview/node_modules
+source
+.prettierrc.js
+readme.md
+preview/.vscode
+preview/yarn.lock
