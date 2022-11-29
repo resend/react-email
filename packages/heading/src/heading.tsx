@@ -11,7 +11,7 @@ export const Heading = React.forwardRef<
   HTMLHeadingElement,
   Readonly<HeadingProps>
 >(({ as: Tag = 'h1', children, style, ...props }, forwardedRef) => {
-  const styles = { ...style, ...getDefaultStyles(Tag) };
+  const styles = { ...getDefaultStyles(Tag), ...style };
   return (
     <Slot ref={forwardedRef} style={styles} {...props}>
       <Tag>{children}</Tag>
