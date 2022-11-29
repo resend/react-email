@@ -1,6 +1,6 @@
 {
   "name": "create-react-email-test",
-  "version": "0.0.28",
+  "version": "0.0.31",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -20,7 +20,6 @@
   "license": "MIT",
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
-    "chalk": "4.1.2",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "cpy": "8.1.2",
@@ -33,6 +32,7 @@
   "devDependencies": {
     "@types/node": "18.11.9",
     "@types/shelljs": "0.8.11",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "ts-node": "10.9.1"
   }
 }

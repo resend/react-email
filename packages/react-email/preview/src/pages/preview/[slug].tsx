@@ -57,7 +57,11 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
       setViewMode={setViewMode}
     >
       {viewMode === 'desktop' ? (
-        <iframe srcDoc={markup} width="600" height="800" frameBorder="0" />
+        <iframe
+          srcDoc={markup}
+          frameBorder="0"
+          className="w-full h-[calc(100vh_-_70px)]"
+        />
       ) : (
         <Code>{markup}</Code>
       )}

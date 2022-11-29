@@ -24,7 +24,7 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
           <Sidebar navItems={navItems} />
           <main className="w-full bg-slate-2">
             {title && <Topbar title={title} />}
-            <div className="pt-16 relative h-[calc(100vh_-_70px)] overflow-auto">
+            <div className="relative h-[calc(100vh_-_70px)] overflow-auto">
               {setViewMode && (
                 <ToggleGroup.Root
                   className="items-center bg-slate-2 p-1.5 flex gap-1 border border-slate-6 rounded-md absolute top-4 right-4"
@@ -64,7 +64,7 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
                   </ToggleGroup.Item>
                 </ToggleGroup.Root>
               )}
-              <div className="max-w-[600px] mx-auto">{children}</div>
+              <div className="mx-auto">{children}</div>
             </div>
           </main>
         </div>

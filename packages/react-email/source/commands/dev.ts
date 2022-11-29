@@ -1,9 +1,7 @@
-// import chalk from 'chalk';
 import { checkDirectoryExist } from '../utils/check-directory-exist';
 import { components } from '../_preview/components';
 import { createDirectory } from '../utils/create-directory';
 import { pages } from '../_preview/pages';
-import { previewPkg } from '../_preview/package';
 import {
   CLIENT_EMAILS_PATH,
   PACKAGE_EMAILS_PATH,
@@ -61,7 +59,7 @@ const checkForUpdates = async () => {
     path.join(REACT_EMAIL_ROOT, 'package.json'),
     { encoding: 'utf8' },
   );
-  const isUpToDate = JSON.parse(reactEmailPkg).version === previewPkg.version;
+  const isUpToDate = JSON.parse(reactEmailPkg).version === getPreviewPkg().version;
 
   if (isUpToDate) {
     return spinner.stopAndPersist({
@@ -145,6 +143,7 @@ const createFilesAndDirectories = async (
 };
 
 const syncPkg = async () => {
+  const previewPkg = getPreviewPkg()
   const clientPkg = await readPackage();
   const pkg = {
     ...previewPkg,
@@ -158,3 +157,9 @@ const syncPkg = async () => {
     JSON.stringify(pkg),
   );
 };
+
+
+const getPreviewPkg = () => {
+  const [previewPkg] = root.filter(pkg => pkg.title === 'package.json')
+  return JSON.parse(previewPkg?.content || '')
+}
