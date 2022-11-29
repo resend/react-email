@@ -1,0 +1,6 @@
+export const styles = [
+  {
+    title: 'globals.css',
+    content: '@tailwind base;\n@tailwind components;\n@tailwind utilities;\n',
+  },
+];

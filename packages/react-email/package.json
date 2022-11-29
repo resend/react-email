@@ -1,14 +1,10 @@
 {
-  "name": "react-email",
-  "version": "1.0.6",
+  "name": "create-react-email-test",
+  "version": "0.0.28",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
   },
-  "exports": [
-    "./dist/index.js",
-    "./preview"
-  ],
   "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=14.16"
@@ -24,10 +20,14 @@
   "license": "MIT",
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
+    "chalk": "4.1.2",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "cpy": "8.1.2",
     "glob": "8.0.3",
+    "log-symbols": "4.1.0",
+    "ora": "5.4.1",
+    "read-pkg": "5.2.0",
     "shelljs": "0.8.5"
   },
   "devDependencies": {
