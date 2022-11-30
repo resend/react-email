@@ -33,7 +33,11 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
 
         <nav className="flex flex-col gap-4">
           <Collapsible.Root defaultOpen>
-            <Collapsible.Trigger className="flex items-center gap-1 w-full">
+            <Collapsible.Trigger
+              className={classnames('flex items-center gap-1', {
+                'cursor-default': navItems.length === 0,
+              })}
+            >
               <svg
                 className="text-slate-11"
                 width="24"
@@ -62,71 +66,75 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 <Heading as="h3" color="white" size="2" weight="medium">
                   All emails
                 </Heading>
-                <svg
-                  className="text-slate-11"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 15L8.5359 9.75L15.4641 9.75L12 15Z"
-                    fill="currentColor"
-                  />
-                </svg>
+                {navItems.length > 0 && (
+                  <svg
+                    className="text-slate-11"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 15L8.5359 9.75L15.4641 9.75L12 15Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                )}
               </div>
             </Collapsible.Trigger>
 
-            <Collapsible.Content className="relative mt-3">
-              <div className="absolute left-2.5  w-px h-full bg-slate-6" />
+            {navItems.length > 0 && (
+              <Collapsible.Content className="relative mt-3">
+                <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
-              <div className="py-2 flex flex-col gap-1.5">
-                {navItems &&
-                  navItems.map((item) => (
-                    <Link key={item} href={`/preview/${item}`}>
-                      <span
-                        className={classnames(
-                          'text-[14px] flex items-center font-medium gap-2 h-8 w-full pl-4 pr-2 rounded-md text-slate-11',
-                          {
-                            'bg-cyan-3 text-cyan-11': query.slug === item,
-                            'hover:text-slate-12': query.slug !== item,
-                          },
-                        )}
-                      >
-                        {query.slug === item && (
-                          <div className="h-5 bg-cyan-11 w-px absolute left-2.5" />
-                        )}
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+                <div className="py-2 flex flex-col gap-1.5">
+                  {navItems &&
+                    navItems.map((item) => (
+                      <Link key={item} href={`/preview/${item}`}>
+                        <span
+                          className={classnames(
+                            'text-[14px] flex items-center font-medium gap-2 h-8 w-full pl-4 pr-2 rounded-md text-slate-11',
+                            {
+                              'bg-cyan-3 text-cyan-11': query.slug === item,
+                              'hover:text-slate-12': query.slug !== item,
+                            },
+                          )}
                         >
-                          <path
-                            d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
-                            stroke="currentColor"
-                            strokeOpacity="0.927"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M18 9.25H13.75V5"
-                            stroke="currentColor"
-                            strokeOpacity="0.927"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        {item}
-                      </span>
-                    </Link>
-                  ))}
-              </div>
-            </Collapsible.Content>
+                          {query.slug === item && (
+                            <div className="h-5 bg-cyan-11 w-px absolute left-2.5" />
+                          )}
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+                              stroke="currentColor"
+                              strokeOpacity="0.927"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M18 9.25H13.75V5"
+                              stroke="currentColor"
+                              strokeOpacity="0.927"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          {item}
+                        </span>
+                      </Link>
+                    ))}
+                </div>
+              </Collapsible.Content>
+            )}
           </Collapsible.Root>
         </nav>
       </aside>

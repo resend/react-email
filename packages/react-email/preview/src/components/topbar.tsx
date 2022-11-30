@@ -36,7 +36,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
             <path
               d="M10.75 8.75L14.25 12L10.75 15.25"
               stroke="currentColor"
-              stroke-opacity="0.615"
+              strokeOpacity="0.615"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"

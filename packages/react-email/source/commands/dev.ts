@@ -59,7 +59,8 @@ const checkForUpdates = async () => {
     path.join(REACT_EMAIL_ROOT, 'package.json'),
     { encoding: 'utf8' },
   );
-  const isUpToDate = JSON.parse(reactEmailPkg).version === getPreviewPkg().version;
+  const isUpToDate =
+    JSON.parse(reactEmailPkg).version === getPreviewPkg().version;
 
   if (isUpToDate) {
     return spinner.stopAndPersist({
@@ -143,7 +144,7 @@ const createFilesAndDirectories = async (
 };
 
 const syncPkg = async () => {
-  const previewPkg = getPreviewPkg()
+  const previewPkg = getPreviewPkg();
   const clientPkg = await readPackage();
   const pkg = {
     ...previewPkg,
@@ -158,8 +159,7 @@ const syncPkg = async () => {
   );
 };
 
-
 const getPreviewPkg = () => {
-  const [previewPkg] = root.filter(pkg => pkg.title === 'package.json')
-  return JSON.parse(previewPkg?.content || '')
-}
+  const [previewPkg] = root.filter((pkg) => pkg.title === 'package.json');
+  return JSON.parse(previewPkg?.content || '');
+};
