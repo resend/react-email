@@ -15,8 +15,8 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "lint": "eslint",
     "clean": "rm -rf dist",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@types/react": "18.0.20",
