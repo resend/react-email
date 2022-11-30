@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 
 const preparePreview = async () => {
+  await fs.promises.mkdir(path.join('source', '_preview'));
+
   Promise.all([
     prepareRoot(),
     prepareComponents(),
