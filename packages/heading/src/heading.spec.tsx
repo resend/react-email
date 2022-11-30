@@ -8,7 +8,11 @@ describe('render', () => {
   });
 
   it('renders the <Heading> component', () => {
-    const actualOutput = render(<Heading as="h2">Lorem ipsum</Heading>);
+    const actualOutput = render(
+      <Heading mx="4" as="h2">
+        Lorem ipsum
+      </Heading>,
+    );
     expect(actualOutput).toMatchSnapshot();
   });
 });
