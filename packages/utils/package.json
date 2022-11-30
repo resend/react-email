@@ -15,8 +15,8 @@
     "dev": "tsc -w",
     "lint": "eslint",
     "test": "jest --passWithNoTests",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "8.21.0",

@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
     "@radix-ui/react-popover": "1.0.0",

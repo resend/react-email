@@ -17,8 +17,8 @@
     "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
     "pretty": "2.0.0",
