@@ -48,7 +48,6 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   markup,
   slug,
 }: any) => {
-  console.log({ slug: typeof slug });
   const [viewMode, setViewMode] = React.useState('desktop');
 
   return (
