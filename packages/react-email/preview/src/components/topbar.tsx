@@ -2,16 +2,19 @@ import * as React from 'react';
 import classnames from 'classnames';
 import { Heading } from './heading';
 import { Text } from './text';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;
 
 interface TopbarProps extends RootProps {
   title: string;
+  viewMode?: string;
+  setViewMode?: (viewMode: string) => void;
 }
 
 export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
-  ({ className, title, ...props }, forwardedRef) => {
+  ({ className, title, viewMode, setViewMode, ...props }, forwardedRef) => {
     return (
       <header
         ref={forwardedRef}
@@ -47,6 +50,45 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
             {title}
           </Heading>
         </div>
+
+        {setViewMode && (
+          <ToggleGroup.Root
+            className="items-center bg-slate-2 p-1.5 flex gap-1 border border-slate-6 rounded-md absolute top-4 right-4"
+            type="single"
+            value={viewMode}
+            aria-label="View mode"
+            onValueChange={(value) => {
+              if (!value) {
+                return setViewMode('desktop');
+              }
+              setViewMode(value);
+            }}
+          >
+            <ToggleGroup.Item
+              className={classnames(
+                'text-sm text-slate-11 rounded px-1.5 py-0.5',
+                {
+                  'text-slate-12 bg-slate-3 font-medium':
+                    viewMode === 'desktop',
+                },
+              )}
+              value="desktop"
+            >
+              Desktop
+            </ToggleGroup.Item>
+            <ToggleGroup.Item
+              className={classnames(
+                'text-sm text-slate-11 rounded px-1.5 py-0.5',
+                {
+                  'text-slate-12 bg-slate-3 font-medium': viewMode === 'source',
+                },
+              )}
+              value="source"
+            >
+              Source
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
+        )}
       </header>
     );
   },

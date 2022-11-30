@@ -63,7 +63,9 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
           className="w-full h-[calc(100vh_-_70px)]"
         />
       ) : (
-        <Code>{markup}</Code>
+        <div className="max-w-[600px] mx-auto py-10">
+          <Code>{markup}</Code>
+        </div>
       )}
     </Layout>
   );

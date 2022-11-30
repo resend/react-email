@@ -27,10 +27,6 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
           <Logo />
         </div>
 
-        <Heading as="h2" color="gray" size="1" weight="medium">
-          Email
-        </Heading>
-
         <nav className="flex flex-col gap-4">
           <Collapsible.Root defaultOpen>
             <Collapsible.Trigger
