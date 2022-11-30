@@ -49,6 +49,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   slug,
 }: any) => {
   const [viewMode, setViewMode] = React.useState('desktop');
+  const title = `${slug} — React Email`;
 
   return (
     <Layout
@@ -58,7 +59,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
       setViewMode={setViewMode}
     >
       <Head>
-        <title>{slug} — React Email</title>
+        <title>{title}</title>
       </Head>
       {viewMode === 'desktop' ? (
         <iframe

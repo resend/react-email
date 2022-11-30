@@ -1,6 +1,6 @@
 {
   "name": "create-react-email-test",
-  "version": "0.0.32",
+  "version": "0.0.35",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
