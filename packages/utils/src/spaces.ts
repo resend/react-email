@@ -1,33 +1,11 @@
-const marginVals = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '-1',
-  '-2',
-  '-3',
-  '-4',
-  '-5',
-  '-6',
-  '-7',
-  '-8',
-  '-9',
-] as const;
-
 export interface Margin {
-  m?: typeof marginVals[number];
-  mx?: typeof marginVals[number];
-  my?: typeof marginVals[number];
-  mt?: typeof marginVals[number];
-  mr?: typeof marginVals[number];
-  mb?: typeof marginVals[number];
-  ml?: typeof marginVals[number];
+  m?: string;
+  mx?: string;
+  my?: string;
+  mt?: string;
+  mr?: string;
+  mb?: string;
+  ml?: string;
 }
 
 export const withMargin = (props: Margin) =>
