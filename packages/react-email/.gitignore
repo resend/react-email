@@ -2,3 +2,4 @@ node_modules
 dist
 preview/.next
 preview/yarn.lock
+source/_preview
