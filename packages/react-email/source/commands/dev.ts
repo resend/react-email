@@ -31,7 +31,7 @@ export const dev = async () => {
 };
 
 const prepareFiles = async () => {
-  const spinner = ora('Prepering React Email files...').start();
+  const spinner = ora('Preparing React email files...').start();
   const isFirstTime = !checkDirectoryExist(REACT_EMAIL_ROOT);
 
   if (isFirstTime) {
@@ -85,7 +85,7 @@ const updatePackage = async () => {
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'React Email is updated',
+    text: 'React email is updated',
   });
 };
 
