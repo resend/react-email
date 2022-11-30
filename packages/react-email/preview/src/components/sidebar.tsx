@@ -20,7 +20,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
     return (
       <aside
         ref={forwardedRef}
-        className="px-6 w-[275px] flex flex-col gap-4 border-r border-slate-6"
+        className="px-6 min-w-[275px] max-w-[275px] flex flex-col gap-4 border-r border-slate-6"
         {...props}
       >
         <div className="h-[70px] flex items-center">
@@ -31,7 +31,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
           <Collapsible.Root defaultOpen>
             <Collapsible.Trigger
               className={classnames('flex items-center gap-1', {
-                'cursor-default': navItems.length === 0,
+                'cursor-default': navItems && navItems.length === 0,
               })}
             >
               <svg
@@ -62,7 +62,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 <Heading as="h3" color="white" size="2" weight="medium">
                   All emails
                 </Heading>
-                {navItems.length > 0 && (
+                {navItems && navItems.length > 0 && (
                   <svg
                     className="text-slate-11"
                     width="24"
@@ -80,11 +80,11 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               </div>
             </Collapsible.Trigger>
 
-            {navItems.length > 0 && (
+            {navItems && navItems.length > 0 && (
               <Collapsible.Content className="relative mt-3">
                 <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
-                <div className="py-2 flex flex-col gap-1.5">
+                <div className="py-2 flex flex-col gap-1.5 truncate">
                   {navItems &&
                     navItems.map((item) => (
                       <Link key={item} href={`/preview/${item}`}>

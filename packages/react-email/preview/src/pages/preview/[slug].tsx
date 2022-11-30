@@ -5,6 +5,7 @@ import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
 import * as React from 'react';
 import { Code } from '../../components';
+import Head from 'next/head';
 
 interface PreviewProps {}
 
@@ -47,6 +48,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   markup,
   slug,
 }: any) => {
+  console.log({ slug: typeof slug });
   const [viewMode, setViewMode] = React.useState('desktop');
 
   return (
@@ -56,6 +58,9 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
       viewMode={viewMode}
       setViewMode={setViewMode}
     >
+      <Head>
+        <title>{slug} — React Email</title>
+      </Head>
       {viewMode === 'desktop' ? (
         <iframe
           srcDoc={markup}
@@ -63,7 +68,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
           className="w-full h-[calc(100vh_-_70px)]"
         />
       ) : (
-        <div className="max-w-[600px] mx-auto py-10">
+        <div className="max-w-[864px] mx-auto py-10">
           <Code>{markup}</Code>
         </div>
       )}
