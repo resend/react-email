@@ -1,1 +1,4 @@
-base/emails
+node_modules
+dist
+preview/.next
+preview/yarn.lock

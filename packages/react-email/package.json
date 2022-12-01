@@ -1,17 +1,38 @@
 {
   "name": "react-email",
-  "version": "1.0.6",
+  "version": "1.0.7-canary.0",
   "description": "A live preview of your emails right in your browser.",
-  "main": "src/index.js",
+  "bin": {
+    "email": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=14.16"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
+    "lint": "eslint",
+    "clean": "rm -rf dist"
+  },
   "license": "MIT",
   "dependencies": {
-    "commander": "^9.4.1",
-    "copy": "^0.3.2",
-    "inquirer": "^9.1.4",
-    "prompts": "^2.4.2",
-    "shelljs": "^0.8.5"
+    "@commander-js/extra-typings": "9.4.1",
+    "chokidar": "3.5.3",
+    "commander": "9.4.1",
+    "cpy": "8.1.2",
+    "glob": "8.0.3",
+    "log-symbols": "4.1.0",
+    "ora": "5.4.1",
+    "read-pkg": "5.2.0",
+    "shelljs": "0.8.5"
   },
-  "bin": {
-    "email": "src/index.js"
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/shelljs": "0.8.11",
+    "prettier": "2.7.1",
+    "ts-node": "10.9.1"
   }
 }
