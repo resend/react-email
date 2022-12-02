@@ -8,12 +8,10 @@ const packageJson = require('../package.json');
 const init = (name) => {
   let projectPath = name;
 
-  
   if (!projectPath) {
-    projectPath = path.join(process.cwd(), 'emails');
+    projectPath = path.join(process.cwd(), 'react-email-starter');
   }
-  
-  
+    
   if (typeof projectPath === 'string') {
     projectPath = projectPath.trim()
   }

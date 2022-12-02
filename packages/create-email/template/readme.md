@@ -4,7 +4,15 @@ A live preview right in your browser so you don't need to keep sending real emai
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```sh
+npm install
+# or
+yarn
+```
+
+Then, run the development server:
 
 ```sh
 npm run dev
