@@ -36,10 +36,8 @@ const Home: React.FC<Readonly<HomeProps>> = ({ navItems }: any) => {
           Welcome to the React Email preview!
         </Heading>
         <Text as="p" className="mt-2 mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia dolorum
-          vitae rem laudantium eos similique nobis facilis, quaerat excepturi
-          ratione asperiores iste suscipit perspiciatis quam minima delectus,
-          eveniet quas quo!
+          To start developing your next email template, you can create a{' '}
+          <code>.jsx</code> or <code>.tsx</code> file under the "emails" folder.
         </Text>
 
         <Button asChild>
