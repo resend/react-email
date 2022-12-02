@@ -9,26 +9,26 @@ import NextSteps from '../snippets/next-steps.mdx';
 
 ## 1. Create directory
 
-Create a new folder called `emails` and initiliaze a new npm project:
+Create a new folder called `react-email-starter` and initiliaze a new npm project:
 
 ```sh
-mkdir emails
-cd emails
+mkdir react-email-starter
+cd react-email-starter
 npm init
 ```
 
 ## 2. Install dependencies
 
-Install the React Email package locally.
+Install the React Email package locally and a few components.
 
 <CodeGroup>
 
 ```sh npm
-npm install react-email -E
+npm install react-email @react-email/button @react-email/html -E
 ```
 
 ```sh yarn
-yarn add react-email -E
+yarn add react-email @react-email/button @react-email/html -E
 ```
 
 </CodeGroup>
@@ -47,18 +47,16 @@ Include the following script in your `package.json` file.
 
 ## 4. Include email template
 
-Create a new file called `index.tsx` and add the following code:
+Create a new folder called `emails`, create a file inside called `index.tsx`, and add the following code:
 
 ```jsx index.tsx
 import { Button } from '@react-email/button';
 import { Html } from '@react-email/html';
-import { Head } from '@react-email/head';
 import * as React from 'react';
 
 export default function Email() {
   return (
     <Html>
-      <Head />
       <Button
         pX={20}
         pY={12}
