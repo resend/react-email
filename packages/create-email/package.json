@@ -1,12 +1,16 @@
 {
   "name": "create-email",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
+  "type": "module",
   "license": "MIT",
   "dependencies": {
     "commander": "^9.4.1",
-    "fs-extra": "^10.1.0"
+    "fs-extra": "^10.1.0",
+    "log-symbols": "^5.1.0",
+    "ora": "^6.1.2",
+    "tree-node-cli": "^1.6.0"
   },
   "bin": {
     "create-email": "src/index.js"
