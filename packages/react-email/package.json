@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -12,6 +12,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
+    "preprepare": "ts-node ./scripts/prepare-preview",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
     "lint": "eslint",
