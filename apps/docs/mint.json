@@ -26,6 +26,11 @@
   },
   "anchors": [
     {
+      "name": "Examples",
+      "icon": "arrow-pointer",
+      "url": "https://demo.react.email/preview/vercel-invite-user"
+    },
+    {
       "name": "Discord",
       "icon": "discord",
       "url": "https://react.email/discord"
