@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
+  host: 'smtp.ethereal.email' || process.env.CUSTOMHOST_URL,
   port: 587,
   secure: false,
   auth: {
