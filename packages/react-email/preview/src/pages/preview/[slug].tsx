@@ -34,7 +34,7 @@ export async function getStaticProps({ params }) {
     const Email = (await import(`../../../emails/${params.slug}`)).default;
     const markup = render(<Email />, { pretty: true });
 
-    const path = `${process.cwd()}/${CONTENT_DIR}/${params.slug}`
+    const path = `${process.cwd()}/${CONTENT_DIR}/${params.slug}`;
     const reactMarkup = await fs.readFile(`${path}.tsx`, {
       encoding: 'utf-8',
     });
