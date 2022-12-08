@@ -34,8 +34,13 @@ export async function getStaticProps({ params }) {
     const Email = (await import(`../../../emails/${params.slug}`)).default;
     const markup = render(<Email />, { pretty: true });
 
+    const path = `${process.cwd()}/${CONTENT_DIR}/${params.slug}`
+    const reactMarkup = await fs.readFile(`${path}.tsx`, {
+      encoding: 'utf-8',
+    });
+
     return emails
-      ? { props: { navItems: emails, slug: params.slug, markup } }
+      ? { props: { navItems: emails, slug: params.slug, markup, reactMarkup } }
       : { notFound: true };
   } catch (error) {
     console.error(error);
@@ -46,6 +51,7 @@ export async function getStaticProps({ params }) {
 const Preview: React.FC<Readonly<PreviewProps>> = ({
   navItems,
   markup,
+  reactMarkup,
   slug,
 }: any) => {
   const [viewMode, setViewMode] = React.useState('desktop');
@@ -68,7 +74,8 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
           className="w-full h-[calc(100vh_-_70px)]"
         />
       ) : (
-        <div className="max-w-[864px] mx-auto py-10">
+        <div className="flex gap-6 mx-auto p-6">
+          <Code>{reactMarkup}</Code>
           <Code>{markup}</Code>
         </div>
       )}
