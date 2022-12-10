@@ -16,9 +16,9 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
 
     const styleDefaultTr = {
       display: 'grid',
-      gridAutoColumns: 'minmax(0, 1fr)', 
+      gridAutoColumns: 'minmax(0, 1fr)',
       gridAutoFlow: 'column',
-    }
+    };
 
     return (
       <table
@@ -32,9 +32,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         {...props}
       >
         <tbody>
-          <tr style={styleDefaultTr}>
-            {children}
-          </tr>
+          <tr style={styleDefaultTr}>{children}</tr>
         </tbody>
       </table>
     );
