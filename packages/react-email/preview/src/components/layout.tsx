@@ -20,7 +20,7 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
       <>
         <div className="flex justify-between h-screen">
           <Sidebar navItems={navItems} />
-          <main className="w-full bg-slate-2">
+          <main className="w-[calc(100%_-_275px)] bg-slate-2">
             {title && (
               <Topbar
                 title={title}
