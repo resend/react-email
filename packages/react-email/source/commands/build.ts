@@ -5,6 +5,11 @@ import { unlinkSync, writeFileSync } from 'fs';
 
 const outDir = 'out';
 
+/*
+  This first builds all the templates using esbuild and then puts the output in the `.js`
+  files. Then these `.js` files are imported dynamically and rendered to `.html` files
+  using the `render` function.
+ */
 export const build = async () => {
   const allTemplates = glob.sync('emails/*.tsx');
   esbuild.buildSync({
