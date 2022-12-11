@@ -2,6 +2,7 @@
 import { program } from '@commander-js/extra-typings';
 import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
+import { build } from './commands/build';
 
 program
   .name(PACKAGE_NAME)
