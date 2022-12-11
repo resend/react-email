@@ -1,7 +1,7 @@
 import { glob } from 'glob';
 import esbuild from 'esbuild';
 import { render } from '@react-email/render';
-import { writeFileSync } from 'fs';
+import { unlinkSync, writeFileSync } from 'fs';
 
 const outDir = 'out';
 
@@ -24,5 +24,6 @@ export const build = async () => {
     const component = await import(path);
     const rendered = render(component.default(), { pretty: true });
     writeFileSync(`${path}.html`, rendered);
+    unlinkSync(template);
   }
 };
