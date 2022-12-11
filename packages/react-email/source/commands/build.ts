@@ -25,10 +25,10 @@ export const build = async () => {
   });
 
   for (const template of allBuiltTemplates) {
-    const path = template.replace('.js', '');
-    const component = await import(path);
+    const component = await import(template);
     const rendered = render(component.default(), { pretty: true });
-    writeFileSync(`${path}.html`, rendered);
+    const htmlPath = template.replace('.js', '.html');
+    writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }
 };
