@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from '@commander-js/extra-typings';
-import { PACKAGE_NAME } from './utils/contants';
+import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 
 program
@@ -12,5 +12,10 @@ program
   .command('dev')
   .description('Starts the application in development mode')
   .action(dev);
+
+program
+  .command('build')
+  .description('Build the templates to the `dist` directory')
+  .action(build);
 
 program.parse();
