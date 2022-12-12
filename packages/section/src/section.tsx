@@ -9,15 +9,21 @@ export interface SectionProps extends RootProps {
 
 export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
-    const styleDefault = {
+    const styleDefaultTable = {
       width: '100%',
       ...style,
+    };
+
+    const styleDefaultTr = {
+      display: 'grid',
+      gridAutoColumns: 'minmax(0, 1fr)',
+      gridAutoFlow: 'column',
     };
 
     return (
       <table
         ref={forwardedRef}
-        style={styleDefault}
+        style={styleDefaultTable}
         align="center"
         border={0}
         cellPadding={0}
@@ -26,9 +32,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         {...props}
       >
         <tbody>
-          <tr>
-            <td>{children}</td>
-          </tr>
+          <tr style={styleDefaultTr}>{children}</tr>
         </tbody>
       </table>
     );
