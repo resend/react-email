@@ -92,8 +92,13 @@ const updatePackage = async () => {
 const generateEmailsPreview = async () => {
   const spinner = ora('Generating emails preview').start();
   const hasEmailsDirectory = fs.existsSync(CLIENT_EMAILS_PATH);
+  const hasPackageEmailsDirectory = fs.existsSync(CLIENT_EMAILS_PATH);
 
   if (hasEmailsDirectory) {
+    if (hasPackageEmailsDirectory) {
+      await fs.promises.rmdir(PACKAGE_EMAILS_PATH);
+    }
+
     await copy(CLIENT_EMAILS_PATH, PACKAGE_EMAILS_PATH);
     return spinner.stopAndPersist({
       symbol: logSymbols.success,
