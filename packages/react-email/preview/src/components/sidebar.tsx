@@ -90,7 +90,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                       <Link key={item} href={`/preview/${item}`}>
                         <span
                           className={classnames(
-                            'text-[14px] flex items-center font-medium gap-2 h-8 w-full pl-4 pr-2 rounded-md text-slate-11',
+                            'text-[14px] flex items-center font-medium gap-2 h-8 w-full pl-4 rounded-md text-slate-11',
                             {
                               'bg-cyan-3 text-cyan-11': query.slug === item,
                               'hover:text-slate-12': query.slug !== item,

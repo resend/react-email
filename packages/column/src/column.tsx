@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-type DivElement = React.ElementRef<'div'>;
-type RootProps = React.ComponentPropsWithoutRef<'div'>;
+type DivElement = React.ElementRef<'td'>;
+type RootProps = React.ComponentPropsWithoutRef<'td'>;
 
 export interface ColumnProps extends RootProps {
   style?: React.CSSProperties;
@@ -10,22 +10,21 @@ export interface ColumnProps extends RootProps {
 export const Column = React.forwardRef<DivElement, Readonly<ColumnProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     const styleDefault = {
-      display: 'inline-block',
       width: '100%',
-      fontSize: '0px',
-      verticalAlign: 'top',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       ...style,
     };
-
     return (
-      <div
+      <td
         ref={forwardedRef}
         style={styleDefault}
         role="presentation"
         {...props}
       >
-        <tbody>{children}</tbody>
-      </div>
+        {children}
+      </td>
     );
   },
 );

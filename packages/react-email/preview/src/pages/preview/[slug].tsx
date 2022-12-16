@@ -14,14 +14,12 @@ export const CONTENT_DIR = 'emails';
 const getEmails = async () => {
   const emailsDirectory = path.join(process.cwd(), CONTENT_DIR);
   const filenames = await fs.readdir(emailsDirectory);
-  const emails = filenames.map((file) => file.replace('.tsx', ''));
-
-  return emails;
+  const emails = filenames.map((file) => file.replace(/\.(jsx|tsx)$/g, ''));
+  return { emails, filenames };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const emails = await getEmails();
-
+  const { emails } = await getEmails();
   const paths = emails.map((email) => {
     return { params: { slug: email } };
   });
@@ -30,12 +28,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export async function getStaticProps({ params }) {
   try {
-    const emails = await getEmails();
+    const { emails, filenames } = await getEmails();
+    const template = filenames.filter((email) => {
+      const [fileName] = email.split('.');
+      return params.slug === fileName;
+    });
+
     const Email = (await import(`../../../emails/${params.slug}`)).default;
     const markup = render(<Email />, { pretty: true });
-
-    const path = `${process.cwd()}/${CONTENT_DIR}/${params.slug}`;
-    const reactMarkup = await fs.readFile(`${path}.tsx`, {
+    const path = `${process.cwd()}/${CONTENT_DIR}/${template[0]}`;
+    const reactMarkup = await fs.readFile(path, {
       encoding: 'utf-8',
     });
 
