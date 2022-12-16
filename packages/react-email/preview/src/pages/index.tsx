@@ -11,7 +11,7 @@ export const CONTENT_DIR = 'emails';
 const getEmails = async () => {
   const emailsDirectory = path.join(process.cwd(), CONTENT_DIR);
   const filenames = await fs.readdir(emailsDirectory);
-  const emails = filenames.map((file) => file.replace('.tsx', ''));
+  const emails = filenames.map((file) => file.replace(/\.(jsx|tsx)$/g, ''));
 
   return emails;
 };
