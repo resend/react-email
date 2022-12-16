@@ -10,7 +10,7 @@ const outDir = 'out';
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
-export const build = async () => {
+export const build = async (pretty: boolean) => {
   const allTemplates = glob.sync('emails/*.tsx');
   esbuild.buildSync({
     bundle: true,
@@ -26,7 +26,7 @@ export const build = async () => {
 
   for (const template of allBuiltTemplates) {
     const component = await import(template);
-    const rendered = render(component.default(), { pretty: true });
+    const rendered = render(component.default(), { pretty });
     const htmlPath = template.replace('.js', '.html');
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
