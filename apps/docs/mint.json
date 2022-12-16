@@ -44,12 +44,7 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": [
-        "introduction",
-        "contributing",
-        "changelog",
-        "roadmap"
-      ]
+      "pages": ["introduction", "contributing", "changelog", "roadmap"]
     },
     {
       "group": "Getting Started",
@@ -70,16 +65,12 @@
         "components/divider",
         "components/paragraph",
         "components/container",
-        "components/code",
-        "components/pre",
         "components/preview"
       ]
     },
     {
       "group": "Utilities",
-      "pages": [
-        "utilities/render"
-      ]
+      "pages": ["utilities/render"]
     },
     {
       "group": "Integrations",
