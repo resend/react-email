@@ -17,7 +17,8 @@ program
 program
   .command('build')
   .description('Build the templates to the `dist` directory')
+  .option('--outDir <path>', 'Output directory', 'out')
   .option('-p, --pretty', 'Pretty print the output', false)
-  .action(({ pretty }) => build(pretty));
+  .action(({ outDir, pretty }) => build(outDir, pretty));
 
 program.parse();
