@@ -9,7 +9,7 @@ import { unlinkSync, writeFileSync } from 'fs';
   using the `render` function.
  */
 export const build = async (outDir: string, pretty: boolean) => {
-  const allTemplates = glob.sync('emails/*.tsx');
+  const allTemplates = glob.sync('emails/*.{tsx,jsx}');
   esbuild.buildSync({
     bundle: true,
     entryPoints: allTemplates,
