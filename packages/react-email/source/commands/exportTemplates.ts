@@ -8,7 +8,7 @@ import { unlinkSync, writeFileSync } from 'fs';
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
-export const build = async (outDir: string, pretty: boolean) => {
+export const exportTemplates = async (outDir: string, pretty: boolean) => {
   const allTemplates = glob.sync('emails/*.{tsx,jsx}');
   esbuild.buildSync({
     bundle: true,

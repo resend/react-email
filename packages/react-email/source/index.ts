@@ -2,7 +2,7 @@
 import { program } from '@commander-js/extra-typings';
 import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
-import { build } from './commands/build';
+import { exportTemplates } from './commands/exportTemplates';
 
 program
   .name(PACKAGE_NAME)
@@ -15,10 +15,10 @@ program
   .action(dev);
 
 program
-  .command('build')
-  .description('Build the templates to the `dist` directory')
+  .command('export')
+  .description('Build the templates to the `out` directory')
   .option('--outDir <path>', 'Output directory', 'out')
   .option('-p, --pretty', 'Pretty print the output', false)
-  .action(({ outDir, pretty }) => build(outDir, pretty));
+  .action(({ outDir, pretty }) => exportTemplates(outDir, pretty));
 
 program.parse();
