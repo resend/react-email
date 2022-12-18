@@ -6,6 +6,8 @@ import { Layout } from '../../components/layout';
 import * as React from 'react';
 import { Code } from '../../components';
 import Head from 'next/head';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 interface PreviewProps {}
 
@@ -58,6 +60,23 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
 }: any) => {
   const [viewMode, setViewMode] = React.useState('desktop');
   const title = `${slug} — React Email`;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query?.view === 'source') {
+      setViewMode('source');
+    }
+  }, [router]);
+
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        view: `${viewMode}`,
+      },
+    });
+  }, [viewMode]);
 
   return (
     <Layout
