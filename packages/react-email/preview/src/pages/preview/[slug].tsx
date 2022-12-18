@@ -58,32 +58,33 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   reactMarkup,
   slug,
 }: any) => {
-  const [viewMode, setViewMode] = React.useState('desktop');
   const title = `${slug} — React Email`;
   const router = useRouter();
+  const [viewMode, setViewMode] = React.useState('desktop');
 
-  useEffect(() => {
-    if (router.query?.view === 'source') {
-      setViewMode('source');
-    }
-  }, [router]);
-
-  useEffect(() => {
+  function handleViewMode(mode: string) {
+    setViewMode(mode);
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        view: `${viewMode}`,
+        view: `${mode}`,
       },
     });
-  }, [viewMode]);
+  }
+
+  useEffect(() => {
+    if (router.query.view === 'source' || router.query.view === 'desktop') {
+      setViewMode(router.query.view);
+    }
+  }, [router.query.view]);
 
   return (
     <Layout
       navItems={navItems}
       title={slug}
       viewMode={viewMode}
-      setViewMode={setViewMode}
+      setViewMode={handleViewMode}
     >
       <Head>
         <title>{title}</title>
