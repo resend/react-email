@@ -1,12 +1,11 @@
+import * as React from 'react';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
-import * as React from 'react';
 import { Code } from '../../components';
 import Head from 'next/head';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 interface PreviewProps {}
@@ -62,18 +61,18 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   const router = useRouter();
   const [viewMode, setViewMode] = React.useState('desktop');
 
-  function handleViewMode(mode: string) {
+  const handleViewMode = (mode: string) => {
     setViewMode(mode);
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        view: `${mode}`,
+        view: mode,
       },
     });
-  }
+  };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (router.query.view === 'source' || router.query.view === 'desktop') {
       setViewMode(router.query.view);
     }
