@@ -63,6 +63,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
 
   const handleViewMode = (mode: string) => {
     setViewMode(mode);
+
     router.push({
       pathname: router.pathname,
       query: {
