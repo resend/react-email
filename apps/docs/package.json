@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "install": "mintlify install",
     "dev": "mintlify dev"
   },
   "dependencies": {
-    "mintlify": "^1.1.3"
+    "mintlify": "^1.2.0"
   }
 }
