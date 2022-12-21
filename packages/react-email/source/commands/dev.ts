@@ -31,7 +31,7 @@ export const dev = async () => {
 };
 
 const prepareFiles = async () => {
-  const spinner = ora('Preparing React email files...').start();
+  const spinner = ora('Preparing React Email files...').start();
   const isFirstTime = !checkDirectoryExist(REACT_EMAIL_ROOT);
 
   if (isFirstTime) {
@@ -50,7 +50,7 @@ const prepareFiles = async () => {
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'React email files ready',
+    text: 'React Email files ready',
   });
 };
 
@@ -66,7 +66,7 @@ const checkForUpdates = async () => {
   if (isUpToDate) {
     return spinner.stopAndPersist({
       symbol: logSymbols.success,
-      text: 'React email is up-to-date',
+      text: 'React Email is up-to-date',
     });
   }
 
@@ -74,7 +74,7 @@ const checkForUpdates = async () => {
 };
 
 const updatePackage = async () => {
-  const spinner = ora('Updating React email...').start();
+  const spinner = ora('Updating React Email...').start();
 
   await Promise.all([
     createFilesAndDirectories(utils, 'utils'),
@@ -85,7 +85,7 @@ const updatePackage = async () => {
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'React email is updated',
+    text: 'React Email is updated',
   });
 };
 
