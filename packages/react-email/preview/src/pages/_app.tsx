@@ -3,8 +3,9 @@ import type { AppProps } from 'next/app';
 import { Inter } from '@next/font/google';
 import classnames from 'classnames';
 import Head from 'next/head';
+import { Tooltip } from '../components/tooltip';
 
-const inter = Inter({
+export const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 });
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>React Email</title>
       </Head>
-      <Component {...pageProps} />
+      <Tooltip.Provider>
+        <Component {...pageProps} />
+      </Tooltip.Provider>
     </div>
   );
 }
