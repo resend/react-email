@@ -12,7 +12,8 @@
     "lint": "turbo run lint",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "engines": {
     "node": ">=18.0.0"
