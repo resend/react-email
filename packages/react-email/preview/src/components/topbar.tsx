@@ -2,6 +2,9 @@ import * as React from 'react';
 import classnames from 'classnames';
 import { Heading } from './heading';
 import { Text } from './text';
+import { Kbd } from './kbd';
+import { Tooltip } from './tooltip';
+import { useHotkeys } from 'react-hotkeys-hook';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 type TopbarElement = React.ElementRef<'header'>;
@@ -15,6 +18,12 @@ interface TopbarProps extends RootProps {
 
 export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
   ({ className, title, viewMode, setViewMode, ...props }, forwardedRef) => {
+    const showDesktopHotkey = 'q';
+    const showSourceHotkey = 'w';
+
+    useHotkeys(showDesktopHotkey, () => setViewMode('desktop'));
+    useHotkeys(showSourceHotkey, () => setViewMode('source'));
+
     return (
       <header
         ref={forwardedRef}
@@ -65,24 +74,27 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
             }}
           >
             <ToggleGroup.Item
-              className={classnames(
-                'text-sm text-slate-11 rounded px-1.5 py-0.5',
-                {
-                  'text-slate-12 bg-slate-3 font-medium':
-                    viewMode === 'desktop',
-                },
-              )}
+              asChild
               value="desktop"
             >
-              Desktop
+              <Tooltip>
+                <Tooltip.Trigger className={classnames(
+                  'text-sm text-slate-11 rounded px-1.5 py-0.5',
+                  {
+                    'text-slate-12 bg-slate-3 font-medium':
+                      viewMode === 'desktop',
+                  },
+                )}>
+                  Desktop
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                  <span className="text-xs">
+                    Desktop view <Kbd>{showDesktopHotkey}</Kbd>
+                  </span>
+                </Tooltip.Content>
+              </Tooltip>
             </ToggleGroup.Item>
             <ToggleGroup.Item
-              className={classnames(
-                'text-sm text-slate-11 rounded px-1.5 py-0.5',
-                {
-                  'text-slate-12 bg-slate-3 font-medium': viewMode === 'source',
-                },
-              )}
               value="source"
             >
               Source
