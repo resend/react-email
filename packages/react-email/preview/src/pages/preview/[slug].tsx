@@ -8,7 +8,7 @@ import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-interface PreviewProps {}
+interface PreviewProps { }
 
 export const CONTENT_DIR = 'emails';
 
@@ -99,7 +99,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         />
       ) : (
         <div className="flex gap-6 mx-auto p-6">
-          <Code>{reactMarkup}</Code>
+          <Code language="jsx">{reactMarkup}</Code>
           <Code>{markup}</Code>
         </div>
       )}
