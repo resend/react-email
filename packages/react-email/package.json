@@ -16,6 +16,15 @@
     "clean": "rm -rf dist"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenorocha/react-email.git",
+    "directory": "packages/react-email"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },

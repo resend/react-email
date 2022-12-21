@@ -12,6 +12,15 @@
     "ora": "^6.1.2",
     "tree-node-cli": "^1.6.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenorocha/react-email.git",
+    "directory": "packages/create-email"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
