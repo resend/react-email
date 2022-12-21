@@ -11,6 +11,9 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@next/font": "13.0.4",
     "@radix-ui/colors": "0.1.8",

@@ -12,6 +12,9 @@
     "ora": "^6.1.2",
     "tree-node-cli": "^1.6.0"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bin": {
     "create-email": "src/index.js"
   }

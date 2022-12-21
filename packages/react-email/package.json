@@ -6,9 +6,6 @@
     "email": "./dist/index.js"
   },
   "types": "./dist/index.d.ts",
-  "engines": {
-    "node": ">=14.16"
-  },
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
@@ -19,6 +16,9 @@
     "clean": "rm -rf dist"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
     "@react-email/render": "*",

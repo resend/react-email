@@ -20,6 +20,9 @@
     "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "pretty": "2.0.0",
     "react-dom": "18.2.0"
