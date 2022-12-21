@@ -65,13 +65,13 @@
         "components/html",
         "components/head",
         "components/button",
-        "components/text",
-        "components/link",
-        "components/image",
-        "components/divider",
-        "components/paragraph",
         "components/container",
-        "components/preview"
+        "components/hr",
+        "components/image",
+        "components/link",
+        "components/paragraph",
+        "components/preview",
+        "components/text"
       ]
     },
     {
