@@ -96,7 +96,7 @@ const generateEmailsPreview = async () => {
 
   if (hasEmailsDirectory) {
     if (hasPackageEmailsDirectory) {
-      await fs.promises.rmdir(PACKAGE_EMAILS_PATH, { recursive: true });
+      await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
     }
 
     await copy(CLIENT_EMAILS_PATH, PACKAGE_EMAILS_PATH);
