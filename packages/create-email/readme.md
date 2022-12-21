@@ -1,4 +1,4 @@
-![create-email cover](https://assets.react.email/covers/create-email.png)
+![create-email cover](https://react.email/static/covers/create-email.png)
 
 <div align="center"><strong>create-email</strong></div>
 <div align="center">The easiest way to get started with React Email.</div>
