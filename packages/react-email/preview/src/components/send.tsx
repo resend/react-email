@@ -13,7 +13,7 @@ export const Send = ({ markup }: { markup: string }) => {
       e.preventDefault();
       setIsSending(true);
 
-      await fetch('https://react.email/api/send/test', {
+      const response = await fetch('http://localhost:3000/api/send/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -22,6 +22,11 @@ export const Send = ({ markup }: { markup: string }) => {
           html: markup,
         }),
       });
+
+      if (response.status === 429) {
+        const { error } = await response.json();
+        alert(error);
+      }
     } catch (e) {
       alert('Something went wrong. Please try again.');
     } finally {
