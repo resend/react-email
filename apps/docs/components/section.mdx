@@ -1,0 +1,43 @@
+---
+title: 'Section'
+sidebarTitle: 'Section'
+description: 'Display a section that can be formatted using columns.'
+'og:image': 'https://react.email/static/covers/section.png'
+---
+
+import Support from '../snippets/support.mdx';
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/section -E
+```
+
+```sh yarn
+yarn add @react-email/section -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Section } from '@react-email/section';
+import { Text } from '@react-email/text';
+
+const Email = () => {
+  return (
+    <Section>
+      <Text>Hello World</Text>
+    </Section>
+  );
+};
+```
+
+<Support />

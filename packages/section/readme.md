@@ -33,10 +33,13 @@ Add the component to your email template. Include styles where needed.
 
 ```jsx
 import { Section } from '@react-email/section';
+import { Text } from '@react-email/text';
 
 const Section = () => {
   return (
-    <Section>{/* Any column. */}<Section />
+    <Section>
+      <Text>Hello World</Text>
+    <Section />
   );
 };
 ```
