@@ -7,13 +7,14 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface LayoutProps extends RootProps {
   navItems: string[];
+  markup?: string;
   viewMode?: string;
   setViewMode?: (viewMode: string) => void;
 }
 
 export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
   (
-    { className, title, navItems, children, viewMode, setViewMode, ...props },
+    { className, title, navItems, children, markup, viewMode, setViewMode, ...props },
     forwardedRef,
   ) => {
     return (
@@ -26,6 +27,7 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
                 title={title}
                 viewMode={viewMode}
                 setViewMode={setViewMode}
+                markup={markup}
               />
             )}
             <div className="relative h-[calc(100vh_-_70px)] overflow-auto">

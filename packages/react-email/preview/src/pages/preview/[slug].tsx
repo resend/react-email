@@ -87,6 +87,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
       title={slug}
       viewMode={viewMode}
       setViewMode={handleViewMode}
+      markup={markup}
     >
       <Head>
         <title>{title}</title>
