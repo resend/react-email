@@ -1,6 +1,6 @@
 {
   "name": "@react-email/img",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Display an image in your email",
   "sideEffects": false,
   "main": "./dist/index.js",
