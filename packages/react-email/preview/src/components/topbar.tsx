@@ -16,7 +16,10 @@ interface TopbarProps extends RootProps {
 }
 
 export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
-  ({ className, title, markup, viewMode, setViewMode, ...props }, forwardedRef) => {
+  (
+    { className, title, markup, viewMode, setViewMode, ...props },
+    forwardedRef,
+  ) => {
     const columnWidth = 'w-[200px]';
 
     return (
@@ -64,7 +67,8 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 className={classnames(
                   'text-sm text-slate-11 rounded px-1.5 py-0.5',
                   {
-                    'text-slate-12 bg-slate-3 font-medium': viewMode === 'source',
+                    'text-slate-12 bg-slate-3 font-medium':
+                      viewMode === 'source',
                   },
                 )}
                 value="source"

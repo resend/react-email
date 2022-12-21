@@ -54,7 +54,10 @@ export const Send = ({ markup }: { markup: string }) => {
             ✕
           </Popover.Close>
           <form onSubmit={onFormSubmit} className="mt-1">
-            <label htmlFor="to" className="text-slate-10 text-xs uppercase mb-2 block">
+            <label
+              htmlFor="to"
+              className="text-slate-10 text-xs uppercase mb-2 block"
+            >
               Recipient
             </label>
             <input
@@ -67,7 +70,10 @@ export const Send = ({ markup }: { markup: string }) => {
               id="to"
               required
             />
-            <label htmlFor="subject" className="text-slate-10 text-xs uppercase mb-2 block">
+            <label
+              htmlFor="subject"
+              className="text-slate-10 text-xs uppercase mb-2 block"
+            >
               Subject
             </label>
             <input
@@ -97,4 +103,4 @@ export const Send = ({ markup }: { markup: string }) => {
       </Popover.Portal>
     </Popover.Root>
   );
-}
+};

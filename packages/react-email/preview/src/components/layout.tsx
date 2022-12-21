@@ -14,7 +14,16 @@ interface LayoutProps extends RootProps {
 
 export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
   (
-    { className, title, navItems, children, markup, viewMode, setViewMode, ...props },
+    {
+      className,
+      title,
+      navItems,
+      children,
+      markup,
+      viewMode,
+      setViewMode,
+      ...props
+    },
     forwardedRef,
   ) => {
     return (
