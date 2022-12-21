@@ -31,12 +31,13 @@ export const dev = async () => {
 };
 
 const prepareFiles = async () => {
-  const spinner = ora('Preparing React email files...').start();
+  const spinner = ora('Preparing React Email files...').start();
   const isFirstTime = !checkDirectoryExist(REACT_EMAIL_ROOT);
 
   if (isFirstTime) {
     await createDirectory(REACT_EMAIL_ROOT);
     await createDirectory(path.join(REACT_EMAIL_ROOT, 'src'));
+    await createDirectory(path.join(REACT_EMAIL_ROOT, 'public'));
 
     await Promise.all([
       createFilesAndDirectories(components, 'components'),
@@ -65,7 +66,7 @@ const checkForUpdates = async () => {
   if (isUpToDate) {
     return spinner.stopAndPersist({
       symbol: logSymbols.success,
-      text: 'React email is up-to-date',
+      text: 'React Email is up-to-date',
     });
   }
 
@@ -73,10 +74,9 @@ const checkForUpdates = async () => {
 };
 
 const updatePackage = async () => {
-  const spinner = ora('Updating React email...').start();
+  const spinner = ora('Updating React Email...').start();
 
   await Promise.all([
-    createFilesAndDirectories(components, 'components'),
     createFilesAndDirectories(utils, 'utils'),
     createFilesAndDirectories(styles, 'styles'),
     createFilesAndDirectories(root),
@@ -85,7 +85,7 @@ const updatePackage = async () => {
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'React email is updated',
+    text: 'React Email is updated',
   });
 };
 
@@ -93,13 +93,26 @@ const generateEmailsPreview = async () => {
   const spinner = ora('Generating emails preview').start();
   const hasEmailsDirectory = fs.existsSync(CLIENT_EMAILS_PATH);
   const hasPackageEmailsDirectory = fs.existsSync(PACKAGE_EMAILS_PATH);
+  const hasPackagePublicDirectory = fs.existsSync(
+    `${REACT_EMAIL_ROOT}/public/static`,
+  );
 
   if (hasEmailsDirectory) {
     if (hasPackageEmailsDirectory) {
       await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
     }
 
-    await copy(CLIENT_EMAILS_PATH, PACKAGE_EMAILS_PATH);
+    if (hasPackagePublicDirectory) {
+      await fs.promises.rm(`${REACT_EMAIL_ROOT}/public`, {
+        recursive: true,
+      });
+    }
+
+    await copy(`${CLIENT_EMAILS_PATH}/*{.tsx,.jsx}`, PACKAGE_EMAILS_PATH);
+    await copy(
+      `${CLIENT_EMAILS_PATH}/static`,
+      `${REACT_EMAIL_ROOT}/public/static`,
+    );
     return spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: 'Emails preview generated',
