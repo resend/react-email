@@ -6,7 +6,7 @@ import {
   CLIENT_EMAILS_PATH,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
-} from '../utils/contants';
+} from '../utils/constants';
 import { root } from '../_preview/root';
 import { styles } from '../_preview/styles';
 import { utils } from '../_preview/utils';
