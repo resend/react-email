@@ -5,7 +5,7 @@ import {
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
-} from './contants';
+} from './constants';
 import fs from 'fs';
 import path from 'path';
 import copy from 'cpy';
