@@ -8,7 +8,7 @@ import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-interface PreviewProps { }
+interface PreviewProps {}
 
 export const CONTENT_DIR = 'emails';
 
