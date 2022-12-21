@@ -96,6 +96,7 @@ const generateEmailsPreview = async () => {
   const hasPackagePublicDirectory = fs.existsSync(
     `${REACT_EMAIL_ROOT}/public/static`,
   );
+  const hasStaticDirectory = fs.existsSync(`${REACT_EMAIL_ROOT}/static`);
 
   if (hasEmailsDirectory) {
     if (hasPackageEmailsDirectory) {
@@ -109,10 +110,14 @@ const generateEmailsPreview = async () => {
     }
 
     await copy(`${CLIENT_EMAILS_PATH}/*{.tsx,.jsx}`, PACKAGE_EMAILS_PATH);
-    await copy(
-      `${CLIENT_EMAILS_PATH}/static`,
-      `${REACT_EMAIL_ROOT}/public/static`,
-    );
+
+    if (hasStaticDirectory) {
+      await copy(
+        `${CLIENT_EMAILS_PATH}/static`,
+        `${REACT_EMAIL_ROOT}/public/static`,
+      );
+    }
+
     return spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: 'Emails preview generated',
