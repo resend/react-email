@@ -1,7 +1,7 @@
 {
   "name": "@react-email/link",
   "version": "0.0.2",
-  "description": "A hyperlink to web pages, files, email addresses, or anything else a URL can address",
+  "description": "A hyperlink to web pages, email addresses, or anything else a URL can address",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

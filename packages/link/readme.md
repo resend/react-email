@@ -1,7 +1,7 @@
 ![React Email link cover](https://assets.react.email/covers/link.png)
 
 <div align="center"><strong>@react-email/link</strong></div>
-<div align="center">A hyperlink to web pages, files, email addresses, or anything else a URL can address.</div>
+<div align="center">A hyperlink to web pages, email addresses, or anything else a URL can address.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

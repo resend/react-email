@@ -1,7 +1,7 @@
 ![React Email Section cover](https://assets.react.email/covers/section.png)
 
 <div align="center"><strong>@react-email/section</strong></div>
-<div align="center">Display a section that can be formatted using columns</div>
+<div align="center">Display a section that can be formatted using columns.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

@@ -1,7 +1,7 @@
-![React Email button cover](https://assets.react.email/covers/head.png)
+![React Email Head cover](https://assets.react.email/covers/head.png)
 
 <div align="center"><strong>@react-email/head</strong></div>
-<div align="center">Contains head components, related to the document such as style and meta elements.</div>
+<div align="center">Contains head components such as style and meta elements.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

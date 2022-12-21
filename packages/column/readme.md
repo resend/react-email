@@ -1,4 +1,4 @@
-![React Email Hr cover](https://assets.react.email/covers/hr.png)
+![React Email Column cover](https://assets.react.email/covers/column.png)
 
 <div align="center"><strong>@react-email/column</strong></div>
 <div align="center">Display a column that separates content areas vertically in your email.</div>
@@ -32,11 +32,16 @@ npm install @react-email/column -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
+import { Section } from '@react-email/section';
 import { Column } from '@react-email/column';
 
 const Email = () => {
   return(
-    <Column>{/* Any content. */}<Column/>
+    <Section>
+      <Column>A<Column/>
+      <Column>B<Column/>
+      <Column>C<Column/>
+    </Section>
   );
 };
 ```

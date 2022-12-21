@@ -1,7 +1,7 @@
 {
   "name": "@react-email/button",
   "version": "0.0.4",
-  "description": "A React button component to help build emails",
+  "description": "A link that is styled to look like a button",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

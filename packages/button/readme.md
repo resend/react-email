@@ -1,7 +1,7 @@
 ![React Email button cover](https://assets.react.email/covers/button.png)
 
 <div align="center"><strong>@react-email/button</strong></div>
-<div align="center">A React button component to help build emails.</div>
+<div align="center">A link that is styled to look like a button.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
