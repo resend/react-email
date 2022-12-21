@@ -1,14 +1,14 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import classnames from 'classnames';
 import * as React from 'react';
-import { inter } from '../../pages/_app';
+import { inter } from '../pages/_app';
 
 type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
 type ContentProps = React.ComponentPropsWithoutRef<
   typeof TooltipPrimitive.Content
 >;
 
-export interface TooltipProps extends ContentProps { }
+export interface TooltipProps extends ContentProps {}
 
 export const TooltipContent = React.forwardRef<
   ContentElement,
