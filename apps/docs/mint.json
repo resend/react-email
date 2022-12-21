@@ -44,7 +44,13 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": ["introduction", "contributing", "changelog", "roadmap"]
+      "pages": [
+        "introduction",
+        "contributing",
+        "changelog",
+        "roadmap",
+        "cli"
+      ]
     },
     {
       "group": "Getting Started",
@@ -70,7 +76,9 @@
     },
     {
       "group": "Utilities",
-      "pages": ["utilities/render"]
+      "pages": [
+        "utilities/render"
+      ]
     },
     {
       "group": "Integrations",
