@@ -1,11 +1,12 @@
+import * as React from 'react';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
-import * as React from 'react';
 import { Code } from '../../components';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 interface PreviewProps {}
 
@@ -56,15 +57,34 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   reactMarkup,
   slug,
 }: any) => {
-  const [viewMode, setViewMode] = React.useState('desktop');
   const title = `${slug} — React Email`;
+  const router = useRouter();
+  const [viewMode, setViewMode] = React.useState('desktop');
+
+  const handleViewMode = (mode: string) => {
+    setViewMode(mode);
+
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        view: mode,
+      },
+    });
+  };
+
+  React.useEffect(() => {
+    if (router.query.view === 'source' || router.query.view === 'desktop') {
+      setViewMode(router.query.view);
+    }
+  }, [router.query.view]);
 
   return (
     <Layout
       navItems={navItems}
       title={slug}
       viewMode={viewMode}
-      setViewMode={setViewMode}
+      setViewMode={handleViewMode}
     >
       <Head>
         <title>{title}</title>
