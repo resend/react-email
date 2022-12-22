@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "email dev"
+    "dev": "email dev",
+    "export": "email export"
   },
   "dependencies": {
     "@react-email/button": "^0.0.4",
