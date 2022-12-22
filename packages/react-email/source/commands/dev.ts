@@ -10,6 +10,7 @@ import {
   getPreviewPkg,
   watcher,
   PUBLIC_PATH,
+  watcherInstance,
 } from '../utils';
 import path from 'path';
 import fs from 'fs';
@@ -25,29 +26,34 @@ import shell from 'shelljs';
 import { styles } from '../_preview/styles';
 
 export const dev = async () => {
-  const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
+  try {
+    const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
 
-  if (hasReactEmailDirectory) {
-    const isUpToDate = await checkPackageIsUpToDate();
+    if (hasReactEmailDirectory) {
+      const isUpToDate = await checkPackageIsUpToDate();
 
-    if (isUpToDate) {
-      await Promise.all([generateEmailsPreview(), syncPkg()]);
-      await installDependencies();
-      shell.exec('yarn dev', { async: true });
-      watcher();
-      return;
+      if (isUpToDate) {
+        await Promise.all([generateEmailsPreview(), syncPkg()]);
+        await installDependencies();
+        shell.exec('yarn dev', { async: true });
+        watcher();
+        return;
+      }
+
+      await fs.promises.rm(REACT_EMAIL_ROOT, { recursive: true });
     }
 
-    await fs.promises.rm(REACT_EMAIL_ROOT, { recursive: true });
+    await createBasicStructure();
+    await createAppDirectories();
+    await createAppFiles();
+    await Promise.all([generateEmailsPreview(), syncPkg()]);
+    await installDependencies();
+    shell.exec('yarn dev', { async: true });
+    watcher();
+  } catch (error) {
+    await watcherInstance.close();
+    shell.exit(1);
   }
-
-  await createBasicStructure();
-  await createAppDirectories();
-  await createAppFiles();
-  await Promise.all([generateEmailsPreview(), syncPkg()]);
-  await installDependencies();
-  shell.exec('yarn dev', { async: true });
-  watcher();
 };
 
 const createBasicStructure = async () => {
@@ -81,34 +87,38 @@ const createAppDirectories = async () => {
 type AppFile = { content: string; title: string; dir?: string };
 
 const createAppFiles = async () => {
-  const creation = (appFiles: AppFile[], name?: string) => {
-    return appFiles.map((file) => {
-      const location = name
-        ? `${SRC_PATH}/${name}/${file.title}`
-        : `${REACT_EMAIL_ROOT}/${file.title}`;
-      return fs.promises.writeFile(location, file.content);
+  try {
+    const creation = (appFiles: AppFile[], name?: string) => {
+      return appFiles.map((file) => {
+        const location = name
+          ? `${SRC_PATH}/${name}/${file.title}`
+          : `${REACT_EMAIL_ROOT}/${file.title}`;
+        return fs.promises.writeFile(location, file.content);
+      });
+    };
+
+    const pageCreation = pages.map((page) => {
+      const location = page.dir
+        ? `${SRC_PATH}/pages/${page.dir}/${page.title}`
+        : `${SRC_PATH}/pages/${page.title}`;
+
+      if (page.dir) {
+        createDirectory(`${SRC_PATH}/pages/${page.dir}`);
+      }
+
+      return fs.promises.writeFile(location, page.content);
     });
-  };
 
-  const pageCreation = pages.map((page) => {
-    const location = page.dir
-      ? `${SRC_PATH}/pages/${page.dir}/${page.title}`
-      : `${SRC_PATH}/pages/${page.title}`;
-
-    if (page.dir) {
-      createDirectory(`${SRC_PATH}/pages/${page.dir}`);
-    }
-
-    return fs.promises.writeFile(location, page.content);
-  });
-
-  await Promise.all([
-    ...creation(utils, 'utils'),
-    ...creation(components, 'components'),
-    ...creation(styles, 'styles'),
-    ...creation(root),
-    ...pageCreation,
-  ]);
+    await Promise.all([
+      ...creation(utils, 'utils'),
+      ...creation(components, 'components'),
+      ...creation(styles, 'styles'),
+      ...creation(root),
+      ...pageCreation,
+    ]);
+  } catch (error) {
+    throw new Error('Error creating app files');
+  }
 };
 
 const generateEmailsPreview = async () => {
