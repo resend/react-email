@@ -13,7 +13,7 @@ import copy from 'cpy';
 export const instance = chokidar.watch(CLIENT_EMAILS_PATH, {
   ignoreInitial: true,
   cwd: CURRENT_PATH,
-  // ignored: /(^|[\/\\])\../,
+  ignored: /(^|[\/\\])\../,
 });
 
 export const watcher = () =>
