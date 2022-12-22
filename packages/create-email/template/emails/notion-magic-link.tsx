@@ -53,7 +53,7 @@ export default function Email() {
             account.
           </Text>
           <Img
-            src="https://assets.react.email/demo/notion-logo.png"
+            src="/static/notion-logo.png"
             width="32"
             height="32"
             alt="Notion's Logo"

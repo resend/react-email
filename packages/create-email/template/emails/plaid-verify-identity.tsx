@@ -13,7 +13,7 @@ export default function Email() {
       <Head />
       <Container style={container}>
         <Img
-          src="https://assets.react.email/demo/plaid.png"
+          src="/static/plaid.png"
           width="212"
           height="88"
           alt="Plaid"
