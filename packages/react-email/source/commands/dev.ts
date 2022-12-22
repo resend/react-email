@@ -186,7 +186,7 @@ const syncPkg = async () => {
 };
 
 const installDependencies = async () => {
-  const spinner = ora('Installing dependencies...').start();
+  const spinner = ora('Installing dependencies...\n').start();
 
   shell.cd(path.join(REACT_EMAIL_ROOT));
   shell.exec('yarn');
