@@ -122,33 +122,48 @@ const createAppFiles = async () => {
 };
 
 const generateEmailsPreview = async () => {
-  const spinner = ora('Generating emails preview').start();
+  try {
+    const spinner = ora('Generating emails preview').start();
 
-  const hasEmailsDirectory = fs.existsSync(CLIENT_EMAILS_PATH);
+    await createEmailPreviews();
+    await createStatisFiles();
+    await createComponents();
+
+    spinner.stopAndPersist({
+      symbol: logSymbols.success,
+      text: 'Emails preview generated',
+    });
+  } catch (error) {
+    console.log({ error });
+  }
+};
+
+const createEmailPreviews = async () => {
+  const hasEmailsDirectory = checkDirectoryExist(CLIENT_EMAILS_PATH);
+
   const isEmailsDirectoryEmpty = hasEmailsDirectory
     ? await checkEmptyDirectory(CLIENT_EMAILS_PATH)
     : true;
 
   if (isEmailsDirectoryEmpty) {
-    return spinner.stopAndPersist({
-      symbol: logSymbols.warning,
-      text: 'Emails preview directory is empty',
-    });
   }
 
   const hasPackageEmailsDirectory = checkDirectoryExist(PACKAGE_EMAILS_PATH);
-  const hasPackageStaticDirectory = checkDirectoryExist(
-    `${REACT_EMAIL_ROOT}/public/static`,
-  );
-  const hasStaticDirectory = checkDirectoryExist(
-    `${CLIENT_EMAILS_PATH}/static`,
-  );
 
   if (hasPackageEmailsDirectory) {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
   await copy(`${CLIENT_EMAILS_PATH}/*{.tsx,.jsx}`, PACKAGE_EMAILS_PATH);
+};
+
+const createStatisFiles = async () => {
+  const hasPackageStaticDirectory = checkDirectoryExist(
+    `${REACT_EMAIL_ROOT}/public/static`,
+  );
+  const hasStaticDirectory = checkDirectoryExist(
+    `${CLIENT_EMAILS_PATH}/static`,
+  );
 
   if (hasPackageStaticDirectory) {
     await fs.promises.rm(`${REACT_EMAIL_ROOT}/public/static`, {
@@ -162,11 +177,29 @@ const generateEmailsPreview = async () => {
       `${REACT_EMAIL_ROOT}/public/static`,
     );
   }
+};
 
-  return spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'Emails preview generated',
-  });
+const createComponents = async () => {
+  const hasPackageComponentsDirectory = checkDirectoryExist(
+    `${PACKAGE_EMAILS_PATH}/components`,
+  );
+
+  const hasComponentsDirectory = checkDirectoryExist(
+    `${CLIENT_EMAILS_PATH}/components`,
+  );
+
+  if (hasPackageComponentsDirectory) {
+    await fs.promises.rm(`${PACKAGE_EMAILS_PATH}/components`, {
+      recursive: true,
+    });
+  }
+
+  if (hasComponentsDirectory) {
+    await copy(
+      `${CLIENT_EMAILS_PATH}/components`,
+      `${PACKAGE_EMAILS_PATH}/components`,
+    );
+  }
 };
 
 const syncPkg = async () => {
