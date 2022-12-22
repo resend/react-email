@@ -11,4 +11,13 @@ describe('render', () => {
     const actualOutput = render(<Section>Lorem ipsum</Section>);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('renders the <Section> with <td> wrapper if no <Column> is provided', () => {
+    const actualOutput = render(
+      <Section>
+        <div>Lorem ipsum</div>
+      </Section>
+    );
+    expect(actualOutput).toContain("<td>");
+  });
 });
