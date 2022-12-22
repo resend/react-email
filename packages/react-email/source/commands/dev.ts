@@ -179,7 +179,7 @@ const installDependencies = async () => {
   const spinner = ora('Installing dependencies...').start();
 
   shell.cd(path.join(REACT_EMAIL_ROOT));
-  shell.exec('yarn', { silent: true });
+  shell.exec('yarn');
   spinner.stopAndPersist({
     symbol: logSymbols.success,
     text: 'Dependencies installed',
