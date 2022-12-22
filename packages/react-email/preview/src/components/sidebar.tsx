@@ -101,6 +101,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                             <div className="h-5 bg-cyan-11 w-px absolute left-2.5" />
                           )}
                           <svg
+                            className="flex-shrink-0
                             width="24"
                             height="24"
                             viewBox="0 0 24 24"
