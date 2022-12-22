@@ -10,14 +10,14 @@ import fs from 'fs';
 import path from 'path';
 import copy from 'cpy';
 
-export const instance = chokidar.watch(CLIENT_EMAILS_PATH, {
+export const watcherInstance = chokidar.watch(CLIENT_EMAILS_PATH, {
   ignoreInitial: true,
   cwd: CURRENT_PATH,
   ignored: /(^|[\/\\])\../,
 });
 
 export const watcher = () =>
-  instance.on('all', async (event, filename) => {
+  watcherInstance.on('all', async (event, filename) => {
     if (event === EVENT_FILE_DELETED) {
       const file = filename.split('/');
 

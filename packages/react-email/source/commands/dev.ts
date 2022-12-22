@@ -10,7 +10,7 @@ import {
   getPreviewPkg,
   watcher,
   PUBLIC_PATH,
-  instance,
+  watcherInstance,
 } from '../utils';
 import path from 'path';
 import fs from 'fs';
@@ -51,7 +51,7 @@ export const dev = async () => {
     shell.exec('yarn dev', { async: true });
     watcher();
   } catch (error) {
-    await instance.close();
+    await watcherInstance.close();
     shell.exit(1);
   }
 };
