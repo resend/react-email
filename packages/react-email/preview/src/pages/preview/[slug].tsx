@@ -15,7 +15,9 @@ export const CONTENT_DIR = 'emails';
 const getEmails = async () => {
   const emailsDirectory = path.join(process.cwd(), CONTENT_DIR);
   const filenames = await fs.readdir(emailsDirectory);
-  const emails = filenames.filter((file) => file !== 'components');
+  const emails = filenames
+    .map((file) => file.replace(/\.(jsx|tsx)$/g, ''))
+    .filter((file) => file !== 'components');
   return { emails, filenames };
 };
 
@@ -91,7 +93,11 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         <title>{title}</title>
       </Head>
       {viewMode === 'desktop' ? (
-        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
+        <iframe
+          srcDoc={markup}
+          frameBorder="0"
+          className="w-full h-[calc(100vh_-_70px)]"
+        />
       ) : (
         <div className="flex gap-6 mx-auto p-6">
           <Code language="jsx">{reactMarkup}</Code>
