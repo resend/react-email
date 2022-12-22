@@ -1,12 +1,26 @@
 version: 2.1
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@5.0.3
+jobs:
+  build_and_test: # this can be any name you choose
+    executor: node/default # use the default executor defined within the orb
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: yarn test
+          name: Tests
+      - run:
+          command: yarn build
+          name: Build
+      - run:
+          command: yarn lint
+          name: Lint
+      - run:
+          command: yarn format:check
+          name: Format
 workflows:
-    example-workflow:
-      jobs:
-        - node/run:
-            yarn-run: build 
-        - node/run:
-            yarn-run: format:check
-        - node/run:
-            yarn-run: lint
+  build_test_deploy:
+    jobs:
+      - build_and_test
