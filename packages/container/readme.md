@@ -1,7 +1,7 @@
-![React Email container cover](https://react.email/static/images/readme/covers/container.png)
+![React Email container cover](https://react.email/static/covers/container.png)
 
 <div align="center"><strong>@react-email/container</strong></div>
-<div align="center">The main wrapper that hold your content.</div>
+<div align="center">A layout component that centers all the email content.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

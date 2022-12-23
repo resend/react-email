@@ -13,8 +13,10 @@
     "build": "tsc",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc -w",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
-    "test": "jest --passWithNoTests"
+    "lint": "eslint",
+    "test": "jest --passWithNoTests",
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "8.21.0",

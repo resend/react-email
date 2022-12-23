@@ -12,16 +12,19 @@
     "lint": "turbo run lint",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "publish-packages": "turbo run build lint test && changeset && changeset version && changeset publish"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "2.7.1",
-    "turbo": "1.4.7"
+    "turbo": "1.6.3"
   },
-  "engines": {
-    "node": ">=14.0.0"
+  "dependencies": {
+    "@changesets/cli": "^2.26.0"
   },
-  "dependencies": {},
   "packageManager": "yarn@1.22.19"
 }

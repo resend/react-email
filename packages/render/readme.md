@@ -1,4 +1,4 @@
-![React Email button cover](https://react.email/static/images/readme/covers/render.png)
+![React Email button cover](https://react.email/static/covers/render.png)
 
 <div align="center"><strong>@react-email/render</strong></div>
 <div align="center">Transform React components into HTML email templates.</div>

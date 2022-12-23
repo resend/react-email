@@ -1,0 +1,4 @@
+preview/.next
+preview/yarn.lock
+node_modules
+.turbo

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A React html component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -13,10 +13,22 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "lint": "eslint",
     "clean": "rm -rf dist",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenorocha/react-email.git",
+    "directory": "packages/html"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@types/react": "18.0.20",

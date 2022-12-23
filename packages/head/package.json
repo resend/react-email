@@ -1,7 +1,7 @@
 {
   "name": "@react-email/head",
-  "version": "0.0.2",
-  "description": "Contains head components, related to the document such as style and meta elements",
+  "version": "0.0.3",
+  "description": "Contains head components such as style and meta elements.",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -13,12 +13,24 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "lint": "eslint",
     "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenorocha/react-email.git",
+    "directory": "packages/head"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "react": "18.2.0"

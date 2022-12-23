@@ -1,7 +1,7 @@
-![React Email cover](https://react.email/static/images/readme/covers/react-email.png)
+![React email cover](https://react.email/static/covers/react-email.png)
 
 <div align="center"><strong>React Email</strong></div>
-<div align="center">Build and send emails using React.<br />High-quality, unstyled components for creating emails.</div>
+<div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -58,17 +58,16 @@ A set of standard components to help you build amazing emails without having to 
 
 - [Html](https://github.com/zenorocha/react-email/tree/main/packages/html)
 - [Head](https://github.com/zenorocha/react-email/tree/main/packages/head)
-- [Avatar](https://github.com/zenorocha/react-email/tree/main/packages/avatar)
 - [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
 - [Link](https://github.com/zenorocha/react-email/tree/main/packages/link)
 - [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
 - [Divider](https://github.com/zenorocha/react-email/tree/main/packages/hr)
 - [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/text)
 - [Container](https://github.com/zenorocha/react-email/tree/main/packages/container)
-- [Code](https://github.com/zenorocha/react-email/tree/main/packages/code)
-- [Pre](https://github.com/zenorocha/react-email/tree/main/packages/pre)
 - [Preview](https://github.com/zenorocha/react-email/tree/main/packages/preview)
 - [Body](https://github.com/zenorocha/react-email/tree/main/packages/body)
+- [Column](https://github.com/zenorocha/react-email/tree/main/packages/column)
+- [Section](https://github.com/zenorocha/react-email/tree/main/packages/section)
 
 ## Integrations
 
@@ -83,9 +82,9 @@ Emails built with React Email can be converted into HTML and sent using any emai
 
 All components were tested using the most popular email clients.
 
-| <img src="https://react.email/static/images/readme/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/images/readme/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/images/readme/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/images/readme/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/images/readme/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/images/readme/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
-| ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| Gmail ✔                                                                                                          | Apple Mail ✔                                                                                                          | Outlook ✔                                                                                                            | Yahoo! Mail ✔                                                                                                               | HEY ✔                                                                                                        | Superhuman ✔                                                                                                               |
+| <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Gmail ✔                                                                                            | Apple Mail ✔                                                                                            | Outlook ✔                                                                                              | Yahoo! Mail ✔                                                                                                 | HEY ✔                                                                                          | Superhuman ✔                                                                                                 |
 
 ## Development
 

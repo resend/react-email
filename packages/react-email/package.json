@@ -1,0 +1,51 @@
+{
+  "name": "react-email",
+  "version": "1.5.0",
+  "description": "A live preview of your emails right in your browser.",
+  "bin": {
+    "email": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "preprepare": "ts-node ./scripts/prepare-preview",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
+    "lint": "eslint",
+    "clean": "rm -rf dist"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenorocha/react-email.git",
+    "directory": "packages/react-email"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "9.4.1",
+    "@react-email/render": "*",
+    "chokidar": "3.5.3",
+    "commander": "9.4.1",
+    "cpy": "8.1.2",
+    "esbuild": "0.16.4",
+    "glob": "8.0.3",
+    "log-symbols": "4.1.0",
+    "ora": "5.4.1",
+    "read-pkg": "5.2.0",
+    "shelljs": "0.8.5",
+    "tree-node-cli": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/shelljs": "0.8.11",
+    "prettier": "2.7.1",
+    "ts-node": "10.9.1"
+  }
+}

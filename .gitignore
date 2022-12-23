@@ -18,6 +18,7 @@ dist
 # misc
 .DS_Store
 *.pem
+.changeset
 
 # debug
 npm-debug.log*

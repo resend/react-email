@@ -1,0 +1,45 @@
+---
+title: 'Column'
+sidebarTitle: 'Column'
+description: 'Display a column that separates content areas vertically in your email.'
+'og:image': 'https://react.email/static/covers/column.png'
+---
+
+import Support from '../snippets/support.mdx';
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/column -E
+```
+
+```sh yarn
+yarn add @react-email/column -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
+
+const Email = () => {
+  return (
+    <Section>
+      <Column>A<Column/>
+      <Column>B<Column/>
+      <Column>C<Column/>
+    </Section>
+  );
+};
+```
+
+<Support />

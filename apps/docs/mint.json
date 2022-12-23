@@ -26,6 +26,11 @@
   },
   "anchors": [
     {
+      "name": "Examples",
+      "icon": "arrow-pointer",
+      "url": "https://demo.react.email/preview/vercel-invite-user"
+    },
+    {
       "name": "Discord",
       "icon": "discord",
       "url": "https://react.email/discord"
@@ -41,10 +46,17 @@
       "group": "Overview",
       "pages": [
         "introduction",
-        "getting-started",
         "contributing",
         "changelog",
-        "roadmap"
+        "roadmap",
+        "cli"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/automatic-setup",
+        "getting-started/manual-setup"
       ]
     },
     {
@@ -52,17 +64,16 @@
       "pages": [
         "components/html",
         "components/head",
-        "components/avatar",
         "components/button",
-        "components/text",
-        "components/link",
-        "components/image",
-        "components/divider",
-        "components/paragraph",
         "components/container",
-        "components/code",
-        "components/pre",
-        "components/preview"
+        "components/column",
+        "components/section",
+        "components/hr",
+        "components/image",
+        "components/link",
+        "components/paragraph",
+        "components/preview",
+        "components/text"
       ]
     },
     {
