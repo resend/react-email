@@ -1,0 +1,97 @@
+---
+title: 'Adonis V5'
+sidebarTitle: 'Adonis V5'
+description: 'Add React Email to any Adonis v5 with TypeScript project in minutes.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+import NextSteps from '../snippets/next-steps.mdx';
+
+## 1. Install
+
+Install package from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/render -E
+```
+
+```sh yarn
+yarn add @react-email/render -E
+```
+
+</CodeGroup>
+
+I created a folder called emails to store the JSX files
+
+## 2. Installing Adonis v5 dependencies is configuring as per documentation
+
+Visit [docs.adonisjs.com/guides/mailer](https://docs.adonisjs.com/guides/mailer) Follow the documentation.
+
+First, install the dependencies:
+
+<CodeGroup>
+
+```sh npm
+npm install @adonisjs/mail
+```
+
+```sh yarn
+yarn add @adonisjs/mail
+```
+
+</CodeGroup>
+
+## 3. Create or choose a template
+
+Visit [demo.react.email](https://demo.react.email) Templates.
+
+I created the Email.tsx file inside the emails folder.
+
+## 4. Add target in package.json
+
+<CodeGroup>
+
+```
+ "targets": {
+    "module": {
+      "context": "node",
+      "outputFormat": "commonjs"
+    },
+    "main": false,
+    "browser": false
+  },
+```
+
+</CodeGroup>
+
+## 5. Import JSX email and render it inside a controler to send
+
+<CodeGroup>
+
+```
+import Mail from '@ioc:Adonis/Addons/Mail'
+import { render } from '@react-email/render'
+import EmailWelcome from 'emails/email-welcome'
+```
+
+```
+const html = render(EmailWelcome());
+```
+
+```
+await Mail.send((message) => {
+    message
+      .from('contact@react.email')
+      .to(email)
+      .subject('Wellcome React Email!')
+      .html(html)
+})
+```
+
+</CodeGroup>
+
+## 4. Next steps
+
+<NextSteps />
