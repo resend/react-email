@@ -9,7 +9,6 @@ export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
   ({ children, ...props }, forwardedRef) => (
     <head ref={forwardedRef} {...props}>
       <meta httpEquiv="Content-Type" content="text/html charset=UTF-8" />
-      <script src="https://cdn.tailwindcss.com"></script>
       {children}
     </head>
   ),
