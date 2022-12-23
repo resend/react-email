@@ -65,6 +65,7 @@ A set of standard components to help you build amazing emails without having to 
 - [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/text)
 - [Container](https://github.com/zenorocha/react-email/tree/main/packages/container)
 - [Preview](https://github.com/zenorocha/react-email/tree/main/packages/preview)
+- [Body](https://github.com/zenorocha/react-email/tree/main/packages/body)
 - [Column](https://github.com/zenorocha/react-email/tree/main/packages/column)
 - [Section](https://github.com/zenorocha/react-email/tree/main/packages/section)
 
