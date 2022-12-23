@@ -19,7 +19,7 @@ export default function Email() {
         <Container style={container}>
           <Section style={box}>
             <Img
-              src="https://assets.react.email/demo/stripe-logo.png"
+              src="/static/stripe-logo.png"
               width="49"
               height="21"
               alt="Stripe"

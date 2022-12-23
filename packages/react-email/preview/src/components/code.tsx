@@ -1,7 +1,9 @@
 import classnames from 'classnames';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { IconButton } from './icon-button';
-import { IconClipboard, IconCheck, IconDownload } from './icons';
+import { IconClipboard } from './icon-clipboard';
+import { IconDownload } from './icon-download';
+import { IconCheck } from './icon-check';
 import { copyTextToClipboard } from '../utils';
 import { Tooltip } from './tooltip';
 import * as React from 'react';
@@ -122,12 +124,13 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   {...getLineProps({ line, key: i })}
                   className={classnames('whitespace-pre', {
                     "before:text-slate-11 before:mr-2 before:content-['$']":
-                      language === 'bash' && tokens.length === 1,
+                      language === 'bash' && tokens && tokens.length === 1,
                   })}
                 >
                   {line.map((token, key) => {
                     const isException =
-                      token.content === 'from' && line[key + 1]?.content === ':';
+                      token.content === 'from' &&
+                      line[key + 1]?.content === ':';
                     const newTypes = isException
                       ? [...token.types, 'key-white']
                       : token.types;

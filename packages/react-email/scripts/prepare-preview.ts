@@ -29,6 +29,7 @@ const prepareRoot = async () => {
 
     const componentFiles = await Promise.all(files);
     const data = `export const root = ${JSON.stringify(componentFiles)}`;
+
     await fs.promises.writeFile(
       path.join('source', '_preview', 'root.ts'),
       data,

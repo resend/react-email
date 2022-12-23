@@ -21,7 +21,7 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "2.7.1",
-    "turbo": "1.4.7"
+    "turbo": "1.6.3"
   },
   "dependencies": {
     "@changesets/cli": "^2.26.0"

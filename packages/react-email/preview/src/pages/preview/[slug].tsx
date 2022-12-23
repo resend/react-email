@@ -8,7 +8,7 @@ import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-interface PreviewProps { }
+interface PreviewProps {}
 
 export const CONTENT_DIR = 'emails';
 
@@ -87,6 +87,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
       title={slug}
       viewMode={viewMode}
       setViewMode={handleViewMode}
+      markup={markup}
     >
       <Head>
         <title>{title}</title>

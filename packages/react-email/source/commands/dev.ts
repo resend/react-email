@@ -1,169 +1,205 @@
-import { checkDirectoryExist } from '../utils/check-directory-exist';
-import { components } from '../_preview/components';
-import { createDirectory } from '../utils/create-directory';
-import { pages } from '../_preview/pages';
 import {
+  checkDirectoryExist,
+  checkEmptyDirectory,
+  checkPackageIsUpToDate,
   CLIENT_EMAILS_PATH,
+  createDirectory,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
-} from '../utils/constants';
-import { root } from '../_preview/root';
-import { styles } from '../_preview/styles';
-import { utils } from '../_preview/utils';
+  SRC_PATH,
+  getPreviewPkg,
+  watcher,
+  PUBLIC_PATH,
+  watcherInstance,
+} from '../utils';
+import path from 'path';
 import fs from 'fs';
+import { components } from '../_preview/components';
+import { utils } from '../_preview/utils';
+import { root } from '../_preview/root';
+import { pages } from '../_preview/pages';
+import copy from 'cpy';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import path from 'path';
 import readPackage from 'read-pkg';
 import shell from 'shelljs';
-import { watcher } from '../utils/watcher';
-import copy from 'cpy';
+import { styles } from '../_preview/styles';
 
 export const dev = async () => {
-  await prepareFiles();
-  await checkForUpdates();
-  await generateEmailsPreview();
-  await syncPkg();
-  await installDependencies();
+  try {
+    const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
 
-  shell.exec('yarn dev', { async: true });
-  watcher();
+    if (hasReactEmailDirectory) {
+      const isUpToDate = await checkPackageIsUpToDate();
+
+      if (isUpToDate) {
+        await Promise.all([generateEmailsPreview(), syncPkg()]);
+        await installDependencies();
+        shell.exec('yarn dev', { async: true });
+        watcher();
+        return;
+      }
+
+      await fs.promises.rm(REACT_EMAIL_ROOT, { recursive: true });
+    }
+
+    await createBasicStructure();
+    await createAppDirectories();
+    await createAppFiles();
+    await Promise.all([generateEmailsPreview(), syncPkg()]);
+    await installDependencies();
+    shell.exec('yarn dev', { async: true });
+    watcher();
+  } catch (error) {
+    await watcherInstance.close();
+    shell.exit(1);
+  }
 };
 
-const prepareFiles = async () => {
-  const spinner = ora('Preparing React Email files...').start();
-  const isFirstTime = !checkDirectoryExist(REACT_EMAIL_ROOT);
-
-  if (isFirstTime) {
+const createBasicStructure = async () => {
+  try {
+    // Create `.react-email` directory
     await createDirectory(REACT_EMAIL_ROOT);
-    await createDirectory(path.join(REACT_EMAIL_ROOT, 'src'));
-    await createDirectory(path.join(REACT_EMAIL_ROOT, 'public'));
+
+    // Create `src` and `public` directories
+    await Promise.all([
+      createDirectory(SRC_PATH),
+      createDirectory(PUBLIC_PATH),
+    ]);
+  } catch (error) {
+    throw new Error('Error creating the basic structure');
+  }
+};
+
+const createAppDirectories = async () => {
+  try {
+    await Promise.all([
+      createDirectory(path.join(SRC_PATH, 'components')),
+      createDirectory(path.join(SRC_PATH, 'utils')),
+      createDirectory(path.join(SRC_PATH, 'pages')),
+      createDirectory(path.join(SRC_PATH, 'styles')),
+    ]);
+  } catch (error) {
+    throw new Error('Error creating app directories');
+  }
+};
+
+type AppFile = { content: string; title: string; dir?: string };
+
+const createAppFiles = async () => {
+  try {
+    const creation = (appFiles: AppFile[], name?: string) => {
+      return appFiles.map((file) => {
+        const location = name
+          ? `${SRC_PATH}/${name}/${file.title}`
+          : `${REACT_EMAIL_ROOT}/${file.title}`;
+        return fs.promises.writeFile(location, file.content);
+      });
+    };
+
+    const pageCreation = pages.map((page) => {
+      const location = page.dir
+        ? `${SRC_PATH}/pages/${page.dir}/${page.title}`
+        : `${SRC_PATH}/pages/${page.title}`;
+
+      if (page.dir) {
+        createDirectory(`${SRC_PATH}/pages/${page.dir}`);
+      }
+
+      return fs.promises.writeFile(location, page.content);
+    });
 
     await Promise.all([
-      createFilesAndDirectories(components, 'components'),
-      createFilesAndDirectories(utils, 'utils'),
-      createFilesAndDirectories(styles, 'styles'),
-      createFilesAndDirectories(root),
-      createFilesAndDirectories(pages, 'pages'),
+      ...creation(utils, 'utils'),
+      ...creation(components, 'components'),
+      ...creation(styles, 'styles'),
+      ...creation(root),
+      ...pageCreation,
     ]);
+  } catch (error) {
+    throw new Error('Error creating app files');
   }
-
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'React Email files ready',
-  });
-};
-
-const checkForUpdates = async () => {
-  const spinner = ora('Checking for updates...').start();
-  const reactEmailPkg = await fs.promises.readFile(
-    path.join(REACT_EMAIL_ROOT, 'package.json'),
-    { encoding: 'utf8' },
-  );
-  const isUpToDate =
-    JSON.parse(reactEmailPkg).version === getPreviewPkg().version;
-
-  if (isUpToDate) {
-    return spinner.stopAndPersist({
-      symbol: logSymbols.success,
-      text: 'React Email is up-to-date',
-    });
-  }
-
-  return updatePackage();
-};
-
-const updatePackage = async () => {
-  const spinner = ora('Updating React Email...').start();
-
-  await Promise.all([
-    createFilesAndDirectories(utils, 'utils'),
-    createFilesAndDirectories(styles, 'styles'),
-    createFilesAndDirectories(root),
-    createFilesAndDirectories(pages, 'pages'),
-  ]);
-
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'React Email is updated',
-  });
 };
 
 const generateEmailsPreview = async () => {
-  const spinner = ora('Generating emails preview').start();
-  const hasEmailsDirectory = fs.existsSync(CLIENT_EMAILS_PATH);
-  const hasPackageEmailsDirectory = fs.existsSync(PACKAGE_EMAILS_PATH);
-  const hasPackagePublicDirectory = fs.existsSync(
-    `${REACT_EMAIL_ROOT}/public/static`,
-  );
-  const hasStaticDirectory = fs.existsSync(`${REACT_EMAIL_ROOT}/static`);
+  try {
+    const spinner = ora('Generating emails preview').start();
 
-  if (hasEmailsDirectory) {
-    if (hasPackageEmailsDirectory) {
-      await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
-    }
+    await createEmailPreviews();
+    await createStatisFiles();
+    await createComponents();
 
-    if (hasPackagePublicDirectory) {
-      await fs.promises.rm(`${REACT_EMAIL_ROOT}/public`, {
-        recursive: true,
-      });
-    }
-
-    await copy(`${CLIENT_EMAILS_PATH}/*{.tsx,.jsx}`, PACKAGE_EMAILS_PATH);
-
-    if (hasStaticDirectory) {
-      await copy(
-        `${CLIENT_EMAILS_PATH}/static`,
-        `${REACT_EMAIL_ROOT}/public/static`,
-      );
-    }
-
-    return spinner.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: 'Emails preview generated',
     });
+  } catch (error) {
+    console.log({ error });
   }
-
-  fs.promises.mkdir(CLIENT_EMAILS_PATH);
-  return spinner.stopAndPersist({
-    symbol: logSymbols.warning,
-    text: 'Emails preview directory is empty',
-  });
 };
 
-const installDependencies = async () => {
-  const spinner = ora('Installing dependencies...').start();
+const createEmailPreviews = async () => {
+  const hasEmailsDirectory = checkDirectoryExist(CLIENT_EMAILS_PATH);
 
-  shell.cd(path.join(REACT_EMAIL_ROOT));
-  shell.exec('yarn', { silent: true });
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'Dependencies installed',
-  });
-};
+  const isEmailsDirectoryEmpty = hasEmailsDirectory
+    ? await checkEmptyDirectory(CLIENT_EMAILS_PATH)
+    : true;
 
-const createFilesAndDirectories = async (
-  arr: { content: string; title: string; dir?: string }[],
-  dir?: string,
-) => {
-  if (dir) {
-    await createDirectory(path.join(REACT_EMAIL_ROOT, 'src', dir));
+  if (isEmailsDirectoryEmpty) {
   }
 
-  const list = arr.map(async ({ content, title, dir: dirName }) => {
-    if (dirName && dir) {
-      await createDirectory(path.join(REACT_EMAIL_ROOT, 'src', dir, dirName));
-    }
+  const hasPackageEmailsDirectory = checkDirectoryExist(PACKAGE_EMAILS_PATH);
 
-    const pathDir = dir
-      ? dirName
-        ? path.join(REACT_EMAIL_ROOT, 'src', dir, dirName, title)
-        : path.join(REACT_EMAIL_ROOT, 'src', dir, title)
-      : path.join(REACT_EMAIL_ROOT, title);
-    await fs.promises.writeFile(pathDir, content);
-  });
+  if (hasPackageEmailsDirectory) {
+    await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
+  }
 
-  await Promise.all(list);
+  await copy(`${CLIENT_EMAILS_PATH}/*{.tsx,.jsx}`, PACKAGE_EMAILS_PATH);
+};
+
+const createStatisFiles = async () => {
+  const hasPackageStaticDirectory = checkDirectoryExist(
+    `${REACT_EMAIL_ROOT}/public/static`,
+  );
+  const hasStaticDirectory = checkDirectoryExist(
+    `${CLIENT_EMAILS_PATH}/static`,
+  );
+
+  if (hasPackageStaticDirectory) {
+    await fs.promises.rm(`${REACT_EMAIL_ROOT}/public/static`, {
+      recursive: true,
+    });
+  }
+
+  if (hasStaticDirectory) {
+    await copy(
+      `${CLIENT_EMAILS_PATH}/static`,
+      `${REACT_EMAIL_ROOT}/public/static`,
+    );
+  }
+};
+
+const createComponents = async () => {
+  const hasPackageComponentsDirectory = checkDirectoryExist(
+    `${PACKAGE_EMAILS_PATH}/components`,
+  );
+
+  const hasComponentsDirectory = checkDirectoryExist(
+    `${CLIENT_EMAILS_PATH}/components`,
+  );
+
+  if (hasPackageComponentsDirectory) {
+    await fs.promises.rm(`${PACKAGE_EMAILS_PATH}/components`, {
+      recursive: true,
+    });
+  }
+
+  if (hasComponentsDirectory) {
+    await copy(
+      `${CLIENT_EMAILS_PATH}/components`,
+      `${PACKAGE_EMAILS_PATH}/components`,
+    );
+  }
 };
 
 const syncPkg = async () => {
@@ -182,7 +218,13 @@ const syncPkg = async () => {
   );
 };
 
-const getPreviewPkg = () => {
-  const [previewPkg] = root.filter((pkg) => pkg.title === 'package.json');
-  return JSON.parse(previewPkg?.content || '');
+const installDependencies = async () => {
+  const spinner = ora('Installing dependencies...\n').start();
+
+  shell.cd(path.join(REACT_EMAIL_ROOT));
+  shell.exec('yarn');
+  spinner.stopAndPersist({
+    symbol: logSymbols.success,
+    text: 'Dependencies installed',
+  });
 };
