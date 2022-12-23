@@ -20,6 +20,16 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
       gridAutoFlow: 'column',
     };
 
+    const arrayChildren = React.Children.toArray(children);
+
+    const hasTdElement = (child: React.ReactNode) => {
+      return React.isValidElement(child) && child.type === "td";
+    };
+  
+    const finalChildren = arrayChildren.map((child, index) => {
+      return hasTdElement(child) ? child : <td key={index}>{child}</td>;
+    });
+
     return (
       <table
         ref={forwardedRef}
@@ -32,7 +42,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         {...props}
       >
         <tbody>
-          <tr style={styleDefaultTr}>{children}</tr>
+          <tr style={styleDefaultTr}>{finalChildren}</tr>
         </tbody>
       </table>
     );
