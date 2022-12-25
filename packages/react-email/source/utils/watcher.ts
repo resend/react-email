@@ -19,7 +19,7 @@ export const watcherInstance = chokidar.watch(CLIENT_EMAILS_PATH, {
 export const watcher = () =>
   watcherInstance.on('all', async (event, filename) => {
     if (event === EVENT_FILE_DELETED) {
-      const file = filename.split('/');
+      const file = filename.split(path.sep);
 
       if (file[1] === 'static') {
         if (file[2]) {
@@ -32,7 +32,7 @@ export const watcher = () =>
 
       await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
     } else {
-      const file = filename.split('/');
+      const file = filename.split(path.sep);
 
       if (file[1] === 'static') {
         await copy(
