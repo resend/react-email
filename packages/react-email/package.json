@@ -40,7 +40,7 @@
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
-    "tree-node-cli": "^1.6.0"
+    "tree-node-cli": "1.6.0"
   },
   "devDependencies": {
     "@types/node": "18.11.9",
