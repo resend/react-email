@@ -6,6 +6,7 @@ import logSymbols from 'log-symbols';
 import { render } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
 import copy from 'cpy';
+import normalize from 'normalize-path';
 import { checkDirectoryExist, CLIENT_EMAILS_PATH } from '../utils';
 
 /*
@@ -15,7 +16,7 @@ import { checkDirectoryExist, CLIENT_EMAILS_PATH } from '../utils';
  */
 export const exportTemplates = async (outDir: string, pretty: boolean) => {
   const spinner = ora('Preparing files...\n').start();
-  const allTemplates = glob.sync(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`);
+  const allTemplates = glob.sync(normalize(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`));
 
   esbuild.buildSync({
     bundle: true,
@@ -25,7 +26,7 @@ export const exportTemplates = async (outDir: string, pretty: boolean) => {
     outdir: outDir,
   });
 
-  const allBuiltTemplates = glob.sync(`${outDir}/*.js`, {
+  const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
     absolute: true,
   });
 
