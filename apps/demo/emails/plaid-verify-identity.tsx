@@ -1,6 +1,7 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
@@ -26,7 +27,9 @@ export default function Email() {
           Enter the following code to finish linking Venmo.
         </Text>
         <Section style={codeContainer}>
+          <Column>
           <Text style={code}>144833</Text>
+          </Column>
         </Section>
         <Text style={paragraph}>Not expecting this email?</Text>
         <Text style={paragraph}>
