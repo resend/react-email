@@ -5,74 +5,79 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Log in with this magic link</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Text style={h1}>Login</Text>
-          <Link
-            href="https://notion.so"
-            target="_blank"
-            style={{
-              ...link,
-              display: 'block',
-              marginBottom: '16px',
-            }}
-          >
-            Click here to log in with this magic link
-          </Link>
-          <Text style={{ ...text, marginBottom: '14px' }}>
-            Or, copy and paste this temporary login code:
-          </Text>
-          <code style={code}>sparo-ndigo-amurt-secan</code>
-          <Text
-            style={{
-              ...text,
-              color: '#ababab',
-              marginTop: '14px',
-              marginBottom: '16px',
-            }}
-          >
-            If you didn&apos;t try to login, you can safely ignore this email.
-          </Text>
-          <Text
-            style={{
-              ...text,
-              color: '#ababab',
-              marginTop: '12px',
-              marginBottom: '38px',
-            }}
-          >
-            Hint: You can set a permanent password in Settings & members → My
-            account.
-          </Text>
-          <Img
-            src={`${baseUrl}/static/notion-logo.png`}
-            width="32"
-            height="32"
-            alt="Notion's Logo"
-          />
-          <Text style={footer}>
+        <Column>
+          <Container style={container}>
+            <Text style={h1}>Login</Text>
             <Link
               href="https://notion.so"
               target="_blank"
-              style={{ ...link, color: '#898989' }}
+              style={{
+                ...link,
+                display: 'block',
+                marginBottom: '16px',
+              }}
             >
-              Notion.so
+              Click here to log in with this magic link
             </Link>
-            , the all-in-one-workspace
-            <br />
-            for your notes, tasks, wikis, and databases.
-          </Text>
-        </Container>
+            <Text style={{ ...text, marginBottom: '14px' }}>
+              Or, copy and paste this temporary login code:
+            </Text>
+            <code style={code}>sparo-ndigo-amurt-secan</code>
+            <Text
+              style={{
+                ...text,
+                color: '#ababab',
+                marginTop: '14px',
+                marginBottom: '16px',
+              }}
+            >
+              If you didn&apos;t try to login, you can safely ignore this email.
+            </Text>
+            <Text
+              style={{
+                ...text,
+                color: '#ababab',
+                marginTop: '12px',
+                marginBottom: '38px',
+              }}
+            >
+              Hint: You can set a permanent password in Settings & members → My
+              account.
+            </Text>
+            <Img
+              src={`${baseUrl}/static/notion-logo.png`}
+              width="32"
+              height="32"
+              alt="Notion's Logo"
+            />
+            <Text style={footer}>
+              <Link
+                href="https://notion.so"
+                target="_blank"
+                style={{ ...link, color: '#898989' }}
+              >
+                Notion.so
+              </Link>
+              , the all-in-one-workspace
+              <br />
+              for your notes, tasks, wikis, and databases.
+            </Text>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -86,6 +91,7 @@ const container = {
   paddingLeft: '12px',
   paddingRight: '12px',
   margin: '0 auto',
+  width: '100%',
 };
 
 const h1 = {
