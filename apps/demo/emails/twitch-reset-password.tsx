@@ -14,7 +14,7 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Yelp recent login</Preview>
+      <Preview>You updated the password for your Twitch account</Preview>
       <Section style={main}>
         <Container style={container}>
           <Section style={logo}>
