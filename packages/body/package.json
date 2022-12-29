@@ -13,12 +13,12 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "lint": "eslint",
     "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --ignore-path ./../../.prettierignore --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
     "react": "18.2.0"
