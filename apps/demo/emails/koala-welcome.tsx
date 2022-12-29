@@ -6,11 +6,14 @@ import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
@@ -19,32 +22,41 @@ export default function Email() {
         The sales intelligence platform that helps you uncover qualified leads.
       </Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/koala-logo.png`}
-            width="170"
-            height="50"
-            alt="Koala"
-            style={logo}
-          />
-          <Text style={paragraph}>Hi Zeno,</Text>
-          <Text style={paragraph}>
-            Welcome to Koala, the sales intelligence platform that helps you
-            uncover qualified leads and close deals faster.
-          </Text>
-          <Section style={btnContainer}>
-            <Button pX={12} pY={12} style={button} href="https://getkoala.com">
-              Get started
-            </Button>
-          </Section>
-          <Text style={paragraph}>
-            Best,
-            <br />
-            The Koala team
-          </Text>
-          <Hr style={hr} />
-          <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
-        </Container>
+        <Column>
+          <Container style={container}>
+            <Img
+              src={`${baseUrl}/static/koala-logo.png`}
+              width="170"
+              height="50"
+              alt="Koala"
+              style={logo}
+            />
+            <Text style={paragraph}>Hi Zeno,</Text>
+            <Text style={paragraph}>
+              Welcome to Koala, the sales intelligence platform that helps you
+              uncover qualified leads and close deals faster.
+            </Text>
+            <Section style={btnContainer}>
+              <Column>
+                <Button
+                  pX={12}
+                  pY={12}
+                  style={button}
+                  href="https://getkoala.com"
+                >
+                  Get started
+                </Button>
+              </Column>
+            </Section>
+            <Text style={paragraph}>
+              Best,
+              <br />
+              The Koala team
+            </Text>
+            <Hr style={hr} />
+            <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
