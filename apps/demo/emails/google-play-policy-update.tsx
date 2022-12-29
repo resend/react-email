@@ -6,157 +6,193 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Google Play developers</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Section>
-            <Section style={headerBlue}>
-              <Img
-                src={`${baseUrl}/static/google-play-header.png`}
-                width="305"
-                height="28"
-                alt="Google Play developers header blue transparent"
-              />
+        <Column style={columnDirection}>
+          <Container style={container}>
+            <Section>
+              <Column style={columnDirection}>
+                <Section style={headerBlue}>
+                  <Column style={alignLeft}>
+                    <Img
+                      src={`${baseUrl}/static/google-play-header.png`}
+                      width="305"
+                      height="28"
+                      alt="Google Play developers header blue transparent"
+                    />
+                  </Column>
+                </Section>
+                <Section style={sectionLogo}>
+                  <Column style={alignLeft}>
+                    <Img
+                      src={`${baseUrl}/static/google-play-logo.png`}
+                      width="155"
+                      height="31"
+                      alt="Google Play"
+                    />
+                  </Column>
+                </Section>
+              </Column>
             </Section>
-            <Section style={sectionLogo}>
-              <Img
-                src={`${baseUrl}/static/google-play-logo.png`}
-                width="155"
-                height="31"
-                alt="Google Play"
-              />
+
+            <Section style={paragraphContent}>
+              <Column style={alignLeft}>
+                <Hr style={hr} />
+                <Text style={heading}>DEVELOPER UPDATE</Text>
+                <Text style={paragraph}>Hello Google Play Developer,</Text>
+                <Text style={paragraph}>
+                  We strive to make Google Play a safe and trusted experience
+                  for users.
+                </Text>
+                <Text style={paragraph}>
+                  We've added clarifications to our{' '}
+                  <Link href="https://notifications.google.com" style={link}>
+                    Target API Level policy
+                  </Link>
+                  . Because this is a clarification, our enforcement standards
+                  and practices for this policy remain the same.
+                </Text>
+                <Section style={paragraphList}>
+                  <Column>
+                    <Text style={paragraph}>
+                      We’re noting exceptions to the{' '}
+                      <Link
+                        href="https://notifications.google.com"
+                        style={link}
+                      >
+                        Target API Level policy
+                      </Link>
+                      , which can be found in our updated{' '}
+                      <Link
+                        href="https://notifications.google.com"
+                        style={link}
+                      >
+                        Help Center article.
+                      </Link>
+                      These exceptions include permanently private apps and apps
+                      that target automotive or wearables form factors and are
+                      bundled within the same package.{' '}
+                      <Link
+                        href="https://notifications.google.com"
+                        style={link}
+                      >
+                        Learn more
+                      </Link>
+                    </Text>
+                  </Column>
+                </Section>
+                <Text style={paragraph}>
+                  We’re also extending the deadline to give you more time to
+                  adjust to these changes. Now, apps that target API level 29 or
+                  below will start experiencing reduced distribution starting{' '}
+                  <b>Jan 31, 2023</b> instead of Nov 1, 2022. If you need more
+                  time to update your app, you can request an extension to keep
+                  your app discoverable to all users until May 1, 2023.
+                </Text>
+                <Hr style={hr} />
+              </Column>
             </Section>
-          </Section>
 
-          <Section style={paragraphContent}>
-            <Hr style={hr} />
-            <Text style={heading}>DEVELOPER UPDATE</Text>
-            <Text style={paragraph}>Hello Google Play Developer,</Text>
-            <Text style={paragraph}>
-              We strive to make Google Play a safe and trusted experience for
-              users.
-            </Text>
-            <Text style={paragraph}>
-              We've added clarifications to our{' '}
-              <Link href="https://notifications.google.com" style={link}>
-                Target API Level policy
-              </Link>
-              . Because this is a clarification, our enforcement standards and
-              practices for this policy remain the same.
-            </Text>
-            <Section style={paragraphList}>
-              <Text style={paragraph}>
-                We’re noting exceptions to the{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Target API Level policy
-                </Link>
-                , which can be found in our updated{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Help Center article.
-                </Link>
-                These exceptions include permanently private apps and apps that
-                target automotive or wearables form factors and are bundled
-                within the same package.{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Learn more
-                </Link>
-              </Text>
+            <Section style={paragraphContent}>
+              <Column style={alignLeft}>
+                <Text style={paragraph}>Thank you,</Text>
+                <Text style={{ ...paragraph, fontSize: '20px' }}>
+                  The Google Play team
+                </Text>
+              </Column>
             </Section>
-            <Text style={paragraph}>
-              We’re also extending the deadline to give you more time to adjust
-              to these changes. Now, apps that target API level 29 or below will
-              start experiencing reduced distribution starting{' '}
-              <b>Jan 31, 2023</b> instead of Nov 1, 2022. If you need more time
-              to update your app, you can request an extension to keep your app
-              discoverable to all users until May 1, 2023.
-            </Text>
-            <Hr style={hr} />
-          </Section>
 
-          <Section style={paragraphContent}>
-            <Text style={paragraph}>Thank you,</Text>
-            <Text style={{ ...paragraph, fontSize: '20px' }}>
-              The Google Play team
-            </Text>
-          </Section>
-
-          <Section style={containerContact}>
-            <Section
-              style={{
-                padding: '20px 20px',
-              }}
-            >
-              <Text style={paragraph}>Connect with us</Text>
-              <table>
-                <tr>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-chat.png`}
-                      />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-icon.png`}
-                      />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-academy.png`}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-              </table>
+            <Section style={containerContact}>
+              <Column style={columnDirection}>
+                <Section
+                  style={{
+                    padding: '20px 20px',
+                  }}
+                >
+                  <Column style={alignLeft}>
+                    <Text style={paragraph}>Connect with us</Text>
+                    <Section>
+                      <Column
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'start',
+                          gap: '4px'
+                        }}
+                      >
+                        <Link href="https://notifications.google.com">
+                          <Img
+                            width="28"
+                            height="28"
+                            src={`${baseUrl}/static/google-play-chat.png`}
+                          />
+                        </Link>
+                        <Link href="https://notifications.google.com">
+                          <Img
+                            width="28"
+                            height="28"
+                            src={`${baseUrl}/static/google-play-icon.png`}
+                          />
+                        </Link>
+                        <Link href="https://notifications.google.com">
+                          <Img
+                            width="28"
+                            height="28"
+                            src={`${baseUrl}/static/google-play-academy.png`}
+                          />
+                        </Link>
+                      </Column>
+                    </Section>
+                  </Column>
+                </Section>
+                <Img
+                  width="540"
+                  height="48"
+                  src={`${baseUrl}/static/google-play-footer.png`}
+                />
+              </Column>
             </Section>
-            <Img width="540" height="48" src={`${baseUrl}/static/google-play-footer.png`} />
-          </Section>
 
-          <Section style={{ ...paragraphContent, paddingBottom: 30 }}>
-            <Text
-              style={{
-                ...paragraph,
-                fontSize: '12px',
-                textAlign: 'center',
-                margin: 0,
-              }}
-            >
-              © 2022 Google LLC 1600 Amphitheatre Parkway, Mountain View, CA
-              94043, USA
-            </Text>
-            <Text
-              style={{
-                ...paragraph,
-                fontSize: '12px',
-                textAlign: 'center',
-                margin: 0,
-              }}
-            >
-              You have received this mandatory email service announcement to
-              update you about important changes to your Google Play Developer
-              account.
-            </Text>
-          </Section>
-        </Container>
+            <Section style={{ ...paragraphContent, paddingBottom: 30 }}>
+              <Column style={columnDirection}>
+                <Text
+                  style={{
+                    ...paragraph,
+                    fontSize: '12px',
+                    textAlign: 'center',
+                    margin: 0,
+                  }}
+                >
+                  © 2022 Google LLC 1600 Amphitheatre Parkway, Mountain View, CA
+                  94043, USA
+                </Text>
+                <Text
+                  style={{
+                    ...paragraph,
+                    fontSize: '12px',
+                    textAlign: 'center',
+                    margin: 0,
+                  }}
+                >
+                  You have received this mandatory email service announcement to
+                  update you about important changes to your Google Play
+                  Developer account.
+                </Text>
+              </Column>
+            </Section>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -203,6 +239,16 @@ const heading = {
   lineHeight: '26px',
   fontWeight: '700',
   color: '#004dcf',
+};
+
+const columnDirection = {
+  display: 'flex',
+  flexDirection: 'column',
+} as React.CSSProperties;
+
+const alignLeft = {
+  ...columnDirection,
+  alignItems: 'start',
 };
 
 const paragraphContent = {
