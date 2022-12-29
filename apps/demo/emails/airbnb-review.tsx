@@ -7,80 +7,89 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Read Alex's review</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/airbnb-logo.png`}
-            width="96"
-            height="30"
-            alt="Airbnb"
-          />
-          <Section>
+        <Column>
+          <Container style={container}>
             <Img
-              src={`${baseUrl}/static/airbnb-review-user.jpg`}
+              src={`${baseUrl}/static/airbnb-logo.png`}
               width="96"
-              height="96"
-              alt="Alex"
-              style={userImage}
+              height="30"
+              alt="Airbnb"
             />
-          </Section>
-          <Text style={heading}>Here's what Alex wrote</Text>
-          <Text style={review}>
-            “Zeno was a great guest! Easy communication, the apartment was left
-            in great condition, very polite, and respectful of all house rules.
-            He’s welcome back anytime and would easily recommend him to any
-            host!”
-          </Text>
-          <Text style={paragraph}>
-            Now that the review period is over, we’ve posted Alex’s review to
-            your Airbnb profile.
-          </Text>
-          <Text style={paragraph}>
-            While it’s too late to write a review of your own, you can send your
-            feedback to Alex using your Airbnb message thread.
-          </Text>
-          <Section style={{ padding: '16px 0 20px' }}>
-            <Button pY={19} style={button} href="https://airbnb.com/">
-              Send My Feedback
-            </Button>
-          </Section>
-          <Hr style={hr} />
-          <Text style={{ ...paragraph, fontWeight: '700' }}>
-            Commom questions
-          </Text>
-          <Text>
-            <Link href="https://airbnb.com/help/article/13" style={link}>
-              How do reviews work?
+            <Section>
+              <Column>
+                <Img
+                  src={`${baseUrl}/static/airbnb-review-user.jpg`}
+                  width="96"
+                  height="96"
+                  alt="Alex"
+                  style={userImage}
+                />
+              </Column>
+            </Section>
+            <Text style={heading}>Here's what Alex wrote</Text>
+            <Text style={review}>
+              “Zeno was a great guest! Easy communication, the apartment was
+              left in great condition, very polite, and respectful of all house
+              rules. He’s welcome back anytime and would easily recommend him to
+              any host!”
+            </Text>
+            <Text style={paragraph}>
+              Now that the review period is over, we’ve posted Alex’s review to
+              your Airbnb profile.
+            </Text>
+            <Text style={paragraph}>
+              While it’s too late to write a review of your own, you can send
+              your feedback to Alex using your Airbnb message thread.
+            </Text>
+            <Section style={{ padding: '16px 0 20px' }}>
+              <Column>
+                <Button pY={19} style={button} href="https://airbnb.com/">
+                  Send My Feedback
+                </Button>
+              </Column>
+            </Section>
+            <Hr style={hr} />
+            <Text style={{ ...paragraph, fontWeight: '700' }}>
+              Commom questions
+            </Text>
+            <Text>
+              <Link href="https://airbnb.com/help/article/13" style={link}>
+                How do reviews work?
+              </Link>
+            </Text>
+            <Text>
+              <Link href="https://airbnb.com/help/article/1257" style={link}>
+                How do star ratings work?
+              </Link>
+            </Text>
+            <Text>
+              <Link href="https://airbnb.com/help/article/995" style={link}>
+                Can I leave a review after 14 days?
+              </Link>
+            </Text>
+            <Hr style={hr} />
+            <Text style={footer}>
+              Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
+            </Text>
+            <Link href="https://airbnb.com" style={reportLink}>
+              Report unsafe behavior
             </Link>
-          </Text>
-          <Text>
-            <Link href="https://airbnb.com/help/article/1257" style={link}>
-              How do star ratings work?
-            </Link>
-          </Text>
-          <Text>
-            <Link href="https://airbnb.com/help/article/995" style={link}>
-              Can I leave a review after 14 days?
-            </Link>
-          </Text>
-          <Hr style={hr} />
-          <Text style={footer}>
-            Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
-          </Text>
-          <Link href="https://airbnb.com" style={reportLink}>
-            Report unsafe behavior
-          </Link>
-        </Container>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
