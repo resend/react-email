@@ -7,106 +7,111 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Join bukinoshita on Vercel</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Section style={{ marginTop: '32px' }}>
-            <Img
-              src={`${baseUrl}/static/vercel-logo.png`}
-              width="40"
-              height="37"
-              alt="Vercel"
-              style={logo}
-            />
-          </Section>
-          <Text style={h1}>
-            Join <strong>My Project</strong> on <strong>Vercel</strong>
-          </Text>
-          <Text style={text}>Hello zenorocha,</Text>
-          <Text style={text}>
-            <strong>bukinoshita</strong> (
-            <Link href="mailto:bukinoshita@example.com" style={link}>
-              bukinoshita@example.com
-            </Link>
-            ) has invited you to the <strong>My Project</strong> team on{' '}
-            <strong>Vercel</strong>.
-          </Text>
-          <table
-            style={spacing}
-            border={0}
-            cellPadding="0"
-            cellSpacing="10"
-            align="center"
-          >
-            <tr>
-              <td style={center} align="left" valign="middle">
+        <Column>
+          <Container style={container}>
+            <Section style={{ marginTop: '32px' }}>
+              <Column>
+                <Img
+                  src={`${baseUrl}/static/vercel-logo.png`}
+                  width="40"
+                  height="37"
+                  alt="Vercel"
+                  style={logo}
+                />
+              </Column>
+            </Section>
+            <Text style={h1}>
+              Join <strong>My Project</strong> on <strong>Vercel</strong>
+            </Text>
+            <Text style={text}>Hello zenorocha,</Text>
+            <Text style={text}>
+              <strong>bukinoshita</strong> (
+              <Link href="mailto:bukinoshita@example.com" style={link}>
+                bukinoshita@example.com
+              </Link>
+              ) has invited you to the <strong>My Project</strong> team on{' '}
+              <strong>Vercel</strong>.
+            </Text>
+            <Section
+              style={spacing}
+              border={0}
+              cellPadding="0"
+              cellSpacing="10"
+              align="center"
+            >
+              <Column></Column>
+              <Column style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
                   src={`${baseUrl}/static/vercel-user.png`}
                   width="64"
                   height="64"
                 />
-              </td>
-              <td style={center} align="left" valign="middle">
                 <Img
                   src={`${baseUrl}/static/vercel-arrow.png`}
                   width="12"
                   height="9"
                   alt="invited you to"
                 />
-              </td>
-              <td style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
                   src={`${baseUrl}/static/vercel-team.png`}
                   width="64"
                   height="64"
                 />
-              </td>
-            </tr>
-          </table>
-          <Section style={{ textAlign: 'center' }}>
-            <Button
-              pX={20}
-              pY={12}
-              style={btn}
-              href="https://vercel.com/teams/invite/foo"
-            >
-              Join the team
-            </Button>
-          </Section>
-          <Text style={text}>
-            <br />
-            or copy and paste this URL into your browser:{' '}
-            <Link
-              href="https://vercel.com/teams/invite/foo"
-              target="_blank"
-              style={link}
-              rel="noreferrer"
-            >
-              https://vercel.com/teams/invite/foo
-            </Link>
-          </Text>
-          <Hr style={hr} />
-          <Text style={footer}>
-            This invitation was intended for{' '}
-            <span style={black}>zenorocha</span>.This invite was sent from{' '}
-            <span style={black}>204.13.186.218</span> located in{' '}
-            <span style={black}>São Paulo, Brazil</span>. If you were not
-            expecting this invitation, you can ignore this email. If you are
-            concerned about your account's safety, please reply to this email to
-            get in touch with us.
-          </Text>
-        </Container>
+              </Column>
+              <Column></Column>
+            </Section>
+            <Section style={{ textAlign: 'center' }}>
+              <Column>
+                <Button
+                  pX={20}
+                  pY={12}
+                  style={btn}
+                  href="https://vercel.com/teams/invite/foo"
+                >
+                  Join the team
+                </Button>
+              </Column>
+            </Section>
+            <Text style={text}>
+              <br />
+              or copy and paste this URL into your browser:{' '}
+              <Link
+                href="https://vercel.com/teams/invite/foo"
+                target="_blank"
+                style={link}
+                rel="noreferrer"
+              >
+                https://vercel.com/teams/invite/foo
+              </Link>
+            </Text>
+            <Hr style={hr} />
+            <Text style={footer}>
+              This invitation was intended for{' '}
+              <span style={black}>zenorocha</span>.This invite was sent from{' '}
+              <span style={black}>204.13.186.218</span> located in{' '}
+              <span style={black}>São Paulo, Brazil</span>. If you were not
+              expecting this invitation, you can ignore this email. If you are
+              concerned about your account's safety, please reply to this email
+              to get in touch with us.
+            </Text>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -162,6 +167,7 @@ const black = {
 };
 
 const center = {
+  gap: '12px',
   verticalAlign: 'middle',
 };
 
