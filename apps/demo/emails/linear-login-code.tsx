@@ -7,44 +7,58 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Your login code for Linear</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/linear-logo.png`}
-            width="42"
-            height="42"
-            alt="Linear"
-            style={logo}
-          />
-          <Text style={heading}>Your login code for Linear</Text>
-          <Section style={buttonContainer}>
-            <Button pY={11} pX={23} style={button} href="https://linear.app">
-              Login to Linear
-            </Button>
-          </Section>
-          <Text style={paragraph}>
-            This link and code will only be valid for the next 5 minutes. If the
-            link does not work, you can use the login verification code
-            directly:
-          </Text>
-          <Section>
-            <code style={code}>tt226-5398x</code>
-          </Section>
-          <Hr style={hr} />
-          <Link href="https://linear.app" style={reportLink}>
-            Linear
-          </Link>
-        </Container>
+        <Column>
+          <Container style={container}>
+            <Img
+              src={`${baseUrl}/static/linear-logo.png`}
+              width="42"
+              height="42"
+              alt="Linear"
+              style={logo}
+            />
+            <Text style={heading}>Your login code for Linear</Text>
+            <Section style={buttonContainer}>
+              <Column style={alignLeft}>
+                <Button
+                  pY={11}
+                  pX={23}
+                  style={button}
+                  href="https://linear.app"
+                >
+                  Login to Linear
+                </Button>
+              </Column>
+            </Section>
+            <Text style={paragraph}>
+              This link and code will only be valid for the next 5 minutes. If
+              the link does not work, you can use the login verification code
+              directly:
+            </Text>
+            <Section>
+              <Column style={alignLeft}>
+                <code style={code}>tt226-5398x</code>
+              </Column>
+            </Section>
+            <Hr style={hr} />
+            <Link href="https://linear.app" style={reportLink}>
+              Linear
+            </Link>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -112,6 +126,16 @@ const reportLink = {
 const hr = {
   borderColor: '#dfe1e4',
   margin: '42px 0 26px',
+};
+
+const columnDirection = {
+  display: 'flex',
+  flexDirection: 'column',
+} as React.CSSProperties;
+
+const alignLeft = {
+  ...columnDirection,
+  alignItems: 'start',
 };
 
 const code = {
