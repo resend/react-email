@@ -5,103 +5,122 @@ import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
       <Head />
       <Preview>Yelp recent login</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Section style={logo}>
-            <Img src={`${baseUrl}/static/yelp-logo.png`} />
-          </Section>
-
-          <Section style={content}>
-            <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
-
-            <Section style={boxInfos}>
-              <Section>
-                <Text
-                  style={{
-                    ...paragraph,
-                    fontSize: 32,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}
-                >
-                  Hi Zeno,
-                </Text>
-                <Text
-                  style={{
-                    ...paragraph,
-                    fontSize: 26,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}
-                >
-                  We noticed a recent login to your Yelp account.
-                </Text>
-              </Section>
-
-              <Section>
-                <Text style={paragraph}>
-                  <b>Time: </b>Today, September 7, 2022, 10:58 am {'('}
-                  US/Pacific
-                  {')'}
-                </Text>
-                <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Device: </b>Chrome on Mac OS X
-                </Text>
-                <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Location: </b>Upland, California, United States
-                </Text>
-                <Text
-                  style={{
-                    ...paragraph,
-                    color: 'rgb(0,0,0, 0.5)',
-                    fontSize: 14,
-                    marginTop: -5,
-                  }}
-                >
-                  *Approximate geographic location based on IP address:
-                  47.149.53.167
-                </Text>
-              </Section>
-
-              <Text style={paragraph}>
-                If this was you, there's nothing else you need to do.
-              </Text>
-              <Text style={{ ...paragraph, marginTop: -5 }}>
-                If this wasn't you or if you have additional questions, please
-                see our support page.
-              </Text>
-              <Section style={containerButton}>
-                <Button style={button}>Learn More</Button>
-              </Section>
+        <Column>
+          <Container style={container}>
+            <Section style={logo}>
+              <Column style={alignLeft}>
+                <Img src={`${baseUrl}/static/yelp-logo.png`} />
+              </Column>
             </Section>
-          </Section>
 
-          <Section style={containerImageFooter}>
-            <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
-          </Section>
+            <Section style={content}>
+              <Column style={columnDirection}>
+                <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
 
-          <Text
-            style={{
-              ...paragraph,
-              textAlign: 'center',
-              fontSize: 12,
-              color: 'rgb(0,0,0, 0.7)',
-            }}
-          >
-            © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
-            U.S.A. | www.yelp.com
-          </Text>
-        </Container>
+                <Section style={boxInfos}>
+                  <Column style={columnDirection}>
+                    <Section>
+                      <Column style={columnDirection}>
+                        <Text
+                          style={{
+                            ...paragraph,
+                            fontSize: 32,
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                          }}
+                        >
+                          Hi Zeno,
+                        </Text>
+                        <Text
+                          style={{
+                            ...paragraph,
+                            fontSize: 26,
+                            fontWeight: 'bold',
+                            textAlign: 'center',
+                          }}
+                        >
+                          We noticed a recent login to your Yelp account.
+                        </Text>
+                      </Column>
+                    </Section>
+
+                    <Section>
+                      <Column style={alignLeft}>
+                        <Text style={paragraph}>
+                          <b>Time: </b>Today, September 7, 2022, 10:58 am {'('}
+                          US/Pacific
+                          {')'}
+                        </Text>
+                        <Text style={{ ...paragraph, marginTop: -5 }}>
+                          <b>Device: </b>Chrome on Mac OS X
+                        </Text>
+                        <Text style={{ ...paragraph, marginTop: -5 }}>
+                          <b>Location: </b>Upland, California, United States
+                        </Text>
+                        <Text
+                          style={{
+                            ...paragraph,
+                            color: 'rgb(0,0,0, 0.5)',
+                            fontSize: 14,
+                            marginTop: -5,
+                          }}
+                        >
+                          *Approximate geographic location based on IP address:
+                          47.149.53.167
+                        </Text>
+                      </Column>
+                    </Section>
+
+                    <Text style={{...paragraph, textAlign: 'left', width: '100%'}}>
+                      If this was you, there's nothing else you need to do.
+                    </Text>
+                    <Text style={{ ...paragraph, marginTop: -5 }}>
+                      If this wasn't you or if you have additional questions,
+                      please see our support page.
+                    </Text>
+                    <Section style={containerButton}>
+                      <Column>
+                        <Button style={button}>Learn More</Button>
+                      </Column>
+                    </Section>
+                  </Column>
+                </Section>
+              </Column>
+            </Section>
+
+            <Section style={containerImageFooter}>
+              <Column>
+                <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
+              </Column>
+            </Section>
+
+            <Text
+              style={{
+                ...paragraph,
+                textAlign: 'center',
+                fontSize: 12,
+                color: 'rgb(0,0,0, 0.7)',
+              }}
+            >
+              © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
+              U.S.A. | www.yelp.com
+            </Text>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -149,6 +168,16 @@ const content = {
   border: '1px solid rgb(0,0,0, 0.1)',
   borderRadius: '3px',
   overflow: 'hidden',
+};
+
+const columnDirection = {
+  display: 'flex',
+  flexDirection: 'column',
+} as React.CSSProperties;
+
+const alignLeft = {
+  ...columnDirection,
+  alignItems: 'start',
 };
 
 const boxInfos = {
