@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
-    "@react-email/render": "*",
+    "@react-email/render": "0.0.3",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "cpy": "8.1.2",
