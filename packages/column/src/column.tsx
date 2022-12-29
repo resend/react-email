@@ -10,8 +10,7 @@ export interface ColumnProps extends RootProps {
 export const Column = React.forwardRef<DivElement, Readonly<ColumnProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     const styleDefault = {
-      width: '100%',
-      display: 'flex',
+      display: 'inline-flex',
       justifyContent: 'center',
       alignItems: 'center',
       ...style,
