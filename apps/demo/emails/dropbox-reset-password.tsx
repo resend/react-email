@@ -10,7 +10,9 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : '';
 
   return (
     <Html>
@@ -18,7 +20,12 @@ export default function Email() {
       <Preview>Dropbox reset your password</Preview>
       <Section style={main}>
         <Container style={container}>
-          <Img src={`${baseUrl}/static/dropbox-logo.png`} width="40" height="33" alt="Dropbox" />
+          <Img
+            src={`${baseUrl}/static/dropbox-logo.png`}
+            width="40"
+            height="33"
+            alt="Dropbox"
+          />
           <Section>
             <Text style={text}>Hi Zeno,</Text>
             <Text style={text}>
