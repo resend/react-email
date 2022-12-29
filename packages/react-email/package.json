@@ -37,6 +37,7 @@
     "esbuild": "0.16.4",
     "glob": "8.0.3",
     "log-symbols": "4.1.0",
+    "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "18.11.9",
+    "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.11",
     "prettier": "2.7.1",
     "ts-node": "10.9.1"
