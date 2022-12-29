@@ -4,6 +4,7 @@ import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
+import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
 import * as React from 'react';
@@ -14,54 +15,66 @@ export default function Email() {
       <Head />
       <Preview>Confirm your email address</Preview>
       <Section style={main}>
-        <Container style={container}>
-          <Section style={logoContainer}>
-            <Img
-              src="/static/slack-logo.png"
-              width="120"
-              height="36"
-              alt="Slack"
-            />
-          </Section>
-          <Text style={h1}>
-            Confirm your email address
-          </Text>
-          <Text style={heroText}>Your confirmation code is below - enter it in your open browser window and we'll help you get signed in.</Text>
-
-          <Section style={codeBox}>
-            <Text style={confirmationCodeText}>
-              DJZ-TLX
-            </Text>
-          </Section>
-
-          <Text style={text}>
-            If you didn't request this email, there's nothing to worry about - you can safely ignore it.
-          </Text>
-
-          <table
-            style={footerLogos}
-            border={0}
-            cellPadding="0"
-            cellSpacing="10"
-            align="left"
-          >
-            <tr>
-              <td align="left" valign="top">
+        <Column>
+          <Container style={container}>
+            <Section style={logoContainer}>
+              <Column style={alignLeft}>
                 <Img
                   src="/static/slack-logo.png"
                   width="120"
                   height="36"
                   alt="Slack"
                 />
-              </td>
-              <td align="right" valign="top">
-                <Link href="https://twitter.com/slackhq"><Img
-                  src="/static/slack-twitter.png"
-                  width="32"
-                  height="32"
+              </Column>
+            </Section>
+            <Text style={h1}>Confirm your email address</Text>
+            <Text style={heroText}>
+              Your confirmation code is below - enter it in your open browser
+              window and we'll help you get signed in.
+            </Text>
+
+            <Section style={codeBox}>
+              <Column>
+                <Text style={confirmationCodeText}>DJZ-TLX</Text>
+              </Column>
+            </Section>
+
+            <Text style={text}>
+              If you didn't request this email, there's nothing to worry about -
+              you can safely ignore it.
+            </Text>
+
+            <Section
+              style={footerLogos}
+              border={0}
+              cellPadding="0"
+              cellSpacing="10"
+              align="left"
+            >
+              <Column style={alignLeft} valign="top">
+                <Img
+                  src="/static/slack-logo.png"
+                  width="120"
+                  height="36"
                   alt="Slack"
-                  style={socialMediaIcon}
                 />
+              </Column>
+              <Column
+                style={{
+                  ...alignRight,
+                  justifyContent: 'end',
+                  flexDirection: 'row',
+                }}
+                valign="top"
+              >
+                <Link href="https://twitter.com/slackhq">
+                  <Img
+                    src="/static/slack-twitter.png"
+                    width="32"
+                    height="32"
+                    alt="Slack"
+                    style={socialMediaIcon}
+                  />
                 </Link>
                 <Link href="https://facebook.com/slackhq">
                   <Img
@@ -81,26 +94,62 @@ export default function Email() {
                     style={socialMediaIcon}
                   />
                 </Link>
-              </td>
-            </tr>
-          </table>
+              </Column>
+            </Section>
 
-
-          <Section style={footerText}>
-            <Link style={footerLink} href="https://slackhq.com" target="_blank" rel="noopener noreferrer" >Our blog</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/legal" target="_blank" rel="noopener noreferrer">Policies</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/help" target="_blank" rel="noopener noreferrer">Help center</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/community" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="6">Slack Community</Link>
-
-            <Text style={footerText}>
-              ©2022 Slack Technologies, LLC, a Salesforce company. <br />
-              500 Howard Street, San Francisco, CA 94105, USA  <br />
-              <br />
-              All rights reserved.
-            </Text>
-          </Section>
-
-        </Container>
+            <Section style={footerText}>
+              <Column style={{justifyContent: 'start', flexDirection: 'row'}}>
+                <Link
+                  style={footerLink}
+                  href="https://slackhq.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Our blog
+                </Link>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <Link
+                  style={footerLink}
+                  href="https://slack.com/legal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Policies
+                </Link>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <Link
+                  style={footerLink}
+                  href="https://slack.com/help"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Help center
+                </Link>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <Link
+                  style={footerLink}
+                  href="https://slack.com/community"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-auth="NotApplicable"
+                  data-linkindex="6"
+                >
+                  Slack Community
+                </Link>
+              </Column>
+            </Section>
+            <Section style={{...footerText, marginBottom: '84px'}}>
+              <Column style={alignLeft}>
+                <Text style={footerText}>
+                  ©2022 Slack Technologies, LLC, a Salesforce company. <br />
+                  500 Howard Street, San Francisco, CA 94105, USA <br />
+                  <br />
+                  All rights reserved.
+                </Text>
+              </Column>
+            </Section>
+          </Container>
+        </Column>
       </Section>
     </Html>
   );
@@ -111,24 +160,22 @@ const footerText = {
   color: '#b7b7b7',
   lineHeight: '15px',
   textAlign: 'left' as const,
-  marginBottom: '50px'
-}
+};
 
 const footerLink = {
   color: '#b7b7b7',
-  textDecoration: 'underline'
-}
+  textDecoration: 'underline',
+};
 
 const footerLogos = {
   marginBottom: '32px',
-  width: '100%'
-}
+  width: '100%',
+};
 
 const socialMediaIcon = {
   display: 'inline',
   marginLeft: '32px',
 };
-
 
 const main = {
   backgroundColor: '#ffffff',
@@ -139,11 +186,11 @@ const main = {
 
 const container = {
   maxWidth: '600px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 const logoContainer = {
-  marginTop: '32px'
+  marginTop: '32px',
 };
 
 const h1 = {
@@ -158,8 +205,8 @@ const h1 = {
 const heroText = {
   fontSize: '20px',
   lineHeight: '28px',
-  marginBottom: '30px'
-}
+  marginBottom: '30px',
+};
 
 const codeBox = {
   background: 'rgb(245, 244, 245)',
@@ -172,8 +219,23 @@ const codeBox = {
 const confirmationCodeText = {
   fontSize: '30px',
   textAlign: 'center' as const,
-  verticalAlign: 'middle'
-}
+  verticalAlign: 'middle',
+};
+
+const columnDirection = {
+  display: 'flex',
+  flexDirection: 'column',
+} as React.CSSProperties;
+
+const alignLeft = {
+  ...columnDirection,
+  alignItems: 'start',
+};
+
+const alignRight = {
+  ...columnDirection,
+  alignItems: 'end',
+};
 
 const text = {
   color: '#000',
