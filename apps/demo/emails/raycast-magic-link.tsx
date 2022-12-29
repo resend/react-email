@@ -10,6 +10,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -17,7 +19,7 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Img
-            src="/static/raycast-logo.png"
+            src={`${baseUrl}/static/raycast-logo.png`}
             width={48}
             height={48}
             alt="Raycast"
@@ -39,7 +41,7 @@ export default function Email() {
           </Text>
           <Hr style={hr} />
           <Img
-            src="/static/raycast-logo.png"
+            src={`${baseUrl}/static/raycast-logo.png`}
             width={32}
             height={32}
             style={{

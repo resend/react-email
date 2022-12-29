@@ -8,12 +8,14 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
       <Container style={container}>
         <Img
-          src="/static/plaid.png"
+          src={`${baseUrl}/static/plaid-logo.png`}
           width="212"
           height="88"
           alt="Plaid"

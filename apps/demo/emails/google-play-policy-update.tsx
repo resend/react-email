@@ -10,6 +10,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -19,7 +21,7 @@ export default function Email() {
           <Section>
             <Section style={headerBlue}>
               <Img
-                src="/static/google-play-header.png"
+                src={`${baseUrl}/static/google-play-header.png`}
                 width="305"
                 height="28"
                 alt="Google Play developers header blue transparent"
@@ -27,7 +29,7 @@ export default function Email() {
             </Section>
             <Section style={sectionLogo}>
               <Img
-                src="/static/google-play-logo.png"
+                src={`${baseUrl}/static/google-play-logo.png`}
                 width="155"
                 height="31"
                 alt="Google Play"
@@ -101,7 +103,7 @@ export default function Email() {
                       <Img
                         width="28"
                         height="28"
-                        src="/static/google-play-chat.png"
+                        src={`${baseUrl}/static/google-play-chat.png`}
                       />
                     </Link>
                   </td>
@@ -110,7 +112,7 @@ export default function Email() {
                       <Img
                         width="28"
                         height="28"
-                        src="/static/google-play-icon.png"
+                        src={`${baseUrl}/static/google-play-icon.png`}
                       />
                     </Link>
                   </td>
@@ -119,14 +121,14 @@ export default function Email() {
                       <Img
                         width="28"
                         height="28"
-                        src="/static/google-play-academy.png"
+                        src={`${baseUrl}/static/google-play-academy.png`}
                       />
                     </Link>
                   </td>
                 </tr>
               </table>
             </Section>
-            <Img width="540" height="48" src="/static/google-play-footer.png" />
+            <Img width="540" height="48" src={`${baseUrl}/static/google-play-footer.png`} />
           </Section>
 
           <Section style={{ ...paragraphContent, paddingBottom: 30 }}>

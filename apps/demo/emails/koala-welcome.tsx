@@ -10,6 +10,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -19,7 +21,7 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Img
-            src="https://assets.koala.live/images/koala-email-banner.png"
+            src={`${baseUrl}/static/koala-logo.png`}
             width="170"
             height="50"
             alt="Koala"

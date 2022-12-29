@@ -9,6 +9,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -16,11 +18,11 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Section style={logo}>
-            <Img src="/static/yelp-logo.png" />
+            <Img src={`${baseUrl}/static/yelp-logo.png`} />
           </Section>
 
           <Section style={content}>
-            <Img width={620} src="/static/yelp-header.png" />
+            <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
 
             <Section style={boxInfos}>
               <Section>
@@ -85,7 +87,7 @@ export default function Email() {
           </Section>
 
           <Section style={containerImageFooter}>
-            <Img width={620} src="/static/yelp-footer.png" />
+            <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
           </Section>
 
           <Text

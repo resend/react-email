@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@react-email/button": "0.0.4",
-    "@react-email/column": "0.0.3",
     "@react-email/container": "0.0.4",
     "@react-email/head": "0.0.2",
     "@react-email/heading": "0.0.5",
@@ -19,6 +18,6 @@
     "@react-email/preview": "0.0.2",
     "@react-email/section": "0.0.1",
     "@react-email/text": "0.0.2",
-    "react-email": "1.4.0"
+    "react-email": "1.5.0"
   }
 }

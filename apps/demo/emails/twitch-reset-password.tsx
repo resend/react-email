@@ -9,6 +9,8 @@ import { Link } from '@react-email/link';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -16,7 +18,7 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Section style={logo}>
-            <Img width={114} src="/static/twitch-logo.png" />
+            <Img width={114} src={`${baseUrl}/static/twitch-logo.png`} />
           </Section>
           <div style={sectionsBorders}>
             <Section style={sectionBorder} />
@@ -64,8 +66,8 @@ export default function Email() {
 
         <Section style={footer}>
           <div style={iconsSocial}>
-            <Img src="/static/twitch-icon-twitter.png" />
-            <Img src="/static/twitch-icon-facebook.png" />
+            <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
+            <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
           </div>
           <Text style={{ textAlign: 'center', color: '#706a7b' }}>
             © 2022 Twitch, All Rights Reserved <br />

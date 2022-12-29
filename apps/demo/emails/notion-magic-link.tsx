@@ -9,6 +9,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -53,7 +55,7 @@ export default function Email() {
             account.
           </Text>
           <Img
-            src="/static/notion-logo.png"
+            src={`${baseUrl}/static/notion-logo.png`}
             width="32"
             height="32"
             alt="Notion's Logo"

@@ -11,6 +11,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -18,14 +20,14 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Img
-            src="/static/airbnb-logo.png"
+            src={`${baseUrl}/static/airbnb-logo.png`}
             width="96"
             height="30"
             alt="Airbnb"
           />
           <Section>
             <Img
-              src="/static/airbnb-review-user.jpg"
+              src={`${baseUrl}/static/airbnb-review-user.jpg`}
               width="96"
               height="96"
               alt="Alex"

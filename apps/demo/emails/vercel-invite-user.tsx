@@ -11,6 +11,8 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -19,7 +21,7 @@ export default function Email() {
         <Container style={container}>
           <Section style={{ marginTop: '32px' }}>
             <Img
-              src="/static/vercel-logo.png"
+              src={`${baseUrl}/static/vercel-logo.png`}
               width="40"
               height="37"
               alt="Vercel"
@@ -49,14 +51,14 @@ export default function Email() {
               <td style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
-                  src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
+                  src={`${baseUrl}/static/vercel-user.png`}
                   width="64"
                   height="64"
                 />
               </td>
               <td style={center} align="left" valign="middle">
                 <Img
-                  src="/static/vercel-arrow.png"
+                  src={`${baseUrl}/static/vercel-arrow.png`}
                   width="12"
                   height="9"
                   alt="invited you to"
@@ -65,7 +67,7 @@ export default function Email() {
               <td style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
-                  src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
+                  src={`${baseUrl}/static/vercel-team.png`}
                   width="64"
                   height="64"
                 />
