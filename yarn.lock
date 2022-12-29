@@ -6084,10 +6084,10 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-email@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.4.0.tgz#1a50f48e897000397878c4eb37d238597e9f7868"
-  integrity sha512-rqg2uF8Z910IASLAu2fYHE73R9vVuOFM+8NJi0r5P4EwIUGGzFgaAD3wA9r/JNGhUWVUS4EV5CX7NqClC8tZTQ==
+react-email@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.5.0.tgz#1d33f616a5295b7d440950c7c4bfe35e44822253"
+  integrity sha512-KdChjRPF+KoijftXA2NDCtLf1NoqtyqU9rlVnlHbcr5ItxvEB5PfaEQCrFHKS49AOFHfwUw0FwQoVfpUmXCyzg==
   dependencies:
     "@commander-js/extra-typings" "9.4.1"
     "@react-email/render" "*"
@@ -6100,6 +6100,7 @@ react-email@1.4.0:
     ora "5.4.1"
     read-pkg "5.2.0"
     shelljs "0.8.5"
+    tree-node-cli "^1.6.0"
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -7002,7 +7003,7 @@ tree-kill@^1.2.2:
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-tree-node-cli@1.6.0:
+tree-node-cli@1.6.0, tree-node-cli@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/tree-node-cli/-/tree-node-cli-1.6.0.tgz#15b76fd7381be650746f5ea06bd70049a3448c08"
   integrity sha512-M8um5Lbl76rWU5aC8oOeEhruiCM29lFCKnwpxrwMjpRicHXJx+bb9Cak11G3zYLrMb6Glsrhnn90rHIzDJrjvg==
