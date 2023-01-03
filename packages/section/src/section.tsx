@@ -8,7 +8,9 @@ export interface SectionProps extends RootProps {
 }
 
 type ReactEmailChild = {
-  displayName?: string
+  type?: {
+    displayName?: string;
+  }
 } & React.ReactNode;
 
 export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
@@ -27,12 +29,13 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
     const arrayChildren = React.Children.toArray(children);
 
     const hasTdElement = (child: ReactEmailChild) => {
-      return React.isValidElement(child) && (child.type === "td" || child.displayName === "Column");
+      return React.isValidElement(child) && (child.type === "td" || child.type.displayName === "Column");
     };
   
-    const finalChildren = arrayChildren.map((child, index) => {
+    const finalChildren = arrayChildren.map((child: ReactEmailChild, index) => {
       return hasTdElement(child) ? child : <td key={index}>{child}</td>;
     });
+
 
     return (
       <table
