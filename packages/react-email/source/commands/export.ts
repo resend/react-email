@@ -16,7 +16,9 @@ import { checkDirectoryExist, CLIENT_EMAILS_PATH } from '../utils';
  */
 export const exportTemplates = async (outDir: string, pretty: boolean) => {
   const spinner = ora('Preparing files...\n').start();
-  const allTemplates = glob.sync(normalize(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`));
+  const allTemplates = glob.sync(
+    normalize(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`),
+  );
 
   esbuild.buildSync({
     bundle: true,

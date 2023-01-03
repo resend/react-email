@@ -2,7 +2,7 @@
 import { program } from '@commander-js/extra-typings';
 import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
-import { exportTemplates } from './commands/exportTemplates';
+import { exportTemplates } from './commands/export';
 
 program
   .name(PACKAGE_NAME)
