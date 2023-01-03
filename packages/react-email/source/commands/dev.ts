@@ -4,6 +4,7 @@ import {
   checkPackageIsUpToDate,
   CLIENT_EMAILS_PATH,
   createDirectory,
+  CURRENT_PATH,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
   SRC_PATH,
@@ -19,6 +20,7 @@ import { utils } from '../_preview/utils';
 import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
 import copy from 'cpy';
+import { detect as detectPackageManager } from 'detect-package-manager';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
 import readPackage from 'read-pkg';
@@ -28,14 +30,20 @@ import { styles } from '../_preview/styles';
 export const dev = async () => {
   try {
     const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
+    let packageManager: PackageManager;
+    try {
+      packageManager = await detectPackageManager({ cwd: CURRENT_PATH });
+    } catch (_) {
+      packageManager = 'yarn';
+    }
 
     if (hasReactEmailDirectory) {
       const isUpToDate = await checkPackageIsUpToDate();
 
       if (isUpToDate) {
         await Promise.all([generateEmailsPreview(), syncPkg()]);
-        await installDependencies();
-        shell.exec('yarn dev', { async: true });
+        await installDependencies(packageManager);
+        shell.exec(`${packageManager} run dev`, { async: true });
         watcher();
         return;
       }
@@ -47,8 +55,8 @@ export const dev = async () => {
     await createAppDirectories();
     await createAppFiles();
     await Promise.all([generateEmailsPreview(), syncPkg()]);
-    await installDependencies();
-    shell.exec('yarn dev', { async: true });
+    await installDependencies(packageManager);
+    shell.exec(`${packageManager} run dev`, { async: true });
     watcher();
   } catch (error) {
     await watcherInstance.close();
@@ -218,11 +226,13 @@ const syncPkg = async () => {
   );
 };
 
-const installDependencies = async () => {
+type PackageManager = 'yarn' | 'npm' | 'pnpm';
+
+const installDependencies = async (packageManager: PackageManager) => {
   const spinner = ora('Installing dependencies...\n').start();
 
   shell.cd(path.join(REACT_EMAIL_ROOT));
-  shell.exec('yarn');
+  shell.exec(`${packageManager} install`);
   spinner.stopAndPersist({
     symbol: logSymbols.success,
     text: 'Dependencies installed',

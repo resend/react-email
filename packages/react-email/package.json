@@ -34,6 +34,7 @@
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "cpy": "8.1.2",
+    "detect-package-manager": "2.0.1",
     "esbuild": "0.16.4",
     "glob": "8.0.3",
     "log-symbols": "4.1.0",
