@@ -111,7 +111,9 @@ const createAppFiles = async () => {
         : `${SRC_PATH}/pages/${page.title}`;
 
       if (page.dir) {
-        createDirectory(`${SRC_PATH}/pages/${page.dir}`);
+        return createDirectory(`${SRC_PATH}/pages/${page.dir}`).then(() =>
+          fs.promises.writeFile(location, page.content),
+        );
       }
 
       return fs.promises.writeFile(location, page.content);
