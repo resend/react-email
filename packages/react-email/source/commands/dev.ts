@@ -105,15 +105,13 @@ const createAppFiles = async () => {
       });
     };
 
-    const pageCreation = pages.map((page) => {
+    const pageCreation = pages.map(async (page) => {
       const location = page.dir
         ? `${SRC_PATH}/pages/${page.dir}/${page.title}`
         : `${SRC_PATH}/pages/${page.title}`;
 
       if (page.dir) {
-        return createDirectory(`${SRC_PATH}/pages/${page.dir}`).then(() =>
-          fs.promises.writeFile(location, page.content),
-        );
+        await createDirectory(`${SRC_PATH}/pages/${page.dir}`);
       }
 
       return fs.promises.writeFile(location, page.content);
