@@ -7,7 +7,7 @@ interface Options {
 
 export const render = (component: React.ReactElement, options?: Options) => {
   const doctype =
-    '<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
   const markup = ReactDomServer.renderToStaticMarkup(component);
   const document = `${doctype}${markup}`;
 
