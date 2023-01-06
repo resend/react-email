@@ -19,6 +19,9 @@ program
   .description('Build the templates to the `out` directory')
   .option('--outDir <path>', 'Output directory', 'out')
   .option('-p, --pretty', 'Pretty print the output', false)
-  .action(({ outDir, pretty }) => exportTemplates(outDir, pretty));
+  .option('-t, --plainText', 'Set output ormat as plain Text', false)
+  .action(({ outDir, pretty, plainText }) =>
+    exportTemplates(outDir, { pretty, plainText }),
+  );
 
 program.parse();
