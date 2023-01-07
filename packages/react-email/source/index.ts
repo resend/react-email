@@ -19,7 +19,7 @@ program
   .description('Build the templates to the `out` directory')
   .option('--outDir <path>', 'Output directory', 'out')
   .option('-p, --pretty', 'Pretty print the output', false)
-  .option('-t, --plainText', 'Set output ormat as plain Text', false)
+  .option('-t, --plainText', 'Set output format as plain Text', false)
   .action(({ outDir, pretty, plainText }) =>
     exportTemplates(outDir, { pretty, plainText }),
   );
