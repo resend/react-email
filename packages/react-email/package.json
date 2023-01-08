@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenorocha/react-email.git",
+    "url": "https://github.com/resendlabs/react-email.git",
     "directory": "packages/react-email"
   },
   "keywords": [
