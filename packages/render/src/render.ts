@@ -2,7 +2,7 @@ import * as ReactDomServer from 'react-dom/server';
 import { convert } from 'html-to-text';
 import pretty from 'pretty';
 
-interface Options {
+export interface Options {
   pretty?: boolean;
   plainText?: boolean;
 }

@@ -1301,7 +1301,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/html-to-text@^9.0.0":
+"@types/html-to-text@9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@types/html-to-text/-/html-to-text-9.0.0.tgz#28a676984c281a67478773519da6b5c2bdfb22ed"
   integrity sha512-FnF3p2FJZ1kJT/0C/lmBzw7HSlH3RhtACVYyrwUsJoCmFNuiLpusWT2FWWB7P9A48CaYpvD6Q2fprn7sZeffpw==
@@ -4057,7 +4057,7 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-html-to-text@^9.0.3:
+html-to-text@9.0.3:
   version "9.0.3"
   resolved "https://registry.yarnpkg.com/html-to-text/-/html-to-text-9.0.3.tgz#331368f32fcb270c59dbd3a7fdb32813d2a490bc"
   integrity sha512-hxDF1kVCF2uw4VUJ3vr2doc91pXf2D5ngKcNviSitNkhP9OMOaJkDrFIFL6RMvko7NisWTEiqGpQ9LAxcVok1w==
