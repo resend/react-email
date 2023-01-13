@@ -4,11 +4,17 @@ import path from 'path';
 import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
+import { CodeContainer } from '../../components/code-container';
 import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-interface PreviewProps {}
+interface PreviewProps {
+  navItems: string;
+  markup: string;
+  reactMarkup: string;
+  slug: string;
+}
 
 export const CONTENT_DIR = 'emails';
 
@@ -100,8 +106,12 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         />
       ) : (
         <div className="flex gap-6 mx-auto p-6">
-          <Code language="jsx">{reactMarkup}</Code>
-          <Code>{markup}</Code>
+          <CodeContainer
+            markups={[
+              { language: 'jsx', content: reactMarkup },
+              { language: 'markup', content: markup },
+            ]}
+          />
         </div>
       )}
     </Layout>

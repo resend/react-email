@@ -6,7 +6,7 @@
 <div align="center">
 <a href="https://react.email">Website</a> 
 <span> · </span>
-<a href="https://github.com/zenorocha/react-email">GitHub</a> 
+<a href="https://github.com/resendlabs/react-email">GitHub</a> 
 <span> · </span>
 <a href="https://react.email/discord">Discord</a>
 </div>
@@ -56,27 +56,27 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-- [Html](https://github.com/zenorocha/react-email/tree/main/packages/html)
-- [Head](https://github.com/zenorocha/react-email/tree/main/packages/head)
-- [Button](https://github.com/zenorocha/react-email/tree/main/packages/button)
-- [Link](https://github.com/zenorocha/react-email/tree/main/packages/link)
-- [Image](https://github.com/zenorocha/react-email/tree/main/packages/img)
-- [Divider](https://github.com/zenorocha/react-email/tree/main/packages/hr)
-- [Paragraph](https://github.com/zenorocha/react-email/tree/main/packages/text)
-- [Container](https://github.com/zenorocha/react-email/tree/main/packages/container)
-- [Preview](https://github.com/zenorocha/react-email/tree/main/packages/preview)
-- [Body](https://github.com/zenorocha/react-email/tree/main/packages/body)
-- [Column](https://github.com/zenorocha/react-email/tree/main/packages/column)
-- [Section](https://github.com/zenorocha/react-email/tree/main/packages/section)
+- [Html](https://github.com/resendlabs/react-email/tree/main/packages/html)
+- [Head](https://github.com/resendlabs/react-email/tree/main/packages/head)
+- [Button](https://github.com/resendlabs/react-email/tree/main/packages/button)
+- [Link](https://github.com/resendlabs/react-email/tree/main/packages/link)
+- [Image](https://github.com/resendlabs/react-email/tree/main/packages/img)
+- [Divider](https://github.com/resendlabs/react-email/tree/main/packages/hr)
+- [Paragraph](https://github.com/resendlabs/react-email/tree/main/packages/text)
+- [Container](https://github.com/resendlabs/react-email/tree/main/packages/container)
+- [Preview](https://github.com/resendlabs/react-email/tree/main/packages/preview)
+- [Body](https://github.com/resendlabs/react-email/tree/main/packages/body)
+- [Column](https://github.com/resendlabs/react-email/tree/main/packages/column)
+- [Section](https://github.com/resendlabs/react-email/tree/main/packages/section)
 
 ## Integrations
 
 Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
 
-- [Nodemailer](https://github.com/zenorocha/react-email/tree/main/examples/nodemailer)
-- [SendGrid](https://github.com/zenorocha/react-email/tree/main/examples/sendgrid)
-- [Postmark](https://github.com/zenorocha/react-email/tree/main/examples/postmark)
-- [AWS SES](https://github.com/zenorocha/react-email/tree/main/examples/aws-ses)
+- [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
+- [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
+- [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
+- [AWS SES](https://github.com/resendlabs/react-email/tree/main/examples/aws-ses)
 
 ## Support
 

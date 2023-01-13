@@ -22,7 +22,7 @@
   },
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/zenorocha/react-email"
+    "url": "https://github.com/resendlabs/react-email"
   },
   "anchors": [
     {
@@ -38,7 +38,7 @@
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "https://github.com/zenorocha/react-email"
+      "url": "https://github.com/resendlabs/react-email"
     }
   ],
   "navigation": [

@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "1.5.2",
+  "version": "1.6.1",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenorocha/react-email.git",
+    "url": "https://github.com/resendlabs/react-email.git",
     "directory": "packages/react-email"
   },
   "keywords": [
@@ -26,14 +26,15 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
-    "@react-email/render": "0.0.3",
+    "@react-email/render": "0.0.4",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "cpy": "8.1.2",
+    "detect-package-manager": "2.0.1",
     "esbuild": "0.16.4",
     "glob": "8.0.3",
     "log-symbols": "4.1.0",
