@@ -33,58 +33,26 @@ export default function Email() {
             </Container>
             <Container style={{ clear: 'both' }} />
           </Container>
-
+          <Hr style={hr} />
           <Container style={body}>
             <Img
               src={`${baseUrl}/static/nike-logo.png`}
-              width="96"
-              height="30"
+              width="66"
+              height="22"
               alt="Nike"
+              style={{ margin: 'auto' }}
             />
-            <Text style={heading}>It's on its Way</Text>
-            <Text style={heading}>
+            <Text style={heading}>It's On Its Way.</Text>
+            <Text style={text}>
               You order's is on its way. Use the link above to track its
               progress.
             </Text>
-            <Text style={review}>
+            <Text style={{ ...text, marginTop: 24 }}>
               We´ve also charged your payment method for the cost of your order
               and will be removing any authorization holds. For payment details,
               please visit your Orders page on Nike.com or in the Nike app.
             </Text>
           </Container>
-          <Hr style={hr} />
-          <Container style={adress}>
-            <Text>Shipping to: Zeno Rocha</Text>
-            <Text>185 Royal Way, Upland, CA 91786-6798</Text>
-          </Container>
-          <Hr style={hr} />
-          <Container style={product}>
-            <Img
-              src={`${baseUrl}/static/nike-product.png`}
-              alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-            />
-            <Container>
-              <Text>
-                Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-              <Text>Size L (12–14)</Text>
-            </Container>
-          </Container>
-          <Hr style={hr} />
-          <Container style={order}>
-            <Container style={trackInfos}>
-              <Text>Tracking Number</Text>
-              <Text>1ZV218970300071628</Text>
-            </Container>
-            <Container style={trackInfos}>
-              <Text>Tracking Number</Text>
-              <Text>1ZV218970300071628</Text>
-            </Container>
-          </Container>
-          <Container style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button style={button}>Order Status</Button>
-          </Container>
-
           <Hr style={hr} />
         </Container>
       </Section>
@@ -120,7 +88,10 @@ const trackNumber = {
 
 const trackInfos = {};
 
-const body = {};
+const body = {
+  padding: '40px 74px',
+  textAlign: 'center',
+};
 
 const adress = {};
 
@@ -133,20 +104,20 @@ const heading = {
   fontSize: '32px',
   lineHeight: '1.3',
   fontWeight: '700',
-  color: '#484848',
+  textAlign: 'center',
+  letterSpacing: '-1px',
 };
 
 const paragraph = {
   fontFamily,
   margin: '0',
-  lineHeight: '1.4',
+  lineHeight: '2',
 };
 
-const review = {
+const text = {
   ...paragraph,
-  padding: '24px',
-  backgroundColor: '#f2f3f3',
-  borderRadius: '4px',
+  color: '#747474',
+  fontWeight: '500',
 };
 
 const button = {
@@ -163,8 +134,7 @@ const button = {
 };
 
 const hr = {
-  borderColor: '#cccccc',
-  margin: '20px 0',
+  borderColor: '#E5E5E5',
 };
 
 const footer = {};
