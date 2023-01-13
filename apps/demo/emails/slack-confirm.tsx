@@ -9,6 +9,8 @@ import { Link } from '@react-email/link';
 import * as React from 'react';
 
 export default function Email() {
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+
   return (
     <Html>
       <Head />
@@ -17,7 +19,7 @@ export default function Email() {
         <Container style={container}>
           <Section style={logoContainer}>
             <Img
-              src="/static/slack-logo.png"
+              src={`${baseUrl}/static/slack-logo.png`}
               width="120"
               height="36"
               alt="Slack"
@@ -48,7 +50,7 @@ export default function Email() {
             <tr>
               <td align="left" valign="top">
                 <Img
-                  src="/static/slack-logo.png"
+                  src={`${baseUrl}/static/slack-logo.png`}
                   width="120"
                   height="36"
                   alt="Slack"
@@ -56,7 +58,7 @@ export default function Email() {
               </td>
               <td align="right" valign="top">
                 <Link href="https://twitter.com/slackhq"><Img
-                  src="/static/slack-twitter.png"
+                  src={`${baseUrl}/static/slack-twitter.png`}
                   width="32"
                   height="32"
                   alt="Slack"
@@ -65,7 +67,7 @@ export default function Email() {
                 </Link>
                 <Link href="https://facebook.com/slackhq">
                   <Img
-                    src="/static/slack-facebook.png"
+                    src={`${baseUrl}/static/slack-facebook.png`}
                     width="32"
                     height="32"
                     alt="Slack"
@@ -74,7 +76,7 @@ export default function Email() {
                 </Link>
                 <Link href="https://www.linkedin.com/company/tiny-spec-inc/">
                   <Img
-                    src="/static/slack-linkedin.png"
+                    src={`${baseUrl}/static/slack-linkedin.png`}
                     width="32"
                     height="32"
                     alt="Slack"
