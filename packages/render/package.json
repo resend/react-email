@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenorocha/react-email.git",
+    "url": "https://github.com/resendlabs/react-email.git",
     "directory": "packages/render"
   },
   "keywords": [
@@ -30,14 +30,17 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
+    "html-to-text": "9.0.3",
     "pretty": "2.0.0",
+    "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
+    "@types/html-to-text": "9.0.0",
     "@types/jest": "28.1.7",
     "@types/pretty": "2.0.1",
     "@types/react": "18.0.20",

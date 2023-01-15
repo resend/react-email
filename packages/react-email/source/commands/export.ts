@@ -3,7 +3,7 @@ import esbuild from 'esbuild';
 import tree from 'tree-node-cli';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
-import { render } from '@react-email/render';
+import { render, Options } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
 import copy from 'cpy';
 import normalize from 'normalize-path';
@@ -14,7 +14,7 @@ import { checkDirectoryExist, CLIENT_EMAILS_PATH } from '../utils';
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
-export const exportTemplates = async (outDir: string, pretty: boolean) => {
+export const exportTemplates = async (outDir: string, options: Options) => {
   const spinner = ora('Preparing files...\n').start();
   const allTemplates = glob.sync(
     normalize(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`),
@@ -34,8 +34,11 @@ export const exportTemplates = async (outDir: string, pretty: boolean) => {
 
   for (const template of allBuiltTemplates) {
     const component = await import(template);
-    const rendered = render(component.default(), { pretty });
-    const htmlPath = template.replace('.js', '.html');
+    const rendered = render(component.default(), options);
+    const htmlPath = template.replace(
+      '.js',
+      options.plainText ? '.txt' : '.html',
+    );
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }

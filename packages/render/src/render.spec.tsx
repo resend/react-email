@@ -12,4 +12,11 @@ describe('render', () => {
     const actualOutput = render(<Template firstName="Jim" />);
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('converts a React component into PlainText', () => {
+    const actualOutput = render(<Template firstName="Jim" />, {
+      plainText: true,
+    });
+    expect(actualOutput).toMatchSnapshot();
+  });
 });

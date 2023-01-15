@@ -1,5 +1,6 @@
 import { inter } from '../pages/_app';
 import { Button } from './button';
+import { Text } from './text';
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 
@@ -89,7 +90,11 @@ export const Send = ({ markup }: { markup: string }) => {
               type="checkbox"
               className="appearance-none checked:bg-blue-500"
             />
-            <div className="flex items-center justify-end">
+            <div className="flex items-center justify-between">
+              <Text className="inline-block" size="1">
+                Powered by{' '}
+                <a className="hover:text-slate-12 transition ease-in-out duration-300" href="https://resend.com" target="_blank" rel="noreferrer">Resend</a>
+              </Text>
               <Button
                 type="submit"
                 disabled={subject.length === 0 || to.length === 0 || isSending}

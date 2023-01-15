@@ -4,7 +4,12 @@ All components were tested using the most popular email clients.
 
 <div
   role="list"
-  className="grid grid-cols-3 sm:grid-cols-6 gap-x-2 py-2 list-none border border-slate-800 rounded-xl text-sm"
+  className="grid py-2 list-none border rounded-xl text-sm"
+  style={{
+    gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+    columnGap: '0.5rem',
+    borderColor: 'rgb(30 41 59/1)'
+  }}
 >
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -14,7 +19,7 @@ All components were tested using the most popular email clients.
       alt="Gmail"
       className="mx-auto mb-1"
     />
-    <p>Gmail</p>
+    Gmail
   </div>
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -24,7 +29,7 @@ All components were tested using the most popular email clients.
       alt="Apple Mail"
       className="mx-auto mb-1"
     />
-    <p>Apple Mail</p>
+    Apple Mail
   </div>
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -34,7 +39,7 @@ All components were tested using the most popular email clients.
       alt="Outlook"
       className="mx-auto mb-1"
     />
-    <p>Outlook</p>
+    Outlook
   </div>
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -44,7 +49,7 @@ All components were tested using the most popular email clients.
       alt="Yahoo! Mail"
       className="mx-auto mb-1"
     />
-    <p>Yahoo! Mail</p>
+    Yahoo! Mail
   </div>
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -54,7 +59,7 @@ All components were tested using the most popular email clients.
       alt="HEY"
       className="mx-auto mb-1"
     />
-    <p>HEY</p>
+    HEY
   </div>
   <div className="text-center block not-prose group relative my-2 ring-2 ring-transparent overflow-hidden">
     <img
@@ -64,6 +69,6 @@ All components were tested using the most popular email clients.
       alt="Superhuman"
       className="mx-auto mb-1"
     />
-    <p>Superhuman</p>
+    Superhuman
   </div>
 </div>
