@@ -5,6 +5,11 @@ export const root = [
       '/// <reference types="next" />\n/// <reference types="next/image-types/global" />\n\n// NOTE: This file should not be edited\n// see https://nextjs.org/docs/basic-features/typescript for more information.\n',
   },
   {
+    title: 'next.config.js',
+    content:
+      "/**\n * @type {import('next').NextConfig}\n */\nconst nextConfig = {\n  reactStrictMode: true,\n  swcMinify: true,\n};\n\nmodule.exports = nextConfig;\n",
+  },
+  {
     title: 'package.json',
     content:
       '{\n  "name": "react-email-preview",\n  "version": "0.0.7",\n  "description": "The React Email preview application",\n  "license": "MIT",\n  "scripts": {\n    "dev": "next dev",\n    "build": "next build",\n    "start": "next start",\n    "lint": "next lint",\n    "format:check": "prettier --check \\"**/*.{ts,tsx,md}\\"",\n    "format": "prettier --write \\"**/*.{ts,tsx,md}\\""\n  },\n  "engines": {\n    "node": ">=18.0.0"\n  },\n  "dependencies": {\n    "@next/font": "13.0.4",\n    "@radix-ui/colors": "0.1.8",\n    "@radix-ui/react-collapsible": "1.0.1",\n    "@radix-ui/react-popover": "1.0.2",\n    "@radix-ui/react-slot": "1.0.1",\n    "@radix-ui/react-toggle-group": "1.0.1",\n    "@radix-ui/react-tooltip": "1.0.2",\n    "@react-email/render": "0.0.2",\n    "classnames": "2.3.2",\n    "next": "13.0.4",\n    "prism-react-renderer": "1.3.5",\n    "react": "18.2.0",\n    "react-dom": "18.2.0"\n  },\n  "devDependencies": {\n    "@types/classnames": "2.3.1",\n    "@types/node": "18.11.9",\n    "@types/react": "18.0.25",\n    "@types/react-dom": "18.0.9",\n    "autoprefixer": "10.4.13",\n    "postcss": "8.4.19",\n    "tailwindcss": "3.2.4",\n    "typescript": "4.9.3"\n  }\n}\n',
