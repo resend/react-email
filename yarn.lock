@@ -1123,6 +1123,13 @@
   dependencies:
     react "18.2.0"
 
+"@react-email/column@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@react-email/column/-/column-0.0.3.tgz#da7d07eedf2ad0944690d15efca9d8c036a641e2"
+  integrity sha512-iKz3nO0EF2o74zf+nmMIgHzJFwsMEEK5arqYd82xw7yE4rJ87nEfV/OVG9xEM6l4OkKH0l2AX5l+f97sZ9C+1g==
+  dependencies:
+    react "18.2.0"
+
 "@react-email/container@0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@react-email/container/-/container-0.0.4.tgz#0fd2eb5b113f6047f44dc653696495ecc7367efd"

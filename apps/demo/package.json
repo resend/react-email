@@ -9,6 +9,7 @@
   "dependencies": {
     "@react-email/button": "0.0.4",
     "@react-email/container": "0.0.4",
+    "@react-email/column": "0.0.3",
     "@react-email/head": "0.0.2",
     "@react-email/heading": "0.0.5",
     "@react-email/hr": "0.0.2",
