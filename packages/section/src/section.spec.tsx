@@ -29,4 +29,16 @@ describe('render', () => {
     );
     expect(actualOutput).toContain("<td>");
   });
+
+  it('renders the <Section> wrapping any child provided in a <td> tag', () => {
+    const actualOutput = render(
+      <Section>
+        <div>Lorem ipsum</div>
+        <p>Lorem ipsum</p>
+        <img src="lorem.ipsum" alt="Lorem" />
+      </Section>
+    );
+    const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);
+    expect(tdChildrenArr).toHaveLength(3);
+  });
 });
