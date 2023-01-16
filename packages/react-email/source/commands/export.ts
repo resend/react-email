@@ -62,4 +62,6 @@ export const exportTemplates = async (outDir: string, options: Options) => {
     symbol: logSymbols.success,
     text: 'Successfully exported emails',
   });
+
+  process.exit();
 };
