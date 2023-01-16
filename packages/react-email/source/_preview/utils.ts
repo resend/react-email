@@ -15,6 +15,11 @@ export const utils = [
       "export * from './as';\nexport * from './unreachable';\nexport * from './copy-text-to-clipboard';\n",
   },
   {
+    title: 'language-map.ts',
+    content:
+      "const languageMap = {\n    jsx: 'React',\n    markup: 'HTML' \n}\n\nexport default languageMap;",
+  },
+  {
     title: 'unreachable.ts',
     content:
       "export const unreachable = (\n  condition: never,\n  message = `Entered unreachable code. Received '${condition}'.`,\n): never => {\n  throw new TypeError(message);\n};\n",
