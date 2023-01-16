@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A preview text that will be displayed in the inbox of the recipient",
   "sideEffects": false,
   "main": "./dist/index.js",
