@@ -1179,6 +1179,15 @@
   dependencies:
     react "18.2.0"
 
+"@react-email/render@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.4.tgz#d835b38c4a03b5880ac2323e893a36c85587060e"
+  integrity sha512-HPWjgw1TKcvYUPh74BjVC8Xq0ZU4nqb/tKsTa/VK/Ln4yXqnakBXNYl/UdHeJs57Ic9RMXSA9iOciQEHLgFWOg==
+  dependencies:
+    html-to-text "9.0.3"
+    pretty "2.0.0"
+    react-dom "18.2.0"
+
 "@react-email/section@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.1.tgz#5e12161fbb77a1b746caf4f35aab5905977c8474"
@@ -6143,24 +6152,6 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-email@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.5.0.tgz#1d33f616a5295b7d440950c7c4bfe35e44822253"
-  integrity sha512-KdChjRPF+KoijftXA2NDCtLf1NoqtyqU9rlVnlHbcr5ItxvEB5PfaEQCrFHKS49AOFHfwUw0FwQoVfpUmXCyzg==
-  dependencies:
-    "@commander-js/extra-typings" "9.4.1"
-    "@react-email/render" "*"
-    chokidar "3.5.3"
-    commander "9.4.1"
-    cpy "8.1.2"
-    esbuild "0.16.4"
-    glob "8.0.3"
-    log-symbols "4.1.0"
-    ora "5.4.1"
-    read-pkg "5.2.0"
-    shelljs "0.8.5"
-    tree-node-cli "^1.6.0"
-
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -7069,7 +7060,7 @@ tree-kill@^1.2.2:
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-tree-node-cli@1.6.0, tree-node-cli@^1.6.0:
+tree-node-cli@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/tree-node-cli/-/tree-node-cli-1.6.0.tgz#15b76fd7381be650746f5ea06bd70049a3448c08"
   integrity sha512-M8um5Lbl76rWU5aC8oOeEhruiCM29lFCKnwpxrwMjpRicHXJx+bb9Cak11G3zYLrMb6Glsrhnn90rHIzDJrjvg==
