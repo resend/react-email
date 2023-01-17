@@ -34,7 +34,7 @@ export default function Email() {
             <Container style={{ clear: 'both' }} />
           </Container>
           <Hr style={hr} />
-          <Container style={body}>
+          <Container style={message}>
             <Img
               src={`${baseUrl}/static/nike-logo.png`}
               width="66"
@@ -54,6 +54,15 @@ export default function Email() {
             </Text>
           </Container>
           <Hr style={hr} />
+          <Container
+            style={{ ...defultPadding, paddingTop: 22, paddingBottom: 22 }}
+          >
+            <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
+            <Text style={{ ...text, fontSize: 14 }}>
+              185 Royal Way, Upland, CA 91786-6798
+            </Text>
+          </Container>
+          <Hr style={hr} />
         </Container>
       </Section>
     </Html>
@@ -62,6 +71,11 @@ export default function Email() {
 
 const fontFamily =
   '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+
+const defultPadding = {
+  paddingLeft: '40px',
+  paddingRight: '40px',
+};
 
 const main = {
   backgroundColor: '#ffffff',
@@ -86,14 +100,10 @@ const trackNumber = {
   color: '#6F6F6F',
 };
 
-const trackInfos = {};
-
-const body = {
+const message = {
   padding: '40px 74px',
   textAlign: 'center',
 };
-
-const adress = {};
 
 const product = {};
 
@@ -135,6 +145,13 @@ const button = {
 
 const hr = {
   borderColor: '#E5E5E5',
+  margin: '0',
+};
+
+const adressTitle = {
+  ...paragraph,
+  fontSize: '15px',
+  fontWeight: 'bold',
 };
 
 const footer = {};
