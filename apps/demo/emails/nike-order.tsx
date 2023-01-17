@@ -1,4 +1,3 @@
-import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Hr } from '@react-email/hr';
@@ -23,9 +22,7 @@ export default function Email() {
         <Container style={container}>
           <Container style={track}>
             <Container style={{ float: 'left' }}>
-              <Text style={{ ...paragraph, fontWeight: 'bold' }}>
-                Tracking Number
-              </Text>
+              <Text style={paragraphWithBold}>Tracking Number</Text>
               <Text style={trackNumber}>1ZV218970300071628</Text>
             </Container>
             <Container style={{ float: 'right', marginTop: '3px' }}>
@@ -77,6 +74,22 @@ export default function Email() {
               <Text style={text}>Size L (12–14)</Text>
             </Container>
             <Container style={{ clear: 'both' }} />
+          </Container>
+          <Hr style={hr} />
+          <Container style={defaultPadding}>
+            <Container style={{ display: 'inline-flex', marginBottom: 40 }}>
+              <Container style={{ width: '170px' }}>
+                <Text style={paragraphWithBold}>Order Number</Text>
+                <Text style={trackNumber}>C0106373851</Text>
+              </Container>
+              <Container>
+                <Text style={paragraphWithBold}>Order Date</Text>
+                <Text style={trackNumber}>Sep 22, 2022</Text>
+              </Container>
+            </Container>
+            <Container style={{ display: 'flex', justifyContent: 'center' }}>
+              <Link style={button}>Order Status</Link>
+            </Container>
           </Container>
           <Hr style={hr} />
         </Container>
@@ -151,6 +164,8 @@ const text = {
   color: '#747474',
   fontWeight: '500',
 };
+
+const paragraphWithBold = { ...paragraph, fontWeight: 'bold' };
 
 const button = {
   fontFamily,
