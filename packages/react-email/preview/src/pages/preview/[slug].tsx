@@ -52,7 +52,15 @@ export async function getStaticProps({ params }) {
     });
 
     return emails
-      ? { props: { navItems: emails, slug: params.slug, markup, reactMarkup, plainText } }
+      ? {
+          props: {
+            navItems: emails,
+            slug: params.slug,
+            markup,
+            reactMarkup,
+            plainText,
+          },
+        }
       : { notFound: true };
   } catch (error) {
     console.error(error);
