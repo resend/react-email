@@ -54,13 +54,29 @@ export default function Email() {
             </Text>
           </Container>
           <Hr style={hr} />
-          <Container
-            style={{ ...defultPadding, paddingTop: 22, paddingBottom: 22 }}
-          >
+          <Container style={defaultPadding}>
             <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
             <Text style={{ ...text, fontSize: 14 }}>
               185 Royal Way, Upland, CA 91786-6798
             </Text>
+          </Container>
+          <Hr style={hr} />
+          <Container
+            style={{ ...paddingX, paddingTop: '40px', paddingBottom: '40px' }}
+          >
+            <Img
+              src={`${baseUrl}/static/nike-product.png`}
+              alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+              style={{ float: 'left' }}
+              width="260px"
+            />
+            <Container style={{ float: 'right', width: '247px' }}>
+              <Text style={{ ...paragraph, fontWeight: '500' }}>
+                Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
+              </Text>
+              <Text style={text}>Size L (12–14)</Text>
+            </Container>
+            <Container style={{ clear: 'both' }} />
           </Container>
           <Hr style={hr} />
         </Container>
@@ -72,9 +88,15 @@ export default function Email() {
 const fontFamily =
   '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
 
-const defultPadding = {
+const paddingX = {
   paddingLeft: '40px',
   paddingRight: '40px',
+};
+
+const defaultPadding = {
+  ...paddingX,
+  paddingTop: '22px',
+  paddingBottom: '22px',
 };
 
 const main = {
@@ -84,7 +106,7 @@ const main = {
 const container = {
   fontFamily,
   margin: '10px auto',
-  width: '580px',
+  width: '600px',
   border: '1px solid #E5E5E5',
 };
 
