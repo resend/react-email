@@ -81,7 +81,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
               return (
                 <motion.button
                   className={`relative py-[10px] px-4 text-xs transition ease-in-out duration-200 ${
-                    activeTab !== language ? 'text-slate-10' : 'text-slate-12'
+                    activeTab !== language ? 'text-slate-11' : 'text-slate-12'
                   }`}
                   onClick={() => setActiveTab(language)}
                   onHoverStart={() => setHovered(language)}
