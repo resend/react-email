@@ -61,7 +61,13 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               </svg>
 
               <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12">
-                <Heading as="h3" color="gray" size="2" weight="medium" className="transition ease-in-out duration-200 hover:text-slate-12">
+                <Heading
+                  as="h3"
+                  color="gray"
+                  size="2"
+                  weight="medium"
+                  className="transition ease-in-out duration-200 hover:text-slate-12"
+                >
                   All emails
                 </Heading>
                 {navItems && navItems.length > 0 && (
