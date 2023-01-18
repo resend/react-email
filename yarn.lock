@@ -1123,6 +1123,13 @@
   dependencies:
     react "18.2.0"
 
+"@react-email/column@0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@react-email/column/-/column-0.0.3.tgz#da7d07eedf2ad0944690d15efca9d8c036a641e2"
+  integrity sha512-iKz3nO0EF2o74zf+nmMIgHzJFwsMEEK5arqYd82xw7yE4rJ87nEfV/OVG9xEM6l4OkKH0l2AX5l+f97sZ9C+1g==
+  dependencies:
+    react "18.2.0"
+
 "@react-email/container@0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@react-email/container/-/container-0.0.4.tgz#0fd2eb5b113f6047f44dc653696495ecc7367efd"
@@ -6151,6 +6158,26 @@ react-dom@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-email@1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.6.2.tgz#b1b4037a2af92f11f1cfb03eb76a2bde90306c50"
+  integrity sha512-+UZvON9icXXomTUh7DQ+Eiq9DshAdRoLZ426ccG5kcgXgTY7uHi/2d1SZL9TmTrQjYiS+CwhK3QZzQTf9keeyw==
+  dependencies:
+    "@commander-js/extra-typings" "9.4.1"
+    "@react-email/render" "0.0.4"
+    chokidar "3.5.3"
+    commander "9.4.1"
+    cpy "8.1.2"
+    detect-package-manager "2.0.1"
+    esbuild "0.16.4"
+    glob "8.0.3"
+    log-symbols "4.1.0"
+    normalize-path "3.0.0"
+    ora "5.4.1"
+    read-pkg "5.2.0"
+    shelljs "0.8.5"
+    tree-node-cli "1.6.0"
 
 react-is@^16.13.1:
   version "16.13.1"

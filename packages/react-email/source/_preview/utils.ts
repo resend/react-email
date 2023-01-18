@@ -17,7 +17,7 @@ export const utils = [
   {
     title: 'language-map.ts',
     content:
-      "const languageMap = {\n  jsx: 'React',\n  markup: 'HTML',\n};\n\nexport default languageMap;\n",
+      "const languageMap = {\n  jsx: 'React',\n  markup: 'HTML',\n  markdown: 'Plain Text',\n};\n\nexport default languageMap;\n",
   },
   {
     title: 'unreachable.ts',

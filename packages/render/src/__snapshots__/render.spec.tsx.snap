@@ -7,3 +7,5 @@ exports[`render converts a React component into PlainText 1`] = `
 
 Thanks for trying our product. We're thrilled to have you on board!"
 `;
+
+exports[`render converts to plain text and removes reserved ID 1`] = `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`;
