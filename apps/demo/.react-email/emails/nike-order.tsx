@@ -146,6 +146,32 @@ export default function Email() {
             </Container>
           </Container>
           <Hr style={hr} />
+          <Container style={menu.container}>
+            <Text style={menu.title}>Get Help</Text>
+            <Container style={menu.content}>
+              <Text style={menu.text}>Shipping Status</Text>
+              <Text style={menu.text}>Shipping & Delivery</Text>
+              <Text style={menu.text}>Returns & Exchanges</Text>
+              <Text style={menu.text}>How to Return</Text>
+              <Text style={menu.text}>Contact Options</Text>
+            </Container>
+            <Hr style={hr} />
+            <Container style={menu.tel}>
+              <Container style={{ display: 'inline-flex' }}>
+                <Img
+                  src={`${baseUrl}/static/nike-phone.png`}
+                  width="16px"
+                  height="26px"
+                  style={{ paddingRight: '14px' }}
+                />
+                <Text style={menu.text}>1-800-806-6453</Text>
+              </Container>
+              <Text style={{ ...menu.text, width: 220, textAlign: 'center' }}>
+                4 am - 11 pm PT
+              </Text>
+            </Container>
+          </Container>
+          <Hr style={hr} />
         </Container>
       </Section>
     </Html>
@@ -197,10 +223,6 @@ const message = {
   padding: '40px 74px',
   textAlign: 'center',
 };
-
-const product = {};
-
-const order = {};
 
 const heading = {
   fontFamily,
@@ -275,4 +297,35 @@ const recomendations = {
   },
 };
 
-const footer = {};
+const menu = {
+  container: {
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '20px',
+    backgroundColor: '#F7F7F7',
+  },
+  content: {
+    ...paddingY,
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
+  title: {
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    fontWeight: 'bold',
+  },
+  text: {
+    fontSize: '13.5px',
+    marginTop: 0,
+    fontWeight: 500,
+  },
+  tel: {
+    display: 'flex',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '32px',
+    paddingBottom: '22px',
+  },
+};
