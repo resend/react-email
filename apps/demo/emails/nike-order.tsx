@@ -92,6 +92,60 @@ export default function Email() {
             </Container>
           </Container>
           <Hr style={hr} />
+          <Container style={paddingY}>
+            <Text style={heading}>Top Picks For You</Text>
+            <Container style={recomendations.container}>
+              <Container style={recomendations.product}>
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-1.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="140px"
+                />
+                <Text style={recomendations.title}>
+                  USWNT 2022/23 Stadium Home
+                </Text>
+                <Text style={recomendations.text}>
+                  Women's Nike Dri-FIT Soccer Jersey
+                </Text>
+              </Container>
+              <Container style={recomendations.product}>
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-2.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="140px"
+                />
+                <Text style={recomendations.title}>
+                  Brazil 2022/23 Stadium Goalkeeper
+                </Text>
+                <Text style={recomendations.text}>
+                  Men's Nike Dri-FIT Short-Sleeve Football Shirt
+                </Text>
+              </Container>
+              <Container style={recomendations.product}>
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-3.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="140px"
+                  height="175px"
+                  style={{ objectFit: 'cover' }}
+                />
+                <Text style={recomendations.title}>FFF</Text>
+                <Text style={recomendations.text}>Women's Soccer Jacket</Text>
+              </Container>
+              <Container style={recomendations.product}>
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-4.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="140px"
+                />
+                <Text style={recomendations.title}>FFF</Text>
+                <Text style={recomendations.text}>
+                  Women's Nike Pre-Match Football Top
+                </Text>
+              </Container>
+            </Container>
+          </Container>
+          <Hr style={hr} />
         </Container>
       </Section>
     </Html>
@@ -106,10 +160,14 @@ const paddingX = {
   paddingRight: '40px',
 };
 
-const defaultPadding = {
-  ...paddingX,
+const paddingY = {
   paddingTop: '22px',
   paddingBottom: '22px',
+};
+
+const defaultPadding = {
+  ...paddingX,
+  ...paddingY,
 };
 
 const main = {
@@ -189,6 +247,32 @@ const adressTitle = {
   ...paragraph,
   fontSize: '15px',
   fontWeight: 'bold',
+};
+
+const recomendationsText = {
+  fontFamily,
+  margin: '0',
+  fontSize: '15px',
+  lineHeight: '1',
+  paddingLeft: '10px',
+  paddingRight: '10px',
+};
+
+const recomendations = {
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '20px 5px',
+  },
+  product: {
+    width: '140px',
+  },
+  title: { ...recomendationsText, paddingTop: '12px', fontWeight: '500' },
+  text: {
+    ...recomendationsText,
+    paddingTop: '4px',
+    color: '#747474',
+  },
 };
 
 const footer = {};
