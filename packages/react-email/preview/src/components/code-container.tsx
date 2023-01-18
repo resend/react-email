@@ -91,7 +91,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                   {isHovered && (
                     <motion.span
                       layoutId="nav"
-                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-5"
+                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
