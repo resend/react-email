@@ -108,11 +108,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         <title>{title}</title>
       </Head>
       {viewMode === 'desktop' ? (
-        <iframe
-          srcDoc={markup}
-          frameBorder="0"
-          className="w-full h-[calc(100vh_-_70px)]"
-        />
+        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
       ) : (
         <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <CodeContainer
