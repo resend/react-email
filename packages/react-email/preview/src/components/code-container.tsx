@@ -7,6 +7,7 @@ import { copyTextToClipboard } from '../utils';
 import languageMap from '../utils/language-map';
 import { Tooltip } from './tooltip';
 import { Code } from './code';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import * as React from 'react';
 
 interface CodeContainerProps {
@@ -21,6 +22,7 @@ interface MarkupProps {
 export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   markups,
 }) => {
+  const [hovered, setHovered] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(markups[0].language);
   let file = null;
@@ -72,19 +74,34 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
       }}
     >
       <div className="h-9 border-b border-slate-6">
-        <div className="py-[10px] px-4 text-xs flex gap-8">
-          {markups.map(({ language }) => {
-            return (
-              <div key={language}>
-                <button
-                  className={`${activeTab !== language && 'opacity-25'}`}
+        <div className="flex">
+          <AnimateSharedLayout>
+            {markups.map(({ language }) => {
+              const isHovered = hovered === language;
+              return (
+                <motion.button
+                  className={`relative py-[10px] px-4 text-xs transition ease-in-out duration-200 ${
+                    activeTab !== language ? 'text-slate-10' : 'text-slate-12'
+                  }`}
                   onClick={() => setActiveTab(language)}
+                  onHoverStart={() => setHovered(language)}
+                  onHoverEnd={() => setHovered('')}
+                  key={language}
                 >
+                  {isHovered && (
+                    <motion.span
+                      layoutId="nav"
+                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-5"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    />
+                  )}
                   {languageMap[language]}
-                </button>
-              </div>
-            );
-          })}
+                </motion.button>
+              );
+            })}
+          </AnimateSharedLayout>
         </div>
         <Tooltip>
           <Tooltip.Trigger className="absolute top-2 right-2 hidden md:block">
