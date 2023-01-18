@@ -20,17 +20,17 @@ export default function Email() {
       <Preview>Nike</Preview>
       <Section style={main}>
         <Container style={container}>
-          <Container style={track}>
+          <Container style={track.container}>
             <Container style={{ float: 'left' }}>
-              <Text style={paragraphWithBold}>Tracking Number</Text>
-              <Text style={trackNumber}>1ZV218970300071628</Text>
+              <Text style={global.paragraphWithBold}>Tracking Number</Text>
+              <Text style={track.number}>1ZV218970300071628</Text>
             </Container>
             <Container style={{ float: 'right', marginTop: '3px' }}>
-              <Link style={button}>Track Package</Link>
+              <Link style={global.button}>Track Package</Link>
             </Container>
             <Container style={{ clear: 'both' }} />
           </Container>
-          <Hr style={hr} />
+          <Hr style={global.hr} />
           <Container style={message}>
             <Img
               src={`${baseUrl}/static/nike-logo.png`}
@@ -39,25 +39,25 @@ export default function Email() {
               alt="Nike"
               style={{ margin: 'auto' }}
             />
-            <Text style={heading}>It's On Its Way.</Text>
-            <Text style={text}>
+            <Text style={global.heading}>It's On Its Way.</Text>
+            <Text style={global.text}>
               You order's is on its way. Use the link above to track its
               progress.
             </Text>
-            <Text style={{ ...text, marginTop: 24 }}>
+            <Text style={{ ...global.text, marginTop: 24 }}>
               We´ve also charged your payment method for the cost of your order
               and will be removing any authorization holds. For payment details,
               please visit your Orders page on Nike.com or in the Nike app.
             </Text>
           </Container>
-          <Hr style={hr} />
-          <Container style={defaultPadding}>
+          <Hr style={global.hr} />
+          <Container style={global.defaultPadding}>
             <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
-            <Text style={{ ...text, fontSize: 14 }}>
+            <Text style={{ ...global.text, fontSize: 14 }}>
               185 Royal Way, Upland, CA 91786-6798
             </Text>
           </Container>
-          <Hr style={hr} />
+          <Hr style={global.hr} />
           <Container
             style={{ ...paddingX, paddingTop: '40px', paddingBottom: '40px' }}
           >
@@ -71,29 +71,29 @@ export default function Email() {
               <Text style={{ ...paragraph, fontWeight: '500' }}>
                 Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
               </Text>
-              <Text style={text}>Size L (12–14)</Text>
+              <Text style={global.text}>Size L (12–14)</Text>
             </Container>
             <Container style={{ clear: 'both' }} />
           </Container>
-          <Hr style={hr} />
-          <Container style={defaultPadding}>
+          <Hr style={global.hr} />
+          <Container style={global.defaultPadding}>
             <Container style={{ display: 'inline-flex', marginBottom: 40 }}>
               <Container style={{ width: '170px' }}>
-                <Text style={paragraphWithBold}>Order Number</Text>
-                <Text style={trackNumber}>C0106373851</Text>
+                <Text style={global.paragraphWithBold}>Order Number</Text>
+                <Text style={track.number}>C0106373851</Text>
               </Container>
               <Container>
-                <Text style={paragraphWithBold}>Order Date</Text>
-                <Text style={trackNumber}>Sep 22, 2022</Text>
+                <Text style={global.paragraphWithBold}>Order Date</Text>
+                <Text style={track.number}>Sep 22, 2022</Text>
               </Container>
             </Container>
             <Container style={{ display: 'flex', justifyContent: 'center' }}>
-              <Link style={button}>Order Status</Link>
+              <Link style={global.button}>Order Status</Link>
             </Container>
           </Container>
-          <Hr style={hr} />
+          <Hr style={global.hr} />
           <Container style={paddingY}>
-            <Text style={heading}>Top Picks For You</Text>
+            <Text style={global.heading}>Top Picks For You</Text>
             <Container style={recomendations.container}>
               <Container style={recomendations.product}>
                 <Img
@@ -145,7 +145,7 @@ export default function Email() {
               </Container>
             </Container>
           </Container>
-          <Hr style={hr} />
+          <Hr style={global.hr} />
           <Container style={menu.container}>
             <Text style={menu.title}>Get Help</Text>
             <Container style={menu.content}>
@@ -155,7 +155,7 @@ export default function Email() {
               <Text style={menu.text}>How to Return</Text>
               <Text style={menu.text}>Contact Options</Text>
             </Container>
-            <Hr style={hr} />
+            <Hr style={global.hr} />
             <Container style={menu.tel}>
               <Container style={{ display: 'inline-flex' }}>
                 <Img
@@ -171,9 +171,9 @@ export default function Email() {
               </Text>
             </Container>
           </Container>
-          <Hr style={hr} />
+          <Hr style={global.hr} />
           <Container style={paddingY}>
-            <Text style={heading}>Nike.com</Text>
+            <Text style={global.heading}>Nike.com</Text>
             <Container style={categories.container}>
               <Text style={categories.text}>Men</Text>
               <Text style={categories.text}>Women</Text>
@@ -181,7 +181,7 @@ export default function Email() {
               <Text style={categories.text}>Customize</Text>
             </Container>
           </Container>
-          <Hr style={{ ...hr, marginTop: '12px' }} />
+          <Hr style={{ ...global.hr, marginTop: '12px' }} />
           <Container style={paddingY}>
             <Container style={footer.policy}>
               <Text style={footer.text}>Web Version</Text>
@@ -217,9 +217,49 @@ const paddingY = {
   paddingBottom: '22px',
 };
 
-const defaultPadding = {
-  ...paddingX,
-  ...paddingY,
+const paragraph = {
+  fontFamily,
+  margin: '0',
+  lineHeight: '2',
+};
+
+const global = {
+  paddingX,
+  paddingY,
+  defaultPadding: {
+    ...paddingX,
+    ...paddingY,
+  },
+  paragraphWithBold: { ...paragraph, fontWeight: 'bold' },
+  heading: {
+    fontFamily,
+    fontSize: '32px',
+    lineHeight: '1.3',
+    fontWeight: '700',
+    textAlign: 'center',
+    letterSpacing: '-1px',
+  } as React.CSSProperties,
+  text: {
+    ...paragraph,
+    color: '#747474',
+    fontWeight: '500',
+  },
+  button: {
+    fontFamily,
+    border: '1px solid #929292',
+    fontSize: '16px',
+    textDecoration: 'none',
+    padding: '10px 0px',
+    width: '220px',
+    display: 'block',
+    textAlign: 'center',
+    fontWeight: 500,
+    color: '#000',
+  } as React.CSSProperties,
+  hr: {
+    borderColor: '#E5E5E5',
+    margin: '0',
+  },
 };
 
 const main = {
@@ -234,62 +274,22 @@ const container = {
 };
 
 const track = {
-  padding: '22px 40px',
-  backgroundColor: '#F7F7F7',
-};
-
-const trackNumber = {
-  margin: '12px 0 0 0',
-  fontWeight: 500,
-  lineHeight: '1.4',
-  color: '#6F6F6F',
+  container: {
+    padding: '22px 40px',
+    backgroundColor: '#F7F7F7',
+  },
+  number: {
+    margin: '12px 0 0 0',
+    fontWeight: 500,
+    lineHeight: '1.4',
+    color: '#6F6F6F',
+  },
 };
 
 const message = {
   padding: '40px 74px',
   textAlign: 'center',
-};
-
-const heading = {
-  fontFamily,
-  fontSize: '32px',
-  lineHeight: '1.3',
-  fontWeight: '700',
-  textAlign: 'center',
-  letterSpacing: '-1px',
-};
-
-const paragraph = {
-  fontFamily,
-  margin: '0',
-  lineHeight: '2',
-};
-
-const text = {
-  ...paragraph,
-  color: '#747474',
-  fontWeight: '500',
-};
-
-const paragraphWithBold = { ...paragraph, fontWeight: 'bold' };
-
-const button = {
-  fontFamily,
-  border: '1px solid #929292',
-  fontSize: '16px',
-  textDecoration: 'none',
-  padding: '10px 0px',
-  width: '220px',
-  display: 'block',
-  textAlign: 'center',
-  fontWeight: 500,
-  color: '#000',
-};
-
-const hr = {
-  borderColor: '#E5E5E5',
-  margin: '0',
-};
+} as React.CSSProperties;
 
 const adressTitle = {
   ...paragraph,
@@ -380,5 +380,5 @@ const footer = {
     color: '#AFAFAF',
     fontSize: '13px',
     textAlign: 'center',
-  },
+  } as React.CSSProperties,
 };
