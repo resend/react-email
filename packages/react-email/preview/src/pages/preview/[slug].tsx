@@ -5,7 +5,6 @@ import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
 import { CodeContainer } from '../../components/code-container';
-import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
