@@ -182,6 +182,22 @@ export default function Email() {
             </Container>
           </Container>
           <Hr style={{ ...hr, marginTop: '12px' }} />
+          <Container style={paddingY}>
+            <Container style={footer.policy}>
+              <Text style={footer.text}>Web Version</Text>
+              <Text style={footer.text}>Privacy Policy</Text>
+            </Container>
+            <Text style={{ ...footer.text, paddingTop: 30, paddingBottom: 30 }}>
+              Please contact us if you have any questions. (If you reply to this
+              email, we won't be able to see it.)
+            </Text>
+            <Text style={footer.text}>
+              © 2022 Nike, Inc. All Rights Reserved.
+            </Text>
+            <Text style={footer.text}>
+              NIKE, INC. One Bowerman Drive, Beaverton, Oregon 97005, USA.
+            </Text>
+          </Container>
         </Container>
       </Section>
     </Html>
@@ -349,5 +365,20 @@ const categories = {
   },
   text: {
     fontWeight: '500',
+  },
+};
+
+const footer = {
+  policy: {
+    display: 'flex',
+    width: '166px',
+    margin: 'auto',
+    justifyContent: 'space-between',
+  },
+  text: {
+    margin: '0',
+    color: '#AFAFAF',
+    fontSize: '13px',
+    textAlign: 'center',
   },
 };
