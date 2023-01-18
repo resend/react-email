@@ -172,6 +172,16 @@ export default function Email() {
             </Container>
           </Container>
           <Hr style={hr} />
+          <Container style={paddingY}>
+            <Text style={heading}>Nike.com</Text>
+            <Container style={categories.container}>
+              <Text style={categories.text}>Men</Text>
+              <Text style={categories.text}>Women</Text>
+              <Text style={categories.text}>Kids</Text>
+              <Text style={categories.text}>Customize</Text>
+            </Container>
+          </Container>
+          <Hr style={{ ...hr, marginTop: '12px' }} />
         </Container>
       </Section>
     </Html>
@@ -327,5 +337,17 @@ const menu = {
     paddingRight: '20px',
     paddingTop: '32px',
     paddingBottom: '22px',
+  },
+};
+
+const categories = {
+  container: {
+    display: 'flex',
+    width: '370px',
+    margin: 'auto',
+    justifyContent: 'space-between',
+  },
+  text: {
+    fontWeight: '500',
   },
 };
