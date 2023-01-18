@@ -115,7 +115,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
           className="w-full h-[calc(100vh_-_70px)]"
         />
       ) : (
-        <div className="flex gap-6 mx-auto p-6">
+        <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <CodeContainer
             markups={[
               { language: 'jsx', content: reactMarkup },
