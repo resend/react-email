@@ -34,7 +34,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
     url = URL.createObjectURL(file);
 
     return (
-      <a href={url} download={file.name}>
+      <a href={url} download={file.name} className="text-slate-11 transition ease-in-out duration-200 hover:text-slate-12">
         <IconDownload />
       </a>
     );
