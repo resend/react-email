@@ -16,7 +16,6 @@
     "lint": "eslint",
     "clean": "rm -rf dist",
     "test": "jest",
-    "test:watch": "jest --watch",
     "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
