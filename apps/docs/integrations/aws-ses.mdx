@@ -45,10 +45,10 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the AWS SES SDK to send it.
 
-```js index.tsx
+```js index.ts
 import { render } from '@react-email/render';
 import AWS from 'aws-sdk';
-import { Email } from './email';
+import Email from './email';
 
 AWS.config.update({ region: process.env.AWS_SES_REGION });
 

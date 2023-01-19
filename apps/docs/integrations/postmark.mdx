@@ -45,10 +45,10 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the Postmark SDK to send it.
 
-```js index.tsx
+```js index.ts
 import { render } from '@react-email/render';
 import postmark from 'postmark';
-import { Email } from './email';
+import Email from './email';
 
 const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 

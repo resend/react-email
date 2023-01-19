@@ -45,10 +45,10 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the SendGrid SDK to send it.
 
-```js index.tsx
+```js index.ts
 import { render } from '@react-email/render';
 import sendgrid from '@sendgrid/mail';
-import { Email } from './email';
+import Email from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 

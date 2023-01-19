@@ -5,7 +5,25 @@ description: 'Leverage different email service providers to send emails using Re
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
-In order to use React Email with any email service provider, you'll need to convert the components made with React into a HTML string. This is done using the [render](/utilities/render) utility.
+In order to use React Email with any email service provider, you'll need to convert the components made with React into a HTML string. This is done using the [render](/utilities/render) utility. Or you can integrate React Email into your NodeJS application by installing `@babel/preset-typescript` and adding a `.babelrc` config file:
+
+<CodeGroup>
+
+```sh npm
+npm install -D @babel/preset-typescript
+```
+
+```sh yarn
+yarn add -D @babel/preset-typescript
+```
+
+</CodeGroup>
+
+```json .babelrc
+{
+  "presets": ["@babel/preset-typescript"]
+}
+```
 
 <CardGroup>
   <Card title="Nodemailer" href="/integrations/nodemailer">

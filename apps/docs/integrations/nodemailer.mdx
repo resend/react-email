@@ -45,10 +45,10 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the Nodemailer SDK to send it.
 
-```js index.tsx
+```js index.ts
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import { Email } from './email';
+import Email from './email';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
