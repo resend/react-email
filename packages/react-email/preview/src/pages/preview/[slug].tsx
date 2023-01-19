@@ -5,7 +5,6 @@ import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
 import { CodeContainer } from '../../components/code-container';
-import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -109,13 +108,9 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         <title>{title}</title>
       </Head>
       {viewMode === 'desktop' ? (
-        <iframe
-          srcDoc={markup}
-          frameBorder="0"
-          className="w-full h-[calc(100vh_-_70px)]"
-        />
+        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
       ) : (
-        <div className="flex gap-6 mx-auto p-6">
+        <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <CodeContainer
             markups={[
               { language: 'jsx', content: reactMarkup },

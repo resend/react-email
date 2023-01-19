@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/html -E
+yarn add @react-email/body -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/html -E
+npm install @react-email/body -E
 ```
 
 ## Getting started
@@ -42,12 +42,8 @@ const Email = () => {
     <Html lang="en">
       <Body style={{ backgroundColor: '#61dafb' }}>
         <Section>
-          <Column style={{ width: '50%'}}>
-              {/* First column */}
-          </Column>
-          <Column style={{ width: '50%'}}>
-              {/* Second column */}
-          </Column>
+          <Column style={{ width: '50%' }}>{/* First column */}</Column>
+          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
         </Section>
       </Body>
     </Html>
