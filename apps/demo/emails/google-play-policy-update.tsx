@@ -7,7 +7,9 @@ import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
+import { Column } from '@react-email/column'
 import * as React from 'react';
+
 
 export default function Email() {
   const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
@@ -98,7 +100,7 @@ export default function Email() {
               <Text style={paragraph}>Connect with us</Text>
               <table>
                 <tr>
-                  <td>
+                  <Column>
                     <Link href="https://notifications.google.com">
                       <Img
                         width="28"
@@ -106,8 +108,8 @@ export default function Email() {
                         src={`${baseUrl}/static/google-play-chat.png`}
                       />
                     </Link>
-                  </td>
-                  <td>
+                  </Column>
+                  <Column>
                     <Link href="https://notifications.google.com">
                       <Img
                         width="28"
@@ -115,8 +117,8 @@ export default function Email() {
                         src={`${baseUrl}/static/google-play-icon.png`}
                       />
                     </Link>
-                  </td>
-                  <td>
+                  </Column>
+                  <Column>
                     <Link href="https://notifications.google.com">
                       <Img
                         width="28"
@@ -124,7 +126,7 @@ export default function Email() {
                         src={`${baseUrl}/static/google-play-academy.png`}
                       />
                     </Link>
-                  </td>
+                  </Column>
                 </tr>
               </table>
             </Section>

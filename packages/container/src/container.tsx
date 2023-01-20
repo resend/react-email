@@ -20,7 +20,7 @@ export const Container = React.forwardRef<
       <div
         dangerouslySetInnerHTML={{
           __html: `<!--[if mso | IE]>
-            <table role="presentation" width="100%" align="center" style="${inlineStyle}"><tr><td></td><td style="width:37.5em;background:#ffffff">
+            <table role="presentation" width="100%" align="center" style="${inlineStyle}"><tr><Column></Column><Column style="width:37.5em;background:#ffffff">
           <![endif]-->`,
         }}
       />
@@ -30,7 +30,7 @@ export const Container = React.forwardRef<
       <div
         dangerouslySetInnerHTML={{
           __html: `<!--[if mso | IE]>
-          </td><td></td></tr></table>
+          </Column><Column></Column></tr></table>
           <![endif]-->`,
         }}
       />

@@ -8,12 +8,9 @@ import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
-import { Column } from '@react-email/column'
 import * as React from 'react';
 
 export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
-
   return (
     <Html>
       <Head />
@@ -22,7 +19,7 @@ export default function Email() {
         <Container style={container}>
           <Section style={{ marginTop: '32px' }}>
             <Img
-              src={`${baseUrl}/static/vercel-logo.png`}
+              src="/static/vercel-logo.png"
               width="40"
               height="37"
               alt="Vercel"
@@ -49,17 +46,17 @@ export default function Email() {
             align="center"
           >
             <tr>
-              <Column style={center} align="left" valign="middle">
+              <td style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
-                  src={`${baseUrl}/static/vercel-user.png`}
+                  src="https://vercel.com/api/www/avatar/?u=zenorocha&amp;s=240&amp;format=png"
                   width="64"
                   height="64"
                 />
-              </Column>
+              </td>
               <td style={center} align="left" valign="middle">
                 <Img
-                  src={`${baseUrl}/static/vercel-arrow.png`}
+                  src="/static/vercel-arrow.png"
                   width="12"
                   height="9"
                   alt="invited you to"
@@ -68,7 +65,7 @@ export default function Email() {
               <td style={center} align="left" valign="middle">
                 <Img
                   style={avatar}
-                  src={`${baseUrl}/static/vercel-team.png`}
+                  src="https://vercel.com/api/www/avatar/?teamId=team_3e17ZatpKJ1imLQdTyrLeBoX&amp;s=240&amp;format=png"
                   width="64"
                   height="64"
                 />

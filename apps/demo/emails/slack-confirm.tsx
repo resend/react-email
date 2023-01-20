@@ -6,6 +6,7 @@ import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
+import { Column } from '@react-email/column'
 import * as React from 'react';
 
 export default function Email() {
@@ -48,15 +49,15 @@ export default function Email() {
             align="left"
           >
             <tr>
-              <td align="left" valign="top">
+              <Column align="left" valign="top">
                 <Img
                   src={`${baseUrl}/static/slack-logo.png`}
                   width="120"
                   height="36"
                   alt="Slack"
                 />
-              </td>
-              <td align="right" valign="top">
+              </Column>
+              <Column align="right" valign="top">
                 <Link href="https://twitter.com/slackhq"><Img
                   src={`${baseUrl}/static/slack-twitter.png`}
                   width="32"
@@ -83,7 +84,7 @@ export default function Email() {
                     style={socialMediaIcon}
                   />
                 </Link>
-              </td>
+              </Column>
             </tr>
           </table>
 
