@@ -58,6 +58,7 @@ A set of standard components to help you build amazing emails without having to 
 
 - [Html](https://github.com/resendlabs/react-email/tree/main/packages/html)
 - [Head](https://github.com/resendlabs/react-email/tree/main/packages/head)
+- [Heading](https://github.com/resendlabs/react-email/tree/main/packages/heading)
 - [Button](https://github.com/resendlabs/react-email/tree/main/packages/button)
 - [Link](https://github.com/resendlabs/react-email/tree/main/packages/link)
 - [Image](https://github.com/resendlabs/react-email/tree/main/packages/img)
