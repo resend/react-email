@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render renders children components 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><ul style=\\"list-style-type:circle\\"><li>Item 1</li></ul>"`;
+
+exports[`render renders the <Ul> component 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><ul style=\\"list-style-type:circle\\"><li>Item 1</li></ul>"`;

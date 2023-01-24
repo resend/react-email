@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render renders the <Li> component 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><li>Item</li>"`;
+
+exports[`render renders the <Li> component inside a <Ol> 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><ol style=\\"list-style-type:decimal-leading-zero\\"><li>Item 1</li></ol>"`;
+
+exports[`render renders the <Li> component inside a <Ul> 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><ul style=\\"list-style-type:circle\\"><li>Item 1</li></ul>"`;
