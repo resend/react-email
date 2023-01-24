@@ -56,7 +56,7 @@ export default function Email() {
           </Section>
           <Hr style={hr} />
           <Text style={{ ...paragraph, fontWeight: '700' }}>
-            Commom questions
+            Common questions
           </Text>
           <Text>
             <Link href="https://airbnb.com/help/article/13" style={link}>
