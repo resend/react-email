@@ -50,7 +50,7 @@ Import the email template you just built, convert into a HTML string, and use th
 ```js React
 import { render } from '@react-email/render';
 import AWS from 'aws-sdk';
-import Email from './email';
+import { Email } from './email';
 
 AWS.config.update({ region: process.env.AWS_SES_REGION });
 
@@ -83,7 +83,7 @@ const sendPromise = new AWS.SES({ apiVersion: '2010-12-01' })
 ```js NodeJS
 import { render } from '@react-email/render';
 import AWS from 'aws-sdk';
-import Email from './email';
+import { Email } from './email';
 
 AWS.config.update({ region: process.env.AWS_SES_REGION });
 

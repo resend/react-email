@@ -50,7 +50,7 @@ Import the email template you just built, convert into a HTML string, and use th
 ```js React
 import { render } from '@react-email/render';
 import sendgrid from '@sendgrid/mail';
-import Email from './email';
+import { Email } from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -69,7 +69,7 @@ sendgrid.send(options);
 ```js NodeJS
 import { render } from '@react-email/render';
 import sendgrid from '@sendgrid/mail';
-import Email from './email';
+import { Email } from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 

@@ -50,7 +50,7 @@ Import the email template you just built, convert into a HTML string, and use th
 ```js React
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import Email from './email';
+import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
@@ -77,7 +77,7 @@ transporter.sendMail(options);
 ```js NodeJS
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import Email from './email';
+import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
