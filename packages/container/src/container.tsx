@@ -24,7 +24,9 @@ export const Container = React.forwardRef<
           <![endif]-->`,
         }}
       />
-      <div style={styles}>{children}</div>
+      <div ref={forwardedRef} style={styles} {...props}>
+        {children}
+      </div>
       <div
         dangerouslySetInnerHTML={{
           __html: `<!--[if mso | IE]>

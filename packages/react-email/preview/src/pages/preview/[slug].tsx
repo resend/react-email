@@ -5,7 +5,6 @@ import { render } from '@react-email/render';
 import { GetStaticPaths } from 'next';
 import { Layout } from '../../components/layout';
 import { CodeContainer } from '../../components/code-container';
-import { Code } from '../../components';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
@@ -45,13 +44,22 @@ export async function getStaticProps({ params }) {
 
     const Email = (await import(`../../../emails/${params.slug}`)).default;
     const markup = render(<Email />, { pretty: true });
+    const plainText = render(<Email />, { plainText: true });
     const path = `${process.cwd()}/${CONTENT_DIR}/${template[0]}`;
     const reactMarkup = await fs.readFile(path, {
       encoding: 'utf-8',
     });
 
     return emails
-      ? { props: { navItems: emails, slug: params.slug, markup, reactMarkup } }
+      ? {
+          props: {
+            navItems: emails,
+            slug: params.slug,
+            markup,
+            reactMarkup,
+            plainText,
+          },
+        }
       : { notFound: true };
   } catch (error) {
     console.error(error);
@@ -63,6 +71,7 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
   navItems,
   markup,
   reactMarkup,
+  plainText,
   slug,
 }: any) => {
   const title = `${slug} — React Email`;
@@ -99,17 +108,14 @@ const Preview: React.FC<Readonly<PreviewProps>> = ({
         <title>{title}</title>
       </Head>
       {viewMode === 'desktop' ? (
-        <iframe
-          srcDoc={markup}
-          frameBorder="0"
-          className="w-full h-[calc(100vh_-_70px)]"
-        />
+        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
       ) : (
-        <div className="flex gap-6 mx-auto p-6">
+        <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <CodeContainer
             markups={[
               { language: 'jsx', content: reactMarkup },
               { language: 'markup', content: markup },
+              { language: 'markdown', content: plainText },
             ]}
           />
         </div>

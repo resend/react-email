@@ -93,7 +93,14 @@ export const Send = ({ markup }: { markup: string }) => {
             <div className="flex items-center justify-between">
               <Text className="inline-block" size="1">
                 Powered by{' '}
-                <a className="hover:text-slate-12 transition ease-in-out duration-300" href="https://resend.com" target="_blank" rel="noreferrer">Resend</a>
+                <a
+                  className="hover:text-slate-12 transition ease-in-out duration-300"
+                  href="https://resend.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Resend
+                </a>
               </Text>
               <Button
                 type="submit"

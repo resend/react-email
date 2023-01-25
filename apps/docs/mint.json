@@ -1,9 +1,8 @@
 {
   "name": "React Email",
-  "basePath": "/docs",
   "logo": {
-    "light": "/docs/logo/light.svg",
-    "dark": "/docs/logo/dark.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "favicon": "/favicon.png",
   "colors": {
@@ -97,7 +96,7 @@
     "anchors": "group-hover:bg-gradient-to-tr from-primary to-primary-dark dark:from-[#61DAFB] dark:to-[#06BCEE]",
     "activeAnchors": "bg-gradient-to-tr"
   },
-  "backgroundImage": "/docs/images/background.png",
+  "backgroundImage": "/images/background.png",
   "analytics": {
     "ga4": {
       "measurementId": "G-2LXLLQLM5D"

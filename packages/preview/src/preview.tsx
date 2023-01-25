@@ -11,6 +11,7 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
   ({ children = '', ...props }, forwardedRef) => (
     <div
       ref={forwardedRef}
+      id="__react-email-preview"
       style={{
         display: 'none',
         overflow: 'hidden',
