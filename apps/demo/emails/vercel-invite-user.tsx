@@ -10,13 +10,39 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  username: string;
+  userImage: string;
+  invitedByUsername: string;
+  invitedByEmail: string;
+  teamName: string;
+  teamImage: string;
+  inviteLink: string;
+  inviteFromIp: string;
+  inviteFromLocation: string;
+}
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  username = 'zenorocha',
+  userImage = `${baseUrl}/static/vercel-user.png`,
+  invitedByUsername = 'bukinoshita',
+  invitedByEmail = 'bukinoshita@example.com',
+  teamName = 'My Project',
+  teamImage = `${baseUrl}/static/vercel-team.png`,
+  inviteLink = 'https://vercel.com/teams/invite/foo',
+  inviteFromIp = '204.13.186.218',
+  inviteFromLocation = 'São Paulo, Brazil',
+}: EmailProps) {
+  const previewText = `Join ${invitedByUsername} on Vercel`;
 
   return (
     <Html>
       <Head />
-      <Preview>Join bukinoshita on Vercel</Preview>
+      <Preview>{previewText}</Preview>
       <Section style={main}>
         <Container style={container}>
           <Section style={{ marginTop: '32px' }}>
@@ -29,15 +55,15 @@ export default function Email() {
             />
           </Section>
           <Text style={h1}>
-            Join <strong>My Project</strong> on <strong>Vercel</strong>
+            Join <strong>{teamName}</strong> on <strong>Vercel</strong>
           </Text>
-          <Text style={text}>Hello zenorocha,</Text>
+          <Text style={text}>Hello {username},</Text>
           <Text style={text}>
             <strong>bukinoshita</strong> (
-            <Link href="mailto:bukinoshita@example.com" style={link}>
-              bukinoshita@example.com
+            <Link href={`mailto:${invitedByEmail}`} style={link}>
+              {invitedByEmail}
             </Link>
-            ) has invited you to the <strong>My Project</strong> team on{' '}
+            ) has invited you to the <strong>{teamName}</strong> team on{' '}
             <strong>Vercel</strong>.
           </Text>
           <table
@@ -49,12 +75,7 @@ export default function Email() {
           >
             <tr>
               <td style={center} align="left" valign="middle">
-                <Img
-                  style={avatar}
-                  src={`${baseUrl}/static/vercel-user.png`}
-                  width="64"
-                  height="64"
-                />
+                <Img style={avatar} src={userImage} width="64" height="64" />
               </td>
               <td style={center} align="left" valign="middle">
                 <Img
@@ -65,22 +86,12 @@ export default function Email() {
                 />
               </td>
               <td style={center} align="left" valign="middle">
-                <Img
-                  style={avatar}
-                  src={`${baseUrl}/static/vercel-team.png`}
-                  width="64"
-                  height="64"
-                />
+                <Img style={avatar} src={teamImage} width="64" height="64" />
               </td>
             </tr>
           </table>
           <Section style={{ textAlign: 'center' }}>
-            <Button
-              pX={20}
-              pY={12}
-              style={btn}
-              href="https://vercel.com/teams/invite/foo"
-            >
+            <Button pX={20} pY={12} style={btn} href={inviteLink}>
               Join the team
             </Button>
           </Section>
@@ -88,20 +99,20 @@ export default function Email() {
             <br />
             or copy and paste this URL into your browser:{' '}
             <Link
-              href="https://vercel.com/teams/invite/foo"
+              href={inviteLink}
               target="_blank"
               style={link}
               rel="noreferrer"
             >
-              https://vercel.com/teams/invite/foo
+              {inviteLink}
             </Link>
           </Text>
           <Hr style={hr} />
           <Text style={footer}>
             This invitation was intended for{' '}
-            <span style={black}>zenorocha</span>.This invite was sent from{' '}
-            <span style={black}>204.13.186.218</span> located in{' '}
-            <span style={black}>São Paulo, Brazil</span>. If you were not
+            <span style={black}>{username} </span>.This invite was sent from{' '}
+            <span style={black}>{inviteFromIp}</span> located in{' '}
+            <span style={black}>{inviteFromLocation}</span>. If you were not
             expecting this invitation, you can ignore this email. If you are
             concerned about your account's safety, please reply to this email to
             get in touch with us.

@@ -9,23 +9,38 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  userFirstname: string;
+  resetPasswordLink: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  userFirstname = 'Zeno',
+  resetPasswordLink = 'https://dropbox.com',
+}: EmailProps) {
   return (
     <Html>
       <Head />
       <Preview>Dropbox reset your password</Preview>
       <Section style={main}>
         <Container style={container}>
-          <Img src={`${baseUrl}/static/dropbox-logo.png`} width="40" height="33" alt="Dropbox" />
+          <Img
+            src={`${baseUrl}/static/dropbox-logo.png`}
+            width="40"
+            height="33"
+            alt="Dropbox"
+          />
           <Section>
-            <Text style={text}>Hi Zeno,</Text>
+            <Text style={text}>Hi {userFirstname},</Text>
             <Text style={text}>
               Someone recently requested a password change for your Dropbox
               account. If this was you, you can set a new password here:
             </Text>
-            <Button style={button} href="https://dropbox.com">
+            <Button style={button} href={resetPasswordLink}>
               Reset password
             </Button>
             <Text style={text}>

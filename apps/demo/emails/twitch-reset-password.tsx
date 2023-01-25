@@ -8,8 +8,23 @@ import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  username: string;
+  updatedDate: Date;
+}
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  username = 'zenorocha',
+  updatedDate = new Date('June 23, 2022 4:06:00 pm UTC'),
+}: EmailProps) {
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    dateStyle: 'medium',
+    timeStyle: 'medium',
+  }).format(updatedDate);
 
   return (
     <Html>
@@ -26,10 +41,10 @@ export default function Email() {
             <Section style={sectionBorder} />
           </div>
           <Section style={content}>
-            <Text style={paragraph}>Hi zenorocha,</Text>
+            <Text style={paragraph}>Hi {username},</Text>
             <Text style={paragraph}>
-              You updated the password for your Twitch account on June 23, 2022
-              4:06:00 pm UTC. If this was you, then no further action is
+              You updated the password for your Twitch account on{' '}
+              {formattedDate}. If this was you, then no further action is
               required.
             </Text>
             <Text style={paragraph}>
