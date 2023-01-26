@@ -33,30 +33,28 @@ Add the component to your email template. Include styles where needed.
 
 ```jsx
 import { Button } from '@react-email/button';
-import { Html } from '@react-email/html';
+import { Tailwind } from '@react-email/tailwind';
 
 const Email = () => {
   return (
-    <Html lang="en">
-      <Tailwind
-        config={{
-          theme: {
-            extend: {
-              colors: {
-                'custom-color': '#ff0000',
-              },
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              'custom-color': '#ff0000',
             },
           },
-        }}
+        },
+      }}
+    >
+      <Button
+        href="https://example.com"
+        className="text-custom-color bg-white mx-auto"
       >
-        <Button
-          href="https://example.com"
-          className="text-custom-color bg-white mx-auto"
-        >
-          Click me
-        </Button>
-      </Tailwind>
-    </Html>
+        Click me
+      </Button>
+    </Tailwind>
   );
 };
 ```
