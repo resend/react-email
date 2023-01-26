@@ -3,11 +3,12 @@ import { program } from '@commander-js/extra-typings';
 import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
+import packageJson from '../package.json'
 
 program
   .name(PACKAGE_NAME)
   .description('A live preview of your emails right in your browser')
-  .version('0.0.0');
+  .version(packageJson.version);
 
 program
   .command('dev')
