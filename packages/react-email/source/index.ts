@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { program } from '@commander-js/extra-typings';
-import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
+import { PACKAGE_NAME } from './utils/constants';
 
 program
   .name(PACKAGE_NAME)
@@ -12,7 +12,8 @@ program
 program
   .command('dev')
   .description('Starts the application in development mode')
-  .action(dev);
+  .option('-d, --dir <path>', 'Directory with your email templates', './emails')
+  .action((args) => dev(args));
 
 program
   .command('export')
