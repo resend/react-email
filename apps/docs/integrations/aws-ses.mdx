@@ -45,7 +45,9 @@ export default function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the AWS SES SDK to send it.
 
-```js index.tsx
+<CodeGroup>
+
+```js React
 import { render } from '@react-email/render';
 import AWS from 'aws-sdk';
 import { Email } from './email';
@@ -77,6 +79,41 @@ const sendPromise = new AWS.SES({ apiVersion: '2010-12-01' })
   .sendEmail(options)
   .promise();
 ```
+
+```js NodeJS
+import { render } from '@react-email/render';
+import AWS from 'aws-sdk';
+import { Email } from './email';
+
+AWS.config.update({ region: process.env.AWS_SES_REGION });
+
+const emailHtml = render(Email({ url:"https://example.com" }));
+
+const options = {
+  Source: 'you@example.com',
+  Destination: {
+    ToAddresses: ['user@gmail.com'],
+  },
+  Message: {
+    Body: {
+      Html: {
+        Charset: 'UTF-8',
+        Data: emailHtml,
+      },
+    },
+    Subject: {
+      Charset: 'UTF-8',
+      Data: 'hello world',
+    },
+  },
+};
+
+const sendPromise = new AWS.SES({ apiVersion: '2010-12-01' })
+  .sendEmail(options)
+  .promise();
+```
+
+</CodeGroup>
 
 ## Try it yourself
 
