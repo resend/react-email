@@ -32,7 +32,7 @@ import * as React from 'react';
 import { Html } from '@react-email/html';
 import { Button } from '@react-email/button';
 
-export default function Email(props) {
+export function Email(props) {
   const { url } = props;
 
   return (
@@ -41,7 +41,8 @@ export default function Email(props) {
     </Html>
   );
 }
-```
+
+export default Email
 
 ## 3. Send email
 
