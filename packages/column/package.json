@@ -1,6 +1,6 @@
 {
   "name": "@react-email/column",
-  "version": "0.0.4-canary.0",
+  "version": "0.0.5",
   "description": "Display a column that separates content areas vertically in your email",
   "sideEffects": false,
   "main": "./dist/index.js",
