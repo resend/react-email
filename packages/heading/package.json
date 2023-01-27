@@ -30,7 +30,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.0.0",
