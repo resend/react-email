@@ -39,10 +39,7 @@ export default function Email() {
             <Text style={cupomText}>
               Save 3% on all your Apple purchases with Apple Card.
               <sup style={supStyle}>1</sup>{' '}
-              <Link
-                href='href="https://www.apple.com/apple-card?rid=287-cid%3Dapy-120-100002"'
-                target="_blank"
-              >
+              <Link href="https://www.apple.com/apple-card">
                 Apply and use in minutes
               </Link>
               <sup style={supStyle}>2</sup>
@@ -54,18 +51,18 @@ export default function Email() {
                 <td style={informationTableColumn} width={320} colSpan={2}>
                   <span style={informationTableLabel}>APPLE ID</span>
                   <br />
-                  <Link target="_blank">hi@zenorocha.com</Link>
+                  <Link>zeno.rocha@gmail.com</Link>
                 </td>
                 <td width={340} style={informationTableColumn} rowSpan={3}>
                   <span style={informationTableLabel}>BILLED TO</span>
                   <br />
-                  Visa .... 6851 (Apple Pay)
+                  Visa .... 7461 (Apple Pay)
                   <br />
-                  Zeno Rocha Bueno Netto
+                  Zeno Rocha
                   <br />
-                  185 Royal Way
+                  2125 Chestnut St
                   <br />
-                  Upland, CA 91786
+                  San Francisco, CA 94123
                   <br />
                   USA
                 </td>
@@ -74,7 +71,7 @@ export default function Email() {
                 <td style={informationTableColumn} colSpan={2}>
                   <span style={informationTableLabel}>DATE</span>
                   <br />
-                  Jul 20, 2022
+                  Jul 20, 2023
                 </td>
               </tr>
               <tr style={informationTableRow}>
@@ -83,15 +80,14 @@ export default function Email() {
                   <br />
                   <Link
                     href="https://support.apple.com/kb/HT204088?cid=email_receipt_itunes_article_HT204088"
-                    target="_blank"
                   >
-                    ML4F5L8521
+                    ML4F5L8522
                   </Link>
                 </td>
                 <td style={informationTableColumn}>
                   <span style={informationTableLabel}>DOCUMENT NO.</span>
                   <br />
-                  <Link target="_blank">121565300447</Link>
+                  <Link>121565300446</Link>
                 </td>
               </tr>
             </tbody>
@@ -105,7 +101,7 @@ export default function Email() {
           <Section>
             <Column>
               <Img
-                src={`${baseUrl}/static/hbo-max-icon.jpeg`}
+                src={`${baseUrl}/static/apple-hbo-max-icon.jpeg`}
                 width="64"
                 height="64"
                 alt="HBO Max"
@@ -122,12 +118,11 @@ export default function Email() {
                   HBO Max Ad-Free (Monthly)
                 </span>
                 <br />
-                <span style={productDescription}>Renews Aug 20, 2022</span>
+                <span style={productDescription}>Renews Aug 20, 2023</span>
                 <br />
                 <Link
                   href="https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc=us&amp;id=1497977514&amp;o=i&amp;type=Subscription%20Renewal"
                   style={productLink}
-                  target="_blank"
                   data-saferedirecturl="https://www.google.com/url?q=https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc%3Dus%26id%3D1497977514%26o%3Di%26type%3DSubscription%2520Renewal&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw2DFCLKMo1snS-Swk5H26Z1"
                 >
                   Write a Review
@@ -137,7 +132,6 @@ export default function Email() {
                 <Link
                   href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a=1497977514&amp;cc=us&amp;d=683263808&amp;o=i&amp;p=29065684906671&amp;pli=29092219632071&amp;s=1"
                   style={productLink}
-                  target="_blank"
                   data-saferedirecturl="https://www.google.com/url?q=https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a%3D1497977514%26cc%3Dus%26d%3D683263808%26o%3Di%26p%3D29065684906671%26pli%3D29092219632071%26s%3D1&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw3y47L06B2LTrL6qsmaW2Hq"
                 >
                   Report a Problem
@@ -179,7 +173,6 @@ export default function Email() {
             <Column align="center" style={walletWrapper}>
               <Link
                 href="https://wallet.apple.com/apple-card/setup/feature/ccs?referrer=cid%3Dapy-120-100003"
-                target="_blank"
                 style={walletLink}
               >
                 <Img
@@ -229,7 +222,6 @@ export default function Email() {
             <Link
               href="http://support.apple.com/kb/HT207233"
               style={footerLink}
-              target="_blank"
             >
               {' '}
               Subscriber ID{' '}
@@ -241,7 +233,6 @@ export default function Email() {
             <Link
               href="https://support.apple.com/billing?cid=email_receipt"
               style={footerLink}
-              target="_blank"
             >
               Visit Apple Support.
             </Link>
@@ -250,7 +241,6 @@ export default function Email() {
             Learn how to{' '}
             <Link
               href="https://support.apple.com/kb/HT204030?cid=email_receipt_itunes_article_HT204030"
-              target="_blank"
             >
               manage your password preferences
             </Link>{' '}
@@ -264,7 +254,6 @@ export default function Email() {
             receipts or to opt in again, go to{' '}
             <Link
               href="https://finance-app.itunes.apple.com/account/subscriptions?unsupportedRedirectUrl=https://apps.apple.com/US/invoice"
-              target="_blank"
             >
               Account Settings.
             </Link>
@@ -284,26 +273,24 @@ export default function Email() {
           <Text style={footerLinksWrapper}>
             <Link
               href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/accountSummary?mt=8"
-              target="_blank"
             >
               Account Settings
             </Link>{' '}
             •{' '}
             <Link
               href="https://www.apple.com/legal/itunes/us/sales.html"
-              target="_blank"
             >
               Terms of Sale
             </Link>{' '}
             •{' '}
-            <Link href="https://www.apple.com/legal/privacy/" target="_blank">
+            <Link href="https://www.apple.com/legal/privacy/">
               Privacy Policy{' '}
             </Link>
           </Text>
 
           <Text style={footerCopyright}>
-            Copyright © 2022 Apple Inc. <br />{' '}
-            <Link href="https://www.apple.com/legal/" target="_blank">
+            Copyright © 2023 Apple Inc. <br />{' '}
+            <Link href="https://www.apple.com/legal/">
               All rights reserved
             </Link>
           </Text>
@@ -316,7 +303,7 @@ export default function Email() {
 const fontFamily = '"Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const fontFamilySystem =
-  'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;';
+  'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif';
 
 const main = {
   backgroundColor: '#ffffff',
