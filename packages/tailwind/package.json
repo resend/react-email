@@ -45,6 +45,6 @@
     "access": "public"
   },
   "dependencies": {
-    "tw-to-css": "0.0.1"
+    "tw-to-css": "0.0.2"
   }
 }
