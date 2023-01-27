@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { pxToPt } from 'utils';
+import { pxToPt } from '../../utils';
 
 type ButtonElement = React.ElementRef<'a'>;
 type RootProps = React.ComponentPropsWithoutRef<'a'>;

@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import * as React from 'react';
-import { As, Margin, withMargin } from 'utils';
+import { As, Margin, withMargin } from '../../utils';
 
 interface HeadingOwnProps {}
 
