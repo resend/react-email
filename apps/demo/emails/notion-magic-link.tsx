@@ -8,9 +8,17 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  loginCode: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  loginCode = 'sparo-ndigo-amurt-secan',
+}: EmailProps) {
   return (
     <Html>
       <Head />
@@ -32,7 +40,7 @@ export default function Email() {
           <Text style={{ ...text, marginBottom: '14px' }}>
             Or, copy and paste this temporary login code:
           </Text>
-          <code style={code}>sparo-ndigo-amurt-secan</code>
+          <code style={code}>{loginCode}</code>
           <Text
             style={{
               ...text,

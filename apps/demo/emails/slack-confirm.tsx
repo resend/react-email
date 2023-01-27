@@ -8,9 +8,15 @@ import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  validationCode: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({ validationCode = 'DJZ-TLX' }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -25,19 +31,19 @@ export default function Email() {
               alt="Slack"
             />
           </Section>
-          <Text style={h1}>
-            Confirm your email address
+          <Text style={h1}>Confirm your email address</Text>
+          <Text style={heroText}>
+            Your confirmation code is below - enter it in your open browser
+            window and we'll help you get signed in.
           </Text>
-          <Text style={heroText}>Your confirmation code is below - enter it in your open browser window and we'll help you get signed in.</Text>
 
           <Section style={codeBox}>
-            <Text style={confirmationCodeText}>
-              DJZ-TLX
-            </Text>
+            <Text style={confirmationCodeText}>{validationCode}</Text>
           </Section>
 
           <Text style={text}>
-            If you didn't request this email, there's nothing to worry about - you can safely ignore it.
+            If you didn't request this email, there's nothing to worry about -
+            you can safely ignore it.
           </Text>
 
           <table
@@ -57,13 +63,14 @@ export default function Email() {
                 />
               </td>
               <td align="right" valign="top">
-                <Link href="https://twitter.com/slackhq"><Img
-                  src={`${baseUrl}/static/slack-twitter.png`}
-                  width="32"
-                  height="32"
-                  alt="Slack"
-                  style={socialMediaIcon}
-                />
+                <Link href="https://twitter.com/slackhq">
+                  <Img
+                    src={`${baseUrl}/static/slack-twitter.png`}
+                    width="32"
+                    height="32"
+                    alt="Slack"
+                    style={socialMediaIcon}
+                  />
                 </Link>
                 <Link href="https://facebook.com/slackhq">
                   <Img
@@ -87,21 +94,51 @@ export default function Email() {
             </tr>
           </table>
 
-
           <Section style={footerText}>
-            <Link style={footerLink} href="https://slackhq.com" target="_blank" rel="noopener noreferrer" >Our blog</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/legal" target="_blank" rel="noopener noreferrer">Policies</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/help" target="_blank" rel="noopener noreferrer">Help center</Link>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-            <Link style={footerLink} href="https://slack.com/community" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable" data-linkindex="6">Slack Community</Link>
-
+            <Link
+              style={footerLink}
+              href="https://slackhq.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Our blog
+            </Link>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <Link
+              style={footerLink}
+              href="https://slack.com/legal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Policies
+            </Link>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <Link
+              style={footerLink}
+              href="https://slack.com/help"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Help center
+            </Link>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            <Link
+              style={footerLink}
+              href="https://slack.com/community"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-auth="NotApplicable"
+              data-linkindex="6"
+            >
+              Slack Community
+            </Link>
             <Text style={footerText}>
               ©2022 Slack Technologies, LLC, a Salesforce company. <br />
-              500 Howard Street, San Francisco, CA 94105, USA  <br />
+              500 Howard Street, San Francisco, CA 94105, USA <br />
               <br />
               All rights reserved.
             </Text>
           </Section>
-
         </Container>
       </Section>
     </Html>
@@ -113,24 +150,23 @@ const footerText = {
   color: '#b7b7b7',
   lineHeight: '15px',
   textAlign: 'left' as const,
-  marginBottom: '50px'
-}
+  marginBottom: '50px',
+};
 
 const footerLink = {
   color: '#b7b7b7',
-  textDecoration: 'underline'
-}
+  textDecoration: 'underline',
+};
 
 const footerLogos = {
   marginBottom: '32px',
-  width: '100%'
-}
+  width: '100%',
+};
 
 const socialMediaIcon = {
   display: 'inline',
   marginLeft: '32px',
 };
-
 
 const main = {
   backgroundColor: '#ffffff',
@@ -141,11 +177,11 @@ const main = {
 
 const container = {
   maxWidth: '600px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 const logoContainer = {
-  marginTop: '32px'
+  marginTop: '32px',
 };
 
 const h1 = {
@@ -160,8 +196,8 @@ const h1 = {
 const heroText = {
   fontSize: '20px',
   lineHeight: '28px',
-  marginBottom: '30px'
-}
+  marginBottom: '30px',
+};
 
 const codeBox = {
   background: 'rgb(245, 244, 245)',
@@ -174,8 +210,8 @@ const codeBox = {
 const confirmationCodeText = {
   fontSize: '30px',
   textAlign: 'center' as const,
-  verticalAlign: 'middle'
-}
+  verticalAlign: 'middle',
+};
 
 const text = {
   color: '#000',
