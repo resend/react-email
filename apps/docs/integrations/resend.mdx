@@ -1,0 +1,76 @@
+---
+title: 'Send email using Resend'
+sidebarTitle: 'Resend'
+description: 'Learn how to send an email using React Email and the Resend Node.js SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+<Tip>Resend was built by the same team that created React Email, which makes this our recommendation to send emails.</Tip>
+
+## 1. Install dependencies
+
+Get the [Resend Node.js SDK](https://www.npmjs.com/package/resend).
+
+<CodeGroup>
+
+```sh npm
+npm install resend
+```
+
+```sh yarn
+yarn add resend
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```jsx email.jsx
+import * as React from 'react';
+import { Html } from '@react-email/html';
+import { Button } from '@react-email/button';
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+
+export default Email
+
+## 3. Send email
+
+<Info>When integrating with other services, you need to convert your React template into HTML before sending. Resend takes care of that for you.</Info>
+
+Import the email template you just built and use the Resend SDK to send it.
+
+```jsx index.jsx
+import { Resend } from 'resend';
+import { Email } from './email';
+
+const resend = new Resend('re_123456789');
+
+resend.sendEmail({
+  from: 'you@example.com',
+  to: 'user@gmail.com',
+  subject: 'hello world',
+  react: <EmailTemplate firstName="John" product="MyApp" />,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Resend example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/zenorocha/react-email/tree/main/examples/resend"
+>
+  See the full source code.
+</Card>
