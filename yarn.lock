@@ -5486,9 +5486,9 @@ minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.6:
   integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
 
 mintlify@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-1.2.0.tgz#198aadd49314e937b246cfb2ae04dea5b011fa90"
-  integrity sha512-I8m/WBACZXq1+phPjMmEi2Iedob/CkTw7vw+OS6JiN9qqpIyRGnH95PysUwQOyoHmKM8FeaeThulR+01+lXf7A==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-1.3.0.tgz#03a4cdd9372872dc20cb270129a322abe38dfbb8"
+  integrity sha512-5QBb07c5G2nm2ASVqcqaVZFRPq0zuly7v7H2BqwM6bsIR/6nAiyCBUWEmVbKDxjszNBcHGvaC5NV0w6y/MEwkg==
   dependencies:
     "@apidevtools/swagger-parser" "^10.1.0"
     axios "1.1.3"
