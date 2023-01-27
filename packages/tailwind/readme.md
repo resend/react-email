@@ -1,4 +1,4 @@
-![React Email Tailwind cover](https://react.email/static/covers/html.png)
+![React Email Tailwind cover](https://react.email/static/covers/tailwind.png)
 
 <div align="center"><strong>@react-email/tailwind</strong></div>
 <div align="center">A React component to wrap emails with Tailwind CSS.</div>
