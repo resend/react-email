@@ -5,7 +5,7 @@ description: 'Transform React components into HTML email templates.'
 'og:image': 'https://react.email/static/covers/render.png'
 ---
 
-## Install
+## 1. Install dependencies
 
 Install package from your command line.
 
@@ -21,21 +21,104 @@ yarn add @react-email/render -E
 
 </CodeGroup>
 
-## Getting started
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```jsx email.jsx
+import * as React from 'react';
+import { Button } from '@react-email/button';
+import { Hr } from '@react-email/hr';
+import { Html } from '@react-email/html';
+import { Text } from '@react-email/text';
+
+export function MyTemplate(props) {
+  return (
+    <Html lang="en">
+      <Text>Some title</Text>
+      <Hr />
+      <Button href="https://example.com">Click me</Button>
+    </Html>
+  );
+}
+
+export default MyTemplate;
+```
+
+## 3. Convert to HTML
 
 Import an existing React component and convert into a HTML string.
 
+<Info>You can use the `pretty` option to beautify the output.</Info>
+
 ```jsx
-import { MyTemplate } from '../components/MyTemplate';
+import { MyTemplate } from './email';
 import { render } from '@react-email/render';
 
-const html = render(<MyTemplate firstName="Jim" />, {
+const html = render(<MyTemplate />, {
   pretty: true,
 });
+
+console.log(html);
+```
+
+This will generate the following output:
+
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <p style="font-size:14px;line-height:24px;margin:16px 0">Some title</p>
+  <hr style="width:100%;border:none;border-top:1px solid #eaeaea" />
+  <a href="https://example.com" target="_blank" style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;padding:0px 0px">
+    <span>
+      <!--[if mso]>
+        <i style="letter-spacing: undefinedpx;mso-font-width:-100%;mso-text-raise:0" hidden>&nbsp;</i>
+      <![endif]-->
+    </span>
+    <span style="max-width:100%;display:inline-block;line-height:120%;text-decoration:none;text-transform:none;mso-padding-alt:0px;mso-text-raise:0">Click me</span>
+    <span>
+      <!--[if mso]>
+        <i style="letter-spacing: undefinedpx;mso-font-width:-100%" hidden>&nbsp;</i>
+      <![endif]-->
+    </span>
+  </a>
+</html>
+```
+
+## 4. Convert to Plain Text
+
+Plain text versions of emails are important because they ensure that the message can be read by the recipient even if they are unable to view the HTML version of the email.
+
+This is important because not all email clients and devices can display HTML email, and some recipients may have chosen to disable HTML email for security or accessibility reasons.
+
+Here's how to convert a React component into plain text.
+
+```jsx
+import { MyTemplate } from './email';
+import { render } from '@react-email/render';
+
+const text = render(<MyTemplate />, {
+  plainText: true,
+});
+
+console.log(text);
+```
+
+This will generate the following output:
+
+```
+Some title
+
+---
+
+Click me [https://example.com]
 ```
 
 ## Options
 
 <ResponseField name="pretty" type="boolean">
   Beautify HTML output
+</ResponseField>
+<ResponseField name="plainText" type="boolean">
+  Generate plain text version
 </ResponseField>
