@@ -1,6 +1,6 @@
 {
   "name": "react-email-preview",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "The React Email preview application",
   "license": "MIT",
   "scripts": {
