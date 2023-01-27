@@ -1,6 +1,6 @@
 {
   "name": "@react-email/container",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A layout component that centers all the email content",
   "sideEffects": false,
   "main": "./dist/index.js",
