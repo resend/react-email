@@ -16,7 +16,7 @@
     "publish-packages": "turbo run build lint test && changeset && changeset version && changeset publish"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
