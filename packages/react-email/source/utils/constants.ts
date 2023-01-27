@@ -8,7 +8,7 @@ export const PACKAGE_NAME = 'react-email';
 export const CURRENT_PATH = process.cwd();
 
 // Client paths
-export const CLIENT_PACKAGE_JSON = path.join(CURRENT_PATH, "package.json");
+export const CLIENT_PACKAGE_JSON = path.join(CURRENT_PATH, 'package.json');
 
 // React Email paths
 export const REACT_EMAIL_ROOT = path.join(CURRENT_PATH, '.react-email');
