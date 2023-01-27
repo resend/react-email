@@ -9,9 +9,15 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  userFirstname: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({ userFirstname = 'Zeno' }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -27,7 +33,7 @@ export default function Email() {
             alt="Koala"
             style={logo}
           />
-          <Text style={paragraph}>Hi Zeno,</Text>
+          <Text style={paragraph}>Hi {userFirstname},</Text>
           <Text style={paragraph}>
             Welcome to Koala, the sales intelligence platform that helps you
             uncover qualified leads and close deals faster.

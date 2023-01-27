@@ -10,11 +10,23 @@ import { Column } from '@react-email/column';
 import { Link } from '@react-email/link';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : '';
+interface EmailProps {
+  tips: string[];
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+const PropDefaults: EmailProps = {
+  tips: [
+    'To find a specific phrase, enter it in quotes: "local storage"',
+    'To search within specific tag(s), enter them in square brackets: [javascript]',
+    'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
+  ],
+};
+
+export default function Email({ tips = PropDefaults.tips }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -62,24 +74,11 @@ export default function Email() {
               Here are a few simple search tips to get you started:
             </Text>
             <ul>
-              <li>
-                <Text style={paragraph}>
-                  To find a specific phrase, enter it in quotes: "local storage"
-                </Text>
-              </li>
-              <li>
-                <Text style={paragraph}>
-                  To search within specific tag(s), enter them in square
-                  brackets: [javascript]
-                </Text>
-              </li>
-              <li>
-                <Text style={paragraph}>
-                  Combine them to get even more precise results - [javascript]
-                  "local storage" searches for the phrase “local storage” in
-                  questions that have the [javascript] tag
-                </Text>
-              </li>
+              {tips.map((t) => (
+                <li>
+                  <Text style={paragraph}>{t}</Text>
+                </li>
+              ))}
             </ul>
 
             <Text style={paragraph}>
