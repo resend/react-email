@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Heading } from './heading';
 import { useRouter } from 'next/router';
 import * as Collapsible from '@radix-ui/react-collapsible';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
@@ -15,6 +16,7 @@ interface SidebarProps extends RootProps {
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   ({ className, navItems, ...props }, forwardedRef) => {
+    const [hovered, setHovered] = React.useState('');
     const { query } = useRouter();
 
     return (
@@ -58,13 +60,18 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 />
               </svg>
 
-              <div className="flex items-center">
-                <Heading as="h3" color="white" size="2" weight="medium">
+              <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12">
+                <Heading
+                  as="h3"
+                  color="gray"
+                  size="2"
+                  weight="medium"
+                  className="transition ease-in-out duration-200 hover:text-slate-12"
+                >
                   All emails
                 </Heading>
                 {navItems && navItems.length > 0 && (
                   <svg
-                    className="text-slate-11"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -84,51 +91,66 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               <Collapsible.Content className="relative mt-3">
                 <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
-                <div className="py-2 flex flex-col gap-1.5 truncate">
-                  {navItems &&
-                    navItems.map((item) => (
-                      <Link key={item} href={`/preview/${item}`}>
-                        <span
-                          className={classnames(
-                            'text-[14px] flex items-center font-medium gap-2 h-8 w-full pl-4 rounded-md text-slate-11',
-                            {
-                              'bg-cyan-3 text-cyan-11': query.slug === item,
-                              'hover:text-slate-12': query.slug !== item,
-                            },
-                          )}
-                        >
-                          {query.slug === item && (
-                            <div className="h-5 bg-cyan-11 w-px absolute left-2.5" />
-                          )}
-                          <svg
-                            className="flex-shrink-0"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
-                              stroke="currentColor"
-                              strokeOpacity="0.927"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M18 9.25H13.75V5"
-                              stroke="currentColor"
-                              strokeOpacity="0.927"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          {item}
-                        </span>
-                      </Link>
-                    ))}
+                <div className="py-2 flex flex-col truncate">
+                  <AnimateSharedLayout>
+                    {navItems &&
+                      navItems.map((item) => {
+                        const isHovered = hovered === item;
+                        return (
+                          <Link key={item} href={`/preview/${item}`}>
+                            <motion.span
+                              className={classnames(
+                                'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative block transition ease-in-out duration-200',
+                                {
+                                  'bg-cyan-3 text-cyan-11': query.slug === item,
+                                  'hover:text-slate-12': query.slug !== item,
+                                },
+                              )}
+                              onHoverStart={() => setHovered(item)}
+                              onHoverEnd={() => setHovered('')}
+                            >
+                              {isHovered && (
+                                <motion.span
+                                  layoutId="sidebar"
+                                  className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-slate-5"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  exit={{ opacity: 0 }}
+                                >
+                                  <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
+                                </motion.span>
+                              )}
+                              <svg
+                                className="flex-shrink-0"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"
+                                  stroke="currentColor"
+                                  strokeOpacity="0.927"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M18 9.25H13.75V5"
+                                  stroke="currentColor"
+                                  strokeOpacity="0.927"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                              {item}
+                            </motion.span>
+                          </Link>
+                        );
+                      })}
+                  </AnimateSharedLayout>
                 </div>
               </Collapsible.Content>
             )}
