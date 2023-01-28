@@ -97,7 +97,7 @@ export default function Email() {
             </Column>
           </Section>
           <Section>
-            <Column>
+            <Column style={tableCell}>
               <Img
                 src={`${baseUrl}/static/apple-hbo-max-icon.jpeg`}
                 width="64"
@@ -431,12 +431,13 @@ const productPriceWrapper = {
 const productPriceLine = { margin: '30px 0 0 0' };
 
 const productPriceVerticalLine = {
+  width: 'auto',
   height: '48px',
   borderLeft: '1px solid',
   borderColor: 'rgb(238,238,238)',
 };
 
-const productPriceLargeWrapper = { display: 'table-cell', width: '90px' };
+const productPriceLargeWrapper = { display: 'table-cell', width: '100px' };
 
 const productPriceLineBottom = { margin: '0 0 75px 0' };
 
