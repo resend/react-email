@@ -18,7 +18,7 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Nike</Preview>
+      <Preview>Get your order summary, estimated delivery date and more</Preview>
       <Section style={main}>
         <Container style={container}>
           <Container style={track.container}>
@@ -55,7 +55,7 @@ export default function Email() {
           <Container style={global.defaultPadding}>
             <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
             <Text style={{ ...global.text, fontSize: 14 }}>
-              185 Royal Way, Upland, CA 91786-6798
+              2125 Chestnut St, San Francisco, CA 94123
             </Text>
           </Container>
           <Hr style={global.hr} />
