@@ -22,7 +22,7 @@ export default function Email() {
       <Section style={main}>
         <Container style={container}>
           <Section>
-            <Column>
+            <Column style={justifyStart}>
               <Img
                 src={`${baseUrl}/static/apple-logo.png`}
                 width="42"
@@ -92,7 +92,7 @@ export default function Email() {
           </table>
 
           <Section style={productTitleTable}>
-            <Column>
+            <Column style={justifyStart}>
               <Text style={productsTitle}>App Store</Text>
             </Column>
           </Section>
@@ -106,7 +106,7 @@ export default function Email() {
                 style={productIcon}
               />
             </Column>
-            <Column>
+            <Column style={productDescriptionColumn}>
               <Text style={productDescriptionWrapper}>
                 <span dir="auto" style={productTitle}>
                   HBO Max: Stream TV &amp; Movies
@@ -303,7 +303,7 @@ const container = {
   width: '660px',
 };
 
-const tableCell = { display: 'table-cell' };
+const tableCell = { display: 'table-cell', width: 'auto' };
 
 const heading = {
   fontFamily,
@@ -311,6 +311,8 @@ const heading = {
   fontWeight: '300',
   color: '#888888',
 };
+
+const justifyStart = { justifyContent: 'start' };
 
 const cupomText = {
   fontFamily: fontFamilySystem,
@@ -369,6 +371,8 @@ const productIcon = {
   borderRadius: '14px',
   border: '1px solid rgba(128,128,128,0.2)',
 };
+
+const productDescriptionColumn = { display: 'table-cell', width: '100%' };
 
 const productDescriptionWrapper = {
   lineHeight: 'auto',
