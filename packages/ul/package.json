@@ -1,5 +1,5 @@
 {
-  "name": "@react-email/li",
+  "name": "@react-email/ul",
   "version": "0.0.1",
   "description": "Display a list item",
   "sideEffects": false,
