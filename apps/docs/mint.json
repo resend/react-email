@@ -67,6 +67,7 @@
         "components/container",
         "components/column",
         "components/section",
+        "components/heading",
         "components/hr",
         "components/image",
         "components/link",
