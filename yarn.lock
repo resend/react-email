@@ -1279,22 +1279,6 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/preview@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/preview/-/preview-0.0.2.tgz#d0945c2939dabebee0cd927aa4cc8c1647815dad"
-  integrity sha512-qUe4n5R3z999O12H1IGGzq/zCFKKrzRoi30PLCpxqN4e1CWB+e/s0w20UDFJRy7rRpaZYuLTwTQ5w4T6XHNHIg==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/render@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.4.tgz#d835b38c4a03b5880ac2323e893a36c85587060e"
-  integrity sha512-HPWjgw1TKcvYUPh74BjVC8Xq0ZU4nqb/tKsTa/VK/Ln4yXqnakBXNYl/UdHeJs57Ic9RMXSA9iOciQEHLgFWOg==
-  dependencies:
-    html-to-text "9.0.3"
-    pretty "2.0.0"
-    react-dom "18.2.0"
-
 "@react-email/section@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.1.tgz#5e12161fbb77a1b746caf4f35aab5905977c8474"
@@ -7156,13 +7140,13 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-email@1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.6.2.tgz#b1b4037a2af92f11f1cfb03eb76a2bde90306c50"
-  integrity sha512-+UZvON9icXXomTUh7DQ+Eiq9DshAdRoLZ426ccG5kcgXgTY7uHi/2d1SZL9TmTrQjYiS+CwhK3QZzQTf9keeyw==
+react-email@1.7.8:
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.7.8.tgz#c40baa4a9682f59fe9e92388af6ee192e3bba4ac"
+  integrity sha512-YtIIB2Chtk2yP+lone0LLkCw0HsyLzrTIZ4hO1B7pOHxbzvsNdjxXX1uVPX2OKyFQV32P48PgD1WbwWwmc3oeg==
   dependencies:
     "@commander-js/extra-typings" "9.4.1"
-    "@react-email/render" "0.0.4"
+    "@react-email/render" "0.0.6"
     chokidar "3.5.3"
     commander "9.4.1"
     cpy "8.1.2"
