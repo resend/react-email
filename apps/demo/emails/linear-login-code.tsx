@@ -10,9 +10,15 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  validationCode: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({ validationCode = 'tt226-5398x' }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -38,7 +44,7 @@ export default function Email() {
             directly:
           </Text>
           <Section>
-            <code style={code}>tt226-5398x</code>
+            <code style={code}>{validationCode}</code>
           </Section>
           <Hr style={hr} />
           <Link href="https://linear.app" style={reportLink}>

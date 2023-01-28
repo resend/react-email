@@ -24,25 +24,25 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
     }
 
     if (event === EVENT_FILE_DELETED) {
-      if (file[1] === 'static') {
-        if (file[2]) {
-          await fs.promises.rm(
-            path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
-          );
-          return;
-        }
+      if (file[1] === 'static' && file[2]) {
+        await fs.promises.rm(
+          path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
+        );
+        return;
       }
 
       await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
-      return
-    }
-    if (file[1] === 'static') {
-      if (file[2]) {
-        const srcPath = path.join(watchDir, 'static', file[2]);
-        await copy(srcPath, `${REACT_EMAIL_ROOT}/public/static`);
-      }
       return;
     }
-    await copy(path.join(watchDir, file[1]), PACKAGE_EMAILS_PATH);    
+
+    if (file[1] === 'static' && file[2]) {
+      const srcPath = path.join(watchDir, 'static', file[2]);
+      await copy(srcPath, `${REACT_EMAIL_ROOT}/public/static`);
+      return;
+    }
+    await copy(
+      path.join(watchDir, ...file.slice(1)),
+      path.join(PACKAGE_EMAILS_PATH, ...file.slice(1, -1)),
+    );
   });
 };

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import { Heading } from './heading';
-import { Text } from './text';
 import { Send } from './send';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;
@@ -20,6 +20,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
     { className, title, markup, viewMode, setViewMode, ...props },
     forwardedRef,
   ) => {
+    const [hovered, setHovered] = React.useState('');
     const columnWidth = 'w-[200px]';
 
     return (
@@ -38,45 +39,69 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         </div>
 
         <div className={`${columnWidth}`}>
-          {setViewMode && (
-            <ToggleGroup.Root
-              className="w-[145px] m-auto items-center bg-slate-2 p-1.5 flex gap-1 border border-slate-6 rounded-md"
-              type="single"
-              value={viewMode}
-              aria-label="View mode"
-              onValueChange={(value) => {
-                if (!value) {
-                  return setViewMode('desktop');
-                }
-                setViewMode(value);
-              }}
-            >
-              <ToggleGroup.Item
-                className={classnames(
-                  'text-sm text-slate-11 rounded px-1.5 py-0.5',
-                  {
-                    'text-slate-12 bg-slate-3 font-medium':
-                      viewMode === 'desktop',
-                  },
-                )}
-                value="desktop"
+          <AnimateSharedLayout>
+            {setViewMode && (
+              <ToggleGroup.Root
+                className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden"
+                type="single"
+                value={viewMode}
+                aria-label="View mode"
+                onValueChange={(value) => {
+                  if (!value) {
+                    return setViewMode('desktop');
+                  }
+                  setViewMode(value);
+                }}
               >
-                Desktop
-              </ToggleGroup.Item>
-              <ToggleGroup.Item
-                className={classnames(
-                  'text-sm text-slate-11 rounded px-1.5 py-0.5',
-                  {
-                    'text-slate-12 bg-slate-3 font-medium':
-                      viewMode === 'source',
-                  },
-                )}
-                value="source"
-              >
-                Source
-              </ToggleGroup.Item>
-            </ToggleGroup.Root>
-          )}
+                <ToggleGroup.Item value="desktop">
+                  <motion.div
+                    className={classnames(
+                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      {
+                        'text-slate-12': viewMode === 'desktop',
+                      },
+                    )}
+                    onHoverStart={() => setHovered('desktop')}
+                    onHoverEnd={() => setHovered('')}
+                  >
+                    {hovered === 'desktop' && (
+                      <motion.span
+                        layoutId="nav"
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                    Desktop
+                  </motion.div>
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="source">
+                  <motion.div
+                    className={classnames(
+                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      {
+                        'text-slate-12': viewMode === 'source',
+                      },
+                    )}
+                    onHoverStart={() => setHovered('source')}
+                    onHoverEnd={() => setHovered('')}
+                  >
+                    {hovered === 'source' && (
+                      <motion.span
+                        layoutId="nav"
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                    Source
+                  </motion.div>
+                </ToggleGroup.Item>
+              </ToggleGroup.Root>
+            )}
+          </AnimateSharedLayout>
         </div>
 
         {markup && (

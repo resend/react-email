@@ -9,9 +9,17 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  magicLink: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  magicLink = 'https://raycast.com',
+}: EmailProps) {
   return (
     <Html>
       <Head />
@@ -27,7 +35,7 @@ export default function Email() {
           <Text style={heading}>🪄 Your magic link</Text>
           <Section style={body}>
             <Text style={paragraph}>
-              <Link style={link} href="https://raycast.com">
+              <Link style={link} href={magicLink}>
                 👉 Click here to sign in 👈
               </Link>
             </Text>
