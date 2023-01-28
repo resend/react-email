@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
@@ -42,9 +43,9 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
           <Section style={header}>
             <Column>
               <Section style={headerContent}>
-                <Text style={headerContentTitle}>
+                <Heading style={headerContentTitle}>
                   Find what you want, faster
-                </Text>
+                </Heading>
                 <Text style={headerContentSubtitle}>
                   Tips and tricks for searching on Stack Overflow
                 </Text>
@@ -59,7 +60,7 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
           </Section>
 
           <Section style={content}>
-            <Text style={title}>Searching for solutions</Text>
+            <Heading as="h2" style={title}>Searching for solutions</Heading>
             <Text style={paragraph}>
               With more than 18 million questions, it's possible that someone
               has already provided a solution to the problem you're facing.{' '}
@@ -67,9 +68,9 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
 
             <Hr style={divider} />
 
-            <Text style={title}>
+            <Heading as="h2" style={title}>
               Use the search bar at the top of the page to find what you need
-            </Text>
+            </Heading>
             <Text style={paragraph}>
               Here are a few simple search tips to get you started:
             </Text>
@@ -89,9 +90,9 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
 
             <Hr style={divider} />
 
-            <Text style={title}>
+            <Heading as="h2" style={title}>
               Take a break and read about the worst coder in the world
-            </Text>
+            </Heading>
 
             <Section style={buttonContainer}>
               <Link

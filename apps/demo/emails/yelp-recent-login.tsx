@@ -1,6 +1,7 @@
 import { Container } from '@react-email/container';
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
@@ -47,7 +48,7 @@ export default function Email({
 
             <Section style={boxInfos}>
               <Section>
-                <Text
+                <Heading
                   style={{
                     ...paragraph,
                     fontSize: 32,
@@ -56,8 +57,9 @@ export default function Email({
                   }}
                 >
                   Hi {userFirstName},
-                </Text>
-                <Text
+                </Heading>
+                <Heading
+                  as="h2"
                   style={{
                     ...paragraph,
                     fontSize: 26,
@@ -66,7 +68,7 @@ export default function Email({
                   }}
                 >
                   We noticed a recent login to your Yelp account.
-                </Text>
+                </Heading>
               </Section>
 
               <Section>

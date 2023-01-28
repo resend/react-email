@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Section } from '@react-email/section';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -28,9 +29,9 @@ export default function Email({ validationCode = '144833' }: EmailProps) {
           style={logo}
         />
         <Text style={tertiary}>Verify Your Identity</Text>
-        <Text style={secondary}>
+        <Heading style={secondary}>
           Enter the following code to finish linking Venmo.
-        </Text>
+        </Heading>
         <Section style={codeContainer}>
           <Text style={code}>{validationCode}</Text>
         </Section>

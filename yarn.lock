@@ -1253,15 +1253,6 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/heading@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@react-email/heading/-/heading-0.0.5.tgz#f9a78faaecd862b247599c98171b1707565fb1cb"
-  integrity sha512-guSPzy6x+za+O4ch+3XeRkhgu82rT6FvcDtpuUwAqrFrrY4RTRIZ4jlRWO/hMC9EYGd76PjpsRG7deb+YcwmcQ==
-  dependencies:
-    "@radix-ui/react-slot" "1.0.0"
-    react "18.2.0"
-    utils "*"
-
 "@react-email/hr@0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@react-email/hr/-/hr-0.0.2.tgz#c7d505fc2a6b417b003aa2d7c8d542e191587591"

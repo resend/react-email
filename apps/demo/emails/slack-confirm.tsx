@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
@@ -31,7 +32,7 @@ export default function Email({ validationCode = 'DJZ-TLX' }: EmailProps) {
               alt="Slack"
             />
           </Section>
-          <Text style={h1}>Confirm your email address</Text>
+          <Heading style={h1}>Confirm your email address</Heading>
           <Text style={heroText}>
             Your confirmation code is below - enter it in your open browser
             window and we'll help you get signed in.

@@ -1,6 +1,7 @@
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -54,9 +55,9 @@ export default function Email({
               style={logo}
             />
           </Section>
-          <Text style={h1}>
+          <Heading style={h1}>
             Join <strong>{teamName}</strong> on <strong>Vercel</strong>
-          </Text>
+          </Heading>
           <Text style={text}>Hello {username},</Text>
           <Text style={text}>
             <strong>bukinoshita</strong> (

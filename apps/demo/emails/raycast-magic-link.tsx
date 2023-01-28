@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -32,7 +33,7 @@ export default function Email({
             height={48}
             alt="Raycast"
           />
-          <Text style={heading}>🪄 Your magic link</Text>
+          <Heading style={heading}>🪄 Your magic link</Heading>
           <Section style={body}>
             <Text style={paragraph}>
               <Link style={link} href={magicLink}>

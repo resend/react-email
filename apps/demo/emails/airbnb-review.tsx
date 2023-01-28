@@ -1,6 +1,7 @@
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -51,7 +52,7 @@ export default function Email({
               style={userImage}
             />
           </Section>
-          <Text style={heading}>Here's what {authorName} wrote</Text>
+          <Heading style={heading}>Here's what {authorName} wrote</Heading>
           <Text style={review}>{reviewText}</Text>
           <Text style={paragraph}>
             Now that the review period is over, we’ve posted {authorName}’s
