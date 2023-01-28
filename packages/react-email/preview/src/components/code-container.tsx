@@ -68,7 +68,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   return (
     <pre
       className={
-        'border-slate-6 relative w-full items-center overflow-auto whitespace-pre rounded-md border text-sm backdrop-blur-md'
+        'border-slate-6 relative w-full items-center whitespace-pre rounded-md border text-sm backdrop-blur-md'
       }
       style={{
         lineHeight: '130%',
