@@ -1,6 +1,6 @@
 {
   "name": "@react-email/section",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Display a section that can be formatted using columns",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -30,7 +30,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "react": "18.2.0"

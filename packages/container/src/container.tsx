@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styleToString } from 'utils';
+import { styleToString } from '../../utils';
 
 type ContainerElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
@@ -24,7 +24,9 @@ export const Container = React.forwardRef<
           <![endif]-->`,
         }}
       />
-      <div style={styles}>{children}</div>
+      <div ref={forwardedRef} style={styles} {...props}>
+        {children}
+      </div>
       <div
         dangerouslySetInnerHTML={{
           __html: `<!--[if mso | IE]>

@@ -7,6 +7,12 @@ export interface SectionProps extends RootProps {
   style?: React.CSSProperties;
 }
 
+type ReactEmailChild = {
+  type?: {
+    displayName?: string;
+  }
+} & React.ReactNode;
+
 export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     const styleDefaultTable = {
@@ -22,13 +28,14 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
 
     const arrayChildren = React.Children.toArray(children);
 
-    const hasTdElement = (child: React.ReactNode) => {
-      return React.isValidElement(child) && child.type === "td";
+    const hasTdElement = (child: ReactEmailChild) => {
+      return React.isValidElement(child) && (child.type === "td" || child.type.displayName === "Column");
     };
   
-    const finalChildren = arrayChildren.map((child, index) => {
+    const finalChildren = arrayChildren.map((child: ReactEmailChild, index) => {
       return hasTdElement(child) ? child : <td key={index}>{child}</td>;
     });
+
 
     return (
       <table

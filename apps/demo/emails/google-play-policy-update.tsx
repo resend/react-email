@@ -9,9 +9,11 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
 
+export default function Email() {
   return (
     <Html>
       <Head />
@@ -128,7 +130,11 @@ export default function Email() {
                 </tr>
               </table>
             </Section>
-            <Img width="540" height="48" src={`${baseUrl}/static/google-play-footer.png`} />
+            <Img
+              width="540"
+              height="48"
+              src={`${baseUrl}/static/google-play-footer.png`}
+            />
           </Section>
 
           <Section style={{ ...paragraphContent, paddingBottom: 30 }}>

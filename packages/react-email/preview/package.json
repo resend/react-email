@@ -1,6 +1,6 @@
 {
   "name": "react-email-preview",
-  "version": "0.0.6",
+  "version": "0.0.11",
   "description": "The React Email preview application",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "@next/font": "13.0.4",
@@ -22,8 +22,9 @@
     "@radix-ui/react-slot": "1.0.1",
     "@radix-ui/react-toggle-group": "1.0.1",
     "@radix-ui/react-tooltip": "1.0.2",
-    "@react-email/render": "0.0.2",
+    "@react-email/render": "0.0.6",
     "classnames": "2.3.2",
+    "framer-motion": "8.4.6",
     "next": "13.0.4",
     "prism-react-renderer": "1.3.5",
     "react": "18.2.0",

@@ -1,6 +1,7 @@
 import { Container } from '@react-email/container';
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Preview } from '@react-email/preview';
@@ -8,8 +9,29 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  userFirstName: string;
+  loginDate: Date;
+  loginDevice: string;
+  loginLocation: string;
+  loginIp: string;
+}
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  userFirstName = 'Zeno',
+  loginDate = new Date('September 7, 2022, 10:58 am'),
+  loginDevice = 'Chrome on Mac OS X',
+  loginLocation = 'Upland, California, United States',
+  loginIp = '47.149.53.167',
+}: EmailProps) {
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  }).format(loginDate);
 
   return (
     <Html>
@@ -26,7 +48,7 @@ export default function Email() {
 
             <Section style={boxInfos}>
               <Section>
-                <Text
+                <Heading
                   style={{
                     ...paragraph,
                     fontSize: 32,
@@ -34,9 +56,10 @@ export default function Email() {
                     textAlign: 'center',
                   }}
                 >
-                  Hi Zeno,
-                </Text>
-                <Text
+                  Hi {userFirstName},
+                </Heading>
+                <Heading
+                  as="h2"
                   style={{
                     ...paragraph,
                     fontSize: 26,
@@ -45,20 +68,21 @@ export default function Email() {
                   }}
                 >
                   We noticed a recent login to your Yelp account.
-                </Text>
+                </Heading>
               </Section>
 
               <Section>
                 <Text style={paragraph}>
-                  <b>Time: </b>Today, September 7, 2022, 10:58 am {'('}
-                  US/Pacific
-                  {')'}
+                  <b>Time: </b>
+                  {formattedDate}
                 </Text>
                 <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Device: </b>Chrome on Mac OS X
+                  <b>Device: </b>
+                  {loginDevice}
                 </Text>
                 <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Location: </b>Upland, California, United States
+                  <b>Location: </b>
+                  {loginLocation}
                 </Text>
                 <Text
                   style={{
@@ -69,7 +93,7 @@ export default function Email() {
                   }}
                 >
                   *Approximate geographic location based on IP address:
-                  47.149.53.167
+                  {loginIp}
                 </Text>
               </Section>
 
