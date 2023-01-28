@@ -14,11 +14,13 @@ import path from 'path';
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
-export const exportTemplates = async (outDir: string, srcDir: string, options: Options) => {
+export const exportTemplates = async (
+  outDir: string,
+  srcDir: string,
+  options: Options,
+) => {
   const spinner = ora('Preparing files...\n').start();
-  const allTemplates = glob.sync(
-    normalize(path.join(srcDir, '*.{tsx,jsx}')),
-  );
+  const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
 
   esbuild.buildSync({
     bundle: true,
@@ -43,10 +45,8 @@ export const exportTemplates = async (outDir: string, srcDir: string, options: O
     unlinkSync(template);
   }
 
-  const staticDir = path.join(srcDir, 'static')
-  const hasStaticDirectory = checkDirectoryExist(
-    staticDir
-  );
+  const staticDir = path.join(srcDir, 'static');
+  const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasStaticDirectory) {
     await copy(staticDir, `${outDir}/static`);

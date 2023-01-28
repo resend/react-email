@@ -177,10 +177,8 @@ const createStaticFiles = async (emailDir: string) => {
   const hasPackageStaticDirectory = checkDirectoryExist(
     `${REACT_EMAIL_ROOT}/public/static`,
   );
-  const staticDir = path.join(emailDir, 'static')
-  const hasStaticDirectory = checkDirectoryExist(
-    staticDir,
-  );
+  const staticDir = path.join(emailDir, 'static');
+  const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasPackageStaticDirectory) {
     await fs.promises.rm(`${REACT_EMAIL_ROOT}/public/static`, {
@@ -189,10 +187,7 @@ const createStaticFiles = async (emailDir: string) => {
   }
 
   if (hasStaticDirectory) {
-    await copy(
-      staticDir,
-      `${REACT_EMAIL_ROOT}/public/static`,
-    );
+    await copy(staticDir, `${REACT_EMAIL_ROOT}/public/static`);
   }
 };
 
@@ -200,10 +195,8 @@ const createComponents = async (emailDir: string) => {
   const hasPackageComponentsDirectory = checkDirectoryExist(
     `${PACKAGE_EMAILS_PATH}/components`,
   );
-  const componentDir = path.join(emailDir, 'components')
-  const hasComponentsDirectory = checkDirectoryExist(
-    componentDir,
-  );
+  const componentDir = path.join(emailDir, 'components');
+  const hasComponentsDirectory = checkDirectoryExist(componentDir);
 
   if (hasPackageComponentsDirectory) {
     await fs.promises.rm(`${PACKAGE_EMAILS_PATH}/components`, {
@@ -212,10 +205,7 @@ const createComponents = async (emailDir: string) => {
   }
 
   if (hasComponentsDirectory) {
-    await copy(
-      componentDir,
-      `${PACKAGE_EMAILS_PATH}/components`,
-    );
+    await copy(componentDir, `${PACKAGE_EMAILS_PATH}/components`);
   }
 };
 
