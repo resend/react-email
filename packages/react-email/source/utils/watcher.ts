@@ -1,25 +1,29 @@
-import chokidar from 'chokidar';
+import chokidar, { FSWatcher } from 'chokidar';
 import {
-  CLIENT_EMAILS_PATH,
   CURRENT_PATH,
   EVENT_FILE_DELETED,
+  PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
 } from './constants';
 import fs from 'fs';
 import path from 'path';
 import copy from 'cpy';
 
-export const watcherInstance = chokidar.watch(CLIENT_EMAILS_PATH, {
-  ignoreInitial: true,
-  cwd: CURRENT_PATH,
-  ignored: /(^|[\/\\])\../,
-});
+export const createWatcherInstance = (watchDir: string) =>
+  chokidar.watch(watchDir, {
+    ignoreInitial: true,
+    cwd: CURRENT_PATH,
+    ignored: /(^|[\/\\])\../,
+  });
 
-export const watcher = () =>
+export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
   watcherInstance.on('all', async (event, filename) => {
-    if (event === EVENT_FILE_DELETED) {
-      const file = filename.split(path.sep);
+    const file = filename.split(path.sep);
+    if (file[1] === undefined) {
+      return;
+    }
 
+    if (event === EVENT_FILE_DELETED) {
       if (file[1] === 'static' && file[2]) {
         await fs.promises.rm(
           path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
@@ -28,20 +32,17 @@ export const watcher = () =>
       }
 
       await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
-    } else {
-      const file = filename.split(path.sep);
-
-      if (file[1] === 'static' && file[2]) {
-        await copy(
-          `${CLIENT_EMAILS_PATH}/static/${file[2]}`,
-          `${REACT_EMAIL_ROOT}/public/static`,
-        );
-        return;
-      }
-
-      await copy(
-        path.join(CURRENT_PATH, filename),
-        path.join(REACT_EMAIL_ROOT, file.slice(0, -1).join(path.sep)),
-      );
+      return;
     }
+
+    if (file[1] === 'static' && file[2]) {
+      const srcPath = path.join(watchDir, 'static', file[2]);
+      await copy(srcPath, `${REACT_EMAIL_ROOT}/public/static`);
+      return;
+    }
+    await copy(
+      path.join(watchDir, ...file.slice(1)),
+      path.join(PACKAGE_EMAILS_PATH, ...file.slice(1, -1)),
+    );
   });
+};

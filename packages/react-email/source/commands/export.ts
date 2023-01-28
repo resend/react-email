@@ -7,17 +7,17 @@ import { render, Options } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
 import copy from 'cpy';
 import normalize from 'normalize-path';
-import { checkDirectoryExist, CLIENT_EMAILS_PATH } from '../utils';
-
+import { checkDirectoryExist } from '../utils';
+import path from 'path';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
-export const exportTemplates = async (outDir: string, options: Options) => {
+export const exportTemplates = async (outDir: string, srcDir: string, options: Options) => {
   const spinner = ora('Preparing files...\n').start();
   const allTemplates = glob.sync(
-    normalize(`${CLIENT_EMAILS_PATH}/*.{tsx,jsx}`),
+    normalize(path.join(srcDir, '*.{tsx,jsx}')),
   );
 
   esbuild.buildSync({
@@ -43,12 +43,13 @@ export const exportTemplates = async (outDir: string, options: Options) => {
     unlinkSync(template);
   }
 
+  const staticDir = path.join(srcDir, 'static')
   const hasStaticDirectory = checkDirectoryExist(
-    `${CLIENT_EMAILS_PATH}/static`,
+    staticDir
   );
 
   if (hasStaticDirectory) {
-    await copy(`${CLIENT_EMAILS_PATH}/static`, `${outDir}/static`);
+    await copy(staticDir, `${outDir}/static`);
   }
 
   const fileTree = tree(outDir, {
