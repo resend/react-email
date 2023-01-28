@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Section } from '@react-email/section';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -7,9 +8,15 @@ import { Link } from '@react-email/link';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  validationCode: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({ validationCode = '144833' }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -22,11 +29,11 @@ export default function Email() {
           style={logo}
         />
         <Text style={tertiary}>Verify Your Identity</Text>
-        <Text style={secondary}>
+        <Heading style={secondary}>
           Enter the following code to finish linking Venmo.
-        </Text>
+        </Heading>
         <Section style={codeContainer}>
-          <Text style={code}>144833</Text>
+          <Text style={code}>{validationCode}</Text>
         </Section>
         <Text style={paragraph}>Not expecting this email?</Text>
         <Text style={paragraph}>

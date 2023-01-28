@@ -1,5 +1,6 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
@@ -8,16 +9,24 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  loginCode: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  loginCode = 'sparo-ndigo-amurt-secan',
+}: EmailProps) {
   return (
     <Html>
       <Head />
       <Preview>Log in with this magic link</Preview>
       <Section style={main}>
         <Container style={container}>
-          <Text style={h1}>Login</Text>
+          <Heading style={h1}>Login</Heading>
           <Link
             href="https://notion.so"
             target="_blank"
@@ -32,7 +41,7 @@ export default function Email() {
           <Text style={{ ...text, marginBottom: '14px' }}>
             Or, copy and paste this temporary login code:
           </Text>
-          <code style={code}>sparo-ndigo-amurt-secan</code>
+          <code style={code}>{loginCode}</code>
           <Text
             style={{
               ...text,

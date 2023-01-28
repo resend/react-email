@@ -67,6 +67,7 @@
         "components/container",
         "components/column",
         "components/section",
+        "components/heading",
         "components/hr",
         "components/image",
         "components/link",
@@ -85,6 +86,7 @@
       "group": "Integrations",
       "pages": [
         "integrations/overview",
+        "integrations/resend",
         "integrations/nodemailer",
         "integrations/sendgrid",
         "integrations/postmark",

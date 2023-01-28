@@ -1,11 +1,11 @@
 {
   "name": "react-email",
-  "version": "1.7.2",
+  "version": "1.7.8",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/index.js"
+    "email": "./dist/source/index.js"
   },
-  "types": "./dist/index.d.ts",
+  "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",

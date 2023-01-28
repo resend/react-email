@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styleToString } from 'utils';
+import { styleToString } from '../../utils';
 
 type ContainerElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;

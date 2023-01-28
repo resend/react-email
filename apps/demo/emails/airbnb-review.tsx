@@ -1,6 +1,7 @@
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
@@ -10,13 +11,30 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
+interface EmailProps {
+  authorName: string;
+  authorImage: string;
+  reviewText: string;
+}
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  authorName = 'Alex',
+  authorImage = `${baseUrl}/static/airbnb-review-user.jpg`,
+  reviewText = `“Zeno was a great guest! Easy communication, the apartment was left
+  in great condition, very polite, and respectful of all house rules.
+  He’s welcome back anytime and would easily recommend him to any
+  host!”`,
+}: EmailProps) {
+  const previewText = `Read ${authorName}'s review`;
 
   return (
     <Html>
       <Head />
-      <Preview>Read Alex's review</Preview>
+      <Preview>{previewText}</Preview>
       <Section style={main}>
         <Container style={container}>
           <Img
@@ -27,27 +45,22 @@ export default function Email() {
           />
           <Section>
             <Img
-              src={`${baseUrl}/static/airbnb-review-user.jpg`}
+              src={authorImage}
               width="96"
               height="96"
-              alt="Alex"
+              alt={authorName}
               style={userImage}
             />
           </Section>
-          <Text style={heading}>Here's what Alex wrote</Text>
-          <Text style={review}>
-            “Zeno was a great guest! Easy communication, the apartment was left
-            in great condition, very polite, and respectful of all house rules.
-            He’s welcome back anytime and would easily recommend him to any
-            host!”
-          </Text>
+          <Heading style={heading}>Here's what {authorName} wrote</Heading>
+          <Text style={review}>{reviewText}</Text>
           <Text style={paragraph}>
-            Now that the review period is over, we’ve posted Alex’s review to
-            your Airbnb profile.
+            Now that the review period is over, we’ve posted {authorName}’s
+            review to your Airbnb profile.
           </Text>
           <Text style={paragraph}>
             While it’s too late to write a review of your own, you can send your
-            feedback to Alex using your Airbnb message thread.
+            feedback to {authorName} using your Airbnb message thread.
           </Text>
           <Section style={{ padding: '16px 0 20px' }}>
             <Button pY={19} style={button} href="https://airbnb.com/">
@@ -56,7 +69,7 @@ export default function Email() {
           </Section>
           <Hr style={hr} />
           <Text style={{ ...paragraph, fontWeight: '700' }}>
-            Commom questions
+            Common questions
           </Text>
           <Text>
             <Link href="https://airbnb.com/help/article/13" style={link}>
