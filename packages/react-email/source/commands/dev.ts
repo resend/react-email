@@ -28,9 +28,10 @@ import { styles } from '../_preview/styles';
 
 interface Args {
   dir: string;
+  port: string;
 }
 
-export const dev = async ({ dir }: Args) => {
+export const dev = async ({ dir, port }: Args) => {
   const emailDir = convertToAbsolutePath(dir);
   const watcherInstance = createWatcherInstance(emailDir);
   try {
@@ -48,7 +49,7 @@ export const dev = async ({ dir }: Args) => {
       if (isUpToDate) {
         await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
         await installDependencies(packageManager);
-        shell.exec(`${packageManager} run dev`, { async: true });
+        startDevServer(packageManager, port);
         watcher(watcherInstance, emailDir);
         return;
       }
@@ -61,13 +62,17 @@ export const dev = async ({ dir }: Args) => {
     await createAppFiles();
     await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
     await installDependencies(packageManager);
-    shell.exec(`${packageManager} run dev`, { async: true });
+    startDevServer(packageManager, port);
     watcher(watcherInstance, emailDir);
   } catch (error) {
     await watcherInstance.close();
     shell.exit(1);
   }
 };
+
+const startDevServer = (packageManager: string, port: string) => {
+  shell.exec(`${packageManager} run dev -p ${port}`, { async: true });
+}
 
 const convertToAbsolutePath = (dir: string): string =>
   path.isAbsolute(dir) ? dir : path.join(process.cwd(), dir);
