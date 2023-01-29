@@ -14,6 +14,7 @@ program
   .command('dev')
   .description('Starts the application in development mode')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
+  .option('-p --port <port>', 'Port to run dev server on', '3000')
   .action((args) => dev(args));
 
 program
