@@ -71,8 +71,8 @@ export const dev = async ({ dir, port }: Args) => {
 };
 
 const startDevServer = (packageManager: string, port: string) => {
-  shell.exec(`${packageManager} run dev -p ${port}`, { async: true });
-}
+  shell.exec(`${packageManager} run dev -- -p ${port}`, { async: true });
+};
 
 const convertToAbsolutePath = (dir: string): string =>
   path.isAbsolute(dir) ? dir : path.join(process.cwd(), dir);
