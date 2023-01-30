@@ -10,11 +10,45 @@ import { Column } from '@react-email/column';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
-export default function Email() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : '';
+interface EmailProps {
+  appleId: string;
+  buyerName: string;
+  paymentMethod: string;
+  addressFirstLine: string;
+  addressSecondLine: string;
+  country: string;
+  purchaseDate: string;
+  orderId: string;
+  documentNumber: string;
+  productImage: string;
+  productTitle: string;
+  productDescription: string;
+  productRenew: string;
+  productPrice: string;
+  total: string;
+}
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
+export default function Email({
+  appleId = 'zeno.rocha@gmail.com',
+  buyerName = 'Zeno Rocha',
+  paymentMethod = 'Visa .... 7461 (Apple Pay)',
+  addressFirstLine = '2125 Chestnut St',
+  addressSecondLine = 'San Francisco, CA 94123',
+  country = 'USA',
+  purchaseDate = 'Jul 20, 2023',
+  orderId = 'ML4F5L8522',
+  documentNumber = '121565300446',
+  productImage = `${baseUrl}/static/apple-hbo-max-icon.jpeg`,
+  productTitle = 'HBO Max: Stream TV & Movies',
+  productDescription = 'HBO Max Ad-Free (Monthly)',
+  productRenew = 'Renews Aug 20, 2023',
+  productPrice = '$14.99',
+  total = '$14.99',
+}: EmailProps) {
   return (
     <Html>
       <Head />
@@ -51,27 +85,27 @@ export default function Email() {
                 <td style={informationTableColumn} width={320} colSpan={2}>
                   <span style={informationTableLabel}>APPLE ID</span>
                   <br />
-                  <Link>zeno.rocha@gmail.com</Link>
+                  <Link>{appleId}</Link>
                 </td>
                 <td width={340} style={informationTableColumn} rowSpan={3}>
                   <span style={informationTableLabel}>BILLED TO</span>
                   <br />
-                  Visa .... 7461 (Apple Pay)
+                  {paymentMethod}
                   <br />
-                  Zeno Rocha
+                  {buyerName}
                   <br />
-                  2125 Chestnut St
+                  {addressFirstLine}
                   <br />
-                  San Francisco, CA 94123
+                  {addressSecondLine}
                   <br />
-                  USA
+                  {country}
                 </td>
               </tr>
               <tr style={informationTableRow}>
                 <td style={informationTableColumn} colSpan={2}>
                   <span style={informationTableLabel}>DATE</span>
                   <br />
-                  Jul 20, 2023
+                  {purchaseDate}
                 </td>
               </tr>
               <tr style={informationTableRow}>
@@ -79,13 +113,13 @@ export default function Email() {
                   <span style={informationTableLabel}>ORDER ID</span>
                   <br />
                   <Link href="https://support.apple.com/kb/HT204088?cid=email_receipt_itunes_article_HT204088">
-                    ML4F5L8522
+                    {orderId}
                   </Link>
                 </td>
                 <td style={informationTableColumn}>
                   <span style={informationTableLabel}>DOCUMENT NO.</span>
                   <br />
-                  <Link>121565300446</Link>
+                  <Link>{documentNumber}</Link>
                 </td>
               </tr>
             </tbody>
@@ -99,7 +133,7 @@ export default function Email() {
           <Section>
             <Column style={tableCell}>
               <Img
-                src={`${baseUrl}/static/apple-hbo-max-icon.jpeg`}
+                src={productImage}
                 width="64"
                 height="64"
                 alt="HBO Max"
@@ -108,15 +142,15 @@ export default function Email() {
             </Column>
             <Column style={productDescriptionColumn}>
               <Text style={productDescriptionWrapper}>
-                <span dir="auto" style={productTitle}>
-                  HBO Max: Stream TV &amp; Movies
+                <span dir="auto" style={productTitleStyles}>
+                  {productTitle}
                 </span>
                 <br />
-                <span style={productDescription}>
-                  HBO Max Ad-Free (Monthly)
+                <span style={productDescriptionStyles}>
+                  {productDescription}
                 </span>
                 <br />
-                <span style={productDescription}>Renews Aug 20, 2023</span>
+                <span style={productDescriptionStyles}>{productRenew}</span>
                 <br />
                 <Link
                   href="https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc=us&amp;id=1497977514&amp;o=i&amp;type=Subscription%20Renewal"
@@ -138,7 +172,7 @@ export default function Email() {
             </Column>
 
             <Column style={productPriceWrapper} align="right">
-              <span style={productPrice}>$14.99</span>
+              <span style={productPriceStyles}>{productPrice}</span>
             </Column>
           </Section>
           <Hr style={productPriceLine} />
@@ -148,7 +182,7 @@ export default function Email() {
             </Column>
             <Column style={productPriceVerticalLine}></Column>
             <Column style={productPriceLargeWrapper}>
-              <Text style={productPriceLarge}>$14.99</Text>
+              <Text style={productPriceLarge}>{total}</Text>
             </Column>
           </Section>
           <Hr style={productPriceLineBottom} />
@@ -380,9 +414,9 @@ const productDescriptionWrapper = {
   width: '100%',
 };
 
-const productTitle = { fontFamily, fontSize: '12px', fontWeight: '600' };
+const productTitleStyles = { fontFamily, fontSize: '12px', fontWeight: '600' };
 
-const productDescription = {
+const productDescriptionStyles = {
   fontFamily,
   fontSize: '12px',
   color: 'rgb(102,102,102)',
@@ -405,7 +439,7 @@ const productPriceTotal = {
   textAlign: 'right' as const,
 };
 
-const productPrice = {
+const productPriceStyles = {
   fontFamily,
   fontSize: '12px',
   fontWeight: '600',
