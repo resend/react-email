@@ -21,24 +21,36 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
     forwardedRef,
   ) => {
     const [hovered, setHovered] = React.useState('');
-    const columnWidth = 'w-[200px]';
+    const columnWidth = 'flex md:w-[200px] min-h-[44px] sm:min-h-fit items-center';
 
     return (
       <header
         ref={forwardedRef}
         className={classnames(
-          'bg-black flex relative items-center px-6 justify-between h-[70px] border-b border-slate-6',
+          'bg-black flex relative items-center flex-wrap py-4 md:py-0 px-6 justify-between md:h-[70px] border-b border-slate-6',
           className,
         )}
         {...props}
       >
-        <div className={`flex items-center overflow-hidden ${columnWidth}`}>
+        <div className='w-1/2 sm:w-fit flex lg:hidden'>
+          <div className='w-10 h-10 flex items-center justify-center rounded-md bg-slate-2 border border-slate-6'>
+            <svg className='text-slate-11 w-4 h-4' stroke="currentColor" stroke-width="1.7px" stroke-linecap="round" stroke-linejoin="round" fill="none" viewBox="0 0 24 24" >
+              <rect x="2.5" y="3.5" width="19" height="17" rx="3"></rect>
+              <line x1="10.5" y1="4" x2="10.5" y2="20" ></line>
+              <path d="M7.5 7H5.5"></path>
+              <path d="M7.5 10H5.5"></path>
+              <path d="M7.5 13H5.5"></path>
+            </svg>
+          </div>
+        </div>
+
+        <div className={`w-1/2 sm:w-fit flex items-center justify-end sm:justify-center lg:justify-start overflow-hidden ${columnWidth}`}>
           <Heading as="h2" size="2" weight="medium" className="truncate">
             {title}
           </Heading>
         </div>
 
-        <div className={`${columnWidth}`}>
+        <div className={`w-2/3 sm:w-fit ${columnWidth} justify-start sm:justify-center`}>
           <AnimateSharedLayout>
             {setViewMode && (
               <ToggleGroup.Root
@@ -105,7 +117,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         </div>
 
         {markup && (
-          <div className={`flex justify-end ${columnWidth}`}>
+          <div className={`w-1/3 sm:w-fit flex justify-end ${columnWidth}`}>
             <Send markup={markup} />
           </div>
         )}
