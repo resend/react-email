@@ -8366,10 +8366,10 @@ turbo@1.6.3:
     turbo-windows-64 "1.6.3"
     turbo-windows-arm64 "1.6.3"
 
-tw-to-css@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tw-to-css/-/tw-to-css-0.0.3.tgz#38d47f59c50dd1e19a52eb834e2985e2fe922000"
-  integrity sha512-1jsaVJAmxFZWtKL89Tnh8B4gdfd42D1mAD8oqR1h9rQuRDcR/nNJfWzf+xD2J++jnscCpEPytJytH1lemNJupQ==
+tw-to-css@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/tw-to-css/-/tw-to-css-0.0.5.tgz#50ddf76885c264fed1bb50222d51d42976b2be49"
+  integrity sha512-ezJYWCu58Hs0ZXgwWTA2e4KT9dS9qnP4DagYP8N6IQ71wFBgDgpyr85wJFkrBKpuTwJFoWurkMBTwPVCkzhs6g==
   dependencies:
     postcss "8.4.21"
     postcss-css-variables "0.18.0"
