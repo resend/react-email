@@ -29,7 +29,7 @@ npm install @react-email/tailwind -E
 
 ## Getting started
 
-Add the component to your email template. Include styles where needed.
+Add the component around your email body content.
 
 ```jsx
 import { Button } from '@react-email/button';
@@ -50,7 +50,7 @@ const Email = () => {
     >
       <Button
         href="https://example.com"
-        className="text-custom-color bg-white mx-auto"
+        className="text-black bg-white mx-auto"
       >
         Click me
       </Button>

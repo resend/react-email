@@ -73,7 +73,8 @@
         "components/link",
         "components/paragraph",
         "components/preview",
-        "components/text"
+        "components/text",
+        "components/tailwind"
       ]
     },
     {
