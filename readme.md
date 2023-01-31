@@ -105,7 +105,7 @@ This will initialize all packages in parallel and watch for changes, including t
 
 ## Contributing
 
-- [Contribution Guide](https://github.com/resendlabs/react-email/blob/main/apps/docs/contributing.mdx)
+- [Contribution Guide](https://react.email/docs/contributing)
 
 ## Authors
 
