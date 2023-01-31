@@ -22,17 +22,17 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
     return (
       <aside
         ref={forwardedRef}
-        className="px-6 min-w-[275px] max-w-[275px] hidden flex-col gap-4 border-r border-slate-6 lg:flex"
+        className="px-6 gap-4 w-full border-r border-slate-6 flex flex-row lg:flex-col lg:min-w-[275px] lg:max-w-[275px] lg:pb-7"
         {...props}
       >
-        <div className="h-[70px] flex items-center">
+        <div className="h-[50px] lg:h-[70px] flex items-center ">
           <Logo />
         </div>
 
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col mb-2 gap-4">
           <Collapsible.Root defaultOpen>
             <Collapsible.Trigger
-              className={classnames('flex items-center gap-1', {
+              className={classnames('flex items-center gap-1 h-[50px] ', {
                 'cursor-default': navItems && navItems.length === 0,
               })}
             >
@@ -68,7 +68,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                   weight="medium"
                   className="transition ease-in-out duration-200 hover:text-slate-12"
                 >
-                  All emails
+                  Sample emails
                 </Heading>
                 {navItems && navItems.length > 0 && (
                   <svg
