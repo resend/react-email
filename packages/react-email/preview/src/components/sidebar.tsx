@@ -22,7 +22,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
     return (
       <aside
         ref={forwardedRef}
-        className="px-6 min-w-[275px] max-w-[275px] flex flex-col gap-4 border-r border-slate-6"
+        className="px-6 min-w-[275px] max-w-[275px] hidden flex-col gap-4 border-r border-slate-6 lg:flex"
         {...props}
       >
         <div className="h-[70px] flex items-center">
