@@ -8,7 +8,7 @@ export interface HeadProps extends RootProps {}
 export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
   ({ children, ...props }, forwardedRef) => (
     <head ref={forwardedRef} {...props}>
-      <meta httpEquiv="Content-Type" content="text/html charset=UTF-8" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       {children}
     </head>
   ),
