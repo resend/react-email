@@ -28,10 +28,11 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
   ) => {
     return (
       <>
-        <div className="flex justify-between h-screen">
-          <Sidebar navItems={navItems} />
-          <main className="w-[calc(100%_-_275px)] bg-slate-2">
-            {title && (
+        
+        
+          
+          <main className="bg-slate-2">
+          {title && (
               <Topbar
                 title={title}
                 viewMode={viewMode}
@@ -39,11 +40,17 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
                 markup={markup}
               />
             )}
-            <div className="relative h-[calc(100vh_-_70px)] overflow-auto">
-              <div className="mx-auto">{children}</div>
+            <div className='flex'>
+        <Sidebar navItems={navItems} />
+            
+            {/* <div className="relative h-[calc(100vh_-_70px)] overflow-auto"> */}
+              
+              <article className="w-full">
+                {children}</article>
+            {/* </div> */}
             </div>
           </main>
-        </div>
+        
       </>
     );
   },
