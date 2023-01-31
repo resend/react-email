@@ -50,7 +50,7 @@ const Email = () => {
     >
       <Button
         href="https://example.com"
-        className="text-black bg-white mx-auto"
+        className="text-custom-color bg-white mx-auto"
       >
         Click me
       </Button>
