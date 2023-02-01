@@ -103,6 +103,10 @@ yarn dev
 
 This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).
 
+## Contributing
+
+- [Contribution Guide](https://react.email/docs/contributing)
+
 ## Authors
 
 - Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
