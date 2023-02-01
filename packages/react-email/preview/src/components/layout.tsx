@@ -28,7 +28,7 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
   ) => {
     return (
       <>
-        <main className="bg-slate-2 min-h-screen">
+        <main className="bg-neutral-900 min-h-screen">
           {title && (
             <Topbar
               title={title}
