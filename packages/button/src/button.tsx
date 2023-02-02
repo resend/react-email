@@ -62,8 +62,6 @@ const buttonTextStyle = ( pY?: number) => {
     maxWidth: '100%',
     display: 'inline-block',
     lineHeight: '120%',
-    textDecoration: 'none',
-    textTransform: 'none' as const,
     msoPaddingAlt: '0px',
     msoTextRaise: pxToPt(paddingY.toString()),
   };
