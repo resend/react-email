@@ -28,19 +28,20 @@ export const Layout = React.forwardRef<LayoutElement, Readonly<LayoutProps>>(
   ) => {
     return (
       <>
-        <main className="bg-neutral-900 min-h-screen">
-          {title && (
-            <Topbar
-              title={title}
-              viewMode={viewMode}
-              setViewMode={setViewMode}
-              markup={markup}
-            />
-          )}
-          <div className="flex flex-col lg:flex-row">
-            <Sidebar navItems={navItems} />
+        <main className="bg-black flex flex-col lg:flex-row min-h-screen">
+          <Sidebar navItems={navItems} />
 
-            <article className="w-full">{children}</article>
+          <div className="w-full ">
+            {title && (
+              <Topbar
+                title={title}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                markup={markup}
+              />
+            )}
+
+            <article>{children}</article>
           </div>
         </main>
       </>

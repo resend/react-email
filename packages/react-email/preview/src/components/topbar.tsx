@@ -27,18 +27,18 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
       <header
         ref={forwardedRef}
         className={classnames(
-          'bg-black flex relative items-center px-6 justify-between h-[70px] border-b border-slate-6',
+          'bg-black h-[50px] lg:h-[70px] flex items-center justify-around relative  px-6  border-b border-slate-6',
           className,
         )}
         {...props}
       >
-        <div className={`flex items-center overflow-hidden ${columnWidth}`}>
+        <div className={` overflow-hidden `}>
           <Heading as="h2" size="2" weight="medium" className="truncate">
             {title}
           </Heading>
         </div>
 
-        <div className={`${columnWidth}`}>
+        <div>
           <AnimateSharedLayout>
             {setViewMode && (
               <ToggleGroup.Root
@@ -105,7 +105,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         </div>
 
         {markup && (
-          <div className={`flex justify-end ${columnWidth}`}>
+          <div>
             <Send markup={markup} />
           </div>
         )}
