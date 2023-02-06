@@ -36,12 +36,9 @@ export const dev = async ({ dir, port }: Args) => {
   const watcherInstance = createWatcherInstance(emailDir);
   try {
     const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
-    let packageManager: PackageManager;
-    try {
-      packageManager = await detectPackageManager({ cwd: CURRENT_PATH });
-    } catch (_) {
-      packageManager = 'yarn';
-    }
+    const packageManager: PackageManager = await detectPackageManager({
+      cwd: CURRENT_PATH,
+    }).catch(() => 'npm');
 
     if (hasReactEmailDirectory) {
       const isUpToDate = await checkPackageIsUpToDate();
