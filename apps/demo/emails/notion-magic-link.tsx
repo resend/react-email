@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
@@ -24,7 +25,7 @@ export default function Email({
     <Html>
       <Head />
       <Preview>Log in with this magic link</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>Login</Heading>
           <Link
@@ -82,7 +83,7 @@ export default function Email({
             for your notes, tasks, wikis, and databases.
           </Text>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }

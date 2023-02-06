@@ -7,6 +7,9 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
 import * as React from 'react';
+import { Body } from '@react-email/body';
+import { Row } from '@react-email/row';
+import { Column } from '@react-email/column';
 
 interface EmailProps {
   username: string;
@@ -30,16 +33,18 @@ export default function Email({
     <Html>
       <Head />
       <Preview>You updated the password for your Twitch account</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
             <Img width={114} src={`${baseUrl}/static/twitch-logo.png`} />
           </Section>
-          <div style={sectionsBorders}>
-            <Section style={sectionBorder} />
-            <Section style={sectionCenter} />
-            <Section style={sectionBorder} />
-          </div>
+          <Section style={sectionsBorders}>
+            <Row>
+              <Column style={sectionBorder} />
+              <Column style={sectionCenter} />
+              <Column style={sectionBorder} />
+            </Row>
+          </Section>
           <Section style={content}>
             <Text style={paragraph}>Hi {username},</Text>
             <Text style={paragraph}>
@@ -80,16 +85,20 @@ export default function Email({
         </Container>
 
         <Section style={footer}>
-          <div style={iconsSocial}>
-            <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
-            <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
-          </div>
+          <Row>
+            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
+              <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
+            </Column>
+            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
+              <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
+            </Column>
+          </Row>
           <Text style={{ textAlign: 'center', color: '#706a7b' }}>
             © 2022 Twitch, All Rights Reserved <br />
             350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
           </Text>
         </Section>
-      </Section>
+      </Body>
     </Html>
   );
 }
@@ -141,13 +150,6 @@ const sectionBorder = {
 const sectionCenter = {
   borderBottom: '1px solid rgb(145,71,255)',
   width: '102px',
-};
-
-const iconsSocial = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: 15,
 };
 
 const link = {

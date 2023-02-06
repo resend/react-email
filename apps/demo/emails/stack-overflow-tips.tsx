@@ -10,6 +10,7 @@ import { Hr } from '@react-email/hr';
 import { Column } from '@react-email/column';
 import { Link } from '@react-email/link';
 import * as React from 'react';
+import { Body } from '@react-email/body';
 
 interface EmailProps {
   tips: string[];
@@ -32,7 +33,7 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
     <Html>
       <Head />
       <Preview>Stack overflow tips for searching</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section style={logo}>
             <Img
@@ -41,26 +42,26 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
             />
           </Section>
           <Section style={header}>
-            <Column>
-              <Section style={headerContent}>
-                <Heading style={headerContentTitle}>
-                  Find what you want, faster
-                </Heading>
-                <Text style={headerContentSubtitle}>
-                  Tips and tricks for searching on Stack Overflow
-                </Text>
-              </Section>
-              <Section style={headerImageContainer}>
-                <Img
-                  width={340}
-                  src={`${baseUrl}/static/stack-overflow-header.png`}
-                />
-              </Section>
-            </Column>
+            <Section style={headerContent}>
+              <Heading style={headerContentTitle}>
+                Find what you want, faster
+              </Heading>
+              <Text style={headerContentSubtitle}>
+                Tips and tricks for searching on Stack Overflow
+              </Text>
+            </Section>
+            <Section style={headerImageContainer}>
+              <Img
+                width={340}
+                src={`${baseUrl}/static/stack-overflow-header.png`}
+              />
+            </Section>
           </Section>
 
           <Section style={content}>
-            <Heading as="h2" style={title}>Searching for solutions</Heading>
+            <Heading as="h2" style={title}>
+              Searching for solutions
+            </Heading>
             <Text style={paragraph}>
               With more than 18 million questions, it's possible that someone
               has already provided a solution to the problem you're facing.{' '}
@@ -111,10 +112,18 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
             triggered this tip or reminder.
           </Text>
 
-          <Text style={footerLink}>Unsubscribe from emails like this </Text>
-          <Text style={footerLink}>Edit email settings </Text>
-          <Text style={footerLink}>Contact us</Text>
-          <Text style={footerLink}>Privacy</Text>
+          <Link href="/" style={footerLink}>
+            Unsubscribe from emails like this{' '}
+          </Link>
+          <Link href="/" style={footerLink}>
+            Edit email settings{' '}
+          </Link>
+          <Link href="/" style={footerLink}>
+            Contact us
+          </Link>
+          <Link href="/" style={footerLink}>
+            Privacy
+          </Link>
 
           <Hr style={footerDivider} />
 
@@ -123,21 +132,19 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
             src={`${baseUrl}/static/stack-overflow-logo-sm.png`}
           />
           <Text style={footerAddress}>
-            <b>Stack Overflow</b>, 110 William Street, 28th Floor, New York, NY
-            10038
+            <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New
+            York, NY 10038
           </Text>
           <Text style={footerHeart}>{'<3'}</Text>
         </Section>
-      </Section>
+      </Body>
     </Html>
   );
 }
 
-const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
-
 const main = {
   backgroundColor: '#f3f3f5',
-  fontFamily,
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
 };
 
 const headerContent = { padding: '20px 30px 15px' };

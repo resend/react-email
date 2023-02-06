@@ -8,6 +8,9 @@ import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Body } from '@react-email/body';
+import { Row } from '@react-email/row';
+import { Column } from '@react-email/column';
 
 interface EmailProps {
   userFirstName: string;
@@ -37,8 +40,8 @@ export default function Email({
     <Html>
       <Head />
       <Preview>Yelp recent login</Preview>
-      <Section style={main}>
-        <Container style={container}>
+      <Body style={main}>
+        <Container>
           <Section style={logo}>
             <Img src={`${baseUrl}/static/yelp-logo.png`} />
           </Section>
@@ -46,8 +49,8 @@ export default function Email({
           <Section style={content}>
             <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
 
-            <Section style={boxInfos}>
-              <Section>
+            <Row style={{ ...boxInfos, paddingBottom: '0' }}>
+              <Column>
                 <Heading
                   style={{
                     ...paragraph,
@@ -69,9 +72,7 @@ export default function Email({
                 >
                   We noticed a recent login to your Yelp account.
                 </Heading>
-              </Section>
 
-              <Section>
                 <Text style={paragraph}>
                   <b>Time: </b>
                   {formattedDate}
@@ -95,19 +96,21 @@ export default function Email({
                   *Approximate geographic location based on IP address:
                   {loginIp}
                 </Text>
-              </Section>
 
-              <Text style={paragraph}>
-                If this was you, there's nothing else you need to do.
-              </Text>
-              <Text style={{ ...paragraph, marginTop: -5 }}>
-                If this wasn't you or if you have additional questions, please
-                see our support page.
-              </Text>
-              <Section style={containerButton}>
+                <Text style={paragraph}>
+                  If this was you, there's nothing else you need to do.
+                </Text>
+                <Text style={{ ...paragraph, marginTop: -5 }}>
+                  If this wasn't you or if you have additional questions, please
+                  see our support page.
+                </Text>
+              </Column>
+            </Row>
+            <Row style={{ ...boxInfos, paddingTop: '0' }}>
+              <Column style={containerButton} colSpan={2}>
                 <Button style={button}>Learn More</Button>
-              </Section>
-            </Section>
+              </Column>
+            </Row>
           </Section>
 
           <Section style={containerImageFooter}>
@@ -126,26 +129,19 @@ export default function Email({
             U.S.A. | www.yelp.com
           </Text>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#fff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const paragraph = {
   fontSize: 16,
-  fontFamily,
-};
-
-const container = {
-  width: '620px',
-  margin: '0 auto',
 };
 
 const logo = {
@@ -165,7 +161,6 @@ const button = {
   color: '#FFF',
   fontWeight: 'bold',
   border: '1px solid rgb(0,0,0, 0.1)',
-  fontFamily,
   cursor: 'pointer',
 };
 
