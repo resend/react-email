@@ -1,0 +1,23 @@
+{
+  "name": "with-turborepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "*",
+    "turbo": "1.6.3"
+  },
+  "packageManager": "yarn@1.22.19"
+}
