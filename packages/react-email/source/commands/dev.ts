@@ -18,7 +18,6 @@ import { components } from '../_preview/components';
 import { utils } from '../_preview/utils';
 import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
-import copy from 'cpy';
 import { detect as detectPackageManager } from 'detect-package-manager';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
@@ -167,6 +166,7 @@ const createEmailPreviews = async (emailDir: string) => {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
+  const { default: copy } = await import('cpy');
   await copy(path.join(emailDir, '**'), PACKAGE_EMAILS_PATH);
 };
 
@@ -195,6 +195,7 @@ const createStaticFiles = async (emailDir: string) => {
   const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasStaticDirectory) {
+    const { default: copy } = await import('cpy');
     await copy(staticDir, `${REACT_EMAIL_ROOT}/public/static`);
   }
 };

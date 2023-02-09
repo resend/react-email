@@ -5,7 +5,6 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import { render, Options } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
-import copy from 'cpy';
 import normalize from 'normalize-path';
 import { checkDirectoryExist } from '../utils';
 import path from 'path';
@@ -49,6 +48,7 @@ export const exportTemplates = async (
   const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasStaticDirectory) {
+    const { default: copy } = await import('cpy');
     await copy(staticDir, `${outDir}/static`);
   }
 

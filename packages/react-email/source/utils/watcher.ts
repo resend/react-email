@@ -7,7 +7,6 @@ import {
 } from './constants';
 import fs from 'fs';
 import path from 'path';
-import copy from 'cpy';
 
 export const createWatcherInstance = (watchDir: string) =>
   chokidar.watch(watchDir, {
@@ -34,6 +33,8 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
       await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
       return;
     }
+
+    const { default: copy } = await import('cpy');
 
     if (file[1] === 'static' && file[2]) {
       const srcPath = path.join(watchDir, 'static', file[2]);
