@@ -23,7 +23,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         cellPadding="0"
         cellSpacing="0"
         role="presentation"
-        {...props}
+        width="100%"
       >
         <tbody>
           <tr>
