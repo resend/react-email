@@ -1,31 +1,16 @@
 import * as React from 'react';
 
-type DivElement = React.ElementRef<'td'>;
+type ColumnElement = React.ElementRef<'td'>;
 type RootProps = React.ComponentPropsWithoutRef<'td'>;
 
-export interface ColumnProps extends RootProps {
-  style?: React.CSSProperties;
-}
+export interface ColumnProps extends RootProps {}
 
-export const Column = React.forwardRef<DivElement, Readonly<ColumnProps>>(
+export const Column = React.forwardRef<ColumnElement, Readonly<ColumnProps>>(
   ({ children, style, ...props }, forwardedRef) => {
-    const styleDefault = {
-      display: 'inline-flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      ...style,
-    };
     return (
-      <td
-        ref={forwardedRef}
-        style={styleDefault}
-        role="presentation"
-        {...props}
-      >
+      <td {...props} style={style} ref={forwardedRef}>
         {children}
       </td>
     );
   },
 );
-
-Column.displayName = 'Column';
