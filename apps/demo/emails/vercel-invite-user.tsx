@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
@@ -10,6 +11,8 @@ import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Column } from '@react-email/column';
+import { Row } from '@react-email/row';
 
 interface EmailProps {
   username: string;
@@ -44,7 +47,7 @@ export default function Email({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section style={{ marginTop: '32px' }}>
             <Img
@@ -67,37 +70,36 @@ export default function Email({
             ) has invited you to the <strong>{teamName}</strong> team on{' '}
             <strong>Vercel</strong>.
           </Text>
-          <table
-            style={spacing}
-            border={0}
-            cellPadding="0"
-            cellSpacing="10"
-            align="center"
-          >
-            <tr>
-              <td style={center} align="left" valign="middle">
+          <Section>
+            <Row>
+              <Column align="right">
                 <Img style={avatar} src={userImage} width="64" height="64" />
-              </td>
-              <td style={center} align="left" valign="middle">
+              </Column>
+              <Column align="center">
                 <Img
                   src={`${baseUrl}/static/vercel-arrow.png`}
                   width="12"
                   height="9"
                   alt="invited you to"
                 />
-              </td>
-              <td style={center} align="left" valign="middle">
+              </Column>
+              <Column align="left">
                 <Img style={avatar} src={teamImage} width="64" height="64" />
-              </td>
-            </tr>
-          </table>
-          <Section style={{ textAlign: 'center' }}>
+              </Column>
+            </Row>
+          </Section>
+          <Section
+            style={{
+              textAlign: 'center',
+              marginTop: '26px',
+              marginBottom: '26px',
+            }}
+          >
             <Button pX={20} pY={12} style={btn} href={inviteLink}>
               Join the team
             </Button>
           </Section>
           <Text style={text}>
-            <br />
             or copy and paste this URL into your browser:{' '}
             <Link
               href={inviteLink}
@@ -119,7 +121,7 @@ export default function Email({
             get in touch with us.
           </Text>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
@@ -127,6 +129,8 @@ export default function Email({
 const main = {
   backgroundColor: '#ffffff',
   margin: '0 auto',
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
 
 const container = {
@@ -143,8 +147,6 @@ const logo = {
 
 const h1 = {
   color: '#000',
-  fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '24px',
   fontWeight: 'normal',
   textAlign: 'center' as const,
@@ -163,8 +165,6 @@ const link = {
 
 const text = {
   color: '#000',
-  fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
   lineHeight: '24px',
 };
@@ -181,17 +181,11 @@ const btn = {
   backgroundColor: '#000',
   borderRadius: '5px',
   color: '#fff',
-  fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '12px',
   fontWeight: 500,
   lineHeight: '50px',
   textDecoration: 'none',
   textAlign: 'center' as const,
-};
-
-const spacing = {
-  marginBottom: '26px',
 };
 
 const hr = {
@@ -203,8 +197,6 @@ const hr = {
 
 const footer = {
   color: '#666666',
-  fontFamily:
-    "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '12px',
   lineHeight: '24px',
 };

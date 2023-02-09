@@ -1,118 +1,150 @@
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
-import { Hr } from '@react-email/hr';
+import { Section } from '@react-email/section';
 import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Body } from '@react-email/body';
 
 interface EmailProps {
-  magicLink: string;
+  validationCode: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
-  magicLink = 'https://raycast.com',
-}: EmailProps) {
+export default function Email({ validationCode = '144833' }: EmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Log in with this magic link.</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Img
-            src={`${baseUrl}/static/raycast-logo.png`}
-            width={48}
-            height={48}
-            alt="Raycast"
+            src={`${baseUrl}/static/plaid-logo.png`}
+            width="212"
+            height="88"
+            alt="Plaid"
+            style={logo}
           />
-          <Heading style={heading}>🪄 Your magic link</Heading>
-          <Section style={body}>
-            <Text style={paragraph}>
-              <Link style={link} href={magicLink}>
-                👉 Click here to sign in 👈
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              If you didn't request this, please ignore this email.
-            </Text>
+          <Text style={tertiary}>Verify Your Identity</Text>
+          <Heading style={secondary}>
+            Enter the following code to finish linking Venmo.
+          </Heading>
+          <Section style={codeContainer}>
+            <Text style={code}>{validationCode}</Text>
           </Section>
+          <Text style={paragraph}>Not expecting this email?</Text>
           <Text style={paragraph}>
-            Best,
-            <br />- Raycast Team
-          </Text>
-          <Hr style={hr} />
-          <Img
-            src={`${baseUrl}/static/raycast-logo.png`}
-            width={32}
-            height={32}
-            style={{
-              WebkitFilter: 'grayscale(100%)',
-              filter: 'grayscale(100%)',
-              margin: '20px 0',
-            }}
-          />
-          <Text style={footer}>Raycast Technologies Inc.</Text>
-          <Text style={footer}>
-            2093 Philadelphia Pike #3222, Claymont, DE 19703
+            Contact{' '}
+            <Link href="mailto:login@plaid.com" style={link}>
+              login@plaid.com
+            </Link>{' '}
+            if you did not request this code.
           </Text>
         </Container>
-      </Section>
+        <Text style={footer}>Securely powered by Plaid.</Text>
+      </Body>
     </Html>
   );
 }
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
 };
 
 const container = {
+  backgroundColor: '#ffffff',
+  border: '1px solid #eee',
+  borderRadius: '5px',
+  boxShadow: '0 5px 10px rgba(20,50,70,.2)',
+  marginTop: '20px',
+  width: '360px',
   margin: '0 auto',
-  padding: '20px 25px 48px',
-  backgroundImage: 'url("/assets/raycast-bg.png")',
-  backgroundPosition: 'bottom',
-  backgroundRepeat: 'no-repeat, no-repeat',
+  padding: '68px 0 130px',
 };
 
-const heading = {
-  fontFamily,
-  fontSize: '28px',
-  fontWeight: 'bold',
-  marginTop: '48px',
+const logo = {
+  margin: '0 auto',
 };
 
-const body = {
-  margin: '24px 0',
+const tertiary = {
+  color: '#0a85ea',
+  fontSize: '11px',
+  fontWeight: 700,
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+  height: '16px',
+  letterSpacing: '0',
+  lineHeight: '16px',
+  margin: '16px 8px 8px 8px',
+  textTransform: 'uppercase' as const,
+  textAlign: 'center' as const,
+};
+
+const secondary = {
+  color: '#000',
+  display: 'inline-block',
+  fontFamily: 'HelveticaNeue-Medium,Helvetica,Arial,sans-serif',
+  fontSize: '20px',
+  fontWeight: 500,
+  lineHeight: '24px',
+  marginBottom: '0',
+  marginTop: '0',
+  textAlign: 'center' as const,
+};
+
+const codeContainer = {
+  background: 'rgba(0,0,0,.05)',
+  borderRadius: '4px',
+  margin: '16px auto 14px',
+  verticalAlign: 'middle',
+  width: '280px',
+};
+
+const code = {
+  color: '#000',
+  display: 'inline-block',
+  fontFamily: 'HelveticaNeue-Bold',
+  fontSize: '32px',
+  fontWeight: 700,
+  letterSpacing: '6px',
+  lineHeight: '40px',
+  paddingBottom: '8px',
+  paddingTop: '8px',
+  margin: '0 auto',
+  width: '100%',
+  textAlign: 'center' as const,
 };
 
 const paragraph = {
-  fontFamily,
-  fontSize: '16px',
-  lineHeight: '26px',
+  color: '#444',
+  fontSize: '15px',
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+  letterSpacing: '0',
+  lineHeight: '23px',
+  padding: '0 40px',
+  margin: '0',
+  textAlign: 'center' as const,
 };
 
 const link = {
-  color: '#FF6363',
-};
-
-const hr = {
-  borderColor: '#dddddd',
-  marginTop: '48px',
+  color: '#444',
+  textDecoration: 'underline',
 };
 
 const footer = {
-  fontFamily,
-  color: '#8898aa',
+  color: '#000',
   fontSize: '12px',
-  marginLeft: '4px',
+  fontWeight: 800,
+  letterSpacing: '0',
+  lineHeight: '23px',
+  margin: '0',
+  marginTop: '20px',
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+  textAlign: 'center' as const,
+  textTransform: 'uppercase' as const,
 };

@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
@@ -26,7 +27,7 @@ export default function Email({
     <Html>
       <Head />
       <Preview>Dropbox reset your password</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Img
             src={`${baseUrl}/static/dropbox-logo.png`}
@@ -57,7 +58,7 @@ export default function Email({
             <Text style={text}>Happy Dropboxing!</Text>
           </Section>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
@@ -68,10 +69,8 @@ const main = {
 };
 
 const container = {
-  margin: '0 auto',
   backgroundColor: '#ffffff',
   border: '1px solid #f0f0f0',
-  width: '600px',
   padding: '45px',
 };
 

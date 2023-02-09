@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
@@ -24,7 +25,7 @@ export default function Email({ validationCode = 'tt226-5398x' }: EmailProps) {
     <Html>
       <Head />
       <Preview>Your login code for Linear</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Img
             src={`${baseUrl}/static/linear-logo.png`}
@@ -44,15 +45,13 @@ export default function Email({ validationCode = 'tt226-5398x' }: EmailProps) {
             link does not work, you can use the login verification code
             directly:
           </Text>
-          <Section>
-            <code style={code}>{validationCode}</code>
-          </Section>
+          <code style={code}>{validationCode}</code>
           <Hr style={hr} />
           <Link href="https://linear.app" style={reportLink}>
             Linear
           </Link>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
@@ -63,11 +62,10 @@ const logo = {
   height: 42,
 };
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
@@ -77,7 +75,6 @@ const container = {
 };
 
 const heading = {
-  fontFamily,
   fontSize: '24px',
   letterSpacing: '-0.5px',
   lineHeight: '1.3',
@@ -87,7 +84,6 @@ const heading = {
 };
 
 const paragraph = {
-  fontFamily,
   margin: '0 0 15px',
   fontSize: '15px',
   lineHeight: '1.4',
@@ -99,7 +95,6 @@ const buttonContainer = {
 };
 
 const button = {
-  fontFamily,
   backgroundColor: '#5e6ad2',
   borderRadius: '3px',
   fontWeight: '600',
@@ -111,7 +106,6 @@ const button = {
 };
 
 const reportLink = {
-  fontFamily,
   fontSize: '14px',
   color: '#b4becc',
 };
