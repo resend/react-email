@@ -1,6 +1,6 @@
 {
   "name": "@react-email/section",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Display a section that can be formatted using columns",
   "sideEffects": false,
   "main": "./dist/index.js",
