@@ -1,0 +1,52 @@
+{
+  "name": "@react-email/row",
+  "version": "0.0.2",
+  "description": "A React row component",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "lint": "eslint",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/row"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.18.6",
+    "@react-email/render": "*",
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6",
+    "babel-jest": "28.1.3",
+    "eslint": "8.23.1",
+    "eslint-config-custom": "*",
+    "react": "18.2.0",
+    "jest": "28.1.3",
+    "ts-jest": "28.0.8",
+    "tsconfig": "*",
+    "tsup": "6.2.3",
+    "typescript": "4.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
