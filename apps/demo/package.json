@@ -19,7 +19,7 @@
     "@react-email/link": "0.0.4",
     "@react-email/preview": "0.0.5",
     "@react-email/row": "0.0.2",
-    "@react-email/section": "0.0.7",
+    "@react-email/section": "0.0.8",
     "@react-email/text": "0.0.4",
     "react-email": "1.7.11"
   }

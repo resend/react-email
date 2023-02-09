@@ -1225,6 +1225,13 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
 
+"@react-email/section@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.8.tgz#fc2991f6bbdf3c7c3c5fcc45e444a55aa1b31da2"
+  integrity sha512-Y3HxwaNkh04UgLx4dsez3uRfFIm5WJMgJB+9zFyHreKa3QwCcm+XSYN2ObsSyCAqISScXNeukgu/z75+BwaJ+g==
+  dependencies:
+    react "18.2.0"
+
 "@rushstack/eslint-patch@^1.1.3":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
