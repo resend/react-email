@@ -1,3 +1,5 @@
+import { Body } from '@react-email/body';
+import { Column } from '@react-email/column';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Hr } from '@react-email/hr';
@@ -5,6 +7,7 @@ import { Html } from '@react-email/html';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Preview } from '@react-email/preview';
+import { Row } from '@react-email/row';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
@@ -18,25 +21,25 @@ export default function Email() {
     <Html>
       <Head />
       <Preview>Google Play developers</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section>
-            <Section style={headerBlue}>
+            <Column>
               <Img
+                style={headerBlue}
                 src={`${baseUrl}/static/google-play-header.png`}
                 width="305"
                 height="28"
                 alt="Google Play developers header blue transparent"
               />
-            </Section>
-            <Section style={sectionLogo}>
               <Img
+                style={sectionLogo}
                 src={`${baseUrl}/static/google-play-logo.png`}
                 width="155"
                 height="31"
                 alt="Google Play"
               />
-            </Section>
+            </Column>
           </Section>
 
           <Section style={paragraphContent}>
@@ -55,24 +58,26 @@ export default function Email() {
               . Because this is a clarification, our enforcement standards and
               practices for this policy remain the same.
             </Text>
-            <Section style={paragraphList}>
-              <Text style={paragraph}>
-                We’re noting exceptions to the{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Target API Level policy
-                </Link>
-                , which can be found in our updated{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Help Center article.
-                </Link>
-                These exceptions include permanently private apps and apps that
-                target automotive or wearables form factors and are bundled
-                within the same package.{' '}
-                <Link href="https://notifications.google.com" style={link}>
-                  Learn more
-                </Link>
-              </Text>
-            </Section>
+          </Section>
+          <Section style={paragraphList}>
+            <Text style={paragraph}>
+              We’re noting exceptions to the{' '}
+              <Link href="https://notifications.google.com" style={link}>
+                Target API Level policy
+              </Link>
+              , which can be found in our updated{' '}
+              <Link href="https://notifications.google.com" style={link}>
+                Help Center article.
+              </Link>
+              These exceptions include permanently private apps and apps that
+              target automotive or wearables form factors and are bundled within
+              the same package.{' '}
+              <Link href="https://notifications.google.com" style={link}>
+                Learn more
+              </Link>
+            </Text>
+          </Section>
+          <Section style={paragraphContent}>
             <Text style={paragraph}>
               We’re also extending the deadline to give you more time to adjust
               to these changes. Now, apps that target API level 29 or below will
@@ -92,44 +97,42 @@ export default function Email() {
           </Section>
 
           <Section style={containerContact}>
-            <Section
+            <Text style={paragraph}>Connect with us</Text>
+            <Row
+              align="left"
               style={{
-                padding: '20px 20px',
+                width: '84px',
+                float: 'left',
               }}
             >
-              <Text style={paragraph}>Connect with us</Text>
-              <table>
-                <tr>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-chat.png`}
-                      />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-icon.png`}
-                      />
-                    </Link>
-                  </td>
-                  <td>
-                    <Link href="https://notifications.google.com">
-                      <Img
-                        width="28"
-                        height="28"
-                        src={`${baseUrl}/static/google-play-academy.png`}
-                      />
-                    </Link>
-                  </td>
-                </tr>
-              </table>
-            </Section>
+              <Column style={{ paddingRight: '4px' }}>
+                <Link href="https://notifications.google.com">
+                  <Img
+                    width="28"
+                    height="28"
+                    src={`${baseUrl}/static/google-play-chat.png`}
+                  />
+                </Link>
+              </Column>
+              <Column style={{ paddingRight: '4px' }}>
+                <Link href="https://notifications.google.com">
+                  <Img
+                    width="28"
+                    height="28"
+                    src={`${baseUrl}/static/google-play-icon.png`}
+                  />
+                </Link>
+              </Column>
+              <Column style={{ paddingRight: '4px' }}>
+                <Link href="https://notifications.google.com">
+                  <Img
+                    width="28"
+                    height="28"
+                    src={`${baseUrl}/static/google-play-academy.png`}
+                  />
+                </Link>
+              </Column>
+            </Row>
             <Img
               width="540"
               height="48"
@@ -163,16 +166,15 @@ export default function Email() {
             </Text>
           </Section>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#dbddde',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const sectionLogo = {
@@ -180,11 +182,7 @@ const sectionLogo = {
 };
 
 const headerBlue = {
-  display: 'flex',
-  justifyContent: 'end',
-  marginTop: -1,
-  marginRight: -2,
-  overflow: 'hidden',
+  marginTop: '-1px',
 };
 
 const container = {
@@ -200,11 +198,10 @@ const containerContact = {
   width: '90%',
   borderRadius: '5px',
   overflow: 'hidden',
-  marginBottom: 20,
+  paddingLeft: '20px',
 };
 
 const heading = {
-  fontFamily,
   fontSize: '14px',
   lineHeight: '26px',
   fontWeight: '700',
@@ -220,7 +217,6 @@ const paragraphList = {
 };
 
 const paragraph = {
-  fontFamily,
   fontSize: '14px',
   lineHeight: '22px',
   color: '#3c4043',

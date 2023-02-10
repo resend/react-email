@@ -8,6 +8,9 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import { Link } from '@react-email/link';
 import * as React from 'react';
+import { Body } from '@react-email/body';
+import { Row } from '@react-email/row';
+import { Column } from '@react-email/column';
 
 interface EmailProps {
   validationCode: string;
@@ -22,7 +25,7 @@ export default function Email({ validationCode = 'DJZ-TLX' }: EmailProps) {
     <Html>
       <Head />
       <Preview>Confirm your email address</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section style={logoContainer}>
             <Img
@@ -47,55 +50,57 @@ export default function Email({ validationCode = 'DJZ-TLX' }: EmailProps) {
             you can safely ignore it.
           </Text>
 
-          <table
-            style={footerLogos}
-            border={0}
-            cellPadding="0"
-            cellSpacing="10"
-            align="left"
-          >
-            <tr>
-              <td align="left" valign="top">
+          <Section>
+            <Row style={footerLogos}>
+              <Column style={{ width: '66%' }}>
                 <Img
                   src={`${baseUrl}/static/slack-logo.png`}
                   width="120"
                   height="36"
                   alt="Slack"
                 />
-              </td>
-              <td align="right" valign="top">
-                <Link href="https://twitter.com/slackhq">
-                  <Img
-                    src={`${baseUrl}/static/slack-twitter.png`}
-                    width="32"
-                    height="32"
-                    alt="Slack"
-                    style={socialMediaIcon}
-                  />
-                </Link>
-                <Link href="https://facebook.com/slackhq">
-                  <Img
-                    src={`${baseUrl}/static/slack-facebook.png`}
-                    width="32"
-                    height="32"
-                    alt="Slack"
-                    style={socialMediaIcon}
-                  />
-                </Link>
-                <Link href="https://www.linkedin.com/company/tiny-spec-inc/">
-                  <Img
-                    src={`${baseUrl}/static/slack-linkedin.png`}
-                    width="32"
-                    height="32"
-                    alt="Slack"
-                    style={socialMediaIcon}
-                  />
-                </Link>
-              </td>
-            </tr>
-          </table>
+              </Column>
+              <Column>
+                <Row>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-twitter.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-facebook.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-linkedin.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                </Row>
+              </Column>
+            </Row>
+          </Section>
 
-          <Section style={footerText}>
+          <Section>
             <Link
               style={footerLink}
               href="https://slackhq.com"
@@ -141,7 +146,7 @@ export default function Email({ validationCode = 'DJZ-TLX' }: EmailProps) {
             </Text>
           </Section>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
@@ -161,6 +166,8 @@ const footerLink = {
 
 const footerLogos = {
   marginBottom: '32px',
+  paddingLeft: '8px',
+  paddingRight: '8px',
   width: '100%',
 };
 

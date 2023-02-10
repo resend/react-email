@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
@@ -25,7 +26,7 @@ export default function Email({
     <Html>
       <Head />
       <Preview>Log in with this magic link.</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Img
             src={`${baseUrl}/static/raycast-logo.png`}
@@ -64,16 +65,15 @@ export default function Email({
             2093 Philadelphia Pike #3222, Claymont, DE 19703
           </Text>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
@@ -85,7 +85,6 @@ const container = {
 };
 
 const heading = {
-  fontFamily,
   fontSize: '28px',
   fontWeight: 'bold',
   marginTop: '48px',
@@ -96,7 +95,6 @@ const body = {
 };
 
 const paragraph = {
-  fontFamily,
   fontSize: '16px',
   lineHeight: '26px',
 };
@@ -111,7 +109,6 @@ const hr = {
 };
 
 const footer = {
-  fontFamily,
   color: '#8898aa',
   fontSize: '12px',
   marginLeft: '4px',

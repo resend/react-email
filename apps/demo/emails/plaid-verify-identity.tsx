@@ -7,6 +7,7 @@ import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Body } from '@react-email/body';
 
 interface EmailProps {
   validationCode: string;
@@ -20,34 +21,41 @@ export default function Email({ validationCode = '144833' }: EmailProps) {
   return (
     <Html>
       <Head />
-      <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/plaid-logo.png`}
-          width="212"
-          height="88"
-          alt="Plaid"
-          style={logo}
-        />
-        <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>
-          Enter the following code to finish linking Venmo.
-        </Heading>
-        <Section style={codeContainer}>
-          <Text style={code}>{validationCode}</Text>
-        </Section>
-        <Text style={paragraph}>Not expecting this email?</Text>
-        <Text style={paragraph}>
-          Contact{' '}
-          <Link href="mailto:login@plaid.com" style={link}>
-            login@plaid.com
-          </Link>{' '}
-          if you did not request this code.
-        </Text>
-      </Container>
-      <Text style={footer}>Securely powered by Plaid.</Text>
+      <Body style={main}>
+        <Container style={container}>
+          <Img
+            src={`${baseUrl}/static/plaid-logo.png`}
+            width="212"
+            height="88"
+            alt="Plaid"
+            style={logo}
+          />
+          <Text style={tertiary}>Verify Your Identity</Text>
+          <Heading style={secondary}>
+            Enter the following code to finish linking Venmo.
+          </Heading>
+          <Section style={codeContainer}>
+            <Text style={code}>{validationCode}</Text>
+          </Section>
+          <Text style={paragraph}>Not expecting this email?</Text>
+          <Text style={paragraph}>
+            Contact{' '}
+            <Link href="mailto:login@plaid.com" style={link}>
+              login@plaid.com
+            </Link>{' '}
+            if you did not request this code.
+          </Text>
+        </Container>
+        <Text style={footer}>Securely powered by Plaid.</Text>
+      </Body>
     </Html>
   );
 }
+
+const main = {
+  backgroundColor: '#ffffff',
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+};
 
 const container = {
   backgroundColor: '#ffffff',

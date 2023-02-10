@@ -7,18 +7,20 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/button": "0.0.4",
-    "@react-email/container": "0.0.4",
-    "@react-email/column": "0.0.3",
-    "@react-email/head": "0.0.2",
+    "@react-email/body": "0.0.1",
+    "@react-email/button": "0.0.6",
+    "@react-email/column": "0.0.6",
+    "@react-email/container": "0.0.7",
+    "@react-email/head": "0.0.4",
     "@react-email/heading": "0.0.7",
-    "@react-email/hr": "0.0.2",
-    "@react-email/html": "0.0.2",
-    "@react-email/img": "0.0.2",
-    "@react-email/link": "0.0.2",
+    "@react-email/hr": "0.0.4",
+    "@react-email/html": "0.0.4",
+    "@react-email/img": "0.0.4",
+    "@react-email/link": "0.0.4",
     "@react-email/preview": "0.0.5",
-    "@react-email/section": "0.0.1",
-    "@react-email/text": "0.0.2",
-    "react-email": "1.7.8"
+    "@react-email/row": "0.0.2",
+    "@react-email/section": "0.0.8",
+    "@react-email/text": "0.0.4",
+    "react-email": "1.7.11"
   }
 }

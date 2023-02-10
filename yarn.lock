@@ -1225,71 +1225,10 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
 
-"@react-email/button@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@react-email/button/-/button-0.0.4.tgz#a116860806b535386d241ff0dc7059d00d547bd2"
-  integrity sha512-6leTjsbf37fBb54AKSTOp1lzDsEFgJ/RdoBAy9MhuiciOqnUhJ5BRHZd4LJkt46FsBrILs8Ob50Y4quzV4kP0Q==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/column@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@react-email/column/-/column-0.0.3.tgz#da7d07eedf2ad0944690d15efca9d8c036a641e2"
-  integrity sha512-iKz3nO0EF2o74zf+nmMIgHzJFwsMEEK5arqYd82xw7yE4rJ87nEfV/OVG9xEM6l4OkKH0l2AX5l+f97sZ9C+1g==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/container@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@react-email/container/-/container-0.0.4.tgz#0fd2eb5b113f6047f44dc653696495ecc7367efd"
-  integrity sha512-NwyppwXFfj+jzociP/jXIVkxCB6q9hNyoyMPIOnSbZDl6A16WaEi4ABo+i8BG3dzqQCJ357KPvMRkn8PJ/pWjA==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/head@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/head/-/head-0.0.2.tgz#a14afa9c1d836b9fc865560585ed8b68c05d8e33"
-  integrity sha512-DLPDRPsqxOKTUYMy7TouldjGZ6/ZAnfmQuRFceliL2YyP4QPQyR+cWaYUItw026+wIJ4eNqLmVgb6M6UOFzB9w==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/hr@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/hr/-/hr-0.0.2.tgz#c7d505fc2a6b417b003aa2d7c8d542e191587591"
-  integrity sha512-HC2vD5oNapO9lISGsEQcKQiY30z2aWc92Xg6VLL4Q79834cxyer56cCHtpztvKDRlOSy8lQktPocU5LNuE01Ow==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/html@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/html/-/html-0.0.2.tgz#a597569b3772630e346213d766bc310a88674291"
-  integrity sha512-j6r7PdBUuH0G5OhiIskCtDerdowkiOia8nzAMbKt2S3vkRkgIIULIZwWA1mEjHXyTP5ZAOeCaqFTILt4Wn1seA==
-
-"@react-email/img@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/img/-/img-0.0.2.tgz#d8d80cbc1cc01ad5b1859fd88ae71b77e7a8529d"
-  integrity sha512-ULvl6OnKlifj0kcQ3U0WL2Ita2e6FOqjZb9PFYGzu82ZphceiK3aMetn9tK+WJCsQA1LEKt9fYr5o3Yz8MF58A==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/link@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/link/-/link-0.0.2.tgz#0ce24f7ca2821c16f231196d3f1728baddec588f"
-  integrity sha512-HhUGxOfoBJW6G/7dWs7LIKwkGBn+PfTYcewpkxBoA+IBc6YTwu1KL0gyB3VLTB0qeEXDlT9lNM+qc/EZNsRoaQ==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/section@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.1.tgz#5e12161fbb77a1b746caf4f35aab5905977c8474"
-  integrity sha512-Pb2HcGNhTOtFRJVB+Kq2vTUnd8M+LuZBuHfpUD16ua/m2/mbW5WeXAfSuJ2Tl6qspzvDKLHqVX+o6HBc1qgl2Q==
-  dependencies:
-    react "18.2.0"
-
-"@react-email/text@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@react-email/text/-/text-0.0.2.tgz#02427c02f7decaf315c1a501d060d135f5d43c20"
-  integrity sha512-BUOl5/2nsImBLSBC9XE7Khj3KWpubni73l0jT1weLzXG+GY3cZARTEErSit3BC5/KAG9lVISwFTTOfnVjhVDBA==
+"@react-email/section@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@react-email/section/-/section-0.0.8.tgz#fc2991f6bbdf3c7c3c5fcc45e444a55aa1b31da2"
+  integrity sha512-Y3HxwaNkh04UgLx4dsez3uRfFIm5WJMgJB+9zFyHreKa3QwCcm+XSYN2ObsSyCAqISScXNeukgu/z75+BwaJ+g==
   dependencies:
     react "18.2.0"
 
@@ -7139,26 +7078,6 @@ react-dom@18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
-
-react-email@1.7.8:
-  version "1.7.8"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.7.8.tgz#c40baa4a9682f59fe9e92388af6ee192e3bba4ac"
-  integrity sha512-YtIIB2Chtk2yP+lone0LLkCw0HsyLzrTIZ4hO1B7pOHxbzvsNdjxXX1uVPX2OKyFQV32P48PgD1WbwWwmc3oeg==
-  dependencies:
-    "@commander-js/extra-typings" "9.4.1"
-    "@react-email/render" "0.0.6"
-    chokidar "3.5.3"
-    commander "9.4.1"
-    cpy "8.1.2"
-    detect-package-manager "2.0.1"
-    esbuild "0.16.4"
-    glob "8.0.3"
-    log-symbols "4.1.0"
-    normalize-path "3.0.0"
-    ora "5.4.1"
-    read-pkg "5.2.0"
-    shelljs "0.8.5"
-    tree-node-cli "1.6.0"
 
 react-is@^16.13.1:
   version "16.13.1"

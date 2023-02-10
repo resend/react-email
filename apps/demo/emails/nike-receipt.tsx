@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
@@ -9,6 +10,8 @@ import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
+import { Column } from '@react-email/column';
+import { Row } from '@react-email/row';
 
 export default function Email() {
   const baseUrl = process.env.VERCEL_URL
@@ -18,21 +21,24 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Get your order summary, estimated delivery date and more</Preview>
-      <Section style={main}>
+      <Preview>
+        Get your order summary, estimated delivery date and more
+      </Preview>
+      <Body style={main}>
         <Container style={container}>
-          <Container style={track.container}>
-            <Container style={{ float: 'left' }}>
-              <Text style={global.paragraphWithBold}>Tracking Number</Text>
-              <Text style={track.number}>1ZV218970300071628</Text>
-            </Container>
-            <Container style={{ float: 'right', marginTop: '3px' }}>
-              <Link style={global.button}>Track Package</Link>
-            </Container>
-            <Container style={{ clear: 'both' }} />
-          </Container>
+          <Section style={track.container}>
+            <Row>
+              <Column>
+                <Text style={global.paragraphWithBold}>Tracking Number</Text>
+                <Text style={track.number}>1ZV218970300071628</Text>
+              </Column>
+              <Column align="right">
+                <Link style={global.button}>Track Package</Link>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={message}>
+          <Section style={message}>
             <Img
               src={`${baseUrl}/static/nike-logo.png`}
               width="66"
@@ -50,57 +56,66 @@ export default function Email() {
               and will be removing any authorization holds. For payment details,
               please visit your Orders page on Nike.com or in the Nike app.
             </Text>
-          </Container>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={global.defaultPadding}>
+          <Section style={global.defaultPadding}>
             <Text style={adressTitle}>Shipping to: Zeno Rocha</Text>
             <Text style={{ ...global.text, fontSize: 14 }}>
               2125 Chestnut St, San Francisco, CA 94123
             </Text>
-          </Container>
+          </Section>
           <Hr style={global.hr} />
-          <Container
+          <Section
             style={{ ...paddingX, paddingTop: '40px', paddingBottom: '40px' }}
           >
-            <Img
-              src={`${baseUrl}/static/nike-product.png`}
-              alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-              style={{ float: 'left' }}
-              width="260px"
-            />
-            <Container style={{ float: 'right', width: '247px' }}>
-              <Text style={{ ...paragraph, fontWeight: '500' }}>
-                Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-              <Text style={global.text}>Size L (12–14)</Text>
-            </Container>
-            <Container style={{ clear: 'both' }} />
-          </Container>
+            <Row>
+              <Column>
+                <Img
+                  src={`${baseUrl}/static/nike-product.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  style={{ float: 'left' }}
+                  width="260px"
+                />
+              </Column>
+              <Column style={{ verticalAlign: 'top', paddingLeft: '12px' }}>
+                <Text style={{ ...paragraph, fontWeight: '500' }}>
+                  Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
+                </Text>
+                <Text style={global.text}>Size L (12–14)</Text>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={global.defaultPadding}>
-            <Container style={{ display: 'inline-flex', marginBottom: 40 }}>
-              <Container style={{ width: '170px' }}>
+          <Section style={global.defaultPadding}>
+            <Row style={{ display: 'inline-flex', marginBottom: 40 }}>
+              <Column style={{ width: '170px' }}>
                 <Text style={global.paragraphWithBold}>Order Number</Text>
                 <Text style={track.number}>C0106373851</Text>
-              </Container>
-              <Container>
+              </Column>
+              <Column>
                 <Text style={global.paragraphWithBold}>Order Date</Text>
                 <Text style={track.number}>Sep 22, 2022</Text>
-              </Container>
-            </Container>
-            <Container style={{ display: 'flex', justifyContent: 'center' }}>
-              <Link style={global.button}>Order Status</Link>
-            </Container>
-          </Container>
+              </Column>
+            </Row>
+            <Row>
+              <Column align="center">
+                <Link style={global.button}>Order Status</Link>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={paddingY}>
+          <Section style={paddingY}>
             <Text style={global.heading}>Top Picks For You</Text>
-            <Container style={recomendations.container}>
-              <Container style={recomendations.product}>
+
+            <Row style={recomendations.container}>
+              <Column
+                style={{ ...recomendations.product, paddingLeft: '4px' }}
+                align="center"
+              >
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-1.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                  width="140px"
+                  width="100%"
                 />
                 <Text style={recomendations.title}>
                   USWNT 2022/23 Stadium Home
@@ -108,12 +123,12 @@ export default function Email() {
                 <Text style={recomendations.text}>
                   Women's Nike Dri-FIT Soccer Jersey
                 </Text>
-              </Container>
-              <Container style={recomendations.product}>
+              </Column>
+              <Column style={recomendations.product} align="center">
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-2.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                  width="140px"
+                  width="100%"
                 />
                 <Text style={recomendations.title}>
                   Brazil 2022/23 Stadium Goalkeeper
@@ -121,73 +136,131 @@ export default function Email() {
                 <Text style={recomendations.text}>
                   Men's Nike Dri-FIT Short-Sleeve Football Shirt
                 </Text>
-              </Container>
-              <Container style={recomendations.product}>
-                <Img
-                  src={`${baseUrl}/static/nike-recomendation-3.png`}
-                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                  width="140px"
-                  height="175px"
-                  style={{ objectFit: 'cover' }}
-                />
-                <Text style={recomendations.title}>FFF</Text>
-                <Text style={recomendations.text}>Women's Soccer Jacket</Text>
-              </Container>
-              <Container style={recomendations.product}>
+              </Column>
+              <Column style={recomendations.product} align="center">
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-4.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                  width="140px"
+                  width="100%"
+                />
+                <Text style={recomendations.title}>FFF</Text>
+                <Text style={recomendations.text}>Women's Soccer Jacket</Text>
+              </Column>
+              <Column
+                style={{ ...recomendations.product, paddingRight: '4px' }}
+                align="center"
+              >
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-4.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="100%"
                 />
                 <Text style={recomendations.title}>FFF</Text>
                 <Text style={recomendations.text}>
                   Women's Nike Pre-Match Football Top
                 </Text>
-              </Container>
-            </Container>
-          </Container>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={menu.container}>
+          <Section style={menu.container}>
             <Text style={menu.title}>Get Help</Text>
-            <Container style={menu.content}>
-              <Text style={menu.text}>Shipping Status</Text>
-              <Text style={menu.text}>Shipping & Delivery</Text>
-              <Text style={menu.text}>Returns & Exchanges</Text>
-              <Text style={menu.text}>How to Return</Text>
-              <Text style={menu.text}>Contact Options</Text>
-            </Container>
+            <Row style={menu.content}>
+              <Column style={{ width: '33%' }} colSpan={1}>
+                <Link href="/" style={menu.text}>
+                  Shipping Status
+                </Link>
+              </Column>
+              <Column style={{ width: '33%' }} colSpan={1}>
+                <Link href="/" style={menu.text}>
+                  Shipping & Delivery
+                </Link>
+              </Column>
+              <Column style={{ width: '33%' }} colSpan={1}>
+                <Link href="/" style={menu.text}>
+                  Returns & Exchanges
+                </Link>
+              </Column>
+            </Row>
+            <Row style={{ ...menu.content, paddingTop: '0' }}>
+              <Column style={{ width: '33%' }} colSpan={1}>
+                <Link href="/" style={menu.text}>
+                  How to Return
+                </Link>
+              </Column>
+              <Column style={{ width: '66%' }} colSpan={2}>
+                <Link href="/" style={menu.text}>
+                  Contact Options
+                </Link>
+              </Column>
+            </Row>
             <Hr style={global.hr} />
-            <Container style={menu.tel}>
-              <Container style={{ display: 'inline-flex' }}>
-                <Img
-                  src={`${baseUrl}/static/nike-phone.png`}
-                  width="16px"
-                  height="26px"
-                  style={{ paddingRight: '14px' }}
-                />
-                <Text style={menu.text}>1-800-806-6453</Text>
-              </Container>
-              <Text style={{ ...menu.text, width: 220, textAlign: 'center' }}>
-                4 am - 11 pm PT
-              </Text>
-            </Container>
-          </Container>
+            <Row style={menu.tel}>
+              <Column>
+                <Row>
+                  <Column style={{ width: '16px' }}>
+                    <Img
+                      src={`${baseUrl}/static/nike-phone.png`}
+                      width="16px"
+                      height="26px"
+                      style={{ paddingRight: '14px' }}
+                    />
+                  </Column>
+                  <Column>
+                    <Text style={{ ...menu.text, marginBottom: '0' }}>
+                      1-800-806-6453
+                    </Text>
+                  </Column>
+                </Row>
+              </Column>
+              <Column>
+                <Text
+                  style={{
+                    ...menu.text,
+                    marginBottom: '0',
+                  }}
+                >
+                  4 am - 11 pm PT
+                </Text>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={global.hr} />
-          <Container style={paddingY}>
+          <Section style={paddingY}>
             <Text style={global.heading}>Nike.com</Text>
-            <Container style={categories.container}>
-              <Text style={categories.text}>Men</Text>
-              <Text style={categories.text}>Women</Text>
-              <Text style={categories.text}>Kids</Text>
-              <Text style={categories.text}>Customize</Text>
-            </Container>
-          </Container>
+            <Row style={categories.container}>
+              <Column align="center">
+                <Link href="/" style={categories.text}>
+                  Men
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link href="/" style={categories.text}>
+                  Women
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link href="/" style={categories.text}>
+                  Kids
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link href="/" style={categories.text}>
+                  Customize
+                </Link>
+              </Column>
+            </Row>
+          </Section>
           <Hr style={{ ...global.hr, marginTop: '12px' }} />
-          <Container style={paddingY}>
-            <Container style={footer.policy}>
-              <Text style={footer.text}>Web Version</Text>
-              <Text style={footer.text}>Privacy Policy</Text>
-            </Container>
+          <Section style={paddingY}>
+            <Row style={footer.policy}>
+              <Column>
+                <Text style={footer.text}>Web Version</Text>
+              </Column>
+              <Column>
+                <Text style={footer.text}>Privacy Policy</Text>
+              </Column>
+            </Row>
             <Text style={{ ...footer.text, paddingTop: 30, paddingBottom: 30 }}>
               Please contact us if you have any questions. (If you reply to this
               email, we won't be able to see it.)
@@ -198,15 +271,12 @@ export default function Email() {
             <Text style={footer.text}>
               NIKE, INC. One Bowerman Drive, Beaverton, Oregon 97005, USA.
             </Text>
-          </Container>
+          </Section>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
-
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
 
 const paddingX = {
   paddingLeft: '40px',
@@ -219,7 +289,6 @@ const paddingY = {
 };
 
 const paragraph = {
-  fontFamily,
   margin: '0',
   lineHeight: '2',
 };
@@ -233,7 +302,6 @@ const global = {
   },
   paragraphWithBold: { ...paragraph, fontWeight: 'bold' },
   heading: {
-    fontFamily,
     fontSize: '32px',
     lineHeight: '1.3',
     fontWeight: '700',
@@ -246,7 +314,6 @@ const global = {
     fontWeight: '500',
   },
   button: {
-    fontFamily,
     border: '1px solid #929292',
     fontSize: '16px',
     textDecoration: 'none',
@@ -265,10 +332,11 @@ const global = {
 
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
-  fontFamily,
   margin: '10px auto',
   width: '600px',
   border: '1px solid #E5E5E5',
@@ -299,7 +367,6 @@ const adressTitle = {
 };
 
 const recomendationsText = {
-  fontFamily,
   margin: '0',
   fontSize: '15px',
   lineHeight: '1',
@@ -309,12 +376,13 @@ const recomendationsText = {
 
 const recomendations = {
   container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '20px 5px',
+    padding: '20px 0',
   },
   product: {
-    width: '140px',
+    verticalAlign: 'top',
+    textAlign: 'left' as const,
+    paddingLeft: '2px',
+    paddingRight: '2px',
   },
   title: { ...recomendationsText, paddingTop: '12px', fontWeight: '500' },
   text: {
@@ -335,8 +403,6 @@ const menu = {
     ...paddingY,
     paddingLeft: '20px',
     paddingRight: '20px',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
   },
   title: {
     paddingLeft: '20px',
@@ -347,9 +413,9 @@ const menu = {
     fontSize: '13.5px',
     marginTop: 0,
     fontWeight: 500,
+    color: '#000',
   },
   tel: {
-    display: 'flex',
     paddingLeft: '20px',
     paddingRight: '20px',
     paddingTop: '32px',
@@ -359,22 +425,20 @@ const menu = {
 
 const categories = {
   container: {
-    display: 'flex',
     width: '370px',
     margin: 'auto',
-    justifyContent: 'space-between',
+    paddingTop: '12px',
   },
   text: {
     fontWeight: '500',
+    color: '#000',
   },
 };
 
 const footer = {
   policy: {
-    display: 'flex',
     width: '166px',
     margin: 'auto',
-    justifyContent: 'space-between',
   },
   text: {
     margin: '0',
