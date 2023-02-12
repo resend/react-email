@@ -53,7 +53,6 @@ export default function Email({
               <Column>
                 <Heading
                   style={{
-                    ...paragraph,
                     fontSize: 32,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -64,7 +63,6 @@ export default function Email({
                 <Heading
                   as="h2"
                   style={{
-                    ...paragraph,
                     fontSize: 26,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -87,7 +85,6 @@ export default function Email({
                 </Text>
                 <Text
                   style={{
-                    ...paragraph,
                     color: 'rgb(0,0,0, 0.5)',
                     fontSize: 14,
                     marginTop: -5,
@@ -119,7 +116,6 @@ export default function Email({
 
           <Text
             style={{
-              ...paragraph,
               textAlign: 'center',
               fontSize: 12,
               color: 'rgb(0,0,0, 0.7)',
