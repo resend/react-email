@@ -31,7 +31,7 @@ import { Html } from '@react-email/html';
 
 const Email = () => {
   return (
-    <Html lang="en">
+    <Html lang="en" dir="ltr">
       <Button href="https://example.com" style={{ color: '#61dafb' }}>
         Click me
       </Button>
@@ -44,6 +44,9 @@ const Email = () => {
 
 <ResponseField name="lang" type="string" default="en">
   Identify the language of text content on the email
+</ResponseField>
+<ResponseField name="dir" type="string" default="ltr" >
+  Identify the direction of text content on the email
 </ResponseField>
 
 <Snippet file="support.mdx" />
