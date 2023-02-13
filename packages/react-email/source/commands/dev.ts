@@ -18,7 +18,6 @@ import { components } from '../_preview/components';
 import { utils } from '../_preview/utils';
 import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
-import copy from 'cpy';
 import { detect as detectPackageManager } from 'detect-package-manager';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
@@ -167,26 +166,39 @@ const createEmailPreviews = async (emailDir: string) => {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
-  await copy(path.join(emailDir, '**'), PACKAGE_EMAILS_PATH);
+  const result = shell.cp('-r', emailDir, PACKAGE_EMAILS_PATH);
+  if (result.code > 0) {
+    throw new Error(
+      `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+    );
+  }
 };
 
 const createStaticFiles = async (emailDir: string) => {
-  const hasPackageStaticDirectory = checkDirectoryExist(
-    `${REACT_EMAIL_ROOT}/public/static`,
+  const reactEmailPublicFolder = path.join(
+    REACT_EMAIL_ROOT,
+    'public',
+    'static',
   );
+  const hasPackageStaticDirectory = checkDirectoryExist(reactEmailPublicFolder);
   if (hasPackageStaticDirectory) {
-    await fs.promises.rm(`${REACT_EMAIL_ROOT}/public/static`, {
+    await fs.promises.rm(reactEmailPublicFolder, {
       recursive: true,
     });
   }
 
   // Make sure that the "static" folder does not exists in .react-email/emails
   // since it should only exists in .react-email/public, but the "createEmailPreviews"-function will blindly copy the complete emails folder
+  const reactEmailEmailStaticFolder = path.join(
+    REACT_EMAIL_ROOT,
+    'emails',
+    'static',
+  );
   const hasPackageStaticDirectoryInEmails = checkDirectoryExist(
-    `${REACT_EMAIL_ROOT}/emails/static`,
+    reactEmailEmailStaticFolder,
   );
   if (hasPackageStaticDirectoryInEmails) {
-    await fs.promises.rm(`${REACT_EMAIL_ROOT}/emails/static`, {
+    await fs.promises.rm(reactEmailEmailStaticFolder, {
       recursive: true,
     });
   }
@@ -195,7 +207,12 @@ const createStaticFiles = async (emailDir: string) => {
   const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasStaticDirectory) {
-    await copy(staticDir, `${REACT_EMAIL_ROOT}/public/static`);
+    const result = shell.cp('-r', staticDir, reactEmailPublicFolder);
+    if (result.code > 0) {
+      throw new Error(
+        `Something went wrong while copying the file to ${reactEmailPublicFolder}, ${result.cat()}`,
+      );
+    }
   }
 };
 
