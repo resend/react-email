@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Button } from '@react-email/button';
 import { Container } from '@react-email/container';
 import { Head } from '@react-email/head';
@@ -10,16 +11,20 @@ import { Section } from '@react-email/section';
 import { Text } from '@react-email/text';
 import * as React from 'react';
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
 export default function Email() {
   return (
     <Html>
       <Head />
       <Preview>You're now ready to make live transactions with Stripe!</Preview>
-      <Section style={main}>
+      <Body style={main}>
         <Container style={container}>
           <Section style={box}>
             <Img
-              src="/static/stripe-logo.png"
+              src={`${baseUrl}/static/stripe-logo.png`}
               width="49"
               height="21"
               alt="Stripe"
@@ -91,13 +96,15 @@ export default function Email() {
             </Text>
           </Section>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
 }
 
 const main = {
   backgroundColor: '#f6f9fc',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
 };
 
 const container = {
@@ -118,8 +125,7 @@ const hr = {
 
 const paragraph = {
   color: '#525f7f',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
+
   fontSize: '16px',
   lineHeight: '24px',
   textAlign: 'left' as const,
@@ -133,8 +139,6 @@ const button = {
   backgroundColor: '#656ee8',
   borderRadius: '5px',
   color: '#fff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
   fontSize: '16px',
   fontWeight: 'bold',
   textDecoration: 'none',
@@ -145,8 +149,6 @@ const button = {
 
 const footer = {
   color: '#8898aa',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
   fontSize: '12px',
   lineHeight: '16px',
 };
