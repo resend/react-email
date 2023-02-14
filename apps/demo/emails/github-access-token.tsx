@@ -12,14 +12,14 @@ import { Text } from '@react-email/text';
 import * as React from 'react';
 
 interface EmailProps {
-  userFirstname: string;
+  username: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({ userFirstname = 'Zeno' }: EmailProps) {
+export default function Email({ username = 'zenorocha' }: EmailProps) {
   return (
     <Html>
       <Head />
@@ -36,13 +36,13 @@ export default function Email({ userFirstname = 'Zeno' }: EmailProps) {
           />
 
           <Text style={title}>
-            <strong>@zenorocha</strong>, a personal access was created on your
+            <strong>@{username}</strong>, a personal access was created on your
             account.
           </Text>
 
           <Section style={section}>
             <Text style={text}>
-              Hey <strong>zenorocha</strong>!
+              Hey <strong>{username}</strong>!
             </Text>
             <Text style={text}>
               A fine-grained personal access token (<Link>resend</Link>) was
