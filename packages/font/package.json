@@ -1,7 +1,7 @@
 {
   "name": "@react-email/font",
   "version": "0.0.1",
-  "description": "A React Font component to set your font family",
+  "description": "A React Font component to set your fonts",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

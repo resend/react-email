@@ -1,7 +1,7 @@
 ![React Email HTML cover](https://react.email/static/images/readme/covers/html.png)
 
-<div align="center"><strong>@react-email/body</strong></div>
-<div align="center">A React body component to wrap emails.</div>
+<div align="center"><strong>@react-email/font</strong></div>
+<div align="center">A React Font component to set your font family.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,34 +18,37 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/body -E
+yarn add @react-email/font -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/body -E
+npm install @react-email/font -E
 ```
 
 ## Getting started
 
-Add the component to your email template. Include styles where needed.
+Add the component to your email template.
 
 ```jsx
 import { Html } from '@react-email/html';
-import { Body } from '@react-email/body';
-import { Section } from '@react-email/section';
-import { Column } from '@react-email/section';
+import { Head } from '@react-email/head';
+import { Font } from '@react-email/font';
 
 const Email = () => {
   return (
     <Html lang="en">
-      <Body style={{ backgroundColor: '#61dafb' }}>
-        <Section>
-          <Column style={{ width: '50%' }}>{/* First column */}</Column>
-          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
-        </Section>
-      </Body>
+      <Head>
+        <Font
+          fontFamily="Roboto"
+          fallbackFontFamily="Verdana"
+          webFont={{
+            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+            format: 'woff2',
+          }}
+        />
+      </Head>
     </Html>
   );
 };
