@@ -43,7 +43,7 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontWeight = 400,
 }) => {
   const src = webFont
-    ? `src: url(${webFont}) format('${webFont.format}');`
+    ? `src: url(${webFont.url}) format('${webFont.format}');`
     : '';
 
   const style = `
