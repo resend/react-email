@@ -9,6 +9,7 @@ export const Row = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     return (
       <table
+        width="100%"
         {...props}
         ref={forwardedRef}
         style={style}
@@ -17,7 +18,6 @@ export const Row = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         cellSpacing="0"
         cellPadding="0"
         border={0}
-        width="100%"
       >
         <tbody style={{ width: '100%' }}>
           <tr style={{ width: '100%' }}>{children}</tr>
