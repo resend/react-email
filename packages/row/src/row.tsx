@@ -3,7 +3,9 @@ import * as React from 'react';
 type SectionElement = React.ElementRef<'table'>;
 type RootProps = React.ComponentPropsWithoutRef<'table'>;
 
-export interface SectionProps extends RootProps {}
+export interface SectionProps extends RootProps {
+  children: React.ReactNode;
+}
 
 export const Row = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
