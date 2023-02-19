@@ -38,7 +38,7 @@ export default function Email() {
 
           <Heading style={heading}>
             <strong>This week:</strong> #CodePenChallenge:{' '}
-            <Text style={{ fontSize: '32px', margin: '4px 0 0 0' }}>Cubes</Text>
+            <Text style={cubeText}>Cubes</Text>
           </Heading>
 
           <Section style={section}>
@@ -86,7 +86,7 @@ export default function Email() {
 
             <Section style={sectionPro}>
               <Img
-                style={{ margin: '0 auto 30px auto' }}
+                style={imagePro}
                 src={`${baseUrl}/static/codepen-pro.png`}
                 width={250}
                 alt="codepen"
@@ -103,14 +103,7 @@ export default function Email() {
             </Section>
           </Section>
 
-          <Text
-            style={{
-              background: '#f5d247',
-              padding: '30px',
-              fontSize: '18px',
-              lineHeight: '1.5',
-            }}
-          >
+          <Text style={yellowSection}>
             <strong>To participate:</strong>{' '}
             <Link style={blueLink}>Create a Pen →</Link> and tag it{' '}
             <Link style={blueLink}>
@@ -287,9 +280,18 @@ const section = {
   padding: '0 24px',
 };
 
+const yellowSection = {
+  background: '#f5d247',
+  padding: '30px',
+  fontSize: '18px',
+  lineHeight: '1.5',
+};
+
 const text = {
   fontSize: '16px',
 };
+
+const cubeText = { fontSize: '32px', margin: '4px 0 0 0' };
 
 const yourChallenge = {
   fontSize: '16px',
@@ -307,6 +309,8 @@ const sectionPro = {
   padding: '35px 20px 30px 20px',
   border: '6px solid #2138c6',
 };
+
+const imagePro = { margin: '0 auto 30px auto' };
 
 const button = {
   background: '#2138c6',
