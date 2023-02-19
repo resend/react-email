@@ -10,5 +10,10 @@ describe('render', () => {
   it('renders the <Preview> component', () => {
     const actualOutput = render(<Preview>Email preview text</Preview>);
     expect(actualOutput).toMatchSnapshot();
+
+    const actualOutputArray = render(<Preview>Email {'preview'} text</Preview>);
+    expect(actualOutputArray).toMatchSnapshot();
+
+    expect(actualOutput).toEqual(actualOutputArray);
   });
 });
