@@ -1,0 +1,70 @@
+{
+  "name": "@react-email/components",
+  "version": "0.0.1",
+  "description": "All react-email components",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "lint": "eslint",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/components"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@react-email/body": "0.0.1",
+    "@react-email/button": "0.0.6",
+    "@react-email/column": "0.0.6",
+    "@react-email/container": "0.0.7",
+    "@react-email/head": "0.0.4",
+    "@react-email/heading": "0.0.7",
+    "@react-email/hr": "0.0.4",
+    "@react-email/html": "0.0.4",
+    "@react-email/img": "0.0.4",
+    "@react-email/link": "0.0.4",
+    "@react-email/preview": "0.0.5",
+    "@react-email/render": "0.0.6",
+    "@react-email/row": "0.0.4",
+    "@react-email/section": "0.0.8",
+    "@react-email/text": "0.0.4",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.18.6",
+    "@react-email/render": "*",
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6",
+    "babel-jest": "28.1.3",
+    "eslint": "8.23.1",
+    "eslint-config-custom": "*",
+    "jest": "28.1.3",
+    "ts-jest": "28.0.8",
+    "tsconfig": "*",
+    "tsup": "6.2.3",
+    "typescript": "4.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
