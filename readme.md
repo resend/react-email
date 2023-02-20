@@ -74,6 +74,7 @@ A set of standard components to help you build amazing emails without having to 
 
 Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
 
+- [Resemd](https://github.com/resendlabs/react-email/tree/main/examples/resend)
 - [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
 - [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
 - [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
