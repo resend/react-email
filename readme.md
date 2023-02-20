@@ -69,6 +69,7 @@ A set of standard components to help you build amazing emails without having to 
 - [Body](https://github.com/resendlabs/react-email/tree/main/packages/body)
 - [Column](https://github.com/resendlabs/react-email/tree/main/packages/column)
 - [Section](https://github.com/resendlabs/react-email/tree/main/packages/section)
+- [Font](https://github.com/resendlabs/react-email/tree/main/packages/font)
 
 ## Integrations
 

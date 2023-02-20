@@ -37,6 +37,7 @@
     "@react-email/button": "0.0.6",
     "@react-email/column": "0.0.6",
     "@react-email/container": "0.0.7",
+    "@react-email/font": "0.0.1",
     "@react-email/head": "0.0.4",
     "@react-email/heading": "0.0.7",
     "@react-email/hr": "0.0.4",
