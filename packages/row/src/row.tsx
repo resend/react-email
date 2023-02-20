@@ -1,14 +1,17 @@
 import * as React from 'react';
 
-type SectionElement = React.ElementRef<'table'>;
+type RowElement = React.ElementRef<'table'>;
 type RootProps = React.ComponentPropsWithoutRef<'table'>;
 
-export interface SectionProps extends RootProps {}
+export interface RowProps extends RootProps {
+  children: React.ReactNode;
+}
 
-export const Row = React.forwardRef<SectionElement, Readonly<SectionProps>>(
+export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     return (
       <table
+        width="100%"
         {...props}
         ref={forwardedRef}
         style={style}
@@ -17,7 +20,6 @@ export const Row = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         cellSpacing="0"
         cellPadding="0"
         border={0}
-        width="100%"
       >
         <tbody style={{ width: '100%' }}>
           <tr style={{ width: '100%' }}>{children}</tr>

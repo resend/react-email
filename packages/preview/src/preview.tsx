@@ -4,7 +4,7 @@ type PreviewElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 export interface PreviewProps extends RootProps {
-  children: string;
+  children: string | string[];
 }
 
 export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
@@ -28,7 +28,8 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
   ),
 );
 
-const renderWhiteSpace = (text: string) => {
+const renderWhiteSpace = (children: string | string[]) => {
+  const text = Array.isArray(children) ? children.join('') : children;
   const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
   return <div>{whiteSpaceCodes.repeat(150 - text.length)}</div>;
 };
