@@ -13,3 +13,4 @@ export * from '@react-email/render';
 export * from '@react-email/row';
 export * from '@react-email/section';
 export * from '@react-email/text';
+export * from '@react-email/font';
