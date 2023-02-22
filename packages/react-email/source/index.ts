@@ -4,6 +4,7 @@ import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
 import { PACKAGE_NAME } from './utils/constants';
 import packageJson from '../package.json';
+import { buildPreview } from './commands/build-preview';
 
 program
   .name(PACKAGE_NAME)
@@ -16,6 +17,12 @@ program
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
   .action((args) => dev(args));
+
+program
+  .command('build-preview')
+  .description('Builds a preview application that can be deployed to a static host')
+  .option('-d, --dir <path>', 'Directory with your email templates', './emails')
+  .action((args) => buildPreview(args));
 
 program
   .command('export')
