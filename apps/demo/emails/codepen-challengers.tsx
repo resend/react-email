@@ -11,6 +11,7 @@ import {
   Preview,
   Section,
   Text,
+  Row,
 } from '@react-email/components';
 import * as React from 'react';
 
@@ -25,13 +26,12 @@ export default function Email() {
       <Preview>#CodePenChallenge: Cubes</Preview>
       <Body style={main}>
         <Section style={header}>
-          <Container style={containerHeader}>
-            <Img
-              src={`${baseUrl}/static/codepen-challengers.png`}
-              width={600}
-              alt="codepen"
-            />
-          </Container>
+          <Img
+            style={imgHeader}
+            src={`${baseUrl}/static/codepen-challengers.png`}
+            width={600}
+            alt="codepen"
+          />
         </Section>
         <Container style={container}>
           <Text style={challengeLink}>
@@ -122,7 +122,7 @@ export default function Email() {
             tag on Twitter and Instagram as well).
           </Text>
 
-          <Section style={section}>
+          <Row style={section}>
             <Column style={ideas}>
               <Text style={ideasTitle}>IDEAS!</Text>
 
@@ -205,7 +205,7 @@ export default function Email() {
                 </Text>
               </Section>
             </Column>
-          </Section>
+          </Row>
 
           <Section style={goToChallenge}>
             <Button style={footerButton}>Go to Challenge Page</Button>
@@ -232,30 +232,37 @@ const main = {
   margin: '0',
 };
 
+const imgHeader = {
+  margin: 'auto',
+};
+
 const header = {
   width: '100%',
   backgroundColor: '#191919',
-  margin: '0',
-};
-
-const containerHeader = {
-  margin: '0 auto 38px auto',
+  margin: '0 auto',
+  paddingBottom: '30px',
+  zIndex: '999',
 };
 
 const container = {
   paddingLeft: '12px',
   paddingRight: '12px',
   margin: '0 auto',
-  width: '600px',
-  maxWidth: '600px',
+  width: '648px',
+  maxWidth: '648px',
+  position: 'relative' as const,
 };
 
 const challengeLink = {
   backgroundColor: '#505050',
-  marginTop: '-37px',
   textAlign: 'center' as const,
-  padding: '10px 0',
+  padding: '10px 0 25px 0',
   fontSize: '13px',
+  position: 'absolute' as const,
+  width: '100%',
+  maxWidth: '648px',
+  top: '-28px',
+  margin: '0 0 16px 0',
 };
 
 const link = {
