@@ -55,20 +55,20 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
             />
           </Section>
           <Section style={header}>
-            <Column style={headerContent}>
+            <Section style={headerContent}>
               <Heading style={headerContentTitle}>
                 Find what you want, faster
               </Heading>
               <Text style={headerContentSubtitle}>
                 Tips and tricks for searching on Stack Overflow
               </Text>
-            </Column>
-            <Column style={headerImageContainer}>
+            </Section>
+            <Section style={headerImageContainer}>
               <Img
                 width={340}
                 src={`${baseUrl}/static/stack-overflow-header.png`}
               />
-            </Column>
+            </Section>
           </Section>
 
           <Section style={content}>
