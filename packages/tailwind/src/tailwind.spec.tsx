@@ -40,15 +40,15 @@ describe('Tailwind component', () => {
         <Tailwind>
           <html>
             <head />
+            <body>
+              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            </body>
           </html>
-          <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
-          </body>
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.bg_red_200{background-color:rgb(254,202,202)}@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important}}</style></head></html><body><div class=\\"bg_red_200 sm_bg_red_300 md_bg_red_400 lg_bg_red_500\\"></div></body>"`,
+        `"<html><head><style>.bg_red_200{background-color:rgb(254,202,202)}@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important}}</style></head><body><div class=\\"bg_red_200 sm_bg_red_300 md_bg_red_400 lg_bg_red_500\\"></div></body></html>"`,
       );
     });
 
