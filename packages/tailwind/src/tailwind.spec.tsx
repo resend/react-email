@@ -224,15 +224,15 @@ describe('Tailwind component', () => {
         <Tailwind config={config}>
           <html>
             <head />
+            <body>
+              <div className="border-custom sm:border-custom" />
+            </body>
           </html>
-          <body>
-            <div className="border-custom sm:border-custom" />
-          </body>
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.border_custom{border:2px solid}@media(min-width:640px){.sm_border_custom{border: 2px solid !important}}</style></head></html><body><div class=\\"border_custom sm_border_custom\\"></div></body>"`,
+        `"<html><head><style>.border_custom{border:2px solid}@media(min-width:640px){.sm_border_custom{border: 2px solid !important}}</style></head><body><div class=\\"border_custom sm_border_custom\\"></div></body></html>"`,
       );
     });
   });
