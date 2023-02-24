@@ -71,30 +71,33 @@ describe('Tailwind component', () => {
     it('should be able to use custom colors', () => {
       const config: TailwindConfig = {
         theme: {
-          colors: {
-            blue: '#1fb6ff',
+          extend: {
+            colors: {
+              custom: '#1fb6ff',
+            },
           },
         },
       };
 
       const actualOutput = render(
         <Tailwind config={config}>
-          <div className="text-blue" />
-          <div className="bg-blue" />
+          <div className="text-custom bg-custom" />
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style=\\"color:rgb(31,182,255)\\"></div><div style=\\"background-color:rgb(31,182,255)\\"></div>"`,
+        `"<div style=\\"background-color:rgb(31,182,255);color:rgb(31,182,255)\\"></div>"`,
       );
     });
 
     it('should be able to use custom colors', () => {
       const config: TailwindConfig = {
         theme: {
-          fontFamily: {
-            sans: ['Graphik', 'sans-serif'],
-            serif: ['Merriweather', 'serif'],
+          extend: {
+            fontFamily: {
+              sans: ['Graphik', 'sans-serif'],
+              serif: ['Merriweather', 'serif'],
+            },
           },
         },
       };
