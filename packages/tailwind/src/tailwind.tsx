@@ -1,4 +1,4 @@
-import React, { Children, isValidElement } from 'react';
+import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import htmlParser, { attributesToProps, Element } from 'html-react-parser';
 import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
@@ -13,7 +13,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     config,
   });
 
-  const newChildren = Children.toArray(children);
+  const newChildren = React.Children.toArray(children);
 
   const fullHTML = renderToStaticMarkup(<>{newChildren}</>);
 
@@ -36,8 +36,8 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     );
   }
 
-  const reactHTML = Children.map(newChildren, (child) => {
-    if (!isValidElement(child)) return child;
+  const reactHTML = React.Children.map(newChildren, (child) => {
+    if (!React.isValidElement(child)) return child;
 
     const html = renderToStaticMarkup(child);
 
