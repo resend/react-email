@@ -15,6 +15,8 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "lint": "eslint",
     "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
     "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
   },
@@ -32,9 +34,13 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "tw-to-css": "0.0.9"
+    "html-react-parser": "3.0.9",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tw-to-css": "0.0.10"
   },
   "devDependencies": {
+    "@testing-library/react": "14.0.0",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "eslint": "8.23.1",
