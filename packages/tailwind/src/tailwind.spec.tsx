@@ -20,6 +20,18 @@ describe('Tailwind component', () => {
         `"<div style=\\"background-color:rgb(0,0,0);color:rgb(255,255,255)\\"></div>"`,
       );
     });
+
+    it('should be able to use background image', () => {
+      const actualOutput = render(
+        <Tailwind>
+          <div className="bg-[url(https://react.email/static/covers/tailwind.png)]" />
+        </Tailwind>,
+      );
+
+      expect(actualOutput).toMatchInlineSnapshot(
+        `"<div style=\\"background-image:url(https://react.email/static/covers/tailwind.png)\\"></div>"`,
+      );
+    });
   });
 
   describe('Responsive styles', () => {
