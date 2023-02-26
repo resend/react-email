@@ -91,7 +91,8 @@
         "integrations/nodemailer",
         "integrations/sendgrid",
         "integrations/postmark",
-        "integrations/aws-ses"
+        "integrations/aws-ses",
+        "integrations/mailersend"
       ]
     }
   ],
