@@ -1,5 +1,5 @@
 {
-  "name": "react-email-with-postmark",
+  "name": "react-email-with-mailersend",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
