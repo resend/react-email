@@ -36,11 +36,11 @@ export const dev = async ({ dir, port }: Args) => {
   const watcherInstance = createWatcherInstance(emailDir);
   try {
     const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
-    const cwd = await findRoot(CURRENT_PATH)
-      .then((v) => v.rootDir)
-      .catch(() => CURRENT_PATH);
+    const cwd = await findRoot(CURRENT_PATH).catch(() => ({
+      rootDir: CURRENT_PATH,
+    }));
     const packageManager: PackageManager = await detectPackageManager({
-      cwd,
+      cwd: cwd.rootDir,
     }).catch(() => 'npm');
 
     if (hasReactEmailDirectory) {
