@@ -1,6 +1,7 @@
 import { Tailwind } from './tailwind';
 import { renderToStaticMarkup as render } from 'react-dom/server';
 import { TailwindConfig } from 'tw-to-css';
+import { Button } from '@react-email/button';
 
 describe('Tailwind component', () => {
   beforeEach(() => {
@@ -30,6 +31,33 @@ describe('Tailwind component', () => {
 
       expect(actualOutput).toMatchInlineSnapshot(
         `"<div style=\\"background-image:url(https://react.email/static/covers/tailwind.png)\\"></div>"`,
+      );
+    });
+
+    it('should override inline styles with Tailwind styles', () => {
+      const actualOutput = render(
+        <Tailwind>
+          <div
+            style={{ fontSize: '12px', backgroundColor: 'red' }}
+            className="bg-black text-[16px]"
+          />
+        </Tailwind>,
+      );
+
+      expect(actualOutput).toMatchInlineSnapshot(
+        `"<div style=\\"font-size:16px;background-color:rgb(0,0,0)\\"></div>"`,
+      );
+    });
+
+    it('should override component styles with Tailwind styles', () => {
+      const actualOutput = render(
+        <Tailwind>
+          <Button className="py-3 px-6" />
+        </Tailwind>,
+      );
+
+      expect(actualOutput).toContain(
+        'padding:0px 0px;padding-left:1.5rem;padding-right:1.5rem;padding-top:0.75rem;padding-bottom:0.75rem',
       );
     });
   });
