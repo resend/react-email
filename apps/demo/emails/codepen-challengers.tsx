@@ -99,7 +99,7 @@ export default function Email() {
                 front-end designer or developer at any experience level.
               </Text>
 
-              <Button style={button}>
+              <Button style={button} pX={12} pY={12}>
                 <strong>Learn More</strong>
               </Button>
             </Section>
@@ -208,7 +208,9 @@ export default function Email() {
           </Row>
 
           <Section style={goToChallenge}>
-            <Button style={footerButton}>Go to Challenge Page</Button>
+            <Button style={footerButton} pY={15} pX={30}>
+              Go to Challenge Page
+            </Button>
           </Section>
 
           <Section style={footer}>
@@ -327,7 +329,6 @@ const button = {
   border: '0',
   fontSize: '15px',
   lineHeight: '18px',
-  padding: '12px',
   cursor: 'pointer',
   borderRadius: '4px',
 };
@@ -381,16 +382,14 @@ const textCard = {
 };
 
 const goToChallenge = {
-  padding: '40px 0 120px 0',
+  margin: '40px 0 120px 0',
   textAlign: 'center' as const,
 };
 
 const footerButton = {
   fontSize: '26px',
-  padding: '15px 30px',
   color: '#15c',
   background: '#222',
-  borderBottom: '2px solid #aba9a0',
   borderRadius: '4px',
   fontWeight: 'bold',
   cursor: 'pointer',
