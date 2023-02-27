@@ -1,19 +1,22 @@
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
-import { Hr } from '@react-email/hr';
-import { Column } from '@react-email/column';
-import { Link } from '@react-email/link';
+import {
+  Body,
+  Column,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Text,
+  Row,
+} from '@react-email/components';
 import * as React from 'react';
-import { Body } from '@react-email/body';
 
 interface EmailProps {
-  tips: string[];
+  tips: { id: number; description: string }[];
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -22,9 +25,21 @@ const baseUrl = process.env.VERCEL_URL
 
 const PropDefaults: EmailProps = {
   tips: [
-    'To find a specific phrase, enter it in quotes: "local storage"',
-    'To search within specific tag(s), enter them in square brackets: [javascript]',
-    'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
+    {
+      id: 1,
+      description:
+        'To find a specific phrase, enter it in quotes: "local storage"',
+    },
+    {
+      id: 1,
+      description:
+        'To search within specific tag(s), enter them in square brackets: [javascript]',
+    },
+    {
+      id: 1,
+      description:
+        'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
+    },
   ],
 };
 
@@ -41,22 +56,22 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
               src={`${baseUrl}/static/stack-overflow-logo.png`}
             />
           </Section>
-          <Section style={header}>
-            <Section style={headerContent}>
+          <Row style={header}>
+            <Column style={headerContent}>
               <Heading style={headerContentTitle}>
                 Find what you want, faster
               </Heading>
               <Text style={headerContentSubtitle}>
                 Tips and tricks for searching on Stack Overflow
               </Text>
-            </Section>
-            <Section style={headerImageContainer}>
+            </Column>
+            <Column style={headerImageContainer}>
               <Img
                 width={340}
                 src={`${baseUrl}/static/stack-overflow-header.png`}
               />
-            </Section>
-          </Section>
+            </Column>
+          </Row>
 
           <Section style={content}>
             <Heading as="h2" style={title}>
@@ -76,9 +91,9 @@ export default function Email({ tips = PropDefaults.tips }: EmailProps) {
               Here are a few simple search tips to get you started:
             </Text>
             <ul>
-              {tips.map((t) => (
-                <li>
-                  <Text style={paragraph}>{t}</Text>
+              {tips.map((tip) => (
+                <li key={tip.id}>
+                  <Text style={paragraph}>{tip.description}</Text>
                 </li>
               ))}
             </ul>

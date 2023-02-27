@@ -1,6 +1,5 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import {
-  CURRENT_PATH,
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
@@ -12,7 +11,7 @@ import shell from 'shelljs';
 export const createWatcherInstance = (watchDir: string) =>
   chokidar.watch(watchDir, {
     ignoreInitial: true,
-    cwd: CURRENT_PATH,
+    cwd: watchDir.split(path.sep).slice(0, -1).join(path.sep),
     ignored: /(^|[\/\\])\../,
   });
 

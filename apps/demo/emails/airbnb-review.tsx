@@ -1,17 +1,18 @@
-import { Button } from '@react-email/button';
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Hr } from '@react-email/hr';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Link } from '@react-email/link';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
-import { Row } from '@react-email/row';
-import { Body } from '@react-email/body';
 
 interface EmailProps {
   authorName: string;
