@@ -75,9 +75,11 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
                 '_',
               );
             } else {
-              domNode.attribs.style = `${twi(domNode.attribs.class)} ${
-                domNode.attribs.style || ''
-              }`;
+              const currentStyles = domNode.attribs.style
+                ? `${domNode.attribs.style};`
+                : '';
+              const tailwindStyles = twi(domNode.attribs.class);
+              domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
               delete domNode.attribs.class;
             }
           }
