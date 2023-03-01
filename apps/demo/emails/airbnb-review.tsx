@@ -14,24 +14,24 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  authorName: string;
-  authorImage: string;
-  reviewText: string;
+interface AirbnbReviewEmailProps {
+  authorName?: string;
+  authorImage?: string;
+  reviewText?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const AirbnbReviewEmail = ({
   authorName = 'Alex',
   authorImage = `${baseUrl}/static/airbnb-review-user.jpg`,
   reviewText = `“Zeno was a great guest! Easy communication, the apartment was left
-  in great condition, very polite, and respectful of all house rules.
-  He’s welcome back anytime and would easily recommend him to any
-  host!”`,
-}: EmailProps) {
+    in great condition, very polite, and respectful of all house rules.
+    He’s welcome back anytime and would easily recommend him to any
+    host!”`,
+}: AirbnbReviewEmailProps) => {
   const previewText = `Read ${authorName}'s review`;
 
   return (
@@ -118,7 +118,9 @@ export default function Email({
       </Body>
     </Html>
   );
-}
+};
+
+export default AirbnbReviewEmail;
 
 const main = {
   backgroundColor: '#ffffff',

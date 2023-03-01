@@ -16,23 +16,23 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  username: string;
-  userImage: string;
-  invitedByUsername: string;
-  invitedByEmail: string;
-  teamName: string;
-  teamImage: string;
-  inviteLink: string;
-  inviteFromIp: string;
-  inviteFromLocation: string;
+interface VercelInviteUserEmailProps {
+  username?: string;
+  userImage?: string;
+  invitedByUsername?: string;
+  invitedByEmail?: string;
+  teamName?: string;
+  teamImage?: string;
+  inviteLink?: string;
+  inviteFromIp?: string;
+  inviteFromLocation?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const VercelInviteUserEmail = ({
   username = 'zenorocha',
   userImage = `${baseUrl}/static/vercel-user.png`,
   invitedByUsername = 'bukinoshita',
@@ -42,7 +42,7 @@ export default function Email({
   inviteLink = 'https://vercel.com/teams/invite/foo',
   inviteFromIp = '204.13.186.218',
   inviteFromLocation = 'São Paulo, Brazil',
-}: EmailProps) {
+}: VercelInviteUserEmailProps) => {
   const previewText = `Join ${invitedByUsername} on Vercel`;
 
   return (
@@ -126,7 +126,9 @@ export default function Email({
       </Body>
     </Html>
   );
-}
+};
+
+export default VercelInviteUserEmail;
 
 const main = {
   backgroundColor: '#ffffff',

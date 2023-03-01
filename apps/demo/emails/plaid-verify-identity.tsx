@@ -11,48 +11,50 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  validationCode: string;
+interface PlaidVerifyIdentityEmailProps {
+  validationCode?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({ validationCode = '144833' }: EmailProps) {
-  return (
-    <Html>
-      <Head />
-      <Body style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/plaid-logo.png`}
-            width="212"
-            height="88"
-            alt="Plaid"
-            style={logo}
-          />
-          <Text style={tertiary}>Verify Your Identity</Text>
-          <Heading style={secondary}>
-            Enter the following code to finish linking Venmo.
-          </Heading>
-          <Section style={codeContainer}>
-            <Text style={code}>{validationCode}</Text>
-          </Section>
-          <Text style={paragraph}>Not expecting this email?</Text>
-          <Text style={paragraph}>
-            Contact{' '}
-            <Link href="mailto:login@plaid.com" style={link}>
-              login@plaid.com
-            </Link>{' '}
-            if you did not request this code.
-          </Text>
-        </Container>
-        <Text style={footer}>Securely powered by Plaid.</Text>
-      </Body>
-    </Html>
-  );
-}
+export const PlaidVerifyIdentityEmail = ({
+  validationCode = '144833',
+}: PlaidVerifyIdentityEmailProps) => (
+  <Html>
+    <Head />
+    <Body style={main}>
+      <Container style={container}>
+        <Img
+          src={`${baseUrl}/static/plaid-logo.png`}
+          width="212"
+          height="88"
+          alt="Plaid"
+          style={logo}
+        />
+        <Text style={tertiary}>Verify Your Identity</Text>
+        <Heading style={secondary}>
+          Enter the following code to finish linking Venmo.
+        </Heading>
+        <Section style={codeContainer}>
+          <Text style={code}>{validationCode}</Text>
+        </Section>
+        <Text style={paragraph}>Not expecting this email?</Text>
+        <Text style={paragraph}>
+          Contact{' '}
+          <Link href="mailto:login@plaid.com" style={link}>
+            login@plaid.com
+          </Link>{' '}
+          if you did not request this code.
+        </Text>
+      </Container>
+      <Text style={footer}>Securely powered by Plaid.</Text>
+    </Body>
+  </Html>
+);
+
+export default PlaidVerifyIdentityEmail;
 
 const main = {
   backgroundColor: '#ffffff',

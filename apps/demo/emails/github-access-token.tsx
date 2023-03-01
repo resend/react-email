@@ -12,59 +12,61 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  username: string;
+interface GithubAccessTokenEmailProps {
+  username?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({ username = 'zenorocha' }: EmailProps) {
-  return (
-    <Html>
-      <Head />
-      <Preview>
-        A fine-grained personal access token has been added to your account
-      </Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/github.png`}
-            width="32"
-            height="32"
-            alt="Github"
-          />
+export const GithubAccessTokenEmail = ({
+  username = 'zenorocha',
+}: GithubAccessTokenEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>
+      A fine-grained personal access token has been added to your account
+    </Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img
+          src={`${baseUrl}/static/github.png`}
+          width="32"
+          height="32"
+          alt="Github"
+        />
 
-          <Text style={title}>
-            <strong>@{username}</strong>, a personal access was created on your
-            account.
+        <Text style={title}>
+          <strong>@{username}</strong>, a personal access was created on your
+          account.
+        </Text>
+
+        <Section style={section}>
+          <Text style={text}>
+            Hey <strong>{username}</strong>!
+          </Text>
+          <Text style={text}>
+            A fine-grained personal access token (<Link>resend</Link>) was
+            recently added to your account.
           </Text>
 
-          <Section style={section}>
-            <Text style={text}>
-              Hey <strong>{username}</strong>!
-            </Text>
-            <Text style={text}>
-              A fine-grained personal access token (<Link>resend</Link>) was
-              recently added to your account.
-            </Text>
+          <Button style={button}>View your token</Button>
+        </Section>
+        <Text style={links}>
+          <Link style={link}>Your security audit log</Link> ・{' '}
+          <Link style={link}>Contact support</Link>
+        </Text>
 
-            <Button style={button}>View your token</Button>
-          </Section>
-          <Text style={links}>
-            <Link style={link}>Your security audit log</Link> ・{' '}
-            <Link style={link}>Contact support</Link>
-          </Text>
+        <Text style={footer}>
+          GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
+        </Text>
+      </Container>
+    </Body>
+  </Html>
+);
 
-          <Text style={footer}>
-            GitHub, Inc. ・88 Colin P Kelly Jr Street ・San Francisco, CA 94107
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  );
-}
+export default GithubAccessTokenEmail;
 
 const main = {
   backgroundColor: '#ffffff',
