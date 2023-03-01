@@ -6773,25 +6773,6 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-email@1.7.13:
-  version "1.7.13"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.7.13.tgz#2812fb49173e326bcb64bb0900e21fe1ebde8ade"
-  integrity sha512-jvne1O6hkHEqeh10gtHWFCNFSSF0mzioM2FJjXoUxkDOuO/KY24pX+b3S8eVGOGih44zWFUdrFEA4L4gM5ZDPA==
-  dependencies:
-    "@commander-js/extra-typings" "9.4.1"
-    "@react-email/render" "0.0.6"
-    chokidar "3.5.3"
-    commander "9.4.1"
-    detect-package-manager "2.0.1"
-    esbuild "0.16.4"
-    glob "8.0.3"
-    log-symbols "4.1.0"
-    normalize-path "3.0.0"
-    ora "5.4.1"
-    read-pkg "5.2.0"
-    shelljs "0.8.5"
-    tree-node-cli "1.6.0"
-
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
