@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
+    "@manypkg/find-root": "2.1.0",
     "@react-email/render": "0.0.6",
     "chokidar": "3.5.3",
     "commander": "9.4.1",

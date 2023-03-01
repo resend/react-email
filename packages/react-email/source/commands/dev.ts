@@ -20,6 +20,7 @@ import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
 import { detect as detectPackageManager } from 'detect-package-manager';
 import logSymbols from 'log-symbols';
+import { findRoot } from '@manypkg/find-root';
 import ora from 'ora';
 import readPackage from 'read-pkg';
 import shell from 'shelljs';
@@ -35,8 +36,11 @@ export const dev = async ({ dir, port }: Args) => {
   const watcherInstance = createWatcherInstance(emailDir);
   try {
     const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
+    const cwd = await findRoot(CURRENT_PATH).catch(() => ({
+      rootDir: CURRENT_PATH,
+    }));
     const packageManager: PackageManager = await detectPackageManager({
-      cwd: CURRENT_PATH,
+      cwd: cwd.rootDir,
     }).catch(() => 'npm');
 
     if (hasReactEmailDirectory) {
