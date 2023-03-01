@@ -181,10 +181,40 @@
   dependencies:
     react "18.2.0"
 
+"@react-email/components@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@react-email/components/-/components-0.0.2.tgz#5d4e789090e63ea7fd13903a05f5d4d19146cd63"
+  integrity sha512-lwG+yG/YaDQFkhmay55hiD2Z0K5t52TCkrZ8Sxbv+fCW2owhhVR1Ex9SKqj/DwSdjDrxD1LeZBgcOuNIFgpZbg==
+  dependencies:
+    "@react-email/body" "0.0.1"
+    "@react-email/button" "0.0.6"
+    "@react-email/column" "0.0.6"
+    "@react-email/container" "0.0.7"
+    "@react-email/font" "0.0.1"
+    "@react-email/head" "0.0.4"
+    "@react-email/heading" "0.0.7"
+    "@react-email/hr" "0.0.4"
+    "@react-email/html" "0.0.4"
+    "@react-email/img" "0.0.4"
+    "@react-email/link" "0.0.4"
+    "@react-email/preview" "0.0.5"
+    "@react-email/render" "0.0.6"
+    "@react-email/row" "0.0.4"
+    "@react-email/section" "0.0.8"
+    "@react-email/text" "0.0.4"
+    react "18.2.0"
+
 "@react-email/container@0.0.7":
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/@react-email/container/-/container-0.0.7.tgz#4790d21ab501c02b5cec63b28b74b6fc21cd07f2"
   integrity sha512-EOrXGnNUQ6mILDMSXCW2ljqqCOOOmcVQqX6QY2eRB+kQR8iDtJN7BMUP58EHkfMsJzt2nnHgoh415eeHZYIa3w==
+  dependencies:
+    react "18.2.0"
+
+"@react-email/font@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@react-email/font/-/font-0.0.1.tgz#0942b214b35b4ded40590890b058246762ed2827"
+  integrity sha512-n43gjIIBgQse1visYsyk8zADzk1QHVrqLc98rKoQLG3qJwLBGTHYLpMDti/4tCAt54d7Ln1VINipGsyQS8PaqA==
   dependencies:
     react "18.2.0"
 
@@ -247,10 +277,10 @@
     react "18.2.0"
     react-dom "18.2.0"
 
-"@react-email/row@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@react-email/row/-/row-0.0.3.tgz#9b8a783477a5ae36bb22364274ae2a4d5f3ee7eb"
-  integrity sha512-wNvHa7Ud8taiyhMD2u6cR+7hSbu2KubzoDRgj8ZiOSeX7E7qSkuZAZTyYMEtuIHZ0AudgTw5Xgv8Xj+woibJTg==
+"@react-email/row@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@react-email/row/-/row-0.0.4.tgz#d883a5721b07a8d92c0bd8a5c6129c5fc9ab3747"
+  integrity sha512-jo2gfcwx9vMdcSLA0acjX5mrVvLe2OJjXm2BOzrR+Pe7TsreOm5wT6pH8AYcdLDpuKx9uO09C04XHlxaZXMGvw==
 
 "@react-email/section@0.0.8":
   version "0.0.8"

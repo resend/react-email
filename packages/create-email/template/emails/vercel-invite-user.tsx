@@ -1,36 +1,38 @@
-import { Body } from '@react-email/body';
-import { Button } from '@react-email/button';
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Hr } from '@react-email/hr';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Link } from '@react-email/link';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Button,
+  Container,
+  Column,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
-import { Column } from '@react-email/column';
-import { Row } from '@react-email/row';
 
-interface EmailProps {
-  username: string;
-  userImage: string;
-  invitedByUsername: string;
-  invitedByEmail: string;
-  teamName: string;
-  teamImage: string;
-  inviteLink: string;
-  inviteFromIp: string;
-  inviteFromLocation: string;
+interface VercelInviteUserEmailProps {
+  username?: string;
+  userImage?: string;
+  invitedByUsername?: string;
+  invitedByEmail?: string;
+  teamName?: string;
+  teamImage?: string;
+  inviteLink?: string;
+  inviteFromIp?: string;
+  inviteFromLocation?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const VercelInviteUserEmail = ({
   username = 'zenorocha',
   userImage = `${baseUrl}/static/vercel-user.png`,
   invitedByUsername = 'bukinoshita',
@@ -40,7 +42,7 @@ export default function Email({
   inviteLink = 'https://vercel.com/teams/invite/foo',
   inviteFromIp = '204.13.186.218',
   inviteFromLocation = 'São Paulo, Brazil',
-}: EmailProps) {
+}: VercelInviteUserEmailProps) => {
   const previewText = `Join ${invitedByUsername} on Vercel`;
 
   return (
@@ -124,7 +126,9 @@ export default function Email({
       </Body>
     </Html>
   );
-}
+};
+
+export default VercelInviteUserEmail;
 
 const main = {
   backgroundColor: '#ffffff',

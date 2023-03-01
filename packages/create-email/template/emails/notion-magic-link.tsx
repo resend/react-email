@@ -1,91 +1,93 @@
-import { Body } from '@react-email/body';
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Link } from '@react-email/link';
-import { Preview } from '@react-email/preview';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  loginCode: string;
+interface NotionMagicLinkEmailProps {
+  loginCode?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const NotionMagicLinkEmail = ({
   loginCode = 'sparo-ndigo-amurt-secan',
-}: EmailProps) {
-  return (
-    <Html>
-      <Head />
-      <Preview>Log in with this magic link</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Heading style={h1}>Login</Heading>
+}: NotionMagicLinkEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>Log in with this magic link</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Heading style={h1}>Login</Heading>
+        <Link
+          href="https://notion.so"
+          target="_blank"
+          style={{
+            ...link,
+            display: 'block',
+            marginBottom: '16px',
+          }}
+        >
+          Click here to log in with this magic link
+        </Link>
+        <Text style={{ ...text, marginBottom: '14px' }}>
+          Or, copy and paste this temporary login code:
+        </Text>
+        <code style={code}>{loginCode}</code>
+        <Text
+          style={{
+            ...text,
+            color: '#ababab',
+            marginTop: '14px',
+            marginBottom: '16px',
+          }}
+        >
+          If you didn&apos;t try to login, you can safely ignore this email.
+        </Text>
+        <Text
+          style={{
+            ...text,
+            color: '#ababab',
+            marginTop: '12px',
+            marginBottom: '38px',
+          }}
+        >
+          Hint: You can set a permanent password in Settings & members → My
+          account.
+        </Text>
+        <Img
+          src={`${baseUrl}/static/notion-logo.png`}
+          width="32"
+          height="32"
+          alt="Notion's Logo"
+        />
+        <Text style={footer}>
           <Link
             href="https://notion.so"
             target="_blank"
-            style={{
-              ...link,
-              display: 'block',
-              marginBottom: '16px',
-            }}
+            style={{ ...link, color: '#898989' }}
           >
-            Click here to log in with this magic link
+            Notion.so
           </Link>
-          <Text style={{ ...text, marginBottom: '14px' }}>
-            Or, copy and paste this temporary login code:
-          </Text>
-          <code style={code}>{loginCode}</code>
-          <Text
-            style={{
-              ...text,
-              color: '#ababab',
-              marginTop: '14px',
-              marginBottom: '16px',
-            }}
-          >
-            If you didn&apos;t try to login, you can safely ignore this email.
-          </Text>
-          <Text
-            style={{
-              ...text,
-              color: '#ababab',
-              marginTop: '12px',
-              marginBottom: '38px',
-            }}
-          >
-            Hint: You can set a permanent password in Settings & members → My
-            account.
-          </Text>
-          <Img
-            src={`${baseUrl}/static/notion-logo.png`}
-            width="32"
-            height="32"
-            alt="Notion's Logo"
-          />
-          <Text style={footer}>
-            <Link
-              href="https://notion.so"
-              target="_blank"
-              style={{ ...link, color: '#898989' }}
-            >
-              Notion.so
-            </Link>
-            , the all-in-one-workspace
-            <br />
-            for your notes, tasks, wikis, and databases.
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  );
-}
+          , the all-in-one-workspace
+          <br />
+          for your notes, tasks, wikis, and databases.
+        </Text>
+      </Container>
+    </Body>
+  </Html>
+);
+
+export default NotionMagicLinkEmail;
 
 const main = {
   backgroundColor: '#ffffff',
