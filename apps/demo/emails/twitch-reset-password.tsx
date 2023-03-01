@@ -13,19 +13,19 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  username: string;
-  updatedDate: Date;
+interface TwitchResetPasswordEmailProps {
+  username?: string;
+  updatedDate?: Date;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const TwitchResetPasswordEmail = ({
   username = 'zenorocha',
   updatedDate = new Date('June 23, 2022 4:06:00 pm UTC'),
-}: EmailProps) {
+}: TwitchResetPasswordEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'medium',
     timeStyle: 'medium',
@@ -103,7 +103,9 @@ export default function Email({
       </Body>
     </Html>
   );
-}
+};
+
+export default TwitchResetPasswordEmail;
 
 const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
 

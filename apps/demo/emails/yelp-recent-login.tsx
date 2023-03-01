@@ -14,25 +14,25 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  userFirstName: string;
-  loginDate: Date;
-  loginDevice: string;
-  loginLocation: string;
-  loginIp: string;
+interface YelpRecentLoginEmailProps {
+  userFirstName?: string;
+  loginDate?: Date;
+  loginDevice?: string;
+  loginLocation?: string;
+  loginIp?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const YelpRecentLoginEmail = ({
   userFirstName = 'Zeno',
   loginDate = new Date('September 7, 2022, 10:58 am'),
   loginDevice = 'Chrome on Mac OS X',
   loginLocation = 'Upland, California, United States',
   loginIp = '47.149.53.167',
-}: EmailProps) {
+}: YelpRecentLoginEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'long',
     timeStyle: 'short',
@@ -130,7 +130,9 @@ export default function Email({
       </Body>
     </Html>
   );
-}
+};
+
+export default YelpRecentLoginEmail;
 
 const main = {
   backgroundColor: '#fff',
