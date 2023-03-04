@@ -7,7 +7,7 @@ import { copyTextToClipboard } from '../utils';
 import languageMap from '../utils/language-map';
 import { Tooltip } from './tooltip';
 import { Code } from './code';
-import { AnimateSharedLayout, motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 
 interface CodeContainerProps {
@@ -79,7 +79,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
     >
       <div className="h-9 border-b border-slate-6">
         <div className="flex">
-          <AnimateSharedLayout>
+          <LayoutGroup>
             {markups.map(({ language }) => {
               const isHovered = hovered === language;
               return (
@@ -105,7 +105,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                 </motion.button>
               );
             })}
-          </AnimateSharedLayout>
+          </LayoutGroup>
         </div>
         <Tooltip>
           <Tooltip.Trigger className="absolute top-2 right-2 hidden md:block">
