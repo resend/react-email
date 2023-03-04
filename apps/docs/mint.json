@@ -64,17 +64,18 @@
         "components/html",
         "components/head",
         "components/button",
-        "components/container",
         "components/column",
-        "components/section",
+        "components/container",
+        "components/font",
         "components/heading",
         "components/hr",
         "components/image",
         "components/link",
         "components/paragraph",
         "components/preview",
-        "components/text",
-        "components/tailwind"
+        "components/section",
+        "components/tailwind",
+        "components/text"
       ]
     },
     {
