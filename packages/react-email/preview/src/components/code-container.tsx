@@ -79,7 +79,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
     >
       <div className="h-9 border-b border-slate-6">
         <div className="flex">
-          <LayoutGroup>
+          <LayoutGroup id="code">
             {markups.map(({ language }) => {
               const isHovered = hovered === language;
               return (
@@ -94,7 +94,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                 >
                   {isHovered && (
                     <motion.span
-                      layoutId="nav"
+                      layoutId="code"
                       className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}

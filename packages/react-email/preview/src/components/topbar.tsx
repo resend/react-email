@@ -39,7 +39,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         </div>
 
         <div className={`${columnWidth}`}>
-          <LayoutGroup>
+          <LayoutGroup id="topbar">
             {setViewMode && (
               <ToggleGroup.Root
                 className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden"
@@ -66,7 +66,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                   >
                     {hovered === 'desktop' && (
                       <motion.span
-                        layoutId="nav"
+                        layoutId="topbar"
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

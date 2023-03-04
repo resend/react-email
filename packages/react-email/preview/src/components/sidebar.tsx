@@ -92,7 +92,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
                 <div className="py-2 flex flex-col truncate">
-                  <LayoutGroup>
+                  <LayoutGroup id="sidebar">
                     {navItems &&
                       navItems.map((item) => {
                         const isHovered = hovered === item;
