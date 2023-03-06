@@ -19,6 +19,10 @@ import { utils } from '../_preview/utils';
 import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
 import { detect as detectPackageManager } from 'detect-package-manager';
+import {
+  detect as detectPackageManager,
+  type PM,
+} from 'detect-package-manager';
 import logSymbols from 'log-symbols';
 import { findRoot } from '@manypkg/find-root';
 import ora from 'ora';
@@ -42,11 +46,13 @@ export const dev = async ({ dir, port, buildOnly }: Args) => {
       rootDir: CURRENT_PATH,
     }));
     const packageManager: PackageManager = await detectPackageManager({
+    const packageManager = await detectPackageManager({
       cwd: cwd.rootDir,
     }).catch(() => 'npm');
 
     if (hasReactEmailDirectory) {
       const isUpToDate = await checkPackageIsUpToDate();
+    }).catch(() => 'npm' as const);
 
       if (isUpToDate) {
         await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
@@ -276,6 +282,7 @@ const syncPkg = async () => {
 type PackageManager = 'yarn' | 'npm' | 'pnpm';
 
 const installDependencies = async (packageManager: PackageManager) => {
+const installDependencies = async (packageManager: PM) => {
   const spinner = ora('Installing dependencies...\n').start();
 
   shell.cd(path.join(REACT_EMAIL_ROOT));
