@@ -11,6 +11,7 @@ import {
   getPreviewPkg,
   watcher,
   PUBLIC_PATH,
+  convertToAbsolutePath,
 } from '../utils';
 import path from 'path';
 import fs from 'fs';
@@ -18,7 +19,6 @@ import { components } from '../_preview/components';
 import { utils } from '../_preview/utils';
 import { root } from '../_preview/root';
 import { pages } from '../_preview/pages';
-import { detect as detectPackageManager } from 'detect-package-manager';
 import {
   detect as detectPackageManager,
   type PM,
@@ -29,96 +29,61 @@ import ora from 'ora';
 import readPackage from 'read-pkg';
 import shell from 'shelljs';
 import { styles } from '../_preview/styles';
-import { type FSWatcher } from 'chokidar';
 
 interface Args {
   dir: string;
   port: string;
-  buildOnly: boolean;
 }
 
-export const dev = async ({ dir, port, buildOnly }: Args) => {
+export const dev = async ({ dir, port }: Args) => {
   const emailDir = convertToAbsolutePath(dir);
   const watcherInstance = createWatcherInstance(emailDir);
+
   try {
-    const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
     const cwd = await findRoot(CURRENT_PATH).catch(() => ({
       rootDir: CURRENT_PATH,
     }));
-    const packageManager: PackageManager = await detectPackageManager({
     const packageManager = await detectPackageManager({
       cwd: cwd.rootDir,
-    }).catch(() => 'npm');
-
-    if (hasReactEmailDirectory) {
-      const isUpToDate = await checkPackageIsUpToDate();
     }).catch(() => 'npm' as const);
 
-      if (isUpToDate) {
-        await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
-        await installDependencies(packageManager);
+    await initOrSync(packageManager, emailDir);
 
-        devOrBuild(packageManager, watcherInstance, {
-          dir: emailDir,
-          port,
-          buildOnly,
-        });
-        return;
-      }
-
-      await fs.promises.rm(REACT_EMAIL_ROOT, { recursive: true });
-    }
-
-    await createBasicStructure();
-    await createAppDirectories();
-    await createAppFiles();
-    await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
-    await installDependencies(packageManager);
-
-    devOrBuild(packageManager, watcherInstance, {
-      dir: emailDir,
-      port,
-      buildOnly,
-    });
+    startDevServer(packageManager, port);
+    watcher(watcherInstance, dir);
   } catch (error) {
     await watcherInstance.close();
     shell.exit(1);
   }
 };
 
-// Utility function to reduce WET between buildOnly mode
-const devOrBuild = (
-  packageManager: string,
-  watcherInstance: FSWatcher,
-  options: {
-    dir: string;
-    port: string;
-    buildOnly: boolean;
-  },
-) => {
-  if (options.buildOnly) {
-    buildWebApp(packageManager);
-    return;
-  }
-
-  startDevServer(packageManager, options.port);
-  watcher(watcherInstance, options.dir);
-};
-
 const startDevServer = (packageManager: string, port: string) => {
   shell.exec(`${packageManager} run dev -- -p ${port}`, { async: true });
 };
 
-const buildWebApp = (packageManager: string) => {
-  const process = shell.exec(`${packageManager} run build`, { async: true });
+// Function to create/sync basic preview structure (also used in preview.ts)
+export const initOrSync = async (packageManager: PM, emailDir: string) => {
+  const hasReactEmailDirectory = checkDirectoryExist(REACT_EMAIL_ROOT);
 
-  process.on('close', (code) => {
-    shell.exit(code ?? undefined);
-  });
+  if (hasReactEmailDirectory) {
+    const isUpToDate = await checkPackageIsUpToDate();
+
+    if (isUpToDate) {
+      await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
+      await installDependencies(packageManager);
+
+      return;
+    }
+
+    await fs.promises.rm(REACT_EMAIL_ROOT, { recursive: true });
+  }
+
+  await createBasicStructure();
+  await createAppDirectories();
+  await createAppFiles();
+  await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
+  await installDependencies(packageManager);
 };
-
-const convertToAbsolutePath = (dir: string): string =>
-  path.isAbsolute(dir) ? dir : path.join(process.cwd(), dir);
 
 const createBasicStructure = async () => {
   try {
@@ -279,9 +244,6 @@ const syncPkg = async () => {
   );
 };
 
-type PackageManager = 'yarn' | 'npm' | 'pnpm';
-
-const installDependencies = async (packageManager: PackageManager) => {
 const installDependencies = async (packageManager: PM) => {
   const spinner = ora('Installing dependencies...\n').start();
 
