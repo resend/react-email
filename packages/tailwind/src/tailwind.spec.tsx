@@ -300,5 +300,21 @@ describe('Tailwind component', () => {
         `"<html><head><style>.w_1{width:0.25rem}.w_1_5{width:0.375rem}@media(min-width:640px){.sm_w_1{width: 0.25rem}.sm_w_1_5{width:0.375rem !important}}</style></head><body><div class=\\"w_1_5\\"></div><div class=\\"w_1_5 sm_w_1_5\\"></div></body></html>"`,
       );
     });
+    it('should replace percent signs with underscore in both class name and selector', () => {
+      const actualOutput = render(
+        <Tailwind>
+          <html>
+            <head />
+            <body>
+              <div className="w-[50%]" />
+              <div className="w-[50%] sm:w-[50%]" />
+            </body>
+          </html>
+        </Tailwind>,
+      );
+      expect(actualOutput).toMatchInlineSnapshot(
+        `"<html><head><style>.w_50_{width:50%}@media(min-width:640px){.sm_w_50_{width: 50% !important}}</style></head><body><div class=\\"w_50_\\"></div><div class=\\"w_50_ sm_w_50_\\"></div></body></html>"`,
+      );
+    });
   });
 });
