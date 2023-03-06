@@ -107,7 +107,7 @@ const buildWebApp = (packageManager: string) => {
   const process = shell.exec(`${packageManager} run build`, { async: true });
 
   process.on('close', (code) => {
-    shell.exit(code ?? 0);
+    shell.exit(code ?? undefined);
   });
 };
 
