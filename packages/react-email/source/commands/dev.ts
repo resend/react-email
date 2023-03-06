@@ -25,13 +25,15 @@ import ora from 'ora';
 import readPackage from 'read-pkg';
 import shell from 'shelljs';
 import { styles } from '../_preview/styles';
+import { type FSWatcher } from 'chokidar';
 
 interface Args {
   dir: string;
   port: string;
+  buildOnly: boolean;
 }
 
-export const dev = async ({ dir, port }: Args) => {
+export const dev = async ({ dir, port, buildOnly }: Args) => {
   const emailDir = convertToAbsolutePath(dir);
   const watcherInstance = createWatcherInstance(emailDir);
   try {
@@ -49,8 +51,12 @@ export const dev = async ({ dir, port }: Args) => {
       if (isUpToDate) {
         await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
         await installDependencies(packageManager);
-        startDevServer(packageManager, port);
-        watcher(watcherInstance, emailDir);
+
+        devOrBuild(packageManager, watcherInstance, {
+          dir: emailDir,
+          port,
+          buildOnly,
+        });
         return;
       }
 
@@ -62,16 +68,47 @@ export const dev = async ({ dir, port }: Args) => {
     await createAppFiles();
     await Promise.all([generateEmailsPreview(emailDir), syncPkg()]);
     await installDependencies(packageManager);
-    startDevServer(packageManager, port);
-    watcher(watcherInstance, emailDir);
+
+    devOrBuild(packageManager, watcherInstance, {
+      dir: emailDir,
+      port,
+      buildOnly,
+    });
   } catch (error) {
     await watcherInstance.close();
     shell.exit(1);
   }
 };
 
+// Utility function to reduce WET between buildOnly mode
+const devOrBuild = (
+  packageManager: string,
+  watcherInstance: FSWatcher,
+  options: {
+    dir: string;
+    port: string;
+    buildOnly: boolean;
+  },
+) => {
+  if (options.buildOnly) {
+    buildWebApp(packageManager);
+    return;
+  }
+
+  startDevServer(packageManager, options.port);
+  watcher(watcherInstance, options.dir);
+};
+
 const startDevServer = (packageManager: string, port: string) => {
   shell.exec(`${packageManager} run dev -- -p ${port}`, { async: true });
+};
+
+const buildWebApp = (packageManager: string) => {
+  const process = shell.exec(`${packageManager} run build`, { async: true });
+
+  process.on('close', (code) => {
+    shell.exit(code ?? 0);
+  });
 };
 
 const convertToAbsolutePath = (dir: string): string =>

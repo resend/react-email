@@ -15,6 +15,11 @@ program
   .description('Starts the application in development mode')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
+  .option(
+    '--buildOnly',
+    'Builds the preview app (dev server will not run)',
+    false,
+  )
   .action((args) => dev(args));
 
 program
