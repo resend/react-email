@@ -5,10 +5,10 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import { render, Options } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
-import copy from 'cpy';
 import normalize from 'normalize-path';
 import { checkDirectoryExist } from '../utils';
 import path from 'path';
+import shell from 'shelljs';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -49,7 +49,12 @@ export const exportTemplates = async (
   const hasStaticDirectory = checkDirectoryExist(staticDir);
 
   if (hasStaticDirectory) {
-    await copy(staticDir, `${outDir}/static`);
+    const result = shell.cp('-r', staticDir, path.join(outDir, 'static'));
+    if (result.code > 0) {
+      throw new Error(
+        `Something went wrong while copying the file to ${outDir}/static, ${result.cat()}`,
+      );
+    }
   }
 
   const fileTree = tree(outDir, {

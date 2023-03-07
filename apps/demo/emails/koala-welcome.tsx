@@ -1,15 +1,18 @@
-import { Button } from '@react-email/button';
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Hr } from '@react-email/hr';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Preview,
+  Section,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
+interface KoalaWelcomeEmailProps {
   userFirstname: string;
 }
 
@@ -17,50 +20,51 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({ userFirstname = 'Zeno' }: EmailProps) {
-  return (
-    <Html>
-      <Head />
-      <Preview>
-        The sales intelligence platform that helps you uncover qualified leads.
-      </Preview>
-      <Section style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/koala-logo.png`}
-            width="170"
-            height="50"
-            alt="Koala"
-            style={logo}
-          />
-          <Text style={paragraph}>Hi {userFirstname},</Text>
-          <Text style={paragraph}>
-            Welcome to Koala, the sales intelligence platform that helps you
-            uncover qualified leads and close deals faster.
-          </Text>
-          <Section style={btnContainer}>
-            <Button pX={12} pY={12} style={button} href="https://getkoala.com">
-              Get started
-            </Button>
-          </Section>
-          <Text style={paragraph}>
-            Best,
-            <br />
-            The Koala team
-          </Text>
-          <Hr style={hr} />
-          <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
-        </Container>
-      </Section>
-    </Html>
-  );
-}
+export const KoalaWelcomeEmail = ({
+  userFirstname = 'Zeno',
+}: KoalaWelcomeEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>
+      The sales intelligence platform that helps you uncover qualified leads.
+    </Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img
+          src={`${baseUrl}/static/koala-logo.png`}
+          width="170"
+          height="50"
+          alt="Koala"
+          style={logo}
+        />
+        <Text style={paragraph}>Hi {userFirstname},</Text>
+        <Text style={paragraph}>
+          Welcome to Koala, the sales intelligence platform that helps you
+          uncover qualified leads and close deals faster.
+        </Text>
+        <Section style={btnContainer}>
+          <Button pX={12} pY={12} style={button} href="https://getkoala.com">
+            Get started
+          </Button>
+        </Section>
+        <Text style={paragraph}>
+          Best,
+          <br />
+          The Koala team
+        </Text>
+        <Hr style={hr} />
+        <Text style={footer}>408 Warren Rd - San Mateo, CA 94402</Text>
+      </Container>
+    </Body>
+  </Html>
+);
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+export default KoalaWelcomeEmail;
 
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
@@ -73,7 +77,6 @@ const logo = {
 };
 
 const paragraph = {
-  fontFamily,
   fontSize: '16px',
   lineHeight: '26px',
 };
@@ -83,7 +86,6 @@ const btnContainer = {
 };
 
 const button = {
-  fontFamily,
   backgroundColor: '#5F51E8',
   borderRadius: '3px',
   color: '#fff',
@@ -99,7 +101,6 @@ const hr = {
 };
 
 const footer = {
-  fontFamily,
   color: '#8898aa',
   fontSize: '12px',
 };

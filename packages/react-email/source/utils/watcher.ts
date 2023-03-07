@@ -1,18 +1,17 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import {
-  CURRENT_PATH,
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
 } from './constants';
 import fs from 'fs';
 import path from 'path';
-import copy from 'cpy';
+import shell from 'shelljs';
 
 export const createWatcherInstance = (watchDir: string) =>
   chokidar.watch(watchDir, {
     ignoreInitial: true,
-    cwd: CURRENT_PATH,
+    cwd: watchDir.split(path.sep).slice(0, -1).join(path.sep),
     ignored: /(^|[\/\\])\../,
   });
 
@@ -37,12 +36,28 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
 
     if (file[1] === 'static' && file[2]) {
       const srcPath = path.join(watchDir, 'static', file[2]);
-      await copy(srcPath, `${REACT_EMAIL_ROOT}/public/static`);
+      const result = shell.cp(
+        '-r',
+        srcPath,
+        path.join(REACT_EMAIL_ROOT, 'public', 'static'),
+      );
+      if (result.code > 0) {
+        throw new Error(
+          `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+        );
+      }
       return;
     }
-    await copy(
+
+    const result = shell.cp(
+      '-r',
       path.join(watchDir, ...file.slice(1)),
       path.join(PACKAGE_EMAILS_PATH, ...file.slice(1, -1)),
     );
+    if (result.code > 0) {
+      throw new Error(
+        `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+      );
+    }
   });
 };

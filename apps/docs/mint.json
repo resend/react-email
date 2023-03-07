@@ -64,15 +64,17 @@
         "components/html",
         "components/head",
         "components/button",
-        "components/container",
         "components/column",
-        "components/section",
+        "components/container",
+        "components/font",
         "components/heading",
         "components/hr",
         "components/image",
         "components/link",
         "components/paragraph",
         "components/preview",
+        "components/section",
+        "components/tailwind",
         "components/text"
       ]
     },
@@ -90,7 +92,8 @@
         "integrations/nodemailer",
         "integrations/sendgrid",
         "integrations/postmark",
-        "integrations/aws-ses"
+        "integrations/aws-ses",
+        "integrations/mailersend"
       ]
     }
   ],

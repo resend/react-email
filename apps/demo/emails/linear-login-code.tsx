@@ -1,61 +1,63 @@
-import { Button } from '@react-email/button';
-import { Container } from '@react-email/container';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Hr } from '@react-email/hr';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Link } from '@react-email/link';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  validationCode: string;
+interface LinearLoginCodeEmailProps {
+  validationCode?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({ validationCode = 'tt226-5398x' }: EmailProps) {
-  return (
-    <Html>
-      <Head />
-      <Preview>Your login code for Linear</Preview>
-      <Section style={main}>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/linear-logo.png`}
-            width="42"
-            height="42"
-            alt="Linear"
-            style={logo}
-          />
-          <Heading style={heading}>Your login code for Linear</Heading>
-          <Section style={buttonContainer}>
-            <Button pY={11} pX={23} style={button} href="https://linear.app">
-              Login to Linear
-            </Button>
-          </Section>
-          <Text style={paragraph}>
-            This link and code will only be valid for the next 5 minutes. If the
-            link does not work, you can use the login verification code
-            directly:
-          </Text>
-          <Section>
-            <code style={code}>{validationCode}</code>
-          </Section>
-          <Hr style={hr} />
-          <Link href="https://linear.app" style={reportLink}>
-            Linear
-          </Link>
-        </Container>
-      </Section>
-    </Html>
-  );
-}
+export const LinearLoginCodeEmail = ({
+  validationCode = 'tt226-5398x',
+}: LinearLoginCodeEmailProps) => (
+  <Html>
+    <Head />
+    <Preview>Your login code for Linear</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Img
+          src={`${baseUrl}/static/linear-logo.png`}
+          width="42"
+          height="42"
+          alt="Linear"
+          style={logo}
+        />
+        <Heading style={heading}>Your login code for Linear</Heading>
+        <Section style={buttonContainer}>
+          <Button pY={11} pX={23} style={button} href="https://linear.app">
+            Login to Linear
+          </Button>
+        </Section>
+        <Text style={paragraph}>
+          This link and code will only be valid for the next 5 minutes. If the
+          link does not work, you can use the login verification code directly:
+        </Text>
+        <code style={code}>{validationCode}</code>
+        <Hr style={hr} />
+        <Link href="https://linear.app" style={reportLink}>
+          Linear
+        </Link>
+      </Container>
+    </Body>
+  </Html>
+);
+
+export default LinearLoginCodeEmail;
 
 const logo = {
   borderRadius: 21,
@@ -63,11 +65,10 @@ const logo = {
   height: 42,
 };
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
-
 const main = {
   backgroundColor: '#ffffff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
@@ -77,7 +78,6 @@ const container = {
 };
 
 const heading = {
-  fontFamily,
   fontSize: '24px',
   letterSpacing: '-0.5px',
   lineHeight: '1.3',
@@ -87,7 +87,6 @@ const heading = {
 };
 
 const paragraph = {
-  fontFamily,
   margin: '0 0 15px',
   fontSize: '15px',
   lineHeight: '1.4',
@@ -99,7 +98,6 @@ const buttonContainer = {
 };
 
 const button = {
-  fontFamily,
   backgroundColor: '#5e6ad2',
   borderRadius: '3px',
   fontWeight: '600',
@@ -111,7 +109,6 @@ const button = {
 };
 
 const reportLink = {
-  fontFamily,
   fontSize: '14px',
   color: '#b4becc',
 };

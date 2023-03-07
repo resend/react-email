@@ -26,7 +26,7 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
             __html: `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
           }}
         />
-        <span style={buttonTextStyle({ ...style, pX, pY })}>{children}</span>
+        <span style={buttonTextStyle( pY )}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
             __html: `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
@@ -55,18 +55,13 @@ const buttonStyle = (
   };
 };
 
-const buttonTextStyle = (
-  style?: React.CSSProperties & { pY?: number; pX?: number },
-) => {
-  const paddingY = style?.pY || 0;
+const buttonTextStyle = ( pY?: number) => {
+  const paddingY = pY || 0;
 
   return {
-    ...style,
     maxWidth: '100%',
     display: 'inline-block',
     lineHeight: '120%',
-    textDecoration: 'none',
-    textTransform: 'none' as const,
     msoPaddingAlt: '0px',
     msoTextRaise: pxToPt(paddingY.toString()),
   };

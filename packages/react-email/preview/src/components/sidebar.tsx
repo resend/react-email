@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Heading } from './heading';
 import { useRouter } from 'next/router';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import { AnimateSharedLayout, motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
@@ -111,7 +111,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
                 <div className="py-2 flex flex-col truncate">
-                  <AnimateSharedLayout>
+                  <LayoutGroup id="sidebar">
                     {navItems &&
                       navItems.map((item) => {
                         const isHovered = hovered === item;
@@ -170,7 +170,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                           </Link>
                         );
                       })}
-                  </AnimateSharedLayout>
+                  </LayoutGroup>
                 </div>
               </Collapsible.Content>
             )}

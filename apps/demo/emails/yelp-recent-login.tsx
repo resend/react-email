@@ -1,33 +1,38 @@
-import { Container } from '@react-email/container';
-import { Button } from '@react-email/button';
-import { Head } from '@react-email/head';
-import { Heading } from '@react-email/heading';
-import { Html } from '@react-email/html';
-import { Img } from '@react-email/img';
-import { Preview } from '@react-email/preview';
-import { Section } from '@react-email/section';
-import { Text } from '@react-email/text';
+import {
+  Body,
+  Button,
+  Container,
+  Column,
+  Head,
+  Heading,
+  Html,
+  Img,
+  Preview,
+  Row,
+  Section,
+  Text,
+} from '@react-email/components';
 import * as React from 'react';
 
-interface EmailProps {
-  userFirstName: string;
-  loginDate: Date;
-  loginDevice: string;
-  loginLocation: string;
-  loginIp: string;
+interface YelpRecentLoginEmailProps {
+  userFirstName?: string;
+  loginDate?: Date;
+  loginDevice?: string;
+  loginLocation?: string;
+  loginIp?: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export default function Email({
+export const YelpRecentLoginEmail = ({
   userFirstName = 'Zeno',
   loginDate = new Date('September 7, 2022, 10:58 am'),
   loginDevice = 'Chrome on Mac OS X',
   loginLocation = 'Upland, California, United States',
   loginIp = '47.149.53.167',
-}: EmailProps) {
+}: YelpRecentLoginEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'long',
     timeStyle: 'short',
@@ -37,8 +42,8 @@ export default function Email({
     <Html>
       <Head />
       <Preview>Yelp recent login</Preview>
-      <Section style={main}>
-        <Container style={container}>
+      <Body style={main}>
+        <Container>
           <Section style={logo}>
             <Img src={`${baseUrl}/static/yelp-logo.png`} />
           </Section>
@@ -46,11 +51,10 @@ export default function Email({
           <Section style={content}>
             <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
 
-            <Section style={boxInfos}>
-              <Section>
+            <Row style={{ ...boxInfos, paddingBottom: '0' }}>
+              <Column>
                 <Heading
                   style={{
-                    ...paragraph,
                     fontSize: 32,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -61,7 +65,6 @@ export default function Email({
                 <Heading
                   as="h2"
                   style={{
-                    ...paragraph,
                     fontSize: 26,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -69,9 +72,7 @@ export default function Email({
                 >
                   We noticed a recent login to your Yelp account.
                 </Heading>
-              </Section>
 
-              <Section>
                 <Text style={paragraph}>
                   <b>Time: </b>
                   {formattedDate}
@@ -86,7 +87,6 @@ export default function Email({
                 </Text>
                 <Text
                   style={{
-                    ...paragraph,
                     color: 'rgb(0,0,0, 0.5)',
                     fontSize: 14,
                     marginTop: -5,
@@ -95,19 +95,21 @@ export default function Email({
                   *Approximate geographic location based on IP address:
                   {loginIp}
                 </Text>
-              </Section>
 
-              <Text style={paragraph}>
-                If this was you, there's nothing else you need to do.
-              </Text>
-              <Text style={{ ...paragraph, marginTop: -5 }}>
-                If this wasn't you or if you have additional questions, please
-                see our support page.
-              </Text>
-              <Section style={containerButton}>
+                <Text style={paragraph}>
+                  If this was you, there's nothing else you need to do.
+                </Text>
+                <Text style={{ ...paragraph, marginTop: -5 }}>
+                  If this wasn't you or if you have additional questions, please
+                  see our support page.
+                </Text>
+              </Column>
+            </Row>
+            <Row style={{ ...boxInfos, paddingTop: '0' }}>
+              <Column style={containerButton} colSpan={2}>
                 <Button style={button}>Learn More</Button>
-              </Section>
-            </Section>
+              </Column>
+            </Row>
           </Section>
 
           <Section style={containerImageFooter}>
@@ -116,7 +118,6 @@ export default function Email({
 
           <Text
             style={{
-              ...paragraph,
               textAlign: 'center',
               fontSize: 12,
               color: 'rgb(0,0,0, 0.7)',
@@ -126,26 +127,21 @@ export default function Email({
             U.S.A. | www.yelp.com
           </Text>
         </Container>
-      </Section>
+      </Body>
     </Html>
   );
-}
+};
 
-const fontFamily =
-  '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+export default YelpRecentLoginEmail;
 
 const main = {
   backgroundColor: '#fff',
+  fontFamily:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const paragraph = {
   fontSize: 16,
-  fontFamily,
-};
-
-const container = {
-  width: '620px',
-  margin: '0 auto',
 };
 
 const logo = {
@@ -165,7 +161,6 @@ const button = {
   color: '#FFF',
   fontWeight: 'bold',
   border: '1px solid rgb(0,0,0, 0.1)',
-  fontFamily,
   cursor: 'pointer',
 };
 

@@ -1,9 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`render renders the <Container> component 1`] = `
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div><!--[if mso | IE]>
-            <table role=\\"presentation\\" width=\\"100%\\" align=\\"center\\" style=\\"max-width:300px;\\"><tr><td></td><td style=\\"width:37.5em;background:#ffffff\\">
-          <![endif]--></div><div style=\\"max-width:300px\\"><button>Hi</button></div><div><!--[if mso | IE]>
-          </td><td></td></tr></table>
-          <![endif]--></div>"
-`;
+exports[`render renders the <Container> component 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><table align=\\"center\\" role=\\"presentation\\" cellSpacing=\\"0\\" cellPadding=\\"0\\" border=\\"0\\" width=\\"100%\\" style=\\"max-width:300px\\"><tr style=\\"width:100%\\"><td><button>Hi</button></td></tr></table>"`;

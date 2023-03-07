@@ -69,11 +69,13 @@ A set of standard components to help you build amazing emails without having to 
 - [Body](https://github.com/resendlabs/react-email/tree/main/packages/body)
 - [Column](https://github.com/resendlabs/react-email/tree/main/packages/column)
 - [Section](https://github.com/resendlabs/react-email/tree/main/packages/section)
+- [Font](https://github.com/resendlabs/react-email/tree/main/packages/font)
 
 ## Integrations
 
 Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
 
+- [Resend](https://github.com/resendlabs/react-email/tree/main/examples/resend)
 - [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
 - [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
 - [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
@@ -102,6 +104,10 @@ yarn dev
 ```
 
 This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).
+
+## Contributing
+
+- [Contribution Guide](https://react.email/docs/contributing)
 
 ## Authors
 
