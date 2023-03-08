@@ -15,13 +15,14 @@
       "dependsOn": ["^build"],
       "outputs": []
     },
-    "website#build": {
-      "dependsOn": [
-        "^build",
-        "$KLOTTY_API_KEY",
-        "$NEXT_PUBLIC_SUPABASE_ANON_KEY"
-      ],
-      "outputs": [".next/**"]
+    "web#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**"],
+      "env": [
+        "RESEND_API_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+      ]
     }
   }
 }
