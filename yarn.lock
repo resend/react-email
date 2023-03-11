@@ -8575,10 +8575,10 @@ turbo@1.6.3:
     turbo-windows-64 "1.6.3"
     turbo-windows-arm64 "1.6.3"
 
-tw-to-css@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/tw-to-css/-/tw-to-css-0.0.10.tgz#e14afd698d998a1a61ecc307ed2ca5ca1c313f58"
-  integrity sha512-Uxq/wers7ZAbl5xnISDcFSpfol6DtNxTw6ZUgM1GExgaMUH84RHDB8MMtF4UcFnXc+MByShhC0gAjWhZ6aVWjg==
+tw-to-css@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/tw-to-css/-/tw-to-css-0.0.11.tgz#5e7c5e461f946be2cd7994c884b5e3ae798bc5be"
+  integrity sha512-uIJuEBIwyHzZg9xyGyEgDWHIkbAwEC4bhEHQ4THPuN5SToR7Zlhes5ffMjqtrv+WdtTmudTHTdc9VwUldy0FxQ==
   dependencies:
     postcss "8.4.21"
     postcss-css-variables "0.18.0"

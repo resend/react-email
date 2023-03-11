@@ -37,7 +37,7 @@
     "html-react-parser": "3.0.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tw-to-css": "0.0.10"
+    "tw-to-css": "0.0.11"
   },
   "devDependencies": {
     "@testing-library/react": "14.0.0",
