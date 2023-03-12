@@ -13,9 +13,9 @@ interface ShellProps extends RootProps {
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
-  ({ title, navItems, children, markup, activeView, setActiveView }) => {
+  ({ title, navItems, children, markup, activeView, setActiveView }, forwardedRef) => {
     return (
-      <div className="flex justify-between h-screen">
+      <div ref={forwardedRef} className="flex justify-between h-screen">
         <Sidebar navItems={navItems} title={title} />
         <main className="w-[calc(100%_-_275px)] bg-slate-2">
           {title && (
