@@ -10,17 +10,16 @@ type RootProps = React.ComponentPropsWithoutRef<'header'>;
 
 interface TopbarProps extends RootProps {
   title: string;
-  viewMode?: string;
+  activeView?: string;
   markup?: string;
-  setViewMode?: (viewMode: string) => void;
+  setActiveView?: (view: string) => void;
 }
 
 export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
   (
-    { className, title, markup, viewMode, setViewMode, ...props },
+    { className, title, markup, activeView, setActiveView, ...props },
     forwardedRef,
   ) => {
-    const [hovered, setHovered] = React.useState('');
     const columnWidth = 'w-[200px]';
 
     return (
@@ -40,31 +39,28 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
 
         <div className={`${columnWidth}`}>
           <LayoutGroup id="topbar">
-            {setViewMode && (
+            {setActiveView && (
               <ToggleGroup.Root
                 className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden"
                 type="single"
-                value={viewMode}
+                value={activeView}
                 aria-label="View mode"
                 onValueChange={(value) => {
-                  if (!value) {
-                    return setViewMode('desktop');
-                  }
-                  setViewMode(value);
+                  if (!value) return;
+                  setActiveView(value);
                 }}
               >
                 <ToggleGroup.Item value="desktop">
                   <motion.div
                     className={classnames(
-                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        'text-slate-12': viewMode === 'desktop',
+                        'text-slate-11': activeView === 'source',
+                        'text-slate-12': activeView === 'desktop',
                       },
                     )}
-                    onHoverStart={() => setHovered('desktop')}
-                    onHoverEnd={() => setHovered('')}
                   >
-                    {hovered === 'desktop' && (
+                    {activeView === 'desktop' && (
                       <motion.span
                         layoutId="topbar"
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -79,15 +75,14 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="source">
                   <motion.div
                     className={classnames(
-                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        'text-slate-12': viewMode === 'source',
+                        'text-slate-11': activeView === 'desktop',
+                        'text-slate-12': activeView === 'source',
                       },
                     )}
-                    onHoverStart={() => setHovered('source')}
-                    onHoverEnd={() => setHovered('')}
                   >
-                    {hovered === 'source' && (
+                    {activeView === 'source' && (
                       <motion.span
                         layoutId="nav"
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"

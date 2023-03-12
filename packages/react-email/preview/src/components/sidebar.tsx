@@ -3,7 +3,6 @@ import * as React from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
 import { Heading } from './heading';
-import { useRouter } from 'next/router';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { LayoutGroup, motion } from 'framer-motion';
 
@@ -12,13 +11,11 @@ type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
   navItems: string[];
+  title?: string;
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, navItems, ...props }, forwardedRef) => {
-    const [hovered, setHovered] = React.useState('');
-    const { query } = useRouter();
-
+  ({ className, navItems, title, ...props }, forwardedRef) => {
     return (
       <aside
         ref={forwardedRef}
@@ -95,24 +92,22 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                   <LayoutGroup id="sidebar">
                     {navItems &&
                       navItems.map((item) => {
-                        const isHovered = hovered === item;
+                        const isCurrentPage = title === item;
                         return (
                           <Link key={item} href={`/preview/${item}`}>
                             <motion.span
                               className={classnames(
                                 'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative block transition ease-in-out duration-200',
                                 {
-                                  'bg-cyan-3 text-cyan-11': query.slug === item,
-                                  'hover:text-slate-12': query.slug !== item,
+                                  'text-cyan-11': isCurrentPage,
+                                  'hover:text-slate-12': title !== item,
                                 },
                               )}
-                              onHoverStart={() => setHovered(item)}
-                              onHoverEnd={() => setHovered('')}
                             >
-                              {isHovered && (
+                              {isCurrentPage && (
                                 <motion.span
                                   layoutId="sidebar"
-                                  className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-slate-5"
+                                  className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5"
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: 1 }}
                                   exit={{ opacity: 0 }}

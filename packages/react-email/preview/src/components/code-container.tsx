@@ -12,6 +12,8 @@ import * as React from 'react';
 
 interface CodeContainerProps {
   markups: MarkupProps[];
+  activeLang: string;
+  setActiveLang: (lang: string) => void;
 }
 
 interface MarkupProps {
@@ -21,17 +23,15 @@ interface MarkupProps {
 
 export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   markups,
+  activeLang,
+  setActiveLang,
 }) => {
-  const [hovered, setHovered] = React.useState('');
   const [isCopied, setIsCopied] = React.useState(false);
-  const [activeTab, setActiveTab] = React.useState(markups[0].language);
-  let file = null;
-  let url = null;
 
   const renderDownloadIcon = () => {
-    let value = markups.filter((markup) => markup.language === activeTab);
-    file = new File([value[0].content], `email.${value[0].language}`);
-    url = URL.createObjectURL(file);
+    let value = markups.filter((markup) => markup.language === activeLang);
+    const file = new File([value[0].content], `email.${value[0].language}`);
+    const url = URL.createObjectURL(file);
 
     return (
       <a
@@ -47,7 +47,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   const renderClipboardIcon = () => {
     const handleClipboard = async () => {
       const activeContent = markups.filter(({ language }) => {
-        return activeTab === language;
+        return activeLang === language;
       });
       setIsCopied(true);
       await copyTextToClipboard(activeContent[0].content);
@@ -63,7 +63,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
   React.useEffect(() => {
     setIsCopied(false);
-  }, [activeTab]);
+  }, [activeLang]);
 
   return (
     <pre
@@ -81,18 +81,16 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         <div className="flex">
           <LayoutGroup id="code">
             {markups.map(({ language }) => {
-              const isHovered = hovered === language;
+              const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 ${
-                    activeTab !== language ? 'text-slate-11' : 'text-slate-12'
+                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${
+                    activeLang !== language ? 'text-slate-11' : 'text-slate-12'
                   }`}
-                  onClick={() => setActiveTab(language)}
-                  onHoverStart={() => setHovered(language)}
-                  onHoverEnd={() => setHovered('')}
+                  onClick={() => setActiveLang(language)}
                   key={language}
                 >
-                  {isHovered && (
+                  {isCurrentLang && (
                     <motion.span
                       layoutId="code"
                       className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -123,7 +121,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
       {markups.map(({ language, content }) => {
         return (
           <div
-            className={`${activeTab !== language && 'hidden'}`}
+            className={`${activeLang !== language && 'hidden'}`}
             key={language}
           >
             <Code language={language}>{content}</Code>
