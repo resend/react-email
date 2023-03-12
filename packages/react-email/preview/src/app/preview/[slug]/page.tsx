@@ -1,10 +1,9 @@
+import { getEmails, CONTENT_DIR } from '../../../utils/get-emails';
 import { promises as fs } from 'fs';
 import { render } from '@react-email/render';
-import path from 'path';
 import Preview from './preview';
 
 export const dynamicParams = true;
-export const CONTENT_DIR = 'emails';
 
 export async function generateStaticParams() {
   const { emails } = await getEmails();
@@ -15,15 +14,6 @@ export async function generateStaticParams() {
 
   return paths;
 }
-
-const getEmails = async () => {
-  const emailsDirectory = path.join(process.cwd(), CONTENT_DIR);
-  const filenames = await fs.readdir(emailsDirectory);
-  const emails = filenames
-    .map((file) => file.replace(/\.(jsx|tsx)$/g, ''))
-    .filter((file) => file !== 'components');
-  return { emails, filenames };
-};
 
 export default async function Page({ params }) {
   const { emails, filenames } = await getEmails();
