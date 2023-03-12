@@ -1,6 +1,6 @@
 'use client';
 
-import { Layout } from '../../../components/layout';
+import { Shell } from '../../../components/shell';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { CodeContainer } from '../../../components/code-container';
 import React from 'react';
@@ -32,7 +32,7 @@ export default function Preview({
   };
 
   return (
-    <Layout
+    <Shell
       navItems={navItems}
       title={slug}
       markup={markup}
@@ -54,6 +54,6 @@ export default function Preview({
           </Tooltip.Provider>
         </div>
       )}
-    </Layout>
+    </Shell>
   );
 }

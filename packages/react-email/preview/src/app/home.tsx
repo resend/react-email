@@ -1,12 +1,12 @@
 'use client';
 
 import { Button, Heading, Text } from '../components';
-import { Layout } from '../components/layout';
+import { Shell } from '../components/shell';
 import Link from 'next/link';
 
 export default function Home({ navItems }) {
   return (
-    <Layout navItems={navItems}>
+    <Shell navItems={navItems}>
       <div className="max-w-md border border-slate-6 mx-auto mt-56 rounded-md p-8">
         <Heading as="h2" weight="medium">
           Welcome to the React Email preview!
@@ -20,6 +20,6 @@ export default function Home({ navItems }) {
           <Link href="https://react.email/docs">Check the docs</Link>
         </Button>
       </div>
-    </Layout>
+    </Shell>
   );
 }
