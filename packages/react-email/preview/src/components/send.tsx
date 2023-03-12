@@ -1,4 +1,4 @@
-import { inter } from '../pages/_app';
+import { inter } from '../app/layout';
 import { Button } from './button';
 import { Text } from './text';
 import * as Popover from '@radix-ui/react-popover';
