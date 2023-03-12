@@ -3,7 +3,6 @@ import * as React from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
 import { Heading } from './heading';
-import { useRouter } from 'next/router';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { LayoutGroup, motion } from 'framer-motion';
 
@@ -12,12 +11,12 @@ type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
   navItems: string[];
+  title?: string;
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, navItems, ...props }, forwardedRef) => {
+  ({ className, navItems, title, ...props }, forwardedRef) => {
     const [hovered, setHovered] = React.useState('');
-    const { query } = useRouter();
 
     return (
       <aside
@@ -102,8 +101,8 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                               className={classnames(
                                 'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative block transition ease-in-out duration-200',
                                 {
-                                  'bg-cyan-3 text-cyan-11': query.slug === item,
-                                  'hover:text-slate-12': query.slug !== item,
+                                  'bg-cyan-3 text-cyan-11': title === item,
+                                  'hover:text-slate-12': title !== item,
                                 },
                               )}
                               onHoverStart={() => setHovered(item)}
