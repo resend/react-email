@@ -22,7 +22,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-export const metadata = {
-  title: 'React Email',
-};
