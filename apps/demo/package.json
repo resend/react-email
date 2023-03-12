@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-email/components": "0.0.1",
+    "@react-email/tailwind": "^0.0.6",
     "react-email": "1.7.15"
   }
 }
