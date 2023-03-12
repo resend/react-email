@@ -20,7 +20,6 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
     { className, title, markup, viewMode, setViewMode, ...props },
     forwardedRef,
   ) => {
-    const [hovered, setHovered] = React.useState('');
     const columnWidth = 'w-[200px]';
 
     return (
@@ -47,24 +46,21 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 value={viewMode}
                 aria-label="View mode"
                 onValueChange={(value) => {
-                  if (!value) {
-                    return setViewMode('desktop');
-                  }
+                  if (!value) return;
                   setViewMode(value);
                 }}
               >
                 <ToggleGroup.Item value="desktop">
                   <motion.div
                     className={classnames(
-                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
+                        'text-slate-11': viewMode === 'source',
                         'text-slate-12': viewMode === 'desktop',
                       },
                     )}
-                    onHoverStart={() => setHovered('desktop')}
-                    onHoverEnd={() => setHovered('')}
                   >
-                    {hovered === 'desktop' && (
+                    {viewMode === 'desktop' && (
                       <motion.span
                         layoutId="topbar"
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -79,15 +75,14 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="source">
                   <motion.div
                     className={classnames(
-                      'text-sm text-slate-11 font-medium px-3 py-2 transition ease-in-out duration-200 relative',
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
+                        'text-slate-11': viewMode === 'desktop',
                         'text-slate-12': viewMode === 'source',
                       },
                     )}
-                    onHoverStart={() => setHovered('source')}
-                    onHoverEnd={() => setHovered('')}
                   >
-                    {hovered === 'source' && (
+                    {viewMode === 'source' && (
                       <motion.span
                         layoutId="nav"
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
