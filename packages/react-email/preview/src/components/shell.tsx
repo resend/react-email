@@ -8,12 +8,12 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 interface ShellProps extends RootProps {
   navItems: string[];
   markup?: string;
-  viewMode?: string;
-  setViewMode?: (viewMode: string) => void;
+  activeView?: string;
+  setActiveView?: (view: string) => void;
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
-  ({ title, navItems, children, markup, viewMode, setViewMode }) => {
+  ({ title, navItems, children, markup, activeView, setActiveView }) => {
     return (
       <div className="flex justify-between h-screen">
         <Sidebar navItems={navItems} title={title} />
@@ -21,8 +21,8 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
           {title && (
             <Topbar
               title={title}
-              viewMode={viewMode}
-              setViewMode={setViewMode}
+              activeView={activeView}
+              setActiveView={setActiveView}
               markup={markup}
             />
           )}

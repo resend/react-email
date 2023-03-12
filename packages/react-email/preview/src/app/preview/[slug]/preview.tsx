@@ -16,19 +16,30 @@ export default function Preview({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [viewMode, setViewMode] = React.useState('desktop');
+  const [activeView, setActiveView] = React.useState('desktop');
+  const [activeLang, setActiveLang] = React.useState('jsx');
 
   React.useEffect(() => {
     const view = searchParams.get('view');
+    const lang = searchParams.get('lang');
 
     if (view === 'source' || view === 'desktop') {
-      setViewMode(view);
+      setActiveView(view);
+    }
+
+    if (lang === 'jsx' || lang === 'markup' || lang === 'markdown') {
+      setActiveLang(lang);
     }
   }, [searchParams]);
 
-  const handleViewMode = (mode: string) => {
-    setViewMode(mode);
-    router.push(`${pathname}?view=${mode}`);
+  const handleViewChange = (view: string) => {
+    setActiveView(view);
+    router.push(`${pathname}?view=${view}`);
+  };
+
+  const handleLangChange = (lang: string) => {
+    setActiveLang(lang);
+    router.push(`${pathname}?view=source&lang=${lang}`);
   };
 
   return (
@@ -36,10 +47,10 @@ export default function Preview({
       navItems={navItems}
       title={slug}
       markup={markup}
-      viewMode={viewMode}
-      setViewMode={handleViewMode}
+      activeView={activeView}
+      setActiveView={handleViewChange}
     >
-      {viewMode === 'desktop' ? (
+      {activeView === 'desktop' ? (
         <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
       ) : (
         <div className="flex gap-6 mx-auto p-6 max-w-3xl">
@@ -50,6 +61,8 @@ export default function Preview({
                 { language: 'markup', content: markup },
                 { language: 'markdown', content: plainText },
               ]}
+              activeLang={activeLang}
+              setActiveLang={handleLangChange}
             />
           </Tooltip.Provider>
         </div>
