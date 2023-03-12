@@ -71,7 +71,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           if (domNode.attribs?.class) {
             if (hasResponsiveStyles) {
               domNode.attribs.class = domNode.attribs.class.replace(
-                /[:#\!\-[\]]+/g,
+                /[:#\!\-[\]\/\.%]+/g,
                 '_',
               );
             } else {
@@ -114,8 +114,8 @@ function getMediaQueryCSS(css: string) {
         },
       );
     })
-    .replace(/[.\!\#\w\d\\:\-\[\]]+\s*?{/g, (m) => {
-      return m.replace(/[:#\!\-[\\\]]+/g, '_');
+    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%]+\s*?{/g, (m) => {
+      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, '_');
     })
     .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
       return `font-family${value.replace(/['"]+/g, '')}`;
