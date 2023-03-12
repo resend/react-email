@@ -13,7 +13,7 @@ import * as React from 'react';
 interface CodeContainerProps {
   markups: MarkupProps[];
   activeLang: string;
-  setActiveLang?: (lang: string) => void;
+  setActiveLang: (lang: string) => void;
 }
 
 interface MarkupProps {
@@ -27,13 +27,11 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   setActiveLang,
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
-  let file = null;
-  let url = null;
 
   const renderDownloadIcon = () => {
     let value = markups.filter((markup) => markup.language === activeLang);
-    file = new File([value[0].content], `email.${value[0].language}`);
-    url = URL.createObjectURL(file);
+    const file = new File([value[0].content], `email.${value[0].language}`);
+    const url = URL.createObjectURL(file);
 
     return (
       <a
