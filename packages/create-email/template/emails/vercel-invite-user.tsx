@@ -97,13 +97,7 @@ export const VercelInviteUserEmail = ({
                 </Column>
               </Row>
             </Section>
-            <Section
-              style={{
-                textAlign: 'center',
-                marginTop: '26px',
-                marginBottom: '26px',
-              }}
-            >
+            <Section className="text-center mt-[32px] mb-[32px]">
               <Button
                 pX={20}
                 pY={12}
