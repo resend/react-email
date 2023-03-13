@@ -1,10 +1,10 @@
-import { Logo } from './logo';
-import * as React from 'react';
-import classnames from 'classnames';
-import Link from 'next/link';
-import { Heading } from './heading';
 import * as Collapsible from '@radix-ui/react-collapsible';
+import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
+import Link from 'next/link';
+import * as React from 'react';
+import { Heading } from './heading';
+import { Logo } from './logo';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;

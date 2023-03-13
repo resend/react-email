@@ -1,7 +1,7 @@
-import { Resend } from 'resend';
+import is from '@sindresorhus/is';
 import { createClient } from '@supabase/supabase-js';
 import { NextApiRequest, NextApiResponse } from 'next';
-import is from '@sindresorhus/is';
+import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';

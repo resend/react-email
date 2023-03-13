@@ -1,8 +1,8 @@
-import { Resend } from 'resend';
-import { createClient } from '@supabase/supabase-js';
-import { NextApiRequest, NextApiResponse } from 'next';
 import is from '@sindresorhus/is';
+import { createClient } from '@supabase/supabase-js';
 import { endOfToday, formatISO, startOfToday } from 'date-fns';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { Resend } from 'resend';
 
 const resend = new Resend('re_g4UAGCCP_PcWALk33riV1K9TGkJRob9W2');
 // const supabase = createClient(supabaseUrl, supabaseKey);

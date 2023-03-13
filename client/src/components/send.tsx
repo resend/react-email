@@ -1,8 +1,8 @@
+import * as Popover from '@radix-ui/react-popover';
+import * as React from 'react';
 import { inter } from '../app/layout';
 import { Button } from './button';
 import { Text } from './text';
-import * as Popover from '@radix-ui/react-popover';
-import * as React from 'react';
 
 export const Send = ({ markup }: { markup: string }) => {
   const [to, setTo] = React.useState('');

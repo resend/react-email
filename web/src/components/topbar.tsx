@@ -1,9 +1,9 @@
+import classnames from 'classnames';
+import Link from 'next/link';
+import * as React from 'react';
 import { Badge } from './badge';
 import { Logo } from './logo';
 import { Menu } from './menu';
-import * as React from 'react';
-import classnames from 'classnames';
-import Link from 'next/link';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;

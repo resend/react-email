@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
 import classnames from 'classnames';
+import Image from 'next/image';
+import React from 'react';
 import { Anchor } from './anchor';
 import { Text } from './text';
 

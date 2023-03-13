@@ -1,9 +1,9 @@
 'use client';
 
-import { Shell } from '../../../components/shell';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { CodeContainer } from '../../../components/code-container';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
+import { CodeContainer } from '../../../components/code-container';
+import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 
 export default function Preview({

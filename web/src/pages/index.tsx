@@ -1,3 +1,6 @@
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '../components/button';
 import { Code } from '../components/code';
 import { Footer } from '../components/footer';
@@ -5,9 +8,6 @@ import { Heading } from '../components/heading';
 import { IconArrowRight } from '../components/icons';
 import { Text } from '../components/text';
 import { Topbar } from '../components/topbar';
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Web() {
   const title = 'React Email';

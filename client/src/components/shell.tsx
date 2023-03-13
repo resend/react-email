@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Topbar } from './topbar';
 import { Sidebar } from './sidebar';
+import { Topbar } from './topbar';
 
 type ShellElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
@@ -13,7 +13,10 @@ interface ShellProps extends RootProps {
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
-  ({ title, navItems, children, markup, activeView, setActiveView }, forwardedRef) => {
+  (
+    { title, navItems, children, markup, activeView, setActiveView },
+    forwardedRef,
+  ) => {
     return (
       <div ref={forwardedRef} className="flex justify-between h-screen">
         <Sidebar navItems={navItems} title={title} />
