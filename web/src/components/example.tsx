@@ -1,8 +1,9 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import Image from 'next/image';
-import { Anchor, Text, Heading } from 'design-system';
 import Link from 'next/link';
+import { Heading } from './heading';
+import { Text } from './text';
 
 type ExampleElement = React.ElementRef<'a'>;
 

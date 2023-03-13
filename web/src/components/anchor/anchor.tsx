@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { unreachable } from '../utils';
+import { unreachable } from '../../utils';
 
 type AnchorElement = React.ElementRef<'a'>;
 type RootProps = React.ComponentPropsWithoutRef<'a'>;

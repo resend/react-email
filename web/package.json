@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@next/font": "13.0.4",
+    "@radix-ui/colors": "0.1.8",
+    "@radix-ui/react-slot": "1.0.1",
     "@sindresorhus/is": "^5.3.0",
     "@supabase/supabase-js": "^2.1.0",
     "@vercel/analytics": "0.1.5",
+    "classnames": "2.3.2",
     "date-fns": "^2.29.3",
     "design-system": "*",
     "next": "13.0.4",
@@ -31,7 +34,7 @@
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
     "postcss": "8.4.19",
-    "tailwind-config": "*",
+    "prettier": "2.8.4",
     "tailwindcss": "3.2.4",
     "tsconfig": "*",
     "typescript": "4.9.3"

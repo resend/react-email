@@ -1,6 +1,8 @@
-import { Anchor, Heading, Text } from 'design-system';
+import { Anchor } from '../../components/anchor';
 import { Example } from '../../components/example';
 import { Footer } from '../../components/footer';
+import { Heading } from '../../components/heading';
+import { Text } from '../../components/text';
 import { Topbar } from '../../components/topbar';
 import Head from 'next/head';
 import Image from 'next/image';
