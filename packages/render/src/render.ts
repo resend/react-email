@@ -1,6 +1,6 @@
-import * as ReactDomServer from 'react-dom/server';
-import { convert } from 'html-to-text';
-import pretty from 'pretty';
+import * as ReactDomServer from "react-dom/server";
+import { convert } from "html-to-text";
+import pretty from "pretty";
 
 export interface Options {
   pretty?: boolean;
@@ -25,12 +25,12 @@ export const render = (component: React.ReactElement, options?: Options) => {
 
 const renderAsPlainText = (
   component: React.ReactElement,
-  _options?: Options,
+  _options?: Options
 ) => {
   return convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: [
-      { selector: 'img', format: 'skip' },
-      { selector: '#__react-email-preview', format: 'skip' },
+      { selector: "img", format: "skip" },
+      { selector: "#__react-email-preview", format: "skip" },
     ],
   });
 };

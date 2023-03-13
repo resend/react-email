@@ -32,18 +32,18 @@ npm install @react-email/body -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Html } from '@react-email/html';
-import { Body } from '@react-email/body';
-import { Section } from '@react-email/section';
-import { Column } from '@react-email/section';
+import { Html } from "@react-email/html";
+import { Body } from "@react-email/body";
+import { Section } from "@react-email/section";
+import { Column } from "@react-email/section";
 
 const Email = () => {
   return (
     <Html lang="en">
-      <Body style={{ backgroundColor: '#61dafb' }}>
+      <Body style={{ backgroundColor: "#61dafb" }}>
         <Section>
-          <Column style={{ width: '50%' }}>{/* First column */}</Column>
-          <Column style={{ width: '50%' }}>{/* Second column */}</Column>
+          <Column style={{ width: "50%" }}>{/* First column */}</Column>
+          <Column style={{ width: "50%" }}>{/* Second column */}</Column>
         </Section>
       </Body>
     </Html>

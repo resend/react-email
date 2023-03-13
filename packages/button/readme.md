@@ -32,11 +32,11 @@ npm install @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/button';
+import { Button } from "@react-email/button";
 
 const Email = () => {
   return (
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
+    <Button href="https://example.com" style={{ color: "#61dafb" }}>
       Click me
     </Button>
   );

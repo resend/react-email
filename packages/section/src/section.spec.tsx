@@ -1,18 +1,18 @@
-import { Section } from './index';
-import { render } from '@react-email/render';
+import { Section } from "./index";
+import { render } from "@react-email/render";
 
-describe('render', () => {
+describe("render", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
   });
 
-  it('renders the <Section> component', () => {
+  it("renders the <Section> component", () => {
     const actualOutput = render(<Section>Lorem ipsum</Section>);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders the <Section> with <td> wrapper if no <Column> is provided', () => {
+  it("renders the <Section> with <td> wrapper if no <Column> is provided", () => {
     const actualOutput = render(
       <Section>
         <div>Lorem ipsum</div>
@@ -21,7 +21,7 @@ describe('render', () => {
     expect(actualOutput).toContain("<td>");
   });
 
-  it('renders the <Section> with <td> wrapper if <Column> is provided', () => {
+  it("renders the <Section> with <td> wrapper if <Column> is provided", () => {
     const actualOutput = render(
       <Section>
         <td>Lorem ipsum</td>
@@ -30,7 +30,7 @@ describe('render', () => {
     expect(actualOutput).toContain("<td>");
   });
 
-  it('renders the <Section> wrapping any child provided in a <td> tag', () => {
+  it("renders the <Section> wrapping any child provided in a <td> tag", () => {
     const actualOutput = render(
       <Section>
         <div>Lorem ipsum</div>

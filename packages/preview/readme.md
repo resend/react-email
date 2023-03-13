@@ -32,7 +32,7 @@ npm install @react-email/preview -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Preview } from '@react-email/preview';
+import { Preview } from "@react-email/preview";
 
 const Email = () => {
   return <Preview>Email preview text</Preview>;

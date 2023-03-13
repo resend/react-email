@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-type HeadElement = React.ElementRef<'head'>;
-type RootProps = React.ComponentPropsWithoutRef<'head'>;
+type HeadElement = React.ElementRef<"head">;
+type RootProps = React.ComponentPropsWithoutRef<"head">;
 
 export interface HeadProps extends RootProps {}
 
@@ -11,7 +11,7 @@ export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       {children}
     </head>
-  ),
+  )
 );
 
-Head.displayName = 'Head';
+Head.displayName = "Head";

@@ -32,7 +32,7 @@ npm install @react-email/hr -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Hr } from '@react-email/hr';
+import { Hr } from "@react-email/hr";
 
 const Email = () => {
   return <Hr />;

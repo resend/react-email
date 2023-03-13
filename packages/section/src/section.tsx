@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-type SectionElement = React.ElementRef<'table'>;
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+type SectionElement = React.ElementRef<"table">;
+type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export interface SectionProps extends RootProps {}
 
@@ -32,7 +32,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         </tbody>
       </table>
     );
-  },
+  }
 );
 
-Section.displayName = 'Section';
+Section.displayName = "Section";

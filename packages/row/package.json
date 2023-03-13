@@ -16,8 +16,8 @@
     "lint": "eslint",
     "clean": "rm -rf dist",
     "test": "jest",
-    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "repository": {
     "type": "git",
@@ -33,16 +33,14 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
-    "@react-email/render": "*",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "babel-jest": "28.1.3",
     "eslint": "8.23.1",
-    "eslint-config-custom": "*",
-    "react": "18.2.0",
     "jest": "28.1.3",
+    "prettier": "2.8.4",
+    "react": "18.2.0",
     "ts-jest": "28.0.8",
-    "tsconfig": "*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   },

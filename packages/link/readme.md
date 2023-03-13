@@ -32,7 +32,7 @@ npm install @react-email/link -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Link } from '@react-email/link';
+import { Link } from "@react-email/link";
 
 const Email = () => {
   return <Link href="https://example.com">Example</Link>;

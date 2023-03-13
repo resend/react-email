@@ -26,5 +26,8 @@
   },
   "bin": {
     "create-email": "src/index.js"
+  },
+  "devDependencies": {
+    "prettier": "2.8.4"
   }
 }

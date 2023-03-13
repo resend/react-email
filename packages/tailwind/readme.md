@@ -32,8 +32,8 @@ npm install @react-email/tailwind -E
 Add the component around your email body content.
 
 ```jsx
-import { Button } from '@react-email/button';
-import { Tailwind } from '@react-email/tailwind';
+import { Button } from "@react-email/button";
+import { Tailwind } from "@react-email/tailwind";
 
 const Email = () => {
   return (
@@ -42,7 +42,7 @@ const Email = () => {
         theme: {
           extend: {
             colors: {
-              'custom-color': '#ff0000',
+              "custom-color": "#ff0000",
             },
           },
         },

@@ -32,7 +32,7 @@ npm install @react-email/components -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Heading } from '@react-email/components';
+import { Heading } from "@react-email/components";
 
 const Email = () => {
   return <Heading as="h1">Lorem ipsum</Heading>;

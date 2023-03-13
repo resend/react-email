@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-type ContainerElement = React.ElementRef<'table'>;
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+type ContainerElement = React.ElementRef<"table">;
+type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export interface ContainerProps extends RootProps {}
 
@@ -19,13 +19,13 @@ export const Container = React.forwardRef<
       cellPadding="0"
       border={0}
       width="100%"
-      style={{ maxWidth: '37.5em', ...style }}
+      style={{ maxWidth: "37.5em", ...style }}
     >
-      <tr style={{ width: '100%' }}>
+      <tr style={{ width: "100%" }}>
         <td>{children}</td>
       </tr>
     </table>
   );
 });
 
-Container.displayName = 'Container';
+Container.displayName = "Container";
