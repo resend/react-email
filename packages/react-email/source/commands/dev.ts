@@ -16,6 +16,7 @@ export const dev = async ({ dir, port }: Args) => {
     }
 
     await downloadClient();
+
     await runServer(dir, port);
   } catch (error) {
     console.log(error);

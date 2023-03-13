@@ -12,14 +12,15 @@ import {
 } from '.';
 
 export const runServer = async (dir: string, port: string) => {
-  const emailDir = convertToAbsolutePath(dir);
-  const watcherInstance = createWatcherInstance(emailDir);
   const cwd = await findRoot(CURRENT_PATH).catch(() => ({
     rootDir: CURRENT_PATH,
   }));
+  const emailDir = convertToAbsolutePath(dir);
+  const watcherInstance = createWatcherInstance(emailDir);
   const packageManager: PackageManager = await detectPackageManager({
     cwd: cwd.rootDir,
   }).catch(() => 'npm');
+
   await generateEmailsPreview(emailDir);
   await syncPkg();
   await installDependencies(packageManager);

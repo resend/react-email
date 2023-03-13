@@ -1,5 +1,5 @@
 import logSymbols from 'log-symbols';
-import { PACKAGE_EMAILS_PATH, REACT_EMAIL_ROOT } from './constants';
+import { PACKAGE_EMAILS_PATH, PACKAGE_PUBLIC_PATH } from './constants';
 import fs from 'fs';
 import ora from 'ora';
 import shell from 'shelljs';
@@ -23,9 +23,9 @@ export const generateEmailsPreview = async (emailDir: string) => {
 };
 
 const createEmailPreviews = async (emailDir: string) => {
-  const hasPackageEmailsDirectory = fs.existsSync(PACKAGE_EMAILS_PATH);
+  const hasEmailsDirectory = fs.existsSync(PACKAGE_EMAILS_PATH);
 
-  if (hasPackageEmailsDirectory) {
+  if (hasEmailsDirectory) {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
@@ -39,40 +39,25 @@ const createEmailPreviews = async (emailDir: string) => {
 };
 
 const createStaticFiles = async (emailDir: string) => {
-  const reactEmailPublicFolder = path.join(REACT_EMAIL_ROOT, 'public');
-  fse.ensureDir(reactEmailPublicFolder);
-  const hasPackageStaticDirectory = fs.existsSync(reactEmailPublicFolder);
-  if (hasPackageStaticDirectory) {
-    await fs.promises.rm(reactEmailPublicFolder, {
-      recursive: true,
-    });
+  const hasPublicDirectory = fs.existsSync(PACKAGE_PUBLIC_PATH);
+
+  if (hasPublicDirectory) {
+    await fs.promises.rm(PACKAGE_PUBLIC_PATH, { recursive: true });
   }
 
-  // Make sure that the "static" folder does not exists in .react-email/emails
-  // since it should only exists in .react-email/public, but the "createEmailPreviews"-function will blindly copy the complete emails folder
-  const reactEmailEmailStaticFolder = path.join(
-    REACT_EMAIL_ROOT,
-    'emails',
-    'static',
-  );
-  const hasPackageStaticDirectoryInEmails = fs.existsSync(
-    reactEmailEmailStaticFolder,
-  );
-  if (hasPackageStaticDirectoryInEmails) {
-    await fs.promises.rm(reactEmailEmailStaticFolder, {
-      recursive: true,
-    });
-  }
+  await fse.ensureDir(path.join(PACKAGE_PUBLIC_PATH, 'static'));
 
-  const staticDir = path.join(emailDir, 'static');
-  const hasStaticDirectory = fs.existsSync(staticDir);
-
-  if (hasStaticDirectory) {
-    const result = shell.cp('-r', staticDir, reactEmailPublicFolder);
-    if (result.code > 0) {
-      throw new Error(
-        `Something went wrong while copying the file to ${reactEmailPublicFolder}, ${result.cat()}`,
-      );
-    }
+  const result = shell.cp(
+    '-r',
+    path.join(emailDir, 'static'),
+    path.join(PACKAGE_PUBLIC_PATH),
+  );
+  if (result.code > 0) {
+    throw new Error(
+      `Something went wrong while copying the file to ${path.join(
+        emailDir,
+        'static',
+      )}, ${result.cat()}`,
+    );
   }
 };
