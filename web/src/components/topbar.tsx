@@ -1,8 +1,9 @@
+import { Badge } from './badge';
+import { Logo } from './logo';
+import { Menu } from './menu';
 import * as React from 'react';
-import { Badge, Logo } from 'design-system';
 import classnames from 'classnames';
 import Link from 'next/link';
-import { Menu } from '../components/menu';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;

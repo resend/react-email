@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
-import { Anchor, Text } from 'design-system';
+import { Anchor } from './anchor';
+import { Text } from './text';
 
 type FooterElement = React.ElementRef<'footer'>;
 type RootProps = React.ComponentPropsWithoutRef<'footer'>;

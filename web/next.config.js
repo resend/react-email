@@ -1,8 +1,5 @@
 module.exports = {
   reactStrictMode: true,
-  experimental: {
-    transpilePackages: ['design-system'],
-  },
   async redirects() {
     return [
       {
@@ -10,19 +7,19 @@ module.exports = {
         destination: 'https://discord.com/invite/n2pWEjjNnD',
         permanent: true,
       },
-    ]
+    ];
   },
   async rewrites() {
     return [
       {
         source: '/docs',
-        destination: 'https://react-email.mintlify.com/docs'
+        destination: 'https://react-email.mintlify.com/docs',
       },
       {
         source: '/docs/:match*',
-        destination: 'https://react-email.mintlify.com/docs/:match*'
-      }
-    ]
+        destination: 'https://react-email.mintlify.com/docs/:match*',
+      },
+    ];
   },
   async headers() {
     return [

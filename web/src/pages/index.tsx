@@ -1,6 +1,9 @@
-import { Button, Heading, IconArrowRight, Text } from 'design-system';
+import { Button } from '../components/button';
 import { Code } from '../components/code';
 import { Footer } from '../components/footer';
+import { Heading } from '../components/heading';
+import { IconArrowRight } from '../components/icons';
+import { Text } from '../components/text';
 import { Topbar } from '../components/topbar';
 import Head from 'next/head';
 import Image from 'next/image';
