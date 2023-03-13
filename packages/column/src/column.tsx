@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-type ColumnElement = React.ElementRef<'td'>;
-type RootProps = React.ComponentPropsWithoutRef<'td'>;
+type ColumnElement = React.ElementRef<"td">;
+type RootProps = React.ComponentPropsWithoutRef<"td">;
 
 export interface ColumnProps extends RootProps {}
 
@@ -12,5 +12,5 @@ export const Column = React.forwardRef<ColumnElement, Readonly<ColumnProps>>(
         {children}
       </td>
     );
-  },
+  }
 );

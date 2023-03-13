@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 
-type RowElement = React.ElementRef<'table'>;
-type RootProps = React.ComponentPropsWithoutRef<'table'>;
+type RowElement = React.ElementRef<"table">;
+type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export interface RowProps extends RootProps {
   children: React.ReactNode;
@@ -21,12 +21,12 @@ export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
         cellPadding="0"
         border={0}
       >
-        <tbody style={{ width: '100%' }}>
-          <tr style={{ width: '100%' }}>{children}</tr>
+        <tbody style={{ width: "100%" }}>
+          <tr style={{ width: "100%" }}>{children}</tr>
         </tbody>
       </table>
     );
-  },
+  }
 );
 
-Row.displayName = 'Row';
+Row.displayName = "Row";

@@ -1,10 +1,10 @@
-import { Slot } from '@radix-ui/react-slot';
-import * as React from 'react';
-import { As, Margin, withMargin } from '../../utils';
+import { Slot } from "@radix-ui/react-slot";
+import * as React from "react";
+import { As, Margin, withMargin } from "../../utils";
 
 interface HeadingOwnProps {}
 
-type HeadingAs = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'>;
+type HeadingAs = As<"h1", "h2", "h3", "h4", "h5", "h6">;
 type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
 
 export const Heading = React.forwardRef<
@@ -12,8 +12,8 @@ export const Heading = React.forwardRef<
   Readonly<HeadingProps>
 >(
   (
-    { as: Tag = 'h1', children, style, m, mx, my, mt, mr, mb, ml, ...props },
-    forwardedRef,
+    { as: Tag = "h1", children, style, m, mx, my, mt, mr, mb, ml, ...props },
+    forwardedRef
   ) => {
     return (
       <Slot
@@ -24,7 +24,7 @@ export const Heading = React.forwardRef<
         <Tag>{children}</Tag>
       </Slot>
     );
-  },
+  }
 );
 
-Heading.displayName = 'Heading';
+Heading.displayName = "Heading";

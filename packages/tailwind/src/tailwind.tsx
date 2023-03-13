@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import htmlParser, { attributesToProps, Element } from 'html-react-parser';
-import { tailwindToCSS, TailwindConfig } from 'tw-to-css';
+import * as React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import htmlParser, { attributesToProps, Element } from "html-react-parser";
+import { tailwindToCSS, TailwindConfig } from "tw-to-css";
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -21,18 +21,18 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     twi(fullHTML, {
       merge: false,
       ignoreMediaQueries: false,
-    }),
+    })
   );
 
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyle,
+    headStyle
   );
   const hasHTML = /<html[^>]*>/gm.test(fullHTML);
   const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
   if (hasResponsiveStyles && !hasHTML && !hasHead) {
     throw new Error(
-      'Tailwind: To use responsive styles you must have a <html> and <head> element in your template.',
+      "Tailwind: To use responsive styles you must have a <html> and <head> element in your template."
     );
   }
 
@@ -44,12 +44,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     const parsedHTML = htmlParser(html, {
       replace: (domNode) => {
         if (domNode instanceof Element) {
-          if (hasResponsiveStyles && hasHead && domNode.name === 'head') {
+          if (hasResponsiveStyles && hasHead && domNode.name === "head") {
             let newDomNode: JSX.Element | null = null;
 
             if (domNode.children) {
               const style = domNode.children.find(
-                (child) => child instanceof Element && child.name === 'style',
+                (child) => child instanceof Element && child.name === "style"
               );
 
               const props = attributesToProps(domNode.attribs);
@@ -72,12 +72,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             if (hasResponsiveStyles) {
               domNode.attribs.class = domNode.attribs.class.replace(
                 /[:#\!\-[\]\/\.%]+/g,
-                '_',
+                "_"
               );
             } else {
               const currentStyles = domNode.attribs.style
                 ? `${domNode.attribs.style};`
-                : '';
+                : "";
               const tailwindStyles = twi(domNode.attribs.class);
               domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
               delete domNode.attribs.class;
@@ -93,7 +93,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   return <>{reactHTML}</>;
 };
 
-Tailwind.displayName = 'Tailwind';
+Tailwind.displayName = "Tailwind";
 
 function getMediaQueryCSS(css: string) {
   const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
@@ -107,18 +107,18 @@ function getMediaQueryCSS(css: string) {
             /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^;\r\n]+)/gm,
             (_, prop, value) => {
               return `${prop}: ${value} !important`;
-            },
+            }
           );
 
           return `${start}${newcontent}${end}`;
-        },
+        }
       );
     })
     .replace(/[.\!\#\w\d\\:\-\[\]\/\.%]+\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, '_');
+      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
     })
     .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      return `font-family${value.replace(/['"]+/g, '')}`;
+      return `font-family${value.replace(/['"]+/g, "")}`;
     });
 
   return newCss;

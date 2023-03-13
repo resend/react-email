@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { Container } from './index';
-import { render } from '@react-email/render';
+import * as React from "react";
+import { Container } from "./index";
+import { render } from "@react-email/render";
 
-describe('render', () => {
+describe("render", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
   });
 
-  it('renders the <Container> component', () => {
+  it("renders the <Container> component", () => {
     const container = render(
-      <Container style={{ maxWidth: '300px' }}>
+      <Container style={{ maxWidth: "300px" }}>
         <button>Hi</button>
-      </Container>,
+      </Container>
     );
 
     expect(container).toMatchSnapshot();

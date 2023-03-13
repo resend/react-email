@@ -32,7 +32,7 @@ npm install @react-email/text -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Text } from '@react-email/text';
+import { Text } from "@react-email/text";
 
 const Email = () => {
   return <Text>Lorem ipsum</Text>;

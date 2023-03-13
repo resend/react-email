@@ -32,9 +32,9 @@ npm install @react-email/font -E
 Add the component to your email template.
 
 ```jsx
-import { Html } from '@react-email/html';
-import { Head } from '@react-email/head';
-import { Font } from '@react-email/font';
+import { Html } from "@react-email/html";
+import { Head } from "@react-email/head";
+import { Font } from "@react-email/font";
 
 const Email = () => {
   return (
@@ -44,8 +44,8 @@ const Email = () => {
           fontFamily="Roboto"
           fallbackFontFamily="Verdana"
           webFont={{
-            url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
-            format: 'woff2',
+            url: "https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2",
+            format: "woff2",
           }}
         />
       </Head>

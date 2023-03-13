@@ -17,8 +17,8 @@
     "clean": "rm -rf dist",
     "test": "jest",
     "test:watch": "jest --watch",
-    "format:check": "prettier --ignore-path ./../../.prettierignore  --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --ignore-path ./../../.prettierignore  --write \"**/*.{ts,tsx,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "repository": {
     "type": "git",
@@ -44,9 +44,8 @@
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "eslint": "8.23.1",
-    "eslint-config-custom": "*",
+    "prettier": "2.8.4",
     "react": "18.2.0",
-    "tsconfig": "*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   },
