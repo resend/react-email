@@ -21,9 +21,11 @@ export const Container = React.forwardRef<
       width="100%"
       style={{ maxWidth: "37.5em", ...style }}
     >
-      <tr style={{ width: "100%" }}>
-        <td>{children}</td>
-      </tr>
+      <tbody>
+        <tr style={{ width: "100%" }}>
+          <td>{children}</td>
+        </tr>
+      </tbody>
     </table>
   );
 });
