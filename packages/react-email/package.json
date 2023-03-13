@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "1.7.15",
+  "version": "1.8.0-canary.1",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/source/index.js"
@@ -31,11 +31,13 @@
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
     "@manypkg/find-root": "2.1.0",
+    "@octokit/rest": "19.0.7",
     "@react-email/render": "0.0.6",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "detect-package-manager": "2.0.1",
     "esbuild": "0.16.4",
+    "fs-extra": "11.1.0",
     "glob": "8.0.3",
     "log-symbols": "4.1.0",
     "normalize-path": "3.0.0",
@@ -45,6 +47,7 @@
     "tree-node-cli": "1.6.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "11.0.1",
     "@types/node": "18.11.9",
     "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.11",
