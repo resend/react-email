@@ -6,9 +6,9 @@ import logSymbols from 'log-symbols';
 import { render, Options } from '@react-email/render';
 import { unlinkSync, writeFileSync } from 'fs';
 import normalize from 'normalize-path';
-import { checkDirectoryExist } from '../utils';
 import path from 'path';
 import shell from 'shelljs';
+import fs from 'fs';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -46,7 +46,7 @@ export const exportTemplates = async (
   }
 
   const staticDir = path.join(srcDir, 'static');
-  const hasStaticDirectory = checkDirectoryExist(staticDir);
+  const hasStaticDirectory = fs.existsSync(staticDir);
 
   if (hasStaticDirectory) {
     const result = shell.cp('-r', staticDir, path.join(outDir, 'static'));
