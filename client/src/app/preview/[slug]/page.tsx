@@ -1,6 +1,6 @@
-import { getEmails, CONTENT_DIR } from '../../../utils/get-emails';
-import { promises as fs } from 'fs';
 import { render } from '@react-email/render';
+import { promises as fs } from 'fs';
+import { CONTENT_DIR, getEmails } from '../../../utils/get-emails';
 import Preview from './preview';
 
 export const dynamicParams = true;

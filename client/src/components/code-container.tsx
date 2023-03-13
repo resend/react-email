@@ -1,14 +1,14 @@
+import { LayoutGroup, motion } from 'framer-motion';
 import { Language } from 'prism-react-renderer';
-import { IconButton } from './icon-button';
-import { IconClipboard } from './icon-clipboard';
-import { IconDownload } from './icon-download';
-import { IconCheck } from './icon-check';
+import * as React from 'react';
 import { copyTextToClipboard } from '../utils';
 import languageMap from '../utils/language-map';
-import { Tooltip } from './tooltip';
 import { Code } from './code';
-import { LayoutGroup, motion } from 'framer-motion';
-import * as React from 'react';
+import { IconButton } from './icon-button';
+import { IconCheck } from './icon-check';
+import { IconClipboard } from './icon-clipboard';
+import { IconDownload } from './icon-download';
+import { Tooltip } from './tooltip';
 
 interface CodeContainerProps {
   markups: MarkupProps[];

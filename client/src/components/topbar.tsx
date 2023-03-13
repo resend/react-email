@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import classnames from 'classnames';
+import { LayoutGroup, motion } from 'framer-motion';
+import * as React from 'react';
 import { Heading } from './heading';
 import { Send } from './send';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { LayoutGroup, motion } from 'framer-motion';
 
 type TopbarElement = React.ElementRef<'header'>;
 type RootProps = React.ComponentPropsWithoutRef<'header'>;

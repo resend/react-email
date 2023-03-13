@@ -1,7 +1,7 @@
-import * as React from 'react';
 import classnames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as React from 'react';
 import { Heading } from './heading';
 import { Text } from './text';
 

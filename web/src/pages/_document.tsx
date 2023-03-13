@@ -1,8 +1,8 @@
 import Document, {
   DocumentContext,
   DocumentInitialProps,
-  Html,
   Head,
+  Html,
   Main,
   NextScript,
 } from 'next/document';

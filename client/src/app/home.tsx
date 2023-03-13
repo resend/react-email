@@ -1,8 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
-import Link from 'next/link';
 
 export default function Home({ navItems }) {
   return (
