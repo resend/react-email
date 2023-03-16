@@ -36,7 +36,7 @@ export const exportTemplates = async (
 
   for (const template of allBuiltTemplates) {
     const component = await import(template);
-    const rendered = render(component.default(), options);
+    const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
       '.js',
       options.plainText ? '.txt' : '.html',
