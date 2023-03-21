@@ -49,7 +49,7 @@ const createStaticFiles = async (emailDir: string) => {
 
   const result = shell.cp(
     '-r',
-    path.join(emailDir, 'static'),
+    path.join('static'),
     path.join(PACKAGE_PUBLIC_PATH),
   );
   if (result.code > 0) {
