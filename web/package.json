@@ -11,7 +11,6 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
-    "@next/font": "13.0.4",
     "@radix-ui/colors": "0.1.8",
     "@radix-ui/react-slot": "1.0.1",
     "@sindresorhus/is": "5.3.0",
