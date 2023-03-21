@@ -8,14 +8,15 @@ export interface HrProps extends RootProps {}
 export const Hr = React.forwardRef<HrElement, Readonly<HrProps>>(
   ({ style, ...props }, forwardedRef) => (
     <hr
+    {...props}
       ref={forwardedRef}
+      data-id="react-email-hr"
       style={{
         width: "100%",
         border: "none",
         borderTop: "1px solid #eaeaea",
         ...style,
       }}
-      {...props}
     />
   )
 );

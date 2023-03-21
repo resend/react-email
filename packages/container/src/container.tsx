@@ -11,14 +11,15 @@ export const Container = React.forwardRef<
 >(({ children, style, ...props }, forwardedRef) => {
   return (
     <table
+      align="center"
+      width="100%"
       {...props}
       ref={forwardedRef}
-      align="center"
+      data-id="__react-email-container"
       role="presentation"
       cellSpacing="0"
       cellPadding="0"
       border={0}
-      width="100%"
       style={{ maxWidth: "37.5em", ...style }}
     >
       <tbody>

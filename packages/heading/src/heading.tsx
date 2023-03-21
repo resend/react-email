@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
-import { As, Margin, withMargin } from "../../utils";
+import { As, Margin, withMargin } from "./utils";
 
 interface HeadingOwnProps {}
 
@@ -17,9 +17,10 @@ export const Heading = React.forwardRef<
   ) => {
     return (
       <Slot
-        ref={forwardedRef}
-        style={{ ...withMargin({ m, mx, my, mt, mr, mb, ml }), ...style }}
         {...props}
+        ref={forwardedRef}
+        data-id="react-email-heading"
+        style={{ ...withMargin({ m, mx, my, mt, mr, mb, ml }), ...style }}
       >
         <Tag>{children}</Tag>
       </Slot>

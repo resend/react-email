@@ -1,6 +1,6 @@
 {
   "name": "@react-email/body",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A React body component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",

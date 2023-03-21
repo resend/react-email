@@ -1,5 +1,5 @@
 import * as React from "react";
-import { pxToPt } from "../../utils";
+import { pxToPt } from "./utils";
 
 type ButtonElement = React.ElementRef<"a">;
 type RootProps = React.ComponentPropsWithoutRef<"a">;
@@ -18,6 +18,7 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
       <a
         {...props}
         ref={forwardedRef}
+        data-id="react-email-button"
         target={target}
         style={buttonStyle({ ...style, pX, pY })}
       >
