@@ -1,9 +1,12 @@
 ## Contributing
 Wanna help? Awesome! There are many ways you can contribute.
+
 ## Improving the docs
 Documentation is extremely important and takes a fair deal of time and effort to write and keep updated. Everything is written in Markdown to facilitate the process of contributing.
+
 ## Building new components
 We’re open to expanding the catalog of components to cover as many use cases as possible. We suggest to open an issue for discussion first to make sure your idea is aligned with the project goals.
+
 ## Opening issues
 Open an issue to report bugs or to propose new features.
 
