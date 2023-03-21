@@ -8,8 +8,6 @@
   "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
-    "preprepare": "ts-node ./scripts/prepare-preview",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
     "lint": "eslint",
