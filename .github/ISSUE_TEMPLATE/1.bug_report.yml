@@ -1,0 +1,69 @@
+name: Bug Report
+description: Create a bug report for React Email
+labels: ["Type: Bug"]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Which package is affected (leave empty if unsure)
+      multiple: true
+      options:
+        - "@react-email/body"
+        - "@react-email/button"
+        - "@react-email/column"
+        - "@react-email/components"
+        - "@react-email/container"
+        - "@react-email/font"
+        - "@react-email/head"
+        - "@react-email/heading"
+        - "@react-email/hr"
+        - "@react-email/html"
+        - "@react-email/img"
+        - "@react-email/link"
+        - "@react-email/preview"
+        - "@react-email/render"
+        - "@react-email/row"
+        - "@react-email/section"
+        - "@react-email/tailwind"
+        - "@react-email/text"
+        - "client"
+        - "create-email"
+        - "demo"
+        - "docs"
+        - "examples"
+        - "react-email"
+        - "web"
+  - type: input
+    attributes:
+      label: Link to the code that reproduces this issue
+      description: |
+        A link to a GitHub repository minimal reproduction. A minimal reproduction code is really helpful to understand the issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior, please provide a clear description of how to reproduce the issue, based on the linked minimal reproduction. Screenshots can be provided in the issue body below. If using code blocks, make sure that [syntax highlighting is correct](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks#syntax-highlighting) and double check that the rendered preview is not broken.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: Before posting the issue go through the steps you've written down to make sure the steps provided are detailed and clear.
+  - type: markdown
+    attributes:
+      value: Contributors should be able to follow the steps provided in order to reproduce the bug.
+  - type: input
+    attributes:
+      label: What's your node version? (if relevant)
+      description: "Please specify the exact version."
