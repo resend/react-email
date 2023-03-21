@@ -1,11 +1,11 @@
 import shell from 'shelljs';
 
 export const startDevServer = (packageManager: string, port: string) => {
-  shell.exec(`${packageManager} run dev -p ${port}`, { async: true });
+  shell.exec(`${packageManager} run dev -- -p ${port}`, { async: true });
 };
 
 export const startProdServer = (packageManager: string, port: string) => {
-  shell.exec(`${packageManager} run start -p ${port}`, { async: true });
+  shell.exec(`${packageManager} run start -- -p ${port}`, { async: true });
 };
 
 export const buildProdServer = (packageManager: string) => {
