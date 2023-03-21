@@ -8,7 +8,9 @@ export interface ImgProps extends RootProps {}
 export const Img = React.forwardRef<ImgElement, Readonly<ImgProps>>(
   ({ alt, src, width, height, style, ...props }, forwardedRef) => (
     <img
+      {...props}
       ref={forwardedRef}
+      data-id="react-email-img"
       alt={alt}
       src={src}
       width={width}
@@ -20,7 +22,6 @@ export const Img = React.forwardRef<ImgElement, Readonly<ImgProps>>(
         textDecoration: "none",
         ...style,
       }}
-      {...props}
     />
   )
 );

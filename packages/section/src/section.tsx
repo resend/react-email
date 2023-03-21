@@ -5,25 +5,20 @@ type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export interface SectionProps extends RootProps {}
 
-type ReactEmailChild = {
-  type?: {
-    displayName?: string;
-  };
-} & React.ReactNode;
-
 export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
     return (
       <table
+        align="center"
+        width="100%"
         {...props}
         ref={forwardedRef}
+        data-id="react-email-section"
         style={style}
-        align="center"
         border={0}
         cellPadding="0"
         cellSpacing="0"
         role="presentation"
-        width="100%"
       >
         <tbody>
           <tr>
