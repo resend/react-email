@@ -1,7 +1,8 @@
 node_modules
 dist
-preview/.next
-preview/yarn.lock
+.next
 
 # for testing
 .react-email
+emails
+static
