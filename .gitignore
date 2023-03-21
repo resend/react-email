@@ -19,6 +19,7 @@ dist
 .DS_Store
 *.pem
 .changeset
+.react-email
 
 # debug
 npm-debug.log*

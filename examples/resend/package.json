@@ -4,34 +4,21 @@
   "license": "MIT",
   "private": true,
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.tsx --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
-    "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
-    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
   },
   "dependencies": {
-    "@react-email/button": "*",
-    "@react-email/html": "*",
-    "@react-email/render": "*",
-    "resend": "0.10.0",
-    "react": "18.2.0"
+    "next": "13.2.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "resend": "0.11.1"
   },
   "devDependencies": {
-    "eslint": "8.23.1",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "tsup": "6.2.3",
-    "typescript": "4.8.3"
+    "@types/node": "18.14.6",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "typescript": "4.9.5"
   }
 }
