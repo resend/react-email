@@ -28,10 +28,17 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
   )
 );
 
+const PREVIEW_MAX_LENGTH = 150;
+
 const renderWhiteSpace = (children: string | string[]) => {
   const text = Array.isArray(children) ? children.join("") : children;
+
+  if (text.length > PREVIEW_MAX_LENGTH) {
+    return null;
+  }
+
   const whiteSpaceCodes = "\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF";
-  return <div>{whiteSpaceCodes.repeat(150 - text.length)}</div>;
+  return <div>{whiteSpaceCodes.repeat(PREVIEW_MAX_LENGTH - text.length)}</div>;
 };
 
 Preview.displayName = "Preview";
