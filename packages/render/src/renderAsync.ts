@@ -10,7 +10,7 @@ export default async function renderToString(children: ReactNode) {
   const html = await readableStreamToString(
     // ReactDOMServerReadableStream behaves like ReadableStream
     // in modern edge runtimes but the types are not compatible
-    stream as unknown as ReadableStream
+    stream as unknown as ReadableStream<Uint8Array>
   );
 
   return (
@@ -22,14 +22,18 @@ export default async function renderToString(children: ReactNode) {
   );
 }
 
-async function readableStreamToString(readableStream: ReadableStream) {
-  const chunks: Uint8Array[] = [];
+async function readableStreamToString(
+  readableStream: ReadableStream<Uint8Array>
+) {
+  let result = "";
+
+  const decoder = new TextDecoder();
 
   for await (const chunk of readableStream) {
-    chunks.push(chunk);
+    result += decoder.decode(chunk);
   }
 
-  return Buffer.concat(chunks).toString("utf-8");
+  return result;
 }
 
 export const renderAsync = async (
