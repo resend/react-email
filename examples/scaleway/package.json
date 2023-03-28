@@ -1,0 +1,39 @@
+{
+  "name": "react-email-with-scaleway",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
+    "build:env":"npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
+    "dev": " tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement",
+    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
+    "format": "prettier --write \"**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.4",
+    "@scaleway/sdk": "1.4.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.10",
+    "eslint": "8.36.0",
+    "eslint-config-custom": "*",
+    "prettier": "^2.8.7",
+    "tsconfig": "*",
+    "tsup": "6.7.0",
+    "typescript": "5.0.2"
+  }
+}
