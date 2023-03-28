@@ -138,7 +138,7 @@
 
 "@react-email/components@0.0.4":
   version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@react-email/components/-/components-0.0.4.tgz#abd4dd7f36c98935075ad1bd769e94529c9dec82"
+  resolved "https://registry.npmjs.org/@react-email/components/-/components-0.0.4.tgz"
   integrity sha512-vJZ9P/ixOcrtMnUV11oe/3ci7yRKZyIzcjnxmu4yCYuZBV3zgHdvieUmgSeNGcW7sP140foJavGJNFu3ePUrrA==
   dependencies:
     "@react-email/body" "0.0.2"
@@ -261,11 +261,6 @@
   dependencies:
     react "18.2.0"
 
-"@scaleway/configuration-loader@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@scaleway/configuration-loader/-/configuration-loader-1.0.0.tgz#0fbd897a4ea7de8c1fbea66a1e2149e7145fe056"
-  integrity sha512-0csJ3lnKo5+fCkl5nK0e10W4zutgYzcg7StLFxdD3o68DT3kAU6zbDNAe3bCcJJera9fxbAcrTRvIrJjW6rODA==
-
 "@scaleway/random-name@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@scaleway/random-name/-/random-name-4.0.1.tgz"
@@ -273,7 +268,7 @@
 
 "@scaleway/sdk@1.5.0":
   version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@scaleway/sdk/-/sdk-1.5.0.tgz#ac755a19fd36b173ef002f97b3beaba9fd55c749"
+  resolved "https://registry.npmjs.org/@scaleway/sdk/-/sdk-1.5.0.tgz"
   integrity sha512-gd2tZgyFcfwv2gDbKlKoFkxdtKANnEA5KnpCAbigJFEg2SjipbZUTVMTRg0qXOTPkdPYj5JWmCwaBYVrbcBacg==
   dependencies:
     "@scaleway/random-name" "^4.0.1"

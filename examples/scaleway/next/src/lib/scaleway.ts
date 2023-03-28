@@ -1,12 +1,11 @@
-import { loadProfileFromEnvironmentValues } from "@scaleway/configuration-loader";
 import { createClient, TransactionalEmail } from "@scaleway/sdk";
 
-// Requires the following environment variables:
-// - SCALEWAY_ACCESS_KEY
-// - SCALEWAY_SECRET_KEY
-// - SCALEWAY_DEFAULT_PROJECT_ID
-// - SCALEWAY_DEFAULT_REGION
-const profile = loadProfileFromEnvironmentValues();
-const client = createClient(profile);
+const client = createClient({
+    accessKey: process.env.ACCESS_KEY,
+    secretKey: process.env.SECRET_KEY,
+    defaultProjectId: process.env.PROJECT_ID,
+    defaultRegion: "fr-par",
+    defaultZone: "fr-par-1",
+});
 
 export const scalewayTEM = new TransactionalEmail.v1alpha1.API(client);
