@@ -43,16 +43,15 @@ Button.displayName = "Button";
 const buttonStyle = (
   style?: React.CSSProperties & { pY?: number; pX?: number }
 ) => {
-  const paddingY = style?.pY || 0;
-  const paddingX = style?.pX || 0;
+  const { pY, pX, ...rest } = style || {};
 
   return {
-    ...style,
+    ...rest,
     lineHeight: "100%",
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
-    padding: `${paddingY}px ${paddingX}px`,
+    padding: `${pY}px ${pX}px`,
   };
 };
 
