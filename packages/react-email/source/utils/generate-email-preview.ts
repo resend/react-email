@@ -1,5 +1,5 @@
 import logSymbols from 'log-symbols';
-import { DEFAULT_EMAILS_DIRECTORY, PACKAGE_EMAILS_PATH, PACKAGE_PUBLIC_PATH } from './constants';
+import { PACKAGE_EMAILS_PATH, PACKAGE_PUBLIC_PATH } from './constants';
 import fs from 'fs';
 import ora from 'ora';
 import shell from 'shelljs';
@@ -32,33 +32,43 @@ const createEmailPreviews = async (emailDir: string) => {
 
   const list = glob.sync(path.join(emailDir, '**/*.{jsx,tsx}'), {
     absolute: true,
-  })
+  });
 
   /**
    * instead of copying all files, which would break and js/ts imports,
    * we create placeholder files which just contain the following code:
-   * 
+   *
    * import Mail from '../../path/to/emails/my-template.tsx`
-   * export default Mail 
-  */
-  for(const absoluteSrcFilePath of list) {
-    const fileName = absoluteSrcFilePath.split('/').pop()!
-    const targetFile = path.join(PACKAGE_EMAILS_PATH, absoluteSrcFilePath.replace(emailDir, ''))
-    const importPath = path.relative(path.dirname(targetFile),path.dirname(absoluteSrcFilePath))
-    
-    const importFile = path.join(importPath, fileName)
+   * export default Mail
+   */
+  for (const absoluteSrcFilePath of list) {
+    const fileName = absoluteSrcFilePath.split('/').pop()!;
+    const targetFile = path.join(
+      PACKAGE_EMAILS_PATH,
+      absoluteSrcFilePath.replace(emailDir, ''),
+    );
+    const importPath = path.relative(
+      path.dirname(targetFile),
+      path.dirname(absoluteSrcFilePath),
+    );
+
+    const importFile = path.join(importPath, fileName);
 
     // if this import is changed, you also need to update `client/src/app/preview/[slug]/page.tsx`
-    const sourceCode = `import Mail from '${importFile}';export default Mail;`.replace(';', ';\n')
-    await fse.ensureDir(path.dirname(targetFile))
-    if(fse.existsSync(targetFile)) {
-      if(fse.readFileSync(targetFile, 'utf8') === sourceCode) {
+    const sourceCode =
+      `import Mail from '${importFile}';export default Mail;`.replace(
+        ';',
+        ';\n',
+      );
+    await fse.ensureDir(path.dirname(targetFile));
+    if (fse.existsSync(targetFile)) {
+      if (fse.readFileSync(targetFile, 'utf8') === sourceCode) {
         // file already exists, no need to trigger a rebuild.
         // can otherwise trigger the next.js rebuild multiple times
-        continue 
-      } 
+        continue;
+      }
     }
-    await fse.writeFile(targetFile, sourceCode)
+    await fse.writeFile(targetFile, sourceCode);
   }
 };
 
