@@ -46,11 +46,17 @@ const createEmailPreviews = async (emailDir: string) => {
     const targetFile = path.join(PACKAGE_EMAILS_PATH, absoluteSrcFilePath.replace(emailDir, ''))
     const importPath = path.relative(path.dirname(targetFile),path.dirname(absoluteSrcFilePath))
     
-    let importFile = path.join(importPath, fileName)
-    importFile = importFile.replace(path.extname(importFile), '')
+    const importFile = path.join(importPath, fileName)
 
     const sourceCode = `import Mail from '${importFile}';export default Mail;`.replace(';', ';\n')
     await fse.ensureDir(path.dirname(targetFile))
+    if(fse.existsSync(targetFile)) {
+      if(fse.readFileSync(targetFile, 'utf8') === sourceCode) {
+        // file already exists, no need to trigger a rebuild.
+        // can otherwise trigger the next.js rebuild multiple times
+        continue 
+      } 
+    }
     await fse.writeFile(targetFile, sourceCode)
   }
 };
