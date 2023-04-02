@@ -48,6 +48,7 @@ const createEmailPreviews = async (emailDir: string) => {
     
     const importFile = path.join(importPath, fileName)
 
+    // if this import is changed, you also need to update `client/src/app/preview/[slug]/page.tsx`
     const sourceCode = `import Mail from '${importFile}';export default Mail;`.replace(';', ';\n')
     await fse.ensureDir(path.dirname(targetFile))
     if(fse.existsSync(targetFile)) {
