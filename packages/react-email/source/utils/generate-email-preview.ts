@@ -7,12 +7,19 @@ import path from 'path';
 import fse from 'fs-extra';
 import glob from 'glob';
 
-export const generateEmailsPreview = async (emailDir: string) => {
+export const generateEmailsPreview = async (
+  emailDir: string,
+  type: 'all' | 'static' | 'templates' = 'all',
+) => {
   try {
     const spinner = ora('Generating emails preview').start();
 
-    await createEmailPreviews(emailDir);
-    await createStaticFiles(emailDir);
+    if (type === 'all' || type === 'templates') {
+      await createEmailPreviews(emailDir);
+    }
+    if (type === 'all' || type === 'static') {
+      await createStaticFiles(emailDir);
+    }
 
     spinner.stopAndPersist({
       symbol: logSymbols.success,
