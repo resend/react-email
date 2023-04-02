@@ -23,7 +23,7 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const SlackConfirmEmail = ({
-  validationCode = 'DJZ-TLX',
+  validationCode,
 }: SlackConfirmEmailProps) => (
   <Html>
     <Head />
@@ -152,6 +152,10 @@ export const SlackConfirmEmail = ({
     </Body>
   </Html>
 );
+
+SlackConfirmEmail.PreviewProps = {
+  validationCode: 'DJZ-TLX',
+} as SlackConfirmEmailProps;
 
 export default SlackConfirmEmail;
 

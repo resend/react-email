@@ -20,7 +20,7 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const PlaidVerifyIdentityEmail = ({
-  validationCode = '144833',
+  validationCode,
 }: PlaidVerifyIdentityEmailProps) => (
   <Html>
     <Head />
@@ -53,6 +53,10 @@ export const PlaidVerifyIdentityEmail = ({
     </Body>
   </Html>
 );
+
+PlaidVerifyIdentityEmail.PreviewProps = {
+  validationCode: '144833',
+} as PlaidVerifyIdentityEmailProps;
 
 export default PlaidVerifyIdentityEmail;
 
