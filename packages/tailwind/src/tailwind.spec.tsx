@@ -2,6 +2,7 @@ import { Tailwind } from "./tailwind";
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { TailwindConfig } from "tw-to-css";
 import { Button } from "@react-email/button";
+import { Html, Head } from "@react-email/components";
 
 describe("Tailwind component", () => {
   beforeEach(() => {
@@ -80,18 +81,45 @@ describe("Tailwind component", () => {
       );
     });
 
-    it("should throw an error when used without <html/> and <head/> tags", () => {
-      try {
+    it("should throw an error when used without either <html/> or <head/> tags", () => {
+      function noHtmlOrHead() {
         render(
           <Tailwind>
             <div className="bg-red-200 sm:bg-red-500" />
           </Tailwind>
         );
-      } catch (error: any) {
-        expect(error.message).toBe(
-          "Tailwind: To use responsive styles you must have a <html> and <head> element in your template."
+      }
+      expect(noHtmlOrHead).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
+
+      function noHtml() {
+        render(
+          <Tailwind>
+            <Head>
+              <title>Test</title>
+            </Head>
+            <div className="bg-red-200 sm:bg-red-500" />
+          </Tailwind>
         );
       }
+      expect(noHtml).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
+
+      function noHead() {
+        render(
+          <Tailwind>
+            <Html>
+              {/* <Head></Head> */}
+              <div className="bg-red-200 sm:bg-red-500" />
+            </Html>
+          </Tailwind>
+        );
+      }
+      expect(noHead).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
     });
   });
 
