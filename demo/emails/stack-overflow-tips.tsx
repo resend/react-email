@@ -44,7 +44,7 @@ const PropDefaults: StackOverflowTipsEmailProps = {
 };
 
 export const StackOverflowTipsEmail = ({
-  tips,
+  tips = [],
 }: StackOverflowTipsEmailProps) => (
   <Html>
     <Head />
