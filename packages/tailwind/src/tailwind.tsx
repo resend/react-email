@@ -69,19 +69,20 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           }
 
           if (domNode.attribs?.class) {
-            if (hasResponsiveStyles) {
-              domNode.attribs.class = domNode.attribs.class.replace(
-                /[:#\!\-[\]\/\.%]+/g,
-                "_"
-              );
-            } else {
-              const currentStyles = domNode.attribs.style
-                ? `${domNode.attribs.style};`
-                : "";
-              const tailwindStyles = twi(domNode.attribs.class);
-              domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
-              delete domNode.attribs.class;
-            }
+            const currentStyles = domNode.attribs.style ? `${domNode.attribs.style};` : ""
+            const tailwindStyles = twi(domNode.attribs.class)
+            domNode.attribs.style = `${currentStyles} ${tailwindStyles}`
+            console.log("class", domNode.attribs.class)
+            domNode.attribs.class = domNode.attribs.class
+            // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
+            .split(" ")
+            .filter((className) => className.search(/^.{2}:/) !== -1)
+            .join(" ")
+            // replace all non-alphanumeric characters with underscores
+            .replace(/[:#\!\-[\]\/\.%]+/g, "_")
+
+            console.log("new class", domNode.attribs.class)
+            if (domNode.attribs.class === "") delete domNode.attribs.class
           }
         }
       },
@@ -100,26 +101,21 @@ function getMediaQueryCSS(css: string) {
 
   let newCss = css
     .replace(mediaQueryRegex, (m) => {
-      return m.replace(
-        /([^{]+\{)([\s\S]+?)(\}\s*\})/gm,
-        (_, start, content, end) => {
-          const newcontent = (content as string).replace(
-            /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^;\r\n]+)/gm,
-            (_, prop, value) => {
-              return `${prop}: ${value} !important`;
-            }
-          );
-
-          return `${start}${newcontent}${end}`;
-        }
-      );
+      return m.replace(/([^{]+\{)([\s\S]+?)(\}\s*\})/gm, (_, start, content, end) => {
+        const newContent = (content as string).replace(/(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm, (_, prop, value) => {
+          return `${prop}: ${value} !important;`
+        })
+        return `${start}${newContent}${end}`
+      })
     })
     .replace(/[.\!\#\w\d\\:\-\[\]\/\.%]+\s*?{/g, (m) => {
       return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
     })
     .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      return `font-family${value.replace(/['"]+/g, "")}`;
-    });
+      return `font-family${value.replace(/['"]+/g, "")}`
+    })
+    // only return media queries
+    .match(/@media\s*([^{]+)\{([^{}]*\{[^{}]*\})*[^{}]*\}/g)
 
-  return newCss;
+  return newCss?.join("") ?? "";
 }
