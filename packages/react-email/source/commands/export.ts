@@ -29,6 +29,7 @@ export const exportTemplates = async (
     write: true,
     outdir: outDir,
   });
+  spinner.succeed()
 
   const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
     absolute: true,
@@ -46,6 +47,7 @@ export const exportTemplates = async (
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }
+  spinner.succeed('Rendered all files')
   spinner.text = `Copying static files`
   spinner.render()
 
