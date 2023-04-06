@@ -72,7 +72,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             const currentStyles = domNode.attribs.style ? `${domNode.attribs.style};` : ""
             const tailwindStyles = twi(domNode.attribs.class)
             domNode.attribs.style = `${currentStyles} ${tailwindStyles}`
-            console.log("class", domNode.attribs.class)
+
             domNode.attribs.class = domNode.attribs.class
             // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
             .split(" ")
@@ -81,7 +81,6 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             // replace all non-alphanumeric characters with underscores
             .replace(/[:#\!\-[\]\/\.%]+/g, "_")
 
-            console.log("new class", domNode.attribs.class)
             if (domNode.attribs.class === "") delete domNode.attribs.class
           }
         }

@@ -22,7 +22,7 @@ describe("Tailwind component", () => {
       );
     });
 
-    it.only("should be able to use background image", () => {
+    it("should be able to use background image", () => {
       const actualOutput = render(
         <Tailwind>
           <div className="bg-[url(https://react.email/static/covers/tailwind.png)]" />
