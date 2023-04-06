@@ -21,7 +21,7 @@ export const exportTemplates = async (
 ) => {
   const spinner = ora('Preparing files...\n').start();
   const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
-
+  
   esbuild.buildSync({
     bundle: true,
     entryPoints: allTemplates,
@@ -35,6 +35,8 @@ export const exportTemplates = async (
   });
 
   for (const template of allBuiltTemplates) {
+    spinner.text = `rendering ${template.split('/').pop()}`
+    spinner.render()
     const component = await import(template);
     const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
@@ -44,6 +46,8 @@ export const exportTemplates = async (
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }
+  spinner.text = `Copying static files`
+  spinner.render()
 
   const staticDir = path.join(srcDir, 'static');
   const hasStaticDirectory = fs.existsSync(staticDir);
@@ -56,6 +60,7 @@ export const exportTemplates = async (
       );
     }
   }
+  spinner.succeed()
 
   const fileTree = tree(outDir, {
     allFiles: true,
