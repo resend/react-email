@@ -102,7 +102,9 @@ function getMediaQueryCSS(css: string) {
   let newCss = css
     .replace(mediaQueryRegex, (m) => {
       return m.replace(/([^{]+\{)([\s\S]+?)(\}\s*\})/gm, (_, start, content, end) => {
-        const newContent = (content as string).replace(/(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm, (_, prop, value) => {
+        const newContent = (content as string).replace(
+          /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
+          (_, prop, value) => {
           return `${prop}: ${value} !important;`
         })
         return `${start}${newContent}${end}`
