@@ -37,7 +37,7 @@ const createEmailPreviews = async (emailDir: string) => {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
-  const list = glob.sync(path.join(emailDir, '**/*.{jsx,tsx}'), {
+  const list = glob.sync(path.join(emailDir, '/*.{jsx,tsx}'), {
     absolute: true,
   });
 
