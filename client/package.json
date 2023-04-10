@@ -1,6 +1,6 @@
 {
   "name": "react-email-client",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "The React Email preview application",
   "license": "MIT",
   "scripts": {
@@ -21,7 +21,7 @@
     "@radix-ui/react-slot": "1.0.1",
     "@radix-ui/react-toggle-group": "1.0.1",
     "@radix-ui/react-tooltip": "1.0.2",
-    "@react-email/render": "0.0.6",
+    "@react-email/render": "0.0.7",
     "classnames": "2.3.2",
     "framer-motion": "8.4.6",
     "next": "13.2.4",
