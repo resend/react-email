@@ -57,8 +57,8 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toContain(
-        "padding:0px 0px;padding-left:1.5rem;padding-right:1.5rem;padding-top:0.75rem;padding-bottom:0.75rem"
-      );
+        "padding:0px 0px;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem"
+      )
     });
   });
 
@@ -114,7 +114,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>"`
+        `"<div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div>"`
       );
     });
 
