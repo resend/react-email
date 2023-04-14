@@ -94,7 +94,7 @@ describe("Tailwind component", () => {
       }
     });
   
-    it("should persist exsisting head when responsive styles are present", () => {
+    it("should persist exsisting <head/> elements", () => {
       const actualOutput = render(
         <Tailwind>
           <html>
