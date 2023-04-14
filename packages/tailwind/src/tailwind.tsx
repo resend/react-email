@@ -74,16 +74,18 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
             const cleanTailwindClasses = domNode.attribs.class
               // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, "_")
+              .replace(cleanRegex, "_");
 
-            const currentStyles = domNode.attribs.style ? `${domNode.attribs.style};` : ""
+            const currentStyles = domNode.attribs.style
+              ? `${domNode.attribs.style};`
+              : "";
             const tailwindStyles = cleanTailwindClasses
               .split(" ")
               .map((className) => {
-                return cssMap[`.${className}`]
+                return cssMap[`.${className}`];
               })
-              .join(";")
-            domNode.attribs.style = `${currentStyles} ${tailwindStyles}`
+              .join(";");
+            domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
 
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
@@ -91,9 +93,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
               .filter((className) => className.search(/^.{2}:/) !== -1)
               .join(" ")
               // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, "_")
+              .replace(cleanRegex, "_");
 
-            if (domNode.attribs.class === "") delete domNode.attribs.class
+            if (domNode.attribs.class === "") delete domNode.attribs.class;
           }
         }
       },
@@ -115,48 +117,57 @@ function cleanCss(css: string) {
     .replace(/\\/g, "")
     // find all css selectors and look ahead for opening and closing curly braces
     .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_")
+      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
     })
     .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      return `font-family${value.replace(/['"]+/g, "")}`
-    })
-  return newCss
+      return `font-family${value.replace(/['"]+/g, "")}`;
+    });
+  return newCss;
 }
-  
-  /**
-   * Get media query css to put in head
-   */
+
+/**
+ * Get media query css to put in head
+ */
 function getMediaQueryCSS(css: string) {
-  const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm
+  const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
 
   return (
     css
       .replace(mediaQueryRegex, (m) => {
-        return m.replace(/([^{]+\{)([\s\S]+?)(\}\s*\})/gm, (_, start, content, end) => {
-          const newContent = (content as string).replace(/(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm, (_, prop, value) => {
-            return `${prop}: ${value} !important;`
-          })
-          return `${start}${newContent}${end}`
-        })
+        return m.replace(
+          /([^{]+\{)([\s\S]+?)(\}\s*\})/gm,
+          (_, start, content, end) => {
+            const newContent = (content as string).replace(
+              /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
+              (_, prop, value) => {
+                return `${prop}: ${value} !important;`;
+              }
+            );
+            return `${start}${newContent}${end}`;
+          }
+        );
       })
       // only return media queries
       .match(/@media\s*([^{]+)\{([^{}]*\{[^{}]*\})*[^{}]*\}/g)
       ?.join("") ?? ""
-  )
+  );
 }
 
 /**
  * Make a map of all class names and their css styles
  */
 function makeCssMap(css: string) {
-  const cssNoMedia = css.replace(/@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm, "")
+  const cssNoMedia = css.replace(
+    /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm,
+    ""
+  );
 
   const cssMap = cssNoMedia.split("}").reduce((acc, cur) => {
-    const [key, value] = cur.split("{")
+    const [key, value] = cur.split("{");
     if (key && value) {
-      acc[key] = value
+      acc[key] = value;
     }
-    return acc
-  }, {} as Record<string, string>)
-  return cssMap
+    return acc;
+  }, {} as Record<string, string>);
+  return cssMap;
 }

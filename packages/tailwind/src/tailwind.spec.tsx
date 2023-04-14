@@ -58,7 +58,7 @@ describe("Tailwind component", () => {
 
       expect(actualOutput).toContain(
         "padding:0px 0px;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem"
-      )
+      );
     });
   });
 
