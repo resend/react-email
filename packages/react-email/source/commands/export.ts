@@ -9,6 +9,7 @@ import normalize from 'normalize-path';
 import path from 'path';
 import shell from 'shelljs';
 import fs from 'fs';
+import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -20,6 +21,8 @@ export const exportTemplates = async (
   options: Options,
 ) => {
   const spinner = ora('Preparing files...\n').start();
+  closeOraOnSIGNIT(spinner)
+
   const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
 
   esbuild.buildSync({
