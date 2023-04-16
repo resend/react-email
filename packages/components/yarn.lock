@@ -699,10 +699,10 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/button@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@react-email/button/-/button-0.0.7.tgz#cb19f4d3eeff825ccd6b261f75819c7730076512"
-  integrity sha512-TMcy5p+XBArufjtmrYOkFFRtiVegrvz3BeynvvHlsvlJImDy6az2+NLvkuSghG0hgOs1t5otD0Bn2PBVZhx/wA==
+"@react-email/button@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@react-email/button/-/button-0.0.8.tgz#50c95b504617dd488a1f5cc449a4ed7b4c43a0da"
+  integrity sha512-EOIX/ewPgn/CXUvaAbR92jfWC8EXTSRBafpKtIbxchMcx/iIEG7/JqUndJdZ7BqgON1o6GLm3xP2+AtXtTZJkg==
   dependencies:
     react "18.2.0"
 
@@ -768,17 +768,17 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/preview@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@react-email/preview/-/preview-0.0.5.tgz#17937c9ef738dc9cc1501c5706846652924213d4"
-  integrity sha512-3OwWQvuxqi8MdJ1PZHH6XLrG9N8Z3uAN9cVWOlqb4WuhR1KwTVPgZwSy/zuzTiuhhejpO8/ctC7tMfZSpXdThg==
+"@react-email/preview@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@react-email/preview/-/preview-0.0.6.tgz#89f1305e4ce151932b835bc77a3d9a6ea90222d7"
+  integrity sha512-mXDCc3NGpm/4W7gowBtjsTxYXowLNOLsJsYhIfrsjNJWGlVhVFB9uEHm55LjBLpxSG020g6/8LIrpJU6g22qvg==
   dependencies:
     react "18.2.0"
 
-"@react-email/render@0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.6.tgz#4e47ee6df226c86d548c38f96e34844acb944160"
-  integrity sha512-6zs7WZbd37TcPT1OmMPH/kcBpv0QSi+k3om7LyDnbdIcrbwOO/OstVwUaa/6zgvDvnq9Y2wOosbru7j5kUrW9A==
+"@react-email/render@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.7.tgz#92a14e03a59160c39bceeff50517c7058721ab6f"
+  integrity sha512-hMMhxk6TpOcDC5qnKzXPVJoVGEwfm+U5bGOPH+MyTTlx0F02RLQygcATBKsbP7aI/mvkmBAZoFbgPIHop7ovug==
   dependencies:
     html-to-text "9.0.3"
     pretty "2.0.0"

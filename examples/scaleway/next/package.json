@@ -1,0 +1,26 @@
+{
+  "name": "react-email-with-scaleway",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@react-email/components": "0.0.4",
+    "@react-email/render": "0.0.6",
+    "@scaleway/sdk": "1.5.0",
+    "next": "13.2.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.14.6",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "typescript": "4.9.5"
+  }
+}

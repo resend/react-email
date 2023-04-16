@@ -6,6 +6,7 @@ import shell from 'shelljs';
 import path from 'path';
 import fse from 'fs-extra';
 import glob from 'glob';
+import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
 export const generateEmailsPreview = async (
   emailDir: string,
@@ -13,6 +14,7 @@ export const generateEmailsPreview = async (
 ) => {
   try {
     const spinner = ora('Generating emails preview').start();
+    closeOraOnSIGNIT(spinner)
 
     if (type === 'all' || type === 'templates') {
       await createEmailPreviews(emailDir);

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "All react-email components",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@react-email/body": "0.0.2",
-    "@react-email/button": "0.0.7",
+    "@react-email/button": "0.0.8",
     "@react-email/column": "0.0.7",
     "@react-email/container": "0.0.8",
     "@react-email/font": "0.0.1",
@@ -44,8 +44,8 @@
     "@react-email/html": "0.0.4",
     "@react-email/img": "0.0.5",
     "@react-email/link": "0.0.5",
-    "@react-email/preview": "0.0.5",
-    "@react-email/render": "0.0.6",
+    "@react-email/preview": "0.0.6",
+    "@react-email/render": "0.0.7",
     "@react-email/row": "0.0.5",
     "@react-email/section": "0.0.9",
     "@react-email/tailwind": "0.0.7",
