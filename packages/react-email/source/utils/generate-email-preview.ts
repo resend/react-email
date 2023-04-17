@@ -6,9 +6,12 @@ import shell from 'shelljs';
 import path from 'path';
 import fse from 'fs-extra';
 
+import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+
 export const generateEmailsPreview = async (emailDir: string) => {
   try {
     const spinner = ora('Generating emails preview').start();
+    closeOraOnSIGNIT(spinner)
 
     await createEmailPreviews(emailDir);
     await createStaticFiles(emailDir);
