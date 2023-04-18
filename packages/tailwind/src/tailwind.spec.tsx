@@ -93,6 +93,26 @@ describe("Tailwind component", () => {
         );
       }
     });
+  
+    it("should persist exsisting <head/> elements", () => {
+      const actualOutput = render(
+        <Tailwind>
+          <html>
+            <head>
+              <style />
+              <link />
+            </head>
+            <body>
+              <div className="bg-red-200 sm:bg-red-500" />
+            </body>
+          </html>
+        </Tailwind>
+      );
+
+      expect(actualOutput).toMatchInlineSnapshot(
+        `"<html><head><style></style><link/><style>.bg_red_200{background-color:rgb(254,202,202)}@media(min-width:640px){.sm_bg_red_500{background-color: rgb(239,68,68) !important}}</style></head><body><div class="bg_red_200 sm_bg_red_500"></div></body></html>"`
+      );
+    });
   });
 
   describe("Custom theme config", () => {
