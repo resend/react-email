@@ -1,6 +1,6 @@
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import htmlParser, { attributesToProps, Element } from "html-react-parser";
+import htmlParser, { attributesToProps, domToReact, Element } from "html-react-parser";
 import { tailwindToCSS, TailwindConfig } from "tw-to-css";
 
 export interface TailwindProps {
@@ -48,19 +48,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             let newDomNode: JSX.Element | null = null;
 
             if (domNode.children) {
-              const style = domNode.children.find(
-                (child) => child instanceof Element && child.name === "style"
-              );
-
               const props = attributesToProps(domNode.attribs);
 
               newDomNode = (
                 <head {...props}>
-                  {style && style instanceof Element ? (
-                    <style>{`${style.children} ${headStyle}`}</style>
-                  ) : (
-                    <style>{headStyle}</style>
-                  )}
+                  {domToReact(domNode.children)}
+                  <style>{headStyle}</style>
                 </head>
               );
             }

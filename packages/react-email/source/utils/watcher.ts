@@ -1,12 +1,13 @@
 import chokidar, { FSWatcher } from 'chokidar';
+import fs from 'fs';
+import path from 'path';
+import shell from 'shelljs';
 import {
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
   REACT_EMAIL_ROOT,
 } from './constants';
-import fs from 'fs';
-import path from 'path';
-import shell from 'shelljs';
+import { generateEmailsPreview } from './generate-email-preview';
 
 export const createWatcherInstance = (watchDir: string) =>
   chokidar.watch(watchDir, {
@@ -49,14 +50,14 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
       return;
     }
 
-    const result = shell.cp(
-      '-r',
-      path.join(watchDir, ...file.slice(1)),
-      path.join(PACKAGE_EMAILS_PATH, ...file.slice(1, -1)),
-    );
-    if (result.code > 0) {
+    try {
+      await generateEmailsPreview(watchDir, 'templates');
+    } catch (e) {
       throw new Error(
-        `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+        `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${
+          // @ts-expect-error
+          e?.message
+        }`,
       );
     }
   });
