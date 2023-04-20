@@ -2,7 +2,6 @@ import { Tailwind } from "./tailwind";
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { TailwindConfig } from "tw-to-css";
 import { Button } from "@react-email/button";
-import { Html, Head } from "@react-email/components";
 
 describe("Tailwind component", () => {
   beforeEach(() => {
@@ -96,9 +95,9 @@ describe("Tailwind component", () => {
       function noHtml() {
         render(
           <Tailwind>
-            <Head>
+            <head>
               <title>Test</title>
-            </Head>
+            </head>
             <div className="bg-red-200 sm:bg-red-500" />
           </Tailwind>
         );
@@ -110,10 +109,10 @@ describe("Tailwind component", () => {
       function noHead() {
         render(
           <Tailwind>
-            <Html>
+            <html>
               {/* <Head></Head> */}
               <div className="bg-red-200 sm:bg-red-500" />
-            </Html>
+            </html>
           </Tailwind>
         );
       }

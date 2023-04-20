@@ -42,7 +42,6 @@
   "devDependencies": {
     "@babel/preset-react": "7.18.6",
     "@react-email/button": "0.0.7",
-    "@react-email/components": "^0.0.5",
     "@testing-library/react": "14.0.0",
     "@types/jest": "29.5.0",
     "@types/react": "18.0.20",
