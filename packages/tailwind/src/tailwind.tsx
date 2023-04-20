@@ -24,7 +24,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const css = cleanCss(tailwindCss);
   const cssMap = makeCssMap(css);
 
-  const headStyle = getMediaQueryCSS(css);
+  const headStyle = getMediaQueryCss(css);
 
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
     headStyle
@@ -128,7 +128,7 @@ function cleanCss(css: string) {
 /**
  * Get media query css to put in head
  */
-function getMediaQueryCSS(css: string) {
+function getMediaQueryCss(css: string) {
   const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
 
   return (
