@@ -48,7 +48,7 @@
     "@react-email/render": "0.0.7",
     "@react-email/row": "0.0.5",
     "@react-email/section": "0.0.9",
-    "@react-email/tailwind": "0.0.7",
+    "@react-email/tailwind": "0.0.8",
     "@react-email/text": "0.0.5",
     "react": "18.2.0"
   },
