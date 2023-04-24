@@ -120,7 +120,7 @@ describe("Tailwind component", () => {
         `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
       );
     });
-  
+
     it("should persist exsisting <head/> elements", () => {
       const actualOutput = render(
         <Tailwind>
@@ -137,7 +137,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style></style><link/><style>.bg_red_200{background-color:rgb(254,202,202)}@media(min-width:640px){.sm_bg_red_500{background-color: rgb(239,68,68) !important}}</style></head><body><div class="bg_red_200 sm_bg_red_500"></div></body></html>"`
+        `"<html><head><style></style><link/><style>@media(min-width:640px){.sm_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class="sm_bg_red_500" style="background-color:rgb(254,202,202)"></div></body></html>"`
       );
     });
   });
