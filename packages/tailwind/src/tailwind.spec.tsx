@@ -57,7 +57,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toContain(
-        "padding:0px 0px;padding-left:1.5rem;padding-right:1.5rem;padding-top:0.75rem;padding-bottom:0.75rem"
+        "padding:0px 0px;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem"
       );
     });
   });
@@ -76,7 +76,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.bg_red_200{background-color:rgb(254,202,202)}@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important}}</style></head><body><div class="bg_red_200 sm_bg_red_300 md_bg_red_400 lg_bg_red_500"></div></body></html>"`
+        `"<html><head><style>@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important;}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important;}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class="sm_bg_red_300 md_bg_red_400 lg_bg_red_500" style="background-color:rgb(254,202,202)"></div></body></html>"`
       );
     });
 
@@ -161,7 +161,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>"`
+        `"<div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div>"`
       );
     });
 
@@ -310,7 +310,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.border_custom{border:2px solid}@media(min-width:640px){.sm_border_custom{border: 2px solid !important}}</style></head><body><div class="border_custom sm_border_custom"></div></body></html>"`
+        `"<html><head><style>@media(min-width:640px){.sm_border_custom{border: 2px solid !important;}}</style></head><body><div class="sm_border_custom" style="border:2px solid"></div></body></html>"`
       );
     });
   });
@@ -328,7 +328,7 @@ describe("Tailwind component", () => {
         </Tailwind>
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.w_1_2{width:50%}.w_full{width:100%}@media(min-width:640px){.sm_w_1_2{width: 50% !important}}</style></head><body><div class="w_full"></div><div class="w_1_2 sm_w_1_2"></div></body></html>"`
+        `"<html><head><style>@media(min-width:640px){.sm_w_1_2{width: 50% !important;}}</style></head><body><div style="width:100%"></div><div class="sm_w_1_2" style="width:50%"></div></body></html>"`
       );
     });
     it("should replace period with underscore in both class name and selector", () => {
@@ -344,7 +344,7 @@ describe("Tailwind component", () => {
         </Tailwind>
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.w_1{width:0.25rem}.w_1_5{width:0.375rem}@media(min-width:640px){.sm_w_1{width: 0.25rem}.sm_w_1_5{width:0.375rem !important}}</style></head><body><div class="w_1_5"></div><div class="w_1_5 sm_w_1_5"></div></body></html>"`
+        `"<html><head><style>@media(min-width:640px){.sm_w_1{width: 0.25rem !important;}.sm_w_1_5{width: 0.375rem !important;}}</style></head><body><div style="width:0.375rem"></div><div class="sm_w_1_5" style="width:0.375rem"></div></body></html>"`
       );
     });
     it("should replace percent signs with underscore in both class name and selector", () => {
@@ -360,7 +360,7 @@ describe("Tailwind component", () => {
         </Tailwind>
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>.w_50_{width:50%}@media(min-width:640px){.sm_w_50_{width: 50% !important}}</style></head><body><div class="w_50_"></div><div class="w_50_ sm_w_50_"></div></body></html>"`
+        `"<html><head><style>@media(min-width:640px){.sm_w_50_{width: 50% !important;}}</style></head><body><div style="width:50%"></div><div class="sm_w_50_" style="width:50%"></div></body></html>"`
       );
     });
   });
