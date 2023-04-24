@@ -80,18 +80,45 @@ describe("Tailwind component", () => {
       );
     });
 
-    it("should throw an error when used without <html/> and <head/> tags", () => {
-      try {
+    it("should throw an error when used without either <html/> or <head/> tags", () => {
+      function noHtmlOrHead() {
         render(
           <Tailwind>
             <div className="bg-red-200 sm:bg-red-500" />
           </Tailwind>
         );
-      } catch (error: any) {
-        expect(error.message).toBe(
-          "Tailwind: To use responsive styles you must have a <html> and <head> element in your template."
+      }
+      expect(noHtmlOrHead).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
+
+      function noHtml() {
+        render(
+          <Tailwind>
+            <head>
+              <title>Test</title>
+            </head>
+            <div className="bg-red-200 sm:bg-red-500" />
+          </Tailwind>
         );
       }
+      expect(noHtml).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
+
+      function noHead() {
+        render(
+          <Tailwind>
+            <html>
+              {/* <Head></Head> */}
+              <div className="bg-red-200 sm:bg-red-500" />
+            </html>
+          </Tailwind>
+        );
+      }
+      expect(noHead).toThrowErrorMatchingInlineSnapshot(
+        `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`
+      );
     });
   
     it("should persist exsisting <head/> elements", () => {

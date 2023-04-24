@@ -30,7 +30,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const hasHTML = /<html[^>]*>/gm.test(fullHTML);
   const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
-  if (hasResponsiveStyles && !hasHTML && !hasHead) {
+  if (hasResponsiveStyles && (!hasHTML || !hasHead)) {
     throw new Error(
       "Tailwind: To use responsive styles you must have a <html> and <head> element in your template."
     );
