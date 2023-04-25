@@ -9,7 +9,7 @@ export const downloadClient = async () => {
   const downloadRes = await octokit.repos.downloadTarballArchive({
     owner: 'resendlabs',
     repo: 'react-email',
-    ref: 'v0.0.13',
+    ref: 'v0.0.14',
   });
   fs.mkdirSync('.react-email-temp');
   const TAR_PATH = path.join('.react-email-temp', 'react-email.tar.gz');
