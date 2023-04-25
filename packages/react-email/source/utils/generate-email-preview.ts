@@ -1,5 +1,9 @@
 import logSymbols from 'log-symbols';
-import { PACKAGE_EMAILS_PATH, PACKAGE_PUBLIC_PATH } from './constants';
+import {
+  CURRENT_PATH,
+  PACKAGE_EMAILS_PATH,
+  PACKAGE_PUBLIC_PATH,
+} from './constants';
 import fs from 'fs';
 import ora from 'ora';
 import shell from 'shelljs';
@@ -14,13 +18,13 @@ export const generateEmailsPreview = async (
 ) => {
   try {
     const spinner = ora('Generating emails preview').start();
-    closeOraOnSIGNIT(spinner)
+    closeOraOnSIGNIT(spinner);
 
     if (type === 'all' || type === 'templates') {
       await createEmailPreviews(emailDir);
     }
     if (type === 'all' || type === 'static') {
-      await createStaticFiles(emailDir);
+      await createStaticFiles();
     }
 
     spinner.stopAndPersist({
@@ -81,7 +85,7 @@ const createEmailPreviews = async (emailDir: string) => {
   }
 };
 
-const createStaticFiles = async (emailDir: string) => {
+const createStaticFiles = async () => {
   const hasPublicDirectory = fs.existsSync(PACKAGE_PUBLIC_PATH);
 
   if (hasPublicDirectory) {
@@ -89,18 +93,24 @@ const createStaticFiles = async (emailDir: string) => {
   }
 
   await fse.ensureDir(path.join(PACKAGE_PUBLIC_PATH, 'static'));
-
-  const result = shell.cp(
-    '-r',
-    path.join(emailDir, 'static'),
-    path.join(PACKAGE_PUBLIC_PATH),
+  const userHasStaticDirectory = fs.existsSync(
+    path.join(CURRENT_PATH, 'static'),
   );
-  if (result.code > 0) {
-    throw new Error(
-      `Something went wrong while copying the file to ${path.join(
-        emailDir,
-        'static',
-      )}, ${result.cat()}`,
+
+  if (userHasStaticDirectory) {
+    const result = shell.cp(
+      '-r',
+      path.join(CURRENT_PATH, 'static'),
+      path.join(PACKAGE_PUBLIC_PATH),
     );
+
+    if (result.code > 0) {
+      throw new Error(
+        `Something went wrong while copying the file to ${path.join(
+          CURRENT_PATH,
+          'static',
+        )}, ${result.cat()}`,
+      );
+    }
   }
 };
