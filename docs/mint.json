@@ -43,13 +43,7 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": [
-        "introduction",
-        "contributing",
-        "changelog",
-        "roadmap",
-        "cli"
-      ]
+      "pages": ["introduction", "contributing", "changelog", "roadmap", "cli"]
     },
     {
       "group": "Getting Started",
@@ -71,7 +65,6 @@
         "components/hr",
         "components/image",
         "components/link",
-        "components/paragraph",
         "components/preview",
         "components/section",
         "components/tailwind",
@@ -80,9 +73,7 @@
     },
     {
       "group": "Utilities",
-      "pages": [
-        "utilities/render"
-      ]
+      "pages": ["utilities/render"]
     },
     {
       "group": "Integrations",
