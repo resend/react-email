@@ -43,82 +43,94 @@ export const AmazonReviewEmail = ({
       <Body style={main}>
         <Container style={container}>
           <Section>
-            <Column align="center">
-              <Link href="https://www.amazon.com">
+            <Row>
+              <Column align="center">
+                <Link href="https://www.amazon.com">
+                  <Img
+                    src={`${baseUrl}/static/amazon-prime-logo.png`}
+                    width="109"
+                    height="48"
+                    alt="Amazon Prime Logo"
+                  />
+                </Link>
+              </Column>
+            </Row>
+          </Section>
+
+          <Section>
+            <Row>
+              <Column align="center">
+                <Text style={title}>{titleText}</Text>
+                <Text>{reviewText}</Text>
+              </Column>
+            </Row>
+          </Section>
+
+          <Section>
+            <Row>
+              <Column>
                 <Img
-                  src={`${baseUrl}/static/amazon-prime-logo.png`}
-                  width="109"
-                  height="48"
-                  alt="Amazon Prime Logo"
+                  src={`${baseUrl}/static/amazon-book.jpg`}
+                  alt="Amazon Book"
+                  width="274"
+                  heigth="350"
                 />
-              </Link>
-            </Column>
+              </Column>
+
+              <Column style={ratingContent}>
+                <Text>
+                  14 Habits of Highly Productive Developers (English Edition)
+                </Text>
+                <Text>Start with rating this product</Text>
+
+                {reviwStars.map((star) => (
+                  <Img src={star} alt="Amazon Rating" style={rating} />
+                ))}
+
+                <Text>
+                  Your reviews will be posted on Amazon using your public name.
+                  <Link>Check your public name.</Link>
+                </Text>
+              </Column>
+            </Row>
           </Section>
 
           <Section>
-            <Column align="center">
-              <Text style={title}>{titleText}</Text>
-              <Text>{reviewText}</Text>
-            </Column>
-          </Section>
-
-          <Section>
-            <Column>
-              <Img
-                src={`${baseUrl}/static/amazon-book.jpg`}
-                alt="Amazon Book"
-                width="274"
-                heigth="350"
-              />
-            </Column>
-            <Column style={ratingContent}>
-              <Text>
-                14 Habits of Highly Productive Developers (English Edition)
-              </Text>
-              <Text>Start with rating this product</Text>
-
-              {reviwStars.map((star) => (
-                <Img src={star} alt="Amazon Rating" style={rating} />
-              ))}
-
-              <Text>
-                Your reviews will be posted on Amazon using your public name.
-                <Link>Check your public name.</Link>
-              </Text>
-            </Column>
-          </Section>
-
-          <Section>
-            <Column align="center">
-              <Text style={previewPurchase}>
-                How about evaluating a previous purchase?{" "}
-                <Link style={previewPurchaseLink}>View more</Link>
-              </Text>
-            </Column>
+            <Row>
+              <Column align="center">
+                <Text style={previewPurchase}>
+                  How about evaluating a previous purchase?{" "}
+                  <Link style={previewPurchaseLink}>View more</Link>
+                </Text>
+              </Column>
+            </Row>
           </Section>
 
           <Hr style={{ borderColor: "#cccccc" }} />
 
           <Section>
-            <Column>
-              <Img
-                src={`${baseUrl}/static/amazon-logo.png`}
-                alt="Amazon Logo"
-                width="93"
-                heigth="23"
-              />
-            </Column>
-            <Column align="right">
-              {socialMediaIcons.map((src) => (
+            <Row>
+              <Column>
                 <Img
-                  src={src}
-                  alt="Amazon Social Midia"
-                  width="30"
-                  heigth="30"
-                  style={socialMedia}
+                  src={`${baseUrl}/static/amazon-logo.png`}
+                  alt="Amazon Logo"
+                  width="93"
+                  heigth="23"
                 />
-              ))}
-            </Column>
+              </Column>
+
+              <Column align="right">
+                {socialMediaIcons.map((src) => (
+                  <Img
+                    src={src}
+                    alt="Amazon Social Midia"
+                    width="30"
+                    heigth="30"
+                    style={socialMedia}
+                  />
+                ))}
+              </Column>
+            </Row>
           </Section>
 
           <Section>
