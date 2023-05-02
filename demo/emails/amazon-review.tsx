@@ -97,7 +97,7 @@ export const AmazonReviewEmail = ({
             </Column>
           </Section>
 
-          <Hr style={{ borderColor: "#ccc" }} />
+          <Hr style={{ borderColor: "#cccccc" }} />
 
           <Section>
             <Column>
@@ -184,12 +184,12 @@ const rating = {
 
 const previewPurchase = {
   background: "#008296",
-  color: "#fff",
+  color: "#ffffff",
   padding: "8px 0",
 };
 
 const previewPurchaseLink = {
-  color: "#fff",
+  color: "#ffffff",
   textDecoration: "underline",
   cursor: "pointer",
 };
@@ -200,25 +200,25 @@ const socialMedia = {
 };
 
 const communityLink = {
-  color: "#666",
+  color: "#666666",
   textDecoration: "underline",
   cursor: "pointer",
 };
 
 const clickHereLink = {
-  color: "#999",
+  color: "#999999",
   textDecoration: "underline",
   cursor: "pointer",
 };
 
 const urlLink = {
-  color: "#15c",
+  color: "#1155cc",
   textDecoration: "underline",
   cursor: "pointer",
 };
 
 const footerText = {
   fontSize: "10px",
-  color: "#666",
+  color: "#666666",
   margin: "8px 0",
 };
