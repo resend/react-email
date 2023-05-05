@@ -21,7 +21,7 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const GithubAccessTokenEmail = ({
-  username = 'zenorocha',
+  username,
 }: GithubAccessTokenEmailProps) => (
   <Html>
     <Head />
@@ -65,6 +65,10 @@ export const GithubAccessTokenEmail = ({
     </Body>
   </Html>
 );
+
+GithubAccessTokenEmail.PreviewProps = {
+  username: 'zenorocha',
+} as GithubAccessTokenEmailProps;
 
 export default GithubAccessTokenEmail;
 

@@ -20,7 +20,7 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const NotionMagicLinkEmail = ({
-  loginCode = 'sparo-ndigo-amurt-secan',
+  loginCode,
 }: NotionMagicLinkEmailProps) => (
   <Html>
     <Head />
@@ -86,6 +86,10 @@ export const NotionMagicLinkEmail = ({
     </Body>
   </Html>
 );
+
+NotionMagicLinkEmail.PreviewProps = {
+  loginCode: 'sparo-ndigo-amurt-secan',
+} as NotionMagicLinkEmailProps;
 
 export default NotionMagicLinkEmail;
 

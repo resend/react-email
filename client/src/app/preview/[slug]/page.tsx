@@ -24,8 +24,9 @@ export default async function Page({ params }) {
   });
 
   const Email = (await import(`../../../../emails/${params.slug}`)).default;
-  const markup = render(<Email />, { pretty: true });
-  const plainText = render(<Email />, { plainText: true });
+  const previewProps = Email.PreviewProps || {}
+  const markup = render(<Email {...previewProps} />, { pretty: true });
+  const plainText = render(<Email {...previewProps} />, { plainText: true });
   const basePath = pathJoin(process.cwd(), CONTENT_DIR);
   const path = pathJoin(basePath, template[0]);
 

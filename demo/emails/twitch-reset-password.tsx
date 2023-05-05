@@ -23,8 +23,8 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const TwitchResetPasswordEmail = ({
-  username = 'zenorocha',
-  updatedDate = new Date('June 23, 2022 4:06:00 pm UTC'),
+  username,
+  updatedDate,
 }: TwitchResetPasswordEmailProps) => {
   const formattedDate = new Intl.DateTimeFormat('en', {
     dateStyle: 'medium',
@@ -104,6 +104,11 @@ export const TwitchResetPasswordEmail = ({
     </Html>
   );
 };
+
+TwitchResetPasswordEmail.PreviewProps = {
+  username: 'zenorocha',
+  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC'),
+} as TwitchResetPasswordEmailProps;
 
 export default TwitchResetPasswordEmail;
 

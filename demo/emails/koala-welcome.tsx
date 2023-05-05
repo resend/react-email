@@ -21,7 +21,7 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const KoalaWelcomeEmail = ({
-  userFirstname = 'Zeno',
+  userFirstname,
 }: KoalaWelcomeEmailProps) => (
   <Html>
     <Head />
@@ -58,6 +58,10 @@ export const KoalaWelcomeEmail = ({
     </Body>
   </Html>
 );
+
+KoalaWelcomeEmail.PreviewProps = {
+  userFirstname: 'Zeno'
+} as KoalaWelcomeEmailProps;
 
 export default KoalaWelcomeEmail;
 
