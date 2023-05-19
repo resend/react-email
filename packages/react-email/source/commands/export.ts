@@ -21,10 +21,10 @@ export const exportTemplates = async (
   options: Options,
 ) => {
   const spinner = ora('Preparing files...\n').start();
-  closeOraOnSIGNIT(spinner)
+  closeOraOnSIGNIT(spinner);
 
   const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
-  
+
   esbuild.buildSync({
     bundle: true,
     entryPoints: allTemplates,
@@ -32,15 +32,15 @@ export const exportTemplates = async (
     write: true,
     outdir: outDir,
   });
-  spinner.succeed()
+  spinner.succeed();
 
   const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
     absolute: true,
   });
 
   for (const template of allBuiltTemplates) {
-    spinner.text = `rendering ${template.split('/').pop()}`
-    spinner.render()
+    spinner.text = `rendering ${template.split('/').pop()}`;
+    spinner.render();
     const component = await import(template);
     const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
@@ -50,9 +50,9 @@ export const exportTemplates = async (
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }
-  spinner.succeed('Rendered all files')
-  spinner.text = `Copying static files`
-  spinner.render()
+  spinner.succeed('Rendered all files');
+  spinner.text = `Copying static files`;
+  spinner.render();
 
   const staticDir = path.join(srcDir, 'static');
   const hasStaticDirectory = fs.existsSync(staticDir);
@@ -65,7 +65,7 @@ export const exportTemplates = async (
       );
     }
   }
-  spinner.succeed()
+  spinner.succeed();
 
   const fileTree = tree(outDir, {
     allFiles: true,

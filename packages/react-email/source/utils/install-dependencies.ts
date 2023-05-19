@@ -9,7 +9,7 @@ export type PackageManager = 'yarn' | 'npm' | 'pnpm';
 
 export const installDependencies = async (packageManager: PackageManager) => {
   const spinner = ora('Installing dependencies...\n').start();
-  closeOraOnSIGNIT(spinner)
+  closeOraOnSIGNIT(spinner);
 
   shell.cd(path.join(REACT_EMAIL_ROOT));
   shell.exec(`${packageManager} install`);
