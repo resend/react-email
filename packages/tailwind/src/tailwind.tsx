@@ -1,6 +1,10 @@
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import htmlParser, { attributesToProps, domToReact, Element } from "html-react-parser";
+import htmlParser, {
+  attributesToProps,
+  domToReact,
+  Element,
+} from "html-react-parser";
 import { tailwindToCSS, TailwindConfig } from "tw-to-css";
 
 export interface TailwindProps {

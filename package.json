@@ -1,0 +1,19 @@
+{
+  "name": "react-email-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
+  },
+  "devDependencies": {
+    "turbo": "^1.9.3"
+  },
+  "packageManager": "yarn@1.22.19"
+}
