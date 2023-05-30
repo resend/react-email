@@ -21,7 +21,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.341.0",
+    "@aws-sdk/client-ses": "3.341.0",
     "@react-email/button": "*",
     "@react-email/html": "*",
     "@react-email/render": "*",
