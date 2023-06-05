@@ -1,0 +1,99 @@
+---
+title: 'Send email using Plunk'
+sidebarTitle: 'Plunk'
+description: 'Learn how to send an email using React Email and the Plunk Node.js SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [Plunk Node.js SDK](https://www.npmjs.com/package/@plunk/node).
+
+<CodeGroup>
+
+  ```sh npm
+  npm install @plunk/node
+  ```
+
+  ```sh yarn
+  yarn add @plunk/node
+  ```
+
+  ```sh pnpm
+  pnpm add @plunk/node
+  ```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```jsx email.jsx
+import * as React from 'react';
+import { Html } from '@react-email/html';
+import { Button } from '@react-email/button';
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+
+export default Email;
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into a HTML string, and use the Plunk SDK to send it.
+
+<CodeGroup>
+
+  ```js React
+  import Plunk from '@plunk/node';
+  import { render } from '@react-email/render';
+  import { Email } from './email';
+
+  const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+  const emailHtml = render(<Email url="https://example.com" />);
+
+  plunk.emails.send({
+    to: "hello@useplunk.com",
+    subject: "Hello world",
+    body: emailHtml,
+  });
+  ```
+
+  ```js NodeJS
+  import Plunk from '@plunk/node';
+  import { render } from '@react-email/render';
+  import { Email } from './email';
+
+  const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+  const emailHtml = render(Email({ url: "https://example.com" }));
+
+  plunk.emails.send({
+    to: "hello@useplunk.com",
+    subject: "Hello world",
+    body: emailHtml,
+  });
+  ```
+
+</CodeGroup>
+
+## Try it yourself
+
+<Card
+  title="Plunk example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/zenorocha/react-email/tree/main/examples/plunk"
+>
+  See the full source code.
+</Card>

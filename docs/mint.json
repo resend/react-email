@@ -84,7 +84,8 @@
         "integrations/sendgrid",
         "integrations/postmark",
         "integrations/aws-ses",
-        "integrations/mailersend"
+        "integrations/mailersend",
+        "integrations/plunk"
       ]
     }
   ],
