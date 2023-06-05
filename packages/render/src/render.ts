@@ -8,12 +8,13 @@ export interface Options {
 }
 
 export const render = (component: React.ReactElement, options?: Options) => {
+  const markup = ReactDomServer.renderToStaticMarkup(component);
   if (options?.plainText) {
-    return renderAsPlainText(component, options);
+    return convertToPlainText(markup);
   }
+  
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-  const markup = ReactDomServer.renderToStaticMarkup(component);
   const document = `${doctype}${markup}`;
 
   if (options && options.pretty) {
@@ -23,11 +24,8 @@ export const render = (component: React.ReactElement, options?: Options) => {
   return document;
 };
 
-const renderAsPlainText = (
-  component: React.ReactElement,
-  _options?: Options
-) => {
-  return convert(ReactDomServer.renderToStaticMarkup(component), {
+export const convertToPlainText = (staticMarkup: string) => {
+  return convert(staticMarkup, {
     selectors: [
       { selector: "img", format: "skip" },
       { selector: "#__react-email-preview", format: "skip" },
