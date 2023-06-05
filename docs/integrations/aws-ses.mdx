@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the AWS SES Node.
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [AWS SES Node.js SDK](https://www.npmjs.com/package/aws-sdk).
+Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render aws-sdk
+npm install @react-email/render @aws-sdk/client-ses
 ```
 
 ```sh yarn
-yarn add @react-email/render aws-sdk
+yarn add @react-email/render @aws-sdk/client-ses
 ```
 
 ```sh pnpm
-pnpm add @react-email/render aws-sdk
+pnpm add @react-email/render @aws-sdk/client-ses
 ```
 
 </CodeGroup>
@@ -53,14 +53,14 @@ Import the email template you just built, convert into a HTML string, and use th
 
 ```js React
 import { render } from '@react-email/render';
-import AWS from 'aws-sdk';
+import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
-AWS.config.update({ region: process.env.AWS_SES_REGION });
+const ses = new SES({ region: process.env.AWS_SES_REGION })
 
 const emailHtml = render(<Email url="https://example.com" />);
 
-const options = {
+const params = {
   Source: 'you@example.com',
   Destination: {
     ToAddresses: ['user@gmail.com'],
@@ -79,21 +79,19 @@ const options = {
   },
 };
 
-const sendPromise = new AWS.SES({ apiVersion: '2010-12-01' })
-  .sendEmail(options)
-  .promise();
+await ses.sendEmail(params);
 ```
 
 ```js NodeJS
 import { render } from '@react-email/render';
-import AWS from 'aws-sdk';
+import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
-AWS.config.update({ region: process.env.AWS_SES_REGION });
+const ses = new SES({ region: process.env.AWS_SES_REGION })
 
 const emailHtml = render(Email({ url:"https://example.com" }));
 
-const options = {
+const params = {
   Source: 'you@example.com',
   Destination: {
     ToAddresses: ['user@gmail.com'],
@@ -112,9 +110,7 @@ const options = {
   },
 };
 
-const sendPromise = new AWS.SES({ apiVersion: '2010-12-01' })
-  .sendEmail(options)
-  .promise();
+await ses.sendEmail(params);
 ```
 
 </CodeGroup>
