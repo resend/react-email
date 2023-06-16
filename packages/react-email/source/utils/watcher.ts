@@ -18,7 +18,7 @@ export const createWatcherInstance = (watchDir: string) => {
   
   // Catches ctrl+c event
   const exit = async () => {
-    await watcherInstance.close();
+    await watcher.close();
   }
   process.on('SIGINT', exit);
   process.on('uncaughtException', exit);
