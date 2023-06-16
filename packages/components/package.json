@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "All react-email components",
   "sideEffects": false,
   "main": "./dist/index.js",
