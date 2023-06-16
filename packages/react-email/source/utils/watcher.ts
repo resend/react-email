@@ -17,6 +17,13 @@ export const createWatcherInstance = (watchDir: string) =>
   });
 
 export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
+  // Catches ctrl+c event
+  const exit = async () => {
+    await watcherInstance.close();
+  }
+  process.on('SIGINT', exit);
+  process.on('uncaughtException', exit);
+  
   watcherInstance.on('all', async (event, filename) => {
     const file = filename.split(path.sep);
     if (file[1] === undefined) {
