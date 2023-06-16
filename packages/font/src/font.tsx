@@ -67,7 +67,7 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   };
     }
   `;
-  return <style>{style}</style>;
+  return <style dangerouslySetInnerHTML={{__html: style}} />;
 };
 
 Font.displayName = "Font";
