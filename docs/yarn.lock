@@ -46,7 +46,7 @@
   resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
   integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
 
-"@mintlify/cli@^3.0.24":
+"@mintlify/cli@3.0.55":
   version "3.0.55"
   resolved "https://registry.yarnpkg.com/@mintlify/cli/-/cli-3.0.55.tgz#711125249722246b2a562cb0ed54a1dce1d323bc"
   integrity sha512-6e1kquckifQl4zt2zmj9kuczMfTGMiAY5t753k64QutXTNDTGt7dBCWxiJkWVX7AxHOoIUORa4y4nufaGl2rPw==
@@ -104,14 +104,14 @@
   integrity sha512-TWFX7cZF2LXoCvdmJWY7XVPi74aSY0+FfBZNSXEXFkMpjcqsQwDSYVv5FhRFaI0V1ECnwbz4j59T/G+rXNWaIQ==
 
 "@octokit/core@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-4.2.1.tgz#fee6341ad0ce60c29cc455e056cd5b500410a588"
-  integrity sha512-tEDxFx8E38zF3gT7sSMDrT1tGumDgsw5yPG6BBh/X+5ClIQfMH/Yqocxz1PnHx6CHyF6pxmovUTOfZAUvQ0Lvw==
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-4.2.2.tgz#d964c14d60fd8d112d74b276491fb50051b5d915"
+  integrity sha512-BmbuGeL/E9lf9nPnQXyOpBRU7fQTh0F6HA2O2pyszCZrrnK24IOG+rfbFdc7v/6bBZKodsjGrFdBLNCQ9KSz5g==
   dependencies:
     "@octokit/auth-token" "^3.0.0"
     "@octokit/graphql" "^5.0.0"
     "@octokit/request" "^6.0.0"
-    "@octokit/request-error" "^3.0.0"
+    "@octokit/request-error" "^4.0.0"
     "@octokit/types" "^9.0.0"
     before-after-hook "^2.2.0"
     universal-user-agent "^6.0.0"
@@ -163,6 +163,15 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@octokit/request-error/-/request-error-3.0.3.tgz#ef3dd08b8e964e53e55d471acfe00baa892b9c69"
   integrity sha512-crqw3V5Iy2uOU5Np+8M/YexTlT8zxCfI+qu+LxUB7SZpje4Qmx3mub5DfEKSO8Ylyk0aogi6TYdf6kxzh2BguQ==
+  dependencies:
+    "@octokit/types" "^9.0.0"
+    deprecation "^2.0.0"
+    once "^1.4.0"
+
+"@octokit/request-error@^4.0.0":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@octokit/request-error/-/request-error-4.0.1.tgz#6278255ade55a04aab59327c4e1359290523c39f"
+  integrity sha512-DBTkqzs0K6SlK1gRaQ6A6yOnKKkbVy8n/A9E7Es5qYONIxBghqiETPqWhG9l7qvWgp8v3sDkB8vlV2AAX1N6gw==
   dependencies:
     "@octokit/types" "^9.0.0"
     deprecation "^2.0.0"
@@ -265,9 +274,9 @@ acorn-jsx@^5.0.0:
   integrity sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==
 
 acorn@^8.0.0:
-  version "8.8.2"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.8.2.tgz#1b2f25db02af965399b9776b0c2c391276d37c4a"
-  integrity sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==
+  version "8.9.0"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
+  integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
 
 address@^1.0.1:
   version "1.2.2"
@@ -1623,12 +1632,12 @@ minimatch@^3.1.1:
   dependencies:
     brace-expansion "^1.1.7"
 
-mintlify@3.0.25:
-  version "3.0.25"
-  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-3.0.25.tgz#7219d981361bf431a5f2a5168cc788f2163fcc9d"
-  integrity sha512-3IFi4R6ZGr+DfgNG2tZy0bOzynd4GnpzckYyUPPYkB2TnSN8yuE4AplI5TuN9DHCOBEFUGdfTIviv6UBgJf3kQ==
+mintlify@3.0.56:
+  version "3.0.56"
+  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-3.0.56.tgz#1d8418ea9b6b57e21ee4ce9529e5c309b2c86b54"
+  integrity sha512-QmhYvlYoB+SN6V8IuctEuo62h3U+pFHe1Tkxb6shw3zLfmzljAQQ8qm7RKkmBIqi/P7As0LIGaAwH4xGRS+uYA==
   dependencies:
-    "@mintlify/cli" "^3.0.24"
+    "@mintlify/cli" "3.0.55"
 
 mri@^1.1.0:
   version "1.2.0"
