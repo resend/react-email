@@ -8,6 +8,7 @@ export const Send = ({ markup }: { markup: string }) => {
   const [to, setTo] = React.useState('');
   const [subject, setSubject] = React.useState('Testing React Email');
   const [isSending, setIsSending] = React.useState(false);
+  const [sendSuccess, setSendSuccess] = React.useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
     try {
@@ -27,6 +28,14 @@ export const Send = ({ markup }: { markup: string }) => {
       if (response.status === 429) {
         const { error } = await response.json();
         alert(error);
+      }
+
+      if (response.status === 200) {
+        const successTimeoutDuration = 3 * 1000;
+        setSendSuccess(true);
+        setTimeout(() => {
+          setSendSuccess(false);
+        }, successTimeoutDuration);
       }
     } catch (e) {
       alert('Something went wrong. Please try again.');
@@ -86,10 +95,6 @@ export const Send = ({ markup }: { markup: string }) => {
               id="subject"
               required
             />
-            <input
-              type="checkbox"
-              className="appearance-none checked:bg-blue-500"
-            />
             <div className="flex items-center justify-between">
               <Text className="inline-block" size="1">
                 Powered by{' '}
@@ -104,11 +109,34 @@ export const Send = ({ markup }: { markup: string }) => {
               </Text>
               <Button
                 type="submit"
-                disabled={subject.length === 0 || to.length === 0 || isSending}
+                disabled={
+                  subject.length === 0 ||
+                  to.length === 0 ||
+                  isSending ||
+                  sendSuccess
+                }
                 className="disabled:bg-slate-11 disabled:border-transparent"
               >
                 Send
               </Button>
+              <div
+                className={`fixed border border-white/30 bottom-[-40px] right-0 bg-green-600 text-white shadow rounded flex flex-col transition-[transform_opacity] motion-reduce:transition-none duration-500 ${
+                  sendSuccess
+                    ? 'translate-x-0 opacity-100'
+                    : 'translate-x-full opacity-0'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full p-2">
+                  <p className="mr-2 text-sm">Email sent!</p>
+                  <button
+                    onClick={() => setSendSuccess(false)}
+                    disabled={!sendSuccess}
+                    className="text-xs text-white/70 hover:text-white"
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </Popover.Content>
