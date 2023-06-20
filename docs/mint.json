@@ -57,7 +57,6 @@
       "pages": [
         "components/html",
         "components/head",
-        "components/markdown",
         "components/button",
         "components/column",
         "components/container",
@@ -66,6 +65,7 @@
         "components/hr",
         "components/image",
         "components/link",
+        "components/markdown",
         "components/preview",
         "components/section",
         "components/tailwind",
