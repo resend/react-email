@@ -57,6 +57,7 @@
       "pages": [
         "components/html",
         "components/head",
+        "components/markdown",
         "components/button",
         "components/column",
         "components/container",
