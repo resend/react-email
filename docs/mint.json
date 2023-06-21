@@ -65,6 +65,7 @@
         "components/hr",
         "components/image",
         "components/link",
+        "components/markdown",
         "components/preview",
         "components/section",
         "components/tailwind",
