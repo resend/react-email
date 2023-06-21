@@ -61,11 +61,14 @@ const Email = () => {
 <ResponseField name="children" type="string">
   Contains the markdown content that will be rendered in the email template
 </ResponseField>
-<ResponseField name="markdownCustomStyles" type="object" default="{}">
-  Provide custom styles for the corresponding html element (p, h1, h2, etc.)
-</ResponseField>
 <ResponseField name="markdownContainerStyles" type="object" default="{}">
   Provide custom styles for the containing div that wraps the markdown content
+</ResponseField>
+<ResponseField name="markdownCustomStyles" type="object" default="{}">
+  Provide custom styles for the corresponding html element (p, h1, h2, etc.)
+  <Info>
+    Note: Passing a custom style for an element overrides the default styles.
+  </Info>
 </ResponseField>
 
 <Snippet file="support.mdx" />
