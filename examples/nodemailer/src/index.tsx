@@ -1,15 +1,16 @@
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
+import previewEmail from 'preview-email';
 import * as React from 'react';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: process.env.HOST || 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
   auth: {
     user: 'my_user',
-    pass: 'my_password',
+    pass: 'my_password'
   },
 });
 
@@ -22,4 +23,6 @@ const options = {
   html: emailHtml,
 };
 
-transporter.sendMail(options);
+await previewEmail(options);
+
+await transporter.sendMail(options);

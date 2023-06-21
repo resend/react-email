@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and Nodemailer.'
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) and [nodemailer](https://www.npmjs.com/package/nodemailer) packages.
+Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render), [nodemailer](https://www.npmjs.com/package/nodemailer), and [preview-email](https://www.npmjs.com/package/preview-email) packages.
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render nodemailer
+npm install @react-email/render nodemailer preview-email
 ```
 
 ```sh yarn
-yarn add @react-email/render nodemailer
+yarn add @react-email/render nodemailer preview-email
 ```
 
 ```sh pnpm
-pnpm add @react-email/render nodemailer
+pnpm add @react-email/render nodemailer preview-email
 ```
 
 </CodeGroup>
@@ -54,12 +54,13 @@ Import the email template you just built, convert into a HTML string, and use th
 ```js React
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
+import previewEmail from 'preview-email';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
   auth: {
     user: 'my_user',
     pass: 'my_password',
@@ -75,18 +76,21 @@ const options = {
   html: emailHtml,
 };
 
-transporter.sendMail(options);
+await previewEmail(options);
+
+await transporter.sendMail(options);
 ```
 
 ```js NodeJS
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
+import previewEmail from 'preview-email';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
   auth: {
     user: 'my_user',
     pass: 'my_password',
@@ -102,7 +106,9 @@ const options = {
   html: emailHtml,
 };
 
-transporter.sendMail(options);
+await previewEmail(options);
+
+await transporter.sendMail(options);
 ```
 
 </CodeGroup>
@@ -113,7 +119,7 @@ transporter.sendMail(options);
   title="Nodemailer example"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/zenorocha/react-email/tree/main/examples/nodemailer"
+  href="https://github.com/resendlabs/react-email/tree/main/examples/nodemailer"
 >
   See the full source code.
 </Card>

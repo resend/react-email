@@ -120,7 +120,7 @@ export default function Examples() {
               Recreate an{' '}
               <Anchor
                 target="_blank"
-                href="https://github.com/zenorocha/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+                href="https://github.com/resendlabs/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 appearance="white"
               >
                 existing email
@@ -128,7 +128,7 @@ export default function Examples() {
               or submit a{' '}
               <Anchor
                 target="_blank"
-                href="https://github.com/zenorocha/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resendlabs/react-email/tree/main/apps/demo/emails"
                 appearance="white"
               >
                 pull request

@@ -1,5 +1,5 @@
 {
-  "name": "react-email-with-nodemailer",
+  "name": "react-email-with-aws-ses",
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
