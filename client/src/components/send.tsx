@@ -1,4 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
+import * as Toast from '@radix-ui/react-toast';
 import * as React from 'react';
 import { inter } from '../app/layout';
 import { Button } from './button';
@@ -46,101 +47,106 @@ export const Send = ({ markup }: { markup: string }) => {
 
   return (
     <Popover.Root>
-      <Popover.Trigger asChild>
-        <button className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg text-center transition duration-300 ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-12 hover:text-slate-12 font-sans">
-          Send
-        </button>
-      </Popover.Trigger>
-      <Popover.Anchor />
-      <Popover.Portal>
-        <Popover.Content
-          align="end"
-          className={`w-80 -mt-10 p-3 bg-black border border-slate-6 text-slate-11 rounded-lg font-sans ${inter.variable}`}
-        >
-          <Popover.Close
-            aria-label="Close"
-            className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-slate-11 hover:text-slate-12 transition duration-300 ease-in-out rounded-full"
+      <Toast.Provider>
+        <Popover.Trigger asChild>
+          <button className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg text-center transition duration-300 ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-12 hover:text-slate-12 font-sans">
+            Send
+          </button>
+        </Popover.Trigger>
+        <Popover.Anchor />
+        <Popover.Portal>
+          <Popover.Content
+            align="end"
+            className={`w-80 -mt-10 p-3 bg-black border border-slate-6 text-slate-11 rounded-lg font-sans ${inter.variable}`}
           >
-            ✕
-          </Popover.Close>
-          <form onSubmit={onFormSubmit} className="mt-1">
-            <label
-              htmlFor="to"
-              className="text-slate-10 text-xs uppercase mb-2 block"
+            <Popover.Close
+              aria-label="Close"
+              className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-slate-11 hover:text-slate-12 transition duration-300 ease-in-out rounded-full"
             >
-              Recipient
-            </label>
-            <input
-              autoFocus={true}
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
-              onChange={(e) => setTo(e.target.value)}
-              defaultValue={to}
-              placeholder="you@example.com"
-              type="email"
-              id="to"
-              required
-            />
-            <label
-              htmlFor="subject"
-              className="text-slate-10 text-xs uppercase mb-2 block"
-            >
-              Subject
-            </label>
-            <input
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
-              onChange={(e) => setSubject(e.target.value)}
-              defaultValue={subject}
-              placeholder="My Email"
-              type="text"
-              id="subject"
-              required
-            />
-            <div className="flex items-center justify-between">
-              <Text className="inline-block" size="1">
-                Powered by{' '}
-                <a
-                  className="hover:text-slate-12 transition ease-in-out duration-300"
-                  href="https://resend.com"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Resend
-                </a>
-              </Text>
-              <Button
-                type="submit"
-                disabled={
-                  subject.length === 0 ||
-                  to.length === 0 ||
-                  isSending ||
-                  sendSuccess
-                }
-                className="disabled:bg-slate-11 disabled:border-transparent"
+              ✕
+            </Popover.Close>
+            <form onSubmit={onFormSubmit} className="mt-1">
+              <label
+                htmlFor="to"
+                className="text-slate-10 text-xs uppercase mb-2 block"
               >
-                Send
-              </Button>
-              <div
-                className={`fixed border border-white/30 bottom-[-40px] right-0 bg-green-600 text-white shadow rounded flex flex-col transition-[transform_opacity] motion-reduce:transition-none duration-500 ${
-                  sendSuccess
-                    ? 'translate-x-0 opacity-100'
-                    : 'translate-x-full opacity-0'
-                }`}
+                Recipient
+              </label>
+              <input
+                autoFocus={true}
+                className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
+                onChange={(e) => setTo(e.target.value)}
+                defaultValue={to}
+                placeholder="you@example.com"
+                type="email"
+                id="to"
+                required
+              />
+              <label
+                htmlFor="subject"
+                className="text-slate-10 text-xs uppercase mb-2 block"
               >
-                <div className="flex items-center justify-between w-full p-2">
-                  <p className="mr-2 text-sm">Email sent!</p>
-                  <button
-                    onClick={() => setSendSuccess(false)}
-                    disabled={!sendSuccess}
-                    className="text-xs text-white/70 hover:text-white"
+                Subject
+              </label>
+              <input
+                className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
+                onChange={(e) => setSubject(e.target.value)}
+                defaultValue={subject}
+                placeholder="My Email"
+                type="text"
+                id="subject"
+                required
+              />
+              <div className="flex items-center justify-between">
+                <Text className="inline-block" size="1">
+                  Powered by{' '}
+                  <a
+                    className="hover:text-slate-12 transition ease-in-out duration-300"
+                    href="https://resend.com"
+                    target="_blank"
+                    rel="noreferrer"
                   >
+                    Resend
+                  </a>
+                </Text>
+                <Button
+                  type="submit"
+                  disabled={
+                    subject.length === 0 ||
+                    to.length === 0 ||
+                    isSending ||
+                    sendSuccess
+                  }
+                  className="disabled:bg-slate-11 disabled:border-transparent"
+                >
+                  Send
+                </Button>
+              </div>
+              <Toast.Root
+                className="bg-[#18794e] rounded-md shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] p-3 grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
+                open={sendSuccess}
+                onOpenChange={setSendSuccess}
+              >
+                <Toast.Description asChild>
+                  <p className="text-white">Email sent</p>
+                </Toast.Description>
+                <Toast.Action
+                  className="[grid-area:_action]"
+                  asChild
+                  altText="Close email sent notification"
+                >
+                  <button className="inline-flex items-center justify-center rounded font-medium text-xs px-[8px] leading-[25px] h-[25px] text-white shadow-[inset_0_0_0_1px] hover:shadow-[inset_0_0_0_1px] focus:shadow-[0_0_0_2px] ">
                     ✕
                   </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </Popover.Content>
-      </Popover.Portal>
+                </Toast.Action>
+              </Toast.Root>
+              <Toast.Viewport
+                className={`[--viewport-padding:_0px] fixed bottom-[-72px] right-0 flex flex-col p-[var(--viewport-padding)] gap-[10px] w-[160px] max-w-[220px] m-0 list-none z-[2147483647] outline-none`}
+              />
+            </form>
+          </Popover.Content>
+        </Popover.Portal>
+      </Toast.Provider>
     </Popover.Root>
   );
 };
