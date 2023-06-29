@@ -25,7 +25,6 @@
     "@react-email/html": "*",
     "@react-email/render": "*",
     "nodemailer": "6.8.0",
-    "preview-email": "3.0.19",
     "react": "18.2.0"
   },
   "devDependencies": {

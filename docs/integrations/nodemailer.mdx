@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and Nodemailer.'
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render), [nodemailer](https://www.npmjs.com/package/nodemailer), and [preview-email](https://www.npmjs.com/package/preview-email) packages.
+Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) and [nodemailer](https://www.npmjs.com/package/nodemailer) packages.
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render nodemailer preview-email
+npm install @react-email/render nodemailer
 ```
 
 ```sh yarn
-yarn add @react-email/render nodemailer preview-email
+yarn add @react-email/render nodemailer
 ```
 
 ```sh pnpm
-pnpm add @react-email/render nodemailer preview-email
+pnpm add @react-email/render nodemailer
 ```
 
 </CodeGroup>
@@ -54,7 +54,6 @@ Import the email template you just built, convert into a HTML string, and use th
 ```js React
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import previewEmail from 'preview-email';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
@@ -76,15 +75,12 @@ const options = {
   html: emailHtml,
 };
 
-await previewEmail(options);
-
 await transporter.sendMail(options);
 ```
 
 ```js NodeJS
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import previewEmail from 'preview-email';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
@@ -105,8 +101,6 @@ const options = {
   subject: 'hello world',
   html: emailHtml,
 };
-
-await previewEmail(options);
 
 await transporter.sendMail(options);
 ```

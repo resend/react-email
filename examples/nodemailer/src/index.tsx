@@ -1,6 +1,5 @@
 import { render } from '@react-email/render';
 import nodemailer from 'nodemailer';
-import previewEmail from 'preview-email';
 import * as React from 'react';
 import { Email } from './email';
 
@@ -22,7 +21,5 @@ const options = {
   subject: 'hello world',
   html: emailHtml,
 };
-
-await previewEmail(options);
 
 await transporter.sendMail(options);
