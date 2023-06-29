@@ -3,7 +3,7 @@ import * as React from "react";
 
 type MarkdownElement = React.ElementRef<"div">;
 
-interface MarkdownProps {
+export interface MarkdownProps {
   children: string;
   markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
