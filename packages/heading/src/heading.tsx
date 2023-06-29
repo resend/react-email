@@ -4,8 +4,8 @@ import { As, Margin, withMargin } from "./utils";
 
 interface HeadingOwnProps {}
 
-type HeadingAs = As<"h1", "h2", "h3", "h4", "h5", "h6">;
-type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
+export type HeadingAs = As<"h1", "h2", "h3", "h4", "h5", "h6">;
+export type HeadingProps = HeadingAs & HeadingOwnProps & Margin;
 
 export const Heading = React.forwardRef<
   HTMLHeadingElement,
