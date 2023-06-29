@@ -73,7 +73,7 @@ export const AmazonReviewEmail = ({
                   src={`${baseUrl}/static/amazon-book.jpg`}
                   alt="Amazon Book"
                   width="274"
-                  heigth="350"
+                  height="350"
                 />
               </Column>
 
@@ -115,7 +115,7 @@ export const AmazonReviewEmail = ({
                   src={`${baseUrl}/static/amazon-logo.png`}
                   alt="Amazon Logo"
                   width="93"
-                  heigth="23"
+                  height="23"
                 />
               </Column>
 
@@ -125,7 +125,7 @@ export const AmazonReviewEmail = ({
                     src={src}
                     alt="Amazon Social Midia"
                     width="30"
-                    heigth="30"
+                    height="30"
                     style={socialMedia}
                   />
                 ))}

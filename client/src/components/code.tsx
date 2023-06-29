@@ -70,16 +70,18 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           />
           <div className="p-4 h-[650px] overflow-auto">
             {tokens.map((line, i) => {
+              const { key: lineKey, ...lineProps } = getLineProps({ line, key: i });
               return (
                 <div
                   key={i}
-                  {...getLineProps({ line, key: i })}
+                  {...lineProps}
                   className={classnames('whitespace-pre', {
                     "before:text-slate-11 before:mr-2 before:content-['$']":
                       language === 'bash' && tokens && tokens.length === 1,
                   })}
                 >
                   {line.map((token, key) => {
+                    const { key: tokenKey, ...tokenProps} = getTokenProps({ token, key });
                     const isException =
                       token.content === 'from' &&
                       line[key + 1]?.content === ':';
@@ -90,7 +92,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
 
                     return (
                       <React.Fragment key={key}>
-                        <span {...getTokenProps({ token, key })} />
+                        <span {...tokenProps} />
                       </React.Fragment>
                     );
                   })}
