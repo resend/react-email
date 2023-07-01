@@ -32,8 +32,8 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
   steps: [
     {
       id: 1,
-      Description: () => (
-        <li className="mb-20">
+      Description: (
+        <li className="mb-20" key={1}>
           <strong>Deploy your first project.</strong>{" "}
           <Link>Connect to Git, choose a template</Link>, or manually deploy a
           project you've been working on locally.
@@ -42,8 +42,8 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
     },
     {
       id: 2,
-      Description: () => (
-        <li className="mb-20">
+      Description: (
+        <li className="mb-20" key={2}>
           <strong>Check your deploy logs.</strong> Find out what's included in
           your build and watch for errors or failed deploys.{" "}
           <Link>Learn how to read your deploy logs</Link>.
@@ -52,8 +52,8 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
     },
     {
       id: 3,
-      Description: () => (
-        <li className="mb-20">
+      Description: (
+        <li className="mb-20" key={3}>
           <strong>Choose an integration.</strong> Quickly discover, connect, and
           configure the right tools for your project with 150+ integrations to
           choose from. <Link>Explore the Integrations Hub</Link>.
@@ -62,8 +62,8 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
     },
     {
       id: 4,
-      Description: () => (
-        <li className="mb-20">
+      Description: (
+        <li className="mb-20" key={4}>
           <strong>Set up a custom domain.</strong> You can register a new domain
           and buy it through Netlify or assign a domain you already own to your
           site. <Link>Add a custom domain</Link>.
@@ -122,11 +122,7 @@ export const NetlifyWelcomeEmail = ({
               </Row>
             </Section>
 
-            <ul>
-              {steps?.map(({ Description, id }) => (
-                <Description key={id} />
-              ))}
-            </ul>
+            <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
               <Button

@@ -9,12 +9,22 @@ import {
 } from './constants';
 import { generateEmailsPreview } from './generate-email-preview';
 
-export const createWatcherInstance = (watchDir: string) =>
-  chokidar.watch(watchDir, {
+export const createWatcherInstance = (watchDir: string) => {
+  const watcher = chokidar.watch(watchDir, {
     ignoreInitial: true,
     cwd: watchDir.split(path.sep).slice(0, -1).join(path.sep),
     ignored: /(^|[\/\\])\../,
   });
+  
+  // Catches ctrl+c event
+  const exit = async () => {
+    await watcher.close();
+  }
+  process.on('SIGINT', exit);
+  process.on('uncaughtException', exit);
+  
+  return watcher;
+}
 
 export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
   watcherInstance.on('all', async (event, filename) => {

@@ -57,9 +57,9 @@ import nodemailer from 'nodemailer';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
   auth: {
     user: 'my_user',
     pass: 'my_password',
@@ -75,7 +75,7 @@ const options = {
   html: emailHtml,
 };
 
-transporter.sendMail(options);
+await transporter.sendMail(options);
 ```
 
 ```js NodeJS
@@ -84,9 +84,9 @@ import nodemailer from 'nodemailer';
 import { Email } from './email';
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false,
+  host: 'smtp.forwardemail.net',
+  port: 465,
+  secure: true,
   auth: {
     user: 'my_user',
     pass: 'my_password',
@@ -102,7 +102,7 @@ const options = {
   html: emailHtml,
 };
 
-transporter.sendMail(options);
+await transporter.sendMail(options);
 ```
 
 </CodeGroup>
@@ -113,7 +113,7 @@ transporter.sendMail(options);
   title="Nodemailer example"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/zenorocha/react-email/tree/main/examples/nodemailer"
+  href="https://github.com/resendlabs/react-email/tree/main/examples/nodemailer"
 >
   See the full source code.
 </Card>

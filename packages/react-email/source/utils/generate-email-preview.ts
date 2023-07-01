@@ -12,6 +12,13 @@ import fse from 'fs-extra';
 import glob from 'glob';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
+/**
+ * Node.js and imports are requiring all imports to be /, while some functions (like glob) return paths with \ for path separation on windows
+ */
+function osIndependentPath(p: string) {
+  return p.split(path.sep).join("/")
+}
+
 export const generateEmailsPreview = async (
   emailDir: string,
   type: 'all' | 'static' | 'templates' = 'all',
@@ -43,7 +50,7 @@ const createEmailPreviews = async (emailDir: string) => {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
-  const list = glob.sync(path.join(emailDir, '/*.{jsx,tsx}'), {
+  const list = glob.sync(osIndependentPath(path.join(emailDir, '/*.{jsx,tsx}')), {
     absolute: true,
   });
 
@@ -54,18 +61,19 @@ const createEmailPreviews = async (emailDir: string) => {
    * import Mail from '../../path/to/emails/my-template.tsx`
    * export default Mail
    */
-  for (const absoluteSrcFilePath of list) {
+  for (const _absoluteSrcFilePath of list) {
+    const absoluteSrcFilePath = osIndependentPath(_absoluteSrcFilePath);
     const fileName = absoluteSrcFilePath.split('/').pop()!;
     const targetFile = path.join(
-      PACKAGE_EMAILS_PATH,
-      absoluteSrcFilePath.replace(emailDir, ''),
+      osIndependentPath(PACKAGE_EMAILS_PATH),
+      absoluteSrcFilePath.replace(osIndependentPath(emailDir), ''),
     );
     const importPath = path.relative(
       path.dirname(targetFile),
       path.dirname(absoluteSrcFilePath),
     );
 
-    const importFile = path.join(importPath, fileName);
+    const importFile = osIndependentPath(path.join(importPath, fileName));
 
     // if this import is changed, you also need to update `client/src/app/preview/[slug]/page.tsx`
     const sourceCode =

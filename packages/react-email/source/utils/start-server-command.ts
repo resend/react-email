@@ -29,26 +29,31 @@ export const buildProdServer = (packageManager: string) => {
 };
 
 // based on https://stackoverflow.com/a/14032965
-function exitHandler() {
-  if (processesToKill.length > 0) {
-    console.log('shutting down %d subprocesses', processesToKill.length);
-  }
-  processesToKill.forEach((p) => {
-    if (p.connected) {
-      p.kill();
+const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
+  (options) =>
+    (code) => {
+    if (processesToKill.length > 0) {
+      console.log('shutting down %d subprocesses', processesToKill.length);
     }
-  });
-}
+    processesToKill.forEach((p) => {
+      if (p.connected) {
+        p.kill();
+      }
+    });
+      if (options?.exit) {
+      shell.exit(code);
+    }
+  };
 
 // do something when app is closing
-process.on('exit', exitHandler);
+process.on('exit', exitHandler());
 
 // catches ctrl+c event
-process.on('SIGINT', exitHandler);
+process.on('SIGINT', exitHandler({ exit: true }));
 
 //  catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler);
-process.on('SIGUSR2', exitHandler);
+process.on('SIGUSR1', exitHandler({ exit: true }));
+process.on('SIGUSR2', exitHandler({ exit: true }));
 
 // catches uncaught exceptions
-process.on('uncaughtException', exitHandler);
+process.on('uncaughtException', exitHandler({ exit: true }));

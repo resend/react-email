@@ -16,7 +16,7 @@ type FontFormat =
   | "svg";
 
 type FontWeight = React.CSSProperties["fontWeight"];
-type FontStyle = React.CSSProperties["fontSize"];
+type FontStyle = React.CSSProperties["fontStyle"];
 
 export interface FontProps {
   /** The font you want to use. NOTE: Do not insert multiple fonts here, use fallbackFontFamily for that */
@@ -67,7 +67,7 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   };
     }
   `;
-  return <style>{style}</style>;
+  return <style dangerouslySetInnerHTML={{__html: style}} />;
 };
 
 Font.displayName = "Font";

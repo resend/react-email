@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenorocha/react-email.git",
+    "url": "https://github.com/resendlabs/react-email.git",
     "directory": "packages/tailwind"
   },
   "keywords": [
@@ -40,6 +40,7 @@
     "tw-to-css": "0.0.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.8",
     "@babel/preset-react": "7.18.6",
     "@react-email/button": "0.0.7",
     "@testing-library/react": "14.0.0",

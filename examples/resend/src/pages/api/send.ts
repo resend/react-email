@@ -6,18 +6,18 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   switch (method) {
-    case "POST": {
+    case "GET": {
       const data = await resend.sendEmail({
         from: "bu@resend.dev",
-        to: "bu@resend.com",
+        to: "delivered@resend.dev",
         subject: "Waitlist",
         react: WaitlistEmail({ name: "Bu" }),
       });
 
-      return res.status(200).send({ data: "Email sent successfully" });
+      return res.status(200).send(data);
     }
     default:
-      res.setHeader("Allow", ["POST"]);
+      res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
 };
