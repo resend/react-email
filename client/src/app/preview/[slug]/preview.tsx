@@ -51,7 +51,7 @@ export default function Preview({
       setActiveView={handleViewChange}
     >
       {activeView === 'desktop' ? (
-        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
+        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_140px)]" />
       ) : (
         <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <Tooltip.Provider>
