@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "@react-email/components": "0.0.6",
-    "react-email": "1.9.3"
+    "react-email": "1.9.4"
   }
 }
