@@ -31,7 +31,9 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         )}
         {...props}
       >
-        <div className={`flex items-center overflow-hidden ${columnWidth}`}>
+        <div
+          className={`items-center overflow-hidden hidden lg:flex ${columnWidth}`}
+        >
           <Heading as="h2" size="2" weight="medium" className="truncate">
             {title}
           </Heading>
@@ -53,7 +55,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="desktop">
                   <motion.div
                     className={classnames(
-                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
                         'text-slate-11': activeView === 'source',
                         'text-slate-12': activeView === 'desktop',

@@ -4,7 +4,6 @@ import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import * as React from 'react';
 import { Heading } from './heading';
-import { Logo } from './logo';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
@@ -17,16 +16,8 @@ interface SidebarProps extends RootProps {
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   ({ className, navItems, title, ...props }, forwardedRef) => {
     return (
-      <aside
-        ref={forwardedRef}
-        className="px-6 min-w-[275px] max-w-[275px] flex flex-col gap-4 border-r border-slate-6"
-        {...props}
-      >
-        <div className="h-[70px] flex items-center">
-          <Logo />
-        </div>
-
-        <nav className="flex flex-col gap-4">
+      <aside ref={forwardedRef} className={className} {...props}>
+        <nav className="p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
           <Collapsible.Root defaultOpen>
             <Collapsible.Trigger
               className={classnames('flex items-center gap-1', {
