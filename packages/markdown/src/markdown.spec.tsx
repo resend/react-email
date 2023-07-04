@@ -61,7 +61,7 @@ describe("ReactEmailMarkdown component renders correctly", () => {
       <Markdown>{`Link to [React-email](https://react.email)`}</Markdown>
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\">Link to <a href=\\"https://react.email\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" data-id=\\"react-email-link\\">React-email</a></div>"`
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\">Link to <a href=\\"https://react.email\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" data-id=\\"react-email-link\\" target=\\"_blank\\">React-email</a></div>"`
     );
   });
 
