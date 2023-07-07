@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
-    "@manypkg/find-root": "2.1.0",
+    "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
     "@react-email/render": "0.0.6",
     "chokidar": "3.5.3",
