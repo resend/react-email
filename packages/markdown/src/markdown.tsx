@@ -14,10 +14,11 @@ export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
     { children, markdownContainerStyles, markdownCustomStyles, ...props },
     forwardedRef
   ) => {
-    const parsedMarkdown = parseMarkdownToReactEmailJSX(
-      children,
-      markdownCustomStyles
-    );
+    const parsedMarkdown = parseMarkdownToReactEmailJSX({
+      markdown: children,
+      customStyles: markdownCustomStyles,
+      withDataAttr: true,
+    });
 
     return (
       <div
