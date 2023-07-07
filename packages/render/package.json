@@ -39,7 +39,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.18.6",
+    "@babel/preset-react": "7.22.5",
     "@types/html-to-text": "9.0.0",
     "@types/jest": "29.5.0",
     "@types/pretty": "2.0.1",

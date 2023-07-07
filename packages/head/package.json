@@ -36,7 +36,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.18.6",
+    "@babel/preset-react": "7.22.5",
     "@react-email/render": "0.0.6",
     "@types/jest": "29.5.0",
     "@types/react": "18.0.20",
