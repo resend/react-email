@@ -34,7 +34,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "html-react-parser": "3.0.9",
+    "html-react-parser": "4.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tw-to-css": "0.0.11"
