@@ -28,6 +28,6 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "prettier": "2.8.4"
+    "prettier": "2.8.8"
   }
 }
