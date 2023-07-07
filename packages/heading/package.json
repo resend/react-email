@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
     "@react-email/render": "0.0.6",
-    "@types/jest": "29.5.0",
+    "@types/jest": "29.5.2",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "babel-jest": "28.1.3",
