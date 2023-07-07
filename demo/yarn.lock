@@ -309,10 +309,10 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/button@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@react-email/button/-/button-0.0.7.tgz#cb19f4d3eeff825ccd6b261f75819c7730076512"
-  integrity sha512-TMcy5p+XBArufjtmrYOkFFRtiVegrvz3BeynvvHlsvlJImDy6az2+NLvkuSghG0hgOs1t5otD0Bn2PBVZhx/wA==
+"@react-email/button@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@react-email/button/-/button-0.0.9.tgz#3366c3216add68936b3a555e72388d1317dda1ff"
+  integrity sha512-eYWQ1X4RFlkKYYSPgSrT6rk98wuLOieEAGENrp9j37t1v/1C+jMmBu0UjZvwHsHWdbOMRjbVDFeMI/+MxWKSEg==
   dependencies:
     react "18.2.0"
 
@@ -323,27 +323,27 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/components@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@react-email/components/-/components-0.0.4.tgz#abd4dd7f36c98935075ad1bd769e94529c9dec82"
-  integrity sha512-vJZ9P/ixOcrtMnUV11oe/3ci7yRKZyIzcjnxmu4yCYuZBV3zgHdvieUmgSeNGcW7sP140foJavGJNFu3ePUrrA==
+"@react-email/components@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@react-email/components/-/components-0.0.7.tgz#419d8c6c1328dc0d15e953df9960a85d0c132281"
+  integrity sha512-GpRKV8E7EvK9OPf61f5Z8hliB3p0hTot8tslmEUVCTtX7tdL0wM2YEcZiDWU4PJcudJ/QWHJ7Y5wGzNEARcooA==
   dependencies:
     "@react-email/body" "0.0.2"
-    "@react-email/button" "0.0.7"
+    "@react-email/button" "0.0.9"
     "@react-email/column" "0.0.7"
     "@react-email/container" "0.0.8"
-    "@react-email/font" "0.0.1"
+    "@react-email/font" "0.0.2"
     "@react-email/head" "0.0.5"
     "@react-email/heading" "0.0.8"
     "@react-email/hr" "0.0.5"
     "@react-email/html" "0.0.4"
     "@react-email/img" "0.0.5"
     "@react-email/link" "0.0.5"
-    "@react-email/preview" "0.0.5"
-    "@react-email/render" "0.0.6"
+    "@react-email/preview" "0.0.6"
+    "@react-email/render" "0.0.7"
     "@react-email/row" "0.0.5"
     "@react-email/section" "0.0.9"
-    "@react-email/tailwind" "0.0.7"
+    "@react-email/tailwind" "0.0.8"
     "@react-email/text" "0.0.5"
     react "18.2.0"
 
@@ -354,10 +354,10 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/font@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@react-email/font/-/font-0.0.1.tgz#0942b214b35b4ded40590890b058246762ed2827"
-  integrity sha512-n43gjIIBgQse1visYsyk8zADzk1QHVrqLc98rKoQLG3qJwLBGTHYLpMDti/4tCAt54d7Ln1VINipGsyQS8PaqA==
+"@react-email/font@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@react-email/font/-/font-0.0.2.tgz#fc863e47f0b13951c43866c72ccf77dc98269570"
+  integrity sha512-mmkyOCAcbgytE7DfIuOBVG1YVDUZY9rPCor4o7pUEzGJiU2y/TNuV8CgNPSU/VgXeBKL/94QDjB62OrGHlFNMQ==
   dependencies:
     react "18.2.0"
 
@@ -402,10 +402,10 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/preview@0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@react-email/preview/-/preview-0.0.5.tgz#17937c9ef738dc9cc1501c5706846652924213d4"
-  integrity sha512-3OwWQvuxqi8MdJ1PZHH6XLrG9N8Z3uAN9cVWOlqb4WuhR1KwTVPgZwSy/zuzTiuhhejpO8/ctC7tMfZSpXdThg==
+"@react-email/preview@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@react-email/preview/-/preview-0.0.6.tgz#89f1305e4ce151932b835bc77a3d9a6ea90222d7"
+  integrity sha512-mXDCc3NGpm/4W7gowBtjsTxYXowLNOLsJsYhIfrsjNJWGlVhVFB9uEHm55LjBLpxSG020g6/8LIrpJU6g22qvg==
   dependencies:
     react "18.2.0"
 
@@ -413,6 +413,16 @@
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.6.tgz#4e47ee6df226c86d548c38f96e34844acb944160"
   integrity sha512-6zs7WZbd37TcPT1OmMPH/kcBpv0QSi+k3om7LyDnbdIcrbwOO/OstVwUaa/6zgvDvnq9Y2wOosbru7j5kUrW9A==
+  dependencies:
+    html-to-text "9.0.3"
+    pretty "2.0.0"
+    react "18.2.0"
+    react-dom "18.2.0"
+
+"@react-email/render@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@react-email/render/-/render-0.0.7.tgz#92a14e03a59160c39bceeff50517c7058721ab6f"
+  integrity sha512-hMMhxk6TpOcDC5qnKzXPVJoVGEwfm+U5bGOPH+MyTTlx0F02RLQygcATBKsbP7aI/mvkmBAZoFbgPIHop7ovug==
   dependencies:
     html-to-text "9.0.3"
     pretty "2.0.0"
@@ -431,10 +441,10 @@
   dependencies:
     react "18.2.0"
 
-"@react-email/tailwind@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@react-email/tailwind/-/tailwind-0.0.7.tgz#600c8a56318f3900df26ec29d81fd20aaab2b5cb"
-  integrity sha512-s4aLmnm7doGhXm+VqR587dlpFTNIDg3Vudzu7ooKNjJwW+/w21IqWs6uilE2RiItq/mgGR6MTbyJZ0Ub1kY/Qw==
+"@react-email/tailwind@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@react-email/tailwind/-/tailwind-0.0.8.tgz#d5cb9a2e55b386ce7dfb3c60527a1c98cc4d4c64"
+  integrity sha512-0BLjD5GpiyBK7YDlaDrjHIpj9eTrrZrMJud3f1UPoCZhS+0S/M8LcR8WMbQsR+8/aLGmiy4F4TGZuRQcsJEsFw==
   dependencies:
     html-react-parser "3.0.9"
     react "18.2.0"
