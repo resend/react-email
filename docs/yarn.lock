@@ -46,30 +46,47 @@
   resolved "https://registry.yarnpkg.com/@jsdevtools/ono/-/ono-7.1.3.tgz#9df03bbd7c696a5c58885c34aa06da41c8543796"
   integrity sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==
 
-"@mintlify/cli@3.0.55":
-  version "3.0.55"
-  resolved "https://registry.yarnpkg.com/@mintlify/cli/-/cli-3.0.55.tgz#711125249722246b2a562cb0ed54a1dce1d323bc"
-  integrity sha512-6e1kquckifQl4zt2zmj9kuczMfTGMiAY5t753k64QutXTNDTGt7dBCWxiJkWVX7AxHOoIUORa4y4nufaGl2rPw==
+"@mintlify/cli@3.0.59":
+  version "3.0.59"
+  resolved "https://registry.yarnpkg.com/@mintlify/cli/-/cli-3.0.59.tgz#8e28cb71e9b52d9caf24876e84e875bd71aa14f9"
+  integrity sha512-ROvtHp+biQsx40CihLaIq5HmatDf2UvKXLEWQCpAm8EvYhji4nI6qJk+IyMja20ZKS7IIfWld7RaruGJNZxJAg==
   dependencies:
-    "@mintlify/previewing" "3.1.50"
+    "@mintlify/link-rot" "3.0.6"
+    "@mintlify/previewing" "3.1.58"
+    "@mintlify/validation" "0.1.47"
+    chalk "^5.2.0"
     detect-port "^1.5.1"
     inquirer "^9.2.7"
     shelljs "^0.8.5"
     yargs "^17.6.0"
 
-"@mintlify/prebuild@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@mintlify/prebuild/-/prebuild-1.0.6.tgz#96a89e695e7cbda944453cc2aa4245d6706ff017"
-  integrity sha512-Iz/ZTuUIGDqrbgmN9gbHPNHzGLP+OX7AC7YlQYGnu2UeYIuZ5HXNsn5dDQGGN7uM5dDQlnf1aBgMUu2MKpxgXw==
+"@mintlify/link-rot@3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@mintlify/link-rot/-/link-rot-3.0.6.tgz#4570668d3bd2643c2515e4489eda27f6aeabf3ff"
+  integrity sha512-JwpJJaRHfZAYwqq4mmHR8BzHka7Ziv1ewkE4hwTdDMTBOIHwk19SB4M7M7SW2CJ+BWdz44uEr1D/swnfKfGRkQ==
+  dependencies:
+    "@mintlify/prebuild" "1.0.9"
+    chalk "^5.1.0"
+    fs-extra "^11.1.0"
+    is-absolute-url "^4.0.1"
+    remark "^14.0.2"
+    remark-frontmatter "^4.0.1"
+    remark-gfm "^3.0.1"
+    remark-mdx "^2.2.1"
+    unist-util-visit "^4.1.1"
 
-"@mintlify/previewing@3.1.50":
-  version "3.1.50"
-  resolved "https://registry.yarnpkg.com/@mintlify/previewing/-/previewing-3.1.50.tgz#433ae4a26deebb68afde69b5dd474c8805fd5640"
-  integrity sha512-a/HzJrQVlzYIuWrKokZDmGvGdnpy0XzTOroXf2Xdx5MAbiMYDBtqTt6gSPdjBQNEvgWYMY3LT5FgAsWGJWOGQw==
+"@mintlify/prebuild@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@mintlify/prebuild/-/prebuild-1.0.9.tgz#6a088115fc2d451122e44e31d6991dd68e7c951f"
+  integrity sha512-ru/tmuLDs7K+wCZyJqxvIxZg6MnkVjVbVEsgMQcU4HdKuYFA58F+kbKmtVcco7y/bBhqjKStL5xsibeR8M3LAw==
+
+"@mintlify/previewing@3.1.58":
+  version "3.1.58"
+  resolved "https://registry.yarnpkg.com/@mintlify/previewing/-/previewing-3.1.58.tgz#db3ec029c0396080ccd14742876d5bad917ad23f"
+  integrity sha512-GyheElziUWMYnadU7m9W3KEHkhOgPyK5xWg9+L48yYwn1Rdb78Lq5H4ehIbHBqlT2IFzoBjhvybqQxyhcbGwkg==
   dependencies:
     "@apidevtools/swagger-parser" "^10.1.0"
-    "@mintlify/prebuild" "1.0.6"
-    "@mintlify/validation" "0.1.38"
+    "@mintlify/prebuild" "1.0.9"
     "@octokit/rest" "^19.0.5"
     axios "^1.2.2"
     chalk "^5.1.0"
@@ -89,10 +106,10 @@
     unist-util-visit "^4.1.1"
     yargs "^17.6.0"
 
-"@mintlify/validation@0.1.38":
-  version "0.1.38"
-  resolved "https://registry.yarnpkg.com/@mintlify/validation/-/validation-0.1.38.tgz#9e41abf410505d6f54a97941d2a7d53d1f0d999c"
-  integrity sha512-MxsJdZ2+L49IQsy/SnIM36VYy+BylRS+ULx9n94HCZN4fqDnDXhkNuazK7p76taAIYcUpos+kgSRCxEUoNIbGQ==
+"@mintlify/validation@0.1.47":
+  version "0.1.47"
+  resolved "https://registry.yarnpkg.com/@mintlify/validation/-/validation-0.1.47.tgz#817c3a255198104eb6bb8b86078205e2f044afbc"
+  integrity sha512-DMtNeAM7YUjpBxhIVd/MQDIgerTsjLXdpKxDWmXxU9TKaSUbVhGnsJyqzATBodvvMUE6wiCUXzqrfwdZ/grw+g==
   dependencies:
     mathjs "^11.8.0"
     zod "^3.20.6"
@@ -1632,12 +1649,12 @@ minimatch@^3.1.1:
   dependencies:
     brace-expansion "^1.1.7"
 
-mintlify@3.0.56:
-  version "3.0.56"
-  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-3.0.56.tgz#1d8418ea9b6b57e21ee4ce9529e5c309b2c86b54"
-  integrity sha512-QmhYvlYoB+SN6V8IuctEuo62h3U+pFHe1Tkxb6shw3zLfmzljAQQ8qm7RKkmBIqi/P7As0LIGaAwH4xGRS+uYA==
+mintlify@3.0.60:
+  version "3.0.60"
+  resolved "https://registry.yarnpkg.com/mintlify/-/mintlify-3.0.60.tgz#9c7e7c995b5384de68fbf2ab1c12b54f42ff299c"
+  integrity sha512-hliprHoXGyg6ADqGld5eopQgcvxP3+RyK1tT7osr+JaOLl0SbY25L0XpvumPJHYPOWkpTjNNoJBJojI9epc/eg==
   dependencies:
-    "@mintlify/cli" "3.0.55"
+    "@mintlify/cli" "3.0.59"
 
 mri@^1.1.0:
   version "1.2.0"
