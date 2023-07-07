@@ -15,7 +15,7 @@
     "@radix-ui/react-slot": "1.0.1",
     "@sindresorhus/is": "5.3.0",
     "@supabase/supabase-js": "2.10.0",
-    "@vercel/analytics": "0.1.5",
+    "@vercel/analytics": "1.0.1",
     "classnames": "2.3.2",
     "date-fns": "^2.29.3",
     "next": "13.4.6",
