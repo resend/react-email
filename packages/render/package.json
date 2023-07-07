@@ -33,14 +33,14 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "html-to-text": "9.0.3",
+    "html-to-text": "9.0.5",
     "pretty": "2.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
-    "@types/html-to-text": "9.0.0",
+    "@types/html-to-text": "9.0.1",
     "@types/jest": "29.5.2",
     "@types/pretty": "2.0.1",
     "@types/react": "18.0.20",
