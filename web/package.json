@@ -29,7 +29,7 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "10.4.14",
-    "eslint": "8.36.0",
+    "eslint": "8.44.0",
     "eslint-config-next": "13.2.4",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
