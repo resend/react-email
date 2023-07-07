@@ -1705,10 +1705,10 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
-react-email@1.8.0-canary.2:
-  version "1.8.0-canary.2"
-  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.8.0-canary.2.tgz#341efd2cccafb37e90f76baa74f71cacef6f326a"
-  integrity sha512-iqPzRYAU4ueZydAxwSUVHeGjsFN9HlHeexpv26KlOJ8AxF9WAg2+wgfu9zb9O25F/FsSZyp9eIdI1zGi7h7WNg==
+react-email@1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/react-email/-/react-email-1.9.4.tgz#72000e79454ff013563dddc1dff22c8b1207fa29"
+  integrity sha512-DNUQb7xzAlMga2ZppG57bnWhJnqOEcTYzxNvLA4IVCiYJkgPNVukFMOZVG2OuQ0W8ddiF6bLZBKDZHnnIenbpw==
   dependencies:
     "@commander-js/extra-typings" "9.4.1"
     "@manypkg/find-root" "2.1.0"
