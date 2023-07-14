@@ -34,7 +34,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-unused-imports": "3.0.0",
-    "postcss": "8.4.25",
+    "postcss": "8.4.26",
     "prettier": "3.0.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.6"
