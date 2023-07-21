@@ -1,6 +1,6 @@
 {
   "name": "@react-email/body",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A React body component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -36,7 +36,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/render": "0.0.6",
     "@types/jest": "29.5.3",

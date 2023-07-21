@@ -27,7 +27,7 @@
   resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.21.7.tgz"
   integrity sha512-KYMqFYTaenzMK4yUtf4EW9wc4N9ef80FsbMtkwool5zpwl4YrT1SdWYSTRcT94KO4hannogdS+LxY7L+arP3gA==
 
-"@babel/core@^7.11.6", "@babel/core@^7.12.3", "@babel/core@^7.21.8":
+"@babel/core@7.21.8", "@babel/core@^7.11.6", "@babel/core@^7.12.3", "@babel/core@^7.21.8":
   version "7.21.8"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.21.8.tgz"
   integrity sha512-YeM22Sondbo523Sz0+CirSPnbj9bG3P0CdHcBZdqUuaeOaYEFbOLoGU7lebvGP6P5J/WE9wOn7u7C4J9HvS1xQ==
@@ -4602,10 +4602,10 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-md-to-react-email@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/md-to-react-email/-/md-to-react-email-3.0.3.tgz#5baa25c3c055180d0854cc06b90e231bca59c084"
-  integrity sha512-rz5WuoboP/SGZyKJplnRRBKfCNR/0a9KE3QoXkcPYKalQQWZePJ9NFaw77uz7XI+pEB1jSJ13QqopCRYLr9C7Q==
+md-to-react-email@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/md-to-react-email/-/md-to-react-email-3.0.4.tgz#608d50c454ef0b471aacc10aa0f1983213ee6ecb"
+  integrity sha512-pGNQpZKq4fJJ39i9PhxhMK67SdyXK+bDP0dhe3Az8K+IAJgProJoP33T5atAbkvweqswKb3TzcIGbG61PgSAQg==
   dependencies:
     isomorphic-dompurify "1.7.0"
 
