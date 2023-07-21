@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
-    "@radix-ui/colors": "0.1.8",
+    "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-slot": "1.0.1",
     "@sindresorhus/is": "5.3.0",
     "@supabase/supabase-js": "2.26.0",
