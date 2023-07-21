@@ -289,10 +289,10 @@
     tiny-glob "^0.2.9"
     tslib "^2.4.0"
 
-"@radix-ui/colors@0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@radix-ui/colors/-/colors-0.1.8.tgz#b08c62536fc462a87632165fb28e9b18f9bd047e"
-  integrity sha512-jwRMXYwC0hUo0mv6wGpuw254Pd9p/R6Td5xsRpOmaWkUHlooNWqVcadgyzlRumMq3xfOTXwJReU0Jv+EIy4Jbw==
+"@radix-ui/colors@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@radix-ui/colors/-/colors-1.0.1.tgz#e9703d6e1b6f3ace1855e5d784353327a548042c"
+  integrity sha512-xySw8f0ZVsAEP+e7iLl3EvcBXX7gsIlC1Zso/sPBW9gIWerBTgz6axrjU+MZ39wD+WFi5h5zdWpsg3+hwt2Qsg==
 
 "@radix-ui/primitive@1.0.0":
   version "1.0.0"
