@@ -59,7 +59,7 @@
     "jest": "28.1.3",
     "prettier": "3.0.0",
     "ts-jest": "28.0.8",
-    "tsup": "6.2.3",
+    "tsup": "7.1.0",
     "typescript": "5.1.6"
   },
   "publishConfig": {
