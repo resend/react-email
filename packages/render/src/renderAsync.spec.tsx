@@ -14,7 +14,7 @@ describe("renderAsync using renderToStaticMarkup", () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`,
     );
   });
 
@@ -36,7 +36,7 @@ describe("renderAsync using renderToStaticMarkup", () => {
     });
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`
+      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
   });
 });
@@ -46,11 +46,11 @@ describe("renderAsync using renderToReadableStream", () => {
   const renderToReadableStream = ReactDOMServer.renderToReadableStream;
 
   const mockRenderToReadableStream = (
-    component: React.ReactNode
+    component: React.ReactNode,
   ): Promise<ReactDOMServer.ReactDOMServerReadableStream> => {
     const encoder = new TextEncoder();
     const markup = ReactDOMServer.renderToString(
-      component as React.ReactElement
+      component as React.ReactElement,
     );
 
     let done = false;
@@ -91,7 +91,7 @@ describe("renderAsync using renderToReadableStream", () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`,
     );
   });
 
@@ -113,7 +113,7 @@ describe("renderAsync using renderToReadableStream", () => {
     });
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`
+      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
   });
 });

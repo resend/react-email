@@ -16,7 +16,7 @@ import { closeOraOnSIGNIT } from './close-ora-on-sigint';
  * Node.js and imports are requiring all imports to be /, while some functions (like glob) return paths with \ for path separation on windows
  */
 function osIndependentPath(p: string) {
-  return p.split(path.sep).join("/")
+  return p.split(path.sep).join('/');
 }
 
 export const generateEmailsPreview = async (
@@ -50,9 +50,12 @@ const createEmailPreviews = async (emailDir: string) => {
     await fs.promises.rm(PACKAGE_EMAILS_PATH, { recursive: true });
   }
 
-  const list = glob.sync(osIndependentPath(path.join(emailDir, '/*.{jsx,tsx}')), {
-    absolute: true,
-  });
+  const list = glob.sync(
+    osIndependentPath(path.join(emailDir, '/*.{jsx,tsx}')),
+    {
+      absolute: true,
+    },
+  );
 
   /**
    * instead of copying all files, which would break and js/ts imports,

@@ -31,14 +31,14 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const headStyle = getMediaQueryCss(css);
 
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyle
+    headStyle,
   );
   const hasHTML = /<html[^>]*>/gm.test(fullHTML);
   const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
   if (hasResponsiveStyles && (!hasHTML || !hasHead)) {
     throw new Error(
-      "Tailwind: To use responsive styles you must have a <html> and <head> element in your template."
+      "Tailwind: To use responsive styles you must have a <html> and <head> element in your template.",
     );
   }
 
@@ -138,10 +138,10 @@ function getMediaQueryCss(css: string) {
               /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
               (_, prop, value) => {
                 return `${prop}: ${value} !important;`;
-              }
+              },
             );
             return `${start}${newContent}${end}`;
-          }
+          },
         );
       })
       // only return media queries
@@ -156,15 +156,18 @@ function getMediaQueryCss(css: string) {
 function makeCssMap(css: string) {
   const cssNoMedia = css.replace(
     /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm,
-    ""
+    "",
   );
 
-  const cssMap = cssNoMedia.split("}").reduce((acc, cur) => {
-    const [key, value] = cur.split("{");
-    if (key && value) {
-      acc[key] = value;
-    }
-    return acc;
-  }, {} as Record<string, string>);
+  const cssMap = cssNoMedia.split("}").reduce(
+    (acc, cur) => {
+      const [key, value] = cur.split("{");
+      if (key && value) {
+        acc[key] = value;
+      }
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
   return cssMap;
 }

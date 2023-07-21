@@ -17,7 +17,7 @@ export const Column = React.forwardRef<ColumnElement, Readonly<ColumnProps>>(
         {children}
       </td>
     );
-  }
+  },
 );
 
 Column.displayName = "Column";

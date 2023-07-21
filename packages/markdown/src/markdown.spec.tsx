@@ -13,7 +13,7 @@ describe("ReactEmailMarkdown component renders correctly", () => {
 | Cell 1    | Cell 2    |
 | Cell 3    | Cell 4    |
        `}
-      </Markdown>
+      </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\">
@@ -33,7 +33,7 @@ describe("ReactEmailMarkdown component renders correctly", () => {
 ##### Heading 5!
 ###### Heading 6!
        `}
-      </Markdown>
+      </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\">
@@ -49,19 +49,19 @@ describe("ReactEmailMarkdown component renders correctly", () => {
 
   it("renders text in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown>{`**This is sample bold text in markdown** and *this is italic text*`}</Markdown>
+      <Markdown>{`**This is sample bold text in markdown** and *this is italic text*`}</Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><strong data-id=\\"react-email-text\\" style=\\"font-weight:bold\\">This is sample bold text in markdown</strong> and <em data-id=\\"react-email-text\\" style=\\"font-style:italic\\">this is italic text</em></div>"`
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><strong data-id=\\"react-email-text\\" style=\\"font-weight:bold\\">This is sample bold text in markdown</strong> and <em data-id=\\"react-email-text\\" style=\\"font-style:italic\\">this is italic text</em></div>"`,
     );
   });
 
   it("renders links in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown>{`Link to [React-email](https://react.email)`}</Markdown>
+      <Markdown>{`Link to [React-email](https://react.email)`}</Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\">Link to <a href=\\"https://react.email\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" data-id=\\"react-email-link\\" target=\\"_blank\\">React-email</a></p></div>"`
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\">Link to <a href=\\"https://react.email\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" data-id=\\"react-email-link\\" target=\\"_blank\\">React-email</a></p></div>"`,
     );
   });
 
@@ -75,7 +75,7 @@ describe("ReactEmailMarkdown component renders correctly", () => {
 - Item Two
 - Item Three
        `}
-      </Markdown>
+      </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\">

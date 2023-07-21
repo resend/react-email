@@ -27,7 +27,7 @@ export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
         </tbody>
       </table>
     );
-  }
+  },
 );
 
 Row.displayName = "Row";

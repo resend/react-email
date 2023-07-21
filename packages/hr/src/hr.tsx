@@ -18,7 +18,7 @@ export const Hr = React.forwardRef<HrElement, Readonly<HrProps>>(
         ...style,
       }}
     />
-  )
+  ),
 );
 
 Hr.displayName = "Hr";

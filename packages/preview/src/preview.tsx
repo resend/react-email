@@ -31,7 +31,7 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
         {renderWhiteSpace(text)}
       </div>
     );
-  }
+  },
 );
 
 const renderWhiteSpace = (text: string) => {

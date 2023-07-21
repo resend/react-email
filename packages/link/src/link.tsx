@@ -18,7 +18,7 @@ export const Link = React.forwardRef<LinkElement, Readonly<LinkProps>>(
         ...style,
       }}
     />
-  )
+  ),
 );
 
 Link.displayName = "Link";

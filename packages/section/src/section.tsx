@@ -27,7 +27,7 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         </tbody>
       </table>
     );
-  }
+  },
 );
 
 Section.displayName = "Section";

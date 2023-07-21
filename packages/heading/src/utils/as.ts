@@ -4,7 +4,7 @@ export type As<
   T2 extends React.ElementType = T1,
   T3 extends React.ElementType = T1,
   T4 extends React.ElementType = T1,
-  T5 extends React.ElementType = T1
+  T5 extends React.ElementType = T1,
 > =
   | (React.ComponentPropsWithRef<DefaultTag> & {
       as?: DefaultTag;

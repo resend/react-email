@@ -11,7 +11,7 @@ export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
       <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
       {children}
     </head>
-  )
+  ),
 );
 
 Head.displayName = "Head";

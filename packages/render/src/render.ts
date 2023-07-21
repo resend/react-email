@@ -25,7 +25,7 @@ export const render = (component: React.ReactElement, options?: Options) => {
 
 const renderAsPlainText = (
   component: React.ReactElement,
-  _options?: Options
+  _options?: Options,
 ) => {
   return convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: [

@@ -13,7 +13,7 @@
     "format": "turbo run format"
   },
   "devDependencies": {
-    "turbo": "^1.9.3"
+    "turbo": "1.9.3"
   },
   "packageManager": "yarn@1.22.19"
 }
