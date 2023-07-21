@@ -12,7 +12,7 @@ export interface MarkdownProps {
 export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
   (
     { children, markdownContainerStyles, markdownCustomStyles, ...props },
-    forwardedRef
+    forwardedRef,
   ) => {
     const parsedMarkdown = parseMarkdownToReactEmailJSX({
       markdown: children,
@@ -29,7 +29,7 @@ export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
         dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
       />
     );
-  }
+  },
 );
 
 Markdown.displayName = "Markdown";

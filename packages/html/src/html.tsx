@@ -16,7 +16,7 @@ export const Html = React.forwardRef<HtmlElement, Readonly<HtmlProps>>(
     >
       {children}
     </html>
-  )
+  ),
 );
 
 Html.displayName = "Html";

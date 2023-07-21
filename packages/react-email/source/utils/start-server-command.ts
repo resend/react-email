@@ -30,8 +30,7 @@ export const buildProdServer = (packageManager: string) => {
 
 // based on https://stackoverflow.com/a/14032965
 const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
-  (options) =>
-    (code) => {
+  (options) => (code) => {
     if (processesToKill.length > 0) {
       console.log('shutting down %d subprocesses', processesToKill.length);
     }
@@ -40,7 +39,7 @@ const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
         p.kill();
       }
     });
-      if (options?.exit) {
+    if (options?.exit) {
       shell.exit(code);
     }
   };

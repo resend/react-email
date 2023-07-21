@@ -18,7 +18,7 @@ export const Text = React.forwardRef<TextElement, Readonly<TextProps>>(
         ...style,
       }}
     />
-  )
+  ),
 );
 
 Text.displayName = "Text";

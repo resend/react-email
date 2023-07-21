@@ -23,7 +23,7 @@ export const Img = React.forwardRef<ImgElement, Readonly<ImgProps>>(
         ...style,
       }}
     />
-  )
+  ),
 );
 
 Img.displayName = "Img";

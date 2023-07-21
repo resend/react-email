@@ -10,7 +10,10 @@ export interface ButtonProps extends RootProps {
 }
 
 export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
-  ({ children, style, pX = 0, pY = 0, target = "_blank", ...props }, forwardedRef) => {
+  (
+    { children, style, pX = 0, pY = 0, target = "_blank", ...props },
+    forwardedRef,
+  ) => {
     const y = (pY || 0) * 2;
     const textRaise = pxToPt(y.toString());
 
@@ -35,13 +38,13 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
         />
       </a>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";
 
 const buttonStyle = (
-  style?: React.CSSProperties & { pY: number; pX: number }
+  style?: React.CSSProperties & { pY: number; pX: number },
 ) => {
   const { pY, pX, ...rest } = style || {};
 
