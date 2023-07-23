@@ -34,7 +34,7 @@ export default async function Page({ params }) {
   const exportTemplateFile: string = await fs.readFile(path, {
     encoding: 'utf-8',
   });
-  const importPath = exportTemplateFile.match(/import Mail from '(.+)';/)![1];
+  const importPath = exportTemplateFile.match(/import Mail from '(.+)';/)![1].replace(/(.jsx|.tsx)$/, '');
   const originalFilePath = pathJoin(dirname(path), importPath);
 
   const reactMarkup: string = await fs.readFile(originalFilePath, {
