@@ -23,7 +23,7 @@ interface AirbnbReviewEmailProps {
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
-
+//un cambio
 export const AirbnbReviewEmail = ({
   authorName,
   authorImage,
