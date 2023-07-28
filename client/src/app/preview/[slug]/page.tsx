@@ -1,7 +1,6 @@
 import { render } from '@react-email/render';
 import { promises as fs } from 'fs';
-import { dirname, join as pathJoin } from 'path';
-import { CONTENT_DIR, getEmails } from '../../../utils/get-emails';
+import { getEmails } from '../../../utils/get-emails';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -17,25 +16,13 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }) {
-  const { emails, filenames } = await getEmails();
-  const template = filenames.filter((email) => {
-    const [fileName] = email.split('.');
-    return params.slug === fileName;
-  });
+  const { emails, paths } = await getEmails();
 
-  const Email = (await import(`../../../../emails/${params.slug}`)).default;
-  const previewProps = Email.PreviewProps || {}
-  const markup = render(<Email {...previewProps} />, { pretty: true });
-  const plainText = render(<Email {...previewProps} />, { plainText: true });
-  const basePath = pathJoin(process.cwd(), CONTENT_DIR);
-  const path = pathJoin(basePath, template[0]);
+  const Email = (await import(`../../../../emails/${params.slug}.tsx`)).default;
+  const markup = render(<Email />, { pretty: true });
+  const plainText = render(<Email />, { plainText: true });
 
-  // the file is actually just re-exporting the default export of the original file. We need to resolve this first
-  const exportTemplateFile: string = await fs.readFile(path, {
-    encoding: 'utf-8',
-  });
-  const importPath = exportTemplateFile.match(/import Mail from '(.+)';/)![1];
-  const originalFilePath = pathJoin(dirname(path), importPath);
+  const originalFilePath = paths.filter((path) => path.includes(params.slug))[0];
 
   const reactMarkup: string = await fs.readFile(originalFilePath, {
     encoding: 'utf-8',
