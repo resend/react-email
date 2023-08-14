@@ -76,9 +76,7 @@ const createEmailPreviews = async (emailDir: string) => {
       path.dirname(absoluteSrcFilePath),
     );
 
-    const importFile = osIndependentPath(
-      path.join(importPath, path.parse(fileName).name),
-    );
+    const importFile = osIndependentPath(path.join(importPath, fileName));
 
     // if this import is changed, you also need to update `client/src/app/preview/[slug]/page.tsx`
     const sourceCode =
