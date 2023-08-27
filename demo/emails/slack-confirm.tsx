@@ -11,8 +11,8 @@ import {
   Row,
   Section,
   Text,
-} from '@react-email/components';
-import * as React from 'react';
+} from "@react-email/components";
+import * as React from "react";
 
 interface SlackConfirmEmailProps {
   validationCode?: string;
@@ -20,7 +20,7 @@ interface SlackConfirmEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : '';
+  : "";
 
 export const SlackConfirmEmail = ({
   validationCode,
@@ -55,7 +55,7 @@ export const SlackConfirmEmail = ({
 
         <Section>
           <Row style={footerLogos}>
-            <Column style={{ width: '66%' }}>
+            <Column style={{ width: "66%" }}>
               <Img
                 src={`${baseUrl}/static/slack-logo.png`}
                 width="120"
@@ -64,41 +64,43 @@ export const SlackConfirmEmail = ({
               />
             </Column>
             <Column>
-              <Row>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-twitter.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-facebook.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-linkedin.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-              </Row>
+              <Section>
+                <Row>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-twitter.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-facebook.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                  <Column>
+                    <Link href="/">
+                      <Img
+                        src={`${baseUrl}/static/slack-linkedin.png`}
+                        width="32"
+                        height="32"
+                        alt="Slack"
+                        style={socialMediaIcon}
+                      />
+                    </Link>
+                  </Column>
+                </Row>
+              </Section>
             </Column>
           </Row>
         </Section>
@@ -154,83 +156,83 @@ export const SlackConfirmEmail = ({
 );
 
 SlackConfirmEmail.PreviewProps = {
-  validationCode: 'DJZ-TLX',
+  validationCode: "DJZ-TLX",
 } as SlackConfirmEmailProps;
 
 export default SlackConfirmEmail;
 
 const footerText = {
-  fontSize: '12px',
-  color: '#b7b7b7',
-  lineHeight: '15px',
-  textAlign: 'left' as const,
-  marginBottom: '50px',
+  fontSize: "12px",
+  color: "#b7b7b7",
+  lineHeight: "15px",
+  textAlign: "left" as const,
+  marginBottom: "50px",
 };
 
 const footerLink = {
-  color: '#b7b7b7',
-  textDecoration: 'underline',
+  color: "#b7b7b7",
+  textDecoration: "underline",
 };
 
 const footerLogos = {
-  marginBottom: '32px',
-  paddingLeft: '8px',
-  paddingRight: '8px',
-  width: '100%',
+  marginBottom: "32px",
+  paddingLeft: "8px",
+  paddingRight: "8px",
+  width: "100%",
 };
 
 const socialMediaIcon = {
-  display: 'inline',
-  marginLeft: '32px',
+  display: "inline",
+  marginLeft: "32px",
 };
 
 const main = {
-  backgroundColor: '#ffffff',
-  margin: '0 auto',
+  backgroundColor: "#ffffff",
+  margin: "0 auto",
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
 
 const container = {
-  maxWidth: '600px',
-  margin: '0 auto',
+  maxWidth: "600px",
+  margin: "0 auto",
 };
 
 const logoContainer = {
-  marginTop: '32px',
+  marginTop: "32px",
 };
 
 const h1 = {
-  color: '#1d1c1d',
-  fontSize: '36px',
-  fontWeight: '700',
-  margin: '30px 0',
-  padding: '0',
-  lineHeight: '42px',
+  color: "#1d1c1d",
+  fontSize: "36px",
+  fontWeight: "700",
+  margin: "30px 0",
+  padding: "0",
+  lineHeight: "42px",
 };
 
 const heroText = {
-  fontSize: '20px',
-  lineHeight: '28px',
-  marginBottom: '30px',
+  fontSize: "20px",
+  lineHeight: "28px",
+  marginBottom: "30px",
 };
 
 const codeBox = {
-  background: 'rgb(245, 244, 245)',
-  borderRadius: '4px',
-  marginRight: '50px',
-  marginBottom: '30px',
-  padding: '43px 23px',
+  background: "rgb(245, 244, 245)",
+  borderRadius: "4px",
+  marginRight: "50px",
+  marginBottom: "30px",
+  padding: "43px 23px",
 };
 
 const confirmationCodeText = {
-  fontSize: '30px',
-  textAlign: 'center' as const,
-  verticalAlign: 'middle',
+  fontSize: "30px",
+  textAlign: "center" as const,
+  verticalAlign: "middle",
 };
 
 const text = {
-  color: '#000',
-  fontSize: '14px',
-  lineHeight: '24px',
+  color: "#000",
+  fontSize: "14px",
+  lineHeight: "24px",
 };
