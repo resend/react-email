@@ -109,7 +109,9 @@ export const YelpRecentLoginEmail = ({
             </Row>
             <Row style={{ ...boxInfos, paddingTop: "0" }}>
               <Column style={containerButton} colSpan={2}>
-                <Button style={button}>Learn More</Button>
+                <Button pY={12} pX={30} style={button}>
+                  Learn More
+                </Button>
               </Column>
             </Row>
           </Section>
@@ -166,7 +168,6 @@ const containerButton = {
 
 const button = {
   backgroundColor: "#e00707",
-  padding: "12px 30px",
   borderRadius: 3,
   color: "#FFF",
   fontWeight: "bold",
