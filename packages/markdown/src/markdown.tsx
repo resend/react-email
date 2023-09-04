@@ -7,17 +7,24 @@ export interface MarkdownProps {
   children: string;
   markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
+  showDataId?: boolean;
 }
 
 export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
   (
-    { children, markdownContainerStyles, markdownCustomStyles, ...props },
+    {
+      children,
+      markdownContainerStyles,
+      markdownCustomStyles,
+      showDataId = false,
+      ...props
+    },
     forwardedRef,
   ) => {
     const parsedMarkdown = parseMarkdownToReactEmailJSX({
       markdown: children,
       customStyles: markdownCustomStyles,
-      withDataAttr: true,
+      withDataAttr: showDataId,
     });
 
     return (

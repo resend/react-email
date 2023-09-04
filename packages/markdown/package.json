@@ -1,6 +1,6 @@
 {
   "name": "@react-email/markdown",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Convert markdown input to valid react-email synthax",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -61,6 +61,6 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "md-to-react-email": "3.0.4"
+    "md-to-react-email": "4.0.0"
   }
 }
