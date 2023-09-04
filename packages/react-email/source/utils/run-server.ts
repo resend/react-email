@@ -27,6 +27,7 @@ export const setupServer = async (
   type: 'dev' | 'build' | 'start',
   dir: string,
   port: string,
+  skipInstall: boolean = false
 ) => {
   const cwd = await findRoot(CURRENT_PATH).catch(() => ({
     rootDir: CURRENT_PATH,
@@ -40,7 +41,9 @@ export const setupServer = async (
   if (type !== 'start') {
     await generateEmailsPreview(emailDir);
     await syncPkg();
-    await installDependencies(packageManager);
+    if (!skipInstall) {
+      await installDependencies(packageManager);
+    }
   }
 
   if (type === 'dev') {
