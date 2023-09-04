@@ -114,9 +114,9 @@ function cleanCss(css: string) {
     .replace(/\\/g, "")
     // find all css selectors and look ahead for opening and closing curly braces
     .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
+     return m.replace(/[:#\!\-[\\\]\/\.%()]+/g, "_");
     })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
+    .replace(/font-family([^;\r\n]+)/g, (m, value) => {
       return `font-family${value.replace(/['"]+/g, "")}`;
     });
   return newCss;
