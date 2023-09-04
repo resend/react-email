@@ -16,7 +16,7 @@ program
   .description('Starts the application in development mode')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
-  .option('-s, --skip-install', 'Do not install depenedencies', false)
+  .option('-s, --skip-install', 'Do not install dependencies', false)
   .action(dev);
 
 program
