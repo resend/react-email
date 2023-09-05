@@ -1,6 +1,9 @@
 {
   "name": "@jsx-email/react-email",
   "version": "1.10.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A live preview of your emails right in your browser.",
   "license": "MIT",
   "repository": {

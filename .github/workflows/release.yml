@@ -75,3 +75,6 @@ jobs:
 
       - name: Release
         run: moon run :release --affected --concurrency 1
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
