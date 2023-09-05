@@ -35,3 +35,34 @@ tasks:
       cache: false
       outputStyle: 'stream'
       runDepsInParallel: false
+
+  lint:
+    deps:
+      - jsx-email:lint.docs
+      - jsx-email:lint.json
+      - jsx-email:lint.package
+      - jsx-email:lint.js
+    options:
+      cache: false
+
+  lint.docs:
+    command: 'prettier --write .github/**/*.md **/README.md'
+    options:
+      cache: false
+
+  lint.js:
+    command: 'eslint --cache apps infra packages services --ext .js,.ts,.tsx'
+    env:
+      NODE_OPTIONS: '--max-old-space-size=16384'
+    options:
+      cache: false
+
+  lint.json:
+    command: 'prettier --write .github/**/*.yml **/tsconfig.json **/tsconfig.*.json pnpm-workspace.yaml .moon/*.yml **/moon.yml'
+    options:
+      cache: false
+
+  lint.package:
+    command: 'prettier --write **/package.json'
+    options:
+      cache: false

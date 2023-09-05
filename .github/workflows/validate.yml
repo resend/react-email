@@ -1,0 +1,81 @@
+name: Validate Monorepo
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - edited
+      - opened
+      - synchronize
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: Validate
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v1
+
+      - name: Checkout Main
+        run: git branch -f main origin/main
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: ESLint Cache
+        uses: actions/cache@v3
+        with:
+          path: ./.eslintcache
+          key: ${{ runner.os }}-eslintcache-${{ hashFiles('./eslintcache') }}
+          restore-keys: |
+            ${{ runner.os }}-eslintcache-
+
+      - name: Setup Moon
+        uses: moonrepo/setup-moon-action@v1
+        with:
+          version: 1.12.1
+
+      - name: Sanity Check
+        run: |
+          echo git `git version`;
+          echo branch `git branch --show-current`;
+          echo node `node -v`;
+          echo pnpm `pnpm -v`
+          echo `moon --version`
+
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Projects
+        run: |
+          moon run jsx-email:build.packages
+
+      - name: Lint Monorepo
+        run: moon run jsx-email:lint
+
+      # leave this commented until we have tests
+      # - name: Run Tests
+      #   run: pnpm --filter "...[origin/main]" test
