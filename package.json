@@ -10,10 +10,11 @@
     "dev": "turbo run dev --parallel",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "format": "turbo run format"
+    "format": "turbo run format",
+    "format:check": "turbo run format:check"
   },
   "devDependencies": {
-    "turbo": "1.9.3"
+    "turbo": "1.10.13"
   },
   "packageManager": "yarn@1.22.19"
 }

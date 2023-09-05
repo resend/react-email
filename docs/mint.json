@@ -59,6 +59,7 @@
         "components/head",
         "components/button",
         "components/column",
+        "components/row",
         "components/container",
         "components/font",
         "components/heading",
