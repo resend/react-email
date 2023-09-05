@@ -20,7 +20,6 @@ ${pkg.description}
 
 {underline Options}
   --help      Displays this message
-  --plain     Emit template as plain text
   --version   Displays webpack-nano and webpack versions
 
 {underline Examples}
@@ -30,6 +29,40 @@ ${pkg.description}
   $ email preview ./src/templates
 `;
 
+const build = chalk`
+{blue ${pkg.name}} v${pkg.version}
+
+Builds a template and saves the result
+
+{underline Usage}
+  $ email build <template path> [...options]
+
+{underline Options}
+  --plain     Emit template as plain text
+  --props     A JSON string containing props to be passed to the email template
+
+{underline Examples}
+  $ email build ./src/templates/Invite.tsx
+  $ email build ./src/templates/Invite.tsx --props '{"batman": "Bruce Wayne"}'
+`;
+
+const preview = chalk`
+{blue ${pkg.name}} v${pkg.version}
+
+Starts the preview server for a directory of email templates
+
+{underline Usage}
+  $ email preview <template dir path> [...options]
+
+{underline Options}
+  --port     The local port number the preview server should run on
+
+{underline Examples}
+  $ email preview ./src/templates --port 55420
+`;
+
+const commands: Record<string, string> = { build, preview };
+
 export const command: CommandFn = (_, inputs) => {
   if ((inputs || []).length > 1) {
     log(helpMessage);
@@ -37,6 +70,7 @@ export const command: CommandFn = (_, inputs) => {
   }
 
   const [, command] = inputs;
+  const commandHelp = commands[command] || helpMessage;
 
-  log(command);
+  log(commandHelp);
 };
