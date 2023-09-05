@@ -8,6 +8,7 @@
   "devDependencies": {
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
+    "@dot/versioner": "^0.1.5",
     "@react-email/render": "0.0.6",
     "@types/jest": "29.5.3",
     "@types/react": "18.0.20",
@@ -23,7 +24,6 @@
     "tsup": "7.1.0",
     "typescript": "5.1.6"
   },
-  "packageManager": "pnpm@8.7.1",
   "lint-staged": {
     "*.{ts,js}": [
       "eslint --fix --cache"
@@ -40,5 +40,6 @@
     "((.github/**/*)|(README|CHANGELOG)|(**/(README|CHANGELOG))).md": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "pnpm@8.7.1"
 }

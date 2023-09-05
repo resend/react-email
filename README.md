@@ -4,12 +4,18 @@
 <div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
 <br />
 <div align="center">
-<a href="https://react.email">Website</a> 
+<a href="https://react.email">Website</a>
 <span> · </span>
-<a href="https://github.com/resendlabs/react-email">GitHub</a> 
+<a href="https://github.com/resendlabs/react-email">GitHub</a>
 <span> · </span>
 <a href="https://react.email/discord">Discord</a>
 </div>
+
+## Fork Information
+
+This is a soft fork of `@react-email`. The information below is accurate, however when using this fork, substitute `@jsx-email` for `@react-email` in instructions.
+
+Users can expect that this project is in line with the upstream project. The intent of this project to provide an up to date channel, merging PRs from the upstream project quickly and rolling out fixes and new features faster than the `react-email` project can currently tackle.
 
 ## Introduction
 
@@ -87,7 +93,7 @@ All components were tested using the most popular email clients.
 
 | <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
 | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Gmail ✔                                                                                            | Apple Mail ✔                                                                                            | Outlook ✔                                                                                              | Yahoo! Mail ✔                                                                                                 | HEY ✔                                                                                          | Superhuman ✔                                                                                                 |
+| Gmail ✔                                                                                           | Apple Mail ✔                                                                                           | Outlook ✔                                                                                             | Yahoo! Mail ✔                                                                                                | HEY ✔                                                                                         | Superhuman ✔                                                                                                |
 
 ## Development
 

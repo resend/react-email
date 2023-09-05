@@ -1,0 +1,77 @@
+name: Release Projects
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    if: |
+      !startsWith(github.event.head_commit.message, 'chore(release):') &&
+      !startsWith(github.event.head_commit.message, 'chore(repo):')
+
+    runs-on: ubuntu-latest
+
+    name: release
+
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v1
+
+      - name: Checkout Main
+        run: git branch -f main origin/main
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: ESLint Cache
+        uses: actions/cache@v3
+        with:
+          path: ./.eslintcache
+          key: ${{ runner.os }}-eslintcache-${{ hashFiles('./eslintcache') }}
+          restore-keys: |
+            ${{ runner.os }}-eslintcache-
+
+      - name: Setup Moon
+        uses: moonrepo/setup-moon-action@v1
+        with:
+          version: 1.12.1
+
+      - name: Sanity Check
+        run: |
+          echo git `git version`;
+          echo branch `git branch --show-current`;
+          echo node `node -v`;
+          echo pnpm `pnpm -v`
+          echo `moon --version`
+
+      - name: pnpm install
+        run: pnpm install --frozen-lockfile
+
+        # Sanity check before we publish
+      - name: Build Projects
+        run: |
+          moon run jsx-email:build.packages
+
+      - name: Release
+        run: moon run :release --affected --concurrency 1

@@ -26,6 +26,16 @@ tasks:
     deps:
       - ~:tsconfig.link
 
+  # FIXME: since @jsx-email/components uses workspace deps now, we'll need a script that recognizes
+  # it needs to be updated and manually commits to update the package using versioner
+  release:
+    command: versioner --target $projectRoot
+    deps:
+      - ~:build
+    options:
+      cache: false
+      outputStyle: 'stream'
+
   tsconfig.link:
     command: ln -sf ../../shared/tsconfig.default.json tsconfig.json
     options:
