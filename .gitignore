@@ -7,3 +7,6 @@ dist
 .DS_Store
 .pnpm-debug.log*
 .env
+
+deprecated/tsconfig.json
+packages/tsconfig.json

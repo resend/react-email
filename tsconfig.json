@@ -1,4 +1,7 @@
 {
+  "compilerOptions": {
+    "noEmit": true
+  },
   "extends": "./shared/tsconfig.base.json",
-  "include": ["packages"]
+  "include": ["deprecated/react-email", "packages"]
 }

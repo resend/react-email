@@ -1,4 +1,13 @@
 {
+  "compilerOptions": {
+    "noEmit": true
+  },
   "extends": "./tsconfig.base.json",
-  "include": ["../.eslintrc.js", "../ava.config.js", "../packages", "../shared"]
+  "include": [
+    "../.eslintrc.js",
+    "../ava.config.js",
+    "../deprecated/react-email",
+    "../packages",
+    "../shared"
+  ]
 }

@@ -38,8 +38,8 @@ program
   .option('-p, --pretty', 'Pretty print the output', false)
   .option('-t, --plainText', 'Set output format as plain text', false)
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .action(({ outDir, pretty, plainText, dir: srcDir }) =>
-    exportTemplates(outDir, srcDir, { pretty, plainText }),
+  .action(({ outDir, plainText, pretty, dir: srcDir }) =>
+    exportTemplates(outDir, srcDir, { plainText, pretty })
   );
 
 program.parse();
