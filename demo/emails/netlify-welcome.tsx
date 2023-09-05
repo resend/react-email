@@ -135,23 +135,29 @@ export const NetlifyWelcomeEmail = ({
             </Section>
 
             <Section className="mt-45">
-              {links?.map((link) => (
-                <Column>
-                  <Link className="text-black underline font-bold">{link}</Link>{" "}
-                  <span className="text-green-500">→</span>
-                </Column>
-              ))}
+              <Row>
+                {links?.map((link) => (
+                  <Column>
+                    <Link className="text-black underline font-bold">
+                      {link}
+                    </Link>{" "}
+                    <span className="text-green-500">→</span>
+                  </Column>
+                ))}
+              </Row>
             </Section>
           </Container>
 
           <Container className="mt-20">
             <Section>
-              <Column className="text-right px-20">
-                <Link>Unsubscribe</Link>
-              </Column>
-              <Column className="text-left">
-                <Link>Manage Preferences</Link>
-              </Column>
+              <Row>
+                <Column className="text-right px-20">
+                  <Link>Unsubscribe</Link>
+                </Column>
+                <Column className="text-left">
+                  <Link>Manage Preferences</Link>
+                </Column>
+              </Row>
             </Section>
             <Text className="text-center text-gray-400 mb-45">
               Netlify, 44 Montgomery Street, Suite 300 San Francisco, CA
