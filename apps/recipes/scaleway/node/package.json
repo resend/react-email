@@ -1,27 +1,25 @@
 {
   "name": "react-email-with-scaleway",
   "version": "1.0.0",
-  "license": "MIT",
   "private": true,
-  "sideEffects": false,
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "type": "module",
+  "scripts": {
+    "build": "tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
+    "build:env": "npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
+    "clean": "rm -rf dist",
+    "dev": " tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
+    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "files": [
     "dist/**"
   ],
-  "scripts": {
-    "build": "tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
-    "build:env":"npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
-    "dev": " tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement",
-    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
-    "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format": "prettier --write \"**/*.{ts,tsx}\""
-  },
   "dependencies": {
     "@react-email/components": "0.0.4",
     "@scaleway/sdk": "1.4.0",
@@ -35,5 +33,7 @@
     "tsconfig": "*",
     "tsup": "6.7.0",
     "typescript": "5.0.2"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

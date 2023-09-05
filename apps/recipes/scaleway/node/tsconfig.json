@@ -3,7 +3,7 @@
     "jsx": "react-jsx",
     "lib": ["DOM", "ES2022"],
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   },
   // "extends": "tsconfig/react-library.json",
   "include": ["."],

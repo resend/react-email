@@ -1,6 +1,6 @@
 name: Bug Report
 description: Create a bug report for React Email
-labels: ["Type: Bug"]
+labels: ['Type: Bug']
 body:
   - type: textarea
     attributes:
@@ -13,31 +13,31 @@ body:
       label: Which package is affected (leave empty if unsure)
       multiple: true
       options:
-        - "@react-email/body"
-        - "@react-email/button"
-        - "@react-email/column"
-        - "@react-email/components"
-        - "@react-email/container"
-        - "@react-email/font"
-        - "@react-email/head"
-        - "@react-email/heading"
-        - "@react-email/hr"
-        - "@react-email/html"
-        - "@react-email/img"
-        - "@react-email/link"
-        - "@react-email/preview"
-        - "@react-email/render"
-        - "@react-email/row"
-        - "@react-email/section"
-        - "@react-email/tailwind"
-        - "@react-email/text"
-        - "client"
-        - "create-email"
-        - "demo"
-        - "docs"
-        - "examples"
-        - "react-email"
-        - "web"
+        - '@react-email/body'
+        - '@react-email/button'
+        - '@react-email/column'
+        - '@react-email/components'
+        - '@react-email/container'
+        - '@react-email/font'
+        - '@react-email/head'
+        - '@react-email/heading'
+        - '@react-email/hr'
+        - '@react-email/html'
+        - '@react-email/img'
+        - '@react-email/link'
+        - '@react-email/preview'
+        - '@react-email/render'
+        - '@react-email/row'
+        - '@react-email/section'
+        - '@react-email/tailwind'
+        - '@react-email/text'
+        - 'client'
+        - 'create-email'
+        - 'demo'
+        - 'docs'
+        - 'examples'
+        - 'react-email'
+        - 'web'
   - type: input
     attributes:
       label: Link to the code that reproduces this issue
@@ -66,4 +66,4 @@ body:
   - type: input
     attributes:
       label: What's your node version? (if relevant)
-      description: "Please specify the exact version."
+      description: 'Please specify the exact version.'

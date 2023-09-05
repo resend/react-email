@@ -1,14 +1,18 @@
 {
   "name": "@jsx-email/column",
   "version": "0.0.7",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Display a column that separates content areas vertically in your email",
-  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/column"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -21,27 +25,23 @@
       }
     }
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/column"
-  },
+  "files": [
+    "dist/**"
+  ],
   "keywords": [
     "react",
     "email"
   ],
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "peerDependencies": {
     "react": "^18.2.0"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

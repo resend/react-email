@@ -1,14 +1,13 @@
 {
   "name": "@jsx-email/body",
   "version": "0.0.3",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A React body component to wrap emails",
-  "sideEffects": false,
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -21,15 +20,16 @@
       }
     }
   },
-  "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist"
   },
+  "files": [
+    "dist/**"
+  ],
   "peerDependencies": {
     "react": "^18.2.0"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

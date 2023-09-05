@@ -3,10 +3,9 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 workspace:
   inheritedTasks:
-    exclude: ['build', 'compile', 'tsconfig.link']
+    exclude: ['build', 'compile', 'release', 'tsconfig.link']
 
 tasks:
-
   build.packages:
     command: echo "✓ All packages compiled"
     deps:

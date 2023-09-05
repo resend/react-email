@@ -2,35 +2,34 @@
   "name": "react-email",
   "version": "1.9.4",
   "description": "A live preview of your emails right in your browser.",
-  "bin": {
-    "email": "./dist/source/index.js"
-  },
-  "types": "./dist/source/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
-    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
-    "lint": "eslint",
-    "clean": "rm -rf dist"
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/resendlabs/react-email.git",
     "directory": "packages/react-email"
   },
+  "bin": {
+    "email": "./dist/source/index.js"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
+    "lint": "eslint"
+  },
   "keywords": [
     "react",
     "email"
   ],
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
+    "@jsx-email/render": "workspace:*",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
-    "@jsx-email/render": "workspace:*",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "detect-package-manager": "2.0.1",
@@ -52,5 +51,6 @@
     "prettier": "3.0.0",
     "ts-node": "10.9.1",
     "typescript": "5.1.6"
-  }
+  },
+  "types": "./dist/source/index.d.ts"
 }

@@ -1,25 +1,23 @@
 {
   "name": "react-email-with-aws-ses",
   "version": "1.0.0",
-  "license": "MIT",
   "private": true,
-  "sideEffects": false,
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "clean": "rm -rf dist",
+    "dev": "tsup src/index.tsx --format esm,cjs --dts --external react --watch",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "files": [
     "dist/**"
   ],
-  "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.tsx --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
-    "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
-  },
   "dependencies": {
     "@aws-sdk/client-ses": "3.341.0",
     "@react-email/button": "*",
@@ -33,5 +31,7 @@
     "tsconfig": "*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

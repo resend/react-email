@@ -1,14 +1,18 @@
 {
   "name": "@jsx-email/components",
   "version": "0.0.8",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "All react-email components",
-  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/components"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -21,27 +25,24 @@
       }
     }
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/components"
-  },
+  "files": [
+    "dist/**"
+  ],
   "keywords": [
     "react",
     "email"
   ],
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "peerDependencies": {
     "react": "^18.2.0"
   },
@@ -65,7 +66,6 @@
     "@jsx-email/tailwind": "workspace:*",
     "@jsx-email/text": "workspace:*"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }
