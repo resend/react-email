@@ -45,6 +45,6 @@ const program = new Command()
   .name("create-email")
   .version("0.0.16")
   .description("The easiest way to get started with React Email")
-  .arguments("[dir]", "path to initiliaze the project")
+  .arguments("[dir]", "path to initialize the project")
   .action(init)
   .parse(process.argv);
