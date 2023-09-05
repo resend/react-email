@@ -27,7 +27,7 @@ export const setupServer = async (
   type: 'dev' | 'build' | 'start',
   dir: string,
   port: string,
-  skipInstall: boolean = false
+  skipInstall: boolean = false,
 ) => {
   const cwd = await findRoot(CURRENT_PATH).catch(() => ({
     rootDir: CURRENT_PATH,
