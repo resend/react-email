@@ -20,10 +20,6 @@
       }
     }
   },
-  "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "clean": "rm -rf dist"
-  },
   "files": [
     "dist/**"
   ],
