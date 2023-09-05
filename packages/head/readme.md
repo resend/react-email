@@ -32,7 +32,7 @@ npm install @react-email/head -E
 Add the component to your email template. Include children tags where needed.
 
 ```jsx
-import { Head } from "@react-email/head";
+import { Head } from "@jsx-email/head";
 
 const Email = () => {
   return (

@@ -1,4 +1,4 @@
-import { render } from "@react-email/render";
+import { render } from "@jsx-email/render";
 import { Markdown } from "./markdown";
 
 describe("ReactEmailMarkdown component renders correctly", () => {

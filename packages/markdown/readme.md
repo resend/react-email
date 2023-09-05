@@ -32,8 +32,8 @@ npm install @react-email/markdown -E
 Add the component around your email body content.
 
 ```jsx
-import { Markdown } from "@react-email/markdown";
-import { Html } from "@react-email/html";
+import { Markdown } from "@jsx-email/markdown";
+import { Html } from "@jsx-email/html";
 
 const Email = () => {
   return (

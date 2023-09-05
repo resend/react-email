@@ -1,7 +1,7 @@
 import { Tailwind } from "./tailwind";
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { TailwindConfig } from "tw-to-css";
-import { Button } from "@react-email/button";
+import { Button } from "@jsx-email/button";
 
 describe("Tailwind component", () => {
   beforeEach(() => {

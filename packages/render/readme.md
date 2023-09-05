@@ -33,7 +33,7 @@ Convert React components into a HTML string.
 
 ```jsx
 import { MyTemplate } from "../components/MyTemplate";
-import { render } from "@react-email/render";
+import { render } from "@jsx-email/render";
 
 const html = render(<MyTemplate firstName="Jim" />);
 ```

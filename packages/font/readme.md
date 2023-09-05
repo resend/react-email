@@ -32,9 +32,9 @@ npm install @react-email/font -E
 Add the component to your email template.
 
 ```jsx
-import { Html } from "@react-email/html";
-import { Head } from "@react-email/head";
-import { Font } from "@react-email/font";
+import { Html } from "@jsx-email/html";
+import { Head } from "@jsx-email/head";
+import { Font } from "@jsx-email/font";
 
 const Email = () => {
   return (

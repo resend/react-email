@@ -32,7 +32,7 @@ npm install @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from "@react-email/button";
+import { Button } from "@jsx-email/button";
 
 const Email = () => {
   return (

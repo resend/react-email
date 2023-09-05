@@ -1,0 +1,56 @@
+{
+  "name": "react-email",
+  "version": "1.9.4",
+  "description": "A live preview of your emails right in your browser.",
+  "bin": {
+    "email": "./dist/source/index.js"
+  },
+  "types": "./dist/source/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
+    "lint": "eslint",
+    "clean": "rm -rf dist"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/react-email"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "@commander-js/extra-typings": "9.4.1",
+    "@manypkg/find-root": "2.2.1",
+    "@octokit/rest": "19.0.7",
+    "@jsx-email/render": "workspace:*",
+    "chokidar": "3.5.3",
+    "commander": "9.4.1",
+    "detect-package-manager": "2.0.1",
+    "esbuild": "0.16.4",
+    "fs-extra": "11.1.1",
+    "glob": "8.0.3",
+    "log-symbols": "4.1.0",
+    "normalize-path": "3.0.0",
+    "ora": "5.4.1",
+    "read-pkg": "5.2.0",
+    "shelljs": "0.8.5",
+    "tree-node-cli": "1.6.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "11.0.1",
+    "@types/node": "18.11.9",
+    "@types/normalize-path": "3.0.0",
+    "@types/shelljs": "0.8.12",
+    "prettier": "3.0.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.1.6"
+  }
+}

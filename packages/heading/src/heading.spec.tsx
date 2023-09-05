@@ -1,5 +1,5 @@
 import { Heading } from "./index";
-import { render } from "@react-email/render";
+import { render } from "@jsx-email/render";
 
 describe("render", () => {
   beforeEach(() => {

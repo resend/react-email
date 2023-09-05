@@ -1,0 +1,37 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+workspace:
+  inheritedTasks:
+    exclude: ['build', 'compile', 'tsconfig.link']
+
+tasks:
+
+  build.packages:
+    command: echo "✓ All packages compiled"
+    deps:
+      - body:build
+      - button:build
+      - column:build
+      - container:build
+      - font:build
+      - head:build
+      - heading:build
+      - hr:build
+      - html:build
+      - img:build
+      - link:build
+      - markdown:build
+      - preview:build
+      - row:build
+      - section:build
+      - tailwind:build
+      - text:build
+      # Note: Build render second to last
+      - render:build
+      # Note: Build components last
+      - components:build
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false

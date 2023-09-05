@@ -32,8 +32,8 @@ npm install @react-email/tailwind -E
 Add the component around your email body content.
 
 ```jsx
-import { Button } from "@react-email/button";
-import { Tailwind } from "@react-email/tailwind";
+import { Button } from "@jsx-email/button";
+import { Tailwind } from "@jsx-email/tailwind";
 
 const Email = () => {
   return (

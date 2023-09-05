@@ -1,8 +1,0 @@
-node_modules
-dist
-.next
-
-# for testing
-.react-email
-emails
-static

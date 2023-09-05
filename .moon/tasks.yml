@@ -1,0 +1,34 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+fileGroups:
+  configs:
+    - '*.{js,json}'
+  sources:
+    - 'src/**/*'
+  tests:
+    - 'tests/**/*.test.*'
+
+tasks:
+  build:
+    command: rm -f tsconfig.json
+    deps:
+      - ~:compile
+    options:
+      cache: false
+      outputStyle: 'stream'
+      runDepsInParallel: false
+
+  compile:
+    command: tsup src/index.ts --format esm,cjs --dts --external react
+    inputs:
+      - src
+    deps:
+      - ~:tsconfig.link
+
+  tsconfig.link:
+    command: ln -sf ../../shared/tsconfig.default.json tsconfig.json
+    options:
+      cache: false
+      outputStyle: 'stream'
+    platform: system
