@@ -148,6 +148,28 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
 
+  packages/cli:
+    dependencies:
+      '@dot/log':
+        specifier: ^0.1.3
+        version: 0.1.3
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      import-local:
+        specifier: ^3.1.0
+        version: 3.1.0
+    devDependencies:
+      '@types/debug':
+        specifier: ^4.1.8
+        version: 4.1.8
+      '@types/import-local':
+        specifier: ^3.1.0
+        version: 3.1.0
+
   packages/column:
     dependencies:
       react:
@@ -775,7 +797,6 @@ packages:
       chalk: 4.1.2
       loglevelnext: 5.0.6
       p-defer: 3.0.0
-    dev: true
 
   /@dot/versioner@0.1.5:
     resolution: {integrity: sha512-wAgzgmkhY2V2ckuxl+92K9IhkMqfkpsuhMMgiVsP3K2Fh8nBgSk/OBD1saOOJJIWmKAwV3ip2ljXMh2jOIFseA==}
@@ -1932,6 +1953,12 @@ packages:
       '@babel/types': 7.22.15
     dev: true
 
+  /@types/debug@4.1.8:
+    resolution: {integrity: sha512-/vPO1EPOs306Cvhwv7KfVfYvOJqA/S/AXjaHQiJboCZzcNDb+TIJFN9/2C9DZ//ijSKWioNyUxD792QmDJ+HKQ==}
+    dependencies:
+      '@types/ms': 0.7.31
+    dev: true
+
   /@types/dompurify@3.0.2:
     resolution: {integrity: sha512-YBL4ziFebbbfQfH5mlC+QTJsvh0oJUrWbmxKMyEdL7emlHJqGR2Qb34TEFKj+VCayBvjKy3xczMFNhugThUsfQ==}
     dependencies:
@@ -1960,6 +1987,10 @@ packages:
 
   /@types/html-to-text@9.0.1:
     resolution: {integrity: sha512-sHu702QGb0SP2F0Zt+CxdCmGZIZ0gEaaCjqOh/V4iba1wTxPVntEPOM/vHm5bel08TILhB3+OxUTkDJWnr/zHQ==}
+    dev: true
+
+  /@types/import-local@3.1.0:
+    resolution: {integrity: sha512-D3hdmKcolSXqXAT5n9e1aM27UYmFN5RICHa/98THCEwpgcOSHVr29OMuRC/t5RIzrSKxmCJ4NPpqgOCXmBrMoQ==}
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
@@ -2005,6 +2036,10 @@ packages:
 
   /@types/minimist@1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/ms@0.7.31:
+    resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: true
 
   /@types/node@12.20.55:
@@ -4149,7 +4184,6 @@ packages:
     dependencies:
       pkg-dir: 4.2.0
       resolve-cwd: 3.0.0
-    dev: true
 
   /imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -5186,7 +5220,6 @@ packages:
   /loglevelnext@5.0.6:
     resolution: {integrity: sha512-GKtlPs++zQjG1DK88bpEDxP/6PlmKi5okl3T4MNq+S6bQYYWKbHKJ/kap2wwQi/24t4WfGwRnYab/8AGT4LGsg==}
     engines: {node: '>= 12.22.1'}
-    dev: true
 
   /loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -5552,7 +5585,6 @@ packages:
   /p-defer@3.0.0:
     resolution: {integrity: sha512-ugZxsxmtTln604yeYd29EGrNhazN2lywetzpKhfmQjW/VJmhpDmWbiX+h0zL8V91R0UXkhb3KtPmyq9PZw3aYw==}
     engines: {node: '>=8'}
-    dev: true
 
   /p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -5689,7 +5721,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       find-up: 4.1.0
-    dev: true
 
   /postcss-css-variables@0.18.0(postcss@8.4.21):
     resolution: {integrity: sha512-lYS802gHbzn1GI+lXvy9MYIYDuGnl1WB4FTKoqMQqJ3Mab09A7a/1wZvGTkCEZJTM8mSbIyb1mJYn8f0aPye0Q==}
@@ -6048,7 +6079,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       resolve-from: 5.0.0
-    dev: true
 
   /resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -6058,7 +6088,6 @@ packages:
   /resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
-    dev: true
 
   /resolve.exports@1.1.1:
     resolution: {integrity: sha512-/NtpHNDN7jWhAaQ9BvBUYZ6YTXsRBgfqWFWP7BZBaoMJO/I3G5OFzvTuWNlZC3aPjins1F+TNrLKsGbH4rfsRQ==}

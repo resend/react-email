@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "strict": true,
     "jsx": "react-jsx",
-    "lib": ["ES2015"],
+    "lib": ["ES2023"],
     "module": "ESNext",
     "target": "es6"
   },
