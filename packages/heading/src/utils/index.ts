@@ -1,2 +1,2 @@
-export * from "./as";
-export * from "./spaces";
+export * from './as';
+export * from './spaces';

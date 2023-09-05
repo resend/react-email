@@ -1,2 +1,5 @@
 # Note: We're ignoring this while we get the rest of the repo setup
 apps
+node_modules
+dist
+**/*spec.tsx

@@ -1,14 +1,18 @@
 {
   "name": "@jsx-email/row",
   "version": "0.0.5",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A React row component",
-  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/row"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -21,27 +25,26 @@
       }
     }
   },
-  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
-    "test": "jest",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/row"
-  },
+  "files": [
+    "dist/**"
+  ],
   "keywords": [
     "react",
     "email"
   ],
-  "engines": {
-    "node": ">=16.0.0"
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

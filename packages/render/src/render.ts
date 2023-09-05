@@ -1,10 +1,10 @@
-import * as ReactDomServer from "react-dom/server";
-import { convert } from "html-to-text";
-import pretty from "pretty";
+import * as ReactDomServer from 'react-dom/server';
+import { convert } from 'html-to-text';
+import pretty from 'pretty';
 
 export interface Options {
-  pretty?: boolean;
   plainText?: boolean;
+  pretty?: boolean;
 }
 
 export const render = (component: React.ReactElement, options?: Options) => {
@@ -23,14 +23,10 @@ export const render = (component: React.ReactElement, options?: Options) => {
   return document;
 };
 
-const renderAsPlainText = (
-  component: React.ReactElement,
-  _options?: Options,
-) => {
-  return convert(ReactDomServer.renderToStaticMarkup(component), {
+const renderAsPlainText = (component: React.ReactElement, _options?: Options) =>
+  convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: [
-      { selector: "img", format: "skip" },
-      { selector: "#__react-email-preview", format: "skip" },
-    ],
+      { format: 'skip', selector: 'img' },
+      { format: 'skip', selector: '#__react-email-preview' }
+    ]
   });
-};

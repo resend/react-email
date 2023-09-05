@@ -1,37 +1,26 @@
-import * as React from "react";
+import * as React from 'react';
 
-type FallbackFont =
-  | "Arial"
-  | "Helvetica"
-  | "Verdana"
-  | "Georgia"
-  | "Times New Roman";
+type FallbackFont = 'Arial' | 'Helvetica' | 'Verdana' | 'Georgia' | 'Times New Roman';
 
-type FontFormat =
-  | "woff"
-  | "woff2"
-  | "truetype"
-  | "opentype"
-  | "embedded-opentype"
-  | "svg";
+type FontFormat = 'woff' | 'woff2' | 'truetype' | 'opentype' | 'embedded-opentype' | 'svg';
 
-type FontWeight = React.CSSProperties["fontWeight"];
-type FontStyle = React.CSSProperties["fontStyle"];
+type FontWeight = React.CSSProperties['fontWeight'];
+type FontStyle = React.CSSProperties['fontStyle'];
 
 export interface FontProps {
-  /** The font you want to use. NOTE: Do not insert multiple fonts here, use fallbackFontFamily for that */
-  fontFamily: string;
   /** An array is possible, but the order of the array is the priority order */
   fallbackFontFamily: FallbackFont | FallbackFont[];
-  /** Not all clients support web fonts. For support check: https://www.caniemail.com/features/css-at-font-face/ */
-  webFont?: {
-    url: string;
-    format: FontFormat;
-  };
+  /** The font you want to use. NOTE: Do not insert multiple fonts here, use fallbackFontFamily for that */
+  fontFamily: string;
   /** Default: 'normal' */
   fontStyle?: FontStyle;
   /** Default: 400 */
   fontWeight?: FontWeight;
+  /** Not all clients support web fonts. For support check: https://www.caniemail.com/features/css-at-font-face/ */
+  webFont?: {
+    format: FontFormat;
+    url: string;
+  };
 }
 
 /** The component MUST be place inside the <head> tag */
@@ -39,12 +28,10 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontFamily,
   fallbackFontFamily,
   webFont,
-  fontStyle = "normal",
-  fontWeight = 400,
+  fontStyle = 'normal',
+  fontWeight = 400
 }) => {
-  const src = webFont
-    ? `src: url(${webFont.url}) format('${webFont.format}');`
-    : "";
+  const src = webFont ? `src: url(${webFont.url}) format('${webFont.format}');` : '';
 
   const style = `
     @font-face {
@@ -52,22 +39,18 @@ export const Font: React.FC<Readonly<FontProps>> = ({
       font-style: ${fontStyle};
       font-weight: ${fontWeight};
       mso-font-alt: '${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily[0]
-          : fallbackFontFamily
+        Array.isArray(fallbackFontFamily) ? fallbackFontFamily[0] : fallbackFontFamily
       }';
       ${src}
     }
 
     * {
       font-family: '${fontFamily}', ${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.join(", ")
-          : fallbackFontFamily
-      };
+    Array.isArray(fallbackFontFamily) ? fallbackFontFamily.join(', ') : fallbackFontFamily
+  };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
 };
 
-Font.displayName = "Font";
+Font.displayName = 'Font';

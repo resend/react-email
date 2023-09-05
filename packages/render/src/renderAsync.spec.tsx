@@ -1,26 +1,29 @@
-import * as React from "react";
-import { renderAsync } from "./index";
-import { Template } from "./utils/template";
-import { Preview } from "./utils/preview";
-import ReactDOMServer from "react-dom/server";
+import * as React from 'react';
 
-describe("renderAsync using renderToStaticMarkup", () => {
+import ReactDOMServer from 'react-dom/server';
+
+import { renderAsync } from './index';
+
+import { Template } from './utils/template';
+import { Preview } from './utils/preview';
+
+describe('renderAsync using renderToStaticMarkup', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
   });
 
-  it("converts a React component into HTML", async () => {
+  it('converts a React component into HTML', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`,
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`
     );
   });
 
-  it("converts a React component into PlainText", async () => {
+  it('converts a React component into PlainText', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />, {
-      plainText: true,
+      plainText: true
     });
 
     expect(actualOutput).toMatchInlineSnapshot(`
@@ -30,47 +33,45 @@ describe("renderAsync using renderToStaticMarkup", () => {
     `);
   });
 
-  it("converts to plain text and removes reserved ID", async () => {
+  it('converts to plain text and removes reserved ID', async () => {
     const actualOutput = await renderAsync(<Preview />, {
-      plainText: true,
+      plainText: true
     });
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
-    );
+    expect(actualOutput).toMatchInlineSnapshot(`"THIS SHOULD BE RENDERED IN PLAIN TEXT"`);
   });
 });
 
-describe("renderAsync using renderToReadableStream", () => {
-  const renderToStaticMarkup = ReactDOMServer.renderToStaticMarkup;
-  const renderToReadableStream = ReactDOMServer.renderToReadableStream;
+describe('renderAsync using renderToReadableStream', () => {
+  const { renderToStaticMarkup } = ReactDOMServer;
+  const { renderToReadableStream } = ReactDOMServer;
 
   const mockRenderToReadableStream = (
-    component: React.ReactNode,
+    component: React.ReactNode
   ): Promise<ReactDOMServer.ReactDOMServerReadableStream> => {
     const encoder = new TextEncoder();
-    const markup = ReactDOMServer.renderToString(
-      component as React.ReactElement,
-    );
+    const markup = ReactDOMServer.renderToString(component as React.ReactElement);
 
     let done = false;
 
     return Promise.resolve({
       allReady: Promise.resolve(),
-      [Symbol.asyncIterator]: () => ({
-        next: () => {
-          if (done) {
-            return Promise.resolve({ done: true, value: undefined });
+      [Symbol.asyncIterator]: () => {
+        return {
+          next: () => {
+            if (done) {
+              return Promise.resolve({ done: true, value: undefined });
+            }
+
+            done = true;
+
+            return Promise.resolve({
+              done: false,
+              value: encoder.encode(markup)
+            });
           }
-
-          done = true;
-
-          return Promise.resolve({
-            done: false,
-            value: encoder.encode(markup),
-          });
-        },
-      }),
+        };
+      }
     });
   };
 
@@ -87,17 +88,17 @@ describe("renderAsync using renderToReadableStream", () => {
     ReactDOMServer.renderToReadableStream = renderToReadableStream;
   });
 
-  it("converts a React component into HTML", async () => {
+  it('converts a React component into HTML', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`,
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img src=\\"img/test.png\\" alt=\\"test\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"`
     );
   });
 
-  it("converts a React component into PlainText", async () => {
+  it('converts a React component into PlainText', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />, {
-      plainText: true,
+      plainText: true
     });
 
     expect(actualOutput).toMatchInlineSnapshot(`
@@ -107,13 +108,11 @@ describe("renderAsync using renderToReadableStream", () => {
     `);
   });
 
-  it("converts to plain text and removes reserved ID", async () => {
+  it('converts to plain text and removes reserved ID', async () => {
     const actualOutput = await renderAsync(<Preview />, {
-      plainText: true,
+      plainText: true
     });
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
-    );
+    expect(actualOutput).toMatchInlineSnapshot(`"THIS SHOULD BE RENDERED IN PLAIN TEXT"`);
   });
 });

@@ -1,14 +1,18 @@
 {
   "name": "@jsx-email/markdown",
   "version": "0.0.5",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Convert markdown input to valid react-email synthax",
-  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/markdown"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
   "exports": {
     ".": {
       "import": {
@@ -21,28 +25,27 @@
       }
     }
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist"
   },
+  "files": [
+    "dist/**"
+  ],
   "keywords": [
     "react",
     "email",
     "markdown"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/markdown"
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "license": "MIT",
   "dependencies": {
     "md-to-react-email": "4.0.0"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "sideEffects": false
 }

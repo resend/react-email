@@ -1,30 +1,24 @@
-import { StylesType, parseMarkdownToReactEmailJSX } from "md-to-react-email";
-import * as React from "react";
+import { StylesType, parseMarkdownToReactEmailJSX } from 'md-to-react-email';
+import * as React from 'react';
 
-type MarkdownElement = React.ElementRef<"div">;
+type MarkdownElement = React.ElementRef<'div'>;
 
 export interface MarkdownProps {
   children: string;
-  markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
+  markdownCustomStyles?: StylesType;
   showDataId?: boolean;
 }
 
 export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
   (
-    {
-      children,
-      markdownContainerStyles,
-      markdownCustomStyles,
-      showDataId = false,
-      ...props
-    },
-    forwardedRef,
+    { children, markdownContainerStyles, markdownCustomStyles, showDataId = false, ...props },
+    forwardedRef
   ) => {
     const parsedMarkdown = parseMarkdownToReactEmailJSX({
-      markdown: children,
       customStyles: markdownCustomStyles,
-      withDataAttr: showDataId,
+      markdown: children,
+      withDataAttr: showDataId
     });
 
     return (
@@ -36,7 +30,7 @@ export const Markdown = React.forwardRef<MarkdownElement, MarkdownProps>(
         dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
       />
     );
-  },
+  }
 );
 
-Markdown.displayName = "Markdown";
+Markdown.displayName = 'Markdown';

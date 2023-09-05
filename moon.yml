@@ -51,7 +51,7 @@ tasks:
       cache: false
 
   lint.js:
-    command: 'eslint --cache apps infra packages services --ext .js,.ts,.tsx'
+    command: 'eslint --cache packages --ext .js,.ts,.tsx'
     env:
       NODE_OPTIONS: '--max-old-space-size=16384'
     options:

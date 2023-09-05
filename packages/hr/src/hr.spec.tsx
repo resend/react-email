@@ -1,16 +1,17 @@
-import { Hr } from "./index";
-import { render } from "@jsx-email/render";
+import { render } from '@jsx-email/render';
 
-describe("render", () => {
+import { Hr } from './index';
+
+describe('render', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
   });
 
-  it("renders the <Hr> component", () => {
+  it('renders the <Hr> component', () => {
     const actualOutput = render(<Hr />);
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><hr data-id=\\"react-email-hr\\" style=\\"width:100%;border:none;border-top:1px solid #eaeaea\\"/>"`,
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><hr data-id=\\"react-email-hr\\" style=\\"width:100%;border:none;border-top:1px solid #eaeaea\\"/>"`
     );
   });
 });
