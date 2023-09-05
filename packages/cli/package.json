@@ -20,14 +20,24 @@
   "files": [
     "dist/**"
   ],
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
   "dependencies": {
     "@dot/log": "^0.1.3",
+    "@jsx-email/render": "workspace:*",
     "chalk": "4.1.2",
+    "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",
-    "import-local": "^3.1.0"
+    "esbuild": "^0.19.2",
+    "globby": "11.0.4",
+    "html-minifier-terser": "^7.2.0",
+    "import-local": "^3.1.0",
+    "superstruct": "^1.0.3"
   },
   "devDependencies": {
     "@types/debug": "^4.1.8",
+    "@types/html-minifier-terser": "^7.0.0",
     "@types/import-local": "^3.1.0"
   }
 }

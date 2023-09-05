@@ -14,7 +14,7 @@ const commands: Record<string, CommandFn> = { build, help, preview };
 const debug = debugConfig('@jsx-email/cli');
 const { log } = console;
 
-const run = () => {
+const run = async () => {
   const argv = parseArgs({ allowPositionals: true, args: process.argv.slice(2), strict: false });
   const [commandName] = argv.positionals;
   let command = commands[commandName];
@@ -25,7 +25,9 @@ const run = () => {
 
   if (!command) command = help;
 
-  command(argv.values, argv.positionals || []);
+  const result = await command(argv.values, argv.positionals?.slice(1) || []);
+
+  if (!result) help({}, []);
 };
 
 if (importLocal(__filename)) {
