@@ -1,12 +1,12 @@
 {
-  "name": "react-email",
+  "name": "@jsx-email/react-email",
   "version": "1.9.4",
   "description": "A live preview of your emails right in your browser.",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/react-email"
+    "url": "https://github.com/shellscape/jsx-email.git",
+    "directory": "deprecated/react-email"
   },
   "bin": {
     "email": "./dist/source/index.js"
