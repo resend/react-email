@@ -7,6 +7,21 @@ workspace:
 
 tasks:
   compile:
+    command: echo "Compile Complete"
+    inputs:
+      - src
+    deps:
+      - ~:tsc
+      - ~:copy
+    options:
+      runDepsInParallel: false
+
+  copy:
+    command: cp -r src/assets dist/src/assets
+    options:
+      cache: false
+
+  tsc:
     command: tsc --project tsconfig.json
     inputs:
       - src
