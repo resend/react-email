@@ -16,9 +16,9 @@ import * as React from 'react';
 export const TemplateName = '{{name}}';
 
 export const TemplateStruct = object({
+  count: defaulted(number(), 42),
   email: defaulted(string(), 'batman@example.com'),
-  name: defaulted(string(), 'Bruce Wayne'),
-  count: defaulted(number(), 42)
+  name: defaulted(string(), 'Bruce Wayne')
 });
 
 export type TemplateProps = Infer<typeof TemplateStruct>;
@@ -71,7 +71,7 @@ const button = {
 export const Template = ({ email, name, count }: TemplateProps) => (
   <Html>
     <Head />
-    <Preview>This is our email preview text for {name}</Preview>
+    <Preview>This is our email preview text for {name} &lt;{email}&gt;</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>

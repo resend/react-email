@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "exclude": ["dist", "node_modules", "src/commands/preview/app/**/*"],
+  "extends": "../../shared/tsconfig.base.json",
+  "include": ["src"]
+}

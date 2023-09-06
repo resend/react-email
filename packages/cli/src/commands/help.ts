@@ -11,6 +11,7 @@ const { log } = console;
 
 export const helpMessage = chalk`
 {blue ${pkg.name}} v${pkg.version}
+
 ${pkg.description}
 
 {underline Usage}
@@ -39,12 +40,12 @@ ${pkg.description}
 const commands: Record<string, string> = { build, create };
 
 export const command: CommandFn = async (_, inputs) => {
-  if ((inputs || []).length > 1) {
+  if ((inputs || []).length < 1) {
     log(helpMessage);
     return true;
   }
 
-  const [, command] = inputs;
+  const [command] = inputs;
   const commandHelp = commands[command] || helpMessage;
 
   log(commandHelp);

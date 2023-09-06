@@ -5,8 +5,6 @@ import chalk from 'chalk';
 import mustache from 'mustache';
 import { assert, boolean, object, optional, string, Infer } from 'superstruct';
 
-import pkg from '../../package.json';
-
 import { CommandFn } from './types';
 
 const { log } = console;
@@ -22,7 +20,7 @@ const CreateOptionsStruct = object({
 type CreateOptions = Infer<typeof CreateOptionsStruct>;
 
 export const help = chalk`
-{blue ${pkg.name}} v${pkg.version}
+{blue email create}
 
 Creates a new jsx-email template
 
@@ -34,11 +32,11 @@ Creates a new jsx-email template
 
 {underline Examples}
   $ email create invite
-  $ email create invite --out src/assets
+  $ email create invite --out=src/assets
 `;
 
 export const command: CommandFn = async (argv: CreateOptions, input) => {
-  if (input.length < 0) return false;
+  if (input.length < 1) return false;
 
   assert(argv, CreateOptionsStruct);
 

@@ -32,6 +32,7 @@
     "globby": "11.0.4",
     "html-minifier-terser": "^7.2.0",
     "import-local": "^3.1.0",
+    "js-beautify": "^1.14.9",
     "mustache": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
@@ -42,6 +43,7 @@
     "@types/debug": "^4.1.8",
     "@types/html-minifier-terser": "^7.0.0",
     "@types/import-local": "^3.1.0",
+    "@types/js-beautify": "^1.14.0",
     "@types/mustache": "^4.2.2",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6"

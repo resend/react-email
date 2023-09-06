@@ -17,7 +17,12 @@ tasks:
       runDepsInParallel: false
 
   copy:
-    command: cp -r src/assets dist/src/assets
+    command: cp -r src/assets dist/src && cp -r src/commands/preview/app dist/src/commands/preview
+    options:
+      cache: false
+
+  start.preview:
+    command: ts-node --swc --project ../../tsconfig.json scripts/test.ts
     options:
       cache: false
 
@@ -25,5 +30,3 @@ tasks:
     command: tsc --project tsconfig.json
     inputs:
       - src
-    deps:
-      - ~:tsconfig.link

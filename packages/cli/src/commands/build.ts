@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { realpath, writeFile } from 'node:fs/promises';
+import { mkdir, realpath, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import { basename, extname, join, resolve } from 'path';
 
@@ -9,11 +9,8 @@ import { load } from 'cheerio';
 import esbuild from 'esbuild';
 import globby from 'globby';
 import { minify as terser } from 'html-minifier-terser';
-// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
-import * as react from 'react';
+import beautify from 'js-beautify';
 import { assert, boolean, object, optional, string, Infer } from 'superstruct';
-
-import pkg from '../../package.json';
 
 import { CommandFn, TemplateFn } from './types';
 
@@ -30,7 +27,7 @@ const BuildOptionsStruct = object({
 type BuildOptions = Infer<typeof BuildOptionsStruct>;
 
 export const help = chalk`
-{blue ${pkg.name}} v${pkg.version}
+{blue email build}
 
 Builds a template and saves the result
 
@@ -48,8 +45,20 @@ Builds a template and saves the result
 
 {underline Examples}
   $ email build ./src/templates/Invite.tsx
-  $ email build ./src/templates/Invite.tsx --props '{"batman": "Bruce Wayne"}'
+  $ email build ./src/templates/Invite.tsx --props='\{"batman": "Bruce Wayne"\}'
 `;
+
+const pretty = (html: string) => {
+  const defaults = {
+    indent_char: ' ',
+    indent_inner_html: true,
+    indent_size: 2,
+    sep: '\n',
+    unformatted: ['code', 'pre', 'em', 'strong', 'span']
+  };
+
+  return beautify.html(html, defaults);
+};
 
 const stripHtml = (html: string) => {
   const $ = load(html);
@@ -82,7 +91,9 @@ const build = async (path: string, argv: BuildOptions) => {
   let html = rendered;
   if (strip) html = stripHtml(html);
   if (minify) html = await terser(html);
+  else html = pretty(html);
 
+  await mkdir(out!, { recursive: true });
   await writeFile(writePath, html, 'utf8');
 };
 
@@ -90,6 +101,7 @@ const compile = async (files: string[], outDir: string) => {
   await esbuild.build({
     bundle: true,
     entryPoints: files,
+    logLevel: 'error',
     outdir: outDir,
     platform: 'node',
     write: true
@@ -99,7 +111,7 @@ const compile = async (files: string[], outDir: string) => {
 };
 
 export const command: CommandFn = async (argv: BuildOptions, input) => {
-  if (input.length < 0) return false;
+  if (input.length < 1) return false;
 
   const [target] = input;
   const tmpdir = await realpath(os.tmpdir());
