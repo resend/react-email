@@ -3,11 +3,18 @@ import reactLogo from '../../../../assets/preview/public/react.svg';
 import viteLogo from '../../../../assets/preview/public/vite.svg';
 import './App.css';
 
+const { Template }: { Template: any } = await import(import.meta.env.VITE_EMAIL_COMPONENTS);
+
 function App() {
   const [count, setCount] = useState(0);
 
+  // const templates = await import.meta.glob(`__TARGET_PATH__/*.{jsx,tsx}`);
+
   return (
     <>
+      <pre>
+        <Template />
+      </pre>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />

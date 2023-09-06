@@ -5,7 +5,7 @@ import pkg from '../../package.json';
 import { CommandFn } from './types';
 import { help as build } from './build';
 import { help as create } from './create';
-// import { help as preview } from './preview';
+import { help as preview } from './preview';
 
 const { log } = console;
 
@@ -20,6 +20,7 @@ ${pkg.description}
 {underline Commands}
   build       {dim <template path>}
   help        [{dim <command>}]
+  preview     {dim <template dir path>}
 
 {underline Options}
   --help      Displays this message
@@ -30,14 +31,10 @@ ${pkg.description}
   $ email --help
   $ email build ./src/templates/Invite.tsx
   $ email create invite
+  $ email preview ./src/templates
 `;
 
-// Stash this until we write the command
-// preview     {dim <template dir path>}
-// $ email preview ./src/templates
-
-// , preview };
-const commands: Record<string, string> = { build, create };
+const commands: Record<string, string> = { build, create, preview };
 
 export const command: CommandFn = async (_, inputs) => {
   if ((inputs || []).length < 1) {

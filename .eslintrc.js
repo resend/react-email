@@ -4,6 +4,7 @@ module.exports = {
     {
       files: ['*.d.ts'],
       rules: {
+        'no-underscore-dangle': 'off',
         'spaced-comment': 'off'
       }
     },
