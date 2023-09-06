@@ -168,6 +168,9 @@ importers:
       esbuild:
         specifier: ^0.19.2
         version: 0.19.2
+      esbuild-plugin-copy:
+        specifier: ^2.1.1
+        version: 2.1.1(esbuild@0.19.2)
       globby:
         specifier: 11.0.4
         version: 11.0.4
@@ -177,6 +180,9 @@ importers:
       import-local:
         specifier: ^3.1.0
         version: 3.1.0
+      mustache:
+        specifier: ^4.2.0
+        version: 4.2.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -193,6 +199,9 @@ importers:
       '@types/import-local':
         specifier: ^3.1.0
         version: 3.1.0
+      '@types/mustache':
+        specifier: ^4.2.2
+        version: 4.2.2
 
   packages/column:
     dependencies:
@@ -2270,6 +2279,10 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: true
 
+  /@types/mustache@4.2.2:
+    resolution: {integrity: sha512-MUSpfpW0yZbTgjekDbH0shMYBUD+X/uJJJMm9LXN1d5yjl5lCY1vN/eWKD6D1tOtjA6206K0zcIPnUaFMurdNA==}
+    dev: true
+
   /@types/node@12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: false
@@ -3540,6 +3553,18 @@ packages:
       is-symbol: 1.0.4
     dev: true
 
+  /esbuild-plugin-copy@2.1.1(esbuild@0.19.2):
+    resolution: {integrity: sha512-Bk66jpevTcV8KMFzZI1P7MZKZ+uDcrZm2G2egZ2jNIvVnivDpodZI+/KnpL3Jnap0PBdIHU7HwFGB8r+vV5CVw==}
+    peerDependencies:
+      esbuild: '>= 0.14.0'
+    dependencies:
+      chalk: 4.1.2
+      chokidar: 3.5.3
+      esbuild: 0.19.2
+      fs-extra: 10.1.0
+      globby: 11.0.4
+    dev: false
+
   /esbuild@0.16.4:
     resolution: {integrity: sha512-qQrPMQpPTWf8jHugLWHoGqZjApyx3OEm76dlTXobHwh/EBbavbRdjXdYi/GWr43GyN0sfpap14GPkb05NH3ROA==}
     engines: {node: '>=12'}
@@ -4115,6 +4140,15 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: false
+
+  /fs-extra@10.1.0:
+    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.1.0
+      universalify: 2.0.0
     dev: false
 
   /fs-extra@11.1.0:
@@ -5749,6 +5783,11 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+
+  /mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+    dev: false
 
   /mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}

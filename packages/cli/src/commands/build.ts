@@ -4,6 +4,7 @@ import os from 'node:os';
 import { basename, extname, join, resolve } from 'path';
 
 import { render } from '@jsx-email/render';
+import chalk from 'chalk';
 import { load } from 'cheerio';
 import esbuild from 'esbuild';
 import globby from 'globby';
@@ -11,6 +12,8 @@ import { minify as terser } from 'html-minifier-terser';
 // eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-unused-vars
 import * as react from 'react';
 import { assert, boolean, object, optional, string, Infer } from 'superstruct';
+
+import pkg from '../../package.json';
 
 import { CommandFn, TemplateFn } from './types';
 
@@ -25,6 +28,28 @@ const BuildOptionsStruct = object({
 });
 
 type BuildOptions = Infer<typeof BuildOptionsStruct>;
+
+export const help = chalk`
+{blue ${pkg.name}} v${pkg.version}
+
+Builds a template and saves the result
+
+{underline Usage}
+  $ email build <template path> [...options]
+
+{underline Options}
+  --minify      Minify the rendered template before saving
+  --no-strip    Prevents stripping data-id attributes from output
+  --out         File path to save the rendered template
+  --plain       Emit template as plain text
+  --props       A JSON string containing props to be passed to the email template
+                This is usually only useful when building a single template, unless all of your
+                templates share the same props.
+
+{underline Examples}
+  $ email build ./src/templates/Invite.tsx
+  $ email build ./src/templates/Invite.tsx --props '{"batman": "Bruce Wayne"}'
+`;
 
 const stripHtml = (html: string) => {
   const $ = load(html);
