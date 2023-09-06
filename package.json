@@ -9,6 +9,7 @@
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@dot/versioner": "^0.1.5",
+    "@moonrepo/cli": "^1.12.1",
     "@react-email/render": "0.0.6",
     "@types/jest": "29.5.3",
     "@types/react": "18.0.20",

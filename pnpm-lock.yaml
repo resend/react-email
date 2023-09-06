@@ -17,6 +17,9 @@ importers:
       '@dot/versioner':
         specifier: ^0.1.5
         version: 0.1.5
+      '@moonrepo/cli':
+        specifier: ^1.12.1
+        version: 1.13.1
       '@react-email/render':
         specifier: 0.0.6
         version: 0.0.6
@@ -1591,6 +1594,78 @@ packages:
       read-yaml-file: 1.1.0
     dev: false
 
+  /@moonrepo/cli@1.13.1:
+    resolution: {integrity: sha512-u1esm2ziRIAbOLLvP85MXKRBvMMFciN6e9xDt21MMIwM3yU/MmP0OvWp3oZ9at4n9B+IJvzo3fXrSHqWyp2IxA==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      detect-libc: 2.0.2
+    optionalDependencies:
+      '@moonrepo/core-linux-arm64-gnu': 1.13.1
+      '@moonrepo/core-linux-arm64-musl': 1.13.1
+      '@moonrepo/core-linux-x64-gnu': 1.13.1
+      '@moonrepo/core-linux-x64-musl': 1.13.1
+      '@moonrepo/core-macos-arm64': 1.13.1
+      '@moonrepo/core-macos-x64': 1.13.1
+      '@moonrepo/core-windows-x64-msvc': 1.13.1
+    dev: true
+
+  /@moonrepo/core-linux-arm64-gnu@1.13.1:
+    resolution: {integrity: sha512-1+9b3wlLK9hno7FQj1D7hQ81cGIBKGC1hoTUGs1OIFTBGzBLYNxC7xLMfZE9cxKddTp+AAXmCM4Vgk47bQ6hyw==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-linux-arm64-musl@1.13.1:
+    resolution: {integrity: sha512-WiWbyGJOmcIrX960WOP/Nw379PlTCajH0HWMJzTtOJChrqE7XWBSDh30GiyuL0yUsZo3DhsrOgCZJOjP7i3gDA==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-linux-x64-gnu@1.13.1:
+    resolution: {integrity: sha512-0OoBeEeqO72qzpogYz77CBRsAm5tUHAYeLwGrsk61sDpb/ryIOt+ujVBAl4zUh5G1NRI7otrTXopxN/mPst+XA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-linux-x64-musl@1.13.1:
+    resolution: {integrity: sha512-3IWtMaUZ9mH3KgIhso0mGzZleg6x1hpi+u7cubcJ2qp4rC8aS8pnha2322KCvHKQlQtvcCCLfB2E5GGMJfjDhA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-macos-arm64@1.13.1:
+    resolution: {integrity: sha512-DFmGmUBum1IfaLZEcurUgeZbPdkbvbj7CriHRt+l3YL7GWl9xhzyc29QEX8tSddpoJaycunt8PacqSZbupb+Lw==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-macos-x64@1.13.1:
+    resolution: {integrity: sha512-a757AMpdu3Nat/8h/04zRz8vQyobj/Ss1CX2wG9B0fR71XPEobnFrjlD6ESpFHR/qek80jsl99++jdoDopL7WA==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@moonrepo/core-windows-x64-msvc@1.13.1:
+    resolution: {integrity: sha512-RDdg4eaE3aeU4CECwdA493VljNSRBNTfEZC9/eB5h/7Q34TzHhMgUBALMLdUPT0H2xnN2s8LJxYBDyWY0Qg6Dw==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2915,6 +2990,11 @@ packages:
   /detect-indent@5.0.0:
     resolution: {integrity: sha512-rlpvsxUtM0PQvy9iZe640/IWwWYyBsTApREbA1pHOpmOUIl9MkP/U4z7vTtg4Oaojvqhxt7sdufnT0EzGaR31g==}
     engines: {node: '>=4'}
+    dev: true
+
+  /detect-libc@2.0.2:
+    resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
+    engines: {node: '>=8'}
     dev: true
 
   /detect-newline@3.1.0:
