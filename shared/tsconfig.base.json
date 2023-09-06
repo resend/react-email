@@ -20,5 +20,5 @@
     "module": "ESNext",
     "target": "es6"
   },
-  "exclude": ["dist", "node_modules", "**/*.spec.tsx"]
+  "exclude": ["dist", "node_modules", "**/*.spec.tsx", "packages/cli/src/preview"]
 }

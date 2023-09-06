@@ -2,6 +2,12 @@ module.exports = {
   extends: ['shellscape/typescript', 'plugin:import/typescript'],
   overrides: [
     {
+      files: ['*.d.ts'],
+      rules: {
+        'spaced-comment': 'off'
+      }
+    },
+    {
       files: ['*.ts', '*.tsx'],
       rules: {
         'no-shadow': 'off',
@@ -19,7 +25,7 @@ module.exports = {
     }
   ],
   parserOptions: {
-    project: ['./shared/tsconfig.eslint.json', './packages/*/tsconfig.json'],
+    project: ['./shared/tsconfig.eslint.json', './packages/**/tsconfig.json'],
     tsconfigRootDir: __dirname
   },
   rules: {

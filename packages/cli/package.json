@@ -20,12 +20,10 @@
   "files": [
     "dist/**"
   ],
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
   "dependencies": {
     "@dot/log": "^0.1.3",
     "@jsx-email/render": "workspace:*",
+    "@vitejs/plugin-react": "^4.0.4",
     "chalk": "4.1.2",
     "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",
@@ -35,12 +33,17 @@
     "html-minifier-terser": "^7.2.0",
     "import-local": "^3.1.0",
     "mustache": "^4.2.0",
-    "superstruct": "^1.0.3"
+    "react": "^18.2.0",
+    "react-dom": "18.2.0",
+    "superstruct": "^1.0.3",
+    "vite": "^4.4.9"
   },
   "devDependencies": {
     "@types/debug": "^4.1.8",
     "@types/html-minifier-terser": "^7.0.0",
     "@types/import-local": "^3.1.0",
-    "@types/mustache": "^4.2.2"
+    "@types/mustache": "^4.2.2",
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6"
   }
 }

@@ -1,8 +1,8 @@
 import chalk from 'chalk';
 
-import pkg from '../../package.json';
+import pkg from '../../../package.json';
 
-import { CommandFn } from './types';
+import { CommandFn } from '../types';
 
 export const help = chalk`
 {blue ${pkg.name}} v${pkg.version}
