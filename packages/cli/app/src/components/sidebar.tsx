@@ -72,7 +72,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
 
           {navItems && navItems.length > 0 && (
             <Collapsible.Content className="relative mt-3">
-              <div className="absolute left-2.5  w-px h-full bg-slate-6" />
+              <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
               <div className="py-2 flex flex-col truncate">
                 <LayoutGroup id="sidebar">
@@ -80,7 +80,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                     navItems.map((item) => {
                       const isCurrentPage = title === item;
                       return (
-                        <a key={item} href={`/preview/${item}`}>
+                        <a key={item} href={`/${item}`}>
                           <motion.span
                             className={classnames(
                               'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative transition ease-in-out duration-200',
