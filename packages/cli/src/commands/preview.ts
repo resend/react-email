@@ -1,13 +1,11 @@
-// import { readFile } from 'node:fs/promises';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
-// import findUp from 'find-up';
 import globby from 'globby';
 import { assert, boolean, number, object, optional, Infer } from 'superstruct';
 import { createServer } from 'vite';
 
-import { CommandFn } from '../types';
+import { CommandFn } from './types';
 
 const PreviewOptionsStruct = object({
   open: optional(boolean()),
@@ -15,13 +13,6 @@ const PreviewOptionsStruct = object({
 });
 
 type PreviewOptions = Infer<typeof PreviewOptionsStruct>;
-
-// interface PackageJson {
-//   dependencies: Record<string, string>;
-//   devDependencies: Record<string, string>;
-// }
-
-// const { warn } = console;
 
 export const help = chalk`
 {blue email preview}
@@ -47,31 +38,20 @@ export const command: CommandFn = async (argv: PreviewOptions, input) => {
   const [target] = input;
   const targetPath = resolve(target);
 
-  // const packagePath = await findUp('package.json', { cwd: targetPath });
-  // let deps: string[] = [];
-
-  // if (packagePath) {
-  //   const pkg = JSON.parse(await readFile(packagePath, 'utf8')) as PackageJson;
-  //   deps = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.devDependencies)];
-  // } else {
-  //   warn(chalk`No {yellow package.json} file was found. This may impact the preview`);
-  // }
-
   await start(targetPath, argv);
   return true;
 };
 
 export const start = async (targetPath: string, argv: PreviewOptions) => {
   const { open = true, port = 55420 } = argv;
-  const config = await import('./app/vite.config');
+  const config = await import('../../app/vite.config');
   const componentPaths = await globby(join(targetPath, '/*.{jsx,tsx}'));
 
-  process.env.VITE_EMAIL_COMPONENTS = componentPaths[0];
+  process.env.VITE_EMAIL_COMPONENTS = JSON.stringify(componentPaths);
 
   const server = await createServer({
     configFile: false,
     ...config.default,
-    root: join(__dirname, 'app'),
     server: { port }
   });
 
