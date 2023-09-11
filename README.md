@@ -95,25 +95,31 @@ All components were tested using the most popular email clients.
 | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Gmail ✔                                                                                           | Apple Mail ✔                                                                                           | Outlook ✔                                                                                             | Yahoo! Mail ✔                                                                                                | HEY ✔                                                                                         | Superhuman ✔                                                                                                |
 
-## Development
+## Contributing, Working With This Repo
 
-#### Install dependencies
+The `jsx-email` repository is a [Monorepo](https://en.wikipedia.org/wiki/Monorepo) that uses two primary tools; [`pnpm`](https://pnpm.io/) and [`Moon`](https://moonrepo.dev/). `pnpm` is used for package management and [workspace management](https://pnpm.io/workspaces) of the repo. `Moon` is used as our task runner for the repo - all commands to work with the packages and code in the repo go through `Moon`. We also assume that you have Node.js installed, because this is a project that leverages React.
 
-```sh
-yarn install
+### Getting Started
+
+If you're new to either `pnpm` or `Moon` you'll want to run the `bootstrap.sh` script first. It will install everything you'll need to get started, and bootstrap your environment:
+
+```console
+$ ./shared/bootstrap.sh
 ```
 
-#### Build and run packages
+Next we'll want to get dependencies installed, and get everything built. _(Note: One of the benefits of `Moon` is that it uses intelligent caching to assert that dependencies are always up to date before running any command. We don't techincally have to install dependencies first)_:
 
-```sh
-yarn dev
+```console
+$ pnpm install
 ```
 
-This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).
+And build all of the packages in the repo:
 
-## Contributing
+```console
+$ moon run jsx-email:build.packages
+```
 
-- [Contribution Guide](https://react.email/docs/contributing)
+Read more on our [Contribution Guide](https://react.email/docs/contributing).
 
 ## Authors
 
@@ -122,4 +128,4 @@ This will initialize all packages in parallel and watch for changes, including t
 
 ## License
 
-MIT License
+[MIT License](./LICENSE.md)
