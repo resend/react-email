@@ -49,7 +49,8 @@
       "group": "Getting Started",
       "pages": [
         "getting-started/automatic-setup",
-        "getting-started/manual-setup"
+        "getting-started/manual-setup",
+        "getting-started/migrating-to-react-email"
       ]
     },
     {
