@@ -69,7 +69,7 @@ export const VercelInviteUserEmail = ({
               Hello {username},
             </Text>
             <Text className="text-black text-[14px] leading-[24px]">
-              <strong>bukinoshita</strong> (
+              <strong>{invitedByUsername}</strong> (
               <Link
                 href={`mailto:${invitedByEmail}`}
                 className="text-blue-600 no-underline"
