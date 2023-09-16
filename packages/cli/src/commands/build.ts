@@ -80,15 +80,15 @@ const build = async (path: string, argv: BuildOptions) => {
   }
 
   const component = componentExport(props);
-  const rendered = render(component, { plainText: plain });
   const writePath = join(out!, basename(path).replace(extname(path), extension));
 
   if (plain) {
-    await writeFile(writePath, rendered, 'utf8');
+    const plainText = render(component, { plainText: plain });
+    await writeFile(writePath, plainText, 'utf8');
     return;
   }
 
-  let html = rendered;
+  let html = render(component);
   if (strip) html = stripHtml(html);
   if (minify) html = await terser(html);
   else html = pretty(html);

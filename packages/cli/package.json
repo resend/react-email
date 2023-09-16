@@ -46,7 +46,7 @@
     "js-beautify": "^1.14.9",
     "mustache": "^4.2.0",
     "postcss": "^8.4.29",
-    "prism-react-renderer": "1.3.5",
+    "prism-react-renderer": "2.0.6",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.15.0",

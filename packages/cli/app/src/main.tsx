@@ -1,18 +1,26 @@
+import { render } from '@jsx-email/render';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
-import type { Struct } from 'superstruct';
+import { create, type Struct } from 'superstruct';
 import titleize from 'titleize';
-import App from './App.tsx';
-import RootLayout from './layout.tsx';
-import ErrorPage from './error.tsx';
+
+import { Error } from './error.tsx';
+import { Home } from './home.tsx';
+import { Layout } from './layout.tsx';
+import { Preview } from './preview.tsx';
 import './index.css';
 import './globals.css';
 
 interface TemplateExports {
+  Name?: string;
+  PreviewProps?: () => any;
+  Struct?: Struct;
   Template: React.ExoticComponent;
-  TemplateName?: string;
-  TemplateStruct?: Struct;
+}
+
+interface TemplateData extends TemplateExports {
+  jsx: string;
 }
 
 const parseName = (path: string) => {
@@ -25,40 +33,48 @@ const parseName = (path: string) => {
 
 const templatePaths = JSON.parse(import.meta.env.VITE_EMAIL_COMPONENTS) as string[];
 const templates = await Promise.all(
-  templatePaths.map<Promise<TemplateExports>>(async (path) => {
+  templatePaths.map<Promise<TemplateData>>(async (path) => {
     const template = (await import(/* @vite-ignore */ path)) as TemplateExports;
-    const result: TemplateExports = {
-      Template: template.Template || (template as any).default,
-      TemplateName: template.TemplateName || parseName(path),
-      TemplateStruct: template.TemplateStruct
+    const result: TemplateData = {
+      // FIXME: we need to preload this before vite starts. maybe virtual modules
+      jsx: '<temp>',
+      Name: template.Name || parseName(path),
+      PreviewProps: template.PreviewProps,
+      Struct: template.Struct,
+      Template: template.Template || (template as any).default
     };
 
     return result;
   })
 );
 
-const templateRoutes: RouteObject[] = templates.map((template) => {
-  const Component = template.Template || (template as any).default;
-  const element = (
-    <>
-      <pre>
-        <Component />
-      </pre>
-    </>
-  );
-  return { element, path: `/${template.TemplateName}` };
-});
+const templateNames = templates.map((template) => template.Name!);
 
-const templateNames = templates.map((template) => template.TemplateName!);
+const templateRoutes: RouteObject[] = templates.map((template) => {
+  const { Name, PreviewProps, Struct, Template } = template;
+  let props: any;
+
+  if (Struct) props = create({}, Struct);
+  else if (PreviewProps) props = PreviewProps();
+
+  const html = render(<Template {...props} />, { pretty: true });
+  const plainText = render(<Template {...props} />, { plainText: true });
+  const element = (
+    <Layout>
+      <Preview {...{ html, jsx: template.jsx, plainText, templateNames, title: Name! }} />
+    </Layout>
+  );
+  return { element, path: `/${template.Name}` };
+});
 
 const router = createBrowserRouter([
   {
     element: (
-      <RootLayout>
-        <App navItems={templateNames} />
-      </RootLayout>
+      <Layout>
+        <Home templateNames={templateNames} />
+      </Layout>
     ),
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     path: '/'
   },
   ...templateRoutes

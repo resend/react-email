@@ -66,14 +66,14 @@ const footer = {
 export const Template = () => (
   <Html>
     <Head />
-    <Preview>You're now ready to make live transactions with Stripe!</Preview>
+    <Preview>HooooYou're now ready to make live transactions with Stripe!</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={box}>
           <Img src={`/static/stripe-logo.png`} width="49" height="21" alt="Stripe" />
           <Hr style={hr} />
           <Text style={paragraph}>
-            Thanks for submitting your account information. You're now ready to make live
+            HooooThanks for submitting your account information. You're now ready to make live
             transactions with Stripe!
           </Text>
           <Text style={paragraph}>

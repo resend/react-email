@@ -25,6 +25,8 @@ export type As<
       as: T5;
     });
 
+export type PreviewLanguage = 'html' | 'jsx' | 'plainText';
+
 export const copyTextToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
@@ -34,9 +36,9 @@ export const copyTextToClipboard = async (text: string) => {
 };
 
 export const languageMap = {
+  html: 'HTML',
   jsx: 'React',
-  markdown: 'Plain Text',
-  markup: 'HTML'
+  plainText: 'Plain Text'
 };
 
 export const unreachable = (

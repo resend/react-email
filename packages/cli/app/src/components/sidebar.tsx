@@ -8,18 +8,18 @@ type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
-  navItems: string[];
+  templateNames: string[];
   title?: string;
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, navItems, title, ...props }, forwardedRef) => (
+  ({ className, templateNames, title, ...props }, forwardedRef) => (
     <aside ref={forwardedRef} className={className} {...props}>
       <nav className="p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
         <Collapsible.Root defaultOpen>
           <Collapsible.Trigger
             className={classnames('flex items-center gap-1', {
-              'cursor-default': navItems && navItems.length === 0
+              'cursor-default': templateNames && templateNames.length === 0
             })}
           >
             <svg
@@ -56,7 +56,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               >
                 All emails
               </Heading>
-              {navItems && navItems.length > 0 && (
+              {templateNames && templateNames.length > 0 && (
                 <svg
                   width="24"
                   height="24"
@@ -70,14 +70,14 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
             </div>
           </Collapsible.Trigger>
 
-          {navItems && navItems.length > 0 && (
+          {templateNames && templateNames.length > 0 && (
             <Collapsible.Content className="relative mt-3">
               <div className="absolute left-2.5 w-px h-full bg-slate-6" />
 
               <div className="py-2 flex flex-col truncate">
                 <LayoutGroup id="sidebar">
-                  {navItems &&
-                    navItems.map((item) => {
+                  {templateNames &&
+                    templateNames.map((item) => {
                       const isCurrentPage = title === item;
                       return (
                         <a key={item} href={`/${item}`}>

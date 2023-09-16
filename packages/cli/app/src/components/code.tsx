@@ -1,11 +1,13 @@
 import classnames from 'classnames';
-import Highlight, { defaultProps, Language } from 'prism-react-renderer';
+import { Highlight, Language } from 'prism-react-renderer';
 import * as React from 'react';
+
+import { PreviewLanguage } from '../helpers';
 
 interface CodeProps {
   children: any;
   className?: string;
-  language?: Language;
+  language?: PreviewLanguage;
 }
 
 const theme = {
@@ -50,7 +52,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, language = 'html
   // const url = URL.createObjectURL(file);
 
   return (
-    <Highlight {...defaultProps} theme={theme} code={value} language={language as Language}>
+    <Highlight theme={theme} code={value} language={language as Language}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
           <div
@@ -64,14 +66,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, language = 'html
             {tokens.map((line, i) => {
               const { key: lineKey, ...lineProps } = getLineProps({ key: i, line });
               return (
-                <div
-                  key={i}
-                  {...lineProps}
-                  className={classnames('whitespace-pre', {
-                    "before:text-slate-11 before:mr-2 before:content-['$']":
-                      language === 'bash' && tokens && tokens.length === 1
-                  })}
-                >
+                <div key={i} {...lineProps} className={classnames('whitespace-pre')}>
                   {line.map((token, key) => {
                     const { key: tokenKey, ...tokenProps } = getTokenProps({ key, token });
                     const isException = token.content === 'from' && line[key + 1]?.content === ':';

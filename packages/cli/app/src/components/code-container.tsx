@@ -1,13 +1,15 @@
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
-import { copyTextToClipboard, languageMap } from '../helpers';
+
+import { PreviewLanguage, copyTextToClipboard, languageMap } from '../helpers';
+
 import { Code } from './code';
 import { IconButton, IconCheck, IconClipboard, IconDownload } from './icons';
 import { Tooltip } from './tooltip';
 
 interface MarkupProps {
   content: string;
-  language: 'jsx' | 'markdown' | 'markup';
+  language: PreviewLanguage;
 }
 
 interface CodeContainerProps {

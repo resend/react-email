@@ -9,13 +9,13 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
   activeView?: string;
-  markup?: string;
-  navItems: string[];
+  html?: string;
   setActiveView?: (view: string) => void;
+  templateNames: string[];
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
-  ({ title, navItems, children, markup, activeView, setActiveView }, forwardedRef) => {
+  ({ title, templateNames, children, html, activeView, setActiveView }, forwardedRef) => {
     const [showNav, setShowNav] = React.useState(false);
     return (
       <div className="flex flex-col h-screen overflow-x-hidden">
@@ -50,7 +50,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
               'translate-x-[-100%] lg:translate-x-0 absolute lg:relative': !showNav,
               'translate-x-0': showNav
             })}
-            navItems={navItems}
+            templateNames={templateNames}
             title={title}
           />
           <main
@@ -64,7 +64,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
                 title={title}
                 activeView={activeView}
                 setActiveView={setActiveView}
-                markup={markup}
+                markup={html}
               />
             )}
             <div className="relative h-[calc(100vh_-_140px)] overflow-auto">
