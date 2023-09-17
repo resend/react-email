@@ -42,7 +42,7 @@
     "directory": "packages/markdown"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "publishConfig": {
     "access": "public"

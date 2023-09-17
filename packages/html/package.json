@@ -41,7 +41,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",

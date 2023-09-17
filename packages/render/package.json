@@ -42,7 +42,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "dependencies": {
     "html-to-text": "9.0.5",

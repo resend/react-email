@@ -43,7 +43,7 @@
     "tailwind"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "dependencies": {
     "html-react-parser": "4.0.0",

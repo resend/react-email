@@ -24,7 +24,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "11.0.1",
-    "@types/node": "18.11.9",
+    "@types/node": "18.17.17",
     "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.12",
     "prettier": "3.0.0",
