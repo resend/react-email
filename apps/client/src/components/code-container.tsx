@@ -84,7 +84,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${
+                  className={`relative py-[8px] px-4 text-sm font-medium transition ease-in-out duration-200 hover:text-slate-12 ${
                     activeLang !== language ? 'text-slate-11' : 'text-slate-12'
                   }`}
                   onClick={() => setActiveLang(language)}
@@ -106,13 +106,19 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           </LayoutGroup>
         </div>
         <Tooltip>
-          <Tooltip.Trigger asChild className="absolute top-2 right-2 hidden md:block">
+          <Tooltip.Trigger
+            asChild
+            className="absolute top-2 right-2 hidden md:block"
+          >
             {renderClipboardIcon()}
           </Tooltip.Trigger>
           <Tooltip.Content>Copy to Clipboard</Tooltip.Content>
         </Tooltip>
         <Tooltip>
-          <Tooltip.Trigger asChild className="text-gray-11 absolute top-2 right-8 hidden md:block">
+          <Tooltip.Trigger
+            asChild
+            className="text-gray-11 absolute top-2 right-8 hidden md:block"
+          >
             {renderDownloadIcon()}
           </Tooltip.Trigger>
           <Tooltip.Content>Download</Tooltip.Content>

@@ -1,7 +1,6 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
-import Link from 'next/link';
 import * as React from 'react';
 import { Heading } from './heading';
 
@@ -17,7 +16,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   ({ className, navItems, title, ...props }, forwardedRef) => {
     return (
       <aside ref={forwardedRef} className={className} {...props}>
-        <nav className="p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
+        <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
           <Collapsible.Root defaultOpen>
             <Collapsible.Trigger
               className={classnames('flex items-center gap-1', {
@@ -85,7 +84,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                       navItems.map((item) => {
                         const isCurrentPage = title === item;
                         return (
-                          <Link key={item} href={`/preview/${item}`}>
+                          <a href={`/preview/${item}`}>
                             <motion.span
                               className={classnames(
                                 'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative transition ease-in-out duration-200',
@@ -133,7 +132,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                               </svg>
                               {item}
                             </motion.span>
-                          </Link>
+                          </a>
                         );
                       })}
                   </LayoutGroup>

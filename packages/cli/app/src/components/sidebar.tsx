@@ -15,7 +15,7 @@ interface SidebarProps extends RootProps {
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   ({ className, templateNames, title, ...props }, forwardedRef) => (
     <aside ref={forwardedRef} className={className} {...props}>
-      <nav className="p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
+      <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
         <Collapsible.Root defaultOpen>
           <Collapsible.Trigger
             className={classnames('flex items-center gap-1', {

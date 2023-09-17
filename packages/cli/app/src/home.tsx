@@ -13,11 +13,17 @@ export const Home = ({ templateNames }: { templateNames: string[] }) => {
     <Shell templateNames={templateNames}>
       <div className="max-w-md border border-slate-6 m-auto mt-56 rounded-md p-8">
         <Heading as="h2" weight="medium">
-          Welcome to the React Email preview!
+          JSX Email Pregiew
         </Heading>
         <Text as="p" className="mt-2 mb-4">
-          To start developing your next email template, you can create a <code>.jsx</code> or{' '}
-          <code>.tsx</code> file under the "emails" folder.
+          Start creating an email template by running{' '}
+          <code>email create &lt;template-name&gt;</code>
+          <br />
+          <br />
+          Run <code>email help create</code> for a list of options
+          <br />
+          <br />
+          Happy coding!
         </Text>
 
         <Button asChild>

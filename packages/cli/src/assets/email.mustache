@@ -10,7 +10,11 @@ import {
   Section,
   Text
 } from '@jsx-email/components';
-import { defaulted, number, object, string, type Infer } from 'superstruct';
+// Note: Superstruct is a fantastic validation package. It's smaller and faster than alternatives
+// and uses a delightful API without chaining. docs.superstructjs.org
+//
+// To install `superstruct` run `pnpm add superstruct`.
+import { defaulted, number, object, string{{ typeInfer }} } from 'superstruct';
 import * as React from 'react';
 
 export const TemplateName = '{{name}}';
@@ -20,8 +24,7 @@ export const TemplateStruct = object({
   email: defaulted(string(), 'batman@example.com'),
   name: defaulted(string(), 'Bruce Wayne')
 });
-
-export type TemplateProps = Infer<typeof TemplateStruct>;
+{{ typeProps }}
 
 const main = {
   backgroundColor: '#f6f9fc',
@@ -68,7 +71,7 @@ const button = {
   width: '100%'
 };
 
-export const Template = ({ email, name, count }: TemplateProps) => (
+export const Template = ({ email, name, count }{{ propsType }}) => (
   <Html>
     <Head />
     <Preview>This is our email preview text for {name} &lt;{email}&gt;</Preview>

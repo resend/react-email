@@ -10,11 +10,8 @@ import { CommandFn } from './types';
 const { log } = console;
 
 const CreateOptionsStruct = object({
-  minify: optional(boolean()),
-  out: optional(string()),
-  plain: optional(boolean()),
-  props: optional(string()),
-  strip: optional(boolean())
+  jsx: optional(boolean()),
+  out: optional(string())
 });
 
 type CreateOptions = Infer<typeof CreateOptionsStruct>;
@@ -28,6 +25,7 @@ Creates a new jsx-email template
   $ email create <template name> [...options]
 
 {underline Options}
+  --jsx   Use a JSX template instead of TSX. TSX is the default
   --out   The directory to create the new template in. Defaults to the current directory.
 
 {underline Examples}
@@ -41,9 +39,15 @@ export const command: CommandFn = async (argv: CreateOptions, input) => {
   assert(argv, CreateOptionsStruct);
 
   const [name] = input;
-  const { out } = argv;
+  const { jsx, out } = argv;
   const template = await readFile(join(__dirname, '../assets/email.tsx.mustache'), 'utf8');
-  const newContent = mustache.render(template, { name });
+  const data = {
+    name,
+    propsType: jsx ? '' : ': TemplateProps',
+    typeInfer: jsx ? '' : ', type Infer',
+    typeProps: jsx ? '' : '\nexport type TemplateProps = Infer<typeof TemplateStruct>;'
+  };
+  const newContent = mustache.render(template, data);
   const outPath = resolve(join(out || process.cwd(), '/templates'));
   const outFile = `${name}.tsx`;
 
