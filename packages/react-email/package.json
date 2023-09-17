@@ -8,9 +8,6 @@
   "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
-    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
-    "lint": "eslint",
     "clean": "rm -rf dist"
   },
   "license": "MIT",
@@ -49,8 +46,6 @@
     "@types/node": "18.11.9",
     "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.12",
-    "prettier": "3.0.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.1.6"
+    "ts-node": "10.9.1"
   }
 }
