@@ -34,10 +34,12 @@ const parseName = (path: string) => {
 const templatePaths = JSON.parse(import.meta.env.VITE_EMAIL_COMPONENTS) as string[];
 const templates = await Promise.all(
   templatePaths.map<Promise<TemplateData>>(async (path) => {
+    const fileName = path.split(/[/\\]/).at(-1);
     const template = (await import(/* @vite-ignore */ path)) as TemplateExports;
+    const response = await fetch(`/${fileName}`);
+    const source = await response.text();
     const result: TemplateData = {
-      // FIXME: we need to preload this before vite starts. maybe virtual modules
-      jsx: '<temp>',
+      jsx: source,
       Name: template.Name || parseName(path),
       PreviewProps: template.PreviewProps,
       Struct: template.Struct,

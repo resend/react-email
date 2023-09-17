@@ -13,7 +13,7 @@ export const Home = ({ templateNames }: { templateNames: string[] }) => {
     <Shell templateNames={templateNames}>
       <div className="max-w-md border border-slate-6 m-auto mt-56 rounded-md p-8">
         <Heading as="h2" weight="medium">
-          JSX Email Pregiew
+          JSX Email Preview
         </Heading>
         <Text as="p" className="mt-2 mb-4">
           Start creating an email template by running{' '}

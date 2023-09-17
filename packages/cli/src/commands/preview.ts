@@ -52,6 +52,7 @@ export const start = async (targetPath: string, argv: PreviewOptions) => {
   const server = await createServer({
     configFile: false,
     ...config.default,
+    publicDir: targetPath,
     server: { port }
   });
 
