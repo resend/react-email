@@ -43,18 +43,6 @@ const getSizesClassNames = (size: TextSize | undefined) => {
   }
 };
 
-const getColorClassNames = (color: TextColor | undefined) => {
-  switch (color) {
-    case 'white':
-      return 'text-slate-12';
-    case undefined:
-    case 'gray':
-      return 'text-slate-11';
-    default:
-      return unreachable(color);
-  }
-};
-
 const getWeightClassNames = (weight: TextWeight | undefined) => {
   switch (weight) {
     case undefined:
@@ -69,16 +57,7 @@ const getWeightClassNames = (weight: TextWeight | undefined) => {
 
 export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
   (
-    {
-      as: Tag = 'span',
-      size = '2',
-      color = 'gray',
-      transform,
-      weight = 'normal',
-      className,
-      children,
-      ...props
-    },
+    { as: Tag = 'span', size = '2', transform, weight = 'normal', className, children, ...props },
     forwardedRef
   ) => (
     <SlotPrimitive.Slot
@@ -87,7 +66,6 @@ export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
         className,
         transform,
         getSizesClassNames(size),
-        getColorClassNames(color),
         getWeightClassNames(weight)
       )}
       {...props}

@@ -1,5 +1,4 @@
 const colors = require('@radix-ui/colors');
-const { fontFamily } = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 
 const iOsHeight = plugin(({ addUtilities }) => {
@@ -32,6 +31,19 @@ module.exports = {
   ],
   plugins: [iOsHeight],
   theme: {
+    colors: {
+      'button-bg': '#3d3a3a',
+      'cta-bg': '#ffd152',
+      'cta-text': '#343233',
+      'dark-bg': '#343233',
+      'dark-bg-border': '#1a191a',
+      'dark-bg-text': '#efdab9',
+      'darker-bg': '#2c2a2b',
+      'light-bg': '#efeae1',
+      'light-bg-text': '#574c4f',
+      link: '#ffd152',
+      'link-hover': '#ebac00'
+    },
     extend: {
       backgroundImage: {
         gradient:
@@ -70,9 +82,6 @@ module.exports = {
           11: colors.slateDarkA.slateA11,
           12: colors.slateDarkA.slateA12
         }
-      },
-      fontFamily: {
-        sans: ['var(--font-inter)', ...fontFamily.sans]
       },
       keyframes: {
         dash: {

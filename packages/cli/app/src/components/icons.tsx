@@ -32,7 +32,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, Readonly<IconButto
       {...props}
       ref={forwardedRef}
       className={classnames(
-        'rounded text-slate-11 focus:text-slate-12 ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-slate-12',
+        'rounded focus:text-dark-bg-text ease-in-out transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-8 hover:text-dark-bg-text',
         className
       )}
     >

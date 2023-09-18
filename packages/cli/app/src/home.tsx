@@ -11,7 +11,7 @@ export const Home = ({ templateNames }: { templateNames: string[] }) => {
 
   return (
     <Shell templateNames={templateNames}>
-      <div className="max-w-md border border-slate-6 m-auto mt-56 rounded-md p-8">
+      <div className="max-w-md border border-dark-bg-border m-auto mt-56 rounded-md p-8">
         <Heading as="h2" weight="medium">
           JSX Email Preview
         </Heading>

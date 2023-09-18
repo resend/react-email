@@ -22,7 +22,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
       <header
         ref={forwardedRef}
         className={classnames(
-          'bg-black flex relative items-center px-6 justify-between h-[70px] border-b border-slate-6',
+          'bg-dark-bg flex relative items-center px-6 justify-between h-[70px] border-b border-dark-bg-border',
           className
         )}
         {...props}
@@ -37,7 +37,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
           <LayoutGroup id="topbar">
             {setActiveView && (
               <ToggleGroup.Root
-                className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden"
+                className="inline-block items-center bg-darker-bg border border-dark-bg-border rounded-md overflow-hidden"
                 type="single"
                 value={activeView}
                 aria-label="View mode"
@@ -49,10 +49,9 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="desktop">
                   <motion.div
                     className={classnames(
-                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-dark-bg-text',
                       {
-                        'text-slate-11': activeView === 'source',
-                        'text-slate-12': activeView === 'desktop'
+                        'text-dark-bg-text': activeView === 'desktop'
                       }
                     )}
                   >
@@ -71,10 +70,9 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="source">
                   <motion.div
                     className={classnames(
-                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-dark-bg-text',
                       {
-                        'text-slate-11': activeView === 'desktop',
-                        'text-slate-12': activeView === 'source'
+                        'text-dark-bg-text': activeView === 'source'
                       }
                     )}
                   >

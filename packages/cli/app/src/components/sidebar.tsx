@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
 import { Heading } from './heading';
+import { Logo } from './logo';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
@@ -15,15 +16,15 @@ interface SidebarProps extends RootProps {
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   ({ className, templateNames, title, ...props }, forwardedRef) => (
     <aside ref={forwardedRef} className={className} {...props}>
-      <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
-        <Collapsible.Root defaultOpen>
+      <nav className="h-full p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-dark-bg-border">
+        <Logo />
+        <Collapsible.Root className="pt-4" defaultOpen>
           <Collapsible.Trigger
             className={classnames('flex items-center gap-1', {
               'cursor-default': templateNames && templateNames.length === 0
             })}
           >
             <svg
-              className="text-slate-11"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -46,13 +47,13 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
               />
             </svg>
 
-            <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12">
+            <div className="flex items-center transition ease-in-out duration-200 hover:text-dark-bg-text">
               <Heading
                 as="h3"
                 color="gray"
                 size="2"
                 weight="medium"
-                className="transition ease-in-out duration-200 hover:text-slate-12"
+                className="transition ease-in-out duration-200 hover:text-dark-bg-text"
               >
                 All emails
               </Heading>
@@ -83,9 +84,9 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                         <a key={item} href={`/${item}`}>
                           <motion.span
                             className={classnames(
-                              'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative transition ease-in-out duration-200',
+                              'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
                               {
-                                'hover:text-slate-12': title !== item,
+                                'hover:text-dark-bg-text': title !== item,
                                 'text-cyan-11': isCurrentPage
                               }
                             )}
@@ -93,12 +94,12 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                             {isCurrentPage && (
                               <motion.span
                                 layoutId="sidebar"
-                                className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5"
+                                className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-[#78b0a04d]"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                               >
-                                <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
+                                <div className="bg-[#61efce] w-px absolute top-1 left-2.5 h-6" />
                               </motion.span>
                             )}
                             <svg

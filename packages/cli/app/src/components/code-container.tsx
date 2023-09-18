@@ -34,7 +34,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
       <a
         href={url}
         download={file.name}
-        className="text-slate-11 transition ease-in-out duration-200 hover:text-slate-12"
+        className="transition ease-in-out duration-200 hover:text-dark-bg-text"
       >
         <IconDownload />
       </a>
@@ -63,7 +63,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   return (
     <pre
       className={
-        'border-slate-6 relative w-full items-center whitespace-pre rounded-md border text-sm backdrop-blur-md'
+        'border-dark-bg-border relative w-full items-center whitespace-pre rounded-md border text-sm backdrop-blur-md'
       }
       style={{
         background:
@@ -72,15 +72,15 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         lineHeight: '130%'
       }}
     >
-      <div className="h-9 border-b border-slate-6">
+      <div className="h-9 border-b border-dark-bg-border">
         <div className="flex">
           <LayoutGroup id="code">
             {markups.map(({ language }) => {
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${
-                    activeLang !== language ? 'text-slate-11' : 'text-slate-12'
+                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-dark-bg-text ${
+                    activeLang !== language ? 'text-slate-11' : 'text-dark-bg-text'
                   }`}
                   onClick={() => setActiveLang(language)}
                   key={language}

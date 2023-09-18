@@ -46,18 +46,6 @@ const getSizesClassNames = (size: HeadingSize | undefined) => {
   }
 };
 
-const getColorClassNames = (color: HeadingColor | undefined) => {
-  switch (color) {
-    case 'gray':
-      return 'text-slate-11';
-    case 'white':
-    case undefined:
-      return 'text-slate-12';
-    default:
-      return unreachable(color);
-  }
-};
-
 const getWeightClassNames = (weight: HeadingWeight | undefined) => {
   switch (weight) {
     case 'medium':
@@ -72,17 +60,12 @@ const getWeightClassNames = (weight: HeadingWeight | undefined) => {
 
 export const Heading = React.forwardRef<HTMLHeadingElement, Readonly<HeadingProps>>(
   (
-    { as: Tag = 'h1', size = '3', className, color = 'white', children, weight = 'bold', ...props },
+    { as: Tag = 'h1', size = '3', className, children, weight = 'bold', ...props },
     forwardedRef
   ) => (
     <SlotPrimitive.Slot
       ref={forwardedRef}
-      className={classnames(
-        className,
-        getSizesClassNames(size),
-        getColorClassNames(color),
-        getWeightClassNames(weight)
-      )}
+      className={classnames(className, getSizesClassNames(size), getWeightClassNames(weight))}
       {...props}
     >
       <Tag>{children}</Tag>
