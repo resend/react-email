@@ -3,6 +3,7 @@ module.exports = {
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
+  // prettierPath: null,
   verbose: true,
   testEnvironment: "node",
   testPathIgnorePatterns: ["/node_modules/", "/build/"],
