@@ -107,7 +107,7 @@ function cleanCss(css: string) {
     .replace(/[.!#\w\d\\:\-[\]/.%())]+(?=\s*?{[^{]*?\})\s*?{/g, (m) =>
       m.replace(/[:#!\-[\\\]/.%()]+/g, '_')
     )
-    .replace(/font-family([^;\r\n]+)/g, (m, value) => `font-family${value.replace(/['"]+/g, '')}`);
+    .replace(/font-family([^;\r\n]+)/g, (_, value) => `font-family${value.replace(/['"]+/g, '')}`);
   return newCss;
 }
 

@@ -2,6 +2,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
+
 import { Heading } from './heading';
 
 type TopbarElement = React.ElementRef<'header'>;

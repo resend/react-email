@@ -20,7 +20,7 @@ tasks:
       runDepsInParallel: false
 
   compile:
-    command: tsup src/index.ts --format esm,cjs --dts --external react
+    command: tsup src/index.ts --format esm,cjs --dts --external reactm --sourcemap
     inputs:
       - src
     deps:

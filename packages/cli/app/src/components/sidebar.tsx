@@ -2,6 +2,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import classnames from 'classnames';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
+
 import { Heading } from './heading';
 import { Logo } from './logo';
 
