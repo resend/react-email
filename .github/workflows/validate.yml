@@ -19,10 +19,7 @@ jobs:
 
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v1
-
-      - name: Checkout Main
-        run: git branch -f main origin/main
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v3

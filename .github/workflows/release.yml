@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - main
-
+    tags-ignore:
+      - '*-v*'
 jobs:
   release:
     if: |
@@ -18,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v1
-
-      - name: Checkout Main
-        run: git branch -f main origin/main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 10
 
       - name: Setup Node
         uses: actions/setup-node@v3
