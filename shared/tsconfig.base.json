@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es2020"
+    "target": "ESNext"
   },
-  "exclude": ["dist", "node_modules", "**/*.spec.tsx", "packages/cli/src/preview"]
+  "exclude": ["**/dist", "**/node_modules"]
 }

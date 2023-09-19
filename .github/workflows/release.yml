@@ -75,7 +75,7 @@ jobs:
           moon run jsx-email:build.packages
 
       - name: Release
-        run: moon run :release --affected --concurrency 1
+        run: moon run :release --affected --concurrency 1 --remote
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

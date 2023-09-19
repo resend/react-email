@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "target": "ES2015"
   },
+  "exclude": ["dist", "node_modules", "**/*.spec.tsx"],
   "extends": "../../shared/tsconfig.base.json",
   "include": ["src"]
 }

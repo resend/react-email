@@ -61,9 +61,7 @@ export const renderAsync = async (
 
   const document = `${doctype}${markup}`;
 
-  if (options?.pretty) {
-    return pretty(document);
-  }
+  if (options?.pretty) return pretty(document);
 
   return document;
 };

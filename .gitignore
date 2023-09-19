@@ -8,5 +8,4 @@ dist
 .pnpm-debug.log*
 .env
 
-deprecated/tsconfig.json
-packages/tsconfig.json
+packages/**/tsconfig.json
