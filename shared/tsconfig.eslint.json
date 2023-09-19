@@ -4,8 +4,8 @@
   },
   "extends": "./tsconfig.base.json",
   "include": [
-    "../.eslintrc.js",
-    "../ava.config.js",
+    "../**/.eslintrc.js",
+    "../**/ava.config.js",
     "../deprecated/react-email",
     "../packages",
     "../shared"

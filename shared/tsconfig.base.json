@@ -8,17 +8,20 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2023"],
+    "module": "commonjs",
     "moduleResolution": "node",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveSymlinks": true,
     "preserveWatchOutput": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "jsx": "react-jsx",
-    "lib": ["ES2015"],
-    "module": "ESNext",
-    "target": "es6"
+    "strictNullChecks": true,
+    "target": "es2020"
   },
-  "exclude": ["dist", "node_modules", "**/*.spec.tsx"]
+  "exclude": ["dist", "node_modules", "**/*.spec.tsx", "packages/cli/src/preview"]
 }

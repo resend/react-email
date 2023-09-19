@@ -1,3 +1,5 @@
 {
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "css.customData": [".vscode/tailwind.json"]
 }

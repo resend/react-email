@@ -3,3 +3,5 @@ apps
 node_modules
 dist
 **/*spec.tsx
+
+deprecated
