@@ -7,7 +7,7 @@ workspace:
 
 tasks:
   build:
-    command: echo "Build compelete"
+    command:  rm -f tsconfig.json
     deps:
       - ~:compile
     options:
@@ -20,6 +20,7 @@ tasks:
     inputs:
       - src
     deps:
+      - ~:tsconfig.link
       - ~:tsc
       - ~:copy
     options:
