@@ -9,8 +9,6 @@ import { Error } from './error.tsx';
 import { Home } from './home.tsx';
 import { Layout } from './layout.tsx';
 import { Preview } from './preview.tsx';
-import './globals.css';
-// import './index.css';
 
 interface TemplateExports {
   Name?: string;

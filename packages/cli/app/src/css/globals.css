@@ -1,4 +1,5 @@
 @import url(https://fonts.bunny.net/css?family=andika:400,400i,700,700i|inter:400,600|montserrat:100,200,300,400,500,600);
+@import './monokai4.css';
 
 @tailwind base;
 @tailwind components;

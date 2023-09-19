@@ -36,8 +36,8 @@ export const copyTextToClipboard = async (text: string) => {
 };
 
 export const languageMap = {
-  html: 'HTML',
-  jsx: 'React',
+  html: '<html/>',
+  jsx: '<jsx/>',
   plainText: 'Plain Text'
 };
 

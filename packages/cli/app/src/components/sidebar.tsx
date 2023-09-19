@@ -55,7 +55,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                 weight="medium"
                 className="transition ease-in-out duration-200 hover:text-dark-bg-text"
               >
-                All emails
+                Email Templates
               </Heading>
               {templateNames && templateNames.length > 0 && (
                 <svg

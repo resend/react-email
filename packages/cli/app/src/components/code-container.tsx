@@ -72,15 +72,15 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         lineHeight: '130%'
       }}
     >
-      <div className="h-9 border-b border-dark-bg-border">
+      <div className="bg-code-bg h-9 border-b border-dark-bg-border">
         <div className="flex">
           <LayoutGroup id="code">
             {markups.map(({ language }) => {
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-dark-bg-text ${
-                    activeLang !== language ? 'text-slate-11' : 'text-dark-bg-text'
+                  className={`h-9 border-b border-dark-bg-border relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-cyan-11 ${
+                    activeLang !== language ? 'text-dark-bg-text' : 'text-cyan-11'
                   }`}
                   onClick={() => setActiveLang(language)}
                   key={language}
@@ -88,13 +88,13 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                   {isCurrentLang && (
                     <motion.span
                       layoutId="code"
-                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                      className="absolute left-0 right-0 top-0 bottom-0 bg-tab-bg"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     />
                   )}
-                  {languageMap[language]}
+                  <span className="relative">{languageMap[language]}</span>
                 </motion.button>
               );
             })}

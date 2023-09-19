@@ -28,7 +28,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         {...props}
       >
         <div className={`items-center overflow-hidden hidden lg:flex ${columnWidth}`}>
-          <Heading as="h2" size="2" weight="medium" className="truncate">
+          <Heading as="h2" className="truncate text">
             {title}
           </Heading>
         </div>
@@ -37,7 +37,7 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
           <LayoutGroup id="topbar">
             {setActiveView && (
               <ToggleGroup.Root
-                className="inline-block items-center bg-darker-bg border border-dark-bg-border rounded-md overflow-hidden"
+                className="inline-block items-center bg-darker-bg border border-dark-bg-border rounded overflow-hidden"
                 type="single"
                 value={activeView}
                 aria-label="View mode"
@@ -49,43 +49,49 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 <ToggleGroup.Item value="desktop">
                   <motion.div
                     className={classnames(
-                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-dark-bg-text',
-                      {
-                        'text-dark-bg-text': activeView === 'desktop'
-                      }
+                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative'
                     )}
                   >
                     {activeView === 'desktop' && (
                       <motion.span
                         layoutId="topbar"
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-cta-bg"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       />
                     )}
-                    Desktop
+                    <span
+                      className={classnames('relative', {
+                        'text-cta-text': activeView === 'desktop'
+                      })}
+                    >
+                      Desktop
+                    </span>
                   </motion.div>
                 </ToggleGroup.Item>
                 <ToggleGroup.Item value="source">
                   <motion.div
                     className={classnames(
-                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-dark-bg-text',
-                      {
-                        'text-dark-bg-text': activeView === 'source'
-                      }
+                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative'
                     )}
                   >
                     {activeView === 'source' && (
                       <motion.span
                         layoutId="nav"
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-cta-bg"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       />
                     )}
-                    Source
+                    <span
+                      className={classnames('relative', {
+                        'text-cta-text': activeView === 'source'
+                      })}
+                    >
+                      Source
+                    </span>
                   </motion.div>
                 </ToggleGroup.Item>
               </ToggleGroup.Root>

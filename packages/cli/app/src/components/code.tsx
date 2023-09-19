@@ -10,39 +10,39 @@ interface CodeProps {
   language?: PreviewLanguage;
 }
 
-const theme = {
-  plain: {
-    color: '#EDEDEF',
-    fontFamily: 'MonoLisa, Menlo, monospace',
-    fontSize: 13
-  },
-  styles: [
-    {
-      style: {
-        color: '#706F78'
-      },
-      types: ['comment']
-    },
-    {
-      style: {
-        color: '#7E7D86'
-      },
-      types: ['atrule', 'keyword', 'attr-name', 'selector']
-    },
-    {
-      style: {
-        color: '#706F78'
-      },
-      types: ['punctuation', 'operator']
-    },
-    {
-      style: {
-        color: '#EDEDEF'
-      },
-      types: ['class-name', 'function', 'tag', 'key-white']
-    }
-  ]
-};
+// const theme = {
+//   plain: {
+//     color: '#EDEDEF',
+//     fontFamily: 'MonoLisa, Menlo, monospace',
+//     fontSize: 13
+//   },
+//   styles: [
+//     {
+//       style: {
+//         color: '#706F78'
+//       },
+//       types: ['comment']
+//     },
+//     {
+//       style: {
+//         color: '#7E7D86'
+//       },
+//       types: ['atrule', 'keyword', 'attr-name', 'selector']
+//     },
+//     {
+//       style: {
+//         color: '#706F78'
+//       },
+//       types: ['punctuation', 'operator']
+//     },
+//     {
+//       style: {
+//         color: '#EDEDEF'
+//       },
+//       types: ['class-name', 'function', 'tag', 'key-white']
+//     }
+//   ]
+// };
 
 export const Code: React.FC<Readonly<CodeProps>> = ({ children, language = 'html' }) => {
   // const [isCopied, setIsCopied] = React.useState(false);
@@ -52,7 +52,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, language = 'html
   // const url = URL.createObjectURL(file);
 
   return (
-    <Highlight theme={theme} code={value} language={language as Language}>
+    <Highlight code={value} language={language as Language}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
           <div
@@ -62,7 +62,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, language = 'html
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)'
             }}
           />
-          <div className="p-4 h-[650px] overflow-auto">
+          <div className="bg-code-bg p-4 h-[650px] overflow-auto">
             {tokens.map((line, i) => {
               const { key: lineKey, ...lineProps } = getLineProps({ key: i, line });
               return (

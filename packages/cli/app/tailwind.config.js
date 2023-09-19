@@ -33,7 +33,9 @@ module.exports = {
   theme: {
     colors: {
       'button-bg': '#3d3a3a',
+      'code-bg': '#353436',
       'cta-bg': '#ffd152',
+      'cta-bg-hover': '#ffc31f',
       'cta-text': '#343233',
       'dark-bg': '#343233',
       'dark-bg-border': '#1a191a',
@@ -42,7 +44,8 @@ module.exports = {
       'light-bg': '#efeae1',
       'light-bg-text': '#574c4f',
       link: '#ffd152',
-      'link-hover': '#ebac00'
+      'link-hover': '#ebac00',
+      'tab-bg': '#47504E'
     },
     extend: {
       backgroundImage: {
