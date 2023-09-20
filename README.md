@@ -121,10 +121,9 @@ $ moon run jsx-email:build.packages
 
 Read more on our [Contribution Guide](https://react.email/docs/contributing).
 
-## Authors
+## Attribution 🧡
 
-- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
-- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
+This package was built upon prior work for `react-email` by Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita)) and Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha)).
 
 ## License
 
