@@ -68,7 +68,7 @@ jobs:
 
       - name: Build Projects
         run: |
-          moon run jsx-email:build.packages
+          moon run jsx-email:build.packages --log trace
 
       - name: Lint Monorepo
         run: moon run jsx-email:lint

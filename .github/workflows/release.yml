@@ -72,7 +72,7 @@ jobs:
         # Sanity check before we publish
       - name: Build Projects
         run: |
-          moon run jsx-email:build.packages
+          moon run jsx-email:build.packages --log trace
 
       - name: Release
         run: moon run :release --affected --concurrency 1 --remote
