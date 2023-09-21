@@ -2,6 +2,30 @@ import * as React from "react";
 import { Container } from "./index";
 import { render } from "@react-email/render";
 
+describe("Container component", () => {
+  it("renders children correctly", () => {
+    const testMessage = "Test message";
+    const html = render(<Container>{testMessage}</Container>);
+    expect(html).toContain(testMessage);
+  });
+
+  it("passes style and other props correctly", () => {
+    const style = { maxWidth: 300, backgroundColor: "red" };
+    const html = render(
+      <Container style={style} data-testid="container-test">
+        Test
+      </Container>,
+    );
+    expect(html).toContain('style="max-width:300px;background-color:red"');
+    expect(html).toContain('data-testid="container-test"');
+  });
+
+  it("has correct data-id attribute", () => {
+    const html = render(<Container>Test</Container>);
+    expect(html).toContain('data-id="__react-email-container"');
+  });
+});
+
 describe("render", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
