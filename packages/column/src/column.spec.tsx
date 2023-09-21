@@ -18,11 +18,6 @@ describe("Column component", () => {
     expect(html).toContain('style="background-color:red"');
     expect(html).toContain('data-testid="column-test"');
   });
-
-  it("has correct data-id attribute", () => {
-    const html = render(<Column>Test</Column>);
-    expect(html).toContain('data-id="__react-email-column"');
-  });
 });
 
 describe("render", () => {
@@ -34,7 +29,7 @@ describe("render", () => {
   it("renders the <Column> component", () => {
     const actualOutput = render(<Column>Lorem ipsum</Column>);
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><td data-id=\\"__react-email-column\\">Lorem ipsum</td>"`,
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><td>Lorem ipsum</td>"`,
     );
   });
 });
