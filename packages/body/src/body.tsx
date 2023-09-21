@@ -9,10 +9,6 @@ export const Body: React.FC<Readonly<BodyProps>> = ({
   style,
   ...props
 }) => {
-  const styleDefault = {
-    wordSpacing: "normal",
-    ...style,
-  };
   return (
     <body {...props} data-id="__react-email-body" style={style}>
       {children}

@@ -1,6 +1,30 @@
 import { Body } from "./index";
 import { render } from "@react-email/render";
 
+describe("Body component", () => {
+  it("renders children correctly", () => {
+    const testMessage = "Test message";
+    const html = render(<Body>{testMessage}</Body>);
+    expect(html).toContain(testMessage);
+  });
+
+  it("passes style and other props correctly", () => {
+    const style = { backgroundColor: "red" };
+    const html = render(
+      <Body style={style} data-testid="body-test">
+        Test
+      </Body>,
+    );
+    expect(html).toContain('style="background-color:red"');
+    expect(html).toContain('data-testid="body-test"');
+  });
+
+  it("has correct data-id attribute", () => {
+    const html = render(<Body>Test</Body>);
+    expect(html).toContain('data-id="__react-email-body"');
+  });
+});
+
 describe("render", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
