@@ -8,7 +8,7 @@ import {
   Img,
   Preview,
   Section,
-  Text,
+  Text
 } from '@jsx-email/components';
 import * as React from 'react';
 
@@ -16,18 +16,12 @@ interface KoalaWelcomeEmailProps {
   userFirstname: string;
 }
 
-const baseUrl = import.meta?.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : '';
+const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
 
-export const KoalaWelcomeEmail = ({
-  userFirstname,
-}: KoalaWelcomeEmailProps) => (
+export const KoalaWelcomeEmail = ({ userFirstname }: KoalaWelcomeEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      The sales intelligence platform that helps you uncover qualified leads.
-    </Preview>
+    <Preview>The sales intelligence platform that helps you uncover qualified leads.</Preview>
     <Body style={main}>
       <Container style={container}>
         <Img
@@ -39,8 +33,8 @@ export const KoalaWelcomeEmail = ({
         />
         <Text style={paragraph}>Hi {userFirstname},</Text>
         <Text style={paragraph}>
-          Welcome to Koala, the sales intelligence platform that helps you
-          uncover qualified leads and close deals faster.
+          Welcome to Koala, the sales intelligence platform that helps you uncover qualified leads
+          and close deals faster.
         </Text>
         <Section style={btnContainer}>
           <Button pX={12} pY={12} style={button} href="https://getkoala.com">
@@ -68,25 +62,25 @@ export default KoalaWelcomeEmail;
 const main = {
   backgroundColor: '#ffffff',
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
 };
 
 const container = {
   margin: '0 auto',
-  padding: '20px 0 48px',
+  padding: '20px 0 48px'
 };
 
 const logo = {
-  margin: '0 auto',
+  margin: '0 auto'
 };
 
 const paragraph = {
   fontSize: '16px',
-  lineHeight: '26px',
+  lineHeight: '26px'
 };
 
 const btnContainer = {
-  textAlign: 'center' as const,
+  textAlign: 'center' as const
 };
 
 const button = {
@@ -96,15 +90,15 @@ const button = {
   fontSize: '16px',
   textDecoration: 'none',
   textAlign: 'center' as const,
-  display: 'block',
+  display: 'block'
 };
 
 const hr = {
   borderColor: '#cccccc',
-  margin: '20px 0',
+  margin: '20px 0'
 };
 
 const footer = {
   color: '#8898aa',
-  fontSize: '12px',
+  fontSize: '12px'
 };

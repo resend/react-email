@@ -7,7 +7,10 @@ workspace:
 
 tasks:
   build:
-    command:  rm -f tsconfig.json
+    command: rm -f tsconfig.json
+    inputs:
+      - app
+      - src
     deps:
       - ~:compile
     options:
@@ -18,6 +21,7 @@ tasks:
   compile:
     command: echo "Compile compelete"
     inputs:
+      - app
       - src
     deps:
       - ~:tsconfig.link

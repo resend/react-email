@@ -56,6 +56,12 @@ const templateRoutes: RouteObject[] = templates.map((template) => {
 
   if (Struct) props = create({}, Struct);
   else if (PreviewProps) props = PreviewProps();
+  else if ((Template as any).PreviewProps) {
+    console.warn(
+      `jsx-email: ${Name} → PreviewProps as a property of a component is deprecated. Please used a named export.`
+    );
+    props = (Template as any).PreviewProps;
+  }
 
   const html = render(<Template {...props} />, { pretty: true });
   const plainText = render(<Template {...props} />, { plainText: true });

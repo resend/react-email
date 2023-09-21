@@ -6,8 +6,8 @@ type RootProps = React.ComponentPropsWithoutRef<'svg'>;
 export const Logo = React.forwardRef<LogoElement, Readonly<RootProps>>((_, __) => (
   <svg width="200" viewBox="0 0 547 134" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M0.199951 50V109V113H4.19995H121.8H125.8V109V50H117.8V105H8.19995V50H0.199951Z"
       fill="#efdab9"
     />

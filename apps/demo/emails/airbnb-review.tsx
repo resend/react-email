@@ -10,7 +10,7 @@ import {
   Preview,
   Row,
   Section,
-  Text,
+  Text
 } from '@jsx-email/components';
 import * as React from 'react';
 
@@ -20,14 +20,12 @@ interface AirbnbReviewEmailProps {
   reviewText?: string;
 }
 
-const baseUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : '';
+const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
 
 export const AirbnbReviewEmail = ({
   authorName,
   authorImage,
-  reviewText,
+  reviewText
 }: AirbnbReviewEmailProps) => {
   const previewText = `Read ${authorName}'s review`;
 
@@ -40,21 +38,10 @@ export const AirbnbReviewEmail = ({
         <Section style={main}>
           <Container style={container}>
             <Section>
-              <Img
-                src={`${baseUrl}/static/airbnb-logo.png`}
-                width="96"
-                height="30"
-                alt="Airbnb"
-              />
+              <Img src={`${baseUrl}/static/airbnb-logo.png`} width="96" height="30" alt="Airbnb" />
             </Section>
             <Section>
-              <Img
-                src={authorImage}
-                width="96"
-                height="96"
-                alt={authorName}
-                style={userImage}
-              />
+              <Img src={authorImage} width="96" height="96" alt={authorName} style={userImage} />
             </Section>
             <Section style={{ paddingBottom: '20px' }}>
               <Row>
@@ -65,9 +52,8 @@ export const AirbnbReviewEmail = ({
                   ’s review to your Airbnb profile.
                 </Text>
                 <Text style={{ ...paragraph, paddingBottom: '16px' }}>
-                  While it’s too late to write a review of your own, you can
-                  send your feedback to {authorName} using your Airbnb message
-                  thread.
+                  While it’s too late to write a review of your own, you can send your feedback to{' '}
+                  {authorName} using your Airbnb message thread.
                 </Text>
 
                 <Button pY={19} style={button} href="https://airbnb.com/">
@@ -80,19 +66,14 @@ export const AirbnbReviewEmail = ({
 
             <Section>
               <Row>
-                <Text style={{ ...paragraph, fontWeight: '700' }}>
-                  Common questions
-                </Text>
+                <Text style={{ ...paragraph, fontWeight: '700' }}>Common questions</Text>
                 <Text>
                   <Link href="https://airbnb.com/help/article/13" style={link}>
                     How do reviews work?
                   </Link>
                 </Text>
                 <Text>
-                  <Link
-                    href="https://airbnb.com/help/article/1257"
-                    style={link}
-                  >
+                  <Link href="https://airbnb.com/help/article/1257" style={link}>
                     How do star ratings work?
                   </Link>
                 </Text>
@@ -102,9 +83,7 @@ export const AirbnbReviewEmail = ({
                   </Link>
                 </Text>
                 <Hr style={hr} />
-                <Text style={footer}>
-                  Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
-                </Text>
+                <Text style={footer}>Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103</Text>
                 <Link href="https://airbnb.com" style={reportLink}>
                   Report unsafe behavior
                 </Link>
@@ -123,7 +102,7 @@ AirbnbReviewEmail.PreviewProps = {
   reviewText: `“Zeno was a great guest! Easy communication, the apartment was left
     in great condition, very polite, and respectful of all house rules.
     He’s welcome back anytime and would easily recommend him to any
-    host!”`,
+    host!”`
 } as AirbnbReviewEmailProps;
 
 export default AirbnbReviewEmail;
@@ -131,39 +110,39 @@ export default AirbnbReviewEmail;
 const main = {
   backgroundColor: '#ffffff',
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
 };
 
 const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
-  width: '580px',
+  width: '580px'
 };
 
 const userImage = {
   margin: '0 auto',
   marginBottom: '16px',
-  borderRadius: '50%',
+  borderRadius: '50%'
 };
 
 const heading = {
   fontSize: '32px',
   lineHeight: '1.3',
   fontWeight: '700',
-  color: '#484848',
+  color: '#484848'
 };
 
 const paragraph = {
   fontSize: '18px',
   lineHeight: '1.4',
-  color: '#484848',
+  color: '#484848'
 };
 
 const review = {
   ...paragraph,
   padding: '24px',
   backgroundColor: '#f2f3f3',
-  borderRadius: '4px',
+  borderRadius: '4px'
 };
 
 const button = {
@@ -174,28 +153,28 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '100%',
+  width: '100%'
 };
 
 const link = {
   ...paragraph,
   color: '#ff5a5f',
-  display: 'block',
+  display: 'block'
 };
 
 const reportLink = {
   fontSize: '14px',
   color: '#9ca299',
-  textDecoration: 'underline',
+  textDecoration: 'underline'
 };
 
 const hr = {
   borderColor: '#cccccc',
-  margin: '20px 0',
+  margin: '20px 0'
 };
 
 const footer = {
   color: '#9ca299',
   fontSize: '14px',
-  marginBottom: '10px',
+  marginBottom: '10px'
 };

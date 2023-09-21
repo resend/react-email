@@ -17,7 +17,8 @@ interface TopbarProps extends RootProps {
 
 export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
   ({ className, title, markup, activeView, setActiveView, ...props }, forwardedRef) => {
-    const columnWidth = 'w-[200px]';
+    const button = 'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative';
+    const span = 'absolute left-0 right-0 top-0 bottom-0 bg-cta-bg';
 
     return (
       <header
@@ -28,13 +29,13 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
         )}
         {...props}
       >
-        <div className={`items-center overflow-hidden hidden lg:flex ${columnWidth}`}>
+        <div className={`items-center overflow-hidden hidden lg:flex`}>
           <Heading as="h2" className="truncate text">
             {title}
           </Heading>
         </div>
 
-        <div className={`${columnWidth}`}>
+        <div>
           <LayoutGroup id="topbar">
             {setActiveView && (
               <ToggleGroup.Root
@@ -48,15 +49,11 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                 }}
               >
                 <ToggleGroup.Item value="desktop">
-                  <motion.div
-                    className={classnames(
-                      'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative'
-                    )}
-                  >
+                  <motion.div className={classnames(button, 'px-1 py-1 sm:px-3 sm:py-2')}>
                     {activeView === 'desktop' && (
                       <motion.span
                         layoutId="topbar"
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-cta-bg"
+                        className={span}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -71,16 +68,12 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                     </span>
                   </motion.div>
                 </ToggleGroup.Item>
-                <ToggleGroup.Item value="source">
-                  <motion.div
-                    className={classnames(
-                      'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative'
-                    )}
-                  >
-                    {activeView === 'source' && (
+                <ToggleGroup.Item value="jsx">
+                  <motion.div className={classnames(button)}>
+                    {activeView === 'jsx' && (
                       <motion.span
                         layoutId="nav"
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-cta-bg"
+                        className={span}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -88,10 +81,50 @@ export const Topbar = React.forwardRef<TopbarElement, Readonly<TopbarProps>>(
                     )}
                     <span
                       className={classnames('relative', {
-                        'text-cta-text': activeView === 'source'
+                        'text-cta-text': activeView === 'jsx'
                       })}
                     >
-                      Source
+                      {'< jsx />'}
+                    </span>
+                  </motion.div>
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="html">
+                  <motion.div className={classnames(button)}>
+                    {activeView === 'html' && (
+                      <motion.span
+                        layoutId="nav"
+                        className={span}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                    <span
+                      className={classnames('relative', {
+                        'text-cta-text': activeView === 'html'
+                      })}
+                    >
+                      {'< html />'}
+                    </span>
+                  </motion.div>
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="plain">
+                  <motion.div className={classnames(button)}>
+                    {activeView === 'plain' && (
+                      <motion.span
+                        layoutId="nav"
+                        className={span}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      />
+                    )}
+                    <span
+                      className={classnames('relative', {
+                        'text-cta-text': activeView === 'plain'
+                      })}
+                    >
+                      Plain Text
                     </span>
                   </motion.div>
                 </ToggleGroup.Item>

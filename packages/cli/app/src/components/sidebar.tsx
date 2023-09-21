@@ -85,8 +85,9 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
                         <a key={item} href={`/${item}`}>
                           <motion.span
                             className={classnames(
-                              'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
+                              'text-[14px] flex items-center gap-2 w-full pl-4 h-8 rounded-md relative transition ease-in-out duration-200',
                               {
+                                'font-medium': isCurrentPage,
                                 'hover:text-dark-bg-text': title !== item,
                                 'text-cyan-11': isCurrentPage
                               }

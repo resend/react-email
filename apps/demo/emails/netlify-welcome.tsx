@@ -12,9 +12,9 @@ import {
   Row,
   Section,
   Tailwind,
-  Text,
-} from'@jsx-email/components';
-import * as React from "react";
+  Text
+} from '@jsx-email/components';
+import * as React from 'react';
 
 interface NetlifyWelcomeEmailProps {
   steps?: {
@@ -24,9 +24,7 @@ interface NetlifyWelcomeEmailProps {
   links?: string[];
 }
 
-const baseUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : "";
+const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : '';
 
 const PropDefaults: NetlifyWelcomeEmailProps = {
   steps: [
@@ -34,49 +32,46 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
       id: 1,
       Description: (
         <li className="mb-20" key={1}>
-          <strong>Deploy your first project.</strong>{" "}
-          <Link>Connect to Git, choose a template</Link>, or manually deploy a
-          project you've been working on locally.
+          <strong>Deploy your first project.</strong> <Link>Connect to Git, choose a template</Link>
+          , or manually deploy a project you've been working on locally.
         </li>
-      ),
+      )
     },
     {
       id: 2,
       Description: (
         <li className="mb-20" key={2}>
-          <strong>Check your deploy logs.</strong> Find out what's included in
-          your build and watch for errors or failed deploys.{" "}
-          <Link>Learn how to read your deploy logs</Link>.
+          <strong>Check your deploy logs.</strong> Find out what's included in your build and watch
+          for errors or failed deploys. <Link>Learn how to read your deploy logs</Link>.
         </li>
-      ),
+      )
     },
     {
       id: 3,
       Description: (
         <li className="mb-20" key={3}>
-          <strong>Choose an integration.</strong> Quickly discover, connect, and
-          configure the right tools for your project with 150+ integrations to
-          choose from. <Link>Explore the Integrations Hub</Link>.
+          <strong>Choose an integration.</strong> Quickly discover, connect, and configure the right
+          tools for your project with 150+ integrations to choose from.{' '}
+          <Link>Explore the Integrations Hub</Link>.
         </li>
-      ),
+      )
     },
     {
       id: 4,
       Description: (
         <li className="mb-20" key={4}>
-          <strong>Set up a custom domain.</strong> You can register a new domain
-          and buy it through Netlify or assign a domain you already own to your
-          site. <Link>Add a custom domain</Link>.
+          <strong>Set up a custom domain.</strong> You can register a new domain and buy it through
+          Netlify or assign a domain you already own to your site. <Link>Add a custom domain</Link>.
         </li>
-      ),
-    },
+      )
+    }
   ],
-  links: ["Visit the forums", "Read the docs", "Contact an expert"],
+  links: ['Visit the forums', 'Read the docs', 'Contact an expert']
 };
 
 export const NetlifyWelcomeEmail = ({
   steps = PropDefaults.steps,
-  links = PropDefaults.links,
+  links = PropDefaults.links
 }: NetlifyWelcomeEmailProps) => {
   return (
     <Html>
@@ -87,16 +82,16 @@ export const NetlifyWelcomeEmail = ({
           theme: {
             extend: {
               colors: {
-                brand: "#2250f4",
-                offwhite: "#fafbfb",
+                brand: '#2250f4',
+                offwhite: '#fafbfb'
               },
               spacing: {
-                0: "0px",
-                20: "20px",
-                45: "45px",
-              },
-            },
-          },
+                0: '0px',
+                20: '20px',
+                45: '45px'
+              }
+            }
+          }
         }}
       >
         <Body className="bg-offwhite text-base font-sans">
@@ -113,9 +108,8 @@ export const NetlifyWelcomeEmail = ({
             <Section>
               <Row>
                 <Text className="text-base">
-                  Congratulations! You're joining over 3 million developers
-                  around the world who use Netlify to build and ship sites,
-                  stores, and apps.
+                  Congratulations! You're joining over 3 million developers around the world who use
+                  Netlify to build and ship sites, stores, and apps.
                 </Text>
 
                 <Text className="text-base">Here's how to get started:</Text>
@@ -125,11 +119,7 @@ export const NetlifyWelcomeEmail = ({
             <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
-              <Button
-                className="bg-brand text-white rounded-lg"
-                pY={12}
-                pX={18}
-              >
+              <Button className="bg-brand text-white rounded-lg" pY={12} pX={18}>
                 Go to your dashboard
               </Button>
             </Section>
@@ -138,9 +128,7 @@ export const NetlifyWelcomeEmail = ({
               <Row>
                 {links?.map((link) => (
                   <Column>
-                    <Link className="text-black underline font-bold">
-                      {link}
-                    </Link>{" "}
+                    <Link className="text-black underline font-bold">{link}</Link>{' '}
                     <span className="text-green-500">→</span>
                   </Column>
                 ))}

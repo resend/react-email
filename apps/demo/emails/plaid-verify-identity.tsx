@@ -7,7 +7,7 @@ import {
   Img,
   Link,
   Section,
-  Text,
+  Text
 } from '@jsx-email/components';
 import * as React from 'react';
 
@@ -15,13 +15,9 @@ interface PlaidVerifyIdentityEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : '';
+const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : '';
 
-export const PlaidVerifyIdentityEmail = ({
-  validationCode,
-}: PlaidVerifyIdentityEmailProps) => (
+export const PlaidVerifyIdentityEmail = ({ validationCode }: PlaidVerifyIdentityEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
@@ -34,9 +30,7 @@ export const PlaidVerifyIdentityEmail = ({
           style={logo}
         />
         <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>
-          Enter the following code to finish linking Venmo.
-        </Heading>
+        <Heading style={secondary}>Enter the following code to finish linking Venmo.</Heading>
         <Section style={codeContainer}>
           <Text style={code}>{validationCode}</Text>
         </Section>
@@ -55,14 +49,14 @@ export const PlaidVerifyIdentityEmail = ({
 );
 
 PlaidVerifyIdentityEmail.PreviewProps = {
-  validationCode: '144833',
+  validationCode: '144833'
 } as PlaidVerifyIdentityEmailProps;
 
 export default PlaidVerifyIdentityEmail;
 
 const main = {
   backgroundColor: '#ffffff',
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif'
 };
 
 const container = {
@@ -73,11 +67,11 @@ const container = {
   marginTop: '20px',
   width: '360px',
   margin: '0 auto',
-  padding: '68px 0 130px',
+  padding: '68px 0 130px'
 };
 
 const logo = {
-  margin: '0 auto',
+  margin: '0 auto'
 };
 
 const tertiary = {
@@ -90,7 +84,7 @@ const tertiary = {
   lineHeight: '16px',
   margin: '16px 8px 8px 8px',
   textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
+  textAlign: 'center' as const
 };
 
 const secondary = {
@@ -102,7 +96,7 @@ const secondary = {
   lineHeight: '24px',
   marginBottom: '0',
   marginTop: '0',
-  textAlign: 'center' as const,
+  textAlign: 'center' as const
 };
 
 const codeContainer = {
@@ -110,7 +104,7 @@ const codeContainer = {
   borderRadius: '4px',
   margin: '16px auto 14px',
   verticalAlign: 'middle',
-  width: '280px',
+  width: '280px'
 };
 
 const code = {
@@ -125,7 +119,7 @@ const code = {
   paddingTop: '8px',
   margin: '0 auto',
   width: '100%',
-  textAlign: 'center' as const,
+  textAlign: 'center' as const
 };
 
 const paragraph = {
@@ -136,12 +130,12 @@ const paragraph = {
   lineHeight: '23px',
   padding: '0 40px',
   margin: '0',
-  textAlign: 'center' as const,
+  textAlign: 'center' as const
 };
 
 const link = {
   color: '#444',
-  textDecoration: 'underline',
+  textDecoration: 'underline'
 };
 
 const footer = {
@@ -154,5 +148,5 @@ const footer = {
   marginTop: '20px',
   fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
   textAlign: 'center' as const,
-  textTransform: 'uppercase' as const,
+  textTransform: 'uppercase' as const
 };

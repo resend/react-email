@@ -10,7 +10,7 @@ import {
   Link,
   Preview,
   Section,
-  Text,
+  Text
 } from '@jsx-email/components';
 import * as React from 'react';
 
@@ -18,13 +18,9 @@ interface LinearLoginCodeEmailProps {
   validationCode?: string;
 }
 
-const baseUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : '';
+const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : '';
 
-export const LinearLoginCodeEmail = ({
-  validationCode,
-}: LinearLoginCodeEmailProps) => (
+export const LinearLoginCodeEmail = ({ validationCode }: LinearLoginCodeEmailProps) => (
   <Html>
     <Head />
     <Preview>Your login code for Linear</Preview>
@@ -44,8 +40,8 @@ export const LinearLoginCodeEmail = ({
           </Button>
         </Section>
         <Text style={paragraph}>
-          This link and code will only be valid for the next 5 minutes. If the
-          link does not work, you can use the login verification code directly:
+          This link and code will only be valid for the next 5 minutes. If the link does not work,
+          you can use the login verification code directly:
         </Text>
         <code style={code}>{validationCode}</code>
         <Hr style={hr} />
@@ -58,7 +54,7 @@ export const LinearLoginCodeEmail = ({
 );
 
 LinearLoginCodeEmail.PreviewProps = {
-  validationCode: 'tt226-5398x',
+  validationCode: 'tt226-5398x'
 } as LinearLoginCodeEmailProps;
 
 export default LinearLoginCodeEmail;
@@ -66,19 +62,19 @@ export default LinearLoginCodeEmail;
 const logo = {
   borderRadius: 21,
   width: 42,
-  height: 42,
+  height: 42
 };
 
 const main = {
   backgroundColor: '#ffffff',
   fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif'
 };
 
 const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
-  width: '560px',
+  width: '560px'
 };
 
 const heading = {
@@ -87,18 +83,18 @@ const heading = {
   lineHeight: '1.3',
   fontWeight: '400',
   color: '#484848',
-  padding: '17px 0 0',
+  padding: '17px 0 0'
 };
 
 const paragraph = {
   margin: '0 0 15px',
   fontSize: '15px',
   lineHeight: '1.4',
-  color: '#3c4149',
+  color: '#3c4149'
 };
 
 const buttonContainer = {
-  padding: '27px 0 27px',
+  padding: '27px 0 27px'
 };
 
 const button = {
@@ -109,17 +105,17 @@ const button = {
   fontSize: '15px',
   textDecoration: 'none',
   textAlign: 'center' as const,
-  display: 'block',
+  display: 'block'
 };
 
 const reportLink = {
   fontSize: '14px',
-  color: '#b4becc',
+  color: '#b4becc'
 };
 
 const hr = {
   borderColor: '#dfe1e4',
-  margin: '42px 0 26px',
+  margin: '42px 0 26px'
 };
 
 const code = {
@@ -130,5 +126,5 @@ const code = {
   letterSpacing: '-0.3px',
   fontSize: '21px',
   borderRadius: '4px',
-  color: '#3c4149',
+  color: '#3c4149'
 };

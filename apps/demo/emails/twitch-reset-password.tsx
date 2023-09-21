@@ -9,26 +9,24 @@ import {
   Preview,
   Row,
   Section,
-  Text,
-} from'@jsx-email/components';
-import * as React from "react";
+  Text
+} from '@jsx-email/components';
+import * as React from 'react';
 
 interface TwitchResetPasswordEmailProps {
   username?: string;
   updatedDate?: Date;
 }
 
-const baseUrl = import.meta.env.VERCEL_URL
-  ? `https://${import.meta.env.VERCEL_URL}`
-  : "";
+const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : '';
 
 export const TwitchResetPasswordEmail = ({
   username,
-  updatedDate,
+  updatedDate
 }: TwitchResetPasswordEmailProps) => {
-  const formattedDate = new Intl.DateTimeFormat("en", {
-    dateStyle: "medium",
-    timeStyle: "medium",
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    dateStyle: 'medium',
+    timeStyle: 'medium'
   }).format(updatedDate);
 
   return (
@@ -50,27 +48,25 @@ export const TwitchResetPasswordEmail = ({
           <Section style={content}>
             <Text style={paragraph}>Hi {username},</Text>
             <Text style={paragraph}>
-              You updated the password for your Twitch account on{" "}
-              {formattedDate}. If this was you, then no further action is
-              required.
+              You updated the password for your Twitch account on {formattedDate}. If this was you,
+              then no further action is required.
             </Text>
             <Text style={paragraph}>
-              However if you did NOT perform this password change, please{" "}
+              However if you did NOT perform this password change, please{' '}
               <Link href="#" style={link}>
                 reset your account password
-              </Link>{" "}
+              </Link>{' '}
               immediately.
             </Text>
             <Text style={paragraph}>
-              Remember to use a password that is both strong and unique to your
-              Twitch account. To learn more about how to create a strong and
-              unique password,{" "}
+              Remember to use a password that is both strong and unique to your Twitch account. To
+              learn more about how to create a strong and unique password,{' '}
               <Link href="#" style={link}>
                 click here.
               </Link>
             </Text>
             <Text style={paragraph}>
-              Still have questions? Please contact{" "}
+              Still have questions? Please contact{' '}
               <Link href="#" style={link}>
                 Twitch Support
               </Link>
@@ -85,15 +81,15 @@ export const TwitchResetPasswordEmail = ({
 
         <Section style={footer}>
           <Row>
-            <Column align="right" style={{ width: "50%", paddingRight: "8px" }}>
+            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
               <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
             </Column>
-            <Column align="left" style={{ width: "50%", paddingLeft: "8px" }}>
+            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
               <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
             </Column>
           </Row>
           <Row>
-            <Text style={{ textAlign: "center", color: "#706a7b" }}>
+            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
               © 2022 Twitch, All Rights Reserved <br />
               350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
             </Text>
@@ -105,61 +101,61 @@ export const TwitchResetPasswordEmail = ({
 };
 
 TwitchResetPasswordEmail.PreviewProps = {
-  username: "zenorocha",
-  updatedDate: new Date("June 23, 2022 4:06:00 pm UTC"),
+  username: 'zenorocha',
+  updatedDate: new Date('June 23, 2022 4:06:00 pm UTC')
 } as TwitchResetPasswordEmailProps;
 
 export default TwitchResetPasswordEmail;
 
-const fontFamily = "HelveticaNeue,Helvetica,Arial,sans-serif";
+const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
 
 const main = {
-  backgroundColor: "#efeef1",
-  fontFamily,
+  backgroundColor: '#efeef1',
+  fontFamily
 };
 
 const paragraph = {
   lineHeight: 1.5,
-  fontSize: 14,
+  fontSize: 14
 };
 
 const container = {
-  width: "580px",
-  margin: "30px auto",
-  backgroundColor: "#ffffff",
+  width: '580px',
+  margin: '30px auto',
+  backgroundColor: '#ffffff'
 };
 
 const footer = {
-  width: "580px",
-  margin: "0 auto",
+  width: '580px',
+  margin: '0 auto'
 };
 
 const content = {
-  padding: "5px 50px 10px 60px",
+  padding: '5px 50px 10px 60px'
 };
 
 const logo = {
-  display: "flex",
-  justifyContent: "center",
-  alingItems: "center",
-  padding: 30,
+  display: 'flex',
+  justifyContent: 'center',
+  alingItems: 'center',
+  padding: 30
 };
 
 const sectionsBorders = {
-  width: "100%",
-  display: "flex",
+  width: '100%',
+  display: 'flex'
 };
 
 const sectionBorder = {
-  borderBottom: "1px solid rgb(238,238,238)",
-  width: "249px",
+  borderBottom: '1px solid rgb(238,238,238)',
+  width: '249px'
 };
 
 const sectionCenter = {
-  borderBottom: "1px solid rgb(145,71,255)",
-  width: "102px",
+  borderBottom: '1px solid rgb(145,71,255)',
+  width: '102px'
 };
 
 const link = {
-  textDecoration: "underline",
+  textDecoration: 'underline'
 };

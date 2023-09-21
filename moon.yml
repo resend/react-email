@@ -11,6 +11,7 @@ tasks:
     deps:
       - body:build
       - button:build
+      - cli:build
       - column:build
       - container:build
       - font:build

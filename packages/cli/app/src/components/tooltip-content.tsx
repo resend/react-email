@@ -14,7 +14,7 @@ export const TooltipContent = React.forwardRef<ContentElement, Readonly<TooltipP
         {...props}
         ref={forwardedRef}
         className={classnames(
-          'bg-dark-bg border border-dark-bg-border z-20 px-3 py-2 rounded-md text-xs font-sans'
+          'bg-dark-bg border border-dark-bg-border z-20 px-3 py-2 rounded-md text-xs'
         )}
         sideOffset={sideOffset}
       >

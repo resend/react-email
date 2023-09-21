@@ -19,12 +19,25 @@ tasks:
       outputStyle: 'stream'
       runDepsInParallel: false
 
+  clean.dist:
+    command: rm -rf dist
+    options:
+      cache: false
+
   compile:
-    command: rm -rf dist && pnpm exec tsc --project tsconfig.json && pnpm exec tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
+    command: tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
     inputs:
       - src
     deps:
       - ~:tsconfig.link
+      - ~:compile.cjs
+    options:
+      runDepsInParallel: false
+
+  compile.cjs:
+    command: tsc --project tsconfig.json
+    options:
+      cache: false
 
   # FIXME: since @jsx-email/components uses workspace deps now, we'll need a script that recognizes
   # it needs to be updated and manually commits to update the package using versioner

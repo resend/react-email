@@ -4,9 +4,6 @@
   "private": true,
   "description": "A demo package to run the preview server against. This is not published",
   "license": "MIT",
-  "scripts": {
-   "dev": "email preview emails" 
-  },
   "peerDependencies": {
     "react": "^18.2.0"
   },
