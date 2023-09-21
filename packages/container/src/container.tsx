@@ -15,7 +15,6 @@ export const Container = React.forwardRef<
       width="100%"
       {...props}
       ref={forwardedRef}
-      data-id="__react-email-container"
       role="presentation"
       cellSpacing="0"
       cellPadding="0"
