@@ -1,6 +1,30 @@
 import { Column } from "./index";
 import { render } from "@react-email/render";
 
+describe("Column component", () => {
+  it("renders children correctly", () => {
+    const testMessage = "Test message";
+    const html = render(<Column>{testMessage}</Column>);
+    expect(html).toContain(testMessage);
+  });
+
+  it("passes style and other props correctly", () => {
+    const style = { backgroundColor: "red" };
+    const html = render(
+      <Column style={style} data-testid="column-test">
+        Test
+      </Column>,
+    );
+    expect(html).toContain('style="background-color:red"');
+    expect(html).toContain('data-testid="column-test"');
+  });
+
+  it("has correct data-id attribute", () => {
+    const html = render(<Column>Test</Column>);
+    expect(html).toContain('data-id="__react-email-column"');
+  });
+});
+
 describe("render", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
