@@ -70,14 +70,14 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             const currentStyles = domNode.attribs.style ? `${domNode.attribs.style};` : '';
             const tailwindStyles = cleanTailwindClasses
               .split(' ')
-              .map((className) => cssMap[`.${className}`])
+              .map((className: string) => cssMap[`.${className}`])
               .join(';');
             domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
 
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(' ')
-              .filter((className) => {
+              .filter((className: string) => {
                 const cleanedClassName = className.replace(cleanRegex, '_');
                 return className.search(/^.{2}:/) !== -1 || !cssMap[`.${cleanedClassName}`];
               })

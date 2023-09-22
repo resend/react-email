@@ -1,13 +1,17 @@
 {
-  "name": "demo",
+  "name": "@jsx-email/demo",
   "version": "0.0.0",
   "private": true,
+  "description": "A demo package to run the preview server against. This is not published",
+  "license": "MIT",
   "scripts": {
-    "dev": "email dev",
-    "export": "email export"
+   "dev": "email preview emails" 
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
   "dependencies": {
-    "@react-email/components": "0.0.7",
-    "react-email": "1.9.4"
+    "@jsx-email/cli": "workspace:*",
+    "@jsx-email/components": "workspace:*"
   }
 }

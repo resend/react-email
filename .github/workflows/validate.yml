@@ -21,6 +21,12 @@ jobs:
       - name: Checkout Commit
         uses: actions/checkout@v4
 
+      # Needed for https://github.com/moonrepo/moon/issues/1060
+      - name: Force Update Main
+        run: |
+          git fetch origin
+          git branch -f main origin/main
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -68,7 +74,8 @@ jobs:
 
       - name: Build Projects
         run: |
-          moon run jsx-email:build.packages --log trace
+          pnpm exec tsc --version
+          moon run jsx-email:build.packages
 
       - name: Lint Monorepo
         run: moon run jsx-email:lint

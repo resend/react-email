@@ -11,7 +11,7 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
+} from '@jsx-email/components';
 import * as React from "react";
 
 interface YelpRecentLoginEmailProps {
@@ -22,8 +22,8 @@ interface YelpRecentLoginEmailProps {
   loginIp?: string;
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const baseUrl = import.meta.env.VERCEL_URL
+  ? `https://${import.meta.env.VERCEL_URL}`
   : "";
 
 export const YelpRecentLoginEmail = ({

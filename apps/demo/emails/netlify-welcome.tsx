@@ -13,7 +13,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
+} from'@jsx-email/components';
 import * as React from "react";
 
 interface NetlifyWelcomeEmailProps {
@@ -24,8 +24,8 @@ interface NetlifyWelcomeEmailProps {
   links?: string[];
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const baseUrl = import.meta.env.VERCEL_URL
+  ? `https://${import.meta.env.VERCEL_URL}`
   : "";
 
 const PropDefaults: NetlifyWelcomeEmailProps = {

@@ -20,7 +20,7 @@ tasks:
       runDepsInParallel: false
 
   compile:
-    command: rm -rf dist && tsc --project tsconfig.json && tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
+    command: rm -rf dist && pnpm exec tsc --project tsconfig.json && pnpm exec tsc --project tsconfig.json --outDir dist/es --module esnext --target esnext
     inputs:
       - src
     deps:
