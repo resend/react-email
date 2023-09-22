@@ -10,12 +10,35 @@
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   }
 
-  .shiki { background: inherit !important; }
+  .shiki {
+    background: inherit !important;
+    counter-reset: line 0;
+    display: grid;
+    gap: 0.3em;
+    grid-auto-rows: 1em;
+    grid-template-columns: min-content 1fr;
+  }
+
   .shiki .line {
     display: inline-block;
     line-height: 20px;
     min-height: auto;
     vertical-align: middle;
     white-space: pre;
+  }
+
+  .shiki .line:before {
+    background: #3d3a3a;
+    color: #777;
+    content: counter(line);
+    counter-increment: line;
+    display: inline-block;
+    margin-right: 10px;
+    padding-right: 10px;
+    text-align: right;
+  }
+
+  .plainText .shiki .line:before {
+    display: none;
   }
 }

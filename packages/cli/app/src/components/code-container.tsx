@@ -105,7 +105,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
       {/* </div> */}
       {markups.map(({ language, content }) => (
         <div className={`${activeLang !== language && 'hidden'}`} key={language}>
-          <Code language={language}>{content}</Code>
+          <Code language={language}>{content.trim()}</Code>
         </div>
       ))}
     </>

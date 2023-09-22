@@ -51,25 +51,31 @@ const shiki = await getHighlighter({
   themes: [theme]
 });
 
-export const Code = ({ children, language = 'html' }: CodeProps) => {
+export const Code = ({ children: value, language = 'html' }: CodeProps) => {
   // const [isCopied, setIsCopied] = React.useState(false);
-  const value = children.trim();
   const lang = language === 'jsx' ? 'tsx' : language;
   const code = language === 'plainText' ? value : shiki.codeToHtml(value, { lang, theme });
+  const lines = value.split('\n').length;
+  const css = `
+    .${language} .shiki .line:before {
+      width: calc(${lines.toString().length} * 12px + 12px);
+    }`;
+
   // const file = new File([value], `email.${language}`);
   // const url = URL.createObjectURL(file);
 
-  console.log(code);
-
   return (
-    <div
-      className={classnames('text-xs', { plain: language === 'plainText' })}
-      dangerouslySetInnerHTML={{ __html: code }}
-      style={{
-        fontFamily:
-          'SFMono-Regular,Consolas,"Liberation Mono",Menlo,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New"'
-      }}
-    ></div>
+    <>
+      <style>{css}</style>
+      <div
+        className={classnames(language, 'text-xs', { plain: language === 'plainText' })}
+        dangerouslySetInnerHTML={{ __html: code }}
+        style={{
+          fontFamily:
+            'SFMono-Regular,Consolas,"Liberation Mono",Menlo,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New"'
+        }}
+      ></div>
+    </>
     // <Highlight code={value} language={language as Language}>
     //   {({ tokens, getLineProps, getTokenProps }) => (
     //     <>
