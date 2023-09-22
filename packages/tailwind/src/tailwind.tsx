@@ -42,6 +42,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     const html = renderToStaticMarkup(child);
 
     const parsedHTML = htmlParser(html, {
+      // eslint-disable-next-line consistent-return
       replace: (domNode) => {
         if (domNode instanceof Element) {
           if (hasResponsiveStyles && hasHead && domNode.name === 'head') {
@@ -62,7 +63,8 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           }
 
           if (domNode.attribs?.class) {
-            const cleanRegex = /[:#!\-[\]/.%]+/g;
+            // eslint-disable-next-line no-useless-escape
+            const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
             const cleanTailwindClasses = domNode.attribs.class
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, '_');
@@ -77,10 +79,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(' ')
-              .filter((className: string) => {
-                const cleanedClassName = className.replace(cleanRegex, '_');
-                return className.search(/^.{2}:/) !== -1 || !cssMap[`.${cleanedClassName}`];
-              })
+              .filter((className) => className.search(/^.{2}:/) !== -1)
               .join(' ')
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, '_');
@@ -88,7 +87,6 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             if (domNode.attribs.class === '') delete domNode.attribs.class;
           }
         }
-        return void 0;
       }
     });
 
@@ -107,10 +105,15 @@ function cleanCss(css: string) {
   const newCss = css
     .replace(/\\/g, '')
     // find all css selectors and look ahead for opening and closing curly braces
-    .replace(/[.!#\w\d\\:\-[\]/.%())]+(?=\s*?{[^{]*?\})\s*?{/g, (m) =>
-      m.replace(/[:#!\-[\\\]/.%()]+/g, '_')
+    // eslint-disable-next-line no-useless-escape
+    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) =>
+      // eslint-disable-next-line no-useless-escape
+      m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, '_')
     )
-    .replace(/font-family([^;\r\n]+)/g, (_, value) => `font-family${value.replace(/['"]+/g, '')}`);
+    .replace(
+      /font-family(?<value>[^;\r\n]+)/g,
+      (_, value) => `font-family${value.replace(/['"]+/g, '')}`
+    );
   return newCss;
 }
 
@@ -143,12 +146,15 @@ function getMediaQueryCss(css: string) {
 function makeCssMap(css: string) {
   const cssNoMedia = css.replace(/@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm, '');
 
-  const cssMap = cssNoMedia.split('}').reduce((acc, cur) => {
-    const [key, value] = cur.split('{');
-    if (key && value) {
-      acc[key] = value;
-    }
-    return acc;
-  }, {} as Record<string, string>);
+  const cssMap = cssNoMedia.split('}').reduce(
+    (acc, cur) => {
+      const [key, value] = cur.split('{');
+      if (key && value) {
+        acc[key] = value;
+      }
+      return acc;
+    },
+    {} as Record<string, string>
+  );
   return cssMap;
 }

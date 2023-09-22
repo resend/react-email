@@ -21,26 +21,18 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
   const [searchParams] = useSearchParams();
 
   const [activeView, setActiveView] = React.useState('desktop');
-  const [activeLang, setActiveLang] = React.useState('jsx');
 
   React.useEffect(() => {
     document.title = `JSX email • ${title}`;
 
     const view = searchParams.get('view');
-    const lang = searchParams.get('lang');
 
-    if (view === 'source' || view === 'desktop') setActiveView(view);
-    if (lang === 'jsx' || lang === 'markup' || lang === 'markdown') setActiveLang(lang);
+    if (view && ['desktop', 'html', 'jsx', 'plainText'].includes(view)) setActiveView(view);
   }, [searchParams]);
 
   const handleViewChange = (view: string) => {
     setActiveView(view);
     navigate(`${pathname}?view=${view}`);
-  };
-
-  const handleLangChange = (lang: string) => {
-    setActiveLang(lang);
-    navigate(`${pathname}?view=source&lang=${lang}`);
   };
 
   return (
@@ -52,18 +44,18 @@ export const Preview = ({ html, jsx, plainText, templateNames, title }: PreviewP
       setActiveView={handleViewChange}
     >
       {activeView === 'desktop' ? (
-        <iframe srcDoc={html} className="w-full h-[calc(100vh_-_140px)]" />
+        <iframe srcDoc={html} className="w-full h-[calc(100vh_-_70px)]" />
       ) : (
-        <div className="p-6">
+        <div>
           <Tooltip.Provider>
             <CodeContainer
-              markups={[
+              raws={[
                 { content: jsx, language: 'jsx' },
                 { content: html, language: 'html' },
-                { content: plainText, language: 'plainText' }
+                { content: plainText, language: 'plain' }
               ]}
-              activeLang={activeLang}
-              setActiveLang={handleLangChange}
+              activeView={activeView}
+              setActiveView={handleViewChange}
             />
           </Tooltip.Provider>
         </div>

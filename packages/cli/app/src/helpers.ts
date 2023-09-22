@@ -25,7 +25,7 @@ export type As<
       as: T5;
     });
 
-export type PreviewLanguage = 'html' | 'jsx' | 'plainText';
+export type PreviewLanguage = 'html' | 'jsx' | 'plain';
 
 export const copyTextToClipboard = async (text: string) => {
   try {

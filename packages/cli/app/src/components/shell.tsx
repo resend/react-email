@@ -42,7 +42,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
                 markup={html}
               />
             )}
-            <div className="relative h-[calc(100vh_-_140px)] overflow-auto">
+            <div className="relative h-[calc(100vh_-_70px)] overflow-auto">
               <div className="mx-auto">{children}</div>
             </div>
           </main>

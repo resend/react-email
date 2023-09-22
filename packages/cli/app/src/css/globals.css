@@ -13,7 +13,7 @@
   .shiki {
     background: inherit !important;
     counter-reset: line 0;
-    display: grid;
+    display: block;
     gap: 0.3em;
     grid-auto-rows: 1em;
     grid-template-columns: min-content 1fr;
@@ -25,6 +25,14 @@
     min-height: auto;
     vertical-align: middle;
     white-space: pre;
+  }
+
+  .shiki .line:last-child:before, .shiki .line:last-child span {
+    padding-bottom: 30px;
+  }
+
+  .shiki .line:first-child:before, .shiki .line:first-child span {
+    padding-top: 10px;
   }
 
   .shiki .line:before {

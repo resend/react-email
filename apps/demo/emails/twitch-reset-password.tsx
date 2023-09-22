@@ -18,7 +18,7 @@ interface TwitchResetPasswordEmailProps {
   updatedDate?: Date;
 }
 
-const baseUrl = import.meta.env.VERCEL_URL ? `https://${import.meta.env.VERCEL_URL}` : '';
+const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '';
 
 export const TwitchResetPasswordEmail = ({
   username,
