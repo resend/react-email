@@ -10,7 +10,6 @@ export const Img = React.forwardRef<ImgElement, Readonly<ImgProps>>(
     <img
       {...props}
       ref={forwardedRef}
-      data-id="react-email-img"
       alt={alt}
       src={src}
       width={width}
