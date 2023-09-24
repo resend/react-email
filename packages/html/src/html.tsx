@@ -7,13 +7,7 @@ export interface HtmlProps extends RootProps {}
 
 export const Html = React.forwardRef<HtmlElement, Readonly<HtmlProps>>(
   ({ children, lang = "en", dir = "ltr", ...props }, forwardedRef) => (
-    <html
-      {...props}
-      id="__react-email"
-      ref={forwardedRef}
-      lang={lang}
-      dir={dir}
-    >
+    <html {...props} ref={forwardedRef} lang={lang} dir={dir}>
       {children}
     </html>
   ),
