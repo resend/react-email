@@ -19,7 +19,6 @@ export const Heading = React.forwardRef<
       <Slot
         {...props}
         ref={forwardedRef}
-        data-id="react-email-heading"
         style={{ ...withMargin({ m, mx, my, mt, mr, mb, ml }), ...style }}
       >
         <Tag>{children}</Tag>
