@@ -1,8 +1,12 @@
-import * as React from "react";
 import { Container } from "./index";
 import { render } from "@react-email/render";
 
 describe("Container component", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    jest.resetModules();
+  });
+
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Container>{testMessage}</Container>);

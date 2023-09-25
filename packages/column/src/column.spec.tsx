@@ -2,6 +2,11 @@ import { Column } from "./index";
 import { render } from "@react-email/render";
 
 describe("Column component", () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+    jest.resetModules();
+  });
+
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Column>{testMessage}</Column>);
