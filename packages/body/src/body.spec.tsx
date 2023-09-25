@@ -22,13 +22,6 @@ describe("Body component", () => {
     expect(html).toContain('style="background-color:red"');
     expect(html).toContain('data-testid="body-test"');
   });
-});
-
-describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
 
   it("renders the <Body> component", () => {
     const actualOutput = render(<Body>Lorem ipsum</Body>);

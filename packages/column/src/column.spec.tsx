@@ -23,13 +23,6 @@ describe("Column component", () => {
     expect(html).toContain('style="background-color:red"');
     expect(html).toContain('data-testid="column-test"');
   });
-});
-
-describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
 
   it("renders the <Column> component", () => {
     const actualOutput = render(<Column>Lorem ipsum</Column>);

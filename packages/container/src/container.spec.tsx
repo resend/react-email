@@ -23,13 +23,6 @@ describe("Container component", () => {
     expect(html).toContain('style="max-width:300px;background-color:red"');
     expect(html).toContain('data-testid="container-test"');
   });
-});
-
-describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
 
   it("renders the <Container> component", () => {
     const container = render(
