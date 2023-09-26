@@ -27,7 +27,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "9.4.1",
+    "@commander-js/extra-typings": "11.0.0",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
     "@react-email/render": "0.0.6",
