@@ -10,7 +10,6 @@ export const Link = React.forwardRef<LinkElement, Readonly<LinkProps>>(
     <a
       {...props}
       ref={forwardedRef}
-      data-id="react-email-link"
       target={target}
       style={{
         color: "#067df7",
