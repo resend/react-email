@@ -6,7 +6,7 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "commander": "9.4.1",
+    "commander": "11.0.0",
     "fs-extra": "11.1.1",
     "log-symbols": "5.1.0",
     "ora": "6.1.2",

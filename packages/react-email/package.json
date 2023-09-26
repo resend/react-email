@@ -32,7 +32,7 @@
     "@octokit/rest": "19.0.7",
     "@react-email/render": "0.0.6",
     "chokidar": "3.5.3",
-    "commander": "9.4.1",
+    "commander": "11.0.0",
     "detect-package-manager": "2.0.1",
     "esbuild": "0.16.4",
     "fs-extra": "11.1.1",
