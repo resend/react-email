@@ -87,7 +87,13 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(" ")
-              .filter((className) => className.search(/^.{2}:/) !== -1)
+              .filter((className) => {
+                const cleanedClassName = className.replace(cleanRegex, "_");
+                return (
+                  className.search(/^.{2}:/) !== -1 ||
+                  !cssMap[`.${cleanedClassName}`]
+                );
+              })
               .join(" ")
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, "_");

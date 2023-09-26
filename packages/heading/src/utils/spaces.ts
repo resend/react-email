@@ -1,15 +1,24 @@
+import React from "react";
+
+type MarginCSSProperty = React.CSSProperties[
+  | "margin"
+  | "marginLeft"
+  | "marginRight"
+  | "marginTop"
+  | "marginBottom"];
+
 export interface Margin {
-  m?: string;
-  mx?: string;
-  my?: string;
-  mt?: string;
-  mr?: string;
-  mb?: string;
-  ml?: string;
+  m?: number | string;
+  mx?: number | string;
+  my?: number | string;
+  mt?: number | string;
+  mr?: number | string;
+  mb?: number | string;
+  ml?: number | string;
 }
 
-export const withMargin = (props: Margin) =>
-  [
+export const withMargin = (props: Margin) => {
+  const nonEmptyStyles = [
     withSpace(props.m, ["margin"]),
     withSpace(props.mx, ["marginLeft", "marginRight"]),
     withSpace(props.my, ["marginTop", "marginBottom"]),
@@ -17,12 +26,22 @@ export const withMargin = (props: Margin) =>
     withSpace(props.mr, ["marginRight"]),
     withSpace(props.mb, ["marginBottom"]),
     withSpace(props.ml, ["marginLeft"]),
-  ].filter((s) => Object.keys(s).length)[0];
+  ].filter((s) => Object.keys(s).length);
 
-const withSpace = (value: string | undefined, properties: string[]) => {
+  const mergedStyles = nonEmptyStyles.reduce((acc, style) => {
+    return { ...acc, ...style };
+  }, {});
+  return mergedStyles;
+};
+
+export const withSpace = (
+  value: number | string | undefined,
+  properties: MarginCSSProperty[],
+) => {
   return properties.reduce((styles, property) => {
-    if (value) {
-      return { ...styles, [property]: `${value}px` };
+    // Check to ensure string value is a valid number
+    if (!isNaN(parseFloat(value as string))) {
+      return { ...styles, [property as keyof MarginCSSProperty]: `${value}px` };
     }
     return styles;
   }, {});
