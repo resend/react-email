@@ -56,9 +56,9 @@ console.log(\`Hello, \$\{name\}!\`);
       </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><h1 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2.5rem\\">Markdown Test Document</h1><p data-id=\\"react-email-text\\">This is a <strong style=\\"font-weight:bold\\">test document</strong> to check the capabilities of a Markdown parser.</p>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Headings</h2><h3 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:1.75rem\\">Third-Level Heading</h3><h4 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:1.5rem\\">Fourth-Level Heading</h4><h5 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:1.25rem\\">Fifth-Level Heading</h5><h6 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:1rem\\">Sixth-Level Heading</h6><h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Text Formatting</h2><p data-id=\\"react-email-text\\">This is some <strong style=\\"font-weight:bold\\">bold text</strong> and this is some <em style=\\"font-style:italic\\">italic text</em>. You can also use <del>strikethrough</del> and <code style=\\"color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;word-wrap:break-word\\">inline code</code>.</p>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Lists</h2><ol>
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><h1 style=\\"font-weight:500;padding-top:20px;font-size:2.5rem\\" data-id=\\"react-email-heading\\">Markdown Test Document</h1><p data-id=\\"react-email-text\\">This is a <strong style=\\"font-weight:bold\\">test document</strong> to check the capabilities of a Markdown parser.</p>
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Headings</h2><h3 style=\\"font-weight:500;padding-top:20px;font-size:1.75rem\\" data-id=\\"react-email-heading\\">Third-Level Heading</h3><h4 style=\\"font-weight:500;padding-top:20px;font-size:1.5rem\\" data-id=\\"react-email-heading\\">Fourth-Level Heading</h4><h5 style=\\"font-weight:500;padding-top:20px;font-size:1.25rem\\" data-id=\\"react-email-heading\\">Fifth-Level Heading</h5><h6 style=\\"font-weight:500;padding-top:20px;font-size:1rem\\" data-id=\\"react-email-heading\\">Sixth-Level Heading</h6><h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Text Formatting</h2><p data-id=\\"react-email-text\\">This is some <strong style=\\"font-weight:bold\\">bold text</strong> and this is some <em style=\\"font-style:italic\\">italic text</em>. You can also use <del>strikethrough</del> and <code style=\\"color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;word-wrap:break-word\\">inline code</code>.</p>
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Lists</h2><ol>
 <li>Ordered List Item 1</li>
 <li>Ordered List Item 2</li>
 <li>Ordered List Item 3</li>
@@ -68,15 +68,15 @@ console.log(\`Hello, \$\{name\}!\`);
 <li>Unordered List Item 2</li>
 <li>Unordered List Item 3</li>
 </ul>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Links</h2><p data-id=\\"react-email-text\\"><a style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" data-id=\\"react-email-link\\" href=\\"https://www.markdownguide.org\\" target=\\"_blank\\">Markdown Guide</a></p>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Images</h2><p data-id=\\"react-email-text\\"><img alt=\\"Markdown Logo\\" src=\\"https://markdown-here.com/img/icon256.png\\"></p>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Blockquotes</h2><blockquote style=\\"background:#f9f9f9;border-left:10px solid #ccc;margin:1.5em 10px;padding:1em 10px\\">
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Links</h2><p data-id=\\"react-email-text\\"><a href=\\"https://www.markdownguide.org\\" target=\\"_blank\\" data-id=\\"react-email-link\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\">Markdown Guide</a></p>
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Images</h2><p data-id=\\"react-email-text\\"><img src=\\"https://markdown-here.com/img/icon256.png\\" alt=\\"Markdown Logo\\"></p>
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Blockquotes</h2><blockquote style=\\"background:#f9f9f9;border-left:10px solid #ccc;margin:1.5em 10px;padding:1em 10px\\">
 <p data-id=\\"react-email-text\\">This is a blockquote.</p>
 <ul>
 <li>Author</li>
 </ul>
 </blockquote>
-<h2 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2rem\\">Code Blocks</h2><pre style=\\"color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word\\"><code>function greet(name) {
+<h2 style=\\"font-weight:500;padding-top:20px;font-size:2rem\\" data-id=\\"react-email-heading\\">Code Blocks</h2><pre style=\\"color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word\\"><code>function greet(name) {
 console.log(\`Hello, \${name}!\`);
 }
 </code></pre>
@@ -121,7 +121,7 @@ console.log(\`Hello, \${name}!\`);
       >{`Link to [React-email](https://react.email)`}</Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\">Link to <a href=\\"https://react.email\\" data-id=\\"react-email-link\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\" target=\\"_blank\\">React-email</a></p>
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\">Link to <a href=\\"https://react.email\\" target=\\"_blank\\" data-id=\\"react-email-link\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\">React-email</a></p>
 </div>"
 `);
   });
@@ -139,7 +139,7 @@ console.log(\`Hello, \${name}!\`);
       </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><h1 data-id=\\"react-email-heading\\" style=\\"font-weight:500;padding-top:20px;font-size:2.5rem\\">Below is a list</h1><ul>
+"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><h1 style=\\"font-weight:500;padding-top:20px;font-size:2.5rem\\" data-id=\\"react-email-heading\\">Below is a list</h1><ul>
 <li>Item One</li>
 <li>Item Two</li>
 <li>Item Three</li>
