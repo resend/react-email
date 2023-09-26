@@ -4,39 +4,37 @@ import { parsePadding, pxToPt } from "./utils";
 type ButtonElement = React.ElementRef<"a">;
 type RootProps = React.ComponentPropsWithoutRef<"a">;
 
-export interface ButtonProps extends RootProps {
-  pX?: number;
-  pY?: number;
-}
+export interface ButtonProps extends RootProps {}
 
 export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
-  (
-    { children, style, pX = 0, pY = 0, target = "_blank", ...props },
-    forwardedRef,
-  ) => {
-    const paddingX = pX || parsePadding(style?.padding).pX || 0;
-    const paddingY = pY || parsePadding(style?.padding).pY || 0;
+  ({ children, style, target = "_blank", ...props }, forwardedRef) => {
+    const { pt, pr, pb, pl } = parsePadding({
+      padding: style?.padding,
+      paddingLeft: style?.paddingLeft,
+      paddingRight: style?.paddingRight,
+      paddingTop: style?.paddingTop,
+      paddingBottom: style?.paddingBottom,
+    });
 
-    const y = paddingY * 2;
-    const textRaise = pxToPt(y.toString());
+    const y = pt + pb;
+    const textRaise = pxToPt(y);
 
     return (
       <a
         {...props}
         ref={forwardedRef}
-        data-id="react-email-button"
         target={target}
-        style={buttonStyle({ ...style, pX: paddingX, pY: paddingY })}
+        style={buttonStyle({ ...style, pt, pr, pb, pl })}
       >
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${paddingX}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
           }}
         />
-        <span style={buttonTextStyle(paddingY)}>{children}</span>
+        <span style={buttonTextStyle(pb)}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${paddingX}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
           }}
         />
       </a>
@@ -47,9 +45,14 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
 Button.displayName = "Button";
 
 const buttonStyle = (
-  style?: React.CSSProperties & { pY: number; pX: number },
+  style?: React.CSSProperties & {
+    pt: number;
+    pr: number;
+    pb: number;
+    pl: number;
+  },
 ) => {
-  const { pY, pX, padding, ...rest } = style || {};
+  const { pt, pr, pb, pl, padding, ...rest } = style || {};
 
   return {
     ...rest,
@@ -57,18 +60,16 @@ const buttonStyle = (
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
-    padding: `${pY}px ${pX}px`,
+    padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
   };
 };
 
-const buttonTextStyle = (pY?: number) => {
-  const paddingY = pY || 0;
-
+const buttonTextStyle = (pb?: number) => {
   return {
     maxWidth: "100%",
     display: "inline-block",
     lineHeight: "120%",
     msoPaddingAlt: "0px",
-    msoTextRaise: pxToPt(paddingY.toString()),
+    msoTextRaise: pxToPt(pb || 0),
   };
 };

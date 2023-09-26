@@ -1,46 +1,100 @@
-function convertToPx(value: string, unit: string) {
+type paddingType = string | number | undefined;
+type paddingProperties = {
+  padding: paddingType;
+  paddingTop?: paddingType;
+  paddingRight?: paddingType;
+  paddingBottom?: paddingType;
+  paddingLeft?: paddingType;
+};
+
+/**
+ * converts padding value to `px` equivalent.
+ * @example "1em" => 16
+ */
+export function convertToPx(value: paddingType) {
   let px = 0;
 
-  if (!value) return px;
+  if (!value) {
+    return px;
+  }
 
-  let numValue = parseFloat(value);
+  if (typeof value === "number") {
+    return value;
+  }
 
-  switch (unit) {
-    case "px":
-      return numValue;
-    case "em":
-    case "rem":
-      px = numValue * 16;
-      return px;
-    case "%":
-      px = (numValue / 100) * 600;
-      return px;
-    default:
-      return numValue; // Default to px if unit is not recognized
+  const matches = value.match(/^([\d.]+)(px|em|rem|%)$/);
+
+  if (matches && matches.length === 3) {
+    const numValue = parseFloat(matches[1]);
+    const unit = matches[2];
+
+    switch (unit) {
+      case "px":
+        return numValue;
+      case "em":
+      case "rem":
+        px = numValue * 16;
+        return px;
+      case "%":
+        px = (numValue / 100) * 600;
+        return px;
+      default:
+        return numValue;
+    }
+  } else {
+    return 0;
   }
 }
 
-export function parsePadding(padding: string | number | undefined = "") {
-  // if padding is a number
-  // then it is only one value for pX and pY
+/**
+ * Parses all the values out of a padding string to get the value for all padding props in `px`
+ * @example e.g. "10px" => pt: 10, pr: 10, pb: 10, pl: 10
+ */
+export function parsePadding({
+  padding = "",
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft,
+}: paddingProperties) {
+  let pt = 0;
+  let pr = 0;
+  let pb = 0;
+  let pl = 0;
+
   if (typeof padding === "number") {
-    return { pY: padding, pX: padding };
+    pt = pr = pb = pl = padding;
+  } else {
+    const values = padding.split(/\s+/);
+
+    switch (values.length) {
+      case 1:
+        pt = pr = pb = pl = convertToPx(values[0]);
+        break;
+      case 2:
+        pt = pb = convertToPx(values[0]);
+        pr = pl = convertToPx(values[1]);
+        break;
+      case 3:
+        pt = convertToPx(values[0]);
+        pr = pl = convertToPx(values[1]);
+        pb = convertToPx(values[2]);
+        break;
+      case 4:
+        pt = convertToPx(values[0]);
+        pr = convertToPx(values[1]);
+        pb = convertToPx(values[2]);
+        pl = convertToPx(values[3]);
+        break;
+      default:
+        break;
+    }
   }
 
-  let pY = 0;
-  let pX = 0;
-
-  const paddingRegex =
-    /^([\d.]+)(px|em|rem|%)\s*(([\d.]+)(px|em|rem|%))?\s*(([\d.]+)(px|em|rem|%))?\s*(([\d.]+)(px|em|rem|%))?$/;
-
-  const matches = padding.match(paddingRegex);
-
-  if (matches) {
-    // Extract all values from padding string
-    // Set only the first 2 values for pX and pY
-    pY = convertToPx(matches[1], matches[2]);
-    pX = convertToPx(matches[4] || matches[1], matches[5] || matches[2]);
-  }
-
-  return { pY, pX };
+  return {
+    pt: paddingTop ? convertToPx(paddingTop) : pt,
+    pr: paddingRight ? convertToPx(paddingRight) : pr,
+    pb: paddingBottom ? convertToPx(paddingBottom) : pb,
+    pl: paddingLeft ? convertToPx(paddingLeft) : pl,
+  };
 }
