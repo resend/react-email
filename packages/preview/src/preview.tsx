@@ -16,7 +16,6 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
     return (
       <div
         ref={forwardedRef}
-        id="__react-email-preview"
         style={{
           display: "none",
           overflow: "hidden",
@@ -34,7 +33,7 @@ export const Preview = React.forwardRef<PreviewElement, Readonly<PreviewProps>>(
   },
 );
 
-const renderWhiteSpace = (text: string) => {
+export const renderWhiteSpace = (text: string) => {
   if (text.length >= PREVIEW_MAX_LENGTH) {
     return null;
   }
