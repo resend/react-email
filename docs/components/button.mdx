@@ -42,9 +42,7 @@ const Email = () => {
   return (
     <Button
       href="https://example.com"
-      pX={20}
-      pY={12}
-      style={{ color: "#61dafb" }}
+      style={{ color: "#61dafb", padding: "10px 20px" }}
     >
       Click me
     </Button>
@@ -60,14 +58,6 @@ const Email = () => {
 
 <ResponseField name="target" type="string" default="_blank">
   Specify the target attribute for the button link
-</ResponseField>
-
-<ResponseField name="pY" type="number">
-  px value for vertical padding( `padding-top` and `padding-bottom` )
-</ResponseField>
-
-<ResponseField name="pX" type="number">
-  px value for horizontal padding( `padding-left` and `padding-right` )
 </ResponseField>
 
 <Snippet file="support.mdx" />
