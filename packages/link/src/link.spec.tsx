@@ -1,7 +1,7 @@
 import { Link } from "./index";
 import { render } from "@react-email/render";
 
-describe("Link component", () => {
+describe("<Link> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
