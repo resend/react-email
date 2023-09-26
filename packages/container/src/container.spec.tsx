@@ -1,7 +1,7 @@
 import { Container } from "./index";
 import { render } from "@react-email/render";
 
-describe("Container component", () => {
+describe("<Container> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -24,7 +24,7 @@ describe("Container component", () => {
     expect(html).toContain('data-testid="container-test"');
   });
 
-  it("renders the <Container> component", () => {
+  it("renders correctly", () => {
     const container = render(
       <Container style={{ maxWidth: "300px" }}>
         <button>Hi</button>

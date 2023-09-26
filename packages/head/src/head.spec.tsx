@@ -1,7 +1,7 @@
 import { Head } from "./index";
 import { render } from "@react-email/render";
 
-describe("render", () => {
+describe("<Head> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -13,7 +13,7 @@ describe("render", () => {
     expect(html).toContain(testMessage);
   });
 
-  it("renders the <Head> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(<Head />);
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head>"`,

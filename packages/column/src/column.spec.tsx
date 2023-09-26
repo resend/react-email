@@ -1,7 +1,7 @@
 import { Column } from "./index";
 import { render } from "@react-email/render";
 
-describe("Column component", () => {
+describe("<Column> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -24,7 +24,7 @@ describe("Column component", () => {
     expect(html).toContain('data-testid="column-test"');
   });
 
-  it("renders the <Column> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(<Column>Lorem ipsum</Column>);
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><td>Lorem ipsum</td>"`,

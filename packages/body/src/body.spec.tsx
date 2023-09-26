@@ -1,7 +1,7 @@
 import { Body } from "./index";
 import { render } from "@react-email/render";
 
-describe("Body component", () => {
+describe("<Body> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -23,7 +23,7 @@ describe("Body component", () => {
     expect(html).toContain('data-testid="body-test"');
   });
 
-  it("renders the <Body> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(<Body>Lorem ipsum</Body>);
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><body>Lorem ipsum</body>"`,

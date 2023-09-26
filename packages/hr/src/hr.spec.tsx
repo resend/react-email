@@ -1,7 +1,7 @@
 import { Hr } from "./index";
 import { render } from "@react-email/render";
 
-describe("render", () => {
+describe("<Hr> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -18,7 +18,7 @@ describe("render", () => {
     expect(html).toContain('data-testid="hr-test"');
   });
 
-  it("renders the <Hr> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(<Hr />);
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><hr style=\\"width:100%;border:none;border-top:1px solid #eaeaea\\"/>"`,

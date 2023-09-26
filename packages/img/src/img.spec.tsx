@@ -1,7 +1,7 @@
 import { Img } from "./index";
 import { render } from "@react-email/render";
 
-describe("render", () => {
+describe("<Img> component", () => {
   beforeEach(() => {
     jest.restoreAllMocks();
     jest.resetModules();
@@ -24,7 +24,7 @@ describe("render", () => {
     expect(html).toContain('data-testid="img-test"');
   });
 
-  it("renders the <Img> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(
       <Img src="cat.jpg" alt="Cat" width="300" height="300" />,
     );
