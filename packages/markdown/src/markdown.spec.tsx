@@ -1,7 +1,7 @@
 import { render } from "@react-email/render";
 import { Markdown } from "./markdown";
 
-describe("ReactEmailMarkdown component renders correctly", () => {
+describe("<Markdown> component renders correctly", () => {
   it("renders the markdown in the correct format for browsers", () => {
     const actualOutput = render(
       <Markdown showDataId>
