@@ -16,12 +16,12 @@ describe("<Row> component", () => {
   it("passes style and other props correctly", () => {
     const style = { backgroundColor: "red" };
     const html = render(
-      <Row style={style} data-testid="body-test">
+      <Row style={style} data-testid="row-test">
         Test
       </Row>,
     );
     expect(html).toContain('style="background-color:red"');
-    expect(html).toContain('data-testid="body-test"');
+    expect(html).toContain('data-testid="row-test"');
   });
 
   it("renders correctly", () => {
