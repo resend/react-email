@@ -6,6 +6,7 @@ import htmlParser, {
   Element,
 } from "html-react-parser";
 import { tailwindToCSS, TailwindConfig } from "tw-to-css";
+import { cleanCss, makeCssMap, getMediaQueryCss } from "./utils";
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -111,69 +112,3 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 };
 
 Tailwind.displayName = "Tailwind";
-
-/**
- * Clean css selectors to replace all non-alphanumeric characters with underscores
- */
-function cleanCss(css: string) {
-  let newCss = css
-    .replace(/\\/g, "")
-    // find all css selectors and look ahead for opening and closing curly braces
-    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
-    })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      return `font-family${value.replace(/['"]+/g, "")}`;
-    });
-  return newCss;
-}
-
-/**
- * Get media query css to put in head
- */
-function getMediaQueryCss(css: string) {
-  const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
-
-  return (
-    css
-      .replace(mediaQueryRegex, (m) => {
-        return m.replace(
-          /([^{]+\{)([\s\S]+?)(\}\s*\})/gm,
-          (_, start, content, end) => {
-            const newContent = (content as string).replace(
-              /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
-              (_, prop, value) => {
-                return `${prop}: ${value} !important;`;
-              },
-            );
-            return `${start}${newContent}${end}`;
-          },
-        );
-      })
-      // only return media queries
-      .match(/@media\s*([^{]+)\{([^{}]*\{[^{}]*\})*[^{}]*\}/g)
-      ?.join("") ?? ""
-  );
-}
-
-/**
- * Make a map of all class names and their css styles
- */
-function makeCssMap(css: string) {
-  const cssNoMedia = css.replace(
-    /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm,
-    "",
-  );
-
-  const cssMap = cssNoMedia.split("}").reduce(
-    (acc, cur) => {
-      const [key, value] = cur.split("{");
-      if (key && value) {
-        acc[key] = value;
-      }
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-  return cssMap;
-}
