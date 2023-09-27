@@ -10,7 +10,6 @@ export const Text = React.forwardRef<TextElement, Readonly<TextProps>>(
     <p
       {...props}
       ref={forwardedRef}
-      data-id="react-email-text"
       style={{
         fontSize: "14px",
         lineHeight: "24px",
