@@ -16,10 +16,6 @@ export const startDevServer = (port: string) => {
   const clientPath = path.join(path.dirname(path.dirname(__dirname)), 'client');
 
   execAsync(`npx next start ${clientPath} -- -p ${port}`);
-
-  process.on('close', () => {
-    shell.exit();
-  });
 };
 
 export const startProdServer = (packageManager: string, port: string) => {
