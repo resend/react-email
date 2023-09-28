@@ -15,6 +15,7 @@ import {
 } from '.';
 import path from 'path';
 import shell from 'shelljs';
+import { syncAliases } from './sync-aliases';
 
 /**
  * Utility function to run init/sync for the server in dev, build or start mode.
@@ -41,6 +42,7 @@ export const setupServer = async (
   if (type !== 'start') {
     await generateEmailsPreview(emailDir);
     await syncPkg();
+    await syncAliases();
     if (!skipInstall) {
       await installDependencies(packageManager);
     }
