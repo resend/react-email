@@ -7,7 +7,7 @@
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc && npm run build:client",
+    "build": "tsc",
     "build:client": "cd client && npm run build && rm -rf ../dist/client && mkdir ../dist/client && mv .next ../dist/client/",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",

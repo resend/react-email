@@ -1,6 +1,7 @@
 import { createWatcherInstance, watcher } from './watcher';
 import {
   convertToAbsolutePath,
+  generateEmailsPreview,
   startDevServer,
 } from '.';
 
@@ -20,6 +21,7 @@ export const setupServer = async (
 
   const watcherInstance = createWatcherInstance(emailDir);
 
+  generateEmailsPreview(emailDir);
   startDevServer(port);
   watcher(watcherInstance, emailDir);
 };

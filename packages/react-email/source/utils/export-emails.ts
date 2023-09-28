@@ -32,7 +32,7 @@ export const exportEmails = async (
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
 
-  const emails = glob.sync(normalize(path.join(src, '*.{tsx,jsx]')));
+  const emails = glob.sync(normalize(path.join(src, '*.{tsx,jsx}')));
   esbuild.buildSync({
     bundle: true,
     entryPoints: emails,
@@ -72,6 +72,10 @@ export const exportEmails = async (
     }
 
     unlinkSync(template);
+  }
+  if (builtEmails.length === 0) {
+    spinner.succeed('No emails to render');
+    return;
   }
   spinner.succeed('Rendered all files');
   spinner.text = `Copying static files`;
