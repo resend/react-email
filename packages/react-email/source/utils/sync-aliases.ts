@@ -22,8 +22,8 @@ export const syncAliases = async () => {
         [key]: paths.map(
           // this is required because the aliases are relative to the rootDir
           (p) =>
-            path.join(`../`, userTsConfig.compilerOptions.rootDir ?? '', p),
-          //                                 the default rootDir is just where the tsconfig is located
+            path.join(`../`, userTsConfig.compilerOptions.baseUrl ?? '', p),
+          //                                 the default baseUrl is just where the tsconfig is located
         ),
       };
     }, {});
