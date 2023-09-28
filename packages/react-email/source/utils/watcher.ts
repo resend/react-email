@@ -1,7 +1,6 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import fs from 'fs';
 import path from 'path';
-import shell from 'shelljs';
 import {
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
@@ -34,31 +33,31 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
     }
 
     if (event === EVENT_FILE_DELETED) {
-      if (file[1] === 'static' && file[2]) {
-        await fs.promises.rm(
-          path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
-        );
-        return;
-      }
+      // if (file[1] === 'static' && file[2]) {
+      //   await fs.promises.rm(
+      //     path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
+      //   );
+      //   return;
+      // }
 
       await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
       return;
     }
 
-    if (file[1] === 'static' && file[2]) {
-      const srcPath = path.join(watchDir, 'static', file[2]);
-      const result = shell.cp(
-        '-r',
-        srcPath,
-        path.join(REACT_EMAIL_ROOT, 'public', 'static'),
-      );
-      if (result.code > 0) {
-        throw new Error(
-          `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
-        );
-      }
-      return;
-    }
+    // if (file[1] === 'static' && file[2]) {
+    //   const srcPath = path.join(watchDir, 'static', file[2]);
+    //   const result = shell.cp(
+    //     '-r',
+    //     srcPath,
+    //     path.join(REACT_EMAIL_ROOT, 'public', 'static'),
+    //   );
+    //   if (result.code > 0) {
+    //     throw new Error(
+    //       `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+    //     );
+    //   }
+    //   return;
+    // }
 
     try {
       await generateEmailsPreview(watchDir, 'templates');

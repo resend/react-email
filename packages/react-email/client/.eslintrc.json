@@ -8,7 +8,6 @@
     "simple-import-sort/imports": [
       "error",
       {
-        // The default grouping, but with no blank lines.
         "groups": [["^\\u0000", "^@?\\w", "^", "^\\."]]
       }
     ],

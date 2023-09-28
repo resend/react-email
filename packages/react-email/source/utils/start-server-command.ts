@@ -1,4 +1,5 @@
 import { ChildProcess } from 'child_process';
+import path from 'path';
 import shell from 'shelljs';
 
 let processesToKill: ChildProcess[] = [];
@@ -11,8 +12,14 @@ function execAsync(command: string) {
   });
 }
 
-export const startDevServer = (packageManager: string, port: string) => {
-  execAsync(`${packageManager} run dev -- -p ${port}`);
+export const startDevServer = (port: string) => {
+  const clientPath = path.join(path.dirname(path.dirname(__dirname)), 'client');
+
+  execAsync(`npx next start ${clientPath} -- -p ${port}`);
+
+  process.on('close', () => {
+    shell.exit();
+  });
 };
 
 export const startProdServer = (packageManager: string, port: string) => {

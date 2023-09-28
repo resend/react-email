@@ -1,13 +1,14 @@
 {
   "name": "react-email",
-  "version": "1.9.5",
+  "version": "1.9.5-dev",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/source/index.js"
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run build:client",
+    "build:client": "cd client && npm run build && rm -rf ../dist/client && mkdir ../dist/client && mv .next ../dist/client/",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
     "lint": "eslint",

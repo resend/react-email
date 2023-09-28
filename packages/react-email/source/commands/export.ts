@@ -10,6 +10,7 @@ import path from 'path';
 import shell from 'shelljs';
 import fs from 'fs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
