@@ -8,7 +8,7 @@
   "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build:client": "cd client && npm run build && rm -rf ../dist/client && mkdir ../dist/client && mv .next ../dist/client/",
+    "build:client": "cd client && yarn build && rm -rf ../dist/client && mv .next/standalone ../dist/client",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
     "lint": "eslint",
