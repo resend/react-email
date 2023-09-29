@@ -23,11 +23,11 @@ export default async function Page({ params }) {
     encoding: 'utf-8',
   });
   const markup = await fs.readFile(
-    pathJoin(basePath, `.react-email/${params.slug}.html`),
+    pathJoin(basePath, `.preview/${params.slug}.html`),
     { encoding: 'utf-8' },
   );
   const plainText = await fs.readFile(
-    pathJoin(basePath, `.react-email/${params.slug}.txt`),
+    pathJoin(basePath, `.preview/${params.slug}.txt`),
     { encoding: 'utf-8' },
   );
 

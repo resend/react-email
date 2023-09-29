@@ -37,7 +37,7 @@ export const generateEmailsPreview = async (
 };
 
 const createEmailPreviews = async (emailDir: string) => {
-  const previewCompilationDir = path.join(emailDir, '.react-email');
+  const previewCompilationDir = path.join(emailDir, '.preview');
 
   if (fs.existsSync(previewCompilationDir)) {
     await fse.rm(previewCompilationDir, { recursive: true, force: true });

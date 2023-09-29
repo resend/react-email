@@ -2,9 +2,6 @@
   "name": "emails",
   "version": "0.0.18",
   "private": true,
-  "workspaces": [
-    ".react-email"
-  ],
   "scripts": {
     "dev": "email dev",
     "export": "email export"
