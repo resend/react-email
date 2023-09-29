@@ -1,21 +1,11 @@
 import { promises as fs } from 'fs';
 import { join as pathJoin } from 'path';
-import { CONTENT_DIR, getEmails } from '../../../utils/get-emails';
+import { getEmails } from '../../../utils/get-emails';
 import Preview from './preview';
 
 export const dynamicParams = true;
 
 export const dynamic = "force-dynamic";
-
-export async function generateStaticParams() {
-  const { emails } = await getEmails();
-
-  const paths = emails.map((email) => {
-    return { slug: email };
-  });
-
-  return paths;
-}
 
 export default async function Page({ params }) {
   const { emails, filenames } = await getEmails();
@@ -26,7 +16,8 @@ export default async function Page({ params }) {
 
   if (!template) throw new Error(`Could not find email with slug that should be ${params.slug}`);
 
-  const basePath = pathJoin(process.cwd(), CONTENT_DIR);
+  // this is not undefined because if it was, getEmails would have already thrown
+  const basePath = process.env.EMAILS_PATH!;
 
   const reactMarkup = await fs.readFile(pathJoin(basePath, template), {
     encoding: 'utf-8',
