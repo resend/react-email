@@ -12,10 +12,10 @@ function execAsync(command: string) {
   });
 }
 
-export const startDevServer = (port: string) => {
-  const clientPath = path.join(path.dirname(path.dirname(__dirname)), 'client');
+export const startDevServer = (emailDir: string, port: string) => {
+  const serverFilePath = path.join(path.dirname(path.dirname(__dirname)), 'client', 'server.js');
 
-  execAsync(`npx next start ${clientPath} -- -p ${port}`);
+  execAsync(`PORT=${port} EMAILS_PATH="${emailDir}" node ${serverFilePath}`);
 };
 
 export const startProdServer = (packageManager: string, port: string) => {

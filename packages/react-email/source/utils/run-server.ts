@@ -22,6 +22,6 @@ export const setupServer = async (
   const watcherInstance = createWatcherInstance(emailDir);
 
   generateEmailsPreview(emailDir);
-  startDevServer(port);
+  startDevServer(emailDir, port);
   watcher(watcherInstance, emailDir);
 };

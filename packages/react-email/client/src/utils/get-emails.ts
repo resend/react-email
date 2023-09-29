@@ -1,10 +1,10 @@
 import { promises as fs, existsSync } from 'fs';
-import path from 'path';
-
-export const CONTENT_DIR = 'emails';
 
 export const getEmails = async () => {
-  const emailsDirectory = path.join(process.cwd(), CONTENT_DIR);
+  const emailsDirectory = process.env.EMAILS_PATH;
+  if (!emailsDirectory) throw new Error(`Could not find environment variable for EMAILS_PATH!
+    This is necessary for the previewer to properly render the emails. Maybe you should be using react-emails's "email dev" instead of running manually?
+    If you are not running manually, please open an issue about this so it can be fixed.`);
   if (!existsSync(emailsDirectory)) return { emails: [], filenames: [] };
 
   const filenames = await fs.readdir(emailsDirectory);
