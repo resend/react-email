@@ -2,10 +2,18 @@ import { type ReadableStream } from "node:stream/web";
 import { convert } from "html-to-text";
 import pretty from "pretty";
 import { type ReactNode } from "react";
-import { renderToReadableStream, renderToStaticMarkup } from "react-dom/server";
+import react from "react-dom/server";
+
+const { renderToStaticMarkup } = react;
+
+// Note: only available in platforms that support WebStreams
+// https://react.dev/reference/react-dom/server/renderToString#alternatives
+const renderToStream =
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  react.renderToReadableStream || react.renderToPipeableStream;
 
 export default async function renderToString(children: ReactNode) {
-  const stream = await renderToReadableStream(children);
+  const stream = await renderToStream(children);
 
   const html = await readableStreamToString(
     // ReactDOMServerReadableStream behaves like ReadableStream

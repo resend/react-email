@@ -1,14 +1,14 @@
 import * as React from "react";
 
-type ContainerElement = React.ElementRef<"table">;
 type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export type ContainerProps = RootProps;
 
-export const Container = React.forwardRef<
-  ContainerElement,
-  Readonly<ContainerProps>
->(({ children, style, ...props }, forwardedRef) => {
+export const Container: React.FC<Readonly<ContainerProps>> = ({
+  children,
+  style,
+  ...props
+}) => {
   return (
     <table
       align="center"
@@ -18,7 +18,6 @@ export const Container = React.forwardRef<
       cellPadding="0"
       cellSpacing="0"
       data-id="__react-email-container"
-      ref={forwardedRef}
       role="presentation"
       style={{ maxWidth: "37.5em", ...style }}
     >
@@ -29,6 +28,4 @@ export const Container = React.forwardRef<
       </tbody>
     </table>
   );
-});
-
-Container.displayName = "Container";
+};
