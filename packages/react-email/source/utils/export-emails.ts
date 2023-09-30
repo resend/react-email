@@ -1,11 +1,10 @@
 import ora from "ora";
 import esbuild from "esbuild";
-import shell from 'shelljs';
 import { closeOraOnSIGNIT } from "./close-ora-on-sigint";
 import { glob } from "glob";
 import path, { normalize } from "path";
 import { render } from "@react-email/render";
-import { existsSync, unlinkSync, writeFileSync } from "fs";
+import { unlink, writeFile } from "fs/promises";
 
 export type ExportEmailOptions = {
   /**
@@ -20,18 +19,33 @@ export type ExportEmailOptions = {
     * @default false
     */
   plainText?: boolean;
+
+  /**
+    * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
+    * and makes them absolute based on the according static folder.
+    *
+    * This is used by the preview server so it will link to static files that are local without problems.
+    *
+    * @default false
+    */
+  makeStaticFilesPathsAbsolute?: boolean;
 };
 
 export const exportEmails = async (
   src: string,
   out: string,
-  { html = true, pretty = false, plainText = false }: ExportEmailOptions
+  {
+    html = true,
+    pretty = false,
+    plainText = false,
+    makeStaticFilesPathsAbsolute = false
+  }: ExportEmailOptions
 ) => {
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
 
   const emails = glob.sync(normalize(path.join(src, '*.{tsx,jsx}')));
-  esbuild.buildSync({
+  await esbuild.build({
     bundle: true,
     entryPoints: emails,
     platform: 'node',
@@ -44,55 +58,50 @@ export const exportEmails = async (
     absolute: true,
   });
 
-  for (const template of builtEmails) {
-    spinner.text = `rendering ${template.split('/').pop()}`;
+  for (const templatePath of builtEmails) {
+    spinner.text = `rendering ${templatePath.split('/').pop()}`;
     spinner.render();
-    const email = await import(template);
+
+    delete require.cache[templatePath];
+    // we need to use require since it has a way to programatically invalidate its cache
+    const email = require(templatePath);
+
+    const comp = email.default({});
     if (plainText) {
       const emailAsText = render(
-        email.default({}),
+        comp,
         {
           plainText: true,
           pretty
         }
       );
-      const textPath = template.replace('.js', '.txt');
-      writeFileSync(textPath, emailAsText);
+      const textPath = templatePath.replace('.js', '.txt');
+      await writeFile(textPath, emailAsText);
     }
 
     if (html) {
-      const emailAsHTML = render(
-        email.default({}),
+      let emailAsHTML = render(
+        comp,
         { pretty }
       );
-      const htmlPath = template.replace('.js', '.html');
-      writeFileSync(htmlPath, emailAsHTML);
+      if (makeStaticFilesPathsAbsolute) {
+        emailAsHTML = emailAsHTML.replace(
+          /src="\/static[^"]*"/g,
+          (filePath) => filePath.replace('/static', `file://${path.join(src, '..')}/static`)
+        );
+      }
+
+      const htmlPath = templatePath.replace('.js', '.html');
+      await writeFile(htmlPath, emailAsHTML);
     }
 
-    unlinkSync(template);
+    await unlink(templatePath);
   }
+
   if (builtEmails.length === 0) {
-    spinner.succeed('No emails to render');
+    spinner.succeed('No emails were found to be render');
     return;
   }
-  spinner.succeed('Rendered all files');
-  spinner.text = `Copying static files`;
-  spinner.render();
 
-  //                          src is the emails directory
-  const srcStaticDir = path.join(path.dirname(src), 'static');
-  const hasStaticDirectory = existsSync(srcStaticDir);
-
-  if (hasStaticDirectory) {
-    const outStatic = path.join(out, 'static');
-    shell.rm('-rf', outStatic);
-    const result = shell.cp('-r', srcStaticDir, outStatic);
-    if (result.code > 0) {
-      throw new Error(
-        `Something went wrong while copying the file to ${out}/static, ${result.cat()}`,
-      );
-    }
-  }
-
-  spinner.succeed();
+  spinner.succeed('Rendered all emails and exported');
 };
