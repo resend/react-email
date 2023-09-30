@@ -13,19 +13,13 @@ import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
 export const generateEmailsPreview = async (
-  emailDir: string,
-  type: 'all' | 'static' | 'templates' = 'all',
+  emailDir: string
 ) => {
   try {
     const spinner = ora('Generating emails preview').start();
     closeOraOnSIGNIT(spinner);
 
-    if (type === 'all' || type === 'templates') {
-      await createEmailPreviews(emailDir);
-    }
-    // if (type === 'all' || type === 'static') {
-    //   await createStaticFiles();
-    // }
+    await createEmailPreviews(emailDir);
 
     spinner.stopAndPersist({
       symbol: logSymbols.success,
@@ -50,32 +44,3 @@ const createEmailPreviews = async (emailDir: string) => {
   );
 };
 
-// const createStaticFiles = async () => {
-//   const hasPublicDirectory = fs.existsSync(PACKAGE_PUBLIC_PATH);
-//
-//   if (hasPublicDirectory) {
-//     await fs.promises.rm(PACKAGE_PUBLIC_PATH, { recursive: true });
-//   }
-//
-//   await fse.ensureDir(path.join(PACKAGE_PUBLIC_PATH, 'static'));
-//   const userHasStaticDirectory = fs.existsSync(
-//     path.join(CURRENT_PATH, 'static'),
-//   );
-//
-//   if (userHasStaticDirectory) {
-//     const result = shell.cp(
-//       '-r',
-//       path.join(CURRENT_PATH, 'static'),
-//       path.join(PACKAGE_PUBLIC_PATH),
-//     );
-//
-//     if (result.code > 0) {
-//       throw new Error(
-//         `Something went wrong while copying the file to ${path.join(
-//           CURRENT_PATH,
-//           'static',
-//         )}, ${result.cat()}`,
-//       );
-//     }
-//   }
-// };
