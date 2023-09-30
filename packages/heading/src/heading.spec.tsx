@@ -2,11 +2,6 @@ import { Heading } from "./index";
 import { render } from "@react-email/render";
 
 describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Heading>{testMessage}</Heading>);

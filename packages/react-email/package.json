@@ -8,10 +8,8 @@
   "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
-    "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
-    "lint": "eslint",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "lint": "eslint ."
   },
   "license": "MIT",
   "repository": {

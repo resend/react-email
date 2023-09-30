@@ -2,11 +2,6 @@ import { Row } from "./index";
 import { render } from "@react-email/render";
 
 describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders the <Row> component", () => {
     const actualOutput = render(<Row children={undefined} />);
     expect(actualOutput).toMatchInlineSnapshot(

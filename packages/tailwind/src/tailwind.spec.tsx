@@ -4,11 +4,6 @@ import { TailwindConfig } from "tw-to-css";
 import { Button } from "@react-email/button";
 
 describe("Tailwind component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
