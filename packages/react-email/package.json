@@ -46,8 +46,8 @@
     "@types/fs-extra": "11.0.1",
     "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.12",
-    "prettier": "3.0.0",
-    "ts-node": "10.9.1",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   }
 }
