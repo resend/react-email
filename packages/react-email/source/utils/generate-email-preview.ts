@@ -13,13 +13,13 @@ import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
 export const generateEmailsPreview = async (
-  emailDir: string
+  absoluteEmailsDir: string
 ) => {
   try {
     const spinner = ora('Generating emails preview').start();
     closeOraOnSIGNIT(spinner);
 
-    await createEmailPreviews(emailDir);
+    await createEmailPreviews(absoluteEmailsDir);
 
     spinner.stopAndPersist({
       symbol: logSymbols.success,
@@ -30,17 +30,17 @@ export const generateEmailsPreview = async (
   }
 };
 
-const createEmailPreviews = async (emailDir: string) => {
-  const previewCompilationDir = path.join(emailDir, '.preview');
+const createEmailPreviews = async (absoluteEmailsDir: string) => {
+  const previewCompilationDir = path.join(absoluteEmailsDir, '.preview');
 
   if (fs.existsSync(previewCompilationDir)) {
     await fse.rm(previewCompilationDir, { recursive: true, force: true });
   }
 
   await exportEmails(
-    emailDir,
+    absoluteEmailsDir,
     previewCompilationDir,
-    { html: true, plainText: true, pretty: true }
+    { html: true, plainText: true, pretty: true, makeStaticFilesPathsAbsolute: true }
   );
 };
 

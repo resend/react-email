@@ -2,10 +2,10 @@ import chokidar, { FSWatcher } from 'chokidar';
 import path from 'path';
 import { generateEmailsPreview } from './generate-email-preview';
 
-export const createWatcherInstance = (watchDir: string) => {
-  const watcher = chokidar.watch(watchDir, {
+export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
+  const watcher = chokidar.watch(absoluteEmailsDir, {
     ignoreInitial: true,
-    cwd: watchDir.split(path.sep).slice(0, -1).join(path.sep),
+    cwd: absoluteEmailsDir.split(path.sep).slice(0, -1).join(path.sep),
     ignored: /(^|[\/\\])\../,
   });
 
@@ -19,42 +19,18 @@ export const createWatcherInstance = (watchDir: string) => {
   return watcher;
 };
 
-export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
+export const emailPreviewGeneratorWatcher = (
+  watcherInstance: FSWatcher,
+  absoluteEmailsDir: string
+) => {
   watcherInstance.on('all', async (_event, filename) => {
     const file = filename.split(path.sep);
-    if (file[1] === undefined) {
+    if (file[1] === undefined || file[1] === '.preview') {
       return;
     }
 
-    // if (event === EVENT_FILE_DELETED) {
-    //   if (file[1] === 'static' && file[2]) {
-    //     await fs.promises.rm(
-    //       path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
-    //     );
-    //     return;
-    //   }
-    //
-    //   await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
-    //   return;
-    // }
-
-    // if (file[1] === 'static' && file[2]) {
-    //   const srcPath = path.join(watchDir, 'static', file[2]);
-    //   const result = shell.cp(
-    //     '-r',
-    //     srcPath,
-    //     path.join(REACT_EMAIL_ROOT, 'public', 'static'),
-    //   );
-    //   if (result.code > 0) {
-    //     throw new Error(
-    //       `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
-    //     );
-    //   }
-    //   return;
-    // }
-
     try {
-      await generateEmailsPreview(watchDir, 'templates');
+      await generateEmailsPreview(absoluteEmailsDir);
     } catch (e) {
       throw new Error(
         `Something went wrong when trying to genreate previews for the emails, ${// @ts-expect-error
