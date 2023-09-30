@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import * as React from "react";
-import { unreachable } from "../../utils";
+import { unreachable } from "../utils/unreachable";
 
 type BadgeElement = React.ElementRef<"span">;
 type RootProps = React.ComponentPropsWithoutRef<"span">;

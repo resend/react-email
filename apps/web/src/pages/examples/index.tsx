@@ -95,10 +95,10 @@ const items = [
   },
 ];
 
-const Examples = () => {
-  const title = "Examples — React Email";
-  const description = "Open source templates built with React Email";
+const title = "Examples — React Email";
+const description = "Open source templates built with React Email";
 
+const Examples = () => {
   return (
     <>
       <Head>

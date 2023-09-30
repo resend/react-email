@@ -1,22 +1,10 @@
-import classnames from "classnames";
 import Image from "next/image";
 import * as React from "react";
 import { Anchor } from "./anchor";
 import { Text } from "./text";
 
-type RootProps = React.ComponentPropsWithoutRef<"footer">;
-
-export const Footer: React.FC<Readonly<RootProps>> = ({
-  className,
-  ...props
-}) => (
-  <footer
-    className={classnames(
-      "flex h-[80px] items-center justify-center text-center",
-      className,
-    )}
-    {...props}
-  >
+export const Footer: React.FC = () => (
+  <footer className="flex h-[80px] items-center justify-center text-center">
     <Text className="inline-flex items-center gap-2">
       Created by{" "}
       <Anchor

@@ -94,13 +94,13 @@ All components were tested using the most popular email clients.
 #### Install dependencies
 
 ```sh
-yarn install
+pnpm install
 ```
 
 #### Build and run packages
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).

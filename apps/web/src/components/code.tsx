@@ -1,6 +1,5 @@
 import classnames from "classnames";
-import type { Language } from "prism-react-renderer";
-import Highlight, { defaultProps } from "prism-react-renderer";
+import { Highlight } from "prism-react-renderer";
 import * as React from "react";
 import { IconButton } from "./icon-button";
 import { IconCheck, IconClipboard } from "./icons";
@@ -8,7 +7,7 @@ import { IconCheck, IconClipboard } from "./icons";
 interface CodeProps {
   children: string;
   className?: string;
-  language?: Language;
+  language?: string;
 }
 
 const theme = {
@@ -54,12 +53,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   const value = children.trim();
 
   return (
-    <Highlight
-      {...defaultProps}
-      code={value}
-      language={language as Language}
-      theme={theme}
-    >
+    <Highlight code={value} language={language} theme={theme}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classnames(

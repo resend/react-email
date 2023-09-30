@@ -1,7 +1,7 @@
 import * as SlotPrimitive from "@radix-ui/react-slot";
 import classnames from "classnames";
 import * as React from "react";
-import { unreachable } from "../../utils";
+import { unreachable } from "../utils/unreachable";
 
 type ButtonElement = React.ElementRef<"button">;
 type RootProps = React.ComponentPropsWithoutRef<"button">;

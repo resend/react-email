@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import * as React from "react";
-import { unreachable } from "../../utils";
+import { unreachable } from "../utils/unreachable";
 
 type RootProps = React.ComponentPropsWithoutRef<"a">;
 
@@ -10,10 +10,11 @@ interface AnchorProps extends RootProps {
   appearance?: Appearance;
 }
 
-export const Anchor = React.forwardRef<
-  HTMLAnchorElement,
-  Readonly<AnchorProps>
->(({ appearance = "cyan", className, ...props }, forwardedRef) => (
+export const Anchor: React.FC<Readonly<AnchorProps>> = ({
+  appearance = "cyan",
+  className,
+  ...props
+}) => (
   <a
     className={classNames(
       "rounded-sm outline-none transition-transform duration-200 ease-in-out",
@@ -22,12 +23,11 @@ export const Anchor = React.forwardRef<
       getAppearance(appearance),
       className,
     )}
-    ref={forwardedRef}
     {...props}
   >
     {props.children}
   </a>
-));
+);
 
 const getAppearance = (appearance: Appearance | undefined) => {
   switch (appearance) {
@@ -40,5 +40,3 @@ const getAppearance = (appearance: Appearance | undefined) => {
       unreachable(appearance);
   }
 };
-
-Anchor.displayName = "Anchor";
