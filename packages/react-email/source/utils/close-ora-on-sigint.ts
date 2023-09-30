@@ -12,5 +12,6 @@ export const closeOraOnSIGNIT = (spinner: Ora) => {
     process.on('SIGINT', () => {
       spinenrsToStop.forEach(spinner => spinner.stopAndPersist());
     });
+    hasSetSigintEvent = true;
   }
 };
