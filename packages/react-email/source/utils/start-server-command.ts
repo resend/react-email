@@ -1,49 +1,40 @@
-import { ChildProcess } from 'child_process';
+import { ChildProcess, spawn } from 'child_process';
 import path from 'path';
-import shell from 'shelljs';
+import chalk from 'chalk';
 
-let processesToKill: ChildProcess[] = [];
+let previewServerProcess: ChildProcess | undefined;
 
-function execAsync(command: string) {
-  const process = shell.exec(command, { async: true });
-  processesToKill.push(process);
-  process.on('close', () => {
-    processesToKill = processesToKill.filter((p) => p !== process);
-  });
-}
+export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
+  const serverFilePath = path.join(__dirname, '..', '..', 'client', 'server.js');
 
-export const startDevServer = (emailDir: string, port: string) => {
-  const serverFilePath = path.join(path.dirname(path.dirname(__dirname)), 'client', 'server.js');
-
-  execAsync(`PORT=${port} EMAILS_PATH="${emailDir}" node ${serverFilePath}`);
+  previewServerProcess = spawn(
+    'node',
+    [serverFilePath],
+    { detached: false, env: { ...process.env, PORT: port, EMAILS_PATH: absoluteEmailsDir } }
+  );
+  console.info(`${chalk.greenBright('react-email')} previewer running at port ${port}`);
+  console.info(`\nCheck it out at http://localhost:${port}`);
+  previewServerProcess.on('error', (err) => console.info(`PREVIEW SERVER: ${err}`));
+  previewServerProcess.on('close', () => previewServerProcess = undefined);
 };
 
-export const startProdServer = (packageManager: string, port: string) => {
-  execAsync(`${packageManager} run start -- -p ${port}`);
-};
-
-export const buildProdServer = (packageManager: string) => {
-  execAsync(`${packageManager} run build`);
-
-  // if build fails for whatever reason, make sure the shell actually exits
-  process.on('close', (code) => {
-    shell.exit(code ?? undefined);
+export const stopPreviewServer = () => {
+  return new Promise<void>((resolve) => {
+    if (previewServerProcess) {
+      previewServerProcess.kill();
+      previewServerProcess.on('close', () => {
+        resolve();
+      });
+    }
   });
 };
 
 // based on https://stackoverflow.com/a/14032965
 const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
-  (options) => (code) => {
-    if (processesToKill.length > 0) {
-      console.log('shutting down %d subprocesses', processesToKill.length);
-    }
-    processesToKill.forEach((p) => {
-      if (p.connected) {
-        p.kill();
-      }
-    });
+  (options) => async (code) => {
+    await stopPreviewServer();
     if (options?.exit) {
-      shell.exit(code);
+      process.exit(code);
     }
   };
 
