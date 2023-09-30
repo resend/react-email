@@ -19,8 +19,8 @@
     "clean": "rm -rf dist",
     "format:check": "prettier --check \"**/*.{ts,tsx}\"",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "test:watch": "vitest run",
-    "test": "vitest"
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "dependencies": {
     "@react-email/components": "0.0.4",

@@ -1,7 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import readPackage from 'read-pkg';
 import { REACT_EMAIL_ROOT } from './constants';
-import fs from 'fs';
-import path from 'path';
 
 export const syncPkg = async () => {
   const clientPkg = await readPackage({ cwd: REACT_EMAIL_ROOT });

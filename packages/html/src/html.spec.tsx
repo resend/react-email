@@ -1,5 +1,5 @@
-import { Html } from "./index";
 import { render } from "@react-email/render";
+import { Html } from "./index";
 
 describe("render", () => {
   it("renders the <Html> component", () => {

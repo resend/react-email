@@ -20,10 +20,10 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
     return (
       <a
         {...props}
-        ref={forwardedRef}
         data-id="react-email-button"
-        target={target}
+        ref={forwardedRef}
         style={buttonStyle({ ...style, pX, pY })}
+        target={target}
       >
         <span
           dangerouslySetInnerHTML={{

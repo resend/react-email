@@ -1,7 +1,9 @@
-import { Tailwind } from "./tailwind";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { renderToStaticMarkup as render } from "react-dom/server";
-import { TailwindConfig } from "tw-to-css";
+import type { TailwindConfig } from "tw-to-css";
 import { Button } from "@react-email/button";
+import { Tailwind } from "./tailwind";
 
 describe("Tailwind component", () => {
   describe("Inline styles", () => {
@@ -33,8 +35,8 @@ describe("Tailwind component", () => {
       const actualOutput = render(
         <Tailwind>
           <div
-            style={{ fontSize: "12px", backgroundColor: "red" }}
             className="bg-black text-[16px]"
+            style={{ fontSize: "12px", backgroundColor: "red" }}
           />
         </Tailwind>,
       );
@@ -61,7 +63,7 @@ describe("Tailwind component", () => {
     it("should add css to <head/>", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
@@ -104,8 +106,7 @@ describe("Tailwind component", () => {
       function noHead() {
         render(
           <Tailwind>
-            <html>
-              {/* <Head></Head> */}
+            <html lang="en">
               <div className="bg-red-200 sm:bg-red-500" />
             </html>
           </Tailwind>,
@@ -119,7 +120,7 @@ describe("Tailwind component", () => {
     it("should persist exsisting <head/> elements", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head>
               <style />
               <link />
@@ -197,7 +198,7 @@ describe("Tailwind component", () => {
 
       const actualOutput = render(
         <Tailwind config={config}>
-          <div className="m-8xl"></div>
+          <div className="m-8xl" />
         </Tailwind>,
       );
 
@@ -253,22 +254,22 @@ describe("Tailwind component", () => {
 
   describe("Custom plugins config", () => {
     it("should be able to use custom plugins", () => {
-      const config: TailwindConfig = {
-        plugins: [
-          function ({ addUtilities }: any) {
-            const newUtilities = {
-              ".border-custom": {
-                border: "2px solid",
-              },
-            };
-
-            addUtilities(newUtilities);
-          },
-        ],
-      };
-
       const actualOutput = render(
-        <Tailwind config={config}>
+        <Tailwind
+          config={{
+            plugins: [
+              ({ addUtilities }: any) => {
+                const newUtilities = {
+                  ".border-custom": {
+                    border: "2px solid",
+                  },
+                };
+
+                addUtilities(newUtilities);
+              },
+            ],
+          }}
+        >
           <div className="border-custom" />
         </Tailwind>,
       );
@@ -279,23 +280,23 @@ describe("Tailwind component", () => {
     });
 
     it("should be able to use custom plugins with responsive styles", () => {
-      const config: TailwindConfig = {
-        plugins: [
-          function ({ addUtilities }: any) {
-            const newUtilities = {
-              ".border-custom": {
-                border: "2px solid",
-              },
-            };
-
-            addUtilities(newUtilities);
-          },
-        ],
-      };
-
       const actualOutput = render(
-        <Tailwind config={config}>
-          <html>
+        <Tailwind
+          config={{
+            plugins: [
+              ({ addUtilities }: any) => {
+                const newUtilities = {
+                  ".border-custom": {
+                    border: "2px solid",
+                  },
+                };
+
+                addUtilities(newUtilities);
+              },
+            ],
+          }}
+        >
+          <html lang="en">
             <head />
             <body>
               <div className="border-custom sm:border-custom" />
@@ -313,7 +314,7 @@ describe("Tailwind component", () => {
     it("should replace forward slash with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-full" />
@@ -329,7 +330,7 @@ describe("Tailwind component", () => {
     it("should replace period with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-1.5" />
@@ -345,7 +346,7 @@ describe("Tailwind component", () => {
     it("should replace percent signs with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-[50%]" />

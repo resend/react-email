@@ -1,5 +1,5 @@
-import { Link } from "./index";
 import { render } from "@react-email/render";
+import { Link } from "./index";
 
 describe("render", () => {
   it("renders the <Link> component", () => {

@@ -3,12 +3,12 @@ import * as React from "react";
 type HeadElement = React.ElementRef<"head">;
 type RootProps = React.ComponentPropsWithoutRef<"head">;
 
-export interface HeadProps extends RootProps {}
+export type HeadProps = RootProps;
 
 export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
   ({ children, ...props }, forwardedRef) => (
-    <head {...props} ref={forwardedRef} data-id="__react-email-head">
-      <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head {...props} data-id="__react-email-head" ref={forwardedRef}>
+      <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
       {children}
     </head>
   ),

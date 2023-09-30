@@ -44,5 +44,12 @@ module.exports = {
     "jsx-a11y/no-autofocus": "off",
     "no-alert": "off",
     "react/no-array-index-key": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        namedComponents: "arrow-function",
+        unnamedComponents: "arrow-function",
+      },
+    ],
   },
 };

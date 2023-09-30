@@ -1,14 +1,14 @@
+import fs, { unlinkSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
 import tree from 'tree-node-cli';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
-import { render, Options } from '@react-email/render';
-import { unlinkSync, writeFileSync } from 'fs';
+import type { Options } from '@react-email/render';
+import { render } from '@react-email/render';
 import normalize from 'normalize-path';
-import path from 'path';
 import shell from 'shelljs';
-import fs from 'fs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
@@ -41,7 +41,9 @@ export const exportTemplates = async (
   for (const template of allBuiltTemplates) {
     spinner.text = `rendering ${template.split('/').pop()}`;
     spinner.render();
+    // eslint-disable-next-line
     const component = await import(template);
+    // eslint-disable-next-line
     const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
       '.js',

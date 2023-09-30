@@ -17,8 +17,8 @@
     "clean": "rm -rf dist",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "test:watch": "vitest run",
-    "test": "vitest"
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "dependencies": {
     "@aws-sdk/client-ses": "3.341.0",

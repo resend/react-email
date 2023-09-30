@@ -14,13 +14,13 @@ export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
         align="center"
         width="100%"
         {...props}
-        ref={forwardedRef}
-        data-id="react-email-row"
-        style={style}
-        role="presentation"
-        cellSpacing="0"
-        cellPadding="0"
         border={0}
+        cellPadding="0"
+        cellSpacing="0"
+        data-id="react-email-row"
+        ref={forwardedRef}
+        role="presentation"
+        style={style}
       >
         <tbody style={{ width: "100%" }}>
           <tr style={{ width: "100%" }}>{children}</tr>

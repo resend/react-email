@@ -1,4 +1,5 @@
-import { withMargin, withSpace, Margin } from "./";
+import type { Margin } from ".";
+import { withMargin, withSpace } from ".";
 
 describe("withMargin", () => {
   it("should return an empty object for empty input", () => {

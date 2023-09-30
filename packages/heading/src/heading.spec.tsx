@@ -1,5 +1,5 @@
-import { Heading } from "./index";
 import { render } from "@react-email/render";
+import { Heading } from "./index";
 
 describe("render", () => {
   it("renders children correctly", () => {
@@ -11,7 +11,7 @@ describe("render", () => {
   it("passes style and other props correctly", () => {
     const style = { backgroundColor: "red" };
     const html = render(
-      <Heading style={style} data-testid="heading-test">
+      <Heading data-testid="heading-test" style={style}>
         Test
       </Heading>,
     );
@@ -21,7 +21,7 @@ describe("render", () => {
 
   it("renders the <Heading> component", () => {
     const actualOutput = render(
-      <Heading mx={4} as="h2">
+      <Heading as="h2" mx={4}>
         Lorem ipsum
       </Heading>,
     );

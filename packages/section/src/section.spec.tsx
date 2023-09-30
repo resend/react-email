@@ -1,5 +1,5 @@
-import { Section } from "./index";
 import { render } from "@react-email/render";
+import { Section } from "./index";
 
 describe("render", () => {
   it("renders the <Section> component", () => {
@@ -32,7 +32,7 @@ describe("render", () => {
       <Section>
         <div>Lorem ipsum</div>
         <p>Lorem ipsum</p>
-        <img src="lorem.ipsum" alt="Lorem" />
+        <img alt="Lorem" src="lorem.ipsum" />
       </Section>,
     );
     const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);

@@ -27,8 +27,8 @@
     "clean": "rm -rf dist",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "lint": "eslint .",
-    "test:watch": "vitest run",
-    "test": "vitest"
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "react": "18.2.0"
@@ -37,8 +37,6 @@
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/render": "0.0.6",
-    "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.8",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"

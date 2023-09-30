@@ -1,8 +1,8 @@
+import { type ReadableStream } from "node:stream/web";
 import { convert } from "html-to-text";
 import pretty from "pretty";
 import { type ReactNode } from "react";
 import { renderToReadableStream, renderToStaticMarkup } from "react-dom/server";
-import { type ReadableStream } from "node:stream/web";
 
 export default async function renderToString(children: ReactNode) {
   const stream = await renderToReadableStream(children);

@@ -1,12 +1,11 @@
-import * as React from "react";
-import { Container } from "./index";
 import { render } from "@react-email/render";
+import { Container } from "./index";
 
 describe("render", () => {
   it("renders the <Container> component", () => {
     const container = render(
       <Container style={{ maxWidth: "300px" }}>
-        <button>Hi</button>
+        <button type="button">Hi</button>
       </Container>,
     );
 

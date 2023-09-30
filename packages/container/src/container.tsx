@@ -3,7 +3,7 @@ import * as React from "react";
 type ContainerElement = React.ElementRef<"table">;
 type RootProps = React.ComponentPropsWithoutRef<"table">;
 
-export interface ContainerProps extends RootProps {}
+export type ContainerProps = RootProps;
 
 export const Container = React.forwardRef<
   ContainerElement,
@@ -14,12 +14,12 @@ export const Container = React.forwardRef<
       align="center"
       width="100%"
       {...props}
-      ref={forwardedRef}
-      data-id="__react-email-container"
-      role="presentation"
-      cellSpacing="0"
-      cellPadding="0"
       border={0}
+      cellPadding="0"
+      cellSpacing="0"
+      data-id="__react-email-container"
+      ref={forwardedRef}
+      role="presentation"
       style={{ maxWidth: "37.5em", ...style }}
     >
       <tbody>

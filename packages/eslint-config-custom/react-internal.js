@@ -39,7 +39,11 @@ module.exports = {
   ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js"],
   rules: {
     "@typescript-eslint/explicit-function-return-type": "off",
+    "react/no-unescaped-entities": "off",
     "import/no-default-export": "off",
+    "import/no-named-as-default-member": "off",
+    "prefer-named-capture-group": "off",
+    "eslint-comments/require-description": "off",
     "react/function-component-definition": [
       2,
       {

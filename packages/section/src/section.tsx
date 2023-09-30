@@ -3,7 +3,7 @@ import * as React from "react";
 type SectionElement = React.ElementRef<"table">;
 type RootProps = React.ComponentPropsWithoutRef<"table">;
 
-export interface SectionProps extends RootProps {}
+export type SectionProps = RootProps;
 
 export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
   ({ children, style, ...props }, forwardedRef) => {
@@ -12,13 +12,13 @@ export const Section = React.forwardRef<SectionElement, Readonly<SectionProps>>(
         align="center"
         width="100%"
         {...props}
-        ref={forwardedRef}
-        data-id="react-email-section"
-        style={style}
         border={0}
         cellPadding="0"
         cellSpacing="0"
+        data-id="react-email-section"
+        ref={forwardedRef}
         role="presentation"
+        style={style}
       >
         <tbody>
           <tr>
