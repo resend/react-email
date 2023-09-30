@@ -12,7 +12,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@radix-ui/colors": "1.0.1",

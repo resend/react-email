@@ -36,7 +36,7 @@ jobs:
   format:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
   # test:
   #   runs-on: buildjet-4vcpu-ubuntu-2204
   #   container:
-  #     image: node:16
+  #     image: node:18
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v3
@@ -92,7 +92,7 @@ jobs:
   build:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -120,7 +120,7 @@ jobs:
   dependencies:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -24,7 +24,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@commander-js/extra-typings": "9.4.1",

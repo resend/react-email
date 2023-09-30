@@ -42,7 +42,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.0.2",
