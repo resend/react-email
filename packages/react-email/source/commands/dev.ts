@@ -13,7 +13,7 @@ export const dev = async ({ dir, port }: Args) => {
       throw new Error(`Missing ${dir} folder`);
     }
 
-    await setupServer('dev', dir, port);
+    await setupServer(dir, port);
   } catch (error) {
     console.log(error);
     shell.exit(1);
