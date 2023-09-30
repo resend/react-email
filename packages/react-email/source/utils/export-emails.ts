@@ -6,8 +6,6 @@ import { glob } from "glob";
 import path, { normalize } from "path";
 import { render } from "@react-email/render";
 import { existsSync, unlinkSync, writeFileSync } from "fs";
-import logSymbols from "log-symbols";
-import tree from "tree-node-cli";
 
 export type ExportEmailOptions = {
   /**
@@ -81,28 +79,20 @@ export const exportEmails = async (
   spinner.text = `Copying static files`;
   spinner.render();
 
-  const staticDir = path.join(src, 'static');
-  const hasStaticDirectory = existsSync(staticDir);
+  //                          src is the emails directory
+  const srcStaticDir = path.join(path.dirname(src), 'static');
+  const hasStaticDirectory = existsSync(srcStaticDir);
 
   if (hasStaticDirectory) {
-    const result = shell.cp('-r', staticDir, path.join(out, 'static'));
+    const outStatic = path.join(out, 'static');
+    shell.rm('-rf', outStatic);
+    const result = shell.cp('-r', srcStaticDir, outStatic);
     if (result.code > 0) {
       throw new Error(
         `Something went wrong while copying the file to ${out}/static, ${result.cat()}`,
       );
     }
   }
+
   spinner.succeed();
-
-  const fileTree = tree(out, {
-    allFiles: true,
-    maxDepth: 4,
-  });
-
-  console.log(fileTree);
-
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'Successfully exported emails',
-  });
 };
