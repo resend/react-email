@@ -49,12 +49,12 @@ const buttonStyle = (
   const { pY, pX, ...rest } = style || {};
 
   return {
-    ...rest,
     lineHeight: "100%",
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
     padding: `${pY}px ${pX}px`,
+     ...rest,
   };
 };
 
