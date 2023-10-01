@@ -1,37 +1,121 @@
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import htmlParser, {
-  attributesToProps,
-  domToReact,
-  Element,
-} from "html-react-parser";
 import { tailwindToCSS, TailwindConfig } from "tw-to-css";
+
+import { cssToJsxStyle } from "./utils";
 
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+function processElement(
+  element: React.ReactElement,
+  headStyles: string[],
+  config?: TailwindConfig,
+): React.ReactElement {
   const { twi } = tailwindToCSS({
     config,
   });
 
-  const newChildren = React.Children.toArray(children);
+  if (element.props.className) {
+    const convertedStyles: string[] = [];
+    const responsiveStyles: string[] = [];
+    const classNames = element.props.className.split(" ");
 
-  const fullHTML = renderToStaticMarkup(<>{newChildren}</>);
+    const customClassNames = classNames.filter((className: string) => {
+      if (twi(className, { ignoreMediaQueries: true })) {
+        convertedStyles.push(twi(className, { ignoreMediaQueries: true }));
+        return false;
+      } else if (twi(className, { ignoreMediaQueries: false })) {
+        responsiveStyles.push(className);
+        return false;
+      }
+      return true;
+    });
 
-  const tailwindCss = twi(fullHTML, {
-    merge: false,
-    ignoreMediaQueries: false,
+    const convertedResponsiveStyles = twi(responsiveStyles, {
+      ignoreMediaQueries: false,
+      merge: false,
+    });
+
+    headStyles.push(
+      convertedResponsiveStyles.replace(/^\n+/, "").replace(/\n+$/, ""),
+    );
+
+    const newProps = {
+      ...element.props,
+      className: customClassNames.length
+        ? customClassNames.join(" ")
+        : undefined,
+      style: {
+        ...element.props.style,
+        ...cssToJsxStyle(convertedStyles.join(" ")),
+      },
+    };
+
+    element = React.cloneElement(element, newProps);
+  }
+
+  if (element.props.children) {
+    const children = React.Children.toArray(element.props.children);
+    const processedChildren = children.map((child) => {
+      if (React.isValidElement(child)) {
+        return processElement(child, headStyles, config);
+      }
+      return child;
+    });
+
+    element = React.cloneElement(element, element.props, ...processedChildren);
+  }
+
+  return element;
+}
+
+function processHead(
+  child: React.ReactElement,
+  responsiveStyles: string[],
+): React.ReactElement {
+  // FIXME: find a cleaner solution for child as any
+  if (child.type === "head" || (child as any).type.displayName === "Head") {
+    const styleElement = <style>{responsiveStyles}</style>;
+
+    const headChildren = React.Children.toArray(child.props.children);
+    headChildren.push(styleElement);
+
+    child = React.cloneElement(child, child.props, ...headChildren);
+  }
+  if (child.props.children) {
+    const children = React.Children.toArray(child.props.children);
+    const processedChildren = children.map((processedChild) => {
+      if (React.isValidElement(processedChild)) {
+        return processHead(processedChild, responsiveStyles);
+      }
+      return child;
+    });
+
+    child = React.cloneElement(child, child.props, ...processedChildren);
+  }
+
+  return child;
+}
+
+export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+  const headStyles: string[] = [];
+
+  const childrenWithInlineStyles = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      return processElement(child, headStyles, config);
+    }
+    return child;
   });
-  const css = cleanCss(tailwindCss);
-  const cssMap = makeCssMap(css);
 
-  const headStyle = getMediaQueryCss(css);
+  if (!childrenWithInlineStyles) return <>{children}</>;
+
+  const fullHTML = renderToStaticMarkup(<>{childrenWithInlineStyles}</>);
 
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyle,
+    headStyles.join(" "),
   );
   const hasHTML = /<html[^>]*>/gm.test(fullHTML);
   const hasHead = /<head[^>]*>/gm.test(fullHTML);
@@ -42,138 +126,17 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     );
   }
 
-  const reactHTML = React.Children.map(newChildren, (child) => {
-    if (!React.isValidElement(child)) return child;
+  const childrenWithInlineAndResponsiveStyles = React.Children.map(
+    childrenWithInlineStyles,
+    (child) => {
+      if (React.isValidElement(child)) {
+        return processHead(child, headStyles);
+      }
+      return child;
+    },
+  );
 
-    const html = renderToStaticMarkup(child);
-
-    const parsedHTML = htmlParser(html, {
-      replace: (domNode) => {
-        if (domNode instanceof Element) {
-          if (hasResponsiveStyles && hasHead && domNode.name === "head") {
-            let newDomNode: JSX.Element | null = null;
-
-            if (domNode.children) {
-              const props = attributesToProps(domNode.attribs);
-
-              newDomNode = (
-                <head {...props}>
-                  {domToReact(domNode.children)}
-                  <style>{headStyle}</style>
-                </head>
-              );
-            }
-
-            return newDomNode;
-          }
-
-          if (domNode.attribs?.class) {
-            const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
-            const cleanTailwindClasses = domNode.attribs.class
-              // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, "_");
-
-            const currentStyles = domNode.attribs.style
-              ? `${domNode.attribs.style};`
-              : "";
-            const tailwindStyles = cleanTailwindClasses
-              .split(" ")
-              .map((className) => {
-                return cssMap[`.${className}`];
-              })
-              .join(";");
-            domNode.attribs.style = `${currentStyles} ${tailwindStyles}`;
-
-            domNode.attribs.class = domNode.attribs.class
-              // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
-              .split(" ")
-              .filter((className) => {
-                const cleanedClassName = className.replace(cleanRegex, "_");
-                return (
-                  className.search(/^.{2}:/) !== -1 ||
-                  !cssMap[`.${cleanedClassName}`]
-                );
-              })
-              .join(" ")
-              // replace all non-alphanumeric characters with underscores
-              .replace(cleanRegex, "_");
-
-            if (domNode.attribs.class === "") delete domNode.attribs.class;
-          }
-        }
-      },
-    });
-
-    return parsedHTML;
-  });
-
-  return <>{reactHTML}</>;
+  return <>{childrenWithInlineAndResponsiveStyles}</>;
 };
 
 Tailwind.displayName = "Tailwind";
-
-/**
- * Clean css selectors to replace all non-alphanumeric characters with underscores
- */
-function cleanCss(css: string) {
-  let newCss = css
-    .replace(/\\/g, "")
-    // find all css selectors and look ahead for opening and closing curly braces
-    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
-    })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      return `font-family${value.replace(/['"]+/g, "")}`;
-    });
-  return newCss;
-}
-
-/**
- * Get media query css to put in head
- */
-function getMediaQueryCss(css: string) {
-  const mediaQueryRegex = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm;
-
-  return (
-    css
-      .replace(mediaQueryRegex, (m) => {
-        return m.replace(
-          /([^{]+\{)([\s\S]+?)(\}\s*\})/gm,
-          (_, start, content, end) => {
-            const newContent = (content as string).replace(
-              /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
-              (_, prop, value) => {
-                return `${prop}: ${value} !important;`;
-              },
-            );
-            return `${start}${newContent}${end}`;
-          },
-        );
-      })
-      // only return media queries
-      .match(/@media\s*([^{]+)\{([^{}]*\{[^{}]*\})*[^{}]*\}/g)
-      ?.join("") ?? ""
-  );
-}
-
-/**
- * Make a map of all class names and their css styles
- */
-function makeCssMap(css: string) {
-  const cssNoMedia = css.replace(
-    /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm,
-    "",
-  );
-
-  const cssMap = cssNoMedia.split("}").reduce(
-    (acc, cur) => {
-      const [key, value] = cur.split("{");
-      if (key && value) {
-        acc[key] = value;
-      }
-      return acc;
-    },
-    {} as Record<string, string>,
-  );
-  return cssMap;
-}
