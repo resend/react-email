@@ -1,6 +1,6 @@
-import fs from 'node:fs';
+import { exists } from 'fs-extra';
 import shell from 'shelljs';
-import { downloadClient, REACT_EMAIL_ROOT } from '../utils';
+
 import { setupServer } from '../utils/run-server';
 
 interface Args {
@@ -10,7 +10,7 @@ interface Args {
 
 export const dev = async ({ dir, port }: Args) => {
   try {
-    if (!fs.existsSync(dir)) {
+    if (!(await exists(dir))) {
       throw new Error(`Missing ${dir} folder`);
     }
 

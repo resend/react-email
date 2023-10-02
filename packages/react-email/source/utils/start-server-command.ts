@@ -1,5 +1,5 @@
 import { ChildProcess, spawn } from 'child_process';
-import path from 'path';
+import path from 'node:path';
 import chalk from 'chalk';
 
 let previewServerProcess: ChildProcess | undefined;

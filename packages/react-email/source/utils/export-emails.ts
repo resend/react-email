@@ -4,7 +4,7 @@ import { closeOraOnSIGNIT } from "./close-ora-on-sigint";
 import { glob } from "glob";
 import path, { normalize } from "path";
 import { render } from "@react-email/render";
-import { unlink, writeFile } from "fs/promises";
+import { unlink, writeFile } from "fs-extra";
 
 export type ExportEmailOptions = {
   /**

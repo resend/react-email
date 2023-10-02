@@ -1,18 +1,8 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import ora from 'ora';
-import shell from 'shelljs';
 import logSymbols from 'log-symbols';
-// import {
-  // CURRENT_PATH,
-  // PACKAGE_EMAILS_PATH,
-  // PACKAGE_PUBLIC_PATH,
-// } from './constants';
-import fs from 'fs';
 import ora from 'ora';
-// import shell from 'shelljs';
-import path from 'path';
-import fse from 'fs-extra';
+import path from 'node:path';
+import { exists, rm } from 'fs-extra';
+
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
@@ -37,8 +27,8 @@ export const generateEmailsPreview = async (
 const createEmailPreviews = async (absoluteEmailsDir: string) => {
   const previewCompilationDir = path.join(absoluteEmailsDir, '.preview');
 
-  if (fs.existsSync(previewCompilationDir)) {
-    await fse.rm(previewCompilationDir, { recursive: true, force: true });
+  if (await exists(previewCompilationDir)) {
+    await rm(previewCompilationDir, { recursive: true, force: true });
   }
 
   await exportEmails(

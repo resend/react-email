@@ -1,5 +1,5 @@
 import chokidar, { FSWatcher } from 'chokidar';
-import path from 'path';
+import path from 'node:path';
 import { generateEmailsPreview } from './generate-email-preview';
 
 export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
