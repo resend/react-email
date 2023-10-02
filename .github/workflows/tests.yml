@@ -32,6 +32,9 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
+      - name: Run Build
+        run: pnpm build
+
       - name: Run Lint
         run: pnpm lint
 
@@ -91,6 +94,9 @@ jobs:
 
       - name: Install packages
         run: pnpm install --frozen-lockfile
+
+      - name: Run Build
+        run: pnpm build
 
       - name: Run Tests
         run: pnpm test
