@@ -324,7 +324,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html id=\\"__react-email\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -351,7 +351,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"',
+      '"<html id=\\"__react-email\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"',
     );
   });
 
