@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { join as pathJoin } from 'path';
-import { getEmails } from '../../../utils/get-emails';
+import { emailsDir, getEmails } from '../../../utils/get-emails';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -17,7 +17,7 @@ export default async function Page({ params }) {
   if (!template) throw new Error(`Could not find email with slug that should be ${params.slug}`);
 
   // this is not undefined because if it was, getEmails would have already thrown
-  const basePath = process.env.EMAILS_PATH!;
+  const basePath = emailsDir();
 
   const reactMarkup = await fs.readFile(pathJoin(basePath, template), {
     encoding: 'utf-8',

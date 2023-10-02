@@ -2,7 +2,7 @@ import { ChildProcess, spawn } from 'child_process';
 import path from 'node:path';
 import chalk from 'chalk';
 
-let previewServerProcess: ChildProcess | undefined;
+export let previewServerProcess: ChildProcess | undefined;
 
 export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   const serverFilePath = path.join(__dirname, '..', '..', 'client', 'server.js');
@@ -14,7 +14,9 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   );
   console.info(`${chalk.greenBright('react-email')} previewer running at port ${port}`);
   console.info(`\nCheck it out at http://localhost:${port}`);
-  previewServerProcess.on('error', (err) => console.info(`PREVIEW SERVER: ${err}`));
+
+  previewServerProcess!.stdout!.on('data', (c) => console.info(`${chalk.blueBright('PREVIEW SERVER')}: ${c}`));
+  previewServerProcess.on('error', (err) => console.info(`${chalk.redBright('PREVIEW SERVER')}: ${err}`));
   previewServerProcess.on('close', () => previewServerProcess = undefined);
 };
 
