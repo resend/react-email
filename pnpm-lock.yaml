@@ -459,8 +459,8 @@ importers:
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
       '@react-email/render':
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: workspace:*
+        version: link:../render
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
