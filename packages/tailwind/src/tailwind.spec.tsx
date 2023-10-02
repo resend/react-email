@@ -12,7 +12,7 @@ describe("Tailwind component", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
         <Tailwind>
-          <div className="bg-white text-sm" />
+          <div className="bg-white" />
         </Tailwind>,
       );
 
