@@ -1,36 +1,10 @@
 {
+  "extends": "tsconfig/react-library.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "ES2020", // Node.js 14
-    "lib": ["DOM", "DOM.Iterable", "ES2020"],
-    "allowSyntheticDefaultImports": true, // To provide backwards compatibility, Node.js allows you to import most CommonJS packages with a default import. This flag tells TypeScript that it's okay to use import on CommonJS modules.
-    "resolveJsonModule": true,
-    "jsx": "react",
-    "declaration": true,
-    "pretty": true,
-    "newLine": "lf",
-    "stripInternal": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noEmitOnError": true,
-    "useDefineForClassFields": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "outDir": "dist",
-    "esModuleInterop": true,
-    "typeRoots": ["./types", "./node_modules/@types"]
-  },
-  "include": ["source", "preview"],
-  "exclude": ["dist", "build", "node_modules", "preview"],
-  "ts-node": {
-    "transpileOnly": true,
-    "files": true,
-    "experimentalResolver": true
+    "resolveJsonModule": true,
+    "outDir": "dist"
   }
 }

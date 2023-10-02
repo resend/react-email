@@ -5,7 +5,8 @@ import htmlParser, {
   domToReact,
   Element,
 } from "html-react-parser";
-import { tailwindToCSS, TailwindConfig } from "tw-to-css";
+import type { TailwindConfig } from "tw-to-css";
+import { tailwindToCSS } from "tw-to-css";
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -51,24 +52,20 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       replace: (domNode) => {
         if (domNode instanceof Element) {
           if (hasResponsiveStyles && hasHead && domNode.name === "head") {
-            let newDomNode: JSX.Element | null = null;
+            const props = attributesToProps(domNode.attribs);
 
-            if (domNode.children) {
-              const props = attributesToProps(domNode.attribs);
-
-              newDomNode = (
-                <head {...props}>
-                  {domToReact(domNode.children)}
-                  <style>{headStyle}</style>
-                </head>
-              );
-            }
+            const newDomNode = (
+              <head {...props}>
+                {domToReact(domNode.children)}
+                <style>{headStyle}</style>
+              </head>
+            );
 
             return newDomNode;
           }
 
-          if (domNode.attribs?.class) {
-            const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
+          if (domNode.attribs.class) {
+            const cleanRegex = /[:#!\-[\]/.%]+/g;
             const cleanTailwindClasses = domNode.attribs.class
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, "_");
@@ -87,13 +84,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(" ")
-              .filter((className) => {
-                const cleanedClassName = className.replace(cleanRegex, "_");
-                return (
-                  className.search(/^.{2}:/) !== -1 ||
-                  !cssMap[`.${cleanedClassName}`]
-                );
-              })
+              .filter((className) => className.search(/^.{2}:/) !== -1)
               .join(" ")
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, "_");
@@ -116,13 +107,13 @@ Tailwind.displayName = "Tailwind";
  * Clean css selectors to replace all non-alphanumeric characters with underscores
  */
 function cleanCss(css: string) {
-  let newCss = css
+  const newCss = css
     .replace(/\\/g, "")
     // find all css selectors and look ahead for opening and closing curly braces
-    .replace(/[.\!\#\w\d\\:\-\[\]\/\.%\(\))]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
-      return m.replace(/(?<=.)[:#\!\-[\\\]\/\.%]+/g, "_");
+    .replace(/[.!#\w\d\\:\-[\]/.%())]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
+      return m.replace(/(?<=.)[:#!\-[\\\]/.%]+/g, "_");
     })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
+    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value: string) => {
       return `font-family${value.replace(/['"]+/g, "")}`;
     });
   return newCss;
@@ -142,7 +133,7 @@ function getMediaQueryCss(css: string) {
           (_, start, content, end) => {
             const newContent = (content as string).replace(
               /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
-              (_, prop, value) => {
+              (__, prop, value) => {
                 return `${prop}: ${value} !important;`;
               },
             );
@@ -165,15 +156,14 @@ function makeCssMap(css: string) {
     "",
   );
 
-  const cssMap = cssNoMedia.split("}").reduce(
-    (acc, cur) => {
+  const cssMap = cssNoMedia
+    .split("}")
+    .reduce<Record<string, string>>((acc, cur) => {
       const [key, value] = cur.split("{");
       if (key && value) {
         acc[key] = value;
       }
       return acc;
-    },
-    {} as Record<string, string>,
-  );
+    }, {});
   return cssMap;
 }

@@ -70,7 +70,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           />
           <div className="p-4 h-[650px] overflow-auto">
             {tokens.map((line, i) => {
-              const { key: lineKey, ...lineProps } = getLineProps({ line, key: i });
+              const { key: lineKey, ...lineProps } = getLineProps({
+                line,
+                key: i,
+              });
               return (
                 <div
                   key={i}
@@ -81,7 +84,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   })}
                 >
                   {line.map((token, key) => {
-                    const { key: tokenKey, ...tokenProps} = getTokenProps({ token, key });
+                    const { key: tokenKey, ...tokenProps } = getTokenProps({
+                      token,
+                      key,
+                    });
                     const isException =
                       token.content === 'from' &&
                       line[key + 1]?.content === ':';

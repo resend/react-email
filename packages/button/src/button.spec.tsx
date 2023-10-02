@@ -1,5 +1,5 @@
-import { Button } from "./index";
 import { render } from "@react-email/render";
+import { Button } from "./index";
 
 describe("<Button> component", () => {
   beforeEach(() => {

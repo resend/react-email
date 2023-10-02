@@ -1,13 +1,12 @@
 import * as React from "react";
 import { parsePadding, pxToPt } from "./utils";
 
-type ButtonElement = React.ElementRef<"a">;
 type RootProps = React.ComponentPropsWithoutRef<"a">;
 
 export interface ButtonProps extends RootProps {}
 
-export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
-  ({ children, style, target = "_blank", ...props }, forwardedRef) => {
+export const Button = React.FC<Readonly<ButtonProps>>(
+  ({ children, style, target = "_blank", ...props }) => {
     const { pt, pr, pb, pl } = parsePadding({
       padding: style?.padding,
       paddingLeft: style?.paddingLeft,
@@ -22,7 +21,6 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
     return (
       <a
         {...props}
-        ref={forwardedRef}
         target={target}
         style={buttonStyle({ ...style, pt, pr, pb, pl })}
       >
