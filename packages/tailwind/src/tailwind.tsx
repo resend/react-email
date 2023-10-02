@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { TailwindConfig } from "tw-to-css";
 import { tailwindToCSS } from "tw-to-css";
-
-import { cssToJsxStyle } from "./utils";
+import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -19,14 +20,18 @@ function processElement(
     config,
   });
 
-  if (element.props.className) {
+  let modifiedElement = element;
+
+  if (modifiedElement.props.className) {
     const convertedStyles: string[] = [];
     const responsiveStyles: string[] = [];
-    const classNames = element.props.className.split(" ");
+    const classNames = (modifiedElement.props.className as string).split(" ");
 
     const customClassNames = classNames.filter((className: string) => {
-      if (twi(className, { ignoreMediaQueries: true })) {
-        convertedStyles.push(twi(className, { ignoreMediaQueries: true }));
+      const tailwindClassName = twi(className, { ignoreMediaQueries: true });
+
+      if (tailwindClassName) {
+        convertedStyles.push(tailwindClassName);
         return false;
       } else if (twi(className, { ignoreMediaQueries: false })) {
         responsiveStyles.push(className);
@@ -44,22 +49,20 @@ function processElement(
       convertedResponsiveStyles.replace(/^\n+/, "").replace(/\n+$/, ""),
     );
 
-    const newProps = {
-      ...element.props,
+    modifiedElement = React.cloneElement(modifiedElement, {
+      ...modifiedElement.props,
       className: customClassNames.length
         ? customClassNames.join(" ")
         : undefined,
       style: {
-        ...element.props.style,
+        ...(modifiedElement.props.style as Record<string, string>),
         ...cssToJsxStyle(convertedStyles.join(" ")),
       },
-    };
-
-    element = React.cloneElement(element, newProps);
+    });
   }
 
-  if (element.props.children) {
-    const children = React.Children.toArray(element.props.children);
+  if (modifiedElement.props.children) {
+    const children = React.Children.toArray(modifiedElement.props.children);
     const processedChildren = children.map((child) => {
       if (React.isValidElement(child)) {
         return processElement(child, headStyles, config);
@@ -67,38 +70,56 @@ function processElement(
       return child;
     });
 
-    element = React.cloneElement(element, element.props, ...processedChildren);
+    modifiedElement = React.cloneElement(
+      modifiedElement,
+      modifiedElement.props,
+      ...processedChildren,
+    );
   }
 
-  return element;
+  return modifiedElement;
 }
 
 function processHead(
   child: React.ReactElement,
   responsiveStyles: string[],
 ): React.ReactElement {
+  let modifiedChild = child;
+
   // FIXME: find a cleaner solution for child as any
-  if (child.type === "head" || (child as any).type.displayName === "Head") {
+  if (
+    modifiedChild.type === "head" ||
+    (modifiedChild as unknown as { type: { displayName: string } }).type
+      .displayName === "Head"
+  ) {
     const styleElement = <style>{responsiveStyles}</style>;
 
-    const headChildren = React.Children.toArray(child.props.children);
+    const headChildren = React.Children.toArray(modifiedChild.props.children);
     headChildren.push(styleElement);
 
-    child = React.cloneElement(child, child.props, ...headChildren);
+    modifiedChild = React.cloneElement(
+      modifiedChild,
+      modifiedChild.props,
+      ...headChildren,
+    );
   }
-  if (child.props.children) {
-    const children = React.Children.toArray(child.props.children);
+  if (modifiedChild.props.children) {
+    const children = React.Children.toArray(modifiedChild.props.children);
     const processedChildren = children.map((processedChild) => {
       if (React.isValidElement(processedChild)) {
         return processHead(processedChild, responsiveStyles);
       }
-      return child;
+      return modifiedChild;
     });
 
-    child = React.cloneElement(child, child.props, ...processedChildren);
+    modifiedChild = React.cloneElement(
+      modifiedChild,
+      modifiedChild.props,
+      ...processedChildren,
+    );
   }
 
-  return child;
+  return modifiedChild;
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
@@ -118,10 +139,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
     headStyles.join(" "),
   );
-  const hasHTML = /<html[^>]*>/gm.test(fullHTML);
-  const hasHead = /<head[^>]*>/gm.test(fullHTML);
 
-  if (hasResponsiveStyles && (!hasHTML || !hasHead)) {
+  const hasHTMLAndHead = /<html[^>]*>(?=[\s\S]*<head[^>]*>)/gm.test(fullHTML);
+
+  if (hasResponsiveStyles && !hasHTMLAndHead) {
     throw new Error(
       "Tailwind: To use responsive styles you must have a <html> and <head> element in your template.",
     );
@@ -139,5 +160,3 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   return <>{childrenWithInlineAndResponsiveStyles}</>;
 };
-
-Tailwind.displayName = "Tailwind";

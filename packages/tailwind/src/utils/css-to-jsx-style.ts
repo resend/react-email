@@ -1,24 +1,26 @@
 // From https://github.com/jacobbuck/css-to-style
 
 const camelCase = (string: string) =>
-  string.replace(/-(\w|$)/g, (_, p1) => p1.toUpperCase());
+  string.replace(/-(\w|$)/g, (_, p1: string) => p1.toUpperCase());
 
 const convertPropertyName = (prop: string) => {
-  prop = prop.toLowerCase();
+  let modifiedProp = prop;
 
-  if (prop === "float") {
+  modifiedProp = modifiedProp.toLowerCase();
+
+  if (modifiedProp === "float") {
     return "cssFloat";
   }
 
-  if (prop.startsWith("--")) {
-    return prop;
+  if (modifiedProp.startsWith("--")) {
+    return modifiedProp;
   }
 
-  if (prop.startsWith("-ms-")) {
-    prop = prop.substr(1);
+  if (modifiedProp.startsWith("-ms-")) {
+    modifiedProp = modifiedProp.substr(1);
   }
 
-  return camelCase(prop);
+  return camelCase(modifiedProp);
 };
 
 const splitDeclarations = (cssText: string) => {

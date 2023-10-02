@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderToStaticMarkup as render } from "react-dom/server";
-import { TailwindConfig } from "tw-to-css";
+import type { TailwindConfig } from "tw-to-css";
 import { Hr } from "@react-email/hr";
 import { Head } from "@react-email/head";
 import { Html } from "@react-email/html";
-
-import { Tailwind } from "../src";
+import { Tailwind } from ".";
 
 describe("Tailwind component", () => {
   describe("Inline styles", () => {
@@ -27,7 +28,7 @@ describe("Tailwind component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="background-image:url(https://example.com/image.png)"></div>"`,
+      '"<div style=\\"background-image:url(https://example.com/image.png)\\"></div>"',
     );
   });
 
@@ -35,14 +36,14 @@ describe("Tailwind component", () => {
     const actualOutput = render(
       <Tailwind>
         <div
-          style={{ backgroundColor: "red", fontSize: "12px" }}
           className="bg-black text-[16px]"
+          style={{ backgroundColor: "red", fontSize: "12px" }}
         />
       </Tailwind>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="background-color:rgb(0,0,0);font-size:16px"></div>"`,
+      '"<div style=\\"background-color:rgb(0,0,0);font-size:16px\\"></div>"',
     );
   });
 
@@ -61,7 +62,7 @@ describe("Responsive styles", () => {
   it("should add css to <head/>", () => {
     const actualOutput = render(
       <Tailwind>
-        <html>
+        <html lang="en">
           <head />
           <body>
             <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
@@ -71,7 +72,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<html><head><style><style>@media(min-width:640px){.sm\\:bg-red-300{background-color:rgb(252,165,165)}}@media(min-width:768px){.md\\:bg-red-400{background-color:rgb(248,113,113)}}@media(min-width:1024px){.lg\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style="background-color:rgb(254,202,202)"></div></body></html>"`,
+      '"<html lang=\\"en\\"><head><style><style>@media(min-width:640px){.sm\\\\:bg-red-300{background-color:rgb(252,165,165)}}@media(min-width:768px){.md\\\\:bg-red-400{background-color:rgb(248,113,113)}}@media(min-width:1024px){.lg\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
@@ -104,7 +105,7 @@ describe("Responsive styles", () => {
     function noHead() {
       render(
         <Tailwind>
-          <html>
+          <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
           </html>
@@ -119,7 +120,7 @@ describe("Responsive styles", () => {
   it("should persist exsisting <head/> elements", () => {
     const actualOutput = render(
       <Tailwind>
-        <html>
+        <html lang="en">
           <head>
             <style />
             <link />
@@ -132,7 +133,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<html><head><style></style><link/><style><style>@media(min-width:640px){.sm\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style="background-color:rgb(254,202,202)"></div></body></html>"`,
+      '"<html lang=\\"en\\"><head><style></style><link/><style><style>@media(min-width:640px){.sm\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 });
@@ -156,7 +157,7 @@ describe("Custom theme config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div>"`,
+      '"<div style=\\"color:rgb(31,182,255);background-color:rgb(31,182,255)\\"></div>"',
     );
   });
 
@@ -180,7 +181,7 @@ describe("Custom theme config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="font-family:Graphik, sans-serif"></div><div style="font-family:Merriweather, serif"></div>"`,
+      '"<div style=\\"font-family:Graphik, sans-serif\\"></div><div style=\\"font-family:Merriweather, serif\\"></div>"',
     );
   });
 
@@ -196,11 +197,11 @@ describe("Custom theme config", () => {
     };
     const actualOutput = render(
       <Tailwind config={config}>
-        <div className="m-8xl"></div>
+        <div className="m-8xl" />
       </Tailwind>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="margin:96rem"></div>"`,
+      '"<div style=\\"margin:96rem\\"></div>"',
     );
   });
 
@@ -220,7 +221,7 @@ describe("Custom theme config", () => {
       </Tailwind>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="border-radius:2rem"></div>"`,
+      '"<div style=\\"border-radius:2rem\\"></div>"',
     );
   });
 
@@ -242,7 +243,7 @@ describe("Custom theme config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="text-align:justify"></div>"`,
+      '"<div style=\\"text-align:justify\\"></div>"',
     );
   });
 });
@@ -270,7 +271,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="border:2px solid"></div>"`,
+      '"<div style=\\"border:2px solid\\"></div>"',
     );
   });
 
@@ -291,7 +292,7 @@ describe("Custom plugins config", () => {
 
     const actualOutput = render(
       <Tailwind config={config}>
-        <html>
+        <html lang="en">
           <head />
           <body>
             <div className="border-custom sm:border-custom" />
@@ -301,7 +302,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<html><head><style><style>@media(min-width:640px){.sm\\:border-custom{border:2px solid}}</style></style></head><body><div style="border:2px solid"></div></body></html>"`,
+      '"<html lang=\\"en\\"><head><style><style>@media(min-width:640px){.sm\\\\:border-custom{border:2px solid}}</style></style></head><body><div style=\\"border:2px solid\\"></div></body></html>"',
     );
   });
 });
@@ -323,7 +324,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<html lang="en"><head data-id="__react-email-head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><style><style>@media(min-width:640px){.sm\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span><div class="custom-class" style="background-color:rgb(255,255,255)"></div></html>"`,
+      '"<html lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -350,7 +351,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<html lang="en"><head data-id="__react-email-head"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><style><style>@media(min-width:1280px){.xl\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\32xl\\:bg-blue-500{background-color:undefined}.\\32xl\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\32xl\\:bg-blue-500{background-color:undefined}.\\32xl\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"`,
+      '"<html lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"',
     );
   });
 
@@ -364,7 +365,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px"><div style="height:200px">something tall</div></div></div>"`,
+      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\"><div style=\\"height:200px\\">something tall</div></div></div>"',
     );
   });
 });

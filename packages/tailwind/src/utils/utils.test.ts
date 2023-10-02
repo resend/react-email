@@ -1,4 +1,4 @@
-import { cssToJsxStyle } from ".";
+import { cssToJsxStyle } from "./css-to-jsx-style";
 
 test("transforms a rule", () => {
   expect(cssToJsxStyle("color: red")).toEqual({ color: "red" });
