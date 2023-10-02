@@ -50,7 +50,7 @@ This is some **bold text** and this is some *italic text*. You can also use ~~st
 
 \`\`\`javascript
 function greet(name) {
-console.log(\`Hello, \$\{name\}!\`);
+console.log(\`Hello, $\{name}!\`);
 }
 \`\`\``}
       </Markdown>,
@@ -104,9 +104,9 @@ console.log(\`Hello, \${name}!\`);
 
   it("renders text in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown
-        showDataId
-      >{`**This is sample bold text in markdown** and *this is italic text*`}</Markdown>,
+      <Markdown showDataId>
+        **This is sample bold text in markdown** and *this is italic text*
+      </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
 "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\"><strong style=\\"font-weight:bold\\">This is sample bold text in markdown</strong> and <em style=\\"font-style:italic\\">this is italic text</em></p>
@@ -116,9 +116,9 @@ console.log(\`Hello, \${name}!\`);
 
   it("renders links in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown
-        showDataId
-      >{`Link to [React-email](https://react.email)`}</Markdown>,
+      <Markdown showDataId>
+        Link to [React-email](https://react.email)
+      </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
 "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div data-id=\\"react-email-markdown\\"><p data-id=\\"react-email-text\\">Link to <a href=\\"https://react.email\\" target=\\"_blank\\" data-id=\\"react-email-link\\" style=\\"color:#007bff;text-decoration:underline;background-color:transparent\\">React-email</a></p>

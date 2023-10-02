@@ -2,19 +2,27 @@
   "name": "react-email-monorepo",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "format": "turbo run format",
-    "format:check": "turbo run format:check"
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "turbo": "1.10.13"
+    "@types/node": "18.18.0",
+    "@types/react": "18.2.23",
+    "@types/react-dom": "18.2.8",
+    "eslint": "8.50.0",
+    "happy-dom": "12.2.2",
+    "prettier": "3.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "7.2.0",
+    "turbo": "1.10.14",
+    "vite": "4.4.9",
+    "vitest": "0.34.6"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "pnpm@8.8.0"
 }

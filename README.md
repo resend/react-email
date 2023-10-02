@@ -41,11 +41,11 @@ npm install @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from '@react-email/button';
+import { Button } from "@react-email/button";
 
 const Email = () => {
   return (
-    <Button href="https://example.com" style={{ color: '#61dafb' }}>
+    <Button href="https://example.com" style={{ color: "#61dafb" }}>
       Click me
     </Button>
   );
@@ -87,20 +87,20 @@ All components were tested using the most popular email clients.
 
 | <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
 | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Gmail ✔                                                                                            | Apple Mail ✔                                                                                            | Outlook ✔                                                                                              | Yahoo! Mail ✔                                                                                                 | HEY ✔                                                                                          | Superhuman ✔                                                                                                 |
+| Gmail ✔                                                                                           | Apple Mail ✔                                                                                           | Outlook ✔                                                                                             | Yahoo! Mail ✔                                                                                                | HEY ✔                                                                                         | Superhuman ✔                                                                                                |
 
 ## Development
 
 #### Install dependencies
 
 ```sh
-yarn install
+pnpm install
 ```
 
 #### Build and run packages
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).

@@ -44,10 +44,8 @@ export const Email: FC<Readonly<EmailProps>> = ({
           <Heading>
             Join <strong>{teamName}</strong> on <strong>Scaleway</strong>
           </Heading>
-          <Text >
-            Hello {username},
-          </Text>
-          <Text >
+          <Text>Hello {username},</Text>
+          <Text>
             <strong>{invitedByUsername}</strong> (
             <Link href={`mailto:${invitedByEmail}`}>{invitedByEmail}</Link>) has
             invited you to the <strong>{teamName}</strong> team on{" "}

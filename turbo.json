@@ -1,17 +1,30 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "web#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "RESEND_API_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+      ],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "lint": {},
+    "//#format": {},
+    "//#format:check": {},
+    "test": {},
+    "test:watch": {
+      "cache": false
     },
     "dev": {
-      "dependsOn": ["^dev"],
-      "outputs": ["dist/**"]
-    },
-    "test": {},
-    "lint": {},
-    "format": {},
-    "format:check": {}
+      "cache": false,
+      "persistent": true
+    }
   }
 }

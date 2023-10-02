@@ -7,11 +7,6 @@ import { Html } from "@react-email/html";
 import { Tailwind } from "../src";
 
 describe("Tailwind component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
