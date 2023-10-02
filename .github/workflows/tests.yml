@@ -12,137 +12,146 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cache node modules
-        id: npm-cache
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
         uses: buildjet/cache@v3
         with:
-          path: ~/.node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache yarn cache
-        id: yarn-cache
-        uses: buildjet/cache@v3
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install packages
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: pnpm install --frozen-lockfile
+
       - name: Run Lint
-        run: yarn lint
+        run: pnpm lint
+
   format:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cache node modules
-        id: npm-cache
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
         uses: buildjet/cache@v3
         with:
-          path: ~/.node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache yarn cache
-        id: yarn-cache
-        uses: buildjet/cache@v3
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install packages
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: pnpm install --frozen-lockfile
+
       - name: Run Format Check
-        run: yarn format:check
-  # test:
-  #   runs-on: buildjet-4vcpu-ubuntu-2204
-  #   container:
-  #     image: node:16
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Cache node modules
-  #       id: npm-cache
-  #       uses: buildjet/cache@v3
-  #       with:
-  #         path: ~/.node_modules
-  #         key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-node-
-  #     - name: Cache yarn cache
-  #       id: yarn-cache
-  #       uses: buildjet/cache@v3
-  #       with:
-  #         path: ~/.cache/yarn
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-yarn-
-  #     - name: Install packages
-  #       if: steps.npm-cache.outputs.cache-hit != 'true'
-  #       run: yarn
-  #     - name: Run Tests
-  #       run: yarn test
+        run: pnpm format:check
+
+  test:
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    container:
+      image: node:18
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
+        uses: buildjet/cache@v3
+        with:
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install packages
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Tests
+        run: pnpm test
+
   build:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cache node modules
-        id: npm-cache
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
         uses: buildjet/cache@v3
         with:
-          path: ~/.node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache yarn cache
-        id: yarn-cache
-        uses: buildjet/cache@v3
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install packages
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: pnpm install --frozen-lockfile
+
       - name: Run Build
-        run: yarn build
+        run: pnpm build
+
   dependencies:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:16
+      image: node:18
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cache node modules
-        id: npm-cache
+
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm config set script-shell "/usr/bin/bash"
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - name: pnpm Cache
         uses: buildjet/cache@v3
         with:
-          path: ~/.node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Cache yarn cache
-        id: yarn-cache
-        uses: buildjet/cache@v3
-        with:
-          path: ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install packages
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: pnpm install --frozen-lockfile
+
       - name: Check for pinned dependencies
         run: |
           node -e '
@@ -151,6 +160,9 @@ jobs:
             const errors = [];
 
             function isPinned(version) {
+              if (version.startsWith("workspace:")) {
+                return true;
+              }
               return /^\d+\.\d+\.\d+$|^[a-z]+:[a-z]+@\d+$/.test(version);
             }
 

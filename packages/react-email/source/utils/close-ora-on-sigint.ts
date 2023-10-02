@@ -1,7 +1,7 @@
-import { Ora } from 'ora';
+import type { Ora } from 'ora';
 
 export const closeOraOnSIGNIT = (spinner: Ora) => {
-  process.on('SIGINT', function () {
+  process.on('SIGINT', () => {
     spinner.stop();
   });
 };

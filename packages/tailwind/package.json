@@ -24,13 +24,11 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint",
     "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "lint": "eslint .",
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -43,29 +41,24 @@
     "tailwind"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "html-react-parser": "4.0.0",
+    "html-react-parser": "4.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tw-to-css": "0.0.11"
+  },
+  "peerDependencies": {
+    "react": "18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/button": "0.0.7",
     "@testing-library/react": "14.0.0",
-    "@types/jest": "29.5.3",
-    "@types/react": "18.0.20",
-    "@types/react-dom": "18.0.6",
-    "babel-jest": "29.6.1",
-    "eslint": "8.45.0",
-    "jest": "29.6.1",
-    "prettier": "3.0.0",
-    "react": "18.2.0",
-    "ts-jest": "29.1.1",
-    "tsup": "7.1.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },
   "publishConfig": {

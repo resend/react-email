@@ -12,24 +12,23 @@ const client = createClient({
 
 const transactionalEmailClient = new TransactionalEmail.v1alpha1.API(client);
 
-
 const sender = {
   email: "react-email@transactional.email.fr",
   subject: "TEST",
-  name: "Team"
-}
+  name: "Team",
+};
 
 const userInvited = {
-  email :"XXXX@scaleway.com",
+  email: "XXXX@scaleway.com",
   name: "TEST",
-  teamName: "Team"
-}
+  teamName: "Team",
+};
 
 const userInvitedBy = {
-  email :"XXXX@scaleway.com",
+  email: "XXXX@scaleway.com",
   name: "TEST",
-  teamName: "Team"
-}
+  teamName: "Team",
+};
 
 const emailHtml = render(
   <Email
@@ -38,7 +37,7 @@ const emailHtml = render(
     invitedByEmail={userInvitedBy.email}
     username={userInvited.name}
     teamName={userInvited.teamName}
-  />
+  />,
 );
 
 try {
