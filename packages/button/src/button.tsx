@@ -1,46 +1,45 @@
 import * as React from "react";
 import { parsePadding, pxToPt } from "./utils";
 
-type RootProps = React.ComponentPropsWithoutRef<"a">;
+type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
-export interface ButtonProps extends RootProps {}
+export const Button: React.FC<Readonly<ButtonProps>> = ({
+  children,
+  style,
+  target = "_blank",
+  ...props
+}) => {
+  const { pt, pr, pb, pl } = parsePadding({
+    padding: style?.padding,
+    paddingLeft: style?.paddingLeft,
+    paddingRight: style?.paddingRight,
+    paddingTop: style?.paddingTop,
+    paddingBottom: style?.paddingBottom,
+  });
 
-export const Button = React.FC<Readonly<ButtonProps>>(
-  ({ children, style, target = "_blank", ...props }) => {
-    const { pt, pr, pb, pl } = parsePadding({
-      padding: style?.padding,
-      paddingLeft: style?.paddingLeft,
-      paddingRight: style?.paddingRight,
-      paddingTop: style?.paddingTop,
-      paddingBottom: style?.paddingBottom,
-    });
+  const y = pt + pb;
+  const textRaise = pxToPt(y);
 
-    const y = pt + pb;
-    const textRaise = pxToPt(y);
-
-    return (
-      <a
-        {...props}
-        target={target}
-        style={buttonStyle({ ...style, pt, pr, pb, pl })}
-      >
-        <span
-          dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
-          }}
-        />
-        <span style={buttonTextStyle(pb)}>{children}</span>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
-          }}
-        />
-      </a>
-    );
-  },
-);
-
-Button.displayName = "Button";
+  return (
+    <a
+      {...props}
+      style={buttonStyle({ ...style, pt, pr, pb, pl })}
+      target={target}
+    >
+      <span
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
+        }}
+      />
+      <span style={buttonTextStyle(pb)}>{children}</span>
+      <span
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
+        }}
+      />
+    </a>
+  );
+};
 
 const buttonStyle = (
   style?: React.CSSProperties & {
@@ -50,7 +49,7 @@ const buttonStyle = (
     pl: number;
   },
 ) => {
-  const { pt, pr, pb, pl, padding, ...rest } = style || {};
+  const { pt, pr, pb, pl, ...rest } = style || {};
 
   return {
     ...rest,

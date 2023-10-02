@@ -1,17 +1,18 @@
-type paddingType = string | number | undefined;
-type paddingProperties = {
-  padding: paddingType;
-  paddingTop?: paddingType;
-  paddingRight?: paddingType;
-  paddingBottom?: paddingType;
-  paddingLeft?: paddingType;
-};
+type PaddingType = string | number | undefined;
+
+interface PaddingProperties {
+  padding: PaddingType;
+  paddingTop?: PaddingType;
+  paddingRight?: PaddingType;
+  paddingBottom?: PaddingType;
+  paddingLeft?: PaddingType;
+}
 
 /**
  * converts padding value to `px` equivalent.
- * @example "1em" => 16
+ * @example "1em" =\> 16
  */
-export function convertToPx(value: paddingType) {
+export function convertToPx(value: PaddingType) {
   let px = 0;
 
   if (!value) {
@@ -48,7 +49,7 @@ export function convertToPx(value: paddingType) {
 
 /**
  * Parses all the values out of a padding string to get the value for all padding props in `px`
- * @example e.g. "10px" => pt: 10, pr: 10, pb: 10, pl: 10
+ * @example e.g. "10px" =\> pt: 10, pr: 10, pb: 10, pl: 10
  */
 export function parsePadding({
   padding = "",
@@ -56,28 +57,37 @@ export function parsePadding({
   paddingRight,
   paddingBottom,
   paddingLeft,
-}: paddingProperties) {
+}: PaddingProperties) {
   let pt = 0;
   let pr = 0;
   let pb = 0;
   let pl = 0;
 
   if (typeof padding === "number") {
-    pt = pr = pb = pl = padding;
+    pt = padding;
+    pr = padding;
+    pb = padding;
+    pl = padding;
   } else {
     const values = padding.split(/\s+/);
 
     switch (values.length) {
       case 1:
-        pt = pr = pb = pl = convertToPx(values[0]);
+        pt = convertToPx(values[0]);
+        pr = convertToPx(values[0]);
+        pb = convertToPx(values[0]);
+        pl = convertToPx(values[0]);
         break;
       case 2:
-        pt = pb = convertToPx(values[0]);
-        pr = pl = convertToPx(values[1]);
+        pt = convertToPx(values[0]);
+        pb = convertToPx(values[0]);
+        pr = convertToPx(values[1]);
+        pl = convertToPx(values[1]);
         break;
       case 3:
         pt = convertToPx(values[0]);
-        pr = pl = convertToPx(values[1]);
+        pr = convertToPx(values[1]);
+        pl = convertToPx(values[1]);
         pb = convertToPx(values[2]);
         break;
       case 4:
