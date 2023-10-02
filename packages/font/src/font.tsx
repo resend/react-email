@@ -5,7 +5,12 @@ type FallbackFont =
   | "Helvetica"
   | "Verdana"
   | "Georgia"
-  | "Times New Roman";
+  | "Times New Roman"
+  | "serif"
+  | "sans-serif"
+  | "monospace"
+  | "cursive"
+  | "fantasy";
 
 type FontFormat =
   | "woff"
