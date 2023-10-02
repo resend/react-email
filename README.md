@@ -36,6 +36,12 @@ yarn add @react-email/button -E
 npm install @react-email/button -E
 ```
 
+#### With pnpm
+
+```sh
+pnpm install @react-email/button -E
+```
+
 ## Getting started
 
 Add the component to your email template. Include styles where needed.
