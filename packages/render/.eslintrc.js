@@ -1,4 +1,6 @@
 module.exports = {
-  root: true,
-  extends: ['custom'],
+  extends: ["custom/react-internal"],
+  rules: {
+    "import/no-default-export": "off",
+  },
 };

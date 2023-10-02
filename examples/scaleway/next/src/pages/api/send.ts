@@ -1,4 +1,4 @@
-import { render } from '@react-email/render';
+import { render } from "@react-email/render";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { WaitlistEmail } from "../../../transactional/emails/waitlist";
 import { scalewayTEM } from "../../lib/scaleway";
@@ -13,12 +13,12 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
   await scalewayTEM.createEmail({
     from: {
       email: "you@example.com",
-      name: "You"
+      name: "You",
     },
     to: [
       {
         email: "user@gmail.com",
-        name: "User"
+        name: "User",
       },
     ],
     subject: "Waitlist",

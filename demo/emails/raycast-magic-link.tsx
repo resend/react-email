@@ -10,8 +10,8 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components';
-import * as React from 'react';
+} from "@react-email/components";
+import * as React from "react";
 
 interface RaycastMagicLinkEmailProps {
   magicLink?: string;
@@ -19,7 +19,7 @@ interface RaycastMagicLinkEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : '';
+  : "";
 
 export const RaycastMagicLinkEmail = ({
   magicLink,
@@ -56,9 +56,9 @@ export const RaycastMagicLinkEmail = ({
           width={32}
           height={32}
           style={{
-            WebkitFilter: 'grayscale(100%)',
-            filter: 'grayscale(100%)',
-            margin: '20px 0',
+            WebkitFilter: "grayscale(100%)",
+            filter: "grayscale(100%)",
+            margin: "20px 0",
           }}
         />
         <Text style={footer}>Raycast Technologies Inc.</Text>
@@ -71,51 +71,51 @@ export const RaycastMagicLinkEmail = ({
 );
 
 RaycastMagicLinkEmail.PreviewProps = {
-  magicLink: 'https://raycast.com',
+  magicLink: "https://raycast.com",
 } as RaycastMagicLinkEmailProps;
 
 export default RaycastMagicLinkEmail;
 
 const main = {
-  backgroundColor: '#ffffff',
+  backgroundColor: "#ffffff",
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
-  margin: '0 auto',
-  padding: '20px 25px 48px',
+  margin: "0 auto",
+  padding: "20px 25px 48px",
   backgroundImage: 'url("/assets/raycast-bg.png")',
-  backgroundPosition: 'bottom',
-  backgroundRepeat: 'no-repeat, no-repeat',
+  backgroundPosition: "bottom",
+  backgroundRepeat: "no-repeat, no-repeat",
 };
 
 const heading = {
-  fontSize: '28px',
-  fontWeight: 'bold',
-  marginTop: '48px',
+  fontSize: "28px",
+  fontWeight: "bold",
+  marginTop: "48px",
 };
 
 const body = {
-  margin: '24px 0',
+  margin: "24px 0",
 };
 
 const paragraph = {
-  fontSize: '16px',
-  lineHeight: '26px',
+  fontSize: "16px",
+  lineHeight: "26px",
 };
 
 const link = {
-  color: '#FF6363',
+  color: "#FF6363",
 };
 
 const hr = {
-  borderColor: '#dddddd',
-  marginTop: '48px',
+  borderColor: "#dddddd",
+  marginTop: "48px",
 };
 
 const footer = {
-  color: '#8898aa',
-  fontSize: '12px',
-  marginLeft: '4px',
+  color: "#8898aa",
+  fontSize: "12px",
+  marginLeft: "4px",
 };

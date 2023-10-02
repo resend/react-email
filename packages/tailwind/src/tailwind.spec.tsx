@@ -1,14 +1,11 @@
-import { Tailwind } from "./tailwind";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { renderToStaticMarkup as render } from "react-dom/server";
-import { TailwindConfig } from "tw-to-css";
+import type { TailwindConfig } from "tw-to-css";
 import { Button } from "@react-email/button";
+import { Tailwind } from "./tailwind";
 
 describe("Tailwind component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
@@ -18,7 +15,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="background-color:rgb(0,0,0);color:rgb(255,255,255)"></div>"`,
+        '"<div style=\\"background-color:rgb(0,0,0);color:rgb(255,255,255)\\"></div>"',
       );
     });
 
@@ -30,7 +27,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="background-image:url(https://react.email/static/covers/tailwind.png)"></div>"`,
+        '"<div style=\\"background-image:url(https://react.email/static/covers/tailwind.png)\\"></div>"',
       );
     });
 
@@ -38,14 +35,14 @@ describe("Tailwind component", () => {
       const actualOutput = render(
         <Tailwind>
           <div
-            style={{ fontSize: "12px", backgroundColor: "red" }}
             className="bg-black text-[16px]"
+            style={{ fontSize: "12px", backgroundColor: "red" }}
           />
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="font-size:16px;background-color:rgb(0,0,0)"></div>"`,
+        '"<div style=\\"font-size:16px;background-color:rgb(0,0,0)\\"></div>"',
       );
     });
 
@@ -66,7 +63,7 @@ describe("Tailwind component", () => {
     it("should add css to <head/>", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
@@ -76,7 +73,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important;}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important;}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class="sm_bg_red_300 md_bg_red_400 lg_bg_red_500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg_red_300{background-color: rgb(252,165,165) !important;}}@media(min-width:768px){.md_bg_red_400{background-color: rgb(248,113,113) !important;}}@media(min-width:1024px){.lg_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class=\\"sm_bg_red_300 md_bg_red_400 lg_bg_red_500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
       );
     });
 
@@ -109,8 +106,7 @@ describe("Tailwind component", () => {
       function noHead() {
         render(
           <Tailwind>
-            <html>
-              {/* <Head></Head> */}
+            <html lang="en">
               <div className="bg-red-200 sm:bg-red-500" />
             </html>
           </Tailwind>,
@@ -124,7 +120,7 @@ describe("Tailwind component", () => {
     it("should persist exsisting <head/> elements", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head>
               <style />
               <link />
@@ -137,7 +133,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style></style><link/><style>@media(min-width:640px){.sm_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class="sm_bg_red_500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm_bg_red_500{background-color: rgb(239,68,68) !important;}}</style></head><body><div class=\\"sm_bg_red_500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
       );
     });
   });
@@ -161,7 +157,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div>"`,
+        '"<div style=\\"color:rgb(31,182,255);background-color:rgb(31,182,255)\\"></div>"',
       );
     });
 
@@ -185,7 +181,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="font-family:Graphik, sans-serif"></div><div style="font-family:Merriweather, serif"></div>"`,
+        '"<div style=\\"font-family:Graphik, sans-serif\\"></div><div style=\\"font-family:Merriweather, serif\\"></div>"',
       );
     });
 
@@ -202,12 +198,12 @@ describe("Tailwind component", () => {
 
       const actualOutput = render(
         <Tailwind config={config}>
-          <div className="m-8xl"></div>
+          <div className="m-8xl" />
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="margin:96rem"></div>"`,
+        '"<div style=\\"margin:96rem\\"></div>"',
       );
     });
 
@@ -229,7 +225,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="border-radius:2rem"></div>"`,
+        '"<div style=\\"border-radius:2rem\\"></div>"',
       );
     });
 
@@ -251,56 +247,56 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="text-align:justify"></div>"`,
+        '"<div style=\\"text-align:justify\\"></div>"',
       );
     });
   });
 
   describe("Custom plugins config", () => {
     it("should be able to use custom plugins", () => {
-      const config: TailwindConfig = {
-        plugins: [
-          function ({ addUtilities }: any) {
-            const newUtilities = {
-              ".border-custom": {
-                border: "2px solid",
-              },
-            };
-
-            addUtilities(newUtilities);
-          },
-        ],
-      };
-
       const actualOutput = render(
-        <Tailwind config={config}>
+        <Tailwind
+          config={{
+            plugins: [
+              ({ addUtilities }: any) => {
+                const newUtilities = {
+                  ".border-custom": {
+                    border: "2px solid",
+                  },
+                };
+
+                addUtilities(newUtilities);
+              },
+            ],
+          }}
+        >
           <div className="border-custom" />
         </Tailwind>,
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<div style="border:2px solid"></div>"`,
+        '"<div style=\\"border:2px solid\\"></div>"',
       );
     });
 
     it("should be able to use custom plugins with responsive styles", () => {
-      const config: TailwindConfig = {
-        plugins: [
-          function ({ addUtilities }: any) {
-            const newUtilities = {
-              ".border-custom": {
-                border: "2px solid",
-              },
-            };
-
-            addUtilities(newUtilities);
-          },
-        ],
-      };
-
       const actualOutput = render(
-        <Tailwind config={config}>
-          <html>
+        <Tailwind
+          config={{
+            plugins: [
+              ({ addUtilities }: any) => {
+                const newUtilities = {
+                  ".border-custom": {
+                    border: "2px solid",
+                  },
+                };
+
+                addUtilities(newUtilities);
+              },
+            ],
+          }}
+        >
+          <html lang="en">
             <head />
             <body>
               <div className="border-custom sm:border-custom" />
@@ -310,7 +306,7 @@ describe("Tailwind component", () => {
       );
 
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>@media(min-width:640px){.sm_border_custom{border: 2px solid !important;}}</style></head><body><div class="sm_border_custom" style="border:2px solid"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_border_custom{border: 2px solid !important;}}</style></head><body><div class=\\"sm_border_custom\\" style=\\"border:2px solid\\"></div></body></html>"',
       );
     });
   });
@@ -318,7 +314,7 @@ describe("Tailwind component", () => {
     it("should replace forward slash with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-full" />
@@ -328,13 +324,13 @@ describe("Tailwind component", () => {
         </Tailwind>,
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>@media(min-width:640px){.sm_w_1_2{width: 50% !important;}}</style></head><body><div style="width:100%"></div><div class="sm_w_1_2" style="width:50%"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_w_1_2{width: 50% !important;}}</style></head><body><div style=\\"width:100%\\"></div><div class=\\"sm_w_1_2\\" style=\\"width:50%\\"></div></body></html>"',
       );
     });
     it("should replace period with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-1.5" />
@@ -344,13 +340,13 @@ describe("Tailwind component", () => {
         </Tailwind>,
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>@media(min-width:640px){.sm_w_1{width: 0.25rem !important;}.sm_w_1_5{width: 0.375rem !important;}}</style></head><body><div style="width:0.375rem"></div><div class="sm_w_1_5" style="width:0.375rem"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_w_1{width: 0.25rem !important;}.sm_w_1_5{width: 0.375rem !important;}}</style></head><body><div style=\\"width:0.375rem\\"></div><div class=\\"sm_w_1_5\\" style=\\"width:0.375rem\\"></div></body></html>"',
       );
     });
     it("should replace percent signs with underscore in both class name and selector", () => {
       const actualOutput = render(
         <Tailwind>
-          <html>
+          <html lang="en">
             <head />
             <body>
               <div className="w-[50%]" />
@@ -360,7 +356,7 @@ describe("Tailwind component", () => {
         </Tailwind>,
       );
       expect(actualOutput).toMatchInlineSnapshot(
-        `"<html><head><style>@media(min-width:640px){.sm_w_50_{width: 50% !important;}}</style></head><body><div style="width:50%"></div><div class="sm_w_50_" style="width:50%"></div></body></html>"`,
+        '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_w_50_{width: 50% !important;}}</style></head><body><div style=\\"width:50%\\"></div><div class=\\"sm_w_50_\\" style=\\"width:50%\\"></div></body></html>"',
       );
     });
   });

@@ -1,33 +1,31 @@
 import * as React from "react";
 
-type RowElement = React.ElementRef<"table">;
 type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export interface RowProps extends RootProps {
   children: React.ReactNode;
 }
 
-export const Row = React.forwardRef<RowElement, Readonly<RowProps>>(
-  ({ children, style, ...props }, forwardedRef) => {
-    return (
-      <table
-        align="center"
-        width="100%"
-        {...props}
-        ref={forwardedRef}
-        data-id="react-email-row"
-        style={style}
-        role="presentation"
-        cellSpacing="0"
-        cellPadding="0"
-        border={0}
-      >
-        <tbody style={{ width: "100%" }}>
-          <tr style={{ width: "100%" }}>{children}</tr>
-        </tbody>
-      </table>
-    );
-  },
-);
-
-Row.displayName = "Row";
+export const Row: React.FC<Readonly<RowProps>> = ({
+  children,
+  style,
+  ...props
+}) => {
+  return (
+    <table
+      align="center"
+      width="100%"
+      {...props}
+      border={0}
+      cellPadding="0"
+      cellSpacing="0"
+      data-id="react-email-row"
+      role="presentation"
+      style={style}
+    >
+      <tbody style={{ width: "100%" }}>
+        <tr style={{ width: "100%" }}>{children}</tr>
+      </tbody>
+    </table>
+  );
+};

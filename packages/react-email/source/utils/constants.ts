@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 // Package variables
 export const DEFAULT_EMAILS_DIRECTORY = 'emails';

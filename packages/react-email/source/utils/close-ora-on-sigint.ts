@@ -1,4 +1,4 @@
-import { Ora } from 'ora';
+import type { Ora } from 'ora';
 
 const spinenrsToStop: Ora[] = [];
 let hasSetSigintEvent: boolean = false;

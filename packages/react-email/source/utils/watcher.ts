@@ -10,8 +10,8 @@ export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
   });
 
   // Catches ctrl+c event
-  const exit = async () => {
-    await watcher.close();
+  const exit = () => {
+    void watcher.close();
   };
   process.on('SIGINT', exit);
   process.on('uncaughtException', exit);
