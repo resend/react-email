@@ -7,7 +7,7 @@
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && pnpm run build:client",
     "build:client": "cd client && yarn build && rm -rf ../dist/client && mv .next/standalone ../dist/client",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
