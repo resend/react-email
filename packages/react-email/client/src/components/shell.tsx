@@ -1,3 +1,7 @@
+'use client'
+
+import { useRouter } from 'next/navigation';
+
 import classNames from 'classnames';
 import * as React from 'react';
 import { Logo } from './logo';
@@ -19,6 +23,23 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
     { title, navItems, children, markup, activeView, setActiveView },
     forwardedRef,
   ) => {
+    const router = useRouter();
+
+    const onCLIMessage = (ev: MessageEvent<any>) => {
+      if (ev.data === 'reload') {
+        router.refresh();
+      }
+    }
+
+    React.useEffect(() => {
+      const ws = new WebSocket('ws://localhost:3001');
+      ws.addEventListener('message', onCLIMessage);
+      return () => {
+        ws.removeEventListener('message', onCLIMessage);
+        ws.close();
+      };
+    }, []);
+
     const [showNav, setShowNav] = React.useState(false);
     return (
       <div className="flex flex-col h-screen overflow-x-hidden">

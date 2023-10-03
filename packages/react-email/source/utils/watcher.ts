@@ -1,6 +1,7 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import path from 'node:path';
 import { generateEmailsPreview } from './generate-email-preview';
+import { hotreloadPreviewServer, previewServerWSConnection } from './start-server-command';
 
 export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
   const watcher = chokidar.watch(absoluteEmailsDir, {
@@ -31,6 +32,9 @@ export const emailPreviewGeneratorWatcher = (
 
     try {
       await generateEmailsPreview(absoluteEmailsDir);
+      if (previewServerWSConnection) { // only when the communication ws server is running
+        await hotreloadPreviewServer();
+      }
     } catch (e) {
       throw new Error(
         `Something went wrong when trying to genreate previews for the emails, ${// @ts-expect-error

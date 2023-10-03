@@ -1,8 +1,19 @@
 import { ChildProcess, spawn } from 'child_process';
+import { WebSocket, WebSocketServer } from 'ws';
 import path from 'node:path';
 import chalk from 'chalk';
 
-export let previewServerProcess: ChildProcess | undefined;
+let previewServerProcess: ChildProcess | undefined;
+let previewServer: WebSocketServer;
+export let previewServerWSConnection: WebSocket;
+
+export const hotreloadPreviewServer = async () => {
+  if (previewServerWSConnection) {
+    previewServerWSConnection.send('reload');
+  } else {
+    throw new Error('Not able to hotrealod preview server without the websocket server running!');
+  }
+};
 
 export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   const serverFilePath = path.join(__dirname, '..', '..', 'client', 'server.js');
@@ -12,6 +23,14 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
     [serverFilePath],
     { detached: false, env: { ...process.env, PORT: port, EMAILS_PATH: absoluteEmailsDir } }
   );
+
+  previewServer = new WebSocketServer({
+    port: 3001
+  });
+  previewServer.on('connection', (ws) => {
+    previewServerWSConnection = ws;
+  });
+
   console.info(`${chalk.greenBright('react-email')} previewer running at port ${port}`);
   console.info(`\nCheck it out at http://localhost:${port}`);
 
@@ -23,6 +42,9 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
 export const stopPreviewServer = () => {
   return new Promise<void>((resolve) => {
     if (previewServerProcess) {
+      if (previewServerWSConnection) previewServerWSConnection.close();
+      if (previewServer) previewServer.close();
+
       previewServerProcess.kill();
       previewServerProcess.on('close', () => {
         resolve();
