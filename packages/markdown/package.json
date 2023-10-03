@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
-    "@react-email/render": "0.0.6",
+    "@react-email/render": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
