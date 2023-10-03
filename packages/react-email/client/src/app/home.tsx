@@ -8,7 +8,7 @@ export default function Home({ navItems }) {
   return (
     <Shell navItems={navItems}>
       <div className="mx-auto">
-        <div className="max-w-md border border-slate-6 mx-6 mt-56 rounded-md p-8">
+        <div className="max-w-md mx-auto border border-slate-6 mt-56 rounded-md p-8">
           <Heading as="h2" weight="medium">
             Welcome to the React Email preview!
           </Heading>
