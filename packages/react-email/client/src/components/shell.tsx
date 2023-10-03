@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useRouter } from 'next/navigation';
 
@@ -29,7 +29,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
       if (ev.data === 'reload') {
         router.refresh();
       }
-    }
+    };
 
     React.useEffect(() => {
       const ws = new WebSocket('ws://localhost:3001');

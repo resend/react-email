@@ -1,7 +1,10 @@
 import chokidar, { FSWatcher } from 'chokidar';
 import path from 'node:path';
 import { generateEmailsPreview } from './generate-email-preview';
-import { hotreloadPreviewServer, previewServerWSConnection } from './start-server-command';
+import {
+  hotreloadPreviewServer,
+  previewServerWSConnection,
+} from './start-server-command';
 
 export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
   const watcher = chokidar.watch(absoluteEmailsDir, {
@@ -22,7 +25,7 @@ export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
 
 export const emailPreviewGeneratorWatcher = (
   watcherInstance: FSWatcher,
-  absoluteEmailsDir: string
+  absoluteEmailsDir: string,
 ) => {
   watcherInstance.on('all', async (_event, filename) => {
     const file = filename.split(path.sep);
@@ -32,7 +35,8 @@ export const emailPreviewGeneratorWatcher = (
 
     try {
       await generateEmailsPreview(absoluteEmailsDir);
-      if (previewServerWSConnection) { // only when the communication ws server is running
+      if (previewServerWSConnection) {
+        // only when the communication ws server is running
         await hotreloadPreviewServer();
       }
     } catch (e) {

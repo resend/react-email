@@ -5,7 +5,7 @@ import Preview from './preview';
 
 export const dynamicParams = true;
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function Page({ params }) {
   const { emails, filenames } = await getEmails();
@@ -14,7 +14,10 @@ export default async function Page({ params }) {
     return params.slug === fileName;
   });
 
-  if (!template) throw new Error(`Could not find email with slug that should be ${params.slug}`);
+  if (!template)
+    throw new Error(
+      `Could not find email with slug that should be ${params.slug}`,
+    );
 
   // this is not undefined because if it was, getEmails would have already thrown
   const basePath = emailsDir();

@@ -13,15 +13,11 @@ export const exportTemplates = async (
   srcDir: string,
   options: Options,
 ) => {
-  exportEmails(
-    srcDir,
-    outDir,
-    {
-      html: options.plainText ? false : true,
-      plainText: options.plainText,
-      pretty: options.pretty
-    }
-  );
+  exportEmails(srcDir, outDir, {
+    html: options.plainText ? false : true,
+    plainText: options.plainText,
+    pretty: options.pretty,
+  });
 
   const fileTree = tree(outDir, {
     allFiles: true,

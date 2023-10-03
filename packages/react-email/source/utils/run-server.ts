@@ -1,4 +1,7 @@
-import { createEmailsWatcherInstance, emailPreviewGeneratorWatcher } from './watcher';
+import {
+  createEmailsWatcherInstance,
+  emailPreviewGeneratorWatcher,
+} from './watcher';
 import {
   convertToAbsolutePath,
   generateEmailsPreview,
@@ -11,10 +14,7 @@ import {
  * @param emailsDir Directory in which the emails are located, only for dev and build, unused for start.
  * @param port The port on which the server will run, only for dev and start, unused for build.
  */
-export const setupServer = async (
-  emailsDir: string,
-  port: string
-) => {
+export const setupServer = async (emailsDir: string, port: string) => {
   const absoluteEmailsDir = convertToAbsolutePath(emailsDir);
 
   const watcherInstance = createEmailsWatcherInstance(absoluteEmailsDir);

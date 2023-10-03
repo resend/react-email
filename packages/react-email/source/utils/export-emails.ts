@@ -1,33 +1,33 @@
-import ora from "ora";
-import esbuild from "esbuild";
-import { closeOraOnSIGNIT } from "./close-ora-on-sigint";
-import { glob } from "glob";
-import path, { normalize } from "path";
-import { render } from "@react-email/render";
-import { unlink, writeFile } from "fs-extra";
+import ora from 'ora';
+import esbuild from 'esbuild';
+import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+import { glob } from 'glob';
+import path, { normalize } from 'path';
+import { render } from '@react-email/render';
+import { unlink, writeFile } from 'fs-extra';
 
 export type ExportEmailOptions = {
   /**
-    * @default true
-    */
+   * @default true
+   */
   html?: boolean;
   /**
-    * @default false
-    */
+   * @default false
+   */
   pretty?: boolean;
   /**
-    * @default false
-    */
+   * @default false
+   */
   plainText?: boolean;
 
   /**
-    * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
-    * and makes them absolute based on the according static folder.
-    *
-    * This is used by the preview server so it will link to static files that are local without problems.
-    *
-    * @default false
-    */
+   * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
+   * and makes them absolute based on the according static folder.
+   *
+   * This is used by the preview server so it will link to static files that are local without problems.
+   *
+   * @default false
+   */
   makeStaticFilesPathsAbsolute?: boolean;
 };
 
@@ -38,8 +38,8 @@ export const exportEmails = async (
     html = true,
     pretty = false,
     plainText = false,
-    makeStaticFilesPathsAbsolute = false
-  }: ExportEmailOptions
+    makeStaticFilesPathsAbsolute = false,
+  }: ExportEmailOptions,
 ) => {
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
@@ -68,22 +68,16 @@ export const exportEmails = async (
 
     const comp = email.default({});
     if (plainText) {
-      const emailAsText = render(
-        comp,
-        {
-          plainText: true,
-          pretty
-        }
-      );
+      const emailAsText = render(comp, {
+        plainText: true,
+        pretty,
+      });
       const textPath = templatePath.replace('.js', '.txt');
       await writeFile(textPath, emailAsText);
     }
 
     if (html) {
-      let emailAsHTML = render(
-        comp,
-        { pretty }
-      );
+      let emailAsHTML = render(comp, { pretty });
 
       // failed atempt at still allowing for local assets without copying
       //

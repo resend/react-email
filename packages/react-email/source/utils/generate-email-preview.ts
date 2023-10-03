@@ -6,9 +6,7 @@ import { exists, rm } from 'fs-extra';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
-export const generateEmailsPreview = async (
-  absoluteEmailsDir: string
-) => {
+export const generateEmailsPreview = async (absoluteEmailsDir: string) => {
   try {
     const spinner = ora('Generating emails preview').start();
     closeOraOnSIGNIT(spinner);
@@ -31,10 +29,10 @@ const createEmailPreviews = async (absoluteEmailsDir: string) => {
     await rm(previewCompilationDir, { recursive: true, force: true });
   }
 
-  await exportEmails(
-    absoluteEmailsDir,
-    previewCompilationDir,
-    { html: true, plainText: true, pretty: true, makeStaticFilesPathsAbsolute: true }
-  );
+  await exportEmails(absoluteEmailsDir, previewCompilationDir, {
+    html: true,
+    plainText: true,
+    pretty: true,
+    makeStaticFilesPathsAbsolute: true,
+  });
 };
-

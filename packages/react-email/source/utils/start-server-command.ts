@@ -11,32 +11,45 @@ export const hotreloadPreviewServer = async () => {
   if (previewServerWSConnection) {
     previewServerWSConnection.send('reload');
   } else {
-    throw new Error('Not able to hotrealod preview server without the websocket server running!');
+    throw new Error(
+      'Not able to hotrealod preview server without the websocket server running!',
+    );
   }
 };
 
 export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
-  const serverFilePath = path.join(__dirname, '..', '..', 'client', 'server.js');
-
-  previewServerProcess = spawn(
-    'node',
-    [serverFilePath],
-    { detached: false, env: { ...process.env, PORT: port, EMAILS_PATH: absoluteEmailsDir } }
+  const serverFilePath = path.join(
+    __dirname,
+    '..',
+    '..',
+    'client',
+    'server.js',
   );
 
+  previewServerProcess = spawn('node', [serverFilePath], {
+    detached: false,
+    env: { ...process.env, PORT: port, EMAILS_PATH: absoluteEmailsDir },
+  });
+
   previewServer = new WebSocketServer({
-    port: 3001
+    port: 3001,
   });
   previewServer.on('connection', (ws) => {
     previewServerWSConnection = ws;
   });
 
-  console.info(`${chalk.greenBright('react-email')} previewer running at port ${port}`);
+  console.info(
+    `${chalk.greenBright('react-email')} previewer running at port ${port}`,
+  );
   console.info(`\nCheck it out at http://localhost:${port}`);
 
-  previewServerProcess!.stdout!.on('data', (c) => console.info(`${chalk.blueBright('PREVIEW SERVER')}: ${c}`));
-  previewServerProcess.on('error', (err) => console.info(`${chalk.redBright('PREVIEW SERVER')}: ${err}`));
-  previewServerProcess.on('close', () => previewServerProcess = undefined);
+  previewServerProcess!.stdout!.on('data', (c) =>
+    console.info(`${chalk.blueBright('PREVIEW SERVER')}: ${c}`),
+  );
+  previewServerProcess.on('error', (err) =>
+    console.info(`${chalk.redBright('PREVIEW SERVER')}: ${err}`),
+  );
+  previewServerProcess.on('close', () => (previewServerProcess = undefined));
 };
 
 export const stopPreviewServer = () => {
