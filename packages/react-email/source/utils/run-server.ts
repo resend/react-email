@@ -7,6 +7,9 @@ import {
   generateEmailsPreview,
   startPreviewServer,
 } from '.';
+import ora from 'ora';
+import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+import logSymbols from 'log-symbols';
 
 /**
  * Utility function to run init/sync for the server in dev, build or start mode.
@@ -19,9 +22,18 @@ export const setupServer = async (emailsDir: string, port: string) => {
 
   const watcherInstance = createEmailsWatcherInstance(absoluteEmailsDir);
 
+  const spinner = ora();
+  closeOraOnSIGNIT(spinner);
+  await generateEmailsPreview(absoluteEmailsDir, true);
+  spinner.stopAndPersist({
+    symbol: logSymbols.success,
+    text: 'Initial email previews generated'
+  });
+
   console.clear();
-  await generateEmailsPreview(absoluteEmailsDir);
+
   console.info('\n');
+
   startPreviewServer(absoluteEmailsDir, port);
 
   emailPreviewGeneratorWatcher(watcherInstance, absoluteEmailsDir);

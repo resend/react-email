@@ -21,14 +21,19 @@ export type ExportEmailOptions = {
   plainText?: boolean;
 
   /**
-   * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
-   * and makes them absolute based on the according static folder.
-   *
-   * This is used by the preview server so it will link to static files that are local without problems.
-   *
-   * @default false
-   */
-  makeStaticFilesPathsAbsolute?: boolean;
+    * @default false
+    */
+  silent?: boolean;
+
+  // /**
+   // * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
+   // * and makes them absolute based on the according static folder.
+   // *
+   // * This is used by the preview server so it will link to static files that are local without problems.
+   // *
+   // * @default false
+   // */
+  // makeStaticFilesPathsAbsolute?: boolean;
 };
 
 export const exportEmails = async (
@@ -38,11 +43,14 @@ export const exportEmails = async (
     html = true,
     pretty = false,
     plainText = false,
-    makeStaticFilesPathsAbsolute = false,
+    silent = false
   }: ExportEmailOptions,
 ) => {
-  const spinner = ora('Preparing files...\n').start();
-  closeOraOnSIGNIT(spinner);
+  let spinner: ora.Ora;
+  if (!silent) {
+    spinner = ora('Preparing files...\n').start();
+    closeOraOnSIGNIT(spinner);
+  }
 
   const emails = glob.sync(normalize(path.join(src, '*.{tsx,jsx}')));
   await esbuild.build({
@@ -52,15 +60,20 @@ export const exportEmails = async (
     write: true,
     outdir: out,
   });
-  spinner.succeed();
+
+  if(!silent) {
+    spinner!.succeed();
+  }
 
   const builtEmails = glob.sync(normalize(`${out}/*.js`), {
     absolute: true,
   });
 
   for (const templatePath of builtEmails) {
-    spinner.text = `rendering ${templatePath.split('/').pop()}`;
-    spinner.render();
+    if (!silent) {
+      spinner!.text = `rendering ${templatePath.split('/').pop()}`;
+      spinner!.render();
+    }
 
     delete require.cache[templatePath];
     // we need to use require since it has a way to programatically invalidate its cache
@@ -95,10 +108,12 @@ export const exportEmails = async (
     await unlink(templatePath);
   }
 
-  if (builtEmails.length === 0) {
-    spinner.succeed('No emails were found to be render');
-    return;
-  }
+  if (!silent) {
+    if (builtEmails.length === 0) {
+      spinner!.succeed('No emails were found to be render');
+      return;
+    }
 
-  spinner.succeed('Rendered all emails and exported');
+    spinner!.succeed('Rendered all emails and exported');
+  }
 };

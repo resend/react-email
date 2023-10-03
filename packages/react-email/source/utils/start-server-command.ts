@@ -39,15 +39,12 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   });
 
   console.info(
-    `${chalk.greenBright('react-email')} previewer running at port ${port}`,
+    `${chalk.greenBright('react-email')} preview server running at port ${port}`,
   );
   console.info(`\nCheck it out at http://localhost:${port}`);
 
-  previewServerProcess!.stdout!.on('data', (c) =>
-    console.info(`${chalk.blueBright('PREVIEW SERVER')}: ${c}`),
-  );
   previewServerProcess.on('error', (err) =>
-    console.info(`${chalk.redBright('PREVIEW SERVER')}: ${err}`),
+    console.info(`${chalk.redBright('PREVIEW SERVER ERROR')}: ${err}`),
   );
   previewServerProcess.on('close', () => (previewServerProcess = undefined));
 };

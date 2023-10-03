@@ -6,23 +6,28 @@ import { exists, rm } from 'fs-extra';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
-export const generateEmailsPreview = async (absoluteEmailsDir: string) => {
+export const generateEmailsPreview = async (absoluteEmailsDir: string, silent: boolean = false) => {
   try {
-    const spinner = ora('Generating emails preview').start();
-    closeOraOnSIGNIT(spinner);
+    let spinner;
+    if (!silent) {
+      spinner = ora('Generating emails preview').start();
+      closeOraOnSIGNIT(spinner);
+    }
 
-    await createEmailPreviews(absoluteEmailsDir);
+    await createEmailPreviews(absoluteEmailsDir, silent);
 
-    spinner.stopAndPersist({
-      symbol: logSymbols.success,
-      text: 'Emails preview generated',
-    });
+    if (!silent) {
+      spinner!.stopAndPersist({
+        symbol: logSymbols.success,
+        text: 'Emails preview generated',
+      });
+    }
   } catch (error) {
     console.log({ error });
   }
 };
 
-const createEmailPreviews = async (absoluteEmailsDir: string) => {
+const createEmailPreviews = async (absoluteEmailsDir: string, silent: boolean = false) => {
   const previewCompilationDir = path.join(absoluteEmailsDir, '.preview');
 
   if (await exists(previewCompilationDir)) {
@@ -33,6 +38,6 @@ const createEmailPreviews = async (absoluteEmailsDir: string) => {
     html: true,
     plainText: true,
     pretty: true,
-    makeStaticFilesPathsAbsolute: true,
+    silent,
   });
 };
