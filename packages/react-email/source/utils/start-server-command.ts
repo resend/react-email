@@ -45,7 +45,7 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   );
   console.info(`\nCheck it out at http://localhost:${port}`);
 
-  previewServerProcess.on('error', (err) =>
+  previewServerProcess.stderr?.on('data', (err) =>
     console.info(`${chalk.redBright('PREVIEW SERVER ERROR')}: ${err}`),
   );
   previewServerProcess.on('close', () => (previewServerProcess = undefined));
