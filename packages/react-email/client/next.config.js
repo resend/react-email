@@ -5,12 +5,12 @@ const nextConfig = {
   headers: async () => [
     {
       source: '/:path*',
-      headers: [{ key: 'Cache-Control', value: 'no-store' }]
-    }
+      headers: [{ key: 'Cache-Control', value: 'no-store' }],
+    },
   ],
   output: 'standalone',
   experimental: {
-    appDir: true
+    appDir: true,
   },
 };
 
