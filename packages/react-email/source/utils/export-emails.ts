@@ -84,12 +84,15 @@ export const exportEmails = async (
         comp,
         { pretty }
       );
-      if (makeStaticFilesPathsAbsolute) {
-        emailAsHTML = emailAsHTML.replace(
-          /src="\/static[^"]*"/g,
-          (filePath) => filePath.replace('/static', `file://${path.join(src, '..')}/static`)
-        );
-      }
+
+      // failed atempt at still allowing for local assets without copying
+      //
+      // if (makeStaticFilesPathsAbsolute) {
+      //   emailAsHTML = emailAsHTML.replace(
+      //     /src="\/static[^"]*"/g,
+      //     (filePath) => filePath.replace('/static', `file://${path.join(src, '..')}/static`)
+      //   );
+      // }
 
       const htmlPath = templatePath.replace('.js', '.html');
       await writeFile(htmlPath, emailAsHTML);
