@@ -11,6 +11,7 @@
     "build:client": "cd client && yarn build && rm -rf ../dist/client && mv .next/standalone ../dist/client",
     "format:check": "prettier --check \"**/*.{js,ts,tsx,json}\"",
     "format": "prettier --write \"**/*.{js,ts,tsx,json}\"",
+    "preinstall": "cd client && npm install",
     "lint": "eslint",
     "clean": "rm -rf dist"
   },
