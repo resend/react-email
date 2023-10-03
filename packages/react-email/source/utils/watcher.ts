@@ -29,7 +29,7 @@ export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
 
 export const emailPreviewGeneratorWatcher = (
   watcherInstance: FSWatcher,
-  absoluteEmailsDir: string
+  absoluteEmailsDir: string,
 ) => {
   watcherInstance.on('all', async (_event, filename) => {
     const file = filename.split(path.sep);
@@ -47,7 +47,8 @@ export const emailPreviewGeneratorWatcher = (
 
       await generateEmailsPreview(absoluteEmailsDir, true);
       if (previewServerWSConnection) {
-        spinner.text = 'Sending a reload message to the preview server currently running in your browser';
+        spinner.text =
+          'Sending a reload message to the preview server currently running in your browser';
         spinner.render();
 
         // only when the communication ws server is running
@@ -58,7 +59,9 @@ export const emailPreviewGeneratorWatcher = (
 
       spinner.stopAndPersist({
         symbol: logSymbols.success,
-        text: `You email changes are now live! ${(endTime - startTime).toFixed(1)}ms`
+        text: `You email changes are now live! ${(endTime - startTime).toFixed(
+          1,
+        )}ms`,
       });
     } catch (e) {
       throw new Error(

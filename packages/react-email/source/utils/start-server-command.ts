@@ -39,7 +39,9 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   });
 
   console.info(
-    `${chalk.greenBright('react-email')} preview server running at port ${port}`,
+    `${chalk.greenBright(
+      'react-email',
+    )} preview server running at port ${port}`,
   );
   console.info(`\nCheck it out at http://localhost:${port}`);
 

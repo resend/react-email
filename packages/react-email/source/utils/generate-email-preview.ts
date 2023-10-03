@@ -6,7 +6,10 @@ import { exists, rm } from 'fs-extra';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
 
-export const generateEmailsPreview = async (absoluteEmailsDir: string, silent: boolean = false) => {
+export const generateEmailsPreview = async (
+  absoluteEmailsDir: string,
+  silent: boolean = false,
+) => {
   try {
     let spinner;
     if (!silent) {
@@ -27,7 +30,10 @@ export const generateEmailsPreview = async (absoluteEmailsDir: string, silent: b
   }
 };
 
-const createEmailPreviews = async (absoluteEmailsDir: string, silent: boolean = false) => {
+const createEmailPreviews = async (
+  absoluteEmailsDir: string,
+  silent: boolean = false,
+) => {
   const previewCompilationDir = path.join(absoluteEmailsDir, '.preview');
 
   if (await exists(previewCompilationDir)) {

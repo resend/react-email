@@ -21,18 +21,18 @@ export type ExportEmailOptions = {
   plainText?: boolean;
 
   /**
-    * @default false
-    */
+   * @default false
+   */
   silent?: boolean;
 
   // /**
-   // * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
-   // * and makes them absolute based on the according static folder.
-   // *
-   // * This is used by the preview server so it will link to static files that are local without problems.
-   // *
-   // * @default false
-   // */
+  // * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
+  // * and makes them absolute based on the according static folder.
+  // *
+  // * This is used by the preview server so it will link to static files that are local without problems.
+  // *
+  // * @default false
+  // */
   // makeStaticFilesPathsAbsolute?: boolean;
 };
 
@@ -43,7 +43,7 @@ export const exportEmails = async (
     html = true,
     pretty = false,
     plainText = false,
-    silent = false
+    silent = false,
   }: ExportEmailOptions,
 ) => {
   let spinner: ora.Ora;
@@ -61,7 +61,7 @@ export const exportEmails = async (
     outdir: out,
   });
 
-  if(!silent) {
+  if (!silent) {
     spinner!.succeed();
   }
 

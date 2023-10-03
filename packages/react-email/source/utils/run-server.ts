@@ -27,7 +27,7 @@ export const setupServer = async (emailsDir: string, port: string) => {
   await generateEmailsPreview(absoluteEmailsDir, true);
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'Initial email previews generated'
+    text: 'Initial email previews generated',
   });
 
   console.clear();
