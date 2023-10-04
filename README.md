@@ -109,7 +109,7 @@ pnpm install
 pnpm dev
 ```
 
-This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3001](http://localhost:3001).
+This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
 
 ## Contributing
 
