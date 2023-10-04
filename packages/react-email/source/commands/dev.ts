@@ -1,5 +1,4 @@
 import { exists } from 'fs-extra';
-import shell from 'shelljs';
 
 import { setupServer } from '../utils/run-server';
 
@@ -17,6 +16,6 @@ export const dev = async ({ dir, port }: Args) => {
     await setupServer(dir, port);
   } catch (error) {
     console.log(error);
-    shell.exit(1);
+    process.exit(1);
   }
 };

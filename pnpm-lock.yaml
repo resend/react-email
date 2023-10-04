@@ -498,12 +498,6 @@ importers:
       '@commander-js/extra-typings':
         specifier: 9.4.1
         version: 9.4.1(commander@9.4.1)
-      '@manypkg/find-root':
-        specifier: 2.2.1
-        version: 2.2.1
-      '@octokit/rest':
-        specifier: 19.0.7
-        version: 19.0.7
       '@react-email/render':
         specifier: 0.0.6
         version: 0.0.6
@@ -516,9 +510,6 @@ importers:
       commander:
         specifier: 9.4.1
         version: 9.4.1
-      detect-package-manager:
-        specifier: 2.0.1
-        version: 2.0.1
       esbuild:
         specifier: 0.16.4
         version: 0.16.4
@@ -537,12 +528,6 @@ importers:
       ora:
         specifier: 5.4.1
         version: 5.4.1
-      read-pkg:
-        specifier: 5.2.0
-        version: 5.2.0
-      shelljs:
-        specifier: 0.8.5
-        version: 0.8.5
       tree-node-cli:
         specifier: 1.6.0
         version: 1.6.0
