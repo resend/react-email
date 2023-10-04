@@ -1,4 +1,4 @@
-import { exists } from 'fs-extra';
+import { existsSync } from 'fs-extra';
 
 import { setupServer } from '../utils/run-server';
 
@@ -9,7 +9,7 @@ interface Args {
 
 export const dev = async ({ dir, port }: Args) => {
   try {
-    if (!(await exists(dir))) {
+    if (existsSync(dir)) {
       throw new Error(`Missing ${dir} folder`);
     }
 
