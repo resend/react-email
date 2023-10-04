@@ -1,40 +1,40 @@
 import * as React from "react";
-import { pxToPt } from "./utils";
+import { parsePadding, pxToPt } from "./utils";
 
-type RootProps = React.ComponentPropsWithoutRef<"a">;
-
-export interface ButtonProps extends RootProps {
-  pX?: number;
-  pY?: number;
-}
+type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
 export const Button: React.FC<Readonly<ButtonProps>> = ({
   children,
   style,
-  pX = 0,
-  pY = 0,
   target = "_blank",
   ...props
 }) => {
-  const y = (pY || 0) * 2;
-  const textRaise = pxToPt(y.toString());
+  const { pt, pr, pb, pl } = parsePadding({
+    padding: style?.padding,
+    paddingLeft: style?.paddingLeft,
+    paddingRight: style?.paddingRight,
+    paddingTop: style?.paddingTop,
+    paddingBottom: style?.paddingBottom,
+  });
+
+  const y = pt + pb;
+  const textRaise = pxToPt(y);
 
   return (
     <a
       {...props}
-      data-id="react-email-button"
-      style={buttonStyle({ ...style, pX, pY })}
+      style={buttonStyle({ ...style, pt, pr, pb, pl })}
       target={target}
     >
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
+          __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
         }}
       />
-      <span style={buttonTextStyle(pY)}>{children}</span>
+      <span style={buttonTextStyle(pb)}>{children}</span>
       <span
         dangerouslySetInnerHTML={{
-          __html: `<!--[if mso]><i style="letter-spacing: ${pX}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
+          __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
         }}
       />
     </a>
@@ -42,9 +42,14 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
 };
 
 const buttonStyle = (
-  style?: React.CSSProperties & { pY: number; pX: number },
+  style?: React.CSSProperties & {
+    pt: number;
+    pr: number;
+    pb: number;
+    pl: number;
+  },
 ) => {
-  const { pY, pX, ...rest } = style || {};
+  const { pt, pr, pb, pl, ...rest } = style || {};
 
   return {
     ...rest,
@@ -52,18 +57,16 @@ const buttonStyle = (
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
-    padding: `${pY}px ${pX}px`,
+    padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
   };
 };
 
-const buttonTextStyle = (pY?: number) => {
-  const paddingY = pY || 0;
-
+const buttonTextStyle = (pb?: number) => {
   return {
     maxWidth: "100%",
     display: "inline-block",
     lineHeight: "120%",
     msoPaddingAlt: "0px",
-    msoTextRaise: pxToPt(paddingY.toString()),
+    msoTextRaise: pxToPt(pb || 0),
   };
 };
