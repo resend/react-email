@@ -2,7 +2,7 @@ import ora from 'ora';
 import esbuild from 'esbuild';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { glob } from 'glob';
-import path, { normalize } from 'path';
+import { normalize } from 'path';
 import { render } from '@react-email/render';
 import { unlink, writeFile } from 'fs-extra';
 
@@ -37,7 +37,7 @@ export type ExportEmailOptions = {
 };
 
 export const exportEmails = async (
-  src: string,
+  emails: string[],
   out: string,
   {
     html = true,
@@ -52,7 +52,6 @@ export const exportEmails = async (
     closeOraOnSIGNIT(spinner);
   }
 
-  const emails = glob.sync(normalize(path.join(src, '*.{tsx,jsx}')));
   await esbuild.build({
     bundle: true,
     entryPoints: emails,
@@ -79,7 +78,7 @@ export const exportEmails = async (
     // we need to use require since it has a way to programatically invalidate its cache
     const email = require(templatePath);
 
-    const comp = email.default({});
+    const comp = email.default(email.default.PreviewProps ?? {});
     if (plainText) {
       const emailAsText = render(comp, {
         plainText: true,

@@ -9,6 +9,8 @@ import ora from 'ora';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
+import { exportEmails } from './export-emails';
+import { convertToAbsolutePath } from './convert-to-absolute-path';
 
 export const createEmailsWatcherInstance = (absoluteEmailsDir: string) => {
   const watcher = chokidar.watch(absoluteEmailsDir, {
@@ -33,11 +35,15 @@ export const emailPreviewGeneratorWatcher = (
 ) => {
   watcherInstance.on('all', async (_event, filename) => {
     const file = filename.split(path.sep);
-    if (file[1] === undefined || file[1] === '.preview') {
+    if (file[1] === undefined) {
       return;
     }
 
-    console.info(`\nChanges to emails\'s sources detected`);
+    console.info(
+      `\nChanges to the source of the email at "${chalk.cyan(
+        filename,
+      )}" detected`,
+    );
 
     try {
       const startTime = performance.now();
@@ -45,7 +51,16 @@ export const emailPreviewGeneratorWatcher = (
       const spinner = ora('Adjusting email previews to changes').start();
       closeOraOnSIGNIT(spinner);
 
-      await generateEmailsPreview(absoluteEmailsDir, true);
+      await exportEmails(
+        [convertToAbsolutePath(filename)],
+        path.join(absoluteEmailsDir, '.preview'),
+        {
+          html: true,
+          pretty: true,
+          silent: true,
+          plainText: true,
+        },
+      );
       if (previewServerWSConnection) {
         spinner.text =
           'Sending a reload message to the preview server currently running in your browser';
@@ -65,7 +80,7 @@ export const emailPreviewGeneratorWatcher = (
       });
     } catch (e) {
       throw new Error(
-        `Something went wrong when trying to genreate previews for the emails, ${// @ts-expect-error
+        `Something went wrong when trying to genreate preview for the email, ${// @ts-expect-error
 e?.message}`,
       );
     }

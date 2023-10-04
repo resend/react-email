@@ -1,10 +1,11 @@
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import path from 'node:path';
+import path, { normalize } from 'node:path';
 import { exists, rm } from 'fs-extra';
 
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
+import { glob } from 'glob';
 
 export const generateEmailsPreview = async (
   absoluteEmailsDir: string,
@@ -40,7 +41,10 @@ const createEmailPreviews = async (
     await rm(previewCompilationDir, { recursive: true, force: true });
   }
 
-  await exportEmails(absoluteEmailsDir, previewCompilationDir, {
+  const emails = glob.sync(
+    normalize(path.join(absoluteEmailsDir, '*.{tsx,jsx}')),
+  );
+  await exportEmails(emails, previewCompilationDir, {
     html: true,
     plainText: true,
     pretty: true,

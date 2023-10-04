@@ -22,15 +22,15 @@ export const setupServer = async (emailsDir: string, port: string) => {
 
   const watcherInstance = createEmailsWatcherInstance(absoluteEmailsDir);
 
+  console.clear();
+
   const spinner = ora();
   closeOraOnSIGNIT(spinner);
   await generateEmailsPreview(absoluteEmailsDir, true);
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'Initial email previews generated',
+    text: 'Email previews generated',
   });
-
-  console.clear();
 
   console.info('\n');
 
