@@ -3,6 +3,7 @@
 # dependencies
 node_modules
 .pnp
+package-lock.json
 .pnp.js
 
 # testing
@@ -20,6 +21,7 @@ dist
 *.pem
 .changeset
 .react-email
+.preview
 
 # debug
 npm-debug.log*

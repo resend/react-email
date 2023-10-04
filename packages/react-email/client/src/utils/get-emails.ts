@@ -13,8 +13,7 @@ export const getEmails = async () => {
 
   const filenames = await fs.readdir(emailsDir());
   const emails = filenames
-    .filter((file) => file !== '.preview')
-    .map((file) => file.replace(/\.(jsx|tsx)$/g, ''))
-    .filter((file) => file !== 'components');
+    .filter((file) => /\.(jsx|tsx)$/g.test(file))
+    .map((file) => file.replace(/\.(jsx|tsx)$/g, ''));
   return { emails, filenames };
 };
