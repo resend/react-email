@@ -54,6 +54,8 @@ const createEmailPreviews = (emailDir: string) => {
 
   const list = sync(osIndependentPath(path.join(emailDir, '/*.{jsx,tsx}')), {
     absolute: true,
+    // ignore any spec or test file within the email directory
+    ignore: [path.join(emailDir, '*.?(spec|test).{jsx,tsx}')],
   });
 
   /**
