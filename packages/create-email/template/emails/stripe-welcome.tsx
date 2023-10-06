@@ -39,12 +39,7 @@ export const StripeWelcomeEmail = () => (
             You can view your payments and a variety of other information about
             your account right from your dashboard.
           </Text>
-          <Button
-            pX={10}
-            pY={10}
-            style={button}
-            href="https://dashboard.stripe.com/login"
-          >
+          <Button style={button} href="https://dashboard.stripe.com/login">
             View your Stripe Dashboard
           </Button>
           <Hr style={hr} />
@@ -147,6 +142,7 @@ const button = {
   textAlign: "center" as const,
   display: "block",
   width: "100%",
+  padding: "10px",
 };
 
 const footer = {
