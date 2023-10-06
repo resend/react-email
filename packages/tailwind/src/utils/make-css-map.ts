@@ -7,15 +7,14 @@ export function makeCssMap(css: string) {
     "",
   );
 
-  const cssMap = cssNoMedia.split("}").reduce(
-    (acc, cur) => {
+  const cssMap = cssNoMedia
+    .split("}")
+    .reduce<Record<string, string>>((acc, cur) => {
       const [key, value] = cur.split("{");
       if (key && value) {
         acc[key] = value;
       }
       return acc;
-    },
-    {} as Record<string, string>,
-  );
+    }, {});
   return cssMap;
 }

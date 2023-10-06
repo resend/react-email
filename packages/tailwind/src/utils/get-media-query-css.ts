@@ -12,7 +12,7 @@ export function getMediaQueryCss(css: string) {
           (_, start, content, end) => {
             const newContent = (content as string).replace(
               /(?:[\s\r\n]*)?(?<prop>[\w-]+)\s*:\s*(?<value>[^};\r\n]+)/gm,
-              (_, prop, value) => {
+              (__, prop, value) => {
                 return `${prop}: ${value} !important;`;
               },
             );
