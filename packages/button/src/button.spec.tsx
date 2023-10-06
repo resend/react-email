@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Button } from "./index";
 
 describe("<Button> component", () => {
-  beforeEach(() => {
-    vi.restoreAllMocks();
-    vi.resetModules();
-  });
-
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Button>{testMessage}</Button>);
