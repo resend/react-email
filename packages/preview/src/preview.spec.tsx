@@ -3,11 +3,6 @@ import { render } from "@react-email/render";
 import { Preview } from "./index";
 
 describe("<Preview> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders correctly", () => {
     const actualOutput = render(<Preview>Email preview text</Preview>);
     expect(actualOutput).toMatchInlineSnapshot(

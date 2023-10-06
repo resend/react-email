@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Head } from "./index";
 
 describe("<Head> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Head>{testMessage}</Head>);
@@ -16,7 +11,7 @@ describe("<Head> component", () => {
   it("renders correctly", () => {
     const actualOutput = render(<Head />);
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/></head>"`,
+      '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head>"',
     );
   });
 
@@ -31,9 +26,9 @@ describe("<Head> component", () => {
       </Head>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style>body{
-            color: red;
-          }</style></head>"
-`);
+      "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>body{
+                  color: red;
+                }</style></head>"
+    `);
   });
 });

@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Font } from "./index";
 
 describe("<Font> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders with default props", () => {
     const html = render(
       <Font fontFamily="Arial" fallbackFontFamily="Helvetica" />,

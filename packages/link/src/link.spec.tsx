@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Link } from "./index";
 
 describe("<Link> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Link href="https://example.com">{testMessage}</Link>);
@@ -34,7 +29,7 @@ describe("<Link> component", () => {
       <Link href="https://example.com">Example</Link>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a href=\\"https://example.com\\" target=\\"_blank\\" style=\\"color:#067df7;text-decoration:none\\">Example</a>"`,
+      '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a href=\\"https://example.com\\" style=\\"color:#067df7;text-decoration:none\\" target=\\"_blank\\">Example</a>"',
     );
   });
 });

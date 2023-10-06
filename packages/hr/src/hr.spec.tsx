@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Hr } from "./index";
 
 describe("<Hr> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("passes styles and other props correctly", () => {
     const style = {
       width: "50%",

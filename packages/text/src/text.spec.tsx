@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Text } from "./index";
 
 describe("<Text> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders children correctly", () => {
     const testMessage = "Test message";
     const html = render(<Text>{testMessage}</Text>);

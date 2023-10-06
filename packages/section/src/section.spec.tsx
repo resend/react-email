@@ -2,11 +2,6 @@ import { render } from "@react-email/render";
 import { Section } from "./index";
 
 describe("<Section> component", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("renders correctly", () => {
     const actualOutput = render(<Section>Lorem ipsum</Section>);
     expect(actualOutput).toMatchInlineSnapshot(
