@@ -658,9 +658,9 @@ importers:
       '@babel/preset-react':
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
-      '@react-email/button':
+      '@react-email/hr':
         specifier: workspace:*
-        version: link:../button
+        version: link:../hr
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
