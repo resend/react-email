@@ -1,4 +1,4 @@
-import { ChildProcess } from 'child_process';
+import type { ChildProcess } from 'node:child_process';
 import shell from 'shelljs';
 
 let processesToKill: ChildProcess[] = [];
@@ -23,7 +23,7 @@ export const buildProdServer = (packageManager: string) => {
   execAsync(`${packageManager} run build`);
 
   // if build fails for whatever reason, make sure the shell actually exits
-  process.on('close', (code) => {
+  process.on('close', (code: number | undefined) => {
     shell.exit(code ?? undefined);
   });
 };

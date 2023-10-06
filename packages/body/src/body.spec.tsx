@@ -1,5 +1,5 @@
-import { Body } from "./index";
 import { render } from "@react-email/render";
+import { Body } from "./index";
 
 describe("<Body> component", () => {
   beforeEach(() => {

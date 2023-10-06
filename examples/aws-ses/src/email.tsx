@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Html } from '@react-email/html';
-import { Button } from '@react-email/button';
+import * as React from "react";
+import { Html } from "@react-email/html";
+import { Button } from "@react-email/button";
 
 interface EmailProps {
   url: string;

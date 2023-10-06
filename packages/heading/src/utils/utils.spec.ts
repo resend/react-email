@@ -1,11 +1,7 @@
-import { withMargin, withSpace, Margin } from "./";
+import type { Margin } from ".";
+import { withMargin, withSpace } from ".";
 
 describe("withMargin", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("should return an empty object for empty input", () => {
     const marginProps: Margin = {};
     const result = withMargin(marginProps);
@@ -62,11 +58,6 @@ describe("withMargin", () => {
 });
 
 describe("withSpace", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
-  });
-
   it("should return an empty object for undefined value", () => {
     const result = withSpace(undefined, ["margin"]);
     expect(result).toEqual({});

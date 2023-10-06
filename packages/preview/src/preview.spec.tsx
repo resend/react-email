@@ -1,5 +1,6 @@
 import { Preview, renderWhiteSpace } from "./index";
 import { render } from "@react-email/render";
+import { Preview } from "./index";
 
 describe("<Preview> component", () => {
   beforeEach(() => {

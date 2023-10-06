@@ -13,14 +13,14 @@
   ],
   "scripts": {
     "build": "tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
-    "build:env":"npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
+    "build:env": "npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
     "dev": " tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement",
     "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
     "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
     "format:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format": "prettier --write \"**/*.{ts,tsx}\""
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "test:watch": "vitest",
+    "test": "vitest run"
   },
   "dependencies": {
     "@react-email/components": "0.0.4",

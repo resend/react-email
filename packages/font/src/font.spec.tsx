@@ -1,5 +1,5 @@
-import { Font } from "./index";
 import { render } from "@react-email/render";
+import { Font } from "./index";
 
 describe("<Font> component", () => {
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe("<Font> component", () => {
 
   it("renders correctly", () => {
     const actualOutput = render(
-      <Font fontFamily="Roboto" fallbackFontFamily={"Verdana"} />,
+      <Font fallbackFontFamily="Verdana" fontFamily="Roboto" />,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><style>

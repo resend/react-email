@@ -1,5 +1,5 @@
-import { Row } from "./index";
 import { render } from "@react-email/render";
+import { Row } from "./index";
 
 describe("<Row> component", () => {
   beforeEach(() => {

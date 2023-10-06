@@ -1,5 +1,5 @@
-import { Text } from "./index";
 import { render } from "@react-email/render";
+import { Text } from "./index";
 
 describe("<Text> component", () => {
   beforeEach(() => {

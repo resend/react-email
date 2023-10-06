@@ -1,5 +1,5 @@
-import { Hr } from "./index";
 import { render } from "@react-email/render";
+import { Hr } from "./index";
 
 describe("<Hr> component", () => {
   beforeEach(() => {

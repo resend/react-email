@@ -1,5 +1,5 @@
-import { Head } from "./index";
 import { render } from "@react-email/render";
+import { Head } from "./index";
 
 describe("<Head> component", () => {
   beforeEach(() => {

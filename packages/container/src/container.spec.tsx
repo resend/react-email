@@ -1,5 +1,6 @@
 import { Container } from "./index";
 import { render } from "@react-email/render";
+import { Container } from "./index";
 
 describe("<Container> component", () => {
   beforeEach(() => {
@@ -27,7 +28,7 @@ describe("<Container> component", () => {
   it("renders correctly", () => {
     const container = render(
       <Container style={{ maxWidth: "300px" }}>
-        <button>Hi</button>
+        <button type="button">Hi</button>
       </Container>,
     );
 

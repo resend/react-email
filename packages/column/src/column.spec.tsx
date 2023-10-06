@@ -1,5 +1,5 @@
-import { Column } from "./index";
 import { render } from "@react-email/render";
+import { Column } from "./index";
 
 describe("<Column> component", () => {
   beforeEach(() => {

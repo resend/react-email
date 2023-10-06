@@ -5,7 +5,7 @@ import htmlParser, {
   domToReact,
   Element,
 } from "html-react-parser";
-import { tailwindToCSS, TailwindConfig } from "tw-to-css";
+import { tailwindToCSS, type TailwindConfig } from "tw-to-css";
 import { cleanCss, makeCssMap, getMediaQueryCss } from "./utils";
 
 export interface TailwindProps {
@@ -52,24 +52,20 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       replace: (domNode) => {
         if (domNode instanceof Element) {
           if (hasResponsiveStyles && hasHead && domNode.name === "head") {
-            let newDomNode: JSX.Element | null = null;
+            const props = attributesToProps(domNode.attribs);
 
-            if (domNode.children) {
-              const props = attributesToProps(domNode.attribs);
-
-              newDomNode = (
-                <head {...props}>
-                  {domToReact(domNode.children)}
-                  <style>{headStyle}</style>
-                </head>
-              );
-            }
+            const newDomNode = (
+              <head {...props}>
+                {domToReact(domNode.children)}
+                <style>{headStyle}</style>
+              </head>
+            );
 
             return newDomNode;
           }
 
-          if (domNode.attribs?.class) {
-            const cleanRegex = /[:#\!\-[\]\/\.%]+/g;
+          if (domNode.attribs.class) {
+            const cleanRegex = /[:#!\-[\]/.%]+/g;
             const cleanTailwindClasses = domNode.attribs.class
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, "_");
@@ -88,13 +84,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             domNode.attribs.class = domNode.attribs.class
               // remove all non-responsive classes (ex: m-2 md:m-4 > md:m-4)
               .split(" ")
-              .filter((className) => {
-                const cleanedClassName = className.replace(cleanRegex, "_");
-                return (
-                  className.search(/^.{2}:/) !== -1 ||
-                  !cssMap[`.${cleanedClassName}`]
-                );
-              })
+              .filter((className) => className.search(/^.{2}:/) !== -1)
               .join(" ")
               // replace all non-alphanumeric characters with underscores
               .replace(cleanRegex, "_");

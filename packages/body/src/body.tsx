@@ -2,7 +2,7 @@ import * as React from "react";
 
 type RootProps = React.ComponentPropsWithoutRef<"body">;
 
-export interface BodyProps extends RootProps {}
+export type BodyProps = RootProps;
 
 export const Body: React.FC<Readonly<BodyProps>> = ({
   children,
