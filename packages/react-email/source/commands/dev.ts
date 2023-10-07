@@ -9,7 +9,7 @@ interface Args {
 
 export const dev = async ({ dir, port }: Args) => {
   try {
-    if (existsSync(dir)) {
+    if (!existsSync(dir)) {
       throw new Error(`Missing ${dir} folder`);
     }
 
