@@ -656,14 +656,14 @@ importers:
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
       '@react-email/head':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../head
       '@react-email/hr':
-        specifier: 0.0.5
+        specifier: workspace:*
         version: link:../hr
       '@react-email/html':
-        specifier: 0.0.4
-        version: 0.0.4
+        specifier: workspace:*
+        version: link:../html
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1934,6 +1934,7 @@ packages:
   /@react-email/html@0.0.4:
     resolution: {integrity: sha512-7tRYSnudYAWez+NkPWOM8yLZH7EuYFtYdiLPnzpD+pf4cdk16Gz4up531DaIX6dNBbfbyEFpQxhXZxGeJ5ZkfQ==}
     engines: {node: '>=16.0.0'}
+    dev: false
 
   /@react-email/render@0.0.6:
     resolution: {integrity: sha512-6zs7WZbd37TcPT1OmMPH/kcBpv0QSi+k3om7LyDnbdIcrbwOO/OstVwUaa/6zgvDvnq9Y2wOosbru7j5kUrW9A==}

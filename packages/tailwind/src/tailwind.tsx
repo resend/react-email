@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import type { TailwindConfig } from "tw-to-css";
+import type { TailwindConfig, twi as TwiType } from "tw-to-css";
 import { tailwindToCSS } from "tw-to-css";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 
@@ -14,12 +14,8 @@ export interface TailwindProps {
 function processElement(
   element: React.ReactElement,
   headStyles: string[],
-  config?: TailwindConfig,
+  twi: typeof TwiType,
 ): React.ReactElement {
-  const { twi } = tailwindToCSS({
-    config,
-  });
-
   let modifiedElement = element;
 
   if (modifiedElement.props.className) {
@@ -65,7 +61,7 @@ function processElement(
     const children = React.Children.toArray(modifiedElement.props.children);
     const processedChildren = children.map((child) => {
       if (React.isValidElement(child)) {
-        return processElement(child, headStyles, config);
+        return processElement(child, headStyles, twi);
       }
       return child;
     });
@@ -109,7 +105,7 @@ function processHead(
       if (React.isValidElement(processedChild)) {
         return processHead(processedChild, responsiveStyles);
       }
-      return modifiedChild;
+      return processedChild;
     });
 
     modifiedChild = React.cloneElement(
@@ -125,9 +121,13 @@ function processHead(
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const headStyles: string[] = [];
 
+  const { twi } = tailwindToCSS({
+    config,
+  });
+
   const childrenWithInlineStyles = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      return processElement(child, headStyles, config);
+      return processElement(child, headStyles, twi);
     }
     return child;
   });

@@ -72,7 +72,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style><style>@media(min-width:640px){.sm\\\\:bg-red-300{background-color:rgb(252,165,165)}}@media(min-width:768px){.md\\\\:bg-red-400{background-color:rgb(248,113,113)}}@media(min-width:1024px){.lg\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:bg-red-300{background-color:rgb(252,165,165)}}@media(min-width:768px){.md\\\\:bg-red-400{background-color:rgb(248,113,113)}}@media(min-width:1024px){.lg\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
@@ -133,7 +133,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style></style><link/><style><style>@media(min-width:640px){.sm\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 });
@@ -302,7 +302,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style><style>@media(min-width:640px){.sm\\\\:border-custom{border:2px solid}}</style></style></head><body><div style=\\"border:2px solid\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:border-custom{border:2px solid}}</style></head><body><div style=\\"border:2px solid\\"></div></body></html>"',
     );
   });
 });
@@ -324,7 +324,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html id=\\"__react-email\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -351,7 +351,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html id=\\"__react-email\\" lang=\\"en\\" dir=\\"ltr\\"><head data-id=\\"__react-email-head\\"><meta http-equiv=\\"Content-Type\\" content=\\"text/html; charset=UTF-8\\"/><style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></style></head><div><div>Test</div></div><div><div>Test</div></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div>Test</div><div>Test</div></html>"',
     );
   });
 
@@ -365,7 +365,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\"><div style=\\"height:200px\\">something tall</div></div></div>"',
+      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
     );
   });
 });
