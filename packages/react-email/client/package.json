@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cd .next && cp -r ./static ./standalone/.next",
+    "build": "next build && cpy ./.next/static ./.next/standalone/.next",
     "start": "next start",
     "lint": "next lint",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
@@ -34,6 +34,7 @@
     "@types/react": "18.2.23",
     "@types/react-dom": "18.2.8",
     "autoprefixer": "10.4.14",
+    "cpy-cli": "^5.0.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
     "eslint-config-prettier": "8.8.0",
