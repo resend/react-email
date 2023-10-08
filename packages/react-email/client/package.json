@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cpy ./.next/static ./.next/standalone/.next",
+    "build": "next build && cpy ./.next/static ./.next/standalone/.next/static",
     "start": "next start",
     "lint": "next lint",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
