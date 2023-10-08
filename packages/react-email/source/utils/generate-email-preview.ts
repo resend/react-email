@@ -5,10 +5,10 @@ import { exists, rm } from 'fs-extra';
 
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 import { exportEmails } from './export-emails';
-import { glob } from 'glob';
+import { getAllEmails } from './get-all-emails';
 
 export const generateEmailsPreview = async (
-  absoluteEmailsDir: string,
+  emailsDir: string,
   silent: boolean = false,
 ) => {
   try {
@@ -18,7 +18,7 @@ export const generateEmailsPreview = async (
       closeOraOnSIGNIT(spinner);
     }
 
-    await createEmailPreviews(absoluteEmailsDir, silent);
+    await createEmailPreviews(emailsDir, silent);
 
     if (!silent) {
       spinner!.stopAndPersist({
@@ -32,18 +32,16 @@ export const generateEmailsPreview = async (
 };
 
 const createEmailPreviews = async (
-  absoluteEmailsDir: string,
+  emailsDir: string,
   silent: boolean = false,
 ) => {
-  const previewCompilationDir = path.join(absoluteEmailsDir, '.preview');
+  const previewCompilationDir = path.join(emailsDir, '.preview');
 
   if (await exists(previewCompilationDir)) {
     await rm(previewCompilationDir, { recursive: true, force: true });
   }
 
-  const emails = glob.sync(
-    normalize(path.join(absoluteEmailsDir, '*.{tsx,jsx}')),
-  );
+  const emails = await getAllEmails(emailsDir);
   await exportEmails(emails, previewCompilationDir, {
     html: true,
     plainText: true,

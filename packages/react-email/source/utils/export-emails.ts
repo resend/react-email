@@ -1,10 +1,10 @@
 import ora from 'ora';
 import esbuild from 'esbuild';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
-import { glob } from 'glob';
 import { normalize } from 'path';
 import { render } from '@react-email/render';
-import { unlink, writeFile } from 'fs-extra';
+import { unlink, writeFile, readdir } from 'fs-extra';
+import { convertToAbsolutePath } from './convert-to-absolute-path';
 
 export type ExportEmailOptions = {
   /**
@@ -24,16 +24,6 @@ export type ExportEmailOptions = {
    * @default false
    */
   silent?: boolean;
-
-  // /**
-  // * @description Searches for all paths inside the emails that are of the form `"/static/*"`,
-  // * and makes them absolute based on the according static folder.
-  // *
-  // * This is used by the preview server so it will link to static files that are local without problems.
-  // *
-  // * @default false
-  // */
-  // makeStaticFilesPathsAbsolute?: boolean;
 };
 
 export const exportEmails = async (
@@ -64,11 +54,14 @@ export const exportEmails = async (
     spinner!.succeed();
   }
 
-  const builtEmails = glob.sync(normalize(`${out}/*.js`), {
-    absolute: true,
-  });
+  const bundledEmailSources = await readdir(normalize(out))
+    .then(
+      files => files
+        .filter(f => f.endsWith('.js'))
+        .map(f => convertToAbsolutePath(`${out}/${f}`))
+    );
 
-  for (const templatePath of builtEmails) {
+  for (const templatePath of bundledEmailSources) {
     if (!silent) {
       spinner!.text = `rendering ${templatePath.split('/').pop()}`;
       spinner!.render();
@@ -91,15 +84,6 @@ export const exportEmails = async (
     if (html) {
       let emailAsHTML = render(comp, { pretty });
 
-      // failed atempt at still allowing for local assets without copying
-      //
-      // if (makeStaticFilesPathsAbsolute) {
-      //   emailAsHTML = emailAsHTML.replace(
-      //     /src="\/static[^"]*"/g,
-      //     (filePath) => filePath.replace('/static', `file://${path.join(src, '..')}/static`)
-      //   );
-      // }
-
       const htmlPath = templatePath.replace('.js', '.html');
       await writeFile(htmlPath, emailAsHTML);
     }
@@ -108,7 +92,7 @@ export const exportEmails = async (
   }
 
   if (!silent) {
-    if (builtEmails.length === 0) {
+    if (bundledEmailSources.length === 0) {
       spinner!.succeed('No emails were found to be render');
       return;
     }
