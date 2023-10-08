@@ -37,6 +37,9 @@ export const startPreviewServer = (absoluteEmailsDir: string, port: string) => {
   previewServer.on('connection', (ws) => {
     previewServerWSConnection = ws;
   });
+  previewServer.on('error', (err) => {
+    console.warn(`${chalk.redBright('PREVIEW SERVER RROR WS')}: ${err}`);
+  });
 
   console.info(
     `${chalk.greenBright(
