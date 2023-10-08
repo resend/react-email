@@ -54,12 +54,11 @@ export const exportEmails = async (
     spinner!.succeed();
   }
 
-  const bundledEmailSources = await readdir(normalize(out))
-    .then(
-      files => files
-        .filter(f => f.endsWith('.js'))
-        .map(f => convertToAbsolutePath(`${out}/${f}`))
-    );
+  const bundledEmailSources = await readdir(normalize(out)).then((files) =>
+    files
+      .filter((f) => f.endsWith('.js'))
+      .map((f) => convertToAbsolutePath(`${out}/${f}`)),
+  );
 
   for (const templatePath of bundledEmailSources) {
     if (!silent) {
