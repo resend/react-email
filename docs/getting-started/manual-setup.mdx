@@ -1,12 +1,12 @@
 ---
-title: 'Manual Setup'
-sidebarTitle: 'Manual Setup'
-description: 'Create a brand-new folder with packages powered by React Email.'
-'og:image': 'https://react.email/static/covers/react-email.png'
-icon: 'hammer'
+title: "Manual Setup"
+sidebarTitle: "Manual Setup"
+description: "Create a brand-new folder with packages powered by React Email."
+"og:image": "https://react.email/static/covers/react-email.png"
+icon: "hammer"
 ---
 
-import NextSteps from '../snippets/next-steps.mdx';
+import NextSteps from "../snippets/next-steps.mdx";
 
 ## 1. Create directory
 
@@ -55,18 +55,16 @@ Include the following script in your `package.json` file.
 Create a new folder called `emails`, create a file inside called `index.tsx`, and add the following code:
 
 ```jsx index.tsx
-import { Button } from '@react-email/button';
-import { Html } from '@react-email/html';
-import * as React from 'react';
+import { Button } from "@react-email/button";
+import { Html } from "@react-email/html";
+import * as React from "react";
 
 export default function Email() {
   return (
     <Html>
       <Button
-        pX={20}
-        pY={12}
         href="https://example.com"
-        style={{ background: '#000', color: '#fff' }}
+        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
       >
         Click me
       </Button>

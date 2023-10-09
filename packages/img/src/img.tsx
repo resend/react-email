@@ -15,7 +15,6 @@ export const Img: React.FC<Readonly<ImgProps>> = ({
   <img
     {...props}
     alt={alt}
-    data-id="react-email-img"
     height={height}
     src={src}
     style={{

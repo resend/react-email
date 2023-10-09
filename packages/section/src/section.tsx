@@ -17,7 +17,6 @@ export const Section: React.FC<Readonly<SectionProps>> = ({
       border={0}
       cellPadding="0"
       cellSpacing="0"
-      data-id="react-email-section"
       role="presentation"
       style={style}
     >

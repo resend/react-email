@@ -7,7 +7,6 @@ export type TextProps = RootProps;
 export const Text: React.FC<Readonly<TextProps>> = ({ style, ...props }) => (
   <p
     {...props}
-    data-id="react-email-text"
     style={{
       fontSize: "14px",
       lineHeight: "24px",
