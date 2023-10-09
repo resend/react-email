@@ -7028,7 +7028,3 @@ packages:
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
