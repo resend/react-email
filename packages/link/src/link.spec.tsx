@@ -1,8 +1,30 @@
 import { render } from "@react-email/render";
 import { Link } from "./index";
 
-describe("render", () => {
-  it("renders the <Link> component", () => {
+describe("<Link> component", () => {
+  it("renders children correctly", () => {
+    const testMessage = "Test message";
+    const html = render(<Link href="https://example.com">{testMessage}</Link>);
+    expect(html).toContain(testMessage);
+  });
+
+  it("passes style and other props correctly", () => {
+    const style = { color: "red" };
+    const html = render(
+      <Link href="https://example.com" style={style} data-testid="link-test">
+        Test
+      </Link>,
+    );
+    expect(html).toContain("color:red");
+    expect(html).toContain('data-testid="link-test"');
+  });
+
+  it("opens in a new tab", () => {
+    const html = render(<Link href="https://example.com">Test</Link>);
+    expect(html).toContain(`target="_blank"`);
+  });
+
+  it("renders correctly", () => {
     const actualOutput = render(
       <Link href="https://example.com">Example</Link>,
     );
