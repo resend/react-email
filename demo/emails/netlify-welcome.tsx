@@ -125,11 +125,7 @@ export const NetlifyWelcomeEmail = ({
             <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
-              <Button
-                className="bg-brand text-white rounded-lg"
-                pY={12}
-                pX={18}
-              >
+              <Button className="bg-brand text-white rounded-lg py-3 px-[18px]">
                 Go to your dashboard
               </Button>
             </Section>

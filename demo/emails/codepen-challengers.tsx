@@ -98,7 +98,7 @@ export const CodepenChallengersEmail = () => (
               front-end designer or developer at any experience level.
             </Text>
 
-            <Button style={button} pX={12} pY={12}>
+            <Button style={button}>
               <strong>Learn More</strong>
             </Button>
           </Section>
@@ -209,9 +209,7 @@ export const CodepenChallengersEmail = () => (
         </Section>
 
         <Section style={goToChallenge}>
-          <Button style={footerButton} pY={15} pX={30}>
-            Go to Challenge Page
-          </Button>
+          <Button style={footerButton}>Go to Challenge Page</Button>
         </Section>
 
         <Section style={footer}>
@@ -333,6 +331,7 @@ const button = {
   lineHeight: "18px",
   cursor: "pointer",
   borderRadius: "4px",
+  padding: "12px",
 };
 
 const resourcesTitle = {
@@ -395,6 +394,7 @@ const footerButton = {
   borderRadius: "4px",
   fontWeight: "bold",
   cursor: "pointer",
+  padding: "15px 30px",
 };
 
 const footer = {

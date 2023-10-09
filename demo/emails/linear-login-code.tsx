@@ -39,7 +39,7 @@ export const LinearLoginCodeEmail = ({
         />
         <Heading style={heading}>Your login code for Linear</Heading>
         <Section style={buttonContainer}>
-          <Button pY={11} pX={23} style={button} href="https://linear.app">
+          <Button style={button} href="https://linear.app">
             Login to Linear
           </Button>
         </Section>
@@ -110,6 +110,7 @@ const button = {
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
+  padding: "11px 23px",
 };
 
 const reportLink = {

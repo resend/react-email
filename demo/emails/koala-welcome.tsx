@@ -43,7 +43,7 @@ export const KoalaWelcomeEmail = ({
           uncover qualified leads and close deals faster.
         </Text>
         <Section style={btnContainer}>
-          <Button pX={12} pY={12} style={button} href="https://getkoala.com">
+          <Button style={button} href="https://getkoala.com">
             Get started
           </Button>
         </Section>
@@ -97,6 +97,7 @@ const button = {
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
+  padding: "12px",
 };
 
 const hr = {
