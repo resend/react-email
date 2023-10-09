@@ -17,7 +17,6 @@ export const Container: React.FC<Readonly<ContainerProps>> = ({
       border={0}
       cellPadding="0"
       cellSpacing="0"
-      data-id="__react-email-container"
       role="presentation"
       style={{ maxWidth: "37.5em", ...style }}
     >

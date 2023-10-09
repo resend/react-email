@@ -55,7 +55,7 @@
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/preset-react": "7.22.5",
-    "@react-email/button": "0.0.7",
+    "@react-email/hr": "workspace:*",
     "@testing-library/react": "14.0.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

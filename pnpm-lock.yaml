@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -662,9 +658,9 @@ importers:
       '@babel/preset-react':
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
-      '@react-email/button':
-        specifier: 0.0.7
-        version: 0.0.7
+      '@react-email/hr':
+        specifier: workspace:*
+        version: link:../hr
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1910,13 +1906,6 @@ packages:
     dependencies:
       react: 18.2.0
     dev: false
-
-  /@react-email/button@0.0.7:
-    resolution: {integrity: sha512-TMcy5p+XBArufjtmrYOkFFRtiVegrvz3BeynvvHlsvlJImDy6az2+NLvkuSghG0hgOs1t5otD0Bn2PBVZhx/wA==}
-    engines: {node: '>=16.0.0'}
-    dependencies:
-      react: 18.2.0
-    dev: true
 
   /@react-email/button@0.0.9:
     resolution: {integrity: sha512-eYWQ1X4RFlkKYYSPgSrT6rk98wuLOieEAGENrp9j37t1v/1C+jMmBu0UjZvwHsHWdbOMRjbVDFeMI/+MxWKSEg==}
@@ -7072,3 +7061,7 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
