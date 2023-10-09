@@ -19,7 +19,6 @@ export const Row: React.FC<Readonly<RowProps>> = ({
       border={0}
       cellPadding="0"
       cellSpacing="0"
-      data-id="react-email-row"
       role="presentation"
       style={style}
     >

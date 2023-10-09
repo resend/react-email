@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { renderToStaticMarkup as render } from "react-dom/server";
 import type { TailwindConfig } from "tw-to-css";
-import { Button } from "@react-email/button";
+import { Hr } from "@react-email/hr";
 import { Tailwind } from "./tailwind";
 
 describe("Tailwind component", () => {
@@ -49,13 +49,11 @@ describe("Tailwind component", () => {
     it("should override component styles with Tailwind styles", () => {
       const actualOutput = render(
         <Tailwind>
-          <Button className="py-3 px-6" />
+          <Hr className="w-12" />
         </Tailwind>,
       );
 
-      expect(actualOutput).toContain(
-        "padding:0px 0px;padding-top:0.75rem;padding-bottom:0.75rem;padding-left:1.5rem;padding-right:1.5rem",
-      );
+      expect(actualOutput).toContain("width:3rem");
     });
   });
 

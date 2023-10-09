@@ -10,7 +10,7 @@ export const Html: React.FC<Readonly<HtmlProps>> = ({
   dir = "ltr",
   ...props
 }) => (
-  <html {...props} dir={dir} id="__react-email" lang={lang}>
+  <html {...props} dir={dir} lang={lang}>
     {children}
   </html>
 );

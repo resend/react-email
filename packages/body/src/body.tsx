@@ -10,7 +10,7 @@ export const Body: React.FC<Readonly<BodyProps>> = ({
   ...props
 }) => {
   return (
-    <body {...props} data-id="__react-email-body" style={style}>
+    <body {...props} style={style}>
       {children}
     </body>
   );
