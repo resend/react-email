@@ -3,6 +3,7 @@ dist
 .next
 
 # for testing
+client/package-lock.json
 .react-email
 emails
 static
