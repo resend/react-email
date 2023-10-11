@@ -46,12 +46,31 @@ export default function Preview({
     setActiveLang(lang);
     router.push(`${pathname}?view=source&lang=${lang}`);
   };
-  const onMouseUp = () => {
-    if (el.current) {
-      const width = el.current.getBoundingClientRect().width;
-      setCurrentWidth(width);
+
+  React.useEffect(() => {
+    // Define the callback function
+    const handleResize = (entries: ResizeObserverEntry[]) => {
+      for (let entry of entries) {
+        setCurrentWidth(entry.contentRect.width);
+      }
+    };
+
+    // Create a ResizeObserver instance and pass in the callback
+    const observer = new ResizeObserver(handleResize);
+
+    const ref = el.current;
+    // Observe the div
+    if (ref) {
+      observer.observe(ref);
     }
-  };
+
+    // Clean up: unobserve the div when the component is unmounted
+    return () => {
+      if (ref) {
+        observer.unobserve(ref);
+      }
+    };
+  }, []);
 
   return (
     <Shell
@@ -66,11 +85,7 @@ export default function Preview({
           <div className="absolute bottom-0 right-0 text-gray-100">
             {currentWidth && `${currentWidth}px`}
           </div>
-          <div
-            className="overflow-auto resize-x"
-            ref={el}
-            onMouseUp={onMouseUp}
-          >
+          <div className="overflow-auto resize-x" ref={el}>
             <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
           </div>
         </div>
