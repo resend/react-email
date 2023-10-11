@@ -24,7 +24,6 @@ export default function Preview({
   );
   const el = React.useRef<HTMLDivElement>(null);
 
-
   React.useEffect(() => {
     const view = searchParams.get('view');
     const lang = searchParams.get('lang');
@@ -64,17 +63,17 @@ export default function Preview({
     >
       {activeView === 'desktop' ? (
         <div className="relative p-8">
-        <div className="absolute bottom-0 right-0 text-gray-100">
-          {currentWidth && `${currentWidth}px`}
+          <div className="absolute bottom-0 right-0 text-gray-100">
+            {currentWidth && `${currentWidth}px`}
+          </div>
+          <div
+            className="overflow-auto resize-x"
+            ref={el}
+            onMouseUp={onMouseUp}
+          >
+            <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
+          </div>
         </div>
-        <div
-          className="overflow-auto resize-x"
-          ref={el}
-          onMouseUp={onMouseUp}
-        >
-          <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
-        </div>
-      </div>
       ) : (
         <div className="flex max-w-3xl gap-6 p-6 mx-auto">
           <Tooltip.Provider>
