@@ -48,23 +48,20 @@ export default function Preview({
   };
 
   React.useEffect(() => {
-    // Define the callback function
     const handleResize = (entries: ResizeObserverEntry[]) => {
       for (let entry of entries) {
         setCurrentWidth(entry.contentRect.width);
       }
     };
 
-    // Create a ResizeObserver instance and pass in the callback
     const observer = new ResizeObserver(handleResize);
 
     const ref = el.current;
-    // Observe the div
+
     if (ref) {
       observer.observe(ref);
     }
 
-    // Clean up: unobserve the div when the component is unmounted
     return () => {
       if (ref) {
         observer.unobserve(ref);
