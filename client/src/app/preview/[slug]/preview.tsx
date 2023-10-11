@@ -19,6 +19,12 @@ export default function Preview({
   const [activeView, setActiveView] = React.useState('desktop');
   const [activeLang, setActiveLang] = React.useState('jsx');
 
+  const [currentWidth, setCurrentWidth] = React.useState<number | undefined>(
+    undefined,
+  );
+  const el = React.useRef<HTMLDivElement>(null);
+
+
   React.useEffect(() => {
     const view = searchParams.get('view');
     const lang = searchParams.get('lang');
@@ -41,6 +47,12 @@ export default function Preview({
     setActiveLang(lang);
     router.push(`${pathname}?view=source&lang=${lang}`);
   };
+  const onMouseUp = () => {
+    if (el.current) {
+      const width = el.current.getBoundingClientRect().width;
+      setCurrentWidth(width);
+    }
+  };
 
   return (
     <Shell
@@ -51,9 +63,20 @@ export default function Preview({
       setActiveView={handleViewChange}
     >
       {activeView === 'desktop' ? (
-        <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_140px)]" />
+        <div className="relative p-8">
+        <div className="absolute bottom-0 right-0 text-gray-100">
+          {currentWidth && `${currentWidth}px`}
+        </div>
+        <div
+          className="overflow-auto resize-x"
+          ref={el}
+          onMouseUp={onMouseUp}
+        >
+          <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
+        </div>
+      </div>
       ) : (
-        <div className="flex gap-6 mx-auto p-6 max-w-3xl">
+        <div className="flex max-w-3xl gap-6 p-6 mx-auto">
           <Tooltip.Provider>
             <CodeContainer
               markups={[
