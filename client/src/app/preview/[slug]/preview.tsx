@@ -22,7 +22,7 @@ export default function Preview({
   const [currentWidth, setCurrentWidth] = React.useState<number | undefined>(
     undefined,
   );
-  const el = React.useRef<HTMLDivElement>(null);
+  const previewDivEl = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const view = searchParams.get('view');
@@ -56,7 +56,7 @@ export default function Preview({
 
     const observer = new ResizeObserver(handleResize);
 
-    const ref = el.current;
+    const ref = previewDivEl.current;
 
     if (ref) {
       observer.observe(ref);
@@ -82,7 +82,7 @@ export default function Preview({
           <div className="absolute bottom-0 right-0 text-gray-100">
             {currentWidth && `${currentWidth}px`}
           </div>
-          <div className="overflow-auto resize-x" ref={el}>
+          <div className="overflow-auto resize-x" ref={previewDivEl}>
             <iframe srcDoc={markup} className="w-full h-[calc(100vh_-_70px)]" />
           </div>
         </div>
