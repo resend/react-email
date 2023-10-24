@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -445,8 +449,8 @@ importers:
   packages/markdown:
     dependencies:
       md-to-react-email:
-        specifier: 4.1.0
-        version: 4.1.0(react-email@packages+react-email)(react@18.2.0)
+        specifier: 5.0.0
+        version: 5.0.0(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -4931,15 +4935,13 @@ packages:
     hasBin: true
     dev: false
 
-  /md-to-react-email@4.1.0(react-email@packages+react-email)(react@18.2.0):
-    resolution: {integrity: sha512-aQvj4dCuy0wmBVvSB377qTErlpjN5Pl61+5v+B8Z76KoxOgKhbzvK3qnO94eOsuGSWwI+9n4zb3xD3/MypxM4w==}
+  /md-to-react-email@5.0.0(react@18.2.0):
+    resolution: {integrity: sha512-GdBrBUbAAJHypnuyofYGfVos8oUslxHx69hs3CW9P0L8mS1sT6GnJuMBTlz/Fw+2widiwdavcu9UwyLF/BzZ4w==}
     peerDependencies:
       react: 18.x
-      react-email: '>1.9.3'
     dependencies:
       marked: 7.0.4
       react: 18.2.0
-      react-email: link:packages/react-email
     dev: false
 
   /merge-stream@2.0.0:
@@ -7024,7 +7026,3 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
