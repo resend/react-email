@@ -29,7 +29,6 @@ export async function renderOpenEmailFile(
       return { valid: false };
     }
 
-
     const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
     const currentlyOpenTabFilename = basename(currentlyOpenTabFilePath, ".tsx");
 
@@ -38,11 +37,20 @@ export async function renderOpenEmailFile(
 
     // this is necessary so that we can still build things in a stable way
     // and have a up-to date version of the email preview on the extension
-    const currentlyOpenTabFilesPathWithCurrentContents = join(emailsDirectory, `${currentlyOpenTabFilename}.vscpreview.tsx`);
+    const currentlyOpenTabFilesPathWithCurrentContents = join(
+      emailsDirectory,
+      `${currentlyOpenTabFilename}.vscpreview.tsx`,
+    );
     const currentContents = activeEditor.document.getText();
-    await writeFile(currentlyOpenTabFilesPathWithCurrentContents, currentContents);
+    await writeFile(
+      currentlyOpenTabFilesPathWithCurrentContents,
+      currentContents,
+    );
 
-    const builtFileWithCurrentContents = join(previewDirectory, `${currentlyOpenTabFilename}.js`);
+    const builtFileWithCurrentContents = join(
+      previewDirectory,
+      `${currentlyOpenTabFilename}.js`,
+    );
 
     try {
       await esbuild.build({
@@ -59,7 +67,8 @@ export async function renderOpenEmailFile(
       // we need to use require since it has a way to programatically invalidate its cache
       const email = require(builtFileWithCurrentContents);
 
-      if (typeof email.default === "undefined") { // this means there is no "export default ..." in the file
+      if (typeof email.default === "undefined") {
+        // this means there is no "export default ..." in the file
         return { valid: false };
       }
 

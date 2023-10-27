@@ -37,19 +37,24 @@ export function activate(context: vscode.ExtensionContext) {
                 ), // the emails folder
                 previewPanel,
               );
-          } 
+          }
           // keeps the current content if the email is invalid and did not error
-          // this invalidness can happen if the focused content is a image, 
+          // this invalidness can happen if the focused content is a image,
           // does not a export a default and for some other similar situations
         } catch (exception) {
-          previewPanel.title = `react-email preview - error on the email ${basename(vscode.window.activeTextEditor.document.fileName)}`;
+          previewPanel.title = `react-email preview - error on the email ${basename(
+            vscode.window.activeTextEditor.document.fileName,
+          )}`;
           let errorMessage: string;
           if (exception instanceof Error) {
             errorMessage = exception.stack ?? exception.message;
           } else {
             errorMessage = exception as string;
           }
-          previewPanel.webview.html = emailWithErrorHTML.replace('{ERROR MESSAGE}', errorMessage);
+          previewPanel.webview.html = emailWithErrorHTML.replace(
+            "{ERROR MESSAGE}",
+            errorMessage,
+          );
         }
       } else if (previewPanel.webview.html.trim().length === 0) {
         previewPanel.title = `react-email preview - try opening an email!`;
@@ -59,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   let disposable = vscode.commands.registerCommand(
-    "react-email-preview.preview",
+    "react-email-preview.open",
     () => {
       previewPanel = vscode.window.createWebviewPanel(
         "react-email preview",
@@ -71,7 +76,10 @@ export function activate(context: vscode.ExtensionContext) {
       updatePreviewPanelContent();
 
       vscode.workspace.onDidChangeTextDocument((ev) => {
-        if (ev.document.fileName === vscode.window.activeTextEditor?.document.fileName) {
+        if (
+          ev.document.fileName ===
+          vscode.window.activeTextEditor?.document.fileName
+        ) {
           updatePreviewPanelContent();
         }
       });

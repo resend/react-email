@@ -19,8 +19,15 @@
   "contributes": {
     "commands": [
       {
-        "command": "react-email-preview.preview",
-        "title": "Live preview of email open"
+        "command": "react-email-preview.open",
+        "title": "Start live preview of email open"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "react-email-preview.open",
+        "key": "shift+ctrl+e",
+        "mac": "shift+cmd+e"
       }
     ]
   },
