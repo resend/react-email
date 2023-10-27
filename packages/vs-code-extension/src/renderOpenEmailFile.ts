@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 import { basename, join } from "path";
-import { unlink } from "fs/promises";
+import { rm } from "fs/promises";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
@@ -32,11 +32,8 @@ export async function renderOpenEmailFile<
       outdir: previewDirectory,
     });
 
-    const filename = basename(currentlyOpenTabfilePath);
-    const templatePath = `${previewDirectory}/${filename.replace(
-      ".tsx",
-      "",
-    )}.js`;
+    const filename = basename(currentlyOpenTabfilePath, '.tsx');
+    const templatePath = `${previewDirectory}/${filename}.js`;
 
     delete require.cache[templatePath];
     // we need to use require since it has a way to programatically invalidate its cache
@@ -48,7 +45,7 @@ export async function renderOpenEmailFile<
       pretty: false,
     });
     const emailAsHTML = render(comp, { pretty: false });
-    await unlink(templatePath);
+    await rm(previewDirectory, { recursive: true });
 
     return {
       filename,
