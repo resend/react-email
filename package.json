@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@types/node": "18.18.0",
-    "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.8",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
     "eslint": "8.50.0",
     "happy-dom": "12.2.2",
     "prettier": "3.0.3",
