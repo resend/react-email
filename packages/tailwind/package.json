@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -52,7 +52,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/hr": "workspace:*",
     "@react-email/head": "workspace:*",

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/link",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A hyperlink to web pages, email addresses, or anything else a URL can address",
   "sideEffects": false,
   "main": "./dist/index.js",
