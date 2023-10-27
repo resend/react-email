@@ -2,10 +2,10 @@ import * as vscode from "vscode";
 
 import * as crypto from "crypto";
 import { basename, join } from "path";
-import { unlinkSync, writeFileSync } from "fs";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
+import { unlink } from "fs/promises";
 
 const extensionPreviewFolder = ".vscpreview" as const;
 
@@ -18,9 +18,9 @@ export type BuiltEmail =
     }
   | { valid: false };
 
-export function renderOpenEmailFile(
+export async function renderOpenEmailFile(
   activeEditor: vscode.TextEditor | undefined,
-): BuiltEmail | undefined {
+): Promise<BuiltEmail | undefined> {
   if (typeof activeEditor !== "undefined") {
     if (
       typeof activeEditor.document.fileName === "undefined" ||
@@ -36,21 +36,8 @@ export function renderOpenEmailFile(
     const emailsDirectory = join(currentlyOpenTabFilePath, "..");
     const previewDirectory = join(emailsDirectory, extensionPreviewFolder);
 
-    // this hash is needed so the temporary files don't get mixed up
-    // when changing the email very fast
+    // this hash is needed so the the import doesn't get from its cache
     const renderingHash = crypto.randomBytes(20).toString('hex');
-    
-    // this is necessary so that we can still build things in a stable way
-    // and have a up-to date version of the email preview on the extension
-    const currentlyOpenTabFilesPathWithCurrentContents = join(
-      emailsDirectory,
-      `${currentlyOpenTabFilename}-${renderingHash}.vscpreview.tsx`,
-    );
-    const currentContents = activeEditor.document.getText();
-    writeFileSync(
-      currentlyOpenTabFilesPathWithCurrentContents,
-      currentContents,
-    );
 
     const builtFileWithCurrentContents = join(
       previewDirectory,
@@ -58,17 +45,17 @@ export function renderOpenEmailFile(
     );
 
     try {
-      esbuild.buildSync({
+      await esbuild.build({
         bundle: true,
-        entryPoints: [currentlyOpenTabFilesPathWithCurrentContents],
+        entryPoints: [currentlyOpenTabFilePath],
         platform: "node",
         write: true,
         outfile: builtFileWithCurrentContents,
       });
 
-      delete require.cache[builtFileWithCurrentContents];
-      // we need to use require since it has a way to programatically invalidate its cache
-      const email = require(builtFileWithCurrentContents);
+      // for future people debugging this: if this doesnt update the preview, might be because import keeps a cache
+      // and the hash is not being unique (unlikely though)
+      const email = await import(builtFileWithCurrentContents);
 
       if (typeof email.default === "undefined") {
         // this means there is no "export default ..." in the file
@@ -83,8 +70,7 @@ export function renderOpenEmailFile(
 
       const emailAsHTML = render(comp, { pretty: false });
 
-      unlinkSync(builtFileWithCurrentContents);
-      unlinkSync(currentlyOpenTabFilesPathWithCurrentContents);
+      await unlink(builtFileWithCurrentContents);
 
       return {
         filename: currentlyOpenTabFilename,
