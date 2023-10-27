@@ -13,6 +13,8 @@
   },
   "devDependencies": {
     "@types/node": "18.18.0",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
     "eslint": "8.50.0",
     "happy-dom": "12.2.2",
     "prettier": "3.0.3",
@@ -22,9 +24,5 @@
     "vite": "4.4.9",
     "vitest": "0.34.6"
   },
-  "packageManager": "pnpm@8.8.0",
-  "dependencies": {
-    "@types/react": "^18.2.33",
-    "@types/react-dom": "^18.2.14"
-  }
+  "packageManager": "pnpm@8.8.0"
 }
