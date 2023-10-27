@@ -713,9 +713,6 @@ importers:
       esbuild:
         specifier: 0.16.4
         version: 0.16.4
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
     devDependencies:
       '@types/mocha':
         specifier: ^10.0.2

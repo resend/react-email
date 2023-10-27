@@ -39,10 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
       previewPanel.onDidDispose(() => (previewPanel = undefined));
 
       vscode.workspace.onDidSaveTextDocument((ev) => {
-        if (
-          ev.fileName ===
-          vscode.window.activeTextEditor?.document.fileName
-        ) {
+        if (ev.fileName === vscode.window.activeTextEditor?.document.fileName) {
           updatePreiewPanel(previewPanel);
         }
       });

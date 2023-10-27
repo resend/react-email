@@ -37,7 +37,7 @@ export async function renderOpenEmailFile(
     const previewDirectory = join(emailsDirectory, extensionPreviewFolder);
 
     // this hash is needed so the the import doesn't get from its cache
-    const renderingHash = crypto.randomBytes(20).toString('hex');
+    const renderingHash = crypto.randomBytes(20).toString("hex");
 
     const builtFileWithCurrentContents = join(
       previewDirectory,
