@@ -38,17 +38,17 @@ export function activate(context: vscode.ExtensionContext) {
 
       previewPanel.onDidDispose(() => (previewPanel = undefined));
 
-      vscode.workspace.onDidChangeTextDocument(async (ev) => {
+      vscode.workspace.onDidChangeTextDocument((ev) => {
         if (
           ev.document.fileName ===
           vscode.window.activeTextEditor?.document.fileName
         ) {
-          await updatePreiewPanel(previewPanel);
+          updatePreiewPanel(previewPanel);
         }
       });
 
-      vscode.window.onDidChangeActiveTextEditor(async () => {
-        await updatePreiewPanel(previewPanel);
+      vscode.window.onDidChangeActiveTextEditor(() => {
+        updatePreiewPanel(previewPanel);
       });
     },
   );

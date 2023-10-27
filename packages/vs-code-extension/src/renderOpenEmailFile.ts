@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 import * as crypto from "crypto";
 import { basename, join } from "path";
-import { unlink, writeFile } from "fs/promises";
+import { unlinkSync, writeFileSync } from "fs";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
@@ -18,19 +18,15 @@ export type BuiltEmail =
     }
   | { valid: false };
 
-let isBuilding = false;
-
-export async function renderOpenEmailFile(
+export function renderOpenEmailFile(
   activeEditor: vscode.TextEditor | undefined,
-): Promise<BuiltEmail | undefined> {
-  if (typeof activeEditor !== "undefined" && !isBuilding) {
-    isBuilding = true;
+): BuiltEmail | undefined {
+  if (typeof activeEditor !== "undefined") {
     if (
       typeof activeEditor.document.fileName === "undefined" ||
       activeEditor.document.fileName.length === 0 ||
       activeEditor.document.getText().length === 0
     ) {
-      isBuilding = false;
       return { valid: false };
     }
 
@@ -51,7 +47,7 @@ export async function renderOpenEmailFile(
       `${currentlyOpenTabFilename}-${renderingHash}.vscpreview.tsx`,
     );
     const currentContents = activeEditor.document.getText();
-    await writeFile(
+    writeFileSync(
       currentlyOpenTabFilesPathWithCurrentContents,
       currentContents,
     );
@@ -62,7 +58,7 @@ export async function renderOpenEmailFile(
     );
 
     try {
-      await esbuild.build({
+      esbuild.buildSync({
         bundle: true,
         entryPoints: [currentlyOpenTabFilesPathWithCurrentContents],
         platform: "node",
@@ -70,15 +66,11 @@ export async function renderOpenEmailFile(
         outfile: builtFileWithCurrentContents,
       });
 
-      await unlink(currentlyOpenTabFilesPathWithCurrentContents);
-
       delete require.cache[builtFileWithCurrentContents];
       // we need to use require since it has a way to programatically invalidate its cache
       const email = require(builtFileWithCurrentContents);
 
       if (typeof email.default === "undefined") {
-        isBuilding = false;
-        
         // this means there is no "export default ..." in the file
         return { valid: false };
       }
@@ -91,9 +83,8 @@ export async function renderOpenEmailFile(
 
       const emailAsHTML = render(comp, { pretty: false });
 
-      await unlink(builtFileWithCurrentContents);
-
-      isBuilding = false;
+      unlinkSync(builtFileWithCurrentContents);
+      unlinkSync(currentlyOpenTabFilesPathWithCurrentContents);
 
       return {
         filename: currentlyOpenTabFilename,
@@ -102,8 +93,6 @@ export async function renderOpenEmailFile(
         valid: true,
       };
     } catch (exception) {
-      isBuilding = false;
-
       console.warn(
         "Exception happenned on rendering or building of an email, but maybe its because it just was invalid anyways",
         exception,
@@ -112,8 +101,6 @@ export async function renderOpenEmailFile(
       throw exception;
     }
   }
-
-  isBuilding = false;
 
   return undefined;
 }
