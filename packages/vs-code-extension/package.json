@@ -19,8 +19,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "react-email-preview.helloWorld",
-        "title": "Hello World"
+        "command": "react-email-preview.preview",
+        "title": "Live preview of email open"
       }
     ]
   },
@@ -32,16 +32,21 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
+  "dependencies": {
+    "@react-email/render": "workspace:*",
+    "esbuild": "0.16.4",
+    "react": "18.2.0"
+  },
   "devDependencies": {
-    "@types/vscode": "^1.83.0",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
+    "@types/vscode": "^1.83.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
+    "@vscode/test-electron": "^2.3.4",
     "eslint": "^8.50.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.4"
+    "typescript": "^5.2.2"
   }
 }
