@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
           let builtEmail = await renderOpenEmailFile(
             vscode.window.activeTextEditor,
           );
-          if (builtEmail.valid) {
+          if (builtEmail && builtEmail.valid) {
             previewPanel.title = `react-email preview - ${builtEmail.filename}`;
             previewPanel.webview.html =
               convertAllEmailAssetSourcesIntoWebviewURIs(

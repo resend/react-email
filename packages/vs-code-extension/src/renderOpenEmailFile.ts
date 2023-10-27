@@ -17,34 +17,32 @@ export type BuiltEmail =
     }
   | { valid: false };
 
-export async function renderOpenEmailFile<
-  ActiveEditor extends vscode.TextEditor | undefined,
->(
-  activeEditor: ActiveEditor,
-): Promise<ActiveEditor extends undefined ? undefined : BuiltEmail> {
-  type ReturnType = ActiveEditor extends undefined ? undefined : BuiltEmail;
+export async function renderOpenEmailFile(
+  activeEditor: vscode.TextEditor | undefined,
+): Promise<BuiltEmail | undefined> {
   if (typeof activeEditor !== "undefined") {
     if (
       typeof activeEditor.document.fileName === "undefined" ||
-      activeEditor.document.fileName.length === 0
+      activeEditor.document.fileName.length === 0 ||
+      activeEditor.document.getText().length === 0
     ) {
-      return { valid: false } as ReturnType;
+      return { valid: false };
     }
 
-    const currentlyOpenTabfilePath = activeEditor.document.fileName; // actually a path not the name of the file
-    const emailsDirectory = join(currentlyOpenTabfilePath, "..");
+    const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
+    const emailsDirectory = join(currentlyOpenTabFilePath, "..");
 
     const previewDirectory = join(emailsDirectory, extensionPreviewFolder);
     try {
       await esbuild.build({
         bundle: true,
-        entryPoints: [currentlyOpenTabfilePath],
+        entryPoints: [currentlyOpenTabFilePath],
         platform: "node",
         write: true,
         outdir: previewDirectory,
       });
 
-      const filename = basename(currentlyOpenTabfilePath, ".tsx");
+      const filename = basename(currentlyOpenTabFilePath, ".tsx");
       const templatePath = `${previewDirectory}/${filename}.js`;
 
       delete require.cache[templatePath];
@@ -52,7 +50,7 @@ export async function renderOpenEmailFile<
       const email = require(templatePath);
 
       if (typeof email.default === "undefined") {
-        return { valid: false } as ReturnType;
+        return { valid: false };
       }
 
       const comp = email.default(email.default.PreviewProps ?? {}); // this may come without a defualt which might cause problems
@@ -69,7 +67,7 @@ export async function renderOpenEmailFile<
         html: emailAsHTML,
         text: emailAsText,
         valid: true,
-      } as ReturnType;
+      };
     } catch (exception) {
       console.warn(
         "Exception happenned on rendering or building of an email, but maybe its because it just was invalid anyways",
@@ -80,5 +78,5 @@ export async function renderOpenEmailFile<
     }
   }
 
-  return undefined as ReturnType;
+  return undefined;
 }
