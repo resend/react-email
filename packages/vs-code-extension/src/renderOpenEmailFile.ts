@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 import { basename, join } from "path";
-import { rm } from "fs/promises";
+import { rm, unlink, writeFile } from "fs/promises";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
@@ -29,27 +29,37 @@ export async function renderOpenEmailFile(
       return { valid: false };
     }
 
-    const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
-    const emailsDirectory = join(currentlyOpenTabFilePath, "..");
 
+    const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
+    const currentlyOpenTabFilename = basename(currentlyOpenTabFilePath, ".tsx");
+
+    const emailsDirectory = join(currentlyOpenTabFilePath, "..");
     const previewDirectory = join(emailsDirectory, extensionPreviewFolder);
+
+    // this is necessary so that we can still build things in a stable way
+    // and have a up-to date version of the email preview on the extension
+    const currentlyOpenTabFilesPathWithCurrentContents = join(emailsDirectory, `${currentlyOpenTabFilename}.vscpreview.tsx`);
+    const currentContents = activeEditor.document.getText();
+    await writeFile(currentlyOpenTabFilesPathWithCurrentContents, currentContents);
+
+    const builtFileWithCurrentContents = join(previewDirectory, `${currentlyOpenTabFilename}.js`);
+
     try {
       await esbuild.build({
         bundle: true,
-        entryPoints: [currentlyOpenTabFilePath],
+        entryPoints: [currentlyOpenTabFilesPathWithCurrentContents],
         platform: "node",
         write: true,
-        outdir: previewDirectory,
+        outfile: builtFileWithCurrentContents,
       });
 
-      const filename = basename(currentlyOpenTabFilePath, ".tsx");
-      const templatePath = `${previewDirectory}/${filename}.js`;
+      await unlink(currentlyOpenTabFilesPathWithCurrentContents); // unlink the temporary file after building it
 
-      delete require.cache[templatePath];
+      delete require.cache[builtFileWithCurrentContents];
       // we need to use require since it has a way to programatically invalidate its cache
-      const email = require(templatePath);
+      const email = require(builtFileWithCurrentContents);
 
-      if (typeof email.default === "undefined") {
+      if (typeof email.default === "undefined") { // this means there is no "export default ..." in the file
         return { valid: false };
       }
 
@@ -63,7 +73,7 @@ export async function renderOpenEmailFile(
       await rm(previewDirectory, { recursive: true });
 
       return {
-        filename,
+        filename: currentlyOpenTabFilename,
         html: emailAsHTML,
         text: emailAsText,
         valid: true,

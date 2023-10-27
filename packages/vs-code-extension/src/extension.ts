@@ -70,8 +70,8 @@ export function activate(context: vscode.ExtensionContext) {
 
       updatePreviewPanelContent();
 
-      vscode.workspace.onDidSaveTextDocument((ev) => {
-        if (ev.fileName === vscode.window.activeTextEditor?.document.fileName) {
+      vscode.workspace.onDidChangeTextDocument((ev) => {
+        if (ev.document.fileName === vscode.window.activeTextEditor?.document.fileName) {
           updatePreviewPanelContent();
         }
       });
