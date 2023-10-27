@@ -45,7 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
           previewPanel.title = `react-email preview - error on the email ${basename(vscode.window.activeTextEditor.document.fileName)}`;
           let errorMessage: string;
           if (exception instanceof Error) {
-            errorMessage = exception.message;
+            errorMessage = exception.stack ?? exception.message;
           } else {
             errorMessage = exception as string;
           }
