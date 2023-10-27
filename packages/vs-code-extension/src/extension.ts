@@ -66,12 +66,16 @@ export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
     "react-email-preview.open",
     () => {
+      if (typeof previewPanel !== 'undefined') return;
+
       previewPanel = vscode.window.createWebviewPanel(
-        "react-email preview",
-        "react-email preview",
+        "react-email preview - try opening an email",
+        "react-email preview - try opening an email",
         vscode.ViewColumn.Two,
         { enableScripts: true },
       );
+
+      previewPanel.onDidDispose(() => previewPanel = undefined);
 
       updatePreviewPanelContent();
 

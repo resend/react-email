@@ -5,6 +5,7 @@ import { rm, unlink, writeFile } from "fs/promises";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
+import { existsSync } from "fs";
 
 const extensionPreviewFolder = ".vscpreview" as const;
 
@@ -61,7 +62,9 @@ export async function renderOpenEmailFile(
         outfile: builtFileWithCurrentContents,
       });
 
-      await unlink(currentlyOpenTabFilesPathWithCurrentContents); // unlink the temporary file after building it
+      if (existsSync(currentlyOpenTabFilesPathWithCurrentContents)) {
+        await unlink(currentlyOpenTabFilesPathWithCurrentContents); // unlink the temporary file after building it
+      }
 
       delete require.cache[builtFileWithCurrentContents];
       // we need to use require since it has a way to programatically invalidate its cache
