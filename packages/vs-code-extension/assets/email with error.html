@@ -1278,12 +1278,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         display: flex;
       }
 
-      .h-screen {
-        height: 100vh;
+      .contents {
+        display: contents;
       }
 
-      .w-screen {
-        width: 100vw;
+      .h-fit {
+        height: fit-content;
+      }
+
+      .min-h-screen {
+        min-height: 100vh;
       }
 
       .max-w-\[90\%\] {
@@ -1343,18 +1347,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       }
     </style>
   </head>
-  <body style="padding: 0 !important">
+  <body
+    class="flex min-h-screen h-fit flex-col items-center justify-center bg-[rgb(5,5,10)] text-[rgba(252,253,255,0.936)] text-white"
+    style="padding: 0 !important"
+  >
     <!-- This HTML file was written using the tailwind playground (https://play.tailwindcss.com/), 
       if you want to edit it try copying the contents of the body into the playground. -->
     <div
-      class="flex h-screen w-screen flex-col items-center justify-center bg-[rgb(5,5,10)] text-[rgba(252,253,255,0.936)] text-white"
+      class="prose max-w-[90%] rounded-md border border-red-400 bg-red-400/5 p-8 text-red-400"
     >
-      <div
-        class="prose max-w-[90%] rounded-md border border-red-400 bg-red-400/5 p-8 text-red-400"
-      >
-        {ERROR MESSAGE}
-      </div>
-      <!-- This is used so we can replace when rendering the content here with error -->
+      {ERROR MESSAGE}
     </div>
+    <!-- This is used so we can replace when rendering the content here with error -->
   </body>
 </html>

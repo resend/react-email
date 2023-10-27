@@ -1274,6 +1274,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         margin-bottom: 0;
       }
 
+      .static {
+        position: static;
+      }
+
       .mb-4 {
         margin-bottom: 1rem;
       }
@@ -1290,16 +1294,20 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
         display: inline-flex;
       }
 
+      .contents {
+        display: contents;
+      }
+
       .h-8 {
         height: 2rem;
       }
 
-      .h-screen {
-        height: 100vh;
+      .h-fit {
+        height: fit-content;
       }
 
-      .w-screen {
-        width: 100vw;
+      .min-h-screen {
+        min-height: 100vh;
       }
 
       .max-w-lg {
@@ -1328,6 +1336,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
       .border {
         border-width: 1px;
+      }
+
+      .border-slate-600 {
+        --tw-border-opacity: 1;
+        border-color: rgb(71 85 105 / var(--tw-border-opacity));
       }
 
       .bg-\[rgb\(5\2c 5\2c 10\)\] {
@@ -1431,26 +1444,26 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       }
     </style>
   </head>
-  <body style="padding: 0 !important">
+  <body
+    class="flex min-h-screen h-fit flex-col items-center justify-center bg-[rgb(5,5,10)] text-[rgba(252,253,255,0.936)] text-white"
+    style="padding: 0 !important"
+  >
     <!-- This HTML file was written using the tailwind playground (https://play.tailwindcss.com/), 
       if you want to edit it try copying the contents of the body into the playground. -->
-    <div
-      class="flex h-screen w-screen flex-col items-center justify-center bg-[rgb(5,5,10)] text-[rgba(252,253,255,0.936)] text-white"
-    >
-      <div class="border-slate-6 prose max-w-lg rounded-md border p-8">
-        <h2 class="text-lg font-bold text-slate-200">
-          Welcome to the React Email preview for VS Code!
-        </h2>
-        <p class="mb-4 mt-2 text-sm font-semibold text-slate-400">
-          To see your email's preview, try focusing the file that has the email
-          you want to see! We do our own little <b>magic</b> to load your static files as well!
-        </p>
-        <a
-          class="inline-flex h-8 items-center justify-center gap-2 rounded-md border bg-white px-3 text-[14px] font-medium text-black decoration-transparent hover:bg-white/90 focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20"
-          href="https://react.email/docs"
-          >Check the docs</a
-        >
-      </div>
+    <div class="border-slate-600 prose max-w-lg rounded-md border p-8">
+      <h2 class="text-lg font-bold text-slate-200">
+        Welcome to the React Email preview for VS Code!
+      </h2>
+      <p class="mb-4 mt-2 text-sm font-semibold text-slate-400">
+        To see your email's preview, try focusing the file that has the email
+        you want to see! We do our own little <b>magic</b> to load your static
+        files as well!
+      </p>
+      <a
+        class="inline-flex h-8 items-center justify-center gap-2 rounded-md border bg-white px-3 text-[14px] font-medium text-black decoration-transparent hover:bg-white/90 focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20"
+        href="https://react.email/docs"
+        >Check the docs</a
+      >
     </div>
   </body>
 </html>
