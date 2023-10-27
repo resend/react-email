@@ -5,25 +5,52 @@ import { readFileSync } from "fs";
 
 import { renderOpenEmailFile } from "./renderOpenEmailFile";
 import { convertAllEmailAssetSourcesIntoWebviewURIs } from "./convertAllEmailAssetSourcesIntoWebviewURIs";
+import { basename } from "path";
 
 export function activate(context: vscode.ExtensionContext) {
   let previewPanel: vscode.WebviewPanel | undefined = undefined;
 
-  const noEmailOpenHTML = readFileSync(context.asAbsolutePath('./assets/no email open.html'), { encoding: 'utf-8' });
+  const noEmailOpenHTML = readFileSync(
+    context.asAbsolutePath("./assets/no email open.html"),
+    { encoding: "utf-8" },
+  );
+  const emailWithErrorHTML = readFileSync(
+    context.asAbsolutePath("./assets/email with error.html"),
+    { encoding: "utf-8" },
+  );
 
   const updatePreviewPanelContent = async () => {
     if (previewPanel) {
       if (vscode.window.activeTextEditor) {
-        let builtEmail = await renderOpenEmailFile(
-          vscode.window.activeTextEditor,
-        );
-        previewPanel.title = `react-email preview - ${builtEmail.filename}`;
-        previewPanel.webview.html =
-          convertAllEmailAssetSourcesIntoWebviewURIs(
-            builtEmail.html,
-            vscode.Uri.joinPath(vscode.window.activeTextEditor.document.uri, '..'), // the emails folder
-            previewPanel,
+        try {
+          let builtEmail = await renderOpenEmailFile(
+            vscode.window.activeTextEditor,
           );
+          if (builtEmail.valid) {
+            previewPanel.title = `react-email preview - ${builtEmail.filename}`;
+            previewPanel.webview.html =
+              convertAllEmailAssetSourcesIntoWebviewURIs(
+                builtEmail.html,
+                vscode.Uri.joinPath(
+                  vscode.window.activeTextEditor.document.uri,
+                  "..",
+                ), // the emails folder
+                previewPanel,
+              );
+          } 
+          // keeps the current content if the email is invalid and did not error
+          // this invalidness can happen if the focused content is a image, 
+          // does not a export a default and for some other similar situations
+        } catch (exception) {
+          previewPanel.title = `react-email preview - error on the email ${basename(vscode.window.activeTextEditor.document.fileName)}`;
+          let errorMessage: string;
+          if (exception instanceof Error) {
+            errorMessage = exception.message;
+          } else {
+            errorMessage = exception as string;
+          }
+          previewPanel.webview.html = emailWithErrorHTML.replace('{ERROR MESSAGE}', errorMessage);
+        }
       } else if (previewPanel.webview.html.trim().length === 0) {
         previewPanel.title = `react-email preview - try opening an email!`;
         previewPanel.webview.html = noEmailOpenHTML;
