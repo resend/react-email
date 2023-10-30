@@ -200,7 +200,7 @@ importers:
         version: link:../preview
       '@react-email/render':
         specifier: 0.0.8
-        version: link:../render
+        version: 0.0.8
       '@react-email/row':
         specifier: 0.0.6
         version: link:../row
@@ -1921,6 +1921,16 @@ packages:
     engines: {node: '>=16.0.0'}
     dependencies:
       html-to-text: 9.0.3
+      pretty: 2.0.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@react-email/render@0.0.8:
+    resolution: {integrity: sha512-DwrCG5t2nXlXYcchZz8h4NOhBYoU5Rpogz54Z18mANUmwMtzl88x6NwRDwzZoAVAlTLOPqvsQbYtWHvfpTfmmA==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      html-to-text: 9.0.5
       pretty: 2.0.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
