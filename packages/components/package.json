@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "All react-email components",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -41,23 +41,23 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@react-email/body": "0.0.2",
-    "@react-email/button": "0.0.9",
-    "@react-email/column": "0.0.7",
-    "@react-email/container": "0.0.8",
-    "@react-email/font": "0.0.2",
-    "@react-email/head": "0.0.5",
-    "@react-email/heading": "0.0.8",
-    "@react-email/hr": "0.0.5",
-    "@react-email/html": "0.0.4",
-    "@react-email/img": "0.0.5",
-    "@react-email/link": "0.0.5",
-    "@react-email/preview": "0.0.6",
-    "@react-email/render": "0.0.7",
-    "@react-email/row": "0.0.5",
-    "@react-email/section": "0.0.9",
-    "@react-email/tailwind": "0.0.8",
-    "@react-email/text": "0.0.5"
+    "@react-email/body": "0.0.4",
+    "@react-email/button": "0.0.11",
+    "@react-email/column": "0.0.8",
+    "@react-email/container": "0.0.10",
+    "@react-email/font": "0.0.4",
+    "@react-email/head": "0.0.6",
+    "@react-email/heading": "0.0.9",
+    "@react-email/hr": "0.0.6",
+    "@react-email/html": "0.0.6",
+    "@react-email/img": "0.0.6",
+    "@react-email/link": "0.0.6",
+    "@react-email/preview": "0.0.7",
+    "@react-email/render": "0.0.8",
+    "@react-email/row": "0.0.6",
+    "@react-email/section": "0.0.10",
+    "@react-email/tailwind": "0.0.11",
+    "@react-email/text": "0.0.6"
   },
   "peerDependencies": {
     "react": "18.2.0"
