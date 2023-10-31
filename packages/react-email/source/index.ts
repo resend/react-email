@@ -1,15 +1,14 @@
 #!/usr/bin/env node
-/* eslint-disable */
 import { program } from '@commander-js/extra-typings';
 import packageJson from '../package.json';
 import { dev } from './commands/dev';
-import { buildPreview, startPreview } from './commands/preview';
 import { exportTemplates } from './commands/export';
-import { PACKAGE_NAME } from './utils/constants';
 
 program
-  .name(PACKAGE_NAME)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  .name(packageJson.name)
   .description('A live preview of your emails right in your browser')
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
   .version(packageJson.version);
 
 program
@@ -17,20 +16,7 @@ program
   .description('Starts the application in development mode')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
-  .option('-s, --skip-install', 'Do not install dependencies', false)
   .action(dev);
-
-program
-  .command('build')
-  .description('Builds a production preview app')
-  .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .action(buildPreview);
-
-program
-  .command('start')
-  .description('Starts the production build of the preview app')
-  .option('-p --port <port>', 'Port to run production server on', '3000')
-  .action(startPreview);
 
 program
   .command('export')

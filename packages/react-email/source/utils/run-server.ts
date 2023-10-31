@@ -1,61 +1,83 @@
-import path from 'node:path';
-import { detect as detectPackageManager } from 'detect-package-manager';
-import { findRoot } from '@manypkg/find-root';
-import shell from 'shelljs';
-import { createWatcherInstance, watcher } from './watcher';
-import type { PackageManager } from '.';
-import {
-  CURRENT_PATH,
-  convertToAbsolutePath,
-  startDevServer,
-  installDependencies,
-  syncPkg,
-  generateEmailsPreview,
-  buildProdServer,
-  startProdServer,
-  REACT_EMAIL_ROOT,
-} from '.';
+import path, { normalize, resolve } from 'node:path';
+import fs from 'node:fs';
+import esbuild from 'esbuild';
+import { convertToAbsolutePath } from './convert-to-absolute-path';
+import next from 'next';
+import http from 'node:http';
+import { parse } from 'node:url';
 
-/**
- * Utility function to run init/sync for the server in dev, build or start mode.
- *
- * @param type - dev | build | start
- * @param dir - Directory in which the emails are located, only for dev and build, unused for start.
- * @param port - The port on which the server will run, only for dev and start, unused for build.
- */
-export const setupServer = async (
-  type: 'dev' | 'build' | 'start',
-  dir: string,
-  port: string,
-  skipInstall = false,
-) => {
-  const cwd = await findRoot(CURRENT_PATH).catch(() => ({
-    rootDir: CURRENT_PATH,
-  }));
-  const emailDir = convertToAbsolutePath(dir);
-  const packageManager: PackageManager = await detectPackageManager({
-    cwd: cwd.rootDir,
-  }).catch(() => 'npm');
+export const setupServer = (dir: string, port: string) => {
+  const emailsDir = convertToAbsolutePath(dir);
 
-  // when starting, we dont need to worry about these because it should've already happened during the build stage.
-  if (type !== 'start') {
-    await generateEmailsPreview(emailDir);
-    await syncPkg();
-    if (!skipInstall) {
-      installDependencies(packageManager);
-    }
+  console.clear();
+
+  const previewCompilationDir = path.join(emailsDir, '.preview');
+  if (fs.existsSync(previewCompilationDir)) {
+    fs.rmSync(previewCompilationDir, { recursive: true, force: true });
   }
 
-  if (type === 'dev') {
-    const watcherInstance = createWatcherInstance(emailDir);
+  const emailTemplates = fs
+    .readdirSync(normalize(emailsDir))
+    .filter((file) => file.endsWith('.tsx') || file.endsWith('.jsx'))
+    .map((file) => path.join(emailsDir, file));
 
-    startDevServer(packageManager, port);
-    watcher(watcherInstance, emailDir);
-  } else if (type === 'build') {
-    buildProdServer(packageManager);
-  } else {
-    shell.cd(path.join(REACT_EMAIL_ROOT));
+  esbuild.buildSync({
+    bundle: true,
+    entryPoints: emailTemplates,
+    platform: 'node',
+    write: true,
+    outdir: previewCompilationDir,
+  });
 
-    startProdServer(packageManager, port);
-  }
+  console.log('Email previews generated\n');
+
+  const app = next({
+    dev: true,
+    port: Number(port),
+    dir: resolve(__dirname, '../../'),
+  });
+
+  const nextHandle = app.getRequestHandler();
+
+  void app.prepare().then(() => {
+    http
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      .createServer(async function (req, res) {
+        if (!req.url) {
+          res.end(404);
+          return;
+        }
+
+        const parsedUrl = parse(req.url, true);
+
+        res.setHeader(
+          'Cache-Control',
+          'no-cache, max-age=0, must-revalidate, no-store',
+        );
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '-1');
+
+        await nextHandle(req, res, parsedUrl);
+      })
+      .listen(port, () => {
+        console.log(`running preview at http://localhost:${port}`);
+      })
+      .on('error', (error: NodeJS.ErrnoException) => {
+        if (error.code === 'EADDRINUSE') {
+          console.error(
+            `port ${port} is taken, is react-email already running?`,
+          );
+          process.exit(1);
+        } else {
+          console.error('preview server error:', JSON.stringify(error));
+        }
+      });
+  });
 };
+
+const exitHandler = () => {
+  process.exit(1);
+};
+
+process.on('exit', exitHandler);
+process.on('SIGINT', exitHandler);

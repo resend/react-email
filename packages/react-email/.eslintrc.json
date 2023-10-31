@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "next/core-web-vitals"
+  ],
+  "parserOptions": {
+    "project": true
+  },
+  "rules": {
+    "react/no-unescaped-entities": "off"
+  }
+}

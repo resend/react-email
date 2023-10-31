@@ -10,12 +10,8 @@ import { render } from '@react-email/render';
 import normalize from 'normalize-path';
 import shell from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
-/*
-  This first builds all the templates using esbuild and then puts the output in the `.js`
-  files. Then these `.js` files are imported dynamically and rendered to `.html` files
-  using the `render` function.
- */
-export const exportTemplates = async (
+
+export const exportTemplates = (
   outDir: string,
   srcDir: string,
   options: Options,
@@ -32,6 +28,7 @@ export const exportTemplates = async (
     write: true,
     outdir: outDir,
   });
+
   spinner.succeed();
 
   const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
@@ -41,8 +38,8 @@ export const exportTemplates = async (
   for (const template of allBuiltTemplates) {
     spinner.text = `rendering ${template.split('/').pop()}`;
     spinner.render();
-    // eslint-disable-next-line
-    const component = await import(template);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
+    const component = require(template);
     // eslint-disable-next-line
     const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
