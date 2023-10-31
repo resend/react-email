@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -46,7 +46,7 @@
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tw-to-css": "0.0.11"
+    "tw-to-css": "0.0.12"
   },
   "peerDependencies": {
     "react": "18.2.0"
