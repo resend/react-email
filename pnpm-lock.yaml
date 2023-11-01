@@ -199,7 +199,7 @@ importers:
         specifier: 0.0.7
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.8
+        specifier: 0.0.9
         version: link:../render
       '@react-email/row':
         specifier: 0.0.6
