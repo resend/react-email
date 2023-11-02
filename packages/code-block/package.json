@@ -57,7 +57,6 @@
     "access": "public"
   },
   "dependencies": {
-    "prism-react-renderer": "2.1.0",
     "prismjs": "^1.29.0"
   }
 }
