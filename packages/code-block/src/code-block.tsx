@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import Prism, { Token } from "prismjs";
+
+import { PrismLangauge } from "./languages-available";
 import { Theme } from "./themes";
 
 export type CodeBlockProps = Readonly<
@@ -13,15 +15,17 @@ export type CodeBlockProps = Readonly<
     style?: React.CSSProperties;
     theme: Theme;
 
-    language: string;
+    language: PrismLangauge;
     code: string;
   }
 >;
 
-const LineTokenComp = ({ token, theme }: { token: string | Token; theme: Theme }) => {
+const CodeBlockLine = ({ token, theme }: { token: string | Token; theme: Theme }) => {
   if (token instanceof Token) {
     if (token.content instanceof Token) {
-      return <span style={theme[token.type]}><LineTokenComp theme={theme} token={token.content} /></span>;
+      return <span style={theme[token.type]}>
+        <CodeBlockLine theme={theme} token={token.content} />
+      </span>;
     } else if (typeof token.content === 'string') {
       return <span style={theme[token.type]}>{token.content}</span>
     }
@@ -50,7 +54,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
             }}>{lineIndex + 1}</span>
           )}
           {tokensForLine.map((token) => (
-            <LineTokenComp theme={props.theme} token={token} />
+            <CodeBlockLine theme={props.theme} token={token} />
           ))}
         </p>
       ))}
