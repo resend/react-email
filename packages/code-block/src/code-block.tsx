@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import Prism, { Token } from "prismjs";
-
 import { PrismLangauge } from "./languages-available";
 import { Theme } from "./themes";
+
+import { Prism } from './prism';
 
 export type CodeBlockProps = Readonly<
   {
@@ -20,9 +20,9 @@ export type CodeBlockProps = Readonly<
   }
 >;
 
-const CodeBlockLine = ({ token, theme }: { token: string | Token; theme: Theme }) => {
-  if (token instanceof Token) {
-    if (token.content instanceof Token) {
+const CodeBlockLine = ({ token, theme }: { token: string | Prism.Token; theme: Theme }) => {
+  if (token instanceof Prism.Token) {
+    if (token.content instanceof Prism.Token) {
       return <span style={theme[token.type]}>
         <CodeBlockLine theme={theme} token={token.content} />
       </span>;
