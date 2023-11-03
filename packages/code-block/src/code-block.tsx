@@ -1,14 +1,9 @@
 import * as React from "react";
-
-import { PrismLangauge } from "./languages-available";
-import { Theme } from "./themes";
-
+import type { PrismLangauge } from "./languages-available";
+import type { Theme } from "./themes";
 import { Prism } from "./prism";
 
 export type CodeBlockProps = Readonly<{
-  /**
-   * @default false
-   */
   lineNumbers?: boolean;
 
   style?: React.CSSProperties;
@@ -41,7 +36,7 @@ const CodeBlockLine = ({
 };
 
 /**
- * @description A component to show code using prismjs.
+ * A component to show code using prismjs.
  */
 export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
   const languageGrammar = Prism.languages[props.language];
@@ -59,8 +54,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
     <pre style={{ ...props.theme.base, ...props.style }}>
       <code>
         {tokensPerLine.map((tokensForLine, lineIndex) => (
-          <p>
-            {props.lineNumbers && (
+          <p key={lineIndex}>
+            {props.lineNumbers ? (
               <span
                 style={{
                   paddingRight: 30,
@@ -68,9 +63,9 @@ export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
               >
                 {lineIndex + 1}
               </span>
-            )}
-            {tokensForLine.map((token) => (
-              <CodeBlockLine theme={props.theme} token={token} />
+            ) : null}
+            {tokensForLine.map((token, i) => (
+              <CodeBlockLine key={i} theme={props.theme} token={token} />
             ))}
           </p>
         ))}
