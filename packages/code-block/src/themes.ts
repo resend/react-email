@@ -108,7 +108,7 @@ export const xonokai = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 
 export const vscDarkPlus = {
   base: {
@@ -287,7 +287,7 @@ export const vscDarkPlus = {
   namespace: {
     color: "#4ec9b0",
   },
-};
+} as const;
 export const duotoneForest = {
   base: {
     fontFamily:
@@ -416,7 +416,7 @@ export const duotoneForest = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const holiTheme = {
   base: {},
   comment: {
@@ -509,7 +509,7 @@ export const holiTheme = {
   variable: {
     color: "#d6e7ff",
   },
-};
+} as const;
 export const cb = {
   base: {
     color: "#fff",
@@ -615,7 +615,7 @@ export const cb = {
   deliminator: {
     color: "#E45734",
   },
-};
+} as const;
 export const vs = {
   base: {
     color: "#393A34",
@@ -739,7 +739,7 @@ export const vs = {
     background: "#ffff00",
     color: "#393A34",
   },
-};
+} as const;
 export const materialDark = {
   base: {
     textAlign: "left",
@@ -873,7 +873,7 @@ export const materialDark = {
   variable: {
     color: "#ff6666",
   },
-};
+} as const;
 export const dracula = {
   base: {
     color: "#f8f8f2",
@@ -992,7 +992,7 @@ export const dracula = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const shadesOfPurple = {
   base: {},
   "": {
@@ -1107,7 +1107,7 @@ export const shadesOfPurple = {
   "class-name": {
     color: "#fb94ff",
   },
-};
+} as const;
 export const gruvboxDark = {
   base: {
     color: "#ebdbb2",
@@ -1229,7 +1229,7 @@ export const gruvboxDark = {
   deleted: {
     background: "#fb4934",
   },
-};
+} as const;
 export const baseAteliersulphurpoolLight = {
   base: {
     fontFamily:
@@ -1350,7 +1350,7 @@ export const baseAteliersulphurpoolLight = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const coldarkCold = {
   base: {
     color: "#111b27",
@@ -1536,7 +1536,7 @@ export const coldarkCold = {
   "token.space:before": {
     color: "#3c526d",
   },
-};
+} as const;
 export const solarizedDarkAtom = {
   base: {
     color: "#839496",
@@ -1658,7 +1658,7 @@ export const solarizedDarkAtom = {
   "attr-value": {
     color: "#F9EE98",
   },
-};
+} as const;
 export const synthwave84 = {
   base: {
     color: "#f92aad",
@@ -1818,7 +1818,7 @@ export const synthwave84 = {
   inserted: {
     color: "green",
   },
-};
+} as const;
 export const materialOceanic = {
   base: {
     textAlign: "left",
@@ -1957,7 +1957,7 @@ export const materialOceanic = {
   variable: {
     color: "#f07178",
   },
-};
+} as const;
 export const duotoneSpace = {
   base: {
     fontFamily:
@@ -2087,7 +2087,7 @@ export const duotoneSpace = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const materialLight = {
   base: {
     textAlign: "left",
@@ -2222,7 +2222,7 @@ export const materialLight = {
   variable: {
     color: "#e53935",
   },
-};
+} as const;
 export const duotoneSea = {
   base: {
     fontFamily:
@@ -2352,7 +2352,7 @@ export const duotoneSea = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const a11yDark = {
   base: {
     color: "#f8f8f2",
@@ -2468,7 +2468,7 @@ export const a11yDark = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const darcula = {
   base: {
     color: "#a9b7c6",
@@ -2594,7 +2594,7 @@ export const darcula = {
   deleted: {
     background: "#484a4a",
   },
-};
+} as const;
 export const zTouch = {
   base: {
     color: "white",
@@ -2720,7 +2720,7 @@ export const zTouch = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const duotoneEarth = {
   base: {
     fontFamily:
@@ -2850,7 +2850,7 @@ export const duotoneEarth = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const gruvboxLight = {
   base: {
     color: "#3c3836",
@@ -2973,7 +2973,7 @@ export const gruvboxLight = {
   deleted: {
     background: "#9d0006",
   },
-};
+} as const;
 export const oneDark = {
   base: {
     background: "hsl(220, 13%, 18%)",
@@ -3122,7 +3122,7 @@ export const oneDark = {
     color: "hsla(220, 14%, 71%, 0.15)",
     textShadow: "none",
   },
-};
+} as const;
 export const duotoneDark = {
   base: {
     fontFamily:
@@ -3252,7 +3252,7 @@ export const duotoneDark = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const lucario = {
   base: {
     color: "#f8f8f2",
@@ -3372,7 +3372,7 @@ export const lucario = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const coldarkDark = {
   base: {
     color: "#e3eaf2",
@@ -3558,7 +3558,7 @@ export const coldarkDark = {
   "token.space:before": {
     color: "#8da1b9",
   },
-};
+} as const;
 export const atomDark = {
   base: {
     color: "#c5c8c6",
@@ -3680,7 +3680,7 @@ export const atomDark = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const pojoaque = {
   base: {
     MozTabSize: "4",
@@ -3809,7 +3809,7 @@ export const pojoaque = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const duotoneLight = {
   base: {
     fontFamily:
@@ -3939,7 +3939,7 @@ export const duotoneLight = {
   bold: {
     fontWeight: "bold",
   },
-};
+} as const;
 export const nightOwl = {
   base: {
     color: "white",
@@ -4065,7 +4065,7 @@ export const nightOwl = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const laserwave = {
   base: {
     background: "#27212e",
@@ -4187,7 +4187,7 @@ export const laserwave = {
   namespace: {
     opacity: "0.7",
   },
-};
+} as const;
 export const coyWithoutShadows = {
   base: {
     color: "black",
@@ -4327,7 +4327,7 @@ export const coyWithoutShadows = {
   namespace: {
     opacity: ".7",
   },
-};
+} as const;
 export const hopscotch = {
   base: {
     fontFamily:
@@ -4436,7 +4436,7 @@ export const hopscotch = {
     color: "#dd464c",
     fontWeight: "bold",
   },
-};
+} as const;
 export const oneLight = {
   base: {
     background: "hsl(230, 1%, 98%)",
@@ -4580,7 +4580,7 @@ export const oneLight = {
   "token.space:before": {
     color: "hsla(230, 8%, 24%, 0.2)",
   },
-};
+} as const;
 export const nord = {
   base: {
     color: "#f8f8f2",
@@ -4700,7 +4700,7 @@ export const nord = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
 export const ghcolors = {
   base: {
     color: "#393A34",
@@ -4818,4 +4818,4 @@ export const ghcolors = {
   italic: {
     fontStyle: "italic",
   },
-};
+} as const;
