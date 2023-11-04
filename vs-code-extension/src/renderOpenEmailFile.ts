@@ -58,6 +58,8 @@ export async function renderOpenEmailFile(
       const email = require(builtFileWithCurrentContents);
 
       if (typeof email.default === "undefined") {
+        await unlink(builtFileWithCurrentContents);
+
         // this means there is no "export default ..." in the file
         return { valid: false };
       }
