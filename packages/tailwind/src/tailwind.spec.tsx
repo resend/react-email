@@ -324,7 +324,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" id=\\"__react-email\\" lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class sm:!bg-red-50 sm:!text-sm md:!text-lg\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class sm:!bg-red-50 sm:!text-sm md:!text-lg\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -351,7 +351,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" id=\\"__react-email\\" lang=\\"en\\"><head data-id=\\"__react-email-head\\"><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div class=\\"xl:!bg-green-500\\">Test</div><div class=\\"2xl:!bg-blue-500\\">Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div class=\\"xl:!bg-green-500\\">Test</div><div class=\\"2xl:!bg-blue-500\\">Test</div></html>"',
     );
   });
 
