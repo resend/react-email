@@ -35,4 +35,3 @@ We want for `react-email` to bring the best developer experience possible and yo
 React Email is a collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript. It reduces the pain of coding responsive emails with dark mode support. It also takes care of inconsistencies between Gmail, Outlook, and other email clients for you.
 
 Find out more [here](https://react.email/).
-
