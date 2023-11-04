@@ -2,7 +2,7 @@
   "name": "react-email-preview",
   "displayName": "react-email preview",
   "description": "A easy way to view the preview of a email made with react-email from your editor",
-  "version": "0.0.1",
+  "version": "0.0.0-beta.1",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -39,9 +39,10 @@
     "directory": "vs-code-extension"
   },
   "scripts": {
+    "publish": "vsce publish",
     "package": "vsce package",
     "vscode:prepublish": "npm run compile -- --minify",
-    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --external:esbuild --format=cjs --platform=node",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts"
   },
