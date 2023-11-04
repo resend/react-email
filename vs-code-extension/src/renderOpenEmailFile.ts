@@ -55,7 +55,7 @@ export async function renderOpenEmailFile(
 
       // for future people debugging this: if this doesnt update the preview, might be because import keeps a cache
       // and the hash is not being unique (unlikely though)
-      const email = await import(builtFileWithCurrentContents);
+      const email = require(builtFileWithCurrentContents);
 
       if (typeof email.default === "undefined") {
         // this means there is no "export default ..." in the file
