@@ -16,6 +16,7 @@
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "icon": "./icon.png",
   "contributes": {
     "commands": [
       {
@@ -31,15 +32,20 @@
       }
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "vs-code-extension"
+  },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run compile -- --minify",
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts"
   },
   "dependencies": {
-    "@react-email/render": "workspace:*",
+    "@react-email/render": "0.0.9",
     "esbuild": "0.16.4"
   },
   "devDependencies": {

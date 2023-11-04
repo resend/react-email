@@ -22,6 +22,9 @@ Once you run the command, a split will appear with a welcome message, once you f
 written with react-email, it will auto-detect and render it automatically for you showing a preview of
 how it looks.
 
+Something important is that the `vsce` doesn't play well with workspaces so the `package` script might break
+when trying to run with the extension included in the monorepo.
+
 ## Found a bug?
 
 If you have found a bug, even if small, please open a issue [here](https://github.com/resendlabs/react-email/issues).
