@@ -2,7 +2,15 @@
 
 All notable changes to the "react-email-preview" extension will be documented in this file.
 
-## [Unreleased]
+## 0.0.2 - 2023-11-04
+
+### Features
+
+- Update the display name to "React Email"
+
+### Fixes
+
+- OS issues with esbuild
 
 ## 0.0.1 - 2023-11-04
 
@@ -16,7 +24,7 @@ Released first version for testing.
 
 ### Features
 
-- Command for opening split for preview
+- Command (`CTRL + SHIFT + E` or `CMD + SHIFT + E`) for opening split for preview
 - Preview updates on file save
 - When changing files the preview updates
 - Multiple previews can't be open
