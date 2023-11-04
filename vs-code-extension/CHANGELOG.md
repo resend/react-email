@@ -4,9 +4,9 @@ All notable changes to the "react-email-preview" extension will be documented in
 
 ## [Unreleased]
 
-## 0.0.0-beta.1 - 2023-11-04
+## 0.0.0 - 2023-11-04
 
-Released first beta for testing.
+Released first version for testing.
 
 ### Features
 
