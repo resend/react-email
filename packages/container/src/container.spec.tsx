@@ -1,4 +1,3 @@
-import { Container } from "./index";
 import { render } from "@react-email/render";
 import { Container } from "./index";
 
@@ -12,7 +11,7 @@ describe("<Container> component", () => {
   it("passes style and other props correctly", () => {
     const style = { maxWidth: 300, backgroundColor: "red" };
     const html = render(
-      <Container style={style} data-testid="container-test">
+      <Container data-testid="container-test" style={style}>
         Test
       </Container>,
     );

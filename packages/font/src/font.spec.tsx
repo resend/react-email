@@ -4,7 +4,7 @@ import { Font } from "./index";
 describe("<Font> component", () => {
   it("renders with default props", () => {
     const html = render(
-      <Font fontFamily="Arial" fallbackFontFamily="Helvetica" />,
+      <Font fallbackFontFamily="Helvetica" fontFamily="Arial" />,
     );
 
     expect(html).toContain("font-style: normal;");
@@ -20,8 +20,8 @@ describe("<Font> component", () => {
 
     const html = render(
       <Font
-        fontFamily="Example"
         fallbackFontFamily="Helvetica"
+        fontFamily="Example"
         webFont={webFont}
       />,
     );
@@ -34,7 +34,7 @@ describe("<Font> component", () => {
 
   it("renders with multiple fallback fonts", () => {
     const html = render(
-      <Font fontFamily="Arial" fallbackFontFamily={["Helvetica", "Verdana"]} />,
+      <Font fallbackFontFamily={["Helvetica", "Verdana"]} fontFamily="Arial" />,
     );
 
     expect(html).toContain("font-family: 'Arial', Helvetica, Verdana;");
