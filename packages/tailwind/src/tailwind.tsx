@@ -101,7 +101,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm, 
     (mediaQuery, _className) => {
-      headStyles.push(mediaQuery.replace(/^\n+/, "").replace(/\n+$/, ""));
+      headStyles.push(mediaQuery.replace(/[\r\n|\r|\n]+/g, "").replace(/\s+/g, " "));
       return "";
     }
   );
