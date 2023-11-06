@@ -17,7 +17,7 @@ const convertPropertyName = (prop: string) => {
   }
 
   if (modifiedProp.startsWith("-ms-")) {
-    modifiedProp = modifiedProp.substr(1);
+    modifiedProp = modifiedProp.slice(1);
   }
 
   return camelCase(modifiedProp);
@@ -54,7 +54,7 @@ const splitDeclarations = (cssText: string) => {
 
 const splitDeclaration = (declaration: string) => {
   const i = declaration.indexOf(":");
-  return [declaration.substr(0, i).trim(), declaration.substr(i + 1).trim()];
+  return [declaration.slice(0, i).trim(), declaration.slice(i + 1).trim()];
 };
 
 export const cssToJsxStyle = (cssText: string) =>

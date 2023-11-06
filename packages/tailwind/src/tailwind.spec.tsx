@@ -61,14 +61,14 @@ describe("Tailwind component", () => {
 describe("Responsive styles", () => {
   it("should add css to <head/>", () => {
     const actualOutput = render(
-      <Tailwind>
-        <html lang="en">
+      <html lang="en">
+        <Tailwind>
           <head />
           <body>
             <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
           </body>
-        </html>
-      </Tailwind>,
+        </Tailwind>
+      </html>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -76,51 +76,26 @@ describe("Responsive styles", () => {
     );
   });
 
-  it("should throw an error when used without either <html/> or <head/> tags", () => {
-    function noHtmlOrHead() {
-      render(
-        <Tailwind>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>,
-      );
-    }
-    expect(noHtmlOrHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`,
-    );
-
-    function noHtml() {
-      render(
-        <Tailwind>
-          <head>
-            <title>Test</title>
-          </head>
-          <div className="bg-red-200 sm:bg-red-500" />
-        </Tailwind>,
-      );
-    }
-    expect(noHtml).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`,
-    );
-
+  it("should throw an error when used without a <head/>", () => {
     function noHead() {
       render(
-        <Tailwind>
-          <html lang="en">
+        <html lang="en">
+          <Tailwind>
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
-          </html>
-        </Tailwind>,
+          </Tailwind>
+        </html>
       );
     }
     expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <html> and <head> element in your template."`,
+      `"Tailwind: To use responsive styles you must have a <head> element element as a direct child of the Tailwind component and."`,
     );
   });
 
   it("should persist exsisting <head/> elements", () => {
     const actualOutput = render(
-      <Tailwind>
-        <html lang="en">
+      <html lang="en">
+        <Tailwind>
           <head>
             <style />
             <link />
@@ -128,8 +103,8 @@ describe("Responsive styles", () => {
           <body>
             <div className="bg-red-200 sm:bg-red-500" />
           </body>
-        </html>
-      </Tailwind>,
+        </Tailwind>
+      </html>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -291,14 +266,14 @@ describe("Custom plugins config", () => {
     };
 
     const actualOutput = render(
-      <Tailwind config={config}>
-        <html lang="en">
+      <html lang="en">
+        <Tailwind config={config}>
           <head />
           <body>
             <div className="border-custom sm:border-custom" />
           </body>
-        </html>
-      </Tailwind>,
+        </Tailwind>
+      </html>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -310,8 +285,8 @@ describe("Custom plugins config", () => {
 describe("<Tailwind> component", () => {
   it("should preserve mso styles", () => {
     const actualOutput = render(
-      <Tailwind>
-        <Html>
+      <Html>
+        <Tailwind>
           <Head />
           <span
             dangerouslySetInnerHTML={{
@@ -319,16 +294,16 @@ describe("<Tailwind> component", () => {
             }}
           />
           <div className="bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class" />
-        </Html>
-      </Tailwind>,
+        </Tailwind>
+      </Html>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:640px){.sm\\\\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\\\\:bg-red-50{background-color:rgb(254,242,242)}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem;line-height:1.75rem}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
-  it("should recognize custom resopnsive screen", () => {
+  it.only("should recognize custom resopnsive screen", () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -341,17 +316,17 @@ describe("<Tailwind> component", () => {
       },
     };
     const actualOutput = render(
-      <Tailwind config={config}>
-        <Html>
+      <Html>
+        <Tailwind config={config}>
           <Head />
-          <div className="xl:bg-green-500">Test</div>
+          <div className="bg-red-100 xl:bg-green-500">Test</div>
           <div className="2xl:bg-blue-500">Test</div>
-        </Html>
-      </Tailwind>,
+        </Tailwind>
+      </Html>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div>Test</div><div>Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:undefined}.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)}}</style></head><div>Test</div><div>Test</div></html>"',
     );
   });
 

@@ -1,58 +1,48 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import type { TailwindConfig, twi as TwiType } from "tw-to-css";
-import { tailwindToCSS } from "tw-to-css";
+
+import { Config as TailwindConfig } from "tailwindcss";
+import type { HeadProps } from "@react-email/head";
+
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
+import { getCSSForMarkup } from "./utils/get-css-for-classes";
+import { renderToStaticMarkup } from "react-dom/server";
 
 export interface TailwindProps {
   children: React.ReactNode;
-  config?: TailwindConfig;
+  config?: Omit<TailwindConfig, 'content'>;
 }
 
 function processElement(
   element: React.ReactElement,
-  headStyles: string[],
-  twi: typeof TwiType,
+  nonMediaQueryTailwindStylesPerClass: Record<string, string>
 ): React.ReactElement {
   let modifiedElement = element;
 
   if (modifiedElement.props.className) {
-    const convertedStyles: string[] = [];
-    const responsiveStyles: string[] = [];
-    const classNames = (modifiedElement.props.className as string).split(" ");
+    const fullClassName = modifiedElement.props.className as string;
+    const classNames = fullClassName.split(" ");
+    const classNamesToKeep = [] as string[];
 
-    const customClassNames = classNames.filter((className: string) => {
-      const tailwindClassName = twi(className, { ignoreMediaQueries: true });
+    const styles = [] as string[];
 
-      if (tailwindClassName) {
-        convertedStyles.push(tailwindClassName);
-        return false;
-      } else if (twi(className, { ignoreMediaQueries: false })) {
-        responsiveStyles.push(className);
-        return false;
+    classNames.forEach(className => {
+      // no need to filter in for media query classes since it is going to keep these classes
+      // as custom since they are not going to be in the markup map of styles
+      if (typeof nonMediaQueryTailwindStylesPerClass[className] === 'undefined') {
+        classNamesToKeep.push(className);
+      } else {
+        styles.push(`${nonMediaQueryTailwindStylesPerClass[className]};`);
       }
-      return true;
     });
-
-    const convertedResponsiveStyles = twi(responsiveStyles, {
-      ignoreMediaQueries: false,
-      merge: false,
-    });
-
-    headStyles.push(
-      convertedResponsiveStyles.replace(/^\n+/, "").replace(/\n+$/, ""),
-    );
 
     modifiedElement = React.cloneElement(modifiedElement, {
       ...modifiedElement.props,
-      className: customClassNames.length
-        ? customClassNames.join(" ")
-        : undefined,
+      className: classNamesToKeep.length > 0 ? classNamesToKeep.join(' ') : undefined,
       style: {
         ...(modifiedElement.props.style as Record<string, string>),
-        ...cssToJsxStyle(convertedStyles.join(" ")),
+        ...cssToJsxStyle(styles.join(' ')),
       },
     });
   }
@@ -61,7 +51,7 @@ function processElement(
     const children = React.Children.toArray(modifiedElement.props.children);
     const processedChildren = children.map((child) => {
       if (React.isValidElement(child)) {
-        return processElement(child, headStyles, twi);
+        return processElement(child, nonMediaQueryTailwindStylesPerClass);
       }
       return child;
     });
@@ -76,87 +66,88 @@ function processElement(
   return modifiedElement;
 }
 
+type AnyElement = React.ReactElement<
+  React.HTMLAttributes<HTMLElement>,
+  string | React.JSXElementConstructor<any>
+>;
+
+type HeadElement = React.ReactElement<
+  HeadProps,
+  string | React.JSXElementConstructor<HeadProps>
+>;
+
 function processHead(
-  child: React.ReactElement,
+  headElement: HeadElement,
   responsiveStyles: string[],
 ): React.ReactElement {
-  let modifiedChild = child;
+  const styleElement = <style>{responsiveStyles}</style>;
 
-  // FIXME: find a cleaner solution for child as any
-  if (
-    modifiedChild.type === "head" ||
-    (modifiedChild as unknown as { type: { displayName: string } }).type
-      .displayName === "Head"
-  ) {
-    const styleElement = <style>{responsiveStyles}</style>;
+  const headChildren = React.Children.toArray(headElement.props.children);
+  headChildren.push(styleElement);
 
-    const headChildren = React.Children.toArray(modifiedChild.props.children);
-    headChildren.push(styleElement);
-
-    modifiedChild = React.cloneElement(
-      modifiedChild,
-      modifiedChild.props,
-      ...headChildren,
-    );
-  }
-  if (modifiedChild.props.children) {
-    const children = React.Children.toArray(modifiedChild.props.children);
-    const processedChildren = children.map((processedChild) => {
-      if (React.isValidElement(processedChild)) {
-        return processHead(processedChild, responsiveStyles);
-      }
-      return processedChild;
-    });
-
-    modifiedChild = React.cloneElement(
-      modifiedChild,
-      modifiedChild.props,
-      ...processedChildren,
-    );
-  }
-
-  return modifiedChild;
+  return React.cloneElement(
+    headElement,
+    headElement.props,
+    ...headChildren,
+  );
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  const headStyles: string[] = [];
+  let headStyles: string[] = [];
 
-  const { twi } = tailwindToCSS({
-    config,
-  });
+  const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
+  const markupCSS = getCSSForMarkup(markupWithTailwindClasses, config);
 
-  const childrenWithInlineStyles = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return processElement(child, headStyles, twi);
+  const nonMediaQueryCSS = markupCSS.replaceAll(
+    /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm, 
+    (mediaQuery, _className) => {
+      headStyles.push(mediaQuery.replace(/^\n+/, "").replace(/\n+$/, ""));
+      return "";
     }
-    return child;
-  });
-
-  if (!childrenWithInlineStyles) return <>{children}</>;
-
-  const fullHTML = renderToStaticMarkup(<>{childrenWithInlineStyles}</>);
-
-  const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyles.join(" "),
   );
 
-  const hasHTMLAndHead = /<html[^>]*>(?=[\s\S]*<head[^>]*>)/gm.test(fullHTML);
-
-  if (hasResponsiveStyles && !hasHTMLAndHead) {
-    throw new Error(
-      "Tailwind: To use responsive styles you must have a <html> and <head> element in your template.",
-    );
+  const nonMediaQueryTailwindStylesPerClass = {} as Record<string, string>;
+  for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(/\s*\.(.*)\s*{([\S\s]*)}/gm)) {
+    nonMediaQueryTailwindStylesPerClass[className.trim()] = contents
+      .replace(/^\n+/, "")
+      .replace(/\n+$/, "")
+      .trim();
   }
 
-  const childrenWithInlineAndResponsiveStyles = React.Children.map(
-    childrenWithInlineStyles,
-    (child) => {
-      if (React.isValidElement(child)) {
-        return processHead(child, headStyles);
-      }
-      return child;
-    },
-  );
+  const childrenArray = React.Children.toArray(children);
+  const validElementsWithIndexes = childrenArray
+    .map((child, i) => [child, i] as [AnyElement, number])
+    .filter(([child]) => React.isValidElement(child));
 
-  return <>{childrenWithInlineAndResponsiveStyles}</>;
+  let headElementIndex = -1;
+
+  validElementsWithIndexes.forEach(([element, i]) => {
+    childrenArray[i] = processElement(element, nonMediaQueryTailwindStylesPerClass);
+
+    if (element.type === "head" ||
+      (typeof element.type === "function" &&
+        "name" in element.type &&
+        element.type.name === "Head")) {
+      headElementIndex = i;
+    }
+  });
+
+  headStyles = headStyles.filter(style => style.trim().length > 0);
+
+  if (headStyles.length > 0) {
+    if (headElementIndex === -1) {
+      throw new Error(
+        "Tailwind: To use responsive styles you must have a <head> element element as a direct child of the Tailwind component and.",
+      );
+    }
+
+    const [headElement, headAllElementsIndex] = validElementsWithIndexes[headElementIndex] as [
+      HeadElement, number
+    ];
+
+    childrenArray[headAllElementsIndex] = processHead(headElement, headStyles);
+  }
+
+
+  return <>{childrenArray}</>;
 };
