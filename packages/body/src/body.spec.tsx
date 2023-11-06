@@ -11,7 +11,7 @@ describe("<Body> component", () => {
   it("passes style and other props correctly", () => {
     const style = { backgroundColor: "red" };
     const html = render(
-      <Body style={style} data-testid="body-test">
+      <Body data-testid="body-test" style={style}>
         Test
       </Body>,
     );

@@ -6,12 +6,12 @@ describe("<Img> component", () => {
     const style = { backgroundColor: "red", border: "solid 1px black" };
     const html = render(
       <Img
-        src="cat.jpg"
         alt="Cat"
-        width="300"
-        height="300"
-        style={style}
         data-testid="img-test"
+        height="300"
+        src="cat.jpg"
+        style={style}
+        width="300"
       />,
     );
     expect(html).toContain("background-color:red");
