@@ -43,7 +43,7 @@
     "tree-node-cli": "1.6.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "11.0.1",
+    "@types/fs-extra": "11.0.4",
     "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.12",
     "eslint-config-custom": "workspace:*",
