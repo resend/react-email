@@ -7,8 +7,8 @@ declare module "tailwindcss/src/lib/generateRules.js" {
 }
 
 declare module "tailwindcss/src/lib/setupContextUtils.js" {
-  import postcss, { Container } from "postcss";
-  import { Config as TailwindConfig } from "tailwindcss";
+  import type postcss, { Container } from "postcss";
+  import type { Config as TailwindConfig } from "tailwindcss";
 
   interface ChangedContent {
     content: string;
@@ -41,20 +41,17 @@ declare module "tailwindcss/src/lib/setupContextUtils.js" {
     root?: postcss.Root
   ): JitContext;
 }
-declare module "tailwindcss/src/lib/sharedState.js" {
-  export const contextMap: Map</* source path */string, any>;
-}
 
 declare module "tailwindcss/src/public/resolve-config.js" {
-  import { Config as TailwindConfig } from "tailwindcss";
+  import type { Config as TailwindConfig } from "tailwindcss";
 
   export default function resolveConfig(tailwindConfig: TailwindConfig): TailwindConfig;
 }
 
 declare module "tailwindcss/src/processTailwindFeatures.js" {
-  import { AtRule, Plugin, Result, Root } from "postcss";
-  import { ChangedContent, JitContext } from "tailwindcss/src/lib/setupContextUtils.js";
-  import { Config as TailwindConfig } from "tailwindcss";
+  import type { AtRule, Plugin, Result, Root } from "postcss";
+  import type { ChangedContent, JitContext } from "tailwindcss/src/lib/setupContextUtils.js";
+  import type { Config as TailwindConfig } from "tailwindcss";
 
   type SetupContext = (root: Root, result: Result) => JitContext;
 
@@ -67,5 +64,5 @@ declare module "tailwindcss/src/processTailwindFeatures.js" {
 
   export default function processTailwindFeatures(
     callback: (options: ProcessTailwindFeaturesCallbackOptions) => SetupContext
-  ): Plugin<any>;
+  ): Plugin;
 }
