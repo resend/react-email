@@ -1,7 +1,7 @@
-![React Email Makrdown cover](https://react.email/static/covers/markdown.png)
+![React Email Markdown cover](https://react.email/static/covers/markdown.png)
 
 <div align="center"><strong>@react-email/markdown</strong></div>
-<div align="center">A Markdown component that converts markdown to valid react-email template code</div>
+<div align="center">Convert Markdown to valid React Email template code.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

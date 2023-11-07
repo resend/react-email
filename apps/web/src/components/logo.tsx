@@ -3,6 +3,7 @@ import * as React from "react";
 export const Logo = () => {
   return (
     <svg
+      className="pointer-events-none"
       fill="none"
       height="32"
       viewBox="0 0 119 32"

@@ -1,22 +1,11 @@
-import * as SlotPrimitive from "@radix-ui/react-slot";
-import classnames from "classnames";
+import classNames from "classnames";
 import * as React from "react";
 import type { As } from "../utils/as";
 import { unreachable } from "../utils/unreachable";
 
-export type HeadingSize =
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "10";
-export type HeadingColor = "white" | "gray";
-export type HeadingWeight = "medium" | "bold";
+type HeadingSize = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+type HeadingColor = "white" | "gray";
+type HeadingWeight = "medium" | "bold";
 
 interface HeadingOwnProps {
   size?: HeadingSize;
@@ -26,10 +15,7 @@ interface HeadingOwnProps {
 
 type HeadingProps = As<"h1", "h2", "h3", "h4", "h5", "h6"> & HeadingOwnProps;
 
-export const Heading = React.forwardRef<
-  HTMLHeadingElement,
-  Readonly<HeadingProps>
->(
+export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
     {
       as: Tag = "h1",
@@ -40,30 +26,29 @@ export const Heading = React.forwardRef<
       weight = "bold",
       ...props
     },
-    forwardedRef,
+    ref,
   ) => (
-    <SlotPrimitive.Slot
-      className={classnames(
+    <Tag
+      className={classNames(
         className,
         getSizesClassNames(size),
         getColorClassNames(color),
         getWeightClassNames(weight),
       )}
-      ref={forwardedRef}
       {...props}
+      ref={ref}
     >
-      <Tag>{children}</Tag>
-    </SlotPrimitive.Slot>
+      {children}
+    </Tag>
   ),
 );
 
-const getSizesClassNames = (size: HeadingSize | undefined) => {
+const getSizesClassNames = (size: HeadingSize) => {
   switch (size) {
     case "1":
       return "text-xs";
     case "2":
       return "text-sm";
-    case undefined:
     case "3":
       return "text-base";
     case "4":
@@ -88,24 +73,22 @@ const getSizesClassNames = (size: HeadingSize | undefined) => {
   }
 };
 
-const getColorClassNames = (color: HeadingColor | undefined) => {
+const getColorClassNames = (color: HeadingColor) => {
   switch (color) {
     case "gray":
       return "text-slate-11";
     case "white":
-    case undefined:
       return "text-slate-12";
     default:
       return unreachable(color);
   }
 };
 
-const getWeightClassNames = (weight: HeadingWeight | undefined) => {
+const getWeightClassNames = (weight: HeadingWeight) => {
   switch (weight) {
     case "medium":
       return "font-medium";
     case "bold":
-    case undefined:
       return "font-bold";
     default:
       return unreachable(weight);

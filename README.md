@@ -6,7 +6,7 @@
 <div align="center">
 <a href="https://react.email">Website</a> 
 <span> · </span>
-<a href="https://github.com/resendlabs/react-email">GitHub</a> 
+<a href="https://github.com/resend/react-email">GitHub</a> 
 <span> · </span>
 <a href="https://react.email/discord">Discord</a>
 </div>
@@ -27,19 +27,19 @@ Install one of the components from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/button -E
+yarn add @react-email/components -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/button -E
+npm install @react-email/components -E
 ```
 
 #### With pnpm
 
 ```sh
-pnpm install @react-email/button -E
+pnpm install @react-email/components -E
 ```
 
 ## Getting started
@@ -47,7 +47,7 @@ pnpm install @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from "@react-email/button";
+import { Button } from "@react-email/components";
 
 const Email = () => {
   return (
@@ -62,30 +62,33 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-- [Html](https://github.com/resendlabs/react-email/tree/main/packages/html)
-- [Head](https://github.com/resendlabs/react-email/tree/main/packages/head)
-- [Heading](https://github.com/resendlabs/react-email/tree/main/packages/heading)
-- [Button](https://github.com/resendlabs/react-email/tree/main/packages/button)
-- [Link](https://github.com/resendlabs/react-email/tree/main/packages/link)
-- [Image](https://github.com/resendlabs/react-email/tree/main/packages/img)
-- [Divider](https://github.com/resendlabs/react-email/tree/main/packages/hr)
-- [Paragraph](https://github.com/resendlabs/react-email/tree/main/packages/text)
-- [Container](https://github.com/resendlabs/react-email/tree/main/packages/container)
-- [Preview](https://github.com/resendlabs/react-email/tree/main/packages/preview)
-- [Body](https://github.com/resendlabs/react-email/tree/main/packages/body)
-- [Column](https://github.com/resendlabs/react-email/tree/main/packages/column)
-- [Section](https://github.com/resendlabs/react-email/tree/main/packages/section)
-- [Font](https://github.com/resendlabs/react-email/tree/main/packages/font)
+- [Body](https://github.com/resend/react-email/tree/main/packages/body)
+- [Button](https://github.com/resend/react-email/tree/main/packages/button)
+- [CodeBlock](https://github.com/resend/react-email/tree/main/packages/code-block)
+- [CodeInline](https://github.com/resend/react-email/tree/main/packages/code-inline)
+- [Column](https://github.com/resend/react-email/tree/main/packages/column)
+- [Container](https://github.com/resend/react-email/tree/main/packages/container)
+- [Divider](https://github.com/resend/react-email/tree/main/packages/hr)
+- [Font](https://github.com/resend/react-email/tree/main/packages/font)
+- [Head](https://github.com/resend/react-email/tree/main/packages/head)
+- [Heading](https://github.com/resend/react-email/tree/main/packages/heading)
+- [Html](https://github.com/resend/react-email/tree/main/packages/html)
+- [Image](https://github.com/resend/react-email/tree/main/packages/img)
+- [Link](https://github.com/resend/react-email/tree/main/packages/link)
+- [Markdown](https://github.com/resend/react-email/tree/main/packages/markdown)
+- [Paragraph](https://github.com/resend/react-email/tree/main/packages/text)
+- [Preview](https://github.com/resend/react-email/tree/main/packages/preview)
+- [Section](https://github.com/resend/react-email/tree/main/packages/section)
 
 ## Integrations
 
 Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
 
-- [Resend](https://github.com/resendlabs/react-email/tree/main/examples/resend)
-- [Nodemailer](https://github.com/resendlabs/react-email/tree/main/examples/nodemailer)
-- [SendGrid](https://github.com/resendlabs/react-email/tree/main/examples/sendgrid)
-- [Postmark](https://github.com/resendlabs/react-email/tree/main/examples/postmark)
-- [AWS SES](https://github.com/resendlabs/react-email/tree/main/examples/aws-ses)
+- [Resend](https://github.com/resend/react-email/tree/main/examples/resend)
+- [Nodemailer](https://github.com/resend/react-email/tree/main/examples/nodemailer)
+- [SendGrid](https://github.com/resend/react-email/tree/main/examples/sendgrid)
+- [Postmark](https://github.com/resend/react-email/tree/main/examples/postmark)
+- [AWS SES](https://github.com/resend/react-email/tree/main/examples/aws-ses)
 
 ## Support
 

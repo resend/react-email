@@ -1,31 +1,25 @@
-import classnames from "classnames";
+import classNames from "classnames";
 import Link from "next/link";
 import * as React from "react";
-import { Badge } from "./badge";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
 
-type RootProps = React.ComponentPropsWithoutRef<"header">;
-
-type TopbarProps = RootProps;
-
-export const Topbar: React.FC<Readonly<TopbarProps>> = ({
-  className,
-  ...props
-}) => (
+export const Topbar: React.FC<
+  Readonly<React.ComponentPropsWithoutRef<"header">>
+> = ({ className, ...props }) => (
   <header
-    className={classnames(
-      "flex h-[80px] items-center justify-between md:h-[100px]",
+    className={classNames(
+      "z-[3] flex items-center justify-between px-6 py-8",
       className,
     )}
     {...props}
   >
-    <div className="flex items-center gap-3">
-      <Link href="/">
-        <Logo />
-      </Link>
-      <Badge>Beta</Badge>
-    </div>
+    <Link
+      className="-ml-[.375rem] flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-none focus:ring focus:ring-slate-4"
+      href="/"
+    >
+      <Logo />
+    </Link>
     <Menu />
   </header>
 );

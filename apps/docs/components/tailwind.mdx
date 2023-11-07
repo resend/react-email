@@ -1,0 +1,199 @@
+---
+title: "Tailwind"
+sidebarTitle: "Tailwind"
+description: "A React component to wrap emails with Tailwind CSS."
+"og:image": "https://react.email/static/covers/tailwind.png"
+icon: "wind"
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/tailwind -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/tailwind -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/tailwind -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component around your email body content.
+
+```jsx
+import { Tailwind, Button } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: "#007291",
+            },
+          },
+        },
+      }}
+    >
+      <Button
+        href="https://example.com"
+        className="bg-brand px-3 py-2 font-medium leading-4 text-white"
+      >
+        Click me
+      </Button>
+    </Tailwind>
+  );
+};
+```
+
+## Props
+
+<ResponseField name="config" type="object">
+  Customize the default theme for your project with the available properties in
+  [Tailwind docs](https://tailwindcss.com/docs/theme).
+</ResponseField>
+
+<Info>
+    Most email clients are style-limited and some styles may not work.
+    
+    One example of this is how Tailwind uses `rem` as its main unit for 
+    better accessibility. This is not supported by [some email
+    clients](https://www.caniemail.com/features/css-unit-rem/), if you want you
+    can override the Tailwind config.
+
+    We can't really apply this configuration for you as it would have a few
+    drawbacks. In the future, we will probably provide a preset to remediate this.
+    But, for now, here's a good starter configuration you can use to avoid these issues:
+
+    <Accordion title="Tailwind configuration with px instead of rem">
+        ```typescript tailwind.config.ts
+        import type { TailwindConfig } from "@react-email/tailwind";
+
+        export default {
+          theme: {
+            fontSize: {
+              xs: ["12px", { lineHeight: "16px" }],
+              sm: ["14px", { lineHeight: "20px" }],
+              base: ["16px", { lineHeight: "24px" }],
+              lg: ["18px", { lineHeight: "28px" }],
+              xl: ["20px", { lineHeight: "28px" }],
+              "2xl": ["24px", { lineHeight: "32px" }],
+              "3xl": ["30px", { lineHeight: "36px" }],
+              "4xl": ["36px", { lineHeight: "36px" }],
+              "5xl": ["48px", { lineHeight: "1" }],
+              "6xl": ["60px", { lineHeight: "1" }],
+              "7xl": ["72px", { lineHeight: "1" }],
+              "8xl": ["96px", { lineHeight: "1" }],
+              "9xl": ["144px", { lineHeight: "1" }],
+            },
+            spacing: {
+              px: "1px",
+              0: "0",
+              0.5: "2px",
+              1: "4px",
+              1.5: "6px",
+              2: "8px",
+              2.5: "10px",
+              3: "12px",
+              3.5: "14px",
+              4: "16px",
+              5: "20px",
+              6: "24px",
+              7: "28px",
+              8: "32px",
+              9: "36px",
+              10: "40px",
+              11: "44px",
+              12: "48px",
+              14: "56px",
+              16: "64px",
+              20: "80px",
+              24: "96px",
+              28: "112px",
+              32: "128px",
+              36: "144px",
+              40: "160px",
+              44: "176px",
+              48: "192px",
+              52: "208px",
+              56: "224px",
+              60: "240px",
+              64: "256px",
+              72: "288px",
+              80: "320px",
+              96: "384px",
+            },
+          },
+        } satisfies TailwindConfig;
+        ```
+    </Accordion>
+</Info>
+
+## Live example
+
+<Card
+  title="Tailwind Demo"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://demo.react.email/preview/notifications/vercel-invite-user"
+>
+  See the full demo and source code.
+</Card>
+
+<Support/>
+
+## Known limitations
+
+<AccordionGroup>
+  <Accordion title="No support for contexts inside the component">
+    Currently adding a context's provider inside of the Tailwind component, won't allow you 
+to properly call the `useContext` in any of the children of it, due to some technical limitations
+regarding on how we currently map the classNames into styles. 
+
+The current workaround for this right now is to move the context's provider higher than the Tailwind
+component, so that all children inside Tailwind can properly call `useContext` with the context.
+  </Accordion>
+  <Accordion title="No support for prose from @tailwindcss/typography">
+    We do not yet support `prose`, and beyond that, we don't yet support classes that might
+be resolved into selectors that are relatively complex. That is, selectors with more
+than a class lookup.
+
+This is because we optimistically look into the selectors for class names
+and look these up later on the elements, and since `prose`, by using more complicated selectors, 
+cannot be directly inlined without matching the selectors to the elements, it isn't able to
+match the selectors appropriately.
+
+This also means some other utilities do not work either, like the [`space-*` utility](https://tailwindcss.com/docs/space).
+
+The only exception for this inlining of styles is with media queries, as they are not inlinable. We do not
+do the same for `hover:` styles though, but since [their support is not best](https://www.caniemail.com/features/css-pseudo-class-hover/), you probably won't need it.
+
+In the future, we will be inlining all the styles we can by actually matching the 
+selectors *against the elements* themselves.
+  </Accordion>
+</AccordionGroup>

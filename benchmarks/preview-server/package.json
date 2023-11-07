@@ -1,0 +1,29 @@
+{
+  "name": "@benchmarks/preview-server",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "local-vs-2.1.7-canary.2": "tsx ./src/local-vs-2.1.7-canary.2.ts",
+    "local-vs-2.1.7-canary.2-on-startup": "tsx ./src/local-vs-2.1.7-canary.2-on-startup.ts"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "benchmarks/preview-server"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "react-email": "workspace:*",
+    "react-email-canary": "npm:react-email@2.1.7-canary.2",
+    "tinybench": "2.5.1"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "tsx": "4.7.1",
+    "typescript": "5.1.6"
+  }
+}

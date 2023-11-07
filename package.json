@@ -3,26 +3,32 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel --concurrency 25",
+    "build": "turbo run build --filter=!react-email-starter",
+    "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
+    "canary:enter": "changeset pre enter canary",
+    "canary:exit": "changeset pre exit",
+    "version": "changeset version && pnpm install --no-frozen-lockfile",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@changesets/cli": "2.27.10",
     "@types/node": "18.18.0",
-    "@types/react": "18.2.33",
-    "@types/react-dom": "18.2.14",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.1",
     "eslint": "8.50.0",
-    "happy-dom": "12.2.2",
+    "happy-dom": "15.10.2",
     "prettier": "3.0.3",
+    "prettier-plugin-tailwindcss": "0.6.6",
     "tsconfig": "workspace:*",
-    "tsup": "7.2.0",
-    "turbo": "1.10.14",
-    "vite": "4.4.9",
-    "vitest": "0.34.6"
+    "tsup": "8.2.4",
+    "turbo": "2.3.1",
+    "vite": "5.4.6",
+    "vitest": "2.0.5"
   },
-  "packageManager": "pnpm@8.8.0"
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }

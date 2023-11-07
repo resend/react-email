@@ -6,7 +6,7 @@
 <div align="center">
 <a href="https://react.email">Website</a> 
 <span> · </span>
-<a href="https://github.com/resendlabs/react-email">GitHub</a> 
+<a href="https://github.com/resend/react-email">GitHub</a> 
 <span> · </span>
 <a href="https://react.email/discord">Discord</a>
 </div>
@@ -35,7 +35,7 @@ Convert React components into a HTML string.
 import { MyTemplate } from "../components/MyTemplate";
 import { render } from "@react-email/render";
 
-const html = render(<MyTemplate firstName="Jim" />);
+const html = await render(<MyTemplate firstName="Jim" />);
 ```
 
 ## License

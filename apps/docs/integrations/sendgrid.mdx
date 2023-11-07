@@ -1,0 +1,79 @@
+---
+title: "Send email using SendGrid"
+sidebarTitle: "SendGrid"
+description: "Learn how to send an email using React Email and the SendGrid Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [SendGrid Node.js SDK](https://www.npmjs.com/package/@sendgrid/mail).
+
+<CodeGroup>
+
+```sh npm
+npm install @sendgrid/mail @react-email/components
+```
+
+```sh yarn
+yarn add @sendgrid/mail @react-email/components
+```
+
+```sh pnpm
+pnpm add @sendgrid/mail @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from "react";
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the SendGrid SDK to send it.
+
+```tsx
+import { render } from "@react-email/components";
+import sendgrid from "@sendgrid/mail";
+import { Email } from "./email";
+
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+const options = {
+  from: "you@example.com",
+  to: "user@gmail.com",
+  subject: "hello world",
+  html: emailHtml,
+};
+
+sendgrid.send(options);
+```
+
+## Try it yourself
+
+<Card
+  title="SendGrid example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/sendgrid"
+>
+  See the full source code.
+</Card>

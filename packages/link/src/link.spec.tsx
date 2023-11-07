@@ -2,16 +2,18 @@ import { render } from "@react-email/render";
 import { Link } from "./index";
 
 describe("<Link> component", () => {
-  it("renders children correctly", () => {
+  it("renders children correctly", async () => {
     const testMessage = "Test message";
-    const html = render(<Link href="https://example.com">{testMessage}</Link>);
+    const html = await render(
+      <Link href="https://example.com">{testMessage}</Link>,
+    );
     expect(html).toContain(testMessage);
   });
 
-  it("passes style and other props correctly", () => {
+  it("passes style and other props correctly", async () => {
     const style = { color: "red" };
-    const html = render(
-      <Link href="https://example.com" style={style} data-testid="link-test">
+    const html = await render(
+      <Link data-testid="link-test" href="https://example.com" style={style}>
         Test
       </Link>,
     );
@@ -19,17 +21,15 @@ describe("<Link> component", () => {
     expect(html).toContain('data-testid="link-test"');
   });
 
-  it("opens in a new tab", () => {
-    const html = render(<Link href="https://example.com">Test</Link>);
+  it("opens in a new tab", async () => {
+    const html = await render(<Link href="https://example.com">Test</Link>);
     expect(html).toContain(`target="_blank"`);
   });
 
-  it("renders correctly", () => {
-    const actualOutput = render(
+  it("renders correctly", async () => {
+    const actualOutput = await render(
       <Link href="https://example.com">Example</Link>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a href=\\"https://example.com\\" style=\\"color:#067df7;text-decoration:none\\" target=\\"_blank\\">Example</a>"',
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });

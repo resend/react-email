@@ -1,162 +1,117 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
-import type { TailwindConfig, twi as TwiType } from "tw-to-css";
-import { tailwindToCSS } from "tw-to-css";
-import { cssToJsxStyle } from "./utils/css-to-jsx-style";
+import type { Config as TailwindOriginalConfig } from "tailwindcss";
+import { Root } from "postcss";
+import { minifyCss } from "./utils/css/minify-css";
+import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
+import { mapReactTree } from "./utils/react/map-react-tree";
+import { cloneElementWithInlinedStyles } from "./utils/tailwindcss/clone-element-with-inlined-styles";
+import { removeRuleDuplicatesFromRoot } from "./utils/css/remove-rule-duplicates-from-root";
+
+export type TailwindConfig = Pick<
+  TailwindOriginalConfig,
+  | "important"
+  | "prefix"
+  | "separator"
+  | "safelist"
+  | "blocklist"
+  | "presets"
+  | "future"
+  | "experimental"
+  | "darkMode"
+  | "theme"
+  | "corePlugins"
+  | "plugins"
+>;
 
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
 }
 
-function processElement(
-  element: React.ReactElement,
-  headStyles: string[],
-  twi: typeof TwiType,
-): React.ReactElement {
-  let modifiedElement = element;
-
-  if (modifiedElement.props.className) {
-    const convertedStyles: string[] = [];
-    const responsiveStyles: string[] = [];
-    const classNames = (modifiedElement.props.className as string).split(" ");
-
-    const customClassNames = classNames.filter((className: string) => {
-      const tailwindClassName = twi(className, { ignoreMediaQueries: true });
-
-      if (tailwindClassName) {
-        convertedStyles.push(tailwindClassName);
-        return false;
-      } else if (twi(className, { ignoreMediaQueries: false })) {
-        responsiveStyles.push(className);
-        return false;
-      }
-      return true;
-    });
-
-    const convertedResponsiveStyles = twi(responsiveStyles, {
-      ignoreMediaQueries: false,
-      merge: false,
-    });
-
-    headStyles.push(
-      convertedResponsiveStyles.replace(/^\n+/, "").replace(/\n+$/, ""),
-    );
-
-    modifiedElement = React.cloneElement(modifiedElement, {
-      ...modifiedElement.props,
-      className: customClassNames.length
-        ? customClassNames.join(" ")
-        : undefined,
-      style: {
-        ...(modifiedElement.props.style as Record<string, string>),
-        ...cssToJsxStyle(convertedStyles.join(" ")),
-      },
-    });
-  }
-
-  if (modifiedElement.props.children) {
-    const children = React.Children.toArray(modifiedElement.props.children);
-    const processedChildren = children.map((child) => {
-      if (React.isValidElement(child)) {
-        return processElement(child, headStyles, twi);
-      }
-      return child;
-    });
-
-    modifiedElement = React.cloneElement(
-      modifiedElement,
-      modifiedElement.props,
-      ...processedChildren,
-    );
-  }
-
-  return modifiedElement;
-}
-
-function processHead(
-  child: React.ReactElement,
-  responsiveStyles: string[],
-): React.ReactElement {
-  let modifiedChild = child;
-
-  // FIXME: find a cleaner solution for child as any
-  if (
-    modifiedChild.type === "head" ||
-    (modifiedChild as unknown as { type: { displayName: string } }).type
-      .displayName === "Head"
-  ) {
-    const styleElement = <style>{responsiveStyles}</style>;
-
-    const headChildren = React.Children.toArray(modifiedChild.props.children);
-    headChildren.push(styleElement);
-
-    modifiedChild = React.cloneElement(
-      modifiedChild,
-      modifiedChild.props,
-      ...headChildren,
-    );
-  }
-  if (modifiedChild.props.children) {
-    const children = React.Children.toArray(modifiedChild.props.children);
-    const processedChildren = children.map((processedChild) => {
-      if (React.isValidElement(processedChild)) {
-        return processHead(processedChild, responsiveStyles);
-      }
-      return processedChild;
-    });
-
-    modifiedChild = React.cloneElement(
-      modifiedChild,
-      modifiedChild.props,
-      ...processedChildren,
-    );
-  }
-
-  return modifiedChild;
+export interface EmailElementProps {
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  const headStyles: string[] = [];
+  const tailwind = setupTailwind(config ?? {});
 
-  const { twi } = tailwindToCSS({
-    config,
-  });
+  const nonInlineStylesRootToApply = new Root();
+  let mediaQueryClassesForAllElement: string[] = [];
 
-  const childrenWithInlineStyles = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return processElement(child, headStyles, twi);
+  let hasNonInlineStylesToApply = false as boolean;
+
+  let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
+    if (React.isValidElement<EmailElementProps>(node)) {
+      const {
+        elementWithInlinedStyles,
+        nonInlinableClasses,
+        nonInlineStyleNodes,
+      } = cloneElementWithInlinedStyles(node, tailwind);
+      mediaQueryClassesForAllElement =
+        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+      nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+
+      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+        hasNonInlineStylesToApply = true;
+      }
+
+      return elementWithInlinedStyles;
     }
-    return child;
+
+    return node;
   });
 
-  if (!childrenWithInlineStyles) return <>{children}</>;
+  removeRuleDuplicatesFromRoot(nonInlineStylesRootToApply);
 
-  const fullHTML = renderToStaticMarkup(<>{childrenWithInlineStyles}</>);
+  if (hasNonInlineStylesToApply) {
+    let hasAppliedNonInlineStyles = false as boolean;
 
-  const hasResponsiveStyles = /@media[^{]+\{(?<content>[\s\S]+?)\}\s*\}/gm.test(
-    headStyles.join(" "),
-  );
+    mappedChildren = mapReactTree(mappedChildren, (node) => {
+      if (hasAppliedNonInlineStyles) {
+        return node;
+      }
 
-  const hasHTMLAndHead = /<html[^>]*>(?=[\s\S]*<head[^>]*>)/gm.test(fullHTML);
+      if (React.isValidElement<EmailElementProps>(node)) {
+        if (node.type === "head") {
+          hasAppliedNonInlineStyles = true;
 
-  if (hasResponsiveStyles && !hasHTMLAndHead) {
-    throw new Error(
-      "Tailwind: To use responsive styles you must have a <html> and <head> element in your template.",
-    );
+          /*                   only minify here since it is the only place that is going to be in the DOM */
+          const styleElement = (
+            <style>
+              {minifyCss(nonInlineStylesRootToApply.toString().trim())}
+            </style>
+          );
+
+          return React.cloneElement(
+            node,
+            node.props,
+            node.props.children,
+            styleElement,
+          );
+        }
+      }
+
+      return node;
+    });
+
+    if (!hasAppliedNonInlineStyles) {
+      throw new Error(
+        `You are trying to use the following Tailwind classes that cannot be inlined: ${mediaQueryClassesForAllElement.join(
+          " ",
+        )}.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
+      );
+    }
   }
 
-  const childrenWithInlineAndResponsiveStyles = React.Children.map(
-    childrenWithInlineStyles,
-    (child) => {
-      if (React.isValidElement(child)) {
-        return processHead(child, headStyles);
-      }
-      return child;
-    },
-  );
-
-  return <>{childrenWithInlineAndResponsiveStyles}</>;
+  return mappedChildren;
 };

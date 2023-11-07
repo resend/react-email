@@ -1,7 +1,7 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.11",
-  "description": "All react-email components",
+  "version": "0.0.31",
+  "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
+    "url": "https://github.com/resend/react-email.git",
     "directory": "packages/components"
   },
   "keywords": [
@@ -41,29 +41,31 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@react-email/body": "0.0.4",
-    "@react-email/button": "0.0.11",
-    "@react-email/column": "0.0.8",
-    "@react-email/container": "0.0.10",
-    "@react-email/font": "0.0.4",
-    "@react-email/head": "0.0.6",
-    "@react-email/heading": "0.0.9",
-    "@react-email/hr": "0.0.6",
-    "@react-email/html": "0.0.6",
-    "@react-email/img": "0.0.6",
-    "@react-email/link": "0.0.6",
-    "@react-email/preview": "0.0.7",
-    "@react-email/render": "0.0.9",
-    "@react-email/row": "0.0.6",
-    "@react-email/section": "0.0.10",
-    "@react-email/tailwind": "0.0.12",
-    "@react-email/text": "0.0.6"
+    "@react-email/body": "workspace:0.0.11",
+    "@react-email/button": "workspace:0.0.19",
+    "@react-email/code-block": "workspace:0.0.11",
+    "@react-email/code-inline": "workspace:0.0.5",
+    "@react-email/column": "workspace:0.0.13",
+    "@react-email/container": "workspace:0.0.15",
+    "@react-email/font": "workspace:0.0.9",
+    "@react-email/head": "workspace:0.0.12",
+    "@react-email/heading": "workspace:0.0.15",
+    "@react-email/hr": "workspace:0.0.11",
+    "@react-email/html": "workspace:0.0.11",
+    "@react-email/img": "workspace:0.0.11",
+    "@react-email/link": "workspace:0.0.12",
+    "@react-email/markdown": "workspace:0.0.14",
+    "@react-email/preview": "workspace:0.0.12",
+    "@react-email/render": "workspace:1.0.3",
+    "@react-email/row": "workspace:0.0.12",
+    "@react-email/section": "workspace:0.0.16",
+    "@react-email/tailwind": "workspace:1.0.4",
+    "@react-email/text": "workspace:0.0.11"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.5",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"

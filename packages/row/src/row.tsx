@@ -1,30 +1,31 @@
 import * as React from "react";
 
-type RootProps = React.ComponentPropsWithoutRef<"table">;
+export type RowProps = Readonly<
+  React.ComponentPropsWithoutRef<"table"> & {
+    children: React.ReactNode;
+  }
+>;
 
-export interface RowProps extends RootProps {
-  children: React.ReactNode;
-}
+export const Row = React.forwardRef<HTMLTableElement, RowProps>(
+  ({ children, style, ...props }, ref) => {
+    return (
+      <table
+        align="center"
+        width="100%"
+        border={0}
+        cellPadding="0"
+        cellSpacing="0"
+        role="presentation"
+        {...props}
+        ref={ref}
+        style={style}
+      >
+        <tbody style={{ width: "100%" }}>
+          <tr style={{ width: "100%" }}>{children}</tr>
+        </tbody>
+      </table>
+    );
+  },
+);
 
-export const Row: React.FC<Readonly<RowProps>> = ({
-  children,
-  style,
-  ...props
-}) => {
-  return (
-    <table
-      align="center"
-      width="100%"
-      {...props}
-      border={0}
-      cellPadding="0"
-      cellSpacing="0"
-      role="presentation"
-      style={style}
-    >
-      <tbody style={{ width: "100%" }}>
-        <tr style={{ width: "100%" }}>{children}</tr>
-      </tbody>
-    </table>
-  );
-};
+Row.displayName = "Row";

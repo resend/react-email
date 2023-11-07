@@ -1,4 +1,4 @@
-![React Email HTML cover](https://react.email/static/covers/html.png)
+![React Email Font cover](https://react.email/static/covers/font.png)
 
 <div align="center"><strong>@react-email/font</strong></div>
 <div align="center">A React Font component to set your font family.</div>

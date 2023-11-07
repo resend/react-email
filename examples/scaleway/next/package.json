@@ -1,6 +1,6 @@
 {
-  "name": "react-email-with-scaleway",
-  "version": "1.0.0",
+  "name": "react-email-with-next-scaleway",
+  "version": "1.0.6",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -10,17 +10,17 @@
     "start": "next start"
   },
   "dependencies": {
-    "@react-email/components": "0.0.4",
-    "@react-email/render": "0.0.6",
     "@scaleway/sdk": "1.5.0",
-    "next": "13.5.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "15.0.4",
+    "@react-email/components": "workspace:0.0.31",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@types/node": "18.14.6",
-    "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.8",
+    "eslint-config-custom": "workspace:*",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "4.9.5"
   }
 }

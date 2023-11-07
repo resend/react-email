@@ -1,0 +1,23 @@
+{
+  "name": "demo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm install --frozen-lockfile && email build",
+    "dev": "email dev",
+    "start": "email start",
+    "export": "email export"
+  },
+  "dependencies": {
+    "@react-email/components": "workspace:*",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-email": "workspace:*"
+  },
+  "devDependencies": {
+    "next": "15.0.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tsx": "4.9.0"
+  }
+}

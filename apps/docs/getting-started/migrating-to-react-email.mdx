@@ -1,0 +1,18 @@
+---
+title: 'Migrating to React Email'
+sidebarTitle: 'Migrating to React Email'
+description: 'Migrate from another email rendering framework to React Email'
+'og:image': 'https://react.email/static/covers/react-email.png'
+icon: 'paper-plane'
+---
+
+import NextSteps from '../snippets/next-steps.mdx';
+
+## From MJML
+
+1. Remove the `mjml` npm package and install `react-email` and `@react-email/components`
+2. Find all MJML templates ending with the `.mjml` extension and convert these to React components with the `.tsx` or `.jsx` extension.
+3. Replace MJML standard component tags with React Email component tags where possible, including `<Text>`, `<Img>`, `<Button>` etc.
+4. Convert custom MJML components with the `.js` extension to React components with the `.tsx` or `.jsx` extension.
+
+<NextSteps/>

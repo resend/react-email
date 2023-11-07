@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-resend",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -10,15 +10,17 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "13.5.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "resend": "0.15.1"
+    "next": "15.0.4",
+    "@react-email/components": "workspace:0.0.31",
+    "react": "^19",
+    "react-dom": "^19",
+    "resend": "4.0.1"
   },
   "devDependencies": {
+    "eslint-config-custom": "workspace:*",
     "@types/node": "^20.2.5",
-    "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.8",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "^5.1.3"
   }
 }

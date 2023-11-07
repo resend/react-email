@@ -1,23 +1,22 @@
 import * as React from "react";
 
-type RootProps = React.ComponentPropsWithoutRef<"a">;
+export type LinkProps = Readonly<React.ComponentPropsWithoutRef<"a">>;
 
-export type LinkProps = RootProps;
-
-export const Link: React.FC<Readonly<LinkProps>> = ({
-  target = "_blank",
-  style,
-  ...props
-}) => (
-  <a
-    {...props}
-    style={{
-      color: "#067df7",
-      textDecoration: "none",
-      ...style,
-    }}
-    target={target}
-  >
-    {props.children}
-  </a>
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ target = "_blank", style, ...props }, ref) => (
+    <a
+      {...props}
+      ref={ref}
+      style={{
+        color: "#067df7",
+        textDecorationLine: "none",
+        ...style,
+      }}
+      target={target}
+    >
+      {props.children}
+    </a>
+  ),
 );
+
+Link.displayName = "Link";

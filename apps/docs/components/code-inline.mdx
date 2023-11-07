@@ -1,0 +1,54 @@
+---
+title: 'Code Inline'
+sidebarTitle: 'Code Inline'
+description: 'Display a predictable inline code HTML element that works on all email clients.'
+icon: 'code'
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install the component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/code-inline -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/code-inline -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/code-inline -E
+```
+
+</CodeGroup>
+
+## Getting Started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { CodeInline } from "@react-email/code-inline";
+
+const Email = () => {
+    return <CodeInline>@react-email/code-inline</CodeInline>;
+}
+```
+
+<Support/>

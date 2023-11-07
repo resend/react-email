@@ -2,8 +2,7 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+The security is a key priority for Resend, and we are committed to ensuring that our users are protected by promptly addressing security vulnerabilities. Below is a table outlining which versions of our project currently receive security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -12,10 +11,10 @@ currently being supported with security updates.
 | 4.0.x   | :white_check_mark: |
 | < 4.0   | :x:                |
 
+We encourage all users to run the latest, supported version of the software to ensure they are applying the most recent security patches and updates.
+
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+We take the security of our project seriously. If you believe you have found a security vulnerability within our software, we encourage you to report it to us as quickly as possible. We welcome reports from everyone, including security researchers, developers, and our user community.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+To report a security issue, please send an email to [security@resend.com](mailto:security@resend.com).
