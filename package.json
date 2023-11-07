@@ -20,7 +20,7 @@
     "prettier": "3.0.3",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
-    "turbo": "1.10.14",
+    "turbo": "1.10.16",
     "vite": "4.4.9",
     "vitest": "0.34.6"
   },
