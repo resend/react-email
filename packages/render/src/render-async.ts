@@ -8,7 +8,7 @@ const readStream = async (readableStream: ReactDOMServerReadableStream) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const chunks: any[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-constant-condition
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
     const { value, done } = await reader.read();
