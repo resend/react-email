@@ -35,7 +35,7 @@ Add the component to your email template. Include styles where needed.
 import { Html } from "@react-email/html";
 import { Body } from "@react-email/body";
 import { Section } from "@react-email/section";
-import { Column } from "@react-email/section";
+import { Column } from "@react-email/column";
 
 const Email = () => {
   return (

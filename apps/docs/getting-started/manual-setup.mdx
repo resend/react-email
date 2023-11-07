@@ -1,0 +1,101 @@
+---
+title: "Manual Setup"
+sidebarTitle: "Manual Setup"
+description: "Create a brand-new folder with packages powered by React Email."
+"og:image": "https://react.email/static/covers/react-email.png"
+icon: "hammer"
+---
+
+<Note>Are you using monoorepos? Then we recommend you follow our [monorepos setup](/getting-started/monorepo-setup/choose-package-manager).</Note>
+
+## 1. Create directory
+
+Create a new folder called `react-email-starter` and initialize a new npm project:
+
+```sh
+mkdir react-email-starter
+cd react-email-starter
+npm init
+```
+
+## 2. Install dependencies
+
+Install the React Email package locally and a few components.
+
+<CodeGroup>
+
+```sh npm
+npm install react-email @react-email/components -E
+```
+
+```sh yarn
+yarn add react-email @react-email/components -E
+```
+
+```sh pnpm
+pnpm add react-email @react-email/components -E
+```
+
+</CodeGroup>
+
+## 3. Add scripts
+
+Include the following script in your `package.json` file.
+
+```json package.json
+{
+  "scripts": {
+    "dev": "email dev"
+  }
+}
+```
+
+## 4. Include email template
+
+Create a new folder called `emails`, create a file inside called `index.tsx`, and add the following code:
+
+```jsx index.tsx
+import { Button, Html } from "@react-email/components";
+import * as React from "react";
+
+export default function Email() {
+  return (
+    <Html>
+      <Button
+        href="https://example.com"
+        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+      >
+        Click me
+      </Button>
+    </Html>
+  );
+}
+```
+
+## 5. Run locally
+
+Start the development server.
+
+<CodeGroup>
+
+```sh npm
+npm run dev
+```
+
+```sh yarn
+yarn dev
+```
+
+</CodeGroup>
+
+## 6. See changes live
+
+Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to see the changes.
+
+<Frame>
+  <img alt="Local Development" src="/images/local-dev.png" />
+</Frame>
+
+## 7. Next steps
+
+<Snippet file="next-steps.mdx" />

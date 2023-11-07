@@ -12,7 +12,7 @@ describe("<Row> component", () => {
   it("passes style and other props correctly", () => {
     const style = { backgroundColor: "red" };
     const html = render(
-      <Row style={style} data-testid="row-test">
+      <Row data-testid="row-test" style={style}>
         Test
       </Row>,
     );

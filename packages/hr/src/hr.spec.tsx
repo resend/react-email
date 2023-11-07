@@ -7,7 +7,7 @@ describe("<Hr> component", () => {
       width: "50%",
       borderColor: "black",
     };
-    const html = render(<Hr style={style} data-testid="hr-test" />);
+    const html = render(<Hr data-testid="hr-test" style={style} />);
     expect(html).toContain("width:50%");
     expect(html).toContain("border-color:black");
     expect(html).toContain('data-testid="hr-test"');

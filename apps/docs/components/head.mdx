@@ -1,0 +1,57 @@
+---
+title: "Head"
+sidebarTitle: "Head"
+description: "Contains head components, related to the document such as style and meta elements."
+"og:image": "https://react.email/static/covers/head.png"
+icon: "head-side"
+---
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/head -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/head -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/head -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include children tags where needed.
+
+```jsx
+import { Head } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Head>
+      <title>My email title</title>
+    </Head>
+  );
+};
+```
+
+<Snippet file="support.mdx" />

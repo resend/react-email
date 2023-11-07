@@ -1,7 +1,6 @@
 import classnames from "classnames";
 import Link from "next/link";
 import * as React from "react";
-import { Badge } from "./badge";
 import { Logo } from "./logo";
 import { Menu } from "./menu";
 
@@ -24,7 +23,6 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
       <Link href="/">
         <Logo />
       </Link>
-      <Badge>Beta</Badge>
     </div>
     <Menu />
   </header>

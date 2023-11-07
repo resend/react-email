@@ -1,0 +1,36 @@
+{
+  "name": "@benchmarks/tailwind-component",
+  "private": true,
+  "main": "dist/benchmark.js",
+  "scripts": {
+    "with-vs-without": "pnpm compile && node ./dist/benchmark-with-vs-without.js",
+    "before-perf-vs-after-perf": "pnpm compile && node ./dist/benchmark-0.0.12-vs-local-version",
+    "flamegraph-render-tailwind": "pnpm compile && node --prof ./dist/tailwind-render && node --prof-process --preprocess -j isolate*.log | flamebearer",
+
+    "compile": "tsup src/*.ts",
+    "lint": "eslint ."
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "benchmarks/tailwind-component"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@react-email/components": "workspace:*",
+    "@react-email/render": "workspace:*",
+    "@react-email/tailwind": "0.0.12",
+    "react": "18.2.0",
+    "tinybench": "2.5.1"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "flamebearer": "1.1.3",
+    "tsup": "7.2.0",
+    "typescript": "5.1.6"
+  }
+}

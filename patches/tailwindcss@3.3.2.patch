@@ -1,0 +1,33 @@
+diff --git a/lib/util/validateConfig.js b/lib/util/validateConfig.js
+index 8624025be3f577a00e041543670c54729d8e16db..f3d369cea4667aea94a45ffa13b0cdfaa0c74123 100644
+--- a/lib/util/validateConfig.js
++++ b/lib/util/validateConfig.js
+@@ -22,16 +22,18 @@ function validateConfig(config) {
+             "https://tailwindcss.com/docs/content-configuration"
+         ]);
+     }
++    // Commented this out since this hack doesn't work properly with Nextjs 
++    //
+     // Warn if the line-clamp plugin is installed
+-    try {
+-        let plugin = require("@tailwindcss/line-clamp");
+-        if (config.plugins.includes(plugin)) {
+-            _log.default.warn("line-clamp-in-core", [
+-                "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
+-                "Remove it from the `plugins` array in your configuration to eliminate this warning."
+-            ]);
+-            config.plugins = config.plugins.filter((p)=>p !== plugin);
+-        }
+-    } catch  {}
++    // try {
++    //     let plugin = require("@tailwindcss/line-clamp");
++    //     if (config.plugins.includes(plugin)) {
++    //         _log.default.warn("line-clamp-in-core", [
++    //             "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
++    //             "Remove it from the `plugins` array in your configuration to eliminate this warning."
++    //         ]);
++    //         config.plugins = config.plugins.filter((p)=>p !== plugin);
++    //     }
++    // } catch  {}
+     return config;
+ }

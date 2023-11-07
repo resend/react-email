@@ -10,6 +10,21 @@ describe("render", () => {
     );
   });
 
+  it("should not have brackets around the link with the plain text active", () => {
+    const Email = (
+      <div>
+        <a href="https://github.com/resend/react-email/pull/1087">
+          This is the PR that fixes the issues with this!
+        </a>
+      </div>
+    );
+    const textRendered = render(Email, { plainText: true });
+    expect(textRendered).toMatchInlineSnapshot(`
+      "This is the PR that fixes the issues with this!
+      https://github.com/resend/react-email/pull/1087"
+    `);
+  });
+
   it("converts a React component into PlainText", () => {
     const actualOutput = render(<Template firstName="Jim" />, {
       plainText: true,

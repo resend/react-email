@@ -7,7 +7,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (method) {
     case "GET": {
-      const data = await resend.sendEmail({
+      const data = await resend.emails.send({
         from: "bu@resend.dev",
         to: "delivered@resend.dev",
         subject: "Waitlist",

@@ -11,7 +11,7 @@ describe("<Link> component", () => {
   it("passes style and other props correctly", () => {
     const style = { color: "red" };
     const html = render(
-      <Link href="https://example.com" style={style} data-testid="link-test">
+      <Link data-testid="link-test" href="https://example.com" style={style}>
         Test
       </Link>,
     );

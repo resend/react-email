@@ -1,0 +1,120 @@
+---
+title: 'Setting up for yarn workspaces'
+sidebarTitle: 'yarn'
+description: 'Configure React Email on a yarn monorepo'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+<Note>
+  This is a guide intended at users of [yarn modern](https://yarnpkg.com/getting-started/qa#why-should-you-upgrade-to-yarn-modern). 
+  For those who are using [yarn classic](https://www.npmjs.com/package/yarn) (`1.x`), you can do something similar to the 
+  [pnpm guide](/getting-started/monorepo-setup/pnpm).
+</Note>
+
+## 1. Create transactional workspace
+
+Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`).
+
+Include a new `package.json` and do not forget to add this to the `workspaces` of your monorepo's `package.json`.
+
+<Card
+  title="React Email + Turborepo + yarn example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-yarn-example"
+>
+  See the full source code
+</Card>
+
+## 2. Set linker either to `node-modules` or to `pnpm`
+
+Currently, React Email can only work with yarn's `node-modules` and `pnpm` [install modes](https://yarnpkg.com/features/linkers)
+so you will need to set it to one of these two on your `.yarnrc.yml` file:
+
+```yml .yarnrc.yml
+nodeLinker: node-modules
+```
+
+## 3. Add the preview client to your workspaces
+
+Currently, for React Email to work properly with yarn, you will need to add
+the preview client's folder to the workspaces as follows:
+
+```json package.json
+{
+  // ...
+  "workspaces": ["packages/*", "packages/transactional/.react-email"],
+  // ...
+}
+```
+
+## 4. Install dependencies
+
+Install React Email in the `transactional` workspace.
+
+```sh packages/transactional
+yarn add react-email @react-email/components -E
+```
+
+## 5. Add scripts
+
+Include the following script in your `package.json` file.
+
+```json packages/transactional/package.json
+{
+  // ...
+  "scripts": {
+    "dev": "email dev"
+  }
+  // ...
+}
+```
+
+## 6. Write your emails
+
+Create a new folder called `emails`, create a file inside called `MyEmail.tsx` and add the following example code:
+
+```jsx packages/transactional/emails/MyEmail.tsx
+import { Button, Html } from "@react-email/components";
+import * as React from "react";
+
+export const MyEmail = () => {
+  return (
+    <Html>
+      <Button
+        href="https://example.com"
+        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+      >
+        Click me
+      </Button>
+    </Html>
+  );
+}
+
+export default MyEmail;
+```
+
+## 7. Run preview server
+
+Start the email previews development server:
+
+```sh packages/transactional
+yarn dev
+```
+
+## 8. See changes live
+
+Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` file to see the changes.
+
+<Frame>
+  <img alt="Local Development" src="/images/local-dev.png" />
+</Frame>
+
+## 9. Try it yourself
+
+<Card
+  title="React Email + Turborepo + yarn example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-yarn-example"
+>
+  See the full source code
+</Card>

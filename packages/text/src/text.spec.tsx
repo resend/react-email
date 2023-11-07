@@ -11,7 +11,7 @@ describe("<Text> component", () => {
   it("passes style and other props correctly", () => {
     const style = { fontSize: "16px" };
     const html = render(
-      <Text style={style} data-testid="text-test">
+      <Text data-testid="text-test" style={style}>
         Test
       </Text>,
     );

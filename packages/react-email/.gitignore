@@ -1,6 +1,7 @@
 node_modules
-dist
 .next
+cli
+!src/cli
 
 # for testing
 .react-email

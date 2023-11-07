@@ -1,0 +1,59 @@
+---
+title: "Container"
+sidebarTitle: "Container"
+description: "A layout component that centers all the email content."
+"og:image": "https://react.email/static/covers/container.png"
+icon: "grid"
+---
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/container -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/container -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/container -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Container, Button } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Container>
+      <Button href="https://example.com" style={{ color: "#61dafb" }}>
+        Click me
+      </Button>
+    </Container>
+  );
+};
+```
+
+<Snippet file="support.mdx" />

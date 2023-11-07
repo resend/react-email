@@ -9,7 +9,7 @@ describe("<Html> component", () => {
   });
 
   it("passes props correctly", () => {
-    const html = render(<Html lang="fr" dir="rtl" data-testid="html-test" />);
+    const html = render(<Html data-testid="html-test" dir="rtl" lang="fr" />);
     expect(html).toContain('lang="fr"');
     expect(html).toContain('dir="rtl"');
     expect(html).toContain('data-testid="html-test"');

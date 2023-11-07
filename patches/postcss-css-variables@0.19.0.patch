@@ -1,0 +1,38 @@
+diff --git a/lib/is-under-scope.js b/lib/is-under-scope.js
+index 7ce0bafd5c6323f0cd64e2d414c971438778cf11..35e6a186afaf9a9694132383fec0555a901a5171 100644
+--- a/lib/is-under-scope.js
++++ b/lib/is-under-scope.js
+@@ -7,7 +7,7 @@ var RE_AT_RULE_SCOPE_PIECE  = (/^@.*/);
+ // This will match pseudo selectors that have a base part
+ // ex. .foo:hover
+ // It will NOT match `:root`
+-var RE_PSEUDO_SELECTOR = (/([^\s:]+)((?::|::)[^\s]*?)(\s+|$)/);
++var RE_PSEUDO_SELECTOR = (/([^\s:]+)(?<!\\)((?::|::)[^\s]*?)(\s+|$)/);
+ 
+ 
+ function getScopeMatchResults(nodeScopeList, scopeNodeScopeList) {
+diff --git a/lib/resolve-decl.js b/lib/resolve-decl.js
+index e469849cc2d5b0ea551675ac945fac9ac3c3722c..3ffdd75a1eac9148ab04b703bca495dace47ccd3 100644
+--- a/lib/resolve-decl.js
++++ b/lib/resolve-decl.js
+@@ -137,12 +137,14 @@ function resolveDecl(decl, map, /*optional*/shouldPreserve, /*optional*/preserve
+ 				currentAtRuleNode = currentAtRuleNode.parent;
+ 			}
+ 
+-			// Put the first atRuleStructure after the declaration's rule,
+-			// and after that, put them right after the previous one
+-			decl.parent.parent.insertAfter(preserveAtRulesOrder && previousAtRuleNode || decl.parent, parentAtRuleNode);
+-
+-			// Save referance of previous atRuleStructure
+-			previousAtRuleNode = parentAtRuleNode
++      if (atRuleNode !== parentAtRuleNode) {
++        // Put the first atRuleStructure after the declaration's rule,
++        // and after that, put them right after the previous one
++        decl.parent.parent.insertAfter(preserveAtRulesOrder && previousAtRuleNode || decl.parent, parentAtRuleNode);
++
++        // Save referance of previous atRuleStructure
++        previousAtRuleNode = parentAtRuleNode
++      }
+ 		}
+ 		else {
+ 			ruleClone.selector = mimicDecl.parent.selector;
