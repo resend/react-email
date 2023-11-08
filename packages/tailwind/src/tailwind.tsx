@@ -101,7 +101,6 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
   const markupCSS = getCSSForMarkup(markupWithTailwindClasses, config);
-  console.log(markupCSS);
 
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm, 
@@ -113,7 +112,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   const nonMediaQueryTailwindStylesPerClass = {} as Record<string, string>;
   for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(
-    /\s*\.([\S]+)\s*{([A-Za-z0-9\s\(\)\:\;\+\-\*\/]*)}/gm
+    /\s*\.([\S]+)\s*{([^}]*)}/gm
   )) {
     nonMediaQueryTailwindStylesPerClass[className.trim()] = contents
       .replace(/^\n+/, "")
