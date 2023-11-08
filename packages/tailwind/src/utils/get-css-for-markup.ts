@@ -11,10 +11,12 @@ declare global {
 }
 
 global.__OXIDE__ = undefined;
+// to avoid __OXIDE__ undefined errors
+// this may cause problems later down the line when upadting tailwind 
+// since tailwind might migrate to using oxide for their transformations
 
-export const getCSSForMarkup = (markup: string, config: Omit<TailwindConfig, 'content'> | undefined) => {
+export function getCSSForMarkup(markup: string, config: Omit<TailwindConfig, 'content'> | undefined) {
   const corePlugins = (config?.corePlugins as {}) || {};
-  process.env.DEBUG = 'true baby';
 
   const tailwindConfig = resolveConfig({
     ...config,
