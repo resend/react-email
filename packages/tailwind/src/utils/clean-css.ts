@@ -8,8 +8,7 @@ export function cleanCss(css: string) {
     .replace(/[.!#\w\d\\:\-[\]/.%())]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
       return m.replace(/(?<=.)[:#!\-[\\\]/.%]+/g, "_");
     })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (m, value) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+    .replace(/font-family(?<value>[^;\r\n]+)/g, (_m, value) => {
       return `font-family${value.replace(/['"]+/g, "")}`;
     });
   return newCss;
