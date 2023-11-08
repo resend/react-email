@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 
-import { Config as TailwindConfig } from "tailwindcss";
+import { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
 
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
@@ -10,9 +10,11 @@ import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { renderToStaticMarkup } from "react-dom/server";
 import { minifyCSS } from "./utils/minify-css";
 
+export type TailwindConfig = Omit<TailwindOriginalConfig, 'content'>;
+
 export interface TailwindProps {
   children: React.ReactNode;
-  config?: Omit<TailwindConfig, 'content'>;
+  config?: TailwindConfig;
 }
 
 function processElement(
