@@ -1,10 +1,8 @@
 import postcss from "postcss";
-import postcssCssVaraibles from "postcss-css-variables";
-import processTailwindFeatures from "tailwindcss/src/processTailwindFeatures.js";
-import resolveConfig from "tailwindcss/src/public/resolve-config.js";
-import type { Config as TailwindConfig } from "tailwindcss";
-import type { RequiredConfig } from "tailwindcss/types/config";
+import tailwindcss from "tailwindcss";
+import postcssCssVariables from "postcss-css-variables";
 
+import type { TailwindConfig } from "../tailwind";
 
 declare global {
   var __OXIDE__: undefined;
@@ -15,23 +13,23 @@ global.__OXIDE__ = undefined;
 // this may cause problems later down the line when upadting tailwind 
 // since tailwind might migrate to using oxide for their transformations
 
-export function getCSSForMarkup(markup: string, config: Omit<TailwindConfig, 'content'> | undefined) {
+export function getCSSForMarkup(markup: string, config: TailwindConfig | undefined) {
   const corePlugins = (config?.corePlugins as {}) || {};
 
-  const tailwindConfig = resolveConfig({
+  const tailwindConfig = {
     ...config,
     corePlugins: {
       preflight: false,
       ...corePlugins,
     }
-  } as unknown as RequiredConfig);
+  };
 
-  const tailwindcssPlugin = processTailwindFeatures(
-    ({ createContext }) => () => createContext(tailwindConfig, [{ content: markup }])
-  );
   const processor = postcss([
-    tailwindcssPlugin, 
-    postcssCssVaraibles(),
+    tailwindcss({
+      ...tailwindConfig,
+      content: [{ raw: markup, extension: 'html' }]
+    }), 
+    postcssCssVariables(),
   ]);
   const result = processor
     .process(

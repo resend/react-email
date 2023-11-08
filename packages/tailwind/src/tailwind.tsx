@@ -23,6 +23,10 @@ function processElement(
 ): React.ReactElement {
   let modifiedElement = element;
 
+  let resultingClassName: string | undefined = undefined;
+  let resultingStyle: React.CSSProperties | undefined = undefined;
+  let resultingChildren: React.ReactNode[] = [];
+
   if (modifiedElement.props.className) {
     const fullClassName = modifiedElement.props.className as string;
     const classNames = fullClassName.split(" ");
@@ -42,31 +46,32 @@ function processElement(
       }
     });
 
-    modifiedElement = React.cloneElement(modifiedElement, {
-      ...modifiedElement.props,
-      className: classNamesToKeep.length > 0 ? classNamesToKeep.join(' ') : undefined,
-      style: {
-        ...(modifiedElement.props.style as Record<string, string>),
-        ...cssToJsxStyle(styles.join(' ')),
-      },
-    });
+    resultingStyle = {
+      ...(modifiedElement.props.style as Record<string, string>),
+      ...cssToJsxStyle(styles.join(' ')),
+    };
+    resultingClassName = classNamesToKeep.length > 0 ? classNamesToKeep.join(' ') : undefined;
   }
 
   if (modifiedElement.props.children) {
     const children = React.Children.toArray(modifiedElement.props.children);
-    const processedChildren = children.map((child) => {
+    resultingChildren = children.map((child) => {
       if (React.isValidElement(child)) {
         return processElement(child, nonMediaQueryTailwindStylesPerClass);
       }
       return child;
     });
-
-    modifiedElement = React.cloneElement(
-      modifiedElement,
-      modifiedElement.props,
-      ...processedChildren,
-    );
   }
+
+  modifiedElement = React.cloneElement(
+    modifiedElement,
+    {
+      ...modifiedElement.props,
+      className: resultingClassName,
+      style: resultingStyle
+    },
+    ...resultingChildren,
+  );
 
   return modifiedElement;
 }
@@ -88,13 +93,11 @@ function processHead(
   /*                   only minify here since it is the only place that is going to be in the DOM */
   const styleElement = <style>{minifyCSS(responsiveStyles.join(''))}</style>;
 
-  const headChildren = React.Children.toArray(headElement.props.children);
-  headChildren.push(styleElement);
-
   return React.cloneElement(
     headElement,
     headElement.props,
-    ...headChildren,
+    ...React.Children.toArray(headElement.props.children),
+    styleElement,
   );
 }
 
@@ -155,7 +158,6 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
     childrenArray[headAllElementsIndex] = processHead(headElement, headStyles);
   }
-
 
   return <>{childrenArray}</>;
 };
