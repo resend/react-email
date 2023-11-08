@@ -6,8 +6,9 @@ import { Config as TailwindConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
 
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
-import { getCSSForMarkup } from "./utils/get-css-for-classes";
+import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { renderToStaticMarkup } from "react-dom/server";
+import { minifyCSS } from "./utils/minify-css";
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -28,12 +29,14 @@ function processElement(
     const styles = [] as string[];
 
     classNames.forEach(className => {
+      /*                        escape all unallowed characters in css class selectors */
+      const escapedClassName = className.replace(/(?<!\\)[^a-zA-Z0-9\-_]/g, (m) => '\\' + m);
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
-      if (typeof nonMediaQueryTailwindStylesPerClass[className] === 'undefined') {
+      if (typeof nonMediaQueryTailwindStylesPerClass[escapedClassName] === 'undefined') {
         classNamesToKeep.push(className);
       } else {
-        styles.push(`${nonMediaQueryTailwindStylesPerClass[className]};`);
+        styles.push(`${nonMediaQueryTailwindStylesPerClass[escapedClassName]};`);
       }
     });
 
@@ -80,7 +83,8 @@ function processHead(
   headElement: HeadElement,
   responsiveStyles: string[],
 ): React.ReactElement {
-  const styleElement = <style>{responsiveStyles}</style>;
+  /*                   only minify here since it is the only place that is going to be in the DOM */
+  const styleElement = <style>{minifyCSS(responsiveStyles.join(''))}</style>;
 
   const headChildren = React.Children.toArray(headElement.props.children);
   headChildren.push(styleElement);
@@ -97,6 +101,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
   const markupCSS = getCSSForMarkup(markupWithTailwindClasses, config);
+  console.log(markupCSS);
 
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm, 
@@ -107,7 +112,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   );
 
   const nonMediaQueryTailwindStylesPerClass = {} as Record<string, string>;
-  for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(/\s*\.(.*)\s*{([\S\s]*)}/gm)) {
+  for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(
+    /\s*\.([\S]+)\s*{([A-Za-z0-9\s\(\)\:\;\+\-\*\/]*)}/gm
+  )) {
     nonMediaQueryTailwindStylesPerClass[className.trim()] = contents
       .replace(/^\n+/, "")
       .replace(/\n+$/, "")
