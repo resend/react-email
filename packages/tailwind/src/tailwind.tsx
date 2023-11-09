@@ -8,6 +8,7 @@ import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { minifyCSS } from "./utils/minify-css";
 import { render } from "react-dom";
+import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -22,7 +23,9 @@ function processElement(
 ): React.ReactElement {
   let modifiedElement = element;
 
-  let resultingClassName = modifiedElement.props.className as string | undefined;
+  let resultingClassName = modifiedElement.props.className as
+    | string
+    | undefined;
   let resultingStyle = modifiedElement.props.style as
     | React.CSSProperties
     | undefined;
@@ -89,13 +92,13 @@ function processElement(
     ...resultingChildren,
   );
 
-  if (typeof modifiedElement.type === 'function') {
+  if (typeof modifiedElement.type === "function") {
     const component = modifiedElement.type as React.FC<any>;
     const renderedComponent = component(modifiedElement.props);
     if (React.isValidElement(renderedComponent)) {
       modifiedElement = processElement(
-        renderedComponent, 
-        nonMediaQueryTailwindStylesPerClass
+        renderedComponent,
+        nonMediaQueryTailwindStylesPerClass,
       );
     }
   }
@@ -135,21 +138,31 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
     (mediaQuery, _className) => {
       headStyles.push(
-        mediaQuery.replace(/[\r\n|\r|\n]+/g, "").replace(/\s+/g, " "),
+        mediaQuery
+          .replace(/[\r\n|\r|\n]+/g, "")
+          .replace(/\s+/g, " ")
+          .replaceAll(/\s*\.[\S]+\s*{([^}]*)}/gm, (match, content: string) => {
+            console.log(content);
+            return match.replace(
+              content,
+              content
+                .split(";")
+                .map((propertyDeclaration) =>
+                  propertyDeclaration.endsWith("!important")
+                    ? propertyDeclaration.trim()
+                    : propertyDeclaration.trim() + "!important",
+                )
+                .join(";"),
+            );
+          }),
       );
+
       return "";
     },
   );
 
-  const nonMediaQueryTailwindStylesPerClass = {} as Record<string, string>;
-  for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(
-    /\s*\.([\S]+)\s*{([^}]*)}/gm,
-  )) {
-    nonMediaQueryTailwindStylesPerClass[className.trim()] = contents
-      .replace(/^\n+/, "")
-      .replace(/\n+$/, "")
-      .trim();
-  }
+  const nonMediaQueryTailwindStylesPerClass =
+    getStylesPerClassMap(nonMediaQueryCSS);
 
   const childrenArray = React.Children.toArray(children);
   const validElementsWithIndexes = childrenArray
