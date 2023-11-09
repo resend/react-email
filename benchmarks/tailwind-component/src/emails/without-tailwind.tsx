@@ -27,18 +27,18 @@ export const GooglePlayPolicyUpdateEmail = () => (
           <Row>
             <Column>
               <Img
-                style={headerBlue}
-                src={`${baseUrl}/static/google-play-header.png`}
-                width="305"
-                height="28"
                 alt="Google Play developers header blue transparent"
+                height="28"
+                src={`${baseUrl}/static/google-play-header.png`}
+                style={headerBlue}
+                width="305"
               />
               <Img
-                style={sectionLogo}
-                src={`${baseUrl}/static/google-play-logo.png`}
-                width="155"
-                height="31"
                 alt="Google Play"
+                height="31"
+                src={`${baseUrl}/static/google-play-logo.png`}
+                style={sectionLogo}
+                width="155"
               />
             </Column>
           </Row>
@@ -112,36 +112,36 @@ export const GooglePlayPolicyUpdateEmail = () => (
             <Column style={{ paddingRight: "4px" }}>
               <Link href="https://notifications.google.com">
                 <Img
-                  width="28"
                   height="28"
                   src={`${baseUrl}/static/google-play-chat.png`}
+                  width="28"
                 />
               </Link>
             </Column>
             <Column style={{ paddingRight: "4px" }}>
               <Link href="https://notifications.google.com">
                 <Img
-                  width="28"
                   height="28"
                   src={`${baseUrl}/static/google-play-icon.png`}
+                  width="28"
                 />
               </Link>
             </Column>
             <Column style={{ paddingRight: "4px" }}>
               <Link href="https://notifications.google.com">
                 <Img
-                  width="28"
                   height="28"
                   src={`${baseUrl}/static/google-play-academy.png`}
+                  width="28"
                 />
               </Link>
             </Column>
           </Row>
           <Row>
             <Img
-              width="540"
               height="48"
               src={`${baseUrl}/static/google-play-footer.png`}
+              width="540"
             />
           </Row>
         </Section>

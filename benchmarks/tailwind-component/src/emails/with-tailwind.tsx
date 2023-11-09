@@ -12,7 +12,6 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-
 import { Tailwind } from "@react-email/tailwind";
 
 const baseUrl = process.env.VERCEL_URL
@@ -40,18 +39,18 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
             <Row>
               <Column>
                 <Img
+                  alt="Google Play developers header blue transparent"
                   className="-mt-[1px]"
+                  height="28"
                   src={`${baseUrl}/static/google-play-header.png`}
                   width="305"
-                  height="28"
-                  alt="Google Play developers header blue transparent"
                 />
                 <Img
+                  alt="Google Play"
                   className="py-0 px-10"
+                  height="31"
                   src={`${baseUrl}/static/google-play-logo.png`}
                   width="155"
-                  height="31"
-                  alt="Google Play"
                 />
               </Column>
             </Row>
@@ -72,8 +71,8 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
             <Text className="text-sm leading-5">
               We've added clarifications to our{" "}
               <Link
-                href="https://notifications.google.com"
                 className="text-sm leading-5 text-[#004dcf]"
+                href="https://notifications.google.com"
               >
                 Target API Level policy
               </Link>
@@ -85,15 +84,15 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
             <Text className="text-sm leading-5">
               We’re noting exceptions to the{" "}
               <Link
-                href="https://notifications.google.com"
                 className="text-sm leading-5 text-[#004dcf]"
+                href="https://notifications.google.com"
               >
                 Target API Level policy
               </Link>
               , which can be found in our updated{" "}
               <Link
-                href="https://notifications.google.com"
                 className="text-sm leading-5 text-[#004dcf]"
+                href="https://notifications.google.com"
               >
                 Help Center article.
               </Link>
@@ -101,8 +100,8 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
               target automotive or wearables form factors and are bundled within
               the same package.{" "}
               <Link
-                href="https://notifications.google.com"
                 className="text-sm leading-5 text-[#004dcf]"
+                href="https://notifications.google.com"
               >
                 Learn more
               </Link>
@@ -141,36 +140,36 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
               <Column style={{ paddingRight: "4px" }}>
                 <Link href="https://notifications.google.com">
                   <Img
-                    width="28"
                     height="28"
                     src={`${baseUrl}/static/google-play-chat.png`}
+                    width="28"
                   />
                 </Link>
               </Column>
               <Column style={{ paddingRight: "4px" }}>
                 <Link href="https://notifications.google.com">
                   <Img
-                    width="28"
                     height="28"
                     src={`${baseUrl}/static/google-play-icon.png`}
+                    width="28"
                   />
                 </Link>
               </Column>
               <Column style={{ paddingRight: "4px" }}>
                 <Link href="https://notifications.google.com">
                   <Img
-                    width="28"
                     height="28"
                     src={`${baseUrl}/static/google-play-academy.png`}
+                    width="28"
                   />
                 </Link>
               </Column>
             </Row>
             <Row>
               <Img
-                width="540"
                 height="48"
                 src={`${baseUrl}/static/google-play-footer.png`}
+                width="540"
               />
             </Row>
           </Section>

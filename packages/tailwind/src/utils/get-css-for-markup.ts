@@ -1,10 +1,11 @@
 import postcss from "postcss";
 import tailwindcss from "tailwindcss";
+import type{ CorePluginsConfig } from "tailwindcss/types/config";
 import postcssCssVariables from "postcss-css-variables";
-
 import type { TailwindConfig } from "../tailwind";
 
 declare global {
+  // eslint-disable-next-line no-var
   var __OXIDE__: undefined;
 }
 
@@ -17,7 +18,7 @@ export function getCSSForMarkup(
   markup: string,
   config: TailwindConfig | undefined,
 ) {
-  const corePlugins = (config?.corePlugins as {}) || {};
+  const corePlugins = config?.corePlugins as CorePluginsConfig;
 
   const tailwindConfig = {
     ...config,

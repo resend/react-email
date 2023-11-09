@@ -1,9 +1,7 @@
+import { render } from "@react-email/render";
+import { Bench } from "tinybench";
 import EmailWithoutTailwind from "./emails/without-tailwind.js";
 import EmailWithTailwind from "./emails/with-tailwind.js";
-
-import { render } from "@react-email/render";
-
-import { Bench } from "tinybench";
 
 async function main() {
   const bench = new Bench({ time: 100 });
@@ -18,7 +16,11 @@ async function main() {
 
   await bench.run();
 
-  console.table(bench.table());
+  return bench;
 }
 
-main();
+main()
+  .then((bench) => {
+    console.table(bench.table());
+  })
+  .catch(console.error);

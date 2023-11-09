@@ -3,9 +3,9 @@
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
+import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCSSForMarkup } from "./utils/get-css-for-markup";
-import { renderToStaticMarkup } from "react-dom/server";
 import { minifyCSS } from "./utils/minify-css";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
@@ -21,9 +21,8 @@ function processElement(
 ): React.ReactElement {
   let modifiedElement = element;
 
-  let resultingClassName: string | undefined = undefined;
-  let resultingStyle: React.CSSProperties | undefined =
-    modifiedElement.props.style;
+  let resultingClassName: string | undefined;
+  let resultingStyle = modifiedElement.props.style as React.CSSProperties | undefined;
   let resultingChildren: React.ReactNode[] = [];
 
   if (modifiedElement.props.className) {
@@ -36,8 +35,8 @@ function processElement(
     classNames.forEach((className) => {
       /*                        escape all unallowed characters in css class selectors */
       const escapedClassName = className.replace(
-        /(?<!\\)[^a-zA-Z0-9\-_]/g,
-        (m) => "\\" + m,
+        /(?<!\\)[^a--Z0-9\-_]/g,
+        (m) => `\\${  m}`,
       );
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
@@ -63,7 +62,7 @@ function processElement(
 
   if (modifiedElement.props.children) {
     resultingChildren = React.Children.map(
-      modifiedElement.props.children,
+      modifiedElement.props.children as React.ReactNode[],
       (child) => {
         if (React.isValidElement(child)) {
           return processElement(child, nonMediaQueryTailwindStylesPerClass);
@@ -91,8 +90,7 @@ function processElement(
 }
 
 type AnyElement = React.ReactElement<
-  React.HTMLAttributes<HTMLElement>,
-  string | React.JSXElementConstructor<any>
+  React.HTMLAttributes<HTMLElement>
 >;
 
 type HeadElement = React.ReactElement<

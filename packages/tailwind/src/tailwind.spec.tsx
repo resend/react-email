@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
+import { Html } from "@react-email/html";
 import { Head } from "@react-email/head";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";

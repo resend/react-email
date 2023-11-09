@@ -8,7 +8,7 @@ export function cleanCss(css: string) {
     .replace(/[.!#\w\d\\:\-[\]/.%())]+(?=\s*?{[^{]*?\})\s*?{/g, (m) => {
       return m.replace(/(?<=.)[:#!\-[\\\]/.%]+/g, "_");
     })
-    .replace(/font-family(?<value>[^;\r\n]+)/g, (_m, value) => {
+    .replace(/font-family(?<value>[^;\r\n]+)/g, (_m, value: string) => {
       return `font-family${value.replace(/['"]+/g, "")}`;
     });
   return newCss;
