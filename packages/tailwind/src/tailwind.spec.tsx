@@ -3,6 +3,7 @@
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
 import { Head } from "@react-email/head";
+import { Preview } from "@react-email/preview";
 import { Html } from "@react-email/html";
 import { Tailwind, TailwindConfig } from ".";
 
@@ -17,6 +18,18 @@ describe("Tailwind component", () => {
 
       expect(actualOutput).not.toBeNull();
     });
+  });
+
+  it("should work with elements that have no children", () => {
+    const ComponentTest = () => {
+      return <>Test</>;
+    }
+    const actualOutput = render(
+      <Tailwind>
+        <div className="text-white"><ComponentTest/></div>
+      </Tailwind>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`""`);
   });
 
   it("should be able to use background image", () => {

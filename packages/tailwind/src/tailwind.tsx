@@ -68,7 +68,7 @@ function processElement(
     {
       ...modifiedElement.props,
       className: resultingClassName,
-      style: resultingStyle
+      style: resultingStyle ?? modifiedElement.props.style
     },
     ...resultingChildren,
   );
