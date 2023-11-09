@@ -87,7 +87,7 @@ describe("Responsive styles", () => {
       );
     }
     expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <head> element element as a direct child of the Tailwind component and."`,
+      `"Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component."`,
     );
   });
 

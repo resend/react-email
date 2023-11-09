@@ -25,7 +25,7 @@ const convertPropertyName = (prop: string) => {
   return camelCase(modifiedProp);
 };
 
-export const cssToJsxStyle = (cssText: string) => {
+export function cssToJsxStyle(cssText: string) {
   const style: Record<string, string> = {};
   const declarations = cssText.matchAll(/([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|.*?\([^)]*\)[^;]*|[^;]*);?/gm);
   for (const [_declaration, property, value] of declarations) {

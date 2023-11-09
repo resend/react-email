@@ -148,7 +148,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   if (headStyles.length > 0) {
     if (headElementIndex === -1) {
       throw new Error(
-        "Tailwind: To use responsive styles you must have a <head> element element as a direct child of the Tailwind component and.",
+        "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
       );
     }
 
