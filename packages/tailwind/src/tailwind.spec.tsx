@@ -83,7 +83,7 @@ describe("Responsive styles", () => {
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
           </Tailwind>
-        </html>
+        </html>,
       );
     }
     expect(noHead).toThrowErrorMatchingInlineSnapshot(

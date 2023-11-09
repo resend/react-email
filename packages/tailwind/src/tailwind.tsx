@@ -10,7 +10,7 @@ import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { renderToStaticMarkup } from "react-dom/server";
 import { minifyCSS } from "./utils/minify-css";
 
-export type TailwindConfig = Omit<TailwindOriginalConfig, 'content'>;
+export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -19,12 +19,13 @@ export interface TailwindProps {
 
 function processElement(
   element: React.ReactElement,
-  nonMediaQueryTailwindStylesPerClass: Record<string, string>
+  nonMediaQueryTailwindStylesPerClass: Record<string, string>,
 ): React.ReactElement {
   let modifiedElement = element;
 
   let resultingClassName: string | undefined = undefined;
-  let resultingStyle: React.CSSProperties | undefined = modifiedElement.props.style;
+  let resultingStyle: React.CSSProperties | undefined =
+    modifiedElement.props.style;
   let resultingChildren: React.ReactNode[] = [];
 
   if (modifiedElement.props.className) {
@@ -34,40 +35,56 @@ function processElement(
 
     const styles = [] as string[];
 
-    classNames.forEach(className => {
+    classNames.forEach((className) => {
       /*                        escape all unallowed characters in css class selectors */
-      const escapedClassName = className.replace(/(?<!\\)[^a-zA-Z0-9\-_]/g, (m) => '\\' + m);
+      const escapedClassName = className.replace(
+        /(?<!\\)[^a-zA-Z0-9\-_]/g,
+        (m) => "\\" + m,
+      );
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
-      if (typeof nonMediaQueryTailwindStylesPerClass[escapedClassName] === 'undefined') {
+      if (
+        typeof nonMediaQueryTailwindStylesPerClass[escapedClassName] ===
+        "undefined"
+      ) {
         classNamesToKeep.push(className);
       } else {
-        styles.push(`${nonMediaQueryTailwindStylesPerClass[escapedClassName]};`);
+        styles.push(
+          `${nonMediaQueryTailwindStylesPerClass[escapedClassName]};`,
+        );
       }
     });
 
     resultingStyle = {
       ...(modifiedElement.props.style as Record<string, string>),
-      ...cssToJsxStyle(styles.join(' ')),
+      ...cssToJsxStyle(styles.join(" ")),
     };
-    resultingClassName = classNamesToKeep.length > 0 ? classNamesToKeep.join(' ') : undefined;
+    resultingClassName =
+      classNamesToKeep.length > 0 ? classNamesToKeep.join(" ") : undefined;
   }
 
   if (modifiedElement.props.children) {
-    resultingChildren = React.Children.map(modifiedElement.props.children, (child) => {
-      if (React.isValidElement(child)) {
-        return processElement(child, nonMediaQueryTailwindStylesPerClass);
-      }
-      return child;
-    });
+    resultingChildren = React.Children.map(
+      modifiedElement.props.children,
+      (child) => {
+        if (React.isValidElement(child)) {
+          return processElement(child, nonMediaQueryTailwindStylesPerClass);
+        }
+        return child;
+      },
+    );
   }
 
   modifiedElement = React.cloneElement(
     modifiedElement,
     {
       ...modifiedElement.props,
-      ...(typeof resultingClassName === 'undefined' ? {} : { className: resultingClassName }),
-      ...(typeof resultingStyle === 'undefined' ? {} : { style: resultingStyle })
+      ...(typeof resultingClassName === "undefined"
+        ? {}
+        : { className: resultingClassName }),
+      ...(typeof resultingStyle === "undefined"
+        ? {}
+        : { style: resultingStyle }),
     },
     ...resultingChildren,
   );
@@ -90,7 +107,7 @@ function processHead(
   responsiveStyles: string[],
 ): React.ReactElement {
   /*                   only minify here since it is the only place that is going to be in the DOM */
-  const styleElement = <style>{minifyCSS(responsiveStyles.join(''))}</style>;
+  const styleElement = <style>{minifyCSS(responsiveStyles.join(""))}</style>;
 
   return React.cloneElement(
     headElement,
@@ -109,14 +126,16 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
     (mediaQuery, _className) => {
-      headStyles.push(mediaQuery.replace(/[\r\n|\r|\n]+/g, "").replace(/\s+/g, " "));
+      headStyles.push(
+        mediaQuery.replace(/[\r\n|\r|\n]+/g, "").replace(/\s+/g, " "),
+      );
       return "";
-    }
+    },
   );
 
   const nonMediaQueryTailwindStylesPerClass = {} as Record<string, string>;
   for (const [_match, className, contents] of nonMediaQueryCSS.matchAll(
-    /\s*\.([\S]+)\s*{([^}]*)}/gm
+    /\s*\.([\S]+)\s*{([^}]*)}/gm,
   )) {
     nonMediaQueryTailwindStylesPerClass[className.trim()] = contents
       .replace(/^\n+/, "")
@@ -132,17 +151,22 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   let headElementIndex = -1;
 
   validElementsWithIndexes.forEach(([element, i]) => {
-    childrenArray[i] = processElement(element, nonMediaQueryTailwindStylesPerClass);
+    childrenArray[i] = processElement(
+      element,
+      nonMediaQueryTailwindStylesPerClass,
+    );
 
-    if (element.type === "head" ||
+    if (
+      element.type === "head" ||
       (typeof element.type === "function" &&
         "name" in element.type &&
-        element.type.name === "Head")) {
+        element.type.name === "Head")
+    ) {
       headElementIndex = i;
     }
   });
 
-  headStyles = headStyles.filter(style => style.trim().length > 0);
+  headStyles = headStyles.filter((style) => style.trim().length > 0);
 
   if (headStyles.length > 0) {
     if (headElementIndex === -1) {
@@ -151,9 +175,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       );
     }
 
-    const [headElement, headAllElementsIndex] = validElementsWithIndexes[headElementIndex] as [
-      HeadElement, number
-    ];
+    const [headElement, headAllElementsIndex] = validElementsWithIndexes[
+      headElementIndex
+    ] as [HeadElement, number];
 
     childrenArray[headAllElementsIndex] = processHead(headElement, headStyles);
   }

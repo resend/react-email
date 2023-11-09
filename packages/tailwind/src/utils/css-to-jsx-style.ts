@@ -27,7 +27,9 @@ const convertPropertyName = (prop: string) => {
 
 export function cssToJsxStyle(cssText: string) {
   const style: Record<string, string> = {};
-  const declarations = cssText.matchAll(/([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|.*?\([^)]*\)[^;]*|[^;]*);?/gm);
+  const declarations = cssText.matchAll(
+    /([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|.*?\([^)]*\)[^;]*|[^;]*);?/gm,
+  );
   for (const [_declaration, property, value] of declarations) {
     if (property.length > 0 && value.trim().length > 0) {
       style[convertPropertyName(property)] = value.trim();

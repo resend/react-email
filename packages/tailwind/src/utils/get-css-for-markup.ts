@@ -10,10 +10,13 @@ declare global {
 
 global.__OXIDE__ = undefined;
 // to avoid __OXIDE__ undefined errors
-// this may cause problems later down the line when upadting tailwind 
+// this may cause problems later down the line when upadting tailwind
 // since tailwind might migrate to using oxide for their transformations
 
-export function getCSSForMarkup(markup: string, config: TailwindConfig | undefined) {
+export function getCSSForMarkup(
+  markup: string,
+  config: TailwindConfig | undefined,
+) {
   const corePlugins = (config?.corePlugins as {}) || {};
 
   const tailwindConfig = {
@@ -21,24 +24,23 @@ export function getCSSForMarkup(markup: string, config: TailwindConfig | undefin
     corePlugins: {
       preflight: false,
       ...corePlugins,
-    }
+    },
   };
 
   const processor = postcss([
     tailwindcss({
       ...tailwindConfig,
-      content: [{ raw: markup, extension: 'html' }]
-    }), 
+      content: [{ raw: markup, extension: "html" }],
+    }),
     postcssCssVariables(),
   ]);
-  const result = processor
-    .process(
-      String.raw`
+  const result = processor.process(
+    String.raw`
         @tailwind base;
         @tailwind components;
         @tailwind utilities;
       `,
-      { from: undefined } // no need to use from since the `content` context is sent into tailwind
-    );
+    { from: undefined }, // no need to use from since the `content` context is sent into tailwind
+  );
   return result.css;
-};
+}
