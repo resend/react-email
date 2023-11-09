@@ -21,7 +21,7 @@ function processElement(
 ): React.ReactElement {
   let modifiedElement = element;
 
-  let resultingClassName: string | undefined;
+  let resultingClassName = modifiedElement.props.className as string | undefined;
   let resultingStyle = modifiedElement.props.style as
     | React.CSSProperties
     | undefined;
@@ -37,7 +37,7 @@ function processElement(
     classNames.forEach((className) => {
       /*                        escape all unallowed characters in css class selectors */
       const escapedClassName = className.replace(
-        /(?<!\\)[^a--Z0-9\-_]/g,
+        /(?<!\\)[^a-zA-Z0-9\-_]/g,
         (m) => `\\${m}`,
       );
       // no need to filter in for media query classes since it is going to keep these classes
@@ -64,7 +64,7 @@ function processElement(
 
   if (modifiedElement.props.children) {
     resultingChildren = React.Children.map(
-      modifiedElement.props.children as React.ReactNode[],
+      modifiedElement.props.children,
       (child) => {
         if (React.isValidElement(child)) {
           return processElement(child, nonMediaQueryTailwindStylesPerClass);
@@ -78,9 +78,7 @@ function processElement(
     modifiedElement,
     {
       ...modifiedElement.props,
-      ...(typeof resultingClassName === "undefined"
-        ? {}
-        : { className: resultingClassName }),
+      className: resultingClassName,
       ...(typeof resultingStyle === "undefined"
         ? {}
         : { style: resultingStyle }),
