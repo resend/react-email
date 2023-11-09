@@ -7,7 +7,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { minifyCSS } from "./utils/minify-css";
-import { render } from "react-dom";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
@@ -67,15 +66,15 @@ function processElement(
   }
 
   if (modifiedElement.props.children) {
-    resultingChildren = React.Children.map(
-      modifiedElement.props.children,
-      (child) => {
-        if (React.isValidElement(child)) {
-          return processElement(child, nonMediaQueryTailwindStylesPerClass);
-        }
-        return child;
-      },
-    );
+    resultingChildren = React.Children.toArray(modifiedElement.props.children)
+      .map(
+        (child) => {
+          if (React.isValidElement(child)) {
+            return processElement(child, nonMediaQueryTailwindStylesPerClass);
+          }
+          return child;
+        },
+      );
   }
 
   modifiedElement = React.cloneElement(
@@ -93,7 +92,7 @@ function processElement(
   );
 
   if (typeof modifiedElement.type === "function") {
-    const component = modifiedElement.type as React.FC<any>;
+    const component = modifiedElement.type as React.FC;
     const renderedComponent = component(modifiedElement.props);
     if (React.isValidElement(renderedComponent)) {
       modifiedElement = processElement(
@@ -142,7 +141,6 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           .replace(/[\r\n|\r|\n]+/g, "")
           .replace(/\s+/g, " ")
           .replaceAll(/\s*\.[\S]+\s*{([^}]*)}/gm, (match, content: string) => {
-            console.log(content);
             return match.replace(
               content,
               content
@@ -150,7 +148,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
                 .map((propertyDeclaration) =>
                   propertyDeclaration.endsWith("!important")
                     ? propertyDeclaration.trim()
-                    : propertyDeclaration.trim() + "!important",
+                    : `${propertyDeclaration.trim()}!important`,
                 )
                 .join(";"),
             );
