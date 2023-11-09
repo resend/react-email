@@ -20,6 +20,33 @@ describe("Tailwind component", () => {
     });
   });
 
+  it("should work with components that return children", () => {
+    const Wrapper = (props: { children: React.ReactNode }) => {
+      return <Tailwind>
+        {props.children}
+      </Tailwind>;
+    };
+    
+    const Brand = () => {
+      return (
+        <div className="p-[20px]">
+          <p className="font-bold text-[50px]">React Email</p>
+        </div>
+      );
+    };
+
+    const EmailTemplate = () => {
+      return (<Wrapper>
+        <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+        <Brand />
+      </Wrapper>);
+    };
+
+    const actualOutput = render(EmailTemplate());
+
+    expect(actualOutput).toMatchInlineSnapshot(`"<div style=\\"font-size:50px;line-height:1;margin-top:100px\\">Hello world</div><div style=\\"padding:20px\\"><p style=\\"font-weight:700;font-size:50px\\">React Email</p></div>"`);
+  });
+
   it("should be able to use background image", () => {
     const actualOutput = render(
       <Tailwind>

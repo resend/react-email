@@ -7,6 +7,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { minifyCSS } from "./utils/minify-css";
+import { render } from "react-dom";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -79,12 +80,25 @@ function processElement(
     {
       ...modifiedElement.props,
       className: resultingClassName,
+      // passing in style here as undefined may mess up
+      // the rendering process of child components
       ...(typeof resultingStyle === "undefined"
         ? {}
         : { style: resultingStyle }),
     },
     ...resultingChildren,
   );
+
+  if (typeof modifiedElement.type === 'function') {
+    const component = modifiedElement.type as React.FC<any>;
+    const renderedComponent = component(modifiedElement.props);
+    if (React.isValidElement(renderedComponent)) {
+      modifiedElement = processElement(
+        renderedComponent, 
+        nonMediaQueryTailwindStylesPerClass
+      );
+    }
+  }
 
   return modifiedElement;
 }
