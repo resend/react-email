@@ -3,8 +3,8 @@
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
 import { Head } from "@react-email/head";
-import { Html } from "@react-email/html";
-import { Tailwind, TailwindConfig } from ".";
+import { Tailwind } from ".";
+import type { TailwindConfig } from ".";
 
 describe("Tailwind component", () => {
   describe("Inline styles", () => {
