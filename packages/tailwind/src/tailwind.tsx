@@ -22,7 +22,9 @@ function processElement(
   let modifiedElement = element;
 
   let resultingClassName: string | undefined;
-  let resultingStyle = modifiedElement.props.style as React.CSSProperties | undefined;
+  let resultingStyle = modifiedElement.props.style as
+    | React.CSSProperties
+    | undefined;
   let resultingChildren: React.ReactNode[] = [];
 
   if (modifiedElement.props.className) {
@@ -36,7 +38,7 @@ function processElement(
       /*                        escape all unallowed characters in css class selectors */
       const escapedClassName = className.replace(
         /(?<!\\)[^a--Z0-9\-_]/g,
-        (m) => `\\${  m}`,
+        (m) => `\\${m}`,
       );
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
@@ -89,9 +91,7 @@ function processElement(
   return modifiedElement;
 }
 
-type AnyElement = React.ReactElement<
-  React.HTMLAttributes<HTMLElement>
->;
+type AnyElement = React.ReactElement<React.HTMLAttributes<HTMLElement>>;
 
 type HeadElement = React.ReactElement<
   HeadProps,

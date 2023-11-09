@@ -1,6 +1,6 @@
 import postcss from "postcss";
 import tailwindcss from "tailwindcss";
-import type{ CorePluginsConfig } from "tailwindcss/types/config";
+import type { CorePluginsConfig } from "tailwindcss/types/config";
 import postcssCssVariables from "postcss-css-variables";
 import type { TailwindConfig } from "../tailwind";
 
