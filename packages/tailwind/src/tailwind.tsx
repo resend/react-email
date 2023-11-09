@@ -24,7 +24,7 @@ function processElement(
   let modifiedElement = element;
 
   let resultingClassName: string | undefined = undefined;
-  let resultingStyle: React.CSSProperties | undefined = undefined;
+  let resultingStyle: React.CSSProperties | undefined = modifiedElement.props.style;
   let resultingChildren: React.ReactNode[] = [];
 
   if (modifiedElement.props.className) {
@@ -54,8 +54,7 @@ function processElement(
   }
 
   if (modifiedElement.props.children) {
-    const children = React.Children.toArray(modifiedElement.props.children);
-    resultingChildren = children.map((child) => {
+    resultingChildren = React.Children.map(modifiedElement.props.children, (child) => {
       if (React.isValidElement(child)) {
         return processElement(child, nonMediaQueryTailwindStylesPerClass);
       }
@@ -67,8 +66,8 @@ function processElement(
     modifiedElement,
     {
       ...modifiedElement.props,
-      className: resultingClassName,
-      style: resultingStyle ?? modifiedElement.props.style
+      ...(typeof resultingClassName === 'undefined' ? {} : { className: resultingClassName }),
+      ...(typeof resultingStyle === 'undefined' ? {} : { style: resultingStyle })
     },
     ...resultingChildren,
   );
@@ -108,7 +107,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const markupCSS = getCSSForMarkup(markupWithTailwindClasses, config);
 
   const nonMediaQueryCSS = markupCSS.replaceAll(
-    /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm, 
+    /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
     (mediaQuery, _className) => {
       headStyles.push(mediaQuery.replace(/[\r\n|\r|\n]+/g, "").replace(/\s+/g, " "));
       return "";
