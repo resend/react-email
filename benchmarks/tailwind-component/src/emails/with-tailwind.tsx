@@ -12,13 +12,16 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
+
+import type { TailwindProps } from "../../../../packages/tailwind/dist";
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
 
-export const GooglePlayPolicyUpdateEmailWithTailwind = () => (
+export const GooglePlayPolicyUpdateEmailWithTailwind = (
+  { Tailwind }: { Tailwind: React.FC<TailwindProps> }
+) => (
   <Tailwind
     config={{
       theme: {

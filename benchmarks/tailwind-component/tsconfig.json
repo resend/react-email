@@ -4,6 +4,7 @@
   "include": ["src"],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
+    "target": "esnext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "moduleResolution": "Node",

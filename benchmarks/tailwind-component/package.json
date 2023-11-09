@@ -3,9 +3,11 @@
   "private": true,
   "main": "dist/benchmark.js",
   "scripts": {
-    "bench": "pnpm compile && node dist/benchmark",
-    "flamegraph-tailwind": "pnpm compile && node --prof ./dist/tailwind-render && node --prof-process --preprocess -j isolate*.log | flamebearer",
-    "compile": "tsup src/benchmark.ts src/tailwind-render.ts",
+    "with-vs-without": "pnpm compile && node dist/benchmark-with-without",
+    "current-vs-latest": "pnpm compile && node dist/benchmark-current-vs-latest",
+    "flamegraph-render-tailwind": "pnpm compile && node --prof ./dist/tailwind-render && node --prof-process --preprocess -j isolate*.log | flamebearer",
+
+    "compile": "tsup src/*.ts",
     "lint": "eslint ."
   },
   "license": "MIT",
@@ -20,7 +22,7 @@
   "dependencies": {
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
-    "@react-email/tailwind": "workspace:*",
+    "@react-email/tailwind": "0.0.12",
     "react": "18.2.0",
     "tinybench": "^2.5.1",
     "ts-node": "^10.9.1"
