@@ -62,7 +62,7 @@
     "@testing-library/react": "14.0.0",
     "@types/postcss-css-variables": "^0.18.2",
     "eslint-config-custom": "workspace:*",
-    "eslint-plugin-regex": "^1.10.0",
+    "eslint-plugin-regex": "1.10.0",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },
