@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import { setupServer } from '../utils/run-server';
+import fs from "node:fs";
+import { setupServer } from "../utils/run-server";
 
 interface Args {
   dir: string;

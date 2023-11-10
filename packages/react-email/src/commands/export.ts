@@ -1,30 +1,30 @@
-import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import path from 'node:path';
-import { glob } from 'glob';
-import esbuild from 'esbuild';
-import tree from 'tree-node-cli';
-import ora from 'ora';
-import logSymbols from 'log-symbols';
-import type { Options } from '@react-email/render';
-import { render } from '@react-email/render';
-import normalize from 'normalize-path';
-import shell from 'shelljs';
-import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import fs, { unlinkSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { glob } from "glob";
+import esbuild from "esbuild";
+import tree from "tree-node-cli";
+import ora from "ora";
+import logSymbols from "log-symbols";
+import type { Options } from "@react-email/render";
+import { render } from "@react-email/render";
+import normalize from "normalize-path";
+import shell from "shelljs";
+import { closeOraOnSIGNIT } from "../utils/close-ora-on-sigint";
 
 export const exportTemplates = (
   outDir: string,
   srcDir: string,
   options: Options,
 ) => {
-  const spinner = ora('Preparing files...\n').start();
+  const spinner = ora("Preparing files...\n").start();
   closeOraOnSIGNIT(spinner);
 
-  const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
+  const allTemplates = glob.sync(normalize(path.join(srcDir, "*.{tsx,jsx}")));
 
   esbuild.buildSync({
     bundle: true,
     entryPoints: allTemplates,
-    platform: 'node',
+    platform: "node",
     write: true,
     outdir: outDir,
   });
@@ -36,28 +36,28 @@ export const exportTemplates = (
   });
 
   for (const template of allBuiltTemplates) {
-    spinner.text = `rendering ${template.split('/').pop()}`;
+    spinner.text = `rendering ${template.split("/").pop()}`;
     spinner.render();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
     const component = require(template);
     // eslint-disable-next-line
     const rendered = render(component.default({}), options);
     const htmlPath = template.replace(
-      '.js',
-      options.plainText ? '.txt' : '.html',
+      ".js",
+      options.plainText ? ".txt" : ".html",
     );
     writeFileSync(htmlPath, rendered);
     unlinkSync(template);
   }
-  spinner.succeed('Rendered all files');
+  spinner.succeed("Rendered all files");
   spinner.text = `Copying static files`;
   spinner.render();
 
-  const staticDir = path.join(srcDir, 'static');
+  const staticDir = path.join(srcDir, "static");
   const hasStaticDirectory = fs.existsSync(staticDir);
 
   if (hasStaticDirectory) {
-    const result = shell.cp('-r', staticDir, path.join(outDir, 'static'));
+    const result = shell.cp("-r", staticDir, path.join(outDir, "static"));
     if (result.code > 0) {
       throw new Error(
         `Something went wrong while copying the file to ${outDir}/static, ${result.cat()}`,
@@ -75,7 +75,7 @@ export const exportTemplates = (
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'Successfully exported emails',
+    text: "Successfully exported emails",
   });
 
   process.exit();

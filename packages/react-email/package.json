@@ -3,12 +3,13 @@
   "version": "1.9.5",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/source/index.js"
+    "email": "./dist/src/index.js"
   },
-  "types": "./dist/source/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
+    "dev:cli": "npx ts-node src/index.ts dev",
     "lint": "eslint ."
   },
   "license": "MIT",

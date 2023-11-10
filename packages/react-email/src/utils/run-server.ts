@@ -1,9 +1,9 @@
-import path, { normalize, resolve } from 'node:path';
-import fs, { writeFileSync } from 'node:fs';
-import { convertToAbsolutePath } from './convert-to-absolute-path';
-import next from 'next';
-import http from 'node:http';
-import { parse } from 'node:url';
+import path, { normalize, resolve } from "node:path";
+import fs, { writeFileSync } from "node:fs";
+import { convertToAbsolutePath } from "./convert-to-absolute-path";
+import next from "next";
+import http from "node:http";
+import { parse } from "node:url";
 
 export const setupServer = (dir: string, port: string) => {
   const emailsDir = convertToAbsolutePath(dir);
@@ -14,10 +14,10 @@ export const setupServer = (dir: string, port: string) => {
 
   const previews = fs
     .readdirSync(normalize(emailsDir))
-    .filter((file) => file.endsWith('.tsx') || file.endsWith('.jsx'));
+    .filter((file) => file.endsWith(".tsx") || file.endsWith(".jsx"));
 
-  const previewsFolder = path.join(__dirname, '../../src/app', 'emails');
-  console.log(path.join(__dirname, '../../src/app', 'emails'));
+  const previewsFolder = path.join(__dirname, "../../src/app", "emails");
+
   if (!fs.existsSync(previewsFolder)) {
     fs.mkdirSync(previewsFolder);
   }
@@ -26,15 +26,15 @@ export const setupServer = (dir: string, port: string) => {
     writeFileSync(
       path.join(previewsFolder, preview),
       `export * as default from '${emailsDir}/${preview
-        .replace('.tsx', '')
-        .replace('.jsx', '')}';`,
+        .replace(".tsx", "")
+        .replace(".jsx", "")}';`,
     );
   }
 
   const app = next({
     dev: true,
     port: Number(port),
-    dir: resolve(__dirname, '../../'),
+    dir: resolve(__dirname, "../../"),
   });
 
   const nextHandle = app.getRequestHandler();
@@ -51,25 +51,25 @@ export const setupServer = (dir: string, port: string) => {
         const parsedUrl = parse(req.url, true);
 
         res.setHeader(
-          'Cache-Control',
-          'no-cache, max-age=0, must-revalidate, no-store',
+          "Cache-Control",
+          "no-cache, max-age=0, must-revalidate, no-store",
         );
-        res.setHeader('Pragma', 'no-cache');
-        res.setHeader('Expires', '-1');
+        res.setHeader("Pragma", "no-cache");
+        res.setHeader("Expires", "-1");
 
         await nextHandle(req, res, parsedUrl);
       })
       .listen(port, () => {
         console.log(`running preview at http://localhost:${port}`);
       })
-      .on('error', (error: NodeJS.ErrnoException) => {
-        if (error.code === 'EADDRINUSE') {
+      .on("error", (error: NodeJS.ErrnoException) => {
+        if (error.code === "EADDRINUSE") {
           console.error(
             `port ${port} is taken, is react-email already running?`,
           );
           process.exit(1);
         } else {
-          console.error('preview server error:', JSON.stringify(error));
+          console.error("preview server error:", JSON.stringify(error));
         }
       });
   });
@@ -79,5 +79,5 @@ const exitHandler = () => {
   process.exit(1);
 };
 
-process.on('exit', exitHandler);
-process.on('SIGINT', exitHandler);
+process.on("exit", exitHandler);
+process.on("SIGINT", exitHandler);
