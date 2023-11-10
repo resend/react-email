@@ -64,15 +64,14 @@ function processElement(
   }
 
   if (modifiedElement.props.children) {
-    resultingChildren = React.Children.toArray(modifiedElement.props.children)
-      .map(
-        (child) => {
-          if (React.isValidElement(child)) {
-            return processElement(child, nonMediaQueryTailwindStylesPerClass);
-          }
-          return child;
-        },
-      );
+    resultingChildren = React.Children.toArray(
+      modifiedElement.props.children,
+    ).map((child) => {
+      if (React.isValidElement(child)) {
+        return processElement(child, nonMediaQueryTailwindStylesPerClass);
+      }
+      return child;
+    });
   }
 
   modifiedElement = React.cloneElement(
