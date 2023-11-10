@@ -25,7 +25,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "11.1.0",
     "@react-email/render": "0.0.6",
     "commander": "11.1.0",
     "esbuild": "0.19.5",

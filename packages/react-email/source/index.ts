@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { program } from '@commander-js/extra-typings';
+import { program } from 'commander';
 import packageJson from '../package.json';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
@@ -25,8 +25,18 @@ program
   .option('-p, --pretty', 'Pretty print the output', false)
   .option('-t, --plainText', 'Set output format as plain text', false)
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .action(({ outDir, pretty, plainText, dir: srcDir }) =>
-    exportTemplates(outDir, srcDir, { pretty, plainText }),
+  .action(
+    ({
+      outDir,
+      pretty,
+      plainText,
+      dir: srcDir,
+    }: {
+      outDir: string;
+      pretty: boolean;
+      plainText: boolean;
+      dir: string;
+    }) => exportTemplates(outDir, srcDir, { pretty, plainText }),
   );
 
 program.parse();

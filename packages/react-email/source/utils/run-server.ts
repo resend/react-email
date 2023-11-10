@@ -1,6 +1,5 @@
 import path, { normalize, resolve } from 'node:path';
-import fs from 'node:fs';
-import esbuild from 'esbuild';
+import fs, { writeFileSync } from 'node:fs';
 import { convertToAbsolutePath } from './convert-to-absolute-path';
 import next from 'next';
 import http from 'node:http';
@@ -11,25 +10,26 @@ export const setupServer = (dir: string, port: string) => {
 
   console.clear();
 
-  const previewCompilationDir = path.join(emailsDir, '.preview');
-  if (fs.existsSync(previewCompilationDir)) {
-    fs.rmSync(previewCompilationDir, { recursive: true, force: true });
+  process.env.REACT_EMAILS_DIR = emailsDir;
+
+  const previews = fs
+    .readdirSync(normalize(emailsDir))
+    .filter((file) => file.endsWith('.tsx') || file.endsWith('.jsx'));
+
+  const previewsFolder = path.join(__dirname, '../../src/app', 'emails');
+  console.log(path.join(__dirname, '../../src/app', 'emails'));
+  if (!fs.existsSync(previewsFolder)) {
+    fs.mkdirSync(previewsFolder);
   }
 
-  const emailTemplates = fs
-    .readdirSync(normalize(emailsDir))
-    .filter((file) => file.endsWith('.tsx') || file.endsWith('.jsx'))
-    .map((file) => path.join(emailsDir, file));
-
-  esbuild.buildSync({
-    bundle: true,
-    entryPoints: emailTemplates,
-    platform: 'node',
-    write: true,
-    outdir: previewCompilationDir,
-  });
-
-  console.log('Email previews generated\n');
+  for (const preview of previews) {
+    writeFileSync(
+      path.join(previewsFolder, preview),
+      `export * as default from '${emailsDir}/${preview
+        .replace('.tsx', '')
+        .replace('.jsx', '')}';`,
+    );
+  }
 
   const app = next({
     dev: true,
