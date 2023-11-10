@@ -8,6 +8,7 @@ import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCSSForMarkup } from "./utils/get-css-for-markup";
 import { minifyCSS } from "./utils/minify-css";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
+import { escapeClassName } from "./utils/escape-class-name";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -39,10 +40,7 @@ function processElement(
 
     classNames.forEach((className) => {
       /*                        escape all unallowed characters in css class selectors */
-      const escapedClassName = className.replace(
-        /(?<!\\)[^a-zA-Z0-9\-_]/g,
-        (m) => `\\${m}`,
-      );
+      const escapedClassName = escapeClassName(className);
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
       if (
