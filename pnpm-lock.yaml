@@ -726,7 +726,7 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       eslint-plugin-regex:
-        specifier: ^1.10.0
+        specifier: 1.10.0
         version: 1.10.0(eslint@8.50.0)
       tsconfig:
         specifier: workspace:*
