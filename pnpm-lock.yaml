@@ -141,7 +141,7 @@ importers:
   packages/code-block:
     dependencies:
       prismjs:
-        specifier: ^1.29.0
+        specifier: 1.29.0
         version: 1.29.0
       react:
         specifier: 18.2.0
@@ -154,7 +154,7 @@ importers:
         specifier: workspace:*
         version: link:../render
       '@types/prismjs':
-        specifier: ^1.26.2
+        specifier: 1.26.2
         version: 1.26.2
       eslint-config-custom:
         specifier: workspace:*
