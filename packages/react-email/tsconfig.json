@@ -1,7 +1,5 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": [".", ".next/types/**/*.ts"],
-  "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "module": "CommonJS",
     "strict": true,
@@ -17,5 +15,15 @@
         "name": "next"
       }
     ]
-  }
+  },
+  "include": [
+    ".eslintrc.cjs",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }
