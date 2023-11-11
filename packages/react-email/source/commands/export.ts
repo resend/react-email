@@ -2,7 +2,6 @@ import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
-import tree from 'tree-node-cli';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
@@ -10,6 +9,7 @@ import { render } from '@react-email/render';
 import normalize from 'normalize-path';
 import shell from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import { tree } from '../utils/tree';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -69,10 +69,7 @@ export const exportTemplates = async (
   }
   spinner.succeed();
 
-  const fileTree = tree(outDir, {
-    allFiles: true,
-    maxDepth: 4,
-  });
+  const fileTree = tree(outDir, 4);
 
   console.log(fileTree);
 
