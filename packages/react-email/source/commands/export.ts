@@ -69,7 +69,7 @@ export const exportTemplates = async (
   }
   spinner.succeed();
 
-  const fileTree = tree(outDir, 4);
+  const fileTree = await tree(outDir, 4);
 
   console.log(fileTree);
 
