@@ -1,5 +1,5 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import path from 'node:path';
+import path, { dirname, join } from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
 import ora from 'ora';
@@ -30,6 +30,7 @@ export const exportTemplates = async (
     entryPoints: allTemplates,
     platform: 'node',
     write: true,
+    tsconfig: join(__dirname, '../../..', 'tsconfig.export.json'),
     outdir: outDir,
   });
   spinner.succeed();

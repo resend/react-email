@@ -7,7 +7,7 @@
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p ./tsconfig.json",
     "clean": "rm -rf dist",
     "lint": "eslint ."
   },
