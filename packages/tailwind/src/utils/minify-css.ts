@@ -1,4 +1,4 @@
-export function minifyCSS(css: string): string {
+export const minifyCss = (css: string): string => {
   return (
     css
 
@@ -17,4 +17,4 @@ export function minifyCSS(css: string): string {
       .replace(/\s*{/gm, "{") // Remove spaces after opening curly brace
       .replace(/;?\s*}/gm, "}")
   ); // Remove extra spaces and semicolons before closing curly braces
-}
+};

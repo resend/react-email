@@ -1,4 +1,4 @@
-export function getStylesPerClassMap(css: string): Record<string, string> {
+export const getStylesPerClassMap = (css: string): Record<string, string> => {
   const map = {} as Record<string, string>;
   for (const [_match, className, contents] of css.matchAll(
     /\s*\.([\S]+)\s*{([^}]*)}/gm,
@@ -9,4 +9,4 @@ export function getStylesPerClassMap(css: string): Record<string, string> {
       .trim();
   }
   return map;
-}
+};

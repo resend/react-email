@@ -14,10 +14,10 @@ global.__OXIDE__ = undefined;
 // this may cause problems later down the line when upadting tailwind
 // since tailwind might migrate to using oxide for their transformations
 
-export function getCSSForMarkup(
+export const getCssForMarkup = (
   markup: string,
   config: TailwindConfig | undefined,
-) {
+) => {
   const corePlugins = config?.corePlugins as CorePluginsConfig;
 
   const tailwindConfig = {
@@ -44,4 +44,4 @@ export function getCSSForMarkup(
     { from: undefined }, // no need to use from since the `content` context is sent into tailwind
   );
   return result.css;
-}
+};

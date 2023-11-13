@@ -5,8 +5,8 @@ import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
 import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
-import { getCSSForMarkup } from "./utils/get-css-for-markup";
-import { minifyCSS } from "./utils/minify-css";
+import { getCssForMarkup } from "./utils/get-css-for-markup";
+import { minifyCss } from "./utils/minify-css";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 import { escapeClassName } from "./utils/escape-class-name";
 
@@ -114,7 +114,7 @@ function processHead(
   responsiveStyles: string[],
 ): React.ReactElement {
   /*                   only minify here since it is the only place that is going to be in the DOM */
-  const styleElement = <style>{minifyCSS(responsiveStyles.join(""))}</style>;
+  const styleElement = <style>{minifyCss(responsiveStyles.join(""))}</style>;
 
   return React.cloneElement(
     headElement,
@@ -128,7 +128,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   let headStyles: string[] = [];
 
   const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
-  const markupCSS = getCSSForMarkup(markupWithTailwindClasses, config);
+  const markupCSS = getCssForMarkup(markupWithTailwindClasses, config);
 
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
