@@ -1,0 +1,88 @@
+{
+  "name": "react-email-preview",
+  "displayName": "React Email",
+  "description": "A easy way to view the preview of a email made with react-email from your editor",
+  "version": "0.0.2",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": true,
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "publisher": "resend",
+  "categories": [
+    "Visualization"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "icon": "./icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "react-email-preview.open",
+        "title": "Start live preview of email open"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "react-email-preview.open",
+        "key": "shift+ctrl+e",
+        "mac": "shift+cmd+e"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "vs-code-extension"
+  },
+  "scripts": {
+    "publish": "vsce publish",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run compile -- --minify",
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "dependencies": {
+    "@esbuild/android-arm": "0.16.4",
+    "@esbuild/android-arm64": "0.16.4",
+    "@esbuild/android-x64": "0.16.4",
+    "@esbuild/darwin-arm64": "0.16.4",
+    "@esbuild/darwin-x64": "0.16.4",
+    "@esbuild/freebsd-arm64": "0.16.4",
+    "@esbuild/freebsd-x64": "0.16.4",
+    "@esbuild/linux-arm": "0.16.4",
+    "@esbuild/linux-arm64": "0.16.4",
+    "@esbuild/linux-ia32": "0.16.4",
+    "@esbuild/linux-loong64": "0.16.4",
+    "@esbuild/linux-mips64el": "0.16.4",
+    "@esbuild/linux-ppc64": "0.16.4",
+    "@esbuild/linux-riscv64": "0.16.4",
+    "@esbuild/linux-s390x": "0.16.4",
+    "@esbuild/linux-x64": "0.16.4",
+    "@esbuild/netbsd-x64": "0.16.4",
+    "@esbuild/openbsd-x64": "0.16.4",
+    "@esbuild/sunos-x64": "0.16.4",
+    "@esbuild/win32-arm64": "0.16.4",
+    "@esbuild/win32-ia32": "0.16.4",
+    "@esbuild/win32-x64": "0.16.4",
+    "@react-email/render": "0.0.9",
+    "esbuild": "0.16.4"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.83.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "@vscode/test-electron": "2.3.4",
+    "@vscode/vsce": "2.22.0",
+    "eslint": "^8.50.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2"
+  }
+}
