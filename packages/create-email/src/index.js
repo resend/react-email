@@ -4,7 +4,7 @@ import { Command } from "commander";
 import { fileURLToPath } from "node:url";
 import fse from "fs-extra";
 import logSymbols from "log-symbols";
-import treeCLI from 'tree-cli';
+import treeCli from 'tree-cli';
 import ora from "ora";
 import path from "node:path";
 
@@ -27,7 +27,7 @@ const init = async (name) => {
 
   fse.copySync(templatePath, resolvedProjectPath, { recursive: true });
 
-  const { report } = await treeCLI({
+  const { report } = await treeCli({
     l: depth,
     base: dir
   });
