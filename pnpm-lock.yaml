@@ -337,7 +337,7 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
       tree-cli:
-        specifier: ^0.6.7
+        specifier: 0.6.7
         version: 0.6.7
     devDependencies:
       prettier:
@@ -611,7 +611,7 @@ importers:
         specifier: 0.8.5
         version: 0.8.5
       tree-cli:
-        specifier: ^0.6.7
+        specifier: 0.6.7
         version: 0.6.7
     devDependencies:
       '@types/fs-extra':
