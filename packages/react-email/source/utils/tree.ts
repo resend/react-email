@@ -1,10 +1,10 @@
-import treeCLI from 'tree-cli';
+import treeCli from 'tree-cli';
 
-export async function tree(dir: string, depth: number) {
-  const { report } = await treeCLI({
+export const tree = async (dir: string, depth: number) => {
+  const { report } = await treeCli({
     l: depth,
     base: dir,
   });
 
   return report;
-}
+};

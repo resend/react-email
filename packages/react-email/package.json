@@ -40,7 +40,7 @@
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
-    "tree-cli": "^0.6.7"
+    "tree-cli": "0.6.7"
   },
   "devDependencies": {
     "@types/fs-extra": "11.0.1",
