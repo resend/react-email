@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 
 import * as crypto from "crypto";
 import { basename, join } from "path";
+import { tmpdir } from "os";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
@@ -33,8 +34,8 @@ export async function renderOpenEmailFile(
     const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
     const currentlyOpenTabFilename = basename(currentlyOpenTabFilePath, ".tsx");
 
-    const emailsDirectory = join(currentlyOpenTabFilePath, "..");
-    const previewDirectory = join(emailsDirectory, extensionPreviewFolder);
+    // saves the temporary previews generated in the tmp folder
+    const previewDirectory = join(tmpdir(), extensionPreviewFolder);
 
     // this hash is needed so the the import doesn't get from its cache
     const renderingHash = crypto.randomBytes(20).toString("hex");
@@ -45,7 +46,7 @@ export async function renderOpenEmailFile(
     );
 
     try {
-      const buildResult = esbuild.buildSync({
+      await esbuild.build({
         bundle: true,
         entryPoints: [currentlyOpenTabFilePath],
         platform: 'node',
@@ -53,15 +54,6 @@ export async function renderOpenEmailFile(
         tsconfig: join(__dirname, '..', 'tsconfig.emails.json'),
         outfile: builtFileWithCurrentContents,
       });
-      if (buildResult.warnings.length > 0) {
-        console.warn(buildResult.warnings);
-      }
-      if (buildResult.errors.length > 0) {
-        console.error(buildResult.errors);
-        throw new Error(
-          `esbuild bundling process for email at ${currentlyOpenTabFilePath}\n\n${buildResult.errors}`,
-        );
-      }
 
       // for future people debugging this: if this doesnt update the preview, might be because import keeps a cache
       // and the hash is not being unique (unlikely though)
