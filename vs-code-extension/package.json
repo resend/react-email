@@ -2,7 +2,7 @@
   "name": "react-email-preview",
   "displayName": "React Email",
   "description": "A easy way to view the preview of a email made with react-email from your editor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
