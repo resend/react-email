@@ -11,11 +11,11 @@ const extensionPreviewFolder = ".vscpreview" as const;
 
 export type BuiltEmail =
   | {
-      filename: string;
-      html: string;
-      text: string;
-      valid: true;
-    }
+    filename: string;
+    html: string;
+    text: string;
+    valid: true;
+  }
   | { valid: false };
 
 export async function renderOpenEmailFile(
@@ -45,13 +45,23 @@ export async function renderOpenEmailFile(
     );
 
     try {
-      await esbuild.build({
+      const buildResult = esbuild.buildSync({
         bundle: true,
         entryPoints: [currentlyOpenTabFilePath],
-        platform: "node",
+        platform: 'node',
         write: true,
+        tsconfig: join(__dirname, '..', 'tsconfig.emails.json'),
         outfile: builtFileWithCurrentContents,
       });
+      if (buildResult.warnings.length > 0) {
+        console.warn(buildResult.warnings);
+      }
+      if (buildResult.errors.length > 0) {
+        console.error(buildResult.errors);
+        throw new Error(
+          `esbuild bundling process for email at ${currentlyOpenTabFilePath}\n\n${buildResult.errors}`,
+        );
+      }
 
       // for future people debugging this: if this doesnt update the preview, might be because import keeps a cache
       // and the hash is not being unique (unlikely though)
