@@ -1,10 +1,7 @@
 import { render } from "@react-email/render";
 import { Bench } from "tinybench";
-
 import EmailWithTailwind from "./emails/with-tailwind.js";
-
 import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
-
 import { Tailwind as LatestTailwind } from "@react-email/tailwind";
 
 const main = async () => {
