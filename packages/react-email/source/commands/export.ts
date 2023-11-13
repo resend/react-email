@@ -1,5 +1,5 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import path, { dirname, join } from 'node:path';
+import path, { join } from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
 import ora from 'ora';
@@ -25,7 +25,7 @@ export const exportTemplates = async (
 
   const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
 
-  esbuild.buildSync({
+  const buildResult = esbuild.buildSync({
     bundle: true,
     entryPoints: allTemplates,
     platform: 'node',
@@ -33,6 +33,21 @@ export const exportTemplates = async (
     tsconfig: join(__dirname, '../../..', 'tsconfig.export.json'),
     outdir: outDir,
   });
+  if (buildResult.warnings.length > 0) {
+    console.warn(buildResult.warnings);
+  }
+  if (buildResult.errors.length > 0) {
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: 'Failed to build emails',
+    });
+    console.error(buildResult.errors);
+    throw new Error(
+      `esbuild bundling process for email templates:\n${allTemplates
+        .map((p) => `- ${p}`)
+        .join('\n')}`,
+    );
+  }
   spinner.succeed();
 
   const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
@@ -40,18 +55,27 @@ export const exportTemplates = async (
   });
 
   for (const template of allBuiltTemplates) {
-    spinner.text = `rendering ${template.split('/').pop()}`;
-    spinner.render();
-    // eslint-disable-next-line
-    const component = await import(template);
-    // eslint-disable-next-line
-    const rendered = render(component.default({}), options);
-    const htmlPath = template.replace(
-      '.js',
-      options.plainText ? '.txt' : '.html',
-    );
-    writeFileSync(htmlPath, rendered);
-    unlinkSync(template);
+    try {
+      spinner.text = `rendering ${template.split('/').pop()}`;
+      spinner.render();
+      // eslint-disable-next-line
+      const component = await import(template);
+      // eslint-disable-next-line
+      const rendered = render(component.default({}), options);
+      const htmlPath = template.replace(
+        '.js',
+        options.plainText ? '.txt' : '.html',
+      );
+      writeFileSync(htmlPath, rendered);
+      unlinkSync(template);
+    } catch (exception) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: `failed when rendering ${template.split('/').pop()}`,
+      });
+      console.error(exception);
+      throw exception;
+    }
   }
   spinner.succeed('Rendered all files');
   spinner.text = `Copying static files`;
@@ -63,6 +87,10 @@ export const exportTemplates = async (
   if (hasStaticDirectory) {
     const result = shell.cp('-r', staticDir, path.join(outDir, 'static'));
     if (result.code > 0) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to copy static files',
+      });
       throw new Error(
         `Something went wrong while copying the file to ${outDir}/static, ${result.cat()}`,
       );
