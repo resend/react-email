@@ -7,7 +7,7 @@ import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
 
 import { Tailwind as LatestTailwind } from "@react-email/tailwind";
 
-async function main() {
+const main = async () => {
   const bench = new Bench();
 
   bench
@@ -21,7 +21,7 @@ async function main() {
   await bench.run();
 
   return bench;
-}
+};
 
 main()
   .then((bench) => {

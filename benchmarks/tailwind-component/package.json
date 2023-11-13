@@ -24,13 +24,12 @@
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "0.0.12",
     "react": "18.2.0",
-    "tinybench": "^2.5.1",
-    "ts-node": "^10.9.1"
+    "tinybench": "2.5.1"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
-    "flamebearer": "^1.1.3",
     "tsconfig": "workspace:*",
+    "flamebearer": "1.1.3",
     "tsup": "7.2.0",
     "typescript": "5.1.6"
   }
