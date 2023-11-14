@@ -1,19 +1,21 @@
 import path from 'node:path';
-import { detect as detectPackageManager } from 'detect-package-manager';
 import { findRoot } from '@manypkg/find-root';
+import {
+  detect as detectPackageManager,
+  type PM,
+} from 'detect-package-manager';
 import shell from 'shelljs';
 import { createWatcherInstance, watcher } from './watcher';
-import type { PackageManager } from '.';
 import {
-  CURRENT_PATH,
-  convertToAbsolutePath,
-  startDevServer,
-  installDependencies,
-  syncPkg,
-  generateEmailsPreview,
   buildProdServer,
-  startProdServer,
+  convertToAbsolutePath,
+  CURRENT_PATH,
+  generateEmailsPreview,
+  installDependencies,
   REACT_EMAIL_ROOT,
+  startDevServer,
+  startProdServer,
+  syncPkg,
 } from '.';
 
 /**
@@ -33,7 +35,7 @@ export const setupServer = async (
     rootDir: CURRENT_PATH,
   }));
   const emailDir = convertToAbsolutePath(dir);
-  const packageManager: PackageManager = await detectPackageManager({
+  const packageManager: PM = await detectPackageManager({
     cwd: cwd.rootDir,
   }).catch(() => 'npm');
 

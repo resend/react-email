@@ -514,8 +514,8 @@ importers:
         specifier: 9.4.1
         version: 9.4.1
       detect-package-manager:
-        specifier: 2.0.1
-        version: 2.0.1
+        specifier: 3.0.1
+        version: 3.0.1
       esbuild:
         specifier: 0.16.4
         version: 0.16.4
@@ -3073,8 +3073,8 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
-  /detect-package-manager@2.0.1:
-    resolution: {integrity: sha512-j/lJHyoLlWi6G1LDdLgvUtz60Zo5GEj+sVYtTVXnYLDPuzgC3llMxonXym9zIwhhUII8vjdw0LXxavpLqTbl1A==}
+  /detect-package-manager@3.0.1:
+    resolution: {integrity: sha512-qoHDH6+lMcpJPAScE7+5CYj91W0mxZNXTwZPrCqi1KMk+x+AoQScQ2V1QyqTln1rHU5Haq5fikvOGHv+leKD8A==}
     engines: {node: '>=12'}
     dependencies:
       execa: 5.1.1

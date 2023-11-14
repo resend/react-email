@@ -1,13 +1,12 @@
 import path from 'node:path';
-import shell from 'shelljs';
-import ora from 'ora';
+import type { PM } from 'detect-package-manager';
 import logSymbols from 'log-symbols';
-import { REACT_EMAIL_ROOT } from './constants';
+import ora from 'ora';
+import shell from 'shelljs';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+import { REACT_EMAIL_ROOT } from './constants';
 
-export type PackageManager = 'yarn' | 'npm' | 'pnpm';
-
-export const installDependencies = (packageManager: PackageManager) => {
+export const installDependencies = (packageManager: PM) => {
   const spinner = ora('Installing dependencies...\n').start();
   closeOraOnSIGNIT(spinner);
 
