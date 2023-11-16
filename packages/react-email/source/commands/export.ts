@@ -1,5 +1,5 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import path, { join } from 'node:path';
+import path from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
 import ora from 'ora';
@@ -30,7 +30,7 @@ export const exportTemplates = async (
     entryPoints: allTemplates,
     platform: 'node',
     write: true,
-    tsconfig: join(__dirname, '../../..', 'tsconfig.export.json'),
+    tsconfig: path.join(__dirname, '../../..', 'tsconfig.export.json'),
     outdir: outDir,
   });
   if (buildResult.warnings.length > 0) {
