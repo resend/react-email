@@ -17,26 +17,38 @@ function processElement(
   twi: typeof TwiType,
 ): React.ReactElement {
   let modifiedElement = element;
+  const propsClassName = modifiedElement.props.className as string | undefined;
 
-  if (modifiedElement.props.className) {
+  // if it is not a string it is undefined
+  if (typeof propsClassName === "string") {
     const convertedStyles: string[] = [];
-    const responsiveStyles: string[] = [];
-    const classNames = (modifiedElement.props.className as string).split(" ");
+    const responsiveClassNames: string[] = [];
+    const customClassNames: string[] = [];
 
-    const customClassNames = classNames.filter((className: string) => {
-      const tailwindClassName = twi(className, { ignoreMediaQueries: true });
+    const allClassNames = propsClassName.split(" ");
 
-      if (tailwindClassName) {
-        convertedStyles.push(tailwindClassName);
-        return false;
-      } else if (twi(className, { ignoreMediaQueries: false })) {
-        responsiveStyles.push(className);
-        return false;
+    allClassNames.forEach((className) => {
+      const stylesWithoutMediaQueries = twi(className, {
+        ignoreMediaQueries: true,
+      });
+
+      if (stylesWithoutMediaQueries.length > 0) {
+        convertedStyles.push(stylesWithoutMediaQueries);
+      } else if (twi(className, { ignoreMediaQueries: false }).length > 0) {
+        const classPieces = className.split(":");
+        const mediaQueryParts = classPieces.slice(0, -1);
+        const twClass = classPieces[classPieces.length - 1];
+
+        const importantPrefixedClassName = twClass.startsWith("!")
+          ? className
+          : `${mediaQueryParts.join(":")}:!${twClass}`;
+        responsiveClassNames.push(importantPrefixedClassName);
+      } else {
+        customClassNames.push(className);
       }
-      return true;
     });
 
-    const convertedResponsiveStyles = twi(responsiveStyles, {
+    const convertedResponsiveStyles = twi(responsiveClassNames, {
       ignoreMediaQueries: false,
       merge: false,
     });
@@ -47,9 +59,15 @@ function processElement(
 
     modifiedElement = React.cloneElement(modifiedElement, {
       ...modifiedElement.props,
-      className: customClassNames.length
-        ? customClassNames.join(" ")
-        : undefined,
+      className:
+        customClassNames.length > 0 || responsiveClassNames.length > 0
+          ? customClassNames
+              // responsive class names should be kept so the media queries can actually work
+              // this is not exactly supported on all email clients, but it is the only way
+              // to have media queries
+              .concat(responsiveClassNames)
+              .join(" ")
+          : undefined,
       style: {
         ...(modifiedElement.props.style as Record<string, string>),
         ...cssToJsxStyle(convertedStyles.join(" ")),

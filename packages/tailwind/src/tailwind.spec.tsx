@@ -59,7 +59,7 @@ describe("Tailwind component", () => {
 });
 
 describe("Responsive styles", () => {
-  it("should add css to <head/>", () => {
+  it("should add css to <head/> and keep responsive class names", () => {
     const actualOutput = render(
       <Tailwind>
         <html lang="en">
@@ -72,7 +72,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:bg-red-300{background-color:rgb(252,165,165)}}@media(min-width:768px){.md\\\\:bg-red-400{background-color:rgb(248,113,113)}}@media(min-width:1024px){.lg\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:\\\\!bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md\\\\:\\\\!bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg\\\\:\\\\!bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm:!bg-red-300 md:!bg-red-400 lg:!bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
@@ -133,7 +133,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm\\\\:bg-red-500{background-color:rgb(239,68,68)}}</style></head><body><div style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm\\\\:\\\\!bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm:!bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 });
@@ -302,7 +302,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:border-custom{border:2px solid}}</style></head><body><div style=\\"border:2px solid\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:\\\\!border-custom{border:2px solid !important}}</style></head><body><div class=\\"sm:!border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
     );
   });
 });
@@ -324,7 +324,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"custom-class sm:!bg-red-50 sm:!text-sm md:!text-lg\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -351,7 +351,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div>Test</div><div>Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/></head><div class=\\"xl:!bg-green-500\\">Test</div><div class=\\"2xl:!bg-blue-500\\">Test</div></html>"',
     );
   });
 
