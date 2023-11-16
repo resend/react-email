@@ -6,7 +6,7 @@ export default createRule({
     schema: [],
     messages: {
       "base-64-image":
-        "Base64 is not supported on most emails clients, see https://www.caniemail.com/features/image-base64/",
+        "Base64 images may not be supported on your email client, see https://www.caniemail.com/features/image-base64/",
     },
   },
   create(context) {
