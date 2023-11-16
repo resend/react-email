@@ -1,7 +1,7 @@
-import { createStyleRule } from "../utils/create-style-rule";
+import { createStyleValueRule } from "../utils/create-style-value-rule";
 
-export default createStyleRule(
-  'function-max', 
+export default createStyleValueRule(
+  'max(', 
   46.93877551020408, 
   'https://www.caniemail.com/features/css-function-max/'
 );

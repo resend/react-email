@@ -1,7 +1,7 @@
-import { createStyleRule } from "../utils/create-style-rule";
+import { createStyleValueRule } from "../utils/create-style-value-rule";
 
-export default createStyleRule(
-  'important', 
+export default createStyleValueRule(
+  '!important', 
   43.47826086956522, 
   'https://www.caniemail.com/features/css-important/'
 );
