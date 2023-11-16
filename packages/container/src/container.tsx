@@ -22,7 +22,7 @@ export const Container: React.FC<Readonly<ContainerProps>> = ({
     >
       <tbody>
         <tr style={{ width: "100%" }}>
-          <td>{children}</td>
+          <td align="center">{children}</td>
         </tr>
       </tbody>
     </table>
