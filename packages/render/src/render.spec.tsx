@@ -2,6 +2,8 @@ import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
 import { render } from "./index";
 
+import React from "react";
+
 describe("render", () => {
   it("converts a React component into HTML", () => {
     const actualOutput = render(<Template firstName="Jim" />);

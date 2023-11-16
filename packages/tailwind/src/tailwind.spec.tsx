@@ -122,7 +122,7 @@ describe("Tailwind component", () => {
 });
 
 describe("Responsive styles", () => {
-  it("should add css to <head/>", () => {
+  it("should add css to <head/> and keep responsive class names", () => {
     const actualOutput = render(
       <html lang="en">
         <Tailwind>

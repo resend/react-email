@@ -22,6 +22,7 @@ function processElement(
   nonMediaQueryTailwindStylesPerClass: Record<string, string>,
 ): React.ReactElement {
   let modifiedElement = element;
+  const propsClassName = modifiedElement.props.className as string | undefined;
 
   let resultingClassName = modifiedElement.props.className as
     | string
