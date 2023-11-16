@@ -4,13 +4,13 @@ export default createStyleRule(
   [
     'border-block-color', 
     'border-block-style', 
-    'border-block-width'
+    'border-block-width',
     'border-block-start-color', 
     'border-block-start-style', 
-    'border-block-start-width'
-    'border-block-end-color', 
+    'border-block-start-width',
+    'border-block-end-color',
     'border-block-end-style', 
-    'border-block-end-width'
+    'border-block-end-width',
     'border-inline-start-color', 
     'border-inline-start-style', 
     'border-inline-start-width', 
