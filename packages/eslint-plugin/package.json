@@ -1,0 +1,63 @@
+{
+  "name": "eslint-plugin-react-email",
+  "version": "0.0.9",
+  "description": "Lint your emails for things that might be unsupported on different email clinets",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./rules/no-base-64-images": "./dist/no-base64-images.js"
+  },
+  "files": [
+    "dist/**",
+    "caniemail/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup --config=rollup.config.js --configPlugin=rollup-plugin-esbuild",
+    "dev": "pnpm build --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resendlabs/react-email.git",
+    "directory": "packages/eslint-plugin"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "json5": "^2.2.3",
+    "jsx-ast-utils": "^3.3.5",
+    "parse-md": "^3.0.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.22.5",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@types/eslint": "^8.44.7",
+    "@types/html-to-text": "9.0.1",
+    "@types/js-yaml": "^4.0.9",
+    "@types/pretty": "2.0.1",
+    "@types/react": "18.2.33",
+    "@typescript-eslint/utils": "^6.11.0",
+    "eslint-config-custom": "workspace:*",
+    "rollup": "^4.4.1",
+    "rollup-plugin-esbuild": "^6.1.0",
+    "tsconfig": "workspace:*",
+    "typescript": "5.1.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
