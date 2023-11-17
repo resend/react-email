@@ -9,7 +9,7 @@ export const createStyleRule = (propertyNameOrNames: string[] | string, supportP
       type: "suggestion",
       schema: [],
       messages: {
-        'not-supported-on-most-email-clients': `The CSS ${isRuleForMultipleProperties ? 'properties' : 'property'} ${propertyNames.join(', ')} ${isRuleForMultipleProperties ? 'are' : 'is'} only supported on ${supportPercentage}% of email clients, see ${caniemailLink}`,
+        'not-supported-on-most-email-clients': `The CSS ${isRuleForMultipleProperties ? 'properties' : 'property'} ${propertyNames.join(', ')} ${isRuleForMultipleProperties ? 'are' : 'is'} only supported on ${supportPercentage.toFixed(2)}% of email clients, see ${caniemailLink}`,
       },
     },
     create(context) {
@@ -21,7 +21,7 @@ export const createStyleRule = (propertyNameOrNames: string[] | string, supportP
 
           const [attributeName] = context.sourceCode.getText(node.key)
             .trim()
-            .match(/\w/g) ?? ['']; // only select the word
+            .match(/\w+/g) ?? ['']; // only select the word
 
           if (
             node.parent.type === AST_NODE_TYPES.ObjectExpression &&

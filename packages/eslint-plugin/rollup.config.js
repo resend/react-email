@@ -22,7 +22,6 @@ export default defineConfig({
           return 'configs'
         if (id.includes('rules')) {
           const name = basename(id, '.ts');
-          console.log(name)
           return name
         }
       },

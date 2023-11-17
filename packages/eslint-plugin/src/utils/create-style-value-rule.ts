@@ -10,7 +10,7 @@ export const createStyleValueRule = (
   const valueKeywords = Array.isArray(valueKeywordOrKeywords) ? valueKeywordOrKeywords : [valueKeywordOrKeywords];
   const isRuleForMultipleValues = valueKeywords.length > 1;
 
-  const definedMessageOrDefault = message ?? `The CSS ${isRuleForMultipleValues ? 'values' : 'value'} ${valueKeywords.join(', ')} ${isRuleForMultipleValues ? 'are' : 'is'} only supported on ${supportPercentage}% of email clients, see ${caniemailLink}`;
+  const definedMessageOrDefault = message ?? `The CSS ${isRuleForMultipleValues ? 'values' : 'value'} ${valueKeywords.join(', ')} ${isRuleForMultipleValues ? 'are' : 'is'} only supported on ${supportPercentage.toFixed(2)}% of email clients, see ${caniemailLink}`;
 
   return createRule({
     meta: {
