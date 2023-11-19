@@ -14,15 +14,15 @@ for (const { filename, feature } of featuresWithFilename) {
     const cssProperty = basename(filename, '.md').replace('css-', '');
 
     addRule(
-      `import { createStyleRule } from "../utils/create-no-style-property-rule";
+      cssProperty, 
+      `import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createStyleRule(
+export default createNoStylePropertyRule(
   '${cssProperty}', 
   ${supportPercetange * 100}, 
   'https://www.caniemail.com/features/${basename(filename, '.md')}/'
 );
-`, 
-      cssProperty
+`
     );
   }
 }

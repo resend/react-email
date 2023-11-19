@@ -13,7 +13,7 @@ import { camelize } from "./camelize.mjs";
   *
   * @param feature {string} The **kebab-cased** name of the feature that this rule is meant to avoid
   */
-export const addRule = (content, feature) => {
+export const addRule = (feature, content) => {
   const ruleBasename = `no-${feature}`;
   const newRuleFilename = `./src/rules/${ruleBasename}.ts`;
 
