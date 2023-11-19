@@ -745,8 +745,8 @@ importers:
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
       '@types/postcss-css-variables':
-        specifier: ^0.18.2
-        version: 0.18.3
+        specifier: 0.18.2
+        version: 0.18.2
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -2129,8 +2129,8 @@ packages:
     resolution: {integrity: sha512-Nd8y/5t/7CRakPYiyPzr/IAfYusy1FkcZYFEAcoMZkwpJv2n4Wm+olW+e7xBdHEXhOnWdG9ddbar0gqZWS4x5Q==}
     dev: true
 
-  /@types/postcss-css-variables@0.18.3:
-    resolution: {integrity: sha512-E7puBJg4Pxo39BgIRklr1ycHgjiyZ3PrYNKq3cguhPBltASIHMiB4+rTiTGOepBhoIIDTX4g4Y41PRr6cHFx5A==}
+  /@types/postcss-css-variables@0.18.2:
+    resolution: {integrity: sha512-Z9s0m6onst4Gq7MgzoGCMB5K+0icrtjEiVZyhLGsbzYMEmxt8hbPR+CvfCj1HQfBNn5/X2jVl30rWJwYrkivAA==}
     dependencies:
       postcss: 8.4.31
     dev: true
