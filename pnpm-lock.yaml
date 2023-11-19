@@ -275,8 +275,8 @@ importers:
         specifier: 0.0.10
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.12
-        version: 0.0.12(react@18.2.0)
+        specifier: 0.0.13-canary.1
+        version: link:../tailwind
       '@react-email/text':
         specifier: 0.0.6
         version: link:../text
