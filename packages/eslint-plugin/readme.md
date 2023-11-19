@@ -1,7 +1,7 @@
 ![React Email button cover](https://react.email/static/covers/render.png)
 
-<div align="center"><strong>@react-email/render</strong></div>
-<div align="center">Transform React components into HTML email templates.</div>
+<div align="center"><strong>eslint-plugin-react-email</strong></div>
+<div align="center">Lint your react-email templates for the highest standard</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
