@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.12",
+  "version": "0.0.13.canary-1",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -44,9 +44,11 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "postcss": "8.4.31",
+    "postcss-css-variables": "0.19.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tw-to-css": "0.0.12"
+    "tailwindcss": "3.3.2"
   },
   "peerDependencies": {
     "react": "18.2.0"
@@ -54,11 +56,13 @@
   "devDependencies": {
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
-    "@react-email/hr": "workspace:*",
     "@react-email/head": "workspace:*",
+    "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
     "@testing-library/react": "14.0.0",
+    "@types/postcss-css-variables": "^0.18.2",
     "eslint-config-custom": "workspace:*",
+    "eslint-plugin-regex": "1.10.0",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },

@@ -17,52 +17,21 @@ const convertPropertyName = (prop: string) => {
   }
 
   if (modifiedProp.startsWith("-ms-")) {
-    modifiedProp = modifiedProp.substr(1);
+    modifiedProp = modifiedProp.slice(1);
   }
 
   return camelCase(modifiedProp);
 };
 
-const splitDeclarations = (cssText: string) => {
-  const declarations = [];
-  let capturing;
-  let i = cssText.length;
-  let last = i;
-
-  while (i-- > -1) {
-    if ((cssText[i] === '"' || cssText[i] === "'") && cssText[i - 1] !== "\\") {
-      if (!capturing) {
-        capturing = cssText[i];
-      } else if (cssText[i] === capturing) {
-        capturing = false;
-      }
-    }
-    if (!capturing && cssText[i] === ")") {
-      capturing = cssText[i];
-    }
-    if (cssText[i] === "(" && capturing === ")") {
-      capturing = false;
-    }
-    if (i < 0 || (!capturing && cssText[i] === ";")) {
-      declarations.unshift(cssText.slice(i + 1, last));
-      last = i;
+export const cssToJsxStyle = (cssText: string) => {
+  const style: Record<string, string> = {};
+  const declarations = cssText.matchAll(
+    /([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|.*?\([^)]*\)[^;]*|[^;]*);?/gm,
+  );
+  for (const [_declaration, property, value] of declarations) {
+    if (property.length > 0 && value.trim().length > 0) {
+      style[convertPropertyName(property)] = value.trim();
     }
   }
-
-  return declarations;
+  return style;
 };
-
-const splitDeclaration = (declaration: string) => {
-  const i = declaration.indexOf(":");
-  return [declaration.substr(0, i).trim(), declaration.substr(i + 1).trim()];
-};
-
-export const cssToJsxStyle = (cssText: string) =>
-  splitDeclarations(cssText)
-    .map(splitDeclaration)
-    .reduce((styles: Record<string, string>, [name, value]) => {
-      if (name && value) {
-        styles[convertPropertyName(name)] = value;
-      }
-      return styles;
-    }, {});
