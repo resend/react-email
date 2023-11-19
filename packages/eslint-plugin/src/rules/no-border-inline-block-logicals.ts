@@ -1,6 +1,6 @@
-import { createStyleRule } from "../utils/create-style-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createStyleRule(
+export default createNoStylePropertyRule(
   [
     'border-block-color', 
     'border-block-style', 

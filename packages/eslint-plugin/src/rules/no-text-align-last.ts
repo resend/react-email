@@ -1,6 +1,6 @@
-import { createStyleRule } from "../utils/create-style-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createStyleRule(
+export default createNoStylePropertyRule(
   'text-align-last', 
   42.30769230769231, 
   'https://www.caniemail.com/features/css-text-align-last/'

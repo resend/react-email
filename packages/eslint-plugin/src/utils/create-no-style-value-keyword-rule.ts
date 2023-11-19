@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createRule } from "./create-rule";
 
-export const createStyleValueRule = (
+export const createNoStyleValueKeywordRule = (
   valueKeywordOrKeywords: string[] | string, 
   supportPercentage: number, 
   caniemailLink: string, 

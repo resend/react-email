@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES } from "@typescript-eslint/utils";
 import { createRule } from "./create-rule";
 
-export const createStyleRule = (propertyNameOrNames: string[] | string, supportPercentage: number, caniemailLink: string) => {
+export const createNoStylePropertyRule = (propertyNameOrNames: string[] | string, supportPercentage: number, caniemailLink: string) => {
   const propertyNames = Array.isArray(propertyNameOrNames) ? propertyNameOrNames : [propertyNameOrNames];
   const isRuleForMultipleProperties = propertyNames.length > 1;
   return createRule({

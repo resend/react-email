@@ -1,6 +1,6 @@
-import { createStyleRule } from "../utils/create-style-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createStyleRule(
+export default createNoStylePropertyRule(
   ['margin-inline', 'margin-block'], 
   16.9811320754717, 
   'https://www.caniemail.com/features/css-margin-inline-block/'
