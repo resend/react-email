@@ -28,18 +28,6 @@ Here is a small table that can be helpfull to change the generated rule files:
 | no-padding-inline-start-end | add the two properties padding-inline-start and padding-inline-end                  |
 | no-nesting                  | substitute property to be scroll-snap-type                                          |
 | no-scroll-snap              | delete since we are not going to match <style> tags                                 |
-| no-selector-attribute       | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-checked     | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-focus       | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-lang        | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-not         | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-nth-cild    | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-nth-last-child   | delete since we are not going to match <style> tags                            |
-| no-pseudo-class-nth-last-of-type | delete since we are not going to match <style> tags                            |
-| no-pseudo-class-nth-of-type | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-target      | delete since we are not going to match <style> tags                                 |
-| no-pseudo-class-visited     | delete since we are not going to match <style> tags                                 |
-| no-pseudo-element-after     | delete since we are not going to match <style> tags                                 |
-| no-pseudo-element-before    | delete since we are not going to match <style> tags                                 |
-| no-pseudo-element-placeholder | delete since we are not going to match <style> tags                                 |
+| no-at-*                     | delete since we are not going to match <style> tags                                 |
+| no-pseudo-*                 | delete since we are not going to match <style> tags                                 |
 

@@ -1,5 +1,5 @@
 // @ts-check
-import path, { basename } from 'path';
+import { basename } from 'path';
 
 import { getFeaturesDataWithPrefix } from './utils/get-features-data-with-prefix.mjs';
 import { computeFeatureSupportPercentage } from './utils/compute-feature-support-percentage.mjs';
@@ -11,44 +11,44 @@ const featuresWithFilename = getFeaturesDataWithPrefix('html');
 for (const { filename, feature } of featuresWithFilename) {
   const supportPercetange = computeFeatureSupportPercentage(feature);
 
-  if (supportPercetange < 0.85) { // means it does not have great support
-    const featureName = basename(filename, '.md').replace('html-', '');
+  if (supportPercetange < 0.80) { // means it does not have great support
+    const featureNamePrefixed = basename(filename, '.md');
+    const featureName = featureNamePrefixed.replace('html-', '');
     const featurePageTitle = feature.title;
 
     // pretty loose checking for weather the feature is for an HTML attribute
     if (featurePageTitle.toLowerCase().endsWith('attribute')) {
-      addRule(featureName, `import { createNoHTMLAttributeRule } from "../utils/create-no-html-attribute-rule";
+      addRule(featureNamePrefixed, `import { createNoHTMLAttributeRule } from "../utils/create-no-html-attribute-rule";
 
 export default createNoHTMLAttributeRule(
   '${featureName}',
   ${supportPercetange * 100},
-  'https://www.caniemail.com/features/${basename(filename, '.md')}/'
+  'https://www.caniemail.com/features/${featureNamePrefixed}/'
 )`);
     } else {
-      const featureName = basename(filename, '.md').replace('html-', '');
       const featurePageTitle = feature.title;
 
       // pretty loose checking for weather the feature is for an HTML attribute
       if (featurePageTitle.toLowerCase().endsWith('attribute')) {
         addRule(
-          featureName, 
+          featureNamePrefixed, 
           `import { createNoHTMLAttributeRule } from "../utils/create-no-html-attribute-rule";
 
 export default createNoHTMLAttributeRule(
   '${featureName}',
   ${supportPercetange * 100},
-  'https://www.caniemail.com/features/${basename(filename, '.md')}/'
+  'https://www.caniemail.com/features/${featureNamePrefixed}/'
 )`
         );
       } else {
         addRule(
-          featureName, 
+          featureNamePrefixed, 
           `import { createNoHTMLElementRule } from "../utils/create-no-html-element-rule";
 
 export default createNoHTMLElementRule(
   '${featureName}',
   ${supportPercetange * 100},
-  'https://www.caniemail.com/features/${basename(filename, '.md')}/'
+  'https://www.caniemail.com/features/${featureNamePrefixed}/'
 )`
         );
       }
