@@ -1,7 +1,7 @@
 ![React Email button cover](https://react.email/static/covers/render.png)
 
 <div align="center"><strong>eslint-plugin-react-email</strong></div>
-<div align="center">Lint your react-email templates for the highest standard</div>
+<div align="center">Lint your react-email templates for the highest standard and support</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -13,30 +13,124 @@
 
 ## Install
 
-Install component from your command line.
+Install the plugin from your command line
 
 #### With yarn
 
 ```sh
-yarn add @react-email/render -E
+yarn add @react-email/eslint-plugin -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/render -E
+npm install @react-email/eslint-plugin -E
 ```
 
 ## Getting started
 
-Convert React components into a HTML string.
+1. Add 'react-email' on your eslint config's plugins definitions
 
-```jsx
-import { MyTemplate } from "../components/MyTemplate";
-import { render } from "@react-email/render";
+2. Activate the rules for unsupported features as warnings:
 
-const html = render(<MyTemplate firstName="Jim" />);
+```json
+{
+    'react-email/no-abbr': 'warn',
+    'react-email/no-anchor-links': 'warn',
+    'react-email/no-aria-describedby': 'warn',
+    'react-email/no-aria-hidden': 'warn',
+    'react-email/no-aria-label': 'warn',
+    'react-email/no-aria-labelledby': 'warn',
+    'react-email/no-aria-live': 'warn',
+    'react-email/no-audio': 'warn',
+    'react-email/no-background': 'warn',
+    'react-email/no-base': 'warn',
+    'react-email/no-bdi': 'warn',
+    'react-email/no-body': 'warn',
+    'react-email/no-button-reset': 'warn',
+    'react-email/no-button-submit': 'warn',
+    'react-email/no-dfn': 'warn',
+    'react-email/no-dialog': 'warn',
+    'react-email/no-dir': 'warn',
+    'react-email/no-doctype': 'warn',
+    'react-email/no-form': 'warn',
+    'react-email/no-hr': 'warn',
+    'react-email/no-image-maps': 'warn',
+    'react-email/no-input-checkbox': 'warn',
+    'react-email/no-input-hidden': 'warn',
+    'react-email/no-input-radio': 'warn',
+    'react-email/no-input-reset': 'warn',
+    'react-email/no-input-submit': 'warn',
+    'react-email/no-input-text': 'warn',
+    'react-email/no-lang': 'warn',
+    'react-email/no-link': 'warn',
+    'react-email/no-loading-attribute': 'warn',
+    'react-email/no-mailto-links': 'warn',
+    'react-email/no-marquee': 'warn',
+    'react-email/no-meter': 'warn',
+    'react-email/no-object': 'warn',
+    'react-email/no-picture': 'warn',
+    'react-email/no-progress': 'warn',
+    'react-email/no-required': 'warn',
+    'react-email/no-role': 'warn',
+    'react-email/no-rp': 'warn',
+    'react-email/no-rt': 'warn',
+    'react-email/no-ruby': 'warn',
+    'react-email/no-select': 'warn',
+    'react-email/no-semantics': 'warn',
+    'react-email/no-srcset': 'warn',
+    'react-email/no-style': 'warn',
+    'react-email/no-svg': 'warn',
+    'react-email/no-target': 'warn',
+    'react-email/no-textarea': 'warn',
+    'react-email/no-video': 'warn',
+    'react-email/no-wbr': 'warn',
+    'react-email/no-accent-color': 'warn',
+    'react-email/no-animation': 'warn',
+    'react-email/no-aspect-ratio': 'warn',
+    'react-email/no-border-inline-block-logicals': 'warn',
+    'react-email/no-border-inline-block-longhand': 'warn',
+    'react-email/no-border-inline-block': 'warn',
+    'react-email/no-border-radius-logicals': 'warn',
+    'react-email/no-box-shadow': 'warn',
+    'react-email/no-base64-images': 'warn',
+    'react-email/no-clip-path': 'warn',
+    'react-email/no-column-layout-properties': 'warn',
+    'react-email/no-conic-gradient': 'warn',
+    'react-email/no-flex-wrap': 'warn',
+    'react-email/no-function-clamp': 'warn',
+    'react-email/no-function-max': 'warn',
+    'react-email/no-function-min': 'warn',
+    'react-email/no-gap': 'warn',
+    'react-email/no-grid-template': 'warn',
+    'react-email/no-hyphens': 'warn',
+    'react-email/no-important': 'warn',
+    'react-email/no-block-inline-size': 'warn',
+    'react-email/no-intrinsic-size': 'warn',
+    'react-email/no-margin-block-start-end': 'warn',
+    'react-email/no-margin-inline-block': 'warn',
+    'react-email/no-margin-inline-start-end': 'warn',
+    'react-email/no-max-block-size': 'warn',
+    'react-email/no-min-inline-size': 'warn',
+    'react-email/no-modern-color': 'warn',
+    'react-email/no-outline-offset': 'warn',
+    'react-email/no-overflow-wrap': 'warn',
+    'react-email/no-padding-block-start-end': 'warn',
+    'react-email/no-padding-inline-block': 'warn',
+    'react-email/no-padding-inline-start-end': 'warn',
+    'react-email/no-position': 'warn',
+    'react-email/no-scroll-snap': 'warn',
+    'react-email/no-tab-size': 'warn',
+    'react-email/no-text-align-last': 'warn',
+    'react-email/no-text-decoration-thickness': 'warn',
+    'react-email/no-text-emphasis-position': 'warn',
+    'react-email/no-text-emphasis': 'warn',
+    'react-email/no-text-underline-offset': 'warn',
+    'react-email/no-word-break': 'warn',
+}
 ```
+
+Activating or deactivating certain rules as you prefer.
 
 ## License
 
