@@ -22,7 +22,7 @@ export const addRule = (feature, content) => {
   }
 
   writeFileSync(newRuleFilename, content);
-  const camelCasedRule = camelize(feature);
+  const camelCasedRule = `no${camelize(feature)[0].toUpperCase()}${camelize(feature).slice(1)}`;
   const currentIndexContents = readFileSync('./src/rules/index.ts', 'utf-8');
 
   writeFileSync(
