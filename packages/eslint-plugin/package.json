@@ -131,6 +131,7 @@
     "json5": "^2.2.3",
     "jsx-ast-utils": "^3.3.5",
     "parse-md": "^3.0.3",
+    "@typescript-eslint/utils": "^6.11.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -141,7 +142,6 @@
     "@types/js-yaml": "^4.0.9",
     "@types/pretty": "2.0.1",
     "@types/react": "18.2.33",
-    "@typescript-eslint/utils": "^6.11.0",
     "eslint-config-custom": "workspace:*",
     "rollup": "^4.4.1",
     "rollup-plugin-esbuild": "^6.1.0",
