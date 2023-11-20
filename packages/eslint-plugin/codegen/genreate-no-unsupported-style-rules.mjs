@@ -10,7 +10,7 @@ const featuresWithFilename = getFeaturesDataWithPrefix('css');
 for (const { filename, feature } of featuresWithFilename) {
   const supportPercetange = computeFeatureSupportPercentage(feature);
 
-  if (supportPercetange < 0.90) { // means it is mostly unsupported
+  if (supportPercetange < 0.85) { // means it does not have great support
     const cssProperty = basename(filename, '.md').replace('css-', '');
 
     addRule(
