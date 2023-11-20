@@ -127,12 +127,10 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0",
-    "json5": "^2.2.3",
-    "jsx-ast-utils": "^3.3.5",
-    "parse-md": "^3.0.3",
-    "@typescript-eslint/utils": "^6.11.0",
-    "zod": "^3.22.4"
+    "js-yaml": "4.1.0",
+    "parse-md": "3.0.3",
+    "@typescript-eslint/utils": "6.11.0",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
