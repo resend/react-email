@@ -415,6 +415,19 @@ index 6c5a9f0..4647cdf 100644
    51.973684210526315, 
    'https://www.caniemail.com/features/css-column-layout-properties/'
  );
+diff --git a/packages/eslint-plugin/src/rules/generated/no-css-gap.ts b/packages/eslint-plugin/src/rules/generated/no-css-gap.ts
+index c03be2c..eaef6c1 100644
+--- a/packages/eslint-plugin/src/rules/generated/no-css-gap.ts
++++ b/packages/eslint-plugin/src/rules/generated/no-css-gap.ts
+@@ -1,7 +1,7 @@
+ import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
+ 
+ export default createNoStylePropertyRule(
+-  'gap', 
++  ['gap', 'row-gap', 'column-gap'], 
+   48.75, 
+   'https://www.caniemail.com/features/css-gap/'
+ );
 diff --git a/packages/eslint-plugin/src/rules/generated/no-css-display-flex.ts b/packages/eslint-plugin/src/rules/generated/no-css-display-flex.ts
 index ef050a0..d6f0144 100644
 --- a/packages/eslint-plugin/src/rules/generated/no-css-display-flex.ts
