@@ -1,7 +1,7 @@
-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createNoStyleValueKeywordRule(
-  'padding-inline-start-end', 
+export default createNoStylePropertyRule(
+  ['padding-inline-start', 'padding-inline-end'], 
   38.20754716981132, 
   'https://www.caniemail.com/features/css-padding-inline-start-end/'
 );

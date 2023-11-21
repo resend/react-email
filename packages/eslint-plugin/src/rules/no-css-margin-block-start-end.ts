@@ -1,7 +1,7 @@
-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createNoStyleValueKeywordRule(
-  'margin-block-start-end', 
+export default createNoStylePropertyRule(
+  ['margin-block-start', 'margin-block-end'], 
   38.20754716981132, 
   'https://www.caniemail.com/features/css-margin-block-start-end/'
 );

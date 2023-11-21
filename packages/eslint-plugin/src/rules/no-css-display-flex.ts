@@ -1,7 +1,8 @@
-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
 
-export default createNoStyleValueKeywordRule(
-  'display-flex', 
+export default createNoStyleValueForProperty(
+  'flex',
+  'display', 
   67.24137931034483, 
   'https://www.caniemail.com/features/css-display-flex/'
 );

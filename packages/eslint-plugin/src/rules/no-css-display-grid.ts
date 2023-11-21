@@ -1,7 +1,8 @@
-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
 
-export default createNoStyleValueKeywordRule(
-  'display-grid', 
+export default createNoStyleValueForProperty(
+  'grid',
+  'display', 
   54.347826086956516, 
   'https://www.caniemail.com/features/css-display-grid/'
 );

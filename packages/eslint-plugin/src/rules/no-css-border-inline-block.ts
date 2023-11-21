@@ -1,7 +1,7 @@
-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
 
-export default createNoStyleValueKeywordRule(
-  'border-inline-block', 
+export default createNoStylePropertyRule(
+  ['border-inline', 'border-block'], 
   26.5, 
   'https://www.caniemail.com/features/css-border-inline-block/'
 );
