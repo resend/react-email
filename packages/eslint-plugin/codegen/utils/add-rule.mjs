@@ -1,6 +1,7 @@
 // @ts-check
 
-import { existsSync, readFileSync, writeFileSync } from "fs"
+import { readFile, writeFile } from "fs/promises";
+import { existsSync, write } from "fs";
 
 import { camelize } from "./camelize.mjs";
 
@@ -13,20 +14,20 @@ import { camelize } from "./camelize.mjs";
   *
   * @param feature {string} The **kebab-cased** name of the feature that this rule is meant to avoid
   */
-export const addRule = (feature, content) => {
+export const addRule = async (feature, content) => {
   const ruleBasename = `no-${feature}`;
-  const newRuleFilename = `./src/rules/${ruleBasename}.ts`;
+  const newRuleFilename = `./src/rules/generated/${ruleBasename}.ts`;
 
   if (existsSync(newRuleFilename)) {
     console.warn(`WARNING: The file for the ${feature} seems to already exist, overwriting that file now`);
   }
 
-  writeFileSync(newRuleFilename, content);
+  await writeFile(newRuleFilename, content);
   const camelCasedRule = `no${camelize(feature)[0].toUpperCase()}${camelize(feature).slice(1)}`;
-  const currentIndexContents = readFileSync('./src/rules/index.ts', 'utf-8');
+  const currentIndexContents = await readFile('./src/rules/generated/index.ts', 'utf-8');
 
-  writeFileSync(
-    './src/rules/index.ts', 
+  await writeFile(
+    './src/rules/generated/index.ts', 
     `import ${camelCasedRule} from './${ruleBasename}';\n${currentIndexContents}\nexport { ${camelCasedRule} };`
   );
 }

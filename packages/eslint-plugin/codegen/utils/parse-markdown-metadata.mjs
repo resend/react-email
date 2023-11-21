@@ -15,7 +15,7 @@ export const parseMarkdownMetadata = (
     }
 
     return mem;
-  }, []);
+  }, /** @type {number[]} */ ([]));
 
   if (metaIndices.length > 0) {
     const metadata = lines.slice(metaIndices[0] + 1, metaIndices[1]);

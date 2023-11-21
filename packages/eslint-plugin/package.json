@@ -141,6 +141,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup --config=rollup.config.js --configPlugin=rollup-plugin-esbuild",
+    "generate-rules": "node ./codegen/index.mjs && git apply ./codegen/manual-changes.patch",
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",
     "lint": "eslint .",

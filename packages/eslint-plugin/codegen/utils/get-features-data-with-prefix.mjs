@@ -1,8 +1,8 @@
 // @ts-check
 
 import { parseMarkdownMetadata } from './parse-markdown-metadata.mjs';
-import { z } from 'zod'; 
-import { readdirSync, readFileSync } from 'fs';
+import { z } from 'zod';
+import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
 
 export const featureSchema = z.object({
@@ -25,21 +25,26 @@ export const featureSchema = z.object({
   links: z.record(z.string(), z.string()).optional(),
 });
 
-export const getFeaturesDataWithPrefix = (prefix) => {
-  const files = readdirSync('./caniemail/_features', { withFileTypes: true });
+/**
+  * @param prefix {string}
+  */
+export const getFeaturesDataWithPrefix = async (prefix) => {
+  const files = await readdir('./caniemail/_features', { withFileTypes: true });
 
   const cssMarkdownFilenames = files
     .filter(file => file.isFile()
       && file.name.startsWith(`${prefix}-`)
       && file.name.endsWith('.md'))
     .map(file => join(file.path, file.name));
-  const featuresWithFilename = cssMarkdownFilenames
-    .map(filename => ({
-      filename,
-      feature: featureSchema.parse(
-        parseMarkdownMetadata(readFileSync(filename, 'utf-8'))
-      )
-    }));
+  const featuresWithFilename = await Promise.all(
+    cssMarkdownFilenames
+      .map(async filename => ({
+        filename,
+        feature: featureSchema.parse(
+          parseMarkdownMetadata(await readFile(filename, 'utf-8'))
+        )
+      }))
+  );
 
   return featuresWithFilename;
 };
