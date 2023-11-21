@@ -1,0 +1,1233 @@
+diff --git a/packages/eslint-plugin/src/rules/index.ts b/packages/eslint-plugin/src/rules/index.ts
+index 86b0e2a..7012c5a 100644
+--- a/packages/eslint-plugin/src/rules/index.ts
++++ b/packages/eslint-plugin/src/rules/index.ts
+@@ -48,7 +48,6 @@ import noHtmlAbbr from './no-html-abbr';
+ import noCssWritingMode from './no-css-writing-mode';
+ import noCssWordBreak from './no-css-word-break';
+ import noCssVisibility from './no-css-visibility';
+-import noCssVariables from './no-css-variables';
+ import noCssUnitVmin from './no-css-unit-vmin';
+ import noCssUnitVmax from './no-css-unit-vmax';
+ import noCssUnitVh from './no-css-unit-vh';
+@@ -67,41 +66,9 @@ import noCssTextDecorationColor from './no-css-text-decoration-color';
+ import noCssTextAlignLast from './no-css-text-align-last';
+ import noCssTableLayout from './no-css-table-layout';
+ import noCssTabSize from './no-css-tab-size';
+-import noCssSytemUi from './no-css-sytem-ui';
+-import noCssSelectorUniversal from './no-css-selector-universal';
+-import noCssSelectorGeneralSibling from './no-css-selector-general-sibling';
+-import noCssSelectorChild from './no-css-selector-child';
+-import noCssSelectorChaining from './no-css-selector-chaining';
+-import noCssSelectorAttribute from './no-css-selector-attribute';
+-import noCssSelectorAdjacentSibling from './no-css-selector-adjacent-sibling';
+ import noCssScrollSnap from './no-css-scroll-snap';
+ import noCssRgba from './no-css-rgba';
+ import noCssRadialGradient from './no-css-radial-gradient';
+-import noCssPseudoElementPlaceholder from './no-css-pseudo-element-placeholder';
+-import noCssPseudoElementMarker from './no-css-pseudo-element-marker';
+-import noCssPseudoElementFirstLine from './no-css-pseudo-element-first-line';
+-import noCssPseudoElementFirstLetter from './no-css-pseudo-element-first-letter';
+-import noCssPseudoElementBefore from './no-css-pseudo-element-before';
+-import noCssPseudoElementAfter from './no-css-pseudo-element-after';
+-import noCssPseudoClassVisited from './no-css-pseudo-class-visited';
+-import noCssPseudoClassTarget from './no-css-pseudo-class-target';
+-import noCssPseudoClassOnlyOfType from './no-css-pseudo-class-only-of-type';
+-import noCssPseudoClassOnlyChild from './no-css-pseudo-class-only-child';
+-import noCssPseudoClassNthOfType from './no-css-pseudo-class-nth-of-type';
+-import noCssPseudoClassNthLastOfType from './no-css-pseudo-class-nth-last-of-type';
+-import noCssPseudoClassNthLastChild from './no-css-pseudo-class-nth-last-child';
+-import noCssPseudoClassNthChild from './no-css-pseudo-class-nth-child';
+-import noCssPseudoClassNot from './no-css-pseudo-class-not';
+-import noCssPseudoClassLastOfType from './no-css-pseudo-class-last-of-type';
+-import noCssPseudoClassLastChild from './no-css-pseudo-class-last-child';
+-import noCssPseudoClassLang from './no-css-pseudo-class-lang';
+-import noCssPseudoClassHover from './no-css-pseudo-class-hover';
+-import noCssPseudoClassHas from './no-css-pseudo-class-has';
+-import noCssPseudoClassFocus from './no-css-pseudo-class-focus';
+-import noCssPseudoClassFirstOfType from './no-css-pseudo-class-first-of-type';
+-import noCssPseudoClassFirstChild from './no-css-pseudo-class-first-child';
+-import noCssPseudoClassChecked from './no-css-pseudo-class-checked';
+-import noCssPseudoClassActive from './no-css-pseudo-class-active';
+ import noCssPosition from './no-css-position';
+ import noCssPaddingInlineStartEnd from './no-css-padding-inline-start-end';
+ import noCssPaddingInlineBlock from './no-css-padding-inline-block';
+@@ -111,7 +78,6 @@ import noCssOutlineOffset from './no-css-outline-offset';
+ import noCssOpacity from './no-css-opacity';
+ import noCssObjectPosition from './no-css-object-position';
+ import noCssObjectFit from './no-css-object-fit';
+-import noCssNesting from './no-css-nesting';
+ import noCssModernColor from './no-css-modern-color';
+ import noCssMixBlendMode from './no-css-mix-blend-mode';
+ import noCssMinInlineSize from './no-css-min-inline-size';
+@@ -125,7 +91,6 @@ import noCssLinearGradient from './no-css-linear-gradient';
+ import noCssLeftRightTopBottom from './no-css-left-right-top-bottom';
+ import noCssJustifyContent from './no-css-justify-content';
+ import noCssIntrinsicSize from './no-css-intrinsic-size';
+-import noCssInlineSize from './no-css-inline-size';
+ import noCssImportant from './no-css-important';
+ import noCssHyphens from './no-css-hyphens';
+ import noCssGridTemplate from './no-css-grid-template';
+@@ -156,16 +121,6 @@ import noCssBackgroundOrigin from './no-css-background-origin';
+ import noCssBackgroundImage from './no-css-background-image';
+ import noCssBackgroundClip from './no-css-background-clip';
+ import noCssBackgroundBlendMode from './no-css-background-blend-mode';
+-import noCssAtSupports from './no-css-at-supports';
+-import noCssAtMedia from './no-css-at-media';
+-import noCssAtMediaPrefersReducedMotion from './no-css-at-media-prefers-reduced-motion';
+-import noCssAtMediaPrefersColorScheme from './no-css-at-media-prefers-color-scheme';
+-import noCssAtMediaOrientation from './no-css-at-media-orientation';
+-import noCssAtMediaHover from './no-css-at-media-hover';
+-import noCssAtMediaDevicePixelRatio from './no-css-at-media-device-pixel-ratio';
+-import noCssAtKeyframes from './no-css-at-keyframes';
+-import noCssAtImport from './no-css-at-import';
+-import noCssAtFontFace from './no-css-at-font-face';
+ import noCssAspectRatio from './no-css-aspect-ratio';
+ import noCssAnimation from './no-css-animation';
+ import noCssAlignItems from './no-css-align-items';
+@@ -175,16 +130,6 @@ export { noCssAccentColor };
+ export { noCssAlignItems };
+ export { noCssAnimation };
+ export { noCssAspectRatio };
+-export { noCssAtFontFace };
+-export { noCssAtImport };
+-export { noCssAtKeyframes };
+-export { noCssAtMediaDevicePixelRatio };
+-export { noCssAtMediaHover };
+-export { noCssAtMediaOrientation };
+-export { noCssAtMediaPrefersColorScheme };
+-export { noCssAtMediaPrefersReducedMotion };
+-export { noCssAtMedia };
+-export { noCssAtSupports };
+ export { noCssBackgroundBlendMode };
+ export { noCssBackgroundClip };
+ export { noCssBackgroundImage };
+@@ -215,7 +160,6 @@ export { noCssGap };
+ export { noCssGridTemplate };
+ export { noCssHyphens };
+ export { noCssImportant };
+-export { noCssInlineSize };
+ export { noCssIntrinsicSize };
+ export { noCssJustifyContent };
+ export { noCssLeftRightTopBottom };
+@@ -229,7 +173,6 @@ export { noCssMaxBlockSize };
+ export { noCssMinInlineSize };
+ export { noCssMixBlendMode };
+ export { noCssModernColor };
+-export { noCssNesting };
+ export { noCssObjectFit };
+ export { noCssObjectPosition };
+ export { noCssOpacity };
+@@ -239,41 +182,9 @@ export { noCssPaddingBlockStartEnd };
+ export { noCssPaddingInlineBlock };
+ export { noCssPaddingInlineStartEnd };
+ export { noCssPosition };
+-export { noCssPseudoClassActive };
+-export { noCssPseudoClassChecked };
+-export { noCssPseudoClassFirstChild };
+-export { noCssPseudoClassFirstOfType };
+-export { noCssPseudoClassFocus };
+-export { noCssPseudoClassHas };
+-export { noCssPseudoClassHover };
+-export { noCssPseudoClassLang };
+-export { noCssPseudoClassLastChild };
+-export { noCssPseudoClassLastOfType };
+-export { noCssPseudoClassNot };
+-export { noCssPseudoClassNthChild };
+-export { noCssPseudoClassNthLastChild };
+-export { noCssPseudoClassNthLastOfType };
+-export { noCssPseudoClassNthOfType };
+-export { noCssPseudoClassOnlyChild };
+-export { noCssPseudoClassOnlyOfType };
+-export { noCssPseudoClassTarget };
+-export { noCssPseudoClassVisited };
+-export { noCssPseudoElementAfter };
+-export { noCssPseudoElementBefore };
+-export { noCssPseudoElementFirstLetter };
+-export { noCssPseudoElementFirstLine };
+-export { noCssPseudoElementMarker };
+-export { noCssPseudoElementPlaceholder };
+ export { noCssRadialGradient };
+ export { noCssRgba };
+ export { noCssScrollSnap };
+-export { noCssSelectorAdjacentSibling };
+-export { noCssSelectorAttribute };
+-export { noCssSelectorChaining };
+-export { noCssSelectorChild };
+-export { noCssSelectorGeneralSibling };
+-export { noCssSelectorUniversal };
+-export { noCssSytemUi };
+ export { noCssTabSize };
+ export { noCssTableLayout };
+ export { noCssTextAlignLast };
+@@ -292,7 +203,6 @@ export { noCssUnitRem };
+ export { noCssUnitVh };
+ export { noCssUnitVmax };
+ export { noCssUnitVmin };
+-export { noCssVariables };
+ export { noCssVisibility };
+ export { noCssWordBreak };
+ export { noCssWritingMode };
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-font-face.ts b/packages/eslint-plugin/src/rules/no-css-at-font-face.ts
+deleted file mode 100644
+index 7b85a22..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-font-face.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-font-face', 
+-  40.38461538461539, 
+-  'https://www.caniemail.com/features/css-at-font-face/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-import.ts b/packages/eslint-plugin/src/rules/no-css-at-import.ts
+deleted file mode 100644
+index 28e08b9..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-import.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-import', 
+-  36.17021276595745, 
+-  'https://www.caniemail.com/features/css-at-import/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-keyframes.ts b/packages/eslint-plugin/src/rules/no-css-at-keyframes.ts
+deleted file mode 100644
+index 6c96f79..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-keyframes.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-keyframes', 
+-  36.17021276595745, 
+-  'https://www.caniemail.com/features/css-at-keyframes/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media-device-pixel-ratio.ts b/packages/eslint-plugin/src/rules/no-css-at-media-device-pixel-ratio.ts
+deleted file mode 100644
+index b184d1f..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media-device-pixel-ratio.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media-device-pixel-ratio', 
+-  49.01960784313725, 
+-  'https://www.caniemail.com/features/css-at-media-device-pixel-ratio/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media-hover.ts b/packages/eslint-plugin/src/rules/no-css-at-media-hover.ts
+deleted file mode 100644
+index b3227c4..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media-hover.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media-hover', 
+-  35, 
+-  'https://www.caniemail.com/features/css-at-media-hover/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media-orientation.ts b/packages/eslint-plugin/src/rules/no-css-at-media-orientation.ts
+deleted file mode 100644
+index 0fd703e..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media-orientation.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media-orientation', 
+-  56.60377358490566, 
+-  'https://www.caniemail.com/features/css-at-media-orientation/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media-prefers-color-scheme.ts b/packages/eslint-plugin/src/rules/no-css-at-media-prefers-color-scheme.ts
+deleted file mode 100644
+index cf0ab84..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media-prefers-color-scheme.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media-prefers-color-scheme', 
+-  36.708860759493675, 
+-  'https://www.caniemail.com/features/css-at-media-prefers-color-scheme/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media-prefers-reduced-motion.ts b/packages/eslint-plugin/src/rules/no-css-at-media-prefers-reduced-motion.ts
+deleted file mode 100644
+index c61d904..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media-prefers-reduced-motion.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media-prefers-reduced-motion', 
+-  49.01960784313725, 
+-  'https://www.caniemail.com/features/css-at-media-prefers-reduced-motion/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-media.ts b/packages/eslint-plugin/src/rules/no-css-at-media.ts
+deleted file mode 100644
+index ae97ed7..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-media.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-media', 
+-  59.523809523809526, 
+-  'https://www.caniemail.com/features/css-at-media/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-at-supports.ts b/packages/eslint-plugin/src/rules/no-css-at-supports.ts
+deleted file mode 100644
+index 1048ca9..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-at-supports.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'at-supports', 
+-  53.06122448979592, 
+-  'https://www.caniemail.com/features/css-at-supports/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-block-inline-size.ts b/packages/eslint-plugin/src/rules/no-css-block-inline-size.ts
+index be0c9ff..2490a52 100644
+--- a/packages/eslint-plugin/src/rules/no-css-block-inline-size.ts
++++ b/packages/eslint-plugin/src/rules/no-css-block-inline-size.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'block-inline-size', 
++  ['block-size', 'inline-size'], 
+   48.46938775510204, 
+   'https://www.caniemail.com/features/css-block-inline-size/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-border-inline-block-individual.ts b/packages/eslint-plugin/src/rules/no-css-border-inline-block-individual.ts
+index 5984579..a4b56e2 100644
+--- a/packages/eslint-plugin/src/rules/no-css-border-inline-block-individual.ts
++++ b/packages/eslint-plugin/src/rules/no-css-border-inline-block-individual.ts
+@@ -1,7 +1,29 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'border-inline-block-individual', 
++export default createNoStylePropertyRule(
++  [
++    'border-inline-color', 
++    'border-inline-style', 
++    'border-inline-width', 
++    'border-inline-start', 
++    'border-inline-start-color', 
++    'border-inline-start-style', 
++    'border-inline-start-width', 
++    'border-inline-end-color', 
++    'border-inline-end-style', 
++    'border-inline-end-width', 
++
++    'border-block-color', 
++    'border-block-style', 
++    'border-block-width', 
++    'border-block-start', 
++    'border-block-start-color', 
++    'border-block-start-style', 
++    'border-block-start-width', 
++    'border-block-end-color', 
++    'border-block-end-style', 
++    'border-block-end-width', 
++  ], 
+   31.944444444444443, 
+   'https://www.caniemail.com/features/css-border-inline-block-individual/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-border-inline-block-longhand.ts b/packages/eslint-plugin/src/rules/no-css-border-inline-block-longhand.ts
+index ae2c981..efa7cfe 100644
+--- a/packages/eslint-plugin/src/rules/no-css-border-inline-block-longhand.ts
++++ b/packages/eslint-plugin/src/rules/no-css-border-inline-block-longhand.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'border-inline-block-longhand', 
++export default createNoStylePropertyRule(
++  ['border-inline-start', 'border-inline-end', 'border-block-start', 'border-block-end'],
+   39.351851851851855, 
+   'https://www.caniemail.com/features/css-border-inline-block-longhand/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-border-inline-block.ts b/packages/eslint-plugin/src/rules/no-css-border-inline-block.ts
+index d27e532..8c2f3d9 100644
+--- a/packages/eslint-plugin/src/rules/no-css-border-inline-block.ts
++++ b/packages/eslint-plugin/src/rules/no-css-border-inline-block.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'border-inline-block', 
++export default createNoStylePropertyRule(
++  ['border-inline', 'border-block'], 
+   26.5, 
+   'https://www.caniemail.com/features/css-border-inline-block/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-border-radius-logical.ts b/packages/eslint-plugin/src/rules/no-css-border-radius-logical.ts
+index 50fbe53..200605e 100644
+--- a/packages/eslint-plugin/src/rules/no-css-border-radius-logical.ts
++++ b/packages/eslint-plugin/src/rules/no-css-border-radius-logical.ts
+@@ -1,7 +1,16 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'border-radius-logical', 
++  [
++    'border-start-end-radius', 
++    'border-end-end-radius', 
++
++    'border-top-left-radius',
++    'border-top-right-radius',
++
++    'border-bottom-left-radius',
++    'border-bottom-right-radius',
++  ], 
+   14.880952380952381, 
+   'https://www.caniemail.com/features/css-border-radius-logical/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-column-layout-properties.ts b/packages/eslint-plugin/src/rules/no-css-column-layout-properties.ts
+index 6c5a9f0..4647cdf 100644
+--- a/packages/eslint-plugin/src/rules/no-css-column-layout-properties.ts
++++ b/packages/eslint-plugin/src/rules/no-css-column-layout-properties.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'column-layout-properties', 
++export default createNoStylePropertyRule(
++  ['columns', 'column-fill', 'column-rule', 'column-gap', 'column-span'], 
+   51.973684210526315, 
+   'https://www.caniemail.com/features/css-column-layout-properties/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-display-flex.ts b/packages/eslint-plugin/src/rules/no-css-display-flex.ts
+index ef050a0..d6f0144 100644
+--- a/packages/eslint-plugin/src/rules/no-css-display-flex.ts
++++ b/packages/eslint-plugin/src/rules/no-css-display-flex.ts
+@@ -1,7 +1,8 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'display-flex', 
++export default createNoStyleValueForProperty(
++  'flex',
++  'display', 
+   67.24137931034483, 
+   'https://www.caniemail.com/features/css-display-flex/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-display-grid.ts b/packages/eslint-plugin/src/rules/no-css-display-grid.ts
+index 9f9ff4b..64457c6 100644
+--- a/packages/eslint-plugin/src/rules/no-css-display-grid.ts
++++ b/packages/eslint-plugin/src/rules/no-css-display-grid.ts
+@@ -1,7 +1,8 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'display-grid', 
++export default createNoStyleValueForProperty(
++  'grid',
++  'display', 
+   54.347826086956516, 
+   'https://www.caniemail.com/features/css-display-grid/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-flex-direction.ts b/packages/eslint-plugin/src/rules/no-css-flex-direction.ts
+index b43524a..aa11181 100644
+--- a/packages/eslint-plugin/src/rules/no-css-flex-direction.ts
++++ b/packages/eslint-plugin/src/rules/no-css-flex-direction.ts
+@@ -1,6 +1,7 @@
+-import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
++import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
+ 
+-export default createNoStylePropertyRule(
++export default createNoStyleValueForProperty(
++  'column',
+   'flex-direction', 
+   50, 
+   'https://www.caniemail.com/features/css-flex-direction/'
+diff --git a/packages/eslint-plugin/src/rules/no-css-flex-wrap.ts b/packages/eslint-plugin/src/rules/no-css-flex-wrap.ts
+index 997e0fc..eccd6ae 100644
+--- a/packages/eslint-plugin/src/rules/no-css-flex-wrap.ts
++++ b/packages/eslint-plugin/src/rules/no-css-flex-wrap.ts
+@@ -1,6 +1,7 @@
+-import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
++import { createNoStyleValueForProperty } from "../utils/create-no-style-value-for-property";
+ 
+-export default createNoStylePropertyRule(
++export default createNoStyleValueForProperty(
++  'wrap',
+   'flex-wrap', 
+   49.09090909090909, 
+   'https://www.caniemail.com/features/css-flex-wrap/'
+diff --git a/packages/eslint-plugin/src/rules/no-css-function-clamp.ts b/packages/eslint-plugin/src/rules/no-css-function-clamp.ts
+index d52bd96..055d39f 100644
+--- a/packages/eslint-plugin/src/rules/no-css-function-clamp.ts
++++ b/packages/eslint-plugin/src/rules/no-css-function-clamp.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'function-clamp', 
++  'clamp', 
+   42.857142857142854, 
+   'https://www.caniemail.com/features/css-function-clamp/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-function-max.ts b/packages/eslint-plugin/src/rules/no-css-function-max.ts
+index 295aed1..0d3a4f0 100644
+--- a/packages/eslint-plugin/src/rules/no-css-function-max.ts
++++ b/packages/eslint-plugin/src/rules/no-css-function-max.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'function-max', 
++  'max', 
+   48.97959183673469, 
+   'https://www.caniemail.com/features/css-function-max/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-function-min.ts b/packages/eslint-plugin/src/rules/no-css-function-min.ts
+index 9589639..99225e0 100644
+--- a/packages/eslint-plugin/src/rules/no-css-function-min.ts
++++ b/packages/eslint-plugin/src/rules/no-css-function-min.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'function-min', 
++  'min', 
+   48.97959183673469, 
+   'https://www.caniemail.com/features/css-function-min/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-grid-template.ts b/packages/eslint-plugin/src/rules/no-css-grid-template.ts
+index eabb47a..34fea95 100644
+--- a/packages/eslint-plugin/src/rules/no-css-grid-template.ts
++++ b/packages/eslint-plugin/src/rules/no-css-grid-template.ts
+@@ -1,7 +1,7 @@
+ import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+ export default createNoStylePropertyRule(
+-  'grid-template', 
++  ['grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows'], 
+   37.765957446808514, 
+   'https://www.caniemail.com/features/css-grid-template/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-important.ts b/packages/eslint-plugin/src/rules/no-css-important.ts
+index 836d840..3edcdb8 100644
+--- a/packages/eslint-plugin/src/rules/no-css-important.ts
++++ b/packages/eslint-plugin/src/rules/no-css-important.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'important', 
++  '!important', 
+   66.30434782608695, 
+   'https://www.caniemail.com/features/css-important/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-inline-size.ts b/packages/eslint-plugin/src/rules/no-css-inline-size.ts
+deleted file mode 100644
+index 5d479c3..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-inline-size.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+-
+-export default createNoStylePropertyRule(
+-  'inline-size', 
+-  43.47826086956522, 
+-  'https://www.caniemail.com/features/css-inline-size/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-intrinsic-size.ts b/packages/eslint-plugin/src/rules/no-css-intrinsic-size.ts
+index 0e84697..e866454 100644
+--- a/packages/eslint-plugin/src/rules/no-css-intrinsic-size.ts
++++ b/packages/eslint-plugin/src/rules/no-css-intrinsic-size.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'intrinsic-size', 
++  ['fit-content', 'min-content', 'max-content'], 
+   52.702702702702695, 
+   'https://www.caniemail.com/features/css-intrinsic-size/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-left-right-top-bottom.ts b/packages/eslint-plugin/src/rules/no-css-left-right-top-bottom.ts
+index b3811d0..1a4c417 100644
+--- a/packages/eslint-plugin/src/rules/no-css-left-right-top-bottom.ts
++++ b/packages/eslint-plugin/src/rules/no-css-left-right-top-bottom.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'left-right-top-bottom', 
+-  64.13043478260869, 
++  ['left', 'right', 'top', 'bottom'],
++  64.13043478260869,
+   'https://www.caniemail.com/features/css-left-right-top-bottom/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-margin-block-start-end.ts b/packages/eslint-plugin/src/rules/no-css-margin-block-start-end.ts
+index f8834d4..873d222 100644
+--- a/packages/eslint-plugin/src/rules/no-css-margin-block-start-end.ts
++++ b/packages/eslint-plugin/src/rules/no-css-margin-block-start-end.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'margin-block-start-end', 
++export default createNoStylePropertyRule(
++  ['margin-block-start', 'margin-block-end'], 
+   38.20754716981132, 
+   'https://www.caniemail.com/features/css-margin-block-start-end/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-margin-inline-block.ts b/packages/eslint-plugin/src/rules/no-css-margin-inline-block.ts
+index 794948c..eb956a6 100644
+--- a/packages/eslint-plugin/src/rules/no-css-margin-inline-block.ts
++++ b/packages/eslint-plugin/src/rules/no-css-margin-inline-block.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'margin-inline-block', 
++export default createNoStylePropertyRule(
++  ['margin-inline', 'margin-block'], 
+   23.11320754716981, 
+   'https://www.caniemail.com/features/css-margin-inline-block/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-margin-inline-start-end.ts b/packages/eslint-plugin/src/rules/no-css-margin-inline-start-end.ts
+index 76455ed..1746e99 100644
+--- a/packages/eslint-plugin/src/rules/no-css-margin-inline-start-end.ts
++++ b/packages/eslint-plugin/src/rules/no-css-margin-inline-start-end.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'margin-inline-start-end', 
++export default createNoStylePropertyRule(
++  ['margin-inline-start', 'margin-inline-end'],
+   38.20754716981132, 
+   'https://www.caniemail.com/features/css-margin-inline-start-end/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-modern-color.ts b/packages/eslint-plugin/src/rules/no-css-modern-color.ts
+index dafdf5a..3125b6b 100644
+--- a/packages/eslint-plugin/src/rules/no-css-modern-color.ts
++++ b/packages/eslint-plugin/src/rules/no-css-modern-color.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'modern-color', 
++  ['lch', 'oklch', 'lab', 'oklab'], 
+   27.027027027027028, 
+   'https://www.caniemail.com/features/css-modern-color/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-nesting.ts b/packages/eslint-plugin/src/rules/no-css-nesting.ts
+deleted file mode 100644
+index 7ea4d0b..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-nesting.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'nesting', 
+-  19.680851063829788, 
+-  'https://www.caniemail.com/features/css-nesting/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-padding-block-start-end.ts b/packages/eslint-plugin/src/rules/no-css-padding-block-start-end.ts
+index 7df7751..b133294 100644
+--- a/packages/eslint-plugin/src/rules/no-css-padding-block-start-end.ts
++++ b/packages/eslint-plugin/src/rules/no-css-padding-block-start-end.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'padding-block-start-end', 
++export default createNoStylePropertyRule(
++  ['padding-block-start', 'padding-block-end'], 
+   38.20754716981132, 
+   'https://www.caniemail.com/features/css-padding-block-start-end/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-padding-inline-block.ts b/packages/eslint-plugin/src/rules/no-css-padding-inline-block.ts
+index 4ad64aa..3a7440b 100644
+--- a/packages/eslint-plugin/src/rules/no-css-padding-inline-block.ts
++++ b/packages/eslint-plugin/src/rules/no-css-padding-inline-block.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'padding-inline-block', 
++export default createNoStylePropertyRule(
++  ['padding-inline', 'padding-block'], 
+   23.11320754716981, 
+   'https://www.caniemail.com/features/css-padding-inline-block/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-padding-inline-start-end.ts b/packages/eslint-plugin/src/rules/no-css-padding-inline-start-end.ts
+index ab179f8..82fd771 100644
+--- a/packages/eslint-plugin/src/rules/no-css-padding-inline-start-end.ts
++++ b/packages/eslint-plugin/src/rules/no-css-padding-inline-start-end.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'padding-inline-start-end', 
++export default createNoStylePropertyRule(
++  ['padding-inline-start', 'padding-inline-end'], 
+   38.20754716981132, 
+   'https://www.caniemail.com/features/css-padding-inline-start-end/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-active.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-active.ts
+deleted file mode 100644
+index 347b7c7..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-active.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-active', 
+-  53.2608695652174, 
+-  'https://www.caniemail.com/features/css-pseudo-class-active/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-checked.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-checked.ts
+deleted file mode 100644
+index d612609..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-checked.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-checked', 
+-  35.1063829787234, 
+-  'https://www.caniemail.com/features/css-pseudo-class-checked/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-child.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-child.ts
+deleted file mode 100644
+index 1daf0b2..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-first-child', 
+-  67.70833333333334, 
+-  'https://www.caniemail.com/features/css-pseudo-class-first-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-of-type.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-of-type.ts
+deleted file mode 100644
+index da43d35..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-first-of-type.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-first-of-type', 
+-  63.541666666666664, 
+-  'https://www.caniemail.com/features/css-pseudo-class-first-of-type/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-focus.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-focus.ts
+deleted file mode 100644
+index 61e4e99..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-focus.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-focus', 
+-  48.91304347826087, 
+-  'https://www.caniemail.com/features/css-pseudo-class-focus/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-has.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-has.ts
+deleted file mode 100644
+index 2cc957d..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-has.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-has', 
+-  26.5625, 
+-  'https://www.caniemail.com/features/css-pseudo-class-has/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-hover.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-hover.ts
+deleted file mode 100644
+index 177364f..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-hover.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-hover', 
+-  62.5, 
+-  'https://www.caniemail.com/features/css-pseudo-class-hover/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-lang.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-lang.ts
+deleted file mode 100644
+index ee55585..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-lang.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-lang', 
+-  27.7027027027027, 
+-  'https://www.caniemail.com/features/css-pseudo-class-lang/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-child.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-child.ts
+deleted file mode 100644
+index 471651c..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-last-child', 
+-  65.625, 
+-  'https://www.caniemail.com/features/css-pseudo-class-last-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-of-type.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-of-type.ts
+deleted file mode 100644
+index 5771041..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-last-of-type.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-last-of-type', 
+-  61.458333333333336, 
+-  'https://www.caniemail.com/features/css-pseudo-class-last-of-type/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-not.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-not.ts
+deleted file mode 100644
+index d7060cf..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-not.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-not', 
+-  44.89795918367347, 
+-  'https://www.caniemail.com/features/css-pseudo-class-not/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-child.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-child.ts
+deleted file mode 100644
+index 4c4fe8e..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-nth-child', 
+-  45.91836734693878, 
+-  'https://www.caniemail.com/features/css-pseudo-class-nth-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-child.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-child.ts
+deleted file mode 100644
+index 45c3b89..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-nth-last-child', 
+-  45.91836734693878, 
+-  'https://www.caniemail.com/features/css-pseudo-class-nth-last-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-of-type.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-of-type.ts
+deleted file mode 100644
+index d6edc26..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-last-of-type.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-nth-last-of-type', 
+-  43.87755102040816, 
+-  'https://www.caniemail.com/features/css-pseudo-class-nth-last-of-type/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-of-type.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-of-type.ts
+deleted file mode 100644
+index 768236d..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-nth-of-type.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-nth-of-type', 
+-  43.87755102040816, 
+-  'https://www.caniemail.com/features/css-pseudo-class-nth-of-type/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-child.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-child.ts
+deleted file mode 100644
+index c89c6e0..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-only-child', 
+-  65.625, 
+-  'https://www.caniemail.com/features/css-pseudo-class-only-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-of-type.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-of-type.ts
+deleted file mode 100644
+index 56260cf..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-only-of-type.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-only-of-type', 
+-  65.625, 
+-  'https://www.caniemail.com/features/css-pseudo-class-only-of-type/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-target.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-target.ts
+deleted file mode 100644
+index cdc9d59..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-target.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-target', 
+-  40.21739130434783, 
+-  'https://www.caniemail.com/features/css-pseudo-class-target/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-class-visited.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-class-visited.ts
+deleted file mode 100644
+index ada8a47..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-class-visited.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-class-visited', 
+-  40.21739130434783, 
+-  'https://www.caniemail.com/features/css-pseudo-class-visited/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-after.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-after.ts
+deleted file mode 100644
+index f3ff51a..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-after.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-after', 
+-  41, 
+-  'https://www.caniemail.com/features/css-pseudo-element-after/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-before.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-before.ts
+deleted file mode 100644
+index 1562d03..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-before.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-before', 
+-  41, 
+-  'https://www.caniemail.com/features/css-pseudo-element-before/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-letter.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-letter.ts
+deleted file mode 100644
+index 8654e0e..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-letter.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-first-letter', 
+-  61, 
+-  'https://www.caniemail.com/features/css-pseudo-element-first-letter/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-line.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-line.ts
+deleted file mode 100644
+index 2d3e415..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-first-line.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-first-line', 
+-  61, 
+-  'https://www.caniemail.com/features/css-pseudo-element-first-line/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-marker.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-marker.ts
+deleted file mode 100644
+index d5b91c5..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-marker.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-marker', 
+-  50, 
+-  'https://www.caniemail.com/features/css-pseudo-element-marker/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-pseudo-element-placeholder.ts b/packages/eslint-plugin/src/rules/no-css-pseudo-element-placeholder.ts
+deleted file mode 100644
+index ded3dc3..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-pseudo-element-placeholder.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'pseudo-element-placeholder', 
+-  33, 
+-  'https://www.caniemail.com/features/css-pseudo-element-placeholder/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-scroll-snap.ts b/packages/eslint-plugin/src/rules/no-css-scroll-snap.ts
+index f97ca14..8b827e2 100644
+--- a/packages/eslint-plugin/src/rules/no-css-scroll-snap.ts
++++ b/packages/eslint-plugin/src/rules/no-css-scroll-snap.ts
+@@ -1,7 +1,7 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../utils/create-no-style-property-rule";
+ 
+-export default createNoStyleValueKeywordRule(
+-  'scroll-snap', 
++export default createNoStylePropertyRule(
++  'scroll-snap-type', 
+   38.88888888888889, 
+   'https://www.caniemail.com/features/css-scroll-snap/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-adjacent-sibling.ts b/packages/eslint-plugin/src/rules/no-css-selector-adjacent-sibling.ts
+deleted file mode 100644
+index cc1352a..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-adjacent-sibling.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-adjacent-sibling', 
+-  72.91666666666666, 
+-  'https://www.caniemail.com/features/css-selector-adjacent-sibling/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-attribute.ts b/packages/eslint-plugin/src/rules/no-css-selector-attribute.ts
+deleted file mode 100644
+index ba36b52..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-attribute.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-attribute', 
+-  54, 
+-  'https://www.caniemail.com/features/css-selector-attribute/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-chaining.ts b/packages/eslint-plugin/src/rules/no-css-selector-chaining.ts
+deleted file mode 100644
+index baaf803..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-chaining.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-chaining', 
+-  67.70833333333334, 
+-  'https://www.caniemail.com/features/css-selector-chaining/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-child.ts b/packages/eslint-plugin/src/rules/no-css-selector-child.ts
+deleted file mode 100644
+index 4675a8b..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-child.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-child', 
+-  67.70833333333334, 
+-  'https://www.caniemail.com/features/css-selector-child/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-general-sibling.ts b/packages/eslint-plugin/src/rules/no-css-selector-general-sibling.ts
+deleted file mode 100644
+index 6e1b9ac..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-general-sibling.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-general-sibling', 
+-  70.83333333333334, 
+-  'https://www.caniemail.com/features/css-selector-general-sibling/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-selector-universal.ts b/packages/eslint-plugin/src/rules/no-css-selector-universal.ts
+deleted file mode 100644
+index cf68f77..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-selector-universal.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'selector-universal', 
+-  71.875, 
+-  'https://www.caniemail.com/features/css-selector-universal/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-sytem-ui.ts b/packages/eslint-plugin/src/rules/no-css-sytem-ui.ts
+deleted file mode 100644
+index 9f59073..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-sytem-ui.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'sytem-ui', 
+-  73.07692307692307, 
+-  'https://www.caniemail.com/features/css-sytem-ui/'
+-);
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-calc.ts b/packages/eslint-plugin/src/rules/no-css-unit-calc.ts
+index fcbdd75..764d226 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-calc.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-calc.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-calc', 
++  'calc', 
+   58.333333333333336, 
+   'https://www.caniemail.com/features/css-unit-calc/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-ch.ts b/packages/eslint-plugin/src/rules/no-css-unit-ch.ts
+index 908c579..78208c8 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-ch.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-ch.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-ch', 
++  'ch', 
+   66.66666666666666, 
+   'https://www.caniemail.com/features/css-unit-ch/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-initial.ts b/packages/eslint-plugin/src/rules/no-css-unit-initial.ts
+index 2732ea6..5fc07bb 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-initial.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-initial.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-initial', 
++  'initial', 
+   62.5, 
+   'https://www.caniemail.com/features/css-unit-initial/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-rem.ts b/packages/eslint-plugin/src/rules/no-css-unit-rem.ts
+index b63ec04..9010047 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-rem.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-rem.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-rem', 
++  'rem', 
+   66.66666666666666, 
+   'https://www.caniemail.com/features/css-unit-rem/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-vh.ts b/packages/eslint-plugin/src/rules/no-css-unit-vh.ts
+index 2e18e64..474499f 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-vh.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-vh.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-vh', 
++  'vh', 
+   72, 
+   'https://www.caniemail.com/features/css-unit-vh/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-vmax.ts b/packages/eslint-plugin/src/rules/no-css-unit-vmax.ts
+index b31ba51..928e8d0 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-vmax.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-vmax.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-vmax', 
++  'vmax', 
+   64.58333333333334, 
+   'https://www.caniemail.com/features/css-unit-vmax/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-unit-vmin.ts b/packages/eslint-plugin/src/rules/no-css-unit-vmin.ts
+index ff3ece1..4f979ea 100644
+--- a/packages/eslint-plugin/src/rules/no-css-unit-vmin.ts
++++ b/packages/eslint-plugin/src/rules/no-css-unit-vmin.ts
+@@ -1,7 +1,7 @@
+ import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+ 
+ export default createNoStyleValueKeywordRule(
+-  'unit-vmin', 
++  'vmin', 
+   62.5, 
+   'https://www.caniemail.com/features/css-unit-vmin/'
+ );
+diff --git a/packages/eslint-plugin/src/rules/no-css-variables.ts b/packages/eslint-plugin/src/rules/no-css-variables.ts
+deleted file mode 100644
+index 9266d38..0000000
+--- a/packages/eslint-plugin/src/rules/no-css-variables.ts
++++ /dev/null
+@@ -1,7 +0,0 @@
+-import { createNoStyleValueKeywordRule } from "../utils/create-no-style-value-keyword-rule";
+-
+-export default createNoStyleValueKeywordRule(
+-  'variables', 
+-  46.55172413793103, 
+-  'https://www.caniemail.com/features/css-variables/'
+-);
