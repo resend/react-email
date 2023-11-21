@@ -6,7 +6,7 @@ export const createNoHTMLElementRule = (elementName: string, supportPercentage: 
       type: 'suggestion',
       schema: [],
       messages: {
-        'not-supported-on-most-email-clients': `The HTML element ${elementName} is only supported on ${supportPercentage}% of email clients, see ${caniemailLink}`
+        'not-supported-on-most-email-clients': `The HTML element ${elementName} is only supported on ${supportPercentage.toFixed(2)}% of email clients, see ${caniemailLink}`
       },
     },
     create(context) {
