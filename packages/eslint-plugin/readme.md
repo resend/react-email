@@ -38,6 +38,7 @@ npm install @react-email/eslint-plugin -E
 ```json
 plugins: ['@react-email'],
 rules: {
+    "@react-email/no-base64-images": "warn",
     "@react-email/no-html-wbr": "warn",
     "@react-email/no-html-video": "warn",
     "@react-email/no-html-textarea": "warn",
