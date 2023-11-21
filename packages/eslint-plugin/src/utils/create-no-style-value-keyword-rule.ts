@@ -29,7 +29,7 @@ export const createNoStyleValueKeywordRule = (
             node.parent.parent.type === AST_NODE_TYPES.JSXExpressionContainer &&
             node.parent.parent.parent.type === AST_NODE_TYPES.JSXAttribute &&
             context.sourceCode.getText(node.parent.parent.parent.name) === "style" &&
-            valueKeywords.some((keyword) => value.includes(keyword))
+            valueKeywords.some((keyword) => value.match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")))
           ) {
             context.report({
               node,
