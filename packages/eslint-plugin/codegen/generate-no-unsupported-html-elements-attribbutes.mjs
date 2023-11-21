@@ -11,7 +11,7 @@ const featuresWithFilename = getFeaturesDataWithPrefix('html');
 for (const { filename, feature } of featuresWithFilename) {
   const supportPercetange = computeFeatureSupportPercentage(feature);
 
-  if (supportPercetange < 0.80) { // means it does not have great support
+  if (supportPercetange < 0.72) { // means it does not have great support
     const featureNamePrefixed = basename(filename, '.md');
     const featureName = featureNamePrefixed.replace('html-', '');
     const featurePageTitle = feature.title;
