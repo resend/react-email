@@ -1,4 +1,5 @@
-import postcss from "postcss";
+// this is to avoid Server Action problems
+const postcss = require("postcss");
 import tailwindcss from "tailwindcss";
 import type { CorePluginsConfig } from "tailwindcss/types/config";
 import postcssCssVariables from "postcss-css-variables";
@@ -43,5 +44,5 @@ export const getCssForMarkup = (
       `,
     { from: undefined }, // no need to use from since the `content` context is sent into tailwind
   );
-  return result.css;
+  return result.css as string;
 };
