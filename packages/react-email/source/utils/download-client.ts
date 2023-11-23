@@ -12,7 +12,7 @@ export const downloadClient = async () => {
   const downloadRes = await octokit.repos.downloadTarballArchive({
     owner: 'resendlabs',
     repo: 'react-email',
-    ref: 'v0.0.14',
+    ref: 'v0.0.15',
   });
   if (!fs.existsSync(TEMP_DIR)) await fsp.mkdir(TEMP_DIR);
 
