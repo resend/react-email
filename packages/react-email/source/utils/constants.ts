@@ -25,4 +25,7 @@ export const PREVIEW_CLIENT_EMAILS_PATH = path.join(
   DEFAULT_EMAILS_DIRECTORY,
 );
 
-export const PREVIEW_CLIENT_PUBLIC_PATH = path.join(PREVIEW_CLIENT_DIR, 'public');
+export const PREVIEW_CLIENT_PUBLIC_PATH = path.join(
+  PREVIEW_CLIENT_DIR,
+  'public',
+);

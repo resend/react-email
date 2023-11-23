@@ -27,10 +27,7 @@ export const downloadClient = async () => {
     `tar -xzvf ${TAR_PATH} -C ${downloadFolder} --strip-components 1`,
     { silent: true },
   );
-  await fse.move(
-    path.join(downloadFolder, 'client'), 
-    PREVIEW_CLIENT_DIR
-  );
+  await fse.move(path.join(downloadFolder, 'client'), PREVIEW_CLIENT_DIR);
 
   await fse.remove(downloadFolder);
   await fse.remove(TAR_PATH);
