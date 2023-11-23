@@ -15,7 +15,7 @@ Install component from your command line.
 ```sh npm
 npm install @react-email/components -E
 
-# or
+# or get the individual package
 
 npm install @react-email/font -E
 ```
@@ -23,7 +23,7 @@ npm install @react-email/font -E
 ```sh yarn
 yarn add @react-email/components -E
 
-# or
+# or get the individual package
 
 yarn add @react-email/font -E
 ```
@@ -31,7 +31,7 @@ yarn add @react-email/font -E
 ```sh pnpm
 pnpm add @react-email/components -E
 
-# or
+# or get the individual package
 
 pnpm add @react-email/font -E
 ```
@@ -45,9 +45,7 @@ Note, that not all email clients supports web fonts, this is why it is important
 To view all email clients that supports web fonts [see](https://www.caniemail.com/features/css-at-font-face/)
 
 ```jsx
-import { Html } from "@react-email/html";
-import { Head } from "@react-email/head";
-import { Font } from "@react-email/font";
+import { Font, Head, Html } from "@react-email/components";
 
 const Email = () => {
   return (
