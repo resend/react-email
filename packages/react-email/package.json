@@ -28,6 +28,8 @@
     "@commander-js/extra-typings": "9.4.1",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
+    "@pnpm/find-workspace-dir": "6.0.2",
+    "@pnpm/workspace.find-packages": "1.1.3",
     "@react-email/render": "0.0.6",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
