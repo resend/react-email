@@ -27,39 +27,19 @@ Install one of the components from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/button -E
+yarn add @react-email/components -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/button -E
+npm install @react-email/components -E
 ```
 
 #### With pnpm
 
 ```sh
-pnpm install @react-email/button -E
-```
-
-Or install all of them at once.
-
-#### With yarn
-
-```sh
-yarn add @react-email/component -E
-```
-
-#### With npm
-
-```sh
-npm add @react-email/component -E
-```
-
-#### With pnpm
-
-```sh
-pnpm install @react-email/component -E
+pnpm install @react-email/components -E
 ```
 
 ## Getting started

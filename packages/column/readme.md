@@ -34,6 +34,7 @@ Add the component to your email template. Include styles where needed.
 ```jsx
 import { Row } from '@react-email/row';
 import { Column } from '@react-email/column';
+
 const Email = () => {
   return(
     <Row>
