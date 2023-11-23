@@ -1,0 +1,4 @@
+isolate-*.log
+flamegraph.html
+.preview
+.vscpreview
