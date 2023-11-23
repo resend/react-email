@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import shell from 'shelljs';
-import { downloadClient, REACT_EMAIL_ROOT } from '../utils';
+import { downloadClient, PREVIEW_CLIENT_DIR } from '../utils';
 import { setupServer } from '../utils/run-server';
 
 interface BuildPreviewArgs {
@@ -9,7 +9,7 @@ interface BuildPreviewArgs {
 
 export const buildPreview = async ({ dir }: BuildPreviewArgs) => {
   try {
-    if (fs.existsSync(REACT_EMAIL_ROOT)) {
+    if (fs.existsSync(PREVIEW_CLIENT_DIR)) {
       await setupServer('build', dir, '');
       return;
     }
@@ -29,7 +29,7 @@ interface StartPreviewArgs {
 
 export const startPreview = async ({ port }: StartPreviewArgs) => {
   try {
-    if (fs.existsSync(REACT_EMAIL_ROOT)) {
+    if (fs.existsSync(PREVIEW_CLIENT_DIR)) {
       await setupServer('start', '', port);
       return;
     }

@@ -5,8 +5,8 @@ import { watch } from 'chokidar';
 import { cp } from 'shelljs';
 import {
   EVENT_FILE_DELETED,
-  PACKAGE_EMAILS_PATH,
-  REACT_EMAIL_ROOT,
+  PREVIEW_CLIENT_EMAILS_PATH,
+  PREVIEW_CLIENT_DIR,
 } from './constants';
 import { generateEmailsPreview } from './generate-email-preview';
 
@@ -36,11 +36,11 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
 
     if (event === EVENT_FILE_DELETED) {
       if (file[1] === 'static' && file[2]) {
-        fs.rmSync(path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]));
+        fs.rmSync(path.join(PREVIEW_CLIENT_DIR, 'public', 'static', file[2]));
         return;
       }
 
-      fs.rmSync(path.join(REACT_EMAIL_ROOT, filename));
+      fs.rmSync(path.join(PREVIEW_CLIENT_DIR, filename));
       return;
     }
 
@@ -49,11 +49,11 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
       const result = cp(
         '-r',
         srcPath,
-        path.join(REACT_EMAIL_ROOT, 'public', 'static'),
+        path.join(PREVIEW_CLIENT_DIR, 'public', 'static'),
       );
       if (result.code > 0) {
         throw new Error(
-          `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${result.cat()}`,
+          `Something went wrong while copying the file to ${PREVIEW_CLIENT_EMAILS_PATH}, ${result.cat()}`,
         );
       }
       return;

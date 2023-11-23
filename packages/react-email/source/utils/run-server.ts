@@ -13,7 +13,7 @@ import {
   generateEmailsPreview,
   buildProdServer,
   startProdServer,
-  REACT_EMAIL_ROOT,
+  PREVIEW_CLIENT_DIR,
 } from '.';
 
 /**
@@ -54,7 +54,7 @@ export const setupServer = async (
   } else if (type === 'build') {
     buildProdServer(packageManager);
   } else {
-    shell.cd(path.join(REACT_EMAIL_ROOT));
+    shell.cd(path.join(PREVIEW_CLIENT_DIR));
 
     startProdServer(packageManager, port);
   }

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import shell from 'shelljs';
-import { downloadClient, REACT_EMAIL_ROOT } from '../utils';
+import { downloadClient, PREVIEW_CLIENT_DIR } from '../utils';
 import { setupServer } from '../utils/run-server';
 
 interface Args {
@@ -15,7 +15,7 @@ export const dev = async ({ dir, port, skipInstall }: Args) => {
       throw new Error(`Missing ${dir} folder`);
     }
 
-    if (fs.existsSync(REACT_EMAIL_ROOT)) {
+    if (fs.existsSync(PREVIEW_CLIENT_DIR)) {
       await setupServer('dev', dir, port, skipInstall);
       return;
     }

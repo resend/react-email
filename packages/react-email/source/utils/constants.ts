@@ -1,4 +1,5 @@
 import path from 'node:path';
+import os from 'node:os';
 
 // Package variables
 export const DEFAULT_EMAILS_DIRECTORY = 'emails';
@@ -11,15 +12,17 @@ export const CURRENT_PATH = process.cwd();
 export const USER_PACKAGE_JSON = path.join(CURRENT_PATH, 'package.json');
 export const USER_STATIC_FILES = path.join(CURRENT_PATH, 'emails', 'static');
 
+export const TEMP_DIR = path.join(os.tmpdir(), 'react-email');
+
 // React Email paths
-export const REACT_EMAIL_ROOT = path.join(CURRENT_PATH, '.react-email');
+export const PREVIEW_CLIENT_DIR = path.join(TEMP_DIR, 'preview-client');
 
 // Events
 export const EVENT_FILE_DELETED = 'unlink';
 
-export const PACKAGE_EMAILS_PATH = path.join(
-  REACT_EMAIL_ROOT,
+export const PREVIEW_CLIENT_EMAILS_PATH = path.join(
+  PREVIEW_CLIENT_DIR,
   DEFAULT_EMAILS_DIRECTORY,
 );
 
-export const PACKAGE_PUBLIC_PATH = path.join(REACT_EMAIL_ROOT, 'public');
+export const PREVIEW_CLIENT_PUBLIC_PATH = path.join(PREVIEW_CLIENT_DIR, 'public');

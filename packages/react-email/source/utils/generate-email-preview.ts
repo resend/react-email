@@ -7,8 +7,8 @@ import fse from 'fs-extra';
 import { sync } from 'glob';
 import {
   CURRENT_PATH,
-  PACKAGE_EMAILS_PATH,
-  PACKAGE_PUBLIC_PATH,
+  PREVIEW_CLIENT_EMAILS_PATH,
+  PREVIEW_CLIENT_PUBLIC_PATH,
 } from './constants';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
@@ -43,11 +43,11 @@ export const generateEmailsPreview = async (
   }
 };
 
-const packageEmailsPath = osIndependentPath(PACKAGE_EMAILS_PATH);
+const packageEmailsPath = osIndependentPath(PREVIEW_CLIENT_EMAILS_PATH);
 
 const createEmailPreviews = (emailDir: string) => {
-  if (fs.existsSync(PACKAGE_EMAILS_PATH)) {
-    fs.rmSync(PACKAGE_EMAILS_PATH, { recursive: true });
+  if (fs.existsSync(PREVIEW_CLIENT_EMAILS_PATH)) {
+    fs.rmSync(PREVIEW_CLIENT_EMAILS_PATH, { recursive: true });
   }
 
   fs.mkdirSync(packageEmailsPath);
@@ -93,13 +93,13 @@ const createEmailPreviews = (emailDir: string) => {
 };
 
 const createStaticFiles = async () => {
-  const hasPublicDirectory = fs.existsSync(PACKAGE_PUBLIC_PATH);
+  const hasPublicDirectory = fs.existsSync(PREVIEW_CLIENT_PUBLIC_PATH);
 
   if (hasPublicDirectory) {
-    await fs.promises.rm(PACKAGE_PUBLIC_PATH, { recursive: true });
+    await fs.promises.rm(PREVIEW_CLIENT_PUBLIC_PATH, { recursive: true });
   }
 
-  await fse.ensureDir(path.join(PACKAGE_PUBLIC_PATH, 'static'));
+  await fse.ensureDir(path.join(PREVIEW_CLIENT_PUBLIC_PATH, 'static'));
   const userHasStaticDirectory = fs.existsSync(
     path.join(CURRENT_PATH, 'static'),
   );
@@ -108,7 +108,7 @@ const createStaticFiles = async () => {
     const result = shell.cp(
       '-r',
       path.join(CURRENT_PATH, 'static'),
-      path.join(PACKAGE_PUBLIC_PATH),
+      path.join(PREVIEW_CLIENT_PUBLIC_PATH),
     );
 
     if (result.code > 0) {

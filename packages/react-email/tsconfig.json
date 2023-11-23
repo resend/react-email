@@ -3,6 +3,7 @@
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
+    "module": "commonjs",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "outDir": "dist"
