@@ -18,7 +18,6 @@ const mapUserWorkspaceDependencies = async (
       `Sync PKG error: Could not find workspace directory using @pnpm/find-workspace-dir for the CWD of this command call (i.e. "${CURRENT_PATH}")`,
     );
   }
-  console.log(projectRunningPreviewWorkspaceDirectory);
 
   const worksapceDependencies = await findWorkspacePackages(
     projectRunningPreviewWorkspaceDirectory,
