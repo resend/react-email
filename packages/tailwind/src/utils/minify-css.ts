@@ -1,7 +1,8 @@
 export const minifyCss = (css: string): string => {
+  // Thanks tw-to-css!
+  // from https://github.com/vinicoder/tw-to-css/blob/main/src/util/format-css.ts
   return (
     css
-
       // Remove comments
       .replace(/\/\*[\s\S]*?\*\//gm, "")
 
