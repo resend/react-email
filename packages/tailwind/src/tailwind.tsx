@@ -88,6 +88,7 @@ function processElement(
     ...resultingChildren,
   );
 
+  // if this is a component, then we render it and recurse it through processElement
   if (typeof modifiedElement.type === "function") {
     const component = modifiedElement.type as React.FC;
     const renderedComponent = component(modifiedElement.props);
