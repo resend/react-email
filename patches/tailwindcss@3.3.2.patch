@@ -1,0 +1,33 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index fd899dc532aad7a64d72a4150b522fe77893af47..0000000000000000000000000000000000000000
+diff --git a/lib/util/validateConfig.js b/lib/util/validateConfig.js
+index 8624025be3f577a00e041543670c54729d8e16db..6148dec3f5ec0482b138be297014644ff11f707e 100644
+--- a/lib/util/validateConfig.js
++++ b/lib/util/validateConfig.js
+@@ -23,15 +23,15 @@ function validateConfig(config) {
+         ]);
+     }
+     // Warn if the line-clamp plugin is installed
+-    try {
+-        let plugin = require("@tailwindcss/line-clamp");
+-        if (config.plugins.includes(plugin)) {
+-            _log.default.warn("line-clamp-in-core", [
+-                "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
+-                "Remove it from the `plugins` array in your configuration to eliminate this warning."
+-            ]);
+-            config.plugins = config.plugins.filter((p)=>p !== plugin);
+-        }
+-    } catch  {}
++    // try {
++    //     let plugin = require("@tailwindcss/line-clamp");
++    //     if (config.plugins.includes(plugin)) {
++    //         _log.default.warn("line-clamp-in-core", [
++    //             "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
++    //             "Remove it from the `plugins` array in your configuration to eliminate this warning."
++    //         ]);
++    //         config.plugins = config.plugins.filter((p)=>p !== plugin);
++    //     }
++    // } catch  {}
+     return config;
+ }

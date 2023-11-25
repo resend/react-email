@@ -27,7 +27,8 @@
   "packageManager": "pnpm@8.8.0",
   "pnpm": {
     "patchedDependencies": {
-      "postcss-css-variables@0.19.0": "patches/postcss-css-variables@0.19.0.patch"
+      "postcss-css-variables@0.19.0": "patches/postcss-css-variables@0.19.0.patch",
+      "tailwindcss@3.3.2": "patches/tailwindcss@3.3.2.patch"
     }
   }
 }
