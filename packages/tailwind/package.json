@@ -52,9 +52,6 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "tailwindcss": "3.3.2",
-    "postcss-css-variables": "0.19.0",
-
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/head": "workspace:*",
@@ -64,7 +61,10 @@
     "@types/postcss-css-variables": "0.18.2",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
+    "postcss-css-variables": "0.19.0",
+    "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
+    "tsup": "7.2.0",
     "typescript": "5.1.6"
   },
   "publishConfig": {
