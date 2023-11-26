@@ -1,5 +1,6 @@
 import path from 'node:path';
 import os from 'node:os';
+import crypto from 'node:crypto';
 
 // Package variables
 export const DEFAULT_EMAILS_DIRECTORY = 'emails';
@@ -14,8 +15,13 @@ export const USER_STATIC_FILES = path.join(CURRENT_PATH, 'emails', 'static');
 
 export const TEMP_DIR = path.join(os.tmpdir(), 'react-email');
 
+const CURRENT_PATH_HASH = crypto.createHash('sha256').update(CURRENT_PATH).digest('hex');
+
 // React Email paths
-export const PREVIEW_CLIENT_DIR = path.join(TEMP_DIR, 'preview-client');
+export const PREVIEW_CLIENT_DIR = path.join(
+  TEMP_DIR, 
+  `preview-client-${CURRENT_PATH_HASH}`
+);
 
 // Events
 export const EVENT_FILE_DELETED = 'unlink';
