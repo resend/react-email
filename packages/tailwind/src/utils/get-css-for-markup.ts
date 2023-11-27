@@ -2,8 +2,8 @@ import tailwindcss from "tailwindcss";
 import type { CorePluginsConfig } from "tailwindcss/types/config";
 import postcssCssVariables from "postcss-css-variables";
 import type { TailwindConfig } from "../tailwind";
-// this is to avoid Server Action problems
 
+// this is to avoid Server Action problems
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports, @typescript-eslint/no-var-requires
 const postcss = require("postcss") as import("postcss").Postcss;
 
