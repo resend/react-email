@@ -57,8 +57,8 @@ function processElement(
     });
 
     resultingStyle = {
-      ...cssToJsxStyle(styles.join(" ")),
       ...(modifiedElement.props.style as Record<string, string>),
+      ...cssToJsxStyle(styles.join(" ")),
     };
     resultingClassName =
       classNamesToKeep.length > 0 ? classNamesToKeep.join(" ") : undefined;

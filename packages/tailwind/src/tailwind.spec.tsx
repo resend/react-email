@@ -21,7 +21,7 @@ describe("Tailwind component", () => {
     });
   });
 
-  test.only('<Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">', () => {
+  test('<Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">', () => {
     const actualOutput = render(
       <Tailwind>
         <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">
