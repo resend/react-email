@@ -24,11 +24,13 @@ const convertPropertyName = (prop: string) => {
 };
 
 export const getCssDeclarations = (cssText: string) => {
-  return Array.from(cssText.matchAll(
-    /([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|[^;]*?\([^)]*\)[^;]*|[^;(]*);?/gm,
-  )).map(([_declaration, property, value]) => ({
-    property, value: value.replaceAll(/[\r\n|\r|\n]+/g, "")
-      .replaceAll(/\s+/g, " ")
+  return Array.from(
+    cssText.matchAll(
+      /([a-zA-Z0-9\-_]+)\s*:\s*('[^']*'[^;]*|"[^"]*"[^;]*|[^;]*?\([^)]*\)[^;]*|[^;(]*);?/gm,
+    ),
+  ).map(([_declaration, property, value]) => ({
+    property,
+    value: value.replaceAll(/[\r\n|\r|\n]+/g, "").replaceAll(/\s+/g, " "),
   }));
 };
 

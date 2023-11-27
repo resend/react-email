@@ -133,7 +133,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const markupCSS = useRgbNonSpacedSyntax(
     getCssForMarkup(markupWithTailwindClasses, config),
   );
-  
+
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
     (mediaQuery, _className) => {

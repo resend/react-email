@@ -11,44 +11,44 @@ gb(37,99,235); padding-left: 0.75rem; padding-right: 0.75rem; padding-top: 0.5re
   `;
   expect(getCssDeclarations(css)).toEqual([
     {
-      property: 'margin-top',
-      value: '2rem'
+      property: "margin-top",
+      value: "2rem",
     },
     {
-      property: 'border-radius',
-      value: '0.375rem'
+      property: "border-radius",
+      value: "0.375rem",
     },
     {
-      property: 'background-color',
-      value: 'rgb(37,99,235)'
+      property: "background-color",
+      value: "rgb(37,99,235)",
     },
     {
-      property: 'padding-left',
-      value: '0.75rem'
+      property: "padding-left",
+      value: "0.75rem",
     },
     {
-      property: 'padding-right',
-      value: '0.75rem'
+      property: "padding-right",
+      value: "0.75rem",
     },
     {
-      property: 'padding-top',
-      value: '0.5rem'
+      property: "padding-top",
+      value: "0.5rem",
     },
     {
-      property: 'padding-bottom',
-      value: '0.5rem'
+      property: "padding-bottom",
+      value: "0.5rem",
     },
     {
-      property: 'font-size',
-      value: '0.875rem'
+      property: "font-size",
+      value: "0.875rem",
     },
     {
-      property: 'line-height',
-      value: '1.25rem'
+      property: "line-height",
+      value: "1.25rem",
     },
     {
-      property: 'color',
-      value: 'rgb(229,231,235)'
+      property: "color",
+      value: "rgb(229,231,235)",
     },
   ]);
 });
