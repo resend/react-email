@@ -4,6 +4,7 @@ import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
 import { Html } from "@react-email/html";
 import { Head } from "@react-email/head";
+import { Button } from "@react-email/button";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
@@ -18,6 +19,18 @@ describe("Tailwind component", () => {
 
       expect(actualOutput).not.toBeNull();
     });
+  });
+
+  test.only('<Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">', () => {
+    const actualOutput = render(
+      <Tailwind>
+        <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">
+          Testing button
+        </Button>
+      </Tailwind>
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(`"<a style=\\"margin-top:2rem;border-radius:0.375rem;background-color:rgb(37,99,235);padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;font-size:0.875rem;line-height:100%;color:rgb(229,231,235);text-decoration:none;display:inline-block;max-width:100%;padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"`);
   });
 
   it("should work with custom components with fragment at the root", () => {

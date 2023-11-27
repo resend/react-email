@@ -57,8 +57,8 @@ function processElement(
     });
 
     resultingStyle = {
-      ...(modifiedElement.props.style as Record<string, string>),
       ...cssToJsxStyle(styles.join(" ")),
+      ...(modifiedElement.props.style as Record<string, string>),
     };
     resultingClassName =
       classNamesToKeep.length > 0 ? classNamesToKeep.join(" ") : undefined;
@@ -133,7 +133,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const markupCSS = useRgbNonSpacedSyntax(
     getCssForMarkup(markupWithTailwindClasses, config),
   );
-
+  
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
     (mediaQuery, _className) => {
