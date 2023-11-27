@@ -278,7 +278,7 @@ importers:
         specifier: 0.0.10
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.13-canary.3
+        specifier: 0.0.13-canary.4
         version: link:../tailwind
       '@react-email/text':
         specifier: 0.0.6
