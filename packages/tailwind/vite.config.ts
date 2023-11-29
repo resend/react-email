@@ -1,28 +1,28 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
-import dts from 'vite-plugin-dts';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import dts from "vite-plugin-dts";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   plugins: [
-    dts({ include: ['src'], outDir: 'dist' }),
+    dts({ include: ["src"], outDir: "dist" }),
     nodePolyfills({
-      include: ['path', 'fs', 'tty', 'crypto', 'os', 'process'],
+      include: ["path", "fs", "tty", "crypto", "os", "process"],
       overrides: {
-        fs: 'memfs',
-        process: 'process'
-      }
-    })
+        fs: "memfs",
+        process: "process",
+      },
+    }),
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      fileName: 'index',
-      formats: ['es', 'cjs']
+      entry: resolve(__dirname, "src/index.ts"),
+      fileName: "index",
+      formats: ["es", "cjs"],
     },
-    outDir: 'dist'
+    outDir: "dist",
   },
   optimizeDeps: {
-    include: ["postcss-css-variables"]
-  }
+    include: ["postcss-css-variables"],
+  },
 });
