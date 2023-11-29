@@ -8,9 +8,6 @@ export default defineConfig({
     dts({ include: ["src"], outDir: "dist" }),
     nodePolyfills({
       include: ["path", "fs", "tty", "crypto", "os", "process"],
-      globals: {
-        process: 'dev'
-      },
       overrides: {
         fs: "memfs",
         process: "process",
