@@ -9,6 +9,7 @@ import { getCssForMarkup } from "./utils/get-css-for-markup";
 import { minifyCss } from "./utils/minify-css";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 import { escapeClassName } from "./utils/escape-class-name";
+import { useRgbNonSpacedSyntax } from "./utils/use-rgb-non-spaced-syntax";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -88,6 +89,7 @@ function processElement(
     ...resultingChildren,
   );
 
+  // if this is a component, then we render it and recurse it through processElement
   if (typeof modifiedElement.type === "function") {
     const component = modifiedElement.type as React.FC;
     const renderedComponent = component(modifiedElement.props);
@@ -128,7 +130,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   let headStyles: string[] = [];
 
   const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
-  const markupCSS = getCssForMarkup(markupWithTailwindClasses, config);
+  const markupCSS = useRgbNonSpacedSyntax(
+    getCssForMarkup(markupWithTailwindClasses, config),
+  );
 
   const nonMediaQueryCSS = markupCSS.replaceAll(
     /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,

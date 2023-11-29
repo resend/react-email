@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.13-canary.1",
+  "version": "0.0.13-canary.4",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -23,9 +23,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build": "tsup src/index.ts  --config tsup.config.ts",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "dev": "pnpm build --watch",
     "lint": "eslint .",
     "test:watch": "vitest",
     "test": "vitest run"
@@ -45,10 +45,8 @@
   },
   "dependencies": {
     "postcss": "8.4.31",
-    "postcss-css-variables": "0.19.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2"
+    "react-dom": "18.2.0"
   },
   "peerDependencies": {
     "react": "18.2.0"
@@ -56,6 +54,7 @@
   "devDependencies": {
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
+    "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
@@ -63,7 +62,10 @@
     "@types/postcss-css-variables": "0.18.2",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
+    "postcss-css-variables": "0.19.0",
+    "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
+    "tsup": "7.2.0",
     "typescript": "5.1.6"
   },
   "publishConfig": {

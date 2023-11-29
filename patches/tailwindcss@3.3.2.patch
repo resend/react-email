@@ -1,0 +1,75 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index fd899dc532aad7a64d72a4150b522fe77893af47..0000000000000000000000000000000000000000
+diff --git a/lib/cli/build/deps.js b/lib/cli/build/deps.js
+deleted file mode 100644
+index 1aa8116365aaaea5697382c8cabef9f17486a24b..0000000000000000000000000000000000000000
+diff --git a/lib/cli/build/index.js b/lib/cli/build/index.js
+deleted file mode 100644
+index 60304f69673670c1828dc0816986bb11cabd5f23..0000000000000000000000000000000000000000
+diff --git a/lib/cli/build/plugin.js b/lib/cli/build/plugin.js
+deleted file mode 100644
+index d36ac019cd17744028fc5d96465880cfb42a44c6..0000000000000000000000000000000000000000
+diff --git a/lib/cli/build/utils.js b/lib/cli/build/utils.js
+deleted file mode 100644
+index 3bed06041d7abf44044256b5fc2a807b8205587f..0000000000000000000000000000000000000000
+diff --git a/lib/cli/build/watching.js b/lib/cli/build/watching.js
+deleted file mode 100644
+index 0c2ef7689a5c8a7359ed2e2167f8a90fb606665f..0000000000000000000000000000000000000000
+diff --git a/lib/cli/help/index.js b/lib/cli/help/index.js
+deleted file mode 100644
+index 030997fab28d0f2b570f43898f1fd9c74b7486a9..0000000000000000000000000000000000000000
+diff --git a/lib/cli/index.js b/lib/cli/index.js
+deleted file mode 100644
+index e6e2e27c78fea167c19fcdada6a2e8d4065e27ca..0000000000000000000000000000000000000000
+diff --git a/lib/cli/init/index.js b/lib/cli/init/index.js
+deleted file mode 100644
+index 47caf30abcbd11043b2f8f1f36893e5e51271552..0000000000000000000000000000000000000000
+diff --git a/lib/util/validateConfig.js b/lib/util/validateConfig.js
+index 8624025be3f577a00e041543670c54729d8e16db..6148dec3f5ec0482b138be297014644ff11f707e 100644
+--- a/lib/util/validateConfig.js
++++ b/lib/util/validateConfig.js
+@@ -23,15 +23,15 @@ function validateConfig(config) {
+         ]);
+     }
+     // Warn if the line-clamp plugin is installed
+-    try {
+-        let plugin = require("@tailwindcss/line-clamp");
+-        if (config.plugins.includes(plugin)) {
+-            _log.default.warn("line-clamp-in-core", [
+-                "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
+-                "Remove it from the `plugins` array in your configuration to eliminate this warning."
+-            ]);
+-            config.plugins = config.plugins.filter((p)=>p !== plugin);
+-        }
+-    } catch  {}
++    // try {
++    //     let plugin = require("@tailwindcss/line-clamp");
++    //     if (config.plugins.includes(plugin)) {
++    //         _log.default.warn("line-clamp-in-core", [
++    //             "As of Tailwind CSS v3.3, the `@tailwindcss/line-clamp` plugin is now included by default.",
++    //             "Remove it from the `plugins` array in your configuration to eliminate this warning."
++    //         ]);
++    //         config.plugins = config.plugins.filter((p)=>p !== plugin);
++    //     }
++    // } catch  {}
+     return config;
+ }
+diff --git a/scripts/create-plugin-list.js b/scripts/create-plugin-list.js
+deleted file mode 100644
+index f38cf5036e39cd1b3da8f846b35b844c9d87a4fc..0000000000000000000000000000000000000000
+diff --git a/scripts/generate-types.js b/scripts/generate-types.js
+deleted file mode 100644
+index d3e0d303eefc05d592ac7c2b2332b48388474f0f..0000000000000000000000000000000000000000
+diff --git a/scripts/release-channel.js b/scripts/release-channel.js
+deleted file mode 100644
+index 0c827f3fda8c55e90ed6267c633c8c6bd8ab1a21..0000000000000000000000000000000000000000
+diff --git a/scripts/release-notes.js b/scripts/release-notes.js
+deleted file mode 100644
+index bd29e952d889f72860faa9c744a0b90d59688140..0000000000000000000000000000000000000000
+diff --git a/scripts/swap-engines.js b/scripts/swap-engines.js
+deleted file mode 100644
+index ef8308aeb8515bb27f7b6c22f9821d1d9eaee905..0000000000000000000000000000000000000000
+diff --git a/scripts/type-utils.js b/scripts/type-utils.js
+deleted file mode 100644
+index d9d0e6133c7644d4ad29f1708ee34c15b0811694..0000000000000000000000000000000000000000
