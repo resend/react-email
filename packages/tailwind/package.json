@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.13-dev.user-build-problems.0",
+  "version": "0.0.13-dev.user-build-problems.1",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -68,7 +68,6 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "util": "^0.12.5",
     "vite": "4.0.0",
     "vite-plugin-dts": "^3.6.3",
     "vite-plugin-node-polyfills": "^0.17.0"

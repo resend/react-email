@@ -15,14 +15,14 @@ export default defineConfig({
     }),
   ],
   build: {
+    rollupOptions: {
+      external: ['react', 'react-dom', 'postcss']
+    },
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       fileName: "index",
       formats: ["es", "cjs"],
     },
     outDir: "dist",
-  },
-  optimizeDeps: {
-    include: ["postcss-css-variables"],
-  },
+  }
 });

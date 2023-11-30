@@ -774,9 +774,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-      util:
-        specifier: ^0.12.5
-        version: 0.12.5
       vite:
         specifier: 4.0.0
         version: 4.0.0(@types/node@18.18.0)
