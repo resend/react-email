@@ -1,10 +1,12 @@
 import * as ReactDomServer from "react-dom/server";
+import type { HtmlToTextOptions } from "html-to-text";
 import { convert } from "html-to-text";
 import { pretty } from "./utils/pretty";
 
 export interface Options {
   pretty?: boolean;
   plainText?: boolean;
+  htmlToTextOptions?: HtmlToTextOptions;
 }
 
 export const render = (component: React.ReactElement, options?: Options) => {
@@ -25,7 +27,7 @@ export const render = (component: React.ReactElement, options?: Options) => {
 
 const renderAsPlainText = (
   component: React.ReactElement,
-  _options?: Options,
+  options?: Options,
 ) => {
   return convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: [
@@ -36,5 +38,6 @@ const renderAsPlainText = (
         options: { linkBrackets: false },
       },
     ],
+    ...options?.htmlToTextOptions,
   });
 };
