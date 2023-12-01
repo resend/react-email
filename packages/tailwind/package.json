@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.13-canary.4",
+  "version": "0.0.13-canary.5",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -23,12 +23,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts  --config tsup.config.ts",
+    "build": "tsc && vite build",
     "clean": "rm -rf dist",
-    "dev": "pnpm build --watch",
     "lint": "eslint .",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test:watch": "vitest --config ../../vitest.config.ts",
+    "test": "vitest run --config ../../vitest.config.ts"
   },
   "repository": {
     "type": "git",
@@ -44,7 +43,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -62,11 +60,17 @@
     "@types/postcss-css-variables": "0.18.2",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
+    "memfs": "4.6.0",
+    "postcss": "8.4.31",
     "postcss-css-variables": "0.19.0",
+    "process": "^0.11.10",
     "tailwindcss": "3.3.2",
-    "tsconfig": "workspace:*",
     "tsup": "7.2.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "tsconfig": "workspace:*",
+    "vite": "4.0.0",
+    "vite-plugin-dts": "3.6.3",
+    "vite-plugin-node-polyfills": "0.17.0"
   },
   "publishConfig": {
     "access": "public"

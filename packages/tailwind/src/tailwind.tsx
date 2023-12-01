@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
-import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCssForMarkup } from "./utils/get-css-for-markup";
 import { minifyCss } from "./utils/minify-css";
