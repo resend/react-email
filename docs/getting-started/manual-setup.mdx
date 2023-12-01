@@ -25,15 +25,15 @@ Install the React Email package locally and a few components.
 <CodeGroup>
 
 ```sh npm
-npm install react-email @react-email/button @react-email/html -E
+npm install react-email @react-email/components -E
 ```
 
 ```sh yarn
-yarn add react-email @react-email/button @react-email/html -E
+yarn add react-email @react-email/components -E
 ```
 
 ```sh pnpm
-pnpm add react-email @react-email/button @react-email/html -E
+pnpm add react-email @react-email/components -E
 ```
 
 </CodeGroup>
@@ -55,8 +55,7 @@ Include the following script in your `package.json` file.
 Create a new folder called `emails`, create a file inside called `index.tsx`, and add the following code:
 
 ```jsx index.tsx
-import { Button } from "@react-email/button";
-import { Html } from "@react-email/html";
+import { Button, Html } from "@react-email/components";
 import * as React from "react";
 
 export default function Email() {
@@ -99,4 +98,4 @@ Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to s
 
 ## 7. Next steps
 
-<NextSteps />
+<Snippet file="next-steps.mdx" />
