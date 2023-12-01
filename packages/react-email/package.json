@@ -7,7 +7,7 @@
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p ./tsconfig.json",
     "clean": "rm -rf dist",
     "lint": "eslint ."
   },
@@ -40,7 +40,7 @@
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
-    "tree-node-cli": "1.6.0"
+    "tree-cli": "0.6.7"
   },
   "devDependencies": {
     "@types/fs-extra": "11.0.1",

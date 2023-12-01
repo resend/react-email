@@ -10,7 +10,7 @@
     "fs-extra": "11.1.1",
     "log-symbols": "5.1.0",
     "ora": "6.1.2",
-    "tree-node-cli": "1.6.0"
+    "tree-cli": "0.6.7"
   },
   "repository": {
     "type": "git",

@@ -27,19 +27,19 @@ Install one of the components from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/button -E
+yarn add @react-email/components -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/button -E
+npm install @react-email/components -E
 ```
 
 #### With pnpm
 
 ```sh
-pnpm install @react-email/button -E
+pnpm install @react-email/components -E
 ```
 
 ## Getting started
@@ -47,7 +47,7 @@ pnpm install @react-email/button -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Button } from "@react-email/button";
+import { Button } from "@react-email/components";
 
 const Email = () => {
   return (

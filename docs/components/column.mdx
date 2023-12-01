@@ -1,9 +1,9 @@
 ---
-title: 'Column'
-sidebarTitle: 'Column'
-description: 'Display a column that separates content areas vertically in your email. A column needs to be used in combination with a Row component.'
-'og:image': 'https://react.email/static/covers/column.png'
-icon: 'columns-3'
+title: "Column"
+sidebarTitle: "Column"
+description: "Display a column that separates content areas vertically in your email. A column needs to be used in combination with a Row component."
+"og:image": "https://react.email/static/covers/column.png"
+icon: "columns-3"
 ---
 
 ## Install
@@ -13,14 +13,26 @@ Install component from your command line.
 <CodeGroup>
 
 ```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
 npm install @react-email/column -E
 ```
 
 ```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
 yarn add @react-email/column -E
 ```
 
 ```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
 pnpm add @react-email/column -E
 ```
 
@@ -31,8 +43,7 @@ pnpm add @react-email/column -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Row } from '@react-email/row';
-import { Column } from '@react-email/column';
+import { Column, Row } from "@react-email/components";
 
 const Email = () => {
   return (
