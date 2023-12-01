@@ -1,6 +1,6 @@
 {
   "name": "@react-email/heading",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A block of heading text",
   "sideEffects": false,
   "main": "./dist/index.js",
