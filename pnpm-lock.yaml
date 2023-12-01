@@ -751,7 +751,7 @@ importers:
         specifier: 1.10.0
         version: 1.10.0(eslint@8.50.0)
       memfs:
-        specifier: ^4.6.0
+        specifier: 4.6.0
         version: 4.6.0(quill-delta@5.1.0)(rxjs@7.8.1)(tslib@2.6.2)
       postcss:
         specifier: 8.4.31
@@ -778,10 +778,10 @@ importers:
         specifier: 4.0.0
         version: 4.0.0(@types/node@18.18.0)
       vite-plugin-dts:
-        specifier: ^3.6.3
+        specifier: 3.6.3
         version: 3.6.3(@types/node@18.18.0)(typescript@5.1.6)(vite@4.0.0)
       vite-plugin-node-polyfills:
-        specifier: ^0.17.0
+        specifier: 0.17.0
         version: 0.17.0(vite@4.0.0)
 
   packages/text:
