@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     dts({ include: ["src"], outDir: "dist" }),
     nodePolyfills({
-      include: ["path", "tty" , "fs", "crypto", "process", "os"],
+      include: ["path", "tty", "fs", "crypto", "process", "os"],
       overrides: {
         fs: "memfs",
         process: "process",
@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom', /react-dom\/.*/],
+      external: ["react", "react-dom", /react-dom\/.*/],
     },
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -24,5 +24,5 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     outDir: "dist",
-  }
+  },
 });
