@@ -68,6 +68,7 @@
         "components/image",
         "components/link",
         "components/markdown",
+        "components/code-block",
         "components/preview",
         "components/section",
         "components/tailwind",
