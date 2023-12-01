@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.13-dev.user-build-problems.5",
+  "version": "0.0.13-canary.5",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.mts",
+        "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
       },
       "require": {
