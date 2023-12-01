@@ -8,12 +8,130 @@ icon: "list-check"
 
 ## Dec 01, 2023
 
+**react-email `1.10.0`**
+
+- Use `tree-cli` instead of `tree-node-cli` which fixes problems with using it
+behind a corporate proxy
+- Fix problems with `jsx: 'preserve'` when trying to export emails by using a
+specific tsconfig for bundling the code for the emails before rendering
+- Improve error messages to avoid shallow feedback to users
+
+**create-email `0.0.19`**
+
+- Use `tree-cli` instead of `tree-node-cli` which fixes problems with
+using it behind a corporate proxy
+- Update `react-email` on the automatic setup to the latest
+
+**Tailwind `0.0.13`**
+
+The migration for this new version should be smooth sailing overall,
+the only things to consider is that if you are using media query tailwind
+styles you will need to move the Tailwind component directly above the head
+element or Head component.
+
+- Massive performance improvements
+- Fix media queries not being loaded properly
+- Fix Safari problems due to lookbehind expressions on regexes
+- Make the Head obligatorily a direct element to Tailwind instead of HTml
+followed by Head
+- Fixed component not working with custom components that did not have
+children
+
 **Code-block `0.0.1`**
 
 - Add code-block component
 - Use modified version of [prismjs](https://prismjs.com/)
 - Default themes from [prismjs
 themes](https://github.com/PrismJS/prism-themes) exported [here](https://github.com/resendlabs/react-email/blob/canary/packages/code-block/src/themes.ts)
+
+**Components `0.0.13`**
+
+- Fix esm type exports
+- Update `@react-email/body` to `v0.0.7`
+- Update `@react-email/button` to `v0.0.13`
+- update `@react-email/column` to `v0.0.9`
+- update `@react-email/container` to `v0.0.11`
+- update `@react-email/font` to `v0.0.5`
+- update `@react-email/head` to `v0.0.7`
+- update `@react-email/heading` to `v0.0.11`
+- update `@react-email/hr` to `v0.0.7`
+- update `@react-email/html` to `v0.0.7`
+- update `@react-email/img` to `v0.0.7`
+- update `@react-email/link` to `v0.0.7`
+- update `@react-email/preview` to `v0.0.8`
+- update `@react-email/render` to `v0.0.10`
+- update `@react-email/row` to `v0.0.7`
+- update `@react-email/section` to `v0.0.11`
+- Update `@react-email/tailwind` to `v0.0.13`
+- update `@react-email/text` to `v0.0.7`
+
+**Body `0.0.7`**
+
+- Fix esm type exports
+
+**Button `0.0.13`**
+
+- Fix esm type exports
+
+**Column `0.0.9`**
+
+- Fix esm type exports
+
+**Container `0.0.11`**
+
+- Fix esm type exports
+
+**Font `0.0.5`**
+
+- Fix esm type exports
+
+**Font `0.0.5`**
+
+- Fix esm type exports
+
+**Head `0.0.7`**
+
+- Fix esm type exports
+
+**Heading `0.0.11`**
+
+- Fix esm type exports
+
+**Hr `0.0.7`**
+
+- Fix esm type exports
+
+**Html `0.0.7`**
+
+- Fix esm type exports
+
+**Img `0.0.7`**
+
+- Fix esm type exports
+
+**Link `0.0.7`**
+
+- Fix esm type exports
+
+**Markdown `0.0.8`**
+
+- Fix esm type exports
+
+**Preview `0.0.8`**
+
+- Fix esm type exports
+
+**Render `0.0.10`**
+
+- Fix esm type exports
+
+**Row `0.0.7`**
+
+- Fix esm type exports
+
+**Section `0.0.11`**
+
+- Fix esm type exports
 
 ## Nov 01, 2023
 
