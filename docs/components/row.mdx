@@ -13,14 +13,26 @@ Install component from your command line.
 <CodeGroup>
 
 ```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
 npm install @react-email/row -E
 ```
 
 ```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
 yarn add @react-email/row -E
 ```
 
 ```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
 pnpm add @react-email/row -E
 ```
 
@@ -31,9 +43,7 @@ pnpm add @react-email/row -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Section } from "@react-email/section";
-import { Row } from "@react-email/row";
-import { Column } from "@react-email/column";
+import { Row, Column, Section } from "@react-email/components";
 
 const Email = () => {
   return (

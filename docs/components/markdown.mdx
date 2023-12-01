@@ -2,6 +2,7 @@
 title: "Markdown"
 sidebarTitle: "Markdown"
 description: "A Markdown component that converts markdown to valid react-email template code"
+"og:image": "https://react.email/static/covers/markdown.png"
 icon: "file-code"
 ---
 
@@ -12,14 +13,26 @@ Install component from your command line.
 <CodeGroup>
 
 ```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
 npm install @react-email/markdown -E
 ```
 
 ```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
 yarn add @react-email/markdown -E
 ```
 
 ```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
 pnpm add @react-email/markdown -E
 ```
 
@@ -30,8 +43,7 @@ pnpm add @react-email/markdown -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Markdown } from "@react-email/markdown";
-import { Html } from "@react-email/html";
+import { Markdown, Html } from "@react-email/components";
 
 const Email = () => {
   return (
