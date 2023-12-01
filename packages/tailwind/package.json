@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.13-dev.user-build-problems.3",
+  "version": "0.0.13-dev.user-build-problems.5",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -43,8 +43,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "postcss": "8.4.31",
-    "tailwindcss": "3.3.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -52,6 +50,8 @@
     "react": "18.2.0"
   },
   "devDependencies": {
+    "postcss": "8.4.31",
+    "tailwindcss": "3.3.2",
     "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
     "@react-email/button": "workspace:^",
