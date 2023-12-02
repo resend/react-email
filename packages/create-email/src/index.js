@@ -28,8 +28,8 @@ const init = async (name) => {
   fse.copySync(templatePath, resolvedProjectPath, { recursive: true });
 
   const { report } = await treeCli({
-    l: depth,
-    base: dir
+    l: 4,
+    base: projectPath
   });
 
   console.log(report);
@@ -42,7 +42,7 @@ const init = async (name) => {
 
 new Command()
   .name("create-email")
-  .version("0.0.16")
+  .version("0.0.19")
   .description("The easiest way to get started with React Email")
   .arguments("[dir]", "path to initialize the project")
   .action(init)
