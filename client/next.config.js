@@ -8,7 +8,7 @@ const nextConfig = {
      '@react-email/render',
      '@react-email/tailwind'
     ],
-    // externalDir: true // compile files that are located next to the .react-email directory
+    externalDir: true // compile files that are located next to the .react-email directory
   },
 };
 
