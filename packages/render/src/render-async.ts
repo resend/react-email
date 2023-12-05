@@ -30,19 +30,19 @@ export const renderAsync = async (
   },
 ) => {
   const reactDOMServer = (await import("react-dom/server")).default;
-  const renderToStream =
+  const renderToStreamOrString =
     reactDOMServer.renderToReadableStream ||
-    reactDOMServer.renderToString ||
-    reactDOMServer.renderToPipeableStream;
+    reactDOMServer.renderToPipeableStream ||
+    reactDOMServer.renderToStaticMarkup;
 
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const readableStream = await renderToStream(component);
+  const htmlOrReadableStream = await renderToStreamOrString(component);
   const html =
-    typeof readableStream === "string"
-      ? readableStream
-      : await readStream(readableStream);
+    typeof htmlOrReadableStream === "string"
+      ? htmlOrReadableStream
+      : await readStream(htmlOrReadableStream);
 
   if (options?.plainText) {
     return convert(html, {
