@@ -44,14 +44,14 @@
   },
   "dependencies": {
     "html-to-text": "9.0.5",
-    "pretty": "2.0.0",
+    "js-beautify": "^1.14.11",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
     "@types/html-to-text": "9.0.1",
-    "@types/pretty": "2.0.1",
+    "@types/js-beautify": "^1.14.3",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
