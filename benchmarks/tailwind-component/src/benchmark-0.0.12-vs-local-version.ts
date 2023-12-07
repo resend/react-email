@@ -24,7 +24,7 @@ const main = async () => {
 };
 
 main()
-  .then(async (bench) => {
+  .then((bench) => {
     writeFileSync(
       "bench-results-100-iterations.json",
       JSON.stringify(bench.results),

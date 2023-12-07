@@ -26,7 +26,7 @@ The `emails` folder contains examples to be used across different benchmarks.
 ## Running benchmarks
 
 To avoid ESM problems, these benchmarks need to be compiled using `tsup`,
-which can be done by running `pnpm compile`, and then using `node` directly. 
+which can be done by running `pnpm compile`, and then using `node` directly.
 Something like the following if you want to run the `with-vs-without` benchmark:
 
 ```sh
