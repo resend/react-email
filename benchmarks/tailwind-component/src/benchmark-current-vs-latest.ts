@@ -5,7 +5,9 @@ import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
 import { Tailwind as LatestTailwind } from "@react-email/tailwind";
 
 const main = async () => {
-  const bench = new Bench();
+  const bench = new Bench({
+    iterations: 100
+  });
 
   bench
     .add("current", () => {
@@ -20,8 +22,11 @@ const main = async () => {
   return bench;
 };
 
+import { writeFile } from 'fs/promises';
+
 main()
-  .then((bench) => {
+  .then(async (bench) => {
+    writeFile('bench-results-100-iterations.json', JSON.stringify(bench.results), 'utf-8');
     console.table(bench.table());
   })
   .catch(console.error);
