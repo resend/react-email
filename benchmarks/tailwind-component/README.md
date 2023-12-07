@@ -21,7 +21,7 @@ Each direct descendant of `./src` is a benchmark we have for a specific purpose.
 The only exception for this is the `./src/tailwind-render.ts` as it is used for making a
 flamegraph on the rendering process of the Tailwind component.
 
-Inside of the emails folder we have a couple of emails we use across different benchmarks.
+The `emails` folder contains examples to be used across different benchmarks.
 
 ## Running benchmarks
 
