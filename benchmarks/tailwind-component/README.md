@@ -25,8 +25,8 @@ Inside of the emails folder we have a couple of emails we use across different b
 
 ## Running benchmarks
 
-To avoid ESM problems, these benchmarks need to be compiled using `tsup`, 
-which can be done by just running `pnpm compile`, to then be ran with node directly. 
+To avoid ESM problems, these benchmarks need to be compiled using `tsup`,
+which can be done by just running `pnpm compile`, to then be ran with node directly.
 
 They are each compiled into a different entry on the `./dist` folder with their respective names.
 

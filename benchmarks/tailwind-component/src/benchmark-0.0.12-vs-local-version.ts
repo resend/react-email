@@ -1,4 +1,5 @@
 import { render } from "@react-email/render";
+import { writeFile } from "fs/promises";
 import { Bench } from "tinybench";
 import EmailWithTailwind from "./emails/with-tailwind.js";
 import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
@@ -6,7 +7,7 @@ import { Tailwind as VersionTwelveTailwind } from "@react-email/tailwind";
 
 const main = async () => {
   const bench = new Bench({
-    iterations: 100
+    iterations: 100,
   });
 
   bench
@@ -22,11 +23,13 @@ const main = async () => {
   return bench;
 };
 
-import { writeFile } from 'fs/promises';
-
 main()
   .then(async (bench) => {
-    writeFile('bench-results-100-iterations.json', JSON.stringify(bench.results), 'utf-8');
+    await writeFile(
+      "bench-results-100-iterations.json",
+      JSON.stringify(bench.results),
+      "utf-8",
+    );
     console.table(bench.table());
   })
   .catch(console.error);
