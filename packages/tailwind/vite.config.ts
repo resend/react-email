@@ -16,6 +16,13 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
+      // in summary, this bundles the following since vite defaults to bundling
+      // - tailwindcss
+      // - postcss
+      // - postcss-css-variables
+      // - polyfill libraries
+      //   - process
+      //   - memfs
       external: ["react", "react-dom", /react-dom\/.*/],
     },
     lib: {
