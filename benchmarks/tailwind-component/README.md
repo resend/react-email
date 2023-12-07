@@ -26,11 +26,16 @@ The `emails` folder contains examples to be used across different benchmarks.
 ## Running benchmarks
 
 To avoid ESM problems, these benchmarks need to be compiled using `tsup`,
-which can be done by just running `pnpm compile`, to then be ran with node directly.
+which can be done by running `pnpm compile`, and then using `node` directly. 
+Something like the following if you want to run the `with-vs-without` benchmark:
+
+```sh
+pnpm compile && node ./dist/benchmark-with-vs-without.js
+```
 
 They are each compiled into a different entry on the `./dist` folder with their respective names.
 
-To make this simpler we have scripts for each benchmark on our `./package.json` that you can try running:
+We have scripts for each benchmark on our `./package.json` that you can try running:
 
 ```json
 "scripts": {

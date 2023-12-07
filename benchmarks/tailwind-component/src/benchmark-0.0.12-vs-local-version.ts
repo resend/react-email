@@ -1,5 +1,5 @@
 import { render } from "@react-email/render";
-import { writeFile } from "fs/promises";
+import { writeFileSync } from "fs";
 import { Bench } from "tinybench";
 import EmailWithTailwind from "./emails/with-tailwind.js";
 import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
@@ -25,7 +25,7 @@ const main = async () => {
 
 main()
   .then(async (bench) => {
-    await writeFile(
+    writeFileSync(
       "bench-results-100-iterations.json",
       JSON.stringify(bench.results),
       "utf-8",
