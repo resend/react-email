@@ -162,4 +162,3 @@ const text = {
   fontSize: "14px",
   margin: "24px 0",
 };
-
