@@ -17,7 +17,6 @@ const readStream = async (
     while (true) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
       const { value, done } = await reader.read();
-
       if (done) {
         break;
       }
