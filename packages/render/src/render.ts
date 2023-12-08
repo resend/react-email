@@ -1,6 +1,7 @@
 import * as ReactDomServer from "react-dom/server";
 import { convert } from "html-to-text";
-import pretty from "pretty";
+
+import { pretty } from "./utils/pretty";
 
 export interface Options {
   pretty?: boolean;

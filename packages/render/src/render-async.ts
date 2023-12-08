@@ -1,26 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { convert } from "html-to-text";
-import pretty from "pretty";
-import type {
-  ReactDOMServerReadableStream,
-} from "react-dom/server";
+import type { ReactDOMServerReadableStream } from "react-dom/server";
+import { pretty } from "./utils/pretty";
 
-let decoder = new TextDecoder('utf-8');
+const decoder = new TextDecoder("utf-8");
 
 const readStream = async (
   readableStream: NodeJS.ReadableStream | ReactDOMServerReadableStream,
 ) => {
   let result = "";
 
-  if ('allReady' in readableStream) {
+  if ("allReady" in readableStream) {
     const reader = readableStream.getReader();
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
       const { value, done } = await reader.read();
 
       if (done) {
         break;
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       result += decoder.decode(value);
     }
   } else {
