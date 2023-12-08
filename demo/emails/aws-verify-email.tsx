@@ -30,16 +30,8 @@ export default function AWSVerifyEmail({
       <Preview>AWS Email Verification</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={{ backgroundColor: "#fff" }}>
-            <Section
-              style={{
-                backgroundColor: "#252f3d",
-                display: "flex",
-                padding: "20px 0",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+          <Section style={coverSection}>
+            <Section style={imageSection}>
               <Img
                 src={`${baseUrl}/static/aws-logo.png`}
                 width="75"
@@ -47,76 +39,41 @@ export default function AWSVerifyEmail({
                 alt="Notion's Logo"
               />
             </Section>
-            <Section style={{ padding: "25px 35px" }}>
+            <Section style={upperSection}>
               <Heading style={h1}>Verify your email address</Heading>
-              <Text
-                style={{ ...text, marginBottom: "14px", lineHeight: "140%" }}
-              >
+              <Text style={mainText}>
                 Thanks for starting the new AWS account creation process. We
                 want to make sure it's really you. Please enter the following
                 verification code when prompted. If you don&apos;t want to
                 create an account, you can ignore this message.
               </Text>
-              <Section
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    ...text,
-                    margin: 0,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Verification code
-                </Text>
-                <Text
-                  style={{
-                    ...text,
-                    fontWeight: "bold",
-                    fontSize: 36,
-                    margin: "10px 0",
-                    textAlign: "center",
-                  }}
-                >
-                  {verificationCode}
-                </Text>
-                <Text style={{ ...text, margin: 0, textAlign: "center" }}>
+              <Section style={verificationSection}>
+                <Text style={verifyText}>Verification code</Text>
+
+                <Text style={codeText}>{verificationCode}</Text>
+                <Text style={validityText}>
                   (This code is valid for 10 minutes)
                 </Text>
               </Section>
             </Section>
             <Hr />
-            <Section style={{ padding: "25px 35px", lineHeight: "140%" }}>
-              <Text style={{ ...text, margin: 0 }}>
+            <Section style={lowerSection}>
+              <Text style={cautionText}>
                 Amazon Web Services will never email you and ask you to disclose
                 or verify your password, credit card, or banking account number.
               </Text>
             </Section>
           </Section>
-          <Text
-            style={{
-              ...text,
-              fontSize: 12,
-              lineHeight: 1.4,
-              textAlign: "center",
-              padding: "0 20px",
-            }}
-          >
+          <Text style={footerText}>
             This message was produced and distributed by Amazon Web Services,
             Inc., 410 Terry Ave. North, Seattle, WA 98109. © 2022, Amazon Web
             Services, Inc.. All rights reserved. AWS is a registered trademark
             of{" "}
-            <Link href="https://amazon.com" target="_blank" style={{ ...link }}>
+            <Link href="https://amazon.com" target="_blank" style={link}>
               Amazon.com
             </Link>
             , Inc. View our{" "}
-            <Link href="https://amazon.com" target="_blank" style={{ ...link }}>
+            <Link href="https://amazon.com" target="_blank" style={link}>
               privacy policy
             </Link>
             .
@@ -162,3 +119,54 @@ const text = {
   fontSize: "14px",
   margin: "24px 0",
 };
+
+const imageSection = {
+  backgroundColor: "#252f3d",
+  display: "flex",
+  padding: "20px 0",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const coverSection = { backgroundColor: "#fff" };
+
+const upperSection = { padding: "25px 35px" };
+
+const lowerSection = { padding: "25px 35px" };
+
+const footerText = {
+  ...text,
+  fontSize: "12px",
+  padding: "0 20px",
+};
+
+const verifyText = {
+  ...text,
+  margin: 0,
+  fontWeight: "bold",
+  textAlign: "center" as const,
+};
+
+const codeText = {
+  ...text,
+  fontWeight: "bold",
+  fontSize: "36px",
+  margin: "10px 0",
+  textAlign: "center" as const,
+};
+
+const validityText = {
+  ...text,
+  margin: "0px",
+  textAlign: "center" as const,
+};
+
+const verificationSection = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+
+const mainText = { ...text, marginBottom: "14px" };
+
+const cautionText = { ...text, margin: "0px" };
