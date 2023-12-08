@@ -8,29 +8,29 @@ import { renderAsync } from "./render-async";
 
 describe("renderAsync on node environments", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock('react-dom/server', async (_importOriginal) => {
-      let ReactDOMServerBrowser = await import('react-dom/server');
+    vi.mock("react-dom/server", async (_importOriginal) => {
+      let ReactDOMServerBrowser = await import("react-dom/server");
       const ERROR_MESSAGE =
-        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.'
+        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServerBrowser,
         default: {
           ...ReactDOMServerBrowser.default,
           renderToString() {
-            throw new Error(ERROR_MESSAGE)
+            throw new Error(ERROR_MESSAGE);
           },
           renderToStaticMarkup() {
-            throw new Error(ERROR_MESSAGE)
-          }
+            throw new Error(ERROR_MESSAGE);
+          },
         },
         renderToString() {
-          throw new Error(ERROR_MESSAGE)
+          throw new Error(ERROR_MESSAGE);
         },
         renderToStaticMarkup() {
-          throw new Error(ERROR_MESSAGE)
-        }
-      }
+          throw new Error(ERROR_MESSAGE);
+        },
+      };
     });
 
     const actualOutput = await renderAsync(<Template firstName="Jim" />);

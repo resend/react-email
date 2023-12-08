@@ -9,36 +9,39 @@ import { renderAsync } from "./render-async";
 describe("renderAsync on the browser environment", () => {
   beforeEach(async () => {
     // @ts-expect-error no type defs is an error thrown here that doesn't really matter
-    vi.mock('react-dom/server', (_importOriginal) => import('react-dom/server.browser'));
-    // need this mock because this is the file that is exported as the browser 
+    vi.mock(
+      "react-dom/server",
+      (_importOriginal) => import("react-dom/server.browser"),
+    );
+    // need this mock because this is the file that is exported as the browser
     // version of react-dom/server this is necessary which is the only one that has
     // renderToReadableStream implemented
   });
 
   it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock('react-dom/server', async (_importOriginal) => {
-      let ReactDOMServerBrowser = await import('react-dom/server');
+    vi.mock("react-dom/server", async (_importOriginal) => {
+      let ReactDOMServerBrowser = await import("react-dom/server");
       const ERROR_MESSAGE =
-        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.'
+        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServerBrowser,
         default: {
           ...ReactDOMServerBrowser.default,
           renderToString() {
-            throw new Error(ERROR_MESSAGE)
+            throw new Error(ERROR_MESSAGE);
           },
           renderToStaticMarkup() {
-            throw new Error(ERROR_MESSAGE)
-          }
+            throw new Error(ERROR_MESSAGE);
+          },
         },
         renderToString() {
-          throw new Error(ERROR_MESSAGE)
+          throw new Error(ERROR_MESSAGE);
         },
         renderToStaticMarkup() {
-          throw new Error(ERROR_MESSAGE)
-        }
-      }
+          throw new Error(ERROR_MESSAGE);
+        },
+      };
     });
 
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
