@@ -60,18 +60,7 @@ const Email = () => {
 - **Optional Margin:** Include or exclude margin around the QR code.
 - **Icon Support:** Embed a custom icon in the center of the QR code.
 
-## Support
 
-This component was tested with popular email clients to ensure compatibility.
-
-| Email Client | Supported |
-| ------------ | --------- |
-| Gmail        | ✔         |
-| Apple Mail   | ✔         |
-| Outlook      | ✔         |
-| Yahoo Mail   | ✔         |
-| HEY          | ✔         |
-| Superhuman   | ✔         |
 
 ## License
 
