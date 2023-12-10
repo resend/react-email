@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<QrCode> component > renders QR code with optional props 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div style=\\"background-color:blue\\"><canvas style=\\"height:300px;width:300px\\" height=\\"300\\" width=\\"300\\"></canvas></div>"`;
+
+exports[`<QrCode> component > renders QR code with required props 1`] = `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><div><canvas style=\\"height:300px;width:300px\\" height=\\"300\\" width=\\"300\\"></canvas></div>"`;
