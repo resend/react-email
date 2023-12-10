@@ -1,4 +1,3 @@
-
 ---
 
 
@@ -101,7 +100,7 @@ The `QrCode` component accepts several props to customize its appearance and fun
 ### Example Usage
 
 ```jsx
-<QrCode 
+<QrCode
   value="https://example.com"
   size={200}
   correctionLevel="M"
@@ -112,7 +111,7 @@ The `QrCode` component accepts several props to customize its appearance and fun
   iconSrc="https://example.com/icon.png"
   iconSize={40}
   iconBg={false}
-  style={{ padding: '10px', backgroundColor: '#f0f0f0' }}
+  style={{ padding: "10px", backgroundColor: "#f0f0f0" }}
 />
 ```
 
