@@ -13,7 +13,8 @@ export interface QrProps {
     includeMargin?: boolean | undefined,
     iconSrc?: string | undefined,
     iconSize?: number | undefined,
-    iconBg?: boolean | undefined
+    iconBg?: boolean | undefined,
+    
 }
 
 interface IconSettings {
@@ -36,7 +37,8 @@ export const QrCode: React.FC<QrProps> = ({
                                         includeMargin,
                                         iconSrc,
                                         iconSize,
-                                        iconBg
+                                        iconBg,
+                                        ...props
                                     }) => {
 
 
@@ -55,7 +57,7 @@ export const QrCode: React.FC<QrProps> = ({
             y: undefined
         }
         return (
-            <div style={style}>
+            <div {...props } style={style}>
                 <QRCode
                     bgColor={(typeof bgColor === "undefined") ? "#FFFFFF" : bgColor}
                     fgColor={(typeof fgColor === "undefined") ? "#000000" : fgColor}
@@ -70,7 +72,7 @@ export const QrCode: React.FC<QrProps> = ({
         )
     }else{
         return (
-            <div style={style}>
+            <div {...props } style={style}>
                 <QRCode
                     bgColor={(typeof bgColor === "undefined") ? "#FFFFFF" : bgColor}
                     fgColor={(typeof fgColor === "undefined") ? "#000000" : fgColor}
