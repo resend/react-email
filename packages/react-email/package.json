@@ -1,13 +1,13 @@
 {
   "name": "react-email",
-  "version": "1.9.5",
+  "version": "1.10.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/source/index.js"
   },
   "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p ./tsconfig.json",
     "clean": "rm -rf dist",
     "lint": "eslint ."
   },
@@ -28,7 +28,7 @@
     "@commander-js/extra-typings": "9.4.1",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
-    "@react-email/render": "0.0.6",
+    "@react-email/render": "0.0.10",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "detect-package-manager": "2.0.1",
@@ -40,7 +40,7 @@
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
-    "tree-node-cli": "1.6.0"
+    "tree-cli": "0.6.7"
   },
   "devDependencies": {
     "@types/fs-extra": "11.0.1",

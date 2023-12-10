@@ -11,7 +11,7 @@ describe("<Column> component", () => {
   it("passes style and other props correctly", () => {
     const style = { backgroundColor: "red" };
     const html = render(
-      <Column style={style} data-testid="column-test">
+      <Column data-testid="column-test" style={style}>
         Test
       </Column>,
     );

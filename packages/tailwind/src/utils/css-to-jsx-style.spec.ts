@@ -1,7 +1,56 @@
-import { cssToJsxStyle } from "./css-to-jsx-style";
+import { cssToJsxStyle, getCssDeclarations } from "./css-to-jsx-style";
 
 test("transforms a rule", () => {
   expect(cssToJsxStyle("color: red")).toEqual({ color: "red" });
+});
+
+test("getCssDeclarations()", () => {
+  const css = `
+margin-top: 2rem; border-radius: 0.375rem; background-color: r
+gb(37,99,235); padding-left: 0.75rem; padding-right: 0.75rem; padding-top: 0.5rem; padding-bottom: 0.5rem; font-size: 0.875rem; line-height: 1.25rem; color: rgb(229,231,235);
+  `;
+  expect(getCssDeclarations(css)).toEqual([
+    {
+      property: "margin-top",
+      value: "2rem",
+    },
+    {
+      property: "border-radius",
+      value: "0.375rem",
+    },
+    {
+      property: "background-color",
+      value: "rgb(37,99,235)",
+    },
+    {
+      property: "padding-left",
+      value: "0.75rem",
+    },
+    {
+      property: "padding-right",
+      value: "0.75rem",
+    },
+    {
+      property: "padding-top",
+      value: "0.5rem",
+    },
+    {
+      property: "padding-bottom",
+      value: "0.5rem",
+    },
+    {
+      property: "font-size",
+      value: "0.875rem",
+    },
+    {
+      property: "line-height",
+      value: "1.25rem",
+    },
+    {
+      property: "color",
+      value: "rgb(229,231,235)",
+    },
+  ]);
 });
 
 test("transforms multiple rules", () => {

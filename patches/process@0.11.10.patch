@@ -1,0 +1,15 @@
+diff --git a/browser.js b/browser.js
+index d059362306586e0ed53170099e2e34aa7c756adb..ba698532406973655ebe9cb33adee8546daff1cb 100644
+--- a/browser.js
++++ b/browser.js
+@@ -157,7 +157,9 @@ process.browser = true;
+ process.env = {};
+ process.argv = [];
+ process.version = ''; // empty string to avoid regexp issues
+-process.versions = {};
++process.versions = {
++  node: '18.18.2' // fake node version
++};
+ 
+ function noop() {}
+ 
