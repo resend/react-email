@@ -3,8 +3,8 @@
   "private": true,
   "main": "dist/benchmark.js",
   "scripts": {
-    "with-vs-without": "pnpm compile && node dist/benchmark-with-without",
-    "current-vs-latest": "pnpm compile && node dist/benchmark-current-vs-latest",
+    "with-vs-without": "pnpm compile && node ./dist/benchmark-with-vs-without.js",
+    "before-perf-vs-after-perf": "pnpm compile && node ./dist/benchmark-0.0.12-vs-local-version",
     "flamegraph-render-tailwind": "pnpm compile && node --prof ./dist/tailwind-render && node --prof-process --preprocess -j isolate*.log | flamebearer",
 
     "compile": "tsup src/*.ts",
