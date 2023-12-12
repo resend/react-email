@@ -51,7 +51,7 @@
         "getting-started/automatic-setup",
         "getting-started/manual-setup",
         {
-          "group": "Monorepos setup",
+          "group": "Monorepos Setup",
           "icon": "diagram-project",
           "pages": [
             "getting-started/monorepos-setup/npm",
