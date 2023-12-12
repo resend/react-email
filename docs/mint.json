@@ -50,6 +50,16 @@
       "pages": [
         "getting-started/automatic-setup",
         "getting-started/manual-setup",
+        {
+          "group": "Monorepos setup",
+          "icon": "diagram-project",
+          "pages": [
+            "getting-started/monorepos-setup/npm",
+            "getting-started/monorepos-setup/pnpm",
+            "getting-started/monorepos-setup/yarn",
+            "getting-started/monorepos-setup/bun"
+          ]
+        },
         "getting-started/migrating-to-react-email"
       ]
     },
