@@ -1,6 +1,6 @@
 {
   "name": "react-email-client",
-  "version": "0.0.14",
+  "version": "0.0.15-canary.0",
   "description": "The React Email preview application",
   "license": "MIT",
   "scripts": {
