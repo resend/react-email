@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.13",
+  "version": "0.0.14-canary.0",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -56,7 +56,7 @@
     "@react-email/render": "0.0.10",
     "@react-email/row": "0.0.7",
     "@react-email/section": "0.0.11",
-    "@react-email/tailwind": "0.0.13",
+    "@react-email/tailwind": "0.0.14-canary.0",
     "@react-email/text": "0.0.7"
   },
   "peerDependencies": {
