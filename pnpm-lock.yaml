@@ -675,9 +675,6 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
-      vite:
-        specifier: ^5.0.6
-        version: 5.0.6(@types/node@18.18.0)
       vitest:
         specifier: 0.34.6
         version: 0.34.6(@edge-runtime/vm@3.1.7)(happy-dom@12.2.2)(jsdom@23.0.1)
