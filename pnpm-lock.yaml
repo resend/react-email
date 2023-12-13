@@ -11,6 +11,9 @@ patchedDependencies:
   process@0.11.10:
     hash: wpk4cjsj5eh7v5jak26jgis56e
     path: patches/process@0.11.10.patch
+  tailwindcss@3.3.2:
+    hash: tbktbbunwha5d2hk7egjdvzb6q
+    path: patches/tailwindcss@3.3.2.patch
 
 importers:
 
@@ -764,7 +767,7 @@ importers:
         version: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
       tailwindcss:
         specifier: 3.3.2
-        version: 3.3.2
+        version: 3.3.2(patch_hash=tbktbbunwha5d2hk7egjdvzb6q)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -7252,7 +7255,7 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /tailwindcss@3.3.2:
+  /tailwindcss@3.3.2(patch_hash=tbktbbunwha5d2hk7egjdvzb6q):
     resolution: {integrity: sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -7281,6 +7284,7 @@ packages:
       sucrase: 3.34.0
     transitivePeerDependencies:
       - ts-node
+    patched: true
 
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
@@ -7552,7 +7556,7 @@ packages:
     dependencies:
       postcss: 8.4.31
       postcss-css-variables: 0.18.0(postcss@8.4.31)
-      tailwindcss: 3.3.2
+      tailwindcss: 3.3.2(patch_hash=tbktbbunwha5d2hk7egjdvzb6q)
     transitivePeerDependencies:
       - ts-node
     dev: false
