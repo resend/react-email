@@ -1,6 +1,5 @@
 import * as ReactDomServer from "react-dom/server";
 import { convert } from "html-to-text";
-
 import { pretty } from "./utils/pretty";
 
 export interface Options {
@@ -34,8 +33,8 @@ const renderAsPlainText = (
       { selector: "#__react-email-preview", format: "skip" },
       {
         selector: "a",
-        options: { linkBrackets: false }
-      }
+        options: { linkBrackets: false },
+      },
     ],
   });
 };

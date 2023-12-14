@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { convert } from "html-to-text";
 import type { ReactDOMServerReadableStream } from "react-dom/server";
-
 import { pretty } from "./utils/pretty";
 
 const readStream = async (readableStream: ReactDOMServerReadableStream) => {
