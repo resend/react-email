@@ -1,5 +1,6 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "packages/react-email/preview-server"
   - "benchmarks/*"
   - "demo/*"
