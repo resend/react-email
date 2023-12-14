@@ -655,19 +655,19 @@ importers:
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
       '@edge-runtime/vm':
-        specifier: ^3.1.7
+        specifier: 3.1.7
         version: 3.1.7
       '@types/html-to-text':
         specifier: 9.0.1
         version: 9.0.1
       '@types/js-beautify':
-        specifier: ^1.14.3
+        specifier: 1.14.3
         version: 1.14.3
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
       jsdom:
-        specifier: ^23.0.1
+        specifier: 23.0.1
         version: 23.0.1
       tsconfig:
         specifier: workspace:*
@@ -7598,7 +7598,7 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       psl: 1.9.0
-      punycode: 2.3.0
+      punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
     dev: true
