@@ -1,11 +1,16 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+
+  content: {
+    // needs to be relative because tailwind will find the content
+    // by default based on the process's cwd
+    relative: true,
+    files: [
+      './components/**/*.{js,ts,jsx,tsx,mdx}',
+      './app/**/*.{js,ts,jsx,tsx,mdx}'
+    ],
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -15,6 +20,5 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
-}
-export default config
+};
+export default config;
