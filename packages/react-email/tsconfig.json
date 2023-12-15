@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "tsconfig/react-library.json",
   "include": ["."],
-  "exclude": ["tsconfig.export.json", "dist", "build", "node_modules"],
+  "exclude": ["tsconfig.export.json", "preview-server", "dist", "build", "node_modules"],
   "compilerOptions": {
     "target": "es5",
     "module": "CommonJS",

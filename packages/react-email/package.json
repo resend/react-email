@@ -8,6 +8,8 @@
   "types": "./dist/source/index.d.ts",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
+    "dev": "npm uninstall -g react-email --silent && pnpm build && npm link --silent && echo \"dev CLI available with 'email'\"",
+    "dev:watch": "pnpm watch \"clear && pnpm dev\" ./ \"-p=/^(dist|node_modules|preview-server)/g\"",
     "clean": "rm -rf dist",
     "lint": "eslint ."
   },
@@ -31,15 +33,18 @@
     "@react-email/render": "0.0.12-canary.0",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
+    "debounce": "2.0.0",
     "detect-package-manager": "2.0.1",
     "esbuild": "0.16.4",
     "fs-extra": "11.1.1",
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
+    "next": "^14.0.4",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
+    "socket.io": "4.7.2",
     "tree-cli": "0.6.7"
   },
   "devDependencies": {
@@ -48,6 +53,7 @@
     "@types/shelljs": "0.8.12",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "watch": "1.0.2"
   }
 }

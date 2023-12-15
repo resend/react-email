@@ -39,18 +39,18 @@ export const setupServer = async (
 
   // when starting, we dont need to worry about these because it should've already happened during the build stage.
   if (type !== 'start') {
-    await generateEmailsPreview(emailDir);
-    await syncPkg();
-    if (!skipInstall) {
-      installDependencies(packageManager);
-    }
+    // await generateEmailsPreview(emailDir);
+    // await syncPkg();
+    // if (!skipInstall) {
+    //   installDependencies(packageManager);
+    // }
   }
 
   if (type === 'dev') {
     const watcherInstance = createWatcherInstance(emailDir);
 
-    startDevServer(packageManager, port);
-    watcher(watcherInstance, emailDir);
+    const [, reload] = await startDevServer(packageManager, port);
+    watcher(watcherInstance, emailDir, reload);
   } else if (type === 'build') {
     buildProdServer(packageManager);
   } else {

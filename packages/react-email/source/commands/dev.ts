@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import shell from 'shelljs';
-import { downloadClient, REACT_EMAIL_ROOT } from '../utils';
+import { REACT_EMAIL_ROOT } from '../utils';
 import { setupServer } from '../utils/run-server';
 
 interface Args {
@@ -20,7 +20,7 @@ export const dev = async ({ dir, port, skipInstall }: Args) => {
       return;
     }
 
-    await downloadClient();
+    // await downloadClient();
 
     await setupServer('dev', dir, port, skipInstall);
   } catch (error) {
