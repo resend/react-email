@@ -3,23 +3,33 @@ import { convert } from "html-to-text";
 import type { ReactDOMServerReadableStream } from "react-dom/server";
 import { pretty } from "./utils/pretty";
 
-const readStream = async (readableStream: ReactDOMServerReadableStream) => {
-  const reader = readableStream.getReader();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const chunks: any[] = [];
+const decoder = new TextDecoder("utf-8");
 
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
-    const { value, done } = await reader.read();
-    if (done) {
-      break;
+const readStream = async (
+  readableStream: NodeJS.ReadableStream | ReactDOMServerReadableStream,
+) => {
+  let result = "";
+
+  if ("allReady" in readableStream) {
+    const reader = readableStream.getReader();
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, no-await-in-loop
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      result += decoder.decode(value);
     }
-    chunks.push(value);
+  } else {
+    for await (const chunk of readableStream) {
+      result += decoder.decode(Buffer.from(chunk));
+    }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return chunks.map((chunk) => new TextDecoder("utf-8").decode(chunk)).join("");
+  return result;
 };
 
 export const renderAsync = async (
@@ -31,18 +41,17 @@ export const renderAsync = async (
 ) => {
   const reactDOMServer = (await import("react-dom/server")).default;
   const renderToStream =
-    reactDOMServer.renderToReadableStream ||
-    reactDOMServer.renderToString ||
-    reactDOMServer.renderToPipeableStream;
+    reactDOMServer.renderToReadableStream ??
+    reactDOMServer.renderToStaticNodeStream;
 
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const readableStream = await renderToStream(component);
+  const htmlOrReadableStream = await renderToStream(component);
   const html =
-    typeof readableStream === "string"
-      ? readableStream
-      : await readStream(readableStream);
+    typeof htmlOrReadableStream === "string"
+      ? htmlOrReadableStream
+      : await readStream(htmlOrReadableStream);
 
   if (options?.plainText) {
     return convert(html, {
