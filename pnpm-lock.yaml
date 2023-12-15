@@ -272,7 +272,7 @@ importers:
         specifier: 0.0.8
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.10
+        specifier: 0.0.11-canary.0
         version: link:../render
       '@react-email/row':
         specifier: 0.0.7
@@ -579,7 +579,7 @@ importers:
         version: 19.0.7
       '@react-email/render':
         specifier: 0.0.10
-        version: link:../render
+        version: 0.0.10
       chokidar:
         specifier: 3.5.3
         version: 3.5.3
