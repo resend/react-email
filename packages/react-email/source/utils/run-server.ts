@@ -8,9 +8,6 @@ import {
   CURRENT_PATH,
   convertToAbsolutePath,
   startDevServer,
-  installDependencies,
-  syncPkg,
-  generateEmailsPreview,
   buildProdServer,
   startProdServer,
   REACT_EMAIL_ROOT,
@@ -27,7 +24,7 @@ export const setupServer = async (
   type: 'dev' | 'build' | 'start',
   dir: string,
   port: string,
-  skipInstall = false,
+  _skipInstall = false,
 ) => {
   const cwd = await findRoot(CURRENT_PATH).catch(() => ({
     rootDir: CURRENT_PATH,
@@ -49,8 +46,8 @@ export const setupServer = async (
   if (type === 'dev') {
     const watcherInstance = createWatcherInstance(emailDir);
 
-    const [, reload] = await startDevServer(packageManager, port);
-    watcher(watcherInstance, emailDir, reload);
+    await startDevServer(packageManager, port);
+    watcher(watcherInstance, emailDir);
   } else if (type === 'build') {
     buildProdServer(packageManager);
   } else {

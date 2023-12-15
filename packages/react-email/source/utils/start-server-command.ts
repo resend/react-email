@@ -2,8 +2,6 @@ import type { ChildProcess } from 'node:child_process';
 import path from 'node:path';
 import http from 'node:http';
 import url from 'node:url';
-import debounce from 'debounce';
-import socket from 'socket.io';
 import shell from 'shelljs';
 import next from 'next';
 
@@ -22,6 +20,7 @@ export const startDevServer = async (_packageManager: string, port: string) => {
     dev: true,
     hostname: 'localhost',
     port: parseInt(port),
+    customServer: true,
     dir: path.resolve(__dirname, '../../../preview-server'),
   });
 
@@ -29,7 +28,7 @@ export const startDevServer = async (_packageManager: string, port: string) => {
 
   const nextHandleRequest = app.getRequestHandler();
 
-  const server = http
+  http
     .createServer((req, res) => {
       if (!req.url) {
         res.end(404);
@@ -37,7 +36,6 @@ export const startDevServer = async (_packageManager: string, port: string) => {
       }
 
       const parsedUrl = url.parse(req.url, true);
-      const { pathname: pathName, query } = parsedUrl;
 
       // Never cache anything to avoid
       res.setHeader(
@@ -51,8 +49,9 @@ export const startDevServer = async (_packageManager: string, port: string) => {
         void nextHandleRequest(req, res, parsedUrl);
       } catch (e) {
         console.error('caught error', e);
+
         res.writeHead(500);
-        res.end(JSON.stringify(e));
+        res.end();
       }
     })
     .listen(port, () => {
@@ -62,32 +61,10 @@ export const startDevServer = async (_packageManager: string, port: string) => {
       if (e.code === 'EADDRINUSE') {
         console.error(`port ${port} is already in use`);
       } else {
-        console.error('preview server error:', JSON.stringify(e));
+        console.error('preview server error: ', JSON.stringify(e));
       }
       process.exit(1);
     });
-
-  const io = new socket.Server(server);
-  let clients: socket.Socket[] = [];
-  io.on('connection', (client) => {
-    clients.push(client);
-
-    client.on('disconnect', () => {
-      clients = clients.filter((otherClient) => otherClient !== client);
-    });
-  });
-
-  const reload = debounce(
-    () => {
-      for (const client of clients) {
-        client.emit('reload');
-      }
-    },
-    100,
-    { immediate: true },
-  );
-
-  return [app, reload] as const;
 };
 
 export const startProdServer = (packageManager: string, port: string) => {

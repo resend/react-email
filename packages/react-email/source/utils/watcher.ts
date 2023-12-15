@@ -27,7 +27,7 @@ export const createWatcherInstance = (watchDir: string) => {
   return watcher;
 };
 
-export const watcher = (watcherInstance: FSWatcher, watchDir: string, reload: () => void) => {
+export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
   watcherInstance.on('all', (event, filename) => {
     const file = filename.split(path.sep);
     if (file[1] === undefined) {
@@ -60,6 +60,5 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string, reload: ()
     }
 
     void generateEmailsPreview(watchDir, 'templates');
-    reload();
   });
 };
