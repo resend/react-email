@@ -21,7 +21,7 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "turbo": "1.10.14",
-    "vite": "4.4.9",
+    "vite": "4.0.5",
     "vitest": "0.34.6"
   },
   "packageManager": "pnpm@8.8.0",
