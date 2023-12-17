@@ -126,3 +126,12 @@ Click me [https://example.com]
 <ResponseField name="plainText" type="boolean">
   Generate plain text version
 </ResponseField>
+
+## Caveats
+
+If you are using NextJS with the `render` function, be aware that
+with Next **14** or above you might have errors using it.
+
+So it is recommended that you use the `renderAsync` variant of this function.
+It has the same API but uses different underlying React functions to avoid
+problems like these.
