@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 patchedDependencies:
   postcss-css-variables@0.19.0:
     hash: 2wxqv7k2gzlwmmem3fifiqjawa
@@ -268,6 +264,9 @@ importers:
       '@react-email/link':
         specifier: 0.0.7
         version: link:../link
+      '@react-email/markdown':
+        specifier: 0.0.8
+        version: link:../markdown
       '@react-email/preview':
         specifier: 0.0.8
         version: link:../preview
@@ -8564,3 +8563,7 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
