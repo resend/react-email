@@ -1,7 +1,7 @@
 ![React Email components cover](https://react.email/static/covers/components.png)
 
 <div align="center"><strong>@react-email/components</strong></div>
-<div align="center">A react-email components.</div>
+<div align="center">A collection of all components React Email.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

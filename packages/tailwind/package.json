@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.8",
+  "version": "0.0.13",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -23,14 +23,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint",
+    "build": "tsc && vite build",
     "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "lint": "eslint .",
+    "test:watch": "vitest --config ../../vitest.config.ts",
+    "test": "vitest run --config ../../vitest.config.ts"
   },
   "repository": {
     "type": "git",
@@ -43,30 +40,37 @@
     "tailwind"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "html-react-parser": "4.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tw-to-css": "0.0.11"
+    "react-dom": "18.2.0"
+  },
+  "peerDependencies": {
+    "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "7.21.8",
     "@babel/preset-react": "7.22.5",
-    "@react-email/button": "0.0.7",
+    "@react-email/button": "workspace:^",
+    "@react-email/head": "workspace:*",
+    "@react-email/hr": "workspace:*",
+    "@react-email/html": "workspace:*",
     "@testing-library/react": "14.0.0",
-    "@types/jest": "29.5.3",
-    "@types/react": "18.0.20",
-    "@types/react-dom": "18.0.6",
-    "babel-jest": "29.6.1",
-    "eslint": "8.45.0",
-    "jest": "29.6.1",
-    "prettier": "3.0.0",
-    "react": "18.2.0",
-    "ts-jest": "29.1.1",
-    "tsup": "7.1.0",
-    "typescript": "5.1.6"
+    "@types/postcss-css-variables": "0.18.2",
+    "eslint-config-custom": "workspace:*",
+    "eslint-plugin-regex": "1.10.0",
+    "memfs": "4.6.0",
+    "postcss": "8.4.31",
+    "postcss-css-variables": "0.19.0",
+    "process": "^0.11.10",
+    "tailwindcss": "3.3.2",
+    "tsup": "7.2.0",
+    "typescript": "5.1.6",
+    "tsconfig": "workspace:*",
+    "vite": "4.0.0",
+    "vite-plugin-dts": "3.6.3",
+    "vite-plugin-node-polyfills": "0.17.0"
   },
   "publishConfig": {
     "access": "public"

@@ -51,9 +51,7 @@ export const GithubAccessTokenEmail = ({
             recently added to your account.
           </Text>
 
-          <Button style={button} pX={24} pY={12}>
-            View your token
-          </Button>
+          <Button style={button}>View your token</Button>
         </Section>
         <Text style={links}>
           <Link style={link}>Your security audit log</Link> ・{" "}
@@ -110,6 +108,7 @@ const button = {
   color: "#fff",
   lineHeight: 1.5,
   borderRadius: "0.5em",
+  padding: "12px 24px",
 };
 
 const links = {

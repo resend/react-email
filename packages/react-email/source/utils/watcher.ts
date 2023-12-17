@@ -1,7 +1,8 @@
-import chokidar, { FSWatcher } from 'chokidar';
-import fs from 'fs';
-import path from 'path';
-import shell from 'shelljs';
+import fs from 'node:fs';
+import path from 'node:path';
+import type { FSWatcher } from 'chokidar';
+import { watch } from 'chokidar';
+import { cp } from 'shelljs';
 import {
   EVENT_FILE_DELETED,
   PACKAGE_EMAILS_PATH,
@@ -10,15 +11,15 @@ import {
 import { generateEmailsPreview } from './generate-email-preview';
 
 export const createWatcherInstance = (watchDir: string) => {
-  const watcher = chokidar.watch(watchDir, {
+  const watcher = watch(watchDir, {
     ignoreInitial: true,
     cwd: watchDir.split(path.sep).slice(0, -1).join(path.sep),
-    ignored: /(^|[\/\\])\../,
+    ignored: /(^|[/\\])\../,
   });
 
   // Catches ctrl+c event
-  const exit = async () => {
-    await watcher.close();
+  const exit = () => {
+    void watcher.close();
   };
   process.on('SIGINT', exit);
   process.on('uncaughtException', exit);
@@ -27,7 +28,7 @@ export const createWatcherInstance = (watchDir: string) => {
 };
 
 export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
-  watcherInstance.on('all', async (event, filename) => {
+  watcherInstance.on('all', (event, filename) => {
     const file = filename.split(path.sep);
     if (file[1] === undefined) {
       return;
@@ -35,19 +36,17 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
 
     if (event === EVENT_FILE_DELETED) {
       if (file[1] === 'static' && file[2]) {
-        await fs.promises.rm(
-          path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]),
-        );
+        fs.rmSync(path.join(REACT_EMAIL_ROOT, 'public', 'static', file[2]));
         return;
       }
 
-      await fs.promises.rm(path.join(REACT_EMAIL_ROOT, filename));
+      fs.rmSync(path.join(REACT_EMAIL_ROOT, filename));
       return;
     }
 
     if (file[1] === 'static' && file[2]) {
       const srcPath = path.join(watchDir, 'static', file[2]);
-      const result = shell.cp(
+      const result = cp(
         '-r',
         srcPath,
         path.join(REACT_EMAIL_ROOT, 'public', 'static'),
@@ -60,13 +59,6 @@ export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
       return;
     }
 
-    try {
-      await generateEmailsPreview(watchDir, 'templates');
-    } catch (e) {
-      throw new Error(
-        `Something went wrong while copying the file to ${PACKAGE_EMAILS_PATH}, ${// @ts-expect-error
-e?.message}`,
-      );
-    }
+    void generateEmailsPreview(watchDir, 'templates');
   });
 };

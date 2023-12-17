@@ -1,9 +1,9 @@
 ---
-title: 'Preview'
-sidebarTitle: 'Preview'
-description: 'A preview text that will be displayed in the inbox of the recipient.'
-'og:image': 'https://react.email/static/covers/preview.png'
-icon: 'input-text'
+title: "Preview"
+sidebarTitle: "Preview"
+description: "A preview text that will be displayed in the inbox of the recipient."
+"og:image": "https://react.email/static/covers/preview.png"
+icon: "input-text"
 ---
 
 <Info>
@@ -19,14 +19,26 @@ Install component from your command line.
 <CodeGroup>
 
 ```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
 npm install @react-email/preview -E
 ```
 
 ```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
 yarn add @react-email/preview -E
 ```
 
 ```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
 pnpm add @react-email/preview -E
 ```
 
@@ -37,7 +49,7 @@ pnpm add @react-email/preview -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Preview } from '@react-email/preview';
+import { Preview } from "@react-email/components";
 
 const Email = () => {
   return <Preview>Email preview text</Preview>;

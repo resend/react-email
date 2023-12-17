@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import shell from 'shelljs';
 import { downloadClient, REACT_EMAIL_ROOT } from '../utils';
 import { setupServer } from '../utils/run-server';

@@ -1,7 +1,7 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.8",
-  "description": "All react-email components",
+  "version": "0.0.13",
+  "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -24,13 +24,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint",
     "clean": "rm -rf dist",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -42,39 +38,35 @@
     "email"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "@react-email/body": "0.0.3",
-    "@react-email/button": "0.0.10",
-    "@react-email/column": "0.0.7",
-    "@react-email/container": "0.0.8",
-    "@react-email/font": "0.0.3",
-    "@react-email/head": "0.0.5",
-    "@react-email/heading": "0.0.8",
-    "@react-email/hr": "0.0.5",
-    "@react-email/html": "0.0.5",
-    "@react-email/img": "0.0.5",
-    "@react-email/link": "0.0.5",
-    "@react-email/markdown": "0.0.4",
-    "@react-email/preview": "0.0.6",
-    "@react-email/render": "0.0.7",
-    "@react-email/row": "0.0.5",
-    "@react-email/section": "0.0.9",
-    "@react-email/tailwind": "0.0.8",
-    "@react-email/text": "0.0.5",
+    "@react-email/body": "0.0.7",
+    "@react-email/button": "0.0.13",
+    "@react-email/column": "0.0.9",
+    "@react-email/container": "0.0.11",
+    "@react-email/font": "0.0.5",
+    "@react-email/head": "0.0.7",
+    "@react-email/heading": "0.0.11",
+    "@react-email/hr": "0.0.7",
+    "@react-email/html": "0.0.7",
+    "@react-email/img": "0.0.7",
+    "@react-email/link": "0.0.7",
+    "@react-email/markdown": "0.0.8",
+    "@react-email/preview": "0.0.8",
+    "@react-email/render": "0.0.10",
+    "@react-email/row": "0.0.7",
+    "@react-email/section": "0.0.11",
+    "@react-email/tailwind": "0.0.13",
+    "@react-email/text": "0.0.7"
+  },
+  "peerDependencies": {
     "react": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
-    "@types/react": "18.0.20",
-    "@types/react-dom": "18.0.6",
-    "babel-jest": "28.1.3",
-    "eslint": "8.45.0",
-    "jest": "28.1.3",
-    "prettier": "3.0.0",
-    "ts-jest": "28.0.8",
-    "tsup": "7.1.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },
   "publishConfig": {

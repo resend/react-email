@@ -1,16 +1,22 @@
-import { Hr } from "./index";
 import { render } from "@react-email/render";
+import { Hr } from "./index";
 
-describe("render", () => {
-  beforeEach(() => {
-    jest.restoreAllMocks();
-    jest.resetModules();
+describe("<Hr> component", () => {
+  it("passes styles and other props correctly", () => {
+    const style = {
+      width: "50%",
+      borderColor: "black",
+    };
+    const html = render(<Hr data-testid="hr-test" style={style} />);
+    expect(html).toContain("width:50%");
+    expect(html).toContain("border-color:black");
+    expect(html).toContain('data-testid="hr-test"');
   });
 
-  it("renders the <Hr> component", () => {
+  it("renders correctly", () => {
     const actualOutput = render(<Hr />);
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><hr data-id=\\"react-email-hr\\" style=\\"width:100%;border:none;border-top:1px solid #eaeaea\\"/>"`,
+      `"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><hr style=\\"width:100%;border:none;border-top:1px solid #eaeaea\\"/>"`,
     );
   });
 });
