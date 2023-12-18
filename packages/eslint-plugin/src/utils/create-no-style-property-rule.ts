@@ -16,7 +16,7 @@ export const createNoStylePropertyRule = (propertyNameOrNames: string[] | string
       return {
         Property(node) {
           const camelCasedProperties = propertyNames.map(
-            p => p.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
+            p => p.replace(/-[a-z]/g, (g) => g[1].toUpperCase())
           );
 
           const [attributeName] = context.sourceCode.getText(node.key)

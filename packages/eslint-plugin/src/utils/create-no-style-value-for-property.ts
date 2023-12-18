@@ -23,7 +23,7 @@ export const createNoStyleValueForProperty = (
             node.parent.parent.type === AST_NODE_TYPES.JSXExpressionContainer &&
             node.parent.parent.parent.type === AST_NODE_TYPES.JSXAttribute
           ) {
-            const camelCasedProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+            const camelCasedProperty = property.replace(/-[a-z]/g, (g) => g[1].toUpperCase());
 
             const [attributeName] = context.sourceCode.getText(node.key)
               .trim()

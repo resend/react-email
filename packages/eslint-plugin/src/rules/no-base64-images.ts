@@ -24,7 +24,7 @@ export default createRule({
 
           if (elementName === "img" || elementName === "Img") {
             const value = context.sourceCode.getText(node.value);
-            const regex = /(data:image\/[^;]+;base64[^"]+)/g;
+            const regex = /data:image\/[^;]+;base64[^"]+/g;
 
             if (regex.test(value)) {
               context.report({
