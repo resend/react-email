@@ -1,7 +1,7 @@
 import { createNoHTMLElementRule } from "../../utils/create-no-html-element-rule";
 
 export default createNoHTMLElementRule(
-  'abbr',
+  "abbr",
   56.875,
-  'https://www.caniemail.com/features/html-abbr/'
-)
+  "https://www.caniemail.com/features/html-abbr/",
+);

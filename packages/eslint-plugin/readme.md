@@ -40,7 +40,7 @@ plugins: ['@react-email'],
 extends: ['plugin:@react-email/recommended']
 ```
 
-Activating or deactivating certain rules as you may prefer. These rules are mostly generated 
+Activating or deactivating certain rules as you may prefer. These rules are mostly generated
 with metadata taken from [caniemail](https://www.caniemail.com/).
 
 ### 2. Run eslint

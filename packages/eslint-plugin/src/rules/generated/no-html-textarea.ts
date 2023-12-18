@@ -1,7 +1,7 @@
 import { createNoHTMLElementRule } from "../../utils/create-no-html-element-rule";
 
 export default createNoHTMLElementRule(
-  'textarea',
+  "textarea",
   54.54545454545454,
-  'https://www.caniemail.com/features/html-textarea/'
-)
+  "https://www.caniemail.com/features/html-textarea/",
+);

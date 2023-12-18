@@ -256,7 +256,7 @@ const rules: ESLint.Plugin["rules"] = {
 };
 
 const recommendedRules: Partial<Linter.RulesRecord> = {
-  "react/jsx-key": "off"
+  "react/jsx-key": "off",
 };
 
 for (const ruleName of Object.keys(rules)) {

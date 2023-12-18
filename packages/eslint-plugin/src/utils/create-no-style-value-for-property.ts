@@ -9,11 +9,13 @@ export const createNoStyleValueForProperty = (
 ) => {
   return createRule({
     meta: {
-      type: 'suggestion',
+      type: "suggestion",
       schema: [],
       messages: {
-        'not-supported-on-most-emails-clients': `The style ${property}: ${valueToDisallow} is supported only ${supportPercetange.toFixed(2)}% of email clients, see ${caniemailLink}`
-      }
+        "not-supported-on-most-emails-clients": `The style ${property}: ${valueToDisallow} is supported only ${supportPercetange.toFixed(
+          2,
+        )}% of email clients, see ${caniemailLink}`,
+      },
     },
     create(context) {
       return {
@@ -23,28 +25,33 @@ export const createNoStyleValueForProperty = (
             node.parent.parent.type === AST_NODE_TYPES.JSXExpressionContainer &&
             node.parent.parent.parent.type === AST_NODE_TYPES.JSXAttribute
           ) {
-            const camelCasedProperty = property.replace(/-[a-z]/g, (g) => g[1].toUpperCase());
+            const camelCasedProperty = property.replace(/-[a-z]/g, (g) =>
+              g[1].toUpperCase(),
+            );
 
-            const [attributeName] = context.sourceCode.getText(node.key)
+            const [attributeName] = context.sourceCode
+              .getText(node.key)
               .trim()
-              .match(/\w+/g) ?? ['']; // only select the word
-            const [value] = context.sourceCode.getText(node.value)
+              .match(/\w+/g) ?? [""]; // only select the word
+            const [value] = context.sourceCode
+              .getText(node.value)
               .trim()
-              .match(/[\w\s-]+/g) ?? [''];
+              .match(/[\w\s-]+/g) ?? [""];
 
             if (
-              context.sourceCode.getText(node.parent.parent.parent.name) === "style" &&
+              context.sourceCode.getText(node.parent.parent.parent.name) ===
+                "style" &&
               value.trim() === valueToDisallow &&
               camelCasedProperty === attributeName
             ) {
               context.report({
                 node,
-                messageId: 'not-supported-on-most-emails-clients'
+                messageId: "not-supported-on-most-emails-clients",
               });
             }
           }
-        }
-      }
-    }
+        },
+      };
+    },
   });
 };

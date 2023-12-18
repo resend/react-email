@@ -1,7 +1,7 @@
 import { createNoHTMLElementRule } from "../../utils/create-no-html-element-rule";
 
 export default createNoHTMLElementRule(
-  'dfn',
+  "dfn",
   64.375,
-  'https://www.caniemail.com/features/html-dfn/'
-)
+  "https://www.caniemail.com/features/html-dfn/",
+);
