@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { basename, dirname } from 'node:path'
+import { basename } from 'node:path'
 import { defineConfig } from 'rollup'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
@@ -9,7 +9,7 @@ const pkg = JSON.parse(fs.readFileSync(
   'utf-8'
 ))
 
-let ruleNames = [];
+const ruleNames = [];
 
 export default defineConfig({
   input: 'src/index.ts',
@@ -58,7 +58,6 @@ export default defineConfig({
   ],
   external: [
     ...Object.keys(pkg.dependencies || []),
-    ...Object.keys(pkg.peerDependencies || []),
-    'node:process',
+    ...Object.keys(pkg.peerDependencies || [])
   ],
 })

@@ -9,6 +9,7 @@
       "require": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./rules/no-base64-images": "./dist/no-base64-images.js",
     "./rules/no-html-wbr": "./dist/no-html-wbr.js",
     "./rules/no-html-video": "./dist/no-html-video.js",
     "./rules/no-html-textarea": "./dist/no-html-textarea.js",
@@ -140,7 +141,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rollup --config=rollup.config.js --configPlugin=rollup-plugin-esbuild",
+    "build": "rollup --config=rollup.config.mjs --configPlugin=rollup-plugin-esbuild",
     "generate-rules": "node ./codegen/index.mjs && git apply ./codegen/manual-changes.patch",
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",
