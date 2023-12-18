@@ -27,6 +27,6 @@ export const addRule = async (feature, content) => {
 
   await writeFile(
     "./src/rules/generated/index.ts", 
-    `import ${camelCasedRule} from "./${ruleBasename}";\n${currentIndexContents}\nexport { ${camelCasedRule} };`
+    `import ${camelCasedRule} from "./${ruleBasename}";\n${currentIndexContents}export { ${camelCasedRule} };\n`
   );
 }

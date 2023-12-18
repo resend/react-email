@@ -23,10 +23,11 @@ export async function generateNoUnsupportedHTMLElementsAndAttributes() {
           `import { createNoHTMLAttributeRule } from "../../utils/create-no-html-attribute-rule";
 
 export default createNoHTMLAttributeRule(
-  "${featureName}" ,
+  "${featureName}",
   ${supportPercetange * 100},
   "https://www.caniemail.com/features/${featureNamePrefixed}/",
-)`,
+);
+`,
         );
       } else {
         const featurePageTitle = feature.title;
@@ -41,7 +42,8 @@ export default createNoHTMLAttributeRule(
   "${featureName}",
   ${supportPercetange * 100},
   "https://www.caniemail.com/features/${featureNamePrefixed}/",
-)`,
+);
+`,
           );
         } else {
           await addRule(
@@ -52,7 +54,8 @@ export default createNoHTMLElementRule(
   "${featureName}",
   ${supportPercetange * 100},
   "https://www.caniemail.com/features/${featureNamePrefixed}/",
-)`,
+);
+`,
           );
         }
       }

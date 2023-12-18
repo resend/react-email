@@ -4,4 +4,4 @@ export default createNoHTMLElementRule(
   "base",
   39.67391304347826,
   "https://www.caniemail.com/features/html-base/",
-)
+);
