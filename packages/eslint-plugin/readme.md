@@ -37,7 +37,7 @@ npm install @react-email/eslint-plugin -E
 
 ```json
 plugins: ['@react-email'],
-extends: ['@react-email/recommended']
+extends: ['plugin:@react-email/recommended']
 ```
 
 Activating or deactivating certain rules as you may prefer.
