@@ -23,10 +23,10 @@ export const addRule = async (feature, content) => {
 
   await writeFile(newRuleFilename, content);
   const camelCasedRule = `no${camelize(feature)[0].toUpperCase()}${camelize(feature).slice(1)}`;
-  const currentIndexContents = await readFile('./src/rules/generated/index.ts', 'utf-8');
+  const currentIndexContents = await readFile("./src/rules/generated/index.ts", "utf-8");
 
   await writeFile(
-    './src/rules/generated/index.ts', 
-    `import ${camelCasedRule} from './${ruleBasename}';\n${currentIndexContents}\nexport { ${camelCasedRule} };`
+    "./src/rules/generated/index.ts", 
+    `import ${camelCasedRule} from "./${ruleBasename}";\n${currentIndexContents}\nexport { ${camelCasedRule} };`
   );
 }

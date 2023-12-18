@@ -4,4 +4,4 @@ export default createNoHTMLElementRule(
   "marquee",
   58.490566037735846,
   "https://www.caniemail.com/features/html-marquee/",
-);
+)

@@ -4,4 +4,4 @@ export default createNoHTMLElementRule(
   "srcset",
   32.6530612244898,
   "https://www.caniemail.com/features/html-srcset/",
-);
+)

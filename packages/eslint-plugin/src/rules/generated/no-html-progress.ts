@@ -4,4 +4,4 @@ export default createNoHTMLElementRule(
   "progress",
   40.21739130434783,
   "https://www.caniemail.com/features/html-progress/",
-);
+)

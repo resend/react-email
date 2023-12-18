@@ -22,9 +22,9 @@ export async function generateNoUnsupportedStyleRules() {
           `import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
 
 export default createNoStylePropertyRule(
-  '${cssFeatureName}', 
-  ${supportPercetange * 100}, 
-  'https://www.caniemail.com/features/${featureNamePrefixed}/'
+  "${cssFeatureName}",
+  ${supportPercetange * 100},
+  "https://www.caniemail.com/features/${featureNamePrefixed}/",
 );
 `,
         );
@@ -34,9 +34,9 @@ export default createNoStylePropertyRule(
           `import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
 
 export default createNoStyleValueKeywordRule(
-  '${cssFeatureName}', 
-  ${supportPercetange * 100}, 
-  'https://www.caniemail.com/features/${featureNamePrefixed}/'
+  "${cssFeatureName}",
+  ${supportPercetange * 100},
+  "https://www.caniemail.com/features/${featureNamePrefixed}/",
 );
 `,
         );
