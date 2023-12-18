@@ -1,3 +1,6 @@
-import { join } from 'node:path';
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-export const CaniemailDir = join(__dirname, 'caniemail');
+const codegenDir = dirname(fileURLToPath(import.meta.url));
+
+export const CaniemailDir = join(codegenDir, "caniemail");

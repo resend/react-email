@@ -256,7 +256,7 @@ index cf0ab84..0000000
 -
 -export default createNoStyleValueKeywordRule(
 -  'at-media-prefers-color-scheme', 
--  36.708860759493675, 
+-  37.5, 
 -  'https://www.caniemail.com/features/css-at-media-prefers-color-scheme/'
 -);
 diff --git a/packages/eslint-plugin/src/rules/generated/no-css-at-media-prefers-reduced-motion.ts b/packages/eslint-plugin/src/rules/generated/no-css-at-media-prefers-reduced-motion.ts
@@ -282,7 +282,7 @@ index ae97ed7..0000000
 -
 -export default createNoStyleValueKeywordRule(
 -  'at-media', 
--  59.523809523809526, 
+-  59.375, 
 -  'https://www.caniemail.com/features/css-at-media/'
 -);
 diff --git a/packages/eslint-plugin/src/rules/generated/no-css-at-supports.ts b/packages/eslint-plugin/src/rules/generated/no-css-at-supports.ts
@@ -307,7 +307,7 @@ index be0c9ff..2490a52 100644
  
  export default createNoStyleValueKeywordRule(
 -  'block-inline-size', 
-+  ['block-size', 'inline-size'], 
++  ['block-size', 'inline-size'],
    48.46938775510204, 
    'https://www.caniemail.com/features/css-block-inline-size/'
  );
@@ -323,28 +323,28 @@ index 5984579..a4b56e2 100644
 -  'border-inline-block-individual', 
 +export default createNoStylePropertyRule(
 +  [
-+    'border-inline-color', 
-+    'border-inline-style', 
-+    'border-inline-width', 
-+    'border-inline-start', 
-+    'border-inline-start-color', 
-+    'border-inline-start-style', 
-+    'border-inline-start-width', 
-+    'border-inline-end-color', 
-+    'border-inline-end-style', 
-+    'border-inline-end-width', 
++    'border-inline-color',
++    'border-inline-style',
++    'border-inline-width',
++    'border-inline-start',
++    'border-inline-start-color',
++    'border-inline-start-style',
++    'border-inline-start-width',
++    'border-inline-end-color',
++    'border-inline-end-style',
++    'border-inline-end-width',
 +
-+    'border-block-color', 
-+    'border-block-style', 
-+    'border-block-width', 
-+    'border-block-start', 
-+    'border-block-start-color', 
-+    'border-block-start-style', 
-+    'border-block-start-width', 
-+    'border-block-end-color', 
-+    'border-block-end-style', 
-+    'border-block-end-width', 
-+  ], 
++    'border-block-color',
++    'border-block-style',
++    'border-block-width',
++    'border-block-start',
++    'border-block-start-color',
++    'border-block-start-style',
++    'border-block-start-width',
++    'border-block-end-color',
++    'border-block-end-style',
++    'border-block-end-width',
++  ],
    31.944444444444443, 
    'https://www.caniemail.com/features/css-border-inline-block-individual/'
  );
@@ -374,7 +374,7 @@ index d27e532..8c2f3d9 100644
 -export default createNoStyleValueKeywordRule(
 -  'border-inline-block', 
 +export default createNoStylePropertyRule(
-+  ['border-inline', 'border-block'], 
++  ['border-inline', 'border-block'],
    26.5, 
    'https://www.caniemail.com/features/css-border-inline-block/'
  );
@@ -388,15 +388,15 @@ index 50fbe53..200605e 100644
  export default createNoStyleValueKeywordRule(
 -  'border-radius-logical', 
 +  [
-+    'border-start-end-radius', 
-+    'border-end-end-radius', 
++    'border-start-end-radius',
++    'border-end-end-radius',
 +
 +    'border-top-left-radius',
 +    'border-top-right-radius',
 +
 +    'border-bottom-left-radius',
 +    'border-bottom-right-radius',
-+  ], 
++  ],
    14.880952380952381, 
    'https://www.caniemail.com/features/css-border-radius-logical/'
  );
@@ -411,7 +411,7 @@ index 6c5a9f0..4647cdf 100644
 -export default createNoStyleValueKeywordRule(
 -  'column-layout-properties', 
 +export default createNoStylePropertyRule(
-+  ['columns', 'column-fill', 'column-rule', 'column-gap', 'column-span'], 
++  ['columns', 'column-fill', 'column-rule', 'column-gap', 'column-span'],
    51.973684210526315, 
    'https://www.caniemail.com/features/css-column-layout-properties/'
  );
@@ -424,7 +424,7 @@ index c03be2c..eaef6c1 100644
  
  export default createNoStylePropertyRule(
 -  'gap', 
-+  ['gap', 'row-gap', 'column-gap'], 
++  ['gap', 'row-gap', 'column-gap'],
    48.75, 
    'https://www.caniemail.com/features/css-gap/'
  );
@@ -440,7 +440,7 @@ index ef050a0..d6f0144 100644
 -  'display-flex', 
 +export default createNoStyleValueForProperty(
 +  'flex',
-+  'display', 
++  'display',
    67.24137931034483, 
    'https://www.caniemail.com/features/css-display-flex/'
  );
@@ -456,7 +456,7 @@ index 9f9ff4b..64457c6 100644
 -  'display-grid', 
 +export default createNoStyleValueForProperty(
 +  'grid',
-+  'display', 
++  'display',
    54.347826086956516, 
    'https://www.caniemail.com/features/css-display-grid/'
  );
@@ -497,7 +497,7 @@ index d52bd96..055d39f 100644
  
  export default createNoStyleValueKeywordRule(
 -  'function-clamp', 
-+  'clamp', 
++  'clamp',
    42.857142857142854, 
    'https://www.caniemail.com/features/css-function-clamp/'
  );
@@ -510,7 +510,7 @@ index 295aed1..0d3a4f0 100644
  
  export default createNoStyleValueKeywordRule(
 -  'function-max', 
-+  'max', 
++  'max',
    48.97959183673469, 
    'https://www.caniemail.com/features/css-function-max/'
  );
@@ -523,7 +523,7 @@ index 9589639..99225e0 100644
  
  export default createNoStyleValueKeywordRule(
 -  'function-min', 
-+  'min', 
++  'min',
    48.97959183673469, 
    'https://www.caniemail.com/features/css-function-min/'
  );
@@ -536,7 +536,7 @@ index eabb47a..34fea95 100644
  
  export default createNoStylePropertyRule(
 -  'grid-template', 
-+  ['grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows'], 
++  ['grid-template', 'grid-template-areas', 'grid-template-columns', 'grid-template-rows'],
    37.765957446808514, 
    'https://www.caniemail.com/features/css-grid-template/'
  );
@@ -549,7 +549,7 @@ index 836d840..3edcdb8 100644
  
  export default createNoStyleValueKeywordRule(
 -  'important', 
-+  '!important', 
++  '!important',
    66.30434782608695, 
    'https://www.caniemail.com/features/css-important/'
  );
@@ -575,7 +575,7 @@ index 0e84697..e866454 100644
  
  export default createNoStyleValueKeywordRule(
 -  'intrinsic-size', 
-+  ['fit-content', 'min-content', 'max-content'], 
++  ['fit-content', 'min-content', 'max-content'],
    52.702702702702695, 
    'https://www.caniemail.com/features/css-intrinsic-size/'
  );
@@ -604,7 +604,7 @@ index f8834d4..873d222 100644
 -export default createNoStyleValueKeywordRule(
 -  'margin-block-start-end', 
 +export default createNoStylePropertyRule(
-+  ['margin-block-start', 'margin-block-end'], 
++  ['margin-block-start', 'margin-block-end'],
    38.20754716981132, 
    'https://www.caniemail.com/features/css-margin-block-start-end/'
  );
@@ -619,7 +619,7 @@ index 794948c..eb956a6 100644
 -export default createNoStyleValueKeywordRule(
 -  'margin-inline-block', 
 +export default createNoStylePropertyRule(
-+  ['margin-inline', 'margin-block'], 
++  ['margin-inline', 'margin-block'],
    23.11320754716981, 
    'https://www.caniemail.com/features/css-margin-inline-block/'
  );
@@ -647,7 +647,7 @@ index dafdf5a..3125b6b 100644
  
  export default createNoStyleValueKeywordRule(
 -  'modern-color', 
-+  ['lch', 'oklch', 'lab', 'oklab'], 
++  ['lch', 'oklch', 'lab', 'oklab'],
    27.027027027027028, 
    'https://www.caniemail.com/features/css-modern-color/'
  );
@@ -675,7 +675,7 @@ index 7df7751..b133294 100644
 -export default createNoStyleValueKeywordRule(
 -  'padding-block-start-end', 
 +export default createNoStylePropertyRule(
-+  ['padding-block-start', 'padding-block-end'], 
++  ['padding-block-start', 'padding-block-end'],
    38.20754716981132, 
    'https://www.caniemail.com/features/css-padding-block-start-end/'
  );
@@ -690,7 +690,7 @@ index 4ad64aa..3a7440b 100644
 -export default createNoStyleValueKeywordRule(
 -  'padding-inline-block', 
 +export default createNoStylePropertyRule(
-+  ['padding-inline', 'padding-block'], 
++  ['padding-inline', 'padding-block'],
    23.11320754716981, 
    'https://www.caniemail.com/features/css-padding-inline-block/'
  );
@@ -705,7 +705,7 @@ index ab179f8..82fd771 100644
 -export default createNoStyleValueKeywordRule(
 -  'padding-inline-start-end', 
 +export default createNoStylePropertyRule(
-+  ['padding-inline-start', 'padding-inline-end'], 
++  ['padding-inline-start', 'padding-inline-end'],
    38.20754716981132, 
    'https://www.caniemail.com/features/css-padding-inline-start-end/'
  );
@@ -1045,7 +1045,7 @@ index f97ca14..8b827e2 100644
 -export default createNoStyleValueKeywordRule(
 -  'scroll-snap', 
 +export default createNoStylePropertyRule(
-+  'scroll-snap-type', 
++  'scroll-snap-type',
    38.88888888888889, 
    'https://www.caniemail.com/features/css-scroll-snap/'
  );
@@ -1149,7 +1149,7 @@ index fcbdd75..764d226 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-calc', 
-+  'calc', 
++  'calc',
    58.333333333333336, 
    'https://www.caniemail.com/features/css-unit-calc/'
  );
@@ -1162,7 +1162,7 @@ index 908c579..78208c8 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-ch', 
-+  'ch', 
++  'ch',
    66.66666666666666, 
    'https://www.caniemail.com/features/css-unit-ch/'
  );
@@ -1175,7 +1175,7 @@ index 2732ea6..5fc07bb 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-initial', 
-+  'initial', 
++  'initial',
    62.5, 
    'https://www.caniemail.com/features/css-unit-initial/'
  );
@@ -1188,7 +1188,7 @@ index b63ec04..9010047 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-rem', 
-+  'rem', 
++  'rem',
    66.66666666666666, 
    'https://www.caniemail.com/features/css-unit-rem/'
  );
@@ -1201,7 +1201,7 @@ index 2e18e64..474499f 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-vh', 
-+  'vh', 
++  'vh',
    72, 
    'https://www.caniemail.com/features/css-unit-vh/'
  );
@@ -1214,7 +1214,7 @@ index b31ba51..928e8d0 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-vmax', 
-+  'vmax', 
++  'vmax',
    64.58333333333334, 
    'https://www.caniemail.com/features/css-unit-vmax/'
  );
@@ -1227,7 +1227,7 @@ index ff3ece1..4f979ea 100644
  
  export default createNoStyleValueKeywordRule(
 -  'unit-vmin', 
-+  'vmin', 
++  'vmin',
    62.5, 
    'https://www.caniemail.com/features/css-unit-vmin/'
  );
