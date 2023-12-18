@@ -9,14 +9,19 @@ for each specific possible feature of email templates.
 
 ## How can I run this?
 
+### 1. Clone caniemail 
+
+Before you run, you might have cloned the React Email repository without the 
+caniemail submodule here so you will need to run:
+
 ```sh
-pnpm generate-rules
+git submodule update --init --recursive
 ```
 
-or
+### 2. Run with pnpm script
 
 ```sh
-node ./codegen/index.mjs && git apply ./codegen/manual-changes.patch
+pnpm generate-rules
 ```
 
 ## What is this `manual-changes.patch`?

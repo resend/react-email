@@ -1,9 +1,10 @@
 // @ts-check
 
-import { parseMarkdownMetadata } from './parse-markdown-metadata.mjs';
-import { z } from 'zod';
-import { readFile, readdir } from 'fs/promises';
-import { join } from 'path';
+import { readFile, readdir } from "node:fs/promises";
+import { join } from "node:path";
+import { z } from "zod";
+import { CaniemailDir } from "../caniemail-path.mjs";
+import { parseMarkdownMetadata } from "./parse-markdown-metadata.mjs";
 
 export const featureSchema = z.object({
   title: z.string(),
@@ -26,24 +27,28 @@ export const featureSchema = z.object({
 });
 
 /**
-  * @param prefix {string}
-  */
+ * @param prefix {string}
+ */
 export const getFeaturesDataWithPrefix = async (prefix) => {
-  const files = await readdir('./caniemail/_features', { withFileTypes: true });
+  const files = await readdir(join(CaniemailDir, "_features"), {
+    withFileTypes: true,
+  });
 
   const cssMarkdownFilenames = files
-    .filter(file => file.isFile()
-      && file.name.startsWith(`${prefix}-`)
-      && file.name.endsWith('.md'))
-    .map(file => join(file.path, file.name));
+    .filter(
+      (file) =>
+        file.isFile() &&
+        file.name.startsWith(`${prefix}-`) &&
+        file.name.endsWith(".md"),
+    )
+    .map((file) => join(file.path, file.name));
   const featuresWithFilename = await Promise.all(
-    cssMarkdownFilenames
-      .map(async filename => ({
-        filename,
-        feature: featureSchema.parse(
-          parseMarkdownMetadata(await readFile(filename, 'utf-8'))
-        )
-      }))
+    cssMarkdownFilenames.map(async (filename) => ({
+      filename,
+      feature: featureSchema.parse(
+        parseMarkdownMetadata(await readFile(filename, "utf-8")),
+      ),
+    })),
   );
 
   return featuresWithFilename;

@@ -1,8 +1,7 @@
 // @ts-check
 
-import { readFile, writeFile } from "fs/promises";
-import { existsSync, write } from "fs";
-
+import { readFile, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { camelize } from "./camelize.mjs";
 
 /**

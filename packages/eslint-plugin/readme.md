@@ -15,37 +15,39 @@
 
 Install the plugin from your command line
 
-#### With yarn
+#### With pnpm
 
 ```sh
-yarn add @react-email/eslint-plugin -E
+pnpm add @react-email/eslint-plugin -DE
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/eslint-plugin -E
+npm install @react-email/eslint-plugin -DE
 ```
 
 ## Getting started
 
-1. Create a config file inside of your emails folder
+### 1. Create a config file inside of your emails folder
 
-2. Extend whatever parent config you may want it to have
-
-3. Add the following configuration to it:
+Since the plugin can't detect properly what React component is an email
+or if weather it inside the emails folder, you will need to create a new config file
+inside of it as follows:
 
 ```json
 plugins: ['@react-email'],
 extends: ['plugin:@react-email/recommended']
 ```
 
-Activating or deactivating certain rules as you may prefer.
-These rules are mostly generated with metadata taken from [caniemail](https://www.caniemail.com/).
+Activating or deactivating certain rules as you may prefer. These rules are mostly generated 
+with metadata taken from [caniemail](https://www.caniemail.com/).
 
-Something important to note is that you create a eslint configuration
-specific to *your* `emails` folder since the plugin does not filter out files
-for those that are email templates.
+### 2. Run eslint
+
+```sh
+eslint .
+```
 
 ## License
 
