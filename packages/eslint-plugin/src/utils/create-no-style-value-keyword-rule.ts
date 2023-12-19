@@ -1,5 +1,6 @@
-import { AST_NODE_TYPES } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "./create-rule";
+import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
 export const createNoStyleValueKeywordRule = (
   valueKeywordOrKeywords: string[] | string,
@@ -14,14 +15,11 @@ export const createNoStyleValueKeywordRule = (
 
   const definedMessageOrDefault =
     message ??
-    `The CSS ${
-      isRuleForMultipleValues ? "values" : "value"
-    } ${valueKeywords.join(", ")} ${
-      isRuleForMultipleValues ? "are" : "is"
+    `The CSS ${isRuleForMultipleValues ? "values" : "value"
+    } ${valueKeywords.join(", ")} ${isRuleForMultipleValues ? "are" : "is"
     } only supported on ${supportPercentage.toFixed(
       2,
     )}% of email clients, see ${caniemailLink}`;
-
   return createRule({
     meta: {
       type: "suggestion",
@@ -31,26 +29,23 @@ export const createNoStyleValueKeywordRule = (
       },
     },
     create(context) {
-      return {
-        Property(node) {
-          const value = context.sourceCode.getText(node.value);
-          if (
-            node.parent.type === AST_NODE_TYPES.ObjectExpression &&
-            node.parent.parent.type === AST_NODE_TYPES.JSXExpressionContainer &&
-            node.parent.parent.parent.type === AST_NODE_TYPES.JSXAttribute &&
-            context.sourceCode.getText(node.parent.parent.parent.name) ===
-              "style" &&
-            valueKeywords.some((keyword) =>
-              value.match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")),
-            )
-          ) {
-            context.report({
-              node,
-              messageId: "not-supported-on-most-email-clients",
-            });
-          }
+      const isStylePropertyDisallowed = (node: TSESTree.Property) =>
+        valueKeywords.some((keyword) =>
+          context.sourceCode
+            .getText(node.value)
+            .match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")),
+        );
+
+      return getRuleListenersForJSXStyleProperties(
+        isStylePropertyDisallowed,
+        context.sourceCode,
+        (node) => {
+          context.report({
+            node,
+            messageId: "not-supported-on-most-email-clients",
+          });
         },
-      };
+      );
     },
   });
 };
