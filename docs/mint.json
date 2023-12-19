@@ -21,7 +21,7 @@
   },
   "topbarCtaButton": {
     "type": "github",
-    "url": "https://github.com/resendlabs/react-email"
+    "url": "https://github.com/resend/react-email"
   },
   "anchors": [
     {
@@ -37,7 +37,7 @@
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "https://github.com/resendlabs/react-email"
+      "url": "https://github.com/resend/react-email"
     }
   ],
   "navigation": [
