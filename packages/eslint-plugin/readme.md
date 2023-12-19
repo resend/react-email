@@ -32,7 +32,7 @@ npm install @react-email/eslint-plugin -DE
 ### 1. Create a config file inside of your emails folder
 
 Since the plugin can't detect properly what React component is an email
-or if weather it inside the emails folder, you will need to create a new config file
+or if weather it is inside the emails folder, you will need to create a new config file
 inside of it as follows:
 
 ```json
