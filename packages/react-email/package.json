@@ -28,7 +28,7 @@
     "@commander-js/extra-typings": "9.4.1",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
-    "@react-email/render": "0.0.10",
+    "@react-email/render": "0.0.11-canary.0",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "detect-package-manager": "2.0.1",

@@ -578,8 +578,8 @@ importers:
         specifier: 19.0.7
         version: 19.0.7
       '@react-email/render':
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.0.11-canary.0
+        version: link:../render
       chokidar:
         specifier: 3.5.3
         version: 3.5.3
