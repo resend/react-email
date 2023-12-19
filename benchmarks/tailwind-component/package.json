@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
+    "url": "https://github.com/resend/react-email.git",
     "directory": "benchmarks/tailwind-component"
   },
   "engines": {
