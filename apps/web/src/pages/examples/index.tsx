@@ -120,7 +120,7 @@ const Examples = () => {
               Recreate an{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+                href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 target="_blank"
               >
                 existing email
@@ -128,7 +128,7 @@ const Examples = () => {
               or submit a{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resend/react-email/tree/main/apps/demo/emails"
                 target="_blank"
               >
                 pull request
