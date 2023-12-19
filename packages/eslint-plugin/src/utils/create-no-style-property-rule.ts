@@ -74,7 +74,7 @@ export const createNoStylePropertyRule = (
             }]);
           }
         },
-        'JSXAttribute[name.name="style"] JSXExpressionContainer > Identifier'(
+        'JSXAttribute[name.name="style"] JSXExpressionContainer Identifier'(
           node: TSESTree.Identifier & {
             parent: TSESTree.JSXExpressionContainer & {
               parent: TSESTree.JSXAttribute;
