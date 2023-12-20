@@ -1,7 +1,7 @@
 import { createRule } from "./create-rule";
 
 export const createNoHTMLElementRule = (
-  elementName: string,
+  disallowedElementName: string,
   supportPercentage: number,
   caniemailLink: string,
 ) => {
@@ -10,7 +10,7 @@ export const createNoHTMLElementRule = (
       type: "suggestion",
       schema: [],
       messages: {
-        "not-supported-on-most-email-clients": `The HTML element ${elementName} is only supported on ${supportPercentage.toFixed(
+        "not-supported-on-most-email-clients": `The HTML element ${disallowedElementName} is only supported on ${supportPercentage.toFixed(
           2,
         )}% of email clients, see ${caniemailLink}`,
       },
@@ -18,11 +18,11 @@ export const createNoHTMLElementRule = (
     create(context) {
       return {
         JSXOpeningElement(node) {
-          const name = context.sourceCode.getText(node.name);
+          const elementName = context.sourceCode.getText(node.name);
 
-          if (name === elementName) {
+          if (elementName === disallowedElementName) {
             context.report({
-              node,
+              node: node.name,
               messageId: "not-supported-on-most-email-clients",
             });
           }
