@@ -5,25 +5,41 @@ import type {
 } from "@typescript-eslint/utils/ts-eslint";
 
 /**
-  * Very useful because it keeps track of variables and weather they are being used on jsx
-  * elements or not to warn the user about the problems with the properties
-  */
+ * Very useful because it keeps track of variables and weather they are being used on jsx
+ * elements or not to warn the user about the problems with the properties
+ */
 export const getRuleListenersForJSXStyleProperties = (
-  isStylePropertyDisallowed: (node: TSESTree.Property) => boolean,
+  isStyleDisallowed: (
+    stylePropertyName: string,
+    stylePropertyValue: string,
+  ) => boolean,
 
   sourceCode: Readonly<SourceCode>,
   reportProblemFor: (node: TSESTree.Node) => void,
-) => {
+): RuleListener => {
   const accumulatedProblemPropertiesPerVariableName = new Map<
     string,
     TSESTree.Property[]
   >();
 
+  const metadataFromPropertyNode = (node: TSESTree.Property) => {
+    const [propertyName] = sourceCode
+      .getText(node.key)
+      .trim()
+      .match(/\w+/g) ?? [""];
+    const [propertyValue] = sourceCode
+      .getText(node.value)
+      .trim()
+      .match(/[\w\s-]+/g) ?? [""];
+    return [propertyName, propertyValue] as const;
+  };
+
   return {
     'JSXAttribute[name.name="style"] > JSXExpressionContainer ObjectExpression > Property'(
       node: TSESTree.Property,
     ) {
-      if (isStylePropertyDisallowed(node)) {
+      const [propertyName, propertyValue] = metadataFromPropertyNode(node);
+      if (isStyleDisallowed(propertyName, propertyValue)) {
         reportProblemFor(node);
       }
     },
@@ -31,7 +47,8 @@ export const getRuleListenersForJSXStyleProperties = (
     // because it can be wrapped with something like TSAsExpression
     // which might cause issues here
     "VariableDeclarator ObjectExpression > Property"(node: TSESTree.Property) {
-      if (isStylePropertyDisallowed(node)) {
+      const [propertyName, propertyValue] = metadataFromPropertyNode(node);
+      if (isStyleDisallowed(propertyName, propertyValue)) {
         const variableNode = sourceCode.getAncestors!(node).findLast(
           (ancestor) => ancestor.type === AST_NODE_TYPES.VariableDeclarator,
         ) as TSESTree.VariableDeclarator;
@@ -57,5 +74,5 @@ export const getRuleListenersForJSXStyleProperties = (
         }
       }
     },
-  } satisfies RuleListener;
+  };
 };

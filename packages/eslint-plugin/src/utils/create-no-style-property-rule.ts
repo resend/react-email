@@ -1,4 +1,3 @@
-import { type TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "./create-rule";
 import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
@@ -24,16 +23,12 @@ export const createNoStylePropertyRule = (
       },
     },
     create(context) {
-      const camelCasedProperties = propertyNames.map((p) =>
+      const camelCasedPropertyNames = propertyNames.map((p) =>
         p.replace(/-[a-z]/g, (g) => g[1].toUpperCase()),
       );
 
-      const isStylePropertyDisallowed = (node: TSESTree.Property) => {
-        const [attributeName] = context.sourceCode
-          .getText(node.key)
-          .trim()
-          .match(/\w+/g) ?? [""]; // only select the word
-        return camelCasedProperties.includes(attributeName);
+      const isStylePropertyDisallowed = (name: string) => {
+        return camelCasedPropertyNames.includes(name);
       };
 
       return getRuleListenersForJSXStyleProperties(

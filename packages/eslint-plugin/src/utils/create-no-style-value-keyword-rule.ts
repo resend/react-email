@@ -1,4 +1,3 @@
-import type { TSESTree } from "@typescript-eslint/utils";
 import { createRule } from "./create-rule";
 import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
@@ -29,11 +28,9 @@ export const createNoStyleValueKeywordRule = (
       },
     },
     create(context) {
-      const isStylePropertyDisallowed = (node: TSESTree.Property) =>
+      const isStylePropertyDisallowed = (_name: string, value: string) =>
         valueKeywords.some((keyword) =>
-          context.sourceCode
-            .getText(node.value)
-            .match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")),
+          value.match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")),
         );
 
       return getRuleListenersForJSXStyleProperties(
