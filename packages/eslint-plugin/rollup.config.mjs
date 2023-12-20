@@ -58,6 +58,7 @@ export default defineConfig({
   ],
   external: [
     ...Object.keys(pkg.dependencies || []),
+    /tailwindcss\/.*/,
     ...Object.keys(pkg.peerDependencies || [])
   ],
 })

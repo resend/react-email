@@ -34,11 +34,20 @@ export const createNoStylePropertyRule = (
       return getRuleListenersForJSXStyleProperties(
         isStylePropertyDisallowed,
         context.sourceCode,
-        (node) => {
-          context.report({
-            node,
-            messageId: "not-supported-on-most-email-clients",
-          });
+        (nodeOrLocation) => {
+          if ("start" in nodeOrLocation) {
+            const location = nodeOrLocation;
+            context.report({
+              loc: location,
+              messageId: "not-supported-on-most-email-clients",
+            });
+          } else {
+            const node = nodeOrLocation;
+            context.report({
+              node,
+              messageId: "not-supported-on-most-email-clients",
+            });
+          }
         },
       );
     },
