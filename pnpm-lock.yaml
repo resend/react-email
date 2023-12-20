@@ -416,6 +416,9 @@ importers:
       parse-md:
         specifier: 3.0.3
         version: 3.0.3
+      tailwindcss:
+        specifier: ^3.4.0
+        version: 3.4.0
       zod:
         specifier: 3.22.4
         version: 3.22.4
