@@ -14,10 +14,10 @@ export const getSourceCodeTailwindMetadata = (
 ):
   | { hasTailwind: false }
   | {
-    hasTailwind: true;
-    tailwindConfig: TailwindComponentConfig;
-    tailwindContext: JitContext;
-  } => {
+      hasTailwind: true;
+      tailwindConfig: TailwindComponentConfig;
+      tailwindContext: JitContext;
+    } => {
   const tailwindComponentNode = esquery(
     sourceCode.ast,
     'JSXOpeningElement[name.name="Tailwind"]',

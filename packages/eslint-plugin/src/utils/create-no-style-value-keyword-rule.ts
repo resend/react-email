@@ -14,8 +14,10 @@ export const createNoStyleValueKeywordRule = (
 
   const definedMessageOrDefault =
     message ??
-    `The CSS ${isRuleForMultipleValues ? "values" : "value"
-    } ${valueKeywords.join(", ")} ${isRuleForMultipleValues ? "are" : "is"
+    `The CSS ${
+      isRuleForMultipleValues ? "values" : "value"
+    } ${valueKeywords.join(", ")} ${
+      isRuleForMultipleValues ? "are" : "is"
     } only supported on ${supportPercentage.toFixed(
       2,
     )}% of email clients, see ${caniemailLink}`;
@@ -37,7 +39,7 @@ export const createNoStyleValueKeywordRule = (
         isStylePropertyDisallowed,
         context.sourceCode,
         (nodeOrLocation) => {
-          if ('start' in nodeOrLocation) {
+          if ("start" in nodeOrLocation) {
             const location = nodeOrLocation;
             context.report({
               loc: location,

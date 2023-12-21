@@ -1,5 +1,5 @@
 // taken from @types/esquery but slightly modified
-declare module 'esquery' {
+declare module "esquery" {
   import type { TSESTree } from "@typescript-eslint/utils";
 
   type Node = TSESTree.Node;
@@ -35,7 +35,11 @@ declare module 'esquery' {
       options?: ESQueryOptions,
     ): boolean;
     /** Query the code AST using the selector string. */
-    function query(ast: Node, selector: string, options?: ESQueryOptions): Node[];
+    function query(
+      ast: Node,
+      selector: string,
+      options?: ESQueryOptions,
+    ): Node[];
 
     /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
     function traverse(

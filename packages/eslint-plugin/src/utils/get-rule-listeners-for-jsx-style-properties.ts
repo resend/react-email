@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, type TSESTree } from "@typescript-eslint/utils";
-import esquery from 'esquery';
+import esquery from "esquery";
 import type {
   RuleListener,
   SourceCode,
@@ -49,7 +49,10 @@ export const getRuleListenersForJSXStyleProperties = (
       const propertiesPerClassname = new Map<string, Property[]>();
 
       for (const className of classNameAttribute.split(" ")) {
-        for (const rule of generateTailwindCssRules([className], tailwindContext).rules) {
+        for (const rule of generateTailwindCssRules(
+          [className],
+          tailwindContext,
+        ).rules) {
           const properties = [] as Property[];
           rule.walk((node) => {
             if (node.type === "decl") {
@@ -63,7 +66,9 @@ export const getRuleListenersForJSXStyleProperties = (
       return propertiesPerClassname;
     };
 
-    ruleListener['JSXAttribute[name.name="className"] Literal'] = (node: TSESTree.Literal) => {
+    ruleListener['JSXAttribute[name.name="className"] Literal'] = (
+      node: TSESTree.Literal,
+    ) => {
       const classNameAttribute = node.value;
       if (typeof classNameAttribute === "string") {
         const propertiesForClassName =
@@ -91,7 +96,7 @@ export const getRuleListenersForJSXStyleProperties = (
           }
         }
       }
-    }
+    };
   }
 
   const accumulatedProblemPropertiesPerVariableName = new Map<
@@ -102,7 +107,10 @@ export const getRuleListenersForJSXStyleProperties = (
   // we can't directly get the ObjectExpression from VariableDeclarator
   // because it can be wrapped with something like TSAsExpression
   // which might cause issues here
-  for (const node of (esquery(sourceCode.ast, "VariableDeclarator ObjectExpression > Property") as TSESTree.Property[])) {
+  for (const node of esquery(
+    sourceCode.ast,
+    "VariableDeclarator ObjectExpression > Property",
+  ) as TSESTree.Property[]) {
     const [propertyName, propertyValue] = metadataFromPropertyNode(node);
     if (isStylePropertyDisallowed(propertyName, propertyValue)) {
       const variableNode = sourceCode.getAncestors!(node).findLast(

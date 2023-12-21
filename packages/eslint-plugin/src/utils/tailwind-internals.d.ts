@@ -1,26 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 declare module "tailwindcss/lib/lib/evaluateTailwindFunctions" {
-  import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
-  import type { Root } from 'postcss';
+  import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+  import type { Root } from "postcss";
 
-  function evaluateTailwindFunctions(
-    context: JITContext,
-  ): ((root: Root) => void);
+  function evaluateTailwindFunctions(context: JITContext): (root: Root) => void;
 
   export default {
-    default: evaluateTailwindFunctions
-  }
+    default: evaluateTailwindFunctions,
+  };
 }
 
 declare module "tailwindcss/lib/lib/generateRules" {
-  import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
-  import type { Rule } from 'postcss';
+  import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+  import type { Rule } from "postcss";
 
   export function generateRules(
     classNames: Set<string>,
     context: JITContext,
-  ): ([bigint, Rule])[];
+  ): [bigint, Rule][];
 }
 
 // taken from https://github.com/vinicoder/tw-to-css/blob/main/types.d.ts

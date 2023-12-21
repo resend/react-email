@@ -24,8 +24,7 @@ export const createNoStyleValueForProperty = (
 
       const isStylePropertyDisallowed = (name: string, value: string) => {
         return (
-          value.trim() === valueToDisallow &&
-          camelCasedPropertyName === name
+          value.trim() === valueToDisallow && camelCasedPropertyName === name
         );
       };
 
@@ -33,7 +32,7 @@ export const createNoStyleValueForProperty = (
         isStylePropertyDisallowed,
         context.sourceCode,
         (nodeOrLocation) => {
-          if ('start' in nodeOrLocation) {
+          if ("start" in nodeOrLocation) {
             const location = nodeOrLocation;
             context.report({
               loc: location,
