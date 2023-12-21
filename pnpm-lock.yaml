@@ -410,14 +410,20 @@ importers:
       '@typescript-eslint/utils':
         specifier: 6.11.0
         version: 6.11.0(eslint@8.50.0)(typescript@5.1.6)
+      esquery:
+        specifier: 1.5.0
+        version: 1.5.0
       js-yaml:
         specifier: 4.1.0
         version: 4.1.0
       parse-md:
         specifier: 3.0.3
         version: 3.0.3
+      postcss:
+        specifier: 8.4.32
+        version: 8.4.32
       tailwindcss:
-        specifier: ^3.4.0
+        specifier: 3.4.0
         version: 3.4.0
       zod:
         specifier: 3.22.4
@@ -427,16 +433,16 @@ importers:
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.21.8)
       '@rollup/plugin-commonjs':
-        specifier: ^25.0.7
+        specifier: 25.0.7
         version: 25.0.7(rollup@4.4.1)
       '@types/eslint':
-        specifier: ^8.44.7
+        specifier: 8.44.7
         version: 8.44.7
       '@types/html-to-text':
         specifier: 9.0.1
         version: 9.0.1
       '@types/js-yaml':
-        specifier: ^4.0.9
+        specifier: 4.0.9
         version: 4.0.9
       '@types/pretty':
         specifier: 2.0.1
@@ -447,14 +453,11 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
-      postcss:
-        specifier: ^8.4.32
-        version: 8.4.32
       rollup:
-        specifier: ^4.4.1
+        specifier: 4.4.1
         version: 4.4.1
       rollup-plugin-esbuild:
-        specifier: ^6.1.0
+        specifier: 6.1.0
         version: 6.1.0(esbuild@0.18.20)(rollup@4.4.1)
       tsconfig:
         specifier: workspace:*

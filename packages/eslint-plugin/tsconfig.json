@@ -5,6 +5,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "Bundler",
+    "noErrorTruncation": true,
     "module": "NodeNext"
   },
   "exclude": ["dist", "build", "node_modules"]
