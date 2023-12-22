@@ -1,20 +1,29 @@
 ---
 title: 'Setting up for yarn workspaces'
 sidebarTitle: 'yarn'
-description: 'Setting up React Email on a yarn monorepo'
+description: 'Configure React Email on a yarn monorepo'
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
 <Note>
-  This is a guide intended at users of [yarn mordern](https://yarnpkg.com/getting-started/qa#why-should-you-upgrade-to-yarn-modern) 
-  for those who are using [yarn classic](https://www.npmjs.com/package/yarn) (`1.x`) you can do something similar to the 
+  This is a guide intended at users of [yarn modern](https://yarnpkg.com/getting-started/qa#why-should-you-upgrade-to-yarn-modern). 
+  For those who are using [yarn classic](https://www.npmjs.com/package/yarn) (`1.x`), you can do something similar to the 
   [pnpm guide](/getting-started/monorepo-setup/pnpm).
 </Note>
 
 ## 1. Create transactional workspace
 
-Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`) 
-and in there setup a new `package.json` and do not forget to add this to the `workspaces` of your monorepo's `package.json`.
+Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`).
+
+Include a new `package.json` and do not forget to add this to the `workspaces` of your monorepo's `package.json`.
+
+<Card
+  title="React Email + Turborepo + yarn example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-yarn-example"
+>
+  See the full source code
+</Card>
 
 ## 2. Set linker either to `node-modules` or to `pnpm`
 
@@ -40,7 +49,7 @@ the preview client's folder to the workspaces as follows:
 
 ## 4. Install dependencies
 
-Install React Email to the `transactional` workspace along with React Email's unstyled components:
+Install React Email in the `transactional` workspace.
 
 ```sh packages/transactional
 yarn add react-email @react-email/components -E
@@ -102,6 +111,10 @@ Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` 
 
 ## 9. Try it yourself
 
-<Card title="React Email + Turborepo + yarn example" icon="arrow-up-right-from-square" href="https://github.com/resend/react-email-turborepo-yarn-example">
-  See the full source code using `nodeLinker: node-modules`
+<Card
+  title="React Email + Turborepo + yarn example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-yarn-example"
+>
+  See the full source code
 </Card>

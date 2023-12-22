@@ -1,13 +1,21 @@
 ---
 title: 'Setting up for pnpm workspaces'
 sidebarTitle: 'pnpm'
-description: 'Setting up React Email on a pnpm monorepo'
+description: 'Configure React Email on a pnpm monorepo'
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
-## 1. Create transactional workspace
+## 1. Create workspace
 
 Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`) and in there setup a new `package.json` and do not forget to add this to your `pnpm-workspace.yaml`.
+
+<Card
+  title="React Email + Turborepo + pnpm example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-pnpm-example"
+>
+  See the full source code
+</Card>
 
 ## 2. Add the preview client to your workspaces
 
@@ -22,7 +30,7 @@ packages:
 
 ## 3. Install dependencies
 
-Install React Email to the `transactional` workspace along with React Email's unstyled components:
+Install React Email in the `transactional` workspace.
 
 ```sh packages/transactional
 pnpm add react-email @react-email/components -E
@@ -84,6 +92,10 @@ Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` 
 
 ## 8. Try it yourself
 
-<Card title="React Email + Turborepo + pnpm example" icon="arrow-up-right-from-square" href="https://github.com/resend/react-email-turborepo-pnpm-example">
+<Card
+  title="React Email + Turborepo + pnpm example"
+  icon="arrow-up-right-from-square"
+  href="https://github.com/resend/react-email-turborepo-pnpm-example"
+>
   See the full source code
 </Card>

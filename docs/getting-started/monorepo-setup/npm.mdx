@@ -1,14 +1,23 @@
 ---
 title: 'Setting up for npm workspaces'
 sidebarTitle: 'npm'
-description: 'Setting up React Email on a npm monorepo'
+description: 'Configure React Email on a npm monorepo'
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
-## 1. Create transactional workspace
+## 1. Create workspace
 
-Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`) 
-and in there setup a new `package.json` and do not forget to add this to the `workspaces` of your monorepo's `package.json`.
+Create a new folder called `transactional` inside of where you keep workspace packages (generally `./packages/*`).
+
+Include a new `package.json` and do not forget to add this to the `workspaces` of your monorepo's `package.json`.
+
+<Card 
+  title="React Email + Turborepo + npm example" 
+  icon="arrow-up-right-from-square" 
+  href="https://github.com/resend/react-email-turborepo-npm-example"
+>
+  See the full source code
+</Card>
 
 ## 2. Add the preview client to your workspaces
 
@@ -25,7 +34,7 @@ the preview client's folder to the workspaces as follows:
 
 ## 3. Install dependencies
 
-Install React Email to the `transactional` workspace along with React Email's unstyled components:
+Install React Email in the `transactional` workspace.
 
 ```sh packages/transactional
 npm install react-email @react-email/components -E
