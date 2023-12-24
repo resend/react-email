@@ -181,7 +181,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   else if (
     typeof element.type === "function" &&
     element.type.name === "Head" 
-  ) 
+  ) {
+    // Ignore <Head> components
+  }
+  else {
+    // Other elements are ok
+  }
 });
    
 
