@@ -175,16 +175,15 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       element,
       nonMediaQueryTailwindStylesPerClass,
     );
-
-    if (
-      element.type === "head" ||
-      (typeof element.type === "function" &&
-        "name" in element.type &&
-        element.type.name === "Head")
-    ) {
-      headElementIndex = i;
-    }
-  });
+  if (element.type === "head") {
+      headElementIndex = i; 
+  }
+  else if (
+    typeof element.type === "function" &&
+    element.type.name === "Head" 
+  ) 
+});
+   
 
   headStyles = headStyles.filter((style) => style.trim().length > 0);
 
