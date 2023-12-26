@@ -15,5 +15,3 @@ export const escapeClassName = (className: string) => {
     },
   );
 };
-
-

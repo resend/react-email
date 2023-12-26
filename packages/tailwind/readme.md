@@ -78,20 +78,20 @@ and the class names associated with them on a `<style>` tag on the `<head>` elem
 ### The treatment for Tailwind's CSS variables
 
 This is also something we need to keep in mind here, emails don't really have great support
-for CSS variables, so we needed to use a [postcss plugin](https://github.com/MadLittleMods/postcss-css-variables) 
+for CSS variables, so we needed to use a [postcss plugin](https://github.com/MadLittleMods/postcss-css-variables)
 alongisde Tailwind to resolve all of these variables.
 
 ### The treatment for media query class names
 
 For media queries we have made more than one decision that are for the better. The first one
 and most important is sanitizing the media query class names on the `<style>` tag to avoid
-needing to escape the class names which does cause problems. 
+needing to escape the class names which does cause problems.
 
 ### RGB syntax color changes
 
 For the best support two things were taken into account here. First thing is that
-the syntax using spaces, which Tailwind generally uses, is not really supported, 
-neither for `rgb` nor for `rgba`, so we do a pass through Tailwind's generated 
+the syntax using spaces, which Tailwind generally uses, is not really supported,
+neither for `rgb` nor for `rgba`, so we do a pass through Tailwind's generated
 styles to change the syntax into using commas instead of spaces.
 
 Second thing is that both `rgba` and using `/` for defining the color's opacity
@@ -108,7 +108,7 @@ rgb(212 213 102 / 0.2) -> rgb(212,213,102,0.2)
 ### Defining the styles on the React `style` prop
 
 This is something that comes a bit at the risk of performance but it is a safer way of doing this.
-The reason this is safer is because certain components of ours or even custom ones may modify the 
+The reason this is safer is because certain components of ours or even custom ones may modify the
 way styles are applied and defining it directly on the rendered HTML would cause unexpected behavior
 on that.
 

@@ -16,8 +16,5 @@ export const sanitizeClassName = (className: string) => {
     .replaceAll(">", "gt")
     .replaceAll("<", "lt")
     .replaceAll("=", "eq")
-    .replace(
-      /[^a-zA-Z0-9\-_]/g,
-      "_",
-    );
+    .replace(/[^a-zA-Z0-9\-_]/g, "_");
 };

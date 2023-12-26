@@ -155,9 +155,11 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
     let finalMediaQuery = mediaQuery;
 
-    for (const [fullRule, escapedRuleClassName, ruleContent] of content.matchAll(
-      /\s*\.([\S]+)\s*{([^}]*)}/gm,
-    )) {
+    for (const [
+      fullRule,
+      escapedRuleClassName,
+      ruleContent,
+    ] of content.matchAll(/\s*\.([\S]+)\s*{([^}]*)}/gm)) {
       const ruleClassName = escapedRuleClassName.replaceAll(/\\[0-9]|\\/g, "");
       nonEscapedMediaQueryClasses.push(ruleClassName);
 
