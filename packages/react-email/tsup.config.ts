@@ -4,5 +4,5 @@ export default defineConfig({
   dts: false,
   entry: ['./src/cli/index.ts'],
   format: 'cjs',
-  outDir: 'cli'
+  outDir: 'cli',
 });

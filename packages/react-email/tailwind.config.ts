@@ -7,7 +7,7 @@ const config: Config = {
     relative: true,
     files: [
       './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-      './src/app/**/*.{js,ts,jsx,tsx,mdx}'
+      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
   },
   theme: {
