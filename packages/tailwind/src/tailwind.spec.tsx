@@ -409,7 +409,7 @@ describe("<Tailwind> component", () => {
     );
   });
 
-  it.only("should work with calc() with + sign", () => {
+  it("should work with calc() with + sign", () => {
     const actualOutput = render(
       <Tailwind>
         <head />
