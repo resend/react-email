@@ -8,6 +8,7 @@ import { getCssForMarkup } from "./utils/get-css-for-markup";
 import { minifyCss } from "./utils/minify-css";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 import { escapeClassName } from "./utils/escape-class-name";
+import { sanitizeClassName } from "./utils/sanitize-class-name";
 import { useRgbNonSpacedSyntax } from "./utils/use-rgb-non-spaced-syntax";
 import { quickSafeRenderToString } from "./utils/quick-safe-render-to-string";
 
@@ -21,6 +22,7 @@ export interface TailwindProps {
 function processElement(
   element: React.ReactElement,
   nonMediaQueryTailwindStylesPerClass: Record<string, string>,
+  nonEscapedMediaQueryClasses: string[],
 ): React.ReactElement {
   let modifiedElement = element;
 
@@ -41,17 +43,21 @@ function processElement(
 
     classNames.forEach((className) => {
       /*                        escape all unallowed characters in css class selectors */
-      const escapedClassName = escapeClassName(className);
+      const tailwindEscapedClassName = escapeClassName(className);
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
       if (
-        typeof nonMediaQueryTailwindStylesPerClass[escapedClassName] ===
+        typeof nonMediaQueryTailwindStylesPerClass[tailwindEscapedClassName] ===
         "undefined"
       ) {
-        classNamesToKeep.push(className);
+        if (nonEscapedMediaQueryClasses.includes(className)) {
+          classNamesToKeep.push(sanitizeClassName(className));
+        } else {
+          classNamesToKeep.push(className);
+        }
       } else {
         styles.push(
-          `${nonMediaQueryTailwindStylesPerClass[escapedClassName]};`,
+          `${nonMediaQueryTailwindStylesPerClass[tailwindEscapedClassName]};`,
         );
       }
     });
@@ -69,7 +75,11 @@ function processElement(
       modifiedElement.props.children,
     ).map((child) => {
       if (React.isValidElement(child)) {
-        return processElement(child, nonMediaQueryTailwindStylesPerClass);
+        return processElement(
+          child,
+          nonMediaQueryTailwindStylesPerClass,
+          nonEscapedMediaQueryClasses,
+        );
       }
       return child;
     });
@@ -97,6 +107,7 @@ function processElement(
       modifiedElement = processElement(
         renderedComponent,
         nonMediaQueryTailwindStylesPerClass,
+        nonEscapedMediaQueryClasses,
       );
     }
   }
@@ -134,31 +145,44 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     getCssForMarkup(markupWithTailwindClasses, config),
   );
 
-  const nonMediaQueryCSS = markupCSS.replaceAll(
-    /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
-    (mediaQuery, _className) => {
-      headStyles.push(
-        mediaQuery
-          .replace(/[\r\n|\r|\n]+/g, "")
-          .replace(/\s+/g, " ")
-          .replaceAll(/\s*\.[\S]+\s*{([^}]*)}/gm, (match, content: string) => {
-            return match.replace(
-              content,
-              content
-                .split(";")
-                .map((propertyDeclaration) =>
-                  propertyDeclaration.endsWith("!important")
-                    ? propertyDeclaration.trim()
-                    : `${propertyDeclaration.trim()}!important`,
-                )
-                .join(";"),
-            );
-          }),
-      );
+  let nonMediaQueryCSS = markupCSS;
+  const nonEscapedMediaQueryClasses = [] as string[];
 
-      return "";
-    },
-  );
+  for (const [mediaQuery, content] of markupCSS.matchAll(
+    /@media\s*\(.*\)\s*{(\s*\..*\s*{[\s\S]*}\s*)}/gm,
+  )) {
+    nonMediaQueryCSS = nonMediaQueryCSS.replace(mediaQuery, "");
+
+    let finalMediaQuery = mediaQuery;
+
+    for (const [fullRule, escapedRuleClassName, ruleContent] of content.matchAll(
+      /\s*\.([\S]+)\s*{([^}]*)}/gm,
+    )) {
+      const ruleClassName = escapedRuleClassName.replaceAll(/\\[0-9]|\\/g, "");
+      nonEscapedMediaQueryClasses.push(ruleClassName);
+
+      finalMediaQuery = finalMediaQuery.replace(
+        fullRule,
+        fullRule
+          .replace(escapedRuleClassName, sanitizeClassName(ruleClassName))
+          .replace(
+            ruleContent,
+            ruleContent
+              .split(";")
+              .map((propertyDeclaration) =>
+                propertyDeclaration.endsWith("!important")
+                  ? propertyDeclaration.trim()
+                  : `${propertyDeclaration.trim()}!important`,
+              )
+              .join(";"),
+          )
+          .replace(/[\r\n|\r|\n]+/g, "") // remove line breaks
+          .replace(/\s+/g, " "),
+      );
+    }
+
+    headStyles.push(finalMediaQuery);
+  }
 
   const nonMediaQueryTailwindStylesPerClass =
     getStylesPerClassMap(nonMediaQueryCSS);
@@ -174,6 +198,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     childrenArray[i] = processElement(
       element,
       nonMediaQueryTailwindStylesPerClass,
+      nonEscapedMediaQueryClasses,
     );
 
     if (
