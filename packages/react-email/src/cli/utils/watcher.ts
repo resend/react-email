@@ -30,7 +30,7 @@ export const createWatcherInstance = (watchDir: string) => {
 export const watcher = (watcherInstance: FSWatcher, watchDir: string) => {
   watcherInstance.on('all', (event, filename) => {
     const file = filename.split(path.sep);
-    if (file[1] === undefined) {
+    if (file.length < 1) {
       return;
     }
 
