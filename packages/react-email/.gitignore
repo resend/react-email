@@ -1,5 +1,5 @@
 node_modules
-dist
+bin
 .next
 
 # for testing

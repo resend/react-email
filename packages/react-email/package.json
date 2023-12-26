@@ -3,16 +3,24 @@
   "version": "1.10.2-canary.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/source/index.js"
+    "email": "./cli/index.js"
   },
-  "types": "./dist/source/index.d.ts",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
-    "dev": "npm uninstall -g react-email --silent && pnpm build && npm link --silent && echo \"dev CLI available with 'email'\"",
-    "dev:watch": "pnpm watch \"clear && pnpm dev\" ./ \"-p=/^(dist|node_modules|preview-server)/g\"",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "clean": "rm -rf dist",
     "lint": "eslint ."
   },
+  "files": [
+    "next.config.js",
+    "tailwind.config.ts",
+    "tsconfig.json",
+    ".eslintrc.js",
+    "src/app",
+    "src/components",
+    "public",
+    "cli"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +38,12 @@
     "@commander-js/extra-typings": "9.4.1",
     "@manypkg/find-root": "2.2.1",
     "@octokit/rest": "19.0.7",
+    "@react-email/components": "workspace:*",
     "@react-email/render": "0.0.12-canary.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "10.4.14",
     "chokidar": "3.5.3",
     "commander": "9.4.1",
     "detect-package-manager": "2.0.1",
@@ -41,16 +54,22 @@
     "next": "^14.0.4",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
+    "postcss": "8.4.32",
+    "react": "^18",
+    "react-dom": "^18",
     "read-pkg": "5.2.0",
     "shelljs": "0.8.5",
+    "tailwindcss": "3.3.0",
     "tree-cli": "0.6.7"
   },
   "devDependencies": {
+    "@swc/core": "1.3.101",
     "@types/fs-extra": "11.0.1",
-    "@types/normalize-path": "3.0.0",
     "@types/shelljs": "0.8.12",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
+    "tsup": "7.2.0",
+    "tsx": "4.7.0",
     "typescript": "5.1.6",
     "watch": "1.0.2"
   }

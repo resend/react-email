@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['custom/react-internal'],
+  extends: ['custom/next'],
   rules: {
     'eslint-comments/require-description': 'off',
     'no-console': 'off',

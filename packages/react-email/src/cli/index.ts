@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable */
 import { program } from '@commander-js/extra-typings';
-import packageJson from '../package.json';
+import packageJson from '../../package.json';
 import { dev } from './commands/dev';
 import { buildPreview, startPreview } from './commands/preview';
 import { exportTemplates } from './commands/export';

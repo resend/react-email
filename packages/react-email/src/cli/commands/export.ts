@@ -30,7 +30,7 @@ export const exportTemplates = async (
     entryPoints: allTemplates,
     platform: 'node',
     write: true,
-    tsconfig: path.join(__dirname, '../../..', 'tsconfig.export.json'),
+    tsconfig: path.join(__dirname, '..', 'tsconfig.export.json'),
     outdir: outDir,
   });
   if (buildResult.warnings.length > 0) {

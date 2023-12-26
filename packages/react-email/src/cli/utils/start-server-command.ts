@@ -21,7 +21,7 @@ export const startDevServer = async (_packageManager: string, port: string) => {
     hostname: 'localhost',
     port: parseInt(port),
     customServer: true,
-    dir: path.resolve(__dirname, '../../../preview-server'),
+    dir: path.resolve(__dirname, '..'),
   });
 
   await app.prepare();
