@@ -23,7 +23,9 @@ export const startDevServer = async (_packageManager: string, port: string) => {
     hostname: 'localhost',
     port: parseInt(port),
     customServer: true,
-    dir: isRunningBuilt ? path.resolve(__dirname, '..') : path.resolve(__dirname, '../../..'),
+    dir: isRunningBuilt
+      ? path.resolve(__dirname, '..')
+      : path.resolve(__dirname, '../../..'),
   });
 
   await app.prepare();
@@ -75,7 +77,6 @@ export const startProdServer = (_packageManager: string, _port: string) => {
 
 export const buildProdServer = (_packageManager: string) => {
   // execAsync(`${packageManager} run build`);
-
   // if build fails for whatever reason, make sure the shell actually exits
   // process.on('close', (code: number | undefined) => {
   //   shell.exit(code ?? undefined);
