@@ -1,10 +1,14 @@
 import fs from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 
 export const getEmails = async () => {
-  const emailsPath = path.join(process.cwd(), 'emails');
+  const emailsDirPath = path.join(process.cwd(), 'emails');
+
+  if (!existsSync(emailsDirPath)) return [];
+
   const emailPaths = await fs
-    .readdir(emailsPath, { withFileTypes: true })
+    .readdir(emailsDirPath, { withFileTypes: true })
     .then((files) =>
       files
         .filter((file) => file.isFile() && file.name.endsWith('.tsx'))
