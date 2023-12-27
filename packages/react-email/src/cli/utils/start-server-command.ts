@@ -16,7 +16,7 @@ function execAsync(command: string) {
 }
 
 export const startDevServer = async (_packageManager: string, port: string) => {
-  const isRunningBuilt = __filename.endsWith('index.js');
+  const isRunningBuilt = __filename.endsWith('cli/index.js');
   const app = next({
     dev: true,
     hostname: 'localhost',
@@ -56,7 +56,7 @@ export const startDevServer = async (_packageManager: string, port: string) => {
       }
     })
     .listen(port, () => {
-      console.log(`running preview at localhost:${port}`);
+      console.log(`running preview at http://localhost:${port}`);
     })
     .on('error', (e: NodeJS.ErrnoException) => {
       if (e.code === 'EADDRINUSE') {
