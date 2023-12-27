@@ -1,19 +1,20 @@
-import type { ChildProcess } from 'node:child_process';
 import path from 'node:path';
 import http from 'node:http';
 import url from 'node:url';
 import shell from 'shelljs';
 import next from 'next';
 
-let processesToKill: ChildProcess[] = [];
+// let processesToKill: ChildProcess[] = [];
 
-function execAsync(command: string) {
-  const process = shell.exec(command, { async: true });
-  processesToKill.push(process);
-  process.on('close', () => {
-    processesToKill = processesToKill.filter((p) => p !== process);
-  });
-}
+// function execAsync(command: string) {
+//   const process = shell.exec(command, { async: true });
+//   processesToKill.push(process);
+//   process.on('close', () => {
+//     processesToKill = processesToKill.filter((p) => p !== process);
+//   });
+// }
+
+let devServer: http.Server;
 
 export const startDevServer = async (_packageManager: string, port: string) => {
   const isRunningBuilt = __filename.endsWith('cli/index.js');
@@ -29,7 +30,7 @@ export const startDevServer = async (_packageManager: string, port: string) => {
 
   const nextHandleRequest = app.getRequestHandler();
 
-  http
+  devServer = http
     .createServer((req, res) => {
       if (!req.url) {
         res.end(404);
@@ -68,30 +69,32 @@ export const startDevServer = async (_packageManager: string, port: string) => {
     });
 };
 
-export const startProdServer = (packageManager: string, port: string) => {
-  execAsync(`${packageManager} run start -- -p ${port}`);
+export const startProdServer = (_packageManager: string, _port: string) => {
+  // execAsync(`${packageManager} run start -- -p ${port}`);
 };
 
-export const buildProdServer = (packageManager: string) => {
-  execAsync(`${packageManager} run build`);
+export const buildProdServer = (_packageManager: string) => {
+  // execAsync(`${packageManager} run build`);
 
   // if build fails for whatever reason, make sure the shell actually exits
-  process.on('close', (code: number | undefined) => {
-    shell.exit(code ?? undefined);
-  });
+  // process.on('close', (code: number | undefined) => {
+  //   shell.exit(code ?? undefined);
+  // });
 };
 
 // based on https://stackoverflow.com/a/14032965
 const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
   (options) => (code) => {
-    if (processesToKill.length > 0) {
-      console.log('shutting down %d subprocesses', processesToKill.length);
-    }
-    processesToKill.forEach((p) => {
-      if (p.connected) {
-        p.kill();
-      }
-    });
+    console.log('shutting down dev server');
+    devServer.close();
+    // if (processesToKill.length > 0) {
+    //   console.log('shutting down %d subprocesses', processesToKill.length);
+    // }
+    // processesToKill.forEach((p) => {
+    //   if (p.connected) {
+    //     p.kill();
+    //   }
+    // });
     if (options?.exit) {
       shell.exit(code);
     }
