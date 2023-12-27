@@ -16,13 +16,18 @@ import next from 'next';
 
 let devServer: http.Server | undefined;
 
-export const startDevServer = async (_packageManager: string, port: string) => {
+export const startDevServer = async (emailsDirRelativePath: string, port: string) => {
   const isRunningBuilt = __filename.endsWith('cli/index.js');
   const app = next({
     dev: true,
     hostname: 'localhost',
     port: parseInt(port),
     customServer: true,
+    conf: {
+      env: {
+        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath
+      },
+    },
     dir: isRunningBuilt
       ? path.resolve(__dirname, '..')
       : path.resolve(__dirname, '../../..'),

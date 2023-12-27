@@ -17,19 +17,19 @@ import {
  * Utility function to run init/sync for the server in dev, build or start mode.
  *
  * @param type - dev | build | start
- * @param dir - Directory in which the emails are located, only for dev and build, unused for start.
+ * @param emailsDirRelativePath - Directory in which the emails are located, only for dev and build, unused for start.
  * @param port - The port on which the server will run, only for dev and start, unused for build.
  */
 export const setupServer = async (
   type: 'dev' | 'build' | 'start',
-  dir: string,
+  emailsDirRelativePath: string,
   port: string,
   _skipInstall = false,
 ) => {
   const cwd = await findRoot(CURRENT_PATH).catch(() => ({
     rootDir: CURRENT_PATH,
   }));
-  const emailDir = convertToAbsolutePath(dir);
+  const emailsDirAbsolutePath = convertToAbsolutePath(emailsDirRelativePath);
   const packageManager: PackageManager = await detectPackageManager({
     cwd: cwd.rootDir,
   }).catch(() => 'npm');
@@ -44,10 +44,10 @@ export const setupServer = async (
   }
 
   if (type === 'dev') {
-    const watcherInstance = createWatcherInstance(emailDir);
+    const watcherInstance = createWatcherInstance(emailsDirAbsolutePath);
 
-    await startDevServer(packageManager, port);
-    watcher(watcherInstance, emailDir);
+    await startDevServer(emailsDirRelativePath, port);
+    watcher(watcherInstance, emailsDirAbsolutePath);
   } else if (type === 'build') {
     buildProdServer(packageManager);
   } else {
