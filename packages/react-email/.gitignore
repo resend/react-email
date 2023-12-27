@@ -1,6 +1,6 @@
 node_modules
-bin
 .next
+cli
 
 # for testing
 .react-email
