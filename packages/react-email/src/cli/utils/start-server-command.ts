@@ -14,7 +14,7 @@ import next from 'next';
 //   });
 // }
 
-let devServer: http.Server;
+let devServer: http.Server | undefined;
 
 export const startDevServer = async (_packageManager: string, port: string) => {
   const isRunningBuilt = __filename.endsWith('cli/index.js');
@@ -86,8 +86,11 @@ export const buildProdServer = (_packageManager: string) => {
 // based on https://stackoverflow.com/a/14032965
 const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
   (options) => (code) => {
-    console.log('shutting down dev server');
-    devServer.close();
+    if (typeof devServer !== 'undefined') {
+      console.log('shutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
     // if (processesToKill.length > 0) {
     //   console.log('shutting down %d subprocesses', processesToKill.length);
     // }
