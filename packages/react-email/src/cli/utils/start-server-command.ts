@@ -16,12 +16,13 @@ function execAsync(command: string) {
 }
 
 export const startDevServer = async (_packageManager: string, port: string) => {
+  const isRunningBuilt = __filename.endsWith('index.js');
   const app = next({
     dev: true,
     hostname: 'localhost',
     port: parseInt(port),
     customServer: true,
-    dir: path.resolve(__dirname, '..'),
+    dir: isRunningBuilt ? path.resolve(__dirname, '..') : path.resolve(__dirname, '../../..'),
   });
 
   await app.prepare();
