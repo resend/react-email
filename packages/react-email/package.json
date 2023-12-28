@@ -17,6 +17,7 @@
     "tsconfig.json",
     ".eslintrc.js",
     "src/app",
+    "src/utils",
     "src/components",
     "public",
     "cli"
