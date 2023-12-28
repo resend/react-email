@@ -1,7 +1,6 @@
 import path from 'node:path';
 import http from 'node:http';
 import url from 'node:url';
-import shell from 'shelljs';
 import next from 'next';
 
 // let processesToKill: ChildProcess[] = [];
@@ -16,7 +15,10 @@ import next from 'next';
 
 let devServer: http.Server | undefined;
 
-export const startDevServer = async (emailsDirRelativePath: string, port: string) => {
+export const startDevServer = async (
+  emailsDirRelativePath: string,
+  port: string,
+) => {
   const isRunningBuilt = __filename.endsWith('cli/index.js');
   const app = next({
     dev: true,
@@ -25,7 +27,7 @@ export const startDevServer = async (emailsDirRelativePath: string, port: string
     customServer: true,
     conf: {
       env: {
-        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath
+        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
       },
     },
     dir: isRunningBuilt
@@ -89,35 +91,45 @@ export const buildProdServer = (_packageManager: string) => {
 };
 
 // based on https://stackoverflow.com/a/14032965
-const exitHandler: (options?: { exit?: boolean }) => NodeJS.ExitListener =
-  (options) => (code) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('shutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
-    // if (processesToKill.length > 0) {
-    //   console.log('shutting down %d subprocesses', processesToKill.length);
-    // }
-    // processesToKill.forEach((p) => {
-    //   if (p.connected) {
-    //     p.kill();
-    //   }
-    // });
-    if (options?.exit) {
-      shell.exit(code);
-    }
-  };
+const exitHandler =
+  (
+    options?:
+      | { shouldKillProcess: false }
+      | { shouldKillProcess: true; killWithErrorCode: boolean },
+  ) =>
+    (_codeOrSignal: number | NodeJS.Signals) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
+
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', exitHandler());
 
 // catches ctrl+c event
-process.on('SIGINT', exitHandler({ exit: true }));
+process.on(
+  'SIGINT',
+  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+);
 
 //  catches "kill pid" (for example: nodemon restart)
-process.on('SIGUSR1', exitHandler({ exit: true }));
-process.on('SIGUSR2', exitHandler({ exit: true }));
+process.on(
+  'SIGUSR1',
+  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+);
+process.on(
+  'SIGUSR2',
+  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+);
 
 // catches uncaught exceptions
-process.on('uncaughtException', exitHandler({ exit: true }));
+process.on(
+  'uncaughtException',
+  exitHandler({ shouldKillProcess: true, killWithErrorCode: true }),
+);
