@@ -2,6 +2,11 @@ import path from 'node:path';
 import http from 'node:http';
 import url from 'node:url';
 import next from 'next';
+import ora from 'ora';
+import logSymbols from 'log-symbols';
+import chalk from 'chalk';
+import packageJson from '../../../package.json';
+import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
 // let processesToKill: ChildProcess[] = [];
 
@@ -35,6 +40,16 @@ export const startDevServer = async (
       : path.resolve(__dirname, '../../..'),
   });
 
+  console.log(chalk.greenBright(`    React Email ${packageJson.version}`));
+  console.log(`    Running preview at:          http://localhost:${port}\n`);
+
+  const spinner = ora({
+    text: 'Setting up HTTP server...\n',
+    prefixText: ' '
+  }).start();
+  closeOraOnSIGNIT(spinner);
+  const timeBeforeListeningHttpServer = performance.now();
+
   await app.prepare();
 
   const nextHandleRequest = app.getRequestHandler();
@@ -66,11 +81,18 @@ export const startDevServer = async (
       }
     })
     .listen(port, () => {
-      console.log(`running preview at http://localhost:${port}`);
+      const secondsToStart = (
+        (performance.now() - timeBeforeListeningHttpServer) /
+        1000
+      ).toFixed(1);
+      spinner.stopAndPersist({
+        text: `Ready in ${secondsToStart}s\n`,
+        symbol: logSymbols.success,
+      });
     })
     .on('error', (e: NodeJS.ErrnoException) => {
       if (e.code === 'EADDRINUSE') {
-        console.error(`port ${port} is already in use`);
+        console.error(`    The port ${port} is already in use`);
       } else {
         console.error('preview server error: ', JSON.stringify(e));
       }
