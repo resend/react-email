@@ -46,7 +46,7 @@ export const setupServer = async (
   if (type === 'dev') {
     const watcherInstance = createWatcherInstance(emailsDirAbsolutePath);
 
-    await startDevServer(emailsDirRelativePath, port);
+    await startDevServer(emailsDirRelativePath, parseInt(port));
     watcher(watcherInstance, emailsDirAbsolutePath);
   } else if (type === 'build') {
     buildProdServer(packageManager);

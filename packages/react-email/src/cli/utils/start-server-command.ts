@@ -20,40 +20,24 @@ import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
 let devServer: http.Server | undefined;
 
+const safeAsyncServerListen = (server: http.Server, port: number) => {
+  return new Promise<{ portAlreadyInUse: boolean }>((resolve) => {
+    server.listen(port, () => {
+      resolve({ portAlreadyInUse: false });
+    });
+
+    server.on('error', (e: NodeJS.ErrnoException) => {
+      if (e.code === 'EADDRINUSE') {
+        resolve({ portAlreadyInUse: true });
+      }
+    });
+  });
+};
+
 export const startDevServer = async (
   emailsDirRelativePath: string,
-  port: string,
+  port: number,
 ) => {
-  const isRunningBuilt = __filename.endsWith('cli/index.js');
-  const app = next({
-    dev: true,
-    hostname: 'localhost',
-    port: parseInt(port),
-    customServer: true,
-    conf: {
-      env: {
-        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
-      },
-    },
-    dir: isRunningBuilt
-      ? path.resolve(__dirname, '..')
-      : path.resolve(__dirname, '../../..'),
-  });
-
-  console.log(chalk.greenBright(`    React Email ${packageJson.version}`));
-  console.log(`    Running preview at:          http://localhost:${port}\n`);
-
-  const spinner = ora({
-    text: 'Setting up HTTP server...\n',
-    prefixText: ' '
-  }).start();
-  closeOraOnSIGNIT(spinner);
-  const timeBeforeListeningHttpServer = performance.now();
-
-  await app.prepare();
-
-  const nextHandleRequest = app.getRequestHandler();
-
   devServer = http
     .createServer((req, res) => {
       if (!req.url) {
@@ -72,32 +56,77 @@ export const startDevServer = async (
       res.setHeader('Expires', '-1');
 
       try {
-        void nextHandleRequest(req, res, parsedUrl);
+        if (nextHandleRequest) {
+          void nextHandleRequest(req, res, parsedUrl);
+        } else {
+          res.writeHead(200);
+          res.end();
+        }
       } catch (e) {
         console.error('caught error', e);
 
         res.writeHead(500);
         res.end();
       }
-    })
-    .listen(port, () => {
-      const secondsToStart = (
-        (performance.now() - timeBeforeListeningHttpServer) /
-        1000
-      ).toFixed(1);
-      spinner.stopAndPersist({
-        text: `Ready in ${secondsToStart}s\n`,
-        symbol: logSymbols.success,
-      });
-    })
-    .on('error', (e: NodeJS.ErrnoException) => {
-      if (e.code === 'EADDRINUSE') {
-        console.error(`    The port ${port} is already in use`);
-      } else {
-        console.error('preview server error: ', JSON.stringify(e));
-      }
-      process.exit(1);
     });
+
+  const { portAlreadyInUse } = await safeAsyncServerListen(devServer, port);
+  
+  if (!portAlreadyInUse) {
+    console.log(chalk.greenBright(`    React Email ${packageJson.version}`));
+    console.log(`    Running preview at:          http://localhost:${port}\n`);
+  } else {
+    const nextPortToTry = port + 1;
+    console.warn(` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`);
+    await startDevServer(emailsDirRelativePath, nextPortToTry);
+
+    return;
+  }
+
+  devServer.on('error', (e: NodeJS.ErrnoException) => {
+    console.error(` ${logSymbols.error} preview server error: `, JSON.stringify(e));
+    process.exit(1);
+  });
+
+  const spinner = ora({
+    text: 'Getting NextJS preview server ready...\n',
+    prefixText: ' ',
+  }).start();
+
+  closeOraOnSIGNIT(spinner);
+  const timeBeforeNextReady = performance.now();
+
+  const isRunningBuilt = __filename.endsWith('cli/index.js');
+  const app = next({
+    dev: true,
+    hostname: 'localhost',
+    port,
+    customServer: true,
+    conf: {
+      env: {
+        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
+      },
+    },
+    dir: isRunningBuilt
+      ? path.resolve(__dirname, '..')
+      : path.resolve(__dirname, '../../..'),
+  });
+
+
+  await app.prepare();
+
+  const nextHandleRequest: ReturnType<typeof app.getRequestHandler> | undefined = app.getRequestHandler();
+
+  const secondsToNextReady = (
+    (performance.now() - timeBeforeNextReady) /
+    1000
+  ).toFixed(1);
+
+
+  spinner.stopAndPersist({
+    text: `Ready in ${secondsToNextReady}s\n`,
+    symbol: logSymbols.success,
+  });
 };
 
 export const startProdServer = (_packageManager: string, _port: string) => {
