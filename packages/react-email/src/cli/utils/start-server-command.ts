@@ -38,53 +38,58 @@ export const startDevServer = async (
   emailsDirRelativePath: string,
   port: number,
 ) => {
-  devServer = http
-    .createServer((req, res) => {
-      if (!req.url) {
-        res.end(404);
-        return;
-      }
+  devServer = http.createServer((req, res) => {
+    if (!req.url) {
+      res.end(404);
+      return;
+    }
 
-      const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = url.parse(req.url, true);
 
-      // Never cache anything to avoid
-      res.setHeader(
-        'Cache-Control',
-        'no-cache, max-age=0, must-revalidate, no-store',
-      );
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '-1');
+    // Never cache anything to avoid
+    res.setHeader(
+      'Cache-Control',
+      'no-cache, max-age=0, must-revalidate, no-store',
+    );
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '-1');
 
-      try {
-        if (nextHandleRequest) {
-          void nextHandleRequest(req, res, parsedUrl);
-        } else {
-          res.writeHead(200);
-          res.end();
-        }
-      } catch (e) {
-        console.error('caught error', e);
-
-        res.writeHead(500);
+    try {
+      if (nextHandleRequest) {
+        void nextHandleRequest(req, res, parsedUrl);
+      } else {
+        res.writeHead(200);
         res.end();
       }
-    });
+    } catch (e) {
+      console.error('caught error', e);
+
+      res.writeHead(500);
+      res.end();
+    }
+  });
 
   const { portAlreadyInUse } = await safeAsyncServerListen(devServer, port);
-  
+
   if (!portAlreadyInUse) {
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */
     console.log(chalk.greenBright(`    React Email ${packageJson.version}`));
     console.log(`    Running preview at:          http://localhost:${port}\n`);
   } else {
     const nextPortToTry = port + 1;
-    console.warn(` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`);
+    console.warn(
+      ` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`,
+    );
     await startDevServer(emailsDirRelativePath, nextPortToTry);
 
     return;
   }
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
-    console.error(` ${logSymbols.error} preview server error: `, JSON.stringify(e));
+    console.error(
+      ` ${logSymbols.error} preview server error: `,
+      JSON.stringify(e),
+    );
     process.exit(1);
   });
 
@@ -112,16 +117,16 @@ export const startDevServer = async (
       : path.resolve(__dirname, '../../..'),
   });
 
-
   await app.prepare();
 
-  const nextHandleRequest: ReturnType<typeof app.getRequestHandler> | undefined = app.getRequestHandler();
+  const nextHandleRequest:
+    | ReturnType<typeof app.getRequestHandler>
+    | undefined = app.getRequestHandler();
 
   const secondsToNextReady = (
     (performance.now() - timeBeforeNextReady) /
     1000
   ).toFixed(1);
-
 
   spinner.stopAndPersist({
     text: `Ready in ${secondsToNextReady}s\n`,
@@ -148,17 +153,17 @@ const exitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-    (_codeOrSignal: number | NodeJS.Signals) => {
-      if (typeof devServer !== 'undefined') {
-        console.log('\nshutting down dev server');
-        devServer.close();
-        devServer = undefined;
-      }
+  (_codeOrSignal: number | NodeJS.Signals) => {
+    if (typeof devServer !== 'undefined') {
+      console.log('\nshutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
 
-      if (options?.shouldKillProcess) {
-        process.exit(options.killWithErrorCode ? 1 : 0);
-      }
-    };
+    if (options?.shouldKillProcess) {
+      process.exit(options.killWithErrorCode ? 1 : 0);
+    }
+  };
 
 // do something when app is closing
 process.on('exit', exitHandler());
