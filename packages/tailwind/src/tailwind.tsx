@@ -79,6 +79,7 @@ function processElement(
     modifiedElement,
     {
       ...modifiedElement.props,
+      key: Math.random(),
       className: resultingClassName,
       // passing in style here as undefined may mess up
       // the rendering process of child components
@@ -121,7 +122,7 @@ function processHead(
   return React.cloneElement(
     headElement,
     headElement.props,
-    ...React.Children.toArray(headElement.props.children),
+    headElement.props.children,
     styleElement,
   );
 }
