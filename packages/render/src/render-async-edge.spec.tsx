@@ -9,7 +9,10 @@ import { renderAsync } from "./render-async";
 describe("renderAsync on the edge", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
-      const ReactDOMServer = await vi.importActual<typeof import('react-dom/server')>('react-dom/server');
+      const ReactDOMServer =
+        await vi.importActual<typeof import("react-dom/server")>(
+          "react-dom/server",
+        );
       const ERROR_MESSAGE =
         "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
