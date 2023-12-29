@@ -24,7 +24,6 @@
   "scripts": {
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",
-    "test": "vitest run",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "lint": "eslint ."
   },
