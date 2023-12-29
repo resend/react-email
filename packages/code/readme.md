@@ -1,7 +1,7 @@
 ![React Email Hr cover](https://react.email/static/covers/hr.png)
 
-<div align="center"><strong>@react-email/hr</strong></div>
-<div align="center">Display a divider that separates content areas in your email.</div>
+<div align="center"><strong>@react-email/code-inline</strong></div>
+<div align="center">Display a predictable an inline code HTML element that works on all email clients.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/hr -E
+yarn add @react-email/code-inline -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/hr -E
+npm install @react-email/code-inline -E
 ```
 
 ## Getting started
@@ -32,10 +32,10 @@ npm install @react-email/hr -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Hr } from "@react-email/hr";
+import { Code } from "@react-email/code-inline";
 
 const Email = () => {
-  return <Hr />;
+  return <Code>@react-email/code-inline</Code>;
 };
 ```
 
