@@ -55,7 +55,7 @@ export const renderAsync = async (
   if (options?.plainText) {
     return convert(html, {
       selectors: plainTextSelectors,
-      ...options.htmlToTextOptions
+      ...options.htmlToTextOptions,
     });
   }
 
