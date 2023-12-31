@@ -1,7 +1,19 @@
 import type { HtmlToTextOptions } from "html-to-text";
 
-export interface Options {
+export type Options = {
   pretty?: boolean;
-  plainText?: boolean;
-  htmlToTextOptions?: HtmlToTextOptions;
-}
+} & (
+  | {
+    plainText?: false;
+  }
+  | {
+    plainText?: true;
+    /**
+      * This are options you can pass down directly to the library we use for
+      * converting the rendered email's HTML into plain text.
+      * 
+      * @see https://github.com/html-to-text/node-html-to-text
+      */
+    htmlToTextOptions?: HtmlToTextOptions;
+  }
+)
