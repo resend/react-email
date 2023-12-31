@@ -2,6 +2,8 @@
 import { convert } from "html-to-text";
 import type { ReactDOMServerReadableStream } from "react-dom/server";
 import { pretty } from "./utils/pretty";
+import { plainTextSelectors } from "./plain-text-selectors";
+import type { Options } from "./options";
 
 const decoder = new TextDecoder("utf-8");
 
@@ -34,10 +36,7 @@ const readStream = async (
 
 export const renderAsync = async (
   component: React.ReactElement,
-  options?: {
-    pretty?: boolean;
-    plainText?: boolean;
-  },
+  options?: Options,
 ) => {
   const reactDOMServer = (await import("react-dom/server")).default;
   const renderToStream =
@@ -55,10 +54,8 @@ export const renderAsync = async (
 
   if (options?.plainText) {
     return convert(html, {
-      selectors: [
-        { selector: "img", format: "skip" },
-        { selector: "#__react-email-preview", format: "skip" },
-      ],
+      selectors: plainTextSelectors,
+      ...options.htmlToTextOptions,
     });
   }
 
