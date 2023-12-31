@@ -26,6 +26,6 @@ const renderAsPlainText = (
 ) => {
   return convert(ReactDomServer.renderToStaticMarkup(component), {
     selectors: plainTextSelectors,
-    ...options?.htmlToTextOptions,
+    ...(options?.plainText === true ? options.htmlToTextOptions : {}),
   });
 };
