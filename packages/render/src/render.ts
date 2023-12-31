@@ -2,7 +2,7 @@ import * as ReactDomServer from "react-dom/server";
 import { convert } from "html-to-text";
 import { pretty } from "./utils/pretty";
 import { plainTextSelectors } from "./plain-text-selectors";
-import type { Options } from "./optionts";
+import type { Options } from "./options";
 
 export const render = (component: React.ReactElement, options?: Options) => {
   if (options?.plainText) {

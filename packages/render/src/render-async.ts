@@ -3,7 +3,7 @@ import { convert } from "html-to-text";
 import type { ReactDOMServerReadableStream } from "react-dom/server";
 import { pretty } from "./utils/pretty";
 import { plainTextSelectors } from "./plain-text-selectors";
-import type { Options } from "./optionts";
+import type { Options } from "./options";
 
 const decoder = new TextDecoder("utf-8");
 
