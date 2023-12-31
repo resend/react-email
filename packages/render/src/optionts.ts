@@ -9,7 +9,7 @@ export type Options = {
   | {
     plainText?: true;
     /**
-      * This are options you can pass down directly to the library we use for
+      * These are options you can pass down directly to the library we use for
       * converting the rendered email's HTML into plain text.
       * 
       * @see https://github.com/html-to-text/node-html-to-text
