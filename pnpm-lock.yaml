@@ -605,9 +605,6 @@ importers:
       '@octokit/rest':
         specifier: 19.0.7
         version: 19.0.7
-      '@react-email/components':
-        specifier: workspace:*
-        version: link:../components
       '@react-email/render':
         specifier: 0.0.12-canary.0
         version: 0.0.12-canary.0
@@ -656,9 +653,6 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-      read-pkg:
-        specifier: 5.2.0
-        version: 5.2.0
       shelljs:
         specifier: 0.8.5
         version: 0.8.5
@@ -669,6 +663,9 @@ importers:
         specifier: 0.6.7
         version: 0.6.7
     devDependencies:
+      '@react-email/components':
+        specifier: workspace:*
+        version: link:../components
       '@swc/core':
         specifier: 1.3.101
         version: 1.3.101
