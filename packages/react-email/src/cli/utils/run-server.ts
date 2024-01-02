@@ -12,7 +12,7 @@ import {
  */
 export const setupServer = async (
   emailsDirRelativePath: string,
-  port: string
+  port: string,
 ) => {
   // const emailsDirAbsolutePath = convertToAbsolutePath(emailsDirRelativePath);
   // const watcherInstance = createWatcherInstance(emailsDirAbsolutePath);

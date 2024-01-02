@@ -9,9 +9,8 @@ export const getEmails = () => {
 
   if (!fs.existsSync(emailsDirPath)) return [];
 
-  return fs.readdirSync(emailsDirPath, { withFileTypes: true })
-    .filter(
-      (file) => file.isFile() && file.name.endsWith('.tsx'),
-    )
+  return fs
+    .readdirSync(emailsDirPath, { withFileTypes: true })
+    .filter((file) => file.isFile() && file.name.endsWith('.tsx'))
     .map((file) => path.join(`${file.path}/${file.name}`));
 };
