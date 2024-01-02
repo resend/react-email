@@ -8,16 +8,6 @@ import chalk from 'chalk';
 import packageJson from '../../../package.json';
 import { closeOraOnSIGNIT } from './close-ora-on-sigint';
 
-// let processesToKill: ChildProcess[] = [];
-
-// function execAsync(command: string) {
-//   const process = shell.exec(command, { async: true });
-//   processesToKill.push(process);
-//   process.on('close', () => {
-//     processesToKill = processesToKill.filter((p) => p !== process);
-//   });
-// }
-
 let devServer: http.Server | undefined;
 
 const safeAsyncServerListen = (server: http.Server, port: number) => {
@@ -135,20 +125,8 @@ export const startDevServer = async (
   });
 };
 
-export const startProdServer = (_packageManager: string, _port: string) => {
-  // execAsync(`${packageManager} run start -- -p ${port}`);
-};
-
-export const buildProdServer = (_packageManager: string) => {
-  // execAsync(`${packageManager} run build`);
-  // if build fails for whatever reason, make sure the shell actually exits
-  // process.on('close', (code: number | undefined) => {
-  //   shell.exit(code ?? undefined);
-  // });
-};
-
 // based on https://stackoverflow.com/a/14032965
-const exitHandler =
+const makeExitHandler =
   (
     options?:
       | { shouldKillProcess: false }
@@ -167,26 +145,26 @@ const exitHandler =
   };
 
 // do something when app is closing
-process.on('exit', exitHandler());
+process.on('exit', makeExitHandler());
 
 // catches ctrl+c event
 process.on(
   'SIGINT',
-  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
 );
 
 //  catches "kill pid" (for example: nodemon restart)
 process.on(
   'SIGUSR1',
-  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
 );
 process.on(
   'SIGUSR2',
-  exitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
+  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: false }),
 );
 
 // catches uncaught exceptions
 process.on(
   'uncaughtException',
-  exitHandler({ shouldKillProcess: true, killWithErrorCode: true }),
+  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: true }),
 );
