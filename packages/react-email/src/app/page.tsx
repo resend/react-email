@@ -1,7 +1,7 @@
 import { getEmails } from '../utils/get-emails';
 
-const Home = async () => {
-  const emailPaths = await getEmails();
+const Home = () => {
+  const emailPaths = getEmails();
 
   return (
     <main>
