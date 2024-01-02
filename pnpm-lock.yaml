@@ -611,21 +611,12 @@ importers:
       '@react-email/render':
         specifier: 0.0.12-canary.0
         version: 0.0.12-canary.0
-      '@types/node':
-        specifier: 20.10.4
-        version: 20.10.4
-      '@types/react':
-        specifier: 18.2.33
-        version: 18.2.33
-      '@types/react-dom':
-        specifier: 18.2.14
-        version: 18.2.14
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.32)
       chalk:
-        specifier: 5.3.0
-        version: 5.3.0
+        specifier: 4.1.2
+        version: 4.1.2
       chokidar:
         specifier: 3.5.3
         version: 3.5.3
@@ -684,9 +675,18 @@ importers:
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
+      '@types/node':
+        specifier: 20.10.4
+        version: 20.10.4
       '@types/normalize-path':
         specifier: 3.0.2
         version: 3.0.2
+      '@types/react':
+        specifier: 18.2.33
+        version: 18.2.33
+      '@types/react-dom':
+        specifier: 18.2.14
+        version: 18.2.14
       '@types/shelljs':
         specifier: 0.8.12
         version: 0.8.12
@@ -3023,6 +3023,7 @@ packages:
     resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
     dependencies:
       undici-types: 5.26.5
+    dev: true
 
   /@types/normalize-package-data@2.4.2:
     resolution: {integrity: sha512-lqa4UEhhv/2sjjIQgjX8B+RBjj47eo0mzGasklVJ78UKGQY1r0VpB9XHDaZZO9qzEFDdy4MrXLuEaSmPrPSe/A==}
@@ -3047,6 +3048,7 @@ packages:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
       '@types/react': 18.2.33
+    dev: true
 
   /@types/react@18.2.33:
     resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
@@ -8865,6 +8867,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
 
   /universal-user-agent@6.0.0:
     resolution: {integrity: sha512-isyNax3wXoKaulPDZWHQqbmIx1k2tb9fb3GGDBRxCscfYV2Ch7WxPArBsFEG8s/safwXTT7H4QGhaIkTp9447w==}
