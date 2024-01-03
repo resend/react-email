@@ -10,7 +10,7 @@ const Home = async () => {
   const emailTemplates = await getEmailComponent(...emailPaths);
   const FirstEmail = emailTemplates.values().next().value as EmailTemplate;
   const emailMarkup = await renderAsync(
-    <FirstEmail {...FirstEmail.PreviewProps} />
+    <FirstEmail {...FirstEmail.PreviewProps} />,
   );
 
   return <main dangerouslySetInnerHTML={{ __html: emailMarkup }} />;
