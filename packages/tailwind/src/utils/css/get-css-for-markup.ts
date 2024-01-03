@@ -2,7 +2,7 @@ import tailwindcss from "tailwindcss";
 import type { CorePluginsConfig } from "tailwindcss/types/config";
 import postcssCssVariables from "postcss-css-variables";
 import postcss from "postcss";
-import type { TailwindConfig } from "../tailwind";
+import type { TailwindConfig } from "../../config";
 
 declare global {
   // eslint-disable-next-line no-var

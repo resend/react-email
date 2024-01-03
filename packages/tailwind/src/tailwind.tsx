@@ -1,17 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
-import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
-import { cssToJsxStyle } from "./utils/css-to-jsx-style";
-import { getCssForMarkup } from "./utils/get-css-for-markup";
-import { minifyCss } from "./utils/minify-css";
-import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
-import { escapeClassName } from "./utils/escape-class-name";
-import { useRgbNonSpacedSyntax } from "./utils/use-rgb-non-spaced-syntax";
-import { quickSafeRenderToString } from "./utils/quick-safe-render-to-string";
-
-export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
+import type { TailwindConfig } from "./config";
+import { escapeClassName, getCssForMarkup, minifyCss, useRgbNonSpacedSyntax } from "./utils/css";
+import { cssToJsxStyle, getStylesPerClassMap } from "./utils/style-inlining";
+import { quickSafeRenderToString } from "./utils";
 
 export interface TailwindProps {
   children: React.ReactNode;
