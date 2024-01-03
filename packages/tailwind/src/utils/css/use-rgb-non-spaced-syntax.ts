@@ -1,4 +1,3 @@
-
 /**
  * This is to avoid problems on email clients that don't allow for spaced syntax on
  * rgb.
