@@ -48,7 +48,7 @@ function substituteTailwindClassNamesForInlineStyles(
             ? { style: { ...inlineStyles } }
             : { style: { ...element.props.style, ...inlineStyles } }),
         },
-        ...React.Children.toArray(element.props.children),
+        element.props.children
       ),
       mediaQueries,
     };
@@ -102,7 +102,7 @@ function processHead(
   return React.cloneElement(
     headElement,
     headElement.props,
-    ...React.Children.toArray(headElement.props.children),
+    headElement.props.children,
     styleElement,
   );
 }
@@ -145,7 +145,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
     modifiedElement = React.cloneElement(
       modifiedElement,
-      modifiedElement.props,
+      {
+        key: Math.random().toString(),
+        ...modifiedElement.props,
+      },
       ...elementChildren,
     );
 
