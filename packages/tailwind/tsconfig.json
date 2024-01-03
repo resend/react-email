@@ -5,6 +5,7 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "strict": true,
+    "noErrorTruncation": true,
     "noEmit": true
   }
 }

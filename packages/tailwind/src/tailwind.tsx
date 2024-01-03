@@ -1,101 +1,63 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 import type { HeadProps } from "@react-email/head";
+import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+import { type AtRule, parse, atRule as createAtRule } from "postcss";
 import type { TailwindConfig } from "./config";
-import { escapeClassName, getCssForMarkup, minifyCss, useRgbNonSpacedSyntax } from "./utils/css";
-import { cssToJsxStyle, getStylesPerClassMap } from "./utils/style-inlining";
-import { quickSafeRenderToString } from "./utils";
+import { minifyCss } from "./utils/css";
+import { setupTailwindContext } from "./utils";
+import { reactStylesForElement } from "./utils/style-inlining";
 
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
 }
 
-function processElement(
-  element: React.ReactElement,
-  nonMediaQueryTailwindStylesPerClass: Record<string, string>,
-): React.ReactElement {
-  let modifiedElement = element;
-
-  let resultingClassName = modifiedElement.props.className as
-    | string
-    | undefined;
-  let resultingStyle = modifiedElement.props.style as
-    | React.CSSProperties
-    | undefined;
-  let resultingChildren: React.ReactNode[] = [];
-
-  if (modifiedElement.props.className) {
-    const fullClassName = modifiedElement.props.className as string;
-    const classNames = fullClassName.split(" ");
-    const classNamesToKeep = [] as string[];
-
-    const styles = [] as string[];
-
-    classNames.forEach((className) => {
-      /*                        escape all unallowed characters in css class selectors */
-      const escapedClassName = escapeClassName(className);
-      // no need to filter in for media query classes since it is going to keep these classes
-      // as custom since they are not going to be in the markup map of styles
-      if (
-        typeof nonMediaQueryTailwindStylesPerClass[escapedClassName] ===
-        "undefined"
-      ) {
-        classNamesToKeep.push(className);
-      } else {
-        styles.push(
-          `${nonMediaQueryTailwindStylesPerClass[escapedClassName]};`,
-        );
-      }
-    });
-
-    resultingStyle = {
-      ...(modifiedElement.props.style as Record<string, string>),
-      ...cssToJsxStyle(styles.join(" ")),
-    };
-    resultingClassName =
-      classNamesToKeep.length > 0 ? classNamesToKeep.join(" ") : undefined;
-  }
-
-  if (modifiedElement.props.children) {
-    resultingChildren = React.Children.toArray(
-      modifiedElement.props.children,
-    ).map((child) => {
-      if (React.isValidElement(child)) {
-        return processElement(child, nonMediaQueryTailwindStylesPerClass);
-      }
-      return child;
-    });
-  }
-
-  modifiedElement = React.cloneElement(
-    modifiedElement,
-    {
-      ...modifiedElement.props,
-      className: resultingClassName,
-      // passing in style here as undefined may mess up
-      // the rendering process of child components
-      ...(typeof resultingStyle === "undefined"
-        ? {}
-        : { style: resultingStyle }),
-    },
-    ...resultingChildren,
-  );
-
-  // if this is a component, then we render it and recurse it through processElement
-  if (typeof modifiedElement.type === "function") {
-    const component = modifiedElement.type as React.FC;
-    const renderedComponent = component(modifiedElement.props);
-    if (React.isValidElement(renderedComponent)) {
-      modifiedElement = processElement(
-        renderedComponent,
-        nonMediaQueryTailwindStylesPerClass,
+function substituteTailwindClassNamesForInlineStyles(
+  element: AnyElement,
+  tailwindContext: JitContext,
+): { elementWithInlinedStyles: AnyElement; mediaQueries: string[] } {
+  if (
+    "className" in element.props &&
+    typeof element.props.className === "string"
+  ) {
+    const { inlineStyles, tailwindClassNames, mediaQueryRules } =
+      reactStylesForElement(
+        element as React.ReactElement<{ className: string }>,
+        tailwindContext,
       );
-    }
+
+    const mediaQueries = mediaQueryRules.map((atRule) => atRule.toString());
+
+    const nonInlinedClassNames = element.props.className
+      .split(" ")
+      .filter((className) => !tailwindClassNames.includes(className))
+      .join(" ");
+
+    return {
+      elementWithInlinedStyles: React.cloneElement(
+        element,
+        {
+          ...element.props,
+          className:
+            nonInlinedClassNames.length === 0
+              ? undefined
+              : nonInlinedClassNames,
+          // passing in style here as undefined may mess up
+          // the rendering process of child components
+          ...(typeof element.props.style === "undefined"
+            ? { style: { ...inlineStyles } }
+            : { style: { ...element.props.style, ...inlineStyles } }),
+        },
+        ...React.Children.toArray(element.props.children),
+      ),
+      mediaQueries,
+    };
   }
 
-  return modifiedElement;
+  return {
+    elementWithInlinedStyles: element,
+    mediaQueries: [],
+  };
 }
 
 type AnyElement = React.ReactElement<React.HTMLAttributes<HTMLElement>>;
@@ -109,8 +71,33 @@ function processHead(
   headElement: HeadElement,
   responsiveStyles: string[],
 ): React.ReactElement {
+  const styles = responsiveStyles.join("");
+  const mediaQueriesRoot = parse(styles);
+
+  const atRules = {} as Record<string, AtRule>;
+
+  mediaQueriesRoot.walkAtRules("media", (atRule) => {
+    const key = atRule.params;
+
+    if (!(key in atRules)) {
+      atRules[key] = createAtRule({
+        name: atRule.name,
+        params: atRule.params,
+      });
+    }
+    atRule.nodes.forEach((node) => {
+      atRules[key].append(node.clone());
+    });
+
+    atRule.remove();
+  });
+
+  Object.keys(atRules).forEach((key) => {
+    mediaQueriesRoot.append(atRules[key]);
+  });
+
   /*                   only minify here since it is the only place that is going to be in the DOM */
-  const styleElement = <style>{minifyCss(responsiveStyles.join(""))}</style>;
+  const styleElement = <style>{minifyCss(mediaQueriesRoot.toString())}</style>;
 
   return React.cloneElement(
     headElement,
@@ -121,41 +108,9 @@ function processHead(
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  let headStyles: string[] = [];
+  const headStyles = new Set<string>();
 
-  const markupWithTailwindClasses = quickSafeRenderToString(<>{children}</>);
-  const markupCSS = useRgbNonSpacedSyntax(
-    getCssForMarkup(markupWithTailwindClasses, config),
-  );
-
-  const nonMediaQueryCSS = markupCSS.replaceAll(
-    /@media\s*\(.*\)\s*{\s*\.(.*)\s*{[\s\S]*}\s*}/gm,
-    (mediaQuery, _className) => {
-      headStyles.push(
-        mediaQuery
-          .replace(/[\r\n|\r|\n]+/g, "")
-          .replace(/\s+/g, " ")
-          .replaceAll(/\s*\.[\S]+\s*{([^}]*)}/gm, (match, content: string) => {
-            return match.replace(
-              content,
-              content
-                .split(";")
-                .map((propertyDeclaration) =>
-                  propertyDeclaration.endsWith("!important")
-                    ? propertyDeclaration.trim()
-                    : `${propertyDeclaration.trim()}!important`,
-                )
-                .join(";"),
-            );
-          }),
-      );
-
-      return "";
-    },
-  );
-
-  const nonMediaQueryTailwindStylesPerClass =
-    getStylesPerClassMap(nonMediaQueryCSS);
+  const tailwindContext = setupTailwindContext(config ?? {});
 
   const childrenArray = React.Children.toArray(children);
   const validElementsWithIndexes = childrenArray
@@ -164,11 +119,50 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   let headElementIndex = -1;
 
-  validElementsWithIndexes.forEach(([element, i]) => {
-    childrenArray[i] = processElement(
-      element,
-      nonMediaQueryTailwindStylesPerClass,
+  const processElement = (element: AnyElement) => {
+    let modifiedElement = element;
+    let elementChildren = React.Children.toArray(
+      modifiedElement.props.children,
     );
+
+    const { elementWithInlinedStyles, mediaQueries } =
+      substituteTailwindClassNamesForInlineStyles(element, tailwindContext);
+    modifiedElement = elementWithInlinedStyles;
+    for (const mediaQuery of mediaQueries) {
+      headStyles.add(mediaQuery);
+    }
+
+    if (elementWithInlinedStyles.props.children) {
+      elementChildren = elementChildren.map(
+        (child) => {
+          if (React.isValidElement(child)) {
+            return processElement(child as AnyElement);
+          }
+          return child;
+        },
+      );
+    }
+
+    modifiedElement = React.cloneElement(
+      modifiedElement,
+      modifiedElement.props,
+      ...elementChildren,
+    );
+
+    // if this is a component, then we render it and recurse it through processElement
+    if (typeof modifiedElement.type === "function") {
+      const component = modifiedElement.type as React.FC;
+      const renderedComponent = component(modifiedElement.props);
+      if (React.isValidElement(renderedComponent)) {
+        modifiedElement = processElement(renderedComponent as AnyElement);
+      }
+    }
+
+    return modifiedElement;
+  };
+
+  validElementsWithIndexes.forEach(([element, i]) => {
+    childrenArray[i] = processElement(element);
 
     if (
       element.type === "head" ||
@@ -180,9 +174,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     }
   });
 
-  headStyles = headStyles.filter((style) => style.trim().length > 0);
-
-  if (headStyles.length > 0) {
+  if (headStyles.size > 0) {
     if (headElementIndex === -1) {
       throw new Error(
         "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
@@ -193,7 +185,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       headElementIndex
     ] as [HeadElement, number];
 
-    childrenArray[headAllElementsIndex] = processHead(headElement, headStyles);
+    childrenArray[headAllElementsIndex] = processHead(headElement, [
+      ...headStyles.values(),
+    ]);
   }
 
   return <>{childrenArray}</>;
