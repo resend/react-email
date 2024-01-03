@@ -13,7 +13,7 @@ const Home = async () => {
     <FirstEmail {...FirstEmail.PreviewProps} />,
   );
 
-  return <main dangerouslySetInnerHTML={{ __html: emailMarkup }} />;
+  return <main></main>;
 };
 
 export default Home;

@@ -15,6 +15,10 @@
     "module": "CommonJS",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+    },
     "outDir": "dist"
   }
 }
