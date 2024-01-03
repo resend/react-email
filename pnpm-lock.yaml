@@ -603,8 +603,13 @@ importers:
         specifier: 0.0.14-canary.0
         version: link:../components
       '@react-email/render':
+<<<<<<< HEAD
         specifier: 0.0.12-canary.0
         version: 0.0.12-canary.0
+=======
+        specifier: 0.0.10
+        version: 0.0.10
+>>>>>>> 7f02bb70 (feat(react-email): Rendering first email found on emails folder for testing)
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.32)

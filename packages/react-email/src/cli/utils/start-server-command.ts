@@ -45,7 +45,7 @@ export const startDevServer = async (
     res.setHeader('Expires', '-1');
 
     try {
-      if (nextHandleRequest) {
+      if (typeof nextHandleRequest !== 'undefined') {
         void nextHandleRequest(req, res, parsedUrl);
       } else {
         res.writeHead(200);
