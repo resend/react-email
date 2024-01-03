@@ -47,8 +47,7 @@
     "postcss": "8.4.31",
     "postcss-combine-media-query": "1.0.1",
     "postcss-selector-parser": "6.0.15",
-    "react": "18.2.0",
-    "tailwindcss": "3.3.2"
+    "react": "18.2.0"
   },
   "peerDependencies": {
     "react": "18.2.0"
@@ -63,6 +62,7 @@
     "@testing-library/react": "14.0.0",
     "@types/postcss-css-variables": "0.18.3",
     "eslint-config-custom": "workspace:*",
+    "tailwindcss": "3.3.2",
     "eslint-plugin-regex": "1.10.0",
     "memfs": "4.6.0",
     "postcss-css-variables": "0.19.0",

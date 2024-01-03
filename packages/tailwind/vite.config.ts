@@ -20,7 +20,6 @@ export default defineConfig({
         "react",
         "react-dom",
         "postcss",
-        "tailwindcss",
         /react-dom\/.*/,
       ],
     },
