@@ -48,7 +48,7 @@ function substituteTailwindClassNamesForInlineStyles(
             ? { style: { ...inlineStyles } }
             : { style: { ...element.props.style, ...inlineStyles } }),
         },
-        element.props.children
+        element.props.children,
       ),
       mediaQueries,
     };
@@ -133,14 +133,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     }
 
     if (elementWithInlinedStyles.props.children) {
-      elementChildren = elementChildren.map(
-        (child) => {
-          if (React.isValidElement(child)) {
-            return processElement(child as AnyElement);
-          }
-          return child;
-        },
-      );
+      elementChildren = elementChildren.map((child) => {
+        if (React.isValidElement(child)) {
+          return processElement(child as AnyElement);
+        }
+        return child;
+      });
     }
 
     modifiedElement = React.cloneElement(

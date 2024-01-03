@@ -5,4 +5,3 @@ export * from "./tailwind";
 export * from "./utils";
 
 export type { TailwindConfig };
-

@@ -15,13 +15,15 @@ export const reactStylesForElement = (
   tailwindClassNames: string[];
   mediaQueryRules: AtRule[];
 } => {
-  const stylesRoot = sanitizePostcssRootForEmailStyles(cssRulesForElement(element, context));
+  const stylesRoot = sanitizePostcssRootForEmailStyles(
+    cssRulesForElement(element, context),
+  );
 
   const inlineStyles: Record<string, unknown> = {};
   const tailwindClassNames = [] as string[];
 
   stylesRoot.walkRules((rule) => {
-    if (rule.parent?.type === 'atrule') return;
+    if (rule.parent?.type === "atrule") return;
 
     selectorParser((selectors) => {
       selectors.walkClasses((className) => {

@@ -41,8 +41,6 @@ export const generatePostcssRootForClasses = (
   substituteScreenAtRules(tailwindContext)(root);
   resolveDefaultsAtRules(tailwindContext)(root);
 
-  return postcssVariablesProcessor
-    .process(root.toString())
-    .sync()
+  return postcssVariablesProcessor.process(root.toString()).sync()
     .root as postcss.Root;
 };

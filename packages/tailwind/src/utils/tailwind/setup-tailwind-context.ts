@@ -10,6 +10,6 @@ export const setupTailwindContext = (config: TailwindConfig) => {
       corePlugins: {
         preflight: false,
       },
-    })
+    }),
   );
 };
