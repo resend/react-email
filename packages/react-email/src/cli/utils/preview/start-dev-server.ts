@@ -7,6 +7,7 @@ import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import packageJson from '../../../../package.json';
 import { closeOraOnSIGNIT } from '../close-ora-on-sigint';
+import { serveStaticFile } from './serve-static-file';
 
 let devServer: http.Server | undefined;
 
@@ -26,6 +27,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
+  staticBaseDirRelativePath: string,
   port: number,
 ): Promise<http.Server> => {
   devServer = http.createServer((req, res) => {
@@ -45,11 +47,13 @@ export const startDevServer = async (
     res.setHeader('Expires', '-1');
 
     try {
-      if (typeof nextHandleRequest !== 'undefined') {
-        void nextHandleRequest(req, res, parsedUrl);
+      if (parsedUrl.path && parsedUrl.path.includes('static/') && !parsedUrl.path.includes('_next/static/')) {
+        void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
+      } else if (!isNextReady) {
+        void nextReadyPromise
+          .then(() => nextHandleRequest?.(req, res, parsedUrl));
       } else {
-        res.writeHead(200);
-        res.end();
+        void nextHandleRequest?.(req, res, parsedUrl)
       }
     } catch (e) {
       console.error('caught error', e);
@@ -71,7 +75,7 @@ export const startDevServer = async (
     console.warn(
       ` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`,
     );
-    return startDevServer(emailsDirRelativePath, nextPortToTry);
+    return startDevServer(emailsDirRelativePath, staticBaseDirRelativePath, nextPortToTry);
   }
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
@@ -105,7 +109,10 @@ export const startDevServer = async (
     dir: cliPacakgeLocation,
   });
 
-  await app.prepare();
+  let isNextReady = false;
+  const nextReadyPromise = app.prepare();
+  await nextReadyPromise;
+  isNextReady = true;
 
   const nextHandleRequest:
     | ReturnType<typeof app.getRequestHandler>

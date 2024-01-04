@@ -4,10 +4,15 @@ import { startDevServer, setupHotreloading } from '../utils';
 interface Args {
   dir: string;
   port: string;
+  static: string;
   skipInstall: boolean;
 }
 
-export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
+export const dev = async ({
+  dir: emailsDirRelativePath,
+  static: staticBaseDirRelativePath,
+  port,
+}: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
       throw new Error(`Missing ${emailsDirRelativePath} folder`);
@@ -15,6 +20,7 @@ export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
 
     const devServer = await startDevServer(
       emailsDirRelativePath,
+      staticBaseDirRelativePath,
       parseInt(port),
     );
 
