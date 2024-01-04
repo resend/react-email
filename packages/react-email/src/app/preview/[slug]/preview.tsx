@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
+import { useHotreload } from '@/utils/hooks/use-hotreload';
+import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 
 export interface PreviewProps {
   emailSlugs: string[];
@@ -13,12 +15,30 @@ export interface PreviewProps {
   markup: string;
   reactMarkup: string;
   plainText: string;
-};
+}
 
-const Preview = ({ emailSlugs, slug, markup, reactMarkup, plainText }: PreviewProps) => {
+const Preview = ({
+  emailSlugs,
+  slug,
+  markup: initialMarkup,
+  reactMarkup: initialReactMarkup,
+  plainText: initialPlainText,
+}: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const [renderedEmailMeta, setRenderedEmailMeta] = useState({
+    markup: initialMarkup,
+    reactMarkup: initialReactMarkup,
+    plainText: initialPlainText,
+  });
+  const { markup, reactMarkup, plainText } = renderedEmailMeta;
+
+  useHotreload(async () => {
+    setRenderedEmailMeta(await renderEmailBySlug(slug));
+  });
+
   const [activeView, setActiveView] = useState('desktop');
   const [activeLang, setActiveLang] = useState('jsx');
 
@@ -54,7 +74,11 @@ const Preview = ({ emailSlugs, slug, markup, reactMarkup, plainText }: PreviewPr
       title={slug}
     >
       {activeView === 'desktop' ? (
-        <iframe className="w-full h-[calc(100vh_-_140px)]" srcDoc={markup} title={slug} />
+        <iframe
+          className="w-full h-[calc(100vh_-_140px)]"
+          srcDoc={markup}
+          title={slug}
+        />
       ) : (
         <div className="flex gap-6 mx-auto p-6 max-w-3xl">
           <Tooltip.Provider>

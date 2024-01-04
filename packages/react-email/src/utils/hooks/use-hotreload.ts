@@ -1,0 +1,28 @@
+'use client';
+import { useEffect, useRef } from 'react';
+import { type Socket, io } from 'socket.io-client';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useHotreload = (onShouldReload: () => any) => {
+  const socketRef = useRef<Socket | null>(null);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
+
+    if (!socketRef.current) {
+      socketRef.current = io();
+    }
+    const socket = socketRef.current;
+
+    socket.on('reload', () => {
+      console.debug('Reloading...');
+      void onShouldReload();
+    });
+
+    return () => {
+      socket.off();
+    };
+  }, [onShouldReload]);
+}

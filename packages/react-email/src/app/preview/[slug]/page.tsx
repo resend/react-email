@@ -1,9 +1,6 @@
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import { renderAsync } from '@react-email/render';
-import { getEmailComponent } from '@/utils/get-email-component';
-import { emailsDirPath, getEmailSlugs } from '@/utils/get-email-slugs';
 import Preview from './preview';
+import { getEmailSlugs } from '@/utils/get-email-slugs';
+import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 
 export const dynamicParams = true;
 
@@ -12,18 +9,7 @@ interface Params {
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const emailPath = path.join(emailsDirPath, params.slug);
-
-  const Email = await getEmailComponent(emailPath);
-  const previewProps = Email.PreviewProps || {};
-  const markup = await renderAsync(<Email {...previewProps} />, {
-    pretty: true,
-  });
-  const plainText = await renderAsync(<Email {...previewProps} />, {
-    plainText: true,
-  });
-
-  const reactMarkup = await fs.readFile(emailPath, 'utf-8');
+  const { markup, reactMarkup, plainText } = await renderEmailBySlug(params.slug);
 
   return (
     <Preview

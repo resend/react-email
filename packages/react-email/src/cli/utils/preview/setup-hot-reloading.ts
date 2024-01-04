@@ -19,6 +19,7 @@ export const setupHotreloading = (
   });
 
   const reload = () => {
+    // we detect these using the useHotreload hook on the Next app
     clients.forEach(client => {
       client.emit('reload');
     });
