@@ -93,19 +93,17 @@ export const startDevServer = async (
   const timeBeforeNextReady = performance.now();
 
   const isRunningBuilt = __filename.endsWith('cli/index.js');
+  const cliPacakgeLocation = isRunningBuilt
+    ? path.resolve(__dirname, '..')
+    : path.resolve(__dirname, '../../..');
+  process.env.EMAILS_DIR_RELATIVE_PATH = emailsDirRelativePath;
+  process.env.CLI_PACKAGE_LOCATION = cliPacakgeLocation;
   const app = next({
     dev: true,
     hostname: 'localhost',
     port,
     customServer: true,
-    conf: {
-      env: {
-        EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
-      },
-    },
-    dir: isRunningBuilt
-      ? path.resolve(__dirname, '..')
-      : path.resolve(__dirname, '../../..'),
+    dir: cliPacakgeLocation,
   });
 
   await app.prepare();
@@ -132,17 +130,17 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (_codeOrSignal: number | NodeJS.Signals) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (_codeOrSignal: number | NodeJS.Signals) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());

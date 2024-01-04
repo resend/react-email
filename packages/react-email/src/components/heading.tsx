@@ -1,7 +1,6 @@
 import * as SlotPrimitive from '@radix-ui/react-slot';
-import classnames from 'classnames';
 import * as React from 'react';
-import { As, unreachable } from '../utils';
+import { type As, unreachable, cn } from '../utils';
 
 export type HeadingSize =
   | '1'
@@ -42,13 +41,13 @@ export const Heading = React.forwardRef<
     forwardedRef,
   ) => (
     <SlotPrimitive.Slot
-      ref={forwardedRef}
-      className={classnames(
+      className={cn(
         className,
         getSizesClassNames(size),
         getColorClassNames(color),
         getWeightClassNames(weight),
       )}
+      ref={forwardedRef}
       {...props}
     >
       <Tag>{children}</Tag>

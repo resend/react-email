@@ -1,6 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
-import { inter } from '../app/layout';
+import { inter } from '@/app/inter';
 import { Button } from './button';
 import { Text } from './text';
 
@@ -25,10 +25,10 @@ export const Send = ({ markup }: { markup: string }) => {
       });
 
       if (response.status === 429) {
-        const { error } = await response.json();
+        const { error } = await response.json() as { error: string };
         alert(error);
       }
-    } catch (e) {
+    } catch (exception) {
       alert('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);
@@ -38,7 +38,7 @@ export const Send = ({ markup }: { markup: string }) => {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg text-center transition duration-300 ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-12 hover:text-slate-12 font-sans">
+        <button className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg text-center transition duration-300 ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-12 hover:text-slate-12 font-sans" type="submit">
           Send
         </button>
       </Popover.Trigger>
@@ -54,41 +54,41 @@ export const Send = ({ markup }: { markup: string }) => {
           >
             ✕
           </Popover.Close>
-          <form onSubmit={onFormSubmit} className="mt-1">
+          <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
             <label
-              htmlFor="to"
               className="text-slate-10 text-xs uppercase mb-2 block"
+              htmlFor="to"
             >
               Recipient
             </label>
             <input
-              autoFocus={true}
+              autoFocus
               className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
-              onChange={(e) => setTo(e.target.value)}
               defaultValue={to}
-              placeholder="you@example.com"
-              type="email"
               id="to"
+              onChange={(e) => { setTo(e.target.value); }}
+              placeholder="you@example.com"
               required
+              type="email"
             />
             <label
-              htmlFor="subject"
               className="text-slate-10 text-xs uppercase mb-2 block"
+              htmlFor="subject"
             >
               Subject
             </label>
             <input
               className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
-              onChange={(e) => setSubject(e.target.value)}
               defaultValue={subject}
-              placeholder="My Email"
-              type="text"
               id="subject"
+              onChange={(e) => { setSubject(e.target.value); }}
+              placeholder="My Email"
               required
+              type="text"
             />
             <input
-              type="checkbox"
               className="appearance-none checked:bg-blue-500"
+              type="checkbox"
             />
             <div className="flex items-center justify-between">
               <Text className="inline-block" size="1">
@@ -96,16 +96,16 @@ export const Send = ({ markup }: { markup: string }) => {
                 <a
                   className="hover:text-slate-12 transition ease-in-out duration-300"
                   href="https://resend.com"
-                  target="_blank"
                   rel="noreferrer"
+                  target="_blank"
                 >
                   Resend
                 </a>
               </Text>
               <Button
-                type="submit"
-                disabled={subject.length === 0 || to.length === 0 || isSending}
                 className="disabled:bg-slate-11 disabled:border-transparent"
+                disabled={subject.length === 0 || to.length === 0 || isSending}
+                type="submit"
               >
                 Send
               </Button>

@@ -1,14 +1,14 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import classnames from 'classnames';
 import * as React from 'react';
-import { inter } from '../app/layout';
+import { cn } from '@/utils';
+import { inter } from '@/app/inter';
 
 type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
 type ContentProps = React.ComponentPropsWithoutRef<
   typeof TooltipPrimitive.Content
 >;
 
-export interface TooltipProps extends ContentProps {}
+export type TooltipProps = ContentProps;
 
 export const TooltipContent = React.forwardRef<
   ContentElement,
@@ -17,11 +17,11 @@ export const TooltipContent = React.forwardRef<
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       {...props}
-      ref={forwardedRef}
-      className={classnames(
+      className={cn(
         'bg-black border border-slate-6 z-20 px-3 py-2 rounded-md text-xs',
         `${inter.variable} font-sans`,
       )}
+      ref={forwardedRef}
       sideOffset={sideOffset}
     >
       {children}

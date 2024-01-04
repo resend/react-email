@@ -1,9 +1,10 @@
-import classnames from 'classnames';
-import Highlight, { defaultProps, Language } from 'prism-react-renderer';
+import type { Language } from 'prism-react-renderer';
+import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
+import { cn } from '@/utils';
 
 interface CodeProps {
-  children: any;
+  children: string;
   className?: string;
   language?: Language;
 }
@@ -46,18 +47,13 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   children,
   language = 'html',
 }) => {
-  const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
-
-  const file = new File([value], `email.${language}`);
-  const url = URL.createObjectURL(file);
 
   return (
     <Highlight
-      {...defaultProps}
-      theme={theme}
       code={value}
-      language={language as Language}
+      language={language}
+      theme={theme}
     >
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
@@ -70,7 +66,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           />
           <div className="p-4 h-[650px] overflow-auto">
             {tokens.map((line, i) => {
-              const { key: lineKey, ...lineProps } = getLineProps({
+              const lineProps = getLineProps({
                 line,
                 key: i,
               });
@@ -78,13 +74,13 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 <div
                   key={i}
                   {...lineProps}
-                  className={classnames('whitespace-pre', {
+                  className={cn('whitespace-pre', {
                     "before:text-slate-11 before:mr-2 before:content-['$']":
-                      language === 'bash' && tokens && tokens.length === 1,
+                      language === 'bash' && tokens.length === 1,
                   })}
                 >
                   {line.map((token, key) => {
-                    const { key: tokenKey, ...tokenProps } = getTokenProps({
+                    const tokenProps = getTokenProps({
                       token,
                       key,
                     });

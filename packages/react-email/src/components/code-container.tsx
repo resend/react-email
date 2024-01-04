@@ -51,12 +51,13 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         return activeLang === language;
       });
       setIsCopied(true);
-      await copyTextToClipboard(activeContent[0].content);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      await copyTextToClipboard(activeContent[0]!.content);
       setTimeout(() => { setIsCopied(false); }, 3000);
     };
 
     return (
-      <IconButton onClick={handleClipboard}>
+      <IconButton onClick={() => void handleClipboard()}>
         {isCopied ? <IconCheck /> : <IconClipboard />}
       </IconButton>
     );
