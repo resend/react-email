@@ -9,7 +9,7 @@ import { render } from '@react-email/render';
 import normalize from 'normalize-path';
 import shell from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
-import { tree } from '../utils/tree';
+import { tree } from '../utils';
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files

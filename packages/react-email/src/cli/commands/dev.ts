@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { setupServer } from '../utils/run-server';
+import { startDevServer, setupHotreloading } from '../utils';
 
 interface Args {
   dir: string;
@@ -7,13 +7,18 @@ interface Args {
   skipInstall: boolean;
 }
 
-export const dev = async ({ dir, port }: Args) => {
+export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
   try {
-    if (!fs.existsSync(dir)) {
-      throw new Error(`Missing ${dir} folder`);
+    if (!fs.existsSync(emailsDirRelativePath)) {
+      throw new Error(`Missing ${emailsDirRelativePath} folder`);
     }
 
-    await setupServer(dir, port);
+    const devServer = await startDevServer(
+      emailsDirRelativePath,
+      parseInt(port),
+    );
+
+    setupHotreloading(devServer, emailsDirRelativePath);
   } catch (error) {
     console.log(error);
     process.exit(1);

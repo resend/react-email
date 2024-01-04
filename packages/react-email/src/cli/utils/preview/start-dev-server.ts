@@ -5,8 +5,8 @@ import next from 'next';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
-import packageJson from '../../../package.json';
-import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+import packageJson from '../../../../package.json';
+import { closeOraOnSIGNIT } from '../close-ora-on-sigint';
 
 let devServer: http.Server | undefined;
 
@@ -27,7 +27,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
 export const startDevServer = async (
   emailsDirRelativePath: string,
   port: number,
-) => {
+): Promise<http.Server> => {
   devServer = http.createServer((req, res) => {
     if (!req.url) {
       res.end(404);
@@ -71,9 +71,7 @@ export const startDevServer = async (
     console.warn(
       ` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`,
     );
-    await startDevServer(emailsDirRelativePath, nextPortToTry);
-
-    return;
+    return startDevServer(emailsDirRelativePath, nextPortToTry);
   }
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
@@ -95,14 +93,15 @@ export const startDevServer = async (
   const isRunningBuilt = __filename.endsWith('cli/index.js');
   const cliPacakgeLocation = isRunningBuilt
     ? path.resolve(__dirname, '..')
-    : path.resolve(__dirname, '../../..');
+    : path.resolve(__dirname, '../../../..');
+
+  // these environment variables are used on the next app as well
   process.env.EMAILS_DIR_RELATIVE_PATH = emailsDirRelativePath;
   process.env.CLI_PACKAGE_LOCATION = cliPacakgeLocation;
   const app = next({
     dev: true,
     hostname: 'localhost',
     port,
-    customServer: true,
     dir: cliPacakgeLocation,
   });
 
@@ -121,6 +120,8 @@ export const startDevServer = async (
     text: `Ready in ${secondsToNextReady}s\n`,
     symbol: logSymbols.success,
   });
+
+  return devServer;
 };
 
 // based on https://stackoverflow.com/a/14032965

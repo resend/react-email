@@ -68,6 +68,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shelljs": "0.8.5",
+    "socket.io": "4.7.3",
     "tailwind-merge": "2.2.0",
     "tree-cli": "0.6.7"
   },

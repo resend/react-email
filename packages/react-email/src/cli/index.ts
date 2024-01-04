@@ -13,7 +13,7 @@ program
 
 program
   .command('dev')
-  .description('Starts the application in development mode')
+  .description('Starts the preview email development app')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
   .action(dev);
