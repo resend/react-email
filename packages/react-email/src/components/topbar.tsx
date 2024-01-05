@@ -42,7 +42,8 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
 
       <div className={`${columnWidth}`}>
         <LayoutGroup id="topbar">
-          {setActiveView ? <ToggleGroup.Root
+          {setActiveView ? (
+            <ToggleGroup.Root
               aria-label="View mode"
               className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden"
               onValueChange={(value) => {
@@ -96,13 +97,16 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                   Source
                 </motion.div>
               </ToggleGroup.Item>
-            </ToggleGroup.Root> : null}
+            </ToggleGroup.Root>
+          ) : null}
         </LayoutGroup>
       </div>
 
-      {markup ? <div className={`flex justify-end ${columnWidth}`}>
+      {markup ? (
+        <div className={`flex justify-end ${columnWidth}`}>
           <Send markup={markup} />
-        </div> : null}
+        </div>
+      ) : null}
     </header>
   );
 };

@@ -3,7 +3,7 @@ import './globals.css';
 import { inter } from './inter';
 
 export const metadata: Metadata = {
-  title: 'React Email'
+  title: 'React Email',
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

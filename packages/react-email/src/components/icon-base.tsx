@@ -7,7 +7,6 @@ export interface IconProps extends RootProps {
   size?: number;
 }
 
-
 export const IconBase = React.forwardRef<IconElement, Readonly<IconProps>>(
   ({ size = 20, ...props }, forwardedRef) => (
     <svg

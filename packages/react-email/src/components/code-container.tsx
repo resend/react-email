@@ -53,7 +53,9 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
       setIsCopied(true);
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await copyTextToClipboard(activeContent[0]!.content);
-      setTimeout(() => { setIsCopied(false); }, 3000);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
     };
 
     return (
@@ -84,18 +86,23 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${activeLang !== language ? 'text-slate-11' : 'text-slate-12'
-                    }`}
+                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${
+                    activeLang !== language ? 'text-slate-11' : 'text-slate-12'
+                  }`}
                   key={language}
-                  onClick={() => { setActiveLang(language); }}
+                  onClick={() => {
+                    setActiveLang(language);
+                  }}
                 >
-                  {isCurrentLang ? <motion.span
+                  {isCurrentLang ? (
+                    <motion.span
                       animate={{ opacity: 1 }}
                       className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                       exit={{ opacity: 0 }}
                       initial={{ opacity: 0 }}
                       layoutId="code"
-                    /> : null}
+                    />
+                  ) : null}
                   {languageMap[language]}
                 </motion.button>
               );

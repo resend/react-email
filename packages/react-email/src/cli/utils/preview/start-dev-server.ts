@@ -47,13 +47,18 @@ export const startDevServer = async (
     res.setHeader('Expires', '-1');
 
     try {
-      if (parsedUrl.path && parsedUrl.path.includes('static/') && !parsedUrl.path.includes('_next/static/')) {
+      if (
+        parsedUrl.path &&
+        parsedUrl.path.includes('static/') &&
+        !parsedUrl.path.includes('_next/static/')
+      ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
       } else if (!isNextReady) {
-        void nextReadyPromise
-          .then(() => nextHandleRequest?.(req, res, parsedUrl));
+        void nextReadyPromise.then(
+          () => nextHandleRequest?.(req, res, parsedUrl),
+        );
       } else {
-        void nextHandleRequest?.(req, res, parsedUrl)
+        void nextHandleRequest?.(req, res, parsedUrl);
       }
     } catch (e) {
       console.error('caught error', e);
@@ -75,7 +80,11 @@ export const startDevServer = async (
     console.warn(
       ` ${logSymbols.warning} Port ${port} is already in use, trying ${nextPortToTry}`,
     );
-    return startDevServer(emailsDirRelativePath, staticBaseDirRelativePath, nextPortToTry);
+    return startDevServer(
+      emailsDirRelativePath,
+      staticBaseDirRelativePath,
+      nextPortToTry,
+    );
   }
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
@@ -138,17 +147,17 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-    (_codeOrSignal: number | NodeJS.Signals) => {
-      if (typeof devServer !== 'undefined') {
-        console.log('\nshutting down dev server');
-        devServer.close();
-        devServer = undefined;
-      }
+  (_codeOrSignal: number | NodeJS.Signals) => {
+    if (typeof devServer !== 'undefined') {
+      console.log('\nshutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
 
-      if (options?.shouldKillProcess) {
-        process.exit(options.killWithErrorCode ? 1 : 0);
-      }
-    };
+    if (options?.shouldKillProcess) {
+      process.exit(options.killWithErrorCode ? 1 : 0);
+    }
+  };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());

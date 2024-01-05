@@ -50,11 +50,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   const value = children.trim();
 
   return (
-    <Highlight
-      code={value}
-      language={language}
-      theme={theme}
-    >
+    <Highlight code={value} language={language} theme={theme}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
           <div

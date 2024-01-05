@@ -28,10 +28,7 @@ export const serveStaticFile = async (
 
     const fileData = await fs.readFile(fileAbsolutePath);
     // if the file is found, set Content-type and send data
-    res.setHeader(
-      'Content-type',
-      mime.lookup(ext) || 'text/plain',
-    );
+    res.setHeader('Content-type', mime.lookup(ext) || 'text/plain');
     res.end(fileData);
   }
 };

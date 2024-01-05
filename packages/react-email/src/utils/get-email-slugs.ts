@@ -11,9 +11,12 @@ export const getEmailSlugs = () => {
 
   return fs
     .readdirSync(emailsDirPath, { withFileTypes: true })
-    .filter((file) => file.isFile() && (file.name.endsWith('.tsx') || file.name.endsWith('.jsx')))
+    .filter(
+      (file) =>
+        file.isFile() &&
+        (file.name.endsWith('.tsx') || file.name.endsWith('.jsx')),
+    )
     .map((file) =>
-      path.join(`${file.path}/${file.name}`)
-        .replace(`${emailsDirPath}/`, '')
+      path.join(`${file.path}/${file.name}`).replace(`${emailsDirPath}/`, ''),
     );
 };

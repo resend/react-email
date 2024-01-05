@@ -25,4 +25,4 @@ export const useHotreload = (onShouldReload: () => any) => {
       socket.off();
     };
   }, [onShouldReload]);
-}
+};

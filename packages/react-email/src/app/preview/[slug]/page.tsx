@@ -9,7 +9,9 @@ interface Params {
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const { markup, reactMarkup, plainText } = await renderEmailBySlug(params.slug);
+  const { markup, reactMarkup, plainText } = await renderEmailBySlug(
+    params.slug,
+  );
 
   return (
     <Preview

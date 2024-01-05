@@ -22,6 +22,6 @@ export const renderEmailBySlug = async (emailSlug: string) => {
   return {
     markup,
     plainText,
-    reactMarkup
+    reactMarkup,
   };
 };

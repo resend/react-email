@@ -5,7 +5,9 @@ import util from 'node:util';
 import { build } from 'esbuild';
 import type { EmailTemplate } from './types/email-template';
 
-export const getEmailComponent = async (emailPath: string): Promise<EmailTemplate> => {
+export const getEmailComponent = async (
+  emailPath: string,
+): Promise<EmailTemplate> => {
   const { outputFiles } = await build({
     bundle: true,
     entryPoints: [emailPath],

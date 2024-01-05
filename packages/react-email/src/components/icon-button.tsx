@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/utils';
 
-export type IconButtonProps = React.ComponentPropsWithoutRef<'button'>
+export type IconButtonProps = React.ComponentPropsWithoutRef<'button'>;
 
 export const IconButton = React.forwardRef<
   HTMLButtonElement,

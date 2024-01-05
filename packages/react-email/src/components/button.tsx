@@ -39,7 +39,12 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
         <SlotPrimitive.Slottable>{children}</SlotPrimitive.Slottable>
       </SlotPrimitive.Slot>
     ) : (
-      <button className={classNames} ref={forwardedRef} type="button" {...props}>
+      <button
+        className={classNames}
+        ref={forwardedRef}
+        type="button"
+        {...props}
+      >
         {children}
       </button>
     );

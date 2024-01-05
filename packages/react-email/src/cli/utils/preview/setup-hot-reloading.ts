@@ -10,17 +10,17 @@ export const setupHotreloading = (
   let clients: Socket[] = [];
   const io = new SocketServer(devServer);
 
-  io.on("connection", (client) => {
+  io.on('connection', (client) => {
     clients.push(client);
 
-    client.on("disconnect", () => {
+    client.on('disconnect', () => {
       clients = clients.filter((item) => item !== client);
     });
   });
 
   const reload = () => {
     // we detect these using the useHotreload hook on the Next app
-    clients.forEach(client => {
+    clients.forEach((client) => {
       client.emit('reload');
     });
   };

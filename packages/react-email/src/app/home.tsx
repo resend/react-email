@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 
-export const Home = (props: {
-  emailSlugs: string[];
-}) => {
+export const Home = (props: { emailSlugs: string[] }) => {
   return (
     <Shell emailSlugs={props.emailSlugs}>
       <div className="mx-auto">
