@@ -38,7 +38,7 @@ export const SidebarDirectory = ({
 
   return (
     <Collapsible.Root
-      className={className}
+      className={cn('group', className)}
       data-root={isBaseEmailsDirectory}
       onOpenChange={setOpen}
       open={open}

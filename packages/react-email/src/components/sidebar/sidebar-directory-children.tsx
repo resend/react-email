@@ -24,7 +24,7 @@ export const SidebarDirectoryChildren = (props: {
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative data-[root=false]:mt-3 overflow-y-hidden"
+          className="relative data-[root=true]:mt-3 mt-1 overflow-y-hidden"
           forceMount
         >
           <motion.div
@@ -34,7 +34,7 @@ export const SidebarDirectoryChildren = (props: {
           >
             <div className="absolute left-2.5  w-px h-full bg-slate-6" />
 
-            <div className="py-2 flex flex-col truncate">
+            <div className="data-[root=true]:py-2 flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
