@@ -15,7 +15,13 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   const { ext } = path.parse(fullPath);
 
-  return ['.js', '.tsx', '.jsx'].includes(ext);
+  if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
+
+  // check with a heuristic to see if the file has at least
+  // a default export
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  return /\bexport\s+default\b/gm.test(fileContents);
 };
 
 export interface EmailsDirectory {
