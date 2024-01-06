@@ -1,11 +1,15 @@
-/* eslint-disable */
-import { emailsDirPath, getEmailSlugs } from '../utils/get-email-slugs';
+import { emailsDirPath } from '@/utils/emails-dir-path';
+import { getEmailsDirectoryMetadata } from '../utils/actions/get-emails-directory-metadata';
 import { Home } from './home';
 
 const Index = async () => {
-  const emailSlugs = getEmailSlugs();
+  const emailsDirMetadata = await getEmailsDirectoryMetadata();
 
-  return <Home emailSlugs={emailSlugs} />;
+  if (typeof emailsDirMetadata === 'undefined') {
+    throw new Error(`Could not find the emails directory specified under ${emailsDirPath}!`);
+  }
+
+  return <Home emailsDirectoryMetadata={emailsDirMetadata} />;
 };
 
 export default Index;

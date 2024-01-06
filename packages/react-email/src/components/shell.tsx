@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/utils';
+import type { EmailsDirectory } from '@/utils/get-emails-directory-metadata';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
@@ -8,15 +9,16 @@ type ShellElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
-  emailSlugs: string[];
+  emailsDirectoryMetadata: EmailsDirectory;
   markup?: string;
+  currentEmailOpenSlug?: string;
   activeView?: string;
   setActiveView?: (view: string) => void;
 }
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
   (
-    { title, emailSlugs, children, markup, activeView, setActiveView },
+    { currentEmailOpenSlug, emailsDirectoryMetadata, children, markup, activeView, setActiveView },
     forwardedRef,
   ) => {
     const [showNav, setShowNav] = React.useState(false);
@@ -57,8 +59,8 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
               'translate-x-[-100%] lg:translate-x-0 absolute lg:relative':
                 !showNav,
             })}
-            emailSlugs={emailSlugs}
-            title={title}
+            currentEmailOpenSlug={currentEmailOpenSlug}
+            emailsDirectoryMetadata={emailsDirectoryMetadata}
           />
           <main
             className={cn('bg-slate-2', {
@@ -66,12 +68,12 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
               'w-screen lg:w-[calc(100%_-_275px)]': !showNav,
             })}
           >
-            {title ? (
+            {currentEmailOpenSlug ? (
               <Topbar
                 activeView={activeView}
+                currentEmailOpenSlug={currentEmailOpenSlug}
                 markup={markup}
                 setActiveView={setActiveView}
-                title={title}
               />
             ) : null}
             <div className="relative h-[calc(100vh_-_140px)] overflow-auto">

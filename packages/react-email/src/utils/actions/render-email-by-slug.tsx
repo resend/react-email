@@ -2,8 +2,8 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { renderAsync } from '@react-email/render';
-import { emailsDirPath } from '../get-email-slugs';
 import { getEmailComponent } from '../get-email-component';
+import { emailsDirPath } from '../emails-dir-path';
 
 export const renderEmailBySlug = async (emailSlug: string) => {
   const emailPath = path.join(emailsDirPath, emailSlug);

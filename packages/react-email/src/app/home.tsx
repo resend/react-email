@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import type { EmailsDirectory } from '@/utils/get-emails-directory-metadata';
 import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 
-export const Home = (props: { emailSlugs: string[] }) => {
+export const Home = (props: { emailsDirectoryMetadata: EmailsDirectory }) => {
   return (
-    <Shell emailSlugs={props.emailSlugs}>
+    <Shell emailsDirectoryMetadata={props.emailsDirectoryMetadata}>
       <div className="mx-auto">
         <div className="max-w-md border border-slate-6 mx-6 mt-56 rounded-md p-8">
           <Heading as="h2" weight="medium">

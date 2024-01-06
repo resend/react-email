@@ -4,10 +4,10 @@ import * as React from 'react';
 import { copyTextToClipboard } from '../utils';
 import languageMap from '../utils/language-map';
 import { Code } from './code';
-import { IconButton } from './icon-button';
-import { IconCheck } from './icon-check';
-import { IconClipboard } from './icon-clipboard';
-import { IconDownload } from './icon-download';
+import { IconButton } from './icons/icon-button';
+import { IconCheck } from './icons/icon-check';
+import { IconClipboard } from './icons/icon-clipboard';
+import { IconDownload } from './icons/icon-download';
 import { Tooltip } from './tooltip';
 
 interface CodeContainerProps {

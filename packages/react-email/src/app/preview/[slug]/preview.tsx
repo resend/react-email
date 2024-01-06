@@ -2,14 +2,15 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { useHotreload } from '@/utils/hooks/use-hotreload';
+import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
+import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
-import { useHotreload } from '@/utils/hooks/use-hotreload';
-import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 
 export interface PreviewProps {
-  emailSlugs: string[];
+  emailsDirectoryMetadata: EmailsDirectory;
 
   slug: string;
   markup: string;
@@ -18,7 +19,7 @@ export interface PreviewProps {
 }
 
 const Preview = ({
-  emailSlugs,
+  emailsDirectoryMetadata,
   slug,
   markup: initialMarkup,
   reactMarkup: initialReactMarkup,
@@ -68,10 +69,10 @@ const Preview = ({
   return (
     <Shell
       activeView={activeView}
-      emailSlugs={emailSlugs}
+      currentEmailOpenSlug={slug}
+      emailsDirectoryMetadata={emailsDirectoryMetadata}
       markup={markup}
       setActiveView={handleViewChange}
-      title={slug}
     >
       {activeView === 'desktop' ? (
         <iframe

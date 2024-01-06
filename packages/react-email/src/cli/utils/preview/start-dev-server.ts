@@ -109,8 +109,9 @@ export const startDevServer = async (
     : path.resolve(__dirname, '../../../..');
 
   // these environment variables are used on the next app as well
-  process.env.EMAILS_DIR_RELATIVE_PATH = emailsDirRelativePath;
-  process.env.CLI_PACKAGE_LOCATION = cliPacakgeLocation;
+  process.env.NEXT_PUBLIC_EMAILS_DIR_RELATIVE_PATH = emailsDirRelativePath;
+  process.env.NEXT_PUBLIC_CLI_PACKAGE_LOCATION = cliPacakgeLocation;
+  process.env.NEXT_PUBLIC_USER_PROJECT_LOCATION = process.cwd();
   const app = next({
     dev: true,
     hostname: 'localhost',

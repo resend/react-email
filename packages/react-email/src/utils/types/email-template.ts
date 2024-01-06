@@ -4,8 +4,5 @@ export interface EmailTemplate {
 }
 
 export const isEmailTemplate = (val: unknown): val is EmailTemplate => {
-  return (
-    typeof val === 'function' &&
-    ('PreviewProps' in val ? typeof val.PreviewProps === 'object' : true)
-  );
+  return typeof val === 'function';
 };

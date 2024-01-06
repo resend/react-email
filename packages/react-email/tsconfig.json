@@ -19,6 +19,7 @@
     "paths": {
       "@/*": ["*"],
     },
+    "types": ["vitest/globals"],
     "outDir": "dist"
   }
 }

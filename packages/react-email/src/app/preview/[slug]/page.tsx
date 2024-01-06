@@ -1,6 +1,7 @@
-import Preview from './preview';
-import { getEmailSlugs } from '@/utils/get-email-slugs';
 import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
+import { getEmailsDirectoryMetadata } from '@/utils/actions/get-emails-directory-metadata';
+import { emailsDirPath } from '@/utils/emails-dir-path';
+import Preview from './preview';
 
 export const dynamicParams = true;
 
@@ -9,21 +10,31 @@ interface Params {
 }
 
 export default async function Page({ params }: { params: Params }) {
+  // will come in here as a relative path to the email
+  // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
+  const slug = decodeURIComponent(params.slug);
+  console.log(slug);
+  const emailsDirMetadata = await getEmailsDirectoryMetadata();
+
+  if (typeof emailsDirMetadata === 'undefined') {
+    throw new Error(`Could not find the emails directory specified under ${emailsDirPath}!`);
+  }
+
   const { markup, reactMarkup, plainText } = await renderEmailBySlug(
-    params.slug,
+    slug,
   );
 
   return (
     <Preview
-      emailSlugs={getEmailSlugs()}
+      emailsDirectoryMetadata={emailsDirMetadata}
       markup={markup}
       plainText={plainText}
       reactMarkup={reactMarkup}
-      slug={params.slug}
+      slug={slug}
     />
   );
 }
 
 export function generateMetadata({ params }: { params: Params }) {
-  return { title: `${params.slug} — React Email` };
+  return { title: `${decodeURIComponent(params.slug)} — React Email` };
 }

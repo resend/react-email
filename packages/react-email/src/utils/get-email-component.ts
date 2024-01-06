@@ -16,7 +16,7 @@ export const getEmailComponent = async (
     format: 'cjs',
     tsconfig: path.resolve(
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      process.env.CLI_PACKAGE_LOCATION!,
+      process.env.NEXT_PUBLIC_CLI_PACKAGE_LOCATION!,
       './tsconfig.export.json',
     ),
   });

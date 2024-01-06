@@ -8,7 +8,7 @@ import { Send } from './send';
 type RootProps = React.ComponentPropsWithoutRef<'header'>;
 
 interface TopbarProps extends RootProps {
-  title: string;
+  currentEmailOpenSlug: string;
   activeView?: string;
   markup?: string;
   setActiveView?: (view: string) => void;
@@ -16,7 +16,7 @@ interface TopbarProps extends RootProps {
 
 export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   className,
-  title,
+  currentEmailOpenSlug,
   markup,
   activeView,
   setActiveView,
@@ -36,7 +36,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
         className={`items-center overflow-hidden hidden lg:flex ${columnWidth}`}
       >
         <Heading as="h2" className="truncate" size="2" weight="medium">
-          {title}
+          {currentEmailOpenSlug}
         </Heading>
       </div>
 
