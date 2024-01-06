@@ -1,4 +1,5 @@
 'use server';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fs from 'node:fs';
 import path from 'node:path';
 import { emailsDirPath } from '../emails-dir-path';
@@ -26,10 +27,35 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
 export interface EmailsDirectory {
   absolutePath: string;
-  unixAbsolutePath: string;
+  directoryName: string;
   emailFilenames: string[];
   subDirectories: EmailsDirectory[];
 }
+
+const mergeDirectoriesWithSubDirectories = (
+  emailsDirectoryMetadata: EmailsDirectory,
+): EmailsDirectory => {
+  let currentResultingMergedDirectory: EmailsDirectory =
+    emailsDirectoryMetadata;
+
+  while (
+    currentResultingMergedDirectory.emailFilenames.length === 0 &&
+    currentResultingMergedDirectory.subDirectories.length === 1
+  ) {
+    const onlySubDirectory = currentResultingMergedDirectory.subDirectories[0]!;
+    currentResultingMergedDirectory = {
+      subDirectories: onlySubDirectory.subDirectories,
+      emailFilenames: onlySubDirectory.emailFilenames,
+      absolutePath: onlySubDirectory.absolutePath,
+      directoryName: path.join(
+        currentResultingMergedDirectory.directoryName,
+        onlySubDirectory.directoryName,
+      ),
+    };
+  }
+
+  return currentResultingMergedDirectory;
+};
 
 export const getEmailsDirectoryMetadata = async (
   absolutePathToEmailsDirectory: string = emailsDirPath,
@@ -49,14 +75,16 @@ export const getEmailsDirectoryMetadata = async (
       .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith('_'))
       .map(
         (dirent) =>
-          getEmailsDirectoryMetadata(path.join(dirent.path, dirent.name)) as Promise<EmailsDirectory>,
+          getEmailsDirectoryMetadata(
+            path.join(dirent.path, dirent.name),
+          ) as Promise<EmailsDirectory>,
       ),
   );
 
-  return {
+  return mergeDirectoriesWithSubDirectories({
     absolutePath: absolutePathToEmailsDirectory,
-    unixAbsolutePath: absolutePathToEmailsDirectory.replaceAll(path.sep, '/'),
+    directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
     emailFilenames,
     subDirectories,
-  };
+  });
 };

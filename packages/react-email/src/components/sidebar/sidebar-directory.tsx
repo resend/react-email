@@ -58,7 +58,7 @@ export const SidebarDirectory = ({
             size="2"
             weight="medium"
           >
-            {emailsDirectoryMetadata.unixAbsolutePath.split('/').pop()}
+            {emailsDirectoryMetadata.directoryName}
           </Heading>
           {isEmpty ? (
             <IconArrowDown

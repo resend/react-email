@@ -42,7 +42,7 @@ export const SidebarDirectoryChildren = (props: {
                       className="pl-4 py-0"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
-                      key={subDirectory.unixAbsolutePath}
+                      key={subDirectory.absolutePath}
                     />
                   ),
                 )}
@@ -57,9 +57,7 @@ export const SidebarDirectoryChildren = (props: {
 
                     return (
                       <Link
-                        href={`/preview/${encodeURIComponent(
-                          emailSlug,
-                        ).trim()}`}
+                        href={`/preview/${encodeURIComponent(emailSlug)}`}
                         key={emailSlug}
                       >
                         <motion.span
