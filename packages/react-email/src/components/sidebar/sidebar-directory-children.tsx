@@ -20,7 +20,7 @@ export const SidebarDirectoryChildren = (props: {
     props.emailsDirectoryMetadata.absolutePath === emailsDirPath;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence initial={false}>
       {props.open ? (
         <Collapsible.Content
           asChild
