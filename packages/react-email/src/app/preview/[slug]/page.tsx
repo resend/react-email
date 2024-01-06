@@ -13,7 +13,6 @@ export default async function Page({ params }: { params: Params }) {
   // will come in here as a relative path to the email
   // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
   const slug = decodeURIComponent(params.slug);
-  console.log(slug);
   const emailsDirMetadata = await getEmailsDirectoryMetadata();
 
   if (typeof emailsDirMetadata === 'undefined') {

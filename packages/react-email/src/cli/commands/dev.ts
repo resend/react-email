@@ -4,13 +4,13 @@ import { startDevServer, setupHotreloading } from '../utils';
 interface Args {
   dir: string;
   port: string;
-  static: string;
+  staticLocation: string;
   skipInstall: boolean;
 }
 
 export const dev = async ({
   dir: emailsDirRelativePath,
-  static: staticBaseDirRelativePath,
+  staticLocation: staticBaseDirRelativePath,
   port,
 }: Args) => {
   try {
