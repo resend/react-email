@@ -28,6 +28,10 @@ export const SidebarDirectory = ({
     ? currentEmailOpenSlug.includes(directoryPathRelativeToEmailsDirectory)
     : false;
 
+  const isEmpty =
+    emailsDirectoryMetadata.emailFilenames.length > 0 ||
+    emailsDirectoryMetadata.subDirectories.length > 0;
+
   const [open, setOpen] = React.useState(
     isBaseEmailsDirectory || doesFolderContainCurrentEmailOpen,
   );
@@ -41,7 +45,7 @@ export const SidebarDirectory = ({
     >
       <Collapsible.Trigger
         className={cn('text-[14px] flex items-center font-medium gap-2', {
-          'cursor-default': emailsDirectoryMetadata.emailFilenames.length === 0,
+          'cursor-pointer': !isEmpty
         })}
       >
         <IconFolder height="24" width="24" />
@@ -56,7 +60,7 @@ export const SidebarDirectory = ({
           >
             {emailsDirectoryMetadata.unixAbsolutePath.split('/').pop()}
           </Heading>
-          {emailsDirectoryMetadata.emailFilenames.length > 0 ? (
+          {isEmpty ? (
             <IconArrowDown
               className="data-[open=true]:rotate-180 transition-transform"
               data-open={open}
@@ -65,7 +69,7 @@ export const SidebarDirectory = ({
         </div>
       </Collapsible.Trigger>
 
-      {emailsDirectoryMetadata.emailFilenames.length > 0 ? (
+      {isEmpty ? (
         <SidebarDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
           emailsDirectoryMetadata={emailsDirectoryMetadata}
