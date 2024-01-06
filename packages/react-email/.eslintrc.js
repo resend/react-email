@@ -10,6 +10,7 @@ module.exports = {
     project,
   },
   rules: {
+    'import/no-cycle': 'off',
     'import/no-extraneous-dependencies': 'off',
     'turbo/no-undeclared-env-vars': 'off',
     'eslint-comments/require-description': 'off',
