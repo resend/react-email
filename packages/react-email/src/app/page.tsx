@@ -6,7 +6,9 @@ const Index = async () => {
   const emailsDirMetadata = await getEmailsDirectoryMetadata();
 
   if (typeof emailsDirMetadata === 'undefined') {
-    throw new Error(`Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`);
+    throw new Error(
+      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`,
+    );
   }
 
   return <Home emailsDirectoryMetadata={emailsDirMetadata} />;

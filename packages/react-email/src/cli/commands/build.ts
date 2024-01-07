@@ -31,7 +31,7 @@ const buildPreviewApp = (absoluteDirectory: string) => {
       }
     });
   });
-}
+};
 
 export const build = async ({
   dir: emailsDirRelativePath,
@@ -61,7 +61,7 @@ export const build = async ({
       filter: (source: string) => {
         // do not copy the CLI files
         return !source.includes('/cli/') && !source.includes('/.next/');
-      }
+      },
     });
     const builtEmailsDirectory = path.join(builtPreviewAppPath, 'emails');
     await fs.promises.cp(emailsDirPath, builtEmailsDirectory, {

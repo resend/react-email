@@ -16,12 +16,12 @@ export default async function Page({ params }: { params: Params }) {
   const emailsDirMetadata = await getEmailsDirectoryMetadata();
 
   if (typeof emailsDirMetadata === 'undefined') {
-    throw new Error(`Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`);
+    throw new Error(
+      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`,
+    );
   }
 
-  const { markup, reactMarkup, plainText } = await renderEmailBySlug(
-    slug,
-  );
+  const { markup, reactMarkup, plainText } = await renderEmailBySlug(slug);
 
   return (
     <Preview

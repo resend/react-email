@@ -11,7 +11,10 @@ interface SidebarProps extends RootProps {
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  ({ className, emailsDirectoryMetadata, currentEmailOpenSlug, ...props }, forwardedRef) => {
+  (
+    { className, emailsDirectoryMetadata, currentEmailOpenSlug, ...props },
+    forwardedRef,
+  ) => {
     return (
       <aside className={className} ref={forwardedRef} {...props}>
         <nav className="p-6 w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">

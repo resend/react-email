@@ -33,7 +33,7 @@ program
     'Base directory where the static files to load into the preview are (ex: "/public" for next)',
     './',
   )
-  .action(build)
+  .action(build);
 
 program
   .command('export')

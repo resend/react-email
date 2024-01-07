@@ -2,7 +2,10 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import Link from 'next/link';
 import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
-import { emailsDirectoryAbsolutePath, pathSeparator } from '@/utils/emails-dir-path';
+import {
+  emailsDirectoryAbsolutePath,
+  pathSeparator,
+} from '@/utils/emails-dir-path';
 import { cn } from '@/utils';
 import { IconFile } from '../icons/icon-file';
 import { SidebarDirectory } from './sidebar-directory';
