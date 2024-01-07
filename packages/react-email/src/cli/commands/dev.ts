@@ -5,7 +5,6 @@ interface Args {
   dir: string;
   port: string;
   staticLocation: string;
-  skipInstall: boolean;
 }
 
 export const dev = async ({
