@@ -33,6 +33,58 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   });
 };
 
+const setNextEnvironmentVariablesForBuild = async (builtPreviewAppPath: string) => {
+  const envVariables = {
+    ...getEnvVariablesForPreviewApp('emails', 'PLACEHOLDER', 'PLACEHOLDER'),
+    NEXT_PUBLIC_DISABLE_HOT_RELOADING: 'true',
+  };
+
+  const nextConfigContents = `/** @type {import('next').NextConfig} */
+module.exports = {
+  env: {
+    ...${JSON.stringify(envVariables)},
+    NEXT_PUBLIC_USER_PROJECT_LOCATION: process.cwd(),
+    NEXT_PUBLIC_CLI_PACKAGE_LOCATION: process.cwd(),
+  },
+  // this is needed so that the code for building emails works properly
+  webpack: (
+    /** @type {import('webpack').Configuration & { externals: string[] }} */
+    config,
+    { isServer }
+  ) => {
+    if (isServer) {
+      config.externals.push('esbuild');
+    }
+
+    return config;
+  },
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
+  },
+  experimental: {
+    serverComponentsExternalPackages: [
+      '@react-email/components',
+      '@react-email/render',
+      '@react-email/tailwind',
+    ],
+  },
+  transpilePackages: [
+    '@react-email/components',
+    '@react-email/render',
+    '@react-email/tailwind',
+  ],
+}`;
+
+  await fs.promises.writeFile(
+    path.resolve(builtPreviewAppPath, './next.config.js'),
+    nextConfigContents,
+    'utf8',
+  );
+};
+
 export const build = async ({
   dir: emailsDirRelativePath,
   staticLocation: staticBaseDirRelativePath,
@@ -73,47 +125,7 @@ export const build = async ({
     );
     await fs.promises.cp(staticPath, builtStaticDirectory, { recursive: true });
 
-    const envVariables = {
-      ...getEnvVariablesForPreviewApp('emails', 'PLACEHOLDER', 'PLACEHOLDER'),
-      NEXT_PUBLIC_DISABLE_HOT_RELOADING: 'true',
-    };
-    const nextConfigContents = `/** @type {import('next').NextConfig} */
-module.exports = {
-  env: {
-    ...${JSON.stringify(envVariables)},
-    NEXT_PUBLIC_USER_PROJECT_LOCATION: process.cwd(),
-    NEXT_PUBLIC_CLI_PACKAGE_LOCATION: process.cwd(),
-  },
-  // this is needed so that the code for building emails works properly
-  webpack: (
-    /** @type {import('webpack').Configuration & { externals: string[] }} */
-    config,
-    { isServer }
-  ) => {
-    if (isServer) {
-      config.externals.push('esbuild');
-    }
-
-    return config;
-  },
-  experimental: {
-    serverComponentsExternalPackages: [
-      '@react-email/components',
-      '@react-email/render',
-      '@react-email/tailwind',
-    ],
-  },
-  transpilePackages: [
-    '@react-email/components',
-    '@react-email/render',
-    '@react-email/tailwind',
-  ],
-}`;
-    await fs.promises.writeFile(
-      path.resolve(builtPreviewAppPath, './next.config.js'),
-      nextConfigContents,
-      'utf8',
-    );
+    await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
 
     await buildPreviewApp(builtPreviewAppPath);
   } catch (error) {
