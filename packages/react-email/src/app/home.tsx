@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { EmailsDirectory } from '@/utils/get-emails-directory-metadata';
+import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
 import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 

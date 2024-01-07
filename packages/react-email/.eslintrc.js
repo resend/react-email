@@ -1,6 +1,6 @@
 const { resolve } = require('node:path');
 
-const project = resolve(__dirname, './tsconfig.json');
+const project = resolve(process.cwd(), './tsconfig.json');
 
 /** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {

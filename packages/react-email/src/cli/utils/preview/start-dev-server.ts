@@ -8,6 +8,7 @@ import chalk from 'chalk';
 import packageJson from '../../../../package.json';
 import { closeOraOnSIGNIT } from '../close-ora-on-sigint';
 import { serveStaticFile } from './serve-static-file';
+import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
 
 let devServer: http.Server | undefined;
 
@@ -24,6 +25,11 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
     });
   });
 };
+
+export const isRunningBuilt = __filename.endsWith('cli/index.js');
+export const cliPacakgeLocation = isRunningBuilt
+  ? path.resolve(__dirname, '..')
+  : path.resolve(__dirname, '../../../..');
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
@@ -103,16 +109,16 @@ export const startDevServer = async (
   closeOraOnSIGNIT(spinner);
   const timeBeforeNextReady = performance.now();
 
-  const isRunningBuilt = __filename.endsWith('cli/index.js');
-  const cliPacakgeLocation = isRunningBuilt
-    ? path.resolve(__dirname, '..')
-    : path.resolve(__dirname, '../../../..');
-
   // these environment variables are used on the next app
   // this is the most reliable way of communicating these paths through
-  process.env.NEXT_PUBLIC_EMAILS_DIR_RELATIVE_PATH = emailsDirRelativePath;
-  process.env.NEXT_PUBLIC_CLI_PACKAGE_LOCATION = cliPacakgeLocation;
-  process.env.NEXT_PUBLIC_USER_PROJECT_LOCATION = process.cwd();
+  process.env = {
+    ...process.env,
+    ...getEnvVariablesForPreviewApp(
+      emailsDirRelativePath,
+      cliPacakgeLocation,
+      process.cwd(),
+    ),
+  };
   const app = next({
     // passing in env here does not get the environment variables there
     dev: true,

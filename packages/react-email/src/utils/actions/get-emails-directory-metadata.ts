@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fs from 'node:fs';
 import path from 'node:path';
-import { emailsDirPath } from '../emails-dir-path';
+import { emailsDirectoryAbsolutePath } from '../emails-dir-path';
 
 const isFileAnEmail = (fullPath: string): boolean => {
   const unixFullPath = fullPath.replaceAll(path.sep, '/');
@@ -58,7 +58,7 @@ const mergeDirectoriesWithSubDirectories = (
 };
 
 export const getEmailsDirectoryMetadata = async (
-  absolutePathToEmailsDirectory: string = emailsDirPath,
+  absolutePathToEmailsDirectory: string = emailsDirectoryAbsolutePath,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 

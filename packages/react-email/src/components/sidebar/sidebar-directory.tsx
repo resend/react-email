@@ -2,7 +2,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '@/utils';
-import { emailsDirPath } from '@/utils/emails-dir-path';
+import { emailsDirectoryAbsolutePath } from '@/utils/emails-dir-path';
 import { type EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
@@ -21,9 +21,11 @@ export const SidebarDirectory = ({
   currentEmailOpenSlug,
 }: SidebarDirectoryProps) => {
   const isBaseEmailsDirectory =
-    emailsDirectoryMetadata.absolutePath === emailsDirPath;
+    emailsDirectoryMetadata.absolutePath === emailsDirectoryAbsolutePath;
   const directoryPathRelativeToEmailsDirectory =
-    emailsDirectoryMetadata.absolutePath.replace(emailsDirPath, '').trim();
+    emailsDirectoryMetadata.absolutePath
+      .replace(emailsDirectoryAbsolutePath, '')
+      .trim();
   const doesFolderContainCurrentEmailOpen = currentEmailOpenSlug
     ? currentEmailOpenSlug.includes(directoryPathRelativeToEmailsDirectory)
     : false;
@@ -45,7 +47,7 @@ export const SidebarDirectory = ({
     >
       <Collapsible.Trigger
         className={cn('text-[14px] flex items-center font-medium gap-2', {
-          'cursor-pointer': !isEmpty
+          'cursor-pointer': !isEmpty,
         })}
       >
         <IconFolder height="24" width="24" />

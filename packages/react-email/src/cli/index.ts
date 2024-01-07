@@ -2,9 +2,10 @@
 /* eslint-disable */
 import { program } from '@commander-js/extra-typings';
 import packageJson from '../../package.json';
+import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
-import { PACKAGE_NAME } from './utils/constants';
+import { build } from './commands/build';
 
 program
   .name(PACKAGE_NAME)
@@ -22,6 +23,17 @@ program
     './',
   )
   .action(dev);
+
+program
+  .command('build')
+  .description('Copies the preivew app for onto .react-email and builds it')
+  .option('-d, --dir <path>', 'Directory with your email templates', './emails')
+  .option(
+    '-sl --staticLocation <path>',
+    'Base directory where the static files to load into the preview are (ex: "/public" for next)',
+    './',
+  )
+  .action(build)
 
 program
   .command('export')

@@ -29,6 +29,6 @@ const normalizePath = (path: string) => {
 
 export const userProjectLocation = process.env.NEXT_PUBLIC_USER_PROJECT_LOCATION!;
 
-export const emailsDirPath = `${
+export const emailsDirectoryAbsolutePath = `${
   process.env.NEXT_PUBLIC_USER_PROJECT_LOCATION
 }${pathSeparator}${normalizePath(emailsDirRelativePath)}`;

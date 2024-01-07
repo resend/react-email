@@ -1,6 +1,6 @@
 import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 import { getEmailsDirectoryMetadata } from '@/utils/actions/get-emails-directory-metadata';
-import { emailsDirPath } from '@/utils/emails-dir-path';
+import { emailsDirectoryAbsolutePath } from '@/utils/emails-dir-path';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Params }) {
   const emailsDirMetadata = await getEmailsDirectoryMetadata();
 
   if (typeof emailsDirMetadata === 'undefined') {
-    throw new Error(`Could not find the emails directory specified under ${emailsDirPath}!`);
+    throw new Error(`Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`);
   }
 
   const { markup, reactMarkup, plainText } = await renderEmailBySlug(

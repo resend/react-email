@@ -36,9 +36,14 @@ const Preview = ({
   });
   const { markup, reactMarkup, plainText } = renderedEmailMeta;
 
-  useHotreload(async () => {
-    setRenderedEmailMeta(await renderEmailBySlug(slug));
-  });
+  if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
+    // this will not change on runtime so it doesn't violate
+    // the rules of hooks
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useHotreload(async () => {
+      setRenderedEmailMeta(await renderEmailBySlug(slug));
+    });
+  }
 
   const [activeView, setActiveView] = useState('desktop');
   const [activeLang, setActiveLang] = useState('jsx');
@@ -78,6 +83,7 @@ const Preview = ({
         <iframe
           className="w-full h-[calc(100vh_-_140px)]"
           srcDoc={markup}
+          // @ts-expect-error For some reason the title prop is not included with the iframe
           title={slug}
         />
       ) : (

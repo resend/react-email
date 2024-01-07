@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "build-preview": "next build",
     "dev": "tsup --watch",
     "clean": "rm -rf dist",
     "lint": "eslint ."
