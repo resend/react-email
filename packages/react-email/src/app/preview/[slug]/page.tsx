@@ -2,6 +2,7 @@ import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 import { getEmailsDirectoryMetadata } from '@/utils/actions/get-emails-directory-metadata';
 import { emailsDirectoryAbsolutePath } from '@/utils/emails-dir-path';
 import Preview from './preview';
+import { Suspense } from 'react';
 
 export const dynamicParams = true;
 
@@ -13,7 +14,7 @@ export default async function Page({ params }: { params: Params }) {
   // will come in here as a relative path to the email
   // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
   const slug = decodeURIComponent(params.slug);
-  const emailsDirMetadata = await getEmailsDirectoryMetadata();
+  const emailsDirMetadata = await getEmailsDirectoryMetadata(emailsDirectoryAbsolutePath);
 
   if (typeof emailsDirMetadata === 'undefined') {
     throw new Error(
@@ -24,13 +25,15 @@ export default async function Page({ params }: { params: Params }) {
   const { markup, reactMarkup, plainText } = await renderEmailBySlug(slug);
 
   return (
-    <Preview
-      emailsDirectoryMetadata={emailsDirMetadata}
-      markup={markup}
-      plainText={plainText}
-      reactMarkup={reactMarkup}
-      slug={slug}
-    />
+    <Suspense>
+      <Preview
+        emailsDirectoryMetadata={emailsDirMetadata}
+        markup={markup}
+        plainText={plainText}
+        reactMarkup={reactMarkup}
+        slug={slug}
+      />
+    </Suspense>
   );
 }
 

@@ -1,6 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
+import type {
+  EmailsDirectory
+} from '@/utils/actions/get-emails-directory-metadata';
+import {
+  getEmailsDirectoryMetadata,
+} from '../../utils/actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 
@@ -24,7 +30,7 @@ const buildPreviewApp = (absoluteDirectory: string) => {
     });
 
     nextBuild.on('close', (code) => {
-      if (code === 0) {
+      if (code === 1) {
         resolve();
       } else {
         reject(code);
@@ -33,7 +39,9 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   });
 };
 
-const setNextEnvironmentVariablesForBuild = async (builtPreviewAppPath: string) => {
+const setNextEnvironmentVariablesForBuild = async (
+  builtPreviewAppPath: string,
+) => {
   const envVariables = {
     ...getEnvVariablesForPreviewApp('emails', 'PLACEHOLDER', 'PLACEHOLDER'),
     NEXT_PUBLIC_DISABLE_HOT_RELOADING: 'true',
@@ -85,6 +93,52 @@ module.exports = {
   );
 };
 
+const getEmailSlugsFromEmailDirectory = (
+  emailDirectory: EmailsDirectory,
+  emailsDirectoryAbsolutePath: string,
+) => {
+  const directoryPathRelativeToEmailsDirectory = emailDirectory.absolutePath
+    .replace(emailsDirectoryAbsolutePath, '')
+    .trim();
+
+  const slugs = [] as string[];
+  emailDirectory.emailFilenames.forEach((filename) =>
+    slugs.push(path.join(directoryPathRelativeToEmailsDirectory, filename)),
+  );
+  emailDirectory.subDirectories.forEach((directory) => {
+    slugs.push(...getEmailSlugsFromEmailDirectory(directory, emailsDirectoryAbsolutePath));
+  });
+
+  return slugs;
+};
+
+// we do this because otherwise it won't be able to find the emails
+// after build
+const forceSSGForEmailPreviews = async (
+  emailsDirPath: string,
+  builtPreviewAppPath: string,
+) => {
+  const emailDirectoryMetadata =
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    (await getEmailsDirectoryMetadata(emailsDirPath))!;
+
+  const parameters = getEmailSlugsFromEmailDirectory(
+    emailDirectoryMetadata,
+    emailsDirPath
+  ).map((slug) => ({ slug }));
+  // const parameters = [];
+
+  await fs.promises.appendFile(
+    path.resolve(builtPreviewAppPath, './src/app/preview/[slug]/page.tsx'),
+    `
+
+export async function generateStaticParams() { 
+  return ${JSON.stringify(parameters)};
+}`,
+    'utf8',
+  );
+};
+
 export const build = async ({
   dir: emailsDirRelativePath,
   staticLocation: staticBaseDirRelativePath,
@@ -126,6 +180,8 @@ export const build = async ({
     await fs.promises.cp(staticPath, builtStaticDirectory, { recursive: true });
 
     await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
+
+    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
     await buildPreviewApp(builtPreviewAppPath);
   } catch (error) {

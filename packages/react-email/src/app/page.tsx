@@ -3,7 +3,7 @@ import { getEmailsDirectoryMetadata } from '../utils/actions/get-emails-director
 import { Home } from './home';
 
 const Index = async () => {
-  const emailsDirMetadata = await getEmailsDirectoryMetadata();
+  const emailsDirMetadata = await getEmailsDirectoryMetadata(emailsDirectoryAbsolutePath);
 
   if (typeof emailsDirMetadata === 'undefined') {
     throw new Error(
