@@ -29,11 +29,12 @@ export const getEmailComponent = async (
   // So what we do is pre-import and return it on the fake require function we pass to the VM's context
   const nodeModuleMapToPreImported = {
     stream,
-    util,
+    util
   };
 
   const fakeContext = {
     module: { exports: { default: undefined as unknown } },
+    setTimeout,
     require: (module: string) => {
       if (module in nodeModuleMapToPreImported) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return

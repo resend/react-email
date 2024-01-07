@@ -30,10 +30,10 @@ const buildPreviewApp = (absoluteDirectory: string) => {
     });
 
     nextBuild.on('close', (code) => {
-      if (code === 1) {
+      if (code === 0) {
         resolve();
       } else {
-        reject(code);
+        reject(new Error(`Unable to build the Next app and it exited with code: ${code}`));
       }
     });
   });
