@@ -1,7 +1,7 @@
 import type http from 'node:http';
 import path from 'node:path';
 import { Server as SocketServer, type Socket } from 'socket.io';
-import chokidar from 'chokidar';
+import { watch } from 'chokidar';
 
 export const setupHotreloading = (
   devServer: http.Server,
@@ -25,9 +25,10 @@ export const setupHotreloading = (
     });
   };
 
-  const watcher = chokidar.watch(emailDirRelativePath, {
+  const watcher = watch(emailDirRelativePath, {
     ignoreInitial: true,
     cwd: path.resolve(process.cwd()),
+    // eslint-disable-next-line prefer-named-capture-group
     ignored: /(^|[/\\])\../,
   });
 

@@ -57,7 +57,7 @@ const mergeDirectoriesWithSubDirectories = (
 };
 
 export const getEmailsDirectoryMetadata = async (
-  absolutePathToEmailsDirectory: string
+  absolutePathToEmailsDirectory: string,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 

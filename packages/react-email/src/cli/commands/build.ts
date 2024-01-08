@@ -150,7 +150,11 @@ const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as { scripts: { build: string } };
   packageJson.scripts.build = 'next build';
-  await fs.promises.writeFile(packageJsonPath, JSON.stringify(packageJson), 'utf8');
+  await fs.promises.writeFile(
+    packageJsonPath,
+    JSON.stringify(packageJson),
+    'utf8',
+  );
 };
 
 export const build = async ({

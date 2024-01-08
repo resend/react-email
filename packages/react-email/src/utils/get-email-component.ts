@@ -29,7 +29,7 @@ export const getEmailComponent = async (
   // So what we do is pre-import and return it on the fake require function we pass to the VM's context
   const nodeModuleMapToPreImported = {
     stream,
-    util
+    util,
   };
 
   const fakeContext = {
