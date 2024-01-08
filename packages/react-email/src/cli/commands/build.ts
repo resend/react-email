@@ -1,12 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import type {
-  EmailsDirectory
-} from '@/utils/actions/get-emails-directory-metadata';
-import {
-  getEmailsDirectoryMetadata,
-} from '../../utils/actions/get-emails-directory-metadata';
+import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
+import { getEmailsDirectoryMetadata } from '../../utils/actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 
@@ -18,7 +14,7 @@ interface Args {
 
 const buildPreviewApp = (absoluteDirectory: string) => {
   return new Promise<void>((resolve, reject) => {
-    const nextBuild = spawn('npm', ['run', 'build-preview'], {
+    const nextBuild = spawn('npm', ['run', 'build'], {
       cwd: absoluteDirectory,
     });
 
@@ -33,7 +29,11 @@ const buildPreviewApp = (absoluteDirectory: string) => {
       if (code === 0) {
         resolve();
       } else {
-        reject(new Error(`Unable to build the Next app and it exited with code: ${code}`));
+        reject(
+          new Error(
+            `Unable to build the Next app and it exited with code: ${code}`,
+          ),
+        );
       }
     });
   });
@@ -106,7 +106,12 @@ const getEmailSlugsFromEmailDirectory = (
     slugs.push(path.join(directoryPathRelativeToEmailsDirectory, filename)),
   );
   emailDirectory.subDirectories.forEach((directory) => {
-    slugs.push(...getEmailSlugsFromEmailDirectory(directory, emailsDirectoryAbsolutePath));
+    slugs.push(
+      ...getEmailSlugsFromEmailDirectory(
+        directory,
+        emailsDirectoryAbsolutePath,
+      ),
+    );
   });
 
   return slugs;
@@ -124,7 +129,7 @@ const forceSSGForEmailPreviews = async (
 
   const parameters = getEmailSlugsFromEmailDirectory(
     emailDirectoryMetadata,
-    emailsDirPath
+    emailsDirPath,
   ).map((slug) => ({ slug }));
   // const parameters = [];
 
@@ -137,6 +142,15 @@ export async function generateStaticParams() {
 }`,
     'utf8',
   );
+};
+
+const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
+  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+  const packageJson = JSON.parse(
+    await fs.promises.readFile(packageJsonPath, 'utf8'),
+  ) as { scripts: { build: string } };
+  packageJson.scripts.build = 'next build';
+  await fs.promises.writeFile(packageJsonPath, JSON.stringify(packageJson), 'utf8');
 };
 
 export const build = async ({
@@ -182,6 +196,8 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
 
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
+
+    await updatePackageJsonBuild(builtPreviewAppPath);
 
     await buildPreviewApp(builtPreviewAppPath);
   } catch (error) {
