@@ -88,7 +88,7 @@ const createEmailPreviews = (emailDir: string) => {
     const importFile = osIndependentPath(path.join(importPath, fileName));
 
     // if this import is changed, you also need to update `client/src/app/preview/[slug]/page.tsx`
-    const sourceCode = `import Mail from '${importFile}';\nexport default Mail;\n`;
+    const sourceCode = `// @ts-ignore\nimport Mail from '${importFile}';\nexport default Mail;\n`;
 
     fs.writeFileSync(targetFile, sourceCode);
   }
