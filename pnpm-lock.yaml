@@ -650,6 +650,9 @@ importers:
       commander:
         specifier: 9.4.1
         version: 9.4.1
+      debounce:
+        specifier: 2.0.0
+        version: 2.0.0
       esbuild:
         specifier: 0.16.4
         version: 0.16.4
@@ -5286,6 +5289,11 @@ packages:
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
     dev: true
+
+  /debounce@2.0.0:
+    resolution: {integrity: sha512-xRetU6gL1VJbs85Mc4FoEGSjQxzpdxRyFhe3lmWFyy2EzydIcD4xzUvRJMD+NPDfMwKNhxa3PvsIOU32luIWeA==}
+    engines: {node: '>=18'}
+    dev: false
 
   /debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}

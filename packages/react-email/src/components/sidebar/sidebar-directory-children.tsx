@@ -5,7 +5,7 @@ import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metad
 import {
   emailsDirectoryAbsolutePath,
   pathSeparator,
-} from '@/utils/emails-dir-path';
+} from '@/utils/emails-directory-absolute-path';
 import { cn } from '@/utils';
 import { IconFile } from '../icons/icon-file';
 import { SidebarDirectory } from './sidebar-directory';

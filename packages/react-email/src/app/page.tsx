@@ -1,4 +1,4 @@
-import { emailsDirectoryAbsolutePath } from '@/utils/emails-dir-path';
+import { emailsDirectoryAbsolutePath } from '@/utils/emails-directory-absolute-path';
 import { getEmailsDirectoryMetadata } from '../utils/actions/get-emails-directory-metadata';
 import { Home } from './home';
 

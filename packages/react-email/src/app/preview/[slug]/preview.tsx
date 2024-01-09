@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useHotreload } from '@/utils/hooks/use-hotreload';
+import { useHotreload } from '@/utils/hooks/use-hot-reload';
 import { renderEmailBySlug } from '@/utils/actions/render-email-by-slug';
 import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
 import { CodeContainer } from '../../../components/code-container';
