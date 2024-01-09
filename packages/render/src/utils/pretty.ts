@@ -1,6 +1,6 @@
 // importing the exact function used here will cause
 // issues with esm because js-beautify is written with commonjs only
-import jsBeautify from  "js-beautify";
+import jsBeautify from "js-beautify";
 
 const defaults = {
   unformatted: ["code", "pre", "em", "strong", "span"],
