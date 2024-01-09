@@ -5,6 +5,7 @@
   "scripts": {
     "build": "email build",
     "dev": "email dev",
+    "build": "email build",
     "export": "email export"
   },
   "dependencies": {
