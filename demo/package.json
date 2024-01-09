@@ -6,6 +6,7 @@
     "build": "email build",
     "dev": "email dev",
     "build": "email build",
+    "start": "email start",
     "export": "email export"
   },
   "dependencies": {

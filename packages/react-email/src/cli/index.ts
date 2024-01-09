@@ -6,6 +6,7 @@ import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
 import { build } from './commands/build';
+import { start } from './commands/start';
 
 program
   .name(PACKAGE_NAME)
@@ -34,6 +35,12 @@ program
     './',
   )
   .action(build);
+
+program
+  .command('start')
+  .description('Runs the built preview app that is inside of ".react-email"')
+  .option('-p --port <port>', 'Port to run the built next app server on', process.env.PORT || '3000')
+  .action(start);
 
 program
   .command('export')
