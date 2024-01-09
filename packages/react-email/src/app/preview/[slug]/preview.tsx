@@ -40,8 +40,16 @@ const Preview = ({
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload(async () => {
-      setRenderedEmailMeta(await renderEmailBySlug(slug));
+    useHotreload(async (changes) => {
+      const changeForThisEmail = changes.find(change => change.filename.includes(slug));
+
+      if (typeof changeForThisEmail !== 'undefined') {
+        if (changeForThisEmail.event === 'unlink') {
+          router.push('/');
+        } else {
+          setRenderedEmailMeta(await renderEmailBySlug(slug));
+        }
+      }
     });
   }
 
