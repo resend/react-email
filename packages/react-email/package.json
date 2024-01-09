@@ -77,6 +77,7 @@
     "shelljs": "0.8.5",
     "socket.io": "4.7.3",
     "socket.io-client": "4.7.3",
+    "tailwindcss": "3.4.0",
     "tailwind-merge": "2.2.0",
     "tree-cli": "0.6.7",
     "typescript": "5.1.6"
@@ -88,7 +89,6 @@
     "@types/normalize-path": "3.0.2",
     "@types/shelljs": "0.8.12",
     "@types/webpack": "5.28.5",
-    "tailwindcss": "3.4.0",
     "tsup": "7.2.0",
     "tsx": "4.7.0",
     "vitest": "1.1.3",

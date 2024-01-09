@@ -713,6 +713,9 @@ importers:
       tailwind-merge:
         specifier: 2.2.0
         version: 2.2.0
+      tailwindcss:
+        specifier: 3.4.0
+        version: 3.4.0
       tree-cli:
         specifier: 0.6.7
         version: 0.6.7
@@ -738,9 +741,6 @@ importers:
       '@types/webpack':
         specifier: 5.28.5
         version: 5.28.5(@swc/core@1.3.101)(esbuild@0.16.4)
-      tailwindcss:
-        specifier: 3.4.0
-        version: 3.4.0
       tsup:
         specifier: 7.2.0
         version: 7.2.0(@swc/core@1.3.101)(postcss@8.4.32)(typescript@5.1.6)
@@ -9434,7 +9434,7 @@ packages:
       sucrase: 3.34.0
     transitivePeerDependencies:
       - ts-node
-    dev: true
+    dev: false
 
   /tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
