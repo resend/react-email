@@ -3,7 +3,7 @@ import type http from 'node:http';
 import path from 'node:path';
 import { promises as fs, existsSync } from 'node:fs';
 import type url from 'node:url';
-import mime from 'mime-types';
+import { lookup } from 'mime-types';
 
 export const serveStaticFile = async (
   res: http.ServerResponse,
@@ -28,7 +28,7 @@ export const serveStaticFile = async (
 
     const fileData = await fs.readFile(fileAbsolutePath);
     // if the file is found, set Content-type and send data
-    res.setHeader('Content-type', mime.lookup(ext) || 'text/plain');
+    res.setHeader('Content-type', lookup(ext) || 'text/plain');
     res.end(fileData);
   }
 };

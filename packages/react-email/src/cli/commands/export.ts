@@ -1,13 +1,13 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { glob } from 'glob';
-import esbuild from 'esbuild';
+import { buildSync } from 'esbuild';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import { render } from '@react-email/render';
 import normalize from 'normalize-path';
-import shell from 'shelljs';
+import { cp } from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 import { tree } from '../utils';
 /*
@@ -25,7 +25,7 @@ export const exportTemplates = async (
 
   const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
 
-  const buildResult = esbuild.buildSync({
+  const buildResult = buildSync({
     bundle: true,
     entryPoints: allTemplates,
     platform: 'node',
@@ -85,7 +85,7 @@ export const exportTemplates = async (
   const hasStaticDirectory = fs.existsSync(staticDir);
 
   if (hasStaticDirectory) {
-    const result = shell.cp('-r', staticDir, path.join(outDir, 'static'));
+    const result = cp('-r', staticDir, path.join(outDir, 'static'));
     if (result.code > 0) {
       spinner.stopAndPersist({
         symbol: logSymbols.error,
