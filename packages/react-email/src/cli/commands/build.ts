@@ -9,7 +9,6 @@ import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables
 interface Args {
   dir: string;
   port: string;
-  staticLocation: string;
 }
 
 const buildPreviewApp = (absoluteDirectory: string) => {
@@ -157,21 +156,14 @@ const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
   );
 };
 
-export const build = async ({
-  dir: emailsDirRelativePath,
-  staticLocation: staticBaseDirRelativePath,
-}: Args) => {
+export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
       throw new Error(`Missing ${emailsDirRelativePath} folder`);
     }
 
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
-    const staticPath = path.join(
-      process.cwd(),
-      staticBaseDirRelativePath,
-      'static',
-    );
+    const staticPath = path.join(process.cwd(), 'emails', 'static');
 
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
 

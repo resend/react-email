@@ -18,22 +18,12 @@ program
   .description('Starts the preview email development app')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
-  .option(
-    '-sl --staticLocation <path>',
-    'Base directory where the static files to load into the preview are (ex: "/public" for next)',
-    './',
-  )
   .action(dev);
 
 program
   .command('build')
   .description('Copies the preivew app for onto .react-email and builds it')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .option(
-    '-sl --staticLocation <path>',
-    'Base directory where the static files to load into the preview are (ex: "/public" for next)',
-    './',
-  )
   .action(build);
 
 program

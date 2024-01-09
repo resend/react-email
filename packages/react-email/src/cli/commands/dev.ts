@@ -4,12 +4,10 @@ import { startDevServer, setupHotreloading } from '../utils';
 interface Args {
   dir: string;
   port: string;
-  staticLocation: string;
 }
 
 export const dev = async ({
   dir: emailsDirRelativePath,
-  staticLocation: staticBaseDirRelativePath,
   port,
 }: Args) => {
   try {
@@ -19,7 +17,7 @@ export const dev = async ({
 
     const devServer = await startDevServer(
       emailsDirRelativePath,
-      staticBaseDirRelativePath,
+      './emails', // defualts to ./emails/static for the static files that are served to the preview
       parseInt(port),
     );
 
