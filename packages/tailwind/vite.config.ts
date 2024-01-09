@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [dts({ include: ["src"], outDir: "dist" })],
   build: {
     rollupOptions: {
-      external: ["react", "react-dom", "postcss", /react-dom\/.*/],
+      external: ["react", "react-dom", /react-dom\/.*/],
     },
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
