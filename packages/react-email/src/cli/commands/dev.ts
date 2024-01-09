@@ -6,10 +6,7 @@ interface Args {
   port: string;
 }
 
-export const dev = async ({
-  dir: emailsDirRelativePath,
-  port,
-}: Args) => {
+export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
       throw new Error(`Missing ${emailsDirRelativePath} folder`);

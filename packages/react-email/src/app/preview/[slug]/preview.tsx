@@ -41,7 +41,9 @@ const Preview = ({
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
-      const changeForThisEmail = changes.find(change => change.filename.includes(slug));
+      const changeForThisEmail = changes.find((change) =>
+        change.filename.includes(slug),
+      );
 
       if (typeof changeForThisEmail !== 'undefined') {
         if (changeForThisEmail.event === 'unlink') {

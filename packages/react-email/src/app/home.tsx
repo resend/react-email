@@ -15,8 +15,8 @@ export const Home = (props: { emailsDirectoryMetadata: EmailsDirectory }) => {
           </Heading>
           <Text as="p" className="mt-2 mb-4">
             To start developing your next email template, you can create a{' '}
-            <code>.jsx</code> or <code>.tsx</code> file under your
-            &quot;{props.emailsDirectoryMetadata.directoryName}&quot; folder.
+            <code>.jsx</code> or <code>.tsx</code> file under your &quot;
+            {props.emailsDirectoryMetadata.directoryName}&quot; folder.
           </Text>
 
           <Button asChild>

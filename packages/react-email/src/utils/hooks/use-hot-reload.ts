@@ -4,7 +4,9 @@ import { type Socket, io } from 'socket.io-client';
 import type { HotReloadChange } from '../types/hot-reload-change';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useHotreload = (onShouldReload: (changes: HotReloadChange[]) => any) => {
+export const useHotreload = (
+  onShouldReload: (changes: HotReloadChange[]) => any,
+) => {
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
