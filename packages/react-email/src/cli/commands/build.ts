@@ -1,10 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import ora from 'ora';
 import { spawn } from 'node:child_process';
 import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
 import { getEmailsDirectoryMetadata } from '../../utils/actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
+import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import logSymbols from 'log-symbols';
 
 interface Args {
   dir: string;
@@ -72,6 +75,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   experimental: {
+    webpackBuildWorker: true,
     serverComponentsExternalPackages: [
       '@react-email/components',
       '@react-email/render',
@@ -153,6 +157,10 @@ const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
 
 export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
+    const spinner = ora('Starting build process...').start();
+    closeOraOnSIGNIT(spinner);
+
+    spinner.text = 'Checking if emails folder exists';
     if (!fs.existsSync(emailsDirRelativePath)) {
       throw new Error(`Missing ${emailsDirRelativePath} folder`);
     }
@@ -163,9 +171,11 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
+      spinner.text = 'Deleting pre-existent `.react-email` folder';
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
+    spinner.text = 'Copying preview app from CLI to `.react-email`';
     // this should also come with the node_modules so there's no need to install it again
     await fs.promises.cp(cliPacakgeLocation, builtPreviewAppPath, {
       recursive: true,
@@ -174,21 +184,32 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
         return !source.includes('/cli/') && !source.includes('/.next/');
       },
     });
+
+    spinner.text = 'Copying emails folder into `.react-email`';
     const builtEmailsDirectory = path.join(builtPreviewAppPath, 'emails');
     await fs.promises.cp(emailsDirPath, builtEmailsDirectory, {
       recursive: true,
     });
+    spinner.text = 'Copying `emails/static` folder into `.react-email/public/static`';
     const builtStaticDirectory = path.resolve(
       builtPreviewAppPath,
       './public/static',
     );
     await fs.promises.cp(staticPath, builtStaticDirectory, { recursive: true });
 
+    spinner.text = 'Setting Next environment variables for preview app to work properly';
     await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
 
+    spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
+    spinner.text = 'Updating package.json\'s build script';
     await updatePackageJsonBuild(builtPreviewAppPath);
+
+    spinner.stopAndPersist({
+      text: 'Successfully preapred `.react-email` for `next build`',
+      symbol: logSymbols.success
+    });
 
     await buildPreviewApp(builtPreviewAppPath);
   } catch (error) {
