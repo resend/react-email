@@ -1,7 +1,7 @@
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
-import { cn } from '@/utils';
+import { cn } from '../utils';
 
 interface CodeProps {
   children: string;

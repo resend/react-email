@@ -4,9 +4,9 @@ import * as React from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
-} from '@/utils/actions/get-emails-directory-metadata';
-import { useHotreload } from '@/utils/hooks/use-hot-reload';
-import { emailsDirectoryAbsolutePath } from '@/utils/emails-directory-absolute-path';
+} from '../../utils/actions/get-emails-directory-metadata';
+import { useHotreload } from '../../utils/hooks/use-hot-reload';
+import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
 import { SidebarDirectory } from './sidebar-directory';
 
 type SidebarElement = React.ElementRef<'aside'>;

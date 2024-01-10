@@ -9,14 +9,14 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist",
-    "lint": "eslint ."
+    "lint": "eslint . && tsc"
   },
   "files": [
     "next.config.js",
     "postcss.config.js",
     "tailwind.config.ts",
     "next-env.d.ts",
-    "tsconfig.export.ts",
+    "tsconfig.export.json",
     "tsconfig.json",
     ".eslintrc.js",
     "src/app",

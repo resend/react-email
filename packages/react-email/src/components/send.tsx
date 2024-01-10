@@ -1,6 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
-import { inter } from '@/app/inter';
+import { inter } from '../app/inter';
 import { Button } from './button';
 import { Text } from './text';
 

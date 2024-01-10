@@ -1,9 +1,9 @@
 'use client';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
-import { cn } from '@/utils';
-import { emailsDirectoryAbsolutePath } from '@/utils/emails-directory-absolute-path';
-import { type EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
+import { cn } from '../../utils';
+import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
+import { type EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
 import { IconArrowDown } from '../icons/icon-arrow-down';

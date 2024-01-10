@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import type { EmailsDirectory } from '@/utils/actions/get-emails-directory-metadata';
+import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
 import { getEmailsDirectoryMetadata } from '../../utils/actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';

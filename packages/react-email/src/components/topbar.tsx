@@ -1,7 +1,7 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';
-import { cn } from '@/utils';
+import { cn } from '../utils';
 import { Heading } from './heading';
 import { Send } from './send';
 

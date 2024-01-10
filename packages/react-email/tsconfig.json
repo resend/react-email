@@ -17,7 +17,7 @@
     "allowJs": true,
     "declaration": false,
     "declarationMap": false,
-    "incremental": true,
+    "incremental": false,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true,
@@ -26,23 +26,14 @@
     "module": "CommonJS",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"],
-    },
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": [
-    "src", 
-    "next-env.d.ts",
-    "./**/*",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": [
-    ".next/**/*",
     "tsconfig.export.json",
-    "./cli",
+    ".next",
+    "cli",
     "node_modules"
   ]
 }

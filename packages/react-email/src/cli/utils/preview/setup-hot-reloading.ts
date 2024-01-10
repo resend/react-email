@@ -3,7 +3,7 @@ import path from 'node:path';
 import { Server as SocketServer, type Socket } from 'socket.io';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
-import type { HotReloadChange } from '@/utils/types/hot-reload-change';
+import type { HotReloadChange } from '../../../utils/types/hot-reload-change';
 
 export const setupHotreloading = (
   devServer: http.Server,

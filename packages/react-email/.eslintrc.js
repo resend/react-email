@@ -28,7 +28,7 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['cli/index.js', "node_modules/", "dist/"],
+  ignorePatterns: ['cli/', 'cli/index.mjs', "node_modules/", "dist/"],
   rules: {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
