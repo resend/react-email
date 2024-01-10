@@ -11,20 +11,6 @@
     "clean": "rm -rf dist",
     "lint": "eslint . && tsc"
   },
-  "files": [
-    "next.config.js",
-    "postcss.config.js",
-    "tailwind.config.ts",
-    "next-env.d.ts",
-    "tsconfig.export.json",
-    "tsconfig.json",
-    ".eslintrc.js",
-    "src/app",
-    "src/utils",
-    "src/components",
-    "public",
-    "cli"
-  ],
   "license": "MIT",
   "repository": {
     "type": "git",
