@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
+import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
 import { getEmailsDirectoryMetadata } from '../../utils/actions/get-emails-directory-metadata';
@@ -21,10 +22,10 @@ const buildPreviewApp = (absoluteDirectory: string) => {
     });
 
     nextBuild.stdout.on('data', (msg: Buffer) => {
-      process.stderr.write(msg);
+      process.stdout.write(msg);
     });
     nextBuild.stderr.on('data', (msg: Buffer) => {
-      process.stdout.write(msg);
+      process.stderr.write(msg);
     });
 
     nextBuild.on('close', (code) => {
@@ -155,9 +156,28 @@ const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
   );
 };
 
+const npmInstall = async (builtPreviewAppPath: string) => {
+  return new Promise<void>((resolve, reject) => {
+    shell.exec('npm install --silent', { cwd: builtPreviewAppPath }, (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(
+          new Error(
+            `Unable to install the dependencies and it exited with code: ${code}`,
+          ),
+        );
+      }
+    });
+  });
+};
+
 export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
-    const spinner = ora('Starting build process...').start();
+    const spinner = ora({
+      text: 'Starting build process...',
+      prefixText: '  '
+    }).start();
     closeOraOnSIGNIT(spinner);
 
     spinner.text = 'Checking if emails folder exists';
@@ -176,12 +196,15 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     }
 
     spinner.text = 'Copying preview app from CLI to `.react-email`';
-    // this should also come with the node_modules so there's no need to install it again
     await fs.promises.cp(cliPacakgeLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
         // do not copy the CLI files
-        return !source.includes('/cli/') && !source.includes('/.next/');
+        return (
+          !source.includes('/cli/') &&
+          !source.includes('/.next/') &&
+          !/\/node_modules\/?$/.test(source)
+        );
       },
     });
 
@@ -190,25 +213,30 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     await fs.promises.cp(emailsDirPath, builtEmailsDirectory, {
       recursive: true,
     });
-    spinner.text = 'Copying `emails/static` folder into `.react-email/public/static`';
+    spinner.text =
+      'Copying `emails/static` folder into `.react-email/public/static`';
     const builtStaticDirectory = path.resolve(
       builtPreviewAppPath,
       './public/static',
     );
     await fs.promises.cp(staticPath, builtStaticDirectory, { recursive: true });
 
-    spinner.text = 'Setting Next environment variables for preview app to work properly';
+    spinner.text =
+      'Setting Next environment variables for preview app to work properly';
     await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
 
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
-    spinner.text = 'Updating package.json\'s build script';
+    spinner.text = "Updating package.json's build script";
     await updatePackageJsonBuild(builtPreviewAppPath);
+
+    spinner.text = 'Installing dependencies on `.react-email`';
+    await npmInstall(builtPreviewAppPath);
 
     spinner.stopAndPersist({
       text: 'Successfully preapred `.react-email` for `next build`',
-      symbol: logSymbols.success
+      symbol: logSymbols.success,
     });
 
     await buildPreviewApp(builtPreviewAppPath);
