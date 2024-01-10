@@ -78,11 +78,6 @@ module.exports = {
       '@react-email/tailwind',
     ],
   },
-  transpilePackages: [
-    '@react-email/components',
-    '@react-email/render',
-    '@react-email/tailwind',
-  ],
 }`;
 
   await fs.promises.writeFile(
