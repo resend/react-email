@@ -143,12 +143,13 @@ export async function generateStaticParams() {
   );
 };
 
-const updatePackageJsonBuild = async (builtPreviewAppPath: string) => {
+const updatePackageJsonScripts = async (builtPreviewAppPath: string) => {
   const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as { scripts: { build: string } };
   packageJson.scripts.build = 'next build';
+  packageJson.scripts.start = 'next start';
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
@@ -229,7 +230,7 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
     spinner.text = "Updating package.json's build script";
-    await updatePackageJsonBuild(builtPreviewAppPath);
+    await updatePackageJsonScripts(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
     await npmInstall(builtPreviewAppPath);

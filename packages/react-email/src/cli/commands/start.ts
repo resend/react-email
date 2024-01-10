@@ -1,14 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parse } from 'node:url';
-import { createServer } from 'node:http';
-import next from 'next';
+import { spawn } from 'node:child_process';
 
-interface Args {
-  port: string;
-}
-
-export const start = async ({ port }: Args) => {
+export const start = async () => {
   try {
     const usersProjectLocation = process.cwd();
     const builtPreviewPath = path.resolve(
@@ -21,40 +15,16 @@ export const start = async ({ port }: Args) => {
       );
     }
 
-    try {
-      parseInt(port);
-    } catch (exception) {
-      throw new Error('The port seems to not be a integer', {
-        cause: {
-          port,
-          usersProjectLocation,
-          builtPreviewPath,
-          env: process.env,
-        },
-      });
-    }
-
-    const portToUse = parseInt(port);
-
-    const app = next({
-      dev: false,
-      port: portToUse,
-      dir: builtPreviewPath,
+    const nextStart = spawn('npm', ['start'], {
+      cwd: builtPreviewPath
     });
 
-    const handle = app.getRequestHandler();
+    nextStart.stdout.on('data', (msg) => {
+      process.stdout.write(msg);
+    });
 
-    await app.prepare();
-    createServer((req, res) => {
-      if (!req.url)
-        throw new Error(
-          "Preview app server not able to determine request's url",
-        );
-      const parsedUrl = parse(req.url, true);
-
-      void handle(req, res, parsedUrl);
-    }).listen(portToUse, () => {
-      console.log(`> Ready on http://localhost:${portToUse}`);
+    nextStart.stderr.on('data', (msg) => {
+      process.stderr.write(msg);
     });
   } catch (error) {
     console.log(error);

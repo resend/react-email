@@ -29,11 +29,6 @@ program
 program
   .command('start')
   .description('Runs the built preview app that is inside of ".react-email"')
-  .option(
-    '-p --port <port>',
-    'Port to run the built next app server on',
-    process.env.PORT || '3000',
-  )
   .action(start);
 
 program
