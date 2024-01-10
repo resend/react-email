@@ -71,7 +71,12 @@ export const getEmailsDirectoryMetadata = async (
 
   const subDirectories = await Promise.all(
     dirents
-      .filter((dirent) => dirent.isDirectory() && !dirent.name.startsWith('_'))
+      .filter(
+        (dirent) =>
+          dirent.isDirectory() &&
+          !dirent.name.startsWith('_') &&
+          dirent.name !== 'static',
+      )
       .map(
         (dirent) =>
           getEmailsDirectoryMetadata(
