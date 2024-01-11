@@ -4,21 +4,18 @@ import path from 'node:path';
 import { renderAsync } from '@react-email/render';
 import { getEmailComponent } from '../utils/get-email-component';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
-import type { EmailTemplate } from '../utils/types/email-template';
+import type { ErrorObject } from '../utils/types/error-object';
+
+export interface RenderedEmailMetadata {
+  markup: string;
+  plainText: string;
+  reactMarkup: string;
+};
 
 export type EmailRenderingResult =
+  | RenderedEmailMetadata
   | {
-      markup: string;
-      plainText: string;
-      reactMarkup: string;
-    }
-  | {
-      error: {
-        name: string;
-        stack: string | undefined;
-        cause: unknown;
-        message: string;
-      };
+      error: ErrorObject;
     };
 
 export const renderEmailBySlug = async (
@@ -26,27 +23,20 @@ export const renderEmailBySlug = async (
 ): Promise<EmailRenderingResult> => {
   const emailPath = path.join(emailsDirectoryAbsolutePath, emailSlug);
 
-  let Email: EmailTemplate;
+  const result = await getEmailComponent(emailPath);
 
-  try {
-    Email = await getEmailComponent(emailPath);
-  } catch (exception) {
-    const error = exception as Error;
-    return {
-      error: {
-        name: error.name,
-        stack: error.stack,
-        message: error.message,
-        cause: error.cause,
-      },
-    };
+  if ('error' in result) {
+    return { error: result.error };
   }
 
+  const Email = result.emailComponent;
+
   const previewProps = Email.PreviewProps || {};
-  const markup = await renderAsync(<Email {...previewProps} />, {
+  const EmailComponent = Email as React.FC;
+  const markup = await renderAsync(<EmailComponent {...previewProps} />, {
     pretty: true,
   });
-  const plainText = await renderAsync(<Email {...previewProps} />, {
+  const plainText = await renderAsync(<EmailComponent {...previewProps} />, {
     plainText: true,
   });
 

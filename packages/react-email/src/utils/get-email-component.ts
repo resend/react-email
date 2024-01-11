@@ -1,29 +1,50 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
 import stream from 'node:stream';
 import util from 'node:util';
+import * as stackTraceParser from 'stacktrace-parser';
+import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
 import { build } from 'esbuild';
-import type { EmailTemplate } from './types/email-template';
+import type { EmailTemplate as EmailComponent } from './types/email-template';
+import type { ErrorObject } from './types/error-object';
 
 export const getEmailComponent = async (
   emailPath: string,
-): Promise<EmailTemplate> => {
-  const { outputFiles } = await build({
+): Promise<
+  | {
+    emailComponent: EmailComponent;
+  }
+  | { error: ErrorObject }
+> => {
+  const { outputFiles, errors } = await build({
     bundle: true,
     entryPoints: [emailPath],
     platform: 'node',
     write: false,
     format: 'cjs',
+    outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
+    sourcemap: 'external',
     tsconfig: path.resolve(
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       process.env.NEXT_PUBLIC_CLI_PACKAGE_LOCATION!,
       './tsconfig.export.json',
     ),
   });
+  if (errors.length > 0) {
+    const firstError = errors[0]!;
+    return {
+      error: {
+        message: firstError.text,
+        stack: `at ${emailPath}:${firstError.location?.line}:${firstError.location?.column}`,
+        name: 'EsBuildError',
+        cause: undefined,
+      },
+    };
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const outputFile = outputFiles[0]!;
-  const builtEmailCode = outputFile.text;
+  const sourceMapFile = outputFiles[0]!;
+  const bundledEmailFile = outputFiles[1]!;
+  const builtEmailCode = bundledEmailFile.text;
 
   // This is necessary because the requires of these modules break when we run the email with vm.
   // So what we do is pre-import and return it on the fake require function we pass to the VM's context
@@ -54,7 +75,54 @@ export const getEmailComponent = async (
     },
     process,
   };
-  vm.runInNewContext(builtEmailCode, fakeContext);
+  try {
+    vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
+  } catch (exception) {
+    const error = exception as Error;
+    let stack: string | undefined;
 
-  return fakeContext.module.exports.default as EmailTemplate;
+    if (typeof error.stack !== 'undefined') {
+      const parsedStack = stackTraceParser.parse(error.stack);
+      console.log(parsedStack);
+      const sourceMapConsumer = new SourceMapConsumer(
+        JSON.parse(sourceMapFile.text) as RawSourceMap,
+      );
+      const newStackLines = [] as string[];
+      for (const stackFrame of parsedStack) {
+        if (stackFrame.file === emailPath) {
+          if (stackFrame.column || stackFrame.lineNumber) {
+            const positionWithError = sourceMapConsumer.originalPositionFor({
+              column: stackFrame.column ?? 0,
+              line: stackFrame.lineNumber ?? 0,
+            });
+            const columnAndLine = positionWithError.column && positionWithError.line 
+              ? `${positionWithError.line}:${positionWithError.column}`
+              : positionWithError.line;
+            newStackLines.push(` at ${stackFrame.methodName} (${emailPath}:${columnAndLine})`);
+          } else {
+            newStackLines.push(` at ${stackFrame.methodName} (${emailPath})`);
+          }
+        } else {
+          const columnAndLine = stackFrame.column && stackFrame.lineNumber
+            ? `${stackFrame.lineNumber}:${stackFrame.column}`
+            : stackFrame.lineNumber;
+          newStackLines.push(` at ${stackFrame.methodName} (${stackFrame.file}:${columnAndLine})`);
+        }
+      }
+      stack = newStackLines.join('\n');
+    }
+
+    return {
+      error: {
+        name: error.name,
+        message: error.message,
+        cause: error.cause,
+        stack,
+      },
+    };
+  }
+
+  return {
+    emailComponent: fakeContext.module.exports.default as EmailComponent,
+  };
 };

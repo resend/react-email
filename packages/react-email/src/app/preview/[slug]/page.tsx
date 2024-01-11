@@ -6,11 +6,11 @@ import Preview from './preview';
 
 export const dynamicParams = true;
 
-interface Params {
+export interface PreviewParams {
   slug: string;
 }
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page({ params }: { params: PreviewParams }) {
   // will come in here as a relative path to the email
   // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
   const slug = decodeURIComponent(params.slug);
@@ -24,20 +24,18 @@ export default async function Page({ params }: { params: Params }) {
     );
   }
 
-  const { markup, reactMarkup, plainText } = await renderEmailBySlug(slug);
+  const emailRenderingResult = await renderEmailBySlug(slug);
 
   return (
     <Suspense>
       <Preview
-        markup={markup}
-        plainText={plainText}
-        reactMarkup={reactMarkup}
+        renderingResult={emailRenderingResult}
         slug={slug}
       />
     </Suspense>
   );
 }
 
-export function generateMetadata({ params }: { params: Params }) {
+export function generateMetadata({ params }: { params: PreviewParams }) {
   return { title: `${decodeURIComponent(params.slug)} — React Email` };
 }
