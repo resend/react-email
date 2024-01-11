@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
-} from '../utils/actions/get-emails-directory-metadata';
-import { useHotreload } from '../utils/hooks/use-hot-reload';
+} from '../actions/get-emails-directory-metadata';
+import { useHotreload } from '../hooks/use-hot-reload';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 
 const EmailsContext = createContext<

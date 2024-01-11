@@ -1,7 +1,7 @@
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import Link from 'next/link';
-import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
+import type { EmailsDirectory } from '../../actions/get-emails-directory-metadata';
 import {
   emailsDirectoryAbsolutePath,
   pathSeparator,

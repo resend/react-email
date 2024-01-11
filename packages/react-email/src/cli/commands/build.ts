@@ -4,7 +4,7 @@ import ora from 'ora';
 import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
-import { getEmailsDirectoryMetadata } from '../../utils/actions/get-emails-directory-metadata';
+import { getEmailsDirectoryMetadata } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';

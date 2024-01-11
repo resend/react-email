@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { renderEmailBySlug } from '../../../utils/actions/render-email-by-slug';
-import { getEmailsDirectoryMetadata } from '../../../utils/actions/get-emails-directory-metadata';
+import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
+import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Preview from './preview';
 
