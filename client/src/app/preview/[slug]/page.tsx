@@ -22,6 +22,7 @@ export default async function Page({ params }) {
     const [fileName] = email.split('.');
     return params.slug === fileName;
   });
+  if(!template.length) return redirect('/')
 
   const Email = (await import(`../../../../emails/${params.slug}`)).default;
   const previewProps = Email.PreviewProps || {};
