@@ -83,7 +83,6 @@ export const getEmailComponent = async (
 
     if (typeof error.stack !== 'undefined') {
       const parsedStack = stackTraceParser.parse(error.stack);
-      console.log(parsedStack);
       const sourceMapConsumer = new SourceMapConsumer(
         JSON.parse(sourceMapFile.text) as RawSourceMap,
       );
