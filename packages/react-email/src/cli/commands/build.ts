@@ -50,11 +50,13 @@ const setNextEnvironmentVariablesForBuild = async (
     NEXT_PUBLIC_DISABLE_HOT_RELOADING: 'true',
   };
 
-  const nextConfigContents = `/** @type {import('next').NextConfig} */
+  const nextConfigContents = `
+const path = require('path');
+/** @type {import('next').NextConfig} */
 module.exports = {
   env: {
     ...${JSON.stringify(envVariables)},
-    NEXT_PUBLIC_USER_PROJECT_LOCATION: process.cwd(),
+    NEXT_PUBLIC_USER_PROJECT_LOCATION: path.resolve(process.cwd(), '../'),
     NEXT_PUBLIC_CLI_PACKAGE_LOCATION: process.cwd(),
   },
   // this is needed so that the code for building emails works properly
@@ -130,7 +132,6 @@ const forceSSGForEmailPreviews = async (
     emailDirectoryMetadata,
     emailsDirPath,
   ).map((slug) => ({ slug }));
-  // const parameters = [];
 
   await fs.promises.appendFile(
     path.resolve(builtPreviewAppPath, './src/app/preview/[slug]/page.tsx'),
@@ -147,7 +148,7 @@ const updatePackageJsonScripts = async (builtPreviewAppPath: string) => {
   const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
-  ) as { scripts: { build: string } };
+  ) as { scripts: Record<string, string> };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
   await fs.promises.writeFile(
@@ -177,7 +178,7 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
     const spinner = ora({
       text: 'Starting build process...',
-      prefixText: '  '
+      prefixText: '  ',
     }).start();
     closeOraOnSIGNIT(spinner);
 
@@ -209,11 +210,6 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
       },
     });
 
-    spinner.text = 'Copying emails folder into `.react-email`';
-    const builtEmailsDirectory = path.join(builtPreviewAppPath, 'emails');
-    await fs.promises.cp(emailsDirPath, builtEmailsDirectory, {
-      recursive: true,
-    });
     spinner.text =
       'Copying `emails/static` folder into `.react-email/public/static`';
     const builtStaticDirectory = path.resolve(
@@ -229,7 +225,7 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
-    spinner.text = "Updating package.json's build script";
+    spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJsonScripts(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
