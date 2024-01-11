@@ -10,7 +10,7 @@ export interface RenderedEmailMetadata {
   markup: string;
   plainText: string;
   reactMarkup: string;
-};
+}
 
 export type EmailRenderingResult =
   | RenderedEmailMetadata

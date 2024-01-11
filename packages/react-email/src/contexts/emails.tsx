@@ -27,9 +27,8 @@ export const EmailsProvider = (props: {
   initialEmailsDirectoryMetadata: EmailsDirectory;
   children: React.ReactNode;
 }) => {
-  const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] = useState<EmailsDirectory>(
-    props.initialEmailsDirectoryMetadata,
-  );
+  const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
+    useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
   if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
@@ -52,9 +51,7 @@ export const EmailsProvider = (props: {
   }
 
   return (
-    <EmailsContext.Provider
-      value={{ emailsDirectoryMetadata }}
-    >
+    <EmailsContext.Provider value={{ emailsDirectoryMetadata }}>
       {props.children}
     </EmailsContext.Provider>
   );

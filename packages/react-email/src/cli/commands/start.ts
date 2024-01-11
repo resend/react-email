@@ -16,7 +16,7 @@ export const start = async () => {
     }
 
     const nextStart = spawn('npm', ['start'], {
-      cwd: builtPreviewPath
+      cwd: builtPreviewPath,
     });
 
     nextStart.stdout.on('data', (msg) => {

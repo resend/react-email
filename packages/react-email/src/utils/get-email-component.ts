@@ -13,8 +13,8 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
-  }
+      emailComponent: EmailComponent;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -37,9 +37,9 @@ export const getEmailComponent = async (
         message: buildFailure.message,
         stack: buildFailure.stack,
         name: buildFailure.name,
-        cause: buildFailure.cause
-      }
-    }
+        cause: buildFailure.cause,
+      },
+    };
   }
 
   const sourceMapFile = outputFiles[0]!;

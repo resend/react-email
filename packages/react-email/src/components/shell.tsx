@@ -17,13 +17,7 @@ interface ShellProps extends RootProps {
 
 export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
   (
-    {
-      currentEmailOpenSlug,
-      children,
-      markup,
-      activeView,
-      setActiveView,
-    },
+    { currentEmailOpenSlug, children, markup, activeView, setActiveView },
     forwardedRef,
   ) => {
     const [showNav, setShowNav] = React.useState(false);

@@ -12,14 +12,7 @@ interface SidebarProps extends RootProps {
 }
 
 export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
-  (
-    {
-      className,
-      currentEmailOpenSlug,
-      ...props
-    },
-    forwardedRef,
-  ) => {
+  ({ className, currentEmailOpenSlug, ...props }, forwardedRef) => {
     const { emailsDirectoryMetadata } = useEmails();
 
     return (

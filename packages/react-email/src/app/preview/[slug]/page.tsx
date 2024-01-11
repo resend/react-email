@@ -28,10 +28,7 @@ export default async function Page({ params }: { params: PreviewParams }) {
 
   return (
     <Suspense>
-      <Preview
-        renderingResult={emailRenderingResult}
-        slug={slug}
-      />
+      <Preview renderingResult={emailRenderingResult} slug={slug} />
     </Suspense>
   );
 }
