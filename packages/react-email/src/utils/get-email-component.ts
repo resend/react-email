@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import path from 'node:path';
+// import path from 'node:path';
 import vm from 'node:vm';
 import stream from 'node:stream';
 import util from 'node:util';
 import * as stackTraceParser from 'stacktrace-parser';
 import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
-import { build } from 'esbuild';
+import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
@@ -17,29 +17,29 @@ export const getEmailComponent = async (
   }
   | { error: ErrorObject }
 > => {
-  const { outputFiles, errors } = await build({
-    bundle: true,
-    entryPoints: [emailPath],
-    platform: 'node',
-    write: false,
-    format: 'cjs',
-    outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
-    sourcemap: 'external',
-    tsconfig: path.resolve(
-      process.env.NEXT_PUBLIC_CLI_PACKAGE_LOCATION!,
-      './tsconfig.export.json',
-    ),
-  });
-  if (errors.length > 0) {
-    const firstError = errors[0]!;
+  let outputFiles: OutputFile[];
+  try {
+    const buildData = await build({
+      bundle: true,
+      entryPoints: [emailPath],
+      platform: 'node',
+      write: false,
+      format: 'cjs',
+      jsx: 'transform',
+      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
+      sourcemap: 'external',
+    });
+    outputFiles = buildData.outputFiles;
+  } catch (exception) {
+    const buildFailure = exception as BuildFailure;
     return {
       error: {
-        message: firstError.text,
-        stack: `at ${emailPath}:${firstError.location?.line}:${firstError.location?.column}`,
-        name: 'EsBuildError',
-        cause: undefined,
-      },
-    };
+        message: buildFailure.message,
+        stack: buildFailure.stack,
+        name: buildFailure.name,
+        cause: buildFailure.cause
+      }
+    }
   }
 
   const sourceMapFile = outputFiles[0]!;
@@ -94,18 +94,24 @@ export const getEmailComponent = async (
               column: stackFrame.column ?? 0,
               line: stackFrame.lineNumber ?? 0,
             });
-            const columnAndLine = positionWithError.column && positionWithError.line 
-              ? `${positionWithError.line}:${positionWithError.column}`
-              : positionWithError.line;
-            newStackLines.push(` at ${stackFrame.methodName} (${emailPath}:${columnAndLine})`);
+            const columnAndLine =
+              positionWithError.column && positionWithError.line
+                ? `${positionWithError.line}:${positionWithError.column}`
+                : positionWithError.line;
+            newStackLines.push(
+              ` at ${stackFrame.methodName} (${emailPath}:${columnAndLine})`,
+            );
           } else {
             newStackLines.push(` at ${stackFrame.methodName} (${emailPath})`);
           }
         } else {
-          const columnAndLine = stackFrame.column && stackFrame.lineNumber
-            ? `${stackFrame.lineNumber}:${stackFrame.column}`
-            : stackFrame.lineNumber;
-          newStackLines.push(` at ${stackFrame.methodName} (${stackFrame.file}:${columnAndLine})`);
+          const columnAndLine =
+            stackFrame.column && stackFrame.lineNumber
+              ? `${stackFrame.lineNumber}:${stackFrame.column}`
+              : stackFrame.lineNumber;
+          newStackLines.push(
+            ` at ${stackFrame.methodName} (${stackFrame.file}:${columnAndLine})`,
+          );
         }
       }
       stack = newStackLines.join('\n');
