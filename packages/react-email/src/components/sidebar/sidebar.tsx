@@ -1,19 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import {
-  getEmailsDirectoryMetadata,
-  type EmailsDirectory,
-} from '../../utils/actions/get-emails-directory-metadata';
-import { useHotreload } from '../../utils/hooks/use-hot-reload';
-import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
+import { useEmails } from '../../contexts/emails';
 import { SidebarDirectory } from './sidebar-directory';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
 
 interface SidebarProps extends RootProps {
-  emailsDirectoryMetadata: EmailsDirectory;
   currentEmailOpenSlug?: string;
 }
 
@@ -21,35 +15,12 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
   (
     {
       className,
-      emailsDirectoryMetadata: initialEmailsDirectoryMetadata,
       currentEmailOpenSlug,
       ...props
     },
     forwardedRef,
   ) => {
-    const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
-      React.useState(initialEmailsDirectoryMetadata);
-
-    if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
-      // this will not change on runtime so it doesn't violate
-      // the rules of hooks
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useHotreload(() => {
-        getEmailsDirectoryMetadata(emailsDirectoryAbsolutePath)
-          .then((metadata) => {
-            if (metadata) {
-              setEmailsDirectoryMetadata(metadata);
-            } else {
-              throw new Error(
-                'Hot reloading: unable to find the emails directory to update the sidebar',
-              );
-            }
-          })
-          .catch((exception) => {
-            throw exception;
-          });
-      });
-    }
+    const { emailsDirectoryMetadata } = useEmails();
 
     return (
       <aside className={className} ref={forwardedRef} {...props}>

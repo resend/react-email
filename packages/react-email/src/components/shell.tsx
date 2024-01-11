@@ -1,6 +1,6 @@
+'use client';
 import * as React from 'react';
 import { cn } from '../utils';
-import type { EmailsDirectory } from '../utils/actions/get-emails-directory-metadata';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
@@ -9,7 +9,6 @@ type ShellElement = React.ElementRef<'div'>;
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
-  emailsDirectoryMetadata: EmailsDirectory;
   markup?: string;
   currentEmailOpenSlug?: string;
   activeView?: string;
@@ -20,7 +19,6 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
   (
     {
       currentEmailOpenSlug,
-      emailsDirectoryMetadata,
       children,
       markup,
       activeView,
@@ -67,7 +65,6 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
                 !showNav,
             })}
             currentEmailOpenSlug={currentEmailOpenSlug}
-            emailsDirectoryMetadata={emailsDirectoryMetadata}
           />
           <main
             className={cn('bg-slate-2', {
