@@ -31,14 +31,17 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, ...props }) => {
       `}</style>
 
       {/* Does not render on Orange.fr */}
-      <code {...props} className={`${props.className ? props.className : ''} cino`}>
+      <code
+        {...props}
+        className={`${props.className ? props.className : ""} cino`}
+      >
         {children}
       </code>
 
       {/* Renders only on Orange.fr */}
       <span
         {...props}
-        className={`${props.className ? props.className : ''} cio`}
+        className={`${props.className ? props.className : ""} cio`}
         style={{ display: "none", ...props.style }}
       >
         {children}
