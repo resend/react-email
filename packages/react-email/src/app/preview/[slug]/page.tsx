@@ -26,9 +26,12 @@ export default async function Page({ params }: { params: PreviewParams }) {
 
   const emailRenderingResult = await renderEmailBySlug(slug);
 
-  if ('error' in emailRenderingResult && process.env.NEXT_PUBLIC_IS_BUILDING === 'true') {
+  if (
+    'error' in emailRenderingResult &&
+    process.env.NEXT_PUBLIC_IS_BUILDING === 'true'
+  ) {
     throw new Error(emailRenderingResult.error.message, {
-      cause: emailRenderingResult.error
+      cause: emailRenderingResult.error,
     });
   }
 

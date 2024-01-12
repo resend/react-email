@@ -24,7 +24,11 @@ program
   .command('build')
   .description('Copies the preivew app for onto .react-email and builds it')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .option('-p --packageManager <name>', 'Package name to use on installation on `.react-email`', 'npm')
+  .option(
+    '-p --packageManager <name>',
+    'Package name to use on installation on `.react-email`',
+    'npm',
+  )
   .action(build);
 
 program

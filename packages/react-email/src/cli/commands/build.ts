@@ -3,7 +3,10 @@ import path from 'node:path';
 import ora from 'ora';
 import shell from 'shelljs';
 import { spawn } from 'node:child_process';
-import { type EmailsDirectory, getEmailsDirectoryMetadata } from '../../actions/get-emails-directory-metadata';
+import {
+  type EmailsDirectory,
+  getEmailsDirectoryMetadata,
+} from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
@@ -157,23 +160,33 @@ const updatePackageJsonScripts = async (builtPreviewAppPath: string) => {
   );
 };
 
-const npmInstall = async (builtPreviewAppPath: string, packageManager: string) => {
+const npmInstall = async (
+  builtPreviewAppPath: string,
+  packageManager: string,
+) => {
   return new Promise<void>((resolve, reject) => {
-    shell.exec(`${packageManager} install --silent`, { cwd: builtPreviewAppPath }, (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `Unable to install the dependencies and it exited with code: ${code}`,
-          ),
-        );
-      }
-    });
+    shell.exec(
+      `${packageManager} install --silent`,
+      { cwd: builtPreviewAppPath },
+      (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(
+            new Error(
+              `Unable to install the dependencies and it exited with code: ${code}`,
+            ),
+          );
+        }
+      },
+    );
   });
 };
 
-export const build = async ({ dir: emailsDirRelativePath, packageManager }: Args) => {
+export const build = async ({
+  dir: emailsDirRelativePath,
+  packageManager,
+}: Args) => {
   try {
     const spinner = ora({
       text: 'Starting build process...',
