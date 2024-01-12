@@ -101,7 +101,6 @@ const Preview = ({
             <iframe
               className="w-full h-[calc(100vh_-_140px)]"
               srcDoc={renderedEmailMetadata.markup}
-              // @ts-expect-error For some reason the title prop is not included with the iframe
               title={slug}
             />
           ) : (
