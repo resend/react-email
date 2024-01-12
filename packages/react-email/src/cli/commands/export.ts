@@ -29,8 +29,9 @@ export const exportTemplates = async (
     bundle: true,
     entryPoints: allTemplates,
     platform: 'node',
+    format: 'cjs',
+    jsx: 'transform',
     write: true,
-    tsconfig: path.join(__dirname, '..', 'tsconfig.export.json'),
     outdir: outDir,
   });
   if (buildResult.warnings.length > 0) {
