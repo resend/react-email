@@ -34,7 +34,7 @@ const Preview = ({
     initialRenderingResult,
   );
 
-  if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks

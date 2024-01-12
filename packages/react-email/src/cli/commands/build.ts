@@ -3,8 +3,7 @@ import path from 'node:path';
 import ora from 'ora';
 import shell from 'shelljs';
 import { spawn } from 'node:child_process';
-import type { EmailsDirectory } from '../../utils/actions/get-emails-directory-metadata';
-import { getEmailsDirectoryMetadata } from '../../actions/get-emails-directory-metadata';
+import { type EmailsDirectory, getEmailsDirectoryMetadata } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
@@ -12,7 +11,7 @@ import logSymbols from 'log-symbols';
 
 interface Args {
   dir: string;
-  port: string;
+  packageManager: string;
 }
 
 const buildPreviewApp = (absoluteDirectory: string) => {
@@ -47,7 +46,7 @@ const setNextEnvironmentVariablesForBuild = async (
 ) => {
   const envVariables = {
     ...getEnvVariablesForPreviewApp('emails', 'PLACEHOLDER', 'PLACEHOLDER'),
-    NEXT_PUBLIC_DISABLE_HOT_RELOADING: 'true',
+    NEXT_PUBLIC_IS_BUILDING: 'true',
   };
 
   const nextConfigContents = `
@@ -158,9 +157,9 @@ const updatePackageJsonScripts = async (builtPreviewAppPath: string) => {
   );
 };
 
-const npmInstall = async (builtPreviewAppPath: string) => {
+const npmInstall = async (builtPreviewAppPath: string, packageManager: string) => {
   return new Promise<void>((resolve, reject) => {
-    shell.exec('npm install --silent', { cwd: builtPreviewAppPath }, (code) => {
+    shell.exec(`${packageManager} install --silent`, { cwd: builtPreviewAppPath }, (code) => {
       if (code === 0) {
         resolve();
       } else {
@@ -174,7 +173,7 @@ const npmInstall = async (builtPreviewAppPath: string) => {
   });
 };
 
-export const build = async ({ dir: emailsDirRelativePath }: Args) => {
+export const build = async ({ dir: emailsDirRelativePath, packageManager }: Args) => {
   try {
     const spinner = ora({
       text: 'Starting build process...',
@@ -229,7 +228,7 @@ export const build = async ({ dir: emailsDirRelativePath }: Args) => {
     await updatePackageJsonScripts(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
-    await npmInstall(builtPreviewAppPath);
+    await npmInstall(builtPreviewAppPath, packageManager);
 
     spinner.stopAndPersist({
       text: 'Successfully preapred `.react-email` for `next build`',
