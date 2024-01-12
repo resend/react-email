@@ -17,6 +17,7 @@ export const SidebarDirectoryChildren = (props: {
 }) => {
   const directoryPathRelativeToEmailsDirectory =
     props.emailsDirectoryMetadata.absolutePath
+      .replace(`${emailsDirectoryAbsolutePath}${pathSeparator}`, '')
       .replace(emailsDirectoryAbsolutePath, '')
       .trim();
   const isBaseEmailsDirectory =
