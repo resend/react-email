@@ -3,6 +3,10 @@ type RootProps = React.ComponentPropsWithoutRef<"code"> &
 
 export type CodeProps = RootProps;
 
+/**
+ * If you are sending emails for users that have the Orange.fr email client,
+ * beware that this component will only work with a head containing meta tags.
+ */
 export const Code: React.FC<Readonly<CodeProps>> = ({ children, ...props }) => {
   return (
     <>
@@ -27,14 +31,14 @@ export const Code: React.FC<Readonly<CodeProps>> = ({ children, ...props }) => {
       `}</style>
 
       {/* Does not render on Orange.fr */}
-      <code {...props} className={`${props.className} cino`}>
+      <code {...props} className={`${props.className ? props.className : ''} cino`}>
         {children}
       </code>
 
       {/* Renders only on Orange.fr */}
       <span
         {...props}
-        className={`${props.className} cio`}
+        className={`${props.className ? props.className : ''} cio`}
         style={{ display: "none", ...props.style }}
       >
         {children}
