@@ -1,3 +1,4 @@
+'use client';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { LayoutGroup, motion } from 'framer-motion';
 import * as React from 'react';

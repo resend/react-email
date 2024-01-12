@@ -3,36 +3,18 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { useHotreload } from '../../../hooks/use-hot-reload';
-import type {
-  EmailRenderingResult,
-  RenderedEmailMetadata,
-} from '../../../actions/render-email-by-slug';
-import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
+import type { EmailRenderingResult } from '../../../actions/render-email-by-slug';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
+import { useEmails } from '../../../contexts/emails';
+import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 
 export interface PreviewProps {
   slug: string;
   renderingResult: EmailRenderingResult;
 }
-
-const useLastEmailRenderingResultIfCurrentErrors = (
-  renderingResult: EmailRenderingResult,
-): RenderedEmailMetadata | undefined => {
-  const [lastRenderMetadata, setLastRenderMetadata] = useState<
-    RenderedEmailMetadata | undefined
-  >('error' in renderingResult ? undefined : renderingResult);
-
-  useEffect(() => {
-    if ('markup' in renderingResult) {
-      setLastRenderMetadata(renderingResult);
-    }
-  }, [renderingResult]);
-
-  return lastRenderMetadata;
-};
 
 const Preview = ({
   slug,
@@ -42,18 +24,21 @@ const Preview = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [renderingResult, setRenderingResult] = useState<EmailRenderingResult>({
-    ...initialRenderingResult,
-  });
+  const { useEmailRenderingResult } = useEmails();
 
-  const renderedEmailMetadata =
-    useLastEmailRenderingResultIfCurrentErrors(renderingResult);
+  const renderingResult = useEmailRenderingResult(slug, initialRenderingResult);
+
+  const renderedEmailMetadata = useRenderingMetadata(
+    slug,
+    renderingResult,
+    initialRenderingResult,
+  );
 
   if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload(async (changes) => {
+    useHotreload((changes) => {
       const changeForThisEmail = changes.find((change) =>
         change.filename.includes(slug),
       );
@@ -61,9 +46,6 @@ const Preview = ({
       if (typeof changeForThisEmail !== 'undefined') {
         if (changeForThisEmail.event === 'unlink') {
           router.push('/');
-        } else {
-          const result = await renderEmailBySlug(slug);
-          setRenderingResult(result);
         }
       }
     });

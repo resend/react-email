@@ -1,14 +1,31 @@
 'use client';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
 } from '../actions/get-emails-directory-metadata';
 import { useHotreload } from '../hooks/use-hot-reload';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
+import {
+  emailsDirectoryAbsolutePath,
+  pathSeparator,
+} from '../utils/emails-directory-absolute-path';
+import {
+  renderEmailBySlug,
+  type EmailRenderingResult,
+} from '../actions/render-email-by-slug';
 
 const EmailsContext = createContext<
-  { emailsDirectoryMetadata: EmailsDirectory } | undefined
+  | {
+      emailsDirectoryMetadata: EmailsDirectory;
+      /**
+       * Uses the hot reloaded bundled build and rendering email result
+       */
+      useEmailRenderingResult: (
+        slug: string,
+        serverEmailRenderedResult: EmailRenderingResult,
+      ) => EmailRenderingResult;
+    }
+  | undefined
 >(undefined);
 
 export const useEmails = () => {
@@ -29,11 +46,15 @@ export const EmailsProvider = (props: {
 }) => {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
+
+  const [renderingResultPerEmailSlug, setRenderingResultPerEmailSlug] =
+    useState<Record<string, EmailRenderingResult>>({});
+
   if (process.env.NEXT_PUBLIC_DISABLE_HOT_RELOADING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload(() => {
+    useHotreload((changes) => {
       getEmailsDirectoryMetadata(emailsDirectoryAbsolutePath)
         .then((metadata) => {
           if (metadata) {
@@ -47,11 +68,57 @@ export const EmailsProvider = (props: {
         .catch((exception) => {
           throw exception;
         });
+
+      for (const change of changes) {
+        const slugForChangedEmail =
+          // filename ex: emails/apple-receipt.tsx
+          // so we need to remove the "emails/" because it isn't used
+          // on the slug parameter for the preview page
+          change.filename.split(pathSeparator).slice(1).join('/');
+        const lastResult = renderingResultPerEmailSlug[slugForChangedEmail];
+
+        if (typeof lastResult !== 'undefined') {
+          renderEmailBySlug(slugForChangedEmail)
+            .then((renderingResult) => {
+              setRenderingResultPerEmailSlug((map) => ({
+                ...map,
+                [slugForChangedEmail]: renderingResult,
+              }));
+            })
+            .catch((exception) => {
+              throw exception;
+            });
+        }
+      }
     });
   }
 
   return (
-    <EmailsContext.Provider value={{ emailsDirectoryMetadata }}>
+    <EmailsContext.Provider
+      value={{
+        emailsDirectoryMetadata,
+        useEmailRenderingResult: (
+          slug: string,
+          serverEmailRenderedResult: EmailRenderingResult,
+        ): EmailRenderingResult => {
+          useEffect(() => {
+            if (typeof renderingResultPerEmailSlug[slug] === 'undefined') {
+              setRenderingResultPerEmailSlug((map) => ({
+                ...map,
+                [slug]: serverEmailRenderedResult,
+              }));
+            }
+          }, [serverEmailRenderedResult, slug]);
+
+          if (typeof renderingResultPerEmailSlug[slug] !== 'undefined') {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            return renderingResultPerEmailSlug[slug]!;
+          }
+
+          return serverEmailRenderedResult;
+        },
+      }}
+    >
       {props.children}
     </EmailsContext.Provider>
   );
