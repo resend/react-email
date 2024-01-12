@@ -74,8 +74,9 @@ export const EmailsProvider = (props: {
           // filename ex: emails/apple-receipt.tsx
           // so we need to remove the "emails/" because it isn't used
           // on the slug parameter for the preview page
-          change.filename.split(pathSeparator).slice(1).join('/');
+          `/${change.filename.split(pathSeparator).slice(1).join('/')}`;
         const lastResult = renderingResultPerEmailSlug[slugForChangedEmail];
+        console.log(renderingResultPerEmailSlug, slugForChangedEmail);
 
         if (typeof lastResult !== 'undefined') {
           renderEmailBySlug(slugForChangedEmail)
