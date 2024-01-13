@@ -30,8 +30,6 @@ export const exportTemplates = async (
     bundle: true,
     entryPoints: allTemplates,
     platform: 'node',
-    jsx: 'transform',
-    format: 'cjs',
     write: true,
     tsconfig: path.resolve(__dirname, '../../tsconfig.export.json'),
     outdir: outDir,
@@ -67,14 +65,10 @@ export const exportTemplates = async (
       spinner.setSpinnerTitle(`rendering ${template.split('/').pop()} (${i}/${allBuiltTemplates.length})`);
       spinner.start();
 
-      const env = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'production';
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const emailTemplate = require(template) as {
-        default: React.FC<Record<string, string> | Record<string, never>>;
+      const emailTemplate = await import(template) as {
+        default: React.FC<Record<string, never>>;
       };
-      process.env.NODE_ENV = env;
-      const rendered = render(createElement(emailTemplate.default, {}), options);
+      const rendered = render(emailTemplate.default({}) as React.ReactElement, options);
       const htmlPath = template.replace(
         '.js',
         options.plainText ? '.txt' : '.html',
