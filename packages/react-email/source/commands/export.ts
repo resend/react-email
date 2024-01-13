@@ -40,7 +40,7 @@ export const exportTemplates = async (
   if (buildResult.errors.length > 0) {
     spinner.stopAndPersist({
       symbol: logSymbols.error,
-      text: 'Failed to build emails'
+      text: 'Failed to build emails',
     });
 
     console.error(buildResult.errors);
@@ -52,7 +52,7 @@ export const exportTemplates = async (
   }
   spinner.stopAndPersist({
     symbol: logSymbols.success,
-    text: 'Preparing files...\n'
+    text: 'Preparing files...\n',
   });
 
   const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
@@ -60,15 +60,24 @@ export const exportTemplates = async (
   });
 
   spinner = new OurSpinner(undefined);
-  for await (const [i, template] of Object.entries(allBuiltTemplates) as unknown as [number, string][]) {
+  for await (const [i, template] of Object.entries(
+    allBuiltTemplates,
+  ) as unknown as [number, string][]) {
     try {
-      spinner.setSpinnerTitle(`rendering ${template.split('/').pop()} (${i}/${allBuiltTemplates.length})`);
+      spinner.setSpinnerTitle(
+        `rendering ${template.split('/').pop()} (${i}/${
+          allBuiltTemplates.length
+        })`,
+      );
       spinner.start();
 
-      const emailTemplate = await import(template) as {
+      const emailTemplate = (await import(template)) as {
         default: React.FC<Record<string, never>>;
       };
-      const rendered = render(emailTemplate.default({}) as React.ReactElement, options);
+      const rendered = render(
+        emailTemplate.default({}) as React.ReactElement,
+        options,
+      );
       const htmlPath = template.replace(
         '.js',
         options.plainText ? '.txt' : '.html',
@@ -84,7 +93,9 @@ export const exportTemplates = async (
       throw exception;
     }
   }
-  spinner.succeed(`Successfully rendered ${allBuiltTemplates.length} email templates\n`);
+  spinner.succeed(
+    `Successfully rendered ${allBuiltTemplates.length} email templates\n`,
+  );
 
   spinner = new OurSpinner('Copying static files');
   spinner.start();
