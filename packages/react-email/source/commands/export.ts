@@ -2,7 +2,6 @@ import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { glob } from 'glob';
 import esbuild from 'esbuild';
-import { createElement } from 'react';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import { render } from '@react-email/render';
