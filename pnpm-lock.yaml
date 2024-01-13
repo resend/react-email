@@ -608,7 +608,7 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
       read-pkg:
         specifier: 5.2.0
@@ -630,7 +630,7 @@ importers:
         specifier: 3.0.0
         version: 3.0.0
       '@types/react':
-        specifier: 18.2.33
+        specifier: ^18.2.0
         version: 18.2.33
       '@types/shelljs':
         specifier: 0.8.12
