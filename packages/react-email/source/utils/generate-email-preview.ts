@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import ora from 'ora';
 import shell from 'shelljs';
 import logSymbols from 'log-symbols';
 import fse from 'fs-extra';
@@ -10,7 +9,7 @@ import {
   PACKAGE_EMAILS_PATH,
   PACKAGE_PUBLIC_PATH,
 } from './constants';
-import { closeOraOnSIGNIT } from './close-ora-on-sigint';
+import { OurSpinner } from './our-spinner';
 
 /**
  * Node.js and imports are requiring all imports to be /, while some functions (like glob) return paths with \\ for path separation on windows
@@ -24,8 +23,7 @@ export const generateEmailsPreview = async (
   type: 'all' | 'static' | 'templates' = 'all',
 ) => {
   try {
-    const spinner = ora('Generating emails preview').start();
-    closeOraOnSIGNIT(spinner);
+    const spinner = new OurSpinner('Generating emails preview').start();
 
     if (type === 'all' || type === 'templates') {
       createEmailPreviews(emailDir);
