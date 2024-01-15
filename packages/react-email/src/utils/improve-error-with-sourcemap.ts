@@ -29,7 +29,9 @@ export const improveErrorWithSourceMap = (
             ` at ${stackFrame.methodName} (${originalFilePath}:${columnAndLine})`,
           );
         } else {
-          newStackLines.push(` at ${stackFrame.methodName} (${originalFilePath})`);
+          newStackLines.push(
+            ` at ${stackFrame.methodName} (${originalFilePath})`,
+          );
         }
       } else {
         const columnAndLine =

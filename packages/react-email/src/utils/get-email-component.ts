@@ -89,16 +89,12 @@ export const getEmailComponent = async (
     const error = exception as Error;
 
     return {
-      error: improveErrorWithSourceMap(
-        error,
-        emailPath,
-        sourceMapToEmail,
-      ),
+      error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
     };
   }
 
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
-    sourceMapToOriginalFile: sourceMapToEmail
+    sourceMapToOriginalFile: sourceMapToEmail,
   };
 };

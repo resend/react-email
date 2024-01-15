@@ -2,7 +2,10 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
-import { emailsDirectoryAbsolutePath, pathSeparator } from '../../utils/emails-directory-absolute-path';
+import {
+  emailsDirectoryAbsolutePath,
+  pathSeparator,
+} from '../../utils/emails-directory-absolute-path';
 import { type EmailsDirectory } from '../../actions/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
@@ -38,7 +41,9 @@ export const SidebarDirectory = ({
     directoryMetadata.subDirectories.length > 0;
 
   const [open, setOpen] = React.useState(
-    persistedOpenDirectories.has(directoryMetadata.absolutePath) || isBaseEmailsDirectory || doesDirectoryContainCurrentEmailOpen,
+    persistedOpenDirectories.has(directoryMetadata.absolutePath) ||
+      isBaseEmailsDirectory ||
+      doesDirectoryContainCurrentEmailOpen,
   );
 
   return (
