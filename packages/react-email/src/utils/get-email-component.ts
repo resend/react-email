@@ -3,17 +3,19 @@
 import vm from 'node:vm';
 import stream from 'node:stream';
 import util from 'node:util';
-import * as stackTraceParser from 'stacktrace-parser';
-import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
+import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
+import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
       emailComponent: EmailComponent;
+
+      sourceMapToOriginalFile: RawSourceMap;
     }
   | { error: ErrorObject }
 > => {
@@ -80,59 +82,23 @@ export const getEmailComponent = async (
     },
     process,
   };
+  const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
   try {
     vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
   } catch (exception) {
     const error = exception as Error;
-    let stack: string | undefined;
-
-    if (typeof error.stack !== 'undefined') {
-      const parsedStack = stackTraceParser.parse(error.stack);
-      const sourceMapConsumer = new SourceMapConsumer(
-        JSON.parse(sourceMapFile.text) as RawSourceMap,
-      );
-      const newStackLines = [] as string[];
-      for (const stackFrame of parsedStack) {
-        if (stackFrame.file === emailPath) {
-          if (stackFrame.column || stackFrame.lineNumber) {
-            const positionWithError = sourceMapConsumer.originalPositionFor({
-              column: stackFrame.column ?? 0,
-              line: stackFrame.lineNumber ?? 0,
-            });
-            const columnAndLine =
-              positionWithError.column && positionWithError.line
-                ? `${positionWithError.line}:${positionWithError.column}`
-                : positionWithError.line;
-            newStackLines.push(
-              ` at ${stackFrame.methodName} (${emailPath}:${columnAndLine})`,
-            );
-          } else {
-            newStackLines.push(` at ${stackFrame.methodName} (${emailPath})`);
-          }
-        } else {
-          const columnAndLine =
-            stackFrame.column && stackFrame.lineNumber
-              ? `${stackFrame.lineNumber}:${stackFrame.column}`
-              : stackFrame.lineNumber;
-          newStackLines.push(
-            ` at ${stackFrame.methodName} (${stackFrame.file}:${columnAndLine})`,
-          );
-        }
-      }
-      stack = newStackLines.join('\n');
-    }
 
     return {
-      error: {
-        name: error.name,
-        message: error.message,
-        cause: error.cause,
-        stack,
-      },
+      error: improveErrorWithSourceMap(
+        error,
+        emailPath,
+        sourceMapToEmail,
+      ),
     };
   }
 
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
+    sourceMapToOriginalFile: sourceMapToEmail
   };
 };

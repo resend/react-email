@@ -5,6 +5,7 @@ import { renderAsync } from '@react-email/render';
 import { getEmailComponent } from '../utils/get-email-component';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import type { ErrorObject } from '../utils/types/error-object';
+import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -29,22 +30,34 @@ export const renderEmailBySlug = async (
     return { error: result.error };
   }
 
-  const Email = result.emailComponent;
+  const { emailComponent: Email, sourceMapToOriginalFile } = result;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
-  const markup = await renderAsync(<EmailComponent {...previewProps} />, {
-    pretty: true,
-  });
-  const plainText = await renderAsync(<EmailComponent {...previewProps} />, {
-    plainText: true,
-  });
+  try {
+    const markup = await renderAsync(<EmailComponent {...previewProps} />, {
+      pretty: true,
+    });
+    const plainText = await renderAsync(<EmailComponent {...previewProps} />, {
+      plainText: true,
+    });
 
-  const reactMarkup = await fs.readFile(emailPath, 'utf-8');
+    const reactMarkup = await fs.readFile(emailPath, 'utf-8');
 
-  return {
-    markup,
-    plainText,
-    reactMarkup,
-  };
+    return {
+      markup,
+      plainText,
+      reactMarkup,
+    };
+  } catch (exception) {
+    const error = exception as Error;
+
+    return {
+      error: improveErrorWithSourceMap(
+        error,
+        emailPath,
+        sourceMapToOriginalFile,
+      ),
+    };
+  }
 };
