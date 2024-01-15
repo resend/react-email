@@ -8,7 +8,7 @@ import { Text } from "../../components/text";
 import { Topbar } from "../../components/topbar";
 
 const items = [
-   {
+  {
     id: "github-access-token",
     name: "GitHub / Access Token",
     author: "bruno88cabral",
