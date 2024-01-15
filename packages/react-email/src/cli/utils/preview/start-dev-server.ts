@@ -93,6 +93,10 @@ export const startDevServer = async (
     );
   }
 
+  devServer.on('close', async () => {
+    await app.close();
+  });
+
   devServer.on('error', (e: NodeJS.ErrnoException) => {
     console.error(
       ` ${logSymbols.error} preview server error: `,
