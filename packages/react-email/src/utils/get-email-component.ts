@@ -26,6 +26,7 @@ export const getEmailComponent = async (
       write: false,
       format: 'cjs',
       jsx: 'automatic',
+      logLevel: 'silent',
       // allows for using jsx on a .js file
       loader: {
         '.js': 'jsx',
