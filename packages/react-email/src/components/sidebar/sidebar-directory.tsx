@@ -15,35 +15,45 @@ interface SidebarDirectoryProps {
   currentEmailOpenSlug?: string;
 }
 
+const persistedOpenDirectories = new Set<string>();
+
 export const SidebarDirectory = ({
-  emailsDirectoryMetadata,
+  emailsDirectoryMetadata: directoryMetadata,
   className,
   currentEmailOpenSlug,
 }: SidebarDirectoryProps) => {
   const isBaseEmailsDirectory =
-    emailsDirectoryMetadata.absolutePath === emailsDirectoryAbsolutePath;
-  const directoryPathRelativeToEmailsDirectory =
-    emailsDirectoryMetadata.absolutePath
+    directoryMetadata.absolutePath === emailsDirectoryAbsolutePath;
+  const directoryPathRelativeToBaseEmailsDirectory =
+    directoryMetadata.absolutePath
       .replace(`${emailsDirectoryAbsolutePath}${pathSeparator}`, '')
       .replace(emailsDirectoryAbsolutePath, '')
       .trim();
-  const doesFolderContainCurrentEmailOpen = currentEmailOpenSlug
-    ? currentEmailOpenSlug.includes(directoryPathRelativeToEmailsDirectory)
+  const doesDirectoryContainCurrentEmailOpen = currentEmailOpenSlug
+    ? currentEmailOpenSlug.includes(directoryPathRelativeToBaseEmailsDirectory)
     : false;
 
   const isEmpty =
-    emailsDirectoryMetadata.emailFilenames.length > 0 ||
-    emailsDirectoryMetadata.subDirectories.length > 0;
+    directoryMetadata.emailFilenames.length > 0 ||
+    directoryMetadata.subDirectories.length > 0;
 
   const [open, setOpen] = React.useState(
-    isBaseEmailsDirectory || doesFolderContainCurrentEmailOpen,
+    persistedOpenDirectories.has(directoryMetadata.absolutePath) || isBaseEmailsDirectory || doesDirectoryContainCurrentEmailOpen,
   );
 
   return (
     <Collapsible.Root
       className={cn('group', className)}
       data-root={isBaseEmailsDirectory}
-      onOpenChange={setOpen}
+      onOpenChange={(isOpening) => {
+        if (isOpening) {
+          persistedOpenDirectories.add(directoryMetadata.absolutePath);
+        } else {
+          persistedOpenDirectories.delete(directoryMetadata.absolutePath);
+        }
+
+        setOpen(isOpening);
+      }}
       open={open}
     >
       <Collapsible.Trigger
@@ -61,7 +71,7 @@ export const SidebarDirectory = ({
             size="2"
             weight="medium"
           >
-            {emailsDirectoryMetadata.directoryName}
+            {directoryMetadata.directoryName}
           </Heading>
           {isEmpty ? (
             <IconArrowDown
@@ -75,7 +85,7 @@ export const SidebarDirectory = ({
       {isEmpty ? (
         <SidebarDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
-          emailsDirectoryMetadata={emailsDirectoryMetadata}
+          emailsDirectoryMetadata={directoryMetadata}
           open={open}
         />
       ) : null}
