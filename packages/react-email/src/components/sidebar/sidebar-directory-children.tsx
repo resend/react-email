@@ -66,7 +66,7 @@ export const SidebarDirectoryChildren = (props: {
                       >
                         <motion.span
                           className={cn(
-                            'text-[14px] flex items-center font-medium gap-2 w-full pl-4 h-8 rounded-md text-slate-11 relative transition ease-in-out duration-200',
+                            'text-[14px] flex items-center align-middle font-medium pl-4 h-8 max-w-full rounded-md text-slate-11 relative transition ease-in-out duration-200',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -85,8 +85,8 @@ export const SidebarDirectoryChildren = (props: {
                               <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
                             </motion.span>
                           ) : null}
-                          <IconFile height="24" width="24" />
-                          {emailFilename}
+                          <IconFile className="absolute left-4 w-[24px] h-[24px]" height="24" width="24" />
+                          <span className="truncate pl-8">{emailFilename}</span>
                         </motion.span>
                       </Link>
                     );

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useEmails } from '../../contexts/emails';
+import { cn } from '../../utils';
 import { SidebarDirectory } from './sidebar-directory';
 
 type SidebarElement = React.ElementRef<'aside'>;
@@ -16,10 +17,10 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
     const { emailsDirectoryMetadata } = useEmails();
 
     return (
-      <aside className={className} ref={forwardedRef} {...props}>
-        <nav className="p-6 h-full w-screen md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4 border-r border-slate-6">
+      <aside className={cn('border-r border-slate-6', className)} ref={forwardedRef} {...props}>
+        <nav className="p-6 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4">
           <SidebarDirectory
-            className="min-w-full w-fit overflow-x-auto"
+            className="min-w-full w-full"
             currentEmailOpenSlug={currentEmailOpenSlug}
             emailsDirectoryMetadata={emailsDirectoryMetadata}
           />
