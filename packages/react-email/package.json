@@ -44,7 +44,7 @@
     "clsx": "2.1.0",
     "commander": "9.4.1",
     "debounce": "2.0.0",
-    "esbuild": "0.16.4",
+    "esbuild": "0.19.11",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-turbo": "1.10.12",
     "fast-glob": "3.3.2",
