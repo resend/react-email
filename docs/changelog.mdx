@@ -6,6 +6,41 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## Jan 16, 2024
+
+**Render `0.0.11`**
+
+- Replace unmaintained `pretty` package for `js-beautify` (thanks [Bastien Robert](https://github.com/bastienrobert))
+- Remove link brackets surrounding links on plain text rendering (thanks [Marcus Stenbeck](https://github.com/marcusstenbeck))
+- Fix functions called from `react-dom/server` to avoid them being called and
+causing issues on NextJS on the edge
+- Add an option for the `render` and `renderAsync` functions to customize the
+[htmlToText](https://www.npmjs.com/package/html-to-text) options
+
+**Tailwind `0.0.14`**
+
+- Fix an error for a hack that is used on Tailwind to detect a deprecated
+dependency taht fails when it is being bundled on NextJS
+- Fix issues that were being caused by calling `renderToStaticMarkup` by doing
+a very archaic rendering of the JSX to just run Tailwind on it
+
+**Components `0.0.13`**
+
+- Bump `@react-email/render` to `0.0.11`
+- Bump `@react-email/tailwind` to `0.0.14`
+
+**react-email `1.10.1`**
+
+- Fix error thrown by Next on the preview because of `@react-email/render` by adding it into
+the [serverComponentsExternalPackages](https://nextjs.org/docs/app/api-reference/next-config-js/serverComponentsExternalPackages) option
+	- See https://github.com/resend/react-email/issues/1041
+- Ignore test files when generating email previews (Thanks [Jonathan Warykowski](https://github.com/jwarykowski))
+
+**create-email `0.0.21`**
+
+- Bump `react-email` on generated template to `1.10.1`
+- Bump `@react-email/components` on generated template to `0.0.13`
+
 ## Dec 11, 2023
 
 **create-email `0.0.20`**
