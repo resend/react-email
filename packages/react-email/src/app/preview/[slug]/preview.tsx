@@ -59,7 +59,7 @@ const Preview = ({
     const view = searchParams.get('view');
     const lang = searchParams.get('lang');
 
-    if (view === 'source' || view === 'desktop') {
+    if (view === 'source' || view === 'desktop' || view === 'mobile') {
       setActiveView(view);
     }
 
