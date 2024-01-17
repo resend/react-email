@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { Toaster } from 'sonner';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-slug';
 import { CodeContainer } from '../../../components/code-container';
@@ -129,6 +130,7 @@ const Preview = ({
           )}
         </>
       ) : null}
+      <Toaster />
     </Shell>
   );
 };

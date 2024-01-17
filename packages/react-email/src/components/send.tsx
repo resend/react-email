@@ -1,5 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
+import { toast } from 'sonner';
 import { inter } from '../app/inter';
 import { Button } from './button';
 import { Text } from './text';
@@ -24,12 +25,15 @@ export const Send = ({ markup }: { markup: string }) => {
         }),
       });
 
+
       if (response.status === 429) {
         const { error } = (await response.json()) as { error: string };
-        alert(error);
+        toast.error(error);
       }
+
+      toast.success('Email sent! Check your inbox.');
     } catch (exception) {
-      alert('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);
     }
