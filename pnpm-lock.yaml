@@ -710,12 +710,9 @@ importers:
       socket.io-client:
         specifier: 4.7.3
         version: 4.7.3
-      source-map:
-        specifier: 0.7.4
-        version: 0.7.4
-      source-map-support:
-        specifier: 0.5.21
-        version: 0.5.21
+      source-map-js:
+        specifier: 1.0.2
+        version: 1.0.2
       stacktrace-parser:
         specifier: 0.1.10
         version: 0.1.10
