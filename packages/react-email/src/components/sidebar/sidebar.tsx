@@ -17,7 +17,11 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
     const { emailsDirectoryMetadata } = useEmails();
 
     return (
-      <aside className={cn('border-r border-slate-6', className)} ref={forwardedRef} {...props}>
+      <aside
+        className={cn('border-r border-slate-6', className)}
+        ref={forwardedRef}
+        {...props}
+      >
         <nav className="p-6 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4">
           <SidebarDirectory
             className="min-w-full w-full"

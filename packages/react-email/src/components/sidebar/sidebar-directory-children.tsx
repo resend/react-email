@@ -85,7 +85,11 @@ export const SidebarDirectoryChildren = (props: {
                               <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
                             </motion.span>
                           ) : null}
-                          <IconFile className="absolute left-4 w-[24px] h-[24px]" height="24" width="24" />
+                          <IconFile
+                            className="absolute left-4 w-[24px] h-[24px]"
+                            height="24"
+                            width="24"
+                          />
                           <span className="truncate pl-8">{emailFilename}</span>
                         </motion.span>
                       </Link>
