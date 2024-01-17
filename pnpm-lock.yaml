@@ -272,7 +272,7 @@ importers:
         specifier: 0.0.8
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.11-canary.0
+        specifier: 0.0.12-canary.0
         version: link:../render
       '@react-email/row':
         specifier: 0.0.7
@@ -281,8 +281,8 @@ importers:
         specifier: 0.0.11
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.14-canary.0
-        version: link:../tailwind
+        specifier: 0.0.14
+        version: 0.0.14(react@18.2.0)
       '@react-email/text':
         specifier: 0.0.7
         version: link:../text
@@ -578,7 +578,7 @@ importers:
         specifier: 19.0.7
         version: 19.0.7
       '@react-email/render':
-        specifier: 0.0.11-canary.0
+        specifier: 0.0.12-canary.0
         version: link:../render
       chokidar:
         specifier: 3.5.3
@@ -2242,6 +2242,15 @@ packages:
       tw-to-css: 0.0.12
     transitivePeerDependencies:
       - ts-node
+    dev: false
+
+  /@react-email/tailwind@0.0.14(react@18.2.0):
+    resolution: {integrity: sha512-SRRcm08zxrAR5XozaW0X+GAJlTJITakZe0UXBiFZDlSDBLwFMxjaGuQwccqNF0LxDnxmduxYB71mzEAqecgTZg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: 18.2.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /@rollup/plugin-inject@5.0.5:
