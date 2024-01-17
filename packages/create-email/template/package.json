@@ -10,7 +10,7 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "0.0.12",
-    "react-email": "1.10.0"
+    "@react-email/components": "0.0.14-canary.1",
+    "react-email": "1.10.2-canary.0"
   }
 }
