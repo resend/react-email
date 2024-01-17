@@ -23,7 +23,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   setActiveView,
   ...props
 }) => {
-  const columnWidth = 'w-[200px]';
+  const columnWidth = 'w-[222px]';
 
   return (
     <header
@@ -59,7 +59,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                   className={cn(
                     'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                     {
-                      'text-slate-11': activeView === 'source',
+                      'text-slate-11': activeView !== 'desktop',
                       'text-slate-12': activeView === 'desktop',
                     },
                   )}
@@ -76,12 +76,34 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                   Desktop
                 </motion.div>
               </ToggleGroup.Item>
+              <ToggleGroup.Item value="mobile">
+                <motion.div
+                  className={cn(
+                    'text-sm font-medium px-1 py-1 sm:px-3 sm:py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                    {
+                      'text-slate-11': activeView !== 'mobile',
+                      'text-slate-12': activeView === 'mobile',
+                    },
+                  )}
+                >
+                  {activeView === 'mobile' && (
+                    <motion.span
+                      animate={{ opacity: 1 }}
+                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                      exit={{ opacity: 0 }}
+                      initial={{ opacity: 0 }}
+                      layoutId="topbar"
+                    />
+                  )}
+                  Mobile
+                </motion.div>
+              </ToggleGroup.Item>
               <ToggleGroup.Item value="source">
                 <motion.div
                   className={cn(
                     'text-sm font-medium px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                     {
-                      'text-slate-11': activeView === 'desktop',
+                      'text-slate-11': activeView !== 'source',
                       'text-slate-12': activeView === 'source',
                     },
                   )}

@@ -98,13 +98,23 @@ const Preview = ({
       {/* If this is undefined means that the initial server render of the email had errors */}
       {typeof renderedEmailMetadata !== 'undefined' ? (
         <>
-          {activeView === 'desktop' ? (
+          {activeView === 'desktop' && (
             <iframe
               className="w-full h-[calc(100vh_-_140px)]"
               srcDoc={renderedEmailMetadata.markup}
               title={slug}
             />
-          ) : (
+          )}
+
+          {activeView === 'mobile' && (
+            <iframe
+              className="w-[360px] h-[calc(100vh_-_140px)] mx-auto"
+              srcDoc={renderedEmailMetadata.markup}
+              title={slug}
+            />
+          )}
+
+          {activeView === 'source' && (
             <div className="flex gap-6 mx-auto p-6 max-w-3xl">
               <Tooltip.Provider>
                 <CodeContainer
