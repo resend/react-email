@@ -16,25 +16,23 @@ const Home = () => {
         <div className="relative max-w-lg mx-6 mt-56 rounded-md p-8 flex">
           <Image
             alt="React Email Icon"
-            className="absolute top-0 -translate-x-1/2 left-1/2 -translate-y-[80px] opacity-70"
+            className="absolute top-0 -translate-x-1/2 left-1/2 -translate-y-[70px] opacity-70"
             height={349}
             src={pattern}
             width={349}
           />
-          <div
-            className="absolute top-0 -translate-x-1/2 left-1/2 -translate-y-[80px] opacity-50"
-            style={{
-              width: '300px',
-              height: '300px',
-              borderRadius: '300px',
-              background:
-                'radial-gradient(70% 70% at 50% 50%, rgba(118, 187, 218, 1)10%, rgba(118, 187, 218, 0.0) 100%)',
-              mixBlendMode: 'color-dodge',
-              filter: 'blur(100px)',
-            }}
-          />
           <div className="relative z-10 flex flex-col text-center items-center">
-            <Image alt="React Email Icon" height={144} src={logo} width={141} />
+            <Image
+              alt="React Email Icon"
+              className="mb-8"
+              height={144}
+              src={logo}
+              style={{
+                borderRadius: 34,
+                boxShadow: '0px 10px 200px 20px #2B7CA080',
+              }}
+              width={141}
+            />
             <Heading as="h2" size="6" weight="medium">
               Welcome to the React Email preview!
             </Heading>
