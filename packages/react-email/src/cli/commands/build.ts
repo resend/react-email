@@ -222,13 +222,17 @@ export const build = async ({
       },
     });
 
-    spinner.text =
-      'Copying `emails/static` folder into `.react-email/public/static`';
-    const builtStaticDirectory = path.resolve(
-      builtPreviewAppPath,
-      './public/static',
-    );
-    await fs.promises.cp(staticPath, builtStaticDirectory, { recursive: true });
+    if (fs.existsSync(staticPath)) {
+      spinner.text =
+        'Copying `emails/static` folder into `.react-email/public/static`';
+      const builtStaticDirectory = path.resolve(
+        builtPreviewAppPath,
+        './public/static',
+      );
+      await fs.promises.cp(staticPath, builtStaticDirectory, {
+        recursive: true,
+      });
+    }
 
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
