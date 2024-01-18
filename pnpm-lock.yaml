@@ -242,7 +242,7 @@ importers:
         specifier: 0.0.13
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:*
+        specifier: 0.0.2
         version: link:../code-block
       '@react-email/column':
         specifier: 0.0.9
