@@ -57,18 +57,20 @@ export const Shell = ({
 
       <div className="flex bg-slate-2">
         <Sidebar
-          className={cn('w-screen max-w-full md:max-w-[275px]', {
-            'translate-x-0 lg:-translate-x-full lg:absolute': sidebarToggled,
-            '-translate-x-full lg:translate-x-0 absolute lg:relative':
-              !sidebarToggled,
-          })}
+          className={cn(
+            'w-screen max-w-full md:max-w-[275px] transition-transform fixed top-0 left-0',
+            {
+              'translate-x-0 lg:-translate-x-full': sidebarToggled,
+              '-translate-x-full lg:translate-x-0': !sidebarToggled,
+            },
+          )}
           currentEmailOpenSlug={currentEmailOpenSlug}
         />
 
         <main
-          className={cn({
-            'w-[calc(100%_-_275px)] lg:w-screen': sidebarToggled,
-            'w-screen lg:w-[calc(100%_-_275px)]': !sidebarToggled,
+          className={cn('transition-transform will-change-transform', {
+            'lg:translate-x-0 lg:w-[calc(100vw)]': sidebarToggled,
+            'lg:translate-x-[275px] lg:w-[calc(100vw-275px)]': !sidebarToggled,
           })}
         >
           {currentEmailOpenSlug ? (

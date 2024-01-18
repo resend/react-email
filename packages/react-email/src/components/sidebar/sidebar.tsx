@@ -17,7 +17,7 @@ export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
 
   return (
     <aside className={cn('border-r flex flex-col border-slate-6', className)}>
-      <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex ">
+      <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
         <Logo />
       </div>
       <nav className="p-4 flex-grow lg:pt-0 pl-0 w-screen h-[calc(100vh_-_70px)] md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col overflow-y-auto">
