@@ -22,14 +22,16 @@ export const Shell = ({
   setActiveView,
 }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(false);
+
   return (
     <div className="flex bg-black text-white flex-col h-screen overflow-x-hidden">
-      <div className="flex bg-black lg:hidden  relative items-center px-6 justify-between h-[70px] border-b border-slate-6">
+      <div className="flex lg:hidden items-center px-6 justify-between h-[70px] border-b border-slate-6">
         <div className="h-[70px] flex items-center">
           <Logo />
         </div>
+
         <button
-          className="bg-transparent h-6 w-6 rounded flex items-center justify-center text-white"
+          className="h-6 w-6 rounded flex items-center justify-center text-white"
           onClick={() => {
             setSidebarToggled((v) => !v);
           }}
@@ -52,7 +54,8 @@ export const Shell = ({
           </svg>
         </button>
       </div>
-      <div className="flex justify-between h-full">
+
+      <div className="flex bg-slate-2">
         <Sidebar
           className={cn('w-screen max-w-full md:max-w-[275px]', {
             'translate-x-0 lg:-translate-x-full lg:absolute': sidebarToggled,
@@ -61,8 +64,9 @@ export const Shell = ({
           })}
           currentEmailOpenSlug={currentEmailOpenSlug}
         />
+
         <main
-          className={cn('bg-slate-2', {
+          className={cn({
             'w-[calc(100%_-_275px)] lg:w-screen': sidebarToggled,
             'w-screen lg:w-[calc(100%_-_275px)]': !sidebarToggled,
           })}
@@ -78,8 +82,9 @@ export const Shell = ({
               setActiveView={setActiveView}
             />
           ) : null}
-          <div className="relative h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] overflow-auto">
-            <div className="mx-auto">{children}</div>
+
+          <div className="h-[calc(100vh_-_70px)] overflow-auto mx-auto">
+            {children}
           </div>
         </main>
       </div>
