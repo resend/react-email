@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Toaster } from 'sonner';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-slug';
@@ -12,7 +12,7 @@ import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 
-export interface PreviewProps {
+interface PreviewProps {
   slug: string;
   renderingResult: EmailRenderingResult;
 }
@@ -25,6 +25,8 @@ const Preview = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const activeView = searchParams.get('view') ?? 'desktop';
+  const activeLang = searchParams.get('lang') ?? 'jsx';
   const { useEmailRenderingResult } = useEmails();
 
   const renderingResult = useEmailRenderingResult(slug, initialRenderingResult);
@@ -52,51 +54,34 @@ const Preview = ({
     });
   }
 
-  const [activeView, setActiveView] = useState('desktop');
-  const [activeLang, setActiveLang] = useState('jsx');
-
-  useEffect(() => {
-    const view = searchParams.get('view');
-    const lang = searchParams.get('lang');
-
-    if (view === 'source' || view === 'desktop' || view === 'mobile') {
-      setActiveView(view);
-    }
-
-    if (lang === 'jsx' || lang === 'markup' || lang === 'markdown') {
-      setActiveLang(lang);
-    }
-  }, [searchParams]);
-
   const handleViewChange = (view: string) => {
-    setActiveView(view);
-    router.push(`${pathname}?view=${view}`);
+    const params = new URLSearchParams(searchParams);
+    params.set('view', view);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const handleLangChange = (lang: string) => {
-    setActiveLang(lang);
-    router.push(`${pathname}?view=source&lang=${lang}`);
+    const params = new URLSearchParams(searchParams);
+    params.set('view', 'source');
+    params.set('lang', lang);
+    router.push(`${pathname}?${params.toString()}`);
   };
+
+  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
   return (
     <Shell
-      activeView={
-        typeof renderedEmailMetadata !== 'undefined' ? activeView : undefined
-      }
+      activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
-      setActiveView={
-        typeof renderedEmailMetadata !== 'undefined'
-          ? handleViewChange
-          : undefined
-      }
+      setActiveView={hasNoErrors ? handleViewChange : undefined}
     >
       {'error' in renderingResult ? (
         <RenderingError error={renderingResult.error} />
       ) : null}
 
       {/* If this is undefined means that the initial server render of the email had errors */}
-      {typeof renderedEmailMetadata !== 'undefined' ? (
+      {hasNoErrors ? (
         <>
           {activeView === 'desktop' && (
             <iframe

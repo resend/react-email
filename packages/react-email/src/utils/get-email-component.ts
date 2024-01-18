@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-// import path from 'node:path';
 import vm from 'node:vm';
 import stream from 'node:stream';
 import util from 'node:util';

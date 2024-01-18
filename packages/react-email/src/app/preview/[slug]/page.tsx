@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
-import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
+import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Preview from './preview';
 
@@ -35,11 +34,7 @@ export default async function Page({ params }: { params: PreviewParams }) {
     });
   }
 
-  return (
-    <Suspense>
-      <Preview renderingResult={emailRenderingResult} slug={slug} />
-    </Suspense>
-  );
+  return <Preview renderingResult={emailRenderingResult} slug={slug} />;
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {

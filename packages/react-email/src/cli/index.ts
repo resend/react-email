@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-/* eslint-disable */
 import { program } from '@commander-js/extra-typings';
 import packageJson from '../../package.json';
-import { PACKAGE_NAME } from './utils/constants';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
 import { build } from './commands/build';
 import { start } from './commands/start';
+
+const PACKAGE_NAME = 'react-email';
 
 program
   .name(PACKAGE_NAME)
