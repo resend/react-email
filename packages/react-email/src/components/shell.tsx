@@ -22,7 +22,7 @@ export const Shell = React.forwardRef<ShellElement, Readonly<ShellProps>>(
   ) => {
     const [showNav, setShowNav] = React.useState(false);
     return (
-      <div className="flex flex-col h-screen overflow-x-hidden">
+      <div className="bg-black text-white flex flex-col h-screen overflow-x-hidden">
         <div className="bg-black flex relative items-center px-6 justify-between h-[70px] border-b border-slate-6">
           <div className="h-[70px] flex items-center">
             <Logo />
