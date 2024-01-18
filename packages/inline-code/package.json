@@ -1,7 +1,6 @@
 {
   "name": "@react-email/inline-code",
   "version": "0.0.1",
-  "private": true,
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
