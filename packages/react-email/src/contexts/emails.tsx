@@ -16,15 +16,15 @@ import {
 
 const EmailsContext = createContext<
   | {
-    emailsDirectoryMetadata: EmailsDirectory;
-    /**
-     * Uses the hot reloaded bundled build and rendering email result
-     */
-    useEmailRenderingResult: (
-      slug: string,
-      serverEmailRenderedResult: EmailRenderingResult,
-    ) => EmailRenderingResult;
-  }
+      emailsDirectoryMetadata: EmailsDirectory;
+      /**
+       * Uses the hot reloaded bundled build and rendering email result
+       */
+      useEmailRenderingResult: (
+        slug: string,
+        serverEmailRenderedResult: EmailRenderingResult,
+      ) => EmailRenderingResult;
+    }
   | undefined
 >(undefined);
 
