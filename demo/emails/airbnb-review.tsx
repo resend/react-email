@@ -64,8 +64,9 @@ export const AirbnbReviewEmail = ({
                 ’s review to your Airbnb profile.
               </Text>
               <Text style={{ ...paragraph, paddingBottom: "16px" }}>
-                While it’s too late to write a review of your own, you can send
-                your feedback to {authorName} using your Airbnb message thread.
+                While it’s too late to write a review of your own, you can
+                send your feedback to {authorName} using your Airbnb message
+                thread.
               </Text>
 
               <Button style={button} href="https://airbnb.com/">
@@ -87,7 +88,10 @@ export const AirbnbReviewEmail = ({
                 </Link>
               </Text>
               <Text>
-                <Link href="https://airbnb.com/help/article/1257" style={link}>
+                <Link
+                  href="https://airbnb.com/help/article/1257"
+                  style={link}
+                >
                   How do star ratings work?
                 </Link>
               </Text>
