@@ -58,7 +58,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
             aria-label="View mode"
             className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
             onValueChange={(value) => {
-              setActiveView?.(value);
+              if (value) setActiveView?.(value);
             }}
             type="single"
             value={activeView}
