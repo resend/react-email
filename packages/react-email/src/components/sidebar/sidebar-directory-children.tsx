@@ -1,6 +1,7 @@
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import type { EmailsDirectory } from '../../actions/get-emails-directory-metadata';
 import {
   emailsDirectoryAbsolutePath,
@@ -16,6 +17,7 @@ export const SidebarDirectoryChildren = (props: {
   open: boolean;
   isRoot?: boolean;
 }) => {
+  const searchParams = useSearchParams();
   const directoryPathRelativeToEmailsDirectory =
     props.emailsDirectoryMetadata.absolutePath
       .replace(`${emailsDirectoryAbsolutePath}${pathSeparator}`, '')
@@ -64,7 +66,10 @@ export const SidebarDirectoryChildren = (props: {
 
                     return (
                       <Link
-                        href={`/preview/${encodeURIComponent(emailSlug)}`}
+                        href={{
+                          pathname: `/preview/${encodeURIComponent(emailSlug)}`,
+                          search: searchParams.toString(),
+                        }}
                         key={emailSlug}
                       >
                         <motion.span
