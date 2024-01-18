@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.1-canary.1",
+  "version": "0.0.2",
   "description": "A code block component that will render code using HTML",
   "sideEffects": false,
   "main": "./dist/index.js",
