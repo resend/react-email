@@ -1,5 +1,7 @@
+![React Email code-block cover](https://react.email/static/covers/code-block.png)
+
 <div align="center"><strong>@react-email/code-block</strong></div>
-<div align="center">Displays code with a selected theme and regex highlighting using prismjs.</div>
+<div align="center">Display code with a selected theme and regex highlighting using Prism.js.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

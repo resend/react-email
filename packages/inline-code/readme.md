@@ -1,3 +1,5 @@
+![React Email inline-code cover](https://react.email/static/covers/inline-code.png)
+
 <div align="center"><strong>@react-email/inline-code</strong></div>
 <div align="center">Display a predictable inline code HTML element that works on all email clients.</div>
 <br />
