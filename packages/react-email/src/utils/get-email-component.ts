@@ -57,7 +57,7 @@ export const getEmailComponent = async (
 
   // This is necessary because the requires of these modules break when we run the email with vm.
   // So what we do is pre-import and return it on the fake require function we pass to the VM's context
-  // 
+  //
   // Not sustainable to keep adding node modules here, we need to find a better way for this later on
   const nodeModuleMapToPreImported = {
     stream,
@@ -69,7 +69,7 @@ export const getEmailComponent = async (
     'node:util': util,
     'node:fs': fs,
     'node:path': path,
-    'node:crypto': crypto
+    'node:crypto': crypto,
   };
 
   const fakeContext = {
