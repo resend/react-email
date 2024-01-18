@@ -7,7 +7,10 @@ export type InlineCodeProps = RootProps;
  * If you are sending emails for users that have the Orange.fr email client,
  * beware that this component will only work when you have a head containing meta tags.
  */
-export const InlineCode: React.FC<Readonly<InlineCodeProps>> = ({ children, ...props }) => {
+export const InlineCode: React.FC<Readonly<InlineCodeProps>> = ({
+  children,
+  ...props
+}) => {
   return (
     <>
       {/* 
