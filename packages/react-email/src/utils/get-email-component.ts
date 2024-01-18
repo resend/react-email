@@ -1,15 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import vm from 'node:vm';
-import stream from 'node:stream';
-import fs from 'node:fs';
 import path from 'node:path';
-import crypto from 'node:crypto';
-import util from 'node:util';
+import vm from 'node:vm';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
+import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -55,23 +52,6 @@ export const getEmailComponent = async (
   const bundledEmailFile = outputFiles[1]!;
   const builtEmailCode = bundledEmailFile.text;
 
-  // This is necessary because the requires of these modules break when we run the email with vm.
-  // So what we do is pre-import and return it on the fake require function we pass to the VM's context
-  //
-  // Not sustainable to keep adding node modules here, we need to find a better way for this later on
-  const nodeModuleMapToPreImported = {
-    stream,
-    util,
-    fs,
-    path,
-    crypto,
-    'node:stream': stream,
-    'node:util': util,
-    'node:fs': fs,
-    'node:path': path,
-    'node:crypto': crypto,
-  };
-
   const fakeContext = {
     ...global,
     console,
@@ -80,9 +60,9 @@ export const getEmailComponent = async (
     __filanem: emailPath,
     __dirname: path.dirname(emailPath),
     require: (module: string) => {
-      if (module in nodeModuleMapToPreImported) {
+      if (module in staticNodeModulesForVM) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return nodeModuleMapToPreImported[module];
+        return staticNodeModulesForVM[module];
       }
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires
