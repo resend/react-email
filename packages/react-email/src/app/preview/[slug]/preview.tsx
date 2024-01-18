@@ -77,7 +77,7 @@ const Preview = ({
       setActiveView={hasNoErrors ? handleViewChange : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div className="relative">
+      <div className="relative h-full">
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
