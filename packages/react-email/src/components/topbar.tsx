@@ -17,6 +17,7 @@ interface TopbarProps extends RootProps {
   currentEmailOpenSlug: string;
   activeView?: string;
   markup?: string;
+  onToggleSidebar?: () => void;
   setActiveView?: (view: string) => void;
 }
 
@@ -26,6 +27,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   markup,
   activeView,
   setActiveView,
+  onToggleSidebar,
   ...props
 }) => {
   return (
@@ -36,7 +38,15 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
       )}
       {...props}
     >
-      <button className="hidden lg:flex rounded-lg px-2 py-2 transition ease-in-out duration-200 relative hover:bg-slate-5 text-slate-11 hover:text-slate-12">
+      <button
+        className="hidden lg:flex rounded-lg px-2 py-2 transition ease-in-out duration-200 relative hover:bg-slate-5 text-slate-11 hover:text-slate-12"
+        onClick={() => {
+          if (onToggleSidebar) {
+            onToggleSidebar();
+          }
+        }}
+        type="button"
+      >
         <IconHideSidebar height={20} width={20} />
       </button>
 

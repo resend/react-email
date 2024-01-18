@@ -21,7 +21,7 @@ export const Shell = ({
   activeView,
   setActiveView,
 }: ShellProps) => {
-  const [showNav, setShowNav] = React.useState(false);
+  const [sidebarToggled, setSidebarToggled] = React.useState(false);
   return (
     <div className="flex bg-black text-white flex-col h-screen overflow-x-hidden">
       <div className="flex bg-black lg:hidden  relative items-center px-6 justify-between h-[70px] border-b border-slate-6">
@@ -31,7 +31,7 @@ export const Shell = ({
         <button
           className="bg-transparent h-6 w-6 rounded flex items-center justify-center text-white"
           onClick={() => {
-            setShowNav(!showNav);
+            setSidebarToggled((v) => !v);
           }}
           type="button"
         >
@@ -55,16 +55,16 @@ export const Shell = ({
       <div className="flex justify-between h-full">
         <Sidebar
           className={cn('w-screen max-w-full md:max-w-[275px]', {
-            'translate-x-0': showNav,
-            'translate-x-[-100%] lg:translate-x-0 absolute lg:relative':
-              !showNav,
+            'translate-x-0 lg:-translate-x-full lg:absolute': sidebarToggled,
+            '-translate-x-full lg:translate-x-0 absolute lg:relative':
+              !sidebarToggled,
           })}
           currentEmailOpenSlug={currentEmailOpenSlug}
         />
         <main
           className={cn('bg-slate-2', {
-            'w-[calc(100%_-_275px)]': showNav,
-            'w-screen lg:w-[calc(100%_-_275px)]': !showNav,
+            'w-[calc(100%_-_275px)] lg:w-screen': sidebarToggled,
+            'w-screen lg:w-[calc(100%_-_275px)]': !sidebarToggled,
           })}
         >
           {currentEmailOpenSlug ? (
@@ -72,6 +72,9 @@ export const Shell = ({
               activeView={activeView}
               currentEmailOpenSlug={currentEmailOpenSlug}
               markup={markup}
+              onToggleSidebar={() => {
+                setSidebarToggled((v) => !v);
+              }}
               setActiveView={setActiveView}
             />
           ) : null}
