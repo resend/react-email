@@ -1,13 +1,13 @@
 'use client';
-
 import * as React from 'react';
 import { cn } from '../utils';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
 
-interface ShellProps {
-  children: React.ReactNode;
+type RootProps = React.ComponentPropsWithoutRef<'div'>;
+
+interface ShellProps extends RootProps {
   markup?: string;
   currentEmailOpenSlug?: string;
   activeView?: string;
@@ -23,8 +23,8 @@ export const Shell = ({
 }: ShellProps) => {
   const [showNav, setShowNav] = React.useState(false);
   return (
-    <div className="bg-black text-white flex flex-col h-screen overflow-x-hidden">
-      <div className="bg-black flex relative items-center px-6 justify-between h-[70px] border-b border-slate-6">
+    <div className="flex bg-black text-white flex-col h-screen overflow-x-hidden">
+      <div className="flex bg-black lg:hidden  relative items-center px-6 justify-between h-[70px] border-b border-slate-6">
         <div className="h-[70px] flex items-center">
           <Logo />
         </div>
@@ -75,7 +75,7 @@ export const Shell = ({
               setActiveView={setActiveView}
             />
           ) : null}
-          <div className="relative h-[calc(100vh_-_140px)] overflow-auto">
+          <div className="relative h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] overflow-auto">
             <div className="mx-auto">{children}</div>
           </div>
         </main>

@@ -1,9 +1,11 @@
 'use client';
 
 import * as React from 'react';
+import * as Collapsible from '@radix-ui/react-collapsible';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
-import { SidebarDirectory } from './sidebar-directory';
+import { Logo } from '../logo';
+import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
 type SidebarElement = React.ElementRef<'aside'>;
 type RootProps = React.ComponentPropsWithoutRef<'aside'>;
@@ -22,12 +24,18 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
         ref={forwardedRef}
         {...props}
       >
-        <nav className="p-4 pl-3 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4">
-          <SidebarDirectory
-            className="min-w-full w-full"
-            currentEmailOpenSlug={currentEmailOpenSlug}
-            emailsDirectoryMetadata={emailsDirectoryMetadata}
-          />
+        <div className="p-4 h-[70px] items-center hidden lg:flex ">
+          <Logo />
+        </div>
+        <nav className="p-4 lg:pt-0 pl-0 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col overflow-y-scroll">
+          <Collapsible.Root>
+            <SidebarDirectoryChildren
+              currentEmailOpenSlug={currentEmailOpenSlug}
+              emailsDirectoryMetadata={emailsDirectoryMetadata}
+              isRoot
+              open
+            />
+          </Collapsible.Root>
         </nav>
       </aside>
     );

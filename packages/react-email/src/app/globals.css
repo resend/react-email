@@ -29,3 +29,7 @@ body {
 .popup-open iframe {
   pointer-events: none;
 }
+
+nav > div > div > .line {
+  display: none;
+}

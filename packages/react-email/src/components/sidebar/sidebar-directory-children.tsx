@@ -14,6 +14,7 @@ export const SidebarDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
   currentEmailOpenSlug?: string;
   open: boolean;
+  isRoot?: boolean;
 }) => {
   const directoryPathRelativeToEmailsDirectory =
     props.emailsDirectoryMetadata.absolutePath
@@ -36,7 +37,9 @@ export const SidebarDirectoryChildren = (props: {
             exit={{ opacity: 0, height: 0 }}
             initial={{ opacity: 0, height: 0 }}
           >
-            <div className="absolute left-2.5 w-px h-full bg-slate-5" />
+            {props.isRoot ? null : (
+              <div className="line absolute left-2.5 w-px h-full bg-slate-6" />
+            )}
 
             <div className="data-[root=true]:py-2 flex flex-col truncate">
               <LayoutGroup id="sidebar">
@@ -82,7 +85,9 @@ export const SidebarDirectoryChildren = (props: {
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
-                              <div className="bg-cyan-11 w-px absolute top-1 left-1 h-6" />
+                              {!props.isRoot && (
+                                <div className="bg-cyan-11 w-px absolute top-1 left-1.5 h-6" />
+                              )}
                             </motion.span>
                           ) : null}
                           <IconFile
