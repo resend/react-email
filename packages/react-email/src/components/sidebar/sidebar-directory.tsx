@@ -62,13 +62,15 @@ export const SidebarDirectory = ({
       open={open}
     >
       <Collapsible.Trigger
-        className={cn('text-[14px] flex items-center font-medium gap-2', {
-          'cursor-pointer': !isEmpty,
-        })}
+        className={cn(
+          'text-[14px] flex items-center font-medium gap-2 justify-between w-full',
+          {
+            'cursor-pointer': !isEmpty,
+          },
+        )}
       >
-        <IconFolder height="24" width="24" />
-
-        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12">
+        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12 gap-2">
+          <IconFolder height="24" width="24" />
           <Heading
             as="h3"
             className="transition ease-in-out duration-200 hover:text-slate-12"
@@ -78,13 +80,13 @@ export const SidebarDirectory = ({
           >
             {directoryMetadata.directoryName}
           </Heading>
-          {isEmpty ? (
-            <IconArrowDown
-              className="data-[open=true]:rotate-180 transition-transform"
-              data-open={open}
-            />
-          ) : null}
         </div>
+        {isEmpty ? (
+          <IconArrowDown
+            className="data-[open=true]:rotate-180 transition-transform opacity-60 justify-self-end"
+            data-open={open}
+          />
+        ) : null}
       </Collapsible.Trigger>
 
       {isEmpty ? (

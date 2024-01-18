@@ -5,7 +5,10 @@ import { IconBase } from './icon-base';
 export const IconArrowDown = React.forwardRef<IconElement, Readonly<IconProps>>(
   ({ ...props }, forwardedRef) => (
     <IconBase ref={forwardedRef} {...props}>
-      <path d="M12 15L8.5359 9.75L15.4641 9.75L12 15Z" fill="currentColor" />
+      <path
+        d="M12 16L6 9.85966L6.84 9L12 14.2808L17.16 9L18 9.85966L12 16Z"
+        fill="currentColor"
+      />
     </IconBase>
   ),
 );

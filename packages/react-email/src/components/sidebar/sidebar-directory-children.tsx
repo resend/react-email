@@ -65,6 +65,7 @@ export const SidebarDirectoryChildren = (props: {
                         key={emailSlug}
                       >
                         <motion.span
+                          animate={{ opacity: 1 }}
                           className={cn(
                             'text-[14px] flex items-center align-middle font-medium pl-4 h-8 max-w-full rounded-md text-slate-11 relative transition ease-in-out duration-200',
                             {
@@ -77,10 +78,9 @@ export const SidebarDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5"
+                              className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5 opacity-0"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
-                              layoutId="sidebar"
                             >
                               <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
                             </motion.span>

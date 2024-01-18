@@ -3,6 +3,7 @@ import type { Language } from 'prism-react-renderer';
 import * as React from 'react';
 import { copyTextToClipboard } from '../utils';
 import languageMap from '../utils/language-map';
+import { tabTransition } from '../utils/constants';
 import { Code } from './code';
 import { IconButton } from './icons/icon-button';
 import { IconCheck } from './icons/icon-check';
@@ -70,7 +71,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   }, [activeLang]);
 
   return (
-    <pre
+    <div
       className="border-slate-6 relative w-full items-center whitespace-pre rounded-md border text-sm backdrop-blur-md"
       style={{
         lineHeight: '130%',
@@ -101,6 +102,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                       exit={{ opacity: 0 }}
                       initial={{ opacity: 0 }}
                       layoutId="code"
+                      transition={tabTransition}
                     />
                   ) : null}
                   {languageMap[language]}
@@ -138,6 +140,6 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           </div>
         );
       })}
-    </pre>
+    </div>
   );
 };

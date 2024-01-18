@@ -106,7 +106,7 @@ export const startDevServer = async (
   });
 
   const spinner = ora({
-    text: 'Getting NextJS preview server ready...\n',
+    text: 'Getting react-email preview server ready...\n',
     prefixText: ' ',
   }).start();
 

@@ -9,6 +9,7 @@ export const Send = ({ markup }: { markup: string }) => {
   const [to, setTo] = React.useState('');
   const [subject, setSubject] = React.useState('Testing React Email');
   const [isSending, setIsSending] = React.useState(false);
+  const [isPopOverOpen, setIsPopOverOpen] = React.useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
     try {
@@ -25,7 +26,6 @@ export const Send = ({ markup }: { markup: string }) => {
         }),
       });
 
-
       if (response.status === 429) {
         const { error } = (await response.json()) as { error: string };
         toast.error(error);
@@ -40,10 +40,21 @@ export const Send = ({ markup }: { markup: string }) => {
   };
 
   return (
-    <Popover.Root>
+    <Popover.Root
+      onOpenChange={() => {
+        if (!isPopOverOpen) {
+          document.body.classList.add('popup-open');
+          setIsPopOverOpen(true);
+        } else {
+          document.body.classList.remove('popup-open');
+          setIsPopOverOpen(false);
+        }
+      }}
+      open={isPopOverOpen}
+    >
       <Popover.Trigger asChild>
         <button
-          className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg text-center transition duration-300 ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-12 hover:text-slate-12 font-sans"
+          className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg bg-slate-2 text-center transition duration-300  ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-10 hover:text-slate-12 font-sans"
           type="submit"
         >
           Send
@@ -53,14 +64,9 @@ export const Send = ({ markup }: { markup: string }) => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className={`w-80 -mt-10 p-3 bg-black border border-slate-6 text-slate-11 rounded-lg font-sans ${inter.variable}`}
+          className={`w-80 -mt-10 p-3 bg-black/70 backdrop-blur-lg border border-slate-6 text-slate-11 rounded-lg shadow-md font-sans ${inter.variable}`}
+          sideOffset={48}
         >
-          <Popover.Close
-            aria-label="Close"
-            className="absolute right-2 flex items-center justify-center w-6 h-6 text-xs text-slate-11 hover:text-slate-12 transition duration-300 ease-in-out rounded-full"
-          >
-            ✕
-          </Popover.Close>
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
             <label
               className="text-slate-10 text-xs uppercase mb-2 block"
@@ -70,7 +76,7 @@ export const Send = ({ markup }: { markup: string }) => {
             </label>
             <input
               autoFocus
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
+              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
               defaultValue={to}
               id="to"
               onChange={(e) => {
@@ -81,13 +87,13 @@ export const Send = ({ markup }: { markup: string }) => {
               type="email"
             />
             <label
-              className="text-slate-10 text-xs uppercase mb-2 block"
+              className="text-slate-10 text-xs uppercase mb-2 mt-1 block"
               htmlFor="subject"
             >
               Subject
             </label>
             <input
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-8 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-12 transition duration-300 ease-in-out"
+              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
               defaultValue={subject}
               id="subject"
               onChange={(e) => {
@@ -101,11 +107,11 @@ export const Send = ({ markup }: { markup: string }) => {
               className="appearance-none checked:bg-blue-500"
               type="checkbox"
             />
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mt-3">
               <Text className="inline-block" size="1">
                 Powered by{' '}
                 <a
-                  className="hover:text-slate-12 transition ease-in-out duration-300"
+                  className="text-white/85 hover:text-slate-12 transition ease-in-out duration-300"
                   href="https://resend.com"
                   rel="noreferrer"
                   target="_blank"
