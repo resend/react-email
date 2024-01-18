@@ -50,15 +50,11 @@ export const YelpRecentLoginEmail = ({
 
           <Section style={content}>
             <Row>
-<<<<<<< HEAD
               <Img
                 style={image}
                 width={620}
                 src={`${baseUrl}/static/yelp-header.png`}
               />
-=======
-              <Img style={image} width={620} src={`${baseUrl}/static/yelp-header.png`} />
->>>>>>> 53f403e8 (feat(demo): Fix responsive email templates)
             </Row>
 
             <Row style={{ ...boxInfos, paddingBottom: "0" }}>
@@ -123,15 +119,11 @@ export const YelpRecentLoginEmail = ({
           </Section>
 
           <Section style={containerImageFooter}>
-<<<<<<< HEAD
             <Img
               style={image}
               width={620}
               src={`${baseUrl}/static/yelp-footer.png`}
             />
-=======
-            <Img style={image} width={620} src={`${baseUrl}/static/yelp-footer.png`} />
->>>>>>> 53f403e8 (feat(demo): Fix responsive email templates)
           </Section>
 
           <Text
