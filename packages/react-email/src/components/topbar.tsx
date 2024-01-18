@@ -31,7 +31,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   return (
     <header
       className={cn(
-        'bg-black flex relative items-center px-4 lg:justify-between justify-end h-[70px] border-b border-slate-6',
+        'bg-black flex relative items-center px-4 justify-between h-[70px] border-b border-slate-6',
         className,
       )}
       {...props}
@@ -46,7 +46,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
         </Heading>
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 justify-between lg:justify-start w-full lg:w-fit">
         <LayoutGroup id="topbar">
           {setActiveView ? (
             <ToggleGroup.Root
