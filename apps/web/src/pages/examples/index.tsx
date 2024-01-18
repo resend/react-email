@@ -128,7 +128,7 @@ const Examples = () => {
               or submit a{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resend/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resend/react-email/tree/main/demo"
                 target="_blank"
               >
                 pull request
