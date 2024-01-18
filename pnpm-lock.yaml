@@ -596,9 +596,6 @@ importers:
 
   packages/react-email:
     dependencies:
-      '@commander-js/extra-typings':
-        specifier: 9.4.1
-        version: 9.4.1(commander@9.4.1)
       '@radix-ui/colors':
         specifier: 1.0.1
         version: 1.0.1
@@ -648,8 +645,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       commander:
-        specifier: 9.4.1
-        version: 9.4.1
+        specifier: 11.1.0
+        version: 11.1.0
       debounce:
         specifier: 2.0.0
         version: 2.0.0
@@ -662,15 +659,9 @@ importers:
       eslint-config-turbo:
         specifier: 1.10.12
         version: 1.10.12(eslint@8.50.0)
-      fast-glob:
-        specifier: 3.3.2
-        version: 3.3.2
       framer-motion:
         specifier: 10.17.4
         version: 10.17.4(react-dom@18.2.0)(react@18.2.0)
-      fs-extra:
-        specifier: 11.1.1
-        version: 11.1.1
       glob:
         specifier: 10.3.4
         version: 10.3.4
@@ -5198,6 +5189,11 @@ packages:
   /commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
+    dev: false
+
+  /commander@11.1.0:
+    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /commander@2.20.3:

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { program } from '@commander-js/extra-typings';
+import { program } from 'commander';
 import packageJson from '../../package.json';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
