@@ -3,7 +3,7 @@ import type { ErrorObject } from '../../../utils/types/error-object';
 
 export const RenderingError = (props: { error: ErrorObject }) => {
   return (
-    <div className="relative w-full h-full">
+    <>
       <div className="absolute inset-0 z-50 bg-black/80" />
       <div className="md:max-w-[568px] lg:max-w-[968px] absolute left-[50%] top-[50%] min-h-[50vh] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-t-4 bg-white text-black p-6 shadow-lg duration-200 sm:rounded-lg rounded-t-sm">
         <div className="flex flex-col max-w-full min-w-0 space-y-1.5">
@@ -35,6 +35,6 @@ export const RenderingError = (props: { error: ErrorObject }) => {
           ) : undefined}
         </div>
       </div>
-    </div>
+    </>
   );
 };

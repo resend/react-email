@@ -76,56 +76,59 @@ const Preview = ({
       markup={renderedEmailMetadata?.markup}
       setActiveView={hasNoErrors ? handleViewChange : undefined}
     >
-      {'error' in renderingResult ? (
-        <RenderingError error={renderingResult.error} />
-      ) : null}
+      {/* This relative is so that when there is any error the user can still switch between emails */}
+      <div className="relative">
+        {'error' in renderingResult ? (
+          <RenderingError error={renderingResult.error} />
+        ) : null}
 
-      {/* If this is undefined means that the initial server render of the email had errors */}
-      {hasNoErrors ? (
-        <>
-          {activeView === 'desktop' && (
-            <iframe
-              className="w-full h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
-              srcDoc={renderedEmailMetadata.markup}
-              title={slug}
-            />
-          )}
+        {/* If this is undefined means that the initial server render of the email had errors */}
+        {hasNoErrors ? (
+          <>
+            {activeView === 'desktop' && (
+              <iframe
+                className="w-full h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                srcDoc={renderedEmailMetadata.markup}
+                title={slug}
+              />
+            )}
 
-          {activeView === 'mobile' && (
-            <iframe
-              className="w-[360px] h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
-              srcDoc={renderedEmailMetadata.markup}
-              title={slug}
-            />
-          )}
+            {activeView === 'mobile' && (
+              <iframe
+                className="w-[360px] h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                srcDoc={renderedEmailMetadata.markup}
+                title={slug}
+              />
+            )}
 
-          {activeView === 'source' && (
-            <div className="flex gap-6 mx-auto p-6 max-w-3xl">
-              <Tooltip.Provider>
-                <CodeContainer
-                  activeLang={activeLang}
-                  markups={[
-                    {
-                      language: 'jsx',
-                      content: renderedEmailMetadata.reactMarkup,
-                    },
-                    {
-                      language: 'markup',
-                      content: renderedEmailMetadata.markup,
-                    },
-                    {
-                      language: 'markdown',
-                      content: renderedEmailMetadata.plainText,
-                    },
-                  ]}
-                  setActiveLang={handleLangChange}
-                />
-              </Tooltip.Provider>
-            </div>
-          )}
-        </>
-      ) : null}
-      <Toaster />
+            {activeView === 'source' && (
+              <div className="flex gap-6 mx-auto p-6 max-w-3xl">
+                <Tooltip.Provider>
+                  <CodeContainer
+                    activeLang={activeLang}
+                    markups={[
+                      {
+                        language: 'jsx',
+                        content: renderedEmailMetadata.reactMarkup,
+                      },
+                      {
+                        language: 'markup',
+                        content: renderedEmailMetadata.markup,
+                      },
+                      {
+                        language: 'markdown',
+                        content: renderedEmailMetadata.plainText,
+                      },
+                    ]}
+                    setActiveLang={handleLangChange}
+                  />
+                </Tooltip.Provider>
+              </div>
+            )}
+          </>
+        ) : null}
+        <Toaster />
+      </div>
     </Shell>
   );
 };
