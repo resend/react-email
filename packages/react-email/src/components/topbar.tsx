@@ -156,6 +156,6 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
           ) : null}
         </div>
       </header>
-    </Tooltip.Provider> 
+    </Tooltip.Provider>
   );
 };

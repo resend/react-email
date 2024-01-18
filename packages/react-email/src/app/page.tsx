@@ -34,12 +34,14 @@ const Home = () => {
             width={141}
           />
           <Heading as="h2" size="6" weight="medium">
-            Welcome to the React Email preview!
+            Welcome to React Email
           </Heading>
           <Text as="p" className="mt-2 mb-4">
-            To start developing your next email template, you can create a{' '}
-            <code>.jsx</code> or <code>.tsx</code> file under your &quot;
-            {baseEmailsDirectoryName}&quot; folder.
+            To start developing your emails, you can create a<br />
+            <code className="text-slate-12">.jsx</code> or{' '}
+            <code className="text-slate-12">.tsx</code> file under your{' '}
+            <code className="text-slate-12">{baseEmailsDirectoryName}</code>{' '}
+            folder.
           </Text>
 
           <Button asChild>
