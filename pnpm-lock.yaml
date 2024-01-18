@@ -273,7 +273,7 @@ importers:
         version: link:../preview
       '@react-email/render':
         specifier: 0.0.12-canary.0
-        version: link:../render
+        version: 0.0.12-canary.0
       '@react-email/row':
         specifier: 0.0.7
         version: link:../row
@@ -579,7 +579,7 @@ importers:
         version: 19.0.7
       '@react-email/render':
         specifier: 0.0.12-canary.0
-        version: link:../render
+        version: 0.0.12-canary.0
       chokidar:
         specifier: 3.5.3
         version: 3.5.3
@@ -2227,6 +2227,16 @@ packages:
     dependencies:
       html-to-text: 9.0.5
       pretty: 2.0.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@react-email/render@0.0.12-canary.0:
+    resolution: {integrity: sha512-YBqaQbjurDeE048jJOmAQkekjEvL6CSCvwPOIk8m6Rh5T7y+oVPM45DslR4uGaLx4+0boVoTmvf8ErAWFauiYg==}
+    engines: {node: '>=18.0.0'}
+    dependencies:
+      html-to-text: 9.0.5
+      js-beautify: 1.14.11
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
