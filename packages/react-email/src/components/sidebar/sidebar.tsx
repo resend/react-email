@@ -22,7 +22,7 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
         ref={forwardedRef}
         {...props}
       >
-        <nav className="p-6 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4">
+        <nav className="p-4 pl-3 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col gap-4">
           <SidebarDirectory
             className="min-w-full w-full"
             currentEmailOpenSlug={currentEmailOpenSlug}

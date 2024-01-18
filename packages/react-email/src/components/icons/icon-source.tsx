@@ -6,7 +6,7 @@ export const IconSource = React.forwardRef<IconElement, Readonly<IconProps>>(
   ({ ...props }, forwardedRef) => (
     <IconBase ref={forwardedRef} {...props}>
       <path
-        d="M18 16l4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"
+        d="M17.4 15L21 11.5L17.4 8M6.6 8L3 11.5L6.6 15M14.25 4.5L9.75 18.5"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"

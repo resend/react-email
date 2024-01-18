@@ -6,18 +6,10 @@ export const IconFolder = React.forwardRef<IconElement, Readonly<IconProps>>(
   ({ ...props }, forwardedRef) => (
     <IconBase ref={forwardedRef} {...props}>
       <path
-        d="M19.25 17.25V9.75C19.25 8.64543 18.3546 7.75 17.25 7.75H4.75V17.25C4.75 18.3546 5.64543 19.25 6.75 19.25H17.25C18.3546 19.25 19.25 18.3546 19.25 17.25Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M13.5 7.5L12.5685 5.7923C12.2181 5.14977 11.5446 4.75 10.8127 4.75H6.75C5.64543 4.75 4.75 5.64543 4.75 6.75V11"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
+        clipRule="evenodd"
+        d="M6.75 4C5.23122 4 4 5.23122 4 6.75V7.75V8V17.25C4 18.7688 5.23122 20 6.75 20H17.25C18.7688 20 20 18.7688 20 17.25V9.75C20 8.23122 18.7688 7 17.25 7H14.0816L13.227 5.43322C12.7451 4.54965 11.819 4 10.8127 4H6.75ZM12.3729 7L11.9101 6.15145L11.91 6.15138C11.6911 5.74989 11.2702 5.5 10.8127 5.5H6.75C6.05964 5.5 5.5 6.05964 5.5 6.75V7H12.3729ZM5.5 17.25V8.5H17.25C17.9404 8.5 18.5 9.05964 18.5 9.75V17.25C18.5 17.9404 17.9404 18.5 17.25 18.5H6.75C6.05964 18.5 5.5 17.9404 5.5 17.25Z"
+        fill="currentColor"
+        fillRule="evenodd"
       />
     </IconBase>
   ),

@@ -9,6 +9,7 @@ import {
 import { type EmailsDirectory } from '../../actions/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
+import { IconFolderOpen } from '../icons/icon-folder-open';
 import { IconArrowDown } from '../icons/icon-arrow-down';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
@@ -63,14 +64,18 @@ export const SidebarDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'text-[14px] flex items-center font-medium gap-2 justify-between w-full',
+          'text-[14px] flex items-center font-medium gap-2 justify-between w-full my-1',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12 gap-2">
-          <IconFolder height="24" width="24" />
+        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12 gap-1">
+          {open ? (
+            <IconFolderOpen height="24" width="24" />
+          ) : (
+            <IconFolder height="24" width="24" />
+          )}
           <Heading
             as="h3"
             className="transition ease-in-out duration-200 hover:text-slate-12"

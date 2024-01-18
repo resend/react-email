@@ -28,7 +28,7 @@ export const SidebarDirectoryChildren = (props: {
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative data-[root=true]:mt-3 mt-1 overflow-y-hidden"
+          className="relative data-[root=true]:mt-2 overflow-y-hidden pl-1"
           forceMount
         >
           <motion.div
@@ -36,7 +36,7 @@ export const SidebarDirectoryChildren = (props: {
             exit={{ opacity: 0, height: 0 }}
             initial={{ opacity: 0, height: 0 }}
           >
-            <div className="absolute left-2.5  w-px h-full bg-slate-6" />
+            <div className="absolute left-2.5 w-px h-full bg-slate-5" />
 
             <div className="data-[root=true]:py-2 flex flex-col truncate">
               <LayoutGroup id="sidebar">
@@ -67,7 +67,7 @@ export const SidebarDirectoryChildren = (props: {
                         <motion.span
                           animate={{ opacity: 1 }}
                           className={cn(
-                            'text-[14px] flex items-center align-middle font-medium pl-4 h-8 max-w-full rounded-md text-slate-11 relative transition ease-in-out duration-200',
+                            'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition ease-in-out duration-200',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -82,7 +82,7 @@ export const SidebarDirectoryChildren = (props: {
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
-                              <div className="bg-cyan-11 w-px absolute top-1 left-2.5 h-6" />
+                              <div className="bg-cyan-11 w-px absolute top-1 left-1 h-6" />
                             </motion.span>
                           ) : null}
                           <IconFile
