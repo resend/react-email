@@ -1,6 +1,7 @@
 {
   "name": "@react-email/inline-code",
   "version": "0.0.1",
+  "description": "Display a predictable inline code HTML element that works on all email clients",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
