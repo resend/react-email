@@ -16,13 +16,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/code-inline -E
+yarn add @react-email/inline-code -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/code-inline -E
+npm install @react-email/inline-code -E
 ```
 
 ## Getting started
@@ -30,10 +30,10 @@ npm install @react-email/code-inline -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Code } from "@react-email/code-inline";
+import { Code } from "@react-email/inline-code";
 
 const Email = () => {
-  return <Code>@react-email/code-inline</Code>;
+  return <Code>@react-email/inline-code</Code>;
 };
 ```
 
