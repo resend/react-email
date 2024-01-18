@@ -38,10 +38,10 @@ export const renderAsync = async (
   component: React.ReactElement,
   options?: Options,
 ) => {
-  const reactDOMServer = (await import("react-dom/server")).default;
-  const renderToStream =
-    reactDOMServer.renderToReadableStream ??
-    reactDOMServer.renderToStaticNodeStream;
+  const reactDOMServer = await import("react-dom/server");
+  const renderToStream = Object.hasOwn(reactDOMServer, "renderToReadableStream")
+    ? reactDOMServer.renderToReadableStream // means this is using react-dom/server.browser
+    : reactDOMServer.renderToStaticNodeStream;
 
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
