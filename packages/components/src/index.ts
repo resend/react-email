@@ -1,5 +1,6 @@
 export * from "@react-email/body";
 export * from "@react-email/button";
+export * from "@react-email/code-block";
 export * from "@react-email/column";
 export * from "@react-email/container";
 export * from "@react-email/font";
