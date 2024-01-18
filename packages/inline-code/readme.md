@@ -1,7 +1,5 @@
-![React Email Hr cover](https://react.email/static/covers/hr.png)
-
-<div align="center"><strong>@react-email/code-inline</strong></div>
-<div align="center">Display a predictable an inline code HTML element that works on all email clients.</div>
+<div align="center"><strong>@react-email/inline-code</strong></div>
+<div align="center">Display a predictable inline code HTML element that works on all email clients.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 

@@ -1,5 +1,5 @@
 {
-  "name": "@react-email/code-inline",
+  "name": "@react-email/inline-code",
   "version": "0.0.1-canary.0",
   "private": true,
   "sideEffects": false,
