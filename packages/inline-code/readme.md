@@ -30,10 +30,10 @@ npm install @react-email/inline-code -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { Code } from "@react-email/inline-code";
+import { InlineCode } from "@react-email/inline-code";
 
 const Email = () => {
-  return <Code>@react-email/inline-code</Code>;
+  return <InlineCode>@react-email/inline-code</InlineCode>;
 };
 ```
 
