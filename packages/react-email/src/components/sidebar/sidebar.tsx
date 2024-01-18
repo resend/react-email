@@ -20,14 +20,14 @@ export const Sidebar = React.forwardRef<SidebarElement, Readonly<SidebarProps>>(
 
     return (
       <aside
-        className={cn('border-r border-slate-6', className)}
+        className={cn('border-r flex flex-col border-slate-6', className)}
         ref={forwardedRef}
         {...props}
       >
-        <div className="p-4 h-[70px] items-center hidden lg:flex ">
+        <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex ">
           <Logo />
         </div>
-        <nav className="p-4 lg:pt-0 pl-0 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col overflow-y-scroll">
+        <nav className="p-4 flex-grow lg:pt-0 pl-0 w-screen h-full md:w-full md:min-w-[275px] md:max-w-[275px] flex flex-col overflow-y-scroll">
           <Collapsible.Root>
             <SidebarDirectoryChildren
               currentEmailOpenSlug={currentEmailOpenSlug}
