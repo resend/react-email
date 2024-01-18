@@ -3,6 +3,7 @@ import vm from 'node:vm';
 import stream from 'node:stream';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import util from 'node:util';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
@@ -62,7 +63,13 @@ export const getEmailComponent = async (
     stream,
     util,
     fs,
-    path
+    path,
+    crypto,
+    'node:stream': stream,
+    'node:util': util,
+    'node:fs': fs,
+    'node:path': path,
+    'node:crypto': crypto
   };
 
   const fakeContext = {
