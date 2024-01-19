@@ -24,6 +24,11 @@ export default async function Page({ params }) {
   });
 
   const Email = (await import(`../../../../emails/${params.slug}`)).default;
+  if (Email == null)
+    throw new Error(
+      `You need to export your Email component as a default export`,
+    );
+
   const previewProps = Email.PreviewProps || {};
   const markup = await renderAsync(<Email {...previewProps} />, {
     pretty: true,
