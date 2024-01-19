@@ -27,7 +27,7 @@ const baseUrl = process.env.VERCEL_URL
 
 export const AmazonReviewEmail = ({
   titleText = "Your opinion is important!",
-  reviewText = "Zeno Rocha, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.",
+  reviewText = "Alan Turing, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.",
   reviwStars = Array(5).fill(`${baseUrl}/static/amazon-rating.gif`),
   socialMediaIcons = [
     `${baseUrl}/static/amazon-instagram.jpg`,
@@ -143,7 +143,7 @@ export const AmazonReviewEmail = ({
                 We hope this message was helpful to you. However, if you prefer
                 not to receive this type of communication from{" "}
                 <Link style={urlLink}>Amazon.com</Link> at{" "}
-                <Link style={urlLink}>zenorocha@gmail.com </Link>,{" "}
+                <Link style={urlLink}>alanturing@gmail.com </Link>,{" "}
                 <Link style={clickHereLink}>click here</Link> .
               </Text>
               <Text style={footerText}>

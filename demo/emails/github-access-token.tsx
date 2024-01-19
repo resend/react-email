@@ -67,7 +67,7 @@ export const GithubAccessTokenEmail = ({
 );
 
 GithubAccessTokenEmail.PreviewProps = {
-  username: "zenorocha",
+  username: "alanturing",
 } as GithubAccessTokenEmailProps;
 
 export default GithubAccessTokenEmail;
@@ -80,7 +80,7 @@ const main = {
 };
 
 const container = {
-  width: "480px",
+  maxWidth: "480px",
   margin: "0 auto",
   padding: "20px 0 48px",
 };

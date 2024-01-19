@@ -80,6 +80,7 @@ export const CodepenChallengersEmail = () => (
           </Text>
 
           <Img
+            style={imgCube}
             src={`${baseUrl}/static/codepen-cube.png`}
             width={600}
             alt="codepen"
@@ -236,6 +237,11 @@ const main = {
 
 const imgHeader = {
   margin: "auto",
+  maxWidth: "100%",
+};
+
+const imgCube = {
+  maxWidth: "100%",
 };
 
 const header = {
@@ -247,22 +253,20 @@ const header = {
 };
 
 const container = {
-  paddingLeft: "12px",
-  paddingRight: "12px",
   margin: "0 auto",
   width: "648px",
-  maxWidth: "648px",
+  maxWidth: "100%",
   position: "relative" as const,
 };
 
 const challengeLink = {
   backgroundColor: "#505050",
   textAlign: "center" as const,
-  padding: "10px 0 25px 0",
+  padding: "10px 0",
   fontSize: "13px",
   position: "absolute" as const,
-  width: "100%",
-  maxWidth: "648px",
+  width: "648px",
+  maxWidth: "100%",
   top: "-28px",
   margin: "0 0 16px 0",
 };

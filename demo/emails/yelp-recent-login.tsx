@@ -50,7 +50,11 @@ export const YelpRecentLoginEmail = ({
 
           <Section style={content}>
             <Row>
-              <Img width={620} src={`${baseUrl}/static/yelp-header.png`} />
+              <Img
+                style={image}
+                width={620}
+                src={`${baseUrl}/static/yelp-header.png`}
+              />
             </Row>
 
             <Row style={{ ...boxInfos, paddingBottom: "0" }}>
@@ -115,7 +119,11 @@ export const YelpRecentLoginEmail = ({
           </Section>
 
           <Section style={containerImageFooter}>
-            <Img width={620} src={`${baseUrl}/static/yelp-footer.png`} />
+            <Img
+              style={image}
+              width={620}
+              src={`${baseUrl}/static/yelp-footer.png`}
+            />
           </Section>
 
           <Text
@@ -135,7 +143,7 @@ export const YelpRecentLoginEmail = ({
 };
 
 YelpRecentLoginEmail.PreviewProps = {
-  userFirstName: "Zeno",
+  userFirstName: "Alan",
   loginDate: new Date("September 7, 2022, 10:58 am"),
   loginDevice: "Chrome on Mac OS X",
   loginLocation: "Upland, California, United States",
@@ -180,8 +188,12 @@ const content = {
   overflow: "hidden",
 };
 
+const image = {
+  maxWidth: "100%",
+};
+
 const boxInfos = {
-  padding: "20px 40px",
+  padding: "20px",
 };
 
 const containerImageFooter = {

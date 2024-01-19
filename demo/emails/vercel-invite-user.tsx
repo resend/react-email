@@ -12,9 +12,9 @@ import {
   Preview,
   Row,
   Section,
-  Tailwind,
   Text,
 } from "@react-email/components";
+import { Tailwind } from "@react-email/tailwind";
 import * as React from "react";
 
 interface VercelInviteUserEmailProps {
@@ -140,10 +140,10 @@ export const VercelInviteUserEmail = ({
 };
 
 VercelInviteUserEmail.PreviewProps = {
-  username: "zenorocha",
+  username: "alanturing",
   userImage: `${baseUrl}/static/vercel-user.png`,
-  invitedByUsername: "bukinoshita",
-  invitedByEmail: "bukinoshita@example.com",
+  invitedByUsername: "jony",
+  invitedByEmail: "jony@example.com",
   teamName: "My Project",
   teamImage: `${baseUrl}/static/vercel-team.png`,
   inviteLink: "https://vercel.com/teams/invite/foo",

@@ -37,81 +37,75 @@ export const AirbnbReviewEmail = ({
       <Preview>{previewText}</Preview>
 
       <Body style={main}>
-        <Section style={main}>
-          <Container style={container}>
-            <Section>
-              <Img
-                src={`${baseUrl}/static/airbnb-logo.png`}
-                width="96"
-                height="30"
-                alt="Airbnb"
-              />
-            </Section>
-            <Section>
-              <Img
-                src={authorImage}
-                width="96"
-                height="96"
-                alt={authorName}
-                style={userImage}
-              />
-            </Section>
-            <Section style={{ paddingBottom: "20px" }}>
-              <Row>
-                <Text style={heading}>Here's what {authorName} wrote</Text>
-                <Text style={review}>{reviewText}</Text>
-                <Text style={paragraph}>
-                  Now that the review period is over, we’ve posted {authorName}
-                  ’s review to your Airbnb profile.
-                </Text>
-                <Text style={{ ...paragraph, paddingBottom: "16px" }}>
-                  While it’s too late to write a review of your own, you can
-                  send your feedback to {authorName} using your Airbnb message
-                  thread.
-                </Text>
+        <Container style={container}>
+          <Section>
+            <Img
+              src={`${baseUrl}/static/airbnb-logo.png`}
+              width="96"
+              height="30"
+              alt="Airbnb"
+            />
+          </Section>
+          <Section>
+            <Img
+              src={authorImage}
+              width="96"
+              height="96"
+              alt={authorName}
+              style={userImage}
+            />
+          </Section>
+          <Section style={{ paddingBottom: "20px" }}>
+            <Row>
+              <Text style={heading}>Here's what {authorName} wrote</Text>
+              <Text style={review}>{reviewText}</Text>
+              <Text style={paragraph}>
+                Now that the review period is over, we’ve posted {authorName}
+                ’s review to your Airbnb profile.
+              </Text>
+              <Text style={{ ...paragraph, paddingBottom: "16px" }}>
+                While it’s too late to write a review of your own, you can send
+                your feedback to {authorName} using your Airbnb message thread.
+              </Text>
 
-                <Button pY={19} style={button} href="https://airbnb.com/">
-                  Send My Feedback
-                </Button>
-              </Row>
-            </Section>
+              <Button style={button} href="https://airbnb.com/">
+                Send My Feedback
+              </Button>
+            </Row>
+          </Section>
 
-            <Hr style={hr} />
+          <Hr style={hr} />
 
-            <Section>
-              <Row>
-                <Text style={{ ...paragraph, fontWeight: "700" }}>
-                  Common questions
-                </Text>
-                <Text>
-                  <Link href="https://airbnb.com/help/article/13" style={link}>
-                    How do reviews work?
-                  </Link>
-                </Text>
-                <Text>
-                  <Link
-                    href="https://airbnb.com/help/article/1257"
-                    style={link}
-                  >
-                    How do star ratings work?
-                  </Link>
-                </Text>
-                <Text>
-                  <Link href="https://airbnb.com/help/article/995" style={link}>
-                    Can I leave a review after 14 days?
-                  </Link>
-                </Text>
-                <Hr style={hr} />
-                <Text style={footer}>
-                  Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
-                </Text>
-                <Link href="https://airbnb.com" style={reportLink}>
-                  Report unsafe behavior
+          <Section>
+            <Row>
+              <Text style={{ ...paragraph, fontWeight: "700" }}>
+                Common questions
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/13" style={link}>
+                  How do reviews work?
                 </Link>
-              </Row>
-            </Section>
-          </Container>
-        </Section>
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/1257" style={link}>
+                  How do star ratings work?
+                </Link>
+              </Text>
+              <Text>
+                <Link href="https://airbnb.com/help/article/995" style={link}>
+                  Can I leave a review after 14 days?
+                </Link>
+              </Text>
+              <Hr style={hr} />
+              <Text style={footer}>
+                Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
+              </Text>
+              <Link href="https://airbnb.com" style={reportLink}>
+                Report unsafe behavior
+              </Link>
+            </Row>
+          </Section>
+        </Container>
       </Body>
     </Html>
   );
@@ -120,7 +114,7 @@ export const AirbnbReviewEmail = ({
 AirbnbReviewEmail.PreviewProps = {
   authorName: "Alex",
   authorImage: `${baseUrl}/static/airbnb-review-user.jpg`,
-  reviewText: `“Zeno was a great guest! Easy communication, the apartment was left
+  reviewText: `“Alan was a great guest! Easy communication, the apartment was left
     in great condition, very polite, and respectful of all house rules.
     He’s welcome back anytime and would easily recommend him to any
     host!”`,
@@ -138,6 +132,7 @@ const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
   width: "580px",
+  maxWidth: "100%",
 };
 
 const userImage = {
@@ -171,6 +166,8 @@ const button = {
   borderRadius: "3px",
   color: "#fff",
   fontSize: "18px",
+  paddingTop: "19px",
+  paddingBottom: "19px",
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
