@@ -7,6 +7,6 @@
     "dev": "mintlify dev"
   },
   "dependencies": {
-    "mintlify": "3.0.65"
+    "mintlify": "4.0.112"
   }
 }

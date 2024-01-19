@@ -50,7 +50,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
+    "@babel/core": "7.23.7",
     "@babel/preset-react": "7.22.5",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",

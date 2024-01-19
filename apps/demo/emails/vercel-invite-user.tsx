@@ -124,7 +124,7 @@ export const VercelInviteUserEmail = ({
             <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
             <Text className="text-[#666666] text-[12px] leading-[24px]">
               This invitation was intended for{" "}
-              <span className="text-black">{username} </span>.This invite was
+              <span className="text-black">{username}</span>. This invite was
               sent from <span className="text-black">{inviteFromIp}</span>{" "}
               located in{" "}
               <span className="text-black">{inviteFromLocation}</span>. If you
