@@ -4,11 +4,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const isFileAnEmail = (fullPath: string): boolean => {
-  const unixFullPath = fullPath.replaceAll(path.sep, '/');
-
-  // eslint-disable-next-line prefer-named-capture-group
-  if (/(\/|^)_[^/]*/.test(unixFullPath)) return false;
-
   const stat = fs.statSync(fullPath);
 
   if (stat.isDirectory()) return false;
