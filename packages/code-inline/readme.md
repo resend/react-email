@@ -1,6 +1,6 @@
-![React Email inline-code cover](https://react.email/static/covers/inline-code.png)
+![React Email code-inline cover](https://react.email/static/covers/code-inline.png)
 
-<div align="center"><strong>@react-email/inline-code</strong></div>
+<div align="center"><strong>@react-email/code-inline</strong></div>
 <div align="center">Display a predictable inline code HTML element that works on all email clients.</div>
 <br />
 <div align="center">
@@ -18,13 +18,13 @@ Install component from your command line.
 #### With yarn
 
 ```sh
-yarn add @react-email/inline-code -E
+yarn add @react-email/code-inline -E
 ```
 
 #### With npm
 
 ```sh
-npm install @react-email/inline-code -E
+npm install @react-email/code-inline -E
 ```
 
 ## Getting started
@@ -32,10 +32,10 @@ npm install @react-email/inline-code -E
 Add the component to your email template. Include styles where needed.
 
 ```jsx
-import { InlineCode } from "@react-email/inline-code";
+import { CodeInline } from "@react-email/code-inline";
 
 const Email = () => {
-  return <InlineCode>@react-email/inline-code</InlineCode>;
+  return <CodeInline>@react-email/code-inline</CodeInline>;
 };
 ```
 
