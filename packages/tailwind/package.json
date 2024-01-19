@@ -50,7 +50,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
+    "@babel/core": "7.23.7",
     "@babel/preset-react": "7.22.5",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
@@ -69,7 +69,7 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "vite": "4.0.0",
+    "vite": "4.0.5",
     "vite-plugin-dts": "3.6.3",
     "vite-plugin-node-polyfills": "0.17.0"
   },
