@@ -1,11 +1,8 @@
 import * as ReactDomServer from "react-dom/server";
 import { convert } from "html-to-text";
 import { pretty } from "./utils/pretty";
-
-export interface Options {
-  pretty?: boolean;
-  plainText?: boolean;
-}
+import { plainTextSelectors } from "./plain-text-selectors";
+import type { Options } from "./options";
 
 export const render = (component: React.ReactElement, options?: Options) => {
   if (options?.plainText) {
@@ -25,16 +22,10 @@ export const render = (component: React.ReactElement, options?: Options) => {
 
 const renderAsPlainText = (
   component: React.ReactElement,
-  _options?: Options,
+  options?: Options,
 ) => {
   return convert(ReactDomServer.renderToStaticMarkup(component), {
-    selectors: [
-      { selector: "img", format: "skip" },
-      { selector: "#__react-email-preview", format: "skip" },
-      {
-        selector: "a",
-        options: { linkBrackets: false },
-      },
-    ],
+    selectors: plainTextSelectors,
+    ...(options?.plainText === true ? options.htmlToTextOptions : {}),
   });
 };

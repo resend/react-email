@@ -5,10 +5,8 @@ import { Prism } from "./prism";
 
 export type CodeBlockProps = Readonly<{
   lineNumbers?: boolean;
-
   style?: React.CSSProperties;
   theme: Theme;
-
   language: PrismLangauge;
   code: string;
 }>;

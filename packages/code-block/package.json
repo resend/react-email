@@ -1,7 +1,7 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.1",
-  "description": "A code block component that will render code using HTML",
+  "version": "0.0.2",
+  "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
+    "url": "https://github.com/resend/react-email.git",
     "directory": "packages/code-block"
   },
   "keywords": [

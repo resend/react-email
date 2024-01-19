@@ -25,6 +25,14 @@ const Web = () => {
         <Topbar />
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center">
           <div className="max-w-[725px] text-center">
+            <div className="flex items-center justify-center mb-8">
+              <Image
+                alt="React Email Logo"
+                height="120"
+                src="/static/logo.png"
+                width="120"
+              />
+            </div>
             <Heading
               className="before:bg-shine relative mb-8 !text-white/80 before:absolute before:left-0 before:top-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] "
               size="10"
