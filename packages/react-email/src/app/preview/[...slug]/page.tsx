@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import path from 'node:path';
+import { redirect } from 'next/navigation';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
@@ -29,7 +30,16 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     );
   }
 
-  const emailPath = await getEmailPathFromSlug(slug);
+  let emailPath: string;
+  try {
+    emailPath = await getEmailPathFromSlug(slug);
+  } catch (exception) {
+    if (exception instanceof Error) {
+      console.warn(exception.message);
+      redirect('/');
+    }
+    throw exception;
+  }
 
   const emailRenderingResult = await renderEmailByPath(emailPath);
 
