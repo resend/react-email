@@ -18,9 +18,21 @@ Starts a local development server that will watch your files and automatically r
 <ResponseField name="--port" type="string" default="3000">
   Port to run dev server on
 </ResponseField>
-<ResponseField name="--skip-install" type="boolean" default="false">
- Do not install dependencies
+
+## `email build`
+
+Copies the preview app for onto `.react-email` and builds it.
+
+<ResponseField name="--dir" type="string" default="emails">
+  Change the directory of your email templates.
 </ResponseField>
+<ResponseField name="--packageManager" type="string" default="npm">
+  Package manager to use on the installation of `.react-email`.
+</ResponseField>
+
+## `email start`
+
+Runs the built preview app that is inside of `.react-email`.
 
 ## `email export`
 
@@ -28,9 +40,6 @@ Generates the plain HTML files of your emails into a `out` directory.
 
 **Options**
 
-<ResponseField name="--dir" type="string" default="emails">
-  Change the directory of your email templates.
-</ResponseField>
 <ResponseField name="--outDir" type="string" default="out">
   Change the output directory.
 </ResponseField>
@@ -39,6 +48,9 @@ Generates the plain HTML files of your emails into a `out` directory.
 </ResponseField>
 <ResponseField name="--plainText" type="boolean" default="false">
   Set output format as plain text.
+</ResponseField>
+<ResponseField name="--dir" type="string" default="emails">
+  Change the directory of your email templates.
 </ResponseField>
 
 ## `email help <cmd>`
