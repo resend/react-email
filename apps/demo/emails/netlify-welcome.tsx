@@ -108,7 +108,7 @@ export const NetlifyWelcomeEmail = ({
             className="mx-auto my-20"
           />
           <Container className="bg-white p-45">
-            <Heading className="text-center my-0">Welcome to Netlify</Heading>
+            <Heading className="text-center my-0 leading-8">Welcome to Netlify</Heading>
 
             <Section>
               <Row>

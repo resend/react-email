@@ -51,8 +51,8 @@ export const VercelInviteUserEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-white my-auto mx-auto font-sans">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
+        <Body className="bg-white my-auto mx-auto font-sans px-2">
+          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
             <Section className="mt-[32px]">
               <Img
                 src={`${baseUrl}/static/vercel-logo.png`}
@@ -142,9 +142,9 @@ export const VercelInviteUserEmail = ({
 VercelInviteUserEmail.PreviewProps = {
   username: "alanturing",
   userImage: `${baseUrl}/static/vercel-user.png`,
-  invitedByUsername: "jony",
-  invitedByEmail: "jony@example.com",
-  teamName: "My Project",
+  invitedByUsername: "Alan",
+  invitedByEmail: "alan.turing@example.com",
+  teamName: "Enigma",
   teamImage: `${baseUrl}/static/vercel-team.png`,
   inviteLink: "https://vercel.com/teams/invite/foo",
   inviteFromIp: "204.13.186.218",
