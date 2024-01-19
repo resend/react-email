@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -43,7 +44,7 @@ export default async function Page({ params }: { params: PreviewParams }) {
   // This suspense is so that this page doesn't warning with
   // de-opt into client-side rendering on build
   return (
-    <Suspense>
+    <Suspense fallback={<Home />}>
       <Preview renderingResult={emailRenderingResult} slug={slug} />
     </Suspense>
   );
