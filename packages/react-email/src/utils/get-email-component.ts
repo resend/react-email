@@ -89,7 +89,7 @@ export const getEmailComponent = async (
     };
   }
 
-  if (fakeContext.module.exports.default == null) {
+  if (fakeContext.module.exports.default === undefined) {
     return {
       error: improveErrorWithSourceMap(
         new Error(
