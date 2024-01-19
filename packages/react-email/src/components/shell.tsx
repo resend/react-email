@@ -22,6 +22,7 @@ export const Shell = ({
   setActiveView,
 }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(false);
+  const [triggerTransition, setTriggerTransition] = React.useState(false);
 
   return (
     <div className="flex bg-black text-white flex-col h-screen overflow-x-hidden">
@@ -58,20 +59,31 @@ export const Shell = ({
       <div className="flex bg-slate-2">
         <Sidebar
           className={cn(
-            'w-screen max-w-full bg-black h-screen md:bg-inherit lg:h-auto z-50 md:max-w-[275px] transition-transform fixed top-[70px] lg:top-0 left-0',
+            'w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0',
             {
               'translate-x-0 lg:-translate-x-full': sidebarToggled,
               '-translate-x-full lg:translate-x-0': !sidebarToggled,
             },
           )}
           currentEmailOpenSlug={currentEmailOpenSlug}
+          style={{
+            transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
+          }}
         />
 
         <main
-          className={cn('transition-transform will-change-transform h-screen', {
-            'lg:translate-x-0 lg:w-[calc(100vw)]': sidebarToggled,
-            'lg:translate-x-[275px] lg:w-[calc(100vw-275px)]': !sidebarToggled,
-          })}
+          className={cn(
+            'absolute will-change-width h-screen w-[100vw] right-0',
+            {
+              'lg:translate-x-0 lg:w-[calc(100vw)]': sidebarToggled,
+              'lg:translate-x-0 lg:w-[calc(100vw-275px)]': !sidebarToggled,
+            },
+          )}
+          style={{
+            transition: triggerTransition
+              ? 'width 0.2s ease-in-out, transform 0.2s ease-in-out'
+              : '',
+          }}
         >
           {currentEmailOpenSlug ? (
             <Topbar
@@ -79,7 +91,15 @@ export const Shell = ({
               currentEmailOpenSlug={currentEmailOpenSlug}
               markup={markup}
               onToggleSidebar={() => {
-                setSidebarToggled((v) => !v);
+                setTriggerTransition(true);
+
+                requestAnimationFrame(() => {
+                  setSidebarToggled((v) => !v);
+                });
+
+                setTimeout(() => {
+                  setTriggerTransition(false);
+                }, 300);
               }}
               setActiveView={setActiveView}
             />
