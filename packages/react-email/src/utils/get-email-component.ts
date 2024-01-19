@@ -89,6 +89,18 @@ export const getEmailComponent = async (
     };
   }
 
+  if (fakeContext.module.exports.default === undefined) {
+    return {
+      error: improveErrorWithSourceMap(
+        new Error(
+          `The email component at ${emailPath} does not contain a default export`,
+        ),
+        emailPath,
+        sourceMapToEmail,
+      ),
+    };
+  }
+
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
     sourceMapToOriginalFile: sourceMapToEmail,
