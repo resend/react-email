@@ -272,6 +272,9 @@ importers:
       '@react-email/code-block':
         specifier: 0.0.2
         version: link:../code-block
+      '@react-email/code-inline':
+        specifier: 0.0.1
+        version: link:../code-inline
       '@react-email/column':
         specifier: 0.0.9
         version: link:../column
@@ -9903,7 +9906,7 @@ packages:
       execa: 5.1.1
       globby: 11.1.0
       joycon: 3.1.1
-      postcss-load-config: 4.0.1(postcss@8.4.26)
+      postcss-load-config: 4.0.1(postcss@8.4.32)
       resolve-from: 5.0.0
       rollup: 3.29.4
       source-map: 0.8.0-beta.0
