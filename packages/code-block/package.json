@@ -1,7 +1,7 @@
 {
   "name": "@react-email/code-block",
   "version": "0.0.2",
-  "description": "A code block component that will render code using HTML",
+  "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -32,8 +32,8 @@ export const getCssForMarkup = (
     tailwindcss({
       ...tailwindConfig,
       content: [{ raw: markup, extension: "html" }],
-    }),
-    postcssCssVariables(),
+    }) as postcss.AcceptedPlugin,
+    postcssCssVariables() as postcss.AcceptedPlugin,
   ]);
   const result = processor.process(
     String.raw`
