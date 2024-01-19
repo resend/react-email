@@ -241,6 +241,9 @@ importers:
       '@react-email/button':
         specifier: 0.0.13
         version: link:../button
+      '@react-email/code-block':
+        specifier: 0.0.2
+        version: link:../code-block
       '@react-email/column':
         specifier: 0.0.9
         version: link:../column
@@ -272,8 +275,8 @@ importers:
         specifier: 0.0.8
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.12-canary.0
-        version: 0.0.12-canary.0
+        specifier: 0.0.12
+        version: link:../render
       '@react-email/row':
         specifier: 0.0.7
         version: link:../row
