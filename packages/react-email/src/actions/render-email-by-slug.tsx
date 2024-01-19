@@ -22,7 +22,10 @@ export type EmailRenderingResult =
 export const renderEmailBySlug = async (
   emailSlug: string,
 ): Promise<EmailRenderingResult> => {
-  const emailPathWithoutExtesion = path.join(emailsDirectoryAbsolutePath, emailSlug);
+  const emailPathWithoutExtesion = path.join(
+    emailsDirectoryAbsolutePath,
+    emailSlug,
+  );
 
   let emailPath: string;
   // manually find out what is the file extension for the email
