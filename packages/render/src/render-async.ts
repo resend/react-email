@@ -4,6 +4,7 @@ import type { ReactDOMServerReadableStream } from "react-dom/server";
 import { pretty } from "./utils/pretty";
 import { plainTextSelectors } from "./plain-text-selectors";
 import type { Options } from "./options";
+import { silenceKeyWarnings, unsilenceKeyWarnings } from "./utils/silence-key-warnings";
 
 const decoder = new TextDecoder("utf-8");
 
@@ -46,7 +47,10 @@ export const renderAsync = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
+  silenceKeyWarnings();
   const htmlOrReadableStream = await renderToStream(component);
+  unsilenceKeyWarnings();
+
   const html =
     typeof htmlOrReadableStream === "string"
       ? htmlOrReadableStream

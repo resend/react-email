@@ -1,6 +1,6 @@
 import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
-import { render } from "./index";
+import { render, renderAsync } from "./index";
 
 describe("render", () => {
   it("converts a React component into HTML", () => {
@@ -8,6 +8,23 @@ describe("render", () => {
     expect(actualOutput).toMatchInlineSnapshot(
       '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, Jim!</h1><img alt=\\"test\\" src=\\"img/test.png\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"',
     );
+  });
+
+  it.only("should not log React key warnings", () => {
+    const originalError = vi.spyOn(console, 'error');
+
+    const Email = (
+      <ul>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+          // eslint-disable-next-line react/jsx-key
+          <li>{number}</li>
+        ))}
+      </ul>
+    );
+
+    render(Email);
+
+    expect(originalError).toHaveBeenCalledTimes(0);
   });
 
   it("should not have brackets around the link with the plain text active", () => {
