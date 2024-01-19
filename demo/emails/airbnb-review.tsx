@@ -166,18 +166,8 @@ const button = {
   borderRadius: "3px",
   color: "#fff",
   fontSize: "18px",
-<<<<<<< HEAD
-<<<<<<< HEAD
   paddingTop: "19px",
   paddingBottom: "19px",
-=======
-  paddingTop: '19px',
-  paddingBottom: '19px',
->>>>>>> 7a048e6e (fix(demo): pY usage on Button for airbnb-review)
-=======
-  paddingTop: "19px",
-  paddingBottom: "19px",
->>>>>>> 66392d73 (fix(demo): formatting)
   textDecoration: "none",
   textAlign: "center" as const,
   display: "block",
