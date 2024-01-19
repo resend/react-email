@@ -1,6 +1,4 @@
-/* eslint-disable eslint-comments/require-description */
 /* eslint-disable turbo/no-undeclared-env-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { Resend } from "resend";
@@ -33,7 +31,7 @@ export default async function sendTest(
       const countryRegion = req.headers["x-vercel-ip-country-region"];
 
       const savePromise = supabase
-        .from(process.env.SUPABASE_TABLE_NAME || '')
+        .from(process.env.SUPABASE_TABLE_NAME || "")
         .insert([
           {
             to: [to],
@@ -59,7 +57,6 @@ export default async function sendTest(
 
       res.status(200).json({ message: "Test email sent" });
     } catch (error) {
-      console.log(error);
       if (is.error(error)) {
         return res.status(500).json({ error: error.message });
       }
