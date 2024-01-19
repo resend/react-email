@@ -5,7 +5,6 @@ import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import logo from './logo.png';
-import pattern from './pattern.png';
 
 const Home = () => {
   const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);
@@ -13,14 +12,6 @@ const Home = () => {
   return (
     <Shell>
       <div className="relative max-w-lg mx-auto p-8 flex items-center justify-center h-[inherit]">
-        <Image
-          alt="React Email Icon"
-          className="absolute top-0 -translate-x-1/2 left-1/2 -translate-y-[70px] opacity-70"
-          height={349}
-          src={pattern}
-          width={349}
-        />
-
         <div className="relative z-10 flex flex-col text-center items-center">
           <Image
             alt="React Email Icon"
@@ -44,7 +35,7 @@ const Home = () => {
             folder.
           </Text>
 
-          <Button asChild>
+          <Button asChild size="3">
             <Link href="https://react.email/docs">Check the docs</Link>
           </Button>
         </div>

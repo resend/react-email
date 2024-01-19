@@ -73,7 +73,7 @@
     "@types/mime-types": "2.1.4",
     "@types/node": "20.10.4",
     "@types/normalize-path": "3.0.2",
-    "@types/shelljs": "0.8.12",
+    "@types/shelljs": "0.8.15",
     "@vercel/style-guide": "5.1.0",
     "eslint": "8.50.0",
     "tsup": "7.2.0",
