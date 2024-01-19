@@ -785,8 +785,8 @@ importers:
         specifier: 3.1.7
         version: 3.1.7
       '@types/html-to-text':
-        specifier: 9.0.1
-        version: 9.0.1
+        specifier: 9.0.4
+        version: 9.0.4
       '@types/js-beautify':
         specifier: 1.14.3
         version: 1.14.3
@@ -4003,8 +4003,8 @@ packages:
       '@types/node': 20.10.4
     dev: true
 
-  /@types/html-to-text@9.0.1:
-    resolution: {integrity: sha512-sHu702QGb0SP2F0Zt+CxdCmGZIZ0gEaaCjqOh/V4iba1wTxPVntEPOM/vHm5bel08TILhB3+OxUTkDJWnr/zHQ==}
+  /@types/html-to-text@9.0.4:
+    resolution: {integrity: sha512-pUY3cKH/Nm2yYrEmDlPR1mR7yszjGx4DrwPjQ702C4/D5CwHuZTgZdIdwPkRbcuhs7BAh2L5rg3CL5cbRiGTCQ==}
     dev: true
 
   /@types/js-beautify@1.14.3:
