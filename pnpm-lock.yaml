@@ -742,8 +742,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       '@types/shelljs':
-        specifier: 0.8.12
-        version: 0.8.12
+        specifier: 0.8.15
+        version: 0.8.15
       '@vercel/style-guide':
         specifier: 5.1.0
         version: 5.1.0(eslint@8.50.0)(prettier@3.0.3)(typescript@5.1.6)
@@ -4096,8 +4096,8 @@ packages:
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
     dev: true
 
-  /@types/shelljs@0.8.12:
-    resolution: {integrity: sha512-ZA8U81/gldY+rR5zl/7HSHrG2KDfEb3lzG6uCUDhW1DTQE9yC/VBQ45fXnXq8f3CgInfhZmjtdu/WOUlrXRQUg==}
+  /@types/shelljs@0.8.15:
+    resolution: {integrity: sha512-vzmnCHl6hViPu9GNLQJ+DZFd6BQI2DBTUeOvYHqkWQLMfKAAQYMb/xAmZkTogZI/vqXHCWkqDRymDI5p0QTi5Q==}
     dependencies:
       '@types/glob': 7.2.0
       '@types/node': 20.10.4
