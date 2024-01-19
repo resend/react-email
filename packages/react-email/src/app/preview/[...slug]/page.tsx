@@ -6,13 +6,13 @@ import Preview from './preview';
 export const dynamicParams = true;
 
 export interface PreviewParams {
-  slug: string;
+  slug: string[];
 }
 
 export default async function Page({ params }: { params: PreviewParams }) {
-  // will come in here as a relative path to the email
-  // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
-  const slug = decodeURIComponent(params.slug);
+  // will come in here as segments of a relative path to the email
+  // ex: ['authentication', 'verify-password.tsx']
+  const slug = params.slug.join('/');
   const emailsDirMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,
   );
@@ -38,5 +38,5 @@ export default async function Page({ params }: { params: PreviewParams }) {
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
-  return { title: `${decodeURIComponent(params.slug)} — React Email` };
+  return { title: `${params.slug.join('/')} — React Email` };
 }
