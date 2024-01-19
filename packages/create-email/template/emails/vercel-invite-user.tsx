@@ -1,8 +1,8 @@
 import {
   Body,
   Button,
-  Column,
   Container,
+  Column,
   Head,
   Heading,
   Hr,
@@ -12,9 +12,9 @@ import {
   Preview,
   Row,
   Section,
-  Tailwind,
   Text,
 } from "@react-email/components";
+import { Tailwind } from "@react-email/tailwind";
 import * as React from "react";
 
 interface VercelInviteUserEmailProps {
@@ -34,15 +34,15 @@ const baseUrl = process.env.VERCEL_URL
   : "";
 
 export const VercelInviteUserEmail = ({
-  username = "zenorocha",
-  userImage = `${baseUrl}/static/vercel-user.png`,
-  invitedByUsername = "bukinoshita",
-  invitedByEmail = "bukinoshita@example.com",
-  teamName = "My Project",
-  teamImage = `${baseUrl}/static/vercel-team.png`,
-  inviteLink = "https://vercel.com/teams/invite/foo",
-  inviteFromIp = "204.13.186.218",
-  inviteFromLocation = "São Paulo, Brazil",
+  username,
+  userImage,
+  invitedByUsername,
+  invitedByEmail,
+  teamName,
+  teamImage,
+  inviteLink,
+  inviteFromIp,
+  inviteFromLocation,
 }: VercelInviteUserEmailProps) => {
   const previewText = `Join ${invitedByUsername} on Vercel`;
 
@@ -51,8 +51,8 @@ export const VercelInviteUserEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-white my-auto mx-auto font-sans">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] w-[465px]">
+        <Body className="bg-white my-auto mx-auto font-sans px-2">
+          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
             <Section className="mt-[32px]">
               <Img
                 src={`${baseUrl}/static/vercel-logo.png`}
@@ -109,7 +109,7 @@ export const VercelInviteUserEmail = ({
             </Section>
             <Section className="text-center mt-[32px] mb-[32px]">
               <Button
-                className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center py-3 px-5"
+                className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
                 href={inviteLink}
               >
                 Join the team
@@ -124,7 +124,7 @@ export const VercelInviteUserEmail = ({
             <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
             <Text className="text-[#666666] text-[12px] leading-[24px]">
               This invitation was intended for{" "}
-              <span className="text-black">{username} </span>.This invite was
+              <span className="text-black">{username}</span>. This invite was
               sent from <span className="text-black">{inviteFromIp}</span>{" "}
               located in{" "}
               <span className="text-black">{inviteFromLocation}</span>. If you
@@ -138,5 +138,17 @@ export const VercelInviteUserEmail = ({
     </Html>
   );
 };
+
+VercelInviteUserEmail.PreviewProps = {
+  username: "alanturing",
+  userImage: `${baseUrl}/static/vercel-user.png`,
+  invitedByUsername: "Alan",
+  invitedByEmail: "alan.turing@example.com",
+  teamName: "Enigma",
+  teamImage: `${baseUrl}/static/vercel-team.png`,
+  inviteLink: "https://vercel.com/teams/invite/foo",
+  inviteFromIp: "204.13.186.218",
+  inviteFromLocation: "São Paulo, Brazil",
+} as VercelInviteUserEmailProps;
 
 export default VercelInviteUserEmail;
