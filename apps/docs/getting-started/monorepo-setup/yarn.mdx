@@ -34,20 +34,7 @@ so you will need to set it to one of these two on your `.yarnrc.yml` file:
 nodeLinker: node-modules
 ```
 
-## 3. Add the preview client to your workspaces
-
-Currently, for React Email to work properly with yarn, you will need to add
-the preview client's folder to the workspaces as follows:
-
-```json package.json
-{
-  // ...
-  "workspaces": ["packages/*", "packages/transactional/.react-email"],
-  // ...
-}
-```
-
-## 4. Install dependencies
+## 3. Install dependencies
 
 Install React Email in the `transactional` workspace.
 
@@ -55,7 +42,7 @@ Install React Email in the `transactional` workspace.
 yarn add react-email @react-email/components -E
 ```
 
-## 5. Add scripts
+## 4. Add scripts
 
 Include the following script in your `package.json` file.
 
@@ -69,7 +56,7 @@ Include the following script in your `package.json` file.
 }
 ```
 
-## 6. Write your emails
+## 5. Write your emails
 
 Create a new folder called `emails`, create a file inside called `MyEmail.tsx` and add the following example code:
 
@@ -93,7 +80,7 @@ export const MyEmail = () => {
 export default MyEmail;
 ```
 
-## 7. Run preview server
+## 6. Run preview server
 
 Start the email previews development server:
 
@@ -101,7 +88,7 @@ Start the email previews development server:
 yarn dev
 ```
 
-## 8. See changes live
+## 7. See changes live
 
 Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` file to see the changes.
 
@@ -109,7 +96,7 @@ Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` 
   <img alt="Local Development" src="/images/local-dev.png" />
 </Frame>
 
-## 9. Try it yourself
+## 8. Try it yourself
 
 <Card
   title="React Email + Turborepo + yarn example"

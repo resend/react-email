@@ -19,20 +19,7 @@ Include a new `package.json` and do not forget to add this to the `workspaces` o
   See the full source code
 </Card>
 
-## 2. Add the preview client to your workspaces
-
-Currently, for React Email to work properly with npm's workspaces, you will need to add
-the preview client's folder to the workspaces as follows:
-
-```json package.json
-{
-  // ...
-  "workspaces": ["packages/*", "packages/transactional/.react-email"],
-  // ...
-}
-```
-
-## 3. Install dependencies
+## 2. Install dependencies
 
 Install React Email in the `transactional` workspace.
 
@@ -40,7 +27,7 @@ Install React Email in the `transactional` workspace.
 npm install react-email @react-email/components -E
 ```
 
-## 4. Add scripts
+## 3. Add scripts
 
 Include the following script in your `package.json` file.
 
@@ -54,7 +41,7 @@ Include the following script in your `package.json` file.
 }
 ```
 
-## 5. Write your emails
+## 4. Write your emails
 
 Create a new folder called `emails`, create a file inside called `MyEmail.tsx` and add the following example code:
 
@@ -78,7 +65,7 @@ export const MyEmail = () => {
 export default MyEmail;
 ```
 
-## 6. Run preview server
+## 5. Run preview server
 
 Start the email previews development server:
 
@@ -86,7 +73,7 @@ Start the email previews development server:
 npm run dev
 ```
 
-## 7. See changes live
+## 6. See changes live
 
 Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` file to see the changes.
 
@@ -94,7 +81,7 @@ Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` 
   <img alt="Local Development" src="/images/local-dev.png" />
 </Frame>
 
-## 8. Try it yourself
+## 7. Try it yourself
 
 <Card 
   title="React Email + Turborepo + npm example" 
