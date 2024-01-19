@@ -57,7 +57,7 @@ export const SidebarDirectoryChildren = (props: {
                 )}
 
                 {props.emailsDirectoryMetadata.emailFilenames.map(
-                  (emailFilename) => {
+                  (emailFilename, index) => {
                     const emailSlug = `${directoryPathRelativeToEmailsDirectory}${
                       !isBaseEmailsDirectory ? pathSeparator : ''
                     }${emailFilename.replace(/\..+$/, '')}`;
@@ -73,7 +73,7 @@ export const SidebarDirectoryChildren = (props: {
                         key={emailSlug}
                       >
                         <motion.span
-                          animate={{ opacity: 1 }}
+                          animate={{ x: 0, opacity: 1 }}
                           className={cn(
                             'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition ease-in-out duration-200',
                             {
@@ -82,6 +82,11 @@ export const SidebarDirectoryChildren = (props: {
                                 props.currentEmailOpenSlug !== emailSlug,
                             },
                           )}
+                          initial={{ x: -10 + -index * 1.5, opacity: 0 }}
+                          transition={{
+                            x: { delay: 0.03 * index, duration: 0.05 },
+                            opacity: { delay: 0.03 * index, duration: 0.2 },
+                          }}
                         >
                           {isCurrentPage ? (
                             <motion.span
