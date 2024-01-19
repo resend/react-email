@@ -106,21 +106,25 @@ const Examples = () => {
         <meta content={title} property="og:title" />
         <meta content={description} property="og:description" />
       </Head>
+
       <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
         <Topbar />
+
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center py-10">
           <div className="mb-12 max-w-[745px] text-center">
             <Heading className="mb-2 text-white" size="8">
               Examples
             </Heading>
+
             <Text as="p" className="text-slate-11" size="4">
               {description}.
             </Text>
+
             <Text as="p" className="text-slate-11" size="4">
               Recreate an{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+                href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 target="_blank"
               >
                 existing email
@@ -128,7 +132,7 @@ const Examples = () => {
               or submit a{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resend/react-email/tree/main/demo"
                 target="_blank"
               >
                 pull request
@@ -143,15 +147,16 @@ const Examples = () => {
             ))}
           </div>
         </div>
+
         <Footer />
       </div>
+
       <Image
         alt=""
         className="absolute top-[220px] left-0 z-[10] h-full w-full select-none md:top-0"
         fill
         priority
         src="/static/bg.png"
-        style={{ position: "absolute" }}
       />
     </>
   );

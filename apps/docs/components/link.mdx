@@ -1,0 +1,63 @@
+---
+title: "Link"
+sidebarTitle: "Link"
+description: "A hyperlink to web pages, email addresses, or anything else a URL can address."
+"og:image": "https://react.email/static/covers/link.png"
+icon: "link"
+---
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/link -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/link -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/link -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Link } from "@react-email/components";
+
+const Email = () => {
+  return <Link href="https://example.com">Example</Link>;
+};
+```
+
+## Props
+
+<ResponseField name="href" type="string" required>
+  Link to be triggered when the button is clicked
+</ResponseField>
+
+<ResponseField name="target" type="string" default="_blank">
+  Specify the target attribute for the button link
+</ResponseField>
+
+<Snippet file="support.mdx" />

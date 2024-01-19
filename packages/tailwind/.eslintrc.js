@@ -9,11 +9,11 @@ module.exports = {
     "regex/invalid": [
       "error", [
         {
-          "message": "Do not use negative look behinds as they may harm experience for some users (see https://github.com/resendlabs/react-email/issues/549)",
+          "message": "Do not use negative look behinds as they may harm experience for some users (see https://github.com/resend/react-email/issues/549)",
           "regex": "\\(\\?<![^\)]*\\)",
         },
         {
-          "message": "Do not use look behinds as they may harm experience for some users (see https://github.com/resendlabs/react-email/issues/549)",
+          "message": "Do not use look behinds as they may harm experience for some users (see https://github.com/resend/react-email/issues/549)",
           "regex": "\\(\\?<=[^\\)]*\\)"
         }
       ]

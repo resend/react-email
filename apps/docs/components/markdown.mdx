@@ -1,0 +1,86 @@
+---
+title: "Markdown"
+sidebarTitle: "Markdown"
+description: "A Markdown component that converts markdown to valid react-email template code"
+"og:image": "https://react.email/static/covers/markdown.png"
+icon: "file-code"
+---
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/markdown -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/markdown -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/markdown -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Markdown, Html } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Markdown
+        markdownCustomStyles={{
+          h1: { color: "red" },
+          h2: { color: "blue" },
+          codeInline: { background: "grey" },
+        }}
+        markdownContainerStyles={{
+          padding: "12px",
+          border: "solid 1px black",
+        }}
+      >{`# Hello, World!`}</Markdown>
+
+      {/* OR */}
+
+      <Markdown children={`# This is a ~~strikethrough~~`} />
+    </Html>
+  );
+};
+```
+
+## Props
+
+<ResponseField name="children" type="string">
+  Contains the markdown content that will be rendered in the email template
+</ResponseField>
+<ResponseField name="markdownContainerStyles" type="object" default="{}">
+  Provide custom styles for the containing div that wraps the markdown content
+</ResponseField>
+<ResponseField name="markdownCustomStyles" type="object" default="{}">
+  Provide custom styles for the corresponding html element (p, h1, h2, etc.)
+  <Info>
+    Note: Passing a custom style for an element overrides the default styles.
+  </Info>
+</ResponseField>
+
+<Snippet file="support.mdx" />

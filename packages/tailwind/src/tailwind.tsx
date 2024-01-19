@@ -3,13 +3,13 @@
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
-import { renderToStaticMarkup } from "react-dom/server";
 import { cssToJsxStyle } from "./utils/css-to-jsx-style";
 import { getCssForMarkup } from "./utils/get-css-for-markup";
 import { minifyCss } from "./utils/minify-css";
 import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
 import { escapeClassName } from "./utils/escape-class-name";
 import { useRgbNonSpacedSyntax } from "./utils/use-rgb-non-spaced-syntax";
+import { quickSafeRenderToString } from "./utils/quick-safe-render-to-string";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -129,7 +129,7 @@ function processHead(
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   let headStyles: string[] = [];
 
-  const markupWithTailwindClasses = renderToStaticMarkup(<>{children}</>);
+  const markupWithTailwindClasses = quickSafeRenderToString(<>{children}</>);
   const markupCSS = useRgbNonSpacedSyntax(
     getCssForMarkup(markupWithTailwindClasses, config),
   );

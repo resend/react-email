@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
+    "url": "https://github.com/resend/react-email.git",
     "directory": "packages/render"
   },
   "keywords": [
@@ -44,17 +44,20 @@
   },
   "dependencies": {
     "html-to-text": "9.0.5",
-    "pretty": "2.0.0",
+    "js-beautify": "^1.14.11",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
+    "@edge-runtime/vm": "3.1.7",
     "@types/html-to-text": "9.0.1",
-    "@types/pretty": "2.0.1",
+    "@types/js-beautify": "1.14.3",
     "eslint-config-custom": "workspace:*",
+    "jsdom": "23.0.1",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "vitest": "0.34.6"
   },
   "publishConfig": {
     "access": "public"

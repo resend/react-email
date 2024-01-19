@@ -1,0 +1,59 @@
+---
+title: "Preview"
+sidebarTitle: "Preview"
+description: "A preview text that will be displayed in the inbox of the recipient."
+"og:image": "https://react.email/static/covers/preview.png"
+icon: "input-text"
+---
+
+<Info>
+  Email clients have this concept of “preview text” which gives insight into
+  what's inside the email before you open. A good practice is to keep that text
+  under 90 characters.
+</Info>
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/preview -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/preview -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/preview -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Preview } from "@react-email/components";
+
+const Email = () => {
+  return <Preview>Email preview text</Preview>;
+};
+```
+
+<Snippet file="support.mdx" />

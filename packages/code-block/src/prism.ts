@@ -1,6 +1,9 @@
 /* eslint-disable */
 // @ts-nocheck
-import * as Prism from "prismjs";
+import * as PrismImport from "prismjs";
+// this avoids an issue that was happening when importing inside of
+// a pages router Next app
+const Prism: typeof import("prismjs") = PrismImport.default ?? PrismImport;
 export { Prism };
 (Prism.languages.markup = {
   comment: { pattern: /<!--(?:(?!<!--)[\s\S])*?-->/, greedy: !0 },

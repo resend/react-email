@@ -1,6 +1,6 @@
 {
   "name": "@react-email/head",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Contains head components such as style and meta elements.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.mts",
         "default": "./dist/index.mjs"
       },
       "require": {
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
+    "url": "https://github.com/resend/react-email.git",
     "directory": "packages/head"
   },
   "keywords": [
