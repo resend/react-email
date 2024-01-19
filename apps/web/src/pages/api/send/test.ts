@@ -1,14 +1,12 @@
+/* eslint-disable eslint-comments/require-description */
+/* eslint-disable turbo/no-undeclared-env-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 import type { NextApiRequest, NextApiResponse } from "next";
 import is from "@sindresorhus/is";
-
-console.log(process.env.RESEND_API_KEY);
-console.log(process.env.SUPABASE_URL);
-console.log(process.env.SUPABASE_ANON_KEY);
-console.log(process.env.SUPABASE_TABLE_NAME);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const supabaseUrl = process.env.SUPABASE_URL || "";
@@ -35,7 +33,7 @@ export default async function sendTest(
       const countryRegion = req.headers["x-vercel-ip-country-region"];
 
       const savePromise = supabase
-        .from(process.env.SUPABASE_TABLE_NAME)
+        .from(process.env.SUPABASE_TABLE_NAME || '')
         .insert([
           {
             to: [to],
