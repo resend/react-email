@@ -1,39 +1,48 @@
-const colors = require("@radix-ui/colors");
-const { fontFamily } = require("tailwindcss/defaultTheme");
-const plugin = require("tailwindcss/plugin");
+import type { Config } from 'tailwindcss';
+import colors = require('@radix-ui/colors');
+import { fontFamily } from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 
-const iOsHeight = plugin(function ({ addUtilities }) {
-  const supportsTouchRule = "@supports (-webkit-touch-callout: none)";
-  const webkitFillAvailable = "-webkit-fill-available";
+const iOsHeight = plugin(({ addUtilities }) => {
+  const supportsTouchRule = '@supports (-webkit-touch-callout: none)';
+  const webkitFillAvailable = '-webkit-fill-available';
 
   const utilities = {
-    ".min-h-screen-ios": {
+    '.min-h-screen-ios': {
       [supportsTouchRule]: {
         minHeight: webkitFillAvailable,
       },
     },
-    ".h-screen-ios": {
+    '.h-screen-ios': {
       [supportsTouchRule]: {
         height: webkitFillAvailable,
       },
     },
   };
 
-  addUtilities(utilities, ["responsive"]);
+  // @ts-expect-error This works normally, not sure what this error is
+  addUtilities(utilities, ['responsive']);
 });
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["src/**/*.{js,ts,jsx,tsx}", "../../apps/**/*.{js,ts,jsx,tsx}"],
+const config: Config = {
+  content: {
+    // needs to be relative because tailwind will find the content
+    // by default based on the process's cwd
+    relative: true,
+    files: [
+      './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    ],
+  },
   theme: {
     extend: {
       backgroundImage: {
         gradient:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
+          'linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)',
         gradientHover:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)",
+          'linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)',
         shine:
-          "linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)",
+          'linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)',
       },
       colors: {
         cyan: {
@@ -66,19 +75,20 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "var(--font-inter)", ...fontFamily.sans],
+        sans: ['var(--font-inter)', ...fontFamily.sans],
       },
       keyframes: {
         shine: {
-          "0%": { backgroundPosition: "-100%" },
-          "100%": { backgroundPosition: "100%" },
+          '0%': { backgroundPosition: '-100%' },
+          '100%': { backgroundPosition: '100%' },
         },
         dash: {
-          "0%": { strokeDashoffset: 1000 },
-          "100%": { strokeDashoffset: 0 },
+          '0%': { strokeDashoffset: '1000' },
+          '100%': { strokeDashoffset: '0' },
         },
       },
     },
   },
   plugins: [iOsHeight],
 };
+export default config;
