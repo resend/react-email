@@ -78,7 +78,7 @@ const main = {
 const container = {
   margin: "0 auto",
   padding: "20px 0 48px",
-  width: "560px",
+  maxWidth: "560px",
 };
 
 const heading = {

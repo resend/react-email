@@ -71,7 +71,7 @@ const container = {
   borderRadius: "5px",
   boxShadow: "0 5px 10px rgba(20,50,70,.2)",
   marginTop: "20px",
-  width: "360px",
+  maxWidth: "360px",
   margin: "0 auto",
   padding: "68px 0 130px",
 };

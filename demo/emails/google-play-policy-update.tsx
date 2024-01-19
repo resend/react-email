@@ -140,6 +140,7 @@ export const GooglePlayPolicyUpdateEmail = () => (
           </Row>
           <Row>
             <Img
+              style={footer}
               width="540"
               height="48"
               src={`${baseUrl}/static/google-play-footer.png`}
@@ -195,7 +196,6 @@ const headerBlue = {
 
 const container = {
   margin: "30px auto",
-  width: "610px",
   backgroundColor: "#fff",
   borderRadius: 5,
   overflow: "hidden",
@@ -238,4 +238,8 @@ const link = {
 const hr = {
   borderColor: "#e8eaed",
   margin: "20px 0",
+};
+
+const footer = {
+  maxWidth: "100%",
 };

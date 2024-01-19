@@ -62,7 +62,7 @@ export const KoalaWelcomeEmail = ({
 );
 
 KoalaWelcomeEmail.PreviewProps = {
-  userFirstname: "Zeno",
+  userFirstname: "Alan",
 } as KoalaWelcomeEmailProps;
 
 export default KoalaWelcomeEmail;

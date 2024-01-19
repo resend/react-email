@@ -49,7 +49,7 @@ export const SlackConfirmEmail = ({
         </Section>
 
         <Text style={text}>
-          If you didn't request this email, there's nothing to worry about - you
+          If you didn't request this email, there's nothing to worry about, you
           can safely ignore it.
         </Text>
 
@@ -194,8 +194,8 @@ const main = {
 };
 
 const container = {
-  maxWidth: "600px",
   margin: "0 auto",
+  padding: "0px 20px",
 };
 
 const logoContainer = {
@@ -220,9 +220,8 @@ const heroText = {
 const codeBox = {
   background: "rgb(245, 244, 245)",
   borderRadius: "4px",
-  marginRight: "50px",
   marginBottom: "30px",
-  padding: "43px 23px",
+  padding: "40px 10px",
 };
 
 const confirmationCodeText = {

@@ -67,6 +67,7 @@ export const StackOverflowTipsEmail = ({
             </Column>
             <Column style={headerImageContainer}>
               <Img
+                style={headerImage}
                 width={340}
                 src={`${baseUrl}/static/stack-overflow-header.png`}
               />
@@ -180,6 +181,10 @@ const headerImageContainer = {
   padding: "30px 10px",
 };
 
+const headerImage = {
+  maxWidth: "100%",
+};
+
 const title = {
   margin: "0 0 15px",
   fontWeight: "bold",
@@ -199,14 +204,15 @@ const divider = {
 };
 
 const container = {
-  maxWidth: "680px",
-  width: "100%",
+  width: "680px",
+  maxWidth: "100%",
   margin: "0 auto",
   backgroundColor: "#ffffff",
 };
 
 const footer = {
   width: "680px",
+  maxWidth: "100%",
   margin: "32px auto 0 auto",
   padding: "0 30px",
 };

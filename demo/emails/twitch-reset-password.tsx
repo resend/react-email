@@ -105,7 +105,7 @@ export const TwitchResetPasswordEmail = ({
 };
 
 TwitchResetPasswordEmail.PreviewProps = {
-  username: "zenorocha",
+  username: "alanturing",
   updatedDate: new Date("June 23, 2022 4:06:00 pm UTC"),
 } as TwitchResetPasswordEmailProps;
 
@@ -124,18 +124,18 @@ const paragraph = {
 };
 
 const container = {
-  width: "580px",
+  maxWidth: "580px",
   margin: "30px auto",
   backgroundColor: "#ffffff",
 };
 
 const footer = {
-  width: "580px",
+  maxWidth: "580px",
   margin: "0 auto",
 };
 
 const content = {
-  padding: "5px 50px 10px 60px",
+  padding: "5px 20px 10px 20px",
 };
 
 const logo = {
