@@ -22,7 +22,7 @@
     "@next/eslint-plugin-next": "13.5.3",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
-    "postcss": "8.4.26",
+    "postcss": "8.4.31",
     "tailwindcss": "3.3.3",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
