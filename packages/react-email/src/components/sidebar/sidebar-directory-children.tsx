@@ -60,7 +60,7 @@ export const SidebarDirectoryChildren = (props: {
                   (emailFilename, index) => {
                     const emailSlug = `${directoryPathRelativeToEmailsDirectory}${
                       !isBaseEmailsDirectory ? pathSeparator : ''
-                    }${emailFilename.replace(/\..+$/, '')}`;
+                    }${emailFilename}`;
                     const isCurrentPage =
                       props.currentEmailOpenSlug === emailSlug;
 
