@@ -13,7 +13,7 @@
     "@react-email/tailwind": "0.0.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-email": "2.0.0-canary.9"
+    "react-email": "workspace:2.0.0-canary.10"
   },
   "devDependencies": {
     "@types/react": "18.2.47",
