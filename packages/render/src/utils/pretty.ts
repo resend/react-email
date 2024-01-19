@@ -3,7 +3,7 @@
 
 import * as jsBeautify from "js-beautify";
 // Refactored the import of js-beautify to use the entire module due to compatibility issues with ESM.
-// The js-beautify library is authored using CommonJS, and named imports may lead to problems when transpiling.
+// The js-beautify library is authored using CommonJS, and named imports may lead to problems when transpiling
 
 const defaults = {
   unformatted: ["code", "pre", "em", "strong", "span"],
