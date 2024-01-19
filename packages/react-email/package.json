@@ -57,7 +57,6 @@
     "prism-react-renderer": "2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "0.33.2",
     "shelljs": "0.8.5",
     "socket.io": "4.7.3",
     "socket.io-client": "4.7.3",
