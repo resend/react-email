@@ -112,7 +112,7 @@ const getEmailSlugsFromEmailDirectory = (
         .join(directoryPathRelativeToEmailsDirectory, filename)
         .split(path.sep)
         // sometimes it gets empty segments due to trailing slashes
-        .filter(segment => segment.length > 0),
+        .filter((segment) => segment.length > 0),
     ),
   );
   emailDirectory.subDirectories.forEach((directory) => {

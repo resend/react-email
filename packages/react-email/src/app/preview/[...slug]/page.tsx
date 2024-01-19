@@ -35,11 +35,13 @@ export default async function Page({ params }: { params: PreviewParams }) {
     });
   }
 
-  // This suspense is so that this page doesn't warning with 
+  // This suspense is so that this page doesn't warning with
   // de-opt into client-side rendering on build
-  return <Suspense>
-    <Preview renderingResult={emailRenderingResult} slug={slug} />
-  </Suspense>;
+  return (
+    <Suspense>
+      <Preview renderingResult={emailRenderingResult} slug={slug} />
+    </Suspense>
+  );
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
