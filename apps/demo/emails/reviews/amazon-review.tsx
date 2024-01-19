@@ -84,7 +84,12 @@ export const AmazonReviewEmail = ({
                 <Text>Start with rating this product</Text>
 
                 {reviwStars.map((star, index) => (
-                  <Img key={index} src={star} alt="Amazon Rating" style={rating} />
+                  <Img
+                    key={index}
+                    src={star}
+                    alt="Amazon Rating"
+                    style={rating}
+                  />
                 ))}
 
                 <Text>
