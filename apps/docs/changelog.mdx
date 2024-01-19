@@ -6,6 +6,53 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## Jan 19, 2024
+
+**React-Email `2.0.0`**
+
+Breaking changes:
+
+- Static files for the preview server are now kept under `./emails/static` or
+inside your specified emails directory.
+- The preview app is not downloaded anymore and it now comes alongside the CLI
+	- Monorepos are now fully supported because of this
+- Emails are built instead of copied
+
+Misc changes:
+
+- UI improved and icons updated
+- Added a view to see how your email is going to look on mobile
+- Error overlay specific to your emails
+- Sub-folders are now supported, allowing for certain ones to be ignored by
+the preview app if prefixed with `_` (ex: `_components`) 
+- Improved filtering for showing emails on the sidebar that only shows them if they have an export default somewhere inside. This is a bit of a heuristic and can still be improved though.
+
+**Components `0.0.14`**
+
+- Bump `@react-email/render` to `0.0.12`
+- Add `@react-email/code-block` version `0.0.2` and export it
+- Add `@react-email/code-inline` version `0.0.1` and export it
+
+**Create Email `0.0.22`**
+
+Template Changes:
+
+- Remove `.react-email` from template workspaces
+- Bump `@react-email/components` to `0.0.14`
+- Bump `react-email` to `2.0.0`
+
+**Render `0.0.12`**
+
+- Fix import for `js-beautify` breaking for ESM users
+
+**Code Inline `0.0.1`**
+
+- Create component with support for the `orange.fr` email client
+
+**Code Block `0.0.2`**
+
+- Issue with import for `prismjs` due to it being commonjs
+
 ## Jan 16, 2024
 
 **Render `0.0.11`**
