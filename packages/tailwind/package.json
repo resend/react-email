@@ -57,7 +57,7 @@
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
     "@testing-library/react": "14.0.0",
-    "@types/postcss-css-variables": "0.18.2",
+    "@types/postcss-css-variables": "0.18.3",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
     "memfs": "4.6.0",
