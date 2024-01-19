@@ -133,7 +133,7 @@ export const NetlifyWelcomeEmail = ({
             <Section className="mt-45">
               <Row>
                 {links?.map((link) => (
-                  <Column>
+                  <Column key={link}>
                     <Link className="text-black underline font-bold">
                       {link}
                     </Link>{" "}
