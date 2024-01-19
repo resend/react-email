@@ -37,8 +37,8 @@ export default async function Page({ params }: { params: PreviewParams }) {
   }
 
   return (
-    // This suspense is so that this page doesn't throw warnings 
-    // on the build of the preview server de-opting into 
+    // This suspense is so that this page doesn't throw warnings
+    // on the build of the preview server de-opting into
     // client-side rendering on build
     <Suspense fallback={<Home />}>
       <Preview renderingResult={emailRenderingResult} slug={slug} />
