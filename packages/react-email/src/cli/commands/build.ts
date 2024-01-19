@@ -150,11 +150,14 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
-  ) as { scripts: Record<string, string>; dependencies: Record<string, string> };
+  ) as {
+    scripts: Record<string, string>;
+    dependencies: Record<string, string>;
+  };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
-  
-  packageJson.dependencies.sharp = "0.33.2";
+
+  packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
