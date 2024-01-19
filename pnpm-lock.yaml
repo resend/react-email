@@ -199,8 +199,8 @@ importers:
         specifier: workspace:*
         version: link:../render
       '@types/prismjs':
-        specifier: 1.26.2
-        version: 1.26.2
+        specifier: 1.26.3
+        version: 1.26.3
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -4060,6 +4060,11 @@ packages:
 
   /@types/prismjs@1.26.2:
     resolution: {integrity: sha512-/r7Cp7iUIk7gts26mHXD66geUC+2Fo26TZYjQK6Nr4LDfi6lmdRmMqM0oPwfiMhUwoBAOFe8GstKi2pf6hZvwA==}
+    dev: false
+
+  /@types/prismjs@1.26.3:
+    resolution: {integrity: sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==}
+    dev: true
 
   /@types/prop-types@15.7.7:
     resolution: {integrity: sha512-FbtmBWCcSa2J4zL781Zf1p5YUBXQomPEcep9QZCfRfQgTxz3pJWiDFLebohZ9fFntX5ibzOkSsrJ0TEew8cAog==}
