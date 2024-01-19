@@ -1,6 +1,9 @@
 // importing the exact function used here will cause
 // issues with esm because js-beautify is written with commonjs only
-import jsBeautify from "js-beautify";
+
+import * as jsBeautify from "js-beautify";
+// Refactored the import of js-beautify to use the entire module due to compatibility issues with ESM.
+// The js-beautify library is authored using CommonJS, and named imports may lead to problems when transpiling.
 
 const defaults = {
   unformatted: ["code", "pre", "em", "strong", "span"],
