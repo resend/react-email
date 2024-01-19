@@ -1,4 +1,7 @@
+import path from 'node:path';
+import fs from 'node:fs';
 import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
@@ -24,6 +27,8 @@ export default async function Page({ params }: { params: PreviewParams }) {
     );
   }
 
+  const emailPath = path.join(emailsDirectoryAbsolutePath, slug);
+  if (!fs.existsSync(emailPath)) redirect('/');
   const emailRenderingResult = await renderEmailBySlug(slug);
 
   if (
