@@ -83,8 +83,8 @@ export const AmazonReviewEmail = ({
                 </Text>
                 <Text>Start with rating this product</Text>
 
-                {reviwStars.map((star) => (
-                  <Img src={star} alt="Amazon Rating" style={rating} />
+                {reviwStars.map((star, index) => (
+                  <Img key={index} src={star} alt="Amazon Rating" style={rating} />
                 ))}
 
                 <Text>
@@ -120,8 +120,9 @@ export const AmazonReviewEmail = ({
               </Column>
 
               <Column align="right">
-                {socialMediaIcons.map((src) => (
+                {socialMediaIcons.map((src, index) => (
                   <Img
+                    key={index}
                     src={src}
                     alt="Amazon Social Midia"
                     width="30"
