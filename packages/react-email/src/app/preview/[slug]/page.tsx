@@ -19,7 +19,9 @@ export default async function Page({ params }: { params: PreviewParams }) {
 
   if (typeof emailsDirMetadata === 'undefined') {
     throw new Error(
-      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`,
+      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!
+
+This is most likely not an issue with the preview server. Maybe there was a typo on the "--dir" flag?`,
     );
   }
 
