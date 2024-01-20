@@ -26,7 +26,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isRunningBuilt = __filename.endsWith('cli/index.js');
+export const isRunningBuilt = __filename.endsWith(path.join('cli', 'index.js'));
 export const cliPacakgeLocation = isRunningBuilt
   ? path.resolve(__dirname, '..')
   : path.resolve(__dirname, '../../../..');
@@ -160,17 +160,17 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (_codeOrSignal: number | NodeJS.Signals) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (_codeOrSignal: number | NodeJS.Signals) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
