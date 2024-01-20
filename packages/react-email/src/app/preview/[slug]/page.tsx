@@ -11,7 +11,7 @@ export interface PreviewParams {
 
 export default async function Page({ params }: { params: PreviewParams }) {
   // will come in here as a relative path to the email
-  // ex: authentication/verify-password.tsx but encoded like authentication%20verify-password.tsx
+  // ex: authentication/verify-password but encoded like authentication%20verify-password
   const slug = decodeURIComponent(params.slug);
   const emailsDirMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,

@@ -1,5 +1,5 @@
 'use server';
-import { promises as fs } from 'node:fs';
+import fs from 'node:fs';
 import path from 'node:path';
 import { renderAsync } from '@react-email/render';
 import { getEmailComponent } from '../utils/get-email-component';
@@ -22,7 +22,30 @@ export type EmailRenderingResult =
 export const renderEmailBySlug = async (
   emailSlug: string,
 ): Promise<EmailRenderingResult> => {
-  const emailPath = path.join(emailsDirectoryAbsolutePath, emailSlug);
+  const emailPathWithoutExtension = path.join(
+    emailsDirectoryAbsolutePath,
+    emailSlug,
+  );
+
+  let emailPath: string;
+  if (
+    ['.tsx', '.jsx', '.js'].includes(path.extname(emailPathWithoutExtension)) &&
+    fs.existsSync(emailPathWithoutExtension)
+  ) {
+    emailPath = emailPathWithoutExtension;
+  } else if (fs.existsSync(`${emailPathWithoutExtension}.tsx`)) {
+    emailPath = `${emailPathWithoutExtension}.tsx`;
+  } else if (fs.existsSync(`${emailPathWithoutExtension}.jsx`)) {
+    emailPath = `${emailPathWithoutExtension}.jsx`;
+  } else if (fs.existsSync(`${emailPathWithoutExtension}.js`)) {
+    emailPath = `${emailPathWithoutExtension}.jsx`;
+  } else {
+    throw new Error(
+      `Could not find your email file based on the slug by guessing the file extension. Tried .tsx, .jsx and .js.
+
+This is most likely not an issue with the preview server. It could be that the email doesn't exist.`,
+    );
+  }
 
   const result = await getEmailComponent(emailPath);
 
@@ -42,7 +65,7 @@ export const renderEmailBySlug = async (
       plainText: true,
     });
 
-    const reactMarkup = await fs.readFile(emailPath, 'utf-8');
+    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
     return {
       markup,
