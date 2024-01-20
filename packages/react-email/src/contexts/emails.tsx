@@ -74,7 +74,8 @@ export const EmailsProvider = (props: {
           // on the slug parameter for the preview page
           change.filename.split(pathSeparator).slice(1).join('/');
 
-        const pathForChangedEmail = await getEmailPathFromSlug(slugForChangedEmail);
+        const pathForChangedEmail =
+          await getEmailPathFromSlug(slugForChangedEmail);
 
         const lastResult = renderingResultPerEmailPath[pathForChangedEmail];
 
@@ -94,10 +95,7 @@ export const EmailsProvider = (props: {
     <EmailsContext.Provider
       value={{
         emailsDirectoryMetadata,
-        useEmailRenderingResult: (
-          emailPath,
-          serverEmailRenderedResult,
-        ) => {
+        useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
           useEffect(() => {
             if (typeof renderingResultPerEmailPath[emailPath] === 'undefined') {
               setRenderingResultPerEmailPath((map) => ({

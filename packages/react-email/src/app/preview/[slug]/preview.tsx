@@ -31,7 +31,10 @@ const Preview = ({
   const activeLang = searchParams.get('lang') ?? 'jsx';
   const { useEmailRenderingResult } = useEmails();
 
-  const renderingResult = useEmailRenderingResult(emailPath, initialRenderingResult);
+  const renderingResult = useEmailRenderingResult(
+    emailPath,
+    initialRenderingResult,
+  );
 
   const renderedEmailMetadata = useRenderingMetadata(
     emailPath,

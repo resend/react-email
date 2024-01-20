@@ -4,7 +4,10 @@ import type {
   RenderedEmailMetadata,
 } from '../actions/render-email-by-path';
 
-const lastRenderingMetadataPerEmailPath = {} as Record<string, RenderedEmailMetadata>;
+const lastRenderingMetadataPerEmailPath = {} as Record<
+  string,
+  RenderedEmailMetadata
+>;
 
 /**
  * Returns the rendering metadata if the given `renderingResult`
