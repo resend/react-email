@@ -1,5 +1,6 @@
+import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
-import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
+import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Preview from './preview';
 
@@ -25,7 +26,9 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     );
   }
 
-  const emailRenderingResult = await renderEmailBySlug(slug);
+  const emailPath = await getEmailPathFromSlug(slug);
+
+  const emailRenderingResult = await renderEmailByPath(emailPath);
 
   if (
     'error' in emailRenderingResult &&
@@ -36,7 +39,13 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     });
   }
 
-  return <Preview renderingResult={emailRenderingResult} slug={slug} />;
+  return (
+    <Preview
+      emailPath={emailPath}
+      renderingResult={emailRenderingResult}
+      slug={slug}
+    />
+  );
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
