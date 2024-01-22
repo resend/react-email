@@ -19,7 +19,9 @@ const tailwindAtRulesRoot = postcss
   )
   .root();
 
-const postcssVariablesProcessor = postcss([postcssCssVariables()]);
+const postcssVariablesProcessor = postcss([
+  postcssCssVariables() as postcss.Plugin,
+]);
 
 export const generatePostcssRootForClasses = (
   classes: string[],
