@@ -205,7 +205,7 @@ export const build = async ({
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
-      spinner.text = 'Deleting pre-existent `.react-email` folder';
+      spinner.text = 'Deleting pre-existing `.react-email` folder';
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
