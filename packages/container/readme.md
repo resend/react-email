@@ -1,7 +1,7 @@
 ![React Email container cover](https://react.email/static/covers/container.png)
 
 <div align="center"><strong>@react-email/container</strong></div>
-<div align="center">A layout component that centers all the email content.</div>
+<div align="center">A layout component that centers your content horizontally on a breaking point.</div>
 <br />
 <div align="center">
 <a href="https://react.email">Website</a> 
