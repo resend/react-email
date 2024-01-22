@@ -22,7 +22,7 @@ program
 
 program
   .command('build')
-  .description('Copies the preivew app for onto .react-email and builds it')
+  .description('Copies the preview app for onto .react-email and builds it')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option(
     '-p --packageManager <name>',
