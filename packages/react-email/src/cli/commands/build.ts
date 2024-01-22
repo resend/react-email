@@ -248,7 +248,7 @@ export const build = async ({
     await npmInstall(builtPreviewAppPath, packageManager);
 
     spinner.stopAndPersist({
-      text: 'Successfully preapred `.react-email` for `next build`',
+      text: 'Successfully prepared `.react-email` for `next build`',
       symbol: logSymbols.success,
     });
 
