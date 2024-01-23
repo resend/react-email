@@ -6,7 +6,9 @@ import {
 } from '../actions/get-emails-directory-metadata';
 import { useHotreload } from '../hooks/use-hot-reload';
 import {
+  emailsDirRelativePath,
   emailsDirectoryAbsolutePath,
+  normalizePath,
   pathSeparator,
 } from '../utils/emails-directory-absolute-path';
 import {
@@ -16,15 +18,15 @@ import {
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-      /**
-       * Uses the hot reloaded bundled build and rendering email result
-       */
-      useEmailRenderingResult: (
-        slug: string,
-        serverEmailRenderedResult: EmailRenderingResult,
-      ) => EmailRenderingResult;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+    /**
+     * Uses the hot reloaded bundled build and rendering email result
+     */
+    useEmailRenderingResult: (
+      slug: string,
+      serverEmailRenderedResult: EmailRenderingResult,
+    ) => EmailRenderingResult;
+  }
   | undefined
 >(undefined);
 
@@ -70,11 +72,16 @@ export const EmailsProvider = (props: {
         });
 
       for (const change of changes) {
+        const normalizedEmailsDirRelativePath = normalizePath(
+          emailsDirRelativePath,
+        );
         const slugForChangedEmail =
           // filename ex: emails/apple-receipt.tsx
           // so we need to remove the "emails/" because it isn't used
           // on the slug parameter for the preview page
-          change.filename.split(pathSeparator).slice(1).join('/');
+          change.filename
+            .replace(`${normalizedEmailsDirRelativePath}${pathSeparator}`, '')
+            .replace(normalizedEmailsDirRelativePath, '');
 
         const lastResult = renderingResultPerEmailSlug[slugForChangedEmail];
 
