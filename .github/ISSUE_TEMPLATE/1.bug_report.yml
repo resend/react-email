@@ -8,6 +8,8 @@ body:
       options:
         - label: Searched the repository for similar issues
           required: true
+        - label: I have tested with the canary versions and the issues persists
+          required: true
   - type: textarea
     attributes:
       label: Describe the Bug
