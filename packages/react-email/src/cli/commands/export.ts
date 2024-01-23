@@ -91,10 +91,9 @@ export const exportTemplates = async (
     try {
       spinner.text = `rendering ${template.split('/').pop()}`;
       spinner.render();
-      // eslint-disable-next-line
-      const component = await import(template);
-      // eslint-disable-next-line
-      const rendered = render(component.default.default({}), options);
+      delete require.cache[template];
+      const component = require(template);
+      const rendered = render(component.default({}), options);
       const htmlPath = template.replace(
         '.js',
         options.plainText ? '.txt' : '.html',
