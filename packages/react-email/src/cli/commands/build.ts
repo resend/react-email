@@ -49,7 +49,11 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
 ) => {
   const envVariables = {
-    ...getEnvVariablesForPreviewApp(emailsDirRelativePath, 'PLACEHOLDER', 'PLACEHOLDER'),
+    ...getEnvVariablesForPreviewApp(
+      emailsDirRelativePath,
+      'PLACEHOLDER',
+      'PLACEHOLDER',
+    ),
     NEXT_PUBLIC_IS_BUILDING: 'true',
   };
 
@@ -243,7 +247,10 @@ export const build = async ({
 
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
-    await setNextEnvironmentVariablesForBuild(emailsDirRelativePath, builtPreviewAppPath);
+    await setNextEnvironmentVariablesForBuild(
+      emailsDirRelativePath,
+      builtPreviewAppPath,
+    );
 
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
