@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import * as React from "react";
 import type { PrismLangauge } from "./languages-available";
 import type { Theme } from "./themes";
@@ -28,9 +29,16 @@ const CodeBlockLine = ({
     } else if (typeof token.content === "string") {
       return <span style={theme[token.type]}>{token.content}</span>;
     }
-  } else if (typeof token === "string") {
-    return token;
+    return (
+      <>
+        {token.content.map((subToken, i) => (
+          <CodeBlockLine key={i} theme={theme} token={subToken} />
+        ))}
+      </>
+    );
   }
+
+  return <>{token}</>;
 };
 
 /**
