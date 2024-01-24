@@ -36,7 +36,7 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
       alt={name}
       className="rounded-t-md"
       height="300"
-      src={`/static/examples/${id}.png`}
+      src={`/static/examples/${id.replace(".tsx", "")}.png`}
       width="450"
     />
     <div className="p-4">

@@ -1,0 +1,127 @@
+---
+title: 'Send email using AWS SES'
+sidebarTitle: 'AWS SES'
+description: 'Learn how to send an email using React Email and the AWS SES Node.js SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/render @aws-sdk/client-ses
+```
+
+```sh yarn
+yarn add @react-email/render @aws-sdk/client-ses
+```
+
+```sh pnpm
+pnpm add @react-email/render @aws-sdk/client-ses
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```jsx email.jsx
+import * as React from 'react';
+import { Html } from '@react-email/html';
+import { Button } from '@react-email/button';
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into a HTML string, and use the AWS SES SDK to send it.
+
+<CodeGroup>
+
+```js React
+import { render } from '@react-email/render';
+import { SES } from '@aws-sdk/client-ses';
+import { Email } from './email';
+
+const ses = new SES({ region: process.env.AWS_SES_REGION })
+
+const emailHtml = render(<Email url="https://example.com" />);
+
+const params = {
+  Source: 'you@example.com',
+  Destination: {
+    ToAddresses: ['user@gmail.com'],
+  },
+  Message: {
+    Body: {
+      Html: {
+        Charset: 'UTF-8',
+        Data: emailHtml,
+      },
+    },
+    Subject: {
+      Charset: 'UTF-8',
+      Data: 'hello world',
+    },
+  },
+};
+
+await ses.sendEmail(params);
+```
+
+```js NodeJS
+import { render } from '@react-email/render';
+import { SES } from '@aws-sdk/client-ses';
+import { Email } from './email';
+
+const ses = new SES({ region: process.env.AWS_SES_REGION })
+
+const emailHtml = render(Email({ url:"https://example.com" }));
+
+const params = {
+  Source: 'you@example.com',
+  Destination: {
+    ToAddresses: ['user@gmail.com'],
+  },
+  Message: {
+    Body: {
+      Html: {
+        Charset: 'UTF-8',
+        Data: emailHtml,
+      },
+    },
+    Subject: {
+      Charset: 'UTF-8',
+      Data: 'hello world',
+    },
+  },
+};
+
+await ses.sendEmail(params);
+```
+
+</CodeGroup>
+
+## Try it yourself
+
+<Card
+  title="AWS SES example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/aws-ses"
+>
+  See the full source code.
+</Card>

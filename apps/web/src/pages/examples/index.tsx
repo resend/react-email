@@ -9,92 +9,92 @@ import { Topbar } from "../../components/topbar";
 
 const items = [
   {
-    id: "aws-verify-email",
+    id: "aws-verify-email.tsx",
     name: "AWS / Verify Email",
     author: "thecodeinfluencer",
   },
   {
-    id: "github-access-token",
+    id: "github-access-token.tsx",
     name: "GitHub / Access Token",
     author: "bruno88cabral",
   },
   {
-    id: "apple-receipt",
+    id: "apple-receipt.tsx",
     name: "Apple / Receipt",
     author: "relferreira",
   },
   {
-    id: "nike-receipt",
+    id: "nike-receipt.tsx",
     name: "Nike / Receipt",
     author: "camillegachido",
   },
   {
-    id: "stack-overflow-tips",
+    id: "stack-overflow-tips.tsx",
     name: "Stack Overflow / Tips",
     author: "bruno88cabral",
   },
   {
-    id: "slack-confirm",
+    id: "slack-confirm.tsx",
     name: "Slack / Confirm Email",
     author: "c0dr",
   },
   {
-    id: "twitch-reset-password",
+    id: "twitch-reset-password.tsx",
     name: "Twitch / Reset Password",
     author: "EmersonGarrido",
   },
   {
-    id: "raycast-magic-link",
+    id: "raycast-magic-link.tsx",
     name: "Raycast / Magic Link",
     author: "abhinandanwadwa",
   },
   {
-    id: "yelp-recent-login",
+    id: "yelp-recent-login.tsx",
     name: "Yelp / Recent Login",
     author: "EmersonGarrido",
   },
   {
-    id: "linear-login-code",
+    id: "linear-login-code.tsx",
     name: "Linear / Login Code",
     author: "Rychillie",
   },
   {
-    id: "google-play-policy-update",
+    id: "google-play-policy-update.tsx",
     name: "Google Play / Policy Update",
     author: "EmersonGarrido",
   },
   {
-    id: "airbnb-review",
+    id: "airbnb-review.tsx",
     name: "Airbnb / Review",
     author: "joaom00",
   },
   {
-    id: "dropbox-reset-password",
+    id: "dropbox-reset-password.tsx",
     name: "Dropbox / Reset Password",
     author: "ribeiroevandro",
   },
   {
-    id: "koala-welcome",
+    id: "koala-welcome.tsx",
     name: "Koala / Welcome",
     author: "nettofarah",
   },
   {
-    id: "vercel-invite-user",
+    id: "vercel-invite-user.tsx",
     name: "Vercel / Invite User",
     author: "zenorocha",
   },
   {
-    id: "stripe-welcome",
+    id: "stripe-welcome.tsx",
     name: "Stripe / Welcome",
     author: "zenorocha",
   },
   {
-    id: "notion-magic-link",
+    id: "notion-magic-link.tsx",
     name: "Notion / Magic Link",
     author: "bukinoshita",
   },
   {
-    id: "plaid-verify-identity",
+    id: "plaid-verify-identity.tsx",
     name: "Plaid / Verify Identity",
     author: "zenorocha",
   },
@@ -111,21 +111,25 @@ const Examples = () => {
         <meta content={title} property="og:title" />
         <meta content={description} property="og:description" />
       </Head>
+
       <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
         <Topbar />
+
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center py-10">
           <div className="mb-12 max-w-[745px] text-center">
             <Heading className="mb-2 text-white" size="8">
               Examples
             </Heading>
+
             <Text as="p" className="text-slate-11" size="4">
               {description}.
             </Text>
+
             <Text as="p" className="text-slate-11" size="4">
               Recreate an{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+                href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 target="_blank"
               >
                 existing email
@@ -133,7 +137,7 @@ const Examples = () => {
               or submit a{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resend/react-email/tree/main/demo"
                 target="_blank"
               >
                 pull request
@@ -148,15 +152,16 @@ const Examples = () => {
             ))}
           </div>
         </div>
+
         <Footer />
       </div>
+
       <Image
         alt=""
         className="absolute top-[220px] left-0 z-[10] h-full w-full select-none md:top-0"
         fill
         priority
         src="/static/bg.png"
-        style={{ position: "absolute" }}
       />
     </>
   );
