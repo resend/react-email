@@ -2,9 +2,6 @@
   "name": "emails",
   "version": "0.0.18",
   "private": true,
-  "workspaces": [
-    ".react-email"
-  ],
   "scripts": {
     "build": "email build",
     "dev": "email dev",
@@ -12,6 +9,11 @@
   },
   "dependencies": {
     "@react-email/components": "0.0.14",
-    "react-email": "2.0.0"
+    "react-email": "2.0.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14"
   }
 }
