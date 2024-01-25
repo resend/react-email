@@ -62,7 +62,7 @@ const CodeBlockLine = ({
     );
   }
 
-  return <>{token}</>;
+  return <span style={inheritedStyles}>{token}</span>;
 };
 
 /**
