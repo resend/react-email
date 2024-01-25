@@ -3152,8 +3152,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@rollup/plugin-inject@5.0.5:
-    resolution: {integrity: sha512-2+DEJbNBoPROPkgTDNe8/1YXWcqxbN5DTjASVIOx8HS+pITXushyNiBV56RB08zuptzz8gT3YfkqriTBVycepg==}
+  /@rollup/plugin-commonjs@25.0.7(rollup@4.4.1):
+    resolution: {integrity: sha512-nEvcR+LRjEjsaSsc4x3XZfCCvZIaSMenZu/OiwOKGN2UhQpAYI7ru7czFvyWbErlpoGjnSX3D5Ch5FcMA3kRWQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.68.0||^3.0.0||^4.0.0
@@ -3181,7 +3181,7 @@ packages:
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.4.1)
       estree-walker: 2.0.2
-      magic-string: 0.30.5
+      magic-string: 0.30.4
     dev: true
 
   /@rollup/pluginutils@5.1.0(rollup@4.4.1):
