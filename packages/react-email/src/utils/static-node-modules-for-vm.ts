@@ -1,13 +1,16 @@
 import zlib from 'node:zlib';
 import vm from 'node:vm';
+import v8 from 'node:v8';
 import util from 'node:util';
 import url from 'node:url';
+import tty from 'node:tty';
 import tls from 'node:tls';
 import timers from 'node:timers';
 import stringDecoder from 'node:string_decoder';
 import stream from 'node:stream';
 import readline from 'node:readline';
 import querystring from 'node:querystring';
+import punycode from 'node:punycode';
 import path from 'node:path';
 import os from 'node:os';
 import net from 'node:net';
@@ -15,10 +18,12 @@ import https from 'node:https';
 import http from 'node:http';
 import fs from 'node:fs';
 import events from 'node:events';
+import domain from 'node:domain';
 import dns from 'node:dns';
 import dgram from 'node:dgram';
 import crypto from 'node:crypto';
 import cluster from 'node:cluster';
+import childProcess from 'node:child_process';
 import buffer from 'node:buffer';
 import assert from 'node:assert';
 
@@ -32,10 +37,14 @@ export const staticNodeModulesForVM = {
   'node:zlib': zlib,
   vm,
   'node:vm': vm,
+  v8,
+  'node:v8': v8,
   util,
   'node:util': util,
   url,
   'node:url': url,
+  tty,
+  'node:tty': tty,
   tls,
   'node:tls': tls,
   timers,
@@ -48,6 +57,8 @@ export const staticNodeModulesForVM = {
   'node:readline': readline,
   querystring,
   'node:querystring': querystring,
+  punycode,
+  'node:punycode': punycode,
   path,
   'node:path': path,
   os,
@@ -62,6 +73,8 @@ export const staticNodeModulesForVM = {
   'node:fs': fs,
   events,
   'node:events': events,
+  domain,
+  'node:domain': domain,
   dns,
   'node:dns': dns,
   dgram,
@@ -70,6 +83,8 @@ export const staticNodeModulesForVM = {
   'node:crypto': crypto,
   cluster,
   'node:cluster': cluster,
+  'child_process': childProcess,
+  'node:child_process': childProcess,
   buffer,
   'node:buffer': buffer,
   assert,
