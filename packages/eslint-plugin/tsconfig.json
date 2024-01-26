@@ -6,7 +6,9 @@
     "target": "ESNext",
     "moduleResolution": "Bundler",
     "noErrorTruncation": true,
-    "module": "NodeNext"
+    "declaration": false,
+    "module": "NodeNext",
+    "types": ["vitest/globals"]
   },
   "exclude": ["dist", "build", "node_modules"]
 }
