@@ -19,7 +19,14 @@ export const getRuleListenersForJSXStyleProperties = (
 
   sourceCode: Readonly<SourceCode>,
   reportProblemFor: (
-    nodeOrLocation: TSESTree.Node | TSESTree.SourceLocation,
+    nodeOrLocation:
+      | TSESTree.Node
+      | {
+          location: [
+            start: TSESTree.Position,
+            end: TSESTree.Position,
+          ];
+        },
   ) => void,
 ): RuleListener => {
   const ruleListener: RuleListener = {};
@@ -83,14 +90,10 @@ export const getRuleListenersForJSXStyleProperties = (
           for (const [name, value] of properties) {
             if (isStylePropertyDisallowed(name, value)) {
               reportProblemFor({
-                start: {
-                  line: node.loc.start.line,
-                  column: node.loc.start.column + start,
-                },
-                end: {
-                  line: node.loc.start.line,
-                  column: node.loc.start.column + end,
-                },
+                location: [
+                  { line: node.loc.start.line, column: node.loc.start.column + start },
+                  { line: node.loc.start.line, column: node.loc.start.column + end }
+                ]
               });
             }
           }
@@ -101,7 +104,7 @@ export const getRuleListenersForJSXStyleProperties = (
 
   const accumulatedProblemPropertiesPerVariableName = new Map<
     string,
-    TSESTree.Property[]
+    (TSESTree.Property['key'])[]
   >();
 
   // we can't directly get the ObjectExpression from VariableDeclarator
@@ -123,7 +126,7 @@ export const getRuleListenersForJSXStyleProperties = (
 
       accumulatedProblemPropertiesPerVariableName.set(variableName, [
         ...lastProblemProperties,
-        node,
+        node.key,
       ]);
     }
   }
@@ -135,7 +138,7 @@ export const getRuleListenersForJSXStyleProperties = (
     ) {
       const [propertyName, propertyValue] = metadataFromPropertyNode(node);
       if (isStylePropertyDisallowed(propertyName, propertyValue)) {
-        reportProblemFor(node);
+        reportProblemFor(node.key);
       }
     },
     'JSXAttribute[name.name="style"] JSXExpressionContainer Identifier'(
@@ -144,8 +147,8 @@ export const getRuleListenersForJSXStyleProperties = (
       const dirtyStyleVariableIdentifier =
         accumulatedProblemPropertiesPerVariableName.get(node.name);
       if (typeof dirtyStyleVariableIdentifier !== "undefined") {
-        for (const problem of dirtyStyleVariableIdentifier) {
-          reportProblemFor(problem);
+        for (const propertyKey of dirtyStyleVariableIdentifier) {
+          reportProblemFor(propertyKey);
         }
       }
     },

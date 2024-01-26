@@ -34,18 +34,21 @@ ${caniemailLink}`,
       return getRuleListenersForJSXStyleProperties(
         isStylePropertyDisallowed,
         context.sourceCode,
-        (nodeOrLocation) => {
-          if ("start" in nodeOrLocation) {
-            const location = nodeOrLocation;
+        (nodeOrLocationObject) => {
+          if ('location' in nodeOrLocationObject) {
+            const location = nodeOrLocationObject.location;
             context.report({
-              loc: location,
+              loc: {
+                start: location[0],
+                end: location[1]
+              },
               messageId: "not-supported-on-most-email-clients",
               data: {
                 property: sourceCodeFromLocation(context.sourceCode, location),
               },
             });
           } else {
-            const node = nodeOrLocation;
+            const node = nodeOrLocationObject;
             context.report({
               node,
               messageId: "not-supported-on-most-email-clients",

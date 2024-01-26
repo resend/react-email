@@ -3,21 +3,21 @@ import type { SourceCode } from "@typescript-eslint/utils/ts-eslint";
 
 export function sourceCodeFromLocation(
   sourceCode: SourceCode,
-  location: TSESTree.SourceLocation,
+  location: [TSESTree.Position, TSESTree.Position],
 ) {
   return sourceCode
     .getText()
     .split("\n")
-    .slice(location.start.line - 1, location.end.line)
+    .slice(location[0].line - 1, location[1].line)
     .map((line, index) => {
-      if (location.end.line === location.start.line) {
-        return line.slice(location.start.column, location.end.column);
+      if (location[1].line === location[0].line) {
+        return line.slice(location[0].column, location[1].column);
       }
 
       if (index === 0) {
-        return line.slice(location.start.column);
-      } else if (index === location.end.line - location.start.line) {
-        return line.slice(0, location.end.column);
+        return line.slice(location[0].column);
+      } else if (index === location[1].line - location[0].line) {
+        return line.slice(0, location[1].column);
       }
 
       return line;
