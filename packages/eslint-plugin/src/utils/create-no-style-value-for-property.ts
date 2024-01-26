@@ -4,17 +4,18 @@ import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-
 export const createNoStyleValueForProperty = (
   valueToDisallow: string,
   property: string,
-  supportPercetange: number,
+  supportPercentage: number,
   caniemailLink: string,
 ) => {
+  const support = supportPercentage.toFixed(2);
   return createRule({
     meta: {
       type: "suggestion",
       schema: [],
       messages: {
-        "not-supported-on-most-email-clients": `The style ${property}: ${valueToDisallow} is supported in only ${supportPercetange.toFixed(
-          2,
-        )}% of email clients, see ${caniemailLink}`,
+        "not-supported-on-most-email-clients": `"${property}: ${valueToDisallow}" — support is ${support}% of email clients
+
+${caniemailLink}`,
       },
     },
     create(context) {

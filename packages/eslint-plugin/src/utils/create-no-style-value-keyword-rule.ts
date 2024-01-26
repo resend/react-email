@@ -1,4 +1,5 @@
 import { createRule } from "./create-rule";
+import { sourceCodeFromLocation } from "./eslint/source-code-from-location";
 import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
 export const createNoStyleValueKeywordRule = (
@@ -10,17 +11,13 @@ export const createNoStyleValueKeywordRule = (
   const valueKeywords = Array.isArray(valueKeywordOrKeywords)
     ? valueKeywordOrKeywords
     : [valueKeywordOrKeywords];
-  const isRuleForMultipleValues = valueKeywords.length > 1;
 
+  const support = supportPercentage.toFixed(2);
   const definedMessageOrDefault =
     message ??
-    `The CSS ${
-      isRuleForMultipleValues ? "values" : "value"
-    } ${valueKeywords.join(", ")} ${
-      isRuleForMultipleValues ? "are" : "is"
-    } only supported on ${supportPercentage.toFixed(
-      2,
-    )}% of email clients, see ${caniemailLink}`;
+    `"{{value}}" — support is ${support}% of email clients
+
+${caniemailLink}`;
   return createRule({
     meta: {
       type: "suggestion",
@@ -44,12 +41,18 @@ export const createNoStyleValueKeywordRule = (
             context.report({
               loc: location,
               messageId: "not-supported-on-most-email-clients",
+              data: {
+                value: sourceCodeFromLocation(context.sourceCode, location),
+              },
             });
           } else {
             const node = nodeOrLocation;
             context.report({
               node,
               messageId: "not-supported-on-most-email-clients",
+              data: {
+                value: context.sourceCode.getText(node),
+              },
             });
           }
         },

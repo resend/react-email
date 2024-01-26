@@ -1,4 +1,5 @@
 import { createRule } from "./create-rule";
+import { sourceCodeFromLocation } from "./eslint/source-code-from-location";
 import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
 export const createNoStylePropertyRule = (
@@ -9,20 +10,17 @@ export const createNoStylePropertyRule = (
   const propertyNames = Array.isArray(propertyNameOrNames)
     ? propertyNameOrNames
     : [propertyNameOrNames];
-  const isRuleForMultipleProperties = propertyNames.length > 1;
+  const support = supportPercentage.toFixed(2);
+  const messages = {
+    "not-supported-on-most-email-clients": `"{{property}}" — support is ${support}% of email clients
+
+${caniemailLink}`,
+  };
   return createRule({
     meta: {
       type: "suggestion",
       schema: [],
-      messages: {
-        "not-supported-on-most-email-clients": `The CSS ${
-          isRuleForMultipleProperties ? "properties" : "property"
-        } ${propertyNames.join(", ")} ${
-          isRuleForMultipleProperties ? "are" : "is"
-        } only supported on ${supportPercentage.toFixed(
-          2,
-        )}% of email clients, see ${caniemailLink}`,
-      },
+      messages,
     },
     create(context) {
       const camelCasedPropertyNames = propertyNames.map((p) =>
@@ -42,12 +40,18 @@ export const createNoStylePropertyRule = (
             context.report({
               loc: location,
               messageId: "not-supported-on-most-email-clients",
+              data: {
+                property: sourceCodeFromLocation(context.sourceCode, location),
+              },
             });
           } else {
             const node = nodeOrLocation;
             context.report({
               node,
               messageId: "not-supported-on-most-email-clients",
+              data: {
+                property: context.sourceCode.getText(node),
+              },
             });
           }
         },
