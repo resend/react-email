@@ -7,8 +7,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       path.resolve(__dirname, '../../../../apps/demo/emails/'),
     ),
   ).toEqual({
-    absolutePath:
-      '/home/gabriel/Projects/Work/resend/react-email/apps/demo/emails',
+    absolutePath: path.resolve(__dirname, '../../../../apps/demo/emails/'),
     directoryName: 'emails',
     emailFilenames: [
       'airbnb-review.tsx',
