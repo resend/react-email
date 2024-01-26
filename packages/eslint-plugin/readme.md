@@ -36,8 +36,10 @@ or if weather it is inside the emails folder, you will need to create a new conf
 inside of it as follows:
 
 ```json
-plugins: ['@react-email'],
-extends: ['plugin:@react-email/recommended']
+{
+    "plugins": ["@react-email"],
+    "extends": ["plugin:@react-email/recommended"]
+}
 ```
 
 Activating or deactivating certain rules as you may prefer. These rules are mostly generated
