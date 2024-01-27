@@ -1,22 +1,18 @@
 import * as vscode from "vscode";
 
-import * as crypto from "crypto";
-import { basename, join } from "path";
-import { tmpdir } from "os";
+import * as path from "path";
+import * as vm from "vm";
 import * as esbuild from "esbuild";
 
 import { render } from "@react-email/render";
-import { unlink } from "fs/promises";
-
-const extensionPreviewFolder = ".vscpreview" as const;
 
 export type BuiltEmail =
   | {
-    filename: string;
-    html: string;
-    text: string;
-    valid: true;
-  }
+      filename: string;
+      html: string;
+      text: string;
+      valid: true;
+    }
   | { valid: false };
 
 export async function renderOpenEmailFile(
@@ -32,50 +28,60 @@ export async function renderOpenEmailFile(
     }
 
     const currentlyOpenTabFilePath = activeEditor.document.fileName; // actually a path not the name of the file
-    const currentlyOpenTabFilename = basename(currentlyOpenTabFilePath, ".tsx");
-
-    // saves the temporary previews generated in the tmp folder
-    const previewDirectory = join(tmpdir(), extensionPreviewFolder);
-
-    // this hash is needed so the the import doesn't get from its cache
-    const renderingHash = crypto.randomBytes(20).toString("hex");
-
-    const builtFileWithCurrentContents = join(
-      previewDirectory,
-      `${currentlyOpenTabFilename}-${renderingHash}.js`,
+    const currentlyOpenTabFilename = path.basename(
+      currentlyOpenTabFilePath,
+      ".tsx",
     );
 
     try {
-      await esbuild.build({
+      const buildResult = await esbuild.build({
         bundle: true,
         entryPoints: [currentlyOpenTabFilePath],
         platform: "node",
-        write: true,
+        write: false,
         jsx: "automatic",
+        loader: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          ".js": "jsx",
+        },
         format: "cjs",
-        outfile: builtFileWithCurrentContents,
       });
 
-      // for future people debugging this: if this doesnt update the preview, might be because import keeps a cache
-      // and the hash is not being unique (unlikely though)
-      const email = require(builtFileWithCurrentContents);
+      console.log(global);
 
-      if (typeof email.default === "undefined") {
-        await unlink(builtFileWithCurrentContents);
+      const fakeContext = {
+        ...global,
+        process: {
+          env: {}
+        },
+        module: { exports: { default: undefined as unknown } },
+        __filanem: currentlyOpenTabFilePath,
+        __dirname: path.dirname(currentlyOpenTabFilePath),
+      };
 
-        // this means there is no "export default ..." in the file
-        return { valid: false };
+      try {
+        vm.runInNewContext(buildResult.outputFiles[0].text, fakeContext, {
+          filename: currentlyOpenTabFilePath,
+        });
+      } catch (exception) {
+        throw exception;
       }
 
-      const comp = email.default(email.default.PreviewProps ?? {}); // this may come without a defualt which might cause problems
+      if (typeof fakeContext.module.exports.default !== "function") {
+        return {
+          valid: false,
+        };
+      }
+
+      const email = fakeContext.module.exports.default;
+
+      const comp = email("PreviewProps" in email ? email.PreviewProps : {}); // this may come without a defualt which might cause problems
       const emailAsText = render(comp, {
         plainText: true,
         pretty: false,
       });
 
       const emailAsHTML = render(comp, { pretty: false });
-
-      await unlink(builtFileWithCurrentContents);
 
       return {
         filename: currentlyOpenTabFilename,
