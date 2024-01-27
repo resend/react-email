@@ -3,14 +3,14 @@ import { sourceCodeFromLocation } from "./eslint/source-code-from-location";
 import { getRuleListenersForJSXStyleProperties } from "./get-rule-listeners-for-jsx-style-properties";
 
 export const createNoStyleValueKeywordRule = (
-  valueKeywordOrKeywords: string[] | string,
+  valueKeywordOrKeywordsRegexes: (RegExp | string)[] | (RegExp | string),
   supportPercentage: number,
   caniemailLink: string,
   message?: string,
 ) => {
-  const valueKeywords = Array.isArray(valueKeywordOrKeywords)
-    ? valueKeywordOrKeywords
-    : [valueKeywordOrKeywords];
+  const valueKeywords = Array.isArray(valueKeywordOrKeywordsRegexes)
+    ? valueKeywordOrKeywordsRegexes
+    : [valueKeywordOrKeywordsRegexes];
 
   const support = supportPercentage.toFixed(2);
   const definedMessageOrDefault =
@@ -27,10 +27,9 @@ ${caniemailLink}`;
       },
     },
     create(context) {
-      const isStylePropertyDisallowed = (_name: string, value: string) =>
-        valueKeywords.some((keyword) =>
-          value.match(new RegExp(`${keyword}`, "g")),
-        );
+      const isStylePropertyDisallowed = (_name: string, value: string) => {
+        return valueKeywords.some((keyword) => Boolean(value.match(keyword)));
+      };
 
       return getRuleListenersForJSXStyleProperties(
         isStylePropertyDisallowed,

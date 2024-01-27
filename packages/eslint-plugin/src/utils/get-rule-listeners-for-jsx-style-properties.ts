@@ -33,11 +33,17 @@ export const getRuleListenersForJSXStyleProperties = (
       .getText(node.key)
       .trim()
       .match(/\w+/g) ?? [""];
-    const [propertyValue] = sourceCode
-      .getText(node.value)
-      .trim()
-      // eslint-disable-next-line prefer-named-capture-group
-      .match(/^\s*("|'|`)(.*)("|'|`)\s*$/g) ?? [""];
+    let propertyValue: string;
+
+    // eslint-disable-next-line prefer-named-capture-group
+    const [_match, valueInQuotes] = /^"([^"]*)"$|^'([^']*)'$|^`([^`]*)`$/.exec(
+      sourceCode.getText(node.value).trim(),
+    ) ?? ["", undefined];
+    if (typeof valueInQuotes !== "undefined") {
+      propertyValue = valueInQuotes;
+    } else {
+      propertyValue = sourceCode.getText(node.value);
+    }
     return [propertyName, propertyValue] as const;
   };
 
