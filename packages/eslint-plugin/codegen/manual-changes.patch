@@ -519,7 +519,7 @@ index 295aed1..0d3a4f0 100644
 
  export default createNoStyleValueKeywordRule(
 -  "function-max",
-+  /max\([^)]*\)/,
++  /max\(/,
    48.97959183673469,
    "https://www.caniemail.com/features/css-function-max/",
  );
@@ -532,7 +532,7 @@ index 9589639..99225e0 100644
 
  export default createNoStyleValueKeywordRule(
 -  "function-min",
-+  /min\([^)]*\)/,
++  /min\(/,
    48.97959183673469,
    "https://www.caniemail.com/features/css-function-min/",
  );
@@ -663,7 +663,7 @@ index dafdf5a..3125b6b 100644
 
  export default createNoStyleValueKeywordRule(
 -  "modern-color",
-+  [/lch\([^)]*\)/, /oklch\([^)]*\)/, /lab\([^)]*\)/, /oklab\([^)]*\)/],
++  [/lch\(/, /oklch\(/, /lab\(/, /oklab\(/],
    27.027027027027028,
    "https://www.caniemail.com/features/css-modern-color/",
  );
@@ -1165,7 +1165,7 @@ index fcbdd75..764d226 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-calc",
-+  /calc\([^)]*\)/,
++  /calc\(/,
    58.333333333333336,
    "https://www.caniemail.com/features/css-unit-calc/",
  );
