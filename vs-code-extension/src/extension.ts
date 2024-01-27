@@ -3,7 +3,7 @@
 import * as vscode from "vscode";
 import { readFileSync } from "fs";
 
-import { updatePreiewPanel } from "./updatePreviewPanel";
+import { updatePreiewPanel } from "./update-preview-panel";
 
 export let noEmailOpenHTML: string;
 export let emailWithErrorHTML: string;
