@@ -1,8 +1,14 @@
 import type { Root, Rule } from "postcss";
 import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
 import postcss from "postcss";
-import evaluateTailwindFunctions from "tailwindcss/lib/lib/evaluateTailwindFunctions";
+import evaluateTailwindFunctionsImport from "tailwindcss/lib/lib/evaluateTailwindFunctions";
 import { generateRules as rawGenerateRules } from "tailwindcss/lib/lib/generateRules";
+
+const evaluateTailwindFunctions = 'default' in evaluateTailwindFunctionsImport
+  // sometimes the default export comes in as the functions
+  // sometimes it comes in as an object with the function on the default property 🤷
+  ? evaluateTailwindFunctionsImport.default
+  : evaluateTailwindFunctionsImport;
 
 export const generateTailwindCssRules = (
   classNames: string[],
