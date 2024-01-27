@@ -12,11 +12,11 @@ const extensionPreviewFolder = ".vscpreview" as const;
 
 export type BuiltEmail =
   | {
-      filename: string;
-      html: string;
-      text: string;
-      valid: true;
-    }
+    filename: string;
+    html: string;
+    text: string;
+    valid: true;
+  }
   | { valid: false };
 
 export async function renderOpenEmailFile(
@@ -51,7 +51,8 @@ export async function renderOpenEmailFile(
         entryPoints: [currentlyOpenTabFilePath],
         platform: "node",
         write: true,
-        tsconfig: join(__dirname, "..", "tsconfig.emails.json"),
+        jsx: "automatic",
+        format: "cjs",
         outfile: builtFileWithCurrentContents,
       });
 
