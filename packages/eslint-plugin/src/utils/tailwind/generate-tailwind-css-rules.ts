@@ -4,11 +4,12 @@ import postcss from "postcss";
 import evaluateTailwindFunctionsImport from "tailwindcss/lib/lib/evaluateTailwindFunctions";
 import { generateRules as rawGenerateRules } from "tailwindcss/lib/lib/generateRules";
 
-const evaluateTailwindFunctions = 'default' in evaluateTailwindFunctionsImport
-  // sometimes the default export comes in as the functions
-  // sometimes it comes in as an object with the function on the default property 🤷
-  ? evaluateTailwindFunctionsImport.default
-  : evaluateTailwindFunctionsImport;
+const evaluateTailwindFunctions =
+  "default" in evaluateTailwindFunctionsImport
+    ? // sometimes the default export comes in as the functions
+      // sometimes it comes in as an object with the function on the default property 🤷
+      evaluateTailwindFunctionsImport.default
+    : evaluateTailwindFunctionsImport;
 
 export const generateTailwindCssRules = (
   classNames: string[],

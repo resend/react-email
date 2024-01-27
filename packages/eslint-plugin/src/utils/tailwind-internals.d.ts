@@ -4,13 +4,13 @@ declare module "tailwindcss/lib/lib/evaluateTailwindFunctions" {
   import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
   import type { Root } from "postcss";
 
-  function evaluateTailwindFunctions(
-    context: JITContext,
-  ): (root: Root) => void;
+  function evaluateTailwindFunctions(context: JITContext): (root: Root) => void;
 
-  const ExportType: typeof evaluateTailwindFunctions | {
-    default: typeof evaluateTailwindFunctions
-  };
+  const ExportType:
+    | typeof evaluateTailwindFunctions
+    | {
+        default: typeof evaluateTailwindFunctions;
+      };
 
   export default ExportType;
 }
