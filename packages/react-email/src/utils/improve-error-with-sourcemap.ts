@@ -1,3 +1,4 @@
+import path from 'node:path';
 import * as stackTraceParser from 'stacktrace-parser';
 import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
 import type { ErrorObject } from './types/error-object';
@@ -10,9 +11,35 @@ export const improveErrorWithSourceMap = (
 ): ErrorObject => {
   let stack: string | undefined;
 
+  const sourceMapWithAbsolutePathSources = structuredClone(
+    sourceMapToOriginalFile,
+  );
+  sourceMapWithAbsolutePathSources.sources =
+    sourceMapWithAbsolutePathSources.sources.map(
+      (source) => `${path.resolve(originalFilePath, source)}`,
+    );
+
+  const getStackLineFromMethodNameAndSource = (
+    methodName: string,
+    source: string,
+    line: number | undefined | null,
+    column: number | undefined | null,
+  ) => {
+    const columnAndLine =
+      column || line
+        ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
+        : undefined;
+    console.log(methodName) ;
+    return methodName === '<unknown>'
+      ? ` at ${source}${columnAndLine ? `:${columnAndLine}` : ''}`
+      : ` at ${methodName} (${source}${columnAndLine ? `:${columnAndLine}` : ''})`;
+  };
+
   if (typeof error.stack !== 'undefined') {
     const parsedStack = stackTraceParser.parse(error.stack);
-    const sourceMapConsumer = new SourceMapConsumer(sourceMapToOriginalFile);
+    const sourceMapConsumer = new SourceMapConsumer(
+      sourceMapWithAbsolutePathSources,
+    );
     const newStackLines = [] as string[];
     for (const stackFrame of parsedStack) {
       if (stackFrame.file === originalFilePath) {
@@ -21,26 +48,33 @@ export const improveErrorWithSourceMap = (
             column: stackFrame.column ?? 0,
             line: stackFrame.lineNumber ?? 0,
           });
-          const columnAndLine =
-            positionWithError.column && positionWithError.line
-              ? `${positionWithError.line}:${positionWithError.column}`
-              : positionWithError.line;
+
           newStackLines.push(
-            ` at ${stackFrame.methodName} (${originalFilePath}:${columnAndLine})`,
+            getStackLineFromMethodNameAndSource(
+              stackFrame.methodName,
+              path.relative(originalFilePath, positionWithError.source),
+              positionWithError.line,
+              positionWithError.column,
+            ),
           );
         } else {
           newStackLines.push(
-            ` at ${stackFrame.methodName} (${originalFilePath})`,
+            getStackLineFromMethodNameAndSource(
+              stackFrame.methodName,
+              originalFilePath,
+              stackFrame.lineNumber,
+              stackFrame.column,
+            ),
           );
         }
-      } else {
-        const columnAndLine =
-          stackFrame.column && stackFrame.lineNumber
-            ? `${stackFrame.lineNumber}:${stackFrame.column}`
-            : stackFrame.lineNumber;
-        newStackLines.push(
-          ` at ${stackFrame.methodName} (${stackFrame.file}:${columnAndLine})`,
+      } else if (stackFrame.file) {
+        const stackLine = getStackLineFromMethodNameAndSource(
+          stackFrame.methodName,
+          stackFrame.file,
+          stackFrame.lineNumber,
+          stackFrame.column,
         );
+        newStackLines.push(stackLine);
       }
     }
     stack = newStackLines.join('\n');
