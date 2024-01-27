@@ -303,9 +303,9 @@ index be0c9ff..2490a52 100644
 --- a/packages/eslint-plugin/src/rules/generated/no-css-block-inline-size.ts
 +++ b/packages/eslint-plugin/src/rules/generated/no-css-block-inline-size.ts
 @@ -1,7 +1,7 @@
- import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
+ import { createNoStylePropertyRule } from "../../utils/create-no-property-rule";
 
- export default createNoStyleValueKeywordRule(
+ export default createNoStylePropertyRule(
 -  "block-inline-size",
 +  ["block-size", "inline-size"],
    48.46938775510204,
