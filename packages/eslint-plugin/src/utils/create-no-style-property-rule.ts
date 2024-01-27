@@ -53,7 +53,7 @@ ${caniemailLink}`,
               node,
               messageId: "not-supported-on-most-email-clients",
               data: {
-                property: context.sourceCode.getText(node),
+                property: context.sourceCode.getText(node.key),
               },
             });
           }

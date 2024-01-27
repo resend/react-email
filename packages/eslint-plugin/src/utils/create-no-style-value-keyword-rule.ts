@@ -15,7 +15,7 @@ export const createNoStyleValueKeywordRule = (
   const support = supportPercentage.toFixed(2);
   const definedMessageOrDefault =
     message ??
-    `"{{value}}" — support is ${support}% of email clients
+    `{{value}} — support is ${support}% of email clients
 
 ${caniemailLink}`;
   return createRule({
@@ -29,7 +29,7 @@ ${caniemailLink}`;
     create(context) {
       const isStylePropertyDisallowed = (_name: string, value: string) =>
         valueKeywords.some((keyword) =>
-          value.match(new RegExp(`(\\b|^)${keyword}(\\b|$)`, "g")),
+          value.match(new RegExp(`${keyword}`, "g")),
         );
 
       return getRuleListenersForJSXStyleProperties(
@@ -41,7 +41,7 @@ ${caniemailLink}`;
             context.report({
               loc: {
                 start: location[0],
-                end: location[1]
+                end: location[1],
               },
               messageId: "not-supported-on-most-email-clients",
               data: {
@@ -54,7 +54,7 @@ ${caniemailLink}`;
               node,
               messageId: "not-supported-on-most-email-clients",
               data: {
-                value: context.sourceCode.getText(node),
+                value: context.sourceCode.getText(node.value),
               },
             });
           }
