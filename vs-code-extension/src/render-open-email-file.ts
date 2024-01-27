@@ -52,7 +52,7 @@ export async function renderOpenEmailFile(
       const fakeContext = {
         ...global,
         process: {
-          env: {}
+          env: {},
         },
         module: { exports: { default: undefined as unknown } },
         __filanem: currentlyOpenTabFilePath,
