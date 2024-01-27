@@ -2,8 +2,8 @@ import * as vscode from "vscode";
 
 import { basename } from "path";
 
-import { renderOpenEmailFile } from "./renderOpenEmailFile";
-import { convertAllEmailAssetSourcesIntoWebviewURIs } from "./convertAllEmailAssetSourcesIntoWebviewURIs";
+import { renderOpenEmailFile } from "./render-open-email-file";
+import { convertAllEmailAssetSourcesIntoWebviewURIs } from "./convert-all-email-asset-sources-into-webview-uris";
 
 import { emailWithErrorHTML, noEmailOpenHTML } from "./extension";
 
