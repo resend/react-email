@@ -95,7 +95,7 @@ export const getEmailComponent = async (
 
       if (m in staticNodeModulesForVM) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return staticNodeModulesForVM[m];
+        return staticNodeModulesForVM[m as keyof typeof staticNodeModulesForVM];
       }
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
