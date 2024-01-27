@@ -303,9 +303,11 @@ index be0c9ff..2490a52 100644
 --- a/packages/eslint-plugin/src/rules/generated/no-css-block-inline-size.ts
 +++ b/packages/eslint-plugin/src/rules/generated/no-css-block-inline-size.ts
 @@ -1,7 +1,7 @@
- import { createNoStylePropertyRule } from "../../utils/create-no-property-rule";
+-import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
 
- export default createNoStylePropertyRule(
+-export default createNoStyleValueKeywordRule(
++export default createNoStylePropertyRule(
 -  "block-inline-size",
 +  ["block-size", "inline-size"],
    48.46938775510204,
@@ -388,10 +390,12 @@ index 50fbe53..200605e 100644
 --- a/packages/eslint-plugin/src/rules/generated/no-css-border-radius-logical.ts
 +++ b/packages/eslint-plugin/src/rules/generated/no-css-border-radius-logical.ts
 @@ -1,7 +1,16 @@
- import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
+-import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
 
- export default createNoStyleValueKeywordRule(
+-export default createNoStyleValueKeywordRule(
 -  "border-radius-logical",
++export default createNoStylePropertyRule(
 +  [
 +    "border-start-end-radius",
 +    "border-end-end-radius",
@@ -515,7 +519,7 @@ index 295aed1..0d3a4f0 100644
 
  export default createNoStyleValueKeywordRule(
 -  "function-max",
-+  "max",
++  /max\([^)]*\)/,
    48.97959183673469,
    "https://www.caniemail.com/features/css-function-max/",
  );
@@ -528,7 +532,7 @@ index 9589639..99225e0 100644
 
  export default createNoStyleValueKeywordRule(
 -  "function-min",
-+  "min",
++  /min\([^)]*\)/,
    48.97959183673469,
    "https://www.caniemail.com/features/css-function-min/",
  );
@@ -559,7 +563,7 @@ index 836d840..3edcdb8 100644
 
  export default createNoStyleValueKeywordRule(
 -  "important",
-+  "!important",
++  /!important(\s+|$)/,
    66.30434782608695,
    "https://www.caniemail.com/features/css-important/",
  );
@@ -594,11 +598,13 @@ index b3811d0..1a4c417 100644
 --- a/packages/eslint-plugin/src/rules/generated/no-css-left-right-top-bottom.ts
 +++ b/packages/eslint-plugin/src/rules/generated/no-css-left-right-top-bottom.ts
 @@ -1,7 +1,7 @@
- import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
+-import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
++import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
 
- export default createNoStyleValueKeywordRule(
+-export default createNoStyleValueKeywordRule(
 -  "left-right-top-bottom",
 -  64.13043478260869,
++export default createNoStylePropertyRule(
 +  ["left", "right", "top", "bottom"],
 +  64.13043478260869,
    "https://www.caniemail.com/features/css-left-right-top-bottom/",
@@ -657,7 +663,7 @@ index dafdf5a..3125b6b 100644
 
  export default createNoStyleValueKeywordRule(
 -  "modern-color",
-+  ["lch", "oklch", "lab", "oklab"],
++  [/[0-9]+lch/, /[0-9]+oklch/, /[0-9]+lab/, /[0-9]+oklab/],
    27.027027027027028,
    "https://www.caniemail.com/features/css-modern-color/",
  );
@@ -1159,7 +1165,7 @@ index fcbdd75..764d226 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-calc",
-+  "calc",
++  /calc\([^)]*\)/,
    58.333333333333336,
    "https://www.caniemail.com/features/css-unit-calc/",
  );
@@ -1172,7 +1178,7 @@ index 908c579..78208c8 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-ch",
-+  "ch",
++  /[0-9]+ch/,
    66.66666666666666,
    "https://www.caniemail.com/features/css-unit-ch/",
  );
@@ -1185,7 +1191,7 @@ index 2732ea6..5fc07bb 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-initial",
-+  "initial",
++  /(\b|^)initial(\b|$)/,
    62.5,
    "https://www.caniemail.com/features/css-unit-initial/",
  );
@@ -1198,7 +1204,7 @@ index b63ec04..9010047 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-rem",
-+  "rem",
++  /[0-9]+rem/,
    66.66666666666666,
    "https://www.caniemail.com/features/css-unit-rem/",
  );
@@ -1211,7 +1217,7 @@ index 2e18e64..474499f 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-vh",
-+  "vh",
++  /[0-9]+vh/,
    72,
    "https://www.caniemail.com/features/css-unit-vh/",
  );
@@ -1224,7 +1230,7 @@ index b31ba51..928e8d0 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-vmax",
-+  "vmax",
++  /[0-9]+vmax/,
    64.58333333333334,
    "https://www.caniemail.com/features/css-unit-vmax/",
  );
@@ -1237,7 +1243,7 @@ index ff3ece1..4f979ea 100644
 
  export default createNoStyleValueKeywordRule(
 -  "unit-vmin",
-+  "vmin",
++  /[0-9]+vmin/,
    62.5,
    "https://www.caniemail.com/features/css-unit-vmin/",
  );

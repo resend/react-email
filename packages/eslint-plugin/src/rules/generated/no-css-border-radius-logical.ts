@@ -1,6 +1,6 @@
-import { createNoStyleValueKeywordRule } from "../../utils/create-no-style-value-keyword-rule";
+import { createNoStylePropertyRule } from "../../utils/create-no-style-property-rule";
 
-export default createNoStyleValueKeywordRule(
+export default createNoStylePropertyRule(
   [
     "border-start-end-radius",
     "border-end-end-radius",
