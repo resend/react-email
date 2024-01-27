@@ -1,4 +1,5 @@
-import type { ESLint, Linter } from "eslint";
+import type { Linter } from "eslint";
+import type { TSESLint } from "@typescript-eslint/utils";
 import {
   noHtmlWbr,
   noHtmlVideo,
@@ -127,7 +128,7 @@ import {
   noBase64Images,
 } from "./rules";
 
-const rules: ESLint.Plugin["rules"] = {
+const rules = {
   "no-base64-images": noBase64Images,
   "no-html-wbr": noHtmlWbr,
   "no-html-video": noHtmlVideo,
@@ -253,7 +254,7 @@ const rules: ESLint.Plugin["rules"] = {
   "no-css-animation": noCssAnimation,
   "no-css-align-items": noCssAlignItems,
   "no-css-accent-color": noCssAccentColor,
-};
+} satisfies TSESLint.Linter.Plugin['rules'];
 
 const recommendedRules: Partial<Linter.RulesRecord> = {
   "react/jsx-key": "off",
@@ -263,7 +264,7 @@ for (const ruleName of Object.keys(rules)) {
   recommendedRules[`@react-email/${ruleName}`] = "warn";
 }
 
-const plugin: ESLint.Plugin = {
+const plugin: TSESLint.Linter.Plugin = {
   configs: {
     recommended: {
       rules: recommendedRules,
