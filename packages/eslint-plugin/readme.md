@@ -37,8 +37,8 @@ inside of it as follows:
 
 ```json
 {
-    "plugins": ["@react-email"],
-    "extends": ["plugin:@react-email/recommended"]
+  "plugins": ["@react-email"],
+  "extends": ["plugin:@react-email/recommended"]
 }
 ```
 

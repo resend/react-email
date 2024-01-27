@@ -35,12 +35,12 @@ ${caniemailLink}`,
         isStylePropertyDisallowed,
         context.sourceCode,
         (nodeOrLocationObject) => {
-          if ('location' in nodeOrLocationObject) {
+          if ("location" in nodeOrLocationObject) {
             const location = nodeOrLocationObject.location;
             context.report({
               loc: {
                 start: location[0],
-                end: location[1]
+                end: location[1],
               },
               messageId: "not-supported-on-most-email-clients",
               data: {

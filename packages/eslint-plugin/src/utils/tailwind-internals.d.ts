@@ -4,7 +4,9 @@ declare module "tailwindcss/lib/lib/evaluateTailwindFunctions" {
   import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
   import type { Root } from "postcss";
 
-  export default function evaluateTailwindFunctions(context: JITContext): (root: Root) => void;
+  export default function evaluateTailwindFunctions(
+    context: JITContext,
+  ): (root: Root) => void;
 }
 
 declare module "tailwindcss/lib/lib/generateRules" {
