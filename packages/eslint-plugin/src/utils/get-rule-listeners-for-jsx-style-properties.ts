@@ -20,7 +20,7 @@ export const getRuleListenersForJSXStyleProperties = (
   sourceCode: Readonly<SourceCode>,
   reportProblemFor: (
     nodeOrLocation:
-      | TSESTree.Node
+      | TSESTree.Property
       | {
           location: [
             start: TSESTree.Position,
@@ -104,7 +104,7 @@ export const getRuleListenersForJSXStyleProperties = (
 
   const accumulatedProblemPropertiesPerVariableName = new Map<
     string,
-    (TSESTree.Property['key'])[]
+    TSESTree.Property[]
   >();
 
   // we can't directly get the ObjectExpression from VariableDeclarator
@@ -126,7 +126,7 @@ export const getRuleListenersForJSXStyleProperties = (
 
       accumulatedProblemPropertiesPerVariableName.set(variableName, [
         ...lastProblemProperties,
-        node.key,
+        node,
       ]);
     }
   }
@@ -134,11 +134,11 @@ export const getRuleListenersForJSXStyleProperties = (
   return {
     ...ruleListener,
     'JSXAttribute[name.name="style"] > JSXExpressionContainer ObjectExpression > Property'(
-      node: TSESTree.Property,
+      property: TSESTree.Property,
     ) {
-      const [propertyName, propertyValue] = metadataFromPropertyNode(node);
+      const [propertyName, propertyValue] = metadataFromPropertyNode(property);
       if (isStylePropertyDisallowed(propertyName, propertyValue)) {
-        reportProblemFor(node.key);
+        reportProblemFor(property);
       }
     },
     'JSXAttribute[name.name="style"] JSXExpressionContainer Identifier'(
@@ -147,8 +147,8 @@ export const getRuleListenersForJSXStyleProperties = (
       const dirtyStyleVariableIdentifier =
         accumulatedProblemPropertiesPerVariableName.get(node.name);
       if (typeof dirtyStyleVariableIdentifier !== "undefined") {
-        for (const propertyKey of dirtyStyleVariableIdentifier) {
-          reportProblemFor(propertyKey);
+        for (const property of dirtyStyleVariableIdentifier) {
+          reportProblemFor(property);
         }
       }
     },
