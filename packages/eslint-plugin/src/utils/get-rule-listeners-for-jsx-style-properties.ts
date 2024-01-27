@@ -22,10 +22,7 @@ export const getRuleListenersForJSXStyleProperties = (
     nodeOrLocation:
       | TSESTree.Property
       | {
-          location: [
-            start: TSESTree.Position,
-            end: TSESTree.Position,
-          ];
+          location: [start: TSESTree.Position, end: TSESTree.Position];
         },
   ) => void,
 ): RuleListener => {
@@ -45,6 +42,11 @@ export const getRuleListenersForJSXStyleProperties = (
 
   const tailwindMetadata = getSourceCodeTailwindMetadata(sourceCode);
 
+  // A function that turns snake-case text into camel case text
+  const camelize = (text: string) => {
+    return text.replace(/-./g, (match) => match.charAt(1).toUpperCase());
+  };
+
   if (tailwindMetadata.hasTailwind) {
     const tailwindContext = tailwindMetadata.tailwindContext;
 
@@ -63,7 +65,7 @@ export const getRuleListenersForJSXStyleProperties = (
           const properties = [] as Property[];
           rule.walk((node) => {
             if (node.type === "decl") {
-              properties.push([node.prop, node.value]);
+              properties.push([camelize(node.prop), node.value]);
             }
           });
           propertiesPerClassname.set(className, properties);
@@ -91,9 +93,15 @@ export const getRuleListenersForJSXStyleProperties = (
             if (isStylePropertyDisallowed(name, value)) {
               reportProblemFor({
                 location: [
-                  { line: node.loc.start.line, column: node.loc.start.column + start },
-                  { line: node.loc.start.line, column: node.loc.start.column + end }
-                ]
+                  {
+                    line: node.loc.start.line,
+                    column: node.loc.start.column + start,
+                  },
+                  {
+                    line: node.loc.start.line,
+                    column: node.loc.start.column + end,
+                  },
+                ],
               });
             }
           }
