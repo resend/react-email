@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-const emailsDirRelativePath =
+export const emailsDirRelativePath =
   process.env.NEXT_PUBLIC_EMAILS_DIR_RELATIVE_PATH ?? 'emails';
 
 export const userProjectLocation =
@@ -11,7 +11,7 @@ export const pathSeparator = process.env.NEXT_PUBLIC_OS_PATH_SEPARATOR! as
   | '/'
   | '\\';
 
-const normalizePath = (path: string) => {
+export const normalizePath = (path: string) => {
   let newPath = path;
 
   while (newPath.startsWith('./')) {
