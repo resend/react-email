@@ -2,6 +2,13 @@
 
 All notable changes to the "react-email-preview" extension will be documented in this file.
 
+## 0.0.3 - 2024-27-01
+
+### Features
+
+- Update building mechanism to not create temporary javascript files
+- Upgrade esbuild to not need a `tsconfig`, meaning aliases and other things should now work properly
+
 ## 0.0.2 - 2023-11-04
 
 ### Features
