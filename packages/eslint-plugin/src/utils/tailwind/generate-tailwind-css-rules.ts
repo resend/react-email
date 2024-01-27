@@ -1,11 +1,8 @@
 import type { Root, Rule } from "postcss";
 import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
 import postcss from "postcss";
-import evalImport from "tailwindcss/lib/lib/evaluateTailwindFunctions";
+import evaluateTailwindFunctions from "tailwindcss/lib/lib/evaluateTailwindFunctions";
 import { generateRules as rawGenerateRules } from "tailwindcss/lib/lib/generateRules";
-
-// weirdly, after compilation, tailwind default exports an object with a default property
-const evaluateTailwindFunctions = evalImport.default;
 
 export const generateTailwindCssRules = (
   classNames: string[],
