@@ -23,9 +23,10 @@ export const improveErrorWithSourceMap = (
       column || line
         ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
         : undefined;
+    const sourceToDisplay = path.relative(sourceRoot, source);
     return methodName === '<unknown>'
-      ? ` at ${path.relative(sourceRoot, source)}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${source}${columnAndLine ? `:${columnAndLine}` : ''
+      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
+      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''
       })`;
   };
 
