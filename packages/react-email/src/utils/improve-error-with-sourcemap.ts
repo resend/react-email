@@ -11,13 +11,7 @@ export const improveErrorWithSourceMap = (
 ): ErrorObject => {
   let stack: string | undefined;
 
-  const sourceMapWithAbsolutePathSources = structuredClone(
-    sourceMapToOriginalFile,
-  );
-  sourceMapWithAbsolutePathSources.sources =
-    sourceMapWithAbsolutePathSources.sources.map(
-      (source) => `${path.resolve(originalFilePath, source)}`,
-    );
+  const sourceRoot = sourceMapToOriginalFile.sourceRoot ?? path.dirname(originalFilePath);
 
   const getStackLineFromMethodNameAndSource = (
     methodName: string,
@@ -29,16 +23,16 @@ export const improveErrorWithSourceMap = (
       column || line
         ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
         : undefined;
-    console.log(methodName) ;
     return methodName === '<unknown>'
-      ? ` at ${source}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${source}${columnAndLine ? `:${columnAndLine}` : ''})`;
+      ? ` at ${path.relative(sourceRoot, source)}${columnAndLine ? `:${columnAndLine}` : ''}`
+      : ` at ${methodName} (${source}${columnAndLine ? `:${columnAndLine}` : ''
+      })`;
   };
 
   if (typeof error.stack !== 'undefined') {
     const parsedStack = stackTraceParser.parse(error.stack);
     const sourceMapConsumer = new SourceMapConsumer(
-      sourceMapWithAbsolutePathSources,
+      sourceMapToOriginalFile,
     );
     const newStackLines = [] as string[];
     for (const stackFrame of parsedStack) {
@@ -52,7 +46,7 @@ export const improveErrorWithSourceMap = (
           newStackLines.push(
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
-              path.relative(originalFilePath, positionWithError.source),
+              positionWithError.source,
               positionWithError.line,
               positionWithError.column,
             ),
@@ -61,7 +55,7 @@ export const improveErrorWithSourceMap = (
           newStackLines.push(
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
-              originalFilePath,
+              stackFrame.file,
               stackFrame.lineNumber,
               stackFrame.column,
             ),
