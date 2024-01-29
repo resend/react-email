@@ -11,7 +11,8 @@ export const improveErrorWithSourceMap = (
 ): ErrorObject => {
   let stack: string | undefined;
 
-  const sourceRoot = sourceMapToOriginalFile.sourceRoot ?? path.dirname(originalFilePath);
+  const sourceRoot =
+    sourceMapToOriginalFile.sourceRoot ?? path.dirname(originalFilePath);
 
   const getStackLineFromMethodNameAndSource = (
     methodName: string,
@@ -26,15 +27,14 @@ export const improveErrorWithSourceMap = (
     const sourceToDisplay = path.relative(sourceRoot, source);
     return methodName === '<unknown>'
       ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''
-      })`;
+      : ` at ${methodName} (${sourceToDisplay}${
+          columnAndLine ? `:${columnAndLine}` : ''
+        })`;
   };
 
   if (typeof error.stack !== 'undefined') {
     const parsedStack = stackTraceParser.parse(error.stack);
-    const sourceMapConsumer = new SourceMapConsumer(
-      sourceMapToOriginalFile,
-    );
+    const sourceMapConsumer = new SourceMapConsumer(sourceMapToOriginalFile);
     const newStackLines = [] as string[];
     for (const stackFrame of parsedStack) {
       if (stackFrame.file === originalFilePath) {
