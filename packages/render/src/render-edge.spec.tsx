@@ -4,9 +4,9 @@
 
 import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
-import { renderAsync } from "./render-async";
+import { render } from "./render";
 
-describe("renderAsync on the edge", () => {
+describe("render on the edge", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async (_importOriginal) => {
       const ReactDOMServer = await import("react-dom/server");
@@ -33,7 +33,7 @@ describe("renderAsync on the edge", () => {
       };
     });
 
-    const actualOutput = await renderAsync(<Template firstName="Jim" />);
+    const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
       '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt=\\"test\\" src=\\"img/test.png\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"',
@@ -43,7 +43,7 @@ describe("renderAsync on the edge", () => {
   });
 
   it("converts a React component into HTML", async () => {
-    const actualOutput = await renderAsync(<Template firstName="Jim" />);
+    const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
       '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt=\\"test\\" src=\\"img/test.png\\"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p>"',
@@ -51,7 +51,7 @@ describe("renderAsync on the edge", () => {
   });
 
   it("converts a React component into PlainText", async () => {
-    const actualOutput = await renderAsync(<Template firstName="Jim" />, {
+    const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
     });
 
@@ -63,7 +63,7 @@ describe("renderAsync on the edge", () => {
   });
 
   it("converts to plain text and removes reserved ID", async () => {
-    const actualOutput = await renderAsync(<Preview />, {
+    const actualOutput = await render(<Preview />, {
       plainText: true,
     });
 
