@@ -62,7 +62,7 @@ export const exportTemplates = async (
       // eslint-disable-next-line
       const component = await import(template);
       // eslint-disable-next-line
-      const rendered = render(component.default({}), options);
+      const rendered = await render(component.default({}), options);
       const htmlPath = template.replace(
         '.js',
         options.plainText ? '.txt' : '.html',
