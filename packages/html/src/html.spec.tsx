@@ -9,7 +9,9 @@ describe("<Html> component", () => {
   });
 
   it("passes props correctly", async () => {
-    const html = await render(<Html data-testid="html-test" dir="rtl" lang="fr" />);
+    const html = await render(
+      <Html data-testid="html-test" dir="rtl" lang="fr" />,
+    );
     expect(html).toContain('lang="fr"');
     expect(html).toContain('dir="rtl"');
     expect(html).toContain('data-testid="html-test"');

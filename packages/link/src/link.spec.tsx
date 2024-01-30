@@ -4,7 +4,9 @@ import { Link } from "./index";
 describe("<Link> component", () => {
   it("renders children correctly", async () => {
     const testMessage = "Test message";
-    const html = await render(<Link href="https://example.com">{testMessage}</Link>);
+    const html = await render(
+      <Link href="https://example.com">{testMessage}</Link>,
+    );
     expect(html).toContain(testMessage);
   });
 
