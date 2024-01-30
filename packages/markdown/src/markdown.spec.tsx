@@ -2,8 +2,8 @@ import { render } from "@react-email/render";
 import { Markdown } from "./markdown";
 
 describe("<Markdown> component renders correctly", () => {
-  it("renders the markdown in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders the markdown in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown showDataId>
         {`# Markdown Test Document
 
@@ -84,8 +84,8 @@ console.log(\`Hello, \${name}!\`);
 `);
   });
 
-  it("renders the headers in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders the headers in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown showDataId>
         {`
 # Heading 1!
@@ -102,8 +102,8 @@ console.log(\`Hello, \${name}!\`);
     );
   });
 
-  it("renders text in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders text in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown showDataId>
         **This is sample bold text in markdown** and *this is italic text*
       </Markdown>,
@@ -114,8 +114,8 @@ console.log(\`Hello, \${name}!\`);
 `);
   });
 
-  it("renders links in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders links in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown showDataId>
         Link to [React-email](https://react.email)
       </Markdown>,
@@ -126,8 +126,8 @@ console.log(\`Hello, \${name}!\`);
 `);
   });
 
-  it("renders lists in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders lists in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown showDataId>
         {`
 # Below is a list 
