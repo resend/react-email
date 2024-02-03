@@ -118,10 +118,14 @@ export const exportTemplates = async (
   const staticDirectoryPath = path.join(emailsDirectoryPath, 'static');
 
   if (fs.existsSync(staticDirectoryPath)) {
-    const pathToDumpStaticFilesInto = path.join(pathToWhereEmailMarkupShouldBeDumped, 'static');
+    const pathToDumpStaticFilesInto = path.join(
+      pathToWhereEmailMarkupShouldBeDumped,
+      'static',
+    );
     // cp('-r', ...) will copy *inside* of the static directory if it exists
     // causing a duplication of static files, so we need to delete ir first
-    if (fs.existsSync(pathToDumpStaticFilesInto)) await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
+    if (fs.existsSync(pathToDumpStaticFilesInto))
+      await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
 
     const result = cp(
       '-r',
