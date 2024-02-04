@@ -10,20 +10,49 @@ import normalize from 'normalize-path';
 import { cp } from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 import { tree } from '../utils';
+import {
+  EmailsDirectory,
+  getEmailsDirectoryMetadata,
+} from '../../actions/get-emails-directory-metadata';
+
+const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
+  const templatePaths = [] as string[];
+  emailDirectory.emailFilenames.forEach((filename) =>
+    templatePaths.push(path.join(emailDirectory.absolutePath, filename)),
+  );
+  emailDirectory.subDirectories.forEach((directory) => {
+    templatePaths.push(...getEmailTemplatesFromDirectory(directory));
+  });
+
+  return templatePaths;
+};
+
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
   using the `render` function.
  */
 export const exportTemplates = async (
-  outDir: string,
-  srcDir: string,
+  pathToWhereEmailMarkupShouldBeDumped: string,
+  emailsDirectoryPath: string,
   options: Options,
 ) => {
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
 
-  const allTemplates = glob.sync(normalize(path.join(srcDir, '*.{tsx,jsx}')));
+  const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
+    path.join(process.cwd(), emailsDirectoryPath),
+  );
+
+  if (typeof emailsDirectoryMetadata === 'undefined') {
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: `Could not find the directory at ${emailsDirectoryPath}`,
+    });
+    return;
+  }
+
+  const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
   const buildResult = buildSync({
     bundle: true,
@@ -32,7 +61,7 @@ export const exportTemplates = async (
     format: 'cjs',
     jsx: 'transform',
     write: true,
-    outdir: outDir,
+    outdir: pathToWhereEmailMarkupShouldBeDumped,
   });
   if (buildResult.warnings.length > 0) {
     console.warn(buildResult.warnings);
@@ -51,9 +80,12 @@ export const exportTemplates = async (
   }
   spinner.succeed();
 
-  const allBuiltTemplates = glob.sync(normalize(`${outDir}/*.js`), {
-    absolute: true,
-  });
+  const allBuiltTemplates = glob.sync(
+    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/*.js`),
+    {
+      absolute: true,
+    },
+  );
 
   for (const template of allBuiltTemplates) {
     try {
@@ -82,24 +114,37 @@ export const exportTemplates = async (
   spinner.text = `Copying static files`;
   spinner.render();
 
-  const staticDir = path.join(srcDir, 'static');
-  const hasStaticDirectory = fs.existsSync(staticDir);
+  // ex: emails/static
+  const staticDirectoryPath = path.join(emailsDirectoryPath, 'static');
 
-  if (hasStaticDirectory) {
-    const result = cp('-r', staticDir, path.join(outDir, 'static'));
+  if (fs.existsSync(staticDirectoryPath)) {
+    const pathToDumpStaticFilesInto = path.join(
+      pathToWhereEmailMarkupShouldBeDumped,
+      'static',
+    );
+    // cp('-r', ...) will copy *inside* of the static directory if it exists
+    // causing a duplication of static files, so we need to delete ir first
+    if (fs.existsSync(pathToDumpStaticFilesInto))
+      await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
+
+    const result = cp(
+      '-r',
+      staticDirectoryPath,
+      path.join(pathToWhereEmailMarkupShouldBeDumped, 'static'),
+    );
     if (result.code > 0) {
       spinner.stopAndPersist({
         symbol: logSymbols.error,
         text: 'Failed to copy static files',
       });
       throw new Error(
-        `Something went wrong while copying the file to ${outDir}/static, ${result.cat()}`,
+        `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${result.stderr}`,
       );
     }
   }
   spinner.succeed();
 
-  const fileTree = await tree(outDir, 4);
+  const fileTree = await tree(pathToWhereEmailMarkupShouldBeDumped, 4);
 
   console.log(fileTree);
 

@@ -7876,8 +7876,8 @@ export { Prism };
       return "string" == typeof e
         ? e
         : Array.isArray(e)
-        ? e.map(d).join("")
-        : d(e.content);
+          ? e.map(d).join("")
+          : d(e.content);
     }
     g.hooks.add("after-tokenize", function (e) {
       e.language in a &&
@@ -10194,8 +10194,8 @@ export { Prism };
       return "string" == typeof e
         ? e
         : Array.isArray(e)
-        ? e.map(a).join("")
-        : a(e.content);
+          ? e.map(a).join("")
+          : a(e.content);
     }
     (e.languages.naniscript = {
       comment: { pattern: /^([\t ]*);.*/m, lookbehind: !0 },
@@ -12582,13 +12582,13 @@ export { Prism };
               : "/>" !== a.content[a.content.length - 1].content &&
                 t.push({ tagName: s(a.content[0].content[1]), openedBraces: 0 })
             : 0 < t.length && "punctuation" === a.type && "{" === a.content
-            ? t[t.length - 1].openedBraces++
-            : 0 < t.length &&
-              0 < t[t.length - 1].openedBraces &&
-              "punctuation" === a.type &&
-              "}" === a.content
-            ? t[t.length - 1].openedBraces--
-            : (r = !0)),
+              ? t[t.length - 1].openedBraces++
+              : 0 < t.length &&
+                  0 < t[t.length - 1].openedBraces &&
+                  "punctuation" === a.type &&
+                  "}" === a.content
+                ? t[t.length - 1].openedBraces--
+                : (r = !0)),
           (r || "string" == typeof a) &&
             0 < t.length &&
             0 === t[t.length - 1].openedBraces &&
@@ -12608,8 +12608,8 @@ export { Prism };
         ? "string" == typeof e
           ? e
           : "string" == typeof e.content
-          ? e.content
-          : e.content.map(s).join("")
+            ? e.content
+            : e.content.map(s).join("")
         : "";
     };
     i.hooks.add("after-tokenize", function (e) {
@@ -15477,23 +15477,23 @@ export { Prism };
               : "/>" !== a.content[a.content.length - 1].content &&
                 t.push({ tagName: s(a.content[0].content[1]), openedBraces: 0 })
             : !(
-                0 < t.length &&
+                  0 < t.length &&
+                  "punctuation" === a.type &&
+                  "{" === a.content
+                ) ||
+                (e[n + 1] &&
+                  "punctuation" === e[n + 1].type &&
+                  "{" === e[n + 1].content) ||
+                (e[n - 1] &&
+                  "plain-text" === e[n - 1].type &&
+                  "{" === e[n - 1].content)
+              ? 0 < t.length &&
+                0 < t[t.length - 1].openedBraces &&
                 "punctuation" === a.type &&
-                "{" === a.content
-              ) ||
-              (e[n + 1] &&
-                "punctuation" === e[n + 1].type &&
-                "{" === e[n + 1].content) ||
-              (e[n - 1] &&
-                "plain-text" === e[n - 1].type &&
-                "{" === e[n - 1].content)
-            ? 0 < t.length &&
-              0 < t[t.length - 1].openedBraces &&
-              "punctuation" === a.type &&
-              "}" === a.content
-              ? t[t.length - 1].openedBraces--
-              : "comment" !== a.type && (r = !0)
-            : t[t.length - 1].openedBraces++),
+                "}" === a.content
+                ? t[t.length - 1].openedBraces--
+                : "comment" !== a.type && (r = !0)
+              : t[t.length - 1].openedBraces++),
           (r || "string" == typeof a) &&
             0 < t.length &&
             0 === t[t.length - 1].openedBraces &&
@@ -15514,8 +15514,8 @@ export { Prism };
       return "string" == typeof e
         ? e
         : "string" == typeof e.content
-        ? e.content
-        : e.content.map(s).join("");
+          ? e.content
+          : e.content.map(s).join("");
     };
     i.hooks.add("after-tokenize", function (e) {
       "xquery" === e.language && o(e.tokens);
