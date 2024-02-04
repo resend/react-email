@@ -1,3 +1,6 @@
+import path from 'node:path';
+import fs from 'node:fs';
+import { redirect } from 'next/navigation';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
@@ -22,7 +25,8 @@ export default async function Page({ params }: { params: PreviewParams }) {
       `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`,
     );
   }
-
+  const emailPath = path.join(emailsDirectoryAbsolutePath, slug);
+  if (!fs.existsSync(emailPath)) redirect('/');
   const emailRenderingResult = await renderEmailBySlug(slug);
 
   if (
