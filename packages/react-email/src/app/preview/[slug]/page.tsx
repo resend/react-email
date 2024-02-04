@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
@@ -38,5 +39,6 @@ export default async function Page({ params }: { params: PreviewParams }) {
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
-  return { title: `${decodeURIComponent(params.slug)} — React Email` };
+  const slug = decodeURIComponent(params.slug);
+  return { title: `${path.basename(slug)} — React Email` };
 }
