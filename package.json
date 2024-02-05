@@ -7,6 +7,7 @@
     "dev": "turbo run dev --parallel --concurrency 25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
+    "release": "pnpm build && pnpm changeset publish",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
