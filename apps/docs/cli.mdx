@@ -22,7 +22,7 @@ This does adjust to your `--dir` option, so if your `emails` directory was insid
 of `./src/emails`, you would place your static files inside of `./src/emails/static`.
 
 These static files are directly served from our preview server by looking into the
-requests made into that end with `/static` and serving the files at that point,
+requests made into that end with `/static` (i.e. `http://localhost:3000/static/...`) and serving the files at that point,
 this also allows for you to have images inside of your emails like so:
 
 ```jsx
@@ -34,6 +34,31 @@ export default Email(props) {
   )
 }
 ```
+
+<Info>
+  This does not mean your images are hosted for you to send the emails,
+  if you do send your email here and you are using a image or similar inside of `emails/static`
+  they will not load properly on the email.
+</Info>
+
+Of curse, more often than not you will need to host your images on a CDN, so we recommend
+you change the `src` to the CDN's base url based on the environment like:
+
+```jsx
+const baseURL = process.env.NODE_ENV === 'production' 
+  ? 'https://cdn.com' 
+  : ''
+
+export default Email(props) {
+  return (
+    <div>
+      <img src={`${baseURL}/static/email-logo.png`} />
+    </div>
+  )
+}
+```
+
+You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source) for an example of how we do this.
 
 ### How to make the preview server ignore directories
 
