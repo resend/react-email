@@ -10,7 +10,7 @@ icon: 'square-terminal'
 
 Starts a local development server that will watch your files and automatically rebuild your email when you make changes.
 
-### Where can I place my static files for previewing
+### Where can I place my static files for previewing?
 
 Almost always you will need to have static files in your emails, and seeing
 them on the preview server without having to first host on a CDN is very helpful.
@@ -60,7 +60,29 @@ export default Email(props) {
 
 You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source) for an example of how we do this.
 
-### How to make the preview server ignore directories
+### How can I define props specific to the email's preview?
+
+Considering that you are already default exporting the React component
+that will render as your email template, you can just define a `PreviewProps` with it as follows:
+
+```jsx
+export default Email(props) {
+  return (
+    <div>
+      <a src={props.source}>click here if you want candy 👀</a>
+    </div>
+  )
+}
+
+Email.PreviewProps = {
+  source: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+}
+```
+
+And then when opening this email's preview the `PreviewProps` 
+will be used as props into Email.
+
+### How to make the preview server ignore directories?
 
 Once the preview server has started and is now open on `localhost`, the preview server
 reads recursively down into all of your files and directories. This can be disabled
