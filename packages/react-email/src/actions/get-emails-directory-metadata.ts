@@ -77,7 +77,7 @@ export const getEmailsDirectoryMetadata = async (
         (dirent) =>
           getEmailsDirectoryMetadata(
             path.join(dirent.path, dirent.name),
-            true
+            true,
           ) as Promise<EmailsDirectory>,
       ),
   );
