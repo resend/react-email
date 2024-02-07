@@ -14,15 +14,15 @@ export const pathSeparator = process.env.NEXT_PUBLIC_OS_PATH_SEPARATOR! as
 export const normalizePath = (path: string) => {
   let newPath = path;
 
-  while (newPath.startsWith('./')) {
+  while (newPath.startsWith(`.${pathSeparator}`)) {
     newPath = newPath.slice(2);
   }
 
-  while (newPath.startsWith('/')) {
+  while (newPath.startsWith(pathSeparator)) {
     newPath = newPath.slice(1);
   }
 
-  while (newPath.endsWith('/')) {
+  while (newPath.endsWith(pathSeparator)) {
     newPath = newPath.slice(0, -1);
   }
 
