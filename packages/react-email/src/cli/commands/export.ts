@@ -83,7 +83,7 @@ export const exportTemplates = async (
   spinner.succeed();
 
   const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/*.cjs`),
+    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
     {
       absolute: true,
     },
