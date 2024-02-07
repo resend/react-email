@@ -59,6 +59,7 @@ export const exportTemplates = async (
     entryPoints: allTemplates,
     platform: 'node',
     format: 'cjs',
+    outExtension: { '.js': '.cjs' },
     jsx: 'transform',
     write: true,
     outdir: pathToWhereEmailMarkupShouldBeDumped,
@@ -81,7 +82,7 @@ export const exportTemplates = async (
   spinner.succeed();
 
   const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/*.js`),
+    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/*.cjs`),
     {
       absolute: true,
     },
@@ -95,7 +96,7 @@ export const exportTemplates = async (
       const component = require(template);
       const rendered = render(component.default({}), options);
       const htmlPath = template.replace(
-        '.js',
+        '.cjs',
         options.plainText ? '.txt' : '.html',
       );
       writeFileSync(htmlPath, rendered);
