@@ -4,13 +4,13 @@ type RootProps = React.ComponentPropsWithoutRef<"a">;
 
 export type LinkProps = RootProps;
 
-export const Link: React.FC<Readonly<LinkProps>> = ({
-  target = "_blank",
-  style,
-  ...props
-}) => (
+export const Link = React.forwardRef<
+  React.ElementRef<"a">,
+  Readonly<LinkProps>
+>(({ target = "_blank", style, ...props }, ref) => (
   <a
     {...props}
+    ref={ref}
     style={{
       color: "#067df7",
       textDecoration: "none",
@@ -20,4 +20,6 @@ export const Link: React.FC<Readonly<LinkProps>> = ({
   >
     {props.children}
   </a>
-);
+));
+
+Link.displayName = "Link";
