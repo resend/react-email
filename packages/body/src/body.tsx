@@ -5,7 +5,7 @@ type RootProps = React.ComponentPropsWithoutRef<"body">;
 
 export type BodyProps = RootProps;
 
-export const Body: React.FC<Readonly<BodyProps>> = React.forwardRef<
+export const Body = React.forwardRef<
   BodyElement,
   Readonly<BodyProps>
 >(({ children, style, ...props }, ref) => {

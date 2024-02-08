@@ -5,7 +5,7 @@ type TdElement = React.ElementRef<"td">;
 
 export type ColumnProps = RootProps;
 
-export const Column: React.FC<Readonly<ColumnProps>> = React.forwardRef<
+export const Column = React.forwardRef<
   TdElement,
   Readonly<ColumnProps>
 >(({ children, style, ...props }, ref) => {

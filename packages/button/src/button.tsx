@@ -4,7 +4,7 @@ import { parsePadding, pxToPt } from "./utils";
 type ButtonElement = React.ElementRef<"a">;
 export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
-export const Button: React.FC<Readonly<ButtonProps>> = React.forwardRef<
+export const Button = React.forwardRef<
   ButtonElement,
   Readonly<ButtonProps>
 >(({ children, style, target = "_blank", ...props }, ref) => {

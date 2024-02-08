@@ -5,7 +5,7 @@ type TableElement = React.ElementRef<"table">;
 
 export type ContainerProps = RootProps;
 
-export const Container: React.FC<Readonly<ContainerProps>> = React.forwardRef<
+export const Container = React.forwardRef<
   TableElement,
   Readonly<ContainerProps>
 >(({ children, style, ...props }, ref) => {

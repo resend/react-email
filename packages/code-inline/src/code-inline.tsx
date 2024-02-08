@@ -10,7 +10,7 @@ export type CodeInlineProps = RootProps;
  * If you are sending emails for users that have the Orange.fr email client,
  * beware that this component will only work when you have a head containing meta tags.
  */
-export const CodeInline: React.FC<Readonly<CodeInlineProps>> = React.forwardRef<
+export const CodeInline = React.forwardRef<
   SpanElement,
   Readonly<CodeInlineProps>
 >(({ children, ...props }, ref) => {

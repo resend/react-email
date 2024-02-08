@@ -68,7 +68,7 @@ const CodeBlockLine = ({
 /**
  * A component to show code using prismjs.
  */
-export const CodeBlock: React.FC<CodeBlockProps> = React.forwardRef<
+export const CodeBlock = React.forwardRef<
   React.ElementRef<"pre">,
   CodeBlockProps
 >((props, ref) => {
