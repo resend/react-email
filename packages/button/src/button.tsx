@@ -1,14 +1,13 @@
 import * as React from "react";
 import { parsePadding, pxToPt } from "./utils";
 
+type ButtonElement = React.ElementRef<"a">;
 export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
-export const Button: React.FC<Readonly<ButtonProps>> = ({
-  children,
-  style,
-  target = "_blank",
-  ...props
-}) => {
+export const Button: React.FC<Readonly<ButtonProps>> = React.forwardRef<
+  ButtonElement,
+  Readonly<ButtonProps>
+>(({ children, style, target = "_blank", ...props }, ref) => {
   const { pt, pr, pb, pl } = parsePadding({
     padding: style?.padding,
     paddingLeft: style?.paddingLeft,
@@ -23,6 +22,7 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
   return (
     <a
       {...props}
+      ref={ref}
       style={buttonStyle({ ...style, pt, pr, pb, pl })}
       target={target}
     >
@@ -39,7 +39,9 @@ export const Button: React.FC<Readonly<ButtonProps>> = ({
       />
     </a>
   );
-};
+});
+
+Button.displayName = "Button";
 
 const buttonStyle = (
   style?: React.CSSProperties & {
