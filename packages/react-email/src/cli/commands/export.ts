@@ -59,6 +59,7 @@ export const exportTemplates = async (
     entryPoints: allTemplates,
     platform: 'node',
     format: 'cjs',
+    loader: { '.js': 'jsx' },
     outExtension: { '.js': '.cjs' },
     jsx: 'transform',
     write: true,
@@ -82,7 +83,7 @@ export const exportTemplates = async (
   spinner.succeed();
 
   const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/*.cjs`),
+    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
     {
       absolute: true,
     },
