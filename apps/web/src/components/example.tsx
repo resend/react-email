@@ -21,10 +21,11 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
   author,
   ...props
 }) => {
-  if (path.length === 0) throw new Error('Cannot have an empty path for an Example!');
+  if (path.length === 0)
+    throw new Error("Cannot have an empty path for an Example!");
 
   // as the path is never going to be an empty string, this pop here always returns the last
-  // portion of the path 
+  // portion of the path
   //
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const emailName = path.split("/").pop()!;
