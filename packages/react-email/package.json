@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "test": "vitest run",
     "clean": "rm -rf dist",
     "lint": "eslint . && tsc"
   },
@@ -71,7 +72,7 @@
   "devDependencies": {
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
-    "@types/node": "20.10.4",
+    "@types/node": "18.0.0",
     "@types/normalize-path": "3.0.2",
     "@types/shelljs": "0.8.15",
     "@vercel/style-guide": "5.1.0",

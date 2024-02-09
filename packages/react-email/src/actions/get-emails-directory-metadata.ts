@@ -61,7 +61,9 @@ export const getEmailsDirectoryMetadata = async (
   });
 
   const emailFilenames = dirents
-    .filter((dirent) => isFileAnEmail(path.join(dirent.path, dirent.name)))
+    .filter((dirent) =>
+      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
+    )
     .map((dirent) => dirent.name);
 
   const subDirectories = await Promise.all(
@@ -75,7 +77,7 @@ export const getEmailsDirectoryMetadata = async (
       .map(
         (dirent) =>
           getEmailsDirectoryMetadata(
-            path.join(dirent.path, dirent.name),
+            path.join(absolutePathToEmailsDirectory, dirent.name),
           ) as Promise<EmailsDirectory>,
       ),
   );
