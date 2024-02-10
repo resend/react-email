@@ -54,6 +54,7 @@
     "@react-email/html": "0.0.7",
     "@react-email/img": "0.0.7",
     "@react-email/link": "0.0.7",
+    "@react-email/markdown": "0.0.8",
     "@react-email/preview": "0.0.8",
     "@react-email/render": "0.0.12",
     "@react-email/row": "0.0.7",
