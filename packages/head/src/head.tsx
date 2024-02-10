@@ -1,12 +1,17 @@
 import * as React from "react";
 
 type RootProps = React.ComponentPropsWithoutRef<"head">;
+type HeadElement = React.ElementRef<"head">;
 
 export type HeadProps = RootProps;
 
-export const Head: React.FC<Readonly<HeadProps>> = ({ children, ...props }) => (
-  <head {...props}>
-    <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
-    {children}
-  </head>
+export const Head = React.forwardRef<HeadElement, Readonly<HeadProps>>(
+  ({ children, ...props }, ref) => (
+    <head {...props} ref={ref}>
+      <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
+      {children}
+    </head>
+  ),
 );
+
+Head.displayName = "Head";

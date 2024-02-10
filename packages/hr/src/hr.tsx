@@ -4,14 +4,19 @@ type RootProps = React.ComponentPropsWithoutRef<"hr">;
 
 export type HrProps = RootProps;
 
-export const Hr: React.FC<Readonly<HrProps>> = ({ style, ...props }) => (
-  <hr
-    {...props}
-    style={{
-      width: "100%",
-      border: "none",
-      borderTop: "1px solid #eaeaea",
-      ...style,
-    }}
-  />
+export const Hr = React.forwardRef<React.ElementRef<"hr">, Readonly<HrProps>>(
+  ({ style, ...props }, ref) => (
+    <hr
+      {...props}
+      ref={ref}
+      style={{
+        width: "100%",
+        border: "none",
+        borderTop: "1px solid #eaeaea",
+        ...style,
+      }}
+    />
+  ),
 );
+
+Hr.displayName = "Hr";
