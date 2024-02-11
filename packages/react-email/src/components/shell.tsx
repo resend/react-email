@@ -59,7 +59,7 @@ export const Shell = ({
       <div className="flex bg-slate-2">
         <Sidebar
           className={cn(
-            'w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0',
+            'w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:z-auto lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0',
             {
               'translate-x-0 lg:-translate-x-full': sidebarToggled,
               '-translate-x-full lg:translate-x-0': !sidebarToggled,

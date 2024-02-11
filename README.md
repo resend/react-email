@@ -62,20 +62,23 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-- [Html](https://github.com/resend/react-email/tree/main/packages/html)
+- [Body](https://github.com/resend/react-email/tree/main/packages/body)
+- [Button](https://github.com/resend/react-email/tree/main/packages/button)
+- [CodeBlock](https://github.com/resend/react-email/tree/main/packages/code-block)
+- [CodeInline](https://github.com/resend/react-email/tree/main/packages/code-inline)
+- [Column](https://github.com/resend/react-email/tree/main/packages/column)
+- [Container](https://github.com/resend/react-email/tree/main/packages/container)
+- [Divider](https://github.com/resend/react-email/tree/main/packages/hr)
+- [Font](https://github.com/resend/react-email/tree/main/packages/font)
 - [Head](https://github.com/resend/react-email/tree/main/packages/head)
 - [Heading](https://github.com/resend/react-email/tree/main/packages/heading)
-- [Button](https://github.com/resend/react-email/tree/main/packages/button)
-- [Link](https://github.com/resend/react-email/tree/main/packages/link)
+- [Html](https://github.com/resend/react-email/tree/main/packages/html)
 - [Image](https://github.com/resend/react-email/tree/main/packages/img)
-- [Divider](https://github.com/resend/react-email/tree/main/packages/hr)
+- [Link](https://github.com/resend/react-email/tree/main/packages/link)
+- [Markdown](https://github.com/resend/react-email/tree/main/packages/markdown)
 - [Paragraph](https://github.com/resend/react-email/tree/main/packages/text)
-- [Container](https://github.com/resend/react-email/tree/main/packages/container)
 - [Preview](https://github.com/resend/react-email/tree/main/packages/preview)
-- [Body](https://github.com/resend/react-email/tree/main/packages/body)
-- [Column](https://github.com/resend/react-email/tree/main/packages/column)
 - [Section](https://github.com/resend/react-email/tree/main/packages/section)
-- [Font](https://github.com/resend/react-email/tree/main/packages/font)
 
 ## Integrations
 
