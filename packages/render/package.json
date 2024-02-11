@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",
-    "@edge-runtime/vm": "3.1.7",
+    "@edge-runtime/vm": "3.1.8",
     "@types/html-to-text": "9.0.4",
     "@types/js-beautify": "1.14.3",
     "eslint-config-custom": "workspace:*",
