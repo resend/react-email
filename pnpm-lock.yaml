@@ -722,9 +722,12 @@ importers:
 
   packages/create-email:
     dependencies:
+      '@commander-js/extra-typings':
+        specifier: 12.0.0
+        version: 12.0.0(commander@12.0.0)
       commander:
-        specifier: 9.4.1
-        version: 9.4.1
+        specifier: 12.0.0
+        version: 12.0.0
       fs-extra:
         specifier: 11.1.1
         version: 11.1.1
@@ -1846,6 +1849,11 @@ packages:
 
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
+
+  '@commander-js/extra-typings@12.0.0':
+    resolution: {integrity: sha512-7zGCwtRKOJ978LCuEZbQ9ZmLdrRkNNASphEO5i9MZb6HfOk7KfsA3f4oXqYDhko4tNrU3GmZTlHqQ/nRlYtYSw==}
+    peerDependencies:
+      commander: ~12.0.0
 
   '@edge-runtime/primitives@4.0.6':
     resolution: {integrity: sha512-Ahv7SdVJiFryuauSmubY4bVYvVWsf2h/n67TRRT5ERs6eK90xyeCB3hmn1ExTqaZtxO0Q9QTbEUXVxz6o4iSzw==}
@@ -4741,6 +4749,10 @@ packages:
   commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
+
+  commander@12.0.0:
+    resolution: {integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA==}
+    engines: {node: '>=18'}
 
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -9254,6 +9266,10 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
+  '@commander-js/extra-typings@12.0.0(commander@12.0.0)':
+    dependencies:
+      commander: 12.0.0
+
   '@edge-runtime/primitives@4.0.6': {}
 
   '@edge-runtime/vm@3.1.8':
@@ -12155,11 +12171,14 @@ snapshots:
 
   commander@11.1.0: {}
 
+  commander@12.0.0: {}
+
   commander@2.20.3: {}
 
   commander@4.1.1: {}
 
-  commander@9.4.1: {}
+  commander@9.4.1:
+    optional: true
 
   computeds@0.0.1: {}
 
