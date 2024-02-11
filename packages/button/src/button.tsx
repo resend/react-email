@@ -1,7 +1,7 @@
 import * as React from "react";
 import { parsePadding, pxToPt } from "./utils";
 
-type ButtonProps = React.ComponentPropsWithoutRef<"a">;
+export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
 export const Button: React.FC<Readonly<ButtonProps>> = ({
   children,
