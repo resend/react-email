@@ -735,6 +735,9 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
     devDependencies:
+      '@types/fs-extra':
+        specifier: 11.0.1
+        version: 11.0.1
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom

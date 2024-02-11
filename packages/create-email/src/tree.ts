@@ -1,20 +1,20 @@
 // copied from packages/react-email/src/cli/utils/tree.ts
 // with removed types of course
-import { promises as fs } from 'node:fs';
-import os from 'node:os';
-import path from 'node:path';
+import { promises as fs } from "node:fs";
+import os from "node:os";
+import path from "node:path";
 
 const SYMBOLS = {
-  BRANCH: '├── ',
-  EMPTY: '',
-  INDENT: '    ',
-  LAST_BRANCH: '└── ',
-  VERTICAL: '│   ',
+  BRANCH: "├── ",
+  EMPTY: "",
+  INDENT: "    ",
+  LAST_BRANCH: "└── ",
+  VERTICAL: "│   ",
 };
 
 const getTreeLines = async (
-  dirPath,
-  depth,
+  dirPath: string,
+  depth: number,
   currentDepth = 0,
 ) => {
   const base = process.cwd();
@@ -70,7 +70,7 @@ const getTreeLines = async (
   return lines;
 };
 
-export const tree = async (dirPath, depth) => {
+export const tree = async (dirPath: string, depth: number) => {
   const lines = await getTreeLines(dirPath, depth);
   return lines.join(os.EOL);
 };
