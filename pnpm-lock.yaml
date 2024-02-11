@@ -311,6 +311,9 @@ importers:
       '@react-email/link':
         specifier: 0.0.7
         version: link:../link
+      '@react-email/markdown':
+        specifier: 0.0.8
+        version: link:../markdown
       '@react-email/preview':
         specifier: 0.0.8
         version: link:../preview
