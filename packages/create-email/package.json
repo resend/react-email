@@ -9,8 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "tsup src/index.ts --format esm",
+    "dev": "pnpm build --watch",
     "test": "vitest run"
   },
   "dependencies": {
