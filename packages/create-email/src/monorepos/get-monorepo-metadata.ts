@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import glob from "fast-glob";
 import { parse } from "yaml";
 import { findMonorepoRoot } from "./find-monorepo-root";
 
@@ -68,9 +67,6 @@ export const getMonorepoMetadata = async (
 
   return {
     monorepoRoot,
-    workspaces: await glob(workspaceGlobs, {
-      onlyDirectories: true,
-      cwd: monorepoRoot
-    }),
+    workspaceGlobs
   };
 };
