@@ -1,27 +1,20 @@
 import { fileURLToPath } from "node:url";
+import { promises as fs } from "node:fs";
 import path from "node:path";
-import fse from "fs-extra";
-import logSymbols from "log-symbols";
-import ora from "ora";
-import { tree } from "./tree";
 
-export const createStarter = async (relativeProjectPath: string) => {
-  const spinner = ora("Preparing files...\n").start();
-
-  const projectPath = path.resolve(process.cwd(), relativeProjectPath).trim();
-
+export const createStarter = async (absoluteProjectPath: string) => {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const templatePath = path.resolve(__dirname, "../template");
-  const resolvedProjectPath = path.resolve(projectPath);
+  const resolvedProjectPath = path.resolve(absoluteProjectPath);
 
-  await fse.copy(templatePath, resolvedProjectPath);
+  await fs.cp(templatePath, resolvedProjectPath, { recursive: true });
 
   const templatePackageJsonPath = path.resolve(
     resolvedProjectPath,
     "./package.json",
   );
   const templatePackageJson = JSON.parse(
-    fse.readFileSync(templatePackageJsonPath, "utf8"),
+    await fs.readFile(templatePackageJsonPath, "utf8"),
   ) as { dependencies: Record<string, string> };
   for (const key in templatePackageJson.dependencies) {
     // We remove any workspace prefix that might have been added for the purposes
@@ -30,17 +23,9 @@ export const createStarter = async (relativeProjectPath: string) => {
       key
     ].replace("workspace:", "");
   }
-  fse.writeFileSync(
+  await fs.writeFile(
     templatePackageJsonPath,
     JSON.stringify(templatePackageJson, null, 2),
     "utf8",
   );
-
-  // eslint-disable-next-line no-console
-  console.log(await tree(relativeProjectPath, 4));
-
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: "React Email Starter files ready",
-  });
 };
