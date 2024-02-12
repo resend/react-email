@@ -8,8 +8,10 @@ import {
   Link,
   Section,
   Text,
+  Tailwind,
 } from "@react-email/components";
-import * as React from "react";
+
+import tailwindConfig from "./tailwind.config";
 
 interface PlaidVerifyIdentityEmailProps {
   validationCode?: string;
@@ -19,38 +21,49 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "";
 
+const paragraphClassnames = "text-gray-600 text-base font-[HelveticaNeue,Helvetica,Arial,sans-serif] tracking-[0] leading-6 p-[0_40px] m-0 text-center";
+
 export const PlaidVerifyIdentityEmail = ({
   validationCode,
 }: PlaidVerifyIdentityEmailProps) => (
   <Html>
-    <Head />
-    <Body style={main}>
-      <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/plaid-logo.png`}
-          width="212"
-          height="88"
-          alt="Plaid"
-          style={logo}
-        />
-        <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>
-          Enter the following code to finish linking Venmo.
-        </Heading>
-        <Section style={codeContainer}>
-          <Text style={code}>{validationCode}</Text>
-        </Section>
-        <Text style={paragraph}>Not expecting this email?</Text>
-        <Text style={paragraph}>
-          Contact{" "}
-          <Link href="mailto:login@plaid.com" style={link}>
-            login@plaid.com
-          </Link>{" "}
-          if you did not request this code.
-        </Text>
-      </Container>
-      <Text style={footer}>Securely powered by Plaid.</Text>
-    </Body>
+    <Tailwind config={tailwindConfig}>
+      <Head />
+      <Body className="bg-white font-[HelveticaNeue,Helvetica,Arial,sans-serif]">
+        <Container className="bg-white border-[1px_solid_#eee] rounded-md shadow-[0_5px_10px_rgba(20,50,70,.2)] mt-5 max-w-[360px] m-[0_auto] p-[68px_0_130px]">
+          <Img
+            src={`${baseUrl}/static/plaid-logo.png`}
+            width="212"
+            height="88"
+            alt="Plaid"
+            className="m-[0_auto]"
+          />
+          <Text className="text-blue-500 text-xs font-bold font-[HelveticaNeue,Helvetica,Arial,sans-serif] h-4 tracking-[0] leading-4 m-[16px_8px_8px_8px] uppercase text-center">
+            Verify Your Identity
+          </Text>
+          <Heading className="text-black inline-block font-[HelveticaNeue,Helvetica,Arial,sans-serif] text-xl font-medium text-center mt-0 mb-0 leading-6">
+            Enter the following code to finish linking Venmo.
+          </Heading>
+          <Section className="bg-[rgba(0,0,0,.05)] rounded m-[16px_auto_14px] align-middle w-[280px]">
+            <Text className="text-black inline-block font-[HelveticaNeue-Bold] text-3xl font-bold tracking-[6px] leading-10 pb-2 py-2 m-[0_auto] w-full text-center">
+              {validationCode}
+            </Text>
+          </Section>
+          <Text className={paragraphClassnames}>Not expecting this email?</Text>
+          <Text className={paragraphClassnames}>
+            Contact{" "}
+            <Link href="mailto:login@plaid.com" className="text-gray-600 underline">
+              login@plaid.com
+            </Link>{" "}
+            if you did not request this code.
+          </Text>
+        </Container>
+        {/* The classes that correspond to the styles of footer that work only because of the config on ./tailwind.config.ts */}
+        <Text 
+          className="text-black text-xs font-extrabold tracking-[0] leading-6 m-0 mt-5 font-[HelveticaNeue,Helvetica,Arial,sans-serif] uppercase text-center"
+        >Securely powered by Plaid.</Text>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
@@ -59,100 +72,3 @@ PlaidVerifyIdentityEmail.PreviewProps = {
 } as PlaidVerifyIdentityEmailProps;
 
 export default PlaidVerifyIdentityEmail;
-
-const main = {
-  backgroundColor: "#ffffff",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-};
-
-const container = {
-  backgroundColor: "#ffffff",
-  border: "1px solid #eee",
-  borderRadius: "5px",
-  boxShadow: "0 5px 10px rgba(20,50,70,.2)",
-  marginTop: "20px",
-  maxWidth: "360px",
-  margin: "0 auto",
-  padding: "68px 0 130px",
-};
-
-const logo = {
-  margin: "0 auto",
-};
-
-const tertiary = {
-  color: "#0a85ea",
-  fontSize: "11px",
-  fontWeight: 700,
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  height: "16px",
-  letterSpacing: "0",
-  lineHeight: "16px",
-  margin: "16px 8px 8px 8px",
-  textTransform: "uppercase" as const,
-  textAlign: "center" as const,
-};
-
-const secondary = {
-  color: "#000",
-  display: "inline-block",
-  fontFamily: "HelveticaNeue-Medium,Helvetica,Arial,sans-serif",
-  fontSize: "20px",
-  fontWeight: 500,
-  lineHeight: "24px",
-  marginBottom: "0",
-  marginTop: "0",
-  textAlign: "center" as const,
-};
-
-const codeContainer = {
-  background: "rgba(0,0,0,.05)",
-  borderRadius: "4px",
-  margin: "16px auto 14px",
-  verticalAlign: "middle",
-  width: "280px",
-};
-
-const code = {
-  color: "#000",
-  display: "inline-block",
-  fontFamily: "HelveticaNeue-Bold",
-  fontSize: "32px",
-  fontWeight: 700,
-  letterSpacing: "6px",
-  lineHeight: "40px",
-  paddingBottom: "8px",
-  paddingTop: "8px",
-  margin: "0 auto",
-  width: "100%",
-  textAlign: "center" as const,
-};
-
-const paragraph = {
-  color: "#444",
-  fontSize: "15px",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  letterSpacing: "0",
-  lineHeight: "23px",
-  padding: "0 40px",
-  margin: "0",
-  textAlign: "center" as const,
-};
-
-const link = {
-  color: "#444",
-  textDecoration: "underline",
-};
-
-const footer = {
-  color: "#000",
-  fontSize: "12px",
-  fontWeight: 800,
-  letterSpacing: "0",
-  lineHeight: "23px",
-  margin: "0",
-  marginTop: "20px",
-  fontFamily: "HelveticaNeue,Helvetica,Arial,sans-serif",
-  textAlign: "center" as const,
-  textTransform: "uppercase" as const,
-};

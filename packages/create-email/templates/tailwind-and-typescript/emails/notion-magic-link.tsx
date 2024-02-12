@@ -44,9 +44,9 @@ export const NotionMagicLinkEmail = ({
           <Text className="text-gray-700 mb-3.5 font-sans">
             Or, copy and paste this temporary login code:
           </Text>
-          <CodeInline className="inline-block p-[16px_4.5%] bg-gray-100 rounded-md border border-[1px_solid_#eee] text-gray-700">
+          <code className="inline-block p-[16px_4.5%] bg-gray-100 rounded-md border border-[1px_solid_#eee] text-gray-700">
             {loginCode}
-          </CodeInline>
+          </code>
           <Text
             className="text-gray-400 text-sm mt-3.5 mb-4 font-sans"
           >
