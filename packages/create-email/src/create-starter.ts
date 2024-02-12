@@ -2,12 +2,45 @@ import { fileURLToPath } from "node:url";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
-export const createStarter = async (absoluteProjectPath: string) => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const templatePath = path.resolve(__dirname, "../template");
-  const resolvedProjectPath = path.resolve(absoluteProjectPath);
+export type CreateServerMatadata = {
+  absoluteProjectPath: string;
+  enableTypeScript: boolean;
+  enableTailwindCSS: boolean;
+};
 
-  await fs.cp(templatePath, resolvedProjectPath, { recursive: true });
+const updatePackageJsonToMatchFolderName = async (absoluteProjectPath: string) => {
+  const packageJsonPath = path.resolve(absoluteProjectPath, "package.json");
+  const packageJson = JSON.parse(
+    await fs.readFile(packageJsonPath, "utf-8"),
+  );
+  
+  packageJson.name = path.basename(absoluteProjectPath);
+  
+  await fs.writeFile(
+    packageJsonPath,
+    JSON.stringify(packageJson, null, 2),
+  );
+}
+
+export const createStarter = async ({ absoluteProjectPath, enableTypeScript, enableTailwindCSS }: CreateServerMatadata) => {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+  let templateName;
+  if (enableTypeScript && enableTailwindCSS) {
+    templateName = 'tailwind-and-typescript';
+  } else if (!enableTypeScript && enableTailwindCSS) {
+    templateName = 'tailwind-and-javascript';
+  } else if (enableTypeScript && !enableTailwindCSS) {
+    templateName = 'typescript';
+  } else {
+    templateName = 'javascript';
+  }
+
+  const templatePath = path.resolve(__dirname, "../templates/", templateName);
+
+  await fs.cp(templatePath, absoluteProjectPath, { recursive: true });
+
+  await updatePackageJsonToMatchFolderName(absoluteProjectPath);
 
   const templatePackageJsonPath = path.resolve(
     resolvedProjectPath,
