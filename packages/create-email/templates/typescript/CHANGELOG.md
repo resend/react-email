@@ -1,4 +1,4 @@
-# react-email-starter
+# ts-template
 
 ## 0.1.0-canary.6
 
