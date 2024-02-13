@@ -36,7 +36,16 @@ describe("<Button> component", () => {
   });
 
   it("should allow users to overwrite style props", () => {
-    const actualOutput = render(<Button style={{ lineHeight: "150%", display: 'block', textDecoration: 'underline red', maxWidth: '50%' }} />);
+    const actualOutput = render(
+      <Button
+        style={{
+          lineHeight: "150%",
+          display: "block",
+          textDecoration: "underline red",
+          maxWidth: "50%",
+        }}
+      />,
+    );
     expect(actualOutput).toMatchInlineSnapshot(
       '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><a style=\\"line-height:150%;text-decoration:underline red;display:block;max-width:50%;padding:0px 0px 0px 0px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 0px;mso-font-width:-100%;mso-text-raise:0\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:0\\"></span><span><!--[if mso]><i style=\\"letter-spacing: 0px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"',
     );
