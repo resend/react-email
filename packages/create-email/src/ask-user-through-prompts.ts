@@ -1,8 +1,8 @@
 import path from "node:path";
-import fs from "node:fs";
 import prompts from "prompts";
 import { getMonorepoMetadata } from "./monorepos/get-monorepo-metadata";
 import { isGlob } from "./globs/is-glob";
+import { isFirstDepthGlob } from "./globs/is-first-depth-glob";
 
 export const askUserThroughPrompts = async () => {
   const { relativeProjectPath } = (await prompts({
@@ -17,19 +17,18 @@ export const askUserThroughPrompts = async () => {
   const monorepoMetadata = await getMonorepoMetadata(process.cwd());
   if (typeof monorepoMetadata !== "undefined") {
     const globOnlyWorkspaces = monorepoMetadata.workspaceGlobs.filter(isGlob);
-    const regex = /\*$/;
+
     // only globs like packages/*
-    const firstDepthGlobOnlyWorkspaces = globOnlyWorkspaces.filter(
-      (glob) => glob.split("*").length === 2 && glob.endsWith("*"),
-    );
+    const firstDepthGlobOnlyWorkspaces =
+      globOnlyWorkspaces.filter(isFirstDepthGlob);
 
     if (firstDepthGlobOnlyWorkspaces.length > 0) {
-      const { shouldAddAsWorkspaceAnswer } = await prompts({
+      const { shouldAddAsWorkspaceAnswer } = (await prompts({
         type: "confirm",
         initial: true,
         message: `We noticed you have a monorepo there. Would you like to add ${relativeProjectPath} as one of the workspaces?`,
         name: "shouldAddAsWorkspaceAnswer",
-      }) as { shouldAddAsWorkspaceAnswer: boolean };
+      })) as { shouldAddAsWorkspaceAnswer: boolean };
 
       if (shouldAddAsWorkspaceAnswer) {
         const { globWorkspaceToAddTo } = (await prompts({
