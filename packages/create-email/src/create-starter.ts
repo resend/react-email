@@ -12,7 +12,9 @@ const updatePackageJsonToMatchFolderName = async (
   absoluteProjectPath: string,
 ) => {
   const packageJsonPath = path.resolve(absoluteProjectPath, "package.json");
-  const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf-8")) as {
+  const packageJson = JSON.parse(
+    await fs.readFile(packageJsonPath, "utf-8"),
+  ) as {
     name: string;
   };
 

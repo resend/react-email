@@ -24,7 +24,6 @@ program
       enableTailwindCSS: isTailwindEnabled,
     });
 
-    // eslint-disable-next-line no-console
     console.log(await tree(absoluteProjectPath, 4));
 
     spinner.stopAndPersist({
