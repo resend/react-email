@@ -8,11 +8,11 @@ describe("tests with pnpm", () => {
     expect(meta).toBeDefined();
 
     if (typeof meta !== "undefined") {
-      expect(meta.monorepoRoot).toBe(path.resolve(__dirname, '../../../..'));
+      expect(meta.monorepoRoot).toBe(path.resolve(__dirname, "../../../.."));
       expect(meta.workspaceGlobs).toEqual([
-        'apps/web',
-        'packages/*',
-        'benchmarks/*'
+        "apps/web",
+        "packages/*",
+        "benchmarks/*",
       ]);
     }
   });

@@ -70,7 +70,10 @@ export const StripeWelcomeEmail = () => (
               instead of your test API keys. Your account can simultaneously be
               used for both test and live requests, so you can continue testing
               while accepting live payments. Check out our{" "}
-              <Link className="text-[#556cd6]" href="https://stripe.com/docs/dashboard">
+              <Link
+                className="text-[#556cd6]"
+                href="https://stripe.com/docs/dashboard"
+              >
                 tutorial about account basics
               </Link>
               .
@@ -88,7 +91,10 @@ export const StripeWelcomeEmail = () => (
             <Text className={paragraphClassname}>
               We'll be here to help you with any step along the way. You can
               find answers to most questions and get in touch with us on our{" "}
-              <Link className="text-[#556cd6]" href="https://support.stripe.com/">
+              <Link
+                className="text-[#556cd6]"
+                href="https://support.stripe.com/"
+              >
                 support site
               </Link>
               .
@@ -106,4 +112,3 @@ export const StripeWelcomeEmail = () => (
 );
 
 export default StripeWelcomeEmail;
-

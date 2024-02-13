@@ -14,7 +14,10 @@ const getMonorepoWorkspaceGlobs = async (monorepoRoot: string) => {
     );
     workspaceGlobs = parse(pnpmWorkspaceYaml).packages;
 
-    if (typeof workspaceGlobs === 'undefined' || !Array.isArray(workspaceGlobs)) {
+    if (
+      typeof workspaceGlobs === "undefined" ||
+      !Array.isArray(workspaceGlobs)
+    ) {
       throw new Error(
         'The place where the workspaces were expected to be in, i.e. the "packages" field of the pnpm-worksapce.yaml file, was not found.',
         {
@@ -38,7 +41,10 @@ const getMonorepoWorkspaceGlobs = async (monorepoRoot: string) => {
 
     workspaceGlobs = packageJson?.workspaces;
 
-    if (typeof workspaceGlobs === 'undefined' || !Array.isArray(workspaceGlobs)) {
+    if (
+      typeof workspaceGlobs === "undefined" ||
+      !Array.isArray(workspaceGlobs)
+    ) {
       throw new Error(
         'The place where the workspaces were expected to be in, i.e. the "workspaces" field of the package.json file, was not found.',
         {
@@ -67,6 +73,6 @@ export const getMonorepoMetadata = async (
 
   return {
     monorepoRoot,
-    workspaceGlobs
+    workspaceGlobs,
   };
 };

@@ -8,7 +8,6 @@ import { askUserThroughPrompts } from "./ask-user-through-prompts";
 import { createStarter } from "./create-starter";
 import { tree } from "./tree";
 
-
 program
   .name("create-email")
   .version((pkg as { version: string }).version)

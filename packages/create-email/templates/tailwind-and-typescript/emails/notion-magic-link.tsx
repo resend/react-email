@@ -47,14 +47,10 @@ export const NotionMagicLinkEmail = ({
           <code className="inline-block p-[16px_4.5%] bg-gray-100 rounded-md border border-[1px_solid_#eee] text-gray-700">
             {loginCode}
           </code>
-          <Text
-            className="text-gray-400 text-sm mt-3.5 mb-4 font-sans"
-          >
+          <Text className="text-gray-400 text-sm mt-3.5 mb-4 font-sans">
             If you didn&apos;t try to login, you can safely ignore this email.
           </Text>
-          <Text
-            className="text-gray-400 font-sans text-sm my-6 mx-0 mt-3 mb-9"
-          >
+          <Text className="text-gray-400 font-sans text-sm my-6 mx-0 mt-3 mb-9">
             Hint: You can set a permanent password in Settings & members → My
             account.
           </Text>
@@ -87,4 +83,3 @@ NotionMagicLinkEmail.PreviewProps = {
 } as NotionMagicLinkEmailProps;
 
 export default NotionMagicLinkEmail;
-

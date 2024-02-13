@@ -2,7 +2,7 @@ import path from "node:path";
 import { findMonorepoRoot } from "./find-monorepo-root";
 
 describe("tests with pnpm", () => {
-  const monorepoRoot = path.resolve(__dirname, '../../../..');
+  const monorepoRoot = path.resolve(__dirname, "../../../..");
 
   test("on the path for this file", async () => {
     expect(await findMonorepoRoot(__filename)).toBe(monorepoRoot);
@@ -17,7 +17,9 @@ describe("tests with pnpm", () => {
   });
 
   test("on the 'packages' directory", async () => {
-    expect(await findMonorepoRoot(path.resolve(__dirname, "../../.."))).toBe(monorepoRoot);
+    expect(await findMonorepoRoot(path.resolve(__dirname, "../../.."))).toBe(
+      monorepoRoot,
+    );
   });
 
   test("on the monorepo's root", async () => {
@@ -27,6 +29,8 @@ describe("tests with pnpm", () => {
   });
 
   test("outside of the monorepo", async () => {
-    expect(await findMonorepoRoot(path.resolve(__dirname, "../../../../.."))).toBeUndefined();
+    expect(
+      await findMonorepoRoot(path.resolve(__dirname, "../../../../..")),
+    ).toBeUndefined();
   });
 });

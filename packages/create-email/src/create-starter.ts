@@ -8,32 +8,33 @@ export type CreateServerMatadata = {
   enableTailwindCSS: boolean;
 };
 
-const updatePackageJsonToMatchFolderName = async (absoluteProjectPath: string) => {
+const updatePackageJsonToMatchFolderName = async (
+  absoluteProjectPath: string,
+) => {
   const packageJsonPath = path.resolve(absoluteProjectPath, "package.json");
-  const packageJson = JSON.parse(
-    await fs.readFile(packageJsonPath, "utf-8"),
-  );
-  
-  packageJson.name = path.basename(absoluteProjectPath);
-  
-  await fs.writeFile(
-    packageJsonPath,
-    JSON.stringify(packageJson, null, 2),
-  );
-}
+  const packageJson = JSON.parse(await fs.readFile(packageJsonPath, "utf-8"));
 
-export const createStarter = async ({ absoluteProjectPath, enableTypeScript, enableTailwindCSS }: CreateServerMatadata) => {
+  packageJson.name = path.basename(absoluteProjectPath);
+
+  await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
+};
+
+export const createStarter = async ({
+  absoluteProjectPath,
+  enableTypeScript,
+  enableTailwindCSS,
+}: CreateServerMatadata) => {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
   let templateName;
   if (enableTypeScript && enableTailwindCSS) {
-    templateName = 'tailwind-and-typescript';
+    templateName = "tailwind-and-typescript";
   } else if (!enableTypeScript && enableTailwindCSS) {
-    templateName = 'tailwind-and-javascript';
+    templateName = "tailwind-and-javascript";
   } else if (enableTypeScript && !enableTailwindCSS) {
-    templateName = 'typescript';
+    templateName = "typescript";
   } else {
-    templateName = 'javascript';
+    templateName = "javascript";
   }
 
   const templatePath = path.resolve(__dirname, "../templates/", templateName);
