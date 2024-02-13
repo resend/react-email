@@ -4,6 +4,7 @@
   "ignorePatterns": ["templates/*"],
   "extends": ["custom/react-internal"],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "@typescript-eslint/no-unsafe-call": "off"
   }
 }
