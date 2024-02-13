@@ -29,10 +29,10 @@ export const StripeWelcomeEmail = () => (
         <Container className="bg-white m-[0_auto] p-[20px_0_48px] mb-16">
           <Section className="p-[0_48px]">
             <Img
+              alt="Stripe"
+              height="21"
               src={`${baseUrl}/static/stripe-logo.png`}
               width="49"
-              height="21"
-              alt="Stripe"
             />
             <Hr className="border-gray-300 m-[20px_0]" />
             <Text className={paragraphClassname}>

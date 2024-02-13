@@ -39,7 +39,7 @@ const getMonorepoWorkspaceGlobs = async (monorepoRoot: string) => {
       workspaces?: string[];
     };
 
-    workspaceGlobs = packageJson?.workspaces;
+    workspaceGlobs = packageJson.workspaces;
 
     if (
       typeof workspaceGlobs === "undefined" ||
@@ -57,7 +57,7 @@ const getMonorepoWorkspaceGlobs = async (monorepoRoot: string) => {
     }
   }
 
-  return workspaceGlobs as string[];
+  return workspaceGlobs ;
 };
 
 export const getMonorepoMetadata = async (

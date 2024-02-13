@@ -10,7 +10,6 @@ import {
   Text,
   Tailwind,
 } from "@react-email/components";
-
 import tailwindConfig from "./tailwind.config";
 
 interface PlaidVerifyIdentityEmailProps {
@@ -33,11 +32,11 @@ export const PlaidVerifyIdentityEmail = ({
       <Body className="bg-white font-[HelveticaNeue,Helvetica,Arial,sans-serif]">
         <Container className="bg-white border-[1px_solid_#eee] rounded-md shadow-[0_5px_10px_rgba(20,50,70,.2)] mt-5 max-w-[360px] m-[0_auto] p-[68px_0_130px]">
           <Img
-            src={`${baseUrl}/static/plaid-logo.png`}
-            width="212"
-            height="88"
             alt="Plaid"
             className="m-[0_auto]"
+            height="88"
+            src={`${baseUrl}/static/plaid-logo.png`}
+            width="212"
           />
           <Text className="text-blue-500 text-xs font-bold font-[HelveticaNeue,Helvetica,Arial,sans-serif] h-4 tracking-[0] leading-4 m-[16px_8px_8px_8px] uppercase text-center">
             Verify Your Identity
@@ -54,8 +53,8 @@ export const PlaidVerifyIdentityEmail = ({
           <Text className={paragraphClassnames}>
             Contact{" "}
             <Link
-              href="mailto:login@plaid.com"
               className="text-gray-600 underline"
+              href="mailto:login@plaid.com"
             >
               login@plaid.com
             </Link>{" "}

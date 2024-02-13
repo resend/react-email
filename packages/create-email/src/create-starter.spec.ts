@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs, { promises } from "node:fs";
-import { createStarter } from "./create-starter";
 import type { SpyInstance } from "vitest";
+import { createStarter } from "./create-starter";
 
 describe("createStarter tests per template type", () => {
   const testingTemporaryFolderPath = path.resolve(

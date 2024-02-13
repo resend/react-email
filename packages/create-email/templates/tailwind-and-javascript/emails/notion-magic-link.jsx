@@ -10,7 +10,6 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
-
 import tailwindConfig from "./tailwind.config";
 
 const baseUrl = process.env.VERCEL_URL
@@ -54,16 +53,16 @@ export const NotionMagicLinkEmail = ({
             account.
           </Text>
           <Img
+            alt="Notion's Logo"
+            height="32"
             src={`${baseUrl}/static/notion-logo.png`}
             width="32"
-            height="32"
-            alt="Notion's Logo"
           />
           <Text className="text-[#898989] font-sans text-xs leading-6 mb-6">
             <Link
+              className="text-[#898989] font-sans text-sm underline"
               href="https://notion.so"
               target="_blank"
-              className="text-[#898989] font-sans text-sm underline"
             >
               Notion.so
             </Link>

@@ -85,7 +85,7 @@ export const askUserThroughPrompts = async () => {
 
   return {
     absoluteProjectPath,
-    isTypescriptEnabled,
-    isTailwindEnabled,
+    isTypescriptEnabled: isTypescriptEnabled as boolean,
+    isTailwindEnabled: isTailwindEnabled as boolean,
   };
 };

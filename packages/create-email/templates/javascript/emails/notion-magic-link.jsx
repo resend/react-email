@@ -26,12 +26,12 @@ export const NotionMagicLinkEmail = ({
         <Heading style={h1}>Login</Heading>
         <Link
           href="https://notion.so"
-          target="_blank"
           style={{
             ...link,
             display: "block",
             marginBottom: "16px",
           }}
+          target="_blank"
         >
           Click here to log in with this magic link
         </Link>
@@ -61,16 +61,16 @@ export const NotionMagicLinkEmail = ({
           account.
         </Text>
         <Img
+          alt="Notion's Logo"
+          height="32"
           src={`${baseUrl}/static/notion-logo.png`}
           width="32"
-          height="32"
-          alt="Notion's Logo"
         />
         <Text style={footer}>
           <Link
             href="https://notion.so"
-            target="_blank"
             style={{ ...link, color: "#898989" }}
+            target="_blank"
           >
             Notion.so
           </Link>

@@ -43,11 +43,11 @@ export const VercelInviteUserEmail = ({
           <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
             <Section className="mt-[32px]">
               <Img
-                src={`${baseUrl}/static/vercel-logo.png`}
-                width="40"
-                height="37"
                 alt="Vercel"
                 className="my-0 mx-auto"
+                height="37"
+                src={`${baseUrl}/static/vercel-logo.png`}
+                width="40"
               />
             </Section>
             <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
@@ -59,8 +59,8 @@ export const VercelInviteUserEmail = ({
             <Text className="text-black text-[14px] leading-[24px]">
               <strong>{invitedByUsername}</strong> (
               <Link
-                href={`mailto:${invitedByEmail}`}
                 className="text-blue-600 no-underline"
+                href={`mailto:${invitedByEmail}`}
               >
                 {invitedByEmail}
               </Link>
@@ -72,25 +72,25 @@ export const VercelInviteUserEmail = ({
                 <Column align="right">
                   <Img
                     className="rounded-full"
+                    height="64"
                     src={userImage}
                     width="64"
-                    height="64"
                   />
                 </Column>
                 <Column align="center">
                   <Img
+                    alt="invited you to"
+                    height="9"
                     src={`${baseUrl}/static/vercel-arrow.png`}
                     width="12"
-                    height="9"
-                    alt="invited you to"
                   />
                 </Column>
                 <Column align="left">
                   <Img
                     className="rounded-full"
+                    height="64"
                     src={teamImage}
                     width="64"
-                    height="64"
                   />
                 </Column>
               </Row>
@@ -105,7 +105,7 @@ export const VercelInviteUserEmail = ({
             </Section>
             <Text className="text-black text-[14px] leading-[24px]">
               or copy and paste this URL into your browser:{" "}
-              <Link href={inviteLink} className="text-blue-600 no-underline">
+              <Link className="text-blue-600 no-underline" href={inviteLink}>
                 {inviteLink}
               </Link>
             </Text>
