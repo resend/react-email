@@ -1,10 +1,95 @@
-import path from 'node:path';
-import fs from 'node:fs';
-import { createStarter } from './create-starter';
+import path from "node:path";
+import fs, { promises } from "node:fs";
+import { createStarter } from "./create-starter";
+import type { SpyInstance } from "vitest";
 
-test('create-email behavior', async () => {
-  const testingTemporaryFolderPath = path.resolve(__dirname, '../.testing-temp');
-  await createStarter(testingTemporaryFolderPath);
+describe("createStarter tests per template type", () => {
+  const testingTemporaryFolderPath = path.resolve(
+    __dirname,
+    "../.testing-temp",
+  );
+  let copySpy: SpyInstance<
+    [
+      source: string | URL,
+      destination: string | URL,
+      opts?: fs.CopyOptions | undefined,
+    ],
+    Promise<void>
+  >;
 
-  expect(fs.existsSync(testingTemporaryFolderPath)).toBe(true);
+  beforeEach(() => {
+    copySpy = vi.spyOn(promises, "cp");
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  test("create-email behavior on the template for typescript + tailwind", async () => {
+    await createStarter({
+      absoluteProjectPath: testingTemporaryFolderPath,
+      enableTailwindCSS: true,
+      enableTypeScript: true,
+    });
+
+    expect(fs.existsSync(testingTemporaryFolderPath)).toBe(true);
+    expect(copySpy).toHaveBeenLastCalledWith(
+      path.resolve(__dirname, "../templates/tailwind-and-typescript"),
+      testingTemporaryFolderPath,
+      {
+        recursive: true,
+      },
+    );
+  });
+
+  test("create-email behavior on the template for javascript + tailwind", async () => {
+    await createStarter({
+      absoluteProjectPath: testingTemporaryFolderPath,
+      enableTailwindCSS: true,
+      enableTypeScript: false,
+    });
+
+    expect(fs.existsSync(testingTemporaryFolderPath)).toBe(true);
+    expect(copySpy).toHaveBeenLastCalledWith(
+      path.resolve(__dirname, "../templates/tailwind-and-javascript"),
+      testingTemporaryFolderPath,
+      {
+        recursive: true,
+      },
+    );
+  });
+
+  test("create-email behavior on the template for just javascript", async () => {
+    await createStarter({
+      absoluteProjectPath: testingTemporaryFolderPath,
+      enableTailwindCSS: false,
+      enableTypeScript: false,
+    });
+
+    expect(fs.existsSync(testingTemporaryFolderPath)).toBe(true);
+    expect(copySpy).toHaveBeenLastCalledWith(
+      path.resolve(__dirname, "../templates/javascript"),
+      testingTemporaryFolderPath,
+      {
+        recursive: true,
+      },
+    );
+  });
+
+  test("create-email behavior on the template for just typescript", async () => {
+    await createStarter({
+      absoluteProjectPath: testingTemporaryFolderPath,
+      enableTailwindCSS: false,
+      enableTypeScript: true,
+    });
+
+    expect(fs.existsSync(testingTemporaryFolderPath)).toBe(true);
+    expect(copySpy).toHaveBeenLastCalledWith(
+      path.resolve(__dirname, "../templates/typescript"),
+      testingTemporaryFolderPath,
+      {
+        recursive: true,
+      },
+    );
+  });
 });
