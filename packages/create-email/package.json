@@ -39,9 +39,11 @@
     "create-email": "dist/index.js"
   },
   "devDependencies": {
-    "@types/prompts": "2.4.2",
+    "@types/prompts": "2.4.9",
+    "@typescript-eslint/parser": "7.0.1",
     "eslint-config-custom": "workspace:*",
     "prettier": "3.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "1.2.2"
   }
 }

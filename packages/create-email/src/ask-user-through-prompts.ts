@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import path from "node:path";
+// eslint-disable-next-line import/no-named-as-default
 import prompts from "prompts";
 import { getMonorepoMetadata } from "./monorepos/get-monorepo-metadata";
 import { isGlob } from "./globs/is-glob";
