@@ -2,7 +2,7 @@
   "name": "create-email",
   "version": "0.1.0-canary.6",
   "description": "The easiest way to get started with React Email",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "license": "MIT",
   "files": [
@@ -35,7 +35,7 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "create-email": "src/index.js"
+    "create-email": "dist/index.js"
   },
   "devDependencies": {
     "@types/prompts": "2.4.2",
