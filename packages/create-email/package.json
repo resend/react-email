@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm",
     "dev": "pnpm build --watch",
-    "lint": "eslint .",
+    "lint": "eslint . -c ./.eslintrc.json",
     "test": "vitest run"
   },
   "dependencies": {
