@@ -12,7 +12,7 @@ const getMonorepoWorkspaceGlobs = async (monorepoRoot: string) => {
       path.resolve(monorepoRoot, "./pnpm-workspace.yaml"),
       "utf8",
     );
-    workspaceGlobs = parse(pnpmWorkspaceYaml).packages;
+    workspaceGlobs = (parse(pnpmWorkspaceYaml) as { packages: string[] | undefined | null }).packages;
 
     if (
       typeof workspaceGlobs === "undefined" ||

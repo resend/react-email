@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import path from "node:path";
+// Not using named export as default here, though they are the same name.
 // eslint-disable-next-line import/no-named-as-default
 import prompts from "prompts";
 import { getMonorepoMetadata } from "./monorepos/get-monorepo-metadata";
@@ -15,7 +16,7 @@ export const askUserThroughPrompts = async () => {
       name: "relativeProjectPath",
     },
     { onCancel: () => process.exit(0) },
-  );
+  ) as { relativeProjectPath: string };
 
   let baseDirectory = process.cwd();
 
@@ -38,7 +39,7 @@ export const askUserThroughPrompts = async () => {
         {
           onCancel: () => process.exit(0),
         },
-      );
+      ) as { shouldAddAsWorkspaceAnswer: boolean };
 
       if (shouldAddAsWorkspaceAnswer) {
         const { globWorkspaceToAddTo } = (await prompts({
@@ -81,11 +82,11 @@ export const askUserThroughPrompts = async () => {
     {
       onCancel: () => process.exit(0),
     },
-  );
+  ) as { isTypescriptEnabled: boolean, isTailwindEnabled: boolean };
 
   return {
     absoluteProjectPath,
-    isTypescriptEnabled: isTypescriptEnabled as boolean,
-    isTailwindEnabled: isTailwindEnabled as boolean,
+    isTypescriptEnabled,
+    isTailwindEnabled
   };
 };

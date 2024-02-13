@@ -5,4 +5,7 @@ module.exports = {
   ],
   ignorePatterns: ["templates/*"],
   extends: ["custom/react-internal"],
+  rules: {
+    "no-console": "off"
+  }
 };
