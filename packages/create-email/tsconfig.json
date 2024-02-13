@@ -3,6 +3,7 @@
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "isolatedModules": false
+    "isolatedModules": false,
+    "resolveJsonModule": true
   }
 }
