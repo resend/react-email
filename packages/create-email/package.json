@@ -14,7 +14,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@commander-js/extra-typings": "12.0.0",
     "commander": "12.0.0",
     "find-up": "7.0.0",
     "log-symbols": "5.1.0",

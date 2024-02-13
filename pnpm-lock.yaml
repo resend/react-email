@@ -722,9 +722,6 @@ importers:
 
   packages/create-email:
     dependencies:
-      '@commander-js/extra-typings':
-        specifier: 12.0.0
-        version: 12.0.0(commander@12.0.0)
       commander:
         specifier: 12.0.0
         version: 12.0.0
@@ -1905,11 +1902,6 @@ packages:
 
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
-
-  '@commander-js/extra-typings@12.0.0':
-    resolution: {integrity: sha512-7zGCwtRKOJ978LCuEZbQ9ZmLdrRkNNASphEO5i9MZb6HfOk7KfsA3f4oXqYDhko4tNrU3GmZTlHqQ/nRlYtYSw==}
-    peerDependencies:
-      commander: ~12.0.0
 
   '@edge-runtime/primitives@4.0.6':
     resolution: {integrity: sha512-Ahv7SdVJiFryuauSmubY4bVYvVWsf2h/n67TRRT5ERs6eK90xyeCB3hmn1ExTqaZtxO0Q9QTbEUXVxz6o4iSzw==}
@@ -10011,10 +10003,6 @@ snapshots:
       fs-extra: 7.0.1
       human-id: 1.0.2
       prettier: 2.8.8
-
-  '@commander-js/extra-typings@12.0.0(commander@12.0.0)':
-    dependencies:
-      commander: 12.0.0
 
   '@edge-runtime/primitives@4.0.6': {}
 

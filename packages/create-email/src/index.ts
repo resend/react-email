@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import path from "node:path";
-import { Argument, program } from "@commander-js/extra-typings";
+import { program } from "commander";
 import logSymbols from "log-symbols";
 import ora from "ora";
 import pkg from "../package.json";
