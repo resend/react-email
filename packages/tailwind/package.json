@@ -50,8 +50,8 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-react": "7.22.5",
+    "@babel/core": "7.23.9",
+    "@babel/preset-react": "7.23.3",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
     "@react-email/hr": "workspace:*",
@@ -61,7 +61,7 @@
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
     "memfs": "4.6.0",
-    "postcss": "8.4.31",
+    "postcss": "8.4.35",
     "postcss-css-variables": "0.19.0",
     "process": "^0.11.10",
     "react-dom": "18.2.0",

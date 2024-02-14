@@ -1,7 +1,9 @@
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
+import { Suspense } from 'react';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -40,11 +42,16 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   }
 
   return (
-    <Preview
-      emailPath={emailPath}
-      renderingResult={emailRenderingResult}
-      slug={slug}
-    />
+    // This suspense is so that this page doesn't throw warnings
+    // on the build of the preview server de-opting into
+    // client-side rendering on build
+    <Suspense fallback={<Home />}>
+      <Preview
+        emailPath={emailPath}
+        renderingResult={emailRenderingResult}
+        slug={slug}
+      />
+    </Suspense>
   );
 }
 
