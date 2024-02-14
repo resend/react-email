@@ -14,7 +14,7 @@ export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
 
     const devServer = await startDevServer(
       emailsDirRelativePath,
-      './emails', // defualts to ./emails/static for the static files that are served to the preview
+      emailsDirRelativePath, // defaults to ./emails/static for the static files that are served to the preview
       parseInt(port),
     );
 
