@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailBySlug } from '../../../actions/render-email-by-slug';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -34,7 +36,14 @@ export default async function Page({ params }: { params: PreviewParams }) {
     });
   }
 
-  return <Preview renderingResult={emailRenderingResult} slug={slug} />;
+  return (
+    // This suspense is so that this page doesn't throw warnings
+    // on the build of the preview server de-opting into
+    // client-side rendering on build
+    <Suspense fallback={<Home />}>
+      <Preview renderingResult={emailRenderingResult} slug={slug} />
+    </Suspense>
+  );
 }
 
 export function generateMetadata({ params }: { params: PreviewParams }) {

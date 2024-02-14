@@ -4,11 +4,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const isFileAnEmail = (fullPath: string): boolean => {
-  const unixFullPath = fullPath.replaceAll(path.sep, '/');
-
-  // eslint-disable-next-line prefer-named-capture-group
-  if (/(\/|^)_[^/]*/.test(unixFullPath)) return false;
-
   const stat = fs.statSync(fullPath);
 
   if (stat.isDirectory()) return false;
@@ -66,7 +61,9 @@ export const getEmailsDirectoryMetadata = async (
   });
 
   const emailFilenames = dirents
-    .filter((dirent) => isFileAnEmail(path.join(dirent.path, dirent.name)))
+    .filter((dirent) =>
+      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
+    )
     .map((dirent) => dirent.name);
 
   const subDirectories = await Promise.all(
@@ -80,7 +77,7 @@ export const getEmailsDirectoryMetadata = async (
       .map(
         (dirent) =>
           getEmailsDirectoryMetadata(
-            path.join(dirent.path, dirent.name),
+            path.join(absolutePathToEmailsDirectory, dirent.name),
           ) as Promise<EmailsDirectory>,
       ),
   );
