@@ -17,9 +17,6 @@ export type EmailRenderingResult =
       error: ErrorObject;
     };
 
-/**
- * Renders an email file based on the slug.
- */
 export const renderEmailByPath = async (
   emailPath: string,
 ): Promise<EmailRenderingResult> => {
