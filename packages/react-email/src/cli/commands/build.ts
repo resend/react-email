@@ -104,9 +104,15 @@ const getEmailSlugsFromEmailDirectory = (
     .replace(emailsDirectoryAbsolutePath, '')
     .trim();
 
-  const slugs = [] as string[];
+  const slugs = [] as Array<string>[];
   emailDirectory.emailFilenames.forEach((filename) =>
-    slugs.push(path.join(directoryPathRelativeToEmailsDirectory, filename)),
+    slugs.push(
+      path
+        .join(directoryPathRelativeToEmailsDirectory, filename)
+        .split(path.sep)
+        // sometimes it gets empty segments due to trailing slashes
+        .filter((segment) => segment.length > 0),
+    ),
   );
   emailDirectory.subDirectories.forEach((directory) => {
     slugs.push(
@@ -136,7 +142,7 @@ const forceSSGForEmailPreviews = async (
   ).map((slug) => ({ slug }));
 
   await fs.promises.appendFile(
-    path.resolve(builtPreviewAppPath, './src/app/preview/[slug]/page.tsx'),
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
 export async function generateStaticParams() { 
