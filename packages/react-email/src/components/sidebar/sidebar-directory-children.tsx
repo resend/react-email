@@ -80,7 +80,7 @@ export const SidebarDirectoryChildren = (props: {
                     return (
                       <Link
                         href={{
-                          pathname: `/preview/${encodeURIComponent(emailSlug)}`,
+                          pathname: `/preview/${emailSlug}`,
                           search: searchParams.toString(),
                         }}
                         key={emailSlug}
