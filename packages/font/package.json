@@ -1,6 +1,6 @@
 {
   "name": "@react-email/font",
-  "version": "0.0.5",
+  "version": "0.0.7-canary.1",
   "description": "A React Font component to set your fonts",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -31,10 +31,10 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.5",
+    "@babel/preset-react": "7.23.3",
     "@react-email/render": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

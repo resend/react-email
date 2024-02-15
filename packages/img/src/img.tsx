@@ -4,18 +4,15 @@ type RootProps = React.ComponentPropsWithoutRef<"img">;
 
 export type ImgProps = RootProps;
 
-export const Img: React.FC<Readonly<ImgProps>> = ({
-  alt,
-  src,
-  width,
-  height,
-  style,
-  ...props
-}) => (
+export const Img = React.forwardRef<
+  React.ElementRef<"img">,
+  Readonly<ImgProps>
+>(({ alt, src, width, height, style, ...props }, ref) => (
   <img
     {...props}
     alt={alt}
     height={height}
+    ref={ref}
     src={src}
     style={{
       display: "block",
@@ -26,4 +23,6 @@ export const Img: React.FC<Readonly<ImgProps>> = ({
     }}
     width={width}
   />
-);
+));
+
+Img.displayName = "Img";

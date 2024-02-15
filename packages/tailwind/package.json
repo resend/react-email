@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "0.0.14",
+  "version": "0.0.19-canary.1",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -43,17 +43,15 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "dependencies": {
-    "react": "18.2.0"
-  },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-react": "7.22.5",
+    "@babel/core": "7.23.9",
+    "@babel/preset-react": "7.23.3",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
+    "@react-email/heading": "workspace:*",
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
     "@testing-library/react": "14.0.0",
@@ -61,15 +59,15 @@
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
     "memfs": "4.6.0",
-    "postcss": "8.4.31",
+    "postcss": "8.4.38",
     "postcss-css-variables": "0.19.0",
     "process": "^0.11.10",
-    "react-dom": "18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "vite": "4.5.2",
+    "vite": "5.0.13",
     "vite-plugin-dts": "3.6.3",
     "vite-plugin-node-polyfills": "0.17.0"
   },

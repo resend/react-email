@@ -1,6 +1,6 @@
 {
   "name": "@react-email/body",
-  "version": "0.0.7",
+  "version": "0.0.9-canary.1",
   "description": "A React body component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -31,11 +31,11 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-react": "7.22.5",
+    "@babel/core": "7.23.9",
+    "@babel/preset-react": "7.23.3",
     "@react-email/render": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

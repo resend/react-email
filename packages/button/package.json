@@ -1,6 +1,6 @@
 {
   "name": "@react-email/button",
-  "version": "0.0.13",
+  "version": "0.0.16-canary.1",
   "description": "A link that is styled to look like a button",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -43,10 +43,10 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.5",
+    "@babel/preset-react": "7.23.3",
     "@react-email/render": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

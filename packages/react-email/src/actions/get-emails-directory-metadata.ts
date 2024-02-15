@@ -12,6 +12,13 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
 
+  // This is to avoid a possible race condition where the file doesn't exist anymore
+  // once we are checking if it is an actual email, this couuld cause issues that
+  // would be very hard to debug and find out the why of it happening.
+  if (!fs.existsSync(fullPath)) {
+    return false;
+  }
+
   // check with a heuristic to see if the file has at least
   // a default export
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -53,6 +60,7 @@ const mergeDirectoriesWithSubDirectories = (
 
 export const getEmailsDirectoryMetadata = async (
   absolutePathToEmailsDirectory: string,
+  keepFileExtensions = false,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 
@@ -61,8 +69,14 @@ export const getEmailsDirectoryMetadata = async (
   });
 
   const emailFilenames = dirents
-    .filter((dirent) => isFileAnEmail(path.join(dirent.path, dirent.name)))
-    .map((dirent) => dirent.name);
+    .filter((dirent) =>
+      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
+    )
+    .map((dirent) =>
+      keepFileExtensions
+        ? dirent.name
+        : dirent.name.replace(path.extname(dirent.name), ''),
+    );
 
   const subDirectories = await Promise.all(
     dirents
@@ -75,7 +89,7 @@ export const getEmailsDirectoryMetadata = async (
       .map(
         (dirent) =>
           getEmailsDirectoryMetadata(
-            path.join(dirent.path, dirent.name),
+            path.join(absolutePathToEmailsDirectory, dirent.name),
           ) as Promise<EmailsDirectory>,
       ),
   );

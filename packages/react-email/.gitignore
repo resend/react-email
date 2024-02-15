@@ -4,6 +4,5 @@ cli
 !src/cli
 
 # for testing
-.react-email
-emails
+.for-dependency-graph.ts
 static
