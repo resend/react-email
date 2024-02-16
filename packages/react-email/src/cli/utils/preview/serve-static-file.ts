@@ -20,15 +20,20 @@ export const serveStaticFile = async (
   if (!doesFileExist) {
     res.statusCode = 404;
     res.end(`File ${pathname} not found!`);
-  } else {
-    const fileStat = await fs.stat(fileAbsolutePath);
-    if (fileStat.isDirectory()) {
-      fileAbsolutePath += `/index${ext}`;
-    }
 
-    const fileData = await fs.readFile(fileAbsolutePath);
-    // if the file is found, set Content-type and send data
-    res.setHeader('Content-type', lookup(ext) || 'text/plain');
-    res.end(fileData);
+    return;
   }
+
+  const fileStat = await fs.stat(fileAbsolutePath);
+  if (fileStat.isDirectory()) {
+    res.statusCode = 404;
+    res.end(`File ${pathname} not found!`);
+
+    return;
+  }
+
+  const fileData = await fs.readFile(fileAbsolutePath);
+  // if the file is found, set Content-type and send data
+  res.setHeader('Content-type', lookup(ext) || 'text/plain');
+  res.end(fileData);
 };
