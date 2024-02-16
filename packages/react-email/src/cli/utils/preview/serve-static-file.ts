@@ -32,8 +32,18 @@ export const serveStaticFile = async (
     return;
   }
 
-  const fileData = await fs.readFile(fileAbsolutePath);
-  // if the file is found, set Content-type and send data
-  res.setHeader('Content-type', lookup(ext) || 'text/plain');
-  res.end(fileData);
+  try {
+    const fileData = await fs.readFile(fileAbsolutePath);
+
+    // if the file is found, set Content-type and send data
+    res.setHeader('Content-type', lookup(ext) || 'text/plain');
+    res.end(fileData);
+  } catch (exception) {
+    console.error(`Could not read file at ${fileAbsolutePath} to be served, here's the exception:`, exception);
+
+    res.statusCode = 500;
+    res.end(`Could not read file at ${pathname} to be served!`);
+
+    return;
+  }
 };
