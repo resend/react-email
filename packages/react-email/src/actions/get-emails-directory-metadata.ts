@@ -64,7 +64,7 @@ export const getEmailsDirectoryMetadata = async (
     .filter((dirent) =>
       isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
     )
-    .map((dirent) => dirent.name);
+    .map((dirent) => dirent.name.replace(path.extname(dirent.name), ''));
 
   const subDirectories = await Promise.all(
     dirents
