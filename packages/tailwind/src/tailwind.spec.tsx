@@ -31,7 +31,7 @@ describe("Tailwind component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<a style=\\"margin-top:2rem;border-radius:0.375rem;background-color:rgb(37,99,235);padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;font-size:0.875rem;line-height:100%;color:rgb(229,231,235);text-decoration:none;display:inline-block;max-width:100%;padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"`,
+      `"<a style=\\"line-height:1.25rem;text-decoration:none;display:inline-block;max-width:100%;margin-top:2rem;border-radius:0.375rem;background-color:rgb(37,99,235);padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;font-size:0.875rem;color:rgb(229,231,235);padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"`,
     );
   });
 
