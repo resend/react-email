@@ -53,10 +53,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       {
         absolutePath: `${emailsDirectoryPath}/reset-password`,
         directoryName: 'reset-password',
-        emailFilenames: [
-          'dropbox-reset-password',
-          'twitch-reset-password',
-        ],
+        emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
         subDirectories: [],
       },
       {
@@ -68,11 +65,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       {
         absolutePath: `${emailsDirectoryPath}/welcome`,
         directoryName: 'welcome',
-        emailFilenames: [
-          'koala-welcome',
-          'netlify-welcome',
-          'stripe-welcome',
-        ],
+        emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
         subDirectories: [],
       },
     ],
