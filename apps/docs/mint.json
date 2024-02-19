@@ -51,7 +51,14 @@
       "group": "Overview",
       "pages": [
         "introduction",
-        "contributing",
+        {
+          "group": "Contributing",
+          "icon": "code-pull-request",
+          "pages": [
+            "contributing/opening-issues",
+            "contributing/codebase-overview"
+          ]
+        },
         "changelog",
         "roadmap",
         "cli",

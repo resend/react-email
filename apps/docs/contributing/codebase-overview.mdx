@@ -1,0 +1,47 @@
+---
+title: 'Codebase overview'
+sidebarTitle: 'Codebase overview'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'A section to make the React Email codebase more approachable'
+---
+
+Try reading this section if you feel like the amount of directories or files are cumbersome
+or if you can't understand what is what.
+
+## Top-level directories
+
+After cloning the [React Email repository](https://github.com/resend/react-email) you will
+be able to see a few directories at the root:
+
+<table>
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        [packages](https://github.com/resend/react-email/tree/canary/packages)
+      </td>
+      <td>
+        Contains all the [NPM](https://www.npmjs.com/) published packages that we currently have, 
+        each directory should be one of these, with exception of [a few of them]() 
+        that are meant for shared configuration but you shouldn't have to worry about them in
+        the vast majority of cases.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [apps](https://github.com/resend/react-email/tree/canary/apps)
+      </td>
+      <td>
+        Here you can find all of the apps related to our online presence, like: 
+        - this documentation (under `apps/docs`), 
+        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx) (under `apps/demo`) 
+        - and the Next app we have for our landing page on [react.email](https://react.email) (under `apps/web`)
+      </td>
+    </tr>
+  </tbody>
+</table>
