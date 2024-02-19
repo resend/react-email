@@ -1,5 +1,10 @@
 {
   "extends": "tsconfig/react-library.json",
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "target": "ES2020",
+    "isolatedModules": false,
+    "resolveJsonModule": true
+  }
 }

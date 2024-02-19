@@ -2,15 +2,27 @@
   "name": "create-email",
   "version": "0.0.23-canary.1",
   "description": "The easiest way to get started with React Email",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm",
+    "dev": "pnpm build --watch",
+    "lint": "eslint . -c ./.eslintrc.json",
+    "test": "vitest run"
+  },
   "dependencies": {
-    "commander": "9.4.1",
-    "fs-extra": "11.1.1",
+    "commander": "12.0.0",
+    "find-up": "7.0.0",
     "log-symbols": "5.1.0",
+    "minimatch": "9.0.3",
     "ora": "6.1.2",
-    "tree-cli": "0.6.7"
+    "prompts": "2.4.2",
+    "tree-cli": "0.6.7",
+    "yaml": "2.3.4"
   },
   "repository": {
     "type": "git",
@@ -25,9 +37,13 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "create-email": "src/index.js"
+    "create-email": "dist/index.js"
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "@typescript-eslint/parser": "7.0.1",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "3.0.0",
+    "tsconfig": "workspace:*",
+    "vitest": "1.2.2"
   }
 }

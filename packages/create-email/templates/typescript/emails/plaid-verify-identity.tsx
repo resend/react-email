@@ -27,11 +27,11 @@ export const PlaidVerifyIdentityEmail = ({
     <Body style={main}>
       <Container style={container}>
         <Img
-          src={`${baseUrl}/static/plaid-logo.png`}
-          width="212"
-          height="88"
           alt="Plaid"
+          height="88"
+          src={`${baseUrl}/static/plaid-logo.png`}
           style={logo}
+          width="212"
         />
         <Text style={tertiary}>Verify Your Identity</Text>
         <Heading style={secondary}>
