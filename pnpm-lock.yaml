@@ -276,7 +276,7 @@ importers:
         specifier: 0.0.7
         version: link:../body
       '@react-email/button':
-        specifier: 0.0.13
+        specifier: 0.0.14-canary.0
         version: link:../button
       '@react-email/code-block':
         specifier: 0.0.3-canary.1
@@ -633,8 +633,8 @@ importers:
         specifier: 1.0.6
         version: 1.0.6(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
       '@react-email/components':
-        specifier: 0.0.14
-        version: 0.0.14(@types/react@18.2.33)(react@18.2.0)
+        specifier: 0.0.15-canary.2
+        version: link:../components
       '@react-email/render':
         specifier: 0.0.12
         version: link:../render
@@ -4552,7 +4552,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.22.1
-      caniuse-lite: 1.0.30001579
+      caniuse-lite: 1.0.30001541
       fraction.js: 4.3.6
       normalize-range: 0.1.2
       picocolors: 1.0.0
