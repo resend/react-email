@@ -1,6 +1,6 @@
 {
   "name": "emails",
-  "version": "0.0.19-canary.1",
+  "version": "0.0.19-canary.2",
   "private": true,
   "scripts": {
     "build": "email build",
