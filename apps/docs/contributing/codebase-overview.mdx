@@ -23,25 +23,93 @@ be able to see a few directories at the root:
   <tbody>
     <tr>
       <td>
-        [packages](https://github.com/resend/react-email/tree/canary/packages)
+[apps](https://github.com/resend/react-email/tree/canary/apps)
       </td>
       <td>
-        Contains all the [NPM](https://www.npmjs.com/) published packages that we currently have, 
-        each directory should be one of these, with exception of [a few of them]() 
-        that are meant for shared configuration but you shouldn't have to worry about them in
-        the vast majority of cases.
+        Here you can find all of the apps related to our online presence, like: 
+        - this documentation (under [apps/docs](https://github.com/resend/react-email/tree/canary/apps/docs)), 
+        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx) 
+          (under [apps/demo](https://github.com/resend/react-email/tree/canary/apps/demo)) 
+        - the Next app we have for our landing page on [react.email](https://react.email) (under [apps/web](https://github.com/resend/react-email/tree/canary/apps/web))
       </td>
     </tr>
     <tr>
       <td>
-        [apps](https://github.com/resend/react-email/tree/canary/apps)
+        [benchmarks](https://github.com/resend/react-email/tree/canary/benchmarks)
       </td>
       <td>
-        Here you can find all of the apps related to our online presence, like: 
-        - this documentation (under `apps/docs`), 
-        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx) (under `apps/demo`) 
-        - and the Next app we have for our landing page on [react.email](https://react.email) (under `apps/web`)
+        These are meant to be benchmarks we make from version-to-version to demonstrate with actual
+        data that performance gains are really true with metrics like *p99 and p75*.
+
+        One example of them is the one for the [Improved Performance for Tailwind Emails](https://resend.com/blog/improved-performance-for-tailwind-emails)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [packages](https://github.com/resend/react-email/tree/canary/packages)
+      </td>
+      <td>
+        This is probably where you are going to spend the majority of your time if you are going to contribute.
+        
+        It contains all the [NPM](https://www.npmjs.com/) published packages that we currently have, 
+        each directory should be one of these, with the exception of [a few of them]() 
+        that are meant for shared configuration but you shouldn't have to worry about them in
+        the vast majority of cases.
       </td>
     </tr>
   </tbody>
 </table>
+
+<Note>
+  If you have an idea of a better way we could structure these packages so that they could
+  be more manageable and approachable we would really appreciate you 
+  [create a discussion](https://github.com/resend/react-email/discussions/new?category=ideas) with your thoughts 
+  on this.
+</Note>
+
+## Multiple packages
+
+This repository is a [pnpm monorepo](https://pnpm.io/next/workspaces) which means it contains
+multiple packages that are mantained. We keep each component we make inside of a package for itself.
+Currently we have the following packages:
+- [@react-email/body](https://github.com/resend/react-email/tree/canary/packages/body)
+- [@react-email/button](https://github.com/resend/react-email/tree/canary/packages/button)
+- [@react-email/code-block](https://github.com/resend/react-email/tree/canary/packages/code-block)
+- [@react-email/code-inline](https://github.com/resend/react-email/tree/canary/packages/code-inline)
+- [@react-email/column](https://github.com/resend/react-email/tree/canary/packages/column)
+- [@react-email/components](https://github.com/resend/react-email/tree/canary/packages/components)
+- [@react-email/container](https://github.com/resend/react-email/tree/canary/packages/container)
+- [create-email](https://github.com/resend/react-email/tree/canary/packages/create-email)
+  - Used for our [automatic setup](/getting-started/automatic-setup)
+- [@react-email/font](https://github.com/resend/react-email/tree/canary/packages/font)
+- [@react-email/head](https://github.com/resend/react-email/tree/canary/packages/head)
+- [@react-email/heading](https://github.com/resend/react-email/tree/canary/packages/heading)
+- [@react-email/hr](https://github.com/resend/react-email/tree/canary/packages/hr)
+- [@react-email/html](https://github.com/resend/react-email/tree/canary/packages/html)
+- [@react-email/img](https://github.com/resend/react-email/tree/canary/packages/img)
+- [@react-email/link](https://github.com/resend/react-email/tree/canary/packages/link)
+- [@react-email/markdown](https://github.com/resend/react-email/tree/canary/packages/markdown)
+- [@react-email/preview](https://github.com/resend/react-email/tree/canary/packages/preview)
+- [react-email](https://github.com/resend/react-email/tree/canary/packages/react-email)
+  - The package for our [`email` CLI](/cli)
+- [@react-email/render](https://github.com/resend/react-email/tree/canary/packages/render)
+- [@react-email/row](https://github.com/resend/react-email/tree/canary/packages/row)
+- [@react-email/section](https://github.com/resend/react-email/tree/canary/packages/section)
+- [@react-email/tailwind](https://github.com/resend/react-email/tree/canary/packages/tailwind)
+- [@react-email/text](https://github.com/resend/react-email/tree/canary/packages/text)
+
+Don't be scared by the amount of packages as most of them are quite small, with [the largest
+of them](https://github.com/resend/react-email/tree/canary/packages/tailwind) being only 900 lines of code.
+
+### The package for our CLI
+
+The CLI is one of the most important pieces for the best development we can provide to users,
+it can both cause the biggest amount of pain, during development, as well as increase the user's
+speed by quite a lot.
+
+The CLI consists in it of itself of a Next app, that we currently publish without building,
+and a CLI using [commander.js](https://www.npmjs.com/package/commander). The code for the CLI can be found
+at <br/>[`packages/react-email/src/cli`](https://github.com/resend/react-email/tree/canary/packages/react-email/src/cli)
+and the code for each of its commands can be found under
+<br/>[`packages/react-email/src/cli/commands`](https://github.com/resend/react-email/tree/canary/packages/react-email/src/cli/commands)
+
