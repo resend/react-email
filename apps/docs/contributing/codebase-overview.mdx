@@ -194,3 +194,24 @@ Both the linting and formatting are ensured by our GitHub CI so make sure that y
 and formatting right before you get to opening a PR or asking for a review on it.
 
 
+## Building
+
+What we currently use, for the most part, is the awesome [tsup](https://github.com/egoist/tsup).
+The only exception for this is the `@react-email/tailwind` package which currently uses `vite`
+due to a few issues with `tsup` and `tailwindcss`'s bundling.
+
+This will literally run `tsup` with a few settings we have for it. Generally they are just
+`src/index.ts --format esm,cjs --dts --external react` which generates both a ESM and CJS versions of the package 
+and the type definitions that were exported from `src/index.ts`, which is the entry point. 
+`--external react` here ensures that `react` is not bundled in which can cause many issues.
+
+### Why build before publishing?
+
+Currently we do building for most of the packages. This is important for a few key reasons
+that improve the usability of each package:
+
+1. All the exported types can be imported from the same place the JavaScript is imported
+2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules) 
+and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
+3. Code that isn't exported is not published nor downloaded
+4. We use TypeScript and `tsc` is not a good option to compile the code for various reasons
