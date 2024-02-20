@@ -84,7 +84,24 @@
       ]
     },
     {
-      "group": "Internal components",
+      "group": "Contributing",
+      "pages": [
+        "contributing/opening-issues",
+        "contributing/codebase-overview",
+        {
+          "group": "Development workflow",
+          "icon": "arrow-progress",
+          "pages": [
+            "contributing/development-workflow/1-setup",
+            "contributing/development-workflow/2-running-tests",
+            "contributing/development-workflow/3-linting",
+            "contributing/development-workflow/4-building"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Components",
       "pages": [
         "components/html",
         "components/head",
@@ -108,7 +125,9 @@
     },
     {
       "group": "Utilities",
-      "pages": ["utilities/render"]
+      "pages": [
+        "utilities/render"
+      ]
     },
     {
       "group": "Integrations",

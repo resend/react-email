@@ -1,0 +1,40 @@
+---
+title: 'Setup'
+sidebarTitle: '1. Setup'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'Things you will need to do beforehand to setup the project'
+---
+
+Before you can start actually developing you will have to understand
+a few things and get things setup so that you can get to what you need to do.
+
+First things first, make sure you are using the same Node version as we are, at least **Node 18**. 
+
+Then, after you do have the right Node version, let's go over the setup for development.
+
+<Steps>
+  <Step title="Clone the repository">
+    ```bash
+    git clone https://github.com/resend/react-email
+    ```
+  </Step>
+  <Step title={<>Enable <a href="https://pnpm.io/">pnpm</a> through <a href="https://github.com/nodejs/corepack">corepack</a></>}>
+    ```bash inside of react-email
+    corepack enable
+    corepack prepare pnpm@latest --activate
+    ```
+  </Step>
+  <Step title="Install all the dependencies">
+    ```bash inside of react-email
+    pnpm install
+    ```
+  </Step>
+  <Step title="Build all the packages">
+    ```bash inside of react-email
+    pnpm build
+    ```
+  </Step>
+</Steps>
+
+This should have you set up and running without any issues, If you do have any issues
+please [open up an issue on GitHub](https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml).
