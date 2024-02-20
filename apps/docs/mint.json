@@ -88,6 +88,7 @@
       "pages": [
         "contributing/opening-issues",
         "contributing/codebase-overview",
+        "contributing/opening-pull-requests",
         {
           "group": "Development workflow",
           "icon": "arrow-progress",
