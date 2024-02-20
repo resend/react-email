@@ -82,45 +82,39 @@ corepack prepare pnpm@latest --activate
 
 Currently we have the following packages:
 
-<table>
-  <tbody>
-    <tr>
-      <td>[@react-email/body](https://github.com/resend/react-email/tree/canary/packages/body)</td>
-      <td>[@react-email/button](https://github.com/resend/react-email/tree/canary/packages/button)</td>
-      <td>[@react-email/code-block](https://github.com/resend/react-email/tree/canary/packages/code-block)</td>
-      <td>[@react-email/code-inline](https://github.com/resend/react-email/tree/canary/packages/code-inline)</td>
-    </tr>
-    <tr>
-      <td>[@react-email/column](https://github.com/resend/react-email/tree/canary/packages/column)</td>
-      <td>[@react-email/components](https://github.com/resend/react-email/tree/canary/packages/components)</td>
-      <td>[@react-email/container](https://github.com/resend/react-email/tree/canary/packages/container)</td>
-      <td>[create-email](https://github.com/resend/react-email/tree/canary/packages/create-email)</td>
-    </tr>
-    <tr>
-      <td>[@react-email/font](https://github.com/resend/react-email/tree/canary/packages/font)</td>
-      <td>[@react-email/head](https://github.com/resend/react-email/tree/canary/packages/head)</td>
-      <td>[@react-email/heading](https://github.com/resend/react-email/tree/canary/packages/heading)</td>
-      <td>[@react-email/hr](https://github.com/resend/react-email/tree/canary/packages/hr)</td>
-    </tr>
-    <tr>
-      <td>[@react-email/html](https://github.com/resend/react-email/tree/canary/packages/html)</td>
-      <td>[@react-email/img](https://github.com/resend/react-email/tree/canary/packages/img)</td>
-      <td>[@react-email/link](https://github.com/resend/react-email/tree/canary/packages/link)</td>
-      <td>[@react-email/markdown](https://github.com/resend/react-email/tree/canary/packages/markdown)</td>
-    </tr>
-    <tr>
-      <td>[@react-email/preview](https://github.com/resend/react-email/tree/canary/packages/preview)</td>
-      <td>[react-email](https://github.com/resend/react-email/tree/canary/packages/react-email)</td>
-      <td>[@react-email/render](https://github.com/resend/react-email/tree/canary/packages/render)</td>
-      <td>[@react-email/row](https://github.com/resend/react-email/tree/canary/packages/row)</td>
-    </tr>
-    <tr>
-      <td>[@react-email/section](https://github.com/resend/react-email/tree/canary/packages/section)</td>
-      <td>[@react-email/tailwind](https://github.com/resend/react-email/tree/canary/packages/tailwind)</td>
-      <td>[@react-email/text](https://github.com/resend/react-email/tree/canary/packages/text)</td>
-    </tr>
-  </tbody>
-</table>
+<div class="grid gap-2" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+  <div>
+    - [@react-email/body](https://github.com/resend/react-email/tree/canary/packages/body)
+    - [@react-email/button](https://github.com/resend/react-email/tree/canary/packages/button)
+    - [@react-email/code-block](https://github.com/resend/react-email/tree/canary/packages/code-block)
+    - [@react-email/code-inline](https://github.com/resend/react-email/tree/canary/packages/code-inline)
+    - [@react-email/column](https://github.com/resend/react-email/tree/canary/packages/column)
+    - [@react-email/components](https://github.com/resend/react-email/tree/canary/packages/components)
+    - [@react-email/container](https://github.com/resend/react-email/tree/canary/packages/container)
+    - [create-email](https://github.com/resend/react-email/tree/canary/packages/create-email)
+      - <span class="text-xs">Used for our [automatic setup](/getting-started/automatic-setup)</span>
+  </div>
+  <div>
+    - [@react-email/font](https://github.com/resend/react-email/tree/canary/packages/font)
+    - [@react-email/head](https://github.com/resend/react-email/tree/canary/packages/head)
+    - [@react-email/heading](https://github.com/resend/react-email/tree/canary/packages/heading)
+    - [@react-email/hr](https://github.com/resend/react-email/tree/canary/packages/hr)
+    - [@react-email/html](https://github.com/resend/react-email/tree/canary/packages/html)
+    - [@react-email/img](https://github.com/resend/react-email/tree/canary/packages/img)
+    - [@react-email/link](https://github.com/resend/react-email/tree/canary/packages/link)
+    - [@react-email/markdown](https://github.com/resend/react-email/tree/canary/packages/markdown)
+    - [@react-email/preview](https://github.com/resend/react-email/tree/canary/packages/preview)
+  </div>
+  <div>
+    - [react-email](https://github.com/resend/react-email/tree/canary/packages/react-email)
+      - <span class="text-xs">The package for our [email CLI](/cli)</span>
+    - [@react-email/render](https://github.com/resend/react-email/tree/canary/packages/render)
+    - [@react-email/row](https://github.com/resend/react-email/tree/canary/packages/row)
+    - [@react-email/section](https://github.com/resend/react-email/tree/canary/packages/section)
+    - [@react-email/tailwind](https://github.com/resend/react-email/tree/canary/packages/tailwind)
+    - [@react-email/text](https://github.com/resend/react-email/tree/canary/packages/text)
+  </div>
+</div>
 
 Don't be scared by the amount of packages as most of them are quite small, with <br/>[the largest
 component package](https://github.com/resend/react-email/tree/canary/packages/tailwind) being only 900 lines of code.
