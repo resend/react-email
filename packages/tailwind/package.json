@@ -44,7 +44,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "postcss": "8.4.31",
+    "postcss": "8.4.35",
     "postcss-combine-media-query": "1.0.1",
     "postcss-selector-parser": "6.0.15",
     "react": "18.2.0"
@@ -53,9 +53,9 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-react": "7.22.5",
-    "@react-email/button": "workspace:*",
+    "@babel/core": "7.23.9",
+    "@babel/preset-react": "7.23.3",
+    "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",

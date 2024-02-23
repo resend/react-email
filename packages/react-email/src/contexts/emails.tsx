@@ -12,9 +12,10 @@ import {
   pathSeparator,
 } from '../utils/emails-directory-absolute-path';
 import {
-  renderEmailBySlug,
+  renderEmailByPath,
   type EmailRenderingResult,
-} from '../actions/render-email-by-slug';
+} from '../actions/render-email-by-path';
+import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
@@ -23,7 +24,7 @@ const EmailsContext = createContext<
        * Uses the hot reloaded bundled build and rendering email result
        */
       useEmailRenderingResult: (
-        slug: string,
+        emailPath: string,
         serverEmailRenderedResult: EmailRenderingResult,
       ) => EmailRenderingResult;
     }
@@ -49,29 +50,26 @@ export const EmailsProvider = (props: {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
-  const [renderingResultPerEmailSlug, setRenderingResultPerEmailSlug] =
+  const [renderingResultPerEmailPath, setRenderingResultPerEmailPath] =
     useState<Record<string, EmailRenderingResult>>({});
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload((changes) => {
-      getEmailsDirectoryMetadata(emailsDirectoryAbsolutePath)
-        .then((metadata) => {
-          if (metadata) {
-            setEmailsDirectoryMetadata(metadata);
-          } else {
-            throw new Error(
-              'Hot reloading: unable to find the emails directory to update the sidebar',
-            );
-          }
-        })
-        .catch((exception) => {
-          throw exception;
-        });
+    useHotreload(async (changes) => {
+      const metadata = await getEmailsDirectoryMetadata(
+        emailsDirectoryAbsolutePath,
+      );
+      if (metadata) {
+        setEmailsDirectoryMetadata(metadata);
+      } else {
+        throw new Error(
+          'Hot reloading: unable to find the emails directory to update the sidebar',
+        );
+      }
 
-      for (const change of changes) {
+      for await (const change of changes) {
         const normalizedEmailsDirRelativePath = normalizePath(
           emailsDirRelativePath,
         );
@@ -83,19 +81,18 @@ export const EmailsProvider = (props: {
             .replace(`${normalizedEmailsDirRelativePath}${pathSeparator}`, '')
             .replace(normalizedEmailsDirRelativePath, '');
 
-        const lastResult = renderingResultPerEmailSlug[slugForChangedEmail];
+        const pathForChangedEmail =
+          await getEmailPathFromSlug(slugForChangedEmail);
+
+        const lastResult = renderingResultPerEmailPath[pathForChangedEmail];
 
         if (typeof lastResult !== 'undefined') {
-          renderEmailBySlug(slugForChangedEmail)
-            .then((renderingResult) => {
-              setRenderingResultPerEmailSlug((map) => ({
-                ...map,
-                [slugForChangedEmail]: renderingResult,
-              }));
-            })
-            .catch((exception) => {
-              throw exception;
-            });
+          const renderingResult = await renderEmailByPath(pathForChangedEmail);
+
+          setRenderingResultPerEmailPath((map) => ({
+            ...map,
+            [pathForChangedEmail]: renderingResult,
+          }));
         }
       }
     });
@@ -105,22 +102,19 @@ export const EmailsProvider = (props: {
     <EmailsContext.Provider
       value={{
         emailsDirectoryMetadata,
-        useEmailRenderingResult: (
-          slug: string,
-          serverEmailRenderedResult: EmailRenderingResult,
-        ): EmailRenderingResult => {
+        useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
           useEffect(() => {
-            if (typeof renderingResultPerEmailSlug[slug] === 'undefined') {
-              setRenderingResultPerEmailSlug((map) => ({
+            if (typeof renderingResultPerEmailPath[emailPath] === 'undefined') {
+              setRenderingResultPerEmailPath((map) => ({
                 ...map,
-                [slug]: serverEmailRenderedResult,
+                [emailPath]: serverEmailRenderedResult,
               }));
             }
-          }, [serverEmailRenderedResult, slug]);
+          }, [serverEmailRenderedResult, emailPath]);
 
-          if (typeof renderingResultPerEmailSlug[slug] !== 'undefined') {
+          if (typeof renderingResultPerEmailPath[emailPath] !== 'undefined') {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return renderingResultPerEmailSlug[slug]!;
+            return renderingResultPerEmailPath[emailPath]!;
           }
 
           return serverEmailRenderedResult;
