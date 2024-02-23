@@ -1,9 +1,10 @@
 import path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [dts({ include: ["src"], outDir: "dist" })],
+  plugins: [react(), dts({ include: ["src"], outDir: "dist" })],
   build: {
     rollupOptions: {
       external: ["react", "react-dom", /react\/.*/, /react-dom\/.*/],
