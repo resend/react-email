@@ -61,17 +61,21 @@
     "@react-email/html": "workspace:*",
     "@testing-library/react": "14.0.0",
     "@types/postcss-css-variables": "0.18.3",
+    "@types/shelljs": "0.8.15",
+    "@vitejs/plugin-react": "4.2.1",
     "eslint-config-custom": "workspace:*",
-    "tailwindcss": "3.3.2",
     "eslint-plugin-regex": "1.10.0",
     "postcss-css-variables": "0.19.0",
     "react-dom": "18.2.0",
+    "shelljs": "0.8.5",
+    "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
     "vite": "4.5.2",
     "vite-plugin-dts": "3.6.3",
-    "vitest": "1.1.1"
+    "vitest": "1.1.1",
+    "yalc": "1.0.0-pre.53"
   },
   "publishConfig": {
     "access": "public"

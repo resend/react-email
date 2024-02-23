@@ -85,7 +85,7 @@ function processHead(
         params: atRule.params,
       });
     }
-    atRule.nodes.forEach((node) => {
+    atRule.nodes?.forEach((node) => {
       atRules[key].append(node.clone());
     });
 
