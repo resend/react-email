@@ -1,6 +1,7 @@
 /** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   extends: ["custom/react-internal"],
+  ignorePatterns: ["automated-test-next-app/**/*"],
   plugins: [
     /* just a plugin to create custom linting rules with regex */
     "regex"
