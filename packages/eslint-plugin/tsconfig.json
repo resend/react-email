@@ -5,9 +5,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "Bundler",
+    "noEmit": true,
     "noErrorTruncation": true,
     "declaration": false,
-    "module": "NodeNext",
+    "declarationMap": false,
+    "module": "ESNext",
     "types": ["vitest/globals"]
   },
   "exclude": ["dist", "build", "node_modules"]

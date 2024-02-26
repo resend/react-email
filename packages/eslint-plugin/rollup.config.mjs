@@ -22,7 +22,7 @@ export default defineConfig({
           return 'utils'
         if (id.includes('configs'))
           return 'configs'
-        if (id.includes('rules')) {
+        if (id.includes('rules/')) {
           const name = basename(id, '.ts');
           if (name !== 'index') {
             ruleNames.push(name);

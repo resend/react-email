@@ -1,3 +1,0 @@
-[submodule "packages/eslint-plugin/codegen/caniemail"]
-	path = packages/eslint-plugin/codegen/caniemail
-	url = https://github.com/hteumeuleu/caniemail.git

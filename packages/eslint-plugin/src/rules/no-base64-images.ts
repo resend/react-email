@@ -1,4 +1,4 @@
-import { createRule } from "../utils/create-rule";
+import { createRule } from "../create-rule";
 
 export default createRule({
   meta: {
