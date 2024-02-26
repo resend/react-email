@@ -13,10 +13,10 @@ const caniemailCachedDataPath = path.resolve(
 );
 
 /**
-  * Caches the fetching of [data from caniemail](https://www.caniemail.com/api/data.json)
-  * for 24 hours in a file inside of the user's tmpdir. Checks if the file is older than 24 hours
-  * based on the last modified date for it.
-  */
+ * Caches the fetching of [data from caniemail](https://www.caniemail.com/api/data.json)
+ * for 24 hours in a file inside of the user's tmpdir. Checks if the file is older than 24 hours
+ * based on the last modified date for it.
+ */
 export const getAllSupportEntrries = () => {
   if (fs.existsSync(caniemailCachedDataPath)) {
     const stat = fs.statSync(caniemailCachedDataPath);
@@ -32,11 +32,7 @@ export const getAllSupportEntrries = () => {
   const responseFromCaniemail = fetch(caniemailDataPath);
   const json: SupportResponse = responseFromCaniemail.json();
 
-  fs.writeFileSync(
-    caniemailCachedDataPath,
-    JSON.stringify(json.data),
-    "utf-8",
-  );
+  fs.writeFileSync(caniemailCachedDataPath, JSON.stringify(json.data), "utf-8");
 
   return json.data;
 };

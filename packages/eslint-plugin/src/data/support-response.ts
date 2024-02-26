@@ -48,10 +48,7 @@ export interface SupportEntry {
   test_url: string;
   test_results_url: string | null;
   stats: Partial<
-    Record<
-      EmailClient,
-      Partial<Record<Platform, Record<string, string>>>
-    >
+    Record<EmailClient, Partial<Record<Platform, Record<string, string>>>>
   >;
   notes: string | null;
   notes_by_num: Record<number, string>;

@@ -4,7 +4,8 @@ export const getPropertyTitlesFromSupportEntry = (
   title: string,
   keywords: string | null,
 ) => {
-  if (allCssProperties.includes(title.replace(" property", ""))) return [title.replace(" property", "")];
+  if (allCssProperties.includes(title.replace(" property", "")))
+    return [title.replace(" property", "")];
 
   if (title.split("&").length > 1) {
     return title

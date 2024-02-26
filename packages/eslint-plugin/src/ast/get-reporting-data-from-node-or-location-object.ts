@@ -4,17 +4,17 @@ export const getReportingDataFromNodeOrLocationObject = (
   nodeOrLocationObject:
     | TSESTree.Node
     | {
-      location: [start: TSESTree.Position, end: TSESTree.Position];
-    },
+        location: [start: TSESTree.Position, end: TSESTree.Position];
+      },
 ) => {
-  if ('location' in nodeOrLocationObject) {
-    const { location } = nodeOrLocationObject; 
+  if ("location" in nodeOrLocationObject) {
+    const { location } = nodeOrLocationObject;
     return {
       loc: {
         start: location[0],
-        end: location[1]
-      }
-    }
+        end: location[1],
+      },
+    };
   } else {
     const node = nodeOrLocationObject;
     return { node };
