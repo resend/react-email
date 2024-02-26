@@ -6,6 +6,7 @@ import { getPropertyTitlesFromSupportEntry } from "./data/get-property-titles-fr
 import type { SupportEntry } from "./data/support-response";
 import { listenersForStyleProperty } from "./feature-usage/listeners-for-style-property";
 import { findSupportEntryForPropertyAndValue } from "./data/find-support-entry-for-property-and-value";
+import { getElementNamesForSupportEntry } from "./data/get-element-names-for-support-entry";
 
 export type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
@@ -21,6 +22,9 @@ export function createNoUnsupportedOn(
 ) {
   const cssSupportEntries = supportEntries.filter(
     (entry) => entry.category === "css",
+  );
+  const htmlSupportEntries = supportEntries.filter(
+    (entry) => entry.category === "html",
   );
   return createRule({
     meta: {
@@ -59,6 +63,16 @@ export function createNoUnsupportedOn(
       };
 
       return {
+        JSXOpeningElement(node) {
+          const elementName = context.sourceCode.getText(node.name);
+          const supportEntryForElementName = htmlSupportEntries.find((e) =>
+            getElementNamesForSupportEntry(e.title, e.keywords).includes(
+              elementName,
+            ),
+          );
+
+          reportForEntry(supportEntryForElementName, `<${elementName}>`, node);
+        },
         ...listenersForStyleProperty(
           context.sourceCode,
           (property, nodeOrLocationObject) => {

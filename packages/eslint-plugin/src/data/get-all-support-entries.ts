@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import fetch from "sync-fetch";
 import { differenceInDays } from "date-fns";
-import { SupportEntry, SupportResponse } from "./support-response";
+import type { SupportEntry, SupportResponse } from "./support-response";
 
 const caniemailDataPath = "https://www.caniemail.com/api/data.json";
 
@@ -30,7 +30,7 @@ export const getAllSupportEntrries = () => {
   }
 
   const responseFromCaniemail = fetch(caniemailDataPath);
-  const json: SupportResponse = responseFromCaniemail.json();
+  const json = responseFromCaniemail.json() as SupportResponse;
 
   fs.writeFileSync(caniemailCachedDataPath, JSON.stringify(json.data), "utf-8");
 
