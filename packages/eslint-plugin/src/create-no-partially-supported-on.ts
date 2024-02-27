@@ -12,6 +12,7 @@ import { getNotesOnEntryBySupportValue } from "./data/get-notes-on-entry-by-supp
 import { getElementAttributesFromSupportEntry } from "./feature-usage-detection/get-element-attributes-from-support-entry";
 import { listenersForImage } from "./ast/listeners-for-images";
 import { getImageTypeFromTitle } from "./feature-usage-detection/get-image-type-from-title";
+import { getCssFunctionsFromSupportEntry } from "./feature-usage-detection/get-css-functions-from-support-entry";
 
 
 type SupportEntryWithVersionsInArray = SupportEntry & {
@@ -179,6 +180,30 @@ Notes on its support:
               `${actualCSSProperty}: ${property.value}`,
               nodeOrLocationObject,
             );
+
+            const functionRegex =
+              /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
+            let functionName = functionRegex.exec(property.value)?.groups
+              ?.functionName;
+            while (functionName !== undefined) {
+              // This is fine since the variable for functionName won't change until
+              // all the `find` callbacks finish.
+              // eslint-disable-next-line @typescript-eslint/no-loop-func
+              const supportEntryForFunction = cssSupportEntries.find((e) =>
+                getCssFunctionsFromSupportEntry(e.title).includes(
+                  functionName!,
+                ),
+              );
+
+              reportForEntry(
+                supportEntryForFunction,
+                `${functionName}()`,
+                nodeOrLocationObject,
+              );
+
+              functionName = functionRegex.exec(property.value)?.groups
+                ?.functionName;
+            }
           },
         ),
       };

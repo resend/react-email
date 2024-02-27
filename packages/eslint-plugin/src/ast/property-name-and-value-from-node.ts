@@ -10,12 +10,11 @@ export const propertyNameAndValueFromNode = (
   ];
   let propertyValue: string;
 
-  // eslint-disable-next-line prefer-named-capture-group
-  const [_match, valueInQuotes] = /^"([^"]*)"$|^'([^']*)'$|^`([^`]*)`$/.exec(
+  const { groups } = /^(?:"|'|`)(?<valueInQuotes>[^"]*)(?:"|'|`)$/.exec(
     sourceCode.getText(node.value).trim(),
-  ) ?? ["", undefined];
-  if (typeof valueInQuotes !== "undefined") {
-    propertyValue = valueInQuotes;
+  ) ?? { groups: undefined };
+  if (groups?.valueInQuotes !== undefined) {
+    propertyValue = groups.valueInQuotes;
   } else {
     propertyValue = sourceCode.getText(node.value);
   }
