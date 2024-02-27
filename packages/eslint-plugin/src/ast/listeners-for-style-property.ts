@@ -5,8 +5,8 @@ import type {
   RuleListener,
   SourceCode,
 } from "@typescript-eslint/utils/ts-eslint";
-import { getSourceCodeTailwindMetadata } from "../feature-usage/tailwind/get-source-code-tailwind-metadata";
-import { generateTailwindCssRules } from "../feature-usage/tailwind/generate-tailwind-css-rules";
+import { getSourceCodeTailwindMetadata } from "./tailwind/get-source-code-tailwind-metadata";
+import { generateTailwindCssRules } from "./tailwind/generate-tailwind-css-rules";
 import { propertyNameAndValueFromNode } from "./property-name-and-value-from-node";
 
 /**
