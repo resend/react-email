@@ -30,7 +30,7 @@ npm install @react-email/eslint-plugin -D -E
 ## Attribution
 
 This eslint plugin could not be possible in any means without the great work done on
-[caniemail](https://www.caniemail.com/) and [their API](https://www.caniemail.com/api/data.json) 
+[caniemail](https://www.caniemail.com/) and [their API](https://www.caniemail.com/api/data.json)
 for foraging data. Please go and [give them a star](https://github.com/hteumeuleu/caniemail).
 
 ## Getting started
@@ -44,7 +44,10 @@ inside of your `emails` directory. Here's an example using our recommended confi
 ```json
 {
   "plugins": ["@react-email"],
-  "extends": ["plugin:@react-email/recommended", "PATH_TO_YOUR_DEFAULT_ESLINT_CONFIG"]
+  "extends": [
+    "plugin:@react-email/recommended",
+    "PATH_TO_YOUR_DEFAULT_ESLINT_CONFIG"
+  ]
 }
 ```
 
@@ -53,7 +56,7 @@ email client + platform combination for both unsupported and partially supported
 by default, the major email clients + all their platforms will error for unsupported properties
 and warn for partially supported properties.
 
-These default settings get making the email templates into a really good flow since 
+These default settings get making the email templates into a really good flow since
 you now get in-the-editor errors that point into what issues your email template has.
 
 ### 2. Run eslint

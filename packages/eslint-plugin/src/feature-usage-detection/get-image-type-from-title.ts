@@ -15,7 +15,9 @@ const imageSourceTypePerName: Record<string, ImageSourceType> = {
   webP: "webp",
 };
 
-export const getImageTypeFromTitle = (title: string): ImageSourceType | undefined => {
+export const getImageTypeFromTitle = (
+  title: string,
+): ImageSourceType | undefined => {
   const match = /(?<imageTypeName>.+?) image format/.exec(title);
   if (match) {
     const [_full, imageTypeName] = match;

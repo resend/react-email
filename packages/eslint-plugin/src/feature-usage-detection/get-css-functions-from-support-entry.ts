@@ -1,6 +1,4 @@
-export function getCssFunctionsFromSupportEntry(
-  title: string
-) {
+export function getCssFunctionsFromSupportEntry(title: string) {
   if (/^[a-zA-Z]\(\)$/.test(title.trim())) {
     return [title.replace("()", "")];
   }
@@ -18,10 +16,9 @@ export function getCssFunctionsFromSupportEntry(
 
   // ex: CSS calc() function
   if (/^CSS [a-z]+\(\) function$/.test(title.trim())) {
-    return [title
-      .replace('CSS ', '')
-      .replace(' function', '')
-      .replace('()', '')];
+    return [
+      title.replace("CSS ", "").replace(" function", "").replace("()", ""),
+    ];
   }
 
   return [];

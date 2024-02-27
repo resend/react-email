@@ -5,11 +5,9 @@ test("getCssFunctionsFromSupportEntry()", () => {
     getCssFunctionsFromSupportEntry("lch(), oklch(), lab(), oklab()"),
   ).toEqual(["lch", "oklch", "lab", "oklab"]);
 
-  expect(
-    getCssFunctionsFromSupportEntry("clamp()"),
-  ).toEqual(['clamp']);
+  expect(getCssFunctionsFromSupportEntry("clamp()")).toEqual(["clamp"]);
 
-  expect(
-    getCssFunctionsFromSupportEntry("CSS calc() function"),
-  ).toEqual(['calc']);
+  expect(getCssFunctionsFromSupportEntry("CSS calc() function")).toEqual([
+    "calc",
+  ]);
 });

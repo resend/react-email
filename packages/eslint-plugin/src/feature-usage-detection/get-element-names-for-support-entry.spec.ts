@@ -4,7 +4,9 @@ test("getElementNamesForSupportEntry()", () => {
   expect(getElementNamesForSupportEntry("<bdi> element", null)).toEqual([
     "bdi",
   ]);
-  expect(getElementNamesForSupportEntry("address", "address")).toEqual(["address"]);
+  expect(getElementNamesForSupportEntry("address", "address")).toEqual([
+    "address",
+  ]);
   expect(
     getElementNamesForSupportEntry(
       "<ul>, <ol> and <li>",
@@ -32,5 +34,7 @@ test("getElementNamesForSupportEntry()", () => {
     "time",
   ]);
 
-  expect(getElementNamesForSupportEntry("<video> element", "mp4")).toEqual(["video"]);
+  expect(getElementNamesForSupportEntry("<video> element", "mp4")).toEqual([
+    "video",
+  ]);
 });

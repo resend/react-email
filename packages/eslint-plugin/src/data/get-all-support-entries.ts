@@ -21,7 +21,7 @@ export const getAllSupportEntrries = () => {
   let dataFromCanIEmail: SupportEntry[];
 
   try {
-    const fd = fs.openSync(caniemailCachedDataPath, 'r');
+    const fd = fs.openSync(caniemailCachedDataPath, "r");
     const stat = fs.fstatSync(fd);
 
     // difference in days between last modified date and today
@@ -37,11 +37,14 @@ export const getAllSupportEntrries = () => {
     const responseFromCaniemail = fetch(caniemailDataPath);
     const json = responseFromCaniemail.json() as SupportResponse;
 
-    fs.writeFileSync(caniemailCachedDataPath, JSON.stringify(json.data), "utf-8");
+    fs.writeFileSync(
+      caniemailCachedDataPath,
+      JSON.stringify(json.data),
+      "utf-8",
+    );
 
     dataFromCanIEmail = json.data;
   }
-
 
   return dataFromCanIEmail;
 };

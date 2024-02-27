@@ -14,7 +14,6 @@ import { listenersForImage } from "./ast/listeners-for-images";
 import { getImageTypeFromTitle } from "./feature-usage-detection/get-image-type-from-title";
 import { getCssFunctionsFromSupportEntry } from "./feature-usage-detection/get-css-functions-from-support-entry";
 
-
 type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
 };
