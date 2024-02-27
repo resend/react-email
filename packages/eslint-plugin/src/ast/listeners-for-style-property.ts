@@ -5,9 +5,9 @@ import type {
   RuleListener,
   SourceCode,
 } from "@typescript-eslint/utils/ts-eslint";
-import { propertyNameAndValueFromNode } from "../ast/property-name-and-value-from-node";
-import { getSourceCodeTailwindMetadata } from "./tailwind/get-source-code-tailwind-metadata";
-import { generateTailwindCssRules } from "./tailwind/generate-tailwind-css-rules";
+import { getSourceCodeTailwindMetadata } from "../feature-usage/tailwind/get-source-code-tailwind-metadata";
+import { generateTailwindCssRules } from "../feature-usage/tailwind/generate-tailwind-css-rules";
+import { propertyNameAndValueFromNode } from "./property-name-and-value-from-node";
 
 /**
  * Defines eslint rule listeners based on the sourceCode from the eslint rule context and uses them

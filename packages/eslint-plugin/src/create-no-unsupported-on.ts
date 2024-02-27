@@ -5,11 +5,13 @@ import { fromCaemlToKebabCase } from "./casing/from-camel-to-kebab-case";
 import { createRule } from "./create-rule";
 import { getPropertyTitlesFromSupportEntry } from "./data/get-property-titles-from-support-entry";
 import type { SupportEntry } from "./data/support-response";
-import { listenersForStyleProperty } from "./feature-usage/listeners-for-style-property";
+import { listenersForStyleProperty } from "./ast/listeners-for-style-property";
 import { findSupportEntryForPropertyAndValue } from "./data/find-support-entry-for-property-and-value";
 import { getElementNamesForSupportEntry } from "./data/get-element-names-for-support-entry";
 import { getNotesOnEntryBySupportValue } from "./data/get-notes-on-entry-by-support";
 import { getElementAttributesFromSupportEntry } from "./data/get-element-attributes-from-support-entry";
+import { listenersForImage } from "./ast/listeners-for-images";
+import { getImageTypeFromTitle } from "./data/get-image-type-from-title";
 
 export type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
@@ -28,6 +30,9 @@ export function createNoUnsupportedOn(
   );
   const htmlSupportEntries = supportEntries.filter(
     (entry) => entry.category === "html",
+  );
+  const imageSupportEntries = supportEntries.filter(
+    (entry) => entry.category === "image",
   );
   return createRule({
     meta: {
@@ -134,6 +139,16 @@ Notes on its support:
 
           reportForEntry(supportEntryForAttributeName, attributeName, node);
         },
+        ...listenersForImage((node, sourceType) => {
+          const supportEntryForImage = imageSupportEntries.find(
+            (e) => getImageTypeFromTitle(e.title) === sourceType,
+          );
+          reportForEntry(
+            supportEntryForImage,
+            supportEntryForImage?.title ?? "",
+            node,
+          );
+        }),
         ...listenersForStyleProperty(
           context.sourceCode,
           (property, nodeOrLocationObject) => {
