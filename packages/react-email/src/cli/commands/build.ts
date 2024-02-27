@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
-import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
@@ -21,14 +20,10 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   return new Promise<void>((resolve, reject) => {
     const nextBuild = spawn('npm', ['run', 'build'], {
       cwd: absoluteDirectory,
+      shell: true,
     });
-
-    nextBuild.stdout.on('data', (msg: Buffer) => {
-      process.stdout.write(msg);
-    });
-    nextBuild.stderr.on('data', (msg: Buffer) => {
-      process.stderr.write(msg);
-    });
+    nextBuild.stdout.pipe(process.stdout);
+    nextBuild.stderr.pipe(process.stderr);
 
     nextBuild.on('close', (code) => {
       if (code === 0) {
@@ -50,7 +45,8 @@ const setNextEnvironmentVariablesForBuild = async (
 ) => {
   const envVariables = {
     ...getEnvVariablesForPreviewApp(
-      emailsDirRelativePath,
+      // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
+      path.normalize(emailsDirRelativePath),
       'PLACEHOLDER',
       'PLACEHOLDER',
     ),
@@ -85,12 +81,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   experimental: {
-    webpackBuildWorker: true,
-    serverComponentsExternalPackages: [
-      '@react-email/components',
-      '@react-email/render',
-      '@react-email/tailwind',
-    ],
+    webpackBuildWorker: true
   },
 }`;
 
@@ -150,8 +141,10 @@ const forceSSGForEmailPreviews = async (
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
-export async function generateStaticParams() { 
-  return ${JSON.stringify(parameters)};
+export function generateStaticParams() { 
+  return Promise.resolve(
+    ${JSON.stringify(parameters)}
+  );
 }`,
     'utf8',
   );
@@ -162,12 +155,22 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
+    name: string;
     scripts: Record<string, string>;
     dependencies: Record<string, string>;
+    devDependencies: Record<string, string>;
   };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
 
+  packageJson.name = 'preview-server';
+  // We remove this one to avoid having resolve issues on our demo build process.
+  // This is only used in the `export` command so it's irrelevant to have it here.
+  //
+  // See `src/actions/render-email-by-path` for more info on how we render the
+  // email templates without `@react-email/render` being installed.
+  delete packageJson.devDependencies['@react-email/render'];
+  delete packageJson.devDependencies['@react-email/components'];
   packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
@@ -180,22 +183,28 @@ const npmInstall = async (
   builtPreviewAppPath: string,
   packageManager: string,
 ) => {
-  return new Promise<void>((resolve, reject) => {
-    shell.exec(
-      `${packageManager} install --silent`,
-      { cwd: builtPreviewAppPath },
-      (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(
-            new Error(
-              `Unable to install the dependencies and it exited with code: ${code}`,
-            ),
-          );
-        }
+  return new Promise<void>(async (resolve, reject) => {
+    const childProc = spawn(
+      packageManager,
+      ['install', '--silent', '--force'],
+      {
+        cwd: builtPreviewAppPath,
+        shell: true,
       },
     );
+    childProc.stdout.pipe(process.stdout);
+    childProc.stderr.pipe(process.stderr);
+    childProc.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(
+          new Error(
+            `Unable to install the dependencies and it exited with code: ${code}`,
+          ),
+        );
+      }
+    });
   });
 };
 
@@ -231,9 +240,10 @@ export const build = async ({
       filter: (source: string) => {
         // do not copy the CLI files
         return (
-          !source.includes('/cli/') &&
-          !source.includes('/.next/') &&
-          !/\/node_modules\/?$/.test(source)
+          !/(\/|\\)cli(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
         );
       },
     });

@@ -17,15 +17,12 @@ export const start = async () => {
 
     const nextStart = spawn('npm', ['start'], {
       cwd: builtPreviewPath,
+      shell: true,
     });
 
-    nextStart.stdout.on('data', (msg) => {
-      process.stdout.write(msg);
-    });
+    nextStart.stdout.pipe(process.stdout);
 
-    nextStart.stderr.on('data', (msg) => {
-      process.stderr.write(msg);
-    });
+    nextStart.stderr.pipe(process.stderr);
   } catch (error) {
     console.log(error);
     process.exit(1);

@@ -11,6 +11,7 @@ import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
 import { Send } from './send';
 import { Tooltip } from './tooltip';
+import { pathSeparator } from '../utils/emails-directory-absolute-path';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
@@ -49,7 +50,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
 
         <div className="items-center overflow-hidden hidden lg:flex text-center absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2">
           <Heading as="h2" className="truncate" size="2" weight="medium">
-            {currentEmailOpenSlug}
+            {currentEmailOpenSlug.split(pathSeparator).pop()}
           </Heading>
         </div>
 

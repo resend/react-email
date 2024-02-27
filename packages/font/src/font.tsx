@@ -74,5 +74,3 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
 };
-
-Font.displayName = "Font";

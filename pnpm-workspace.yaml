@@ -1,4 +1,6 @@
 packages:
   - "apps/web"
+  - "apps/demo"
   - "packages/*"
+  - "packages/create-email/template"
   - "benchmarks/*"
