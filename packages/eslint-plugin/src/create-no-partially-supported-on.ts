@@ -34,7 +34,8 @@ export function createNoPartiallySupportedOn(
       type: "problem",
       schema: [],
       messages: {
-        "partially-supported": `'{{feature}}' is only partially supported on ${platform} (versions {{versionsSeparatedByComma}}).
+        "partially-supported": `'{{feature}}' is only partially supported on ${platform} (versions {{versionsSeparatedByComma}}).`,
+        "partially-supported-with-notes": `'{{feature}}' is only partially supported on ${platform} (versions {{versionsSeparatedByComma}}).
 
 Notes on its support:
 {{notes}}`,
@@ -51,43 +52,63 @@ Notes on its support:
             },
       ) => {
         if (entry !== undefined) {
-          const unsupportedVersions = entry.supportPerVersion
+          const partiallySupportedVersions = entry.supportPerVersion
             .filter((meta) => meta.support.startsWith("a"))
             .map((meta) => ({
               version: meta.version,
               notes: getNotesOnEntryBySupportValue(meta.support, entry),
             }));
 
-          if (unsupportedVersions.length > 0) {
-            context.report({
-              ...getReportingDataFromNodeOrLocationObject(nodeOrLocationObject),
-              messageId: "partially-supported",
-              data: {
-                feature,
-                versionsSeparatedByComma: unsupportedVersions
-                  .map((data) => data.version)
-                  .join(", "),
-                /*
-                Example of how the notes end up looking: 
-                
-                - 1.0.0:
-                  * This is a note.
-                  * This is another note.
-                  * This is a third note.
-                - 2.0.0:
-                  * This is a note.
-                */
-                notes: unsupportedVersions
-                  .filter((data) => data.notes)
-                  .map(
-                    (data) =>
-                      `- ${data.version}: ${data
-                        .notes!.map((note) => `${os.EOL}  * ${note}`)
-                        .join("")}`,
-                  )
-                  .join(os.EOL),
-              },
-            });
+          if (partiallySupportedVersions.length > 0) {
+            /*
+            Example of how the notes end up looking: 
+            
+            - 1.0.0:
+              * This is a note.
+              * This is another note.
+              * This is a third note.
+            - 2.0.0:
+              * This is a note.
+            */
+            const notes = partiallySupportedVersions
+              .filter((data) => data.notes)
+              .map((data) => {
+                const notesOnVersion = data
+                  .notes!.map((note) => `  * ${note}`)
+                  .join(os.EOL);
+
+                return `- ${data.version}: ${os.EOL}${notesOnVersion}`;
+              })
+              .join(os.EOL);
+
+            if (notes.trim().length > 0) {
+              context.report({
+                ...getReportingDataFromNodeOrLocationObject(
+                  nodeOrLocationObject,
+                ),
+                messageId: "partially-supported-with-notes",
+                data: {
+                  feature,
+                  versionsSeparatedByComma: partiallySupportedVersions
+                    .map((data) => data.version)
+                    .join(", "),
+                  notes,
+                },
+              });
+            } else {
+              context.report({
+                ...getReportingDataFromNodeOrLocationObject(
+                  nodeOrLocationObject,
+                ),
+                messageId: "partially-supported",
+                data: {
+                  feature,
+                  versionsSeparatedByComma: partiallySupportedVersions
+                    .map((data) => data.version)
+                    .join(", "),
+                },
+              });
+            }
           }
         }
       };

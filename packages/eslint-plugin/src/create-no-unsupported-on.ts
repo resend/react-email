@@ -1,3 +1,4 @@
+import os from "node:os";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getReportingDataFromNodeOrLocationObject } from "./ast/get-reporting-data-from-node-or-location-object";
 import { fromCaemlToKebabCase } from "./casing/from-camel-to-kebab-case";
@@ -7,6 +8,7 @@ import type { SupportEntry } from "./data/support-response";
 import { listenersForStyleProperty } from "./feature-usage/listeners-for-style-property";
 import { findSupportEntryForPropertyAndValue } from "./data/find-support-entry-for-property-and-value";
 import { getElementNamesForSupportEntry } from "./data/get-element-names-for-support-entry";
+import { getNotesOnEntryBySupportValue } from "./data/get-notes-on-entry-by-support";
 
 export type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
@@ -32,6 +34,10 @@ export function createNoUnsupportedOn(
       schema: [],
       messages: {
         unsupported: `'{{feature}}' is not supported on ${platform} (versions {{versionsSeparatedByComma}}).`,
+        "unsupported-with-notes": `'{{feature}}' is not supported on ${platform} (versions {{versionsSeparatedByComma}}).
+
+Notes on its support:
+{{notes}}`,
       },
     },
     create(context) {
@@ -46,18 +52,62 @@ export function createNoUnsupportedOn(
       ) => {
         if (entry !== undefined) {
           const unsupportedVersions = entry.supportPerVersion
-            .filter((meta) => meta.support === "n")
-            .map((meta) => meta.version);
+            .filter((meta) => meta.support.startsWith("n"))
+            .map((meta) => ({
+              version: meta.version,
+              notes: getNotesOnEntryBySupportValue(meta.support, entry),
+            }));
 
           if (unsupportedVersions.length > 0) {
-            context.report({
-              ...getReportingDataFromNodeOrLocationObject(nodeOrLocationObject),
-              messageId: "unsupported",
-              data: {
-                feature,
-                versionsSeparatedByComma: unsupportedVersions.join(", "),
-              },
-            });
+            /*
+            Example of how the notes end up looking: 
+            
+            - 1.0.0:
+              * This is a note.
+              * This is another note.
+              * This is a third note.
+            - 2.0.0:
+              * This is a note.
+            */
+            const notes = unsupportedVersions
+              .filter((data) => data.notes)
+              .map((data) => {
+                const notesOnVersion = data
+                  .notes!.map((note) => `  * ${note}`)
+                  .join(os.EOL);
+
+                return `- ${data.version}: ${os.EOL}${notesOnVersion}`;
+              })
+              .join(os.EOL);
+
+            if (notes.trim().length > 0) {
+              context.report({
+                ...getReportingDataFromNodeOrLocationObject(
+                  nodeOrLocationObject,
+                ),
+                messageId: "unsupported-with-notes",
+                data: {
+                  feature,
+                  versionsSeparatedByComma: unsupportedVersions
+                    .map((data) => data.version)
+                    .join(", "),
+                  notes,
+                },
+              });
+            } else {
+              context.report({
+                ...getReportingDataFromNodeOrLocationObject(
+                  nodeOrLocationObject,
+                ),
+                messageId: "unsupported",
+                data: {
+                  feature,
+                  versionsSeparatedByComma: unsupportedVersions
+                    .map((data) => data.version)
+                    .join(", "),
+                },
+              });
+            }
           }
         }
       };
