@@ -18,21 +18,30 @@ const caniemailCachedDataPath = path.resolve(
  * based on the last modified date for it.
  */
 export const getAllSupportEntrries = () => {
-  if (fs.existsSync(caniemailCachedDataPath)) {
-    const stat = fs.statSync(caniemailCachedDataPath);
+  let dataFromCanIEmail: SupportEntry[];
+
+  try {
+    const fd = fs.openSync(caniemailCachedDataPath, 'r');
+    const stat = fs.fstatSync(fd);
 
     // difference in days between last modified date and today
     if (differenceInDays(stat.mtime, new Date()) < 1) {
-      return JSON.parse(
+      dataFromCanIEmail = JSON.parse(
         fs.readFileSync(caniemailCachedDataPath, "utf-8"),
       ) as SupportEntry[];
+    } else {
+      throw new Error("File is older than 24 hours");
     }
+  } catch (_exception) {
+    // throwing means the cached file didn't exist or it was older than 24 hours
+    const responseFromCaniemail = fetch(caniemailDataPath);
+    const json = responseFromCaniemail.json() as SupportResponse;
+
+    fs.writeFileSync(caniemailCachedDataPath, JSON.stringify(json.data), "utf-8");
+
+    dataFromCanIEmail = json.data;
   }
 
-  const responseFromCaniemail = fetch(caniemailDataPath);
-  const json = responseFromCaniemail.json() as SupportResponse;
 
-  fs.writeFileSync(caniemailCachedDataPath, JSON.stringify(json.data), "utf-8");
-
-  return json.data;
+  return dataFromCanIEmail;
 };
