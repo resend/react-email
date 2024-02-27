@@ -10,7 +10,9 @@
       "default": "./dist/index.js"
     },
     "./rules/no-unsupported-on-gmail-ios": "./dist/no-unsupported-on-gmail-ios.js",
-    "./rules/no-partially-supported-on-gmail-ios": "./dist/no-partially-supported-on-gmail-ios.js"
+    "./rules/no-partially-supported-on-gmail-ios": "./dist/no-partially-supported-on-gmail-ios.js",
+    "./rules/no-unsupported-on-gmail-android": "./dist/no-unsupported-on-gmail-android.js",
+    "./rules/no-partially-supported-on-gmail-android": "./dist/no-partially-supported-on-gmail-android.js"
   },
   "files": [
     "dist/**"

@@ -4,7 +4,7 @@ import { createNoPartiallySupportedOn } from "../create-no-partially-supported-o
 
 export default (supportEntries: SupportEntry[]) => {
   return createNoPartiallySupportedOn(
-    withSupportPerVersion(supportEntries, "gmail", "ios"),
-    "Gmail for IOS",
+    withSupportPerVersion(supportEntries, "gmail", "mobile-webmail"),
+    "Gmail for the mobile web",
   );
 };

@@ -1,26 +1,26 @@
 import type { Linter } from "eslint";
 import type { TSESLint } from "@typescript-eslint/utils";
-import {
-  noUnsupportedOnGmailIOS,
-  noPartiallyUnsupportedOnGmailIOS,
-} from "./rules";
+import * as Rules from "./rules";
 import { getAllSupportEntrries } from "./data/get-all-support-entries";
+import { fromCaemlToKebabCase } from "./casing/from-camel-to-kebab-case";
 
 const caniemailSupportEntries = getAllSupportEntrries();
 
-const rules = {
-  "no-unsupported-on-gmail-ios": noUnsupportedOnGmailIOS(
-    caniemailSupportEntries,
-  ),
-  "no-partially-supported-on-gmail-ios": noPartiallyUnsupportedOnGmailIOS(
-    caniemailSupportEntries,
-  ),
-} satisfies TSESLint.Linter.Plugin["rules"];
+const rules = Object.fromEntries(
+  Object.entries(Rules).map(([ruleCamelCasedName, ruleFactory]) => [
+    fromCaemlToKebabCase(ruleCamelCasedName),
+    ruleFactory(caniemailSupportEntries),
+  ]),
+);
 
 const recommendedRules: Partial<Linter.RulesRecord> = {
   "react/jsx-key": "off",
-  "@react-email/no-unsupported-on-gmail-ios": "error",
-  "@react-email/no-partially-supported-on-gmail-ios": "warn",
+  ...Object.fromEntries(
+    Object.keys(rules).map((rule) => [
+      `@react-email/${rule}`,
+      rule.startsWith("no-partially-supported") ? "warn" : "error",
+    ]),
+  ),
 };
 
 const plugin: TSESLint.Linter.Plugin = {
