@@ -23,7 +23,7 @@ export default defineConfig({
       // - polyfill libraries
       //   - process
       //   - memfs
-      external: ["react", "react-dom", /react-dom\/.*/],
+      external: ["react", /react\/.*/, "react-dom", /react-dom\/.*/],
     },
     lib: {
       entry: resolve(__dirname, "src/index.ts"),

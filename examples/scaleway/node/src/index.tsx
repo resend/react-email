@@ -1,4 +1,4 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import { TransactionalEmail, createClient } from "@scaleway/sdk";
 import { Email } from "./email.js";
 

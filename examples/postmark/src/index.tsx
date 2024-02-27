@@ -1,6 +1,5 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import postmark from "postmark";
-import * as React from "react";
 import { Email } from "./email";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars

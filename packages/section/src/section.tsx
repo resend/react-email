@@ -4,11 +4,10 @@ type RootProps = React.ComponentPropsWithoutRef<"table">;
 
 export type SectionProps = RootProps;
 
-export const Section: React.FC<Readonly<SectionProps>> = ({
-  children,
-  style,
-  ...props
-}) => {
+export const Section = React.forwardRef<
+  React.ElementRef<"table">,
+  Readonly<SectionProps>
+>(({ children, style, ...props }, ref) => {
   return (
     <table
       align="center"
@@ -17,6 +16,7 @@ export const Section: React.FC<Readonly<SectionProps>> = ({
       border={0}
       cellPadding="0"
       cellSpacing="0"
+      ref={ref}
       role="presentation"
       style={style}
     >
@@ -27,4 +27,6 @@ export const Section: React.FC<Readonly<SectionProps>> = ({
       </tbody>
     </table>
   );
-};
+});
+
+Section.displayName = "Section";

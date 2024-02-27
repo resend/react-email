@@ -18,7 +18,7 @@ export const TooltipContent = React.forwardRef<
     <TooltipPrimitive.Content
       {...props}
       className={cn(
-        'bg-black border border-slate-6 z-20 px-3 py-2 rounded-md text-xs',
+        'bg-black text-white border border-slate-6 z-20 px-3 py-2 rounded-md text-xs',
         `${inter.variable} font-sans`,
       )}
       ref={forwardedRef}

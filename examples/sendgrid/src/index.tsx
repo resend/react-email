@@ -1,6 +1,5 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import sendgrid from "@sendgrid/mail";
-import * as React from "react";
 import { Email } from "./email";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars

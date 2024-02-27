@@ -1,6 +1,5 @@
 import { SES } from "@aws-sdk/client-ses";
-import { render } from "@react-email/render";
-import * as React from "react";
+import { render } from "@react-email/components";
 import { Email } from "./email";
 
 // eslint-disable-next-line turbo/no-undeclared-env-vars

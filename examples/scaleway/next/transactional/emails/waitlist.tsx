@@ -7,7 +7,6 @@ import {
   Preview,
   Text,
 } from "@react-email/components";
-import * as React from "react";
 
 interface WaitlistEmailProps {
   name: string;

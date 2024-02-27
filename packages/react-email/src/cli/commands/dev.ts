@@ -18,7 +18,7 @@ export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
       parseInt(port),
     );
 
-    setupHotreloading(devServer, emailsDirRelativePath);
+    await setupHotreloading(devServer, emailsDirRelativePath);
   } catch (error) {
     console.log(error);
     process.exit(1);

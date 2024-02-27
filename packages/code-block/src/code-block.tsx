@@ -68,23 +68,29 @@ const CodeBlockLine = ({
 /**
  * A component to show code using prismjs.
  */
-export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
+export const CodeBlock = React.forwardRef<
+  React.ElementRef<"pre">,
+  CodeBlockProps
+>((props, ref) => {
   const languageGrammar = Prism.languages[props.language];
   if (typeof languageGrammar === "undefined")
     throw new Error(
       `CodeBlock: There is no language defined on Prism called ${props.language}`,
     );
 
-  const lines = props.code.match(/[^\r\n]+/g) ?? [];
+  const lines = props.code.split(/\r\n|\r|\n/gm);
   const tokensPerLine = lines.map((line) =>
     Prism.tokenize(line, languageGrammar),
   );
 
   return (
-    <pre style={{ ...props.theme.base, ...props.style }}>
+    <pre
+      ref={ref}
+      style={{ ...props.theme.base, width: "100%", ...props.style }}
+    >
       <code>
         {tokensPerLine.map((tokensForLine, lineIndex) => (
-          <p key={lineIndex}>
+          <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
             {props.lineNumbers ? (
               <span
                 style={{
@@ -102,4 +108,6 @@ export const CodeBlock: React.FC<CodeBlockProps> = (props) => {
       </code>
     </pre>
   );
-};
+});
+
+CodeBlock.displayName = "CodeBlock";

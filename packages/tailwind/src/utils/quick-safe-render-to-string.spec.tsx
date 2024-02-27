@@ -30,7 +30,5 @@ test("quick safe render to string", () => {
     </>
   );
 
-  expect(quickSafeRenderToString(jsx)).toMatchInlineSnapshot(
-    `"<div className=\\"bg-red-500 text-gray-200\\" style=\\"{\\"marginInline\\":\\"auto\\",\\"width\\":\\"100%\\",\\"maxWidth\\":\\"768px\\"}\\">Content in here that is interesting<h1><div className=\\"user-name flex text-2xl\\">Gabriel</div></h1><span className=\\"dark:bg-green-500 hover:bg-green-800 transition-colors\\">More content that comes from another jsx that should be render properly</span></div><span className=\\"dark:bg-green-500 hover:bg-green-800 transition-colors\\">More content that comes from another jsx that should be render properly</span>"`,
-  );
+  expect(quickSafeRenderToString(jsx)).toMatchSnapshot();
 });

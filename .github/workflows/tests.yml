@@ -120,6 +120,9 @@ jobs:
               if (version.startsWith("workspace:")) {
                 return true;
               }
+              if (version.startsWith("npm:")) {
+                return true;
+              }
               return /^\d+\.\d+\.\d+$|^[a-z]+:[a-z]+@\d+$/.test(version);
             }
 
