@@ -1,19 +1,19 @@
 import noUnsupportedOnGmailIOS from "./no-unsupported-on-gmail-ios";
-import noPartiallyUnsupportedOnGmailIOS from "./no-partially-supported-on-gmail-ios";
+import noPartiallySupportedOnGmailIOS from "./no-partially-supported-on-gmail-ios";
 import noUnsupportedOnGmailAndroid from "./no-unsupported-on-gmail-android";
-import noPartiallyUnsupportedOnGmailAndroid from "./no-partially-supported-on-gmail-android";
+import noPartiallySupportedOnGmailAndroid from "./no-partially-supported-on-gmail-android";
 import noUnsupportedOnGmailDesktopWebmail from "./no-unsupported-on-gmail-desktop-webmail";
-import noPartiallyUnsupportedOnGmailDesktopWebmail from "./no-partially-supported-on-gmail-desktop-webmail";
+import noPartiallySupportedOnGmailDesktopWebmail from "./no-partially-supported-on-gmail-desktop-webmail";
 import noUnsupportedOnGmailMobileWebmail from "./no-unsupported-on-gmail-mobile-webmail";
-import noPartiallyUnsupportedOnGmailMobileWebmail from "./no-partially-supported-on-gmail-mobile-webmail";
+import noPartiallySupportedOnGmailMobileWebmail from "./no-partially-supported-on-gmail-mobile-webmail";
 
 export {
   noUnsupportedOnGmailIOS,
+  noPartiallySupportedOnGmailIOS,
   noUnsupportedOnGmailAndroid,
-  noPartiallyUnsupportedOnGmailIOS,
-  noPartiallyUnsupportedOnGmailAndroid,
+  noPartiallySupportedOnGmailAndroid,
   noUnsupportedOnGmailDesktopWebmail,
-  noPartiallyUnsupportedOnGmailDesktopWebmail,
+  noPartiallySupportedOnGmailDesktopWebmail,
   noUnsupportedOnGmailMobileWebmail,
-  noPartiallyUnsupportedOnGmailMobileWebmail,
+  noPartiallySupportedOnGmailMobileWebmail,
 };

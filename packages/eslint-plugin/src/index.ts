@@ -18,7 +18,7 @@ const recommendedRules: Partial<Linter.RulesRecord> = {
   ...Object.fromEntries(
     Object.keys(rules).map((rule) => [
       `@react-email/${rule}`,
-      rule.startsWith("no-partially-supported") ? "error" : "warn",
+      rule.startsWith("no-partially-supported") ? "warn" : "error",
     ]),
   ),
 };
