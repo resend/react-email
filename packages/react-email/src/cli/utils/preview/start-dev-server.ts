@@ -26,7 +26,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isRunningBuilt = __filename.endsWith('cli/index.js');
+export const isRunningBuilt = __filename.endsWith(path.join('cli', 'index.js'));
 export const cliPacakgeLocation = isRunningBuilt
   ? path.resolve(__dirname, '..')
   : path.resolve(__dirname, '../../../..');

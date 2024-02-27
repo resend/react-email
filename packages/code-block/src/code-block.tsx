@@ -12,33 +12,57 @@ export type CodeBlockProps = Readonly<{
   code: string;
 }>;
 
+const stylesForToken = (token: Prism.Token, theme: Theme) => {
+  let styles = { ...theme[token.type] };
+
+  const aliases = Array.isArray(token.alias) ? token.alias : [token.alias];
+
+  for (const alias of aliases) {
+    styles = { ...styles, ...theme[alias] };
+  }
+
+  return styles;
+};
+
 const CodeBlockLine = ({
   token,
   theme,
+  inheritedStyles,
 }: {
   token: string | Prism.Token;
   theme: Theme;
+  inheritedStyles?: React.CSSProperties;
 }) => {
   if (token instanceof Prism.Token) {
+    const styleForToken = {
+      ...inheritedStyles,
+      ...stylesForToken(token, theme),
+    };
+
     if (token.content instanceof Prism.Token) {
       return (
-        <span style={theme[token.type]}>
+        <span style={styleForToken}>
           <CodeBlockLine theme={theme} token={token.content} />
         </span>
       );
     } else if (typeof token.content === "string") {
-      return <span style={theme[token.type]}>{token.content}</span>;
+      return <span style={styleForToken}>{token.content}</span>;
     }
     return (
       <>
         {token.content.map((subToken, i) => (
-          <CodeBlockLine key={i} theme={theme} token={subToken} />
+          <CodeBlockLine
+            inheritedStyles={styleForToken}
+            key={i}
+            theme={theme}
+            token={subToken}
+          />
         ))}
       </>
     );
   }
 
-  return <>{token}</>;
+  return <span style={inheritedStyles}>{token}</span>;
 };
 
 /**
