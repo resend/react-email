@@ -45,10 +45,15 @@ const buildPreviewApp = (absoluteDirectory: string) => {
 };
 
 const setNextEnvironmentVariablesForBuild = async (
+  emailsDirRelativePath: string,
   builtPreviewAppPath: string,
 ) => {
   const envVariables = {
-    ...getEnvVariablesForPreviewApp('emails', 'PLACEHOLDER', 'PLACEHOLDER'),
+    ...getEnvVariablesForPreviewApp(
+      emailsDirRelativePath,
+      'PLACEHOLDER',
+      'PLACEHOLDER',
+    ),
     NEXT_PUBLIC_IS_BUILDING: 'true',
   };
 
@@ -104,9 +109,15 @@ const getEmailSlugsFromEmailDirectory = (
     .replace(emailsDirectoryAbsolutePath, '')
     .trim();
 
-  const slugs = [] as string[];
+  const slugs = [] as Array<string>[];
   emailDirectory.emailFilenames.forEach((filename) =>
-    slugs.push(path.join(directoryPathRelativeToEmailsDirectory, filename)),
+    slugs.push(
+      path
+        .join(directoryPathRelativeToEmailsDirectory, filename)
+        .split(path.sep)
+        // sometimes it gets empty segments due to trailing slashes
+        .filter((segment) => segment.length > 0),
+    ),
   );
   emailDirectory.subDirectories.forEach((directory) => {
     slugs.push(
@@ -136,7 +147,7 @@ const forceSSGForEmailPreviews = async (
   ).map((slug) => ({ slug }));
 
   await fs.promises.appendFile(
-    path.resolve(builtPreviewAppPath, './src/app/preview/[slug]/page.tsx'),
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
 export async function generateStaticParams() { 
@@ -146,13 +157,18 @@ export async function generateStaticParams() {
   );
 };
 
-const updatePackageJsonScripts = async (builtPreviewAppPath: string) => {
+const updatePackageJson = async (builtPreviewAppPath: string) => {
   const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
-  ) as { scripts: Record<string, string> };
+  ) as {
+    scripts: Record<string, string>;
+    dependencies: Record<string, string>;
+  };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
+
+  packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
@@ -200,7 +216,7 @@ export const build = async ({
     }
 
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
-    const staticPath = path.join(process.cwd(), 'emails', 'static');
+    const staticPath = path.join(emailsDirPath, 'static');
 
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
 
@@ -224,7 +240,7 @@ export const build = async ({
 
     if (fs.existsSync(staticPath)) {
       spinner.text =
-        'Copying `emails/static` folder into `.react-email/public/static`';
+        'Copying `static` folder into `.react-email/public/static`';
       const builtStaticDirectory = path.resolve(
         builtPreviewAppPath,
         './public/static',
@@ -236,13 +252,16 @@ export const build = async ({
 
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
-    await setNextEnvironmentVariablesForBuild(builtPreviewAppPath);
+    await setNextEnvironmentVariablesForBuild(
+      emailsDirRelativePath,
+      builtPreviewAppPath,
+    );
 
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
     spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJsonScripts(builtPreviewAppPath);
+    await updatePackageJson(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
     await npmInstall(builtPreviewAppPath, packageManager);

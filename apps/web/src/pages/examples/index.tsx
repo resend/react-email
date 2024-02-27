@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
-import { Example } from "../../components/example";
+import { Example, type ExampleProps } from "../../components/example";
 import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
@@ -9,91 +9,91 @@ import { Topbar } from "../../components/topbar";
 
 const items = [
   {
-    id: "github-access-token.tsx",
+    path: "notifications/github-access-token",
     name: "GitHub / Access Token",
     author: "bruno88cabral",
   },
   {
-    id: "apple-receipt.tsx",
+    path: "receipts/apple-receipt",
     name: "Apple / Receipt",
     author: "relferreira",
   },
   {
-    id: "nike-receipt.tsx",
+    path: "receipts/nike-receipt",
     name: "Nike / Receipt",
     author: "camillegachido",
   },
   {
-    id: "stack-overflow-tips.tsx",
+    path: "newsletters/stack-overflow-tips",
     name: "Stack Overflow / Tips",
     author: "bruno88cabral",
   },
   {
-    id: "slack-confirm.tsx",
+    path: "magic-links/slack-confirm",
     name: "Slack / Confirm Email",
     author: "c0dr",
   },
   {
-    id: "twitch-reset-password.tsx",
+    path: "reset-password/twitch-reset-password",
     name: "Twitch / Reset Password",
     author: "EmersonGarrido",
   },
   {
-    id: "raycast-magic-link.tsx",
+    path: "magic-links/raycast-magic-link",
     name: "Raycast / Magic Link",
     author: "abhinandanwadwa",
   },
   {
-    id: "yelp-recent-login.tsx",
+    path: "notifications/yelp-recent-login",
     name: "Yelp / Recent Login",
     author: "EmersonGarrido",
   },
   {
-    id: "linear-login-code.tsx",
+    path: "magic-links/linear-login-code",
     name: "Linear / Login Code",
     author: "Rychillie",
   },
   {
-    id: "google-play-policy-update.tsx",
+    path: "newsletters/google-play-policy-update",
     name: "Google Play / Policy Update",
     author: "EmersonGarrido",
   },
   {
-    id: "airbnb-review.tsx",
+    path: "reviews/airbnb-review",
     name: "Airbnb / Review",
     author: "joaom00",
   },
   {
-    id: "dropbox-reset-password.tsx",
+    path: "reset-password/dropbox-reset-password",
     name: "Dropbox / Reset Password",
     author: "ribeiroevandro",
   },
   {
-    id: "koala-welcome.tsx",
+    path: "welcome/koala-welcome",
     name: "Koala / Welcome",
     author: "nettofarah",
   },
   {
-    id: "vercel-invite-user.tsx",
+    path: "notifications/vercel-invite-user",
     name: "Vercel / Invite User",
     author: "zenorocha",
   },
   {
-    id: "stripe-welcome.tsx",
+    path: "welcome/stripe-welcome",
     name: "Stripe / Welcome",
     author: "zenorocha",
   },
   {
-    id: "notion-magic-link.tsx",
+    path: "magic-links/notion-magic-link",
     name: "Notion / Magic Link",
     author: "bukinoshita",
   },
   {
-    id: "plaid-verify-identity.tsx",
+    path: "magic-links/plaid-verify-identity",
     name: "Plaid / Verify Identity",
     author: "zenorocha",
   },
-];
+] satisfies ExampleProps[];
 
 const title = "Examples — React Email";
 const description = "Open source templates built with React Email";
@@ -143,7 +143,7 @@ const Examples = () => {
 
           <div className="grid grid-cols-2 gap-8">
             {items.map((item) => (
-              <Example key={item.id} {...item} />
+              <Example key={item.path} {...item} />
             ))}
           </div>
         </div>
