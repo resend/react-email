@@ -1,4 +1,4 @@
-import { allCssProperties } from "../feature-usage/all-css-properties";
+import { allCssProperties } from "./all-css-properties";
 
 export const getPropertyTitlesFromSupportEntry = (
   title: string,
