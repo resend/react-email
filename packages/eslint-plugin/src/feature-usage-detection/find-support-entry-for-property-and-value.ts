@@ -1,4 +1,4 @@
-import type { SupportEntry } from "./support-response";
+import type { SupportEntry } from "../data/support-response";
 
 export const findSupportEntryForPropertyAndValue = <Entry extends SupportEntry>(
   entries: Entry[],

@@ -3,15 +3,16 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import { getReportingDataFromNodeOrLocationObject } from "./ast/get-reporting-data-from-node-or-location-object";
 import { fromCaemlToKebabCase } from "./casing/from-camel-to-kebab-case";
 import { createRule } from "./create-rule";
-import { getPropertyTitlesFromSupportEntry } from "./data/get-property-titles-from-support-entry";
+import { getPropertyTitlesFromSupportEntry } from "./feature-usage-detection/get-property-titles-from-support-entry";
 import type { SupportEntry } from "./data/support-response";
 import { listenersForStyleProperty } from "./ast/listeners-for-style-property";
-import { findSupportEntryForPropertyAndValue } from "./data/find-support-entry-for-property-and-value";
+import { findSupportEntryForPropertyAndValue } from "./feature-usage-detection/find-support-entry-for-property-and-value";
+import { getElementNamesForSupportEntry } from "./feature-usage-detection/get-element-names-for-support-entry";
 import { getNotesOnEntryBySupportValue } from "./data/get-notes-on-entry-by-support";
-import { getElementNamesForSupportEntry } from "./data/get-element-names-for-support-entry";
-import { getElementAttributesFromSupportEntry } from "./data/get-element-attributes-from-support-entry";
+import { getElementAttributesFromSupportEntry } from "./feature-usage-detection/get-element-attributes-from-support-entry";
 import { listenersForImage } from "./ast/listeners-for-images";
-import { getImageTypeFromTitle } from "./data/get-image-type-from-title";
+import { getImageTypeFromTitle } from "./feature-usage-detection/get-image-type-from-title";
+
 
 type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
