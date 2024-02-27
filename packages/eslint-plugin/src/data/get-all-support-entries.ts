@@ -27,7 +27,7 @@ export const getAllSupportEntrries = () => {
     // difference in days between last modified date and today
     if (differenceInDays(stat.mtime, new Date()) < 1) {
       dataFromCanIEmail = JSON.parse(
-        fs.readFileSync(caniemailCachedDataPath, "utf-8"),
+        fs.readFileSync(fd, "utf-8"),
       ) as SupportEntry[];
     } else {
       throw new Error("File is older than 24 hours");
