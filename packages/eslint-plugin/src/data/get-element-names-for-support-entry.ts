@@ -6,7 +6,7 @@ export const getElementNamesForSupportEntry = (title: string, keywords: string |
     return [elementName];
   }
 
-  if (keywords !== null && keywords.length > 0 && keywords.split(',').length > 1) {
+  if (keywords !== null && keywords.length > 0) {
     return keywords.split(/\s*,\s*/)
       .map((piece) => piece.trim());
   }

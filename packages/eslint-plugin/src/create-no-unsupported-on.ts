@@ -9,6 +9,7 @@ import { listenersForStyleProperty } from "./feature-usage/listeners-for-style-p
 import { findSupportEntryForPropertyAndValue } from "./data/find-support-entry-for-property-and-value";
 import { getElementNamesForSupportEntry } from "./data/get-element-names-for-support-entry";
 import { getNotesOnEntryBySupportValue } from "./data/get-notes-on-entry-by-support";
+import { getElementAttributesFromSupportEntry } from "./data/get-element-attributes-from-support-entry";
 
 export type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
@@ -122,6 +123,16 @@ Notes on its support:
           );
 
           reportForEntry(supportEntryForElementName, `<${elementName}>`, node);
+        },
+        JSXAttribute(node) {
+          const attributeName = context.sourceCode.getText(node.name);
+          const supportEntryForAttributeName = htmlSupportEntries.find((e) =>
+            getElementAttributesFromSupportEntry(e.title).includes(
+              attributeName,
+            ),
+          );
+
+          reportForEntry(supportEntryForAttributeName, attributeName, node);
         },
         ...listenersForStyleProperty(
           context.sourceCode,

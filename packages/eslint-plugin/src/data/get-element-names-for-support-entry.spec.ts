@@ -4,7 +4,7 @@ test("getElementNamesForSupportEntry()", () => {
   expect(getElementNamesForSupportEntry("<bdi> element", null)).toEqual([
     "bdi",
   ]);
-  expect(getElementNamesForSupportEntry("address", "address")).toEqual([]);
+  expect(getElementNamesForSupportEntry("address", "address")).toEqual(["address"]);
   expect(
     getElementNamesForSupportEntry(
       "<ul>, <ol> and <li>",
