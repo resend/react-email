@@ -16,7 +16,7 @@ export const Markdown: React.FC<MarkdownProps> = ({
 }) => {
   const parsedMarkdown = parseMarkdownToJSX({
     markdown: children,
-    customStyles: markdownCustomStyles
+    customStyles: markdownCustomStyles,
   });
 
   return (
