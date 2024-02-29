@@ -90,13 +90,13 @@ function processElement(
   );
 
   // if this is a component, then we render it and recurse it through processElement
-  // @ts-ignore - we know this is a component that may have a render function
   if (
     typeof modifiedElement.type === "function" ||
+    // @ts-ignore - we know this is a component that may have a render function
     modifiedElement.type.render
   ) {
-    // @ts-ignore - we know this is a component with a render function
     const component =
+      // @ts-ignore - we know this is a component with a render function
       (modifiedElement.type.render as React.FC) ??
       (modifiedElement.type as React.FC);
     const renderedComponent = component(modifiedElement.props);
