@@ -13,6 +13,7 @@ import { getElementAttributesFromSupportEntry } from "./feature-usage-detection/
 import { listenersForImage } from "./ast/listeners-for-images";
 import { getImageTypeFromTitle } from "./feature-usage-detection/get-image-type-from-title";
 import { getCssFunctionsFromSupportEntry } from "./feature-usage-detection/get-css-functions-from-support-entry";
+import { getCssUnitsFromSupportEntry } from "./feature-usage-detection/get-css-units-from-support-entry";
 
 export type SupportEntryWithVersionsInArray = SupportEntry & {
   supportPerVersion: { version: string; support: string }[];
@@ -178,6 +179,26 @@ Notes on its support:
               `${actualCSSProperty}: ${property.value}`,
               nodeOrLocationObject,
             );
+
+            const match = property.value.match(
+              /[0-9](?<unit>[a-zA-Z%]+)$/g,
+            )
+            if (match) {
+              const unit = match.groups?.unit;
+              if (unit) {
+                const supportEntryForUnit = cssSupportEntries.find((e) =>
+                  getCssUnitsFromSupportEntry(e.title) === unit,
+                );
+
+                if (supportEntryForUnit !== undefined) {
+                  reportForEntry(
+                    supportEntryForUnit,
+                    unit,
+                    nodeOrLocationObject,
+                  );
+                }
+              }
+            }
 
             const functionRegex =
               /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
