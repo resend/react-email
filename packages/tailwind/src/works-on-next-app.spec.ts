@@ -9,12 +9,13 @@ test("Tailwind works on the Next App's build process", () => {
     expect(shell.exec(command, { cwd, fatal: true }).code, `Expected command "${command}" to work properly but it returned a non-zero exit code`).toBe(0);
   };
 
-  $('pnpm build');
-  $('npx yalc installations clean @react-email/tailwind');
-  $('npx yalc publish');
+  // all of the following are basically ran on `preinstall` for the Next app
+  // $("pnpm build");
+  // $("npx yalc installations clean @react-email/tailwind");
+  // $("npx yalc publish");
 
   const nextAppLocation = path.resolve(__dirname, "../automated-test-next-app");
-  $("npm install", nextAppLocation);
+  $("pnpm install", nextAppLocation);
   $("npx yalc remove @react-email/tailwind", nextAppLocation);
   $("npx yalc add @react-email/tailwind", nextAppLocation);
   $("npm run build", nextAppLocation);
