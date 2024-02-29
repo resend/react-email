@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "tsconfig/base.json",
-  "include": ["src/**/*", "testing-utils"],
+  "include": ["src/**/*", "./generate-rules-per-email-client.ts", "testing-utils"],
   "compilerOptions": {
     "target": "ESNext",
     "moduleResolution": "Bundler",

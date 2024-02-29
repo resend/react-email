@@ -5,7 +5,7 @@ import fetch from "sync-fetch";
 import { differenceInDays } from "date-fns";
 import type { SupportEntry, SupportResponse } from "./support-response";
 
-const caniemailDataPath = "https://www.caniemail.com/api/data.json";
+export const caniemailDataURL = "https://www.caniemail.com/api/data.json";
 
 const caniemailCachedDataPath = path.resolve(
   os.tmpdir(),
@@ -34,7 +34,7 @@ export const getAllSupportEntrries = () => {
     }
   } catch (_exception) {
     // throwing means the cached file didn't exist or it was older than 24 hours
-    const responseFromCaniemail = fetch(caniemailDataPath);
+    const responseFromCaniemail = fetch(caniemailDataURL);
     const json = responseFromCaniemail.json() as SupportResponse;
 
     fs.writeFileSync(

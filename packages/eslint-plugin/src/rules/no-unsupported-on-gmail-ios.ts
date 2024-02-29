@@ -4,7 +4,7 @@ import { withSupportPerVersion } from "../data/with-support-per-version";
 
 export default (supportEntries: SupportEntry[]) => {
   return createNoUnsupportedOn(
-    withSupportPerVersion(supportEntries, "gmail", "android"),
-    "Gmail for Android",
+    withSupportPerVersion(supportEntries, "gmail", "ios"),
+    "Gmail for iOS",
   );
 };
