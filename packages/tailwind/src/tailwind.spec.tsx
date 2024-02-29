@@ -5,8 +5,8 @@ import { Hr } from "@react-email/hr";
 import { Html } from "@react-email/html";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
-import { Tailwind } from ".";
 import * as React from "react";
+import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
 describe("Tailwind component", () => {
@@ -434,9 +434,9 @@ describe("Tailwind component", () => {
     };
 
     const Brand = React.forwardRef<HTMLDivElement>(
-      (ref) => {
+      (ref, props) => {
         return (
-          <div ref={ref} className="p-[20px]">
+          <div className="p-[20px]" ref={ref as React.LegacyRef<HTMLDivElement>} {...props}>
             <p className="font-bold text-[50px]">React Email</p>
           </div>
         );
