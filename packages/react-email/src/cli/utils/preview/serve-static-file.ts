@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type http from 'node:http';
 import path from 'node:path';
-import { promises as fs, existsSync } from 'node:fs';
+import { promises as fs } from 'node:fs';
 import type url from 'node:url';
 import { lookup } from 'mime-types';
 
@@ -16,26 +16,10 @@ export const serveStaticFile = async (
 
   let fileAbsolutePath = path.join(staticBaseDir, pathname);
 
-  const doesFileExist = existsSync(fileAbsolutePath);
-  if (!doesFileExist) {
-    res.statusCode = 404;
-    res.end(`File not found!`);
-
-    return;
-  }
-
-  const fileStat = await fs.stat(fileAbsolutePath);
-  if (fileStat.isDirectory()) {
-    res.statusCode = 404;
-    res.end(
-      `We can't serve a directory here, try changing the URL to go into one of the files inside of the directory instead.`,
-    );
-
-    return;
-  }
+  const fileHandle = await fs.open(fileAbsolutePath, 'r');
 
   try {
-    const fileData = await fs.readFile(fileAbsolutePath);
+    const fileData = await fs.readFile(fileHandle);
 
     // if the file is found, set Content-type and send data
     res.setHeader('Content-type', lookup(ext) || 'text/plain');
