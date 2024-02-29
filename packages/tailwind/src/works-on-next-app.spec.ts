@@ -21,5 +21,5 @@ test("Tailwind works on the Next App's build process", () => {
   $("pnpm install", nextAppLocation);
   $("npx yalc remove @react-email/tailwind", nextAppLocation);
   $("npx yalc add @react-email/tailwind", nextAppLocation);
-  $("npm run build", nextAppLocation);
+  $("pnpm build", nextAppLocation);
 });
