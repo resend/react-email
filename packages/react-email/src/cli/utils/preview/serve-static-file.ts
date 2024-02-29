@@ -27,7 +27,9 @@ export const serveStaticFile = async (
   const fileStat = await fs.stat(fileAbsolutePath);
   if (fileStat.isDirectory()) {
     res.statusCode = 404;
-    res.end(`We can't serve a directory here, try changing the URL to go into one of the files inside of the directory instead.`);
+    res.end(
+      `We can't serve a directory here, try changing the URL to go into one of the files inside of the directory instead.`,
+    );
 
     return;
   }
@@ -45,7 +47,9 @@ export const serveStaticFile = async (
     );
 
     res.statusCode = 500;
-    res.end(`Could not read file to be served! Check your terminal for more information.`);
+    res.end(
+      `Could not read file to be served! Check your terminal for more information.`,
+    );
 
     return;
   }
