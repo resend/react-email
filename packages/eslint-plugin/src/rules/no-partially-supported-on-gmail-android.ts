@@ -1,10 +1,10 @@
 import type { SupportEntry } from "../data/support-response";
-import { withSupportPerVersion } from "../data/with-support-per-version";
 import { createNoPartiallySupportedOn } from "../create-no-partially-supported-on";
+import { withSupportPerVersion } from "../data/with-support-per-version";
 
 export default (supportEntries: SupportEntry[]) => {
   return createNoPartiallySupportedOn(
-    withSupportPerVersion(supportEntries, "gmail", "ios"),
-    "Gmail for IOS",
+    withSupportPerVersion(supportEntries, "gmail", "android"),
+    "Gmail for Android",
   );
 };

@@ -181,14 +181,12 @@ Notes on its support:
               nodeOrLocationObject,
             );
 
-            const match = property.value.match(
-              /[0-9](?<unit>[a-zA-Z%]+)$/g,
-            )
+            const match = property.value.match(/[0-9](?<unit>[a-zA-Z%]+)$/g);
             if (match) {
               const unit = match.groups?.unit;
               if (unit) {
-                const supportEntryForUnit = cssSupportEntries.find((e) =>
-                  getCssUnitsFromSupportEntry(e.title) === unit,
+                const supportEntryForUnit = cssSupportEntries.find(
+                  (e) => getCssUnitsFromSupportEntry(e.title) === unit,
                 );
 
                 if (supportEntryForUnit !== undefined) {
@@ -200,7 +198,6 @@ Notes on its support:
                 }
               }
             }
-
 
             const functionRegex =
               /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
