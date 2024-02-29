@@ -85,9 +85,7 @@ console.log(\`Hello, $\{name}!\`);
 
   it("renders links in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown>
-        Link to [React-email](https://react.email)
-      </Markdown>,
+      <Markdown>Link to [React-email](https://react.email)</Markdown>,
     );
     expect(actualOutput).toMatchSnapshot();
   });
