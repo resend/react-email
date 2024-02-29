@@ -33,7 +33,7 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
     // @ts-expect-error - we know this is a component
     if (typeof type === "function" || type.render) {
       // @ts-expect-error - we know this is a component
-      const functionComponent = (type.render as React.FC) ?? (type as React.FC);
+      const functionComponent = typeof type === "object" ? (type.render as React.FC) : (type as React.FC);
       // If the element is a component (function component), render it
       const componentRenderingResults = functionComponent(props);
       return quickSafeRenderToString(componentRenderingResults);
