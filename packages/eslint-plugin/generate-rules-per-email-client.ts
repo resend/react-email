@@ -103,7 +103,7 @@ export default (supportEntries: SupportEntry[]) => {
         )} from "./${noUnsupportedRuleFilename}"`,
       );
       exportsForIndex.push(
-        `${camelCase(noUnsupportedRuleFilename).replaceAll("_", "")}`,
+        `${camelCase(noUnsupportedRuleFilename).replaceAll("_", "")},`,
       );
 
       const noPartiallySupportedRuleFilename = path.basename(
