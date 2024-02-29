@@ -19,7 +19,7 @@ export const serveStaticFile = async (
   const doesFileExist = existsSync(fileAbsolutePath);
   if (!doesFileExist) {
     res.statusCode = 404;
-    res.end(`File ${pathname} not found!`);
+    res.end(`File not found!`);
 
     return;
   }
@@ -27,7 +27,7 @@ export const serveStaticFile = async (
   const fileStat = await fs.stat(fileAbsolutePath);
   if (fileStat.isDirectory()) {
     res.statusCode = 404;
-    res.end(`File ${pathname} not found!`);
+    res.end(`We can't serve a directory here, try changing the URL to go into one of the files inside of the directory instead.`);
 
     return;
   }
@@ -45,7 +45,7 @@ export const serveStaticFile = async (
     );
 
     res.statusCode = 500;
-    res.end(`Could not read file at ${pathname} to be served!`);
+    res.end(`Could not read file to be served! Check your terminal for more information.`);
 
     return;
   }
