@@ -6,6 +6,7 @@ import { Html } from "@react-email/html";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
 import { Tailwind } from ".";
+import * as React from "react";
 import type { TailwindConfig } from ".";
 
 describe("Tailwind component", () => {
@@ -419,6 +420,42 @@ describe("<Tailwind> component", () => {
 
     expect(actualOutput).toMatchInlineSnapshot(
       '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
+    );
+  });
+});
+
+
+
+
+describe("Tailwind component", () => {
+  it("should work with components that use React.forwardRef", () => {
+    const Wrapper = (props: { children: React.ReactNode }) => {
+      return <Tailwind>{props.children}</Tailwind>;
+    };
+
+    const Brand = React.forwardRef<HTMLDivElement>(
+      (ref) => {
+        return (
+          <div ref={ref} className="p-[20px]">
+            <p className="font-bold text-[50px]">React Email</p>
+          </div>
+        );
+      },
+    );
+
+    const EmailTemplate = () => {
+      return (
+        <Wrapper>
+          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <Brand />
+        </Wrapper>
+      );
+    };
+
+    const actualOutput = render(EmailTemplate());
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<div style=\\"font-size:50px;line-height:1;margin-top:100px\\">Hello world</div><div style=\\"padding:20px\\"><p style=\\"font-weight:700;font-size:50px\\">React Email</p></div>"`,
     );
   });
 });

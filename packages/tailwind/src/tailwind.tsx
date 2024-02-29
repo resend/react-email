@@ -90,10 +90,10 @@ function processElement(
   );
 
   // if this is a component, then we render it and recurse it through processElement
-  // @ts-expect-error - we know this is a component
-  if (typeof modifiedElement.type === "function" || (typeof modifiedElement.type === "object" && modifiedElement.type.render)) {
-    // @ts-expect-error - we know this is a component
-    const component = typeof modifiedElement.type === "object" ? modifiedElement.type.render as React.FC : modifiedElement.type as React.FC;
+  // @ts-ignore - we know this is a component that may have a render function
+  if (typeof modifiedElement.type === "function" || modifiedElement.type.render) {
+    // @ts-ignore - we know this is a component with a render function
+    const component = modifiedElement.type.render as React.FC ?? modifiedElement.type as React.FC;
     const renderedComponent = component(modifiedElement.props);
     if (React.isValidElement(renderedComponent)) {
       modifiedElement = processElement(
