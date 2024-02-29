@@ -1,0 +1,45 @@
+---
+title: 'Eslint plugin'
+sidebarTitle: 'Eslint plugin'
+description: 'Lint your react-email templates for the highest standard and support.'
+---
+
+## 1. Install dependencies
+
+Install package from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/eslint-plugin -E -D
+```
+
+```sh yarn
+yarn add @react-email/eslint-plugin -E -D
+```
+
+```sh pnpm
+pnpm add @react-email/eslint-plugin -E -D
+
+```
+
+## 2. Creating a `.eslintrc.json` for your emails folder
+
+Since the plugin can't detect properly what React component is an email
+or if weather it is inside the emails folder, you will need to create a new config file
+inside of your `emails` directory. Here's an example using our recommended configurations:
+
+```json
+{
+  "plugins": ["@react-email"],
+  "extends": ["plugin:@react-email/recommended", "PATH_TO_YOUR_DEFAULT_ESLINT_CONFIG"]
+}
+```
+
+From here you can activate or deactivate rules as you prefer. We have a rule for each
+email client + platform combination for both unsupported and partially supported features,
+by default, the major email clients + all their platforms will error for unsupported properties
+and warn for partially supported properties.
+
+These default settings get making the email templates into a really good flow since 
+you now get in-the-editor errors that point into what issues your email template has.
