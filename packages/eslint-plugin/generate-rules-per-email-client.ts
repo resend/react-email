@@ -69,7 +69,7 @@ export default (supportEntries: SupportEntry[]) => {
     withSupportPerVersion(supportEntries, "${emailClient}", "${platform}"),
     "${response.nicenames.family[emailClient]} for ${response.nicenames.platform[platform]}",
   );
-};`,
+};\n`,
         "utf8",
       );
 
@@ -88,7 +88,7 @@ export default (supportEntries: SupportEntry[]) => {
     withSupportPerVersion(supportEntries, "${emailClient}", "${platform}"),
     "${response.nicenames.family[emailClient]} for ${response.nicenames.platform[platform]}",
   );
-};`,
+};\n`,
         "utf8",
       );
 
@@ -114,10 +114,10 @@ export default (supportEntries: SupportEntry[]) => {
         `import ${camelCase(noPartiallySupportedRuleFilename).replaceAll(
           "_",
           "",
-        )} from "./${noPartiallySupportedRuleFilename}"`,
+        )} from "./${noPartiallySupportedRuleFilename}";`,
       );
       exportsForIndex.push(
-        `${camelCase(noPartiallySupportedRuleFilename).replaceAll("_", "")}`,
+        `${camelCase(noPartiallySupportedRuleFilename).replaceAll("_", "")},`,
       );
     }
   }
@@ -129,8 +129,8 @@ export default (supportEntries: SupportEntry[]) => {
     `${importsForIndex.join("\n")}
 
 export {
-  ${exportsForIndex.join(",\n  ")}
-};`,
+  ${exportsForIndex.join("\n  ")}
+};\n`,
     "utf8",
   );
 }
