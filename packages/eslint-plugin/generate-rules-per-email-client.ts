@@ -100,7 +100,7 @@ export default (supportEntries: SupportEntry[]) => {
         `import ${camelCase(noUnsupportedRuleFilename).replaceAll(
           "_",
           "",
-        )} from "./${noUnsupportedRuleFilename}"`,
+        )} from "./${noUnsupportedRuleFilename}";`,
       );
       exportsForIndex.push(
         `${camelCase(noUnsupportedRuleFilename).replaceAll("_", "")},`,
