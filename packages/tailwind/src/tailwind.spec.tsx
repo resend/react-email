@@ -424,24 +424,23 @@ describe("<Tailwind> component", () => {
   });
 });
 
-
-
-
 describe("Tailwind component", () => {
   it("should work with components that use React.forwardRef", () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
 
-    const Brand = React.forwardRef<HTMLDivElement>(
-      (ref, props) => {
-        return (
-          <div className="p-[20px]" ref={ref as React.LegacyRef<HTMLDivElement>} {...props}>
-            <p className="font-bold text-[50px]">React Email</p>
-          </div>
-        );
-      },
-    );
+    const Brand = React.forwardRef<HTMLDivElement>((ref, props) => {
+      return (
+        <div
+          className="p-[20px]"
+          ref={ref as React.LegacyRef<HTMLDivElement>}
+          {...props}
+        >
+          <p className="font-bold text-[50px]">React Email</p>
+        </div>
+      );
+    });
 
     const EmailTemplate = () => {
       return (
