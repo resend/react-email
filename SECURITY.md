@@ -17,4 +17,4 @@ We encourage all users to run the latest, supported version of the software to e
 
 We take the security of our project seriously. If you believe you have found a security vulnerability within our software, we encourage you to report it to us as quickly as possible. We welcome reports from everyone, including security researchers, developers, and our user community.
 
-To report a security issue, please send an email to [security@example.com](mailto:security@example.com).
+To report a security issue, please send an email to [security@resend.com](mailto:security@resend.com).
