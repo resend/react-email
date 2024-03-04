@@ -1,10 +1,11 @@
-import type { SupportEntry } from "../data/support-response";
 import { createNoPartiallySupportedOn } from "../create-no-partially-supported-on";
-import { withSupportPerVersion } from "../data/with-support-per-version";
+import type { SupportEntriesByCategory } from "../data/separate-entries-by-category";
 
-export default (supportEntries: SupportEntry[]) => {
+export default (supportEntriesByCategory: SupportEntriesByCategory) => {
   return createNoPartiallySupportedOn(
-    withSupportPerVersion(supportEntries, "outlook", "ios"),
+    supportEntriesByCategory,
     "Outlook for iOS",
+    "outlook",
+    "ios",
   );
 };

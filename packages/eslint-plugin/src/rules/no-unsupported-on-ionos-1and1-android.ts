@@ -1,10 +1,11 @@
-import type { SupportEntry } from "../data/support-response";
 import { createNoUnsupportedOn } from "../create-no-unsupported-on";
-import { withSupportPerVersion } from "../data/with-support-per-version";
+import type { SupportEntriesByCategory } from "../data/separate-entries-by-category";
 
-export default (supportEntries: SupportEntry[]) => {
+export default (supportEntriesByCategory: SupportEntriesByCategory) => {
   return createNoUnsupportedOn(
-    withSupportPerVersion(supportEntries, "ionos-1and1", "android"),
+    supportEntriesByCategory,
     "1&1 for Android",
+    "ionos-1and1",
+    "android",
   );
 };

@@ -3,9 +3,9 @@ import os from "node:os";
 import path from "node:path";
 import fetch from "sync-fetch";
 import { differenceInDays } from "date-fns";
-import type { SupportEntry, SupportResponse } from "./support-response";
+import type { SupportEntry, CaniemailOrderedDataResponse } from "./support-response";
 
-export const caniemailDataURL = "https://www.caniemail.com/api/data.json";
+export const caniemailDataURL = "https://www.caniemail.com/api/data-ordered.json";
 
 const caniemailCachedDataPath = path.resolve(
   os.tmpdir(),
@@ -13,7 +13,7 @@ const caniemailCachedDataPath = path.resolve(
 );
 
 /**
- * Caches the fetching of [data from caniemail](https://www.caniemail.com/api/data.json)
+ * Caches the fetching of [data from caniemail](https://www.caniemail.com/api/data-ordered.json)
  * for 24 hours in a file inside of the user's tmpdir. Checks if the file is older than 24 hours
  * based on the last modified date for it.
  */
@@ -30,12 +30,13 @@ export const getAllSupportEntrries = () => {
         fs.readFileSync(fd, "utf-8"),
       ) as SupportEntry[];
     } else {
-      throw new Error("File is older than 24 hours");
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal
+      throw "File is older than 24 hours";
     }
   } catch (_exception) {
     // throwing means the cached file didn't exist or it was older than 24 hours
     const responseFromCaniemail = fetch(caniemailDataURL);
-    const json = responseFromCaniemail.json() as SupportResponse;
+    const json = responseFromCaniemail.json() as CaniemailOrderedDataResponse;
 
     fs.writeFileSync(
       caniemailCachedDataPath,
