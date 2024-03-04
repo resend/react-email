@@ -26,7 +26,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isRunningBuilt = __filename.endsWith('cli/index.js');
+export const isRunningBuilt = __filename.endsWith(path.join('cli', 'index.js'));
 export const cliPacakgeLocation = isRunningBuilt
   ? path.resolve(__dirname, '..')
   : path.resolve(__dirname, '../../../..');
@@ -118,7 +118,8 @@ export const startDevServer = async (
   process.env = {
     ...process.env,
     ...getEnvVariablesForPreviewApp(
-      emailsDirRelativePath,
+      // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
+      path.normalize(emailsDirRelativePath),
       cliPacakgeLocation,
       process.cwd(),
     ),

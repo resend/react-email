@@ -36,7 +36,7 @@ export default function AWSVerifyEmail({
                 src={`${baseUrl}/static/aws-logo.png`}
                 width="75"
                 height="45"
-                alt="Notion's Logo"
+                alt="AWS's Logo"
               />
             </Section>
             <Section style={upperSection}>

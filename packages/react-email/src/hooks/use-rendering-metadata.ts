@@ -2,32 +2,35 @@ import { useEffect } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
-} from '../actions/render-email-by-slug';
+} from '../actions/render-email-by-path';
 
-const lastRenderingMetadata = {} as Record<string, RenderedEmailMetadata>;
+const lastRenderingMetadataPerEmailPath = {} as Record<
+  string,
+  RenderedEmailMetadata
+>;
 
 /**
  * Returns the rendering metadata if the given `renderingResult`
  * does not error. If it does error it returns the last value it had for the hook.
  */
 export const useRenderingMetadata = (
-  slug: string,
+  emailPath: string,
   renderingResult: EmailRenderingResult,
   initialRenderingMetadata?: EmailRenderingResult,
 ): RenderedEmailMetadata | undefined => {
   useEffect(() => {
     if ('markup' in renderingResult) {
-      lastRenderingMetadata[slug] = renderingResult;
+      lastRenderingMetadataPerEmailPath[emailPath] = renderingResult;
     } else if (
       typeof initialRenderingMetadata !== 'undefined' &&
       'markup' in initialRenderingMetadata &&
-      typeof lastRenderingMetadata[slug] === 'undefined'
+      typeof lastRenderingMetadataPerEmailPath[emailPath] === 'undefined'
     ) {
-      lastRenderingMetadata[slug] = initialRenderingMetadata;
+      lastRenderingMetadataPerEmailPath[emailPath] = initialRenderingMetadata;
     }
-  }, [renderingResult, slug, initialRenderingMetadata]);
+  }, [renderingResult, emailPath, initialRenderingMetadata]);
 
   return 'error' in renderingResult
-    ? lastRenderingMetadata[slug]
+    ? lastRenderingMetadataPerEmailPath[emailPath]
     : renderingResult;
 };

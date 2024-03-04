@@ -4,7 +4,7 @@ import { Command } from "commander";
 import { fileURLToPath } from "node:url";
 import fse from "fs-extra";
 import logSymbols from "log-symbols";
-import treeCli from 'tree-cli';
+import { tree } from "./tree.js";
 import ora from "ora";
 import path from "node:path";
 
@@ -27,17 +27,12 @@ const init = async (name) => {
 
   fse.copySync(templatePath, resolvedProjectPath, { recursive: true });
 
-  const { report } = await treeCli({
-    l: 4,
-    base: projectPath
-  });
-
-  console.log(report);
-
   spinner.stopAndPersist({
     symbol: logSymbols.success,
     text: "React Email Starter files ready",
   });
+
+  console.log(await tree("./react-email-starter", 4));
 };
 
 new Command()

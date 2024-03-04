@@ -11,6 +11,7 @@ export * from "@react-email/hr";
 export * from "@react-email/html";
 export * from "@react-email/img";
 export * from "@react-email/link";
+export * from "@react-email/markdown";
 export * from "@react-email/preview";
 export * from "@react-email/render";
 export * from "@react-email/row";

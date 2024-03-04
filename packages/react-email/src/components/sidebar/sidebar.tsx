@@ -30,12 +30,14 @@ export const Sidebar = ({
       </div>
       <nav className="p-4 flex-grow lg:pt-0 pl-0 w-screen h-[calc(100vh_-_70px)] lg:w-full lg:min-w-[275px] lg:max-w-[275px] flex flex-col overflow-y-auto">
         <Collapsible.Root>
-          <SidebarDirectoryChildren
-            currentEmailOpenSlug={currentEmailOpenSlug}
-            emailsDirectoryMetadata={emailsDirectoryMetadata}
-            isRoot
-            open
-          />
+          <React.Suspense>
+            <SidebarDirectoryChildren
+              currentEmailOpenSlug={currentEmailOpenSlug}
+              emailsDirectoryMetadata={emailsDirectoryMetadata}
+              isRoot
+              open
+            />
+          </React.Suspense>
         </Collapsible.Root>
       </nav>
     </aside>

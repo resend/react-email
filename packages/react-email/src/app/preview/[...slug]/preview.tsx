@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Toaster } from 'sonner';
 import { useHotreload } from '../../../hooks/use-hot-reload';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-slug';
+import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
@@ -14,11 +14,13 @@ import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
+  emailPath: string;
   renderingResult: EmailRenderingResult;
 }
 
 const Preview = ({
   slug,
+  emailPath,
   renderingResult: initialRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -29,10 +31,13 @@ const Preview = ({
   const activeLang = searchParams.get('lang') ?? 'jsx';
   const { useEmailRenderingResult } = useEmails();
 
-  const renderingResult = useEmailRenderingResult(slug, initialRenderingResult);
+  const renderingResult = useEmailRenderingResult(
+    emailPath,
+    initialRenderingResult,
+  );
 
   const renderedEmailMetadata = useRenderingMetadata(
-    slug,
+    emailPath,
     renderingResult,
     initialRenderingResult,
   );
@@ -87,7 +92,7 @@ const Preview = ({
           <>
             {activeView === 'desktop' && (
               <iframe
-                className="w-full h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
@@ -95,7 +100,7 @@ const Preview = ({
 
             {activeView === 'mobile' && (
               <iframe
-                className="w-[360px] h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
