@@ -56,6 +56,7 @@ export const getEmailComponent = async (
     ...global,
     console,
     Buffer,
+    URL,
     module: { exports: { default: undefined as unknown } },
     __filanem: emailPath,
     __dirname: path.dirname(emailPath),
