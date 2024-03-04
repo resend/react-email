@@ -14,7 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function run() {
   const responseFromCaniemail = await fetch(caniemailDataURL);
 
-  const response = (await responseFromCaniemail.json()) as unknown as CaniemailOrderedDataResponse;
+  const response =
+    (await responseFromCaniemail.json()) as unknown as CaniemailOrderedDataResponse;
 
   const supportEntries = response.data;
 

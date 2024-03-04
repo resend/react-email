@@ -38,8 +38,8 @@ export const listenersForCaniemailSupport = (
     notes?: string;
     feature: string;
     nodeOrLocationObject:
-    | TSESTree.Node
-    | { location: [start: TSESTree.Position, end: TSESTree.Position] };
+      | TSESTree.Node
+      | { location: [start: TSESTree.Position, end: TSESTree.Position] };
   }) => void,
 ): TSESLint.RuleListener => {
   const handleSupportEntry = (
@@ -48,8 +48,8 @@ export const listenersForCaniemailSupport = (
     nodeOrLocationObject:
       | TSESTree.Node
       | {
-        location: [start: TSESTree.Position, end: TSESTree.Position];
-      },
+          location: [start: TSESTree.Position, end: TSESTree.Position];
+        },
   ) => {
     if (entry === undefined) return;
 
