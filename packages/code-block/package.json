@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.3-canary.1",
+  "version": "0.0.3",
   "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -44,7 +44,7 @@
     "react": "18.2.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.5",
+    "@babel/preset-react": "7.23.3",
     "@react-email/render": "workspace:*",
     "@types/prismjs": "1.26.3",
     "eslint-config-custom": "workspace:*",

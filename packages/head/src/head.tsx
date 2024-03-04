@@ -7,6 +7,7 @@ export type HeadProps = RootProps;
 export const Head: React.FC<Readonly<HeadProps>> = ({ children, ...props }) => (
   <head {...props}>
     <meta content="text/html; charset=UTF-8" httpEquiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
     {children}
   </head>
 );

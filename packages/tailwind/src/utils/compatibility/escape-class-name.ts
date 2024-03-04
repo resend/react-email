@@ -3,7 +3,8 @@
  * CSS selectors by using the regex "[^a-zA-Z0-9\-_]".
  *
  * Also does a bit more trickery to avoid escaping already
- * escaped characters.8  */
+ * escaped characters.
+ */
 export const escapeClassName = (className: string) => {
   return className.replace(
     /*      we need this look ahead capturing group to avoid using negative look behinds */
