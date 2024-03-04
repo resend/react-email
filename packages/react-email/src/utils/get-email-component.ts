@@ -65,7 +65,7 @@ export const getEmailComponent = async (
     URLSearchParams,
     Headers,
     module: { exports: { default: undefined as unknown } },
-    __filanem: emailPath,
+    __filename: emailPath,
     __dirname: path.dirname(emailPath),
     require: (module: string) => {
       if (module in staticNodeModulesForVM) {
