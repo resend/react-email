@@ -1,6 +1,6 @@
 import type { SupportEntry } from "./support-response";
 
-export const getNotesOnEntryBySupportValue = (
+export const getNotesOnEntryBySupportString = (
   support: string,
   entry: SupportEntry,
 ) => {

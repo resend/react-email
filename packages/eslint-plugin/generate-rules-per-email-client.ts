@@ -6,7 +6,7 @@ import { caniemailDataURL } from "./src/data/get-all-support-entries";
 import type {
   EmailClient,
   Platform,
-  SupportResponse,
+  CaniemailOrderedDataResponse,
 } from "./src/data/support-response";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -14,7 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function run() {
   const responseFromCaniemail = await fetch(caniemailDataURL);
 
-  const response = (await responseFromCaniemail.json()) as SupportResponse;
+  const response = (await responseFromCaniemail.json()) as unknown as CaniemailOrderedDataResponse;
 
   const supportEntries = response.data;
 
@@ -60,14 +60,15 @@ async function run() {
       );
       await fs.promises.writeFile(
         noUnsupportedRulePath,
-        `import type { SupportEntry } from "../data/support-response";
-import { createNoUnsupportedOn } from "../create-no-unsupported-on";
-import { withSupportPerVersion } from "../data/with-support-per-version";
+        `import { createNoUnsupportedOn } from "../create-no-unsupported-on";
+import type { SupportEntriesByCategory } from "../data/separate-entries-by-category";
 
-export default (supportEntries: SupportEntry[]) => {
+export default (supportEntriesByCategory: SupportEntriesByCategory) => {
   return createNoUnsupportedOn(
-    withSupportPerVersion(supportEntries, "${emailClient}", "${platform}"),
+    supportEntriesByCategory,
     "${response.nicenames.family[emailClient]} for ${response.nicenames.platform[platform]}",
+    "${emailClient}",
+    "${platform}",
   );
 };\n`,
         "utf8",
@@ -79,14 +80,15 @@ export default (supportEntries: SupportEntry[]) => {
       );
       await fs.promises.writeFile(
         noPartiallySupportedRulePath,
-        `import type { SupportEntry } from "../data/support-response";
-import { createNoPartiallySupportedOn } from "../create-no-partially-supported-on";
-import { withSupportPerVersion } from "../data/with-support-per-version";
+        `import { createNoPartiallySupportedOn } from "../create-no-partially-supported-on";
+import type { SupportEntriesByCategory } from "../data/separate-entries-by-category";
 
-export default (supportEntries: SupportEntry[]) => {
+export default (supportEntriesByCategory: SupportEntriesByCategory) => {
   return createNoPartiallySupportedOn(
-    withSupportPerVersion(supportEntries, "${emailClient}", "${platform}"),
+    supportEntriesByCategory,
     "${response.nicenames.family[emailClient]} for ${response.nicenames.platform[platform]}",
+    "${emailClient}",
+    "${platform}",
   );
 };\n`,
         "utf8",

@@ -1,11 +1,11 @@
-import { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/utils";
 
 export const getReportingDataFromNodeOrLocationObject = (
   nodeOrLocationObject:
     | TSESTree.Node
     | {
-        location: [start: TSESTree.Position, end: TSESTree.Position];
-      },
+      location: [start: TSESTree.Position, end: TSESTree.Position];
+    },
 ) => {
   if ("location" in nodeOrLocationObject) {
     const { location } = nodeOrLocationObject;
@@ -15,8 +15,8 @@ export const getReportingDataFromNodeOrLocationObject = (
         end: location[1],
       },
     };
-  } else {
-    const node = nodeOrLocationObject;
-    return { node };
   }
+
+  const node = nodeOrLocationObject;
+  return { node };
 };

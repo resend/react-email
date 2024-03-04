@@ -20,7 +20,7 @@ import { propertyNameAndValueFromNode } from "./property-name-and-value-from-nod
  * Both of these makes the experience a bit better for the user depending on the way they choose
  * to write their styles.
  *
- * Once the listeners are attached to the rule context, every time it gets a style property it calls
+ * Once the listeners are attached to the rule context, every time it finds a style property it calls
  * the {@link callback} function provided.
  */
 export const listenersForStyleProperty = (

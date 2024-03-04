@@ -48,12 +48,34 @@ export interface SupportEntry {
   test_url: string;
   test_results_url: string | null;
   stats: Partial<
-    Record<EmailClient, Partial<Record<Platform, Record<string, string>>>>
+    // prettier-ignore
+    Record<
+      EmailClient,
+      Partial<
+        Record<
+          Platform,
+          /*
+            This last Record<string, string> has only one key, as the
+            ordered version of caniemail's data is meant to be something like:
+           
+            [
+              { "1.0": "u" },
+              { "2.0": "y" },
+              { "3.0": "p #1" },
+            ]
+           
+            So only one key for each object inside of this array, TypeScript can't really
+            describe this though AFAIK.
+          */
+          Record</* version */string, string>[]
+        >
+      >
+    >
   >;
   notes: string | null;
   notes_by_num: Record<number, string>;
 }
-export interface SupportResponse {
+export interface CaniemailOrderedDataResponse {
   api_version: string;
   last_updated_date: string;
   nicenames: {
