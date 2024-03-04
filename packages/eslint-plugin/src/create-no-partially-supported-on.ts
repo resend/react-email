@@ -1,9 +1,6 @@
 import { getReportingDataFromNodeOrLocationObject } from "./ast/get-reporting-data-from-node-or-location-object";
 import { createRule } from "./create-rule";
-import type {
-  EmailClient,
-  Platform,
-} from "./data/support-response";
+import type { EmailClient, Platform } from "./data/support-response";
 import type { SupportEntriesByCategory } from "./data/separate-entries-by-category";
 import { listenersForCaniemailSupport } from "./ast/listeners-for-caniemail-support";
 

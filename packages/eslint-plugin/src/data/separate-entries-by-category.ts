@@ -1,8 +1,13 @@
 import { SupportEntry, SupportEntryCategroy } from "./support-response";
 
-export type SupportEntriesByCategory = Record<SupportEntryCategroy, SupportEntry[]>;
+export type SupportEntriesByCategory = Record<
+  SupportEntryCategroy,
+  SupportEntry[]
+>;
 
-export const separateEntriesByCategory = (entries: SupportEntry[]): SupportEntriesByCategory => {
+export const separateEntriesByCategory = (
+  entries: SupportEntry[],
+): SupportEntriesByCategory => {
   const result: SupportEntriesByCategory = {
     css: [],
     html: [],
@@ -15,4 +20,4 @@ export const separateEntriesByCategory = (entries: SupportEntry[]): SupportEntri
   }
 
   return result;
-}
+};

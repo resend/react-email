@@ -3,9 +3,13 @@ import os from "node:os";
 import path from "node:path";
 import fetch from "sync-fetch";
 import { differenceInDays } from "date-fns";
-import type { SupportEntry, CaniemailOrderedDataResponse } from "./support-response";
+import type {
+  SupportEntry,
+  CaniemailOrderedDataResponse,
+} from "./support-response";
 
-export const caniemailDataURL = "https://www.caniemail.com/api/data-ordered.json";
+export const caniemailDataURL =
+  "https://www.caniemail.com/api/data-ordered.json";
 
 const caniemailCachedDataPath = path.resolve(
   os.tmpdir(),
