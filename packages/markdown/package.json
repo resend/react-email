@@ -57,6 +57,6 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "md-to-react-email": "4.1.0"
+    "md-to-react-email": "5.0.0"
   }
 }
