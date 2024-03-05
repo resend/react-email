@@ -15,21 +15,21 @@ well.
 ## A note on feature development
 
 If you want to add a feature, it is really important that we first discuss in what direction
-this feature should be taken or it should be implemented at all. For this, please open up 
+this feature should be taken, or it should be implemented at all. For this, please open up 
 [a discussion](https://github.com/resend/react-email/discussions/new?category=ideas) 
 as an [RFC](https://pt.wikipedia.org/wiki/Request_for_Comments) mentioning you intend in working on this.
 
-Once we have come to terms in how this should be implemented and the details for it you can get down to business.
+Once we have come to terms in how this should be implemented and the details for it, you can get down to business.
 
 ## A note on fixing issues
 
-If you've found an issue and you intend in fixing it through a PR, please open up 
+If you've found a problem, and you intend in fixing it through a PR, please open up 
 [a proper issue](https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml)
 as it can be helpful if your fix isn't good enough or if you aren't able to finish.
 This also helps track the work and helps others find the issue and workarounds if there are any.
 
 One extra thing that would make it really high chance that we merge your PR, is if you add tests
-along with your pull request that ensures that in later versions of the same code regressions aren't
+along with your pull request that ensures that, in later versions of the same code, regressions aren't
 introduced.
 
 ## Creating the pull request
@@ -40,6 +40,46 @@ So that things go as smoothly as possible, create your pull request through the 
 2. Create a new branch based on `canary` that represents what you are doing
 3. Make your changes and commit them to this new branch
 4. Create pull request from your fork into React Email's `canary` branch
+
+## Writing a good description
+
+Once you open your pull request, we will need to review it. This means we need to understand
+what you wanted to add or fix so that we can read your code in a way that we can understand it
+much more easily. It's much easier to understand code once you expect for it to do something
+than reading it to *then understand* what it does.
+
+Currently, we do not have a pull request template you can follow to help you,
+but you can follow some common guidelines.
+
+### 1. Describe your intent
+
+Every change has an intent. Bug fix pull requests intend in resolving an issue so that
+it, either unblocks you, or unblocks someone else. Feature pull requests intend in adding
+something new that improves the experience, either for you, or for someone else.
+
+The intent is really helpful because it doesn't just make the process of reading your code
+faster, but also because it allows us to reason about your code and think of probable
+better ways of writing what you've written.
+
+The more straightforward the intent is, the better.
+
+### 2. Write down what technical difficulties you went through
+
+The person reading your pull request is not going to be someone that goes through your
+pull request only on the surface. They are going to read the code, and try to understand
+as much as they can. That means that, if you describe what technical difficulties you went through
+as much as possible, it may allow us to discuss of a better solution, or it even may allow
+for future contributors to find and fix an issue.
+
+The more you document of your process, the better.
+
+### 3. Write down the specific changes the pull request introduces
+
+This is also another step that is going to be helpful in making your pull request more reviewable.
+Writing down the changes, technically and, generally specifically, is going to go a long way
+in helping us understand what the code does. This is something similar to the intent, as it describes
+what you've done, but it is going to serve as a bit of reference if someone can't quite understand
+what you did in a piece of code.
 
 ## Getting in touch with us
 
