@@ -35,8 +35,8 @@ describe("<Button> component", () => {
     );
   });
 
-  it("should allow users to overwrite style props", () => {
-    const actualOutput = render(
+  it("should allow users to overwrite style props", async () => {
+    const actualOutput = await render(
       <Button
         style={{
           lineHeight: "150%",
