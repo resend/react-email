@@ -1,1 +1,1 @@
-See https://react.email/docs/contributing
+See https://react.email/docs/contributing/codebase-overview
