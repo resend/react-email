@@ -8,6 +8,7 @@ import type {
   Platform,
   CaniemailOrderedDataResponse,
 } from "./src/data/support-response";
+import { fromCamelToKebabCase } from "./src/casing/from-camel-to-kebab-case";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -54,10 +55,29 @@ async function run() {
     ${emailClient} - ${Array.from(platforms).join(", ")}
     `);
 
+    /*
+      We do this repetitive string casing conversion because, for some email client name
+      slugs, caniemail does not have proper casing. One of the examples is
+      
+      ionos-1and1
+      
+      It merges this "1and1" into one "word", even though it's not easy to do this conversion programatically. That is with our fromCamelToKebabCase function. 
+
+      It's important that we take this into account because we generate the rule
+      names programatically based on the camelcased version of these filenames
+      on the [index.ts](./src/index.ts) file. 
+
+      If we don't do this the actual name of the rules won't match their filenames, 
+      which might cause issues.
+    */
+    const properKebabCasedEmailClient = fromCamelToKebabCase(
+      camelCase(emailClient).replaceAll('_', ''),
+    );
+
     for await (const platform of platforms.values()) {
       const noUnsupportedRulePath = path.resolve(
         __dirname,
-        `src/rules/no-unsupported-on-${emailClient}-${platform}.ts`,
+        `src/rules/no-unsupported-on-${properKebabCasedEmailClient}-${platform}.ts`,
       );
       await fs.promises.writeFile(
         noUnsupportedRulePath,
@@ -77,7 +97,7 @@ export default (supportEntriesByCategory: SupportEntriesByCategory) => {
 
       const noPartiallySupportedRulePath = path.resolve(
         __dirname,
-        `src/rules/no-partially-supported-on-${emailClient}-${platform}.ts`,
+        `src/rules/no-partially-supported-on-${properKebabCasedEmailClient}-${platform}.ts`,
       );
       await fs.promises.writeFile(
         noPartiallySupportedRulePath,

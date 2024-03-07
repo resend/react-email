@@ -1,7 +1,7 @@
 import type { TSESLint } from "@typescript-eslint/utils";
 import * as Rules from "./rules";
 import { getAllSupportEntrries } from "./data/get-all-support-entries";
-import { fromCaemlToKebabCase } from "./casing/from-camel-to-kebab-case";
+import { fromCamelToKebabCase } from "./casing/from-camel-to-kebab-case";
 import { separateEntriesByCategory } from "./data/separate-entries-by-category";
 
 const caniemailSupportEntries = getAllSupportEntrries();
@@ -10,7 +10,7 @@ const entriesByCategory = separateEntriesByCategory(caniemailSupportEntries);
 
 const rules = Object.fromEntries(
   Object.entries(Rules).map(([ruleCamelCasedName, ruleFactory]) => [
-    fromCaemlToKebabCase(ruleCamelCasedName),
+    fromCamelToKebabCase(ruleCamelCasedName),
     ruleFactory(entriesByCategory),
   ]),
 );
