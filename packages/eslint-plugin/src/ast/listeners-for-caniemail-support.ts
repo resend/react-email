@@ -7,7 +7,7 @@ import type {
 } from "../data/support-response";
 import { getNotesOnEntryBySupportString } from "../data/get-notes-on-entry-by-support";
 import { getElementNamesForSupportEntry } from "../feature-usage-detection/get-element-names-for-support-entry";
-import { fromCaemlToKebabCase } from "../casing/from-camel-to-kebab-case";
+import { fromCamelToKebabCase } from "../casing/from-camel-to-kebab-case";
 import { getPropertyTitlesFromSupportEntry } from "../feature-usage-detection/get-property-titles-from-support-entry";
 import { getImageTypeFromTitle } from "../feature-usage-detection/get-image-type-from-title";
 import { getElementAttributesFromSupportEntry } from "../feature-usage-detection/get-element-attributes-from-support-entry";
@@ -112,7 +112,7 @@ export const listenersForCaniemailSupport = (
     ...listenersForStyleProperty(
       sourceCode,
       (property, nodeOrLocationObject) => {
-        const actualCSSProperty = fromCaemlToKebabCase(property.name);
+        const actualCSSProperty = fromCamelToKebabCase(property.name);
         const supportEntryForProperty = supportEntriesByCategory.css.find((e) =>
           getPropertyTitlesFromSupportEntry(e.title, e.keywords).includes(
             actualCSSProperty,
