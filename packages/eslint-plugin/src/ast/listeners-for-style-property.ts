@@ -130,7 +130,9 @@ export const listenersForStyleProperty = (
     const variableNode = sourceCode.getAncestors!(node).findLast(
       (ancestor) => ancestor.type === AST_NODE_TYPES.VariableDeclarator,
     ) as TSESTree.VariableDeclarator;
-    const variableName = sourceCode.getText(variableNode.id);
+    if (variableNode.id.type !== AST_NODE_TYPES.Identifier) continue;
+
+    const variableName = variableNode.id.name;
 
     const lastProblemProperties =
       accumulatedProblemPropertiesPerVariableName.get(variableName) ?? [];
