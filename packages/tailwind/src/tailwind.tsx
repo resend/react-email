@@ -115,8 +115,6 @@ function processElement(
   return modifiedElement;
 }
 
-type AnyElement = React.ReactElement<React.HTMLAttributes<HTMLElement>>;
-
 type HeadElement = React.ReactElement<
   HeadProps,
   string | React.JSXElementConstructor<HeadProps>
@@ -189,44 +187,38 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const nonMediaQueryTailwindStylesPerClass =
     getStylesPerClassMap(nonMediaQueryCSS);
 
-  const childrenArray = React.Children.toArray(children);
-  const validElementsWithIndexes = childrenArray
-    .map((child, i) => [child, i] as [AnyElement, number])
-    .filter(([child]) => React.isValidElement(child));
+  let hasAppliedResponsiveStyles = false as boolean;
 
-  let headElementIndex = -1;
+  const childrenArray = React.Children.map(children, (child) => {
+    if (React.isValidElement(child)) {
+      const element = child;
 
-  validElementsWithIndexes.forEach(([element, i]) => {
-    childrenArray[i] = processElement(
-      element,
-      nonMediaQueryTailwindStylesPerClass,
-      nonEscapedMediaQueryClasses,
-    );
+      if (!hasAppliedResponsiveStyles) {
+        if (
+          element.type === "head" ||
+          (typeof element.type === "function" &&
+            "name" in element.type &&
+            element.type.name === "Head")
+        ) {
+          hasAppliedResponsiveStyles = true;
+          return processHead(processElement(element, nonMediaQueryTailwindStylesPerClass, nonEscapedMediaQueryClasses), headStyles);
+        }
+      }
 
-    if (
-      element.type === "head" ||
-      (typeof element.type === "function" &&
-        "name" in element.type &&
-        element.type.name === "Head")
-    ) {
-      headElementIndex = i;
+      return processElement(
+        element,
+        nonMediaQueryTailwindStylesPerClass,
+        nonEscapedMediaQueryClasses,
+      );
     }
-  });
+  }) ?? [];
 
   headStyles = headStyles.filter((style) => style.trim().length > 0);
 
-  if (headStyles.length > 0) {
-    if (headElementIndex === -1) {
-      throw new Error(
-        "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
-      );
-    }
-
-    const [headElement, headAllElementsIndex] = validElementsWithIndexes[
-      headElementIndex
-    ] as [HeadElement, number];
-
-    childrenArray[headAllElementsIndex] = processHead(headElement, headStyles);
+  if (headStyles.length > 0 && !hasAppliedResponsiveStyles) {
+    throw new Error(
+      "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
+    );
   }
 
   return <>{childrenArray}</>;
