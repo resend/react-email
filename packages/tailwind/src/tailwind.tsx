@@ -1,18 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
-import type { HeadProps } from "@react-email/head";
-import {
-  getMapOfStylesPerClassName,
-  useRgbNonSpacedSyntax,
-  quickSafeRenderToString,
-  minifyCss,
-  getCssForMarkup,
-  cssToJsxStyle,
-  escapeClassName,
-  sanitizeClassName,
-} from "./utils";
+import { useTailwindStyles } from "./hooks/use-tailwind-styles";
+import { useStyleInlining } from "./hooks/use-style-inlining";
+import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
+import { minifyCss } from "./utils/css/minify-css";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -21,189 +12,94 @@ export interface TailwindProps {
   config?: TailwindConfig;
 }
 
-function processElement(
-  element: React.ReactElement,
-  nonMediaQueryTailwindStylesPerClass: Record<string, string>,
-  nonEscapedMediaQueryClasses: string[],
-): React.ReactElement {
-  let modifiedElement = element;
-
-  let resultingClassName = modifiedElement.props.className as
-    | string
-    | undefined;
-  let resultingStyle = modifiedElement.props.style as
-    | React.CSSProperties
-    | undefined;
-  let resultingChildren: React.ReactNode[] = [];
-
-  if (modifiedElement.props.className) {
-    const fullClassName = modifiedElement.props.className as string;
-    const classNames = fullClassName.split(" ");
-    const classNamesToKeep = [] as string[];
-
-    const styles = [] as string[];
-
-    classNames.forEach((className) => {
-      /*
-        We need to first escape the original className used here because, since Tailwind escapes
-        class names on the CSS, the map of styles per class name will have escaped class names as keys.
-      */
-      const tailwindEscapedClassName = escapeClassName(className);
-      // no need to filter in for media query classes since it is going to keep these classes
-      // as custom since they are not going to be in the markup map of styles
-      if (
-        typeof nonMediaQueryTailwindStylesPerClass[tailwindEscapedClassName] ===
-        "undefined"
-      ) {
-        if (nonEscapedMediaQueryClasses.includes(className)) {
-          classNamesToKeep.push(sanitizeClassName(className));
-        } else {
-          classNamesToKeep.push(className);
-        }
-      } else {
-        styles.push(
-          `${nonMediaQueryTailwindStylesPerClass[tailwindEscapedClassName]};`,
-        );
-      }
-    });
-
-    resultingStyle = {
-      ...(modifiedElement.props.style as Record<string, string>),
-      ...cssToJsxStyle(styles.join(" ")),
-    };
-    resultingClassName =
-      classNamesToKeep.length > 0 ? classNamesToKeep.join(" ") : undefined;
-  }
-
-  if (modifiedElement.props.children) {
-    resultingChildren = React.Children.toArray(
-      modifiedElement.props.children,
-    ).map((child) => {
-      if (React.isValidElement(child)) {
-        return processElement(
-          child,
-          nonMediaQueryTailwindStylesPerClass,
-          nonEscapedMediaQueryClasses,
-        );
-      }
-      return child;
-    });
-  }
-
-  modifiedElement = React.cloneElement(
-    modifiedElement,
-    {
-      ...modifiedElement.props,
-      className: resultingClassName,
-      // passing in style here as undefined may mess up
-      // the rendering process of child components
-      ...(typeof resultingStyle === "undefined"
-        ? {}
-        : { style: resultingStyle }),
-    },
-    ...resultingChildren,
-  );
-
-  // if this is a component, then we render it and recurse it through processElement
-  if (typeof modifiedElement.type === "function") {
-    const component = modifiedElement.type as React.FC;
-    const renderedComponent = component(modifiedElement.props);
-    if (React.isValidElement(renderedComponent)) {
-      modifiedElement = processElement(
-        renderedComponent,
-        nonMediaQueryTailwindStylesPerClass,
-        nonEscapedMediaQueryClasses,
-      );
-    }
-  }
-
-  return modifiedElement;
-}
-
-type HeadElement = React.ReactElement<
-  HeadProps,
-  string | React.JSXElementConstructor<HeadProps>
->;
-
-function processHead(
-  headElement: HeadElement,
-  nonInlineStylesToApply: string[],
-): React.ReactElement {
-  /*                   only minify here since it is the only place that is going to be in the DOM */
-  const styleElement = (
-    <style>{minifyCss(nonInlineStylesToApply.join(""))}</style>
-  );
-
-  return React.cloneElement(
-    headElement,
-    headElement.props,
-    ...React.Children.toArray(headElement.props.children),
-    styleElement,
-  );
+interface EmailElementProps {
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  let nonInlineStylesToApply: string[] = [];
+  const { stylePerClassMap, nonInlinableClasses, sanitizedMediaQueries } =
+    useTailwindStyles(children, config ?? {});
 
-  const markupWithTailwindClasses = quickSafeRenderToString(<>{children}</>);
-  const markupCSS = useRgbNonSpacedSyntax(
-    getCssForMarkup(markupWithTailwindClasses, config),
-  );
+  const inline = useStyleInlining(stylePerClassMap);
 
-  let nonMediaQueryCSS = markupCSS;
-  const nonEscapedMediaQueryClasses = [] as string[];
-
-  for (const [mediaQuery, content] of markupCSS.matchAll(
-    /@media\s*\(.*\)\s*{(\s*\..*\s*{[\s\S]*}\s*)}/gm,
-  )) {
-    nonMediaQueryCSS = nonMediaQueryCSS.replace(mediaQuery, "");
-
-    let finalMediaQuery = mediaQuery;
-
-    for (const [
-      fullRule,
-      escapedRuleClassName,
-      ruleContent,
-    ] of content.matchAll(/\s*\.([\S]+)\s*{([^}]*)}/gm)) {
-      const ruleClassName = escapedRuleClassName.replaceAll(/\\[0-9]|\\/g, "");
-      nonEscapedMediaQueryClasses.push(ruleClassName);
-
-      finalMediaQuery = finalMediaQuery.replace(
-        fullRule,
-        fullRule
-          .replace(escapedRuleClassName, sanitizeClassName(ruleClassName))
-          .replace(
-            ruleContent,
-            ruleContent
-              .split(";")
-              .map((propertyDeclaration) =>
-                propertyDeclaration.endsWith("!important")
-                  ? propertyDeclaration.trim()
-                  : `${propertyDeclaration.trim()}!important`,
-              )
-              .join(";"),
-          )
-          .replace(/[\r\n|\r|\n]+/g, "") // remove line breaks
-          .replace(/\s+/g, " "),
-      );
-    }
-
-    nonInlineStylesToApply.push(finalMediaQuery);
-  }
-
-  const nonMediaQueryTailwindStylesPerClass =
-    getMapOfStylesPerClassName(nonMediaQueryCSS);
-
-  nonInlineStylesToApply = nonInlineStylesToApply.filter(
+  const nonInlineStylesToApply = sanitizedMediaQueries.filter(
     (style) => style.trim().length > 0,
   );
 
-  const hasNonInlineStylesToApply = nonInlineStylesToApply.length > 0;
+  function processElement(
+    element: React.ReactElement<EmailElementProps>,
+  ): React.ReactElement<EmailElementProps> {
+    const propsToOverwrite = {} as Partial<EmailElementProps>;
 
+    if (element.props.children) {
+      propsToOverwrite.children = React.Children.map(
+        element.props.children,
+        (child) => {
+          if (React.isValidElement<EmailElementProps>(child)) {
+            return processElement(child);
+          }
+
+          return child;
+        },
+      );
+    }
+
+    if (element.props.className) {
+      const { styles, residualClassName } = inline(element.props.className);
+      propsToOverwrite.style = {
+        ...element.props.style,
+        ...styles,
+      };
+      if (residualClassName.trim().length > 0) {
+        propsToOverwrite.className = residualClassName;
+        /*
+          We sanitize only the class names of Tailwind classes that we are not going to inline
+          to avoid unpredictable behavior on the user's code. If we did sanitize all class names
+          a user-defined class could end up also being sanitized which would lead to unexpected 
+          behavior and bugs that are hard to track.
+        */
+        for (const singleClass of nonInlinableClasses) {
+          propsToOverwrite.className = propsToOverwrite.className.replace(
+            singleClass,
+            sanitizeClassName(singleClass),
+          );
+        }
+      } else {
+        propsToOverwrite.className = undefined;
+      }
+    }
+
+    const newProps = {
+      ...element.props,
+      ...propsToOverwrite,
+    };
+    const newChildren = propsToOverwrite.children
+      ? propsToOverwrite.children
+      : element.props.children;
+
+    if (typeof element.type === "function") {
+      const component = element.type as React.FC;
+      const renderedComponent = component({
+        ...element.props,
+        ...propsToOverwrite,
+      });
+
+      if (React.isValidElement<EmailElementProps>(renderedComponent)) {
+        return processElement(renderedComponent);
+      }
+    }
+
+    return React.cloneElement(element, newProps, newChildren);
+  }
+
+  const hasNonInlineStylesToApply = nonInlineStylesToApply.length > 0;
   let hasAppliedNonInlineStyles = false as boolean;
+
   const childrenArray =
     React.Children.map(children, (child) => {
-      if (React.isValidElement(child)) {
+      if (React.isValidElement<EmailElementProps>(child)) {
         const element = child;
 
         if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
@@ -214,22 +110,22 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
               element.type.name === "Head")
           ) {
             hasAppliedNonInlineStyles = true;
-            return processHead(
-              processElement(
-                element,
-                nonMediaQueryTailwindStylesPerClass,
-                nonEscapedMediaQueryClasses,
-              ),
-              nonInlineStylesToApply,
+
+            /*                   only minify here since it is the only place that is going to be in the DOM */
+            const styleElement = (
+              <style>{minifyCss(nonInlineStylesToApply.join(""))}</style>
+            );
+
+            return React.cloneElement(
+              element,
+              element.props,
+              element.props.children,
+              styleElement,
             );
           }
         }
 
-        return processElement(
-          element,
-          nonMediaQueryTailwindStylesPerClass,
-          nonEscapedMediaQueryClasses,
-        );
+        return processElement(element);
       }
     }) ?? [];
 

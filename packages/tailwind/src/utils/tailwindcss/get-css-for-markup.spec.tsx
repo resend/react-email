@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
+import { minifyCss } from "../css/minify-css";
 import { getCssForMarkup } from "./get-css-for-markup";
-import { minifyCss } from "./minify-css";
 
 // these tests will fail if the minifyCSS is broken as well
 // the reason we use it here is because it just makes it simpler to compare
