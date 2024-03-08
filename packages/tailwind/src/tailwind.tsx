@@ -44,7 +44,10 @@ function processElement(
     const styles = [] as string[];
 
     classNames.forEach((className) => {
-      /*                        escape all unallowed characters in css class selectors */
+      /*
+        We need to first escape the original className used here because, since Tailwind escapes
+        class names on the CSS, the map of styles per class name will have escaped class names as keys.
+      */
       const tailwindEscapedClassName = escapeClassName(className);
       // no need to filter in for media query classes since it is going to keep these classes
       // as custom since they are not going to be in the markup map of styles
