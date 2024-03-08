@@ -187,20 +187,23 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const nonMediaQueryTailwindStylesPerClass =
     getStylesPerClassMap(nonMediaQueryCSS);
 
-  let hasAppliedResponsiveStyles = false as boolean;
+  headStyles = headStyles.filter((style) => style.trim().length > 0);
 
+  const hasNonInlineStylesToApply = headStyles.length > 0;
+
+  let hasAppliedNonInlineStyles = false as boolean;
   const childrenArray = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       const element = child;
 
-      if (!hasAppliedResponsiveStyles) {
+      if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
         if (
           element.type === "head" ||
           (typeof element.type === "function" &&
             "name" in element.type &&
             element.type.name === "Head")
         ) {
-          hasAppliedResponsiveStyles = true;
+          hasAppliedNonInlineStyles = true;
           return processHead(processElement(element, nonMediaQueryTailwindStylesPerClass, nonEscapedMediaQueryClasses), headStyles);
         }
       }
@@ -213,9 +216,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     }
   }) ?? [];
 
-  headStyles = headStyles.filter((style) => style.trim().length > 0);
-
-  if (headStyles.length > 0 && !hasAppliedResponsiveStyles) {
+  if (hasNonInlineStylesToApply && !hasAppliedNonInlineStyles) {
     throw new Error(
       "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
     );
