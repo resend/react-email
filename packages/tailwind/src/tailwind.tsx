@@ -3,14 +3,16 @@
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import type { HeadProps } from "@react-email/head";
-import { cssToJsxStyle } from "./utils/css-to-jsx-style";
-import { getCssForMarkup } from "./utils/get-css-for-markup";
-import { minifyCss } from "./utils/minify-css";
-import { getStylesPerClassMap } from "./utils/get-css-class-properties-map";
-import { escapeClassName } from "./utils/escape-class-name";
-import { sanitizeClassName } from "./utils/sanitize-class-name";
-import { useRgbNonSpacedSyntax } from "./utils/use-rgb-non-spaced-syntax";
-import { quickSafeRenderToString } from "./utils/quick-safe-render-to-string";
+import {
+  getMapOfStylesPerClassName,
+  useRgbNonSpacedSyntax,
+  quickSafeRenderToString,
+  minifyCss,
+  getCssForMarkup,
+  cssToJsxStyle,
+  escapeClassName,
+  sanitizeClassName,
+} from "./utils";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
@@ -122,10 +124,12 @@ type HeadElement = React.ReactElement<
 
 function processHead(
   headElement: HeadElement,
-  responsiveStyles: string[],
+  nonInlineStylesToApply: string[],
 ): React.ReactElement {
   /*                   only minify here since it is the only place that is going to be in the DOM */
-  const styleElement = <style>{minifyCss(responsiveStyles.join(""))}</style>;
+  const styleElement = (
+    <style>{minifyCss(nonInlineStylesToApply.join(""))}</style>
+  );
 
   return React.cloneElement(
     headElement,
@@ -136,7 +140,7 @@ function processHead(
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  let headStyles: string[] = [];
+  let nonInlineStylesToApply: string[] = [];
 
   const markupWithTailwindClasses = quickSafeRenderToString(<>{children}</>);
   const markupCSS = useRgbNonSpacedSyntax(
@@ -181,40 +185,50 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       );
     }
 
-    headStyles.push(finalMediaQuery);
+    nonInlineStylesToApply.push(finalMediaQuery);
   }
 
   const nonMediaQueryTailwindStylesPerClass =
-    getStylesPerClassMap(nonMediaQueryCSS);
+    getMapOfStylesPerClassName(nonMediaQueryCSS);
 
-  headStyles = headStyles.filter((style) => style.trim().length > 0);
+  nonInlineStylesToApply = nonInlineStylesToApply.filter(
+    (style) => style.trim().length > 0,
+  );
 
-  const hasNonInlineStylesToApply = headStyles.length > 0;
+  const hasNonInlineStylesToApply = nonInlineStylesToApply.length > 0;
 
   let hasAppliedNonInlineStyles = false as boolean;
-  const childrenArray = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      const element = child;
+  const childrenArray =
+    React.Children.map(children, (child) => {
+      if (React.isValidElement(child)) {
+        const element = child;
 
-      if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
-        if (
-          element.type === "head" ||
-          (typeof element.type === "function" &&
-            "name" in element.type &&
-            element.type.name === "Head")
-        ) {
-          hasAppliedNonInlineStyles = true;
-          return processHead(processElement(element, nonMediaQueryTailwindStylesPerClass, nonEscapedMediaQueryClasses), headStyles);
+        if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
+          if (
+            element.type === "head" ||
+            (typeof element.type === "function" &&
+              "name" in element.type &&
+              element.type.name === "Head")
+          ) {
+            hasAppliedNonInlineStyles = true;
+            return processHead(
+              processElement(
+                element,
+                nonMediaQueryTailwindStylesPerClass,
+                nonEscapedMediaQueryClasses,
+              ),
+              nonInlineStylesToApply,
+            );
+          }
         }
-      }
 
-      return processElement(
-        element,
-        nonMediaQueryTailwindStylesPerClass,
-        nonEscapedMediaQueryClasses,
-      );
-    }
-  }) ?? [];
+        return processElement(
+          element,
+          nonMediaQueryTailwindStylesPerClass,
+          nonEscapedMediaQueryClasses,
+        );
+      }
+    }) ?? [];
 
   if (hasNonInlineStylesToApply && !hasAppliedNonInlineStyles) {
     throw new Error(
