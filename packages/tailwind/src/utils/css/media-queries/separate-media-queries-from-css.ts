@@ -1,5 +1,5 @@
 export function separateMediaQueriesFromCSS(
-  css: string
+  css: string,
 ): [cssWithoutMediaQueries: string, mediaQueries: string[]] {
   let cssWithoutMediaQueries = css;
   const mediaQueries: string[] = [];

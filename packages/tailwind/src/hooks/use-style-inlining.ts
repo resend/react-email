@@ -1,14 +1,14 @@
 /**
-  * Creates a style inlining function that converts an element's className into inlined React styles - based on the 
-  * {@link stylePerClass} map - for all classes also. 
-  *
-  * Also returns residual classes that could not be found on the map.
-  */
+ * Creates a style inlining function that converts an element's className into inlined React styles - based on the
+ * {@link stylePerClass} map - for all classes also.
+ *
+ * Also returns residual classes that could not be found on the map.
+ */
 export function useStyleInlining(
-  stylePerClass: Record<string, React.CSSProperties>
+  stylePerClass: Record<string, React.CSSProperties>,
 ) {
   return (className: string) => {
-    const classes = className.split(' ');
+    const classes = className.split(" ");
 
     const residualClasses = [];
     let styles: React.CSSProperties = {};
@@ -17,7 +17,7 @@ export function useStyleInlining(
       if (singleClass in stylePerClass) {
         styles = {
           ...styles,
-          ...stylePerClass[singleClass]
+          ...stylePerClass[singleClass],
         };
       } else {
         residualClasses.push(singleClass);
@@ -26,7 +26,7 @@ export function useStyleInlining(
 
     return {
       styles,
-      residualClassName: residualClasses.join(' '),
-    }
-  }
+      residualClassName: residualClasses.join(" "),
+    };
+  };
 }
