@@ -19,7 +19,7 @@ describe("useTailwindStyles()", () => {
     });
   });
 
-  test.only("with more media queries", () => {
+  test("with more media queries", () => {
     const node = (
       <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
     );
