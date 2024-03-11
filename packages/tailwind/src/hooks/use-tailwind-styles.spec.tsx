@@ -14,7 +14,9 @@ describe("useTailwindStyles()", () => {
         "bg-red-500": { backgroundColor: "rgb(239,68,68)" },
         "text-red-100": { color: "rgb(254,226,226)" },
       },
-      sanitizedMediaQueries: ["@media (min-width: 768px) {.md_w-250px {width: 250px!important}}"],
+      sanitizedMediaQueries: [
+        "@media (min-width: 768px) {.md_w-250px {width: 250px!important}}",
+      ],
       nonInlinableClasses: ["md:w-[250px]"],
     });
   });
