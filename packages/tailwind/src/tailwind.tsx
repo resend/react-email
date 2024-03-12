@@ -4,7 +4,6 @@ import { useTailwindStyles } from "./hooks/use-tailwind-styles";
 import { useStyleInlining } from "./hooks/use-style-inlining";
 import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
 import { minifyCss } from "./utils/css/minify-css";
-import { quickSafeRenderToString } from "./utils/quick-safe-render-to-string";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
