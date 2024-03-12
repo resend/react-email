@@ -149,7 +149,7 @@ describe("Responsive styles", () => {
     and apply the styles there. This also fixes the issue where it would not be allowed to use
     Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
   */
-  it.only("should work with arbitrarily deep (in the React tree) <head> elements", () => {
+  it("should work with arbitrarily deep (in the React tree) <head> elements", () => {
     expect(
       render(
         <Tailwind>
@@ -205,17 +205,16 @@ describe("Responsive styles", () => {
   it("should throw an error when used without a <head/>", () => {
     function noHead() {
       render(
-        <html lang="en">
-          <Tailwind>
+        <Tailwind>
+          <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
-          </Tailwind>
-        </html>,
+          </html>
+        </Tailwind>
+        ,
       );
     }
-    expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component."`,
-    );
+    expect(noHead).toThrowErrorMatchingSnapshot();
   });
 
   it("should persist existing <head/> elements", () => {
