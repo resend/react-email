@@ -126,7 +126,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   if (hasNonInlineStylesToApply && !hasAppliedNonInlineStyles) {
     throw new Error(
-      `You are trying to use the following Tailwind classes that have media queries: ${nonInlinableClasses.join(" ")}.
+      `You are trying to use the following Tailwind classes that have media queries: ${nonInlinableClasses.join(
+        " ",
+      )}.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
 

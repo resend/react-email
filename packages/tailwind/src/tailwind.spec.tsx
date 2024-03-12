@@ -167,7 +167,7 @@ describe("Responsive styles", () => {
 
     const MyHead = (props: Record<string, any>) => {
       return <head {...props} />;
-    }
+    };
 
     expect(
       render(
@@ -210,8 +210,7 @@ describe("Responsive styles", () => {
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
           </html>
-        </Tailwind>
-        ,
+        </Tailwind>,
       );
     }
     expect(noHead).toThrowErrorMatchingSnapshot();
