@@ -10,7 +10,8 @@ type FallbackFont =
   | "sans-serif"
   | "monospace"
   | "cursive"
-  | "fantasy";
+  | "fantasy"
+  | "Roboto";
 
 type FontFormat =
   | "woff"
@@ -56,20 +57,18 @@ export const Font: React.FC<Readonly<FontProps>> = ({
       font-family: '${fontFamily}';
       font-style: ${fontStyle};
       font-weight: ${fontWeight};
-      mso-font-alt: '${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily[0]
-          : fallbackFontFamily
-      }';
+      mso-font-alt: '${Array.isArray(fallbackFontFamily)
+      ? fallbackFontFamily[0]
+      : fallbackFontFamily
+    }';
       ${src}
     }
 
     * {
-      font-family: '${fontFamily}', ${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.join(", ")
-          : fallbackFontFamily
-      };
+      font-family: '${fontFamily}', ${Array.isArray(fallbackFontFamily)
+      ? fallbackFontFamily.join(", ")
+      : fallbackFontFamily
+    };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;

@@ -34,7 +34,7 @@ describe("<Font> component", () => {
 
   it("renders with multiple fallback fonts", () => {
     const html = render(
-      <Font fallbackFontFamily={["Helvetica", "Verdana"]} fontFamily="Arial" />,
+      <Font fallbackFontFamily={["Helvetica", "Verdana", "Roboto"]} fontFamily="Arial" />,
     );
 
     expect(html).toContain("font-family: 'Arial', Helvetica, Verdana;");
