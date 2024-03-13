@@ -76,7 +76,14 @@ console.log(\`Hello, $\{name}!\`);
 
   it("renders text in the correct format for browsers", () => {
     const actualOutput = render(
-      <Markdown>
+      <Markdown
+        markdownCustomStyles={{
+          bold: {
+            font: '700 23px / 32px "Roobert PRO", system-ui, sans-serif',
+            background: 'url("path/to/image")',
+          },
+        }}
+      >
         **This is sample bold text in markdown** and *this is italic text*
       </Markdown>,
     );
