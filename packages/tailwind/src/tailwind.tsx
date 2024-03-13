@@ -28,10 +28,31 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     (style) => style.trim().length > 0,
   );
 
+  const hasNonInlineStylesToApply = nonInlineStylesToApply.length > 0;
+  let hasAppliedNonInlineStyles = false as boolean;
+
   function processElement(
     element: React.ReactElement<EmailElementProps>,
   ): React.ReactElement<EmailElementProps> {
     const propsToOverwrite = {} as Partial<EmailElementProps>;
+
+    if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
+      if (element.type === "head") {
+        hasAppliedNonInlineStyles = true;
+
+        /*                   only minify here since it is the only place that is going to be in the DOM */
+        const styleElement = (
+          <style>{minifyCss(nonInlineStylesToApply.join(""))}</style>
+        );
+
+        return React.cloneElement(
+          element,
+          element.props,
+          element.props.children,
+          styleElement,
+        );
+      }
+    }
 
     if (element.props.children) {
       propsToOverwrite.children = React.Children.map(
@@ -94,36 +115,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     return React.cloneElement(element, newProps, newChildren);
   }
 
-  const hasNonInlineStylesToApply = nonInlineStylesToApply.length > 0;
-  let hasAppliedNonInlineStyles = false as boolean;
-
   const childrenArray =
     React.Children.map(children, (child) => {
       if (React.isValidElement<EmailElementProps>(child)) {
         const element = child;
-
-        if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
-          if (
-            element.type === "head" ||
-            (typeof element.type === "function" &&
-              "name" in element.type &&
-              element.type.name === "Head")
-          ) {
-            hasAppliedNonInlineStyles = true;
-
-            /*                   only minify here since it is the only place that is going to be in the DOM */
-            const styleElement = (
-              <style>{minifyCss(nonInlineStylesToApply.join(""))}</style>
-            );
-
-            return React.cloneElement(
-              element,
-              element.props,
-              element.props.children,
-              styleElement,
-            );
-          }
-        }
 
         return processElement(element);
       }
@@ -131,7 +126,15 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   if (hasNonInlineStylesToApply && !hasAppliedNonInlineStyles) {
     throw new Error(
-      "Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component.",
+      `You are trying to use the following Tailwind classes that have media queries: ${nonInlinableClasses.join(
+        " ",
+      )}.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have either a <head> element at some point inside of the <Tailwind> component at any depth.
+
+If you do already have a <head> element at some depth, please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
     );
   }
 
