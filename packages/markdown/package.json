@@ -1,6 +1,6 @@
 {
   "name": "@react-email/markdown",
-  "version": "0.0.8",
+  "version": "0.0.9-canary.0",
   "description": "Convert Markdown to valid React Email template code.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -57,6 +57,6 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "md-to-react-email": "4.1.0"
+    "md-to-react-email": "5.0.2"
   }
 }

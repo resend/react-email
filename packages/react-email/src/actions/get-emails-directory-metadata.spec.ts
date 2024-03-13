@@ -2,36 +2,72 @@ import path from 'node:path';
 import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata';
 
 test('getEmailsDirectoryMetadata on demo emails', async () => {
-  expect(
-    await getEmailsDirectoryMetadata(
-      path.resolve(__dirname, '../../../../apps/demo/emails/'),
-    ),
-  ).toEqual({
-    absolutePath: path.resolve(__dirname, '../../../../apps/demo/emails/'),
+  const emailsDirectoryPath = path.resolve(
+    __dirname,
+    '../../../../apps/demo/emails/',
+  );
+  expect(await getEmailsDirectoryMetadata(emailsDirectoryPath)).toEqual({
+    absolutePath: emailsDirectoryPath,
     directoryName: 'emails',
-    emailFilenames: [
-      'airbnb-review.tsx',
-      'amazon-review.tsx',
-      'apple-receipt.tsx',
-      'aws-verify-email.tsx',
-      'codepen-challengers.tsx',
-      'dropbox-reset-password.tsx',
-      'github-access-token.tsx',
-      'google-play-policy-update.tsx',
-      'koala-welcome.tsx',
-      'linear-login-code.tsx',
-      'netlify-welcome.tsx',
-      'nike-receipt.tsx',
-      'notion-magic-link.tsx',
-      'plaid-verify-identity.tsx',
-      'raycast-magic-link.tsx',
-      'slack-confirm.tsx',
-      'stack-overflow-tips.tsx',
-      'stripe-welcome.tsx',
-      'twitch-reset-password.tsx',
-      'vercel-invite-user.tsx',
-      'yelp-recent-login.tsx',
+    emailFilenames: [],
+    subDirectories: [
+      {
+        absolutePath: `${emailsDirectoryPath}/magic-links`,
+        directoryName: 'magic-links',
+        emailFilenames: [
+          'aws-verify-email',
+          'linear-login-code',
+          'notion-magic-link',
+          'plaid-verify-identity',
+          'raycast-magic-link',
+          'slack-confirm',
+        ],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/newsletters`,
+        directoryName: 'newsletters',
+        emailFilenames: [
+          'codepen-challengers',
+          'google-play-policy-update',
+          'stack-overflow-tips',
+        ],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/notifications`,
+        directoryName: 'notifications',
+        emailFilenames: [
+          'github-access-token',
+          'vercel-invite-user',
+          'yelp-recent-login',
+        ],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/receipts`,
+        directoryName: 'receipts',
+        emailFilenames: ['apple-receipt', 'nike-receipt'],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/reset-password`,
+        directoryName: 'reset-password',
+        emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/reviews`,
+        directoryName: 'reviews',
+        emailFilenames: ['airbnb-review', 'amazon-review'],
+        subDirectories: [],
+      },
+      {
+        absolutePath: `${emailsDirectoryPath}/welcome`,
+        directoryName: 'welcome',
+        emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+        subDirectories: [],
+      },
     ],
-    subDirectories: [],
   });
 });

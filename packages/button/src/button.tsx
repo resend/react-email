@@ -52,11 +52,11 @@ const buttonStyle = (
   const { pt, pr, pb, pl, ...rest } = style || {};
 
   return {
-    ...rest,
     lineHeight: "100%",
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
+    ...rest,
     padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
   };
 };
