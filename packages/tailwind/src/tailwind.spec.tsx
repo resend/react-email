@@ -138,6 +138,53 @@ describe("Tailwind component", () => {
 });
 
 describe("Responsive styles", () => {
+  /*
+    This test is because of https://github.com/resend/react-email/issues/1112
+    which was being caused because we required to, either have our <Head> component,
+    or a <head> element directly inside the <Tailwind> component for media queries to be applied
+    onto. The problem with this approach was that the check to see if an element was an instance of
+    the <Head> component fails after minification as we did it by the function name.
+
+    The best solution is to check for the Head element on arbitrarily deep levels of the React tree
+    and apply the styles there. This also fixes the issue where it would not be allowed to use
+    Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
+  */
+  it("should work with arbitrarily deep (in the React tree) <head> elements", () => {
+    expect(
+      render(
+        <Tailwind>
+          <html lang="en">
+            <head />
+            <body>
+              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            </body>
+          </html>
+        </Tailwind>,
+      ),
+    ).toMatchInlineSnapshot(
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+    );
+
+    const MyHead = (props: Record<string, any>) => {
+      return <head {...props} />;
+    };
+
+    expect(
+      render(
+        <Tailwind>
+          <html lang="en">
+            <MyHead />
+            <body>
+              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            </body>
+          </html>
+        </Tailwind>,
+      ),
+    ).toMatchInlineSnapshot(
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+    );
+  });
+
   it("should add css to <head/> and keep responsive class names", () => {
     const actualOutput = render(
       <html lang="en">
@@ -158,17 +205,15 @@ describe("Responsive styles", () => {
   it("should throw an error when used without a <head/>", () => {
     function noHead() {
       render(
-        <html lang="en">
-          <Tailwind>
+        <Tailwind>
+          <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
-          </Tailwind>
-        </html>,
+          </html>
+        </Tailwind>,
       );
     }
-    expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component."`,
-    );
+    expect(noHead).toThrowErrorMatchingSnapshot();
   });
 
   it("should persist existing <head/> elements", () => {
