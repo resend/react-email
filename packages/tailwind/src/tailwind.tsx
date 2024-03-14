@@ -101,15 +101,19 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       : element.props.children;
 
     if (typeof element.type === "function") {
-      const component = element.type as React.FC;
-      const renderedComponent = component({
-        ...element.props,
-        ...propsToOverwrite,
-      });
+      const OriginalComponent = element.type as React.FC;
 
-      if (React.isValidElement<EmailElementProps>(renderedComponent)) {
-        return processElement(renderedComponent);
-      }
+      return React.createElement(
+        (props: EmailElementProps) => {
+          const renderedComponent = OriginalComponent(props);
+          if (React.isValidElement<EmailElementProps>(renderedComponent)) {
+            return processElement(renderedComponent);
+          }
+          return renderedComponent;
+        },
+        newProps,
+        newChildren,
+      );
     }
 
     return React.cloneElement(element, newProps, newChildren);
