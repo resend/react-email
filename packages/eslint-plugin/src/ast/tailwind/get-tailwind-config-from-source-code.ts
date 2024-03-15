@@ -110,7 +110,6 @@ export function getTailwindConfigFromSourceCode(sourceCode: SourceCode, filename
   )[0] as TSESTree.JSXAttribute | undefined;
 
   if (configObjectExpression === undefined) {
-    console.warn('Could not determine the Tailwind config, falling back to the default config object.');
     return {};
   }
 
