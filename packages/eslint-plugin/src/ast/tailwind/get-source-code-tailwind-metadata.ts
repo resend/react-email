@@ -12,6 +12,7 @@ let tailwindContext: JitContext | undefined;
 
 export const getSourceCodeTailwindMetadata = (
   sourceCode: SourceCode,
+  filename: string
 ):
   | { hasTailwind: false }
   | {
@@ -30,7 +31,7 @@ export const getSourceCodeTailwindMetadata = (
     };
   }
 
-  const tailwindConfig = getTailwindConfigFromSourceCode(sourceCode);
+  const tailwindConfig = getTailwindConfigFromSourceCode(sourceCode, filename);
 
   if (typeof tailwindContext === "undefined")
     tailwindContext = setupTailwindContext(tailwindConfig);
