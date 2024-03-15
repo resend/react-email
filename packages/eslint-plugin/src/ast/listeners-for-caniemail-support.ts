@@ -21,6 +21,7 @@ import { listenersForStyleProperty } from "./listeners-for-style-property";
 export const listenersForCaniemailSupport = (
   supportEntriesByCategory: SupportEntriesByCategory,
   sourceCode: TSESLint.SourceCode,
+  filename: string,
 
   emailClient: EmailClient,
   platform: Platform,
@@ -111,6 +112,7 @@ export const listenersForCaniemailSupport = (
     }),
     ...listenersForStyleProperty(
       sourceCode,
+      filename,
       (property, nodeOrLocationObject) => {
         const actualCSSProperty = fromCamelToKebabCase(property.name);
         const supportEntryForProperty = supportEntriesByCategory.css.find((e) =>

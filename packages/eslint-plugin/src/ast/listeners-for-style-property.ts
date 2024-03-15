@@ -25,6 +25,7 @@ import { propertyNameAndValueFromNode } from "./property-name-and-value-from-nod
  */
 export const listenersForStyleProperty = (
   sourceCode: Readonly<SourceCode>,
+  filename: string,
 
   callback: (
     prooperty: {
@@ -45,7 +46,7 @@ export const listenersForStyleProperty = (
 ): RuleListener => {
   const ruleListeners: RuleListener = {};
 
-  const tailwindMetadata = getSourceCodeTailwindMetadata(sourceCode);
+  const tailwindMetadata = getSourceCodeTailwindMetadata(sourceCode, filename);
 
   if (tailwindMetadata.hasTailwind) {
     const tailwindContext = tailwindMetadata.tailwindContext;

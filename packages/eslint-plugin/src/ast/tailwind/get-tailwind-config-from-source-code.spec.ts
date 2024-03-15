@@ -8,7 +8,10 @@ import { getTailwindConfigFromSourceCode } from "./get-tailwind-config-from-sour
 
 function mockRequire(mockedUri: string, stub: unknown) {
   // @ts-expect-error This function isn't defined on @types/node but it is there
-  const originalLoad = Module._load as (uri: string, parent: unknown) => unknown;
+  const originalLoad = Module._load as (
+    uri: string,
+    parent: unknown,
+  ) => unknown;
   // @ts-expect-error This function isn't defined on @types/node but it is there
   Module._load = (uri: string, parent: unknown) => {
     if (uri === mockedUri) return stub;
@@ -41,11 +44,10 @@ const tailwindConfig = {
 describe("getTailwindConfigFromSourceCode()", () => {
   it("should work with a tailwind.config file", () => {
     vi.spyOn(fs, "existsSync").mockImplementation((p) => {
-      return p.toString().endsWith(".ts");
+      return p.toString().endsWith(".js");
     });
 
-    console.log(module.require);
-    mockRequire(path.resolve(process.cwd(), "tailwind.config.ts"), {
+    mockRequire(path.resolve("./emails", "tailwind.config.js"), {
       default: tailwindConfig,
     });
 
@@ -57,7 +59,12 @@ function Component() {
     config={tailwindConfig} 
   />;
 }`);
-    expect(getTailwindConfigFromSourceCode(sourceCode)).toEqual(tailwindConfig);
+    expect(
+      getTailwindConfigFromSourceCode(
+        sourceCode,
+        "./emails/fake-email-template.tsx",
+      ),
+    ).toEqual(tailwindConfig);
 
     vi.clearAllMocks();
   });
@@ -68,6 +75,8 @@ function Component() {
     config={${stringify(tailwindConfig)}} 
   />;
 }`);
-    expect(getTailwindConfigFromSourceCode(sourceCode)).toEqual(tailwindConfig);
+    expect(getTailwindConfigFromSourceCode(sourceCode, "./emails/fake-email-template.tsx")).toEqual(
+      tailwindConfig,
+    );
   });
 });
