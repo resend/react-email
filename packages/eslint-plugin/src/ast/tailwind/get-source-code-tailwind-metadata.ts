@@ -6,6 +6,7 @@ import {
   setupTailwindContext,
   type TailwindComponentConfig,
 } from "./setup-tailwind-context";
+import { getTailwindConfigFromSourceCode } from "./get-tailwind-config-from-source-code";
 
 let tailwindContext: JitContext | undefined;
 
@@ -29,12 +30,14 @@ export const getSourceCodeTailwindMetadata = (
     };
   }
 
+  const tailwindConfig = getTailwindConfigFromSourceCode(sourceCode);
+
   if (typeof tailwindContext === "undefined")
-    tailwindContext = setupTailwindContext({});
+    tailwindContext = setupTailwindContext(tailwindConfig);
 
   return {
     hasTailwind: true,
     tailwindContext,
-    tailwindConfig: {},
+    tailwindConfig,
   };
 };
