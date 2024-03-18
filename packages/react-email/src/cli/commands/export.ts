@@ -38,8 +38,8 @@ export const exportTemplates = async (
   options: Options,
 ) => {
   /* Delete the out directory if it already exists */
-  if (import_node_fs4.default.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
-    import_shelljs.rm('-rf', pathToWhereEmailMarkupShouldBeDumped);
+  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
+    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
   
   const spinner = ora('Preparing files...\n').start();
