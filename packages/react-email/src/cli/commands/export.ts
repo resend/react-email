@@ -37,6 +37,11 @@ export const exportTemplates = async (
   emailsDirectoryPath: string,
   options: Options,
 ) => {
+  /* Delete the out directory if it already exists */
+  if (import_node_fs4.default.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
+    import_shelljs.rm('-rf', pathToWhereEmailMarkupShouldBeDumped);
+  }
+  
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
 
