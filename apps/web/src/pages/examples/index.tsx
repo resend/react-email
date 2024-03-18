@@ -9,6 +9,11 @@ import { Topbar } from "../../components/topbar";
 
 const items = [
   {
+    path: "magic-links/aws-verify-email",
+    name: "AWS / Verify Email",
+    author: "thecodeinfluencer",
+  },
+  {
     path: "notifications/github-access-token",
     name: "GitHub / Access Token",
     author: "bruno88cabral",
