@@ -9,7 +9,7 @@ import { Topbar } from "../../components/topbar";
 
 const items = [
   {
-    path: "magic-links/aws-verify-email.tsx",
+    path: "magic-links/aws-verify-email",
     name: "AWS / Verify Email",
     author: "thecodeinfluencer",
   },
