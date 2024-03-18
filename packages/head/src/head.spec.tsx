@@ -1,4 +1,3 @@
-import { debug } from "node:console";
 import { render } from "@react-email/render";
 import { Head } from "./index";
 
