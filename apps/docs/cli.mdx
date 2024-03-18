@@ -27,7 +27,7 @@ requests made into it that end with `/static` (i.e. `http://localhost:3000/stati
 this also allows for you to have images inside your emails like so:
 
 ```jsx
-export default Email(props) {
+export default function Email(props) {
   return (
     <div>
       <img src="/static/email-logo.png" />
@@ -50,7 +50,7 @@ const baseURL = process.env.NODE_ENV === 'production'
   ? 'https://cdn.com' 
   : ''
 
-export default Email(props) {
+export default function Email(props) {
   return (
     <div>
       <img src={`${baseURL}/static/email-logo.png`} />
@@ -68,7 +68,7 @@ Considering that you are already default exporting the React component
 that will render as your email template, you can just define a `PreviewProps` with it as follows:
 
 ```jsx Email template
-export default Email(props) {
+export default function Email(props) {
   return (
     <div>
       <a src={props.source}>click here if you want candy 👀</a>
