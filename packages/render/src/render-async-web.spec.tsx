@@ -6,7 +6,7 @@ import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
 import { renderAsync } from "./render-async";
 
-describe("render on the browser environment", () => {
+describe("renderAsync on the browser environment", () => {
   beforeEach(() => {
     vi.mock(
       "react-dom/server",

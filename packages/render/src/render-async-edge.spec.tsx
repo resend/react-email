@@ -6,7 +6,7 @@ import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
 import { renderAsync } from "./render-async";
 
-describe("render on the edge", () => {
+describe("renderAsync on the edge", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
       const ReactDOMServer =
