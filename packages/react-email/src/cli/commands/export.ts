@@ -41,7 +41,7 @@ export const exportTemplates = async (
   if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
     fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
-  
+
   const spinner = ora('Preparing files...\n').start();
   closeOraOnSIGNIT(spinner);
 
