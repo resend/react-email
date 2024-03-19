@@ -63,7 +63,7 @@ export const getEmailComponent = async (
     ReadableStream,
     URL,
     module: { exports: { default: undefined as unknown } },
-    __filanem: emailPath,
+    __filename: emailPath,
     __dirname: path.dirname(emailPath),
     require: (module: string) => {
       if (module in staticNodeModulesForVM) {
