@@ -11,6 +11,7 @@ import { sanitizeClassName } from "../../compatibility/sanitize-class-name";
  * 1. Ignore all the rules that have any pseudo selectors
  * 2. Converts all declarations in all rules into being important ones
  * 3. Sanitizes all the selectors of all rules in the media queries
+ * 4. Merges at rules that have equivalent parameters
  */
 export const sanitizeMediaQueries = (root: Root) => {
   const sanitizedAtRules: AtRule[] = [];
@@ -46,8 +47,12 @@ export const sanitizeMediaQueries = (root: Root) => {
         sanitizedAtRule.removeChild(rule);
       }
     });
-
-    sanitizedAtRules.push(sanitizedAtRule);
+    const equivalentRule = sanitizedAtRules.find(r => r.params === sanitizedAtRule.params);
+    if (equivalentRule) {
+      equivalentRule.append(sanitizedAtRule.nodes);
+    } else {
+      sanitizedAtRules.push(sanitizedAtRule);
+    }
   });
 
   return {
