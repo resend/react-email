@@ -479,7 +479,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"twoxl_bg-blue-500\\">Test</div></html>"',
     );
   });
 
