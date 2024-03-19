@@ -22,7 +22,7 @@ describe("Tailwind component", () => {
     });
   });
 
-  test.only("with React context and custom components", () => {
+  test("with React context and custom components", () => {
     const SharedDataContext = React.createContext<{ name: string } | undefined>(undefined);
 
     const IsGreat = () => {
@@ -191,7 +191,7 @@ describe("Responsive styles", () => {
         </Tailwind>,
       ),
     ).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
 
     const MyHead = (props: Record<string, any>) => {
@@ -210,7 +210,7 @@ describe("Responsive styles", () => {
         </Tailwind>,
       ),
     ).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
@@ -227,7 +227,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
@@ -261,7 +261,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class=\\"sm_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 });
@@ -430,7 +430,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_border-custom{border:2px solid!important}}</style></head><body><div class=\\"sm_border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_border-custom{border:2px solid !important}}</style></head><body><div class=\\"sm_border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
     );
   });
 });
@@ -452,11 +452,11 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242) !important}.sm_text-sm{font-size:0.875rem !important;line-height:1.25rem !important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem !important;line-height:1.75rem !important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
-  it("should recognize custom responsive screen", () => {
+  it.only("should recognize custom responsive screen", () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -479,7 +479,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
     );
   });
 
@@ -494,7 +494,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}</style></head><div class=\\"lg_max-h-calc50pxplus5rem\\" style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
+      '"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem) !important}}</style></head><div class=\\"lg_max-h-calc50pxplus5rem\\" style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
     );
   });
 });
