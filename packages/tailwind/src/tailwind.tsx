@@ -92,7 +92,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
     const newProps = {
       ...element.props,
-      ...propsToOverwrite,
+      ...propsToOverwrite
     };
     const newChildren = propsToOverwrite.children
       ? propsToOverwrite.children
@@ -132,7 +132,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   if (hasNonInlineStylesToApply) {
     const processElementToApplyNonInlineStyles = (
-      element: React.ReactElement<EmailElementProps>,
+      element: React.ReactElement<EmailElementProps>
     ): React.ReactElement<EmailElementProps> => {
       if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
         let newChildren = element.props.children;
@@ -161,7 +161,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
               return renderedComponent;
             },
-            element.props,
+            { ...element.props, key: element.key },
             newChildren,
           );
         }
@@ -178,13 +178,13 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
           return React.cloneElement(
             element,
-            element.props,
-            newChildren,
+            { ...element.props, key: element.key },
+            element.props.children,
             styleElement,
           );
         }
 
-        return React.cloneElement(element, element.props, newChildren);
+        return React.cloneElement(element, { ...element.props, key: element.key }, newChildren);
       }
 
       return element;
