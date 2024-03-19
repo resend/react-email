@@ -139,7 +139,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
         // if it has children and is not the head element,
         // then it goes through all the children trying to process them
         // to find the <head> element
-        if (element.props.children && element.type !== 'head') {
+        if (element.props.children && element.type !== "head") {
           newChildren = React.Children.map(element.props.children, (child) => {
             if (React.isValidElement<EmailElementProps>(child)) {
               return processElementToApplyNonInlineStyles(child);
@@ -196,21 +196,23 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
       return child;
     });
+  }
 
-    if (!hasAppliedNonInlineStyles) {
+  React.useEffect(() => {
+    if (!hasAppliedNonInlineStyles && hasNonInlineStylesToApply) {
       throw new Error(
         `You are trying to use the following Tailwind classes that have media queries: ${mediaQueryClassesForAllElement.join(
           " ",
         )}.
-  For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
-  the Tailwind component tried finding a <head> element but just wasn't able to find it.
+    For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+    the Tailwind component tried finding a <head> element but just wasn't able to find it.
 
-  Make sure that you have either a <head> element at some point inside of the <Tailwind> component at any depth.
+    Make sure that you have either a <head> element at some point inside of the <Tailwind> component at any depth.
 
-  If you do already have a <head> element at some depth, please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
+    If you do already have a <head> element at some depth, please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
       );
     }
-  }
+  });
 
   return <>{childrenArray}</>;
 };
