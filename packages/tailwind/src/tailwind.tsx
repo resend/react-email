@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import { Root } from "postcss";
-import { inlineStyles } from "./utils/css/inline-styles";
+import { makeInlineStylesFor } from "./utils/css/make-inline-styles-for";
 import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
 import { minifyCss } from "./utils/css/minify-css";
 import { useTailwind } from "./hooks/use-tailwind";
@@ -51,7 +51,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
             hasNonInlineStylesToApply = true;
           }
 
-          const { styles, residualClassName } = inlineStyles(
+          const { styles, residualClassName } = makeInlineStylesFor(
             element.props.className,
             rootForClasses,
           );

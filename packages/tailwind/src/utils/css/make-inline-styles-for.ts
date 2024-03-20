@@ -27,7 +27,7 @@ const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
  *
  * Also returns residual classes that could not be found on the map.
  */
-export function inlineStyles(className: string, tailwindStylesRoot: Root) {
+export function makeInlineStylesFor(className: string, tailwindStylesRoot: Root) {
   const classes = className.split(" ");
 
   let residualClasses = [...classes];
