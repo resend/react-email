@@ -456,7 +456,7 @@ describe("<Tailwind> component", () => {
     );
   });
 
-  it.only("should recognize custom responsive screen", () => {
+  it("should recognize custom responsive screen", () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
