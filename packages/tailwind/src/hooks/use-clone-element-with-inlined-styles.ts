@@ -1,5 +1,5 @@
 import React from "react";
-import { Node, Root } from "postcss";
+import type { Node } from "postcss";
 import type { EmailElementProps } from "../tailwind";
 import { sanitizeDeclarations } from "../utils/css/sanitize-declarations";
 import { sanitizeMediaQueries } from "../utils/css/media-queries/sanitize-media-queries";
