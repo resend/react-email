@@ -4,8 +4,9 @@ import { Server as SocketServer, type Socket } from 'socket.io';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
 import type { HotReloadChange } from '../../../../utils/types/hot-reload-change';
+import { createDependencyGraph } from './create-dependency-graph';
 
-export const setupHotreloading = (
+export const setupHotreloading = async (
   devServer: http.Server,
   emailDirRelativePath: string,
 ) => {
@@ -46,16 +47,29 @@ export const setupHotreloading = (
     changes = [];
   }, 150);
 
-  watcher.on('all', (event, filename) => {
+  const [dependencyGraph, updateDependencyGraph] = await createDependencyGraph(
+    path.resolve(process.cwd(), emailDirRelativePath),
+  );
+
+  watcher.on('all', async (event, filename) => {
     const file = filename.split(path.sep);
     if (file.length === 0) {
       return;
     }
+    await updateDependencyGraph(event, filename);
 
     changes.push({
       event,
       filename,
     });
+    changes.push(
+      ...(dependencyGraph[filename]?.dependentPaths ?? []).map(
+        (dependentPath) => ({
+          event: 'change' as const,
+          filename: dependentPath,
+        }),
+      ),
+    );
     reload();
   });
 
