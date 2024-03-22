@@ -42,7 +42,7 @@ test('createDependencyGraph()', async () => {
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
       dependencyPaths: ['get-imported-modules.ts'],
-      dependentPaths: ['create-dependency-graph.spec.ts'],
+      dependentPaths: ['create-dependency-graph.spec.ts', 'setup-hot-reloading.ts'],
       moduleDependencies: ['node:path', 'node:fs'],
     },
     'create-dependency-graph.spec.ts': {
@@ -68,7 +68,7 @@ test('createDependencyGraph()', async () => {
     },
     'setup-hot-reloading.ts': {
       path: 'setup-hot-reloading.ts',
-      dependencyPaths: ['../../../../utils/types/hot-reload-change.ts'],
+      dependencyPaths: ['../../../../utils/types/hot-reload-change.ts', 'create-dependency-graph.ts'],
       dependentPaths: [],
       moduleDependencies: [
         'node:http',
@@ -121,7 +121,8 @@ import {} from './create-dependency-graph.ts';
         dependencyPaths: ['get-imported-modules.ts'],
         dependentPaths: [
           'create-dependency-graph.spec.ts',
-          '.for-dependency-graph.ts',
+          'setup-hot-reloading.ts',
+          '.for-dependency-graph.ts'
         ],
         moduleDependencies: ['node:path', 'node:fs'],
       },
@@ -149,7 +150,7 @@ import {} from './create-dependency-graph.ts';
       },
       'setup-hot-reloading.ts': {
         path: 'setup-hot-reloading.ts',
-        dependencyPaths: ['../../../../utils/types/hot-reload-change.ts'],
+        dependencyPaths: ['../../../../utils/types/hot-reload-change.ts', 'create-dependency-graph.ts'],
         dependentPaths: ['.for-dependency-graph.ts'],
         moduleDependencies: [
           'node:http',
@@ -198,6 +199,7 @@ import {} from './create-dependency-graph.ts';
         dependencyPaths: ['get-imported-modules.ts'],
         dependentPaths: [
           'create-dependency-graph.spec.ts',
+          'setup-hot-reloading.ts',
           '.for-dependency-graph.ts',
         ],
         moduleDependencies: ['node:path', 'node:fs'],
@@ -226,7 +228,7 @@ import {} from './create-dependency-graph.ts';
       },
       'setup-hot-reloading.ts': {
         path: 'setup-hot-reloading.ts',
-        dependencyPaths: ['../../../../utils/types/hot-reload-change.ts'],
+        dependencyPaths: ['../../../../utils/types/hot-reload-change.ts', 'create-dependency-graph.ts'],
         dependentPaths: ['.for-dependency-graph.ts'],
         moduleDependencies: [
           'node:http',
