@@ -61,15 +61,7 @@ export const createDependencyGraph = async (directory: string) => {
     ]),
   );
 
-  const addModuleToGraph = async (filePath: string) => {
-    if (!graph[filePath]) {
-      graph[filePath] = {
-        path: filePath,
-        dependencyPaths: [],
-        dependentPaths: [],
-        moduleDependencies: [],
-      }
-    }
+  const getDependencyPaths = async (filePath: string) => {
     const contents = await fs.readFile(filePath, 'utf8');
 
     const importedPaths = getImportedModules(contents);
@@ -110,7 +102,7 @@ export const createDependencyGraph = async (directory: string) => {
       },
     );
 
-    graph[filePath]!.moduleDependencies =
+    const moduleDependencies =
       importedPathsRelativeToDirectory.filter(
         (dependencyPath) =>
           !dependencyPath.startsWith('.') && !path.isAbsolute(dependencyPath),
@@ -120,50 +112,69 @@ export const createDependencyGraph = async (directory: string) => {
       (dependencyPath) =>
         dependencyPath.startsWith('.') || path.isAbsolute(dependencyPath),
     )
-    for (const importPath of nonNodeModuleImportPathsRelativeToDirectory) {
-      graph[filePath]!.dependencyPaths.push(importPath);
-      if (graph[importPath]) {
-        graph[importPath]!.dependentPaths.push(filePath);
+
+    return {
+      dependencyPaths: nonNodeModuleImportPathsRelativeToDirectory,
+      moduleDependencies
+    }
+  }
+
+  const updateModuleDependenciesInGraph = async (moduleFilePath: string) => {
+    const module = graph[moduleFilePath] ?? {
+      path: moduleFilePath,
+      dependencyPaths: [],
+      dependentPaths: [],
+      moduleDependencies: [],
+    }
+
+    const { moduleDependencies, dependencyPaths: newDependencyPaths } = await getDependencyPaths(moduleFilePath);
+
+    module.moduleDependencies = moduleDependencies;
+
+    // we go through these to remove the ones that don't exist anymore
+    for (const dependencyPath of module.dependencyPaths) {
+      // Looping through only the ones that were on the dependencyPaths but are not
+      // in the newDependencyPaths
+      if (newDependencyPaths.includes(dependencyPath)) continue;
+
+      const dependencyModule = graph[dependencyPath];
+      if (dependencyModule !== undefined) {
+        dependencyModule.dependentPaths = dependencyModule.dependentPaths.filter(
+          dependentPath => dependentPath !== moduleFilePath
+        );
+      }
+    }
+
+    module.dependencyPaths = newDependencyPaths;
+
+    for (const dependencyPath of newDependencyPaths) {
+      const dependencyModule = graph[dependencyPath];
+      if (dependencyModule !== undefined && !dependencyModule.dependentPaths.includes(moduleFilePath)) {
+        dependencyModule.dependentPaths.push(moduleFilePath);
       } else {
         /*
           This import path might have not been initialized as it can be outside
-          of the original directory.
+          of the original directory we looked into.
         */
-        graph[importPath] = {
-          path: importPath,
+        graph[dependencyPath] = {
+          path: dependencyPath,
           moduleDependencies: [],
           dependencyPaths: [],
-          dependentPaths: [filePath],
+          dependentPaths: [moduleFilePath],
         };
       }
     }
+
+    graph[moduleFilePath] = module;
   };
 
   for (const filePath of modulePaths) {
-    await addModuleToGraph(filePath);
+    await updateModuleDependenciesInGraph(filePath);
   }
 
   const removeModuleFromGraph = (filePath: string) => {
     const module = graph[filePath];
     if (module) {
-      for (const dependentPath of module.dependentPaths) {
-        const dependentModule = graph[dependentPath];
-        if (dependentModule) {
-          dependentModule.dependencyPaths =
-            dependentModule.dependencyPaths.filter(
-              (dependencyPath) => dependencyPath !== filePath,
-            );
-        }
-      }
-      for (const dependencyPath of module.dependencyPaths) {
-        const dependencyModule = graph[dependencyPath];
-        if (dependencyModule) {
-          dependencyModule.dependentPaths =
-            dependencyModule.dependentPaths.filter(
-              (dependentPath) => dependentPath !== filePath,
-            );
-        }
-      }
       delete graph[filePath];
     }
   };
@@ -180,16 +191,12 @@ export const createDependencyGraph = async (directory: string) => {
       switch (event) {
         case 'change':
           if (isJavascriptModule(pathToModified)) {
-            if (graph[pathToModified] !== undefined) {
-              removeModuleFromGraph(pathToModified);
-            }
-
-            await addModuleToGraph(pathToModified);
+            await updateModuleDependenciesInGraph(pathToModified);
           }
           break;
         case 'add':
           if (isJavascriptModule(pathToModified)) {
-            await addModuleToGraph(pathToModified);
+            await updateModuleDependenciesInGraph(pathToModified);
           }
           break;
         case 'addDir':
@@ -198,7 +205,7 @@ export const createDependencyGraph = async (directory: string) => {
           const modulesInsideAddedDirectory =
             filesInsideAddedDirectory.filter(isJavascriptModule);
           for await (const filePath of modulesInsideAddedDirectory) {
-            await addModuleToGraph(filePath);
+            await updateModuleDependenciesInGraph(filePath);
           }
           break;
         case 'unlink':
