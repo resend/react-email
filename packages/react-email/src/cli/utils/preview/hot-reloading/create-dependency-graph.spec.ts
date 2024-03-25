@@ -161,4 +161,20 @@ import {} from './create-dependency-graph.ts';
   expect(
     dependencyGraph[toAbsolute('create-dependency-graph.ts')]?.dependentPaths,
   ).toContain(pathToFileForTestingDependencyGraph);
+
+  await fs.rm(pathToFileForTestingDependencyGraph);
+  await updateDependencyGraph('unlink', pathToFileForTestingDependencyGraph);
+  expect(dependencyGraph[pathToFileForTestingDependencyGraph]).toBeUndefined();
+  expect(
+    dependencyGraph[toAbsolute('setup-hot-reloading.ts')]?.dependentPaths,
+    "should remove itself from dependents once it's unlinked",
+  ).not.toContain(pathToFileForTestingDependencyGraph);
+  expect(
+    dependencyGraph[toAbsolute('get-imported-modules.ts')]?.dependentPaths,
+    "should remove itself from dependents once it's unlinked",
+  ).not.toContain(pathToFileForTestingDependencyGraph);
+  expect(
+    dependencyGraph[toAbsolute('create-dependency-graph.ts')]?.dependentPaths,
+    "should remove itself from dependents once it's unlinked",
+  ).not.toContain(pathToFileForTestingDependencyGraph);
 });
