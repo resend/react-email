@@ -122,6 +122,8 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
         return processElement(element);
       }
+
+      return child;
     }) ?? [];
 
   if (hasNonInlineStylesToApply && !hasAppliedNonInlineStyles) {
