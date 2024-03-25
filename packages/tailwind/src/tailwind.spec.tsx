@@ -28,7 +28,6 @@ describe("Tailwind component", () => {
         <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">
           Testing button
         </Button>
-        
         Testing
       </Tailwind>,
     );
