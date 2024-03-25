@@ -102,22 +102,22 @@ export const createDependencyGraph = async (directory: string) => {
       },
     );
 
-    const moduleDependencies =
+    const moduleDependencies = importedPathsRelativeToDirectory.filter(
+      (dependencyPath) =>
+        !dependencyPath.startsWith('.') && !path.isAbsolute(dependencyPath),
+    );
+
+    const nonNodeModuleImportPathsRelativeToDirectory =
       importedPathsRelativeToDirectory.filter(
         (dependencyPath) =>
-          !dependencyPath.startsWith('.') && !path.isAbsolute(dependencyPath),
+          dependencyPath.startsWith('.') || path.isAbsolute(dependencyPath),
       );
-
-    const nonNodeModuleImportPathsRelativeToDirectory = importedPathsRelativeToDirectory.filter(
-      (dependencyPath) =>
-        dependencyPath.startsWith('.') || path.isAbsolute(dependencyPath),
-    )
 
     return {
       dependencyPaths: nonNodeModuleImportPathsRelativeToDirectory,
-      moduleDependencies
-    }
-  }
+      moduleDependencies,
+    };
+  };
 
   const updateModuleDependenciesInGraph = async (moduleFilePath: string) => {
     const module = graph[moduleFilePath] ?? {
@@ -125,9 +125,10 @@ export const createDependencyGraph = async (directory: string) => {
       dependencyPaths: [],
       dependentPaths: [],
       moduleDependencies: [],
-    }
+    };
 
-    const { moduleDependencies, dependencyPaths: newDependencyPaths } = await getDependencyPaths(moduleFilePath);
+    const { moduleDependencies, dependencyPaths: newDependencyPaths } =
+      await getDependencyPaths(moduleFilePath);
 
     module.moduleDependencies = moduleDependencies;
 
@@ -139,9 +140,10 @@ export const createDependencyGraph = async (directory: string) => {
 
       const dependencyModule = graph[dependencyPath];
       if (dependencyModule !== undefined) {
-        dependencyModule.dependentPaths = dependencyModule.dependentPaths.filter(
-          dependentPath => dependentPath !== moduleFilePath
-        );
+        dependencyModule.dependentPaths =
+          dependencyModule.dependentPaths.filter(
+            (dependentPath) => dependentPath !== moduleFilePath,
+          );
       }
     }
 
@@ -149,7 +151,10 @@ export const createDependencyGraph = async (directory: string) => {
 
     for (const dependencyPath of newDependencyPaths) {
       const dependencyModule = graph[dependencyPath];
-      if (dependencyModule !== undefined && !dependencyModule.dependentPaths.includes(moduleFilePath)) {
+      if (
+        dependencyModule !== undefined &&
+        !dependencyModule.dependentPaths.includes(moduleFilePath)
+      ) {
         dependencyModule.dependentPaths.push(moduleFilePath);
       } else {
         /*
@@ -175,6 +180,15 @@ export const createDependencyGraph = async (directory: string) => {
   const removeModuleFromGraph = (filePath: string) => {
     const module = graph[filePath];
     if (module) {
+      for (const dependencyPath of module.dependencyPaths) {
+        if (dependencyPath in graph) {
+          graph[dependencyPath]!.dependentPaths = graph[
+            dependencyPath
+          ]!.dependentPaths.filter(
+            (dependentPath) => dependentPath !== dependencyPath,
+          );
+        }
+      }
       delete graph[filePath];
     }
   };
@@ -182,8 +196,8 @@ export const createDependencyGraph = async (directory: string) => {
   return [
     graph,
     /**
-      * @param pathToModified - A path relative to the previosuly provided {@link directory}.
-      */
+     * @param pathToModified - A path relative to the previosuly provided {@link directory}.
+     */
     async (
       event: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
       pathToModified: string,
