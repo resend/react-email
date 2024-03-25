@@ -47,26 +47,28 @@ export const setupHotreloading = async (
     changes = [];
   }, 150);
 
+  const absolutePathToEmailsDirectory = path.resolve(process.cwd(), emailDirRelativePath);
   const [dependencyGraph, updateDependencyGraph] = await createDependencyGraph(
-    path.resolve(process.cwd(), emailDirRelativePath),
+    absolutePathToEmailsDirectory,
   );
 
-  watcher.on('all', async (event, filename) => {
-    const file = filename.split(path.sep);
+  watcher.on('all', async (event, relativePathToChangeTarget) => {
+    const file = relativePathToChangeTarget.split(path.sep);
     if (file.length === 0) {
       return;
     }
-    await updateDependencyGraph(event, filename);
+    const pathToChangeTarget = path.resolve(process.cwd(), relativePathToChangeTarget);
+    await updateDependencyGraph(event, pathToChangeTarget);
 
     changes.push({
       event,
-      filename,
+      filename: relativePathToChangeTarget,
     });
     changes.push(
-      ...(dependencyGraph[filename]?.dependentPaths ?? []).map(
+      ...(dependencyGraph[pathToChangeTarget]?.dependentPaths ?? []).map(
         (dependentPath) => ({
           event: 'change' as const,
-          filename: dependentPath,
+          filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
         }),
       ),
     );
