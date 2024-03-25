@@ -181,11 +181,11 @@ export const createDependencyGraph = async (directory: string) => {
     const module = graph[filePath];
     if (module) {
       for (const dependencyPath of module.dependencyPaths) {
-        if (dependencyPath in graph) {
+        if (graph[dependencyPath]) {
           graph[dependencyPath]!.dependentPaths = graph[
             dependencyPath
           ]!.dependentPaths.filter(
-            (dependentPath) => dependentPath !== dependencyPath,
+            (dependentPath) => dependentPath !== filePath,
           );
         }
       }
