@@ -91,7 +91,9 @@ export const createDependencyGraph = async (directory: string) => {
             for it being a javascript module fails, then we can assume it has the same as the `filePath`
           */
           if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-            pathToDependencyFromDirectory = `${pathToDependencyFromDirectory}${path.extname(filePath)}`;
+            pathToDependencyFromDirectory = `${pathToDependencyFromDirectory}${path.extname(
+              filePath,
+            )}`;
           }
 
           return pathToDependencyFromDirectory;

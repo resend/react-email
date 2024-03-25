@@ -14,7 +14,7 @@ const importVisitor = walk.simple<string[]>({
         }
       }
     }
-  }
+  },
 });
 
 export const getImportedModules = (contents: string) => {
@@ -23,10 +23,7 @@ export const getImportedModules = (contents: string) => {
     sourceType: 'unambiguous',
     strictMode: false,
     errorRecovery: true,
-    plugins: [
-      "jsx",
-      "typescript"
-    ]
+    plugins: ['jsx', 'typescript'],
   });
 
   importVisitor(parsedContents, importedPaths);

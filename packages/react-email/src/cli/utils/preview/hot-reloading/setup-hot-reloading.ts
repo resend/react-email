@@ -47,7 +47,10 @@ export const setupHotreloading = async (
     changes = [];
   }, 150);
 
-  const absolutePathToEmailsDirectory = path.resolve(process.cwd(), emailDirRelativePath);
+  const absolutePathToEmailsDirectory = path.resolve(
+    process.cwd(),
+    emailDirRelativePath,
+  );
   const [dependencyGraph, updateDependencyGraph] = await createDependencyGraph(
     absolutePathToEmailsDirectory,
   );
@@ -57,7 +60,10 @@ export const setupHotreloading = async (
     if (file.length === 0) {
       return;
     }
-    const pathToChangeTarget = path.resolve(process.cwd(), relativePathToChangeTarget);
+    const pathToChangeTarget = path.resolve(
+      process.cwd(),
+      relativePathToChangeTarget,
+    );
     await updateDependencyGraph(event, pathToChangeTarget);
 
     changes.push({

@@ -1,5 +1,5 @@
 import { promises as fs } from 'node:fs';
-import { getImportedModules } from "./get-imported-modules";
+import { getImportedModules } from './get-imported-modules';
 
 describe('getImportedModules()', () => {
   it('should work with this test file', async () => {
@@ -7,8 +7,8 @@ describe('getImportedModules()', () => {
 
     expect(getImportedModules(contents)).toEqual([
       'node:fs',
-      './get-imported-modules'
-    ])
+      './get-imported-modules',
+    ]);
   });
 
   it('should work with regular imports and double quotes', () => {
@@ -38,7 +38,7 @@ import * as React from "react";
       '@react-email/tailwind',
       '../../my-component',
       'react',
-    ])
+    ]);
   });
 
   it('should work with regular imports and single quotes', () => {
@@ -68,7 +68,7 @@ import * as React from 'react';
       '@react-email/tailwind',
       '../../my-component',
       'react',
-    ])
+    ]);
   });
 
   it('should work with commonjs require with double quotes', () => {
@@ -98,7 +98,7 @@ const React = require("react");
       '@react-email/tailwind',
       '../../my-component',
       'react',
-    ])
+    ]);
   });
 
   it('should work with commonjs require with single quotes', () => {
@@ -128,6 +128,6 @@ const React = require('react');
       '@react-email/tailwind',
       '../../my-component',
       'react',
-    ])
+    ]);
   });
 });
