@@ -16,7 +16,5 @@ test("Tailwind works on the Next App's build process", () => {
 
   const nextAppLocation = path.resolve(__dirname, "../automated-test-next-app");
   $("pnpm install", nextAppLocation);
-  $("npx yalc remove @react-email/tailwind", nextAppLocation);
-  $("npx yalc add @react-email/tailwind", nextAppLocation);
   $("pnpm build", nextAppLocation);
 });
