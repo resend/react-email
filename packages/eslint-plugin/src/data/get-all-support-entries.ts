@@ -42,7 +42,7 @@ export const getAllSupportEntrries = () => {
   } catch (_exception) {
     // throwing means the cached file didn't exist or it was older than 24 hours
     const responseFromCaniemail = fetch(caniemailDataURL);
-    if (responseFromCaniemail.ok) {
+    if (!responseFromCaniemail.ok) {
       if (dataFromCanIEmail === undefined) {
         throw new Error(
           `Could not get the data from Caniemail and there is no cached data under your temporary folder to fallback for. 
