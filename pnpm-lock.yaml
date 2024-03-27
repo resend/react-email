@@ -312,7 +312,7 @@ importers:
         specifier: 0.0.7
         version: link:../link
       '@react-email/markdown':
-        specifier: 0.0.9-canary.0
+        specifier: 0.0.9
         version: link:../markdown
       '@react-email/preview':
         specifier: 0.0.8
@@ -327,7 +327,7 @@ importers:
         specifier: 0.0.11
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.15-canary.1
+        specifier: 0.0.15
         version: link:../tailwind
       '@react-email/text':
         specifier: 0.0.7
@@ -633,7 +633,7 @@ importers:
         specifier: 1.0.6
         version: 1.0.6(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
       '@react-email/components':
-        specifier: 0.0.16-canary.1
+        specifier: 0.0.16
         version: link:../components
       '@react-email/render':
         specifier: 0.0.12
