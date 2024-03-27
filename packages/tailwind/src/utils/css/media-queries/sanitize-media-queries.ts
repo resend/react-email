@@ -47,7 +47,9 @@ export const sanitizeMediaQueries = (root: Root) => {
         sanitizedAtRule.removeChild(rule);
       }
     });
-    const equivalentRule = sanitizedAtRules.find(r => r.params === sanitizedAtRule.params);
+    const equivalentRule = sanitizedAtRules.find(
+      (r) => r.params === sanitizedAtRule.params,
+    );
     if (equivalentRule) {
       equivalentRule.append(sanitizedAtRule.nodes);
     } else {
@@ -57,6 +59,6 @@ export const sanitizeMediaQueries = (root: Root) => {
 
   return {
     mediaQueryClasses,
-    sanitizedAtRules
+    sanitizedAtRules,
   };
 };

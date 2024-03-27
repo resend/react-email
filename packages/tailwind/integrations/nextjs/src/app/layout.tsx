@@ -18,6 +18,6 @@ const RootLayout = ({
       <body className={inter.className}>{children}</body>
     </html>
   );
-}
+};
 
 export default RootLayout;
