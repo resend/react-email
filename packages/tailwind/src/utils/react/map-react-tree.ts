@@ -2,10 +2,8 @@ import React from "react";
 
 /**
  * A function made for deep mapping a React tree from a node, even through its components.
- *
- * This is not async nor does it render itself the React components that it ends up finding.
- * The callbacks are going to be async, depending on you rendering method, but this will
- * work either way.
+ * For all the components it finds, it renders them by directly calling them. This has a few issues
+ * with hooks, and the only solution is `renderAsync` here, which will probably be done in the future.
  *
  * @param process - The callback that will be called every time a new element has been reached.
  *
