@@ -1,12 +1,12 @@
 {
-  "name": "automated-test-next-app",
+  "name": "nextjs-with-tailwind",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preinstall:tailwind": "cd .. && turbo build && yalc installations clean @react-email/tailwind && yalc publish",
+    "preinstall:tailwind": "cd ../../ && turbo build && yalc installations clean @react-email/tailwind && yalc publish",
     "preinstall": "npm run preinstall:tailwind && yalc add @react-email/tailwind",
     "lint": "next lint"
   },
