@@ -233,24 +233,37 @@ describe("Responsive styles", () => {
 
   it("should throw error when used without the head and with media query class names only very deeply nested", () => {
     const Component1 = (props: Record<string, any>) => {
-      return <div {...props} className="w-40 h-30 sm:h-10 sm:w-10">{props.children}</div>;
-    }
-    const Component2 = (props: Record<string, any>) => {
-      return <div {...props}><Component1>{props.children}</Component1></div>;
-    }
-    const Component3 = (props: Record<string, any>) => {
-      return <div {...props}><Component2>{props.children}</Component2></div>;
-    }
-
-    const renderComplexEmailWithoutHead = () => render(
-      <Tailwind>
-        <div className="bg-red-300">
-          <Component3 className="random-classname w-full">
-            <div className="w-50">Testing</div>
-          </Component3>
+      return (
+        <div {...props} className="w-40 h-30 sm:h-10 sm:w-10">
+          {props.children}
         </div>
-      </Tailwind>
-    );
+      );
+    };
+    const Component2 = (props: Record<string, any>) => {
+      return (
+        <div {...props}>
+          <Component1>{props.children}</Component1>
+        </div>
+      );
+    };
+    const Component3 = (props: Record<string, any>) => {
+      return (
+        <div {...props}>
+          <Component2>{props.children}</Component2>
+        </div>
+      );
+    };
+
+    const renderComplexEmailWithoutHead = () =>
+      render(
+        <Tailwind>
+          <div className="bg-red-300">
+            <Component3 className="random-classname w-full">
+              <div className="w-50">Testing</div>
+            </Component3>
+          </div>
+        </Tailwind>,
+      );
 
     expect(renderComplexEmailWithoutHead).toThrowErrorMatchingSnapshot();
   });
