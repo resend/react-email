@@ -5,7 +5,7 @@ exports[`useTailwind() 1`] = `
     color: rgb(239 68 68 / 1)
 }
   @media (min-width: 640px) {
-    .sm\\\\:bg-blue-300 {
+    .sm\\:bg-blue-300 {
         background-color: rgb(147 197 253 / 1)
     }
 }
