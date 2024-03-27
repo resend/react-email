@@ -15,6 +15,6 @@ test("Tailwind works on the Next App's build process", () => {
   // $("npx yalc publish");
 
   const nextAppLocation = path.resolve(__dirname, "../automated-test-next-app");
-  $("pnpm install", nextAppLocation);
-  $("pnpm build", nextAppLocation);
+  $("npm install", nextAppLocation);
+  $("npm run build", nextAppLocation);
 });

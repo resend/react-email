@@ -1,5 +1,4 @@
 packages:
   - "apps/web"
   - "packages/*"
-  - "packages/tailwind/automated-test-next-app"
   - "benchmarks/*"
