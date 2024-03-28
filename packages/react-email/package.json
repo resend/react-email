@@ -9,6 +9,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf dist",
     "lint": "eslint . && tsc"
   },
@@ -26,6 +27,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@babel/parser": "7.24.1",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.0.3",
     "@radix-ui/react-popover": "1.0.7",
@@ -39,6 +41,7 @@
     "@types/react-dom": "^18.2.0",
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.14",
+    "babel-walk": "3.0.0",
     "chalk": "4.1.2",
     "chokidar": "3.5.3",
     "clsx": "2.1.0",

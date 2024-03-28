@@ -3,9 +3,10 @@ import path from 'node:path';
 import { Server as SocketServer, type Socket } from 'socket.io';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
-import type { HotReloadChange } from '../../../utils/types/hot-reload-change';
+import type { HotReloadChange } from '../../../../utils/types/hot-reload-change';
+import { createDependencyGraph } from './create-dependency-graph';
 
-export const setupHotreloading = (
+export const setupHotreloading = async (
   devServer: http.Server,
   emailDirRelativePath: string,
 ) => {
@@ -46,16 +47,37 @@ export const setupHotreloading = (
     changes = [];
   }, 150);
 
-  watcher.on('all', (event, filename) => {
-    const file = filename.split(path.sep);
+  const absolutePathToEmailsDirectory = path.resolve(
+    process.cwd(),
+    emailDirRelativePath,
+  );
+  const [dependencyGraph, updateDependencyGraph] = await createDependencyGraph(
+    absolutePathToEmailsDirectory,
+  );
+
+  watcher.on('all', async (event, relativePathToChangeTarget) => {
+    const file = relativePathToChangeTarget.split(path.sep);
     if (file.length === 0) {
       return;
     }
+    const pathToChangeTarget = path.resolve(
+      process.cwd(),
+      relativePathToChangeTarget,
+    );
+    await updateDependencyGraph(event, pathToChangeTarget);
 
     changes.push({
       event,
-      filename,
+      filename: relativePathToChangeTarget,
     });
+    changes.push(
+      ...(dependencyGraph[pathToChangeTarget]?.dependentPaths ?? []).map(
+        (dependentPath) => ({
+          event: 'change' as const,
+          filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
+        }),
+      ),
+    );
     reload();
   });
 
