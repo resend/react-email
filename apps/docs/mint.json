@@ -43,7 +43,13 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": ["introduction", "contributing", "changelog", "roadmap", "cli"]
+      "pages": [
+        "introduction",
+        "contributing",
+        "changelog",
+        "roadmap",
+        "cli"
+      ]
     },
     {
       "group": "Getting Started",
@@ -61,6 +67,24 @@
           ]
         },
         "getting-started/migrating-to-react-email"
+      ]
+    },
+    {
+      "group": "Contributing",
+      "pages": [
+        "contributing/opening-issues",
+        "contributing/codebase-overview",
+        "contributing/opening-pull-requests",
+        {
+          "group": "Development workflow",
+          "icon": "arrow-progress",
+          "pages": [
+            "contributing/development-workflow/1-setup",
+            "contributing/development-workflow/2-running-tests",
+            "contributing/development-workflow/3-linting",
+            "contributing/development-workflow/4-building"
+          ]
+        }
       ]
     },
     {
@@ -88,7 +112,9 @@
     },
     {
       "group": "Utilities",
-      "pages": ["utilities/render"]
+      "pages": [
+        "utilities/render"
+      ]
     },
     {
       "group": "Integrations",
