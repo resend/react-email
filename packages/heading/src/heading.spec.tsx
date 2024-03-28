@@ -2,15 +2,15 @@ import { render } from "@react-email/render";
 import { Heading } from "./index";
 
 describe("render", () => {
-  it("renders children correctly", () => {
+  it("renders children correctly", async () => {
     const testMessage = "Test message";
-    const html = render(<Heading>{testMessage}</Heading>);
+    const html = await render(<Heading>{testMessage}</Heading>);
     expect(html).toContain(testMessage);
   });
 
-  it("passes style and other props correctly", () => {
+  it("passes style and other props correctly", async () => {
     const style = { backgroundColor: "red" };
-    const html = render(
+    const html = await render(
       <Heading data-testid="heading-test" style={style}>
         Test
       </Heading>,
@@ -19,8 +19,8 @@ describe("render", () => {
     expect(html).toContain('data-testid="heading-test"');
   });
 
-  it("renders the <Heading> component", () => {
-    const actualOutput = render(
+  it("renders the <Heading> component", async () => {
+    const actualOutput = await render(
       <Heading as="h2" mx={4}>
         Lorem ipsum
       </Heading>,

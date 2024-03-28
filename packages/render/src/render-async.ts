@@ -34,6 +34,9 @@ const readStream = async (
   return result;
 };
 
+/**
+ * @deprecated in favor of `render` as it is now async by default
+ */
 export const renderAsync = async (
   component: React.ReactElement,
   options?: Options,
