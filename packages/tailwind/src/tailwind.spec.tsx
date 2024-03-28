@@ -22,10 +22,10 @@ describe("Tailwind component", () => {
     });
   });
 
-  test('<Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">', () => {
+  test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', () => {
     const actualOutput = render(
       <Tailwind>
-        <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">
+        <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">
           Testing button
         </Button>
         Testing
@@ -33,7 +33,7 @@ describe("Tailwind component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<a style=\\"line-height:1.25rem;text-decoration:none;display:inline-block;max-width:100%;margin-top:2rem;border-radius:0.375rem;background-color:rgb(37,99,235);padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;font-size:0.875rem;color:rgb(229,231,235);padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>Testing"`,
+      `"<a style=\\"line-height:1.25rem;text-decoration:none;display:inline-block;max-width:100%;padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;margin-top:2rem;font-size:0.875rem;color:rgb(229,231,235);background-color:rgb(37,99,235);border-radius:0.375rem;padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>Testing"`,
     );
   });
 
@@ -424,7 +424,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
@@ -451,7 +451,7 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
     );
   });
 
