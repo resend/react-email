@@ -21,6 +21,7 @@
       }
     }
   },
+  "license": "MIT",
   "scripts": {
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",

@@ -50,7 +50,8 @@ const setNextEnvironmentVariablesForBuild = async (
 ) => {
   const envVariables = {
     ...getEnvVariablesForPreviewApp(
-      emailsDirRelativePath,
+      // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
+      path.normalize(emailsDirRelativePath),
       'PLACEHOLDER',
       'PLACEHOLDER',
     ),
