@@ -6,6 +6,34 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## Mar 28, 2024
+
+**React Email `2.1.1`**
+
+- Fixed links on the sidebar being broken with a custom emails directory
+- Upgraded dependency on `@react-email/components` to `0.0.16`
+- Made the preview server detect changes to dependencies of email templates for hot reloading
+- Remove existing `out` directory when running `email export` multiple times (Thanks bennyburrito!)
+- Use internal implementation for the logged tree when running `email export` for better security
+- Fixes missing URL, TextDecoder, TextEncoder and other global missing things on the preview server
+
+**Tailwind `0.0.15`**
+
+- Fixed media query selectors being escaped, which caused issues for some email clients
+- Improved internal code readability and fixed key warnings
+- Fixed missing head errors being thrown after minification of the Email's component code
+- Fixed not being able to use Tailwind classes on the `<html>` element
+
+**Markdown `0.0.9`**
+
+- Upgrade `md-to-react-email` to the latest version
+  - Fixes quotes not being handled properly in the `markdownCustomStyles` property
+
+**Create Email `0.0.24`**
+
+- Upgrade template dependencies to the latest versions
+- Use internal implementation for the logged tree
+
 ## Feb 22, 2024
 
 **React Email `2.1.0`**
