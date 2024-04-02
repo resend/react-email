@@ -8,7 +8,7 @@ export default defineConfig({
   },
   server: {
     watch: {
-      ignored: [path.resolve(__dirname, "./automated-test-next-app/**/*")],
+      ignored: [path.resolve(__dirname, "./integrations/**/*")],
     },
   },
 });

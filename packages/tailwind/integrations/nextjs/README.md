@@ -6,4 +6,4 @@ We do this testing so that things are more reliable and this couldn't be done us
 workspaces as they link code instead of actually copying the content into node_modules.
 The solution we use to copy the code in a way that mimics the actual `npm install @react-email/tailwind` is `yalc`.
 
-Se [the test file](../nextjs.spec.ts) for more info.
+Se [the test file](../_tests/nextjs.spec.ts) for more info.
