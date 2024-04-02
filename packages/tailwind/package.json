@@ -62,7 +62,7 @@
     "@vitejs/plugin-react": "4.2.1",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
-    "postcss": "8.4.35",
+    "postcss": "8.4.38",
     "postcss-css-variables": "0.19.0",
     "postcss-selector-parser": "6.0.16",
     "react-dom": "18.2.0",

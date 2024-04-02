@@ -30,9 +30,15 @@ export function mapReactTree(
 
       if (
         React.isValidElement<{ children?: React.ReactNode }>(processed) &&
-        typeof processed.type === "function"
+        (typeof processed.type === "function" ||
+        // @ts-expect-error - we know this is a component that may have a render function
+        processed.type.render)
       ) {
-        const OriginalComponent = processed.type as React.FC;
+        const OriginalComponent =
+          typeof processed.type === "object"
+            ? // @ts-expect-error - we know this is a component with a render function
+              (processed.type.render as React.FC)
+            : (processed.type as React.FC);
 
         const rendered = OriginalComponent(processed.props);
         const mappedRenderedNode = mapReactTree(rendered, process);
