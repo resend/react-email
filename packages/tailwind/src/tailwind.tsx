@@ -103,13 +103,13 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     if (
       typeof element.type === "function" ||
       // @ts-expect-error - we know this is a component that may have a render function
-      modifiedElement.type.render
+      element.type.render
     ) {
       const component =
-        typeof modifiedElement.type === "object"
+        typeof element.type === "object"
           ? // @ts-expect-error - we know this is a component with a render function
-            (modifiedElement.type.render as React.FC)
-          : (modifiedElement.type as React.FC);
+            (element.type.render as React.FC)
+          : (element.type as React.FC);
       const renderedComponent = component({
         ...element.props,
         ...propsToOverwrite,

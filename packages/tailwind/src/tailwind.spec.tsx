@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { renderToStaticMarkup as render } from "react-dom/server";
-import React from "react";
 import { Hr } from "@react-email/hr";
 import { Html } from "@react-email/html";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
-import * as React from "react";
+import React from "react";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
