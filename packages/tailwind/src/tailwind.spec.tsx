@@ -158,7 +158,7 @@ describe("Tailwind component", () => {
     const actualOutput = render(EmailTemplate());
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style=\\"font-size:50px;line-height:1;margin-top:100px\\">Hello world</div><div style=\\"padding:20px\\"><p style=\\"font-weight:700;font-size:50px\\">React Email</p></div>"`,
+      `"<div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div>"`,
     );
   });
 
