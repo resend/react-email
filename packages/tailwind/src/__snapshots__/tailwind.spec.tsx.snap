@@ -9,3 +9,5 @@ Make sure that you have either a <head> element at some point inside of the <Tai
 
 If you do already have a <head> element at some depth, please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml."
 `;
+
+exports[`Tailwind component > should work with Heading component 1`] = `"Hello<h1>My testing heading</h1>friends"`;
