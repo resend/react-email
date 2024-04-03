@@ -55,7 +55,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     }
 
     if (element.props.children) {
-      propsToOverwrite.children = React.Children.map(
+      const processedChillren = React.Children.map(
         element.props.children,
         (child) => {
           if (React.isValidElement<EmailElementProps>(child)) {
@@ -65,6 +65,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           return child;
         },
       );
+      propsToOverwrite.children =
+        processedChillren && processedChillren.length === 1
+          ? processedChillren[0]
+          : processedChillren;
     }
 
     if (element.props.className) {
