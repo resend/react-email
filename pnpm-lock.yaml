@@ -880,6 +880,9 @@ importers:
       '@react-email/head':
         specifier: workspace:*
         version: link:../head
+      '@react-email/heading':
+        specifier: workspace:*
+        version: link:../heading
       '@react-email/hr':
         specifier: workspace:*
         version: link:../hr
