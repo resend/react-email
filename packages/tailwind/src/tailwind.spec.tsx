@@ -103,16 +103,16 @@ describe("Tailwind component", () => {
 
   it("should work with Heading component", () => {
     const EmailTemplate = () => {
-      return <Tailwind>
-        Hello
-        <Heading>
-          My testing heading
-        </Heading>
-        friends
-      </Tailwind>;
-    }
+      return (
+        <Tailwind>
+          Hello
+          <Heading>My testing heading</Heading>
+          friends
+        </Tailwind>
+      );
+    };
 
-    expect(render(<EmailTemplate/>)).toMatchSnapshot();
+    expect(render(<EmailTemplate />)).toMatchSnapshot();
   });
 
   it("should work with components that use React.forwardRef", () => {
