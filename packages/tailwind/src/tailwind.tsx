@@ -78,7 +78,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
         /*
           We sanitize only the class names of Tailwind classes that we are not going to inline
           to avoid unpredictable behavior on the user's code. If we did sanitize all class names
-          a user-defined class could end up also being sanitized which would lead to unexpected 
+          a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
         for (const singleClass of nonInlinableClasses) {
@@ -100,8 +100,16 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       ? propsToOverwrite.children
       : element.props.children;
 
-    if (typeof element.type === "function") {
-      const component = element.type as React.FC;
+    if (
+      typeof element.type === "function" ||
+      // @ts-expect-error - we know this is a component that may have a render function
+      element.type.render
+    ) {
+      const component =
+        typeof element.type === "object"
+          ? // @ts-expect-error - we know this is a component with a render function
+            (element.type.render as React.FC)
+          : (element.type as React.FC);
       const renderedComponent = component({
         ...element.props,
         ...propsToOverwrite,
