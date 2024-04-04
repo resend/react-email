@@ -12,7 +12,7 @@ export interface PreviewParams {
   slug: string[];
 }
 
-export default async function Page({ params }: { params: PreviewParams }) {
+const Page = async ({ params }: { params: PreviewParams }) => {
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
   const slug = params.slug.join('/');
@@ -58,3 +58,5 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 export function generateMetadata({ params }: { params: PreviewParams }) {
   return { title: `${params.slug.join('/')} — React Email` };
 }
+
+export default Page;
