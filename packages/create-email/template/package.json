@@ -1,16 +1,19 @@
 {
   "name": "emails",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "private": true,
-  "workspaces": [
-    ".react-email"
-  ],
   "scripts": {
+    "build": "email build",
     "dev": "email dev",
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "0.0.12",
-    "react-email": "1.10.0"
+    "@react-email/components": "0.0.17-canary.1",
+    "react-email": "2.1.2-canary.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14"
   }
 }

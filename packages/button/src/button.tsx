@@ -1,7 +1,7 @@
 import * as React from "react";
 import { parsePadding, pxToPt } from "./utils";
 
-type ButtonProps = React.ComponentPropsWithoutRef<"a">;
+export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
 export const Button: React.FC<Readonly<ButtonProps>> = ({
   children,
@@ -52,11 +52,11 @@ const buttonStyle = (
   const { pt, pr, pb, pl, ...rest } = style || {};
 
   return {
-    ...rest,
     lineHeight: "100%",
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
+    ...rest,
     padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
   };
 };

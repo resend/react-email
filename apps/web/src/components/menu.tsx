@@ -2,7 +2,7 @@ import classnames from "classnames";
 import Link from "next/link";
 import * as React from "react";
 
-const GITHUB_URL = "https://github.com/resendlabs/react-email";
+const GITHUB_URL = "https://github.com/resend/react-email";
 const DISCORD_URL = "/discord";
 
 export const Menu: React.FC = () => (

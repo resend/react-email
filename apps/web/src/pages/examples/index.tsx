@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
-import { Example } from "../../components/example";
+import { Example, type ExampleProps } from "../../components/example";
 import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
@@ -9,91 +9,96 @@ import { Topbar } from "../../components/topbar";
 
 const items = [
   {
-    id: "github-access-token",
+    path: "magic-links/aws-verify-email",
+    name: "AWS / Verify Email",
+    author: "thecodeinfluencer",
+  },
+  {
+    path: "notifications/github-access-token",
     name: "GitHub / Access Token",
     author: "bruno88cabral",
   },
   {
-    id: "apple-receipt",
+    path: "receipts/apple-receipt",
     name: "Apple / Receipt",
     author: "relferreira",
   },
   {
-    id: "nike-receipt",
+    path: "receipts/nike-receipt",
     name: "Nike / Receipt",
     author: "camillegachido",
   },
   {
-    id: "stack-overflow-tips",
+    path: "newsletters/stack-overflow-tips",
     name: "Stack Overflow / Tips",
     author: "bruno88cabral",
   },
   {
-    id: "slack-confirm",
+    path: "magic-links/slack-confirm",
     name: "Slack / Confirm Email",
     author: "c0dr",
   },
   {
-    id: "twitch-reset-password",
+    path: "reset-password/twitch-reset-password",
     name: "Twitch / Reset Password",
     author: "EmersonGarrido",
   },
   {
-    id: "raycast-magic-link",
+    path: "magic-links/raycast-magic-link",
     name: "Raycast / Magic Link",
     author: "abhinandanwadwa",
   },
   {
-    id: "yelp-recent-login",
+    path: "notifications/yelp-recent-login",
     name: "Yelp / Recent Login",
     author: "EmersonGarrido",
   },
   {
-    id: "linear-login-code",
+    path: "magic-links/linear-login-code",
     name: "Linear / Login Code",
     author: "Rychillie",
   },
   {
-    id: "google-play-policy-update",
+    path: "newsletters/google-play-policy-update",
     name: "Google Play / Policy Update",
     author: "EmersonGarrido",
   },
   {
-    id: "airbnb-review",
+    path: "reviews/airbnb-review",
     name: "Airbnb / Review",
     author: "joaom00",
   },
   {
-    id: "dropbox-reset-password",
+    path: "reset-password/dropbox-reset-password",
     name: "Dropbox / Reset Password",
     author: "ribeiroevandro",
   },
   {
-    id: "koala-welcome",
+    path: "welcome/koala-welcome",
     name: "Koala / Welcome",
     author: "nettofarah",
   },
   {
-    id: "vercel-invite-user",
+    path: "notifications/vercel-invite-user",
     name: "Vercel / Invite User",
     author: "zenorocha",
   },
   {
-    id: "stripe-welcome",
+    path: "welcome/stripe-welcome",
     name: "Stripe / Welcome",
     author: "zenorocha",
   },
   {
-    id: "notion-magic-link",
+    path: "magic-links/notion-magic-link",
     name: "Notion / Magic Link",
     author: "bukinoshita",
   },
   {
-    id: "plaid-verify-identity",
+    path: "magic-links/plaid-verify-identity",
     name: "Plaid / Verify Identity",
     author: "zenorocha",
   },
-];
+] satisfies ExampleProps[];
 
 const title = "Examples — React Email";
 const description = "Open source templates built with React Email";
@@ -106,21 +111,25 @@ const Examples = () => {
         <meta content={title} property="og:title" />
         <meta content={description} property="og:description" />
       </Head>
+
       <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
         <Topbar />
+
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center py-10">
           <div className="mb-12 max-w-[745px] text-center">
             <Heading className="mb-2 text-white" size="8">
               Examples
             </Heading>
+
             <Text as="p" className="text-slate-11" size="4">
               {description}.
             </Text>
+
             <Text as="p" className="text-slate-11" size="4">
               Recreate an{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+                href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 target="_blank"
               >
                 existing email
@@ -128,7 +137,7 @@ const Examples = () => {
               or submit a{" "}
               <Anchor
                 appearance="white"
-                href="https://github.com/resendlabs/react-email/tree/main/apps/demo/emails"
+                href="https://github.com/resend/react-email/tree/main/demo"
                 target="_blank"
               >
                 pull request
@@ -139,19 +148,20 @@ const Examples = () => {
 
           <div className="grid grid-cols-2 gap-8">
             {items.map((item) => (
-              <Example key={item.id} {...item} />
+              <Example key={item.path} {...item} />
             ))}
           </div>
         </div>
+
         <Footer />
       </div>
+
       <Image
         alt=""
         className="absolute top-[220px] left-0 z-[10] h-full w-full select-none md:top-0"
         fill
         priority
         src="/static/bg.png"
-        style={{ position: "absolute" }}
       />
     </>
   );

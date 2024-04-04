@@ -3,8 +3,10 @@
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
 import { Html } from "@react-email/html";
+import { Heading } from "@react-email/heading";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
+import React from "react";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
@@ -21,17 +23,18 @@ describe("Tailwind component", () => {
     });
   });
 
-  test('<Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">', () => {
+  test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', () => {
     const actualOutput = render(
       <Tailwind>
-        <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-sm text-gray-200">
+        <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">
           Testing button
         </Button>
+        Testing
       </Tailwind>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<a style=\\"margin-top:2rem;border-radius:0.375rem;background-color:rgb(37,99,235);padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;font-size:0.875rem;line-height:100%;color:rgb(229,231,235);text-decoration:none;display:inline-block;max-width:100%;padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>"`,
+      `"<a style=\\"line-height:1.25rem;text-decoration:none;display:inline-block;max-width:100%;padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;margin-top:2rem;font-size:0.875rem;color:rgb(229,231,235);background-color:rgb(37,99,235);border-radius:0.375rem;padding:8px 12px 8px 12px\\" target=\\"_blank\\"><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%;mso-text-raise:12\\" hidden>&nbsp;</i><![endif]--></span><span style=\\"max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px\\">Testing button</span><span><!--[if mso]><i style=\\"letter-spacing: 12px;mso-font-width:-100%\\" hidden>&nbsp;</i><![endif]--></span></a>Testing"`,
     );
   });
 
@@ -98,6 +101,54 @@ describe("Tailwind component", () => {
     );
   });
 
+  it("should work with Heading component", () => {
+    const EmailTemplate = () => {
+      return (
+        <Tailwind>
+          Hello
+          <Heading>My testing heading</Heading>
+          friends
+        </Tailwind>
+      );
+    };
+
+    expect(render(<EmailTemplate />)).toMatchSnapshot();
+  });
+
+  it("should work with components that use React.forwardRef", () => {
+    const Wrapper = (props: { children: React.ReactNode }) => {
+      return <Tailwind>{props.children}</Tailwind>;
+    };
+
+    const Brand = React.forwardRef<HTMLDivElement>((ref, props) => {
+      return (
+        <div
+          className="p-[20px]"
+          ref={ref as React.LegacyRef<HTMLDivElement>}
+          {...props}
+        >
+          <p className="font-bold text-[50px]">React Email</p>
+        </div>
+      );
+    });
+    Brand.displayName = "Brand";
+
+    const EmailTemplate = () => {
+      return (
+        <Wrapper>
+          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <Brand />
+        </Wrapper>
+      );
+    };
+
+    const actualOutput = render(EmailTemplate());
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<div style=\\"font-size:50px;line-height:1;margin-top:100px\\">Hello world</div><div style=\\"padding:20px\\"><p style=\\"font-weight:700;font-size:50px\\">React Email</p></div>"`,
+    );
+  });
+
   it("should be able to use background image", () => {
     const actualOutput = render(
       <Tailwind>
@@ -137,6 +188,53 @@ describe("Tailwind component", () => {
 });
 
 describe("Responsive styles", () => {
+  /*
+    This test is because of https://github.com/resend/react-email/issues/1112
+    which was being caused because we required to, either have our <Head> component,
+    or a <head> element directly inside the <Tailwind> component for media queries to be applied
+    onto. The problem with this approach was that the check to see if an element was an instance of
+    the <Head> component fails after minification as we did it by the function name.
+
+    The best solution is to check for the Head element on arbitrarily deep levels of the React tree
+    and apply the styles there. This also fixes the issue where it would not be allowed to use
+    Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
+  */
+  it("should work with arbitrarily deep (in the React tree) <head> elements", () => {
+    expect(
+      render(
+        <Tailwind>
+          <html lang="en">
+            <head />
+            <body>
+              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            </body>
+          </html>
+        </Tailwind>,
+      ),
+    ).toMatchInlineSnapshot(
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+    );
+
+    const MyHead = (props: Record<string, any>) => {
+      return <head {...props} />;
+    };
+
+    expect(
+      render(
+        <Tailwind>
+          <html lang="en">
+            <MyHead />
+            <body>
+              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            </body>
+          </html>
+        </Tailwind>,
+      ),
+    ).toMatchInlineSnapshot(
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+    );
+  });
+
   it("should add css to <head/> and keep responsive class names", () => {
     const actualOutput = render(
       <html lang="en">
@@ -150,24 +248,22 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md\\\\:bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg\\\\:bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm:bg-red-300 md:bg-red-400 lg:bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-300 md_bg-red-400 lg_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 
   it("should throw an error when used without a <head/>", () => {
     function noHead() {
       render(
-        <html lang="en">
-          <Tailwind>
+        <Tailwind>
+          <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
-          </Tailwind>
-        </html>,
+          </html>
+        </Tailwind>,
       );
     }
-    expect(noHead).toThrowErrorMatchingInlineSnapshot(
-      `"Tailwind: To use responsive styles you must have a <head> element as a direct child of the Tailwind component."`,
-    );
+    expect(noHead).toThrowErrorMatchingSnapshot();
   });
 
   it("should persist existing <head/> elements", () => {
@@ -186,7 +282,7 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm\\\\:bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm:bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class=\\"sm_bg-red-500\\" style=\\"background-color:rgb(254,202,202)\\"></div></body></html>"',
     );
   });
 });
@@ -355,7 +451,7 @@ describe("Custom plugins config", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm\\\\:border-custom{border:2px solid!important}}</style></head><body><div class=\\"sm:border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
+      '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_border-custom{border:2px solid!important}}</style></head><body><div class=\\"sm_border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
     );
   });
 });
@@ -377,11 +473,11 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:640px){.sm\\\\:bg-red-50{background-color:rgb(254,242,242)!important}.sm\\\\:text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md\\\\:text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm:bg-red-50 sm:text-sm md:text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
     );
   });
 
-  it("should recognize custom resopnsive screen", () => {
+  it("should recognize custom responsive screen", () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -404,21 +500,22 @@ describe("<Tailwind> component", () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><style>@media(min-width:1280px){.xl\\\\:bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.\\\\32xl\\\\:bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl:bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl:bg-blue-500\\">Test</div></html>"',
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
     );
   });
 
   it("should work with calc() with + sign", () => {
     const actualOutput = render(
       <Tailwind>
-        <div className="max-h-[calc(50px+3rem)] bg-red-100">
+        <head />
+        <div className="max-h-[calc(50px+3rem)] lg:max-h-[calc(50px+5rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>
         </div>
       </Tailwind>,
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      '"<div style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
+      '"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}</style></head><div class=\\"lg_max-h-calc50pxplus5rem\\" style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
     );
   });
 });

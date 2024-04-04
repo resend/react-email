@@ -1,4 +1,3 @@
-import React from "react";
 import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
 import { render } from "./index";
