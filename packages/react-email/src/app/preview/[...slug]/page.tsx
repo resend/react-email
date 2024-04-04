@@ -53,7 +53,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       />
     </Suspense>
   );
-}
+};
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
   return { title: `${params.slug.join('/')} — React Email` };
