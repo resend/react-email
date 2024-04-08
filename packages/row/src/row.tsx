@@ -2,7 +2,7 @@ import * as React from "react";
 
 type RootProps = React.ComponentPropsWithoutRef<"table">;
 
-export interface RowProps extends React.PropsWithChildren<RootProps> {}
+export type RowProps = React.PropsWithChildren<RootProps>
 
 export const Row: React.FC<Readonly<RowProps>> = ({
   children,
