@@ -7,8 +7,7 @@ import { minifyCss } from "./utils/css/minify-css";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
-export interface TailwindProps {
-  children: React.ReactNode;
+export interface TailwindProps extends React.PropsWithChildren<{}> {
   config?: TailwindConfig;
 }
 
