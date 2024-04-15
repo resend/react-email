@@ -5,7 +5,7 @@ import os
 import urllib.parse
 import extism
 
-wasm_path = urllib.parse.urljoin(__file__, "../../wasm-plugin/plugin.wasm")
+wasm_path = urllib.parse.urljoin(__file__, "./plugin.wasm")
 manifest = { "wasm": [{ "path": wasm_path }] }
 plugin = extism.Plugin(manifest, wasi=True)
 
