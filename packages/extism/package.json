@@ -1,0 +1,22 @@
+{
+  "name": "implementation-for-other-languages",
+  "private": "true",
+  "type": "module",
+  "scripts": {
+    "build:wasm": "extism-js src/index.cjs -i src/index.d.ts -o render.wasm",
+    "build": "node build.mjs && pnpm build:wasm"
+  },
+  "dependencies": {
+    "@babel/core": "7.23.9",
+    "@babel/parser": "7.24.1",
+    "@esbuild-plugins/node-modules-polyfill": "0.2.2",
+    "@react-email/render": "workspace:*",
+    "esbuild": "0.19.11",
+    "react": "18.2.0",
+    "zod": "3.22.4"
+  },
+  "devDependencies": {
+    "@react-email/components": "workspace:0.0.17-canary.1",
+    "@types/babel__core": "7.20.5"
+  }
+}
