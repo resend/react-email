@@ -17,5 +17,5 @@ const result = await build({
 
 const code = await polyfillCodeForQuickJS(result.outputFiles[0].text);
 
-await fs.writeFile(path.resolve(dirname, "./src/index.js"), code, "utf8");
+await fs.writeFile(path.resolve(dirname, "./src/index.cjs"), code, "utf8");
 
