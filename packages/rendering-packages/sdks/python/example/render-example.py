@@ -1,5 +1,5 @@
-import urllib
-from ...python import render
+import urllib.parse
+from python import render
 
 template_path = urllib.parse.urljoin(__file__, "./email.tsx");
 print(
