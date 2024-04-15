@@ -3,8 +3,8 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "build:wasm": "extism-js src/index.cjs -i src/index.d.ts -o render.wasm",
-    "build": "node build.mjs && pnpm build:wasm"
+    "build:wasm": "extism-js ./wasm-plugin/src/index.cjs -i ./wasm-plugin/src/index.d.ts -o ./wasm-plugin/plugin.wasm",
+    "build": "node ./wasm-plugin/build.mjs && pnpm build:wasm"
   },
   "dependencies": {
     "@babel/core": "7.23.9",

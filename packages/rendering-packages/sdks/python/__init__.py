@@ -5,7 +5,7 @@ import os
 import urllib.parse
 import extism
 
-wasm_path = urllib.parse.urljoin(__file__, "../render.wasm")
+wasm_path = urllib.parse.urljoin(__file__, "../../wasm-plugin/plugin.wasm")
 manifest = { "wasm": [{ "path": wasm_path }] }
 plugin = extism.Plugin(manifest, wasi=True)
 
@@ -22,15 +22,5 @@ def render(template_path: str, props: Any):
         })
     )
 
-extism.set_log_file('testing.log', level="debug");
-
-template_path = urllib.parse.urljoin(__file__, "./email.tsx");
-print(
-    render(
-        template_path, 
-        {
-            "username": "Gabriel Miranda"
-        }
-    )
-)
+extism.set_log_custom(print, level="debug");
 
