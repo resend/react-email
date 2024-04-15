@@ -102,10 +102,16 @@ selectors *against the elements* themselves.
 <ResponseField name="config" type="object">
   Customize the default theme for your project with the available properties in
   [Tailwind docs](https://tailwindcss.com/docs/theme).
-  <Info>
-    <p class="my-0">Note: Most email clients are style-limited and some styles may not work.</p>
-  </Info>
 </ResponseField>
+
+<Info>
+    Most email clients are style-limited and some styles may not work.
+
+    One example of this is how Tailwind will uses `rem` as it's main unit for better accessbility. 
+    This is not going to be supported by [some email clients](https://www.caniemail.com/features/css-unit-rem/)
+    and we recommend that you define a Tailwind config to override these if you care
+    about the support for those email clients. We will not do this ourselves, though.
+</Info>
 
 ## Live example
 
