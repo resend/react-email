@@ -14,7 +14,6 @@ setup(
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     package_data={"": [
-        "build.mjs",
         "plugin.wasm"
     ]},
     include_package_data=True,
