@@ -52,7 +52,5 @@ export function mapReactTree(
     return process(node);
   });
 
-  return mapped && mapped.length === 1
-    ? mapped[0]
-    : mapped;
+  return mapped && mapped.length === 1 ? mapped[0] : mapped;
 }
