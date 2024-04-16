@@ -118,7 +118,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           >
             {renderClipboardIcon()}
           </Tooltip.Trigger>
-          <Tooltip.Content>Copy to Clipboard</Tooltip.Content>
+          <Tooltip.Content className='text-white'>Copy to Clipboard</Tooltip.Content>
         </Tooltip>
         <Tooltip>
           <Tooltip.Trigger
@@ -127,7 +127,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           >
             {renderDownloadIcon()}
           </Tooltip.Trigger>
-          <Tooltip.Content>Download</Tooltip.Content>
+          <Tooltip.Content className='text-white'>Download</Tooltip.Content>
         </Tooltip>
       </div>
       {markups.map(({ language, content }) => {
