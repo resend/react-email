@@ -117,7 +117,7 @@ than a class lookup.
 This is because we optimistically look into the selectors for class names
 and look them up later on the elements, and since `prose` by using more complicated selectors cannot be 
 directly inlined without resolving elements it won't work. 
-This might also mean some other utilities might not work either, like the [`space-*` utility](https://tailwindcss.com/docs/space).
+This might also means some other utilities might not work either, like the [`space-*` utility](https://tailwindcss.com/docs/space).
 
 The only exception for this inlining of styles is with media queries, as they are not inlinable. We do not
 do the same for `hover:` styles though, but since [their support is not best](https://www.caniemail.com/features/css-pseudo-class-hover/), you probably won't need it.
