@@ -23,6 +23,30 @@ describe("Tailwind component", () => {
     });
   });
 
+  it("should keep the className with the `style` on custom components", () => {
+    const Wrapper = (props: React.ComponentPropsWithoutRef<'div'>) =>  {
+      expect(props.className, '`className` prop should keep Tailwind classes after resolving them').toBe('bg-blue-400');
+      expect(props.style, '`style` prop should have resolved Tailwind styles').toEqual({
+        backgroundColor: 'rgb(96,165,250)'
+      });
+      return (
+        <div {...props}>
+          <div className="mt-3 p-6">{props.children}</div>
+        </div>
+      );
+    }
+
+    const EmailTemplate = () => {
+      return <Tailwind>
+        <div className="bg-red-500">
+          <Wrapper className="bg-blue-400">Content</Wrapper>
+        </div>
+      </Tailwind>;
+    }
+
+    expect(render(<EmailTemplate />)).toMatchSnapshot();
+  });
+
   // test("with React context and custom components", () => {
   //   const SharedDataContext = React.createContext<{ name: string } | undefined>(undefined);
   //
