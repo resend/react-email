@@ -3,6 +3,7 @@
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { Hr } from "@react-email/hr";
 import { Html } from "@react-email/html";
+import { Heading } from "@react-email/heading";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
 import React from "react";
@@ -159,6 +160,54 @@ describe("Tailwind component", () => {
 
     expect(actualOutput).toMatchInlineSnapshot(
       `"<div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div>"`,
+    );
+  });
+
+  it("should work with Heading component", () => {
+    const EmailTemplate = () => {
+      return (
+        <Tailwind>
+          Hello
+          <Heading>My testing heading</Heading>
+          friends
+        </Tailwind>
+      );
+    };
+
+    expect(render(<EmailTemplate />)).toMatchSnapshot();
+  });
+
+  it("should work with components that use React.forwardRef", () => {
+    const Wrapper = (props: { children: React.ReactNode }) => {
+      return <Tailwind>{props.children}</Tailwind>;
+    };
+
+    const Brand = React.forwardRef<HTMLDivElement>((ref, props) => {
+      return (
+        <div
+          className="p-[20px]"
+          ref={ref as React.LegacyRef<HTMLDivElement>}
+          {...props}
+        >
+          <p className="font-bold text-[50px]">React Email</p>
+        </div>
+      );
+    });
+    Brand.displayName = "Brand";
+
+    const EmailTemplate = () => {
+      return (
+        <Wrapper>
+          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <Brand />
+        </Wrapper>
+      );
+    };
+
+    const actualOutput = render(EmailTemplate());
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<div style=\\"font-size:50px;line-height:1;margin-top:100px\\">Hello world</div><div style=\\"padding:20px\\"><p style=\\"font-weight:700;font-size:50px\\">React Email</p></div>"`,
     );
   });
 

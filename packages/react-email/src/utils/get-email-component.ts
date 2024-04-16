@@ -62,6 +62,7 @@ export const getEmailComponent = async (
     TextEncoderStream,
     ReadableStream,
     URL,
+    URLSearchParams,
     module: { exports: { default: undefined as unknown } },
     __filanem: emailPath,
     __dirname: path.dirname(emailPath),
@@ -71,7 +72,7 @@ export const getEmailComponent = async (
         return staticNodeModulesForVM[module];
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
       return require(`${module}`) as unknown;
       // this stupid string templating was necessary to not have
       // webpack warnings like:
@@ -85,10 +86,17 @@ export const getEmailComponent = async (
     process,
   };
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
+  // because it will have a path like <tsconfigLocation>/stdout/email.js.map
+  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
+  sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
+    path.resolve(sourceMapFile.path, '..', source),
+  );
   try {
     vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
   } catch (exception) {
     const error = exception as Error;
+
+    error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
 
     return {
       error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
