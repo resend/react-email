@@ -97,6 +97,57 @@ do the same for `hover:´ styles though, but since [their support is not best](h
 In the future, we will be inlining all the styles we can by actually matching the 
 selectors *against the elements* themselves.
 
+### Limitations when trying to manipulate classes
+
+Currently, the component works, at a high level, going through the following steps:
+
+1. Do a very surface-level rendering on the children to have something resembling the HTML
+2. Run `tailwind` as a `postcss` plugin in the new fake rendered email template to generate a CSS stylesheet with all the styles of the template
+3. Generate a map of all the class names pointing to their respective styles
+4. Run recursively through all elements, and their children, by looking up class by class to add the appropriate styles to it while removing the classes
+
+The biggest cause of limitation here is going to be `1.`. Since that fake rendering process does not render
+the components, that means that, if a class name doesn't appear in the resulting HTML, it won't have
+its style either, so the class isn't removed. Here's an example:
+
+```jsx
+const Component = ({ className, style }) => {
+  console.log(className, style);
+  return <div className={`bg-red-500`} style={style} />;
+};
+
+export default function Email() {
+  return <Tailwind>
+    <Component className="bg-blue-400" />
+  </Tailwind>;
+};
+```
+
+The prop for `className` will come in as `bg-blue-400` which would seem like you can manipulate the className,
+but once you add it somewhere to the resulting HTML, like:
+
+```jsx
+const Component = ({ className, style }) => {
+  console.log(className, style);
+  return <div className={`bg-red-500 ${className}`} style={style} />;
+};
+
+export default function Email() {
+  return <Tailwind>
+    <Component className="bg-blue-400" />
+  </Tailwind>;
+};
+```
+
+The email will render with a red background and a `class="undefined"` attribute as the class will have
+been removed. This means that manipulations are very unstable at the current version. 
+
+In a future version, the behavior is going to be of resolving the styles regardless of them appearing
+in the HTML, and along with the `className` not being removed for React elements that are components,
+so that you are able to manipulate both of them at the same time.
+
+On small email templates this is most likely not going to be an issue, though.
+
 ## Props
 
 <ResponseField name="config" type="object">
