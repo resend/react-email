@@ -69,21 +69,48 @@ const Email = () => {
 };
 ```
 
-## Know limitations
+## Props
 
-### Not yet Tailwind v3.4
+<ResponseField name="config" type="object">
+  Customize the default theme for your project with the available properties in
+  [Tailwind docs](https://tailwindcss.com/docs/theme).
+</ResponseField>
 
-Due to an internal technical limitation, we are still running on Tailwind `3.3.2`. This is 
+<Info>
+    Most email clients are style-limited and some styles may not work.
+
+    One example of this is how Tailwind will uses `rem` as it's main unit for better accessbility. 
+    This is not going to be supported by [some email clients](https://www.caniemail.com/features/css-unit-rem/)
+    and we recommend that you define a Tailwind config to override these if you care
+    about the support for those email clients. We will not do this ourselves, though.
+</Info>
+
+## Live example
+
+<Card
+  title="Tailwind Demo"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://demo.react.email/preview/notifications/vercel-invite-user"
+>
+  See the full demo and source code.
+</Card>
+
+<Snippet file="support.mdx" />
+
+## Known limitations
+
+<AccordionGroup>
+  <Accordion title="Support up to Tailwind v3.3.2">
+    Due to an internal technical limitation, we are still running on Tailwind `3.3.2`. This is 
 because Tailwind migrated into using async APIs internally after [`3.3.3`](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.3.3)
 and the only way we can migrate is by using Suspense on the Tailwind component which would
 force everyone into using only `renderAsync`.
 
-You can track our progress on [this issue](https://github.com/resend/react-email/issues/1372)
-or by checking this page once in a while.
-
-### No support for `prose` from `@tailwindcss/typography`
-
-We do not yet support `prose`, and beyond that, we don't yet support classes that might
+You can track our progress on [this issue](https://github.com/resend/react-email/issues/1372).
+  </Accordion>
+  <Accordion title="No support for prose from @tailwindcss/typography">
+    We do not yet support `prose`, and beyond that, we don't yet support classes that might
 be resolved into selectors that are relatively complex. That is, selectors with more
 than a class lookup.
 
@@ -96,10 +123,9 @@ do the same for `hover:´ styles though, but since [their support is not best](h
 
 In the future, we will be inlining all the styles we can by actually matching the 
 selectors *against the elements* themselves.
-
-### Limitations when trying to manipulate classes
-
-Currently, the component works, at a high level, going through the following steps:
+  </Accordion>
+  <Accordion title="Limitations when trying to manipulate classes">
+    Currently, the component works, at a high level, going through the following steps:
 
 1. Do a very surface-level rendering on the children to have something resembling the HTML
 2. Run `tailwind` as a `postcss` plugin in the new fake rendered email template to generate a CSS stylesheet with all the styles of the template
@@ -147,32 +173,5 @@ in the HTML, and along with the `className` not being removed for React elements
 so that you are able to manipulate both of them at the same time.
 
 On small email templates this is most likely not going to be an issue, though.
-
-## Props
-
-<ResponseField name="config" type="object">
-  Customize the default theme for your project with the available properties in
-  [Tailwind docs](https://tailwindcss.com/docs/theme).
-</ResponseField>
-
-<Info>
-    Most email clients are style-limited and some styles may not work.
-
-    One example of this is how Tailwind will uses `rem` as it's main unit for better accessbility. 
-    This is not going to be supported by [some email clients](https://www.caniemail.com/features/css-unit-rem/)
-    and we recommend that you define a Tailwind config to override these if you care
-    about the support for those email clients. We will not do this ourselves, though.
-</Info>
-
-## Live example
-
-<Card
-  title="Tailwind Demo"
-  icon="arrow-up-right-from-square"
-  iconType="duotone"
-  href="https://demo.react.email/preview/notifications/vercel-invite-user"
->
-  See the full demo and source code.
-</Card>
-
-<Snippet file="support.mdx" />
+  </Accordion>
+</AccordionGroup>
