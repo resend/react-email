@@ -16,7 +16,7 @@ export function mapReactTree(
   value: React.ReactNode,
   process: (node: React.ReactNode) => React.ReactNode,
 ): React.ReactNode {
-  return React.Children.map(value, (node) => {
+  const mapped = React.Children.map(value, (node) => {
     if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
       const newProps = { ...node.props };
 
@@ -51,4 +51,8 @@ export function mapReactTree(
 
     return process(node);
   });
+
+  return mapped && mapped.length === 1
+    ? mapped[0]
+    : mapped;
 }
