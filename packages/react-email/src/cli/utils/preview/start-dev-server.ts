@@ -29,7 +29,7 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
 export const isDev = !__filename.endsWith(path.join('cli', 'index.js'));
 export const cliPacakgeLocation = isDev
   ? path.resolve(__dirname, '../../../..')
-  : path.resolve(__dirname, '..');
+  : path.resolve(__dirname, '../..');
 export const previewServerLocation = isDev
   ? path.resolve(__dirname, '../../../..')
   : path.resolve(__dirname, '../preview');
