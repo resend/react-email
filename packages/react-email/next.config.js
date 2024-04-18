@@ -19,7 +19,4 @@ module.exports = {
   //
   // TODO: Open an issue on Nextjs about this.
   transpilePackages: ['react-email'],
-  compiler: {
-    removeConsole: false
-  },
 };
