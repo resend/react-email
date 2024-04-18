@@ -14,10 +14,6 @@ export const useHotreload = (
   const socketRef = useRef<Socket | null>(null);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      return;
-    }
-
     if (!socketRef.current) {
       socketRef.current = io();
     }

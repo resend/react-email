@@ -6,12 +6,6 @@ import {
 } from '../actions/get-emails-directory-metadata';
 import { useHotreload } from '../hooks/use-hot-reload';
 import {
-  emailsDirRelativePath,
-  emailsDirectoryAbsolutePath,
-  normalizePath,
-  pathSeparator,
-} from '../utils/emails-directory-absolute-path';
-import {
   renderEmailByPath,
   type EmailRenderingResult,
 } from '../actions/render-email-by-path';
@@ -59,7 +53,7 @@ export const EmailsProvider = (props: {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
       const metadata = await getEmailsDirectoryMetadata(
-        emailsDirectoryAbsolutePath,
+        props.initialEmailsDirectoryMetadata.absolutePath
       );
       if (metadata) {
         setEmailsDirectoryMetadata(metadata);
@@ -70,16 +64,11 @@ export const EmailsProvider = (props: {
       }
 
       for await (const change of changes) {
-        const normalizedEmailsDirRelativePath = normalizePath(
-          emailsDirRelativePath,
-        );
         const slugForChangedEmail =
-          // filename ex: emails/apple-receipt.tsx
-          // so we need to remove the "emails/" because it isn't used
-          // on the slug parameter for the preview page
+          // ex: apple-receipt.tsx
+          // it will be the path relative to the emails directory, so it is already
+          // going to be equivalent to the slug
           change.filename
-            .replace(`${normalizedEmailsDirRelativePath}${pathSeparator}`, '')
-            .replace(normalizedEmailsDirRelativePath, '');
 
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);

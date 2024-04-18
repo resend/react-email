@@ -26,10 +26,13 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isRunningBuilt = __filename.endsWith(path.join('cli', 'index.js'));
-export const cliPacakgeLocation = isRunningBuilt
-  ? path.resolve(__dirname, '..')
-  : path.resolve(__dirname, '../../../..');
+export const isDev = !__filename.endsWith(path.join('cli', 'index.js'));
+export const cliPacakgeLocation = isDev
+  ? path.resolve(__dirname, '../../../..')
+  : path.resolve(__dirname, '..');
+export const previewServerLocation = isDev
+  ? path.resolve(__dirname, '../../../..')
+  : path.resolve(__dirname, '../preview');
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
@@ -60,8 +63,8 @@ export const startDevServer = async (
       ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
       } else if (!isNextReady) {
-        void nextReadyPromise.then(
-          () => nextHandleRequest?.(req, res, parsedUrl),
+        void nextReadyPromise.then(() =>
+          nextHandleRequest?.(req, res, parsedUrl),
         );
       } else {
         void nextHandleRequest?.(req, res, parsedUrl);
@@ -120,16 +123,15 @@ export const startDevServer = async (
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
-      cliPacakgeLocation,
       process.cwd(),
     ),
   };
   const app = next({
     // passing in env here does not get the environment variables there
-    dev: true,
+    dev: false,
     hostname: 'localhost',
     port,
-    dir: cliPacakgeLocation,
+    dir: previewServerLocation,
   });
 
   let isNextReady = false;
