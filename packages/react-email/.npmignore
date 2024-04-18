@@ -4,5 +4,5 @@ emails
 static
 node_modules
 .turbo
-src/cli
+src
 tsup.config.ts

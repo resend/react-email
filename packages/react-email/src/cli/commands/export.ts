@@ -111,7 +111,7 @@ export const exportTemplates = async (
     },
   );
 
-  for (const template of allBuiltTemplates) {
+  for await (const template of allBuiltTemplates) {
     try {
       if (spinner) {
         spinner.text = `rendering ${template.split('/').pop()}`;

@@ -18,5 +18,8 @@ module.exports = {
   // What is probably happening is that it's noticing the files for the app are somewhere inside of a `node_modules` and automatically opt-outs of SWC's transpilation.
   //
   // TODO: Open an issue on Nextjs about this.
-  transpilePackages: ['react-email']
+  transpilePackages: ['react-email'],
+  compiler: {
+    removeConsole: false
+  },
 };
