@@ -17,12 +17,16 @@ export const start = async () => {
 
     const nextStart = spawn('npm', ['start'], {
       cwd: builtPreviewPath,
-      shell: true,
+      stdio: 'inherit',
     });
 
-    nextStart.stdout.pipe(process.stdout);
+    process.on('SIGINT', () => {
+      nextStart.kill('SIGINT');
+    });
 
-    nextStart.stderr.pipe(process.stderr);
+    nextStart.on('exit', (code) => {
+      process.exit(code ?? 0);
+    });
   } catch (error) {
     console.log(error);
     process.exit(1);
