@@ -128,7 +128,7 @@ export const startDevServer = async (
   };
   const app = next({
     // passing in env here does not get the environment variables there
-    dev: false,
+    dev: isDev,
     hostname: 'localhost',
     port,
     dir: previewServerLocation,
