@@ -7,7 +7,6 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
-import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 import logSymbols from 'log-symbols';
 
