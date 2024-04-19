@@ -70,7 +70,7 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "vite": "4.5.2",
+    "vite": "4.5.3",
     "vite-plugin-dts": "3.6.3",
     "vite-plugin-node-polyfills": "0.17.0"
   },
