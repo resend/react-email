@@ -85,10 +85,17 @@ export const getEmailComponent = async (
     process,
   };
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
+  // because it will have a path like <tsconfigLocation>/stdout/email.js.map
+  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
+  sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
+    path.resolve(sourceMapFile.path, '..', source),
+  );
   try {
     vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
   } catch (exception) {
     const error = exception as Error;
+
+    error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
 
     return {
       error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
