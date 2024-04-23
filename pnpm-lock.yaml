@@ -65,7 +65,7 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-email:
-        specifier: workspace:2.1.2-canary.0
+        specifier: 2.1.2-canary.0
         version: link:../../packages/react-email
     devDependencies:
       '@types/react':
