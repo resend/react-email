@@ -1,6 +1,5 @@
 'use server';
 import fs from 'node:fs';
-import { renderAsync } from '@react-email/render';
 import { getEmailComponent } from '../utils/get-email-component';
 import type { ErrorObject } from '../utils/types/error-object';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
@@ -31,6 +30,7 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
+    const { renderAsync } = await import('@react-email/render');
     const markup = await renderAsync(<EmailComponent {...previewProps} />, {
       pretty: true,
     });
