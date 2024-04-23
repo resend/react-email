@@ -1,7 +1,7 @@
 import { renderToStaticMarkup as render } from "react-dom/server";
 import { mapReactTree } from "./map-react-tree";
 
-describe("walkElements()", () => {
+describe("mapReactTree()", () => {
   it("process should be called for all normal elements", () => {
     const node = (
       <>
