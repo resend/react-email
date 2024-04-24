@@ -926,14 +926,14 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       vite:
-        specifier: 4.5.3
-        version: 4.5.3(@types/node@18.18.0)
+        specifier: 5.0.13
+        version: 5.0.13(@types/node@18.18.0)
       vite-plugin-dts:
         specifier: 3.6.3
-        version: 3.6.3(@types/node@18.18.0)(typescript@5.1.6)(vite@4.5.3)
+        version: 3.6.3(@types/node@18.18.0)(typescript@5.1.6)(vite@5.0.13)
       vite-plugin-node-polyfills:
         specifier: 0.17.0
-        version: 0.17.0(vite@4.5.3)
+        version: 0.17.0(vite@5.0.13)
 
   packages/text:
     dependencies:
@@ -9585,7 +9585,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-dts@3.6.3(@types/node@18.18.0)(typescript@5.1.6)(vite@4.5.3):
+  /vite-plugin-dts@3.6.3(@types/node@18.18.0)(typescript@5.1.6)(vite@5.0.13):
     resolution: {integrity: sha512-NyRvgobl15rYj65coi/gH7UAEH+CpSjh539DbGb40DfOTZSvDLNYTzc8CK4460W+LqXuMK7+U3JAxRB3ksrNPw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -9601,7 +9601,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.8.0
       typescript: 5.1.6
-      vite: 4.5.3(@types/node@18.18.0)
+      vite: 5.0.13(@types/node@18.18.0)
       vue-tsc: 1.8.27(typescript@5.1.6)
     transitivePeerDependencies:
       - '@types/node'
@@ -9609,7 +9609,7 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-node-polyfills@0.17.0(vite@4.5.3):
+  /vite-plugin-node-polyfills@0.17.0(vite@5.0.13):
     resolution: {integrity: sha512-iPmPn7376e5u6QvoTSJa16hf5Q0DFwHFXJk2uYpsNlmI3JdPms7hWyh55o+OysJ5jo9J5XPhLC9sMOYifwFd1w==}
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -9618,45 +9618,9 @@ packages:
       buffer-polyfill: /buffer@6.0.3
       node-stdlib-browser: 1.2.0
       process: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
-      vite: 4.5.3(@types/node@18.18.0)
+      vite: 5.0.13(@types/node@18.18.0)
     transitivePeerDependencies:
       - rollup
-    dev: true
-
-  /vite@4.5.3(@types/node@18.18.0):
-    resolution: {integrity: sha512-kQL23kMeX92v3ph7IauVkXkikdDRsYMGTVl5KY2E9OY4ONLvkHf04MDTbnfo6NKxZiDLWzVpP5oTa8hQD8U3dg==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 18.18.0
-      esbuild: 0.18.20
-      postcss: 8.4.38
-      rollup: 3.29.4
-    optionalDependencies:
-      fsevents: 2.3.3
     dev: true
 
   /vite@5.0.12(@types/node@18.18.0):
