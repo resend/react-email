@@ -1,6 +1,7 @@
 import path from 'node:path';
-import { promises as fs } from 'node:fs';
+import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
+import { isRunningBuilt } from '../start-dev-server';
 
 interface Module {
   path: string;
@@ -37,6 +38,22 @@ const isJavascriptModule = (filePath: string) => {
 
   return ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'].includes(extensionName);
 };
+
+const checkFileExtensionsUntilItExists = (pathWithoutExtension: string): string | undefined => {
+  if (existsSync(`${pathWithoutExtension}.ts`)) {
+    return `${pathWithoutExtension}.ts`;
+  } else if (existsSync(`${pathWithoutExtension}.tsx`)) {
+    return `${pathWithoutExtension}.tsx`;
+  } else if (existsSync(`${pathWithoutExtension}.js`)) {
+    return `${pathWithoutExtension}.js`;
+  } else if (existsSync(`${pathWithoutExtension}.jsx`)) {
+    return `${pathWithoutExtension}.jsx`;
+  } else if (existsSync(`${pathWithoutExtension}.mjs`)) {
+    return `${pathWithoutExtension}.mjs`;
+  } else if (existsSync(`${pathWithoutExtension}.cjs`)) {
+    return `${pathWithoutExtension}.cjs`;
+  }
+}
 
 /**
  * Creates a stateful dependency graph that is structured in a way that you can get
@@ -86,14 +103,34 @@ export const createDependencyGraph = async (directory: string) => {
             dependencyPath,
           );
 
+          let isDirectory = false;
+          try {
+            // will throw if the the file is not existant
+            isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
+          } catch (_) {}
+          if (isDirectory) {
+            const pathToSubDirectory = pathToDependencyFromDirectory;
+            const pathWithExtension = checkFileExtensionsUntilItExists(`${pathToSubDirectory}/index`);
+            if (pathWithExtension) {
+              pathToDependencyFromDirectory = pathWithExtension;
+            } else if (!isRunningBuilt) {
+              // only warn about this on development as it is probably going to be irrelevant otherwise
+              console.warn(`Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`);
+            }
+          }
+
           /*
             If the path to the dependency does not include a file extension, such that our check
             for it being a javascript module fails, then we can assume it has the same as the `filePath`
           */
           if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-            pathToDependencyFromDirectory = `${pathToDependencyFromDirectory}${path.extname(
-              filePath,
-            )}`;
+            const pathWithExtension = checkFileExtensionsUntilItExists(pathToDependencyFromDirectory);
+            if (pathWithExtension) {
+              pathToDependencyFromDirectory = pathWithExtension;
+            } else if (!isRunningBuilt) {
+              // only warn about this on development as it is probably going to be irrelevant otherwise
+              console.warn(`Could not determine the file extension for the file at ${pathWithExtension}`);
+            }
           }
 
           return pathToDependencyFromDirectory;
