@@ -11,6 +11,19 @@ describe('getImportedModules()', () => {
     ]);
   });
 
+  it('should work with direct exports', () => {
+    const contents = `export * from './component-a';
+    export { ComponentB } from './component-b'; 
+
+    import { ComponentC } from './component-c';
+    export { ComponentC }`;
+    expect(getImportedModules(contents)).toEqual([
+      './component-a',
+      './component-b',
+      './component-c',
+    ]);
+  });
+
   it('should work with regular imports and double quotes', () => {
     const contents = `import {
   Body,

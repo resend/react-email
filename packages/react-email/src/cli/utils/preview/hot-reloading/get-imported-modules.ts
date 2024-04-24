@@ -5,6 +5,14 @@ const importVisitor = walk.simple<string[]>({
   ImportDeclaration(node, importedPaths) {
     importedPaths.push(node.source.value);
   },
+  ExportAllDeclaration(node, importedPaths) {
+    importedPaths.push(node.source.value);
+  },
+  ExportNamedDeclaration(node, importedPaths) {
+    if (node.source) {
+      importedPaths.push(node.source.value);
+    }
+  },
   CallExpression(node, importedPaths) {
     if ('name' in node.callee && node.callee.name === 'require') {
       if (node.arguments.length === 1) {
