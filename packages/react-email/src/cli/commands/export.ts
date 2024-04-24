@@ -100,7 +100,7 @@ export const exportTemplates = async (
       spinner.render();
       delete require.cache[template];
       const component = require(template);
-      const rendered = render(component.default({}), options);
+      const rendered = await render(component.default({}), options);
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',

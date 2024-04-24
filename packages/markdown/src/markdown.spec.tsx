@@ -2,8 +2,8 @@ import { render } from "@react-email/render";
 import { Markdown } from "./markdown";
 
 describe("<Markdown> component renders correctly", () => {
-  it("renders the markdown in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders the markdown in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown>
         {`# Markdown Test Document
 
@@ -58,8 +58,8 @@ console.log(\`Hello, $\{name}!\`);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("renders the headers in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders the headers in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown>
         {`
 # Heading 1!
@@ -74,8 +74,8 @@ console.log(\`Hello, $\{name}!\`);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("renders text in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders text in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown
         markdownCustomStyles={{
           bold: {
@@ -90,15 +90,15 @@ console.log(\`Hello, $\{name}!\`);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("renders links in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders links in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown>Link to [React-email](https://react.email)</Markdown>,
     );
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("renders lists in the correct format for browsers", () => {
-    const actualOutput = render(
+  it("renders lists in the correct format for browsers", async () => {
+    const actualOutput = await render(
       <Markdown>
         {`
 # Below is a list 
