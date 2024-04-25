@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
+import fs from 'node:fs/promises';
 import { type RawSourceMap } from 'source-map-js';
-import { type OutputFile, build, type BuildFailure } from 'esbuild';
+import { type OutputFile, build, type BuildFailure, type Loader } from 'esbuild';
+import type { renderAsync } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
@@ -12,10 +14,12 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    renderAsync: typeof renderAsync;
+
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -23,6 +27,22 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
+      plugins: [
+        {
+          name: 'add-export-for-render-async',
+          setup(b) {
+            b.onLoad(
+              { filter: new RegExp(path.basename(emailPath)) },
+              async () => ({
+                contents: `${await fs.readFile(emailPath, 'utf8')};
+
+export { renderAsync } from '@react-email/render'`,
+                loader: path.extname(emailPath).slice(1) as Loader, 
+              }),
+            );
+          },
+        },
+      ],
       platform: 'node',
       write: false,
       format: 'cjs',
@@ -64,7 +84,12 @@ export const getEmailComponent = async (
     URL,
     URLSearchParams,
     Headers,
-    module: { exports: { default: undefined as unknown } },
+    module: {
+      exports: {
+        default: undefined as unknown,
+        renderAsync: undefined as unknown,
+      },
+    },
     __filename: emailPath,
     __dirname: path.dirname(emailPath),
     require: (module: string) => {
@@ -118,6 +143,8 @@ export const getEmailComponent = async (
 
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
+    renderAsync: fakeContext.module.exports.renderAsync as typeof renderAsync,
+
     sourceMapToOriginalFile: sourceMapToEmail,
   };
 };
