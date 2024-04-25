@@ -3,7 +3,12 @@ import path from 'node:path';
 import vm from 'node:vm';
 import fs from 'node:fs/promises';
 import { type RawSourceMap } from 'source-map-js';
-import { type OutputFile, build, type BuildFailure, type Loader } from 'esbuild';
+import {
+  type OutputFile,
+  build,
+  type BuildFailure,
+  type Loader,
+} from 'esbuild';
 import type { renderAsync } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
@@ -14,12 +19,12 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    renderAsync: typeof renderAsync;
+      renderAsync: typeof renderAsync;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -37,7 +42,7 @@ export const getEmailComponent = async (
                 contents: `${await fs.readFile(emailPath, 'utf8')};
 
 export { renderAsync } from '@react-email/render'`,
-                loader: path.extname(emailPath).slice(1) as Loader, 
+                loader: path.extname(emailPath).slice(1) as Loader,
               }),
             );
           },

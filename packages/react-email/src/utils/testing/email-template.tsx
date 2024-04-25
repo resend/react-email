@@ -3,7 +3,7 @@ const TestingEmailTemplate = (props: { name: string }) => {
 };
 
 TestingEmailTemplate.PreviewProps = {
-  name: 'Gabriel'
+  name: 'Gabriel',
 };
 
 export default TestingEmailTemplate;
