@@ -88,7 +88,7 @@ test('createDependencyGraph()', async () => {
       path: '../start-dev-server.ts',
       dependencyPaths: [],
       dependentPaths: ['create-dependency-graph.ts'],
-      moduleDependencies: []
+      moduleDependencies: [],
     },
     '../../../../utils/types/hot-reload-change.ts': {
       path: '../../../../utils/types/hot-reload-change.ts',
