@@ -45,7 +45,7 @@
   "dependencies": {
     "html-to-text": "9.0.5",
     "js-beautify": "^1.14.11",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {

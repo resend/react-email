@@ -25,7 +25,7 @@
     "@react-email/html": "*",
     "@react-email/render": "*",
     "@plunk/node": "1.1.1",
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",

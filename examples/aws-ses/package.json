@@ -25,7 +25,7 @@
     "@react-email/button": "*",
     "@react-email/html": "*",
     "@react-email/render": "*",
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",
