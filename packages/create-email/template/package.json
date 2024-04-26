@@ -10,7 +10,7 @@
   "dependencies": {
     "@react-email/components": "0.0.17-canary.1",
     "react-email": "2.1.2-canary.0",
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "18.2.33",
