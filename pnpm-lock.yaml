@@ -80,7 +80,7 @@ importers:
         specifier: 2.1.0
         version: 2.1.0(react@18.2.0)
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: 18.2.0
@@ -123,7 +123,7 @@ importers:
         specifier: 0.0.12
         version: 0.0.12(react@18.2.0)
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
       tinybench:
         specifier: 2.5.1
@@ -148,7 +148,7 @@ importers:
   packages/body:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/core':
@@ -173,7 +173,7 @@ importers:
   packages/button:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -198,7 +198,7 @@ importers:
         specifier: 1.29.0
         version: 1.29.0
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -223,7 +223,7 @@ importers:
   packages/code-inline:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -251,7 +251,7 @@ importers:
   packages/column:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -333,7 +333,7 @@ importers:
         specifier: 0.0.7
         version: link:../text
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -352,7 +352,7 @@ importers:
   packages/container:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -408,7 +408,7 @@ importers:
   packages/font:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -430,7 +430,7 @@ importers:
   packages/head:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -455,7 +455,7 @@ importers:
         specifier: 1.0.2
         version: 1.0.2(@types/react@18.2.33)(react@18.2.0)
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -477,7 +477,7 @@ importers:
   packages/hr:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -499,7 +499,7 @@ importers:
   packages/html:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -521,7 +521,7 @@ importers:
   packages/img:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -543,7 +543,7 @@ importers:
   packages/link:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -568,7 +568,7 @@ importers:
         specifier: 5.0.2
         version: 5.0.2(react@18.2.0)
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -590,7 +590,7 @@ importers:
   packages/preview:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -784,7 +784,7 @@ importers:
         specifier: ^1.14.11
         version: 1.14.11
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: 18.2.0
@@ -821,7 +821,7 @@ importers:
   packages/row:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -843,7 +843,7 @@ importers:
   packages/section:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
@@ -865,7 +865,7 @@ importers:
   packages/tailwind:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/core':
@@ -938,7 +938,7 @@ importers:
   packages/text:
     dependencies:
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
       '@babel/preset-react':
