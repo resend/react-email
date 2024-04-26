@@ -44,10 +44,10 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.23.9",
