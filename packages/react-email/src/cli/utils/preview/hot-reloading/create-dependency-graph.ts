@@ -39,7 +39,9 @@ const isJavascriptModule = (filePath: string) => {
   return ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'].includes(extensionName);
 };
 
-const checkFileExtensionsUntilItExists = (pathWithoutExtension: string): string | undefined => {
+const checkFileExtensionsUntilItExists = (
+  pathWithoutExtension: string,
+): string | undefined => {
   if (existsSync(`${pathWithoutExtension}.ts`)) {
     return `${pathWithoutExtension}.ts`;
   } else if (existsSync(`${pathWithoutExtension}.tsx`)) {
@@ -53,7 +55,7 @@ const checkFileExtensionsUntilItExists = (pathWithoutExtension: string): string 
   } else if (existsSync(`${pathWithoutExtension}.cjs`)) {
     return `${pathWithoutExtension}.cjs`;
   }
-}
+};
 
 /**
  * Creates a stateful dependency graph that is structured in a way that you can get
@@ -110,12 +112,16 @@ export const createDependencyGraph = async (directory: string) => {
           } catch (_) {}
           if (isDirectory) {
             const pathToSubDirectory = pathToDependencyFromDirectory;
-            const pathWithExtension = checkFileExtensionsUntilItExists(`${pathToSubDirectory}/index`);
+            const pathWithExtension = checkFileExtensionsUntilItExists(
+              `${pathToSubDirectory}/index`,
+            );
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
             } else if (!isRunningBuilt) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
-              console.warn(`Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`);
+              console.warn(
+                `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
+              );
             }
           }
 
@@ -124,12 +130,16 @@ export const createDependencyGraph = async (directory: string) => {
             for it being a javascript module fails, then we can assume it has the same as the `filePath`
           */
           if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-            const pathWithExtension = checkFileExtensionsUntilItExists(pathToDependencyFromDirectory);
+            const pathWithExtension = checkFileExtensionsUntilItExists(
+              pathToDependencyFromDirectory,
+            );
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
             } else if (!isRunningBuilt) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
-              console.warn(`Could not determine the file extension for the file at ${pathWithExtension}`);
+              console.warn(
+                `Could not determine the file extension for the file at ${pathWithExtension}`,
+              );
             }
           }
 
