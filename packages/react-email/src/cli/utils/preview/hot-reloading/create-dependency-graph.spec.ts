@@ -41,7 +41,7 @@ test('createDependencyGraph()', async () => {
   const initialDependencyGraph = convertPathsToAbsolute({
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
-      dependencyPaths: ['get-imported-modules.ts'],
+      dependencyPaths: ['get-imported-modules.ts', '../start-dev-server.ts'],
       dependentPaths: [
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
@@ -83,6 +83,12 @@ test('createDependencyGraph()', async () => {
         'chokidar',
         'debounce',
       ],
+    },
+    '../start-dev-server.ts': {
+      path: '../start-dev-server.ts',
+      dependencyPaths: [],
+      dependentPaths: ['create-dependency-graph.ts'],
+      moduleDependencies: []
     },
     '../../../../utils/types/hot-reload-change.ts': {
       path: '../../../../utils/types/hot-reload-change.ts',
