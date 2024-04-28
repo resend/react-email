@@ -61,11 +61,10 @@ export const Menu: React.FC = () => (
 
 interface MenuItemProps {
   className?: string;
-  children: React.ReactNode;
   href: string;
 }
 
-const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
+const MenuItem: React.FC<Readonly<React.PropsWithChildren<MenuItemProps>>> = ({
   className,
   children,
   href,

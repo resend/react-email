@@ -7,11 +7,9 @@ import { minifyCss } from "./utils/css/minify-css";
 
 export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
 
-export interface TailwindProps {
-  children: React.ReactNode;
+export type TailwindProps = React.PropsWithChildren<{
   config?: TailwindConfig;
-}
-
+}>;
 interface EmailElementProps {
   children?: React.ReactNode;
   className?: string;
