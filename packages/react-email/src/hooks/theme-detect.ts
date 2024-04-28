@@ -1,12 +1,10 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 
-const useThemeDetector = () => {
-  const getCurrentTheme = () =>
+const useThemeDetector = (): boolean => {
+  const getCurrentTheme = (): boolean =>
     window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
-  const mqListener = (e) => {
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(getCurrentTheme());
+  const mqListener = (e: MediaQueryListEvent): void => {
     setIsDarkTheme(e.matches);
   };
 
@@ -15,6 +13,7 @@ const useThemeDetector = () => {
     darkThemeMq.addListener(mqListener);
     return () => darkThemeMq.removeListener(mqListener);
   }, []);
+
   return isDarkTheme;
 };
 
