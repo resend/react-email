@@ -273,64 +273,64 @@ importers:
   packages/components:
     dependencies:
       '@react-email/body':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../body
       '@react-email/button':
-        specifier: 0.0.14
+        specifier: 0.0.15
         version: link:../button
       '@react-email/code-block':
-        specifier: 0.0.3
+        specifier: 0.0.4
         version: link:../code-block
       '@react-email/code-inline':
-        specifier: 0.0.1
+        specifier: 0.0.2
         version: link:../code-inline
       '@react-email/column':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../column
       '@react-email/container':
-        specifier: 0.0.11
+        specifier: 0.0.12
         version: link:../container
       '@react-email/font':
-        specifier: 0.0.5
+        specifier: 0.0.6
         version: link:../font
       '@react-email/head':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../head
       '@react-email/heading':
-        specifier: 0.0.11
+        specifier: 0.0.12
         version: link:../heading
       '@react-email/hr':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../hr
       '@react-email/html':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../html
       '@react-email/img':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../img
       '@react-email/link':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../link
       '@react-email/markdown':
-        specifier: 0.0.9
+        specifier: 0.0.10
         version: link:../markdown
       '@react-email/preview':
-        specifier: 0.0.8
+        specifier: 0.0.9
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.12
+        specifier: 0.0.13
         version: link:../render
       '@react-email/row':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../row
       '@react-email/section':
-        specifier: 0.0.11
+        specifier: 0.0.12
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.15
+        specifier: 0.0.16
         version: link:../tailwind
       '@react-email/text':
-        specifier: 0.0.7
+        specifier: 0.0.8
         version: link:../text
       react:
         specifier: ^18.2.0
@@ -633,10 +633,10 @@ importers:
         specifier: 1.0.6
         version: 1.0.6(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
       '@react-email/components':
-        specifier: 0.0.16
+        specifier: 0.0.17
         version: link:../components
       '@react-email/render':
-        specifier: 0.0.12
+        specifier: 0.0.13
         version: link:../render
       '@swc/core':
         specifier: 1.3.101
