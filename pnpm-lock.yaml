@@ -83,7 +83,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       resend:
         specifier: 3.2.0
@@ -787,7 +787,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
       '@babel/preset-react':
@@ -911,7 +911,7 @@ importers:
         specifier: ^0.11.10
         version: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
       react-dom:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       tailwindcss:
         specifier: 3.3.2

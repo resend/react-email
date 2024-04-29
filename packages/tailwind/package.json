@@ -64,7 +64,7 @@
     "postcss": "8.4.35",
     "postcss-css-variables": "0.19.0",
     "process": "^0.11.10",
-    "react-dom": "18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "3.3.2",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
