@@ -50,15 +50,23 @@ export const renderAsync = async (
 ) => {
   const reactDOMServer = await import("react-dom/server");
 
-  let html: string;
+  let html!: string;
   if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
     html = await readStream(
       await reactDOMServer.renderToReadableStream(component),
     );
   } else {
-    html = await readStream(
-      reactDOMServer.renderToPipeableStream(component),
-    );
+    await new Promise<void>((resolve, reject) => {
+      const stream = reactDOMServer.renderToPipeableStream(component, {
+        async onAllReady() {
+          html = await readStream(stream);
+          resolve();
+        },
+        onError(error) {
+          reject(error);
+        }
+      });
+    });
   }
 
   if (options?.plainText) {
