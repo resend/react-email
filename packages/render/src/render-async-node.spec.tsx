@@ -40,9 +40,9 @@ describe("renderAsync on node environments", () => {
 
   it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
     const Template = () => {
-      const html = usePromise(() =>
-        fetch("https://example.com").then((res) => res.text()),
-        []
+      const html = usePromise(
+        () => fetch("https://example.com").then((res) => res.text()),
+        [],
       );
 
       return <div dangerouslySetInnerHTML={{ __html: html }} />;

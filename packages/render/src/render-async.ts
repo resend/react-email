@@ -23,7 +23,9 @@ const readStream = async (
     });
     await stream.pipeTo(writableStream);
   } else {
-    const { default: { Writable } } = await import("node:stream");
+    const {
+      default: { Writable },
+    } = await import("node:stream");
     const writable = new Writable({
       write(chunk: BufferSource, _encoding, callback) {
         result += decoder.decode(chunk);
@@ -64,7 +66,7 @@ export const renderAsync = async (
         },
         onError(error) {
           reject(error);
-        }
+        },
       });
     });
   }
