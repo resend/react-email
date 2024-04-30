@@ -65,7 +65,7 @@ export const renderAsync = async (
           resolve();
         },
         onError(error) {
-          reject(error);
+          reject(error as Error);
         },
       });
     });

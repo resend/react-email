@@ -2,11 +2,11 @@
  * @vitest-environment node
  */
 
+import usePromise from "react-promise-suspense";
+import { Suspense } from "react";
 import { Template } from "./utils/template";
 import { Preview } from "./utils/preview";
-import usePromise from "react-promise-suspense";
 import { renderAsync } from "./render-async";
-import { Suspense } from "react";
 
 describe("renderAsync on node environments", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
@@ -39,7 +39,7 @@ describe("renderAsync on node environments", () => {
   });
 
   it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
-    const Template = () => {
+    const EmailTemplate = () => {
       const html = usePromise(
         () => fetch("https://example.com").then((res) => res.text()),
         [],
@@ -50,7 +50,7 @@ describe("renderAsync on node environments", () => {
 
     const renderedTemplate = await renderAsync(
       <Suspense>
-        <Template />
+        <EmailTemplate />
       </Suspense>,
     );
 
