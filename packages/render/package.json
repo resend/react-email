@@ -46,7 +46,8 @@
     "html-to-text": "9.0.5",
     "js-beautify": "^1.14.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-promise-suspense": "0.3.4"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",
