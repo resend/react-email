@@ -23,7 +23,7 @@ const readStream = async (
     });
     await stream.pipeTo(writableStream);
   } else {
-    const { Writable } = await import("node:stream");
+    const { default: { Writable } } = await import("node:stream");
     const writable = new Writable({
       write(chunk: BufferSource, _encoding, callback) {
         result += decoder.decode(chunk);
