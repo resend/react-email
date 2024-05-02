@@ -6,7 +6,21 @@ import { useTailwind } from "./hooks/use-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
 import { useCloneElementWithInlinedStyles } from "./hooks/use-clone-element-with-inlined-styles";
 
-export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
+export type TailwindConfig = Pick<
+  TailwindOriginalConfig,
+  | "important"
+  | "prefix"
+  | "separator"
+  | "safelist"
+  | "blocklist"
+  | "presets"
+  | "future"
+  | "experimental"
+  | "darkMode"
+  | "theme"
+  | "corePlugins"
+  | "plugins"
+>;
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -18,6 +32,16 @@ export interface EmailElementProps {
   className?: string;
   style?: React.CSSProperties;
 }
+
+const isComponent = (
+  element: React.ReactElement,
+): element is React.ReactElement<unknown, React.FC<unknown>> => {
+  return (
+    typeof element.type === "function" ||
+    // @ts-expect-error - we know this is a component that may have a render function
+    element.type.render !== undefined
+  );
+};
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const tailwind = useTailwind(config ?? {});

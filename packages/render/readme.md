@@ -35,7 +35,7 @@ Convert React components into a HTML string.
 import { MyTemplate } from "../components/MyTemplate";
 import { render } from "@react-email/render";
 
-const html = render(<MyTemplate firstName="Jim" />);
+const html = await render(<MyTemplate firstName="Jim" />);
 ```
 
 ## License

@@ -9,13 +9,16 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
   expect(await getEmailsDirectoryMetadata(emailsDirectoryPath)).toEqual({
     absolutePath: emailsDirectoryPath,
     directoryName: 'emails',
+    relativePath: '',
     emailFilenames: [],
     subDirectories: [
       {
         absolutePath: `${emailsDirectoryPath}/magic-links`,
         directoryName: 'magic-links',
+        relativePath: 'magic-links',
         emailFilenames: [
           'aws-verify-email',
+          'jobaccepted-magic-link',
           'linear-login-code',
           'notion-magic-link',
           'plaid-verify-identity',
@@ -27,6 +30,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       {
         absolutePath: `${emailsDirectoryPath}/newsletters`,
         directoryName: 'newsletters',
+        relativePath: 'newsletters',
         emailFilenames: [
           'codepen-challengers',
           'google-play-policy-update',
@@ -37,6 +41,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       {
         absolutePath: `${emailsDirectoryPath}/notifications`,
         directoryName: 'notifications',
+        relativePath: 'notifications',
         emailFilenames: [
           'github-access-token',
           'vercel-invite-user',
@@ -47,24 +52,28 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
       {
         absolutePath: `${emailsDirectoryPath}/receipts`,
         directoryName: 'receipts',
+        relativePath: 'receipts',
         emailFilenames: ['apple-receipt', 'nike-receipt'],
         subDirectories: [],
       },
       {
         absolutePath: `${emailsDirectoryPath}/reset-password`,
         directoryName: 'reset-password',
+        relativePath: 'reset-password',
         emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
         subDirectories: [],
       },
       {
         absolutePath: `${emailsDirectoryPath}/reviews`,
         directoryName: 'reviews',
+        relativePath: 'reviews',
         emailFilenames: ['airbnb-review', 'amazon-review'],
         subDirectories: [],
       },
       {
         absolutePath: `${emailsDirectoryPath}/welcome`,
         directoryName: 'welcome',
+        relativePath: 'welcome',
         emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
         subDirectories: [],
       },

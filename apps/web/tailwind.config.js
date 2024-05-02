@@ -1,8 +1,8 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("@radix-ui/colors");
-const { fontFamily } = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
 
-const iOsHeight = plugin(function ({ addUtilities }) {
+const iOsHeight = plugin(({ addUtilities }) => {
   const supportsTouchRule = "@supports (-webkit-touch-callout: none)";
   const webkitFillAvailable = "-webkit-fill-available";
 
@@ -24,17 +24,9 @@ const iOsHeight = plugin(function ({ addUtilities }) {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["src/**/*.{js,ts,jsx,tsx}", "../../apps/**/*.{js,ts,jsx,tsx}"],
+  content: ["src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        gradient:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
-        gradientHover:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)",
-        shine:
-          "linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)",
-      },
       colors: {
         cyan: {
           1: colors.cyanDarkA.cyanA1,
@@ -66,7 +58,16 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "var(--font-inter)", ...fontFamily.sans],
+        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-commit-mono)", ...defaultTheme.fontFamily.mono],
+      },
+      backgroundImage: {
+        gradient:
+          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
+        gradientHover:
+          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)",
+        shine:
+          "linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)",
       },
       keyframes: {
         shine: {

@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and Nodemailer.'
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) and [nodemailer](https://www.npmjs.com/package/nodemailer) packages.
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) and [nodemailer](https://www.npmjs.com/package/nodemailer) packages.
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render nodemailer
+npm install nodemailer @react-email/components
 ```
 
 ```sh yarn
-yarn add @react-email/render nodemailer
+yarn add nodemailer @react-email/components
 ```
 
 ```sh pnpm
-pnpm add @react-email/render nodemailer
+pnpm add nodemailer @react-email/components
 ```
 
 </CodeGroup>
@@ -29,10 +29,9 @@ pnpm add @react-email/render nodemailer
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
+```tsx email.tsx
 import * as React from 'react';
-import { Html } from '@react-email/html';
-import { Button } from '@react-email/button';
+import { Html, Button } from "@react-email/components";
 
 export function Email(props) {
   const { url } = props;
@@ -49,10 +48,8 @@ export function Email(props) {
 
 Import the email template you just built, convert into a HTML string, and use the Nodemailer SDK to send it.
 
-<CodeGroup>
-
-```js React
-import { render } from '@react-email/render';
+```tsx
+import { render } from '@react-email/components';
 import nodemailer from 'nodemailer';
 import { Email } from './email';
 
@@ -66,7 +63,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const options = {
   from: 'you@example.com',
@@ -77,35 +74,6 @@ const options = {
 
 await transporter.sendMail(options);
 ```
-
-```js NodeJS
-import { render } from '@react-email/render';
-import nodemailer from 'nodemailer';
-import { Email } from './email';
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.forwardemail.net',
-  port: 465,
-  secure: true,
-  auth: {
-    user: 'my_user',
-    pass: 'my_password',
-  },
-});
-
-const emailHtml = render(Email({ url: "https://example.com" }));
-
-const options = {
-  from: 'you@example.com',
-  to: 'user@gmail.com',
-  subject: 'hello world',
-  html: emailHtml,
-};
-
-await transporter.sendMail(options);
-```
-
-</CodeGroup>
 
 ## Try it yourself
 

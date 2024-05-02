@@ -14,6 +14,7 @@ import { Tooltip } from './tooltip';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
+  pathSeparator: string;
   activeView?: string;
   markup?: string;
   onToggleSidebar?: () => void;
@@ -22,6 +23,7 @@ interface TopbarProps {
 
 export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   currentEmailOpenSlug,
+  pathSeparator,
   markup,
   activeView,
   setActiveView,
@@ -49,7 +51,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
 
         <div className="items-center overflow-hidden hidden lg:flex text-center absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2">
           <Heading as="h2" className="truncate" size="2" weight="medium">
-            {currentEmailOpenSlug}
+            {currentEmailOpenSlug.split(pathSeparator).pop()}
           </Heading>
         </div>
 

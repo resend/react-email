@@ -1,58 +1,50 @@
-import * as SlotPrimitive from "@radix-ui/react-slot";
-import classnames from "classnames";
+import classNames from "classnames";
 import * as React from "react";
 import type { As } from "../utils/as";
 import { unreachable } from "../utils/unreachable";
 
-export type TextSize = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
-export type TextColor = "gray" | "white";
-export type TextTransform = "uppercase" | "lowercase" | "capitalize";
-export type TextWeight = "normal" | "medium";
+type TextSize = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+type TextColor = "gray" | "white";
 
 interface TextOwnProps {
   size?: TextSize;
   color?: TextColor;
-  transform?: TextTransform;
-  weight?: TextWeight;
 }
 
 type TextProps = As<"span", "div", "p"> & TextOwnProps;
 
-export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
+export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   (
     {
       as: Tag = "span",
       size = "2",
       color = "gray",
-      transform,
-      weight = "normal",
       className,
       children,
       ...props
     },
-    forwardedRef,
+    ref,
   ) => (
-    <SlotPrimitive.Slot
-      className={classnames(
+    <Tag
+      className={classNames(
         className,
-        transform,
         getSizesClassNames(size),
         getColorClassNames(color),
-        getWeightClassNames(weight),
       )}
-      ref={forwardedRef}
       {...props}
+      ref={ref}
     >
-      <Tag>{children}</Tag>
-    </SlotPrimitive.Slot>
+      {children}
+    </Tag>
   ),
 );
 
-const getSizesClassNames = (size: TextSize | undefined) => {
+Text.displayName = "Text";
+
+const getSizesClassNames = (size: TextSize) => {
   switch (size) {
     case "1":
       return "text-xs";
-    case undefined:
     case "2":
       return "text-sm";
     case "3":
@@ -74,28 +66,13 @@ const getSizesClassNames = (size: TextSize | undefined) => {
   }
 };
 
-const getColorClassNames = (color: TextColor | undefined) => {
+const getColorClassNames = (color: TextColor) => {
   switch (color) {
     case "white":
       return "text-slate-12";
-    case undefined:
     case "gray":
       return "text-slate-11";
     default:
       return unreachable(color);
   }
 };
-
-const getWeightClassNames = (weight: TextWeight | undefined) => {
-  switch (weight) {
-    case undefined:
-    case "normal":
-      return "font-normal";
-    case "medium":
-      return "font-medium";
-    default:
-      return unreachable(weight);
-  }
-};
-
-Text.displayName = "Text";

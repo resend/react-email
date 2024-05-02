@@ -8,7 +8,6 @@ test('tree(__dirname, 2)', async () => {
 │   ├── index.ts
 │   ├── serve-static-file.ts
 │   └── start-dev-server.ts
-├── close-ora-on-sigint.ts
 ├── index.ts
 ├── tree.spec.ts
 └── tree.ts"`);

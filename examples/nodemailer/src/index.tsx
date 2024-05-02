@@ -1,6 +1,5 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
-import * as React from "react";
 import { Email } from "./email";
 
 const transporter = nodemailer.createTransport({
@@ -13,7 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const options = {
   from: "you@example.com",

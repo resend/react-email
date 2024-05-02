@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
+import type React from 'react';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
+import type { render } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
       emailComponent: EmailComponent;
+
+      createElement: typeof React.createElement;
+
+      render: typeof render;
 
       sourceMapToOriginalFile: RawSourceMap;
     }
@@ -23,8 +30,10 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
+      plugins: [renderingUtilitiesExporter([emailPath])],
       platform: 'node',
       write: false,
+
       format: 'cjs',
       jsx: 'automatic',
       logLevel: 'silent',
@@ -56,24 +65,41 @@ export const getEmailComponent = async (
     ...global,
     console,
     Buffer,
+    AbortSignal,
+    Event,
+    EventTarget,
     TextDecoder,
+    Request,
+    Response,
     TextDecoderStream,
     TextEncoder,
     TextEncoderStream,
     ReadableStream,
     URL,
     URLSearchParams,
-    module: { exports: { default: undefined as unknown } },
-    __filanem: emailPath,
+    Headers,
+    module: {
+      exports: {
+        default: undefined as unknown,
+        render: undefined as unknown,
+        reactEmailCreateReactElement: undefined as unknown,
+      },
+    },
+    __filename: emailPath,
     __dirname: path.dirname(emailPath),
-    require: (module: string) => {
-      if (module in staticNodeModulesForVM) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return staticNodeModulesForVM[module];
+    require: (specifiedModule: string) => {
+      let m = specifiedModule;
+      if (specifiedModule.startsWith('node:')) {
+        m = m.split(':')[1]!;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      return require(`${module}`) as unknown;
+      if (m in staticNodeModulesForVM) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return staticNodeModulesForVM[m];
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
+      return require(`${specifiedModule}`) as unknown;
       // this stupid string templating was necessary to not have
       // webpack warnings like:
       //
@@ -117,6 +143,10 @@ export const getEmailComponent = async (
 
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
+    render: fakeContext.module.exports.render as typeof render,
+    createElement: fakeContext.module.exports
+      .reactEmailCreateReactElement as typeof React.createElement,
+
     sourceMapToOriginalFile: sourceMapToEmail,
   };
 };

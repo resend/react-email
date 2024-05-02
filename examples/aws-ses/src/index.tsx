@@ -1,14 +1,13 @@
+import type { SendEmailCommandInput } from "@aws-sdk/client-ses";
 import { SES } from "@aws-sdk/client-ses";
-import { render } from "@react-email/render";
-import * as React from "react";
+import { render } from "@react-email/components";
 import { Email } from "./email";
 
-// eslint-disable-next-line turbo/no-undeclared-env-vars
 const ses = new SES({ region: process.env.AWS_SES_REGION });
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
-const params = {
+const params: SendEmailCommandInput = {
   Source: "you@example.com",
   Destination: {
     ToAddresses: ["user@gmail.com"],
@@ -27,4 +26,4 @@ const params = {
   },
 };
 
-ses.sendEmail(params);
+await ses.sendEmail(params);

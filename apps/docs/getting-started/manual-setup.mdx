@@ -6,6 +6,8 @@ description: "Create a brand-new folder with packages powered by React Email."
 icon: "hammer"
 ---
 
+import NextSteps from '/snippets/next-steps.mdx'
+
 <Note>Are you using monorepos? Then we recommend you follow our [monorepos setup](/getting-started/monorepo-setup/choose-package-manager).</Note>
 
 ## 1. Create directory
@@ -25,15 +27,18 @@ Install the React Email package locally and a few components.
 <CodeGroup>
 
 ```sh npm
-npm install react-email @react-email/components -E
+npm install react-email -D -E
+npm install @react-email/components -E
 ```
 
 ```sh yarn
-yarn add react-email @react-email/components -E
+yarn add react-email -D -E
+yarn add @react-email/components -E
 ```
 
 ```sh pnpm
-pnpm add react-email @react-email/components -E
+pnpm add react-email -D -E
+pnpm add @react-email/components -E
 ```
 
 </CodeGroup>
@@ -98,4 +103,4 @@ Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to s
 
 ## 7. Next steps
 
-<Snippet file="next-steps.mdx" />
+<NextSteps/>

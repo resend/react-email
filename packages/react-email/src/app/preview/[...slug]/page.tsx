@@ -1,4 +1,6 @@
+import path from 'node:path';
 import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
@@ -8,6 +10,8 @@ import Preview from './preview';
 
 export const dynamicParams = true;
 
+export const dynamic = 'force-dynamic';
+
 export interface PreviewParams {
   slug: string[];
 }
@@ -15,7 +19,7 @@ export interface PreviewParams {
 const Page = async ({ params }: { params: PreviewParams }) => {
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
-  const slug = params.slug.join('/');
+  const slug = decodeURIComponent(params.slug.join('/'));
   const emailsDirMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,
   );
@@ -28,7 +32,16 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     );
   }
 
-  const emailPath = await getEmailPathFromSlug(slug);
+  let emailPath: string;
+  try {
+    emailPath = await getEmailPathFromSlug(slug);
+  } catch (exception) {
+    if (exception instanceof Error) {
+      console.warn(exception.message);
+      redirect('/');
+    }
+    throw exception;
+  }
 
   const emailRenderingResult = await renderEmailByPath(emailPath);
 
@@ -48,6 +61,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     <Suspense fallback={<Home />}>
       <Preview
         emailPath={emailPath}
+        pathSeparator={path.sep}
         renderingResult={emailRenderingResult}
         slug={slug}
       />
@@ -56,7 +70,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 };
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
-  return { title: `${params.slug.join('/')} — React Email` };
+  return { title: `${path.basename(params.slug.join('/'))} — React Email` };
 }
 
 export default Page;

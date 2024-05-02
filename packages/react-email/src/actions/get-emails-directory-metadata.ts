@@ -12,6 +12,13 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
 
+  // This is to avoid a possible race condition where the file doesn't exist anymore
+  // once we are checking if it is an actual email, this couuld cause issues that
+  // would be very hard to debug and find out the why of it happening.
+  if (!fs.existsSync(fullPath)) {
+    return false;
+  }
+
   // check with a heuristic to see if the file has at least
   // a default export
   const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -21,6 +28,7 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
 export interface EmailsDirectory {
   absolutePath: string;
+  relativePath: string;
   directoryName: string;
   emailFilenames: string[];
   subDirectories: EmailsDirectory[];
@@ -38,9 +46,7 @@ const mergeDirectoriesWithSubDirectories = (
   ) {
     const onlySubDirectory = currentResultingMergedDirectory.subDirectories[0]!;
     currentResultingMergedDirectory = {
-      subDirectories: onlySubDirectory.subDirectories,
-      emailFilenames: onlySubDirectory.emailFilenames,
-      absolutePath: onlySubDirectory.absolutePath,
+      ...onlySubDirectory,
       directoryName: path.join(
         currentResultingMergedDirectory.directoryName,
         onlySubDirectory.directoryName,
@@ -53,6 +59,10 @@ const mergeDirectoriesWithSubDirectories = (
 
 export const getEmailsDirectoryMetadata = async (
   absolutePathToEmailsDirectory: string,
+  keepFileExtensions = false,
+  isSubDirectory = false,
+
+  baseDirectoryPath = absolutePathToEmailsDirectory,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 
@@ -64,7 +74,11 @@ export const getEmailsDirectoryMetadata = async (
     .filter((dirent) =>
       isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
     )
-    .map((dirent) => dirent.name.replace(path.extname(dirent.name), ''));
+    .map((dirent) =>
+      keepFileExtensions
+        ? dirent.name
+        : dirent.name.replace(path.extname(dirent.name), ''),
+    );
 
   const subDirectories = await Promise.all(
     dirents
@@ -74,18 +88,33 @@ export const getEmailsDirectoryMetadata = async (
           !dirent.name.startsWith('_') &&
           dirent.name !== 'static',
       )
-      .map(
-        (dirent) =>
-          getEmailsDirectoryMetadata(
-            path.join(absolutePathToEmailsDirectory, dirent.name),
-          ) as Promise<EmailsDirectory>,
-      ),
+      .map((dirent) => {
+        const direntAbsolutePath = path.join(
+          absolutePathToEmailsDirectory,
+          dirent.name,
+        );
+
+        return getEmailsDirectoryMetadata(
+          direntAbsolutePath,
+          keepFileExtensions,
+          true,
+          baseDirectoryPath,
+        ) as Promise<EmailsDirectory>;
+      }),
   );
 
-  return mergeDirectoriesWithSubDirectories({
+  const emailsMetadata = {
     absolutePath: absolutePathToEmailsDirectory,
+    relativePath: path.relative(
+      baseDirectoryPath,
+      absolutePathToEmailsDirectory,
+    ),
     directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
     emailFilenames,
     subDirectories,
-  });
+  } satisfies EmailsDirectory;
+
+  return isSubDirectory
+    ? mergeDirectoriesWithSubDirectories(emailsMetadata)
+    : emailsMetadata;
 };

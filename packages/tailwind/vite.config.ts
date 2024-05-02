@@ -9,7 +9,6 @@ export default defineConfig({
       // in summary, this bundles the following since vite defaults to bundling
       // - tailwindcss
       // - postcss
-      // - postcss-css-variables
       external: ["react", /^react\/.*/, "react-dom", /react-dom\/.*/],
     },
     lib: {
