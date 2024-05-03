@@ -12,10 +12,10 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
