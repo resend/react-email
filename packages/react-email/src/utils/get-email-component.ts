@@ -12,10 +12,10 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -63,6 +63,7 @@ export const getEmailComponent = async (
     ReadableStream,
     URL,
     URLSearchParams,
+    Headers,
     module: { exports: { default: undefined as unknown } },
     __filanem: emailPath,
     __dirname: path.dirname(emailPath),
