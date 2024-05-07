@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ElementNode > should add and remove children comutatively 1`] = `"<span>Gabriel</span>"`;
+
+exports[`ElementNode > should add and remove children comutatively 2`] = `"<span></span>"`;
+
+exports[`ElementNode > should add and remove children comutatively 3`] = `"<span>Gabriel</span>"`;
+
+exports[`ElementNode > should add and remove children comutatively 4`] = `"<strong style="color:#fff"><span>Gabriel</span></strong>"`;
+
+exports[`ElementNode > should add and remove children comutatively 5`] = `"<strong style="color:#fff"></strong>"`;
+
+exports[`ElementNode > should add and remove children comutatively 6`] = `"<strong style="color:#fff"><span>Gabriel</span></strong>"`;
+
+exports[`ElementNode > should add and remove children comutatively 7`] = `"<div class="bg-red-500"><strong style="color:#fff"><span>Gabriel</span></strong></div>"`;

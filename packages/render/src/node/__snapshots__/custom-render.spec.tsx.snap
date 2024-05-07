@@ -1,0 +1,7 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`render 1`] = `"<div class="this-is-my-class-name" style="transition-timing-function:ease">Hello, Banana man</div>"`;
+
+exports[`render() > works with \`style\` and a \`className\` 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><div class="this-is-my-class-name" style="transition-timing-function:ease">Hello, banana man</div>"`;
+
+exports[`render() > works with Suspense 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><div><div class="this-is-my-class-name" style="transition-timing-function:ease">Hello, banana woman</div></div>"`;
