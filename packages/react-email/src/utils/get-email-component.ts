@@ -63,6 +63,7 @@ export const getEmailComponent = async (
     ReadableStream,
     URL,
     URLSearchParams,
+    Headers,
     module: { exports: { default: undefined as unknown } },
     __filanem: emailPath,
     __dirname: path.dirname(emailPath),
