@@ -34,7 +34,7 @@ export const serveStaticFile = async (
     res.end(
       `Could not read file to be served! Check your terminal for more information.`,
     );
-
-    return;
+  } finally {
+    fileHandle.close();
   }
 };
