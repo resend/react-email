@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import path from 'node:path';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
@@ -56,7 +57,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 };
 
 export function generateMetadata({ params }: { params: PreviewParams }) {
-  return { title: `${params.slug.join('/')} — React Email` };
+  return { title: `${path.basename(params.slug.join('/'))} — React Email` };
 }
 
 export default Page;
