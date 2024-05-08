@@ -40,16 +40,45 @@ export const getEmailComponent = async (
               { filter: new RegExp(path.basename(emailPath)) },
               async () => ({
                 contents: `${await fs.readFile(emailPath, 'utf8')};
-
-export { renderAsync } from '@react-email/render'`,
+                  export { renderAsync } from 'react-email-module-that-will-export-render'
+                `,
                 loader: path.extname(emailPath).slice(1) as Loader,
               }),
+            );
+
+            b.onResolve(
+              { filter: /^react-email-module-that-will-export-render$/ },
+              async (args) => {
+                let result = await b.resolve('@react-email/render', {
+                  kind: 'import-statement',
+                  importer: args.importer,
+                  resolveDir: args.resolveDir,
+                  namespace: args.namespace,
+                });
+                if (result.errors.length === 0) {
+                  return result;
+                }
+
+                // If @react-email/render does not exist, resolve to @react-email/components
+                result = await b.resolve('@react-email/components', {
+                  kind: 'import-statement',
+                  importer: args.importer,
+                  resolveDir: args.resolveDir,
+                  namespace: args.namespace,
+                });
+                if (result.errors.length > 0) {
+                  result.errors[0]!.text =
+                    "Trying to resolve `renderAsync` from both `@react-email/render` and `@react-email/components` to be able to render your email template. Maybe you don't have the required dependencies installed?";
+                }
+                return result;
+              },
             );
           },
         },
       ],
       platform: 'node',
       write: false,
+
       format: 'cjs',
       jsx: 'automatic',
       logLevel: 'silent',
