@@ -59,10 +59,10 @@ importers:
         specifier: 0.0.17-canary.1
         version: link:../../packages/components
       react:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0
       react-dom:
-        specifier: 18.2.0
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-email:
         specifier: 2.1.2-canary.0
@@ -75,8 +75,8 @@ importers:
         specifier: 18.2.18
         version: 18.2.18
       tsx:
-        specifier: 4.7.1
-        version: 4.7.1
+        specifier: 4.9.0
+        version: 4.9.0
 
   apps/web:
     dependencies:
