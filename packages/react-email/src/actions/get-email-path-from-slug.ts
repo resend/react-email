@@ -19,7 +19,7 @@ export const getEmailPathFromSlug = async (slug: string) => {
   }
 
   throw new Error(
-    `Could not find your email file based on the slug by guessing the file extension. Tried .tsx, .jsx and .js.
+    `Could not find your email file based on the slug (${slug}) by guessing the file extension. Tried .tsx, .jsx and .js.
 
     This is most likely not an issue with the preview server. It most likely is that the email doesn't exist.`,
   );
