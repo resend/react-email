@@ -6,6 +6,7 @@ import { type RawSourceMap } from 'source-map-js';
 import {
   type OutputFile,
   build,
+  type ResolveOptions,
   type BuildFailure,
   type Loader,
 } from 'esbuild';
@@ -49,26 +50,22 @@ export const getEmailComponent = async (
             b.onResolve(
               { filter: /^react-email-module-that-will-export-render$/ },
               async (args) => {
-                let result = await b.resolve('@react-email/render', {
+                const options: ResolveOptions = {
                   kind: 'import-statement',
                   importer: args.importer,
                   resolveDir: args.resolveDir,
                   namespace: args.namespace,
-                });
+                };
+                let result = await b.resolve('@react-email/render', options);
                 if (result.errors.length === 0) {
                   return result;
                 }
 
                 // If @react-email/render does not exist, resolve to @react-email/components
-                result = await b.resolve('@react-email/components', {
-                  kind: 'import-statement',
-                  importer: args.importer,
-                  resolveDir: args.resolveDir,
-                  namespace: args.namespace,
-                });
+                result = await b.resolve('@react-email/components', options);
                 if (result.errors.length > 0) {
                   result.errors[0]!.text =
-                    "Trying to resolve `renderAsync` from both `@react-email/render` and `@react-email/components` to be able to render your email template. Maybe you don't have the required dependencies installed?";
+                    "Failed trying to import `renderAsync` from either `@react-email/render` or `@react-email/components` to be able to render your email template.\n Maybe you don't have either of them installed?";
                 }
                 return result;
               },
