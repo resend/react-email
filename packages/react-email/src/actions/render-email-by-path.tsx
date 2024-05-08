@@ -34,7 +34,6 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const { renderAsync } = await import('@react-email/render');
     const markup = await renderAsync(<EmailComponent {...previewProps} />, {
       pretty: true,
     });
