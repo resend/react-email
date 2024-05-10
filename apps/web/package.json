@@ -15,7 +15,7 @@
     "@supabase/supabase-js": "2.39.3",
     "@vercel/analytics": "1.0.1",
     "classnames": "2.3.2",
-    "next": "13.5.6",
+    "next": "14.1.1",
     "prism-react-renderer": "2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
