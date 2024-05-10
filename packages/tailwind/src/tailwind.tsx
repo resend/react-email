@@ -5,7 +5,21 @@ import { useStyleInlining } from "./hooks/use-style-inlining";
 import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
 import { minifyCss } from "./utils/css/minify-css";
 
-export type TailwindConfig = Omit<TailwindOriginalConfig, "content">;
+export type TailwindConfig = Pick<
+  TailwindOriginalConfig,
+  | "important"
+  | "prefix"
+  | "separator"
+  | "safelist"
+  | "blocklist"
+  | "presets"
+  | "future"
+  | "experimental"
+  | "darkMode"
+  | "theme"
+  | "corePlugins"
+  | "plugins"
+>;
 
 export interface TailwindProps {
   children: React.ReactNode;
