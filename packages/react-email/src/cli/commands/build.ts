@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
+import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
@@ -183,6 +184,29 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   );
 };
 
+const npmInstall = async (
+  builtPreviewAppPath: string,
+  packageManager: string,
+) => {
+  return new Promise<void>((resolve, reject) => {
+    shell.exec(
+      `${packageManager} install --silent`,
+      { cwd: builtPreviewAppPath },
+      (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(
+            new Error(
+              `Unable to install the dependencies and it exited with code: ${code}`,
+            ),
+          );
+        }
+      },
+    );
+  });
+};
+
 export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
@@ -199,14 +223,10 @@ export const build = async ({
       throw new Error(`Missing ${emailsDirRelativePath} folder`);
     }
 
-    const usersProjectLocation = process.cwd();
-    const emailsDirPath = path.join(
-      usersProjectLocation,
-      emailsDirRelativePath,
-    );
+    const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
     const staticPath = path.join(emailsDirPath, 'static');
 
-    const builtPreviewAppPath = path.join(usersProjectLocation, '.react-email');
+    const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
       spinner.text = 'Deleting pre-existing `.react-email` folder';
@@ -251,12 +271,8 @@ export const build = async ({
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);
 
-    spinner.text = 'Copying dependencies onto `.react-email`';
-    await fs.promises.cp(
-      path.join(cliPacakgeLocation, 'node_modules'),
-      path.join(builtPreviewAppPath, 'node_modules'),
-      { recursive: true },
-    );
+    spinner.text = 'Installing dependencies on `.react-email`';
+    await npmInstall(builtPreviewAppPath, packageManager);
 
     spinner.stopAndPersist({
       text: 'Successfully prepared `.react-email` for `next build`',
