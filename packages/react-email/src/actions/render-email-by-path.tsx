@@ -25,12 +25,15 @@ export const renderEmailByPath = async (
     return { error: result.error };
   }
 
-  const { emailComponent: Email, sourceMapToOriginalFile } = result;
+  const {
+    emailComponent: Email,
+    renderAsync,
+    sourceMapToOriginalFile,
+  } = result;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const { renderAsync } = await import('@react-email/render');
     const markup = await renderAsync(<EmailComponent {...previewProps} />, {
       pretty: true,
     });

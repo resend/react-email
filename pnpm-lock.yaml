@@ -657,9 +657,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.0.7
         version: 1.0.7(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
-      '@react-email/components':
-        specifier: 0.0.17-canary.1
-        version: link:../components
       '@react-email/render':
         specifier: 0.0.13
         version: link:../render
