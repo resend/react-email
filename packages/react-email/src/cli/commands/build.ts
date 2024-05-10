@@ -165,7 +165,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
 
-  packageJson.name = "preview-server";
+  packageJson.name = 'preview-server';
   packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
