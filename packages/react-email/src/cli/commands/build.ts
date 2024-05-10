@@ -85,12 +85,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   experimental: {
-    webpackBuildWorker: true,
-    serverComponentsExternalPackages: [
-      '@react-email/components',
-      '@react-email/render',
-      '@react-email/tailwind',
-    ],
+    webpackBuildWorker: true
   },
 }`;
 
