@@ -1,4 +1,4 @@
-import Head from "next/head";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/button";
@@ -9,18 +9,15 @@ import { IconArrowRight } from "../components/icons";
 import { Text } from "../components/text";
 import { Topbar } from "../components/topbar";
 
-const Web = () => {
-  const title = "React Email";
-  const description =
-    "A collection of high-quality, unstyled components for creating beautiful emails.";
+export const metadata: Metadata = {
+  title: "React Email",
+  description:
+    "A collection of high-quality, unstyled components for creating beautiful emails.",
+};
 
+const Home = () => {
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <meta content={title} property="og:title" />
-        <meta content={description} property="og:description" />
-      </Head>
+    <main>
       <div className="h-screen-ios relative z-20 mx-auto flex h-screen max-w-7xl flex-col justify-between px-4">
         <Topbar />
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center">
@@ -69,8 +66,8 @@ const Web = () => {
         src="/static/bg.png"
         style={{ position: "absolute" }}
       />
-    </>
+    </main>
   );
 };
 
-export default Web;
+export default Home;

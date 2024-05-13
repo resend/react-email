@@ -15,18 +15,18 @@
     "@supabase/supabase-js": "2.39.3",
     "@vercel/analytics": "1.0.1",
     "classnames": "2.3.2",
-    "next": "14.1.1",
+    "next": "14.2.3",
     "prism-react-renderer": "2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resend": "3.2.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "13.5.6",
+    "@next/eslint-plugin-next": "14.2.3",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
     "postcss": "8.4.38",
-    "tailwindcss": "3.3.3",
+    "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   }
