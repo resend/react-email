@@ -1,6 +1,5 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import nodemailer from "nodemailer";
-import * as React from "react";
 import { Email } from "./email";
 
 const transporter = nodemailer.createTransport({

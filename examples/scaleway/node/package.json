@@ -14,26 +14,15 @@
   "scripts": {
     "build": "tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
     "build:env": "npx dotenv-cli dotenv -e .env tsup src/index.tsx --format cjs --dts --external react --env.NODE_ENV production ",
-    "dev": " tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement",
-    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
-    "clean": "rm -rf dist",
-    "format:check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "dev": "tsup src/index.tsx --format cjs --dts --external react --watch --env.NODE_ENV developpement"
   },
   "dependencies": {
-    "@react-email/components": "0.0.4",
     "@scaleway/sdk": "1.4.0",
+    "@react-email/components": "*",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.15.10",
-    "eslint": "8.36.0",
-    "eslint-config-custom": "*",
-    "prettier": "^2.8.7",
-    "tsconfig": "*",
-    "tsup": "6.7.0",
-    "typescript": "5.0.2"
+    "tsup": "6.2.3",
+    "typescript": "4.8.3"
   }
 }
