@@ -121,7 +121,7 @@ importers:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.38)
       eslint-config-custom:
-        specifier: ../../packages/eslint-config-custom
+        specifier: workspace:*
         version: link:../../packages/eslint-config-custom
       postcss:
         specifier: 8.4.38
@@ -130,7 +130,7 @@ importers:
         specifier: 3.4.3
         version: 3.4.3
       tsconfig:
-        specifier: ../../packages/tsconfig
+        specifier: workspace:*
         version: link:../../packages/tsconfig
       typescript:
         specifier: 5.1.6
