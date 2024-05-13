@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
 import is from "@sindresorhus/is";
 import { type NextRequest, NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export function OPTIONS() {
   return Promise.resolve(NextResponse.json({}));
