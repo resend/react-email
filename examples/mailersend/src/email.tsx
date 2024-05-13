@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Html,Button } from "@react-email/components";
+import { Html, Button } from "@react-email/components";
 
 interface EmailProps {
   url: string;
