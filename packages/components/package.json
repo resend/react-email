@@ -48,7 +48,7 @@
     "@react-email/column": "0.0.10",
     "@react-email/container": "0.0.12",
     "@react-email/font": "0.0.6",
-    "@react-email/head": "0.0.8-canary.0",
+    "@react-email/head": "0.0.9-canary.0",
     "@react-email/heading": "0.0.12",
     "@react-email/hr": "0.0.8",
     "@react-email/html": "0.0.8",
