@@ -27,6 +27,7 @@ const readStream = async (
     // inside of Node's VM after `esbuild` would have this compiled to CJS.
     //
     // See https://github.com/resend/react-email/blob/c56cb71ab61a718ee932048a08b65185daeeafa5/packages/react-email/src/utils/get-email-component.ts
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { Writable } = require("node:stream") as typeof import("node:stream");
     const writable = new Writable({
       write(chunk: BufferSource, _encoding, callback) {
