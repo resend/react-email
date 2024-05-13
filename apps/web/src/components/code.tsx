@@ -1,3 +1,4 @@
+"use client";
 import classnames from "classnames";
 import { Highlight } from "prism-react-renderer";
 import * as React from "react";
@@ -89,8 +90,8 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           {tokens.map((line, i) => {
             return (
               <div
-                key={i}
                 {...getLineProps({ line, key: i })}
+                key={i}
                 className={classnames("whitespace-pre", {
                   "before:text-slate-11 before:mr-2 before:content-['$']":
                     language === "bash" && tokens.length === 1,
@@ -106,7 +107,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
 
                   return (
                     <React.Fragment key={key}>
-                      <span {...getTokenProps({ token, key })} />
+                      <span {...getTokenProps({ token, key })} key={key} />
                     </React.Fragment>
                   );
                 })}

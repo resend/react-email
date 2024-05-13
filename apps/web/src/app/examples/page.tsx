@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
 import { Example, type ExampleProps } from "../../components/example";
@@ -6,6 +5,7 @@ import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
 import { Topbar } from "../../components/topbar";
+import { Metadata } from "next";
 
 const items = [
   {
@@ -102,16 +102,18 @@ const items = [
 
 const title = "Examples — React Email";
 const description = "Open source templates built with React Email";
+export const metadata: Metadata = {
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+  },
+};
 
 const Examples = () => {
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <meta content={title} property="og:title" />
-        <meta content={description} property="og:description" />
-      </Head>
-
+    <main>
       <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
         <Topbar />
 
@@ -163,7 +165,7 @@ const Examples = () => {
         priority
         src="/static/bg.png"
       />
-    </>
+    </main>
   );
 };
 
