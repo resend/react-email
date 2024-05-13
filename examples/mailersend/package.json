@@ -13,24 +13,14 @@
   "scripts": {
     "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
     "dev": "tsup src/index.tsx --format esm,cjs --dts --external react --watch",
-    "lint": "TIMING=1 eslint src/**/*.{ts,tsx}* --fix",
-    "clean": "rm -rf dist",
-    "format:check": "prettier --check \"./src/**/*.{ts,tsx}\"",
-    "format": "prettier --write \"./src/**/*.{ts,tsx}\"",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/button": "*",
-    "@react-email/html": "*",
-    "@react-email/render": "*",
+    "@react-email/components": "*",
     "mailersend": "^2.0.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "eslint": "8.23.1",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   }
