@@ -23,9 +23,11 @@ const readStream = async (
     });
     await stream.pipeTo(writableStream);
   } else {
-    const {
-      default: { Writable },
-    } = await import("node:stream");
+    // Using an `await import` here proved to cause issues when running
+    // inside of Node's VM after `esbuild` would have this compiled to CJS.
+    //
+    // See https://github.com/resend/react-email/blob/c56cb71ab61a718ee932048a08b65185daeeafa5/packages/react-email/src/utils/get-email-component.ts
+    const { Writable } = require("node:stream") as typeof import("node:stream");
     const writable = new Writable({
       write(chunk: BufferSource, _encoding, callback) {
         result += decoder.decode(chunk);
