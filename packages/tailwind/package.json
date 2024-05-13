@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc; vite build",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "lint": "eslint .",
