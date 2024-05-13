@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
 import { Example, type ExampleProps } from "../../components/example";
@@ -5,7 +6,6 @@ import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
 import { Topbar } from "../../components/topbar";
-import { Metadata } from "next";
 
 const items = [
   {

@@ -1,18 +1,17 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { Resend } from "resend";
 import { createClient } from "@supabase/supabase-js";
 import is from "@sindresorhus/is";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const supabaseUrl = process.env.SUPABASE_URL || "";
 const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export async function OPTIONS() {
-  return NextResponse.json({});
+export function OPTIONS() {
+  return Promise.resolve(NextResponse.json({}));
 }
 
 export async function POST(req: NextRequest) {
