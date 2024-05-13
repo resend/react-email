@@ -5,11 +5,6 @@ import { createClient } from "@supabase/supabase-js";
 import is from "@sindresorhus/is";
 import { type NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export const dynamic = 'force-dynamic';
 
 export function OPTIONS() {
@@ -17,6 +12,11 @@ export function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const supabaseUrl = process.env.SUPABASE_URL || "";
+  const supabaseKey = process.env.SUPABASE_ANON_KEY || "";
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
   try {
     const { to, subject, html } = await req.json();
 
