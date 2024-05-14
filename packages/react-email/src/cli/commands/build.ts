@@ -146,8 +146,10 @@ const forceSSGForEmailPreviews = async (
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
-export async function generateStaticParams() { 
-  return ${JSON.stringify(parameters)};
+export function generateStaticParams() { 
+  return Promise.resolve(
+    ${JSON.stringify(parameters)}
+  );
 }`,
     'utf8',
   );
