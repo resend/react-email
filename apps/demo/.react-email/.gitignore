@@ -1,0 +1,10 @@
+node_modules
+.next
+cli
+!src/cli
+
+# for testing
+.react-email
+.for-dependency-graph.ts
+emails
+static
