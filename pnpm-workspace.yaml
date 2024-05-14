@@ -1,8 +1,5 @@
 packages:
   - "apps/web"
   - "apps/demo"
-  # We only include it here because we might use workspace versions in the demo
-  # so it needs to also resolve on the workspaces
-  - "apps/demo/.react-email"
   - "packages/*"
   - "benchmarks/*"

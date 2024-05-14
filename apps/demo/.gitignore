@@ -1,5 +1,2 @@
-# See https://github.com/resend/react-email/pull/1457
-# This is kept here so that `pnpm install` doesn't update
-# the lockfile removing its dependencies
-!.react-email
+.react-email
 .vercel
