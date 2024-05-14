@@ -86,12 +86,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   experimental: {
-    webpackBuildWorker: true,
-    serverComponentsExternalPackages: [
-      '@react-email/components',
-      '@react-email/render',
-      '@react-email/tailwind',
-    ],
+    webpackBuildWorker: true
   },
 }`;
 
@@ -151,8 +146,10 @@ const forceSSGForEmailPreviews = async (
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
-export async function generateStaticParams() { 
-  return ${JSON.stringify(parameters)};
+export function generateStaticParams() { 
+  return Promise.resolve(
+    ${JSON.stringify(parameters)}
+  );
 }`,
     'utf8',
   );
@@ -163,12 +160,20 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
+    name: string;
     scripts: Record<string, string>;
     dependencies: Record<string, string>;
   };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
 
+  packageJson.name = 'preview-server';
+  // We remove this one to avoid having resolve issues on our demo build process.
+  // This is only used in the `export` command so it's irrelevant to have it here.
+  //
+  // See `src/actions/render-email-by-path` for more info on how we render the
+  // email templates without `@react-email/render` being installed.
+  delete packageJson.dependencies['@react-email/render'];
   packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
