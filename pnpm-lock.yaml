@@ -56,7 +56,7 @@ importers:
   apps/demo:
     dependencies:
       '@react-email/components':
-        specifier: 0.0.17-canary.1
+        specifier: 0.0.18-canary.0
         version: link:../../packages/components
       react:
         specifier: ^18.2.0
@@ -65,7 +65,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-email:
-        specifier: 2.1.2-canary.0
+        specifier: 2.1.3-canary.0
         version: link:../../packages/react-email
     devDependencies:
       '@types/react':
@@ -322,7 +322,7 @@ importers:
         specifier: 0.0.6
         version: link:../font
       '@react-email/head':
-        specifier: 0.0.8-canary.0
+        specifier: 0.0.9-canary.0
         version: link:../head
       '@react-email/heading':
         specifier: 0.0.12
@@ -346,7 +346,7 @@ importers:
         specifier: 0.0.9
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.13
+        specifier: 0.0.14-canary.0
         version: link:../render
       '@react-email/row':
         specifier: 0.0.8
@@ -355,7 +355,7 @@ importers:
         specifier: 0.0.12
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.16-canary.1
+        specifier: 0.0.17-canary.0
         version: link:../tailwind
       '@react-email/text':
         specifier: 0.0.8
@@ -661,7 +661,7 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
       '@react-email/render':
-        specifier: 0.0.13
+        specifier: 0.0.14-canary.0
         version: link:../render
       '@swc/core':
         specifier: 1.3.101

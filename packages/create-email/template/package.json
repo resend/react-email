@@ -8,8 +8,8 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "0.0.17-canary.1",
-    "react-email": "2.1.2-canary.0",
+    "@react-email/components": "0.0.18-canary.0",
+    "react-email": "2.1.3-canary.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
