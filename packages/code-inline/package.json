@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-inline",
-  "version": "0.0.1",
+  "version": "0.0.4-canary.0",
   "description": "Display a predictable inline code HTML element that works on all email clients",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -21,6 +21,7 @@
       }
     }
   },
+  "license": "MIT",
   "scripts": {
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",
@@ -34,10 +35,10 @@
     "access": "public"
   },
   "peerDependencies": {
-    "react": "18.2.0"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.22.5",
+    "@babel/preset-react": "7.23.3",
     "@react-email/render": "workspace:*",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
