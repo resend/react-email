@@ -81,12 +81,14 @@ const Email = () => {
 <Info>
     Most email clients are style-limited and some styles may not work.
 
-    One example of this is how Tailwind will use `rem` as its main unit for better accessbility. 
-    This is not going to be supported by [some email clients](https://www.caniemail.com/features/css-unit-rem/)
-    and we recommend that you define a Tailwind config to override these. 
+    One example of this is how Tailwind will use `rem` as its main unit for
+    better accessibility. This is not supported by [some email
+    clients](https://www.caniemail.com/features/css-unit-rem/), if you want you
+    can override the Tailwind config.
 
-    We can't really apply this configuration for you as it would have a few drawbacks. 
-    But, here's a good starter configuration for you to use to avoid issues:
+    We can't really apply this configuration for you as it would have a few
+    drawbacks. We will probably provide a preset to remediate this. But, here's a
+    good starter configuration for you can use to avoid issues:
 
     <Accordion title="Tailwind configuration with px instead of rem">
         ```typescript tailwind.config.ts
