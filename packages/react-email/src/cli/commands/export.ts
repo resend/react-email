@@ -1,11 +1,10 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { glob } from 'glob';
-import { buildSync } from 'esbuild';
+import { BuildFailure, build } from 'esbuild';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
-import { render } from '@react-email/render';
 import normalize from 'normalize-path';
 import { cp } from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
@@ -14,6 +13,8 @@ import {
   EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
+import { renderResolver } from '../../utils/render-resolver-esbuild-plugin';
+import { createElement } from 'react';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
@@ -27,6 +28,10 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   return templatePaths;
 };
 
+type ExportTemplatesOptions = Options & {
+  silent?: boolean;
+};
+
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -35,57 +40,69 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 export const exportTemplates = async (
   pathToWhereEmailMarkupShouldBeDumped: string,
   emailsDirectoryPath: string,
-  options: Options,
+  options: ExportTemplatesOptions,
 ) => {
   /* Delete the out directory if it already exists */
   if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
     fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
 
-  const spinner = ora('Preparing files...\n').start();
-  closeOraOnSIGNIT(spinner);
+  let spinner: ora.Ora | undefined;
+  if (!options.silent) {
+    spinner = ora('Preparing files...\n').start();
+    closeOraOnSIGNIT(spinner);
+  }
 
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
-    path.join(process.cwd(), emailsDirectoryPath),
+    path.resolve(process.cwd(), emailsDirectoryPath),
   );
 
   if (typeof emailsDirectoryMetadata === 'undefined') {
-    spinner.stopAndPersist({
-      symbol: logSymbols.error,
-      text: `Could not find the directory at ${emailsDirectoryPath}`,
-    });
+    if (spinner) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: `Could not find the directory at ${emailsDirectoryPath}`,
+      });
+    }
     return;
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
-  const buildResult = buildSync({
-    bundle: true,
-    entryPoints: allTemplates,
-    platform: 'node',
-    format: 'cjs',
-    loader: { '.js': 'jsx' },
-    outExtension: { '.js': '.cjs' },
-    jsx: 'transform',
-    write: true,
-    outdir: pathToWhereEmailMarkupShouldBeDumped,
-  });
-  if (buildResult.warnings.length > 0) {
-    console.warn(buildResult.warnings);
-  }
-  if (buildResult.errors.length > 0) {
-    spinner.stopAndPersist({
-      symbol: logSymbols.error,
-      text: 'Failed to build emails',
+  try {
+    await build({
+      bundle: true,
+      entryPoints: allTemplates,
+      plugins: [renderResolver(allTemplates)],
+      platform: 'node',
+      format: 'cjs',
+      loader: { '.js': 'jsx' },
+      outExtension: { '.js': '.cjs' },
+      jsx: 'transform',
+      write: true,
+      outdir: pathToWhereEmailMarkupShouldBeDumped,
     });
-    console.error(buildResult.errors);
+  } catch (exception) {
+    const buildFailure = exception as BuildFailure;
+    if (spinner) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to build emails',
+      });
+    }
+
+    console.warn(buildFailure.warnings);
+    console.error(buildFailure.errors);
     throw new Error(
-      `esbuild bundling process for email templates:\n${allTemplates
+      `esbuild bundling process for email templates failed:\n${allTemplates
         .map((p) => `- ${p}`)
         .join('\n')}`,
     );
   }
-  spinner.succeed();
+
+  if (spinner) {
+    spinner.succeed();
+  }
 
   const allBuiltTemplates = glob.sync(
     normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
@@ -96,11 +113,16 @@ export const exportTemplates = async (
 
   for (const template of allBuiltTemplates) {
     try {
-      spinner.text = `rendering ${template.split('/').pop()}`;
-      spinner.render();
+      if (spinner) {
+        spinner.text = `rendering ${template.split('/').pop()}`;
+        spinner.render();
+      }
       delete require.cache[template];
-      const component = require(template);
-      const rendered = render(component.default({}), options);
+      const emailModule = require(template);
+      const rendered = await emailModule.renderAsync(
+        createElement(emailModule.default, {}),
+        options,
+      );
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',
@@ -108,17 +130,21 @@ export const exportTemplates = async (
       writeFileSync(htmlPath, rendered);
       unlinkSync(template);
     } catch (exception) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: `failed when rendering ${template.split('/').pop()}`,
-      });
+      if (spinner) {
+        spinner.stopAndPersist({
+          symbol: logSymbols.error,
+          text: `failed when rendering ${template.split('/').pop()}`,
+        });
+      }
       console.error(exception);
       throw exception;
     }
   }
-  spinner.succeed('Rendered all files');
-  spinner.text = `Copying static files`;
-  spinner.render();
+  if (spinner) {
+    spinner.succeed('Rendered all files');
+    spinner.text = `Copying static files`;
+    spinner.render();
+  }
 
   // ex: emails/static
   const staticDirectoryPath = path.join(emailsDirectoryPath, 'static');
@@ -139,25 +165,28 @@ export const exportTemplates = async (
       path.join(pathToWhereEmailMarkupShouldBeDumped, 'static'),
     );
     if (result.code > 0) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: 'Failed to copy static files',
-      });
+      if (spinner) {
+        spinner.stopAndPersist({
+          symbol: logSymbols.error,
+          text: 'Failed to copy static files',
+        });
+      }
       throw new Error(
         `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${result.stderr}`,
       );
     }
   }
-  spinner.succeed();
 
-  const fileTree = await tree(pathToWhereEmailMarkupShouldBeDumped, 4);
+  if (spinner && !options.silent) {
+    spinner.succeed();
 
-  console.log(fileTree);
+    const fileTree = await tree(pathToWhereEmailMarkupShouldBeDumped, 4);
 
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'Successfully exported emails',
-  });
+    console.log(fileTree);
 
-  process.exit();
+    spinner.stopAndPersist({
+      symbol: logSymbols.success,
+      text: 'Successfully exported emails',
+    });
+  }
 };

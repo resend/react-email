@@ -766,6 +766,9 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
     devDependencies:
+      '@react-email/components':
+        specifier: workspace:0.0.18-canary.0
+        version: link:../components
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
