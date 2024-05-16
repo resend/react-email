@@ -15,6 +15,7 @@ import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
+import { renderResolver } from './render-resolver-esbuild-plugin';
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -33,46 +34,7 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [
-        {
-          name: 'add-export-for-render-async',
-          setup(b) {
-            b.onLoad(
-              { filter: new RegExp(path.basename(emailPath)) },
-              async () => ({
-                contents: `${await fs.readFile(emailPath, 'utf8')};
-                  export { renderAsync } from 'react-email-module-that-will-export-render'
-                `,
-                loader: path.extname(emailPath).slice(1) as Loader,
-              }),
-            );
-
-            b.onResolve(
-              { filter: /^react-email-module-that-will-export-render$/ },
-              async (args) => {
-                const options: ResolveOptions = {
-                  kind: 'import-statement',
-                  importer: args.importer,
-                  resolveDir: args.resolveDir,
-                  namespace: args.namespace,
-                };
-                let result = await b.resolve('@react-email/render', options);
-                if (result.errors.length === 0) {
-                  return result;
-                }
-
-                // If @react-email/render does not exist, resolve to @react-email/components
-                result = await b.resolve('@react-email/components', options);
-                if (result.errors.length > 0) {
-                  result.errors[0]!.text =
-                    "Failed trying to import `renderAsync` from either `@react-email/render` or `@react-email/components` to be able to render your email template.\n Maybe you don't have either of them installed?";
-                }
-                return result;
-              },
-            );
-          },
-        },
-      ],
+      plugins: [renderResolver([emailPath])],
       platform: 'node',
       write: false,
 
