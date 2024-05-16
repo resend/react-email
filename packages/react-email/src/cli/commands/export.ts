@@ -14,6 +14,7 @@ import {
   EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
+import { renderResolver } from '../../utils/render-resolver-esbuild-plugin';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
@@ -46,7 +47,7 @@ export const exportTemplates = async (
   closeOraOnSIGNIT(spinner);
 
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
-    path.join(process.cwd(), emailsDirectoryPath),
+    path.resolve(process.cwd(), emailsDirectoryPath),
   );
 
   if (typeof emailsDirectoryMetadata === 'undefined') {
@@ -62,6 +63,7 @@ export const exportTemplates = async (
   const buildResult = buildSync({
     bundle: true,
     entryPoints: allTemplates,
+    plugins: [renderResolver],
     platform: 'node',
     format: 'cjs',
     loader: { '.js': 'jsx' },
@@ -99,8 +101,11 @@ export const exportTemplates = async (
       spinner.text = `rendering ${template.split('/').pop()}`;
       spinner.render();
       delete require.cache[template];
-      const component = require(template);
-      const rendered = render(component.default({}), options);
+      const emailModule = require(template);
+      const rendered = await emailModule.renderAsync(
+        emailModule.default({}),
+        options,
+      );
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',
