@@ -2,11 +2,7 @@
 import path from 'node:path';
 import vm from 'node:vm';
 import { type RawSourceMap } from 'source-map-js';
-import {
-  type OutputFile,
-  build,
-  type BuildFailure,
-} from 'esbuild';
+import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { renderAsync } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
