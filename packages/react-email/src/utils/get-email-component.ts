@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
-import fs from 'node:fs/promises';
 import { type RawSourceMap } from 'source-map-js';
 import {
   type OutputFile,
   build,
-  type ResolveOptions,
   type BuildFailure,
-  type Loader,
 } from 'esbuild';
 import type { renderAsync } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
