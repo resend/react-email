@@ -45,11 +45,15 @@ export const VercelInviteUserEmail = ({
   inviteFromLocation,
 }: VercelInviteUserEmailProps) => {
   const previewText = `Join ${invitedByUsername} on Vercel`;
+  const [myState, setMyState] = React.useState(previewText);
+  if (myState === previewText) {
+    setMyState('Banana boy');
+  }
 
   return (
     <Html>
       <Head />
-      <Preview>{previewText}</Preview>
+      <Preview>{myState}</Preview>
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-sans px-2">
           <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">

@@ -5,12 +5,16 @@ import { exportTemplates } from '../export';
 test('email export', async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
   const pathToDumpMarkup = path.resolve(__dirname, './out');
-  await exportTemplates(pathToEmailsDirectory, pathToDumpMarkup, {
+  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
     pretty: true,
+    silent: true
   });
 
   expect(fs.existsSync(pathToDumpMarkup)).toBe(true);
   expect(
-    fs.existsSync(path.resolve(pathToDumpMarkup, './vercel-invite-user')),
-  ).toBe(true);
+    await fs.promises.readFile(
+      path.resolve(pathToDumpMarkup, './vercel-invite-user.html'),
+      'utf8',
+    ),
+  ).toMatchSnapshot();
 });

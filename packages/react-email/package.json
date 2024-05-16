@@ -71,6 +71,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@react-email/components": "workspace:0.0.18-canary.0",
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
     "@types/node": "18.0.0",
