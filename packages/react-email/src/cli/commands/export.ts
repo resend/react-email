@@ -69,7 +69,7 @@ export const exportTemplates = async (
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
-  try { 
+  try {
     await build({
       bundle: true,
       entryPoints: allTemplates,

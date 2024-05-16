@@ -43,7 +43,11 @@ program
   .option('-p, --pretty', 'Pretty print the output', false)
   .option('-t, --plainText', 'Set output format as plain text', false)
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .option('-s, --silent', 'To, or not to show a spinner with process information', false)
+  .option(
+    '-s, --silent',
+    'To, or not to show a spinner with process information',
+    false,
+  )
   .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
     exportTemplates(outDir, srcDir, { pretty, silent, plainText }),
   );
