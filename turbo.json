@@ -15,6 +15,10 @@
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "demo#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
+    },
     "lint": {},
     "//#format": {},
     "//#format:check": {},
