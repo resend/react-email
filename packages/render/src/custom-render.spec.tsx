@@ -1,20 +1,60 @@
+import { Suspense } from "react";
+import usePromise from "react-promise-suspense";
 import { render } from "./custom-render";
 
-const EmailComponent = (props: { username: string }) => {
-  return (
-    <div
-      className="this-is-my-class-name"
-      style={{ transitionTimingFunction: "ease" }}
-    >
-      Hello, {props.username}
-    </div>
-  );
-};
+describe("render()", () => {
+  it("works with `style` and a `className`", async () => {
+    const EmailComponent = (props: { username: string }) => {
+      return (
+        <div
+          className="this-is-my-class-name"
+          style={{ transitionTimingFunction: "ease" }}
+        >
+          Hello, {props.username}
+        </div>
+      );
+    };
+    const html = await render(<EmailComponent username="banana man" />);
 
-test("render", async () => {
-  const html = await render(<EmailComponent username="Banana man" />);
+    expect(html).toMatchSnapshot();
+  });
 
-  console.log(html);
+  it.only("works with Suspense", async () => {
+    const wait = () => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 500);
+      });
+    };
 
-  expect(html).toMatchSnapshot();
+    const EmailComponent = (props: { username: string }) => {
+      const username = usePromise(
+        async (value) => {
+          await wait();
+          return value;
+        },
+        [props.username],
+      );
+
+      return (
+        <div
+          className="this-is-my-class-name"
+          style={{ transitionTimingFunction: "ease" }}
+        >
+          Hello, {username}
+        </div>
+      );
+    };
+
+    const html = await render(
+      <div>
+        <Suspense>
+          <EmailComponent username="banana woman" />
+        </Suspense>
+      </div>,
+    );
+
+    expect(html).toMatchSnapshot();
+  });
 });

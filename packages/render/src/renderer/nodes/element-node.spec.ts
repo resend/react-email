@@ -1,4 +1,5 @@
-import { ElementNode, TextNode } from "./element-node";
+import { ElementNode } from "./element-node";
+import { TextNode } from "./text-node";
 
 describe("ElementNode", () => {
   it("should add and remove children comutatively", () => {
