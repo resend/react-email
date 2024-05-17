@@ -89,7 +89,7 @@
     "js-beautify": "^1.14.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-reconciler": "0.29.2"
+    "react-reconciler": "0.28.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",
@@ -99,7 +99,7 @@
     "@types/react-reconciler": "0.28.8",
     "eslint-config-custom": "workspace:*",
     "jsdom": "23.0.1",
-    "react-promise-suspense": "0.3.4",
+    "react-promise-suspense": "^0.3.4",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
