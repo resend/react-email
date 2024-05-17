@@ -190,7 +190,7 @@ const npmInstall = async (
 ) => {
   return new Promise<void>((resolve, reject) => {
     shell.exec(
-      `${packageManager} install --silent`,
+      `${packageManager} install`,
       { cwd: builtPreviewAppPath },
       (code) => {
         if (code === 0) {
