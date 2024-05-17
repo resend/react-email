@@ -19,7 +19,7 @@ describe("render()", () => {
     expect(html).toMatchSnapshot();
   });
 
-  it.only("works with Suspense", async () => {
+  it("works with Suspense", async () => {
     const wait = () => {
       return new Promise<void>((resolve) => {
         setTimeout(() => {
