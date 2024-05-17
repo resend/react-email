@@ -4,7 +4,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**"]
     },
     "web#build": {
       "dependsOn": ["^build"],
@@ -18,6 +18,10 @@
     "demo#build": {
       "dependsOn": ["^build"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
+    },
+    "react-email#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["cli/**"]
     },
     "lint": {},
     "//#format": {},
