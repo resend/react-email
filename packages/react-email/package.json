@@ -6,7 +6,7 @@
     "email": "./cli/index.js"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup ",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
