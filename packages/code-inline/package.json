@@ -35,7 +35,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "19.0.0-beta-26f2496093-20240514"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",

@@ -18,7 +18,7 @@
   "dependencies": {
     "@react-email/components": "*",
     "postmark": "3.0.14",
-    "react": "^18.2.0"
+    "react": "19.0.0-beta-26f2496093-20240514"
   },
   "devDependencies": {
     "tsup": "6.2.3",
