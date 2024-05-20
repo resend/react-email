@@ -24,35 +24,28 @@ interface HeadingOwnProps {
 
 type HeadingProps = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'> & HeadingOwnProps;
 
-export const Heading = React.forwardRef<
-  HTMLHeadingElement,
-  Readonly<HeadingProps>
->(
-  (
-    {
-      as: Tag = 'h1',
-      size = '3',
+export const Heading = ({
+  as: Tag = 'h1',
+  size = '3',
+  className,
+  color = 'white',
+  children,
+  weight = 'bold',
+  ref,
+  ...props
+}: HeadingProps) => (
+  <SlotPrimitive.Slot
+    className={cn(
       className,
-      color = 'white',
-      children,
-      weight = 'bold',
-      ...props
-    },
-    forwardedRef,
-  ) => (
-    <SlotPrimitive.Slot
-      className={cn(
-        className,
-        getSizesClassNames(size),
-        getColorClassNames(color),
-        getWeightClassNames(weight),
-      )}
-      ref={forwardedRef}
-      {...props}
-    >
-      <Tag>{children}</Tag>
-    </SlotPrimitive.Slot>
-  ),
+      getSizesClassNames(size),
+      getColorClassNames(color),
+      getWeightClassNames(weight),
+    )}
+    ref={ref}
+    {...props}
+  >
+    <Tag>{children}</Tag>
+  </SlotPrimitive.Slot>
 );
 
 const getSizesClassNames = (size: HeadingSize | undefined) => {
