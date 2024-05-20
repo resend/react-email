@@ -56,7 +56,7 @@ importers:
   apps/demo:
     dependencies:
       '@react-email/components':
-        specifier: 0.0.18-canary.0
+        specifier: 0.0.18
         version: link:../../packages/components
       react:
         specifier: ^18.2.0
@@ -65,7 +65,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-email:
-        specifier: 2.1.3-canary.2
+        specifier: 2.1.3
         version: link:../../packages/react-email
     devDependencies:
       '@types/react':
@@ -322,7 +322,7 @@ importers:
         specifier: 0.0.6
         version: link:../font
       '@react-email/head':
-        specifier: 0.0.9-canary.0
+        specifier: 0.0.9
         version: link:../head
       '@react-email/heading':
         specifier: 0.0.12
@@ -346,7 +346,7 @@ importers:
         specifier: 0.0.9
         version: link:../preview
       '@react-email/render':
-        specifier: 0.0.14-canary.0
+        specifier: 0.0.14
         version: link:../render
       '@react-email/row':
         specifier: 0.0.8
@@ -355,7 +355,7 @@ importers:
         specifier: 0.0.12
         version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.17-canary.0
+        specifier: 0.0.17
         version: link:../tailwind
       '@react-email/text':
         specifier: 0.0.8
@@ -660,9 +660,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.0.7
         version: 1.0.7(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
-      '@react-email/render':
-        specifier: 0.0.14-canary.0
-        version: link:../render
       '@swc/core':
         specifier: 1.3.101
         version: 1.3.101
@@ -767,8 +764,11 @@ importers:
         version: 5.1.6
     devDependencies:
       '@react-email/components':
-        specifier: workspace:0.0.18-canary.0
+        specifier: 0.0.18
         version: link:../components
+      '@react-email/render':
+        specifier: 0.0.14
+        version: link:../render
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1

@@ -174,7 +174,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   //
   // See `src/actions/render-email-by-path` for more info on how we render the
   // email templates without `@react-email/render` being installed.
-  delete packageJson.dependencies['@react-email/render'];
+  delete packageJson.devDependencies['@react-email/render'];
   delete packageJson.devDependencies['@react-email/components'];
   packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
