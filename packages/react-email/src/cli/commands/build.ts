@@ -184,7 +184,7 @@ const npmInstall = async (
   packageManager: string,
 ) => {
   return new Promise<void>(async (resolve, reject) => {
-    const childProc = spawn(packageManager, ['install', '--silent'], {
+    const childProc = spawn(packageManager, ['install', '--silent', '--force'], {
       cwd: builtPreviewAppPath,
       shell: true,
     });
