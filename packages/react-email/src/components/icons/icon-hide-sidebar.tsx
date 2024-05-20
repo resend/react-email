@@ -1,12 +1,9 @@
 import * as React from 'react';
-import type { IconElement, IconProps } from './icon-base';
+import type { IconProps } from './icon-base';
 import { IconBase } from './icon-base';
 
-export const IconHideSidebar = React.forwardRef<
-  IconElement,
-  Readonly<IconProps>
->(({ ...props }, forwardedRef) => (
-  <IconBase ref={forwardedRef} {...props}>
+export const IconHideSidebar = ({ ref, ...props }: IconProps) => (
+  <IconBase ref={ref} {...props}>
     <path
       d="M15.4697 15.5303C15.7626 15.8232 16.2374 15.8232 16.5303 15.5303C16.8232 15.2374 16.8232 14.7626 16.5303 14.4697L14.0607 12L16.5303 9.53033C16.8232 9.23744 16.8232 8.76256 16.5303 8.46967C16.2374 8.17678 15.7626 8.17678 15.4697 8.46967L12.4697 11.4697C12.1768 11.7626 12.1768 12.2374 12.4697 12.5303L15.4697 15.5303Z"
       fill="currentColor"
@@ -18,6 +15,6 @@ export const IconHideSidebar = React.forwardRef<
       fillRule="evenodd"
     />
   </IconBase>
-));
+);
 
 IconHideSidebar.displayName = 'IconHideSidebar';
