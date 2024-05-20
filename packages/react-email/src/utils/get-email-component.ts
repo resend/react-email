@@ -78,14 +78,19 @@ export const getEmailComponent = async (
     },
     __filename: emailPath,
     __dirname: path.dirname(emailPath),
-    require: (module: string) => {
-      if (module in staticNodeModulesForVM) {
+    require: (specifiedModule: string) => {
+      let m = specifiedModule;
+      if (specifiedModule.startsWith('node:')) {
+        m = m.split(':')[1]!;
+      }
+
+      if (m in staticNodeModulesForVM) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return staticNodeModulesForVM[module];
+        return staticNodeModulesForVM[m];
       }
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
-      return require(`${module}`) as unknown;
+      return require(`${specifiedModule}`) as unknown;
       // this stupid string templating was necessary to not have
       // webpack warnings like:
       //
