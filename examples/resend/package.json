@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "next": "13.5.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "19.0.0-beta-26f2496093-20240514",
+    "react-dom": "19.0.0-beta-26f2496093-20240514",
     "resend": "^3.2.0"
   },
   "devDependencies": {
