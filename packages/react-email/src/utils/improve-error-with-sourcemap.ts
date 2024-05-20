@@ -47,7 +47,9 @@ export const improveErrorWithSourceMap = (
           newStackLines.push(
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
-              positionWithError.source,
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              // This can actually be null
+              positionWithError.source ?? stackFrame.file,
               positionWithError.line,
               positionWithError.column,
             ),
