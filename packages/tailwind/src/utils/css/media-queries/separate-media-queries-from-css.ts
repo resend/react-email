@@ -5,7 +5,7 @@ export function separateMediaQueriesFromCSS(
   const mediaQueries: string[] = [];
 
   for (const match of css.matchAll(
-    /@media\s*[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/gm
+    /@media\s*[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/gm,
   )) {
     const [mediaQuery] = match;
     cssWithoutMediaQueries = cssWithoutMediaQueries.replace(mediaQuery, "");

@@ -37,6 +37,6 @@ test("separateMediaQueriesFromCSS()", () => {
     --tw-text-opacity: 1;
     color: rgb(96 165 250 / var(--tw-text-opacity));
   }
-}`
+}`,
   ]);
 });
