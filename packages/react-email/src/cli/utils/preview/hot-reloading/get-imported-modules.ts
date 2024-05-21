@@ -1,21 +1,5 @@
+import { traverse } from '@babel/core';
 import { parse } from '@babel/parser';
-import * as walk from 'babel-walk';
-
-const importVisitor = walk.simple<string[]>({
-  ImportDeclaration(node, importedPaths) {
-    importedPaths.push(node.source.value);
-  },
-  CallExpression(node, importedPaths) {
-    if ('name' in node.callee && node.callee.name === 'require') {
-      if (node.arguments.length === 1) {
-        const importPathNode = node.arguments[0]!;
-        if (importPathNode!.type === 'StringLiteral') {
-          importedPaths.push(importPathNode.value);
-        }
-      }
-    }
-  },
-});
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
@@ -26,7 +10,29 @@ export const getImportedModules = (contents: string) => {
     plugins: ['jsx', 'typescript'],
   });
 
-  importVisitor(parsedContents, importedPaths);
+  traverse(parsedContents, {
+    ImportDeclaration({ node }) {
+      importedPaths.push(node.source.value);
+    },
+    ExportAllDeclaration({ node }) {
+      importedPaths.push(node.source.value);
+    },
+    ExportNamedDeclaration({ node }) {
+      if (node.source) {
+        importedPaths.push(node.source.value);
+      }
+    },
+    CallExpression({ node }) {
+      if ('name' in node.callee && node.callee.name === 'require') {
+        if (node.arguments.length === 1) {
+          const importPathNode = node.arguments[0]!;
+          if (importPathNode!.type === 'StringLiteral') {
+            importedPaths.push(importPathNode.value);
+          }
+        }
+      }
+    },
+  });
 
   return importedPaths;
 };

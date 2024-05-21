@@ -55,6 +55,21 @@ export const setupHotreloading = async (
     absolutePathToEmailsDirectory,
   );
 
+  const resolveDependentsOf = (pathToChangeTarget: string) => {
+    const moduleEntry = dependencyGraph[pathToChangeTarget];
+    const dependentPaths: Array<string> = [];
+
+    if (moduleEntry) {
+      for (const dependentPath of moduleEntry.dependentPaths) {
+        const dependentsOfDependent = resolveDependentsOf(dependentPath);
+        dependentPaths.push(...dependentsOfDependent);
+        dependentPaths.push(dependentPath);
+      }
+    }
+
+    return dependentPaths;
+  };
+
   watcher.on('all', async (event, relativePathToChangeTarget) => {
     const file = relativePathToChangeTarget.split(path.sep);
     if (file.length === 0) {
@@ -70,14 +85,15 @@ export const setupHotreloading = async (
       event,
       filename: relativePathToChangeTarget,
     });
-    changes.push(
-      ...(dependencyGraph[pathToChangeTarget]?.dependentPaths ?? []).map(
-        (dependentPath) => ({
-          event: 'change' as const,
-          filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
-        }),
-      ),
-    );
+
+    // These dependents are dependents resolved recursively, so even dependents of dependents
+    // will be notified of this change so that we ensure that things are updated in the preview.
+    for (const dependentPath of resolveDependentsOf(pathToChangeTarget)) {
+      changes.push({
+        event: 'change' as const,
+        filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
+      });
+    }
     reload();
   });
 
