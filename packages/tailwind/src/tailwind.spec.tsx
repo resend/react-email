@@ -252,7 +252,7 @@ describe("Responsive styles", () => {
     );
   });
 
-  it.only("should work with relatively complex media query utilities", () => {
+  it("should work with relatively complex media query utilities", () => {
     const Email = () => {
       return (
         <Tailwind>
