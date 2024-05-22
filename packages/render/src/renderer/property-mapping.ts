@@ -6,12 +6,18 @@ export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
     .map((key) => {
       const value = props[key];
 
-      if (key === "className" && typeof value === "string") {
+      if (value === undefined || value === null) return '';
+
+      if (key === "className" && typeof value === 'string') {
         return `class="${value}"`;
       }
 
-      if (key === "style" && typeof value === "object" && value !== null) {
+      if (key === "style" && typeof value === "object") {
         return convertStyleIntoAttribute(value as React.CSSProperties);
+      }
+
+      if (key === 'dangerouslySetInnerHTML' && typeof value === 'object') {
+        return '';
       }
 
       return `${key}="${JSON.stringify(value)}"`;
