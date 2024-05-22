@@ -20,7 +20,12 @@ export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
         return '';
       }
 
-      return `${key}="${JSON.stringify(value)}"`;
+      if (typeof value === 'object') {
+        return `${key}="${JSON.stringify(value)}"`;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+      return `${key}="${value}"`;
     })
     .join(" ");
 }
