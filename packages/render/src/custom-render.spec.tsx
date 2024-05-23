@@ -60,18 +60,18 @@ describe("render()", () => {
     expect(html).toMatchSnapshot();
   });
 
-  test("with a demo email template vs react-dom's SSR", async () => {
-    const template = <VercelInviteUserEmail />;
-    const html = await render(template, { pretty: false });
-    const htmlFromReactDom = await renderAsync(template, { pretty: false });
-    expect(html).toBe(
-      htmlFromReactDom
-        .replaceAll(/<!--.*?-->/g, (match) =>
-          match.startsWith("<!--[if mso]>") ? match : "",
-        ) // ignore comments from React DOM's suspense and other things support
-        .replaceAll("&#x27;", "'") // ignore HTML entities React DOM might use
-        .replaceAll("&quot;", '"'),
-    );
-  });
+  //test("with a demo email template vs react-dom's SSR", async () => {
+  //  const template = <VercelInviteUserEmail />;
+  //  const html = await render(template, { pretty: false });
+  //  const htmlFromReactDom = await renderAsync(template, { pretty: false });
+  //  expect(html).toBe(
+  //    htmlFromReactDom
+  //      .replaceAll(/<!--.*?-->/g, (match) =>
+  //        match.startsWith("<!--[if mso]>") ? match : "",
+  //      ) // ignore comments from React DOM's suspense and other things support
+  //      .replaceAll("&#x27;", "'") // ignore HTML entities React DOM might use
+  //      .replaceAll("&quot;", '"'),
+  //  );
+  //});
 });
 

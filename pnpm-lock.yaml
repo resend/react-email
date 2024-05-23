@@ -821,63 +821,6 @@ importers:
       '@edge-runtime/vm':
         specifier: 3.1.8
         version: 3.1.8
-      '@react-email/body':
-        specifier: workspace:*
-        version: link:../body
-      '@react-email/button':
-        specifier: workspace:*
-        version: link:../button
-      '@react-email/code-block':
-        specifier: workspace:*
-        version: link:../code-block
-      '@react-email/code-inline':
-        specifier: workspace:*
-        version: link:../code-inline
-      '@react-email/column':
-        specifier: workspace:*
-        version: link:../column
-      '@react-email/container':
-        specifier: workspace:*
-        version: link:../container
-      '@react-email/font':
-        specifier: workspace:*
-        version: link:../font
-      '@react-email/head':
-        specifier: workspace:*
-        version: link:../head
-      '@react-email/heading':
-        specifier: workspace:*
-        version: link:../heading
-      '@react-email/hr':
-        specifier: workspace:*
-        version: link:../hr
-      '@react-email/html':
-        specifier: workspace:*
-        version: link:../html
-      '@react-email/img':
-        specifier: workspace:*
-        version: link:../img
-      '@react-email/link':
-        specifier: workspace:*
-        version: link:../link
-      '@react-email/markdown':
-        specifier: workspace:*
-        version: link:../markdown
-      '@react-email/preview':
-        specifier: workspace:*
-        version: link:../preview
-      '@react-email/row':
-        specifier: workspace:*
-        version: link:../row
-      '@react-email/section':
-        specifier: workspace:*
-        version: link:../section
-      '@react-email/tailwind':
-        specifier: workspace:*
-        version: link:../tailwind
-      '@react-email/text':
-        specifier: workspace:*
-        version: link:../text
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
