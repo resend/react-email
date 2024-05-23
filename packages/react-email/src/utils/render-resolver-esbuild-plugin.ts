@@ -16,7 +16,13 @@ export const renderResolver = (emailTemplates: string[]) => ({
   setup: (b: PluginBuild) => {
     b.onLoad(
       // We need to escape all of the "\" characters to avoid issues on Windows
-      { filter: new RegExp(escapeStringForRegex(emailTemplates.join('|'))) },
+      {
+        filter: new RegExp(
+          emailTemplates
+            .map((emailPath) => escapeStringForRegex(emailPath))
+            .join('|'),
+        ),
+      },
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};
