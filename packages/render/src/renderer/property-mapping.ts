@@ -8,7 +8,7 @@ export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
     .map((originalKey) => {
       const propertyInfo = getPropertyInfo(originalKey);
       if (shouldIgnoreAttribute(originalKey, propertyInfo)) {
-        return '';
+        return undefined;
       }
 
       const value = props[originalKey];
@@ -32,17 +32,24 @@ export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
       // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
       return `${propertyName}="${value}"`;
     })
+    .filter(Boolean)
     .join(" ");
 }
 
 function convertStyleIntoAttribute(style: React.CSSProperties): string {
   const inlineStyles = Object.entries(style)
     .map(([key, value]) => {
+      // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+      let valueToUse: string = `${value}`;
+      if (typeof value === 'number' && value !== 0) {
+        valueToUse = `${value}px`;
+      }
+      valueToUse = valueToUse.trim();
       if (key.startsWith("ms")) {
-        return `-${fromCamelCaseToSnakeCase(key)}:${value}`;
+        return `${fromCamelCaseToSnakeCase(key)}:${valueToUse}`;
       }
 
-      return `${fromCamelCaseToSnakeCase(key)}:${value}`;
+      return `${fromCamelCaseToSnakeCase(key)}:${valueToUse}`;
     })
     .join(";");
   return `style="${inlineStyles}"`;
