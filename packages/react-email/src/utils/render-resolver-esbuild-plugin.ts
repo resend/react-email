@@ -2,6 +2,10 @@ import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
 
+function escapeStringForRegex(string: string) {
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
+}
+
 /**
  * Made to export the `renderAsync` function out of the user's email template
  * so that issues like https://github.com/resend/react-email/issues/649 don't
@@ -14,7 +18,13 @@ export const renderResolver = (emailTemplates: string[]) => ({
   name: 'render-resolver',
   setup: (b: PluginBuild) => {
     b.onLoad(
-      { filter: new RegExp(emailTemplates.join('|')) },
+      {
+        filter: new RegExp(
+          emailTemplates
+            .map((emailPath) => escapeStringForRegex(emailPath))
+            .join('|'),
+        ),
+      },
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};

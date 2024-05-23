@@ -789,7 +789,7 @@ importers:
         version: 0.8.15
       '@vercel/style-guide':
         specifier: 5.1.0
-        version: 5.1.0(eslint@8.50.0)(prettier@3.0.3)(typescript@5.1.6)
+        version: 5.1.0(eslint@8.50.0)(typescript@5.1.6)
       eslint:
         specifier: 8.50.0
         version: 8.50.0
@@ -801,7 +801,7 @@ importers:
         version: 4.9.0
       vitest:
         specifier: 1.1.3
-        version: 1.1.3(@types/node@18.0.0)(happy-dom@12.2.2)
+        version: 1.1.3(@types/node@18.0.0)
 
   packages/render:
     dependencies:
@@ -3914,6 +3914,52 @@ packages:
       eslint-plugin-unicorn: 48.0.1(eslint@8.50.0)
       prettier: 3.0.3
       prettier-plugin-packagejson: 2.4.14(prettier@3.0.3)
+      typescript: 5.1.6
+    transitivePeerDependencies:
+      - eslint-import-resolver-node
+      - eslint-import-resolver-webpack
+      - jest
+      - supports-color
+    dev: true
+
+  /@vercel/style-guide@5.1.0(eslint@8.50.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-L9lWYePIycm7vIOjDLj+mmMdmmPkW3/brHjgq+nJdvMOrL7Hdk/19w8X583HYSk0vWsq494o5Qkh6x5+uW7ljg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@next/eslint-plugin-next': '>=12.3.0 <15'
+      eslint: '>=8.48.0 <9'
+      prettier: '>=3.0.0 <4'
+      typescript: '>=4.8.0 <6'
+    peerDependenciesMeta:
+      '@next/eslint-plugin-next':
+        optional: true
+      eslint:
+        optional: true
+      prettier:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.24.5
+      '@babel/eslint-parser': 7.24.1(@babel/core@7.24.5)(eslint@8.50.0)
+      '@rushstack/eslint-patch': 1.10.1
+      '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0)(eslint@8.50.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 6.21.0(eslint@8.50.0)(typescript@5.1.6)
+      eslint: 8.50.0
+      eslint-config-prettier: 9.0.0(eslint@8.50.0)
+      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.29.1)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0)(eslint-plugin-import@2.29.1)(eslint@8.50.0)
+      eslint-plugin-eslint-comments: 3.2.0(eslint@8.50.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
+      eslint-plugin-jest: 27.9.0(@typescript-eslint/eslint-plugin@6.21.0)(eslint@8.50.0)(typescript@5.1.6)
+      eslint-plugin-jsx-a11y: 6.8.0(eslint@8.50.0)
+      eslint-plugin-playwright: 0.16.0(eslint-plugin-jest@27.9.0)(eslint@8.50.0)
+      eslint-plugin-react: 7.34.1(eslint@8.50.0)
+      eslint-plugin-react-hooks: 4.6.0(eslint@8.50.0)
+      eslint-plugin-testing-library: 6.2.0(eslint@8.50.0)(typescript@5.1.6)
+      eslint-plugin-tsdoc: 0.2.17
+      eslint-plugin-unicorn: 48.0.1(eslint@8.50.0)
+      prettier-plugin-packagejson: 2.4.14
       typescript: 5.1.6
     transitivePeerDependencies:
       - eslint-import-resolver-node
@@ -8014,6 +8060,18 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
+  /prettier-plugin-packagejson@2.4.14:
+    resolution: {integrity: sha512-sli+gV5tW7uxvzDZQscaBtSfbyAW2ToL6n/HGt51PipwX9vI7M54vefG0mKSfklVkT29TNGO6Mo6g8c6Z79gmw==}
+    peerDependencies:
+      prettier: '>= 1.16.0'
+    peerDependenciesMeta:
+      prettier:
+        optional: true
+    dependencies:
+      sort-package-json: 2.10.0
+      synckit: 0.9.0
+    dev: true
+
   /prettier-plugin-packagejson@2.4.14(prettier@3.0.3):
     resolution: {integrity: sha512-sli+gV5tW7uxvzDZQscaBtSfbyAW2ToL6n/HGt51PipwX9vI7M54vefG0mKSfklVkT29TNGO6Mo6g8c6Z79gmw==}
     peerDependencies:
@@ -10121,7 +10179,7 @@ packages:
       - terser
     dev: true
 
-  /vitest@1.1.3(@types/node@18.0.0)(happy-dom@12.2.2):
+  /vitest@1.1.3(@types/node@18.0.0):
     resolution: {integrity: sha512-2l8om1NOkiA90/Y207PsEvJLYygddsOyr81wLQ20Ra8IlLKbyQncWsGZjnbkyG2KwwuTXLQjEPOJuxGMG8qJBQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -10157,7 +10215,6 @@ packages:
       chai: 4.4.1
       debug: 4.3.4
       execa: 8.0.1
-      happy-dom: 12.2.2
       local-pkg: 0.5.0
       magic-string: 0.30.9
       pathe: 1.1.2
