@@ -15,7 +15,6 @@ export const renderResolver = (emailTemplates: string[]) => ({
   name: 'render-resolver',
   setup: (b: PluginBuild) => {
     b.onLoad(
-      // We need to escape all of the "\" characters to avoid issues on Windows
       {
         filter: new RegExp(
           emailTemplates
