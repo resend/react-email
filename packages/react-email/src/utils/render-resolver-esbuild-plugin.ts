@@ -1,7 +1,12 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
-import escapeStringForRegex from 'escape-string-regexp';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
+
+function escapeStringForRegex(string: string) {
+  return string
+    .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+    .replace(/-/g, '\\x2d');
+}
 
 /**
  * Made to export the `renderAsync` function out of the user's email template
