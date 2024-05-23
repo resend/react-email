@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import usePromise from "react-promise-suspense";
 import { render } from "./custom-render";
+import { renderAsync } from "./render-async";
+import { VercelInviteUserEmail } from "./utils/vercel-template";
 
 describe("render()", () => {
   it("works with `style` and a `className`", async () => {
@@ -57,4 +59,19 @@ describe("render()", () => {
 
     expect(html).toMatchSnapshot();
   });
+
+  test("with a demo email template vs react-dom's SSR", async () => {
+    const template = <VercelInviteUserEmail />;
+    const html = await render(template, { pretty: false });
+    const htmlFromReactDom = await renderAsync(template, { pretty: false });
+    expect(html).toBe(
+      htmlFromReactDom
+        .replaceAll(/<!--.*?-->/g, (match) =>
+          match.startsWith("<!--[if mso]>") ? match : "",
+        )
+        .replaceAll("&#x27;", "'")
+        .replaceAll("&quot;", '"'),
+    );
+  });
 });
+
