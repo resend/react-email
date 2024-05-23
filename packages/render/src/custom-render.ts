@@ -1,6 +1,10 @@
 import { ConcurrentRoot } from "react-reconciler/constants";
 import { renderer } from "./renderer";
 import { Root } from "./renderer/nodes/root";
+import { Options } from "./options";
+import { convert } from "html-to-text";
+import { plainTextSelectors } from "./plain-text-selectors";
+import { pretty } from "./utils/pretty";
 
 interface IncompleteFiber {
   tag: number;
@@ -13,7 +17,7 @@ interface IncompleteFiber {
   * Checks recursively through React's fibers to make sure that all suspense
   * boundaries are complete. It uses the fact that, once they are complete,
   * they will have a `memoizedState` of null. It also checks for an element being
-  * a Suspense boundary by 
+  * a Suspense boundary by looking for an internal React field in the fibers.
   *
   * There is currently no other way that can be used to wait for these 
   * Suspense boundaries to be done except for checking the fibers themselves.
@@ -37,7 +41,7 @@ function checkIfAllSuspensesAreDone(fiber: IncompleteFiber) {
   return true;
 }
 
-export const render = (element: React.ReactElement) => {
+const renderToMarkup = (element: React.ReactElement) => {
   return new Promise<string>((resolve, reject) => {
     const root = new Root();
 
@@ -70,4 +74,26 @@ export const render = (element: React.ReactElement) => {
       checkCompletion();
     });
   });
+}
+
+const doctype =
+  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+
+export const render = async (element: React.ReactElement, options?: Options) => {
+  const markup = await renderToMarkup(element);
+
+  const document = `${doctype}${markup}`;
+
+  if (options?.plainText) {
+    return convert(document, {
+      selectors: plainTextSelectors,
+      ...options.htmlToTextOptions,
+    });
+  }
+
+  if (options?.pretty) {
+    return pretty(document);
+  }
+
+  return document;
 };
