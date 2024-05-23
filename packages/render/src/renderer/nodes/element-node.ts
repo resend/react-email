@@ -10,10 +10,7 @@ export class ElementNode extends ParentNode {
 
   parent?: ParentNode;
 
-  constructor(
-    tag: string,
-    props: Record<string, unknown>,
-  ) {
+  constructor(tag: string, props: Record<string, unknown>) {
     super(Symbol("ElementNode"), []);
     this.internalTag = tag;
     this.props = props;
@@ -42,9 +39,32 @@ export class ElementNode extends ParentNode {
 
     const attributePortion =
       attributes.trim().length > 0 ? ` ${attributes}` : "";
-    const childrenPortion = this.internalChildren
-      .map((child) => child.html)
-      .join("");
+
+    // ignore children for void html elements
+    if (
+      /^(AREA|BASE|BR|COL|COMMAND|EMBED|HR|IMG|INPUT|KEYGEN|LINK|META|PARAM|SOURCE|TRACK|WBR)$/.test(
+        this.internalTag.toUpperCase(),
+      )
+    ) {
+      return `<${this.internalTag}${attributePortion}/>`;
+    }
+
+    let childrenPortion: string;
+
+    if (
+      "dangerouslySetInnerHTML" in this.props &&
+      typeof this.props.dangerouslySetInnerHTML === "object" &&
+      this.props.dangerouslySetInnerHTML !== null &&
+      "__html" in this.props.dangerouslySetInnerHTML &&
+      typeof this.props.dangerouslySetInnerHTML.__html === "string"
+    ) {
+      childrenPortion = this.props.dangerouslySetInnerHTML.__html;
+    } else {
+      childrenPortion = this.internalChildren
+        .map((child) => child.html)
+        .join("");
+    }
+
     return `<${this.internalTag}${attributePortion}>${childrenPortion}</${this.internalTag}>`;
   }
 
