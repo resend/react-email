@@ -1,31 +1,36 @@
+import { getPropertyInfo, shouldIgnoreAttribute } from "./dom-property";
+
 export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
   props: T,
 ): string {
   return Object.keys(props)
     .filter((key) => !key.startsWith("on") && key !== 'children')
-    .map((key) => {
-      const value = props[key];
-
-      if (value === undefined || value === null) return '';
-
-      if (key === "className" && typeof value === 'string') {
-        return `class="${value}"`;
-      }
-
-      if (key === "style" && typeof value === "object") {
-        return convertStyleIntoAttribute(value as React.CSSProperties);
-      }
-
-      if (key === 'dangerouslySetInnerHTML' && typeof value === 'object') {
+    .map((originalKey) => {
+      const propertyInfo = getPropertyInfo(originalKey);
+      if (shouldIgnoreAttribute(originalKey, propertyInfo)) {
         return '';
       }
 
+      const value = props[originalKey];
+
+      if (value === undefined || value === null) return '';
+
+      const propertyName = propertyInfo ? propertyInfo.attributeName : originalKey;
+
+      if (typeof value === 'string') {
+        return `${propertyName}="${value}"`;
+      }
+
+      if (propertyName === "style" && typeof value === "object") {
+        return convertStyleIntoAttribute(value as React.CSSProperties);
+      }
+
       if (typeof value === 'object') {
-        return `${key}="${JSON.stringify(value)}"`;
+        return `${propertyName}="${JSON.stringify(value)}"`;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
-      return `${key}="${value}"`;
+      return `${propertyName}="${value}"`;
     })
     .join(" ");
 }
