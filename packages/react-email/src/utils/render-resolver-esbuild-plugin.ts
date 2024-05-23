@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
+import escapeStringForRegex from 'escape-string-regexp';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
 
 /**
@@ -14,7 +15,8 @@ export const renderResolver = (emailTemplates: string[]) => ({
   name: 'render-resolver',
   setup: (b: PluginBuild) => {
     b.onLoad(
-      { filter: new RegExp(emailTemplates.join('|')) },
+      // We need to escape all of the "\" characters to avoid issues on Windows
+      { filter: new RegExp(escapeStringForRegex(emailTemplates.join('|'))) },
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};

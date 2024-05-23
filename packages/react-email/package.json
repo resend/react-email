@@ -46,6 +46,7 @@
     "commander": "11.1.0",
     "debounce": "2.0.0",
     "esbuild": "0.19.11",
+    "escape-string-regexp": "5.0.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-turbo": "1.10.12",
     "framer-motion": "10.17.4",
