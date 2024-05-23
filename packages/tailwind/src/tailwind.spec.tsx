@@ -252,6 +252,19 @@ describe("Responsive styles", () => {
     );
   });
 
+  it("should work with relatively complex media query utilities", () => {
+    const Email = () => {
+      return (
+        <Tailwind>
+          <Head />
+          <p className="text-blue-700 max-sm:text-red-600">I am some text</p>
+        </Tailwind>
+      );
+    };
+
+    expect(render(<Email />)).toMatchSnapshot();
+  });
+
   it("should throw an error when used without a <head/>", () => {
     function noHead() {
       render(
