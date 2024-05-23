@@ -68,8 +68,8 @@ describe("render()", () => {
       htmlFromReactDom
         .replaceAll(/<!--.*?-->/g, (match) =>
           match.startsWith("<!--[if mso]>") ? match : "",
-        )
-        .replaceAll("&#x27;", "'")
+        ) // ignore comments from React DOM's suspense and other things support
+        .replaceAll("&#x27;", "'") // ignore HTML entities React DOM might use
         .replaceAll("&quot;", '"'),
     );
   });
