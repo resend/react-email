@@ -59,7 +59,7 @@
     "@react-email/render": "0.0.14",
     "@react-email/row": "0.0.8",
     "@react-email/section": "0.0.12",
-    "@react-email/tailwind": "0.0.17",
+    "@react-email/tailwind": "0.0.18",
     "@react-email/text": "0.0.8"
   },
   "peerDependencies": {
