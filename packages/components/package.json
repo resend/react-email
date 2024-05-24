@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -56,10 +56,10 @@
     "@react-email/link": "0.0.8",
     "@react-email/markdown": "0.0.10",
     "@react-email/preview": "0.0.9",
-    "@react-email/render": "0.0.14",
+    "@react-email/render": "0.0.15",
     "@react-email/row": "0.0.8",
     "@react-email/section": "0.0.12",
-    "@react-email/tailwind": "0.0.17",
+    "@react-email/tailwind": "0.0.18",
     "@react-email/text": "0.0.8"
   },
   "peerDependencies": {
