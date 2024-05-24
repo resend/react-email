@@ -9,10 +9,10 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "0.0.18",
+    "@react-email/components": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-email": "2.1.3"
+    "react-email": "workspace:*"
   },
   "devDependencies": {
     "next": "14.1.4",
