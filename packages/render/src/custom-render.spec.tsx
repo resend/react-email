@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import usePromise from "react-promise-suspense";
 import { render } from "./custom-render";
-import { renderAsync } from "./render-async";
-import { VercelInviteUserEmail } from "./utils/vercel-template";
 
 describe("render()", () => {
   it("works with `style` and a `className`", async () => {
