@@ -15,7 +15,7 @@
     "@types/node": "18.18.0",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
-    "eslint": "8.50.0",
+    "eslint": "9.3.0",
     "happy-dom": "12.2.2",
     "prettier": "3.0.3",
     "tsconfig": "workspace:*",
