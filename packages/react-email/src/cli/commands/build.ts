@@ -239,9 +239,10 @@ export const build = async ({
       filter: (source: string) => {
         // do not copy the CLI files
         return (
-          !source.includes('/cli/') &&
-          !source.includes('/.next/') &&
-          !/\/node_modules\/?$/.test(source)
+          !/(\/|\\)cli(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
         );
       },
     });
