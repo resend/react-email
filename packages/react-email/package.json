@@ -46,8 +46,6 @@
     "commander": "11.1.0",
     "debounce": "2.0.0",
     "esbuild": "0.19.11",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-config-turbo": "1.10.12",
     "framer-motion": "10.17.4",
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
@@ -76,8 +74,6 @@
     "@types/mime-types": "2.1.4",
     "@types/node": "18.0.0",
     "@types/normalize-path": "3.0.2",
-    "@vercel/style-guide": "5.1.0",
-    "eslint": "8.50.0",
     "tsup": "7.2.0",
     "tsx": "4.9.0",
     "vitest": "1.1.3"
