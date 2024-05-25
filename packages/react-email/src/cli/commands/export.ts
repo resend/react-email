@@ -159,13 +159,9 @@ export const exportTemplates = async (
       await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
 
     try {
-      await fs.promises.cp(
-        staticDirectoryPath,
-        pathToDumpStaticFilesInto,
-        {
-          recursive: true
-        }
-      );
+      await fs.promises.cp(staticDirectoryPath, pathToDumpStaticFilesInto, {
+        recursive: true,
+      });
     } catch (exception) {
       console.error(exception);
       if (spinner) {
