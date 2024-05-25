@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
-import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
@@ -21,14 +20,10 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   return new Promise<void>((resolve, reject) => {
     const nextBuild = spawn('npm', ['run', 'build'], {
       cwd: absoluteDirectory,
+      shell: true
     });
-
-    nextBuild.stdout.on('data', (msg: Buffer) => {
-      process.stdout.write(msg);
-    });
-    nextBuild.stderr.on('data', (msg: Buffer) => {
-      process.stderr.write(msg);
-    });
+    nextBuild.stdout.pipe(process.stdout);
+    nextBuild.stderr.pipe(process.stderr);
 
     nextBuild.on('close', (code) => {
       if (code === 0) {
@@ -188,22 +183,24 @@ const npmInstall = async (
   builtPreviewAppPath: string,
   packageManager: string,
 ) => {
-  return new Promise<void>((resolve, reject) => {
-    shell.exec(
-      `${packageManager} install --silent`,
-      { cwd: builtPreviewAppPath },
-      (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(
-            new Error(
-              `Unable to install the dependencies and it exited with code: ${code}`,
-            ),
-          );
-        }
-      },
-    );
+  return new Promise<void>(async (resolve, reject) => {
+    const childProc = spawn(packageManager, ['install', '--silent'], {
+      cwd: builtPreviewAppPath,
+      shell: true,
+    });
+    childProc.stdout.pipe(process.stdout);
+    childProc.stderr.pipe(process.stderr);
+    childProc.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(
+          new Error(
+            `Unable to install the dependencies and it exited with code: ${code}`,
+          ),
+        );
+      }
+    });
   });
 };
 
