@@ -1,4 +1,3 @@
-import React from "react";
 import { convertPropsIntoAttributes } from "../property-mapping";
 import { ParentNode, Node } from "./node";
 
@@ -14,18 +13,6 @@ export class ElementNode extends ParentNode {
     super(Symbol("ElementNode"), []);
     this.internalTag = tag;
     this.props = props;
-
-    //const childrenAsArray = (
-    //  Array.isArray(props.children) ? props.children : [props.children]
-    //) as React.ReactNode[];
-    //for (const child of childrenAsArray) {
-    //  if (
-    //    React.isValidElement(child) &&
-    //    typeof child.type === "symbol" &&
-    //    Symbol.keyFor(child.type) === "react.suspense"
-    //  ) {
-    //  }
-    //}
   }
 
   get tag() {
