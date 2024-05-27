@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import usePromise from "react-promise-suspense";
-import { render } from "./custom-render";
+import { doctype, render } from "./custom-render";
 
 describe("render()", () => {
   it("works with `style` and a `className`", async () => {
@@ -58,6 +58,13 @@ describe("render()", () => {
     expect(html).toMatchSnapshot();
   });
 
+  it.only("should not modify double curlybraces", async () => {
+    const element = <>{'{{my_variable}}'}</>;
+    const html = await render(
+      element
+    );
+    expect(html).toBe(`${doctype}{{my_variable}}`);
+  });
   //test("with a demo email template vs react-dom's SSR", async () => {
   //  const template = <VercelInviteUserEmail />;
   //  const html = await render(template, { pretty: false });
