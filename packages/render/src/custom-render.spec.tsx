@@ -65,18 +65,23 @@ describe("render()", () => {
     );
     expect(html).toBe(`${doctype}{{my_variable}}`);
   });
-  //test("with a demo email template vs react-dom's SSR", async () => {
-  //  const template = <VercelInviteUserEmail />;
-  //  const html = await render(template, { pretty: false });
-  //  const htmlFromReactDom = await renderAsync(template, { pretty: false });
-  //  expect(html).toBe(
-  //    htmlFromReactDom
-  //      .replaceAll(/<!--.*?-->/g, (match) =>
-  //        match.startsWith("<!--[if mso]>") ? match : "",
-  //      ) // ignore comments from React DOM's suspense and other things support
-  //      .replaceAll("&#x27;", "'") // ignore HTML entities React DOM might use
-  //      .replaceAll("&quot;", '"'),
-  //  );
-  //});
+
+  it.only("should keep HTML entities", async () => {
+    // HTML entities are decoded, without any option for configuration, in JSX transforms.
+    // This means that if the HTML entities are used without JSX templating, they would become
+    // the ASCII equivalent. In this case, the HEX 0x00A0. 
+    //
+    // It would certainly be better if this was not the case for us, since users will generally 
+    // just directly try adding the HTML entities which will always misbehave for them.
+    //
+    // In the future, we might incoporate our own preprocessor that avoids this, and would also make
+    // it easier to teach users new to React. 
+    const element = <>dsadq{'&nbsp;'}dadqw</>;
+    const html = await render(
+      element
+    );
+
+    expect(html).toBe(`${doctype}&nbsp;`);
+  });
 });
 
