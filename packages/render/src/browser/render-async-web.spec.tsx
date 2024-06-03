@@ -6,6 +6,10 @@ import { Template } from "../shared/utils/template";
 import { Preview } from "../shared/utils/preview";
 import { renderAsync } from "./render-async";
 
+type Import = typeof import("react-dom/server") & {
+  default: typeof import("react-dom/server");
+};
+
 describe("renderAsync on the browser environment", () => {
   beforeEach(() => {
     vi.mock(
@@ -20,14 +24,21 @@ describe("renderAsync on the browser environment", () => {
 
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async (_importOriginal) => {
-      const ReactDOMServerBrowser = await vi.importActual<
-        typeof import("react-dom/server.browser")
-      >("react-dom/server.browser");
+      const ReactDOMServerBrowser = await vi.importActual<Import>("react-dom/server");
       const ERROR_MESSAGE =
         "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServerBrowser,
+        default: {
+          ...ReactDOMServerBrowser,
+          renderToString() {
+            throw new Error(ERROR_MESSAGE);
+          },
+          renderToStaticMarkup() {
+            throw new Error(ERROR_MESSAGE);
+          },
+        },
         renderToString() {
           throw new Error(ERROR_MESSAGE);
         },
