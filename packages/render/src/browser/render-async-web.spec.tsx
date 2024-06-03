@@ -24,7 +24,7 @@ describe("renderAsync on the browser environment", () => {
 
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async (_importOriginal) => {
-      const ReactDOMServerBrowser = await vi.importActual<Import>("react-dom/server");
+      const ReactDOMServerBrowser = await vi.importActual<Import>("react-dom/server.browser");
       const ERROR_MESSAGE =
         "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
