@@ -48,7 +48,7 @@ export const renderAsync = async (
   component: React.ReactElement,
   options?: Options,
 ) => {
-  const reactDOMServer = await import("react-dom/server");
+  const { default: reactDOMServer } = await import("react-dom/server");
 
   let html!: string;
   if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
