@@ -1,12 +1,14 @@
 /**
- * @vitest-environment edge-runtime
+ * @vitest-environment node
  */
 
-import { Template } from "./utils/template";
-import { Preview } from "./utils/preview";
+import usePromise from "react-promise-suspense";
+import { Suspense } from "react";
+import { Template } from "../shared/utils/template";
+import { Preview } from "../shared/utils/preview";
 import { renderAsync } from "./render-async";
 
-describe("renderAsync on the edge", () => {
+describe("renderAsync on node environments", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
       const ReactDOMServer =
@@ -34,6 +36,25 @@ describe("renderAsync on the edge", () => {
     );
 
     vi.resetAllMocks();
+  });
+
+  it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
+    const EmailTemplate = () => {
+      const html = usePromise(
+        () => fetch("https://example.com").then((res) => res.text()),
+        [],
+      );
+
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await renderAsync(
+      <Suspense>
+        <EmailTemplate />
+      </Suspense>,
+    );
+
+    expect(renderedTemplate).toMatchSnapshot();
   });
 
   it("converts a React component into HTML", async () => {
