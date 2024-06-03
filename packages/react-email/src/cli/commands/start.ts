@@ -17,7 +17,7 @@ export const start = async () => {
 
     const nextStart = spawn('npm', ['start'], {
       cwd: builtPreviewPath,
-      shell: true
+      shell: true,
     });
 
     nextStart.stdout.pipe(process.stdout);

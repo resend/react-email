@@ -20,7 +20,7 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   return new Promise<void>((resolve, reject) => {
     const nextBuild = spawn('npm', ['run', 'build'], {
       cwd: absoluteDirectory,
-      shell: true
+      shell: true,
     });
     nextBuild.stdout.pipe(process.stdout);
     nextBuild.stderr.pipe(process.stderr);
