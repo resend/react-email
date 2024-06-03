@@ -5,7 +5,7 @@
   "sideEffects": false,
   "main": "./dist/browser/index.js",
   "module": "./dist/browser/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/browser/index.d.ts",
   "files": [
     "dist/**"
   ],
