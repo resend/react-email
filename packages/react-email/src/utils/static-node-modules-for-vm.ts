@@ -73,6 +73,7 @@ export const staticNodeModulesForVM = {
   fs,
   'node:fs': fs,
   'fs/promises': fs.promises,
+  'node:fs/promises': fs.promises,
   events,
   'node:events': events,
   domain,
@@ -92,4 +93,5 @@ export const staticNodeModulesForVM = {
   assert,
   'node:assert': assert,
   'async_hooks': asyncHooks,
+  'node:async_hooks': asyncHooks,
 };
