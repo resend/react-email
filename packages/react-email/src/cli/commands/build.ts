@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
-import shell from 'shelljs';
 import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
@@ -188,22 +187,24 @@ const npmInstall = async (
   builtPreviewAppPath: string,
   packageManager: string,
 ) => {
-  return new Promise<void>((resolve, reject) => {
-    shell.exec(
-      `${packageManager} install --silent`,
-      { cwd: builtPreviewAppPath },
-      (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(
-            new Error(
-              `Unable to install the dependencies and it exited with code: ${code}`,
-            ),
-          );
-        }
-      },
-    );
+  return new Promise<void>(async (resolve, reject) => {
+    const childProc = spawn(packageManager, ['install', '--silent'], {
+      cwd: builtPreviewAppPath,
+    });
+    childProc.stderr.on('data', (chunk) => {
+      process.stderr.write(chunk);
+    });
+    childProc.on('exit', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(
+          new Error(
+            `Unable to install the dependencies and it exited with code: ${code}`,
+          ),
+        );
+      }
+    });
   });
 };
 
