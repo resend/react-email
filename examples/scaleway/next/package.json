@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@types/node": "18.14.6",
-    "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.8",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "typescript": "4.9.5"
   }
 }
