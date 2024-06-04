@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "next": "14.2.3",
-    "@types/react": "18.2.47",
-    "@types/react-dom": "18.2.18",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "tsx": "4.9.0"
   }
 }

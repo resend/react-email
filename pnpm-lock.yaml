@@ -69,11 +69,11 @@ importers:
         version: link:../../packages/react-email
     devDependencies:
       '@types/react':
-        specifier: 18.2.47
-        version: 18.2.47
+        specifier: npm:types-react@rc
+        version: types-react@19.0.0-rc.0
       '@types/react-dom':
-        specifier: 18.2.18
-        version: 18.2.18
+        specifier: npm:types-react-dom@rc
+        version: types-react-dom@19.0.0-rc.0
       next:
         specifier: 14.2.3
         version: 14.2.3(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
@@ -2554,9 +2554,6 @@ packages:
 
   '@types/react-dom@18.2.14':
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
-
-  '@types/react-dom@18.2.18':
-    resolution: {integrity: sha512-TJxDm6OfAX2KJWJdMEVTwWke5Sc/E/RlnPGvGfS0W7+6ocy2xhDVQVh/KvC2Uf7kACs+gDytdusDSdWfWkaNzw==}
 
   '@types/react@18.2.47':
     resolution: {integrity: sha512-xquNkkOirwyCgoClNk85BjP+aqnIS+ckAJ8i37gAbDs14jfW/J23f2GItAf33oiUPQnqNMALiFeoM9Y5mbjpVQ==}
@@ -7641,10 +7638,6 @@ snapshots:
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.2.14':
-    dependencies:
-      '@types/react': 18.2.47
-
-  '@types/react-dom@18.2.18':
     dependencies:
       '@types/react': 18.2.47
 
