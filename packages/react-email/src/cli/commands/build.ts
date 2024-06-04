@@ -20,14 +20,10 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   return new Promise<void>((resolve, reject) => {
     const nextBuild = spawn('npm', ['run', 'build'], {
       cwd: absoluteDirectory,
+      shell: true,
     });
-
-    nextBuild.stdout.on('data', (msg: Buffer) => {
-      process.stdout.write(msg);
-    });
-    nextBuild.stderr.on('data', (msg: Buffer) => {
-      process.stderr.write(msg);
-    });
+    nextBuild.stdout.pipe(process.stdout);
+    nextBuild.stderr.pipe(process.stderr);
 
     nextBuild.on('close', (code) => {
       if (code === 0) {
@@ -190,11 +186,11 @@ const npmInstall = async (
   return new Promise<void>(async (resolve, reject) => {
     const childProc = spawn(packageManager, ['install', '--silent'], {
       cwd: builtPreviewAppPath,
+      shell: true,
     });
-    childProc.stderr.on('data', (chunk) => {
-      process.stderr.write(chunk);
-    });
-    childProc.on('exit', (code) => {
+    childProc.stdout.pipe(process.stdout);
+    childProc.stderr.pipe(process.stderr);
+    childProc.on('close', (code) => {
       if (code === 0) {
         resolve();
       } else {
@@ -240,9 +236,10 @@ export const build = async ({
       filter: (source: string) => {
         // do not copy the CLI files
         return (
-          !source.includes('/cli/') &&
-          !source.includes('/.next/') &&
-          !/\/node_modules\/?$/.test(source)
+          !/(\/|\\)cli(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
         );
       },
     });
