@@ -23,7 +23,7 @@
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "0.0.12",
-    "react": "19.0.0-beta-26f2496093-20240514",
+    "react": "19.0.0-rc.0",
     "tinybench": "2.5.1"
   },
   "devDependencies": {

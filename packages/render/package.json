@@ -90,8 +90,8 @@
     "react-promise-suspense": "0.3.4"
   },
   "peerDependencies": {
-    "react": "19.0.0-beta-26f2496093-20240514",
-    "react-dom": "19.0.0-beta-26f2496093-20240514"
+    "react": "19.0.0-rc.0",
+    "react-dom": "19.0.0-rc.0"
   },
   "devDependencies": {
     "@babel/preset-react": "7.23.3",
