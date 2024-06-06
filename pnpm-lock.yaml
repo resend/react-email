@@ -11447,7 +11447,9 @@ snapshots:
 
   types-react-dom@19.0.0-rc.0:
     dependencies:
-      '@types/react': 18.2.47
+      # This was manually added in as a workaround while https://github.com/pnpm/pnpm/issues/8171
+      # is not fixed
+      '@types/react': types-react@19.0.0-rc.0
 
   types-react@19.0.0-rc.0:
     dependencies:
