@@ -2,22 +2,33 @@
  * @vitest-environment edge-runtime
  */
 
-import { Template } from "./utils/template";
-import { Preview } from "./utils/preview";
+import React from "react";
+import { Template } from "../shared/utils/template";
+import { Preview } from "../shared/utils/preview";
 import { renderAsync } from "./render-async";
+
+type Import = typeof import("react-dom/server") & {
+  default: typeof import("react-dom/server");
+};
 
 describe("renderAsync on the edge", () => {
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
-      const ReactDOMServer =
-        await vi.importActual<typeof import("react-dom/server")>(
-          "react-dom/server",
-        );
+      const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
       const ERROR_MESSAGE =
         "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServer,
+        default: {
+          ...ReactDOMServer.default,
+          renderToString() {
+            throw new Error(ERROR_MESSAGE);
+          },
+          renderToStaticMarkup() {
+            throw new Error(ERROR_MESSAGE);
+          },
+        },
         renderToString() {
           throw new Error(ERROR_MESSAGE);
         },
