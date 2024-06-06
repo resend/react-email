@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import * as React from "react";
 
 const propToAttributeString = (propValue: string | object) => {
@@ -27,7 +24,10 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
     return element.map(quickSafeRenderToString).join("");
   }
 
-  if (React.isValidElement(element)) {
+  type Props =
+    | (Record<string, unknown> & { children?: React.ReactNode })
+    | undefined;
+  if (React.isValidElement<Props>(element)) {
     const { type, props } = element;
 
     // @ts-expect-error - we know this is a component
@@ -35,8 +35,8 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
       const functionComponent =
         typeof type === "object"
           ? // @ts-expect-error - we know this is a component
-            (type.render as React.FC)
-          : (type as React.FC);
+          (type.render as React.FC<Props>)
+          : (type as React.FC<Props>);
       // If the element is a component (function component), render it
       const componentRenderingResults = functionComponent(props);
       return quickSafeRenderToString(componentRenderingResults);
@@ -45,7 +45,10 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
     // Regular HTML-like element
     let elementAttributes = Object.keys(props || {})
       .filter((propName) => propName !== "children")
-      .map((prop) => `${prop}="${propToAttributeString(props[prop])}"`)
+      .map(
+        (prop) =>
+          `${prop}="${propToAttributeString(props?.[prop] as string | object)}"`,
+      )
       .join(" ");
     elementAttributes =
       elementAttributes.trim().length > 0 ? ` ${elementAttributes}` : "";
