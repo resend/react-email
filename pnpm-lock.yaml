@@ -305,65 +305,65 @@ importers:
   packages/components:
     dependencies:
       '@react-email/body':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../body
       '@react-email/button':
-        specifier: 0.0.15
-        version: 0.0.15(react@19.0.0-rc.0)
+        specifier: workspace:0.0.15
+        version: link:../button
       '@react-email/code-block':
-        specifier: 0.0.4
-        version: 0.0.4(react@19.0.0-rc.0)
+        specifier: workspace:0.0.4
+        version: link:../code-block
       '@react-email/code-inline':
-        specifier: 0.0.2
-        version: 0.0.2(react@19.0.0-rc.0)
+        specifier: workspace:0.0.2
+        version: link:../code-inline
       '@react-email/column':
-        specifier: 0.0.10
-        version: 0.0.10(react@19.0.0-rc.0)
+        specifier: workspace:0.0.10
+        version: link:../column
       '@react-email/container':
-        specifier: 0.0.12
-        version: 0.0.12(react@19.0.0-rc.0)
+        specifier: workspace:0.0.12
+        version: link:../container
       '@react-email/font':
-        specifier: 0.0.6
-        version: 0.0.6(react@19.0.0-rc.0)
+        specifier: workspace:0.0.6
+        version: link:../font
       '@react-email/head':
-        specifier: 0.0.9
-        version: 0.0.9(react@19.0.0-rc.0)
+        specifier: workspace:0.0.9
+        version: link:../head
       '@react-email/heading':
-        specifier: 0.0.12
-        version: 0.0.12(react@19.0.0-rc.0)(types-react@19.0.0-rc.0)
+        specifier: workspace:0.0.12
+        version: link:../heading
       '@react-email/hr':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../hr
       '@react-email/html':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../html
       '@react-email/img':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../img
       '@react-email/link':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../link
       '@react-email/markdown':
-        specifier: 0.0.10
-        version: 0.0.10(react@19.0.0-rc.0)
+        specifier: workspace:0.0.10
+        version: link:../markdown
       '@react-email/preview':
-        specifier: 0.0.9
-        version: 0.0.9(react@19.0.0-rc.0)
+        specifier: workspace:0.0.9
+        version: link:../preview
       '@react-email/render':
         specifier: workspace:0.0.16
         version: link:../render
       '@react-email/row':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../row
       '@react-email/section':
-        specifier: 0.0.12
-        version: 0.0.12(react@19.0.0-rc.0)
+        specifier: workspace:0.0.12
+        version: link:../section
       '@react-email/tailwind':
-        specifier: 0.0.18
-        version: 0.0.18(react@19.0.0-rc.0)
+        specifier: workspace:0.0.18
+        version: link:../tailwind
       '@react-email/text':
-        specifier: 0.0.8
-        version: 0.0.8(react@19.0.0-rc.0)
+        specifier: workspace:0.0.8
+        version: link:../text
       react:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0
@@ -7127,43 +7127,22 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@react-email/body@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/button@0.0.15(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/button@0.0.15(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/code-block@0.0.4(react@18.3.1)':
     dependencies:
       prismjs: 1.29.0
       react: 18.3.1
 
-  '@react-email/code-block@0.0.4(react@19.0.0-rc.0)':
-    dependencies:
-      prismjs: 1.29.0
-      react: 19.0.0-rc.0
-
   '@react-email/code-inline@0.0.2(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
-  '@react-email/code-inline@0.0.2(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/column@0.0.10(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/column@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/components@0.0.19(react@18.3.1)(types-react@19.0.0-rc.0)':
     dependencies:
@@ -7195,25 +7174,13 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@react-email/container@0.0.12(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/font@0.0.6(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
-  '@react-email/font@0.0.6(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/head@0.0.9(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/head@0.0.9(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/heading@0.0.12(react@18.3.1)(types-react@19.0.0-rc.0)':
     dependencies:
@@ -7222,62 +7189,30 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@react-email/heading@0.0.12(react@19.0.0-rc.0)(types-react@19.0.0-rc.0)':
-    dependencies:
-      '@radix-ui/react-slot': 1.0.2(react@19.0.0-rc.0)(types-react@19.0.0-rc.0)
-      react: 19.0.0-rc.0
-    transitivePeerDependencies:
-      - '@types/react'
-
   '@react-email/hr@0.0.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/hr@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/html@0.0.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
-  '@react-email/html@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/img@0.0.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
-  '@react-email/img@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/link@0.0.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/link@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/markdown@0.0.10(react@18.3.1)':
     dependencies:
       md-to-react-email: 5.0.2(react@18.3.1)
       react: 18.3.1
 
-  '@react-email/markdown@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      md-to-react-email: 5.0.2(react@19.0.0-rc.0)
-      react: 19.0.0-rc.0
-
   '@react-email/preview@0.0.9(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/preview@0.0.9(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/render@0.0.12':
     dependencies:
@@ -7298,17 +7233,9 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@react-email/row@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/section@0.0.12(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/section@0.0.12(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/tailwind@0.0.12(react@19.0.0-rc.0)':
     dependencies:
@@ -7322,17 +7249,9 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@react-email/tailwind@0.0.18(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/text@0.0.8(react@18.3.1)':
     dependencies:
       react: 18.3.1
-
-  '@react-email/text@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@rollup/plugin-inject@5.0.5(rollup@4.14.0)':
     dependencies:
