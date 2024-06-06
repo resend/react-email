@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
+import type React from 'react';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { renderAsync } from '@react-email/render';
@@ -8,18 +9,20 @@ import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
-import { renderResolver } from './render-resolver-esbuild-plugin';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      renderAsync: typeof renderAsync;
+    createElement: typeof React.createElement;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    renderAsync: typeof renderAsync;
+
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -27,7 +30,9 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [renderResolver([emailPath])],
+      plugins: [
+        renderingUtilitiesExporter([emailPath])
+      ],
       platform: 'node',
       write: false,
 
@@ -74,6 +79,7 @@ export const getEmailComponent = async (
       exports: {
         default: undefined as unknown,
         renderAsync: undefined as unknown,
+        reactEmailCreateReactElement: undefined as unknown,
       },
     },
     __filename: emailPath,
@@ -135,6 +141,8 @@ export const getEmailComponent = async (
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
     renderAsync: fakeContext.module.exports.renderAsync as typeof renderAsync,
+    createElement: fakeContext.module.exports
+      .reactEmailCreateReactElement as typeof React.createElement,
 
     sourceMapToOriginalFile: sourceMapToEmail,
   };

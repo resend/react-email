@@ -13,8 +13,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -27,6 +27,7 @@ export const renderEmailByPath = async (
 
   const {
     emailComponent: Email,
+    createElement,
     renderAsync,
     sourceMapToOriginalFile,
   } = result;
@@ -34,12 +35,18 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await renderAsync(<EmailComponent {...previewProps} />, {
-      pretty: true,
-    });
-    const plainText = await renderAsync(<EmailComponent {...previewProps} />, {
-      plainText: true,
-    });
+    const markup = await renderAsync(
+      createElement(EmailComponent, previewProps),
+      {
+        pretty: true,
+      },
+    );
+    const plainText = await renderAsync(
+      createElement(EmailComponent, previewProps),
+      {
+        plainText: true,
+      },
+    );
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
