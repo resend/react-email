@@ -27,9 +27,8 @@ export const improveErrorWithSourceMap = (
     const sourceToDisplay = path.relative(sourceRoot, source);
     return methodName === '<unknown>'
       ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${sourceToDisplay}${
-          columnAndLine ? `:${columnAndLine}` : ''
-        })`;
+      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''
+      })`;
   };
 
   if (typeof error.stack !== 'undefined') {
@@ -47,8 +46,8 @@ export const improveErrorWithSourceMap = (
           newStackLines.push(
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               // This can actually be null
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               positionWithError.source ?? stackFrame.file,
               positionWithError.line,
               positionWithError.column,
