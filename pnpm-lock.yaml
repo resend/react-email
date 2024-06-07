@@ -11345,7 +11345,7 @@ snapshots:
 
   types-react-dom@19.0.0-rc.0:
     dependencies:
-      '@types/react': 18.3.3
+      '@types/react': types-react@19.0.0-rc.0
 
   types-react@19.0.0-rc.0:
     dependencies:
