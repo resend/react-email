@@ -27,8 +27,9 @@ export const improveErrorWithSourceMap = (
     const sourceToDisplay = path.relative(sourceRoot, source);
     return methodName === '<unknown>'
       ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''
-      })`;
+      : ` at ${methodName} (${sourceToDisplay}${
+          columnAndLine ? `:${columnAndLine}` : ''
+        })`;
   };
 
   if (typeof error.stack !== 'undefined') {

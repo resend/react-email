@@ -35,7 +35,7 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
       const functionComponent =
         typeof type === "object"
           ? // @ts-expect-error - we know this is a component
-          (type.render as React.FC<Props>)
+            (type.render as React.FC<Props>)
           : (type as React.FC<Props>);
       // If the element is a component (function component), render it
       const componentRenderingResults = functionComponent(props);
@@ -47,7 +47,9 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
       .filter((propName) => propName !== "children")
       .map(
         (prop) =>
-          `${prop}="${propToAttributeString(props?.[prop] as string | object)}"`,
+          `${prop}="${propToAttributeString(
+            props?.[prop] as string | object,
+          )}"`,
       )
       .join(" ");
     elementAttributes =

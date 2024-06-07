@@ -15,14 +15,14 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    createElement: typeof React.createElement;
+      createElement: typeof React.createElement;
 
-    renderAsync: typeof renderAsync;
+      renderAsync: typeof renderAsync;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -30,9 +30,7 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [
-        renderingUtilitiesExporter([emailPath])
-      ],
+      plugins: [renderingUtilitiesExporter([emailPath])],
       platform: 'node',
       write: false,
 
