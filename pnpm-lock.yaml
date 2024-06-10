@@ -346,7 +346,7 @@ importers:
         specifier: 0.0.9
         version: 0.0.9(react@18.2.0)
       '@react-email/render':
-        specifier: 0.0.16-canary.0
+        specifier: workspace:0.0.16-canary.0
         version: link:../render
       '@react-email/row':
         specifier: 0.0.8
