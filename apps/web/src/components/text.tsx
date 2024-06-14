@@ -18,7 +18,7 @@ interface TextOwnProps {
 
 type TextProps = As<"span", "div", "p"> & TextOwnProps;
 
-export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
+export const Text = 
   (
     {
       as: Tag = "span",
@@ -29,8 +29,7 @@ export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
       className,
       children,
       ...props
-    },
-    forwardedRef,
+    }: TextProps,
   ) => (
     <SlotPrimitive.Slot
       className={classnames(
@@ -40,13 +39,12 @@ export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
         getColorClassNames(color),
         getWeightClassNames(weight),
       )}
-      ref={forwardedRef}
       {...props}
+      ref={props.ref as React.Ref<HTMLElement>}
     >
       <Tag>{children}</Tag>
     </SlotPrimitive.Slot>
-  ),
-);
+  );
 
 const getSizesClassNames = (size: TextSize | undefined) => {
   switch (size) {
