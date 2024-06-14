@@ -58,7 +58,7 @@ describe("render()", () => {
     expect(html).toMatchSnapshot();
   });
 
-  it.only("should not modify double curlybraces", async () => {
+  it("should not modify double curlybraces", async () => {
     const element = <>{'{{my_variable}}'}</>;
     const html = await render(
       element
@@ -66,7 +66,7 @@ describe("render()", () => {
     expect(html).toBe(`${doctype}{{my_variable}}`);
   });
 
-  it.only("should keep HTML entities", async () => {
+  it("should keep HTML entities", async () => {
     // HTML entities are decoded, without any option for configuration, in JSX transforms.
     // This means that if the HTML entities are used without JSX templating, they would become
     // the ASCII equivalent. In this case, the HEX 0x00A0. 
@@ -76,7 +76,7 @@ describe("render()", () => {
     //
     // In the future, we might incoporate our own preprocessor that avoids this, and would also make
     // it easier to teach users new to React. 
-    const element = <>dsadq{'&nbsp;'}dadqw</>;
+    const element = <>{'&nbsp;'}</>;
     const html = await render(
       element
     );
