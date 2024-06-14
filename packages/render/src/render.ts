@@ -3,9 +3,9 @@ import { Fiber } from "react-reconciler";
 import { convert } from "html-to-text";
 import { renderer } from "./renderer";
 import { Root } from "./renderer/nodes/root";
-import { Options } from "./shared/options";
-import { plainTextSelectors } from "./shared/plain-text-selectors";
-import { pretty } from "./shared/utils/pretty";
+import { Options } from "./options";
+import { plainTextSelectors } from "./plain-text-selectors";
+import { pretty } from "./utils/pretty";
 
 /**
  * Checks recursively through React's fibers to make sure that all suspense

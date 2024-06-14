@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import usePromise from "react-promise-suspense";
-import { doctype, render } from "./custom-render";
+import { doctype, render } from "./render";
 
 describe("render()", () => {
   it("works with `style` and a `className`", async () => {
