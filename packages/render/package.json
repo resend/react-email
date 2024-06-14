@@ -3,63 +3,21 @@
   "version": "0.0.16-canary.0",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
-  "main": "./dist/browser/index.js",
-  "module": "./dist/browser/index.mjs",
-  "types": "./dist/browser/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "exports": {
     ".": {
-      "node": {
-        "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
-        },
-        "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
-        }
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
-      "deno": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "worker": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "browser": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "default": {
-        "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
-        },
-        "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
-        }
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     }
   },
@@ -88,7 +46,6 @@
     "html-to-text": "9.0.5",
     "js-beautify": "^1.14.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-reconciler": "0.28.0"
   },
   "devDependencies": {
