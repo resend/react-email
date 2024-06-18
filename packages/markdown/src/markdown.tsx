@@ -13,17 +13,12 @@ export const Markdown = React.forwardRef<
   Readonly<MarkdownProps>
 >(
   (
-    {
-      children,
-      markdownContainerStyles,
-      markdownCustomStyles,
-      ...props
-    },
+    { children, markdownContainerStyles, markdownCustomStyles, ...props },
     ref,
   ) => {
     const parsedMarkdown = parseMarkdownToJSX({
       markdown: children,
-      customStyles: markdownCustomStyles
+      customStyles: markdownCustomStyles,
     });
 
     return (
