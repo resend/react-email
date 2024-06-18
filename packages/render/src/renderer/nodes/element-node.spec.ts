@@ -27,6 +27,21 @@ describe("ElementNode", () => {
     expect(div.html).toMatchSnapshot();
   });
 
+  it("html should be computed properly", () => {
+    const div = new ElementNode("div", {
+      style: {
+        fontFamily:
+          '"Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif',
+        backgroundColor: "#505050",
+        margin: "0",
+      },
+    } satisfies ComponentProps<"div">);
+
+    expect(div.html).toBe(
+      '<div style="font-family:"Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;background-color:#505050;margin:0"></div>',
+    );
+  });
+
   it("innerHTML should override children", () => {
     const div = new ElementNode("div", {
       dangerouslySetInnerHTML: {
@@ -34,11 +49,13 @@ describe("ElementNode", () => {
       },
     } satisfies ComponentProps<"div">);
 
-    const strong = new ElementNode('strong', {});
-    strong.appendChild(new TextNode('This is the wrong strong'));
+    const strong = new ElementNode("strong", {});
+    strong.appendChild(new TextNode("This is the wrong strong"));
 
     div.appendChild(strong);
 
-    expect(div.html).toBe('<div><strong>This is the right strong</strong></div>')
+    expect(div.html).toBe(
+      "<div><strong>This is the right strong</strong></div>",
+    );
   });
 });
