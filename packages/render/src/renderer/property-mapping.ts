@@ -36,7 +36,7 @@ export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
     .join(" ");
 }
 
-function convertStyleIntoAttribute(style: React.CSSProperties): string {
+export function convertStyleIntoAttribute(style: React.CSSProperties): string {
   const inlineStyles = Object.entries(style)
     .map(([key, value]) => {
       // eslint-disable-next-line @typescript-eslint/no-inferrable-types
@@ -45,6 +45,7 @@ function convertStyleIntoAttribute(style: React.CSSProperties): string {
         valueToUse = `${value}px`;
       }
       valueToUse = valueToUse.trim();
+      valueToUse = valueToUse.replaceAll('"', "'");
       if (key.startsWith("ms")) {
         return `${fromCamelCaseToSnakeCase(key)}:${valueToUse}`;
       }
