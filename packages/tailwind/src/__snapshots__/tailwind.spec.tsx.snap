@@ -42,6 +42,8 @@ If you do already have a <head> element at some depth,
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
 `;
 
+exports[`Responsive styles > should work with relatively complex media query utilities 1`] = `"<head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media not all and(min-width:640px){.max-sm_text-red-600{color:rgb(220,38,38) !important}}</style></head><p class="max-sm_text-red-600" style="color:rgb(29,78,216)">I am some text</p>"`;
+
 exports[`Tailwind component > should work with Heading component 1`] = `"Hello<h1>My testing heading</h1>friends"`;
 
 exports[`Responsive styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
