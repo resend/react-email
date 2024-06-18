@@ -118,7 +118,7 @@ export const exportTemplates = async (
       }
       delete require.cache[template];
       const emailModule = require(template);
-      const rendered = await emailModule.renderAsync(
+      const rendered = await emailModule.render(
         createElement(emailModule.default, {}),
         options,
       );

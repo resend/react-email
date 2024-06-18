@@ -27,17 +27,17 @@ export const renderEmailByPath = async (
 
   const {
     emailComponent: Email,
-    renderAsync,
+    render,
     sourceMapToOriginalFile,
   } = result;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await renderAsync(<EmailComponent {...previewProps} />, {
+    const markup = await render(<EmailComponent {...previewProps} />, {
       pretty: true,
     });
-    const plainText = await renderAsync(<EmailComponent {...previewProps} />, {
+    const plainText = await render(<EmailComponent {...previewProps} />, {
       plainText: true,
     });
 

@@ -28,7 +28,7 @@ export const renderResolver = (emailTemplates: string[]) => ({
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};
-          export { renderAsync } from 'react-email-module-that-will-export-render'
+          export { render } from 'react-email-module-that-will-export-render'
         `,
           loader: path.extname(pathToFile).slice(1) as Loader,
         };

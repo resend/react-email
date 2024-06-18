@@ -3,7 +3,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
-import type { renderAsync } from '@react-email/render';
+import type { render } from '@react-email/render';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
@@ -16,7 +16,7 @@ export const getEmailComponent = async (
   | {
       emailComponent: EmailComponent;
 
-      renderAsync: typeof renderAsync;
+      render: typeof render;
 
       sourceMapToOriginalFile: RawSourceMap;
     }
@@ -73,7 +73,7 @@ export const getEmailComponent = async (
     module: {
       exports: {
         default: undefined as unknown,
-        renderAsync: undefined as unknown,
+        render: undefined as unknown,
       },
     },
     __filename: emailPath,
@@ -129,7 +129,7 @@ export const getEmailComponent = async (
 
   return {
     emailComponent: fakeContext.module.exports.default as EmailComponent,
-    renderAsync: fakeContext.module.exports.renderAsync as typeof renderAsync,
+    render: fakeContext.module.exports.render as typeof render,
 
     sourceMapToOriginalFile: sourceMapToEmail,
   };
