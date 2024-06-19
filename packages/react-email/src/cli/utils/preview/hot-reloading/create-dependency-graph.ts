@@ -1,4 +1,4 @@
-import path from 'node:path';
+import path, { resolve } from 'node:path';
 import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
 import { isRunningBuilt } from '../start-dev-server';
@@ -109,7 +109,7 @@ export const createDependencyGraph = async (directory: string) => {
           try {
             // will throw if the the file is not existant
             isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-          } catch (_) {}
+          } catch (_) { }
           if (isDirectory) {
             const pathToSubDirectory = pathToDependencyFromDirectory;
             const pathWithExtension = checkFileExtensionsUntilItExists(
@@ -245,7 +245,7 @@ export const createDependencyGraph = async (directory: string) => {
   return [
     graph,
     /**
-     * @param pathToModified - A path relative to the previosuly provided {@link directory}.
+     * @param pathToModified - An absolute path to the module involved in this change
      */
     async (
       event: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
@@ -285,6 +285,22 @@ export const createDependencyGraph = async (directory: string) => {
             removeModuleFromGraph(filePath);
           }
           break;
+      }
+    },
+    {
+      resolveDependentsOf: function resolveDependentsOf(pathToModule: string) {
+        const moduleEntry = graph[pathToModule];
+        const dependentPaths: Array<string> = [];
+
+        if (moduleEntry) {
+          for (const dependentPath of moduleEntry.dependentPaths) {
+            const dependentsOfDependent = resolveDependentsOf(dependentPath);
+            dependentPaths.push(...dependentsOfDependent);
+            dependentPaths.push(dependentPath);
+          }
+        }
+
+        return dependentPaths;
       }
     },
   ] as const;

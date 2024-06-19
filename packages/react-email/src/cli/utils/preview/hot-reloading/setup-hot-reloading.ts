@@ -1,7 +1,7 @@
 import type http from 'node:http';
 import path from 'node:path';
 import { Server as SocketServer, type Socket } from 'socket.io';
-import { watch } from 'chokidar';
+import { FSWatcher, watch } from 'chokidar';
 import debounce from 'debounce';
 import type { HotReloadChange } from '../../../../utils/types/hot-reload-change';
 import { createDependencyGraph } from './create-dependency-graph';
@@ -21,19 +21,6 @@ export const setupHotreloading = async (
     });
   });
 
-  const watcher = watch(emailDirRelativePath, {
-    ignoreInitial: true,
-    cwd: path.resolve(process.cwd()),
-    // eslint-disable-next-line prefer-named-capture-group
-    ignored: /(^|[/\\])\../,
-  });
-
-  const exit = () => {
-    void watcher.close();
-  };
-  process.on('SIGINT', exit);
-  process.on('uncaughtException', exit);
-
   // used to keep track of all changes
   // and send them at once to the preview app through the web socket
   let changes = [] as HotReloadChange[];
@@ -51,24 +38,31 @@ export const setupHotreloading = async (
     process.cwd(),
     emailDirRelativePath,
   );
-  const [dependencyGraph, updateDependencyGraph] = await createDependencyGraph(
-    absolutePathToEmailsDirectory,
-  );
+  const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
+    await createDependencyGraph(absolutePathToEmailsDirectory);
 
-  const resolveDependentsOf = (pathToChangeTarget: string) => {
-    const moduleEntry = dependencyGraph[pathToChangeTarget];
-    const dependentPaths: Array<string> = [];
+  const watcher = watch(emailDirRelativePath, {
+    ignoreInitial: true,
+    cwd: process.cwd(),
+    // eslint-disable-next-line prefer-named-capture-group
+    ignored: /(^|[/\\])\../, // ignore dotfiles
+  });
+  const getFilesOutsideEmailsDirectory = () =>
+    Object.keys(dependencyGraph).filter((p) =>
+      path.relative(absolutePathToEmailsDirectory, p).startsWith('..'),
+    );
+  const filesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
+  // adds in to be watched separately all of the files that are outside of
+  // the user's emails directory
+  for (const p of filesOutsideEmailsDirectory) {
+    watcher.add(p);
+  }
 
-    if (moduleEntry) {
-      for (const dependentPath of moduleEntry.dependentPaths) {
-        const dependentsOfDependent = resolveDependentsOf(dependentPath);
-        dependentPaths.push(...dependentsOfDependent);
-        dependentPaths.push(dependentPath);
-      }
-    }
-
-    return dependentPaths;
+  const exit = async () => {
+    await watcher.close();
   };
+  process.on('SIGINT', exit);
+  process.on('uncaughtException', exit);
 
   watcher.on('all', async (event, relativePathToChangeTarget) => {
     const file = relativePathToChangeTarget.split(path.sep);
@@ -79,7 +73,23 @@ export const setupHotreloading = async (
       process.cwd(),
       relativePathToChangeTarget,
     );
+
     await updateDependencyGraph(event, pathToChangeTarget);
+    const newFilesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
+    // updates the files outside of the user's emails directory by unwatching
+    // the inexistant ones and watching the new ones
+    //
+    // this is necessary to avoid the issue mentioned here https://github.com/resend/react-email/issues/1433#issuecomment-2177515290
+    for (const p of filesOutsideEmailsDirectory) {
+      if (!newFilesOutsideEmailsDirectory.includes(p)) {
+        watcher.unwatch(p);
+      }
+    }
+    for (const p of newFilesOutsideEmailsDirectory) {
+      if (!filesOutsideEmailsDirectory.includes(p)) {
+        watcher.add(p);
+      }
+    }
 
     changes.push({
       event,
