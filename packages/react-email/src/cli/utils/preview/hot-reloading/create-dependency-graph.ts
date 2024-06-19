@@ -193,15 +193,6 @@ export const createDependencyGraph = async (directory: string) => {
           dependencyModule.dependentPaths.filter(
             (dependentPath) => dependentPath !== moduleFilePath,
           );
-        if (
-          dependencyModule.dependentPaths.length === 0 &&
-          // This means that this module is higher up than the original directory we are looking at,
-          // therefore we must remove this module as its sole purpose was to have this module as a
-          // dependent and it is not needed anymore.
-          path.relative(directory, dependencyModule.path).startsWith('..')
-        ) {
-          removeModuleFromGraph(dependencyModule.path);
-        }
       }
     }
 
