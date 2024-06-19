@@ -51,7 +51,7 @@ export const setupHotreloading = async (
     Object.keys(dependencyGraph).filter((p) =>
       path.relative(absolutePathToEmailsDirectory, p).startsWith('..'),
     );
-  const filesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
+  let filesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
   // adds in to be watched separately all of the files that are outside of
   // the user's emails directory
   for (const p of filesOutsideEmailsDirectory) {
@@ -90,6 +90,7 @@ export const setupHotreloading = async (
         watcher.add(p);
       }
     }
+    filesOutsideEmailsDirectory = newFilesOutsideEmailsDirectory;
 
     changes.push({
       event,
