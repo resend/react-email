@@ -13,4 +13,12 @@ describe("convertStyleIntoAttribute()", () => {
       `style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;background-color:#505050;margin:0"`,
     );
   });
+
+  it("should not add `px` to unitless properties", () => {
+    expect(
+      convertStyleIntoAttribute({
+        lineHeight: 1.25,
+      }),
+    ).toBe('style="line-height:1.25"');
+  });
 });

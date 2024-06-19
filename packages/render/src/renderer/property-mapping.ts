@@ -1,4 +1,5 @@
 import { getPropertyInfo, shouldIgnoreAttribute } from "./dom-property";
+import { isPropWithUnitlessNumber } from "./unitless-css-properties";
 
 export function convertPropsIntoAttributes<T extends Record<string, unknown>>(
   props: T,
@@ -41,7 +42,7 @@ export function convertStyleIntoAttribute(style: React.CSSProperties): string {
     .map(([key, value]) => {
       // eslint-disable-next-line @typescript-eslint/no-inferrable-types
       let valueToUse: string = `${value}`;
-      if (typeof value === 'number' && value !== 0) {
+      if (typeof value === 'number' && value !== 0 && !isPropWithUnitlessNumber[key]) {
         valueToUse = `${value}px`;
       }
       valueToUse = valueToUse.trim();
