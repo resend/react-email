@@ -96,7 +96,8 @@
             "contributing/development-workflow/1-setup",
             "contributing/development-workflow/2-running-tests",
             "contributing/development-workflow/3-linting",
-            "contributing/development-workflow/4-building"
+            "contributing/development-workflow/4-building",
+            "contributing/development-workflow/5-writing-docs"
           ]
         }
       ]
