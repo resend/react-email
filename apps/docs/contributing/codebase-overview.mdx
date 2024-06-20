@@ -71,7 +71,7 @@ be able to see a few directories at the root:
 ## Multiple packages
 
 This repository is a [pnpm monorepo](https://pnpm.io/next/workspaces) which means it contains
-multiple packages that are mantained. We keep each component we make inside of a package for itself.
+multiple packages that are maintained. We keep each component we make inside of a package for itself.
 This being a pnpm monorepo means you need to use [pnpm](https://pnpm.io/) to install the packages
 and we recommend you do so by using [corepack](https://github.com/nodejs/corepack) as follows:
 
@@ -173,26 +173,23 @@ both regressions and to make sure that the code is working as expected. A good r
 if you need to simulate use cases to just test a specific portion of code, you should probably have that
 split into a function 
 
-
-
 ## Linting
 
-We use [eslint](https://eslint.org/) for linting and we have a private unpublished package
+We use [eslint](https://eslint.org/) for linting, and we have a private unpublished package
 called <br/>`eslint-config-custom` that we share across packages and apps. This package is not meant to be
-used outside of the repository and is not published to npm.
+used outside the repository and is not published to npm.
 
 For each type of project we have a different configuration to extend and use from the shared configuration,
 they are all based on the [Vercel Engineering Style Guide](https://github.com/vercel/style-guide).
 If you want to run linting check on a specific package they all have a `lint` script that you can run
 with <br/>`pnpm lint`.
 
-We also use [prettier](https://prettier.io/) for formatting and we have just one configuration
-for all of the projects on the root of the repo, if you want to use it you can just run `pnpm format`
-at the root of the repository and it will do so throughout your project.
+We also use [prettier](https://prettier.io/) for formatting, and we have just one configuration
+for all the projects on the root of the repo, if you want to use it you can just run `pnpm format`
+at the root of the repository, and it will do so throughout the project.
 
 Both the linting and formatting are ensured by our GitHub CI so make sure that you have your linting 
 and formatting right before you get to opening a PR or asking for a review on it.
-
 
 ## Building
 
@@ -200,18 +197,18 @@ What we currently use, for the most part, is the awesome [tsup](https://github.c
 The only exception for this is the `@react-email/tailwind` package which currently uses `vite`
 due to a few issues with `tsup` and `tailwindcss`'s bundling.
 
-This will literally run `tsup` with a few settings we have for it. Generally they are just
-`src/index.ts --format esm,cjs --dts --external react` which generates both a ESM and CJS versions of the package 
-and the type definitions that were exported from `src/index.ts`, which is the entry point. 
-`--external react` here ensures that `react` is not bundled in which can cause many issues.
+This will literally run `tsup` with a few settings we have for it. Generally
+they are just `src/index.ts --format esm,cjs --dts --external react` which
+generates both an ESM and CJS versions of the package and the type definitions
+that were exported from `src/index.ts`, which is the entry point. `--external
+react` here ensures that `react` is not bundled in which can cause many issues.
 
 ### Why build before publishing?
 
-Currently we do building for most of the packages. This is important for a few key reasons
+Currently, we do building for most of the packages. This is important for a few key reasons
 that improve the usability of each package:
 
 1. All the exported types can be imported from the same place the JavaScript is imported
 2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules) 
 and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
 3. Code that isn't exported is not published nor downloaded
-4. We use TypeScript and `tsc` is not a good option to compile the code for various reasons
