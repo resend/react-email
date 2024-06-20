@@ -5,9 +5,9 @@ sidebarTitle: '3. Linting'
 description: 'How we do linting and how you should run it'
 ---
 
-We use [eslint](https://eslint.org/) for linting and we have a private unpublished package
+We use [eslint](https://eslint.org/) for linting, and we have a private unpublished package
 called <br/>`eslint-config-custom` that we share across packages and apps. This package is not meant to be
-used outside of the repository and is not published to npm.
+used outside the repository and is not published to npm.
 
 For each type of project we have a different configuration to extend and use from the shared configuration,
 they are all based on the [Vercel Engineering Style Guide](https://github.com/vercel/style-guide).
@@ -18,8 +18,8 @@ with
 pnpm lint
 ```
 
-We also use [prettier](https://prettier.io/) for formatting and we have just one configuration
-for all of the projects on the root of the repo, if you want to use it you can just run:
+We also use [prettier](https://prettier.io/) for formatting, and we have just one configuration
+for all the projects on the root of the repo, if you want to use it you can just run:
 
 ```bash react-email project root
 pnpm format
