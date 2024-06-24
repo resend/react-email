@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the Scaleway Node
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [Scaleway Node.js SDK](https://www.npmjs.com/package/@scaleway/sdk).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Scaleway Node.js SDK](https://www.npmjs.com/package/@scaleway/sdk).
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render @scaleway/sdk
+npm install @scaleway/sdk @react-email/components
 ```
 
 ```sh yarn
-yarn add @react-email/render @scaleway/sdk
+yarn add @scaleway/sdk @react-email/components
 ```
 
 ```sh pnpm
-pnpm add @react-email/render @scaleway/sdk
+pnpm add @scaleway/sdk @react-email/components
 ```
 
 </CodeGroup>
@@ -51,7 +51,7 @@ Import the email template you just built, convert into a HTML string, and use th
 <CodeGroup>
 
 ```js React
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import { TransactionalEmail, createClient } from "@scaleway/sdk";
 import { Email } from './email';
 

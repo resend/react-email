@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the Postmark Node
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [Postmark Node.js SDK](https://www.npmjs.com/package/postmark).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Postmark Node.js SDK](https://www.npmjs.com/package/postmark).
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render postmark
+npm install postmark @react-email/components
 ```
 
 ```sh yarn
-yarn add @react-email/render postmark
+yarn add postmark @react-email/components
 ```
 
 ```sh pnpm
-pnpm add @react-email/render postmark
+pnpm add postmark @react-email/components
 ```
 
 </CodeGroup>
@@ -51,7 +51,7 @@ Import the email template you just built, convert into a HTML string, and use th
 <CodeGroup>
 
 ```js React
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import postmark from 'postmark';
 import { Email } from './email';
 
@@ -70,7 +70,7 @@ client.sendEmail(options);
 ```
 
 ```js NodeJS
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import postmark from 'postmark';
 import { Email } from './email';
 

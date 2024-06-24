@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the Plunk Node.js
 
 ## 1. Install dependencies
 
-Get the [Plunk Node.js SDK](https://www.npmjs.com/package/@plunk/node).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Plunk Node.js SDK](https://www.npmjs.com/package/@plunk/node).
 
 <CodeGroup>
 
   ```sh npm
-  npm install @plunk/node
+  npm install @plunk/node @react-email/components
   ```
 
   ```sh yarn
-  yarn add @plunk/node
+  yarn add @plunk/node @react-email/components
   ```
 
   ```sh pnpm
-  pnpm add @plunk/node
+  pnpm add @plunk/node @react-email/components
   ```
 
 </CodeGroup>
@@ -54,7 +54,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   ```js React
   import Plunk from '@plunk/node';
-  import { render } from '@react-email/render';
+  import { render } from '@react-email/components';
   import { Email } from './email';
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);
@@ -70,7 +70,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   ```js NodeJS
   import Plunk from '@plunk/node';
-  import { render } from '@react-email/render';
+  import { render } from '@react-email/components';
   import { Email } from './email';
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);

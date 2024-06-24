@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the MailerSend No
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [MailerSend Node.js SDK](https://www.npmjs.com/package/mailersend).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [MailerSend Node.js SDK](https://www.npmjs.com/package/mailersend).
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render mailersend
+npm install mailersend @react-email/components
 ```
 
 ```sh yarn
-yarn add @react-email/render mailersend
+yarn add mailersend @react-email/components
 ```
 
 ```sh pnpm
-pnpm add @react-email/render mailersend
+pnpm add mailersend @react-email/components
 ```
 
 </CodeGroup>
@@ -50,7 +50,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
 
 ```jsx index.jsx
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { Email } from './email';
 

@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the AWS SES Node.
 
 ## 1. Install dependencies
 
-Get the [@react-email/render](https://www.npmjs.com/package/@react-email/render) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [AWS SES Node.js SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ses/).
 
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/render @aws-sdk/client-ses
+npm install @aws-sdk/client-ses @react-email/components
 ```
 
 ```sh yarn
-yarn add @react-email/render @aws-sdk/client-ses
+yarn add @aws-sdk/client-ses @react-email/components
 ```
 
 ```sh pnpm
-pnpm add @react-email/render @aws-sdk/client-ses
+pnpm add @aws-sdk/client-ses @react-email/components
 ```
 
 </CodeGroup>
@@ -51,7 +51,7 @@ Import the email template you just built, convert into a HTML string, and use th
 <CodeGroup>
 
 ```js React
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
@@ -82,7 +82,7 @@ await ses.sendEmail(params);
 ```
 
 ```js NodeJS
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import { SES } from '@aws-sdk/client-ses';
 import { Email } from './email';
 
