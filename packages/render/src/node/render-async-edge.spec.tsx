@@ -20,15 +20,6 @@ describe("renderAsync on the edge", () => {
 
       return {
         ...ReactDOMServer,
-        default: {
-          ...ReactDOMServer.default,
-          renderToString() {
-            throw new Error(ERROR_MESSAGE);
-          },
-          renderToStaticMarkup() {
-            throw new Error(ERROR_MESSAGE);
-          },
-        },
         renderToString() {
           throw new Error(ERROR_MESSAGE);
         },
