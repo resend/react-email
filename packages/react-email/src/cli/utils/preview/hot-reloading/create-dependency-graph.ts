@@ -244,9 +244,6 @@ export const createDependencyGraph = async (directory: string) => {
 
   return [
     graph,
-    /**
-     * @param pathToModified - An absolute path to the module involved in this change
-     */
     async (
       event: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
       pathToModified: string,
