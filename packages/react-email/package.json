@@ -48,7 +48,7 @@
     "esbuild": "0.19.11",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-turbo": "1.10.12",
-    "framer-motion": "11.3.0-alpha.0",
+    "framer-motion": "12.0.0-alpha.0",
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
     "mime-types": "2.1.35",
