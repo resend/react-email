@@ -4,7 +4,10 @@ type RootProps = React.ComponentPropsWithoutRef<"p">;
 
 export type TextProps = RootProps;
 
-export const Text: React.FC<Readonly<TextProps>> = ({ style, ...props }) => (
+export const Text = React.forwardRef<
+  React.ElementRef<"p">,
+  Readonly<TextProps>
+>(({ style, ...props }) => (
   <p
     {...props}
     style={{
@@ -14,4 +17,6 @@ export const Text: React.FC<Readonly<TextProps>> = ({ style, ...props }) => (
       ...style,
     }}
   />
-);
+));
+
+Text.displayName = "Text";

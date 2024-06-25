@@ -8,23 +8,29 @@ export interface MarkdownProps {
   markdownContainerStyles?: React.CSSProperties;
 }
 
-export const Markdown: React.FC<MarkdownProps> = ({
-  children,
-  markdownContainerStyles,
-  markdownCustomStyles,
-  ...props
-}) => {
-  const parsedMarkdown = parseMarkdownToJSX({
-    markdown: children,
-    customStyles: markdownCustomStyles,
-  });
+export const Markdown = React.forwardRef<
+  React.ElementRef<"div">,
+  Readonly<MarkdownProps>
+>(
+  (
+    { children, markdownContainerStyles, markdownCustomStyles, ...props },
+    ref,
+  ) => {
+    const parsedMarkdown = parseMarkdownToJSX({
+      markdown: children,
+      customStyles: markdownCustomStyles,
+    });
 
-  return (
-    <div
-      {...props}
-      dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
-      data-id="react-email-markdown"
-      style={markdownContainerStyles}
-    />
-  );
-};
+    return (
+      <div
+        {...props}
+        dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
+        data-id="react-email-markdown"
+        ref={ref}
+        style={markdownContainerStyles}
+      />
+    );
+  },
+);
+
+Markdown.displayName = "Markdown";

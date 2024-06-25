@@ -6,11 +6,10 @@ export interface RowProps extends RootProps {
   children: React.ReactNode;
 }
 
-export const Row: React.FC<Readonly<RowProps>> = ({
-  children,
-  style,
-  ...props
-}) => {
+export const Row = React.forwardRef<
+  React.ElementRef<"table">,
+  Readonly<RowProps>
+>(({ children, style, ...props }, ref) => {
   return (
     <table
       align="center"
@@ -19,6 +18,7 @@ export const Row: React.FC<Readonly<RowProps>> = ({
       border={0}
       cellPadding="0"
       cellSpacing="0"
+      ref={ref}
       role="presentation"
       style={style}
     >
@@ -27,4 +27,6 @@ export const Row: React.FC<Readonly<RowProps>> = ({
       </tbody>
     </table>
   );
-};
+});
+
+Row.displayName = "Row";
