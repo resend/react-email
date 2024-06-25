@@ -7,9 +7,10 @@ export type TextProps = RootProps;
 export const Text = React.forwardRef<
   React.ElementRef<"p">,
   Readonly<TextProps>
->(({ style, ...props }) => (
+>(({ style, ...props }, ref) => (
   <p
     {...props}
+    ref={ref}
     style={{
       fontSize: "14px",
       lineHeight: "24px",
