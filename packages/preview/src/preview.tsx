@@ -8,14 +8,15 @@ export interface PreviewProps extends RootProps {
 
 const PREVIEW_MAX_LENGTH = 150;
 
-export const Preview: React.FC<Readonly<PreviewProps>> = ({
-  children = "",
-  ...props
-}) => {
+export const Preview = React.forwardRef<
+  React.ElementRef<"div">,
+  Readonly<PreviewProps>
+>(({ children = "", ...props }, ref) => {
   let text = Array.isArray(children) ? children.join("") : children;
   text = text.substr(0, PREVIEW_MAX_LENGTH);
   return (
     <div
+      ref={ref}
       style={{
         display: "none",
         overflow: "hidden",
@@ -30,7 +31,9 @@ export const Preview: React.FC<Readonly<PreviewProps>> = ({
       {renderWhiteSpace(text)}
     </div>
   );
-};
+});
+
+Preview.displayName = "Preview";
 
 export const renderWhiteSpace = (text: string) => {
   if (text.length >= PREVIEW_MAX_LENGTH) {

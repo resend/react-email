@@ -1,16 +1,19 @@
+import React from "react";
+
 type RootProps = React.ComponentPropsWithoutRef<"code"> &
   React.ComponentPropsWithoutRef<"span">;
 
+type SpanElement = React.ElementRef<"span">;
 export type CodeInlineProps = RootProps;
 
 /**
  * If you are sending emails for users that have the Orange.fr email client,
  * beware that this component will only work when you have a head containing meta tags.
  */
-export const CodeInline: React.FC<Readonly<CodeInlineProps>> = ({
-  children,
-  ...props
-}) => {
+export const CodeInline = React.forwardRef<
+  SpanElement,
+  Readonly<CodeInlineProps>
+>(({ children, ...props }, ref) => {
   return (
     <>
       {/* 
@@ -45,10 +48,13 @@ export const CodeInline: React.FC<Readonly<CodeInlineProps>> = ({
       <span
         {...props}
         className={`${props.className ? props.className : ""} cio`}
+        ref={ref}
         style={{ display: "none", ...props.style }}
       >
         {children}
       </span>
     </>
   );
-};
+});
+
+CodeInline.displayName = "CodeInline";
