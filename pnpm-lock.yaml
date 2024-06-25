@@ -93,8 +93,8 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
       '@radix-ui/react-slot':
-        specifier: 1.1.0-rc.6
-        version: 1.1.0-rc.6(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
+        specifier: 1.1.0
+        version: 1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
       '@sindresorhus/is':
         specifier: 6.1.0
         version: 6.1.0
@@ -1957,15 +1957,6 @@ packages:
       '@types/react':
         optional: true
 
-  '@radix-ui/react-compose-refs@1.1.0-rc.6':
-    resolution: {integrity: sha512-binUwDiCIJAiQetkNlkelVRzJPwKmplw8/4qiRGWcAIPujxNzrQeLkv/4GRsQm8qDhSqV5KlBTUkkkBCgrScQw==}
-    peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
-      react: 19.0.0-rc.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
   '@radix-ui/react-context@1.1.0':
     resolution: {integrity: sha512-OKrckBy+sMEgYM/sMmqmErVn0kZqrHPJze+Ql3DzYsDDp0hl0L62nx/2122/Bvps1qz645jlcu2tD9lrRSdf8A==}
     peerDependencies:
@@ -2117,15 +2108,6 @@ packages:
 
   '@radix-ui/react-slot@1.1.0':
     resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
-    peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
-      react: 19.0.0-rc.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
-  '@radix-ui/react-slot@1.1.0-rc.6':
-    resolution: {integrity: sha512-DlsVYQzZM8AKOrJJMkeNdZWw//Buv6wB+i244/APFH8bf814n1fSAqbEy0SMew2f8atgMEhD9o/+SqMpSoo+pg==}
     peerDependencies:
       '@types/react': npm:types-react@19.0.0-rc.1
       react: 19.0.0-rc.0
@@ -7039,12 +7021,6 @@ snapshots:
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
 
-  '@radix-ui/react-compose-refs@1.1.0-rc.6(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
-    dependencies:
-      react: 19.0.0-rc.0
-    optionalDependencies:
-      '@types/react': types-react@19.0.0-rc.1
-
   '@radix-ui/react-context@1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
     dependencies:
       react: 19.0.0-rc.0
@@ -7192,13 +7168,6 @@ snapshots:
   '@radix-ui/react-slot@1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
     dependencies:
       '@radix-ui/react-compose-refs': 1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
-      react: 19.0.0-rc.0
-    optionalDependencies:
-      '@types/react': types-react@19.0.0-rc.1
-
-  '@radix-ui/react-slot@1.1.0-rc.6(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
-    dependencies:
-      '@radix-ui/react-compose-refs': 1.1.0-rc.6(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
       react: 19.0.0-rc.0
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
