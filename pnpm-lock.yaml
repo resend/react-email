@@ -709,8 +709,8 @@ importers:
         specifier: 1.10.12
         version: 1.10.12(eslint@8.50.0)
       framer-motion:
-        specifier: 11.3.0-alpha.0
-        version: 11.3.0-alpha.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: 12.0.0-alpha.0
+        version: 12.0.0-alpha.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
       glob:
         specifier: 10.3.4
         version: 10.3.4
@@ -3884,8 +3884,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@11.3.0-alpha.0:
-    resolution: {integrity: sha512-te1kex5A1/E8DYTlBoR4O7GLx2ALKzgd2uMHb1cD9FaBYY18Xyk9kAtv8JsvAwWTimuFMNH/y9bBr97+pVmlPA==}
+  framer-motion@12.0.0-alpha.0:
+    resolution: {integrity: sha512-rw0+O0kqsSFPrYrSnHXrZTGAKteCj9D9HzDdHjJR8GyPWADLoQstgUYeSvLxrO3P+HlBfQtmu/SOsM9eLhKXtQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: 19.0.0-rc.0
@@ -9384,7 +9384,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@11.3.0-alpha.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
+  framer-motion@12.0.0-alpha.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
     dependencies:
       tslib: 2.6.2
     optionalDependencies:
