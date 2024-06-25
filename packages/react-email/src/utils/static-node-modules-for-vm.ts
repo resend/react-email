@@ -31,7 +31,6 @@ import stream from 'node:stream';
 import stringDecoder from 'node:string_decoder';
 import timers from 'node:timers';
 import tls from 'node:tls';
-import traceEvents from 'node:trace_events';
 import tty from 'node:tty';
 import url from 'node:url';
 import util from 'node:util';
@@ -79,7 +78,6 @@ export const staticNodeModulesForVM = {
   'string_decoder': stringDecoder,
   timers,
   tls,
-  'trace_events': traceEvents,
   tty,
   url,
   util,
