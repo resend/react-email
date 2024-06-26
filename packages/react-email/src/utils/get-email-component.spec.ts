@@ -1,10 +1,9 @@
 import path from 'node:path';
-import * as React from 'react';
 import { getEmailComponent } from './get-email-component';
 
 test('getEmailComponent() with a demo email template', async () => {
   const result = await getEmailComponent(
-    path.resolve(__dirname, './testing/email-template.tsx'),
+    path.resolve(__dirname, '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx'),
   );
 
   if ('error' in result) {
@@ -15,7 +14,7 @@ test('getEmailComponent() with a demo email template', async () => {
     expect(result.sourceMapToOriginalFile).toBeTruthy();
 
     const emailHtml = await result.renderAsync(
-      React.createElement(
+      result.createElement(
         result.emailComponent,
         result.emailComponent.PreviewProps,
       ),
