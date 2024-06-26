@@ -3,18 +3,17 @@ import * as React from 'react';
 import { cn } from '../utils';
 import { inter } from '../app/inter';
 
-type ContentProps = React.ComponentPropsWithRef<
+type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
+type ContentProps = React.ComponentPropsWithoutRef<
   typeof TooltipPrimitive.Content
 >;
 
 export type TooltipProps = ContentProps;
 
-export const TooltipContent = ({
-  sideOffset = 6,
-  children,
-  ref,
-  ...props
-}: TooltipProps) => (
+export const TooltipContent = React.forwardRef<
+  ContentElement,
+  Readonly<TooltipProps>
+>(({ sideOffset = 6, children, ...props }, forwardedRef) => (
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       {...props}
@@ -22,12 +21,12 @@ export const TooltipContent = ({
         'bg-black border border-slate-6 z-20 px-3 py-2 rounded-md text-xs',
         `${inter.variable} font-sans`,
       )}
-      ref={ref}
+      ref={forwardedRef}
       sideOffset={sideOffset}
     >
       {children}
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
-);
+));
 
 TooltipContent.displayName = 'TooltipContent';

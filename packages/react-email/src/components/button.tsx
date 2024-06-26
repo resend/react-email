@@ -3,7 +3,8 @@ import * as React from 'react';
 import { unreachable } from '../utils/unreachable';
 import { cn } from '../utils/cn';
 
-type RootProps = React.ComponentPropsWithRef<'button'>;
+type ButtonElement = React.ElementRef<'button'>;
+type RootProps = React.ComponentPropsWithoutRef<'button'>;
 
 type Appearance = 'white' | 'gradient';
 type Size = '1' | '2' | '3' | '4';
@@ -14,32 +15,41 @@ interface ButtonProps extends RootProps {
   size?: Size;
 }
 
-export const Button = ({
-  asChild,
-  appearance = 'white',
-  className,
-  children,
-  size = '2',
-  ref,
-  ...props
-}: ButtonProps) => {
-  const classNames = cn(
-    getSize(size),
-    getAppearance(appearance),
-    'inline-flex items-center justify-center border font-medium',
-    className,
-  );
+export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
+  (
+    {
+      asChild,
+      appearance = 'white',
+      className,
+      children,
+      size = '2',
+      ...props
+    },
+    forwardedRef,
+  ) => {
+    const classNames = cn(
+      getSize(size),
+      getAppearance(appearance),
+      'inline-flex items-center justify-center border font-medium',
+      className,
+    );
 
-  return asChild ? (
-    <SlotPrimitive.Slot ref={ref} {...props} className={classNames}>
-      <SlotPrimitive.Slottable>{children}</SlotPrimitive.Slottable>
-    </SlotPrimitive.Slot>
-  ) : (
-    <button className={classNames} ref={ref} type="button" {...props}>
-      {children}
-    </button>
-  );
-};
+    return asChild ? (
+      <SlotPrimitive.Slot ref={forwardedRef} {...props} className={classNames}>
+        <SlotPrimitive.Slottable>{children}</SlotPrimitive.Slottable>
+      </SlotPrimitive.Slot>
+    ) : (
+      <button
+        className={classNames}
+        ref={forwardedRef}
+        type="button"
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
 
 Button.displayName = 'Button';
 
