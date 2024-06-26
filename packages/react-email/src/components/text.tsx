@@ -16,30 +16,34 @@ interface TextOwnProps {
 
 type TextProps = As<'span', 'div', 'p'> & TextOwnProps;
 
-export const Text = ({
-  as: Tag = 'span',
-  size = '2',
-  color = 'gray',
-  transform,
-  weight = 'normal',
-  className,
-  children,
-  ref,
-  ...props
-}: TextProps) => (
-  <SlotPrimitive.Slot
-    className={cn(
-      className,
+export const Text = React.forwardRef<HTMLSpanElement, Readonly<TextProps>>(
+  (
+    {
+      as: Tag = 'span',
+      size = '2',
+      color = 'gray',
       transform,
-      getSizesClassNames(size),
-      getColorClassNames(color),
-      getWeightClassNames(weight),
-    )}
-    ref={ref}
-    {...props}
-  >
-    <Tag>{children}</Tag>
-  </SlotPrimitive.Slot>
+      weight = 'normal',
+      className,
+      children,
+      ...props
+    },
+    forwardedRef,
+  ) => (
+    <SlotPrimitive.Slot
+      className={cn(
+        className,
+        transform,
+        getSizesClassNames(size),
+        getColorClassNames(color),
+        getWeightClassNames(weight),
+      )}
+      ref={forwardedRef}
+      {...props}
+    >
+      <Tag>{children}</Tag>
+    </SlotPrimitive.Slot>
+  ),
 );
 
 const getSizesClassNames = (size: TextSize | undefined) => {
