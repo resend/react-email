@@ -69,8 +69,8 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@react-email/components": "0.0.19",
-    "@react-email/render": "0.0.15",
+    "@react-email/components": "workspace:*",
+    "@react-email/render": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/mime-types": "2.1.4",
     "@types/node": "18.0.0",
