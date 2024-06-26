@@ -3,7 +3,10 @@ import fs from 'node:fs';
 import { exportTemplates } from '../export';
 
 test('email export', async () => {
-  const pathToEmailsDirectory = path.resolve(__dirname, '../../../../../../apps/demo/emails');
+  const pathToEmailsDirectory = path.resolve(
+    __dirname,
+    '../../../../../../apps/demo/emails',
+  );
   const pathToDumpMarkup = path.resolve(__dirname, './out');
   await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
     pretty: true,
