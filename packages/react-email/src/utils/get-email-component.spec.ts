@@ -3,7 +3,10 @@ import { getEmailComponent } from './get-email-component';
 
 test('getEmailComponent() with a demo email template', async () => {
   const result = await getEmailComponent(
-    path.resolve(__dirname, '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx'),
+    path.resolve(
+      __dirname,
+      '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',
+    ),
   );
 
   if ('error' in result) {
