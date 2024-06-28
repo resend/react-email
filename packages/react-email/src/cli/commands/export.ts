@@ -6,7 +6,6 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import normalize from 'normalize-path';
-import { cp } from 'shelljs';
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 import { tree } from '../utils';
 import {
@@ -159,12 +158,12 @@ export const exportTemplates = async (
     if (fs.existsSync(pathToDumpStaticFilesInto))
       await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
 
-    const result = cp(
-      '-r',
-      staticDirectoryPath,
-      path.join(pathToWhereEmailMarkupShouldBeDumped, 'static'),
-    );
-    if (result.code > 0) {
+    try {
+      await fs.promises.cp(staticDirectoryPath, pathToDumpStaticFilesInto, {
+        recursive: true,
+      });
+    } catch (exception) {
+      console.error(exception);
       if (spinner) {
         spinner.stopAndPersist({
           symbol: logSymbols.error,
@@ -172,7 +171,7 @@ export const exportTemplates = async (
         });
       }
       throw new Error(
-        `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${result.stderr}`,
+        `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${exception}`,
       );
     }
   }
