@@ -1,4 +1,4 @@
-import path from 'node:path';
+import path, { resolve } from 'node:path';
 import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
 import { isRunningBuilt } from '../start-dev-server';
@@ -244,9 +244,6 @@ export const createDependencyGraph = async (directory: string) => {
 
   return [
     graph,
-    /**
-     * @param pathToModified - A path relative to the previosuly provided {@link directory}.
-     */
     async (
       event: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
       pathToModified: string,
@@ -286,6 +283,22 @@ export const createDependencyGraph = async (directory: string) => {
           }
           break;
       }
+    },
+    {
+      resolveDependentsOf: function resolveDependentsOf(pathToModule: string) {
+        const moduleEntry = graph[pathToModule];
+        const dependentPaths: Array<string> = [];
+
+        if (moduleEntry) {
+          for (const dependentPath of moduleEntry.dependentPaths) {
+            const dependentsOfDependent = resolveDependentsOf(dependentPath);
+            dependentPaths.push(...dependentsOfDependent);
+            dependentPaths.push(dependentPath);
+          }
+        }
+
+        return dependentPaths;
+      },
     },
   ] as const;
 };
