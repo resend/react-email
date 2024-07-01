@@ -1,5 +1,6 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import type React from 'react';
 import { glob } from 'glob';
 import { BuildFailure, build } from 'esbuild';
 import ora from 'ora';
@@ -12,8 +13,7 @@ import {
   EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
-import { renderResolver } from '../../utils/render-resolver-esbuild-plugin';
-import { createElement } from 'react';
+import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
@@ -72,7 +72,7 @@ export const exportTemplates = async (
     await build({
       bundle: true,
       entryPoints: allTemplates,
-      plugins: [renderResolver(allTemplates)],
+      plugins: [renderingUtilitiesExporter(allTemplates)],
       platform: 'node',
       format: 'cjs',
       loader: { '.js': 'jsx' },
@@ -117,9 +117,16 @@ export const exportTemplates = async (
         spinner.render();
       }
       delete require.cache[template];
-      const emailModule = require(template);
+      const emailModule = require(template) as {
+        default: React.FC;
+        renderAsync: (
+          element: React.ReactElement,
+          options: Record<string, unknown>,
+        ) => Promise<string>;
+        reactEmailCreateReactElement: typeof React.createElement;
+      };
       const rendered = await emailModule.renderAsync(
-        createElement(emailModule.default, {}),
+        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
       const htmlPath = template.replace(

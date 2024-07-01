@@ -3,7 +3,10 @@ import fs from 'node:fs';
 import { exportTemplates } from '../export';
 
 test('email export', async () => {
-  const pathToEmailsDirectory = path.resolve(__dirname, './emails');
+  const pathToEmailsDirectory = path.resolve(
+    __dirname,
+    '../../../../../../apps/demo/emails',
+  );
   const pathToDumpMarkup = path.resolve(__dirname, './out');
   await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
     pretty: true,
@@ -13,7 +16,7 @@ test('email export', async () => {
   expect(fs.existsSync(pathToDumpMarkup)).toBe(true);
   expect(
     await fs.promises.readFile(
-      path.resolve(pathToDumpMarkup, './vercel-invite-user.html'),
+      path.resolve(pathToDumpMarkup, './notifications/vercel-invite-user.html'),
       'utf8',
     ),
   ).toMatchSnapshot();

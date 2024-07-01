@@ -1,21 +1,21 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
-
-function escapeStringForRegex(string: string) {
-  return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
-}
+import { escapeStringForRegex } from './escape-string-for-regex';
 
 /**
  * Made to export the `renderAsync` function out of the user's email template
  * so that issues like https://github.com/resend/react-email/issues/649 don't
  * happen.
  *
+ * This also exports the `createElement` from the user's React version as well
+ * to avoid mismatches.
+ *
  * This avoids multiple versions of React being involved, i.e., the version
  * in the CLI vs. the version the user has on their emails.
  */
-export const renderResolver = (emailTemplates: string[]) => ({
-  name: 'render-resolver',
+export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
+  name: 'rendering-utilities-exporter',
   setup: (b: PluginBuild) => {
     b.onLoad(
       {
@@ -29,6 +29,7 @@ export const renderResolver = (emailTemplates: string[]) => ({
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};
           export { renderAsync } from 'react-email-module-that-will-export-render'
+          export { createElement as reactEmailCreateReactElement } from 'react';
         `,
           loader: path.extname(pathToFile).slice(1) as Loader,
         };
