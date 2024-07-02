@@ -95,7 +95,7 @@ export const CodeBlock = React.forwardRef<
     >
       <code>
         {tokensPerLine.map((tokensForLine, lineIndex) => (
-          <p key={lineIndex} style={{ margin: 0, height: '1em' }}>
+          <p key={lineIndex} style={{ margin: 0, minHeight: '1em' }}>
             {props.lineNumbers ? (
               <span
                 style={{
