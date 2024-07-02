@@ -87,7 +87,7 @@ export const CodeBlock = React.forwardRef<
     <pre ref={ref} style={{ ...props.theme.base, ...props.style }}>
       <code>
         {tokensPerLine.map((tokensForLine, lineIndex) => (
-          <p key={lineIndex}>
+          <p key={lineIndex} style={{ margin: 0 }}>
             {props.lineNumbers ? (
               <span
                 style={{
