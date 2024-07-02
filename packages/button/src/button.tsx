@@ -26,9 +26,11 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
       >
         <span
           dangerouslySetInnerHTML={{
-            // The `&#8202;` is as close to `1px` of a character as we can get, then, we use the `mso-font-width`
-            // to scale it according to what padding the user wants. It's not going to be 100% accurate, but it will
-            // be as accurate as we can get without letter-spacing, which is not working for Outlook 2021.
+            // The `&#8202;` is as close to `1px` of an empty character as we can get, then, we use the `mso-font-width`
+            // to scale it according to what padding the developer wants. It's not going to be 100% accurate, but it will
+            // be as accurate as we can get without letter-spacing, which is not supported on newer versions of Outlook.
+            //
+            // See https://github.com/resend/react-email/issues/1512
             __html: `<!--[if mso]><i style="mso-font-width:${100 * pl}%;mso-text-raise:${textRaise}" hidden>&#8202;</i><![endif]-->`,
           }}
         />
