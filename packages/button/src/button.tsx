@@ -4,6 +4,19 @@ import { parsePadding, pxToPt } from "./utils";
 type ButtonElement = React.ElementRef<"a">;
 export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
 
+function computeFontWidthAndSpaceCount(expectedWidth: number) {
+  let smallestSpaceCount = 0;
+
+  while (expectedWidth / smallestSpaceCount / 2 > 5) {
+    smallestSpaceCount++;
+  }
+
+  return [
+    (expectedWidth / smallestSpaceCount / 2),
+    smallestSpaceCount,
+  ];
+}
+
 export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
   ({ children, style, target = "_blank", ...props }, ref) => {
     const { pt, pr, pb, pl } = parsePadding({
@@ -17,6 +30,9 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
     const y = pt + pb;
     const textRaise = pxToPt(y);
 
+    const [plFontWidth, plSpaceCount] = computeFontWidthAndSpaceCount(pl);
+    const [prFontWidth, prSpaceCount] = computeFontWidthAndSpaceCount(pr);
+
     return (
       <a
         {...props}
@@ -27,17 +43,17 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
         <span
           dangerouslySetInnerHTML={{
             // The `&#8202;` is as close to `1px` of an empty character as we can get, then, we use the `mso-font-width`
-            // to scale it according to what padding the developer wants. It's not going to be 100% accurate, but it will
-            // be as accurate as we can get without letter-spacing, which is not supported on newer versions of Outlook.
+            // to scale it according to what padding the developer wants. `mso-font-width` also does not allow for percentages
+            // >= 500% so we need to add extra spaces accordingly.
             //
-            // See https://github.com/resend/react-email/issues/1512
-            __html: `<!--[if mso]><i style="mso-font-width:${100 * pl}%;mso-text-raise:${textRaise}" hidden>&#8202;</i><![endif]-->`,
+            // See https://github.com/resend/react-email/issues/1512 for why we do not use letter-spacing instead.
+            __html: `<!--[if mso]><i style="mso-font-width:${plFontWidth * 100}%;mso-text-raise:${textRaise}" hidden>${"&#8202;".repeat(plSpaceCount)}</i><![endif]-->`,
           }}
         />
         <span style={buttonTextStyle(pb)}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="mso-font-width:${100 * pr}%" hidden>&#8202;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${prFontWidth * 100}%" hidden>${"&#8202;".repeat(prSpaceCount)}&#8203;</i><![endif]-->`,
           }}
         />
       </a>
