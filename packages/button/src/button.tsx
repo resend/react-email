@@ -26,13 +26,16 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
       >
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${pl}px;mso-font-width:-100%;mso-text-raise:${textRaise}" hidden>&nbsp;</i><![endif]-->`,
+            // The `&#8202;` is as close to `1px` of a character as we can get, then, we use the `mso-font-width`
+            // to scale it according to what padding the user wants. It's not going to be 100% accurate, but it will
+            // be as accurate as we can get without letter-spacing, which is not working for Outlook 2021.
+            __html: `<!--[if mso]><i style="mso-font-width:${100 * pl}%;mso-text-raise:${textRaise}" hidden>&#8202;</i><![endif]-->`,
           }}
         />
         <span style={buttonTextStyle(pb)}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="letter-spacing: ${pr}px;mso-font-width:-100%" hidden>&nbsp;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${100 * pr}%" hidden>&#8202;</i><![endif]-->`,
           }}
         />
       </a>
