@@ -8,10 +8,10 @@ export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
   ({ children, style, target = "_blank", ...props }, ref) => {
     const { pt, pr, pb, pl } = parsePadding({
       padding: style?.padding,
-      paddingLeft: style?.paddingLeft,
-      paddingRight: style?.paddingRight,
-      paddingTop: style?.paddingTop,
-      paddingBottom: style?.paddingBottom,
+      paddingLeft: style?.paddingLeft ?? style?.paddingInline,
+      paddingRight: style?.paddingRight ?? style?.paddingInline,
+      paddingTop: style?.paddingTop ?? style?.paddingBlock,
+      paddingBottom: style?.paddingBottom ?? style?.paddingBlock,
     });
 
     const y = pt + pb;
