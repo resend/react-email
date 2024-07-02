@@ -84,7 +84,15 @@ export const CodeBlock = React.forwardRef<
   );
 
   return (
-    <pre ref={ref} style={{ ...props.theme.base, ...props.style }}>
+    <pre
+      ref={ref}
+      style={{
+        ...props.theme.base,
+        ...props.style,
+        maxWidth: "600px",
+        width: "100%",
+      }}
+    >
       <code>
         {tokensPerLine.map((tokensForLine, lineIndex) => (
           <p key={lineIndex} style={{ margin: 0 }}>
