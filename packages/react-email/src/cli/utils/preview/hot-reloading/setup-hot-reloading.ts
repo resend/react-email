@@ -97,6 +97,7 @@ export const setupHotreloading = async (
       filename: relativePathToChangeTarget,
     });
 
+    const pathToChangeTarget = path.resolve(absolutePathToEmailsDirectory, relativePathToChangeTarget);
     // These dependents are dependents resolved recursively, so even dependents of dependents
     // will be notified of this change so that we ensure that things are updated in the preview.
     for (const dependentPath of resolveDependentsOf(pathToChangeTarget)) {

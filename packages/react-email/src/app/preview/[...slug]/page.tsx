@@ -60,6 +60,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       <Preview
         emailPath={emailPath}
         renderingResult={emailRenderingResult}
+        pathSeparator={path.sep}
         slug={slug}
       />
     </Suspense>

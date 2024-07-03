@@ -10,6 +10,7 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 interface ShellProps extends RootProps {
   markup?: string;
   currentEmailOpenSlug?: string;
+  pathSeparator?: string;
   activeView?: string;
   setActiveView?: (view: string) => void;
 }
@@ -17,6 +18,7 @@ interface ShellProps extends RootProps {
 export const Shell = ({
   currentEmailOpenSlug,
   children,
+  pathSeparator,
   markup,
   activeView,
   setActiveView,
@@ -85,7 +87,7 @@ export const Shell = ({
               : '',
           }}
         >
-          {currentEmailOpenSlug ? (
+          {(currentEmailOpenSlug && pathSeparator) ? (
             <Topbar
               activeView={activeView}
               currentEmailOpenSlug={currentEmailOpenSlug}
@@ -101,6 +103,7 @@ export const Shell = ({
                   setTriggerTransition(false);
                 }, 300);
               }}
+              pathSeparator={pathSeparator}
               setActiveView={setActiveView}
             />
           ) : null}

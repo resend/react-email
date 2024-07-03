@@ -15,12 +15,14 @@ import { RenderingError } from './rendering-error';
 interface PreviewProps {
   slug: string;
   emailPath: string;
+  pathSeparator: string;
   renderingResult: EmailRenderingResult;
 }
 
 const Preview = ({
   slug,
   emailPath,
+  pathSeparator,
   renderingResult: initialRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -79,6 +81,7 @@ const Preview = ({
       activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
+      pathSeparator={pathSeparator}
       setActiveView={hasNoErrors ? handleViewChange : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
