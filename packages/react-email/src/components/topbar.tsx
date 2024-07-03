@@ -11,10 +11,10 @@ import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
 import { Send } from './send';
 import { Tooltip } from './tooltip';
-import { pathSeparator } from '../utils/emails-directory-absolute-path';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
+  pathSeparator: string;
   activeView?: string;
   markup?: string;
   onToggleSidebar?: () => void;
@@ -23,6 +23,7 @@ interface TopbarProps {
 
 export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   currentEmailOpenSlug,
+  pathSeparator,
   markup,
   activeView,
   setActiveView,
