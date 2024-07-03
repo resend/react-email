@@ -43,7 +43,7 @@
   "dependencies": {
     "@react-email/body": "0.0.8",
     "@react-email/button": "0.0.15",
-    "@react-email/code-block": "0.0.4",
+    "@react-email/code-block": "workspace:*",
     "@react-email/code-inline": "0.0.2",
     "@react-email/column": "0.0.10",
     "@react-email/container": "0.0.12",

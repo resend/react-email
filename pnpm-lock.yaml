@@ -307,8 +307,8 @@ importers:
         specifier: 0.0.15
         version: 0.0.15(react@18.2.0)
       '@react-email/code-block':
-        specifier: 0.0.4
-        version: 0.0.4(react@18.2.0)
+        specifier: workspace:*
+        version: link:../code-block
       '@react-email/code-inline':
         specifier: 0.0.2
         version: 0.0.2(react@18.2.0)
