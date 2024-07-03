@@ -88,7 +88,6 @@ export const CodeBlock = React.forwardRef<
       ref={ref}
       style={{
         ...props.theme.base,
-        maxWidth: "600px",
         width: "100%",
         ...props.style,
       }}
