@@ -78,7 +78,7 @@ export const CodeBlock = React.forwardRef<
       `CodeBlock: There is no language defined on Prism called ${props.language}`,
     );
 
-  const lines = props.code.split(/\r\n|\r|\n/gm) ?? [];
+  const lines = props.code.split(/\r\n|\r|\n/gm);
   const tokensPerLine = lines.map((line) =>
     Prism.tokenize(line, languageGrammar),
   );
