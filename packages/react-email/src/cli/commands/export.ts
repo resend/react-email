@@ -54,7 +54,7 @@ export const exportTemplates = async (
 
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
     path.resolve(process.cwd(), emailsDirectoryPath),
-    true
+    true,
   );
 
   if (typeof emailsDirectoryMetadata === 'undefined') {
