@@ -21,7 +21,7 @@ export const HeaderWithMenu = (
         <Column align="center">
           <table>
             <tr>
-              <td className="px-[8px] ">
+              <td className="px-[8px]">
                 <Link
                   className="text-gray-600 [text-decoration:none]"
                   href="#"
@@ -29,7 +29,7 @@ export const HeaderWithMenu = (
                   About
                 </Link>
               </td>
-              <td className="px-[8px] ">
+              <td className="px-[8px]">
                 <Link
                   className="text-gray-600 [text-decoration:none]"
                   href="#"
