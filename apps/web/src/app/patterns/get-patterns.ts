@@ -48,7 +48,7 @@ export const getPatterns = async () => {
   const patterns: Record<string, Pattern[]> = {};
 
   const categoryDirnames = await fs.readdir(pathToPatterns);
-  for (const categoryDirname of categoryDirnames) {
+  for await (const categoryDirname of categoryDirnames) {
     const categoryDirpath = path.join(pathToPatterns, categoryDirname);
     patterns[categoryDirname] = await getPatternsIn(categoryDirpath);
   }
