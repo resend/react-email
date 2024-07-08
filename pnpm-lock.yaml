@@ -96,6 +96,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: 1.1.0
         version: 1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
+      '@react-email/components':
+        specifier: workspace:*
+        version: link:../../packages/components
       '@sindresorhus/is':
         specifier: 6.1.0
         version: 6.1.0
@@ -120,9 +123,15 @@ importers:
       react-dom:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0(react@19.0.0-rc.0)
+      react-email:
+        specifier: workspace:*
+        version: link:../../packages/react-email
       resend:
         specifier: 3.2.0
         version: 3.2.0
+      zod:
+        specifier: 3.23.8
+        version: 3.23.8
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.2.3
@@ -4001,8 +4010,8 @@ packages:
     resolution: {integrity: sha512-rw0+O0kqsSFPrYrSnHXrZTGAKteCj9D9HzDdHjJR8GyPWADLoQstgUYeSvLxrO3P+HlBfQtmu/SOsM9eLhKXtQ==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0
+      react: ^18.0.0
+      react-dom: ^18.0.0
     peerDependenciesMeta:
       '@emotion/is-prop-valid':
         optional: true
@@ -5495,9 +5504,6 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  scheduler@0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
-
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
@@ -6588,6 +6594,9 @@ packages:
     resolution: {integrity: sha512-D7eujBWkLa3p2sIpJA0d1pr7es+a7m0vFAnZLlCEKq/Ij2k0MLi9Br2UPxoxdYystm5K1yeBGzub0FlYUEWj2Q==}
     engines: {node: '>=8.0.0'}
     hasBin: true
+
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
 snapshots:
 
@@ -11287,13 +11296,13 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
       react: 18.2.0
-      scheduler: 0.23.0
+      scheduler: 0.23.2
 
   react-dom@18.2.0(react@19.0.0-rc.0):
     dependencies:
       loose-envify: 1.4.0
       react: 19.0.0-rc.0
-      scheduler: 0.23.0
+      scheduler: 0.23.2
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -11542,10 +11551,6 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
-
-  scheduler@0.23.0:
-    dependencies:
-      loose-envify: 1.4.0
 
   scheduler@0.23.2:
     dependencies:
@@ -12874,3 +12879,5 @@ snapshots:
       validator: 13.11.0
     optionalDependencies:
       commander: 9.4.1
+
+  zod@3.23.8: {}
