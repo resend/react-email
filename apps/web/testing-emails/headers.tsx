@@ -1,5 +1,6 @@
 import { Body, Container, Head, Html, Tailwind } from '@react-email/components';
 import { HeaderWithSocialIcons } from '../src/components/patterns/headers/with-social-icons';
+import { HeaderWithCenteredMenu } from '../src/components/patterns/headers/with-centered-menu';
 import { HeaderWithMenu } from '../src/components/patterns/headers/with-menu';
 
 const Headers = () => {
@@ -10,6 +11,7 @@ const Headers = () => {
       <Body>
         <Container>
           <HeaderWithSocialIcons/>
+          <HeaderWithCenteredMenu/>
           <HeaderWithMenu/>
         </Container>
       </Body>

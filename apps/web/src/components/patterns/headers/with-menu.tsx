@@ -2,59 +2,42 @@ import { Column, Img, Row, Section } from "@react-email/components";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
-export const title = "Header with menu";
+export const title = "With menu";
 
 export const HeaderWithMenu = (
   props: ComponentPropsWithoutRef<typeof Section>,
 ) => {
   return (
     <Section
+      className="py-[40px] px-[32px] mx-auto my-[40px] rounded border border-solid border-gray-200 bg-white"
       {...props}
-      className="py-[40px] px-[32px] my-[40px] rounded border border-solid border-gray-200 bg-white"
     >
       <Row>
-        <Column align="center">
-          <Img alt="company-logo" height="42" src="/static/company-logo.png" />
+        <Column className="w-[80%]">
+          <Img
+            alt="company-logo"
+            height="42"
+            src="/static/company-logo.png"
+          />
         </Column>
-      </Row>
-      <Row className="mt-[40px]">
-        <Column align="center">
-          <table>
-            <tr>
-              <td className="px-[8px]">
-                <Link
-                  className="text-gray-600 [text-decoration:none]"
-                  href="#"
-                >
-                  About
-                </Link>
-              </td>
-              <td className="px-[8px]">
-                <Link
-                  className="text-gray-600 [text-decoration:none]"
-                  href="#"
-                >
-                  Company
-                </Link>
-              </td>
-              <td className="px-[8px]">
-                <Link
-                  className="text-gray-600 [text-decoration:none]"
-                  href="#"
-                >
-                  Blog
-                </Link>
-              </td>
-              <td className="px-[8px]">
-                <Link
-                  className="text-gray-600 [text-decoration:none]"
-                  href="#"
-                >
-                  Contacts
-                </Link>
-              </td>
-            </tr>
-          </table>
+        <Column align="right">
+          <Row align="right">
+            <Column>
+              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+                About
+              </Link>
+            </Column>
+            <Column>
+              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+                Company
+              </Link>
+            </Column>
+            <Column>
+              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+                Blog
+              </Link>
+            </Column>
+          </Row>
         </Column>
       </Row>
     </Section>
