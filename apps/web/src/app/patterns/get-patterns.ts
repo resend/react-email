@@ -35,16 +35,23 @@ const getPatternAt = async (filepath: string) => {
   } satisfies Pattern;
 };
 
-export const getPatternsFor = async (
-  category: "headers",
-): Promise<Pattern[]> => {
-  const directoryPath = path.resolve(pathToPatterns, category);
-  const patternFilenames = await fs.readdir(directoryPath);
+const getPatternsIn = async (categoryDirpath: string) => {
+  const patternFilenames = await fs.readdir(categoryDirpath);
   const patternFilepaths = patternFilenames.map((filename) =>
-    path.join(directoryPath, filename),
+    path.join(categoryDirpath, filename),
   );
 
-  return Promise.all(
-    patternFilepaths.map((filepath) => getPatternAt(filepath)),
-  );
+  return Promise.all(patternFilepaths.map(filepath => getPatternAt(filepath)));
+};
+
+export const getPatterns = async () => {
+  const patterns: Record<string, Pattern[]> = {};
+
+  const categoryDirnames = await fs.readdir(pathToPatterns);
+  for (const categoryDirname of categoryDirnames) {
+    const categoryDirpath = path.join(pathToPatterns, categoryDirname);
+    patterns[categoryDirname] = await getPatternsIn(categoryDirpath);
+  }
+
+  return patterns;
 };

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Topbar } from "../../components/topbar";
-import { getPatternsFor } from "./get-patterns";
+import { getPatterns } from "./get-patterns";
 
 const title = "Patterns — React Email";
 const description =
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 const Patterns = async () => {
-  const patterns = await getPatternsFor('headers');
+  const patterns = await getPatterns();
+  console.log(patterns);
 
   return (
     <main>
