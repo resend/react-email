@@ -22,18 +22,18 @@ export const HeaderWithMenu = (
         </Column>
         <Column align="right">
           <Row align="right">
-            <Column>
-              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+            <Column className="px-[8px]">
+              <Link className="text-gray-600 [text-decoration:none]" href="#">
                 About
               </Link>
             </Column>
-            <Column>
-              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+            <Column className="px-[8px]">
+              <Link className="text-gray-600 [text-decoration:none]" href="#">
                 Company
               </Link>
             </Column>
-            <Column>
-              <Link className="px-[8px] text-gray-600 [text-decoration:none]" href="#">
+            <Column className="px-[8px]">
+              <Link className="text-gray-600 [text-decoration:none]" href="#">
                 Blog
               </Link>
             </Column>
