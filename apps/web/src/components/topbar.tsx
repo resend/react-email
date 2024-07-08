@@ -51,6 +51,9 @@ export const Topbar: React.FC<
         <MenuItem className="w-full px-2" href="/docs">
           Docs
         </MenuItem>
+        <MenuItem className="w-full px-2" href="/patterns">
+          Patterns
+        </MenuItem>
         <MenuItem className="w-full px-2" href="/examples">
           Examples
         </MenuItem>
