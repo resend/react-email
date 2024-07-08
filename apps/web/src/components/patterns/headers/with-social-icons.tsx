@@ -20,14 +20,13 @@ const SocialLink = ({ logo, link }: { logo: string; link: string }) => {
 export const HeaderWithSocialIcons = () => {
   return (
     <Tailwind>
-      <Section className="py-[40px] rounded border border-solid border-gray-200 bg-white px-[32px]">
+      <Section className="py-[40px] px-[32px] rounded border border-solid border-gray-200 bg-white">
         <Row>
           <Column className="w-[80%]">
             <Img
               alt="company-logo"
-              height="60"
               src="/static/company-logo.png"
-              width="60"
+              height="42"
             />
           </Column>
           <Column align="right">
