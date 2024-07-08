@@ -1,51 +1,45 @@
-import { Column, Img, Link, Row, Section, Tailwind } from "@react-email/components";
+import {
+  Column,
+  Img,
+  Link,
+  Row,
+  Section,
+  Tailwind,
+} from "@react-email/components";
 
 export const title = "With social icons";
 
-const HeaderWithSocialIcons = () => {
+const SocialLink = ({ logo, link }: { logo: string; link: string }) => {
+  return (
+    <Link href={link}>
+      <Img className="mx-1" height="36" src={logo} width="36" />
+    </Link>
+  );
+};
+
+export const HeaderWithSocialIcons = () => {
   return (
     <Tailwind>
-      <Section className="py-10">
+      <Section className="py-[40px] rounded border border-solid border-gray-200 bg-white px-[32px]">
         <Row>
           <Column className="w-[80%]">
             <Img
               alt="company-logo"
-              height="42"
-              src={`/company-logo.png`}
+              height="60"
+              src="/static/company-logo.png"
               width="60"
             />
           </Column>
           <Column align="right">
             <Row align="right">
               <Column>
-                <Link href="#">
-                  <Img
-                    className="mx-1"
-                    height="36"
-                    src={`/facebook-logo.png`}
-                    width="36"
-                  />
-                </Link>
+                <SocialLink link="#" logo="/static/facebook-logo.png" />
               </Column>
               <Column>
-                <Link href="#">
-                  <Img
-                    className="mx-1"
-                    height="36"
-                    src={`/twitter-logo.png`}
-                    width="36"
-                  />
-                </Link>
+                <SocialLink link="#" logo="/static/twitter-logo.png" />
               </Column>
               <Column>
-                <Link href="#">
-                  <Img
-                    className="ml-1"
-                    height="36"
-                    src={`/instagram-logo.png`}
-                    width="36"
-                  />
-                </Link>
+                <SocialLink link="#" logo="/static/instagram-logo.png" />
               </Column>
             </Row>
           </Column>
