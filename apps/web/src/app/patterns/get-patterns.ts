@@ -5,12 +5,21 @@ import { z } from "zod";
 export interface Pattern {
   title: string;
   code: string;
-  component: React.FC;
+  /**
+    * @example 
+    * This should be used directly the same you would use
+    * the children prop.
+    *
+    * ```jsx
+    * <div>{pattern.element}</div>
+    * ```
+    */
+  element: React.ReactNode;
 }
 
 const PatternModule = z.object({
   title: z.string(),
-  default: z.function(),
+  default: z.record(z.string(), z.any()),
 });
 
 // This function should be called when building
@@ -31,7 +40,7 @@ const getPatternAt = async (filepath: string) => {
   return {
     title: patternModule.title,
     code,
-    component: patternModule.default as React.FC,
+    element: patternModule.default as React.ReactNode,
   } satisfies Pattern;
 };
 
