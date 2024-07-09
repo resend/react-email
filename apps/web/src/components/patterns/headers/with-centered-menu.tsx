@@ -4,6 +4,7 @@ import Link from "next/link";
 export const title = "Header with centered menu";
 
 export const headerWithCenteredMenu = (
+  /* start pattern code */
   <Section className="py-[40px] px-[32px] my-[40px]">
     <Row>
       <Column align="center">
@@ -39,6 +40,7 @@ export const headerWithCenteredMenu = (
       </Column>
     </Row>
   </Section>
+  /* end pattern code */
 );
 
 export default headerWithCenteredMenu;

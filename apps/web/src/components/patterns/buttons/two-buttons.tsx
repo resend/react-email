@@ -1,8 +1,8 @@
 import { Button as BaseButton } from "@react-email/components";
 
-export const title = "One button";
+export const title = "Two buttons";
 
-export const button = (
+export const twoButtons = (
   /* start pattern code */
   <BaseButton
     className="w-full rounded-[8px] text-center bg-indigo-600 py-[12px] font-semibold text-white"
@@ -13,4 +13,4 @@ export const button = (
   /* end pattern code */
 );
 
-export default button;
+export default twoButtons;

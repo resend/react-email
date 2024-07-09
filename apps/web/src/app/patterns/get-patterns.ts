@@ -6,14 +6,14 @@ export interface Pattern {
   title: string;
   code: string;
   /**
-    * @example 
-    * This should be used directly the same you would use
-    * the children prop.
-    *
-    * ```jsx
-    * <div>{pattern.element}</div>
-    * ```
-    */
+   * @example
+   * This should be used directly the same you would use
+   * the children prop.
+   *
+   * ```jsx
+   * <div>{pattern.element}</div>
+   * ```
+   */
   element: React.ReactNode;
 }
 
@@ -29,7 +29,18 @@ const PatternModule = z.object({
 const pathToPatterns = path.resolve(process.cwd(), "./src/components/patterns");
 
 const getPatternAt = async (filepath: string) => {
-  const code = await fs.readFile(filepath, "utf8");
+  const patternCodeRegex =
+    /\/\* start pattern code \*\/(?<patternCode>[\s\S]+?)\/\* end pattern code \*\//gm;
+  const code = patternCodeRegex.exec(await fs.readFile(filepath, "utf8"))
+    ?.groups?.patternCode?.trim();
+  if (code === undefined) {
+    throw new Error('Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.', {
+      cause: {
+        filepath,
+      }
+    });
+  }
+
   const relativeFilepath = path.relative(pathToPatterns, filepath);
   const patternModule = PatternModule.parse(
     await import(
@@ -50,7 +61,9 @@ const getPatternsIn = async (categoryDirpath: string) => {
     path.join(categoryDirpath, filename),
   );
 
-  return Promise.all(patternFilepaths.map(filepath => getPatternAt(filepath)));
+  return Promise.all(
+    patternFilepaths.map((filepath) => getPatternAt(filepath)),
+  );
 };
 
 export const getPatterns = async () => {
