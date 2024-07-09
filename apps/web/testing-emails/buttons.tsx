@@ -8,6 +8,7 @@ import {
 } from "@react-email/components";
 import { button } from "../src/components/patterns/buttons/button";
 import { twoButtons } from "../src/components/patterns/buttons/two-buttons";
+import { downloadAppButtons } from "../src/components/patterns/buttons/download-app-buttons";
 
 const Buttons = () => {
   return (
@@ -21,6 +22,9 @@ const Buttons = () => {
             </Section>
             <Section>
               {twoButtons}
+            </Section>
+            <Section>
+              {downloadAppButtons}
             </Section>
           </Container>
         </Body>
