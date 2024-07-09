@@ -11,6 +11,7 @@ const SocialLink = ({ logo, link }: { logo: string; link: string }) => {
 };
 
 export const headerWithSocialIcons = (
+  /* start pattern code */
   <Section className="py-[40px] px-[32px]">
     <Row>
       <Column className="w-[80%]">
@@ -31,6 +32,7 @@ export const headerWithSocialIcons = (
       </Column>
     </Row>
   </Section>
+  /* end pattern code */
 );
 
 export default headerWithSocialIcons;
