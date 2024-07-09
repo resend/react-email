@@ -8,7 +8,7 @@ export const downloadAppButtons = (
   <Row>
     <Column align="center">
       <Row>
-        <Text className="text-indigo-500 font-bold text-[18px]">
+        <Text className="text-indigo-500 font-bold text-lg">
           What's new
         </Text>
         <Text className="text-gray-900">
