@@ -8,7 +8,7 @@ export const headerWithCenteredMenu = (
   <Section className="py-[40px] px-[32px] my-[40px]">
     <Row>
       <Column align="center">
-        <Img alt="company-logo" height="42" src="/static/company-logo.png" />
+        <Img alt="company-logo" height="42" src="/static/logo.png" />
       </Column>
     </Row>
     <Row className="mt-[40px]">
