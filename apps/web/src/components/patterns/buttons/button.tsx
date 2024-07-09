@@ -5,7 +5,7 @@ export const title = "One button";
 export const button = (
   /* start pattern code */
   <Button
-    className="w-full rounded-[8px] text-center bg-indigo-600 py-[12px] font-semibold text-white"
+    className="w-full box-border px-[12px] rounded-[8px] text-center bg-indigo-600 py-[12px] font-semibold text-white"
     href="#"
   >
     Example button
