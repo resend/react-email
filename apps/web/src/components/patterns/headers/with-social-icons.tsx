@@ -23,7 +23,7 @@ export const HeaderWithSocialIcons = (
   return (
     <Section
       {...props}
-      className="py-[40px] px-[32px] rounded border border-solid border-gray-200 bg-white"
+      className="py-[40px] px-[32px]"
     >
       <Row>
         <Column className="w-[80%]">

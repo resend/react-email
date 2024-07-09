@@ -10,7 +10,7 @@ export const HeaderWithCenteredMenu = (
   return (
     <Section
       {...props}
-      className="py-[40px] px-[32px] my-[40px] rounded border border-solid border-gray-200 bg-white"
+      className="py-[40px] px-[32px] my-[40px]"
     >
       <Row>
         <Column align="center">
