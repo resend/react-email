@@ -12,16 +12,16 @@
   "dependencies": {
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-slot": "1.1.0",
+    "@react-email/components": "workspace:*",
     "@sindresorhus/is": "6.1.0",
     "@supabase/supabase-js": "2.39.3",
     "@vercel/analytics": "1.0.1",
-    "@react-email/components": "workspace:*",
-    "react-email": "workspace:*",
     "classnames": "2.3.2",
     "next": "15.0.0-canary.27",
     "prism-react-renderer": "2.1.0",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",
+    "react-email": "workspace:*",
     "resend": "3.2.0",
     "zod": "3.23.8"
   },
