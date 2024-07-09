@@ -9,7 +9,7 @@ export const HeaderWithMenu = (
 ) => {
   return (
     <Section
-      className="py-[40px] px-[32px] mx-auto my-[40px] rounded border border-solid border-gray-200 bg-white"
+      className="py-[40px] px-[32px] my-[40px]"
       {...props}
     >
       <Row>
