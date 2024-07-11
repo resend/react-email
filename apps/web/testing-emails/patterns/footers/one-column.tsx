@@ -1,32 +1,56 @@
-import { Column, Img, Row, Section } from "@react-email/components";
-import Link from "next/link";
+import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
-export const title = "With menu";
+export const title = "Footer with one column";
 
-export const headerWithMenu = (
+export const footerWithOneColumn = (
   /* start pattern code */
-  <Section className="py-10 px-8 my-10">
+  <Section>
     <Row>
-      <Column className="w-[80%]">
+      <Column align="center">
         <Img alt="company-logo" height="42" src="/static/logo.png" />
-      </Column>
-      <Column align="right">
-        <Row align="right">
-          <Column className="px-2">
-            <Link className="text-gray-600 [text-decoration:none]" href="#">
-              About
+        <Text className="my-2 text-base font-semibold text-gray-900">
+          Acme corporation
+        </Text>
+        <Text className="mt-1 text-base text-gray-500">Think different</Text>
+        <Row className="table-cell h-11 w-14 align-bottom">
+          <Column className="pr-2">
+            <Link href="#">
+              <Img
+                alt="Facebook"
+                height="36"
+                src="/static/facebook-logo.png"
+                width="36"
+              />
             </Link>
           </Column>
-          <Column className="px-2">
-            <Link className="text-gray-600 [text-decoration:none]" href="#">
-              Company
+          <Column className="pr-2">
+            <Link href="#">
+              <Img
+                alt="Twitter"
+                height="36"
+                src="/static/twitter-logo.png"
+                width="36"
+              />
             </Link>
           </Column>
-          <Column className="px-2">
-            <Link className="text-gray-600 [text-decoration:none]" href="#">
-              Blog
+          <Column>
+            <Link href="#">
+              <Img
+                alt="Instagram"
+                height="36"
+                src="/static/instagram-logo.png"
+                width="36"
+              />
             </Link>
           </Column>
+        </Row>
+        <Row>
+          <Text className="my-2 text-base text-gray-500">
+            123 Main Street Anytown, CA 12345
+          </Text>
+          <Text className="mt-1 text-base text-gray-500">
+            mail@example.com +123456789
+          </Text>
         </Row>
       </Column>
     </Row>
@@ -34,4 +58,4 @@ export const headerWithMenu = (
   /* end pattern code */
 );
 
-export default headerWithMenu;
+export default footerWithOneColumn;
