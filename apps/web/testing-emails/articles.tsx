@@ -10,7 +10,7 @@ const Articles = () => {
       <Tailwind config={tailwindConfig}>
         <Body className="bg-white font-sans antialiased">
           <Container>
-            {/*articleWithTwoCards*/}
+            {articleWithTwoCards}
             {articleWithImageAsBackground}
           </Container>
         </Body>
