@@ -6,7 +6,7 @@ export const footerWithOneColumn = (
   /* start pattern code */
   <Section>
     <Row>
-      <Column align="center">
+      <Column align="center" className="text-center">
         <Img alt="company-logo" height="42" src="/static/logo.png" />
         <Text className="my-2 text-base font-semibold text-gray-900">
           Acme corporation
