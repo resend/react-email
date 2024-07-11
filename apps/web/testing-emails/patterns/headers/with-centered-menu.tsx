@@ -1,5 +1,4 @@
-import { Column, Img, Row, Section } from "@react-email/components";
-import Link from "next/link";
+import { Column, Link, Img, Row, Section } from "@react-email/components";
 
 export const title = "Header with centered menu";
 

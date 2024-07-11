@@ -1,4 +1,5 @@
-import { Column, Link, Img, Row, Section } from "@react-email/components";
+import { Column, Img, Row, Section } from "@react-email/components";
+import Link from "next/link";
 
 export const title = "With menu";
 
