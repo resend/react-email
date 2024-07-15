@@ -1,4 +1,3 @@
-
 import {
   Body,
   Container,
@@ -10,6 +9,7 @@ import {
 import { imagesWithAlternatingGrid } from "./_patterns/gallery/images-with-alternating-grid";
 import { gridWith4Images } from "./_patterns/gallery/grid-with-4-images";
 import { threeColumnsWithImages } from "./_patterns/gallery/3-columns-with-images";
+import { imagesOnHorizontalGrid } from "./_patterns/gallery/images-on-horizontal-grid";
 import tailwindConfig from "./tailwind.config";
 
 const Gallery = () => {
@@ -34,6 +34,7 @@ const Gallery = () => {
             {imagesWithAlternatingGrid}
             {gridWith4Images}
             {threeColumnsWithImages}
+            {imagesOnHorizontalGrid}
           </Container>
         </Body>
       </Tailwind>
