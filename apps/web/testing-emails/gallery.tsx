@@ -8,6 +8,7 @@ import {
   Tailwind,
 } from "@react-email/components";
 import { imagesWithAlternatingGrid } from "./_patterns/gallery/images-with-alternating-grid";
+import { gridWith4Images } from "./_patterns/gallery/grid-with-4-images";
 import tailwindConfig from "./tailwind.config";
 
 const Gallery = () => {
@@ -30,6 +31,7 @@ const Gallery = () => {
         <Body>
           <Container>
             {imagesWithAlternatingGrid}
+            {gridWith4Images}
           </Container>
         </Body>
       </Tailwind>
