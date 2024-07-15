@@ -2,6 +2,7 @@
   "name": "@benchmarks/tailwind-component",
   "private": true,
   "main": "dist/benchmark.js",
+  "version": "0.0.0",
   "scripts": {
     "with-vs-without": "pnpm compile && node ./dist/benchmark-with-vs-without.js",
     "before-perf-vs-after-perf": "pnpm compile && node ./dist/benchmark-0.0.12-vs-local-version",
