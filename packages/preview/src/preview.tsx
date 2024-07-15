@@ -16,7 +16,6 @@ export const Preview = React.forwardRef<
   text = text.substr(0, PREVIEW_MAX_LENGTH);
   return (
     <div
-      ref={ref}
       style={{
         display: "none",
         overflow: "hidden",
