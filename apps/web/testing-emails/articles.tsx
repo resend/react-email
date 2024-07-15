@@ -2,6 +2,8 @@ import { Body, Container, Font, Head, Html, Tailwind } from "@react-email/compon
 import tailwindConfig from "./tailwind.config";
 import { articleWithTwoCards } from "./_patterns/articles/article-with-two-cards";
 import { articleWithImageAsBackground } from "./_patterns/articles/article-with-image-as-background";
+import { articleWithImage } from "./_patterns/articles/article-with-image";
+import { articleWithImageOnRight } from "./_patterns/articles/article-with-image-on-right";
 
 const Articles = () => {
   return (
@@ -23,6 +25,8 @@ const Articles = () => {
           <Container>
             {articleWithTwoCards}
             {articleWithImageAsBackground}
+            {articleWithImage}
+            {articleWithImageOnRight}
           </Container>
         </Body>
       </Tailwind>
