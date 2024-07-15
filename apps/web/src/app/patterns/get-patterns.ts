@@ -26,7 +26,7 @@ const PatternModule = z.object({
 // as the patterns page should be SSG'ed, so the sure fire
 // way to get the path to the actual `.tsx` patterns is
 // by going with the CWD
-const pathToPatterns = path.resolve(process.cwd(), "./testing-emails/patterns");
+const pathToPatterns = path.resolve(process.cwd(), "./testing-emails/_patterns");
 
 const getPatternAt = async (filepath: string) => {
   const patternCodeRegex =
@@ -44,7 +44,7 @@ const getPatternAt = async (filepath: string) => {
   const relativeFilepath = path.relative(pathToPatterns, filepath);
   const patternModule = PatternModule.parse(
     await import(
-      `../../../testing-emails/patterns/${relativeFilepath.replace(path.extname(relativeFilepath), "")}`
+      `../../../testing-emails/_patterns/${relativeFilepath.replace(path.extname(relativeFilepath), "")}`
     ),
   );
 

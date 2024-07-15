@@ -1,6 +1,6 @@
 import { Body, Container, Font, Head, Html, Tailwind } from "@react-email/components";
-import { survey } from "./patterns/marketing/survey";
-import { checkout } from "./patterns/marketing/checkout";
+import { survey } from "./_patterns/marketing/survey";
+import { checkout } from "./_patterns/marketing/checkout";
 import tailwindConfig from "./tailwind.config";
 
 const Marketing = () => {
