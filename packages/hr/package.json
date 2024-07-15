@@ -1,6 +1,6 @@
 {
   "name": "@react-email/hr",
-  "version": "0.0.8",
+  "version": "0.0.9-canary.1",
   "description": "Display a divider that separates content areas in your email",
   "sideEffects": false,
   "main": "./dist/index.js",
