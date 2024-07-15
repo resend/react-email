@@ -6,8 +6,8 @@ import {
   Html,
   Tailwind,
 } from "@react-email/components";
-import { footerWithTwoColumns } from "./patterns/footers/two-columns";
-import { footerWithOneColumn } from "./patterns/footers/one-column";
+import { footerWithTwoColumns } from "./_patterns/footers/two-columns";
+import { footerWithOneColumn } from "./_patterns/footers/one-column";
 import tailwindConfig from "./tailwind.config";
 
 const Footers = () => {

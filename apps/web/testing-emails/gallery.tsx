@@ -1,3 +1,4 @@
+
 import {
   Body,
   Container,
@@ -6,12 +7,10 @@ import {
   Html,
   Tailwind,
 } from "@react-email/components";
-import { headerWithSocialIcons } from "./_patterns/headers/with-social-icons";
-import { headerWithCenteredMenu } from "./_patterns/headers/with-centered-menu";
-import { headerWithMenu } from "./_patterns/headers/with-menu";
+import { imagesWithAlternatingGrid } from "./_patterns/gallery/images-with-alternating-grid";
 import tailwindConfig from "./tailwind.config";
 
-const Headers = () => {
+const Gallery = () => {
   return (
     <Html>
       <Head>
@@ -30,9 +29,7 @@ const Headers = () => {
       <Tailwind config={tailwindConfig}>
         <Body>
           <Container>
-            {headerWithSocialIcons}
-            {headerWithCenteredMenu}
-            {headerWithMenu}
+            {imagesWithAlternatingGrid}
           </Container>
         </Body>
       </Tailwind>
@@ -40,4 +37,4 @@ const Headers = () => {
   );
 };
 
-export default Headers;
+export default Gallery;

@@ -7,9 +7,9 @@ import {
   Section,
   Tailwind,
 } from "@react-email/components";
-import { button } from "./patterns/buttons/button";
-import { twoButtons } from "./patterns/buttons/two-buttons";
-import { downloadAppButtons } from "./patterns/buttons/download-app-buttons";
+import { button } from "./_patterns/buttons/button";
+import { twoButtons } from "./_patterns/buttons/two-buttons";
+import { downloadAppButtons } from "./_patterns/buttons/download-app-buttons";
 import tailwindConfig from "./tailwind.config";
 
 const Buttons = () => {
