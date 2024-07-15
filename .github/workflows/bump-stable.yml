@@ -9,7 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: Release
+    name: Bump
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -22,10 +22,10 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm
-        with:
-          version: pnpm exit-canary && pnpm version
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
+        with:
+          version: pnpm exit-canary && pnpm version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
