@@ -3,7 +3,7 @@ name: Bump
 on:
   push:
     branches:
-      - canary
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -23,7 +23,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm
         with:
-          version: pnpm run changeset pre enter canary && pnpm run changeset version
+          version: pnpm exit-canary && pnpm version
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
