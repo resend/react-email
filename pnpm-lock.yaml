@@ -920,6 +920,9 @@ importers:
       '@react-email/html':
         specifier: workspace:*
         version: link:../html
+      '@responsive-email/react-email':
+        specifier: 0.0.2
+        version: 0.0.2(react@18.2.0)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2238,6 +2241,11 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: 18.2.0
+
+  '@responsive-email/react-email@0.0.2':
+    resolution: {integrity: sha512-Zc4FuAuCAUVBJWLT0cmW5jx9jQycV+x1rcuKt+h3BT8DWBRuiDwPq48EjEC1m8qj+iDk2uaMSXud1Q66fXl9yA==}
+    peerDependencies:
+      react: 18.x
 
   '@rollup/plugin-inject@5.0.5':
     resolution: {integrity: sha512-2+DEJbNBoPROPkgTDNe8/1YXWcqxbN5DTjASVIOx8HS+pITXushyNiBV56RB08zuptzz8gT3YfkqriTBVycepg==}
@@ -7635,6 +7643,10 @@ snapshots:
       tw-to-css: 0.0.12
     transitivePeerDependencies:
       - ts-node
+
+  '@responsive-email/react-email@0.0.2(react@18.2.0)':
+    dependencies:
+      react: 18.2.0
 
   '@rollup/plugin-inject@5.0.5(rollup@4.14.0)':
     dependencies:

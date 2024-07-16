@@ -32,6 +32,16 @@ interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
+const isComponent = (
+  element: React.ReactElement,
+): element is React.ReactElement<unknown, React.FC<unknown>> => {
+  return (
+    typeof element.type === "function" ||
+    // @ts-expect-error - we know this is a component that may have a render function
+    element.type.render !== undefined
+  );
+};
+
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const { stylePerClassMap, nonInlinableClasses, sanitizedMediaQueries } =
     useTailwindStyles(children, config ?? {});
@@ -68,7 +78,10 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       }
     }
 
-    if (element.props.children) {
+    // If the element is a component, it's best to only process the children
+    // after the component deals with them. The purpose of this is so that
+    // advanced element manipulation can still work properly.
+    if (element.props.children && !isComponent(element)) {
       const processedChillren = React.Children.map(
         element.props.children,
         (child) => {
@@ -118,11 +131,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       ? propsToOverwrite.children
       : element.props.children;
 
-    if (
-      typeof element.type === "function" ||
-      // @ts-expect-error - we know this is a component that may have a render function
-      element.type.render
-    ) {
+    if (isComponent(element)) {
       const component =
         typeof element.type === "object"
           ? // @ts-expect-error - we know this is a component with a render function
