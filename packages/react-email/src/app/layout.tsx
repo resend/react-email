@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'React Email',
 };
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(

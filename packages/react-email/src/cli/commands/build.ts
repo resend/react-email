@@ -7,7 +7,7 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
-import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
 import logSymbols from 'log-symbols';
 
 interface Args {
@@ -129,16 +129,20 @@ const forceSSGForEmailPreviews = async (
     emailsDirPath,
   ).map((slug) => ({ slug }));
 
-  const layoutContents = await fs.promises.readFile(
-    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
-    'utf8'
-  );
+  const removeForceDynamic = async (filePath: string) => {
+    const contents = await fs.promises.readFile(
+      filePath,
+      'utf8'
+    );
 
-  await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
-    layoutContents.replace("export const dynamic = 'force-dynamic';", ''),
-    'utf8'
-  );
+    await fs.promises.writeFile(
+      filePath,
+      contents.replace("export const dynamic = 'force-dynamic';", ''),
+      'utf8'
+    );
+  }
+  await removeForceDynamic(path.resolve(builtPreviewAppPath, './src/app/layout.tsx'));
+  await removeForceDynamic(path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'));
 
   await fs.promises.appendFile(
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),

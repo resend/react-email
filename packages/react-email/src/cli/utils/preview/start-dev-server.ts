@@ -6,7 +6,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import packageJson from '../../../../package.json';
-import { closeOraOnSIGNIT } from '../close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../../../utils/close-ora-on-sigint';
 import { serveStaticFile } from './serve-static-file';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
 
