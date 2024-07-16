@@ -8,9 +8,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "release": "pnpm build && pnpm changeset publish",
-    "enter-canary": "changeset pre enter canary",
-    "exit-canary": "changeset pre exit",
-    "version": "changeset version",
+    "canary:version": "(changeset pre enter canary 2>/dev/null || true) && changeset version",
+    "version": "(changeset pre exit 2>/dev/null || true) && changeset version",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
