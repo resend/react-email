@@ -3,7 +3,7 @@ import type { Ora } from 'ora';
 const spinners = new Set<Ora>();
 
 process.on('SIGINT', () => {
-  spinners.forEach(spinner => {
+  spinners.forEach((spinner) => {
     if (spinner.isSpinning) {
       spinner.stop();
     }

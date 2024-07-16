@@ -53,7 +53,7 @@ export const EmailsProvider = (props: {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
       const metadata = await getEmailsDirectoryMetadata(
-        props.initialEmailsDirectoryMetadata.absolutePath
+        props.initialEmailsDirectoryMetadata.absolutePath,
       );
       if (metadata) {
         setEmailsDirectoryMetadata(metadata);
@@ -68,7 +68,7 @@ export const EmailsProvider = (props: {
           // ex: apple-receipt.tsx
           // it will be the path relative to the emails directory, so it is already
           // going to be equivalent to the slug
-          change.filename
+          change.filename;
 
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);

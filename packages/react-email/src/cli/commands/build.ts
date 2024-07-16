@@ -130,19 +130,20 @@ const forceSSGForEmailPreviews = async (
   ).map((slug) => ({ slug }));
 
   const removeForceDynamic = async (filePath: string) => {
-    const contents = await fs.promises.readFile(
-      filePath,
-      'utf8'
-    );
+    const contents = await fs.promises.readFile(filePath, 'utf8');
 
     await fs.promises.writeFile(
       filePath,
       contents.replace("export const dynamic = 'force-dynamic';", ''),
-      'utf8'
+      'utf8',
     );
-  }
-  await removeForceDynamic(path.resolve(builtPreviewAppPath, './src/app/layout.tsx'));
-  await removeForceDynamic(path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'));
+  };
+  await removeForceDynamic(
+    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
+  );
+  await removeForceDynamic(
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
+  );
 
   await fs.promises.appendFile(
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
