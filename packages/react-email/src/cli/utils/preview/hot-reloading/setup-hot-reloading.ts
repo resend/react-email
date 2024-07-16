@@ -44,7 +44,7 @@ export const setupHotreloading = async (
 
   const watcher = watch('', {
     ignoreInitial: true,
-    cwd: absolutePathToEmailsDirectory
+    cwd: absolutePathToEmailsDirectory,
   });
 
   const getFilesOutsideEmailsDirectory = () =>

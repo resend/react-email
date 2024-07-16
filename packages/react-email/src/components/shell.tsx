@@ -87,7 +87,7 @@ export const Shell = ({
               : '',
           }}
         >
-          {(currentEmailOpenSlug && pathSeparator) ? (
+          {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
               activeView={activeView}
               currentEmailOpenSlug={currentEmailOpenSlug}
