@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.23.9",
+    "@responsive-email/react-email": "0.0.2",
     "@babel/preset-react": "7.23.3",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",

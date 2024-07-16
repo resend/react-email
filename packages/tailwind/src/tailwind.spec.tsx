@@ -7,10 +7,23 @@ import { Heading } from "@react-email/heading";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
 import React from "react";
+import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
 describe("Tailwind component", () => {
+  it("should allow for complex children manipulation", () => {
+    const actualOutput = render(
+      <Tailwind>
+        <ResponsiveRow>
+          <ResponsiveColumn>This is the first column</ResponsiveColumn>
+          <ResponsiveColumn>This is the second column</ResponsiveColumn>
+        </ResponsiveRow>
+      </Tailwind>,
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
@@ -182,6 +195,68 @@ describe("Tailwind component", () => {
     );
 
     expect(actualOutput).toContain("width:3rem");
+  });
+
+  it("should preserve mso styles", () => {
+    const actualOutput = render(
+      <Html>
+        <Tailwind>
+          <Head />
+          <span
+            dangerouslySetInnerHTML={{
+              __html: `<!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->`,
+            }}
+          />
+          <div className="bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class" />
+        </Tailwind>
+      </Html>,
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
+    );
+  });
+
+  it("should recognize custom responsive screen", () => {
+    const config: TailwindConfig = {
+      theme: {
+        screens: {
+          sm: { min: "640px" },
+          md: { min: "768px" },
+          lg: { min: "1024px" },
+          xl: { min: "1280px" },
+          "2xl": { min: "1536px" },
+        },
+      },
+    };
+    const actualOutput = render(
+      <Html>
+        <Tailwind config={config}>
+          <Head />
+          <div className="bg-red-100 xl:bg-green-500">Test</div>
+          <div className="2xl:bg-blue-500">Test</div>
+        </Tailwind>
+      </Html>,
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
+    );
+  });
+
+  it("should work with calc() with + sign", () => {
+    const actualOutput = render(
+      <Tailwind>
+        <head />
+        <div className="max-h-[calc(50px+3rem)] lg:max-h-[calc(50px+5rem)] bg-red-100">
+          <div className="h-[200px]">something tall</div>
+        </div>
+      </Tailwind>,
+    );
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      '"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}</style></head><div class=\\"lg_max-h-calc50pxplus5rem\\" style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
+    );
   });
 });
 
@@ -463,70 +538,6 @@ describe("Custom plugins config", () => {
 
     expect(actualOutput).toMatchInlineSnapshot(
       '"<html lang=\\"en\\"><head><style>@media(min-width:640px){.sm_border-custom{border:2px solid!important}}</style></head><body><div class=\\"sm_border-custom\\" style=\\"border:2px solid\\"></div></body></html>"',
-    );
-  });
-});
-
-describe("<Tailwind> component", () => {
-  it("should preserve mso styles", () => {
-    const actualOutput = render(
-      <Html>
-        <Tailwind>
-          <Head />
-          <span
-            dangerouslySetInnerHTML={{
-              __html: `<!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->`,
-            }}
-          />
-          <div className="bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class" />
-        </Tailwind>
-      </Html>,
-    );
-
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style=\\"letter-spacing: 10px;mso-font-width:-100%;\\" hidden>&nbsp;</i><![endif]--></span><div class=\\"sm_bg-red-50 sm_text-sm md_text-lg custom-class\\" style=\\"background-color:rgb(255,255,255)\\"></div></html>"',
-    );
-  });
-
-  it("should recognize custom responsive screen", () => {
-    const config: TailwindConfig = {
-      theme: {
-        screens: {
-          sm: { min: "640px" },
-          md: { min: "768px" },
-          lg: { min: "1024px" },
-          xl: { min: "1280px" },
-          "2xl": { min: "1536px" },
-        },
-      },
-    };
-    const actualOutput = render(
-      <Html>
-        <Tailwind config={config}>
-          <Head />
-          <div className="bg-red-100 xl:bg-green-500">Test</div>
-          <div className="2xl:bg-blue-500">Test</div>
-        </Tailwind>
-      </Html>,
-    );
-
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<html dir=\\"ltr\\" lang=\\"en\\"><head><meta content=\\"text/html; charset=UTF-8\\" http-equiv=\\"Content-Type\\"/><meta name=\\"x-apple-disable-message-reformatting\\"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class=\\"xl_bg-green-500\\" style=\\"background-color:rgb(254,226,226)\\">Test</div><div class=\\"2xl_bg-blue-500\\">Test</div></html>"',
-    );
-  });
-
-  it("should work with calc() with + sign", () => {
-    const actualOutput = render(
-      <Tailwind>
-        <head />
-        <div className="max-h-[calc(50px+3rem)] lg:max-h-[calc(50px+5rem)] bg-red-100">
-          <div className="h-[200px]">something tall</div>
-        </div>
-      </Tailwind>,
-    );
-
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}</style></head><div class=\\"lg_max-h-calc50pxplus5rem\\" style=\\"max-height:calc(50px + 3rem);background-color:rgb(254,226,226)\\"><div style=\\"height:200px\\">something tall</div></div>"',
     );
   });
 });
