@@ -9,11 +9,11 @@ export const title = "Article with image as background";
 export const articleWithImageAsBackground = (
   /* start pattern code */
   <Section
-    className="h-[424px] rounded-xl bg-blue-600"
+    className="h-[424px] my-4 rounded-xl bg-blue-600"
     style={{
       // This image must be in quotes for Yahoo
       backgroundImage:
-        "url('https://images.unsplash.com/photo-1702470170564-22dd352f5b88?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        "url('/static/my-image.png')",
       backgroundSize: "100% 100%",
     }}
   >

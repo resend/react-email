@@ -9,7 +9,7 @@ export const title = "Article with image on the right";
 // with Tailwind we need to solve. https://github.com/codeskills-dev/responsive-email/issues/8
 export const articleWithImageOnRight = (
   /* start pattern code */
-  <Section>
+  <Section className="my-4">
     <Row>
       <Column className="w-[50%] align-baseline">
         <Text className="m-0 text-base font-semibold text-indigo-600">
