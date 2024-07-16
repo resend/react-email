@@ -5,7 +5,7 @@ export const title = "With two cards";
 
 export const articleWithTwoCards = (
   /* start pattern code */
-  <Section>
+  <Section className="my-4">
     <Row>
       <Text className="m-0 text-xl font-semibold text-gray-900">
         Elevate Outdoor Living

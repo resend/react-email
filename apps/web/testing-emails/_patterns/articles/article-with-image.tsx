@@ -4,7 +4,7 @@ export const title = "Article with image";
 
 export const articleWithImage = (
   /* start pattern code */
-  <Section>
+  <Section className="my-4">
     <Img
       className="w-full rounded-xl object-cover"
       height="320"
