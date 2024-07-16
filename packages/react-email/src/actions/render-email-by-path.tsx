@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import { getEmailComponent } from '../utils/get-email-component';
 import type { ErrorObject } from '../utils/types/error-object';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
-import { closeOraOnSIGNIT } from '../cli/utils/close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 
 export interface RenderedEmailMetadata {
   markup: string;
