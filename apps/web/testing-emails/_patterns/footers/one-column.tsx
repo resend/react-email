@@ -4,7 +4,7 @@ export const title = "Footer with one column";
 
 export const footerWithOneColumn = (
   /* start pattern code */
-  <Section>
+  <Section className="text-center">
     <table className="w-full">
       <tr className="w-full">
         <td align="center">
@@ -16,7 +16,9 @@ export const footerWithOneColumn = (
           <Text className="my-2 text-base font-semibold text-gray-900">
             Acme corporation
           </Text>
-          <Text className="mt-1 mb-0 text-base text-gray-500">Think different</Text>
+          <Text className="mt-1 mb-0 text-base text-gray-500">
+            Think different
+          </Text>
         </td>
       </tr>
       <tr>
@@ -53,14 +55,16 @@ export const footerWithOneColumn = (
               </Link>
             </Column>
           </Row>
-          <Row>
-            <Text className="my-2 text-base text-gray-500">
-              123 Main Street Anytown, CA 12345
-            </Text>
-            <Text className="mt-1 text-base text-gray-500">
-              mail@example.com +123456789
-            </Text>
-          </Row>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <Text className="my-2 text-base text-gray-500">
+            123 Main Street Anytown, CA 12345
+          </Text>
+          <Text className="mt-1 text-base text-gray-500">
+            mail@example.com +123456789
+          </Text>
         </td>
       </tr>
     </table>
