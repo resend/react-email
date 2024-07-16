@@ -6,7 +6,7 @@ import {
   Html,
   Tailwind,
 } from "@react-email/components";
-import { imagesWithAlternatingGrid } from "./_patterns/gallery/images-with-alternating-grid";
+import { imagesWithVerticalGrid } from "./_patterns/gallery/images-with-vertical-grid";
 import { gridWith4Images } from "./_patterns/gallery/grid-with-4-images";
 import { threeColumnsWithImages } from "./_patterns/gallery/3-columns-with-images";
 import { imagesOnHorizontalGrid } from "./_patterns/gallery/images-on-horizontal-grid";
@@ -31,7 +31,7 @@ const Gallery = () => {
       <Tailwind config={tailwindConfig}>
         <Body>
           <Container>
-            {imagesWithAlternatingGrid}
+            {imagesWithVerticalGrid}
             {gridWith4Images}
             {threeColumnsWithImages}
             {imagesOnHorizontalGrid}

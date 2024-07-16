@@ -1,6 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
+// Good callouts for users:
+// - Recommended proportions for all images is 292x288.
+
 export const title = "4 Images grid";
 
 export const gridWith4Images = (
