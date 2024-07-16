@@ -135,7 +135,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       const component =
         typeof element.type === "object"
           ? // @ts-expect-error - we know this is a component with a render function
-          (element.type.render as React.FC)
+            (element.type.render as React.FC)
           : (element.type as React.FC);
       const renderedComponent = component({
         ...element.props,
