@@ -364,7 +364,7 @@ importers:
         specifier: workspace:0.0.13-canary.1
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:0.0.19-canary.1
+        specifier: workspace:0.0.19-canary.2
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.0.9-canary.1
