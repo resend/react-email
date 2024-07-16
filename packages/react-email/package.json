@@ -29,6 +29,7 @@
   "dependencies": {
     "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
+    "@react-email/render": "0.0.17-canary.1",
     "chalk": "4.1.2",
     "chokidar": "3.6.0",
     "commander": "11.1.0",
