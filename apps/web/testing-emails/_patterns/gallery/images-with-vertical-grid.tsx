@@ -1,9 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
-export const title = "Images with alternating grid";
+// Good callouts for users:
+// - Recommended proportions for images 600x288, 292x268 and 292x268.
 
-export const imagesWithAlternatingGrid = (
+export const title = "Images with vertical grid";
+
+export const imagesWithVerticalGrid = (
   /* start pattern code */
   <Section className="my-4">
     <Section>
@@ -56,4 +59,4 @@ export const imagesWithAlternatingGrid = (
   /* end pattern code */
 );
 
-export default imagesWithAlternatingGrid;
+export default imagesWithVerticalGrid;

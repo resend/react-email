@@ -1,6 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
+// Good callouts for users:
+// - Recommended proportions for all images is 192x186.
+
 export const title = "3 columns with images";
 
 export const threeColumnsWithImages = (

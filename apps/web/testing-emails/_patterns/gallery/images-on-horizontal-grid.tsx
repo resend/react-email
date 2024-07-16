@@ -1,6 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
+// Good callouts for users:
+// - Recommended proportions for images 292x152, 292x152 and 292x320.
+
 export const title = "Images on horizontal grid";
 
 export const imagesOnHorizontalGrid = (
