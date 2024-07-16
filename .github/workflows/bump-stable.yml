@@ -43,5 +43,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm version
+          title: "chore: Bump for stable release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
