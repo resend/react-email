@@ -18,8 +18,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -27,19 +27,21 @@ export const renderEmailByPath = async (
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
-  const spinner = ora({
-    text: `Rendering email template ${emailFilename}\n`,
-    prefixText: ' ',
-  }).start();
-
-  closeOraOnSIGNIT(spinner);
+  let spinner: ora.Ora | undefined;
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+    spinner = ora({
+      text: `Rendering email template ${emailFilename}\n`,
+      prefixText: ' ',
+    }).start();
+    closeOraOnSIGNIT(spinner);
+  }
 
   const result = await getEmailComponent(emailPath);
 
   if ('error' in result) {
-    spinner.stopAndPersist({
+    spinner?.stopAndPersist({
       symbol: logSymbols.error,
-      text: `Failed while rendering ${emailFilename}`
+      text: `Failed while rendering ${emailFilename}`,
     });
     return { error: result.error };
   }
@@ -78,9 +80,9 @@ export const renderEmailByPath = async (
     } else {
       timeForConsole = chalk.red(timeForConsole);
     }
-    spinner.stopAndPersist({
+    spinner?.stopAndPersist({
       symbol: logSymbols.success,
-      text: `Successfully rendered ${emailFilename} in ${timeForConsole}`
+      text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
     return {
@@ -91,9 +93,9 @@ export const renderEmailByPath = async (
   } catch (exception) {
     const error = exception as Error;
 
-    spinner.stopAndPersist({
+    spinner?.stopAndPersist({
       symbol: logSymbols.error,
-      text: `Failed while rendering ${emailFilename}`
+      text: `Failed while rendering ${emailFilename}`,
     });
 
     return {
