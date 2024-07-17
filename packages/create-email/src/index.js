@@ -48,6 +48,7 @@ const init = async (name) => {
     JSON.stringify(templatePackageJson, null, 2),
     "utf8",
   );
+  fse.rmSync(path.resolve(resolvedProjectPath, './CHANGELOG.md'));
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
