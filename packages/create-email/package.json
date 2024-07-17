@@ -27,6 +27,9 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "prettier": "3.0.0"
+    "@babel/preset-react": "7.23.3",
+    "eslint-config-custom": "workspace:*",
+    "prettier": "3.0.0",
+    "tsconfig": "workspace:*"
   }
 }
