@@ -426,21 +426,12 @@ importers:
       '@babel/preset-react':
         specifier: 7.23.3
         version: 7.23.3(@babel/core@7.24.5)
-      '@react-email/components':
-        specifier: workspace:0.0.22-canary.1
-        version: link:../components
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
       prettier:
         specifier: 3.0.0
         version: 3.0.0
-      react-email:
-        specifier: workspace:2.1.6-canary.0
-        version: link:../react-email
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
