@@ -26,7 +26,7 @@ const init = async (name) => {
   const resolvedProjectPath = path.resolve(projectPath);
 
   fse.copySync(templatePath, resolvedProjectPath, {
-    recursive: true
+    recursive: true,
   });
   const templatePackageJsonPath = path.resolve(
     resolvedProjectPath,
