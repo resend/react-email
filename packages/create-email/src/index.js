@@ -26,8 +26,7 @@ const init = async (name) => {
   const resolvedProjectPath = path.resolve(projectPath);
 
   fse.copySync(templatePath, resolvedProjectPath, {
-    recursive: true,
-    filter: (src) => !src.includes("node_modules"),
+    recursive: true
   });
   const templatePackageJsonPath = path.resolve(
     resolvedProjectPath,
@@ -48,7 +47,6 @@ const init = async (name) => {
     JSON.stringify(templatePackageJson, null, 2),
     "utf8",
   );
-  fse.rmSync(path.resolve(resolvedProjectPath, './CHANGELOG.md'));
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
