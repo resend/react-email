@@ -25,13 +25,16 @@ const init = async (name) => {
   const templatePath = path.resolve(__dirname, "../template");
   const resolvedProjectPath = path.resolve(projectPath);
 
-  fse.copySync(templatePath, resolvedProjectPath, { recursive: true });
+  fse.copySync(templatePath, resolvedProjectPath, {
+    recursive: true,
+    filter: (src) => !src.includes("node_modules"),
+  });
   const templatePackageJsonPath = path.resolve(
     resolvedProjectPath,
-    "./template/package.json",
+    "./package.json",
   );
   const templatePackageJson = JSON.parse(
-    fse.readFileSync(templatePackageJsonPath, 'utf8'),
+    fse.readFileSync(templatePackageJsonPath, "utf8"),
   );
   for (const key in templatePackageJson.dependencies) {
     // We remove any workspace prefix that might have been added for the purposes
@@ -43,7 +46,7 @@ const init = async (name) => {
   fse.writeFileSync(
     templatePackageJsonPath,
     JSON.stringify(templatePackageJson, null, 2),
-    'utf8'
+    "utf8",
   );
 
   spinner.stopAndPersist({
