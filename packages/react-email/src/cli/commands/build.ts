@@ -197,7 +197,7 @@ const npmInstall = async (
       {
         cwd: builtPreviewAppPath,
         shell: true,
-      }
+      },
     );
     childProc.stdout.pipe(process.stdout);
     childProc.stderr.pipe(process.stderr);
