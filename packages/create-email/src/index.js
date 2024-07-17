@@ -61,7 +61,7 @@ const init = async (name) => {
 
 new Command()
   .name("create-email")
-  .version("0.0.19")
+  .version("0.0.30-canary.0")
   .description("The easiest way to get started with React Email")
   .arguments("[dir]", "path to initialize the project")
   .action(init)
