@@ -423,9 +423,46 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
     devDependencies:
+      '@babel/preset-react':
+        specifier: 7.23.3
+        version: 7.23.3(@babel/core@7.24.5)
+      '@react-email/components':
+        specifier: workspace:0.0.22-canary.1
+        version: link:../components
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../render
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       prettier:
         specifier: 3.0.0
         version: 3.0.0
+      react-email:
+        specifier: workspace:2.1.6-canary.0
+        version: link:../react-email
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
+  packages/create-email/template:
+    dependencies:
+      '@react-email/components':
+        specifier: workspace:0.0.22-canary.1
+        version: link:../../components
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      react-email:
+        specifier: workspace:2.1.6-canary.0
+        version: link:../../react-email
+    devDependencies:
+      '@types/react':
+        specifier: 18.2.33
+        version: 18.2.33
+      '@types/react-dom':
+        specifier: 18.2.14
+        version: 18.2.14
 
   packages/eslint-config-custom:
     devDependencies:
@@ -2599,6 +2636,9 @@ packages:
 
   '@types/react-dom@18.2.18':
     resolution: {integrity: sha512-TJxDm6OfAX2KJWJdMEVTwWke5Sc/E/RlnPGvGfS0W7+6ocy2xhDVQVh/KvC2Uf7kACs+gDytdusDSdWfWkaNzw==}
+
+  '@types/react@18.2.33':
+    resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
 
   '@types/react@18.2.47':
     resolution: {integrity: sha512-xquNkkOirwyCgoClNk85BjP+aqnIS+ckAJ8i37gAbDs14jfW/J23f2GItAf33oiUPQnqNMALiFeoM9Y5mbjpVQ==}
@@ -7995,6 +8035,12 @@ snapshots:
   '@types/react-dom@18.2.18':
     dependencies:
       '@types/react': 18.2.47
+
+  '@types/react@18.2.33':
+    dependencies:
+      '@types/prop-types': 15.7.12
+      '@types/scheduler': 0.23.0
+      csstype: 3.1.3
 
   '@types/react@18.2.47':
     dependencies:
