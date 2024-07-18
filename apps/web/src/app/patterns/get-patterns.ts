@@ -5,15 +5,6 @@ import { z } from "zod";
 export interface Pattern {
   title: string;
   code: string;
-  /**
-   * @example
-   * This should be used directly the same you would use
-   * the children prop.
-   *
-   * ```jsx
-   * <div>{pattern.element}</div>
-   * ```
-   */
   patternComponent: React.FC;
 }
 
