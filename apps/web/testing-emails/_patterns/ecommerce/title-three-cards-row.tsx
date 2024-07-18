@@ -1,11 +1,11 @@
 import {
   Button,
   Row,
-  Column,
   Img,
   Section,
   Text,
 } from "@react-email/components";
+import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
 
 export const title = "Title + three cards in a row";
 
@@ -21,8 +21,8 @@ export const titleThreeCardsRow = (
         allowing you to create a space that reflects your unique vision
       </Text>
     </Row>
-    <Row className="mt-4">
-      <Column align="center" className="w-1/3 pr-1" colSpan={1}>
+    <ResponsiveRow className="mt-4">
+      <ResponsiveColumn align="center" className="pr-1 py-4">
         <Img
           className="w-full rounded-lg object-cover"
           height={180}
@@ -43,8 +43,8 @@ export const titleThreeCardsRow = (
         >
           Buy
         </Button>
-      </Column>
-      <Column align="center" className="w-1/3 px-1" colSpan={1}>
+      </ResponsiveColumn>
+      <ResponsiveColumn align="center" className="px-1 py-4">
         <Img
           className="w-full rounded-lg object-cover"
           height={180}
@@ -65,8 +65,8 @@ export const titleThreeCardsRow = (
         >
           Buy
         </Button>
-      </Column>
-      <Column align="center" className="w-base pl-1" colSpan={1}>
+      </ResponsiveColumn>
+      <ResponsiveColumn align="center" className="pl-1 py-4">
         <Img
           className="w-full rounded-lg object-cover"
           height={180}
@@ -87,8 +87,8 @@ export const titleThreeCardsRow = (
         >
           Buy
         </Button>
-      </Column>
-    </Row>
+      </ResponsiveColumn>
+    </ResponsiveRow>
   </Section>
   /* end pattern code */
 );

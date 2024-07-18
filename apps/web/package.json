@@ -13,6 +13,7 @@
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-slot": "1.1.0",
     "@react-email/components": "workspace:*",
+    "@responsive-email/react-email": "0.0.2",
     "@supabase/supabase-js": "2.45.1",
     "@vercel/analytics": "1.0.1",
     "classnames": "2.5.1",

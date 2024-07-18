@@ -99,6 +99,9 @@ importers:
       '@react-email/components':
         specifier: workspace:*
         version: link:../../packages/components
+      '@responsive-email/react-email':
+        specifier: 0.0.2
+        version: 0.0.2(react@19.0.0-rc.0)
       '@supabase/supabase-js':
         specifier: 2.45.1
         version: 2.45.1
@@ -7676,6 +7679,10 @@ snapshots:
   '@responsive-email/react-email@0.0.2(react@18.3.1)':
     dependencies:
       react: 18.3.1
+
+  '@responsive-email/react-email@0.0.2(react@19.0.0-rc.0)':
+    dependencies:
+      react: 19.0.0-rc.0
 
   '@rollup/plugin-inject@5.0.5(rollup@4.14.0)':
     dependencies:
