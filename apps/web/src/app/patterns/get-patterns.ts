@@ -14,23 +14,23 @@ export interface Pattern {
    * <div>{pattern.element}</div>
    * ```
    */
-  element: React.ReactNode;
+  patternComponent: React.FC;
 }
 
 const PatternModule = z.object({
   title: z.string(),
-  default: z.record(z.string(), z.any()),
+  default: z.function(),
 });
 
 // This function should be called when building
 // as the patterns page should be SSG'ed, so the sure fire
 // way to get the path to the actual `.tsx` patterns is
 // by going with the CWD
-const pathToPatterns = path.resolve(process.cwd(), "./testing-emails/_patterns");
+const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
   const patternCodeRegex =
-    /\/\* start pattern code \*\/(?<patternCode>[\s\S]+?)\/\* end pattern code \*\//gm;
+    /{\/\* start pattern code \*\/(?<patternCode>[\s\S]+?)\/\* end pattern code \*\/}/gm;
   const code = patternCodeRegex.exec(await fs.readFile(filepath, "utf8"))
     ?.groups?.patternCode?.trim();
   if (code === undefined) {
@@ -44,14 +44,14 @@ const getPatternAt = async (filepath: string) => {
   const relativeFilepath = path.relative(pathToPatterns, filepath);
   const patternModule = PatternModule.parse(
     await import(
-      `../../../testing-emails/_patterns/${relativeFilepath.replace(path.extname(relativeFilepath), "")}`
+      `../../../patterns/${relativeFilepath.replace(path.extname(relativeFilepath), "")}`
     ),
   );
 
   return {
     title: patternModule.title,
     code,
-    element: patternModule.default as React.ReactNode,
+    patternComponent: patternModule.default as React.FC,
   } satisfies Pattern;
 };
 

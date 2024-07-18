@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "pattern:dev": "email dev -d ./testing-emails",
+    "pattern:dev": "email dev -d ./patterns",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
