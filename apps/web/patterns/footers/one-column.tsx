@@ -6,7 +6,7 @@ export const title = "Footer with one column";
 export const FooterWithOneColumn = () => {
   return (
     <Layout>
-      {/*start pattern code */}
+      {/* start pattern code */}
       <Section className="text-center">
         <table className="w-full">
           <tr className="w-full">
