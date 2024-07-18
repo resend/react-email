@@ -21,15 +21,19 @@ const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
   const patternCodeRegex =
-    /{\/\* start pattern code \*\/(?<patternCode>[\s\S]+?)\/\* end pattern code \*\/}/gm;
-  const code = patternCodeRegex.exec(await fs.readFile(filepath, "utf8"))
+    /{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
+  const code = patternCodeRegex
+    .exec(await fs.readFile(filepath, "utf8"))
     ?.groups?.patternCode?.trim();
   if (code === undefined) {
-    throw new Error('Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.', {
-      cause: {
-        filepath,
-      }
-    });
+    throw new Error(
+      "Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.",
+      {
+        cause: {
+          filepath,
+        },
+      },
+    );
   }
 
   const relativeFilepath = path.relative(pathToPatterns, filepath);
@@ -62,6 +66,13 @@ export const getPatterns = async () => {
 
   const categoryDirnames = await fs.readdir(pathToPatterns);
   for await (const categoryDirname of categoryDirnames) {
+    if (
+      categoryDirname === "_components" ||
+      categoryDirname === "static" ||
+      categoryDirname === "tailwind.config.ts"
+    )
+      continue;
+
     const categoryDirpath = path.join(pathToPatterns, categoryDirname);
     patterns[categoryDirname] = await getPatternsIn(categoryDirpath);
   }
