@@ -24,7 +24,7 @@ export const ArticleWithImageAsBackground = () => {
           <Heading as="h1" className="m-0 mt-1 font-bold text-white">
             Artful Accents
           </Heading>
-          <Text className="m-0 mt-2 text-base font-bold text-white">
+          <Text className="m-0 mt-2 text-base font-medium text-white">
             Uncover the power of accent furniture in transforming your space
             with subtle touches of style, personality, and functionality, as we
             explore the art of curating captivating accents for a truly curated
