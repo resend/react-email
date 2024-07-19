@@ -27,20 +27,20 @@ export const Checkout = () => {
               </th>
               <th
                 align="left"
-                className="py-2 border-0 border-b border-solid border-gray-200"
+                className="py-2 font-bold text-gray-500 border-0 border-b border-solid border-gray-200"
                 colSpan={6}
               >
                 <Text className="font-semibold">Product</Text>
               </th>
               <th
                 align="center"
-                className="py-2 border-0 border-b border-solid border-gray-200"
+                className="py-2 font-bold text-gray-500 border-0 border-b border-solid border-gray-200"
               >
                 <Text className="font-semibold">Quantity</Text>
               </th>
               <th
                 align="center"
-                className="py-2 border-0 border-b border-solid border-gray-200"
+                className="py-2 font-bold text-gray-500 border-0 border-b border-solid border-gray-200"
               >
                 <Text className="font-semibold">Price</Text>
               </th>
@@ -58,19 +58,19 @@ export const Checkout = () => {
                 className="py-2 border-0 border-b border-solid border-gray-200"
                 colSpan={6}
               >
-                <Text className="font-semibold">Apple Watch</Text>
+                <Text>Apple Watch</Text>
               </td>
               <td
                 align="center"
                 className="py-2 border-0 border-b border-solid border-gray-200"
               >
-                <Text className="font-semibold">1</Text>
+                <Text>1</Text>
               </td>
               <td
                 align="center"
                 className="py-2 border-0 border-b border-solid border-gray-200"
               >
-                <Text className="font-semibold">$999.99</Text>
+                <Text>$999.99</Text>
               </td>
             </tr>
             <tr>
@@ -86,19 +86,19 @@ export const Checkout = () => {
                 className="py-2 border-0 border-b border-solid border-gray-200"
                 colSpan={6}
               >
-                <Text className="font-semibold">Nice Fragrance</Text>
+                <Text>Nice Fragrance</Text>
               </td>
               <td
                 align="center"
                 className="py-2 border-0 border-b border-solid border-gray-200"
               >
-                <Text className="font-semibold">1</Text>
+                <Text>1</Text>
               </td>
               <td
                 align="center"
                 className="py-2 border-0 border-b border-solid border-gray-200"
               >
-                <Text className="font-semibold">$99.99</Text>
+                <Text>$99.99</Text>
               </td>
             </tr>
           </table>
