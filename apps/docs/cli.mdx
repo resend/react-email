@@ -50,27 +50,26 @@ your email template when you make changes.
     <Info>
       This does not mean your images are hosted for you to send the emails.
 
-    If you do send the rendered email, and you are trying to link to an image,
-    or some other asset inside `emails/static`, they will not load on the email that was sent.
+        If you do send the rendered email, and you are trying to link to an image,
+        or some other asset inside `emails/static`, they will not load on the email that was sent.
 
-    We recommend that you use a different source link to your files depending on whether you're
-    running in production or not. Here's an example
+        We recommend that you use a different source link to your files depending on whether you're
+        running in production or not. Here's an example
 
-    ```jsx
-    const baseURL = process.env.NODE_ENV === "production" ? "https://cdn.com" : "";
+        ```jsx
+        const baseURL = process.env.NODE_ENV === "production" ? "https://cdn.com" : "";
 
-    export default function Email(props) {
-      return (
-        <div>
-          <img src={`${baseURL}/static/email-logo.png`} />
-        </div>
-      );
-    }
-    ```
+        export default function Email(props) {
+          return (
+            <div>
+              <img src={`${baseURL}/static/email-logo.png`} />
+            </div>
+          );
+        }
+        ```
 
-    You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source)
-    for an example of how we do this with our demo deploy on Vercel.
-
+        You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source)
+        for an example of how we do this with our demo deploy on Vercel.
     </Info>
   </Accordion>
   <Accordion title="How can I define props specific to the email's preview?">
@@ -152,6 +151,22 @@ Runs the built preview app that is inside `.react-email`.
 ## `email export`
 
 Generates the plain HTML files of your emails into a `out` directory.
+
+<Info>
+  A very common misconception is to assume that this command is
+  the way meant to be used to send the email templates, but it is not.
+
+  The preferable way is to render the email using the [render](/utilities/render) utility,
+  by passing in the needed data through props, on the moment of sending the email,
+  This gives for a much better developer experience that it would with `email export`.
+
+  `email export` is a secondary way where the situation is not optimal. Two of them are:
+  - The email template is sent through some other language
+  - You are going to use separate templating, because the email platform you use forces you to do so
+
+  We strongly recommend users to gravitate towards using the preferable way, because otherwise
+  you will end up having to fight a lot with the rendered markup and many other issues arise.
+</Info>
 
 **Options**
 
