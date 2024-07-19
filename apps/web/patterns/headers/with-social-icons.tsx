@@ -29,7 +29,7 @@ export const HeaderWithSocialIcons = () => {
                   <Img
                     className="mx-1"
                     height="36"
-                    src="/static/twitter-logo.png"
+                    src="/static/x-logo.png"
                     width="36"
                   />
                 </Link>
