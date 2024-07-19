@@ -26,8 +26,8 @@ export const ThreeColumnsWithImages = () => {
             </Text>
           </Row>
         </Section>
-        <Section className="mt-4">
-          <Row className="mt-4">
+        <Section>
+          <Row>
             <Column className="w-1/3 pr-2">
               <Link href="#">
                 <Img
