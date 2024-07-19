@@ -42,7 +42,7 @@ export const FooterWithOneColumn = () => {
                     <Img
                       alt="Twitter"
                       height="36"
-                      src="/static/twitter-logo.png"
+                      src="/static/x-logo.png"
                       width="36"
                     />
                   </Link>
