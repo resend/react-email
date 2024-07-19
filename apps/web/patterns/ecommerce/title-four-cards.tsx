@@ -28,7 +28,7 @@ export const TitleFourCards = () => {
             </Text>
           </Row>
           <Row className="mt-4">
-            <Column align="center" className="w-1/2 pr-2" colSpan={1}>
+            <Column align="left" className="w-1/2 pr-2" colSpan={1}>
               <Img
                 className="w-full rounded-lg object-cover"
                 height={180}
@@ -50,7 +50,7 @@ export const TitleFourCards = () => {
                 Buy
               </Button>
             </Column>
-            <Column align="center" className="w-1/2 pl-2" colSpan={1}>
+            <Column align="left" className="w-1/2 pl-2" colSpan={1}>
               <Img
                 className="w-full rounded-lg object-cover"
                 height={180}
@@ -74,10 +74,10 @@ export const TitleFourCards = () => {
             </Column>
           </Row>
         </Section>
-        <Hr className="mx-0 my-4 w-full border border-solid border-gray-200" />
+        <Hr className="mx-0 my-6 w-full border border-solid border-gray-200" />
         <Section>
           <Row>
-            <Column align="center" className="w-1/2 pr-2" colSpan={1}>
+            <Column align="left" className="w-1/2 pr-2" colSpan={1}>
               <Img
                 className="w-full rounded-lg object-cover"
                 height={180}
@@ -99,7 +99,7 @@ export const TitleFourCards = () => {
                 Buy
               </Button>
             </Column>
-            <Column align="center" className="w-1/2 pl-2" colSpan={1}>
+            <Column align="left" className="w-1/2 pl-2" colSpan={1}>
               <Img
                 className="w-full rounded-lg object-cover"
                 height={180}

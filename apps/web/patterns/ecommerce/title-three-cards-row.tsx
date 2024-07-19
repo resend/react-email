@@ -19,7 +19,7 @@ export const TitleThreeCardsRow = () => {
           </Text>
         </Row>
         <ResponsiveRow className="mt-4">
-          <ResponsiveColumn align="center" className="pr-1 py-4">
+          <ResponsiveColumn className="text-left pr-1 py-4">
             <Img
               className="w-full rounded-lg object-cover"
               height={180}
@@ -41,7 +41,7 @@ export const TitleThreeCardsRow = () => {
               Buy
             </Button>
           </ResponsiveColumn>
-          <ResponsiveColumn align="center" className="px-1 py-4">
+          <ResponsiveColumn className="text-left px-1 py-4">
             <Img
               className="w-full rounded-lg object-cover"
               height={180}
@@ -63,7 +63,7 @@ export const TitleThreeCardsRow = () => {
               Buy
             </Button>
           </ResponsiveColumn>
-          <ResponsiveColumn align="center" className="pl-1 py-4">
+          <ResponsiveColumn className="text-left pl-1 py-4">
             <Img
               className="w-full rounded-lg object-cover"
               height={180}
