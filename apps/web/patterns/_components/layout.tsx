@@ -8,7 +8,13 @@ import {
 } from "@react-email/components";
 import tailwindConfig from "../tailwind.config";
 
-export const Layout = (props: { children?: React.ReactNode }) => {
+export const Layout = ({
+  children,
+  noTailwind = false,
+}: {
+  children?: React.ReactNode;
+  noTailwind?: boolean;
+}) => {
   return (
     <Html>
       <Head>
@@ -24,11 +30,17 @@ export const Layout = (props: { children?: React.ReactNode }) => {
         />
       </Head>
 
-      <Tailwind config={tailwindConfig}>
+      {noTailwind ? (
         <Body>
-          <Container>{props.children}</Container>
+          <Container>{children}</Container>
         </Body>
-      </Tailwind>
+      ) : (
+        <Tailwind config={tailwindConfig}>
+          <Body>
+            <Container>{children}</Container>
+          </Body>
+        </Tailwind>
+      )}
     </Html>
   );
 };
