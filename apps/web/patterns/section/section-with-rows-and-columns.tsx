@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Section with rows and columns";
 
-export const SingleHeading = () => {
+export const SectionWithRowsAndColumns = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -22,4 +22,4 @@ export const SingleHeading = () => {
   );
 };
 
-export default SingleHeading;
+export default SectionWithRowsAndColumns;

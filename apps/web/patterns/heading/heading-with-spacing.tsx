@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Heading with spacing";
 
-export const MultipleHeadings = () => {
+export const HeadingWithSpacing = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -21,4 +21,4 @@ export const MultipleHeadings = () => {
   );
 };
 
-export default MultipleHeadings;
+export default HeadingWithSpacing;
