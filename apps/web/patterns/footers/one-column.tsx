@@ -11,7 +11,7 @@ export const FooterWithOneColumn = () => {
         <table className="w-full">
           <tr className="w-full">
             <td align="center">
-              <Img alt="company-logo" height="42" src="/static/logo.png" />
+              <Img alt="React Email logo" height="42" src="/static/logo.png" />
             </td>
           </tr>
           <tr className="w-full">
@@ -40,7 +40,7 @@ export const FooterWithOneColumn = () => {
                 <Column className="pr-2">
                   <Link href="#">
                     <Img
-                      alt="Twitter"
+                      alt="X"
                       height="36"
                       src="/static/x-logo.png"
                       width="36"

@@ -20,7 +20,7 @@ export const HeaderWithFourParagraphs = () => {
         </Row>
         <Row className="mt-4">
           <Column className="w-1/2 pr-3 align-baseline" colSpan={1}>
-            <Img height="48" src="/static/heart-icon.png" width="48" />
+            <Img alt="heart icon" height="48" src="/static/heart-icon.png" width="48" />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Multifunctional Marvels
             </Text>
@@ -32,8 +32,8 @@ export const HeaderWithFourParagraphs = () => {
             </Text>
           </Column>
           <Column className="w-base pl-3 align-baseline" colSpan={1}>
-            <Img height="48" src="/static/rocket-icon.png" width="48" />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
+            <Img alt="rocket icon" height="48" src="/static/rocket-icon.png" width="48" />
               Impeccable Quality
             </Text>
             <Text className="mb-0 mt-2 text-base text-gray-500">
@@ -47,7 +47,7 @@ export const HeaderWithFourParagraphs = () => {
         </Row>
         <Row className="mt-8">
           <Column className="w-1/2 pr-3 align-baseline" colSpan={1}>
-            <Img height="48" src="/static/megaphone-icon.png" width="48" />
+            <Img alt="megaphone icon" height="48" src="/static/megaphone-icon.png" width="48" />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Versatile Styles
             </Text>
@@ -60,7 +60,7 @@ export const HeaderWithFourParagraphs = () => {
             </Text>
           </Column>
           <Column className="w-1/2 pl-3 align-baseline" colSpan={1}>
-            <Img height="48" src="/static/cube-icon.png" width="48" />
+            <Img alt="cube icon" height="48" src="/static/cube-icon.png" width="48" />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Personalized Service
             </Text>

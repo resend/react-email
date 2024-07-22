@@ -33,6 +33,7 @@ export const ImagesOnHorizontalGrid = () => {
                 <td>
                   <Link href="#">
                     <Img
+                      alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
                       className="w-full rounded-xl object-cover"
                       height={152}
                       src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -44,6 +45,7 @@ export const ImagesOnHorizontalGrid = () => {
                 <td>
                   <Link href="#">
                     <Img
+                      alt="A hand holding a blue water bottle with water poring down around it, all on a bage background."
                       className="w-full rounded-xl object-cover"
                       height={152}
                       src="https://images.unsplash.com/photo-1610824352934-c10d87b700cc?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -55,6 +57,7 @@ export const ImagesOnHorizontalGrid = () => {
             <Column className="w-1/2 pl-2 py-2">
               <Link href="#">
                 <Img
+                  alt="Two matching shoes on a white background. The second one is tilted diagonally being supported by a white box. The first one is on top of the same box"
                   className="w-full rounded-xl object-cover"
                   height={152 + 152 + 8 + 8}
                   src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=2898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

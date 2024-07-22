@@ -13,6 +13,7 @@ export const OneProductImageLeft = () => {
             <tr className="w-full">
               <td className="w-1/2 pr-8 box-border">
                 <Img
+                  alt="An aesthetic picture taken of an Iphone, flowers, glasses and a card that reads 'Gucci, bloom' coming out of a leathered bag with a ziper"
                   className="rounded-lg w-full object-cover"
                   height={220}
                   src="https://images.unsplash.com/photo-1611254666354-d75bfe3cadbc?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

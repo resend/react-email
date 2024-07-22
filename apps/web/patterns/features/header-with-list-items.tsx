@@ -24,7 +24,7 @@ export const HeaderWithListItems = () => {
           <Section>
             <Row>
               <Column className="align-baseline">
-                <Img height="48" src="/static/heart-icon.png" width="48" />
+                <Img alt="heart icon" height="48" src="/static/heart-icon.png" width="48" />
               </Column>
               <Column className="w-[85%]">
                 <Text className="m-0 text-xl font-semibold text-gray-900">
@@ -41,7 +41,7 @@ export const HeaderWithListItems = () => {
           <Section>
             <Row>
               <Column className="align-baseline">
-                <Img height="48" src="/static/rocket-icon.png" width="48" />
+                <Img alt="rocket icon" height="48" src="/static/rocket-icon.png" width="48" />
               </Column>
               <Column className="w-[85%]">
                 <Text className="m-0 text-xl font-semibold text-gray-900">

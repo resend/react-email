@@ -24,6 +24,7 @@ export const ArticleWithTwoCards = () => {
             colSpan={1}
           >
             <Img
+              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
               className="w-full rounded-lg object-cover"
               height="180"
               src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -45,6 +46,7 @@ export const ArticleWithTwoCards = () => {
             colSpan={1}
           >
             <Img
+              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
               className="w-full rounded-lg object-cover"
               height="180"
               src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
