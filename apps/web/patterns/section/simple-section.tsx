@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Simple section";
 
-export const SingleHeading = () => {
+export const SimpleSection = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -15,4 +15,4 @@ export const SingleHeading = () => {
   );
 };
 
-export default SingleHeading;
+export default SimpleSection;
