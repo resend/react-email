@@ -20,7 +20,7 @@ export const HeaderWithFourParagraphsTwoColumns = () => {
         <table width="100%">
           <tr className="w-full mt-4">
             <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img height="48" src="/static/heart-icon.png" width="48" />
+              <Img alt="heart icon" height="48" src="/static/heart-icon.png" width="48" />
               <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
                 Timeless Beauty
               </Text>
@@ -30,7 +30,7 @@ export const HeaderWithFourParagraphsTwoColumns = () => {
               </Text>
             </td>
             <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img height="48" src="/static/rocket-icon.png" width="48" />
+              <Img alt="rocket icon" height="48" src="/static/rocket-icon.png" width="48" />
               <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
                 Effortless Function
               </Text>
@@ -42,7 +42,7 @@ export const HeaderWithFourParagraphsTwoColumns = () => {
           </tr>
           <tr className="w-full mt-4">
             <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img height="48" src="/static/megaphone-icon.png" width="48" />
+              <Img alt="megaphone icon" height="48" src="/static/megaphone-icon.png" width="48" />
               <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
                 Customize Your Space
               </Text>
@@ -53,7 +53,7 @@ export const HeaderWithFourParagraphsTwoColumns = () => {
               </Text>
             </td>
             <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img height="48" src="/static/cube-icon.png" width="48" />
+              <Img alt="cube icon" height="48" src="/static/cube-icon.png" width="48" />
               <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
                 Outdoor Serenity
               </Text>

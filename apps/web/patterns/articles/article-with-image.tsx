@@ -9,6 +9,7 @@ export const ArticleWithImage = () => {
       {/* start pattern code */}
       <Section className="my-4">
         <Img
+          alt="A picture of a sunset on a curved road that goes up a mountain with lights of cars smeared from its start to finish. The picture was taken during a sunset, and has some trees all over."
           className="w-full rounded-xl object-cover"
           height="320"
           src="https://images.unsplash.com/photo-1702470170564-22dd352f5b88?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

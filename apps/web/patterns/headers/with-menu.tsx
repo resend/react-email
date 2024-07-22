@@ -10,7 +10,7 @@ export const HeaderWithMenu = () => {
       <Section className="py-10 px-8 my-10">
         <Row>
           <Column className="w-[80%]">
-            <Img alt="company-logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo.png" />
           </Column>
           <Column align="right">
             <Row align="right">

@@ -10,7 +10,7 @@ export const FooterWithTwoColumns = () => {
       <Section>
         <Row>
           <Column colSpan={4}>
-            <Img alt="company-logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo.png" />
             <Text className="my-2 text-base font-semibold text-gray-900">
               Acme corporation
             </Text>
@@ -33,7 +33,7 @@ export const FooterWithTwoColumns = () => {
               <Column className="pr-2">
                 <Link href="#">
                   <Img
-                    alt="Twitter"
+                    alt="X"
                     height="36"
                     src="/static/x-logo.png"
                     width="36"

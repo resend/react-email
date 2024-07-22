@@ -26,6 +26,7 @@ export const DownloadAppButtons = () => {
                   <td className="pr-4">
                     <Button href="https://react.email">
                       <Img
+                        alt="Get it on Google Play button"
                         height={54}
                         src="/static/get-it-on-google-play.png"
                       />
@@ -34,6 +35,7 @@ export const DownloadAppButtons = () => {
                   <td className="pl-4">
                     <Button href="https://react.email">
                       <Img
+                        alt="Download on the App Store button"
                         height={54}
                         src="/static/download-on-the-app-store.png"
                       />

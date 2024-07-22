@@ -19,7 +19,12 @@ export const HeaderWithThreeCenteredParagraphs = () => {
         </Row>
         <Row className="mt-4">
           <Column align="center" className="w-1/3 pr-3 align-baseline">
-            <Img height="48" src="/static/heart-icon.png" width="48" />
+            <Img
+              alt="heart icon"
+              height="48"
+              src="/static/heart-icon.png"
+              width="48"
+            />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Timeless Charm
             </Text>
@@ -29,7 +34,12 @@ export const HeaderWithThreeCenteredParagraphs = () => {
             </Text>
           </Column>
           <Column align="center" className="w-1/3 pl-3 align-baseline">
-            <Img height="48" src="/static/rocket-icon.png" width="48" />
+            <Img
+              alt="rocket icon"
+              height="48"
+              src="/static/rocket-icon.png"
+              width="48"
+            />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Functional Beauty
             </Text>
@@ -39,7 +49,12 @@ export const HeaderWithThreeCenteredParagraphs = () => {
             </Text>
           </Column>
           <Column align="center" className="w-1/3 pl-3 align-baseline">
-            <Img height="48" src="/static/megaphone-icon.png" width="48" />
+            <Img
+              alt="megaphone icon"
+              height="48"
+              src="/static/megaphone-icon.png"
+              width="48"
+            />
             <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
               Endless Comfort
             </Text>

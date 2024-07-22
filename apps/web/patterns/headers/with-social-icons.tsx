@@ -10,13 +10,14 @@ export const HeaderWithSocialIcons = () => {
       <Section className="py-10 px-8">
         <Row>
           <Column className="w-[80%]">
-            <Img alt="company-logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo.png" />
           </Column>
           <Column align="right">
             <Row align="right">
               <Column>
                 <Link href="#">
                   <Img
+                    alt="Facebook"
                     className="mx-1"
                     height="36"
                     src="/static/facebook-logo.png"
@@ -27,6 +28,7 @@ export const HeaderWithSocialIcons = () => {
               <Column>
                 <Link href="#">
                   <Img
+                    alt="X"
                     className="mx-1"
                     height="36"
                     src="/static/x-logo.png"
@@ -37,6 +39,7 @@ export const HeaderWithSocialIcons = () => {
               <Column>
                 <Link href="#">
                   <Img
+                    alt="Instagram"
                     className="mx-1"
                     height="36"
                     src="/static/instagram-logo.png"
