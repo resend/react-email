@@ -1,7 +1,7 @@
 import { Heading } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const title = "Multiple heading";
+export const title = "Multiple headings";
 
 export const MultipleHeadings = () => {
   return (
