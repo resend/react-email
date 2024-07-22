@@ -1,7 +1,7 @@
 import { Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const title = "Single heading";
+export const title = "Simple section";
 
 export const SingleHeading = () => {
   return (
