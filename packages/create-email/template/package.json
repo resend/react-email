@@ -1,6 +1,6 @@
 {
   "name": "react-email-starter",
-  "version": "0.0.31-canary.0",
+  "version": "0.0.31-canary.1",
   "private": true,
   "scripts": {
     "build": "email build",
