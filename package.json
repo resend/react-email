@@ -16,8 +16,8 @@
   "devDependencies": {
     "@changesets/cli": "2.27.1",
     "@types/node": "18.18.0",
-    "@types/react": "18.2.47",
-    "@types/react-dom": "18.2.14",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "eslint": "8.50.0",
     "happy-dom": "12.2.2",
     "prettier": "3.0.3",
@@ -29,6 +29,10 @@
   },
   "packageManager": "pnpm@9.1.2",
   "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-rc.1",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
+    },
     "patchedDependencies": {
       "postcss-css-variables@0.19.0": "patches/postcss-css-variables@0.19.0.patch",
       "process@0.11.10": "patches/process@0.11.10.patch",
