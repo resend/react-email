@@ -101,8 +101,8 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     if (element.props.className) {
       const { styles, residualClassName } = inline(element.props.className);
       propsToOverwrite.style = {
-        ...element.props.style,
         ...styles,
+        ...element.props.style,
       };
       if (!isComponent(element)) {
         if (residualClassName.trim().length > 0) {
