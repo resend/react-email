@@ -104,22 +104,24 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
         ...element.props.style,
         ...styles,
       };
-      if (residualClassName.trim().length > 0) {
-        propsToOverwrite.className = residualClassName;
-        /*
+      if (!isComponent(element)) {
+        if (residualClassName.trim().length > 0) {
+          propsToOverwrite.className = residualClassName;
+          /*
           We sanitize only the class names of Tailwind classes that we are not going to inline
           to avoid unpredictable behavior on the user's code. If we did sanitize all class names
           a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of nonInlinableClasses) {
-          propsToOverwrite.className = propsToOverwrite.className.replace(
-            singleClass,
-            sanitizeClassName(singleClass),
-          );
+          for (const singleClass of nonInlinableClasses) {
+            propsToOverwrite.className = propsToOverwrite.className.replace(
+              singleClass,
+              sanitizeClassName(singleClass),
+            );
+          }
+        } else {
+          propsToOverwrite.className = undefined;
         }
-      } else {
-        propsToOverwrite.className = undefined;
       }
     }
 
@@ -135,7 +137,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       const component =
         typeof element.type === "object"
           ? // @ts-expect-error - we know this is a component with a render function
-            (element.type.render as React.FC)
+          (element.type.render as React.FC)
           : (element.type as React.FC);
       const renderedComponent = component({
         ...element.props,
