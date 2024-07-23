@@ -41,7 +41,7 @@ jobs:
 
       - name: Enter prerelease mode
         continue-on-error: true
-        run: changeset pre enter canary
+        run: pnpm canary:enter
 
       - name: Create Release Pull Request
         uses: changesets/action@v1

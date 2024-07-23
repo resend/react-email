@@ -41,7 +41,7 @@ jobs:
 
       - name: Exit prerelease mode
         continue-on-error: true
-        run: changeset pre exit
+        run: pnpm canary:exit
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
