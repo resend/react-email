@@ -1,6 +1,6 @@
 {
   "name": "@react-email/font",
-  "version": "0.0.7-canary.1",
+  "version": "0.0.7",
   "description": "A React Font component to set your fonts",
   "sideEffects": false,
   "main": "./dist/index.js",
