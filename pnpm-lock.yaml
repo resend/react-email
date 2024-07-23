@@ -448,6 +448,9 @@ importers:
       react:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0
+      react-dom:
+        specifier: 19.0.0-rc.0
+        version: 19.0.0-rc.0(react@19.0.0-rc.0)
       react-email:
         specifier: workspace:2.1.7-canary.0
         version: link:../../react-email
