@@ -1,0 +1,39 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "demo": "0.0.0",
+    "web": "0.0.0",
+    "@benchmarks/tailwind-component": "0.0.0",
+    "@react-email/body": "0.0.9",
+    "@react-email/button": "0.0.16",
+    "@react-email/code-block": "0.0.6",
+    "@react-email/code-inline": "0.0.3",
+    "@react-email/column": "0.0.11",
+    "@react-email/components": "0.0.22",
+    "@react-email/container": "0.0.13",
+    "create-email": "0.0.30",
+    "react-email-starter": "0.0.30",
+    "eslint-config-custom": "0.0.0",
+    "@react-email/font": "0.0.7",
+    "@react-email/head": "0.0.10",
+    "@react-email/heading": "0.0.13",
+    "@react-email/hr": "0.0.9",
+    "@react-email/html": "0.0.9",
+    "@react-email/img": "0.0.9",
+    "@react-email/link": "0.0.9",
+    "@react-email/markdown": "0.0.11",
+    "@react-email/preview": "0.0.10",
+    "react-email": "2.1.6",
+    "@react-email/render": "0.0.17",
+    "@react-email/row": "0.0.9",
+    "@react-email/section": "0.0.13",
+    "@react-email/tailwind": "0.0.19",
+    "@react-email/text": "0.0.9",
+    "tsconfig": "0.0.0"
+  },
+  "changesets": [
+    "dry-humans-return",
+    "fast-countries-marry"
+  ]
+}
