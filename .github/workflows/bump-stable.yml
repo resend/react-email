@@ -46,7 +46,7 @@ jobs:
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
-          version: pnpm version
+          version: pnpm run version
           title: "chore: Bump for release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
