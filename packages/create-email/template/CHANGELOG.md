@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 0.0.31-canary.1
+
+### Patch Changes
+
+- 844b394: add react-dom as a template dependency as well
+
 ## 0.0.31-canary.0
 
 ### Patch Changes
