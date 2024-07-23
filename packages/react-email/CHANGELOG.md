@@ -1,5 +1,12 @@
 # react-email
 
+## 2.1.7-canary.0
+
+### Patch Changes
+
+- 27234ec: update socket.io/socket.io-client to 4.7.5
+- a1c016b: Updated peer dependencies to allow for React 19 release candidated and React 19 itself
+
 ## 2.1.6
 
 ### Patch changes
