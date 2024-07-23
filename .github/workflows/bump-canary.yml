@@ -39,10 +39,14 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
+      - name: Enter prerelease mode
+        run: |
+          changeset pre enter canary 2>/dev/null || true
+
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
-          version: pnpm canary:version
+          version: pnpm version
           title: "chore: Bump for release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

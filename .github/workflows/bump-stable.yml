@@ -39,6 +39,10 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
+      - name: Exit prerelease mode
+        run: |
+          changeset pre exit 2>/dev/null || true
+
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
