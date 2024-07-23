@@ -10,6 +10,7 @@
   "dependencies": {
     "@react-email/components": "workspace:0.0.23-canary.0",
     "react-email": "workspace:2.1.7-canary.0",
+    "react-dom": "19.0.0-rc.0",
     "react": "19.0.0-rc.0"
   },
   "devDependencies": {
