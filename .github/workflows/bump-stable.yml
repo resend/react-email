@@ -40,8 +40,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Exit prerelease mode
-        run: |
-          changeset pre exit 2>/dev/null || true
+        continue-on-error: true
+        run: changeset pre exit
 
       - name: Create Release Pull Request
         uses: changesets/action@v1

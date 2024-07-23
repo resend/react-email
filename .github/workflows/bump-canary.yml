@@ -40,8 +40,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Enter prerelease mode
-        run: |
-          changeset pre enter canary 2>/dev/null || true
+        continue-on-error: true
+        run: changeset pre enter canary
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
