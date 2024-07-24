@@ -55,7 +55,7 @@
     "next": "14.2.3",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
-    "postcss": "8.4.38",
+    "postcss": "8.4.39",
     "prism-react-renderer": "2.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
