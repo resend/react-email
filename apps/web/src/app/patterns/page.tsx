@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 
 const Patterns = async () => {
   const patterns = await getPatterns();
+  // eslint-disable-next-line no-console
   console.log(patterns);
 
   return (
