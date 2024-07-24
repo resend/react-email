@@ -1,5 +1,11 @@
 # @react-email/button
 
+## 0.0.17-canary.1
+
+### Patch Changes
+
+- 8538cb3: Add missing `msoPaddingAlt` to containing `<a>` tag
+
 ## 0.0.17-canary.0
 
 ### Patch Changes
