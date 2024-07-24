@@ -83,6 +83,7 @@ const buttonStyle = (
     textDecoration: "none",
     display: "inline-block",
     maxWidth: "100%",
+    msoPaddingAlt: "0px",
     ...rest,
     padding: `${pt}px ${pr}px ${pb}px ${pl}px`,
   };
