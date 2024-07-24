@@ -112,8 +112,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       next:
-        specifier: 15.0.0-canary.27
-        version: 15.0.0-canary.27(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: 15.0.0-canary.80
+        version: 15.0.0-canary.80(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
       prism-react-renderer:
         specifier: 2.3.1
         version: 2.3.1(react@19.0.0-rc.0)
@@ -162,7 +162,7 @@ importers:
         version: link:../../packages/react-email
       react-email-canary:
         specifier: npm:react-email@2.1.7-canary.2
-        version: react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.11)(eslint@8.50.0)
+        version: react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.12)(eslint@8.50.0)
       tinybench:
         specifier: 2.5.1
         version: 2.5.1
@@ -726,7 +726,7 @@ importers:
         version: link:../render
       '@swc/core':
         specifier: 1.4.15
-        version: 1.4.15(@swc/helpers@0.5.11)
+        version: 1.4.15(@swc/helpers@0.5.12)
       '@types/babel__core':
         specifier: 7.20.5
         version: 7.20.5
@@ -750,7 +750,7 @@ importers:
         version: types-react-dom@19.0.0-rc.1
       '@types/webpack':
         specifier: 5.28.5
-        version: 5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)
+        version: 5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)
       '@vercel/style-guide':
         specifier: 5.1.0
         version: 5.1.0(@next/eslint-plugin-next@14.2.3)(eslint@8.50.0)(prettier@3.0.3)(typescript@5.1.6)
@@ -807,7 +807,7 @@ importers:
         version: 3.4.0
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(postcss@8.4.40)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6)
       tsx:
         specifier: 4.9.0
         version: 4.9.0
@@ -1866,8 +1866,8 @@ packages:
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
 
-  '@next/env@15.0.0-canary.27':
-    resolution: {integrity: sha512-tmb/G95GoXy8qn0cYN9Ud6DVUmBltMITcqIbj6PmHAMAnD5V07LpnA69DWHtA2boiO/851NqoTUWW+4c7gn+fw==}
+  '@next/env@15.0.0-canary.80':
+    resolution: {integrity: sha512-z2g0cEnafywK7rgRILo7hA9nstKjqcOFyEv8rpwWaZwkF/aWrexCm6rqDe1J73K8npcupcuM6U+eWLn6gNm0Jw==}
 
   '@next/eslint-plugin-next@14.2.3':
     resolution: {integrity: sha512-L3oDricIIjgj1AVnRdRor21gI7mShlSwU/1ZGHmqM3LzHhXXhdkrfeNY5zif25Bi5Dd7fiJHsbhoZCHfXYvlAw==}
@@ -1878,8 +1878,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-arm64@15.0.0-canary.27':
-    resolution: {integrity: sha512-az7F37RjOKmUBPYP4uhZyV6FNy355xYTbywAjMZozA9OjnrScLnlBpYxEJufJN9b4cKWGBfgVBtKiksnjiyO0g==}
+  '@next/swc-darwin-arm64@15.0.0-canary.80':
+    resolution: {integrity: sha512-TTuZcnBhzaGdorYFChYwmM/fVBtHIgx3f/v8HEHAxluM5Iou/aLop/103j1auDT6/ILakbkYqOsp63EQPQ/NXQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -1890,8 +1890,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.0.0-canary.27':
-    resolution: {integrity: sha512-Cj17nSlx6RuQRyMIJM4JHPaHw4BsmFiBLi6cVxE4PG147RF3En1iCwHJJISb9xIX3iah7ZYJCw7+U3SW+FFLww==}
+  '@next/swc-darwin-x64@15.0.0-canary.80':
+    resolution: {integrity: sha512-WQ35/nKIpdE2oMc0sW7a8jvkg+EhgcEaqRHw6kz+fFsndCUF3AgYFfPkTuTxDuUI5a8JQqerekB5okC8xM5VJA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -1902,8 +1902,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-gnu@15.0.0-canary.27':
-    resolution: {integrity: sha512-tsY/36h9jICYxH56LoDm6rTHNOVZXN1gzHA9rBbQ8Sgmg6F9iE+2XCKtPVwDGD7m/nD/NSspdJi9vp3/yPwzmw==}
+  '@next/swc-linux-arm64-gnu@15.0.0-canary.80':
+    resolution: {integrity: sha512-r1QLsTM88v6zjIHTiPMftQxsATFcsOnBUD745H06EvayVeRNrzhiKe7hBVb+J+Ex76IcDB+A1ecsbpI+ptKVUg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -1914,8 +1914,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.0.0-canary.27':
-    resolution: {integrity: sha512-vfAb36zPknAvW0yDH9T7400duH4aq5zfbQ+BZRGhfVH922MF5kbB67MHgxLv0cG2lJbd5H2BPRZTQjYJ5NFucA==}
+  '@next/swc-linux-arm64-musl@15.0.0-canary.80':
+    resolution: {integrity: sha512-zmV6+pGOFqaUeo4l0UtJFDHJcYsNc33TH6TUS0DA2WZ/AP5rNmHWr/zxSy2qvgBrYaahy7V8MEC0XheKEccmBg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -1926,8 +1926,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.0.0-canary.27':
-    resolution: {integrity: sha512-RE+RloTbdCopb16ZtLROoRdqRUbJfyz/eh7qYV6MxioenmOJ4VTxs/XIJpQGHvl4Mfgn7ZKbPVGRgSmPkZhEpQ==}
+  '@next/swc-linux-x64-gnu@15.0.0-canary.80':
+    resolution: {integrity: sha512-cTVqlJOJRViineARZXB3tanxXNzSMtwXa8np9O6BjYqw0loud8vPPIZKrw/f1vEUeqwZlYO2lLMcJqSVYTgRWA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -1938,8 +1938,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.0.0-canary.27':
-    resolution: {integrity: sha512-6DTtwlIBrOX8G0QX9FhFAUZD7HgyzEgzP8RvQ/JuaB17xZlAcczNjyUSwdPf5MsI7zbqaWzkUPKcUAzHqdD9SQ==}
+  '@next/swc-linux-x64-musl@15.0.0-canary.80':
+    resolution: {integrity: sha512-qAPj4igjTJeSzGouaJ7B6/pLqbixHM/8f/+Z/2DA1szi7JOMScbeT8xjLkGh0EuGvDBeSFZT0jvxX7w6949Naw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -1950,8 +1950,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-arm64-msvc@15.0.0-canary.27':
-    resolution: {integrity: sha512-gix3YYRrbLn7g56ItrToUirBm1WV+McobMbfxBUf1C34pjzLPL1VlWBskGvptJxXsfmmQejB2uPcUExP/GUjYA==}
+  '@next/swc-win32-arm64-msvc@15.0.0-canary.80':
+    resolution: {integrity: sha512-BQq6dSugj5L8OpiRgoJOCxEuwCY6Oms7wBZZVbv81x/zKV6slSrFJ/gfh4DmBuI+wVVZABlGuiZzsq3sZTWAVg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -1962,8 +1962,8 @@ packages:
     cpu: [ia32]
     os: [win32]
 
-  '@next/swc-win32-ia32-msvc@15.0.0-canary.27':
-    resolution: {integrity: sha512-7P00L88CxhHElGH2GAoV5w472XSyKa155DPcnw1e9lfSXQ7vJZzo0hZnRLKMJD1qBF09JOvXpMMiVxLsxxq+zw==}
+  '@next/swc-win32-ia32-msvc@15.0.0-canary.80':
+    resolution: {integrity: sha512-u1ZOaReA8KxfdH2+LmM3TDOHlX0PJNgdLdze8ncf7wtX22EmPmsBOxZIbtm4i5NVzduHNVcjvF4G8mMIq/uxgA==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
@@ -1974,8 +1974,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.0.0-canary.27':
-    resolution: {integrity: sha512-EWYLx8PK0vhDMxOxyAxfNzZJL06Ctr6GKfIfB54OGLaL6N/quZjUWk+EWN5ebhi4/cOyCU+9RNkyVx/hnZXpJg==}
+  '@next/swc-win32-x64-msvc@15.0.0-canary.80':
+    resolution: {integrity: sha512-kFgxs1Y1s/cCjY4AQpfgP1dMZcBrcIo0QtLjWLd1c3xf66R6hiCa5g23K2JTCmhOKB2Ncj8xda6O6hyQlNi6fg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -2632,8 +2632,8 @@ packages:
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
-  '@swc/helpers@0.5.11':
-    resolution: {integrity: sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==}
+  '@swc/helpers@0.5.12':
+    resolution: {integrity: sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==}
 
   '@swc/helpers@0.5.5':
     resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
@@ -4790,9 +4790,9 @@ packages:
       sass:
         optional: true
 
-  next@15.0.0-canary.27:
-    resolution: {integrity: sha512-7XjoOl7aIYpUy5WecPZgWTEf52kDJPmrtKnl89mHjTIkxcAq6BltYP7Uy+ZNc6PD28u4DxYdMxNvC4sSmPxKHg==}
-    engines: {node: '>=18.17.0'}
+  next@15.0.0-canary.80:
+    resolution: {integrity: sha512-vvZ6OgEjfmKNIuZ2ppeMmMzqKG8NT6igwydhkbNLFIrJwCWnW3W5/aQIKT5h+YClXE/61+1q6Bp5pSZcWF92FA==}
+    engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -5426,6 +5426,9 @@ packages:
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
+
+  scheduler@0.23.0:
+    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
 
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
@@ -7273,7 +7276,7 @@ snapshots:
 
   '@next/env@14.2.3': {}
 
-  '@next/env@15.0.0-canary.27': {}
+  '@next/env@15.0.0-canary.80': {}
 
   '@next/eslint-plugin-next@14.2.3':
     dependencies:
@@ -7282,55 +7285,55 @@ snapshots:
   '@next/swc-darwin-arm64@14.2.3':
     optional: true
 
-  '@next/swc-darwin-arm64@15.0.0-canary.27':
+  '@next/swc-darwin-arm64@15.0.0-canary.80':
     optional: true
 
   '@next/swc-darwin-x64@14.2.3':
     optional: true
 
-  '@next/swc-darwin-x64@15.0.0-canary.27':
+  '@next/swc-darwin-x64@15.0.0-canary.80':
     optional: true
 
   '@next/swc-linux-arm64-gnu@14.2.3':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.0.0-canary.27':
+  '@next/swc-linux-arm64-gnu@15.0.0-canary.80':
     optional: true
 
   '@next/swc-linux-arm64-musl@14.2.3':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.0.0-canary.27':
+  '@next/swc-linux-arm64-musl@15.0.0-canary.80':
     optional: true
 
   '@next/swc-linux-x64-gnu@14.2.3':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.0.0-canary.27':
+  '@next/swc-linux-x64-gnu@15.0.0-canary.80':
     optional: true
 
   '@next/swc-linux-x64-musl@14.2.3':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.0.0-canary.27':
+  '@next/swc-linux-x64-musl@15.0.0-canary.80':
     optional: true
 
   '@next/swc-win32-arm64-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.0.0-canary.27':
+  '@next/swc-win32-arm64-msvc@15.0.0-canary.80':
     optional: true
 
   '@next/swc-win32-ia32-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-ia32-msvc@15.0.0-canary.27':
+  '@next/swc-win32-ia32-msvc@15.0.0-canary.80':
     optional: true
 
   '@next/swc-win32-x64-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.0.0-canary.27':
+  '@next/swc-win32-x64-msvc@15.0.0-canary.80':
     optional: true
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
@@ -7890,7 +7893,7 @@ snapshots:
   '@swc/core-win32-x64-msvc@1.4.15':
     optional: true
 
-  '@swc/core@1.3.101(@swc/helpers@0.5.11)':
+  '@swc/core@1.3.101(@swc/helpers@0.5.12)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.6
@@ -7905,9 +7908,9 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.3.101
       '@swc/core-win32-ia32-msvc': 1.3.101
       '@swc/core-win32-x64-msvc': 1.3.101
-      '@swc/helpers': 0.5.11
+      '@swc/helpers': 0.5.12
 
-  '@swc/core@1.4.15(@swc/helpers@0.5.11)':
+  '@swc/core@1.4.15(@swc/helpers@0.5.12)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.6
@@ -7922,11 +7925,11 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.4.15
       '@swc/core-win32-ia32-msvc': 1.4.15
       '@swc/core-win32-x64-msvc': 1.4.15
-      '@swc/helpers': 0.5.11
+      '@swc/helpers': 0.5.12
 
   '@swc/counter@0.1.3': {}
 
-  '@swc/helpers@0.5.11':
+  '@swc/helpers@0.5.12':
     dependencies:
       tslib: 2.6.2
 
@@ -8027,22 +8030,22 @@ snapshots:
 
   '@types/semver@7.5.8': {}
 
-  '@types/webpack@5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)':
+  '@types/webpack@5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)':
     dependencies:
       '@types/node': 18.18.0
       tapable: 2.2.1
-      webpack: 5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)
+      webpack: 5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)
     transitivePeerDependencies:
       - '@swc/core'
       - esbuild
       - uglify-js
       - webpack-cli
 
-  '@types/webpack@5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)':
+  '@types/webpack@5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)':
     dependencies:
       '@types/node': 18.18.0
       tapable: 2.2.1
-      webpack: 5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)
+      webpack: 5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)
     transitivePeerDependencies:
       - '@swc/core'
       - esbuild
@@ -10588,10 +10591,11 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@15.0.0-canary.27(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
+  next@15.0.0-canary.80(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
     dependencies:
-      '@next/env': 15.0.0-canary.27
-      '@swc/helpers': 0.5.11
+      '@next/env': 15.0.0-canary.80
+      '@swc/counter': 0.1.3
+      '@swc/helpers': 0.5.12
       busboy: 1.6.0
       caniuse-lite: 1.0.30001605
       graceful-fs: 4.2.11
@@ -10600,15 +10604,15 @@ snapshots:
       react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
       styled-jsx: 5.1.6(react@19.0.0-rc.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.0.0-canary.27
-      '@next/swc-darwin-x64': 15.0.0-canary.27
-      '@next/swc-linux-arm64-gnu': 15.0.0-canary.27
-      '@next/swc-linux-arm64-musl': 15.0.0-canary.27
-      '@next/swc-linux-x64-gnu': 15.0.0-canary.27
-      '@next/swc-linux-x64-musl': 15.0.0-canary.27
-      '@next/swc-win32-arm64-msvc': 15.0.0-canary.27
-      '@next/swc-win32-ia32-msvc': 15.0.0-canary.27
-      '@next/swc-win32-x64-msvc': 15.0.0-canary.27
+      '@next/swc-darwin-arm64': 15.0.0-canary.80
+      '@next/swc-darwin-x64': 15.0.0-canary.80
+      '@next/swc-linux-arm64-gnu': 15.0.0-canary.80
+      '@next/swc-linux-arm64-musl': 15.0.0-canary.80
+      '@next/swc-linux-x64-gnu': 15.0.0-canary.80
+      '@next/swc-linux-x64-musl': 15.0.0-canary.80
+      '@next/swc-win32-arm64-msvc': 15.0.0-canary.80
+      '@next/swc-win32-ia32-msvc': 15.0.0-canary.80
+      '@next/swc-win32-x64-msvc': 15.0.0-canary.80
       sharp: 0.33.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -11066,7 +11070,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
       react: 19.0.0-rc.0
-      scheduler: 0.23.2
+      scheduler: 0.23.0
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -11084,7 +11088,7 @@ snapshots:
       react: 19.0.0-rc.0
       scheduler: 0.25.0-rc.0
 
-  react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.11)(eslint@8.50.0):
+  react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.12)(eslint@8.50.0):
     dependencies:
       '@babel/core': 7.24.5
       '@babel/parser': 7.24.5
@@ -11094,10 +11098,10 @@ snapshots:
       '@radix-ui/react-slot': 1.1.0(react@18.3.1)(types-react@19.0.0-rc.1)
       '@radix-ui/react-toggle-group': 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       '@radix-ui/react-tooltip': 1.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
-      '@swc/core': 1.3.101(@swc/helpers@0.5.11)
+      '@swc/core': 1.3.101(@swc/helpers@0.5.12)
       '@types/react': types-react@19.0.0-rc.1
       '@types/react-dom': types-react-dom@19.0.0-rc.1
-      '@types/webpack': 5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)
+      '@types/webpack': 5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)
       autoprefixer: 10.4.14(postcss@8.4.39)
       chalk: 4.1.2
       chokidar: 3.5.3
@@ -11362,6 +11366,10 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
+
+  scheduler@0.23.0:
+    dependencies:
+      loose-envify: 1.4.0
 
   scheduler@0.23.2:
     dependencies:
@@ -11839,28 +11847,28 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)):
+  terser-webpack-plugin@5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.30.3
-      webpack: 5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)
+      webpack: 5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)
     optionalDependencies:
-      '@swc/core': 1.3.101(@swc/helpers@0.5.11)
+      '@swc/core': 1.3.101(@swc/helpers@0.5.12)
       esbuild: 0.19.11
 
-  terser-webpack-plugin@5.3.10(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)):
+  terser-webpack-plugin@5.3.10(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.30.3
-      webpack: 5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)
+      webpack: 5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)
     optionalDependencies:
-      '@swc/core': 1.4.15(@swc/helpers@0.5.11)
+      '@swc/core': 1.4.15(@swc/helpers@0.5.12)
       esbuild: 0.19.11
 
   terser@5.30.3:
@@ -11942,7 +11950,7 @@ snapshots:
 
   tslib@2.6.2: {}
 
-  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(postcss@8.4.40)(typescript@5.1.6):
+  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
@@ -11959,7 +11967,7 @@ snapshots:
       sucrase: 3.35.0
       tree-kill: 1.2.2
     optionalDependencies:
-      '@swc/core': 1.4.15(@swc/helpers@0.5.11)
+      '@swc/core': 1.4.15(@swc/helpers@0.5.12)
       postcss: 8.4.40
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -11983,7 +11991,7 @@ snapshots:
       sucrase: 3.35.0
       tree-kill: 1.2.2
     optionalDependencies:
-      '@swc/core': 1.4.15(@swc/helpers@0.5.11)
+      '@swc/core': 1.4.15(@swc/helpers@0.5.12)
       postcss: 8.4.40
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -12007,7 +12015,7 @@ snapshots:
       sucrase: 3.35.0
       tree-kill: 1.2.2
     optionalDependencies:
-      '@swc/core': 1.4.15(@swc/helpers@0.5.11)
+      '@swc/core': 1.4.15(@swc/helpers@0.5.12)
       postcss: 8.4.40
       typescript: 5.4.2
     transitivePeerDependencies:
@@ -12519,7 +12527,7 @@ snapshots:
 
   webpack-sources@3.2.3: {}
 
-  webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11):
+  webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -12542,7 +12550,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.11))(esbuild@0.19.11))
+      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
@@ -12550,7 +12558,7 @@ snapshots:
       - esbuild
       - uglify-js
 
-  webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11):
+  webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -12573,7 +12581,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.11))(esbuild@0.19.11))
+      terser-webpack-plugin: 5.3.10(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11)(webpack@5.91.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(esbuild@0.19.11))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
