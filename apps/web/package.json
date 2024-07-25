@@ -23,7 +23,6 @@
     "prism-react-renderer": "2.1.0",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",
-    "react-email": "workspace:*",
     "resend": "3.5.0",
     "zod": "3.23.8"
   },
@@ -32,6 +31,7 @@
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
     "postcss": "8.4.39",
+    "react-email": "workspace:*",
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
