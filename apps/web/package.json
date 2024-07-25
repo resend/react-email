@@ -20,8 +20,8 @@
     "classnames": "2.5.1",
     "next": "15.0.0-canary.80",
     "prism-react-renderer": "2.3.1",
-    "react": "19.0.0-rc.0",
-    "react-dom": "19.0.0-rc.0",
+    "react": "19.0.0-rc-6230622a1a-20240610",
+    "react-dom": "19.0.0-rc-6230622a1a-20240610",
     "resend": "3.5.0",
     "zod": "3.23.8"
   },
