@@ -66,11 +66,11 @@ importers:
         specifier: workspace:*
         version: link:../../packages/components
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.0.0-rc-6230622a1a-20240610
+        version: 19.0.0-rc-6230622a1a-20240610
       react-dom:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0(react@19.0.0-rc.0)
+        specifier: 19.0.0-rc-6230622a1a-20240610
+        version: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       react-email:
         specifier: workspace:*
         version: link:../../packages/react-email
@@ -83,7 +83,7 @@ importers:
         version: types-react-dom@19.0.0-rc.1
       next:
         specifier: 14.2.3
-        version: 14.2.3(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        version: 14.2.3(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)
       tsx:
         specifier: 4.9.0
         version: 4.9.0
@@ -115,8 +115,8 @@ importers:
         specifier: 2.3.2
         version: 2.3.2
       next:
-        specifier: 15.0.0-canary.80
-        version: 15.0.0-canary.80(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)
+        specifier: 15.0.0-canary.83
+        version: 15.0.0-canary.83(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0-rc-6230622a1a-20240610)
@@ -202,7 +202,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/core':
         specifier: 7.23.9
@@ -227,7 +227,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -252,7 +252,7 @@ importers:
         version: 1.29.0
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -277,7 +277,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -305,7 +305,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -372,7 +372,7 @@ importers:
         version: link:../preview
       '@react-email/render':
         specifier: 0.0.18-canary.0
-        version: 0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        version: 0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)
       '@react-email/row':
         specifier: workspace:0.0.10-canary.0
         version: link:../row
@@ -387,7 +387,7 @@ importers:
         version: link:../text
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -406,7 +406,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -493,7 +493,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -515,7 +515,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -537,10 +537,10 @@ importers:
     dependencies:
       '@radix-ui/react-slot':
         specifier: 1.1.0
-        version: 1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
+        version: 1.1.0(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -562,7 +562,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -584,7 +584,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -606,7 +606,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -628,7 +628,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -650,10 +650,10 @@ importers:
     dependencies:
       md-to-react-email:
         specifier: 5.0.2
-        version: 5.0.2(react@19.0.0-rc.0)
+        version: 5.0.2(react@19.0.0-rc-6230622a1a-20240610)
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -675,7 +675,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -863,10 +863,10 @@ importers:
         version: 1.15.1
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
       react-dom:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0(react@19.0.0-rc.0)
+        version: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       react-promise-suspense:
         specifier: 0.3.4
         version: 0.3.4
@@ -906,7 +906,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -928,7 +928,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -950,7 +950,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/core':
         specifier: 7.23.9
@@ -975,7 +975,7 @@ importers:
         version: link:../html
       '@responsive-email/react-email':
         specifier: 0.0.2
-        version: 0.0.2(react@19.0.0-rc.0)
+        version: 0.0.2(react@19.0.0-rc-6230622a1a-20240610)
       '@types/postcss-css-variables':
         specifier: 0.18.3
         version: 0.18.3
@@ -999,7 +999,7 @@ importers:
         version: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
       react-dom:
         specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0(react@19.0.0-rc.0)
+        version: 19.0.0-rc.0(react@19.0.0-rc-6230622a1a-20240610)
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2(patch_hash=tbktbbunwha5d2hk7egjdvzb6q)
@@ -1026,7 +1026,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 19.0.0-rc.0
+        version: 19.0.0-rc-6230622a1a-20240610
     devDependencies:
       '@babel/preset-react':
         specifier: 7.23.3
@@ -1928,8 +1928,8 @@ packages:
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
 
-  '@next/env@15.0.0-canary.80':
-    resolution: {integrity: sha512-z2g0cEnafywK7rgRILo7hA9nstKjqcOFyEv8rpwWaZwkF/aWrexCm6rqDe1J73K8npcupcuM6U+eWLn6gNm0Jw==}
+  '@next/env@15.0.0-canary.83':
+    resolution: {integrity: sha512-U4v72Cl8YiIdUA9JR3yyFE8eM/ZGi91GAz04efMHquN2XNnFDSfNfZbo/3mVCCiw4h1+2a2BULfPqQUI+ZsDmg==}
 
   '@next/eslint-plugin-next@14.2.3':
     resolution: {integrity: sha512-L3oDricIIjgj1AVnRdRor21gI7mShlSwU/1ZGHmqM3LzHhXXhdkrfeNY5zif25Bi5Dd7fiJHsbhoZCHfXYvlAw==}
@@ -1940,8 +1940,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-arm64@15.0.0-canary.80':
-    resolution: {integrity: sha512-TTuZcnBhzaGdorYFChYwmM/fVBtHIgx3f/v8HEHAxluM5Iou/aLop/103j1auDT6/ILakbkYqOsp63EQPQ/NXQ==}
+  '@next/swc-darwin-arm64@15.0.0-canary.83':
+    resolution: {integrity: sha512-AWlLA23q7mkvP+eeQ3KKT+EW924Tuo2sCAKkX1F06JODp7uJgdF7J8Keo7WS7rRE3Vm+cmqOv7xbFtKCvzY5Hg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -1952,8 +1952,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.0.0-canary.80':
-    resolution: {integrity: sha512-WQ35/nKIpdE2oMc0sW7a8jvkg+EhgcEaqRHw6kz+fFsndCUF3AgYFfPkTuTxDuUI5a8JQqerekB5okC8xM5VJA==}
+  '@next/swc-darwin-x64@15.0.0-canary.83':
+    resolution: {integrity: sha512-7CIzC3fbdJKGsbAFrEw9L77iRm0A3a52UC9LzS2wevh3BkmUmVym7nrX/rdX95onBzEQdQygr0cUIjolpk3i6w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -1964,8 +1964,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-gnu@15.0.0-canary.80':
-    resolution: {integrity: sha512-r1QLsTM88v6zjIHTiPMftQxsATFcsOnBUD745H06EvayVeRNrzhiKe7hBVb+J+Ex76IcDB+A1ecsbpI+ptKVUg==}
+  '@next/swc-linux-arm64-gnu@15.0.0-canary.83':
+    resolution: {integrity: sha512-VFcRjdBRFk7vLHQlx8ZKgFHp3vlR6rLHk9VUZy/M62KYjYHhB1fhospczYUBCrSJLXmKfoEhOdA4dUB0wrhOjA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -1976,8 +1976,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.0.0-canary.80':
-    resolution: {integrity: sha512-zmV6+pGOFqaUeo4l0UtJFDHJcYsNc33TH6TUS0DA2WZ/AP5rNmHWr/zxSy2qvgBrYaahy7V8MEC0XheKEccmBg==}
+  '@next/swc-linux-arm64-musl@15.0.0-canary.83':
+    resolution: {integrity: sha512-bYapa1dbRplWM5KAArb0xcIDAcel3DGkgluM6ATJu7ZdjD5FnZkwOwXcRGM1tv97sR1kiXTvRzg4nSJCPoo81g==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -1988,8 +1988,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.0.0-canary.80':
-    resolution: {integrity: sha512-cTVqlJOJRViineARZXB3tanxXNzSMtwXa8np9O6BjYqw0loud8vPPIZKrw/f1vEUeqwZlYO2lLMcJqSVYTgRWA==}
+  '@next/swc-linux-x64-gnu@15.0.0-canary.83':
+    resolution: {integrity: sha512-1GDK50cTAVbiLhMWKWRr4UJdUSrX5rq7zL3Ut8vNPuhlyOyVghIXzltcSbN7bGQZuYzP1cH8pCLAAYPmtIj45w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2000,8 +2000,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.0.0-canary.80':
-    resolution: {integrity: sha512-qAPj4igjTJeSzGouaJ7B6/pLqbixHM/8f/+Z/2DA1szi7JOMScbeT8xjLkGh0EuGvDBeSFZT0jvxX7w6949Naw==}
+  '@next/swc-linux-x64-musl@15.0.0-canary.83':
+    resolution: {integrity: sha512-ZjNV1NCBaCglqWgIb/PRQcvJyciN+Q9B3ctMMZYffPzNUrfplmlr46OcAl6sEDTjRLkbNUs88a7UDSWu/N5s2g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -2012,8 +2012,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-arm64-msvc@15.0.0-canary.80':
-    resolution: {integrity: sha512-BQq6dSugj5L8OpiRgoJOCxEuwCY6Oms7wBZZVbv81x/zKV6slSrFJ/gfh4DmBuI+wVVZABlGuiZzsq3sZTWAVg==}
+  '@next/swc-win32-arm64-msvc@15.0.0-canary.83':
+    resolution: {integrity: sha512-7Jy0O6e0HL1+B0wwA/zUdvjhlm5gGNbY+kwo5/GG1MOlHnt2kZFwsplTuNCEDaVWB9UBAP/t6CTYMunAzDGqwg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -2024,8 +2024,8 @@ packages:
     cpu: [ia32]
     os: [win32]
 
-  '@next/swc-win32-ia32-msvc@15.0.0-canary.80':
-    resolution: {integrity: sha512-u1ZOaReA8KxfdH2+LmM3TDOHlX0PJNgdLdze8ncf7wtX22EmPmsBOxZIbtm4i5NVzduHNVcjvF4G8mMIq/uxgA==}
+  '@next/swc-win32-ia32-msvc@15.0.0-canary.83':
+    resolution: {integrity: sha512-9x13ISdXDvrD3KQdM781KcJlKEcqyR/xqfZKZg399GgS7+6pdMVWmEYXi45a3Vi7DMYtESuefLT3098DlGeQEA==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
@@ -2036,8 +2036,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.0.0-canary.80':
-    resolution: {integrity: sha512-kFgxs1Y1s/cCjY4AQpfgP1dMZcBrcIo0QtLjWLd1c3xf66R6hiCa5g23K2JTCmhOKB2Ncj8xda6O6hyQlNi6fg==}
+  '@next/swc-win32-x64-msvc@15.0.0-canary.83':
+    resolution: {integrity: sha512-ODe/nko9yID3lglx8xeqiYARzmSEho++sF+IVmirspT8EnyWO6fzuFkNRsRrXJzOKkdQRnFKSIKlqpKj0ojAGQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -4875,8 +4875,8 @@ packages:
       sass:
         optional: true
 
-  next@15.0.0-canary.80:
-    resolution: {integrity: sha512-vvZ6OgEjfmKNIuZ2ppeMmMzqKG8NT6igwydhkbNLFIrJwCWnW3W5/aQIKT5h+YClXE/61+1q6Bp5pSZcWF92FA==}
+  next@15.0.0-canary.83:
+    resolution: {integrity: sha512-Be0dK2l5qVY3RN8NGgwLSG2okoVBvbaffnXErsflnY76ARYqVrIEQQo9vO5PmP0X06+6IipKIkE1FBKN9wgaSg==}
     engines: {node: '>=18.18.0'}
     hasBin: true
     peerDependencies:
@@ -7523,7 +7523,7 @@ snapshots:
 
   '@next/env@14.2.3': {}
 
-  '@next/env@15.0.0-canary.80': {}
+  '@next/env@15.0.0-canary.83': {}
 
   '@next/eslint-plugin-next@14.2.3':
     dependencies:
@@ -7532,55 +7532,55 @@ snapshots:
   '@next/swc-darwin-arm64@14.2.3':
     optional: true
 
-  '@next/swc-darwin-arm64@15.0.0-canary.80':
+  '@next/swc-darwin-arm64@15.0.0-canary.83':
     optional: true
 
   '@next/swc-darwin-x64@14.2.3':
     optional: true
 
-  '@next/swc-darwin-x64@15.0.0-canary.80':
+  '@next/swc-darwin-x64@15.0.0-canary.83':
     optional: true
 
   '@next/swc-linux-arm64-gnu@14.2.3':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.0.0-canary.80':
+  '@next/swc-linux-arm64-gnu@15.0.0-canary.83':
     optional: true
 
   '@next/swc-linux-arm64-musl@14.2.3':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.0.0-canary.80':
+  '@next/swc-linux-arm64-musl@15.0.0-canary.83':
     optional: true
 
   '@next/swc-linux-x64-gnu@14.2.3':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.0.0-canary.80':
+  '@next/swc-linux-x64-gnu@15.0.0-canary.83':
     optional: true
 
   '@next/swc-linux-x64-musl@14.2.3':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.0.0-canary.80':
+  '@next/swc-linux-x64-musl@15.0.0-canary.83':
     optional: true
 
   '@next/swc-win32-arm64-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.0.0-canary.80':
+  '@next/swc-win32-arm64-msvc@15.0.0-canary.83':
     optional: true
 
   '@next/swc-win32-ia32-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-ia32-msvc@15.0.0-canary.80':
+  '@next/swc-win32-ia32-msvc@15.0.0-canary.83':
     optional: true
 
   '@next/swc-win32-x64-msvc@14.2.3':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.0.0-canary.80':
+  '@next/swc-win32-x64-msvc@15.0.0-canary.83':
     optional: true
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
@@ -7656,12 +7656,6 @@ snapshots:
   '@radix-ui/react-compose-refs@1.1.0(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)':
     dependencies:
       react: 19.0.0-rc-6230622a1a-20240610
-    optionalDependencies:
-      '@types/react': types-react@19.0.0-rc.1
-
-  '@radix-ui/react-compose-refs@1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
-    dependencies:
-      react: 19.0.0-rc.0
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
 
@@ -7815,13 +7809,6 @@ snapshots:
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
 
-  '@radix-ui/react-slot@1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)':
-    dependencies:
-      '@radix-ui/react-compose-refs': 1.1.0(react@19.0.0-rc.0)(types-react@19.0.0-rc.1)
-      react: 19.0.0-rc.0
-    optionalDependencies:
-      '@types/react': types-react@19.0.0-rc.1
-
   '@radix-ui/react-toggle-group@1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
     dependencies:
       '@radix-ui/primitive': 1.1.0
@@ -7927,12 +7914,12 @@ snapshots:
       react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc.0))(react@19.0.0-rc.0)':
+  '@react-email/render@0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)':
     dependencies:
       html-to-text: 9.0.5
       js-beautify: 1.15.1
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc.0)
+      react: 19.0.0-rc-6230622a1a-20240610
+      react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       react-promise-suspense: 0.3.4
 
   '@react-email/tailwind@0.0.12(react@19.0.0-rc.0)':
@@ -7950,10 +7937,6 @@ snapshots:
   '@responsive-email/react-email@0.0.2(react@19.0.0-rc-6230622a1a-20240610)':
     dependencies:
       react: 19.0.0-rc-6230622a1a-20240610
-
-  '@responsive-email/react-email@0.0.2(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@rollup/plugin-inject@5.0.5(rollup@4.14.0)':
     dependencies:
@@ -10696,10 +10679,10 @@ snapshots:
 
   marked@7.0.4: {}
 
-  md-to-react-email@5.0.2(react@19.0.0-rc.0):
+  md-to-react-email@5.0.2(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
       marked: 7.0.4
-      react: 19.0.0-rc.0
+      react: 19.0.0-rc-6230622a1a-20240610
 
   md5.js@1.3.5:
     dependencies:
@@ -10844,7 +10827,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@14.2.3(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0):
+  next@14.2.3(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
       '@next/env': 14.2.3
       '@swc/helpers': 0.5.5
@@ -10852,9 +10835,9 @@ snapshots:
       caniuse-lite: 1.0.30001605
       graceful-fs: 4.2.11
       postcss: 8.4.31
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
-      styled-jsx: 5.1.1(react@19.0.0-rc.0)
+      react: 19.0.0-rc-6230622a1a-20240610
+      react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
+      styled-jsx: 5.1.1(react@19.0.0-rc-6230622a1a-20240610)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.3
       '@next/swc-darwin-x64': 14.2.3
@@ -10869,9 +10852,9 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@15.0.0-canary.80(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610):
+  next@15.0.0-canary.83(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
-      '@next/env': 15.0.0-canary.80
+      '@next/env': 15.0.0-canary.83
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.12
       busboy: 1.6.0
@@ -10882,15 +10865,15 @@ snapshots:
       react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       styled-jsx: 5.1.6(react@19.0.0-rc-6230622a1a-20240610)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.0.0-canary.80
-      '@next/swc-darwin-x64': 15.0.0-canary.80
-      '@next/swc-linux-arm64-gnu': 15.0.0-canary.80
-      '@next/swc-linux-arm64-musl': 15.0.0-canary.80
-      '@next/swc-linux-x64-gnu': 15.0.0-canary.80
-      '@next/swc-linux-x64-musl': 15.0.0-canary.80
-      '@next/swc-win32-arm64-msvc': 15.0.0-canary.80
-      '@next/swc-win32-ia32-msvc': 15.0.0-canary.80
-      '@next/swc-win32-x64-msvc': 15.0.0-canary.80
+      '@next/swc-darwin-arm64': 15.0.0-canary.83
+      '@next/swc-darwin-x64': 15.0.0-canary.83
+      '@next/swc-linux-arm64-gnu': 15.0.0-canary.83
+      '@next/swc-linux-arm64-musl': 15.0.0-canary.83
+      '@next/swc-linux-x64-gnu': 15.0.0-canary.83
+      '@next/swc-linux-x64-musl': 15.0.0-canary.83
+      '@next/swc-win32-arm64-msvc': 15.0.0-canary.83
+      '@next/swc-win32-ia32-msvc': 15.0.0-canary.83
+      '@next/swc-win32-x64-msvc': 15.0.0-canary.83
       sharp: 0.33.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -11357,10 +11340,10 @@ snapshots:
       react: 19.0.0-rc-6230622a1a-20240610
       scheduler: 0.25.0-rc-6230622a1a-20240610
 
-  react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc.0):
+  react-dom@19.0.0-rc.0(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
-      react: 19.0.0-rc.0
-      scheduler: 0.25.0-rc-6230622a1a-20240610
+      react: 19.0.0-rc-6230622a1a-20240610
+      scheduler: 0.25.0-rc.0
 
   react-dom@19.0.0-rc.0(react@19.0.0-rc.0):
     dependencies:
@@ -11937,10 +11920,10 @@ snapshots:
     optionalDependencies:
       '@babel/core': 7.24.5
 
-  styled-jsx@5.1.1(react@19.0.0-rc.0):
+  styled-jsx@5.1.1(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
       client-only: 0.0.1
-      react: 19.0.0-rc.0
+      react: 19.0.0-rc-6230622a1a-20240610
 
   styled-jsx@5.1.6(react@19.0.0-rc-6230622a1a-20240610):
     dependencies:
