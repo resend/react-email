@@ -28,9 +28,9 @@ const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
   const inlineStylesCodeRegex =
-    /(?<=export const InlineStyles = \(\) => {)[\s\S]*?(?<patternCode>{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/})/gm;
+    /(?<=export const InlineStyles = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
   const tailwindCodeRegex =
-    /(?<=export const Tailwind = \(\) => {)[\s\S]*?(?<patternCode>{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/})/gm;
+    /(?<=export const Tailwind = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
 
   const file = await fs.readFile(filepath, "utf8");
 
