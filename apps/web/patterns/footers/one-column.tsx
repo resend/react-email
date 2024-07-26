@@ -11,7 +11,7 @@ export const FooterWithOneColumn = () => {
         <table style={{ width: "100%" }}>
           <tr style={{ width: "100%" }}>
             <td align="center">
-              <Img alt="React Email logo" height="42" src="/static/logo.png" />
+              <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
             </td>
           </tr>
           <tr style={{ width: "100%" }}>

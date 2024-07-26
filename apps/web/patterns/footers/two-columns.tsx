@@ -10,7 +10,7 @@ export const Tailwind = () => {
       <Section>
         <Row>
           <Column colSpan={4}>
-            <Img alt="React Email logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
             <Text className="my-2 text-base font-semibold text-gray-900">
               Acme corporation
             </Text>
@@ -74,7 +74,7 @@ export const InlineStyles = () => {
       <Section>
         <Row>
           <Column colSpan={4}>
-            <Img alt="React Email logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
             <Text
               style={{
                 marginTop: 8,
