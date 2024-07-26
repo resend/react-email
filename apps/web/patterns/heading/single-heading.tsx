@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Single heading";
 
-export const Tailwind = () => {
+export const None = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -13,14 +13,4 @@ export const Tailwind = () => {
   );
 };
 
-export const InlineStyles = () => {
-  return (
-    <Layout>
-      {/* start pattern code */}
-      <Heading>Simple h1 heading</Heading>
-      {/* end pattern code */}
-    </Layout>
-  );
-};
-
-export default Tailwind;
+export default None;

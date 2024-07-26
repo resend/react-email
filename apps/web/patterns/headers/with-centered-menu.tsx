@@ -10,7 +10,11 @@ export const Tailwind = () => {
       <Section className="py-10 px-8 my-10">
         <Row>
           <Column align="center">
-            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
+            <Img
+              alt="React Email logo"
+              height="42"
+              src="/static/logo-without-background.png"
+            />
           </Column>
         </Row>
         <Row className="mt-10">
@@ -75,7 +79,11 @@ export const InlineStyles = () => {
       >
         <Row>
           <Column align="center">
-            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
+            <Img
+              alt="React Email logo"
+              height="42"
+              src="/static/logo-without-background.png"
+            />
           </Column>
         </Row>
         <Row style={{ marginTop: 40 }}>
@@ -84,32 +92,44 @@ export const InlineStyles = () => {
               <tr>
                 <td style={{ paddingRight: 8, paddingLeft: 8 }}>
                   <Link
-                    className="text-gray-600 [text-decoration:none]"
                     href="#"
+                    style={{
+                      color: "rgb(75,85,99)",
+                      textDecoration: "none",
+                    }}
                   >
                     About
                   </Link>
                 </td>
                 <td style={{ paddingRight: 8, paddingLeft: 8 }}>
                   <Link
-                    className="text-gray-600 [text-decoration:none]"
                     href="#"
+                    style={{
+                      color: "rgb(75,85,99)",
+                      textDecoration: "none",
+                    }}
                   >
                     Company
                   </Link>
                 </td>
                 <td style={{ paddingRight: 8, paddingLeft: 8 }}>
                   <Link
-                    className="text-gray-600 [text-decoration:none]"
                     href="#"
+                    style={{
+                      color: "rgb(75,85,99)",
+                      textDecoration: "none",
+                    }}
                   >
                     Blog
                   </Link>
                 </td>
                 <td style={{ paddingRight: 8, paddingLeft: 8 }}>
                   <Link
-                    className="text-gray-600 [text-decoration:none]"
                     href="#"
+                    style={{
+                      color: "rgb(75,85,99)",
+                      textDecoration: "none",
+                    }}
                   >
                     Contacts
                   </Link>

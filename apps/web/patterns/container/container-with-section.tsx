@@ -52,7 +52,7 @@ export const InlineStyles = () => {
           </Row>
         </Section>
 
-        <Section align="center" className="my-4">
+        <Section align="center" style={{ marginTop: 16, marginBottom: 16 }}>
           <Button
             href="https://react.email"
             style={{
@@ -77,4 +77,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;
