@@ -4,13 +4,20 @@ import { z } from "zod";
 
 export interface Pattern {
   title: string;
-  code: string;
-  patternComponent: React.FC;
+  tailwind: {
+    code: string;
+    component: React.FC;
+  };
+  inlineStyles: {
+    code: string;
+    component: React.FC;
+  }
 }
 
 const PatternModule = z.object({
   title: z.string(),
-  default: z.function(),
+  Tailwind: z.function(),
+  InlineStyles: z.function()
 });
 
 // This function should be called when building
@@ -20,17 +27,27 @@ const PatternModule = z.object({
 const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
-  const patternCodeRegex =
-    /{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
-  const code = patternCodeRegex
-    .exec(await fs.readFile(filepath, "utf8"))
+  const inlineStylesCodeRegex =
+    /(?<=export const InlineStyles = \(\) => {)[\s\S]*?(?<patternCode>{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/})/gm;
+  const tailwindCodeRegex =
+    /(?<=export const Tailwind = \(\) => {)[\s\S]*?(?<patternCode>{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/})/gm;
+
+  const file = await fs.readFile(filepath, "utf8");
+
+  const inlineStylesCode = inlineStylesCodeRegex
+    .exec(file)
     ?.groups?.patternCode?.trim();
-  if (code === undefined) {
+  const tailwindCode = tailwindCodeRegex
+    .exec(file)
+    ?.groups?.patternCode?.trim();
+  if (tailwindCode === undefined || inlineStylesCode === undefined) {
     throw new Error(
       "Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.",
       {
         cause: {
           filepath,
+          tailwindCode,
+          inlineStylesCode
         },
       },
     );
@@ -45,8 +62,14 @@ const getPatternAt = async (filepath: string) => {
 
   return {
     title: patternModule.title,
-    code,
-    patternComponent: patternModule.default as React.FC,
+    tailwind: {
+      code: tailwindCode,
+      component: patternModule.Tailwind as React.FC
+    },
+    inlineStyles: {
+      code: inlineStylesCode,
+      component: patternModule.InlineStyles as React.FC
+    }
   } satisfies Pattern;
 };
 
