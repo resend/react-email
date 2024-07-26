@@ -62,7 +62,7 @@ export const InlineStyles = () => {
             style={{
               marginTop: 16,
               fontSize: 18,
-              lineHeight: 28,
+              lineHeight: "28px",
               fontWeight: 600,
               color: "rgb(79,70,229)",
             }}
@@ -73,7 +73,7 @@ export const InlineStyles = () => {
             as="h1"
             style={{
               fontSize: 36,
-              lineHeight: 36,
+              lineHeight: "36px",
               fontWeight: 600,
               letterSpacing: 0.4,
               color: "rgb(17,24,39)",
@@ -85,7 +85,7 @@ export const InlineStyles = () => {
             style={{
               marginTop: 8,
               fontSize: 16,
-              lineHeight: 24,
+              lineHeight: "24px",
               color: "rgb(107,114,128)",
             }}
           >
@@ -95,7 +95,7 @@ export const InlineStyles = () => {
           <Text
             style={{
               fontSize: 16,
-              lineHeight: 24,
+              lineHeight: "24px",
               fontWeight: 600,
               color: "rgb(17,24,39)",
             }}
@@ -125,4 +125,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;

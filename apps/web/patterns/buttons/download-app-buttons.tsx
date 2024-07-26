@@ -64,7 +64,7 @@ export const InlineStyles = () => {
                 color: "rgb(99,102,241)",
                 fontWeight: 700,
                 fontSize: 18,
-                lineHeight: 28,
+                lineHeight: "28px",
               }}
             >
               What's new
@@ -111,4 +111,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;

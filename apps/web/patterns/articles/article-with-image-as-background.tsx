@@ -100,7 +100,7 @@ export const InlineStyles = () => {
                   margin: 0,
                   marginTop: 8,
                   fontSize: 16,
-                  lineHeight: 24,
+                  lineHeight: "24px",
                   color: "rgb(255,255,255)",
                 }}
               >
@@ -120,6 +120,8 @@ export const InlineStyles = () => {
                   backgroundColor: "rgb(255,255,255)",
                   paddingLeft: 40,
                   paddingRight: 40,
+                  paddingTop: 12,
+                  paddingBottom: 12,
                   fontWeight: 600,
                   color: "rgb(17,24,39)",
                 }}
@@ -135,4 +137,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;

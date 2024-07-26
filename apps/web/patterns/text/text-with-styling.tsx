@@ -26,7 +26,7 @@ export const InlineStyles = () => {
         style={{
           color: "rgb(129,140,248)",
           fontSize: 24,
-          lineHeight: 32,
+          lineHeight: "32px",
           fontWeight: 600,
         }}
       >

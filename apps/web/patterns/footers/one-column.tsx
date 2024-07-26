@@ -99,7 +99,7 @@ export const InlineStyles = () => {
                   marginTop: 8,
                   marginBottom: 8,
                   fontSize: 16,
-                  lineHeight: 24,
+                  lineHeight: "24px",
                   fontWeight: 600,
                   color: "rgb(17,24,39)",
                 }}
@@ -111,7 +111,7 @@ export const InlineStyles = () => {
                   marginTop: 4,
                   marginBottom: 0,
                   fontSize: 16,
-                  lineHeight: 24,
+                  lineHeight: "24px",
                   color: "rgb(107,114,128)",
                 }}
               >
@@ -169,7 +169,7 @@ export const InlineStyles = () => {
                   marginTop: 8,
                   marginBottom: 8,
                   fontSize: 16,
-                  lineHeight: 24,
+                  lineHeight: "24px",
                   fontWeight: 600,
                   color: "rgb(17,24,39)",
                 }}
@@ -181,7 +181,7 @@ export const InlineStyles = () => {
                   marginTop: 4,
                   marginBottom: 0,
                   fontSize: 16,
-                  lineHeight: 24,
+                  lineHeight: "24px",
                   color: "rgb(107,114,128)",
                 }}
               >
@@ -196,4 +196,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;

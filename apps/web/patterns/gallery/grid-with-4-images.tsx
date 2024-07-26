@@ -89,7 +89,7 @@ export const InlineStyles = () => {
               style={{
                 margin: 0,
                 fontSize: 16,
-                lineHeight: 24,
+                lineHeight: "24px",
                 fontWeight: 600,
                 color: "rgb(79,70,229)",
               }}
@@ -101,7 +101,7 @@ export const InlineStyles = () => {
                 margin: 0,
                 marginTop: 8,
                 fontSize: 24,
-                lineHeight: 32,
+                lineHeight: "32px",
                 fontWeight: 600,
                 color: "rgb(17,24,39)",
               }}
@@ -112,7 +112,7 @@ export const InlineStyles = () => {
               style={{
                 marginTop: 8,
                 fontSize: 16,
-                lineHeight: 24,
+                lineHeight: "24px",
                 color: "rgb(107,114,128)",
               }}
             >

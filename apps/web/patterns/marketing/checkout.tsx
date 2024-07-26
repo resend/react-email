@@ -132,7 +132,7 @@ export const InlineStyles = () => {
           as="h1"
           style={{
             fontSize: 30,
-            lineHeight: 36,
+            lineHeight: "36px",
             marginBottom: 0,
             fontWeight: 600,
           }}
@@ -365,4 +365,4 @@ export const InlineStyles = () => {
   );
 };
 
-export default Tailwind;
+export default InlineStyles;
