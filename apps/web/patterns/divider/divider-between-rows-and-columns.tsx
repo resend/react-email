@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Divider between rows and columns";
 
-export const DividerBetweenRowsAndColumns = () => {
+export const Tailwind = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -29,4 +29,30 @@ export const DividerBetweenRowsAndColumns = () => {
   );
 };
 
-export default DividerBetweenRowsAndColumns;
+export const InlineStyles = () => {
+  return (
+    <Layout>
+      {/* start pattern code */}
+      <Row>
+        <Column>
+          First col
+        </Column>
+        <Column>
+          Second col
+        </Column>
+      </Row>
+      <Hr style={{ marginTop: 16, marginBottom: 16 }} />
+      <Row>
+        <Column>
+          First col
+        </Column>
+        <Column>
+          Second col
+        </Column>
+      </Row>
+      {/* end pattern code */}
+    </Layout>
+  );
+};
+
+export default Tailwind;
