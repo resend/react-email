@@ -19,7 +19,7 @@ export const Tailwind = () => {
           <Row>
             <Column>This is something amazing</Column>
             <Column align="right">
-              <Img src="/static/logo.png" />
+              <Img src="/static/logo-without-background.png" />
             </Column>
           </Row>
         </Section>
@@ -47,7 +47,7 @@ export const InlineStyles = () => {
           <Row>
             <Column>This is something amazing</Column>
             <Column align="right">
-              <Img src="/static/logo.png" />
+              <Img src="/static/logo-without-background.png" />
             </Column>
           </Row>
         </Section>

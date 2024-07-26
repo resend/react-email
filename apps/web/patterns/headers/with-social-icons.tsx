@@ -10,7 +10,7 @@ export const Tailwind = () => {
       <Section className="py-10 px-8">
         <Row>
           <Column className="w-[80%]">
-            <Img alt="React Email logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
           </Column>
           <Column align="right">
             <Row align="right">
@@ -70,7 +70,7 @@ export const InlineStyles = () => {
       >
         <Row>
           <Column style={{ width: "80%" }}>
-            <Img alt="React Email logo" height="42" src="/static/logo.png" />
+            <Img alt="React Email logo" height="42" src="/static/logo-without-background.png" />
           </Column>
           <Column align="right">
             <Row align="right">
