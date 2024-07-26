@@ -8,39 +8,27 @@ import {
 } from "@react-email/components";
 import tailwindConfig from "../tailwind.config";
 
-export const Layout = ({
-  children,
-  noTailwind = false,
-}: {
-  children?: React.ReactNode;
-  noTailwind?: boolean;
-}) => {
+export const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Html>
-      <Head>
-        <Font
-          fallbackFontFamily="Helvetica"
-          fontFamily="Inter"
-          fontStyle="normal"
-          fontWeight={400}
-          webFont={{
-            url: "https://fonts.googleapis.com/css2?family=Inter&display=swap",
-            format: "woff2",
-          }}
-        />
-      </Head>
+      <Tailwind config={tailwindConfig}>
+        <Head>
+          <Font
+            fallbackFontFamily="Helvetica"
+            fontFamily="Inter"
+            fontStyle="normal"
+            fontWeight={400}
+            webFont={{
+              url: "https://fonts.googleapis.com/css2?family=Inter&display=swap",
+              format: "woff2",
+            }}
+          />
+        </Head>
 
-      {noTailwind ? (
         <Body>
           <Container>{children}</Container>
         </Body>
-      ) : (
-        <Tailwind config={tailwindConfig}>
-          <Body>
-            <Container>{children}</Container>
-          </Body>
-        </Tailwind>
-      )}
+      </Tailwind>
     </Html>
   );
 };
