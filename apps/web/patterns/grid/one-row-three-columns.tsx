@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "1 row, 3 columns";
 
-export const OneRowThreeColumns = () => {
+export const Tailwind = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -17,4 +17,18 @@ export const OneRowThreeColumns = () => {
   );
 };
 
-export default OneRowThreeColumns;
+export const InlineStyles = () => {
+  return (
+    <Layout>
+      {/* start pattern code */}
+      <Row>
+        <Column style={{ width: "33.333%" }}>First</Column>
+        <Column style={{ width: "33.333%" }}>Second</Column>
+        <Column style={{ width: "33.333%" }}>Third</Column>
+      </Row>
+      {/* end pattern code */}
+    </Layout>
+  );
+};
+
+export default Tailwind;
