@@ -317,7 +317,7 @@ importers:
         specifier: workspace:0.0.10-canary.0
         version: link:../body
       '@react-email/button':
-        specifier: workspace:0.0.17-canary.0
+        specifier: workspace:0.0.17-canary.1
         version: link:../button
       '@react-email/code-block':
         specifier: workspace:0.0.7-canary.0
@@ -443,7 +443,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.23-canary.0
+        specifier: workspace:0.0.23-canary.1
         version: link:../../components
       react:
         specifier: 19.0.0-rc.0
