@@ -81,7 +81,7 @@ export const InlineStyles = () => {
         <tbody>
           <tr>
             <td align="center" style={{ padding: 40, textAlign: "center" }}>
-              <Text className="m-0 font-semibold text-gray-200">
+              <Text style={{ margin: 0, fontWeight: 600, color: "rgb(229,231,235)" }}>
                 New article
               </Text>
               <Heading
