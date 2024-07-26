@@ -4,20 +4,20 @@ import { z } from "zod";
 
 export interface Pattern {
   title: string;
-  tailwind: {
-    code: string;
-    component: React.FC;
-  };
-  inlineStyles: {
-    code: string;
-    component: React.FC;
-  }
+  component: React.FC;
+  /*
+    These variants are encoded through the pattern component's name. So a component
+    named `Tailwind`, and with the proper syntax, will come in here.
+    
+    The "None" Variant is meant for when there is no variant, so there should be no
+    select to change variants.
+  */
+  codePerVariant: Partial<Record<"Tailwind" | "InlineStyles" | "None", string>>;
 }
 
 const PatternModule = z.object({
   title: z.string(),
-  Tailwind: z.function(),
-  InlineStyles: z.function()
+  default: z.function()
 });
 
 // This function should be called when building
@@ -27,30 +27,31 @@ const PatternModule = z.object({
 const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
-  const inlineStylesCodeRegex =
-    /(?<=export const InlineStyles = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
-  const tailwindCodeRegex =
-    /(?<=export const Tailwind = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
+  const codeRegex =
+    /(?<=export const (?<componentName>[^=\s]+) = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
 
   const file = await fs.readFile(filepath, "utf8");
 
-  const inlineStylesCode = inlineStylesCodeRegex
-    .exec(file)
-    ?.groups?.patternCode?.trim();
-  const tailwindCode = tailwindCodeRegex
-    .exec(file)
-    ?.groups?.patternCode?.trim();
-  if (tailwindCode === undefined || inlineStylesCode === undefined) {
-    throw new Error(
-      "Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.",
-      {
-        cause: {
-          filepath,
-          tailwindCode,
-          inlineStylesCode
+  const codePerVariant: Pattern["codePerVariant"] = {};
+  let match: RegExpMatchArray | null = null;
+  while ((match = codeRegex.exec(file)) !== null) {
+    const variant = match.groups?.componentName;
+    const code = match.groups?.patternCode;
+    if (variant !== undefined && code !== undefined) {
+      codePerVariant[variant] = code;
+    } else {
+      throw new Error(
+        "Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.",
+        {
+          cause: {
+            filepath,
+            code,
+            variant,
+            match,
+          },
         },
-      },
-    );
+      );
+    }
   }
 
   const relativeFilepath = path.relative(pathToPatterns, filepath);
@@ -62,14 +63,8 @@ const getPatternAt = async (filepath: string) => {
 
   return {
     title: patternModule.title,
-    tailwind: {
-      code: tailwindCode,
-      component: patternModule.Tailwind as React.FC
-    },
-    inlineStyles: {
-      code: inlineStylesCode,
-      component: patternModule.InlineStyles as React.FC
-    }
+    component: patternModule.default as React.FC,
+    codePerVariant
   } satisfies Pattern;
 };
 
