@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "One button";
 
-export const Button = () => {
+export const Tailwind = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -18,4 +18,28 @@ export const Button = () => {
   );
 };
 
-export default Button;
+export const InlineStyles = () => {
+  return (
+    <Layout>
+      {/* start pattern code */}
+      <BaseButton
+        href="https://react.email"
+        style={{
+          width: "100%",
+          boxSizing: "border-box",
+          padding: 12,
+          fontWeight: 600,
+          borderRadius: 8,
+          textAlign: "center",
+          backgroundColor: "rgb(79,70,229)",
+          color: "rgb(255,255,255)",
+        }}
+      >
+        Example button
+      </BaseButton>
+      {/* end pattern code */}
+    </Layout>
+  );
+};
+
+export default Tailwind;
