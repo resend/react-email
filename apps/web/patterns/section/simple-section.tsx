@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const title = "Simple section";
 
-export const SimpleSection = () => {
+export const Tailwind = () => {
   return (
     <Layout>
       {/* start pattern code */}
@@ -15,4 +15,16 @@ export const SimpleSection = () => {
   );
 };
 
-export default SimpleSection;
+export const InlineStyles = () => {
+  return (
+    <Layout>
+      {/* start pattern code */}
+      <Section>
+        <Text>Hello my section!</Text>
+      </Section>
+      {/* end pattern code */}
+    </Layout>
+  );
+};
+
+export default Tailwind;
