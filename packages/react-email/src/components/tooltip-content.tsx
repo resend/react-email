@@ -15,6 +15,7 @@ export const TooltipContent = React.forwardRef<
   Readonly<TooltipProps>
 >(({ sideOffset = 6, children, ...props }, forwardedRef) => (
   <TooltipPrimitive.Portal>
+    {/* for tesging purpose */}
     <TooltipPrimitive.Content
       {...props}
       className={cn(
