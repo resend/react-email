@@ -35,7 +35,7 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
       const functionComponent =
         typeof type === "object"
           ? // @ts-expect-error - we know this is a component
-          (type.render as React.FC<Props>)
+            (type.render as React.FC<Props>)
           : (type as React.FC<Props>);
       // If the element is a component (function component), render it
       const componentRenderingResults = functionComponent(props);
@@ -44,10 +44,10 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
 
     // Regular HTML-like element
     let elementAttributes =
-      props && 'className' in props
+      props && "className" in props
         ? `className="${propToAttributeString(
-          props.className as string | object,
-        )}"`
+            props.className as string | object,
+          )}"`
         : "";
     elementAttributes =
       elementAttributes.trim().length > 0 ? ` ${elementAttributes}` : "";
