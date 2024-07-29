@@ -83,6 +83,12 @@ describe("Tailwind component", () => {
     );
   });
 
+  test("it should not generate styles from text", () => {
+    expect(render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>)).toBe(
+      "container bg-red-500 bg-blue-300",
+    );
+  });
+
   it("should work with components that return children", () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
