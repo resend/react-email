@@ -42,6 +42,10 @@ npm install @react-email/components -E
 pnpm install @react-email/components -E
 ```
 
+#### With Docker (Community version)
+
+Follow https://github.com/notleanbarba/react-email-docker
+
 ## Getting started
 
 Add the component to your email template. Include styles where needed.
