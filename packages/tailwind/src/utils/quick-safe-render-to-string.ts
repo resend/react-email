@@ -39,7 +39,9 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
           : (type as React.FC<Props>);
       // If the element is a component (function component), render it
       const componentRenderingResults = functionComponent(props);
-      return quickSafeRenderToString(componentRenderingResults);
+      return `<${functionComponent.name}>${quickSafeRenderToString(
+        componentRenderingResults,
+      )}</${functionComponent.name}>`;
     }
 
     // Regular HTML-like element
