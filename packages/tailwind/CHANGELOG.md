@@ -1,5 +1,16 @@
 # @react-email/tailwind
 
+## 0.1.0-canary.1
+
+### Minor Changes
+
+- 4d492d3: Add support for proper `className` manipulation
+- Make inline styles override Tailwind styles.
+
+### Patch Changes
+
+- 9052c17: Fixes generation of unecessary styles (ex: including `container` as text somehwere in your template)
+
 ## 0.0.20-canary.0
 
 ### Patch Changes
