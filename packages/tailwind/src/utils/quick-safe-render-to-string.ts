@@ -17,7 +17,7 @@ const propToAttributeString = (propValue: string | object) => {
  */
 export const quickSafeRenderToString = (element: React.ReactNode): string => {
   if (typeof element === "string" || typeof element === "number") {
-    return String(element);
+    return "";
   }
 
   if (Array.isArray(element)) {
@@ -43,15 +43,12 @@ export const quickSafeRenderToString = (element: React.ReactNode): string => {
     }
 
     // Regular HTML-like element
-    let elementAttributes = Object.keys(props || {})
-      .filter((propName) => propName !== "children")
-      .map(
-        (prop) =>
-          `${prop}="${propToAttributeString(
-            props?.[prop] as string | object,
-          )}"`,
-      )
-      .join(" ");
+    let elementAttributes =
+      props && "className" in props
+        ? `className="${propToAttributeString(
+            props.className as string | object,
+          )}"`
+        : "";
     elementAttributes =
       elementAttributes.trim().length > 0 ? ` ${elementAttributes}` : "";
     const children = props && "children" in props ? props.children : "";
