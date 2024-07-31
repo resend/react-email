@@ -368,7 +368,7 @@ importers:
         specifier: workspace:0.0.14-canary.0
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:0.0.20-canary.0
+        specifier: workspace:0.1.0-canary.1
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.0.10-canary.0
@@ -443,7 +443,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.23-canary.1
+        specifier: workspace:0.0.23-canary.2
         version: link:../../components
       react:
         specifier: 19.0.0-rc.0
@@ -452,7 +452,7 @@ importers:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0(react@19.0.0-rc.0)
       react-email:
-        specifier: workspace:2.1.7-canary.0
+        specifier: workspace:2.1.7-canary.1
         version: link:../../react-email
     devDependencies:
       '@types/react':

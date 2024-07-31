@@ -1,5 +1,11 @@
 # react-email
 
+## 2.1.7-canary.1
+
+### Patch Changes
+
+- 6f5204e: Fixes tooltip color being black for specific theming configurations
+
 ## 2.1.7-canary.0
 
 ### Patch Changes
