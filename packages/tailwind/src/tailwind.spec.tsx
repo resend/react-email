@@ -24,6 +24,20 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  it("should work with class manipulation done on components", () => {
+    const MyComponnt = (props: { className?: string }) => {
+      return <div className={`${props.className} bg-red-500`} />;
+    };
+
+    expect(
+      render(
+        <Tailwind>
+          <MyComponnt className="text-blue-400" />
+        </Tailwind>,
+      ),
+    ).toMatchSnapshot();
+  });
+
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", () => {
       const actualOutput = render(
@@ -178,7 +192,7 @@ describe("Tailwind component", () => {
     );
   });
 
-  it("should override inline styles with Tailwind styles", () => {
+  it("should not override inline styles with Tailwind styles", () => {
     const actualOutput = render(
       <Tailwind>
         <div
@@ -188,9 +202,7 @@ describe("Tailwind component", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<div style=\\"background-color:rgb(0,0,0);font-size:16px\\"></div>"',
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should override component styles with Tailwind styles", () => {

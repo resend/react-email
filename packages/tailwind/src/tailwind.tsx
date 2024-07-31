@@ -101,25 +101,27 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     if (element.props.className) {
       const { styles, residualClassName } = inline(element.props.className);
       propsToOverwrite.style = {
-        ...element.props.style,
         ...styles,
+        ...element.props.style,
       };
-      if (residualClassName.trim().length > 0) {
-        propsToOverwrite.className = residualClassName;
-        /*
+      if (!isComponent(element)) {
+        if (residualClassName.trim().length > 0) {
+          propsToOverwrite.className = residualClassName;
+          /*
           We sanitize only the class names of Tailwind classes that we are not going to inline
           to avoid unpredictable behavior on the user's code. If we did sanitize all class names
           a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of nonInlinableClasses) {
-          propsToOverwrite.className = propsToOverwrite.className.replace(
-            singleClass,
-            sanitizeClassName(singleClass),
-          );
+          for (const singleClass of nonInlinableClasses) {
+            propsToOverwrite.className = propsToOverwrite.className.replace(
+              singleClass,
+              sanitizeClassName(singleClass),
+            );
+          }
+        } else {
+          propsToOverwrite.className = undefined;
         }
-      } else {
-        propsToOverwrite.className = undefined;
       }
     }
 
