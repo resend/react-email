@@ -61,6 +61,7 @@ const mergeDirectoriesWithSubDirectories = (
 export const getEmailsDirectoryMetadata = async (
   absolutePathToEmailsDirectory: string,
   keepFileExtensions = false,
+  isSubDirectory = false,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 
@@ -90,14 +91,20 @@ export const getEmailsDirectoryMetadata = async (
         (dirent) =>
           getEmailsDirectoryMetadata(
             path.join(absolutePathToEmailsDirectory, dirent.name),
+            keepFileExtensions,
+            true,
           ) as Promise<EmailsDirectory>,
       ),
   );
 
-  return mergeDirectoriesWithSubDirectories({
+  const emailsMetadata = {
     absolutePath: absolutePathToEmailsDirectory,
     directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
     emailFilenames,
     subDirectories,
-  });
+  } satisfies EmailsDirectory;
+
+  return isSubDirectory
+    ? mergeDirectoriesWithSubDirectories(emailsMetadata)
+    : emailsMetadata;
 };
