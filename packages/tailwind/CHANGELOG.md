@@ -4,8 +4,8 @@
 
 ### Minor Changes
 
-- 4d492d3: - Add support for proper `className` manipulation
-  - Make inline styles override Tailwind styles.
+- 4d492d3: Add support for proper `className` manipulation
+- Make inline styles override Tailwind styles.
 
 ### Patch Changes
 
