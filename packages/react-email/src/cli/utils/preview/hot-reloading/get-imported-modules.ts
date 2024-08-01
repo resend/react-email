@@ -7,7 +7,7 @@ export const getImportedModules = (contents: string) => {
     sourceType: 'unambiguous',
     strictMode: false,
     errorRecovery: true,
-    plugins: ['jsx', 'typescript'],
+    plugins: ['jsx', 'typescript', 'decorators'],
   });
 
   traverse(parsedContents, {
