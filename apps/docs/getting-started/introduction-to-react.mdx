@@ -1,0 +1,89 @@
+---
+title: "Introduction to React"
+sidebarTitle: "Introduction to React"
+description: "For those unfamiliar with React"
+icon: "compass-drafting"
+---
+
+import NextSteps from "../snipets/next-steps.mdx";
+
+Lots of users come to React Email from other setups and from not knowing
+how React operates on the basics. This is meant to be a good guide
+so that users can get the understanding they need to just use React Email.
+
+## What is JSX?
+
+JSX is a syntax extension to JavaScript, it is meant so that developers can
+write what seems like just HTML but in JavaScript itself. JSX is not native to
+Node, but it is native to [Bun](https://bun.sh/docs/runtime/jsx) and
+[Deno](https://docs.deno.com/runtime/manual/advanced/jsx_dom/jsx/).
+
+Under the hood, React converts the HTML tags into function calls. Here's an example:
+
+```jsx
+<Html>
+    <Head/>
+
+    <Tailwind>
+        <Body>
+            ...
+        </Body>
+    </Tailwind>
+</Html>
+```
+
+Would represent:
+
+```js
+React.createElement(Html, { }, [
+    React.createElement(Head, { }),
+    React.createElement(
+        Tailwind, 
+        { }, 
+        React.createElement(Body, {}, `...`)
+    )
+]);
+```
+
+This means that all elements get converted into simple function calls. These function calls
+end up returning just a simple object that is later on used by React Email to be converted into HTML.
+This means that a simple element, such as `<div>Hello world!</div>` becomes the following JSON:
+
+```json
+{
+    "type": "div",
+    "props": {},
+    "children": "Hello world!"
+}
+```
+
+## What can I use as the build step?
+
+From the last section the only conclusion is that we need a build step, at least when using Node,
+for JSX to actually work properly.
+
+If you are using TypeScript, `tsc` should already work just fine. You just need to add the following
+to your `tsconfig.json`:
+
+```diff
+ }
+     ...
+     "compilerOptions": {
++        "jsx": "react-jsx"
+     }
+ {
+```
+
+Along with this, you also will need to have `@types/react` installed so that TypeScript can figure
+the types out properly.
+
+If you are not using `tsc` and instead just directly run your code with `node
+...`, you will need to get some build tool setup. Among these the one we
+recommend the most is the amazing [tsup](https://github.com/egoist/tsup) but ran as
+[tsup-node](https://tsup.egoist.dev/#excluding-all-packages).
+
+Some other build tool options include:
+- [rollup](https://rollupjs.org/)
+- [babel](https://babeljs.io/)
+- [esbuild](https://github.com/evanw/esbuild)
+
