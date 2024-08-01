@@ -7,7 +7,7 @@
     "dev": "turbo run dev --parallel --concurrency 25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "release": "pnpm build && pnpm changeset publish",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
