@@ -33,11 +33,13 @@
     "tsconfig": "0.0.0"
   },
   "changesets": [
+    "curly-fireants-allow",
     "dry-humans-return",
     "fast-countries-marry",
     "many-donuts-retire",
     "new-coats-cover",
     "odd-bobcats-know",
+    "old-suits-promise",
     "tame-windows-look",
     "wild-mugs-kick"
   ]
