@@ -1,5 +1,12 @@
 # react-email
 
+## 2.1.7-canary.2
+
+### Patch Changes
+
+- 349e5d5: Fixes decorators causing dependency tree babel parsing to fail
+- 983626d: Fixes root directories being hidden when they are alone at their depth
+
 ## 2.1.7-canary.1
 
 ### Patch Changes
