@@ -50,6 +50,7 @@
       "pages": [
         "getting-started/automatic-setup",
         "getting-started/manual-setup",
+        "getting-started/introduction-to-react",
         {
           "group": "Monorepo Setup",
           "icon": "diagram-project",
