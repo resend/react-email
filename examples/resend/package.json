@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "13.5.6",
+    "next": "14.1.1",
     "react": "19.0.0-rc.0",
     "react-dom": "19.0.0-rc.0",
     "resend": "^3.2.0"
