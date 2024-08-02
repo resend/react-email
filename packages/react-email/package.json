@@ -41,7 +41,7 @@
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.14",
     "chalk": "4.1.2",
-    "chokidar": "3.5.3",
+    "chokidar": "3.6.0",
     "clsx": "2.1.0",
     "commander": "11.1.0",
     "debounce": "2.0.0",
