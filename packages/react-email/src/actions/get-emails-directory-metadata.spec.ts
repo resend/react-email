@@ -21,6 +21,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
           'plaid-verify-identity',
           'raycast-magic-link',
           'slack-confirm',
+          'jobaccepted-magic-link',
         ],
         subDirectories: [],
       },
