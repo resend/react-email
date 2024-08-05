@@ -5,17 +5,19 @@ export const title = "Multiple headings";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
+    <>
       <Heading as="h1">Header</Heading>
       <Heading as="h2">Header</Heading>
       <Heading as="h3">Header</Heading>
       <Heading as="h4">Header</Heading>
       <Heading as="h5">Header</Heading>
       <Heading as="h6">Header</Heading>
-      {/* end pattern code */}
-    </Layout>
+    </>
   );
 };
 
-export default None;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);

@@ -5,22 +5,22 @@ export const title = "Code Block with predefined theme";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <CodeBlock
-        code={`await resend.emails.send({
+    <CodeBlock
+      code={`await resend.emails.send({
   from: 'you@example.com',
   to: 'user@gmail.com',
   subject: 'hello world',
   html: '<strong>it works!</strong>',
 });`}
-        language="javascript"
-        lineNumbers
-        theme={dracula}
-      />
-      {/* end pattern code */}
-    </Layout>
+      language="javascript"
+      lineNumbers
+      theme={dracula}
+    />
   );
 };
 
-export default None;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);

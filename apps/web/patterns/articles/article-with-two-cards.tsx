@@ -6,81 +6,126 @@ export const title = "With two cards";
 
 export const Tailwind = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Section className="my-4">
-        <Row>
+    <Section className="my-4">
+      <Row>
+        <Text className="m-0 text-xl font-semibold text-gray-900">
+          Elevate Outdoor Living
+        </Text>
+        <Text className="mt-2 text-base text-gray-500">
+          Take your outdoor space to new heights with our premium outdoor
+          furniture, designed to elevate your alfresco experience.
+        </Text>
+      </Row>
+      <Row className="mt-4">
+        <Column className="w-[50%] align-baseline pr-2 box-border" colSpan={1}>
+          <Img
+            alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
+            className="w-full rounded-lg object-cover"
+            height="180"
+            src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          />
+          <Text className="text-base font-semibold text-indigo-600">
+            What's new
+          </Text>
           <Text className="m-0 text-xl font-semibold text-gray-900">
-            Elevate Outdoor Living
+            Multifunctional Marvels
           </Text>
-          <Text className="mt-2 text-base text-gray-500">
-            Take your outdoor space to new heights with our premium outdoor
-            furniture, designed to elevate your alfresco experience.
+          <Text className="mb-0 mt-2 text-base text-gray-500">
+            Discover the innovative world of multifunctional furniture, where
+            style meets practicality, offering creative solutions for maximizing
+            space and enhancing functionality in your home
           </Text>
-        </Row>
-        <Row className="mt-4">
-          <Column
-            className="w-[50%] align-baseline pr-2 box-border"
-            colSpan={1}
-          >
-            <Img
-              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
-              className="w-full rounded-lg object-cover"
-              height="180"
-              src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <Text className="text-base font-semibold text-indigo-600">
-              What's new
-            </Text>
-            <Text className="m-0 text-xl font-semibold text-gray-900">
-              Multifunctional Marvels
-            </Text>
-            <Text className="mb-0 mt-2 text-base text-gray-500">
-              Discover the innovative world of multifunctional furniture, where
-              style meets practicality, offering creative solutions for
-              maximizing space and enhancing functionality in your home
-            </Text>
-          </Column>
-          <Column
-            className="w-[50%] align-baseline pl-2 box-border"
-            colSpan={1}
-          >
-            <Img
-              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
-              className="w-full rounded-lg object-cover"
-              height="180"
-              src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
-            <Text className="text-base font-semibold text-indigo-600">
-              What's new
-            </Text>
-            <Text className="m-0 text-xl font-semibold text-gray-900">
-              Timeless Classics
-            </Text>
-            <Text className="mb-0 mt-2 text-base text-gray-500">
-              Step into the world of timeless classics as we explore iconic
-              furniture pieces that have stood the test of time, adding enduring
-              elegance and sophistication to any interior
-            </Text>
-          </Column>
-        </Row>
-      </Section>
-      {/* end pattern code */}
-    </Layout>
+        </Column>
+        <Column className="w-[50%] align-baseline pl-2 box-border" colSpan={1}>
+          <Img
+            alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
+            className="w-full rounded-lg object-cover"
+            height="180"
+            src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          />
+          <Text className="text-base font-semibold text-indigo-600">
+            What's new
+          </Text>
+          <Text className="m-0 text-xl font-semibold text-gray-900">
+            Timeless Classics
+          </Text>
+          <Text className="mb-0 mt-2 text-base text-gray-500">
+            Step into the world of timeless classics as we explore iconic
+            furniture pieces that have stood the test of time, adding enduring
+            elegance and sophistication to any interior
+          </Text>
+        </Column>
+      </Row>
+    </Section>
   );
 };
 
 export const InlineStyles = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Section
+    <Section
+      style={{
+        marginTop: 16,
+        marginBottom: 16,
+      }}
+    >
+      <Row>
+        <Text
+          style={{
+            margin: 0,
+            fontSize: 20,
+            lineHeight: "28px",
+            fontWeight: 600,
+            color: "rgb(17,24,39)",
+          }}
+        >
+          Elevate Outdoor Living
+        </Text>
+        <Text
+          style={{
+            marginTop: 8,
+            fontSize: 16,
+            lineHeight: "24px",
+            color: "rgb(107,114,128)",
+          }}
+        >
+          Take your outdoor space to new heights with our premium outdoor
+          furniture, designed to elevate your alfresco experience.
+        </Text>
+      </Row>
+      <Row
         style={{
           marginTop: 16,
-          marginBottom: 16,
         }}
       >
-        <Row>
+        <Column
+          colSpan={1}
+          style={{
+            width: "50%",
+            verticalAlign: "baseline",
+            paddingRight: 8,
+            boxSizing: "border-box",
+          }}
+        >
+          <Img
+            alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
+            height="180"
+            src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            style={{
+              width: "100%",
+              borderRadius: 8,
+              objectFit: "cover",
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 16,
+              lineHeight: "24px",
+              fontWeight: 600,
+              color: "rgb(79,70,229)",
+            }}
+          >
+            What's new
+          </Text>
           <Text
             style={{
               margin: 0,
@@ -90,138 +135,83 @@ export const InlineStyles = () => {
               color: "rgb(17,24,39)",
             }}
           >
-            Elevate Outdoor Living
+            Multifunctional Marvels
           </Text>
           <Text
             style={{
+              marginBottom: 0,
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
               color: "rgb(107,114,128)",
             }}
           >
-            Take your outdoor space to new heights with our premium outdoor
-            furniture, designed to elevate your alfresco experience.
+            Discover the innovative world of multifunctional furniture, where
+            style meets practicality, offering creative solutions for maximizing
+            space and enhancing functionality in your home
           </Text>
-        </Row>
-        <Row
+        </Column>
+        <Column
+          colSpan={1}
           style={{
-            marginTop: 16,
+            width: "50%",
+            verticalAlign: "baseline",
+            paddingLeft: 8,
+            boxSizing: "border-box",
           }}
         >
-          <Column
-            colSpan={1}
+          <Img
+            alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
+            height="180"
+            src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             style={{
-              width: "50%",
-              verticalAlign: "baseline",
-              paddingRight: 8,
-              boxSizing: "border-box",
+              width: "100%",
+              borderRadius: 8,
+              objectFit: "cover",
+            }}
+          />
+          <Text
+            style={{
+              fontSize: 16,
+              lineHeight: "24px",
+              fontWeight: 600,
+              color: "rgb(79,70,229)",
             }}
           >
-            <Img
-              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
-              height="180"
-              src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              style={{
-                width: "100%",
-                borderRadius: 8,
-                objectFit: "cover",
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 16,
-                lineHeight: "24px",
-                fontWeight: 600,
-                color: "rgb(79,70,229)",
-              }}
-            >
-              What's new
-            </Text>
-            <Text
-              style={{
-                margin: 0,
-                fontSize: 20,
-                lineHeight: "28px",
-                fontWeight: 600,
-                color: "rgb(17,24,39)",
-              }}
-            >
-              Multifunctional Marvels
-            </Text>
-            <Text
-              style={{
-                marginBottom: 0,
-                marginTop: 8,
-                fontSize: 16,
-                lineHeight: "24px",
-                color: "rgb(107,114,128)",
-              }}
-            >
-              Discover the innovative world of multifunctional furniture, where
-              style meets practicality, offering creative solutions for
-              maximizing space and enhancing functionality in your home
-            </Text>
-          </Column>
-          <Column
-            colSpan={1}
+            What's new
+          </Text>
+          <Text
             style={{
-              width: "50%",
-              verticalAlign: "baseline",
-              paddingLeft: 8,
-              boxSizing: "border-box",
+              margin: 0,
+              fontSize: 20,
+              lineHeight: "28px",
+              fontWeight: 600,
+              color: "rgb(17,24,39)",
             }}
           >
-            <Img
-              alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
-              height="180"
-              src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              style={{
-                width: "100%",
-                borderRadius: 8,
-                objectFit: "cover",
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 16,
-                lineHeight: "24px",
-                fontWeight: 600,
-                color: "rgb(79,70,229)",
-              }}
-            >
-              What's new
-            </Text>
-            <Text
-              style={{
-                margin: 0,
-                fontSize: 20,
-                lineHeight: "28px",
-                fontWeight: 600,
-                color: "rgb(17,24,39)",
-              }}
-            >
-              Timeless Classics
-            </Text>
-            <Text
-              style={{
-                marginBottom: 0,
-                marginTop: 8,
-                fontSize: 16,
-                lineHeight: "24px",
-                color: "rgb(107,114,128)",
-              }}
-            >
-              Step into the world of timeless classics as we explore iconic
-              furniture pieces that have stood the test of time, adding enduring
-              elegance and sophistication to any interior
-            </Text>
-          </Column>
-        </Row>
-      </Section>
-      {/* end pattern code */}
-    </Layout>
+            Timeless Classics
+          </Text>
+          <Text
+            style={{
+              marginBottom: 0,
+              marginTop: 8,
+              fontSize: 16,
+              lineHeight: "24px",
+              color: "rgb(107,114,128)",
+            }}
+          >
+            Step into the world of timeless classics as we explore iconic
+            furniture pieces that have stood the test of time, adding enduring
+            elegance and sophistication to any interior
+          </Text>
+        </Column>
+      </Row>
+    </Section>
   );
 };
 
-export default InlineStyles;
+export default () => {
+  return <Layout>
+    <InlineStyles/>
+  </Layout>
+};
