@@ -27,8 +27,9 @@ const PatternModule = z.object({
 const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
+  // This regex matches React components, getting their name and their JSX code
   const codeRegex =
-    /(?<=export const (?<componentName>[^=\s]+) = \(\) => {)[\s\S]*?{\/\* start pattern code \*\/}(?<patternCode>[\s\S]+?){\/\* end pattern code \*\/}/gm;
+    /export const (?<componentName>[^=\s]+)\s*=\s*\(\)\s*=>\s*{[\n\r\s]*return\s*\((?<patternCode>[\s\S]+?)\s*\);?/gm;
 
   const file = await fs.readFile(filepath, "utf8");
 
@@ -41,7 +42,7 @@ const getPatternAt = async (filepath: string) => {
       codePerVariant[variant] = code;
     } else {
       throw new Error(
-        "Could not find the source code for the pattern. It needs a starting /* start pattern code */ and an ending /* end pattern code */ for the regex to properly match it.",
+        "Could not find the source code for the pattern",
         {
           cause: {
             filepath,

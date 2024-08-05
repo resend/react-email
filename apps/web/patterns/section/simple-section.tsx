@@ -5,14 +5,14 @@ export const title = "Simple section";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Section>
-        <Text>Hello my section!</Text>
-      </Section>
-      {/* end pattern code */}
-    </Layout>
+    <Section>
+      <Text>Hello my section!</Text>
+    </Section>
   );
 };
 
-export default None;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);

@@ -5,8 +5,7 @@ export const title = "Heading with spacing";
 
 export const Tailwind = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
+    <>
       <Heading as="h4" className="mx-4 my-5">
         Header with margin on all sides
       </Heading>
@@ -16,15 +15,13 @@ export const Tailwind = () => {
       <Heading as="h4" className="mx-4 mb-10">
         Header with more margin on the bottom
       </Heading>
-      {/* end pattern code */}
-    </Layout>
+    </>
   );
 };
 
 export const InlineStyles = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
+    <>
       <Heading
         as="h4"
         style={{
@@ -58,9 +55,14 @@ export const InlineStyles = () => {
       >
         Header with more margin on the bottom
       </Heading>
-      {/* end pattern code */}
-    </Layout>
+    </>
   );
 };
 
-export default InlineStyles;
+export default () => {
+  return (
+    <Layout>
+      <InlineStyles />
+    </Layout>
+  );
+};

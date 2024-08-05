@@ -5,14 +5,10 @@ export const title = "Link inline with text";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Text>
-        This is <Link href="https://react.email">React Email</Link>
-      </Text>
-      {/* end pattern code */}
-    </Layout>
+    <Text>
+      This is <Link href="https://react.email">React Email</Link>
+    </Text>
   );
 };
 
-export default None;
+export default () => <Layout><None/></Layout>;

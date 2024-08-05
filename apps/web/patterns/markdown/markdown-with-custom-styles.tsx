@@ -5,25 +5,25 @@ export const title = "Markdown with custom styles";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Markdown
-        markdownCustomStyles={{
-          h1: { color: "red" },
-          h2: { color: "blue" },
-          codeInline: { background: "grey" },
-        }}
-      >
-        {`## Hello, this is my email template
+    <Markdown
+      markdownCustomStyles={{
+        h1: { color: "red" },
+        h2: { color: "blue" },
+        codeInline: { background: "grey" },
+      }}
+    >
+      {`## Hello, this is my email template
 
 This is meant to be rendered as a paragraph. There is no way around it.
 
 ### Another heading that I wrote
         `}
-      </Markdown>
-      {/* end pattern code */}
-    </Layout>
+    </Markdown>
   );
 };
 
-export default None;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);

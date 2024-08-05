@@ -5,283 +5,277 @@ export const title = "Header with four paragraphs and two columns";
 
 export const Tailwind = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Section className="my-4">
-        <Row>
-          <Text className="m-0 text-2xl font-semibold text-gray-900">
-            Modern Comfort
-          </Text>
-          <Text className="mt-2 text-base text-gray-500">
-            Experience contemporary bliss with our sleek and cozy furniture
-            collection, designed for optimal comfort and style
-          </Text>
-        </Row>
-        <table width="100%">
-          <tr className="w-full mt-4">
-            <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img
-                alt="heart icon"
-                height="48"
-                src="/static/heart-icon.png"
-                width="48"
-              />
-              <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
-                Timeless Beauty
-              </Text>
-              <Text className="mb-0 mt-2 text-base text-gray-500">
-                Indulge in the enduring beauty of our furniture pieces, crafted
-                with exquisite attention to detail and timeless design
-              </Text>
-            </td>
-            <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img
-                alt="rocket icon"
-                height="48"
-                src="/static/rocket-icon.png"
-                width="48"
-              />
-              <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
-                Effortless Function
-              </Text>
-              <Text className="mb-0 mt-2 text-base text-gray-500">
-                Discover furniture that seamlessly combines form and function,
-                making everyday living a breeze with its practicality
-              </Text>
-            </td>
-          </tr>
-          <tr className="w-full mt-4">
-            <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img
-                alt="megaphone icon"
-                height="48"
-                src="/static/megaphone-icon.png"
-                width="48"
-              />
-              <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
-                Customize Your Space
-              </Text>
-              <Text className="mb-0 mt-2 text-base text-gray-500">
-                Personalize your living environment with our customizable
-                furniture options, allowing you to tailor your space to
-                perfection
-              </Text>
-            </td>
-            <td align="center" className="w-1/2 pr-3 align-baseline">
-              <Img
-                alt="cube icon"
-                height="48"
-                src="/static/cube-icon.png"
-                width="48"
-              />
-              <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
-                Outdoor Serenity
-              </Text>
-              <Text className="mb-0 mt-2 text-base text-gray-500">
-                Create a tranquil outdoor retreat with our premium outdoor
-                furniture, offering both durability and serene relaxation
-              </Text>
-            </td>
-          </tr>
-        </table>
-      </Section>
-      {/* end pattern code */}
-    </Layout>
+    <Section className="my-4">
+      <Row>
+        <Text className="m-0 text-2xl font-semibold text-gray-900">
+          Modern Comfort
+        </Text>
+        <Text className="mt-2 text-base text-gray-500">
+          Experience contemporary bliss with our sleek and cozy furniture
+          collection, designed for optimal comfort and style
+        </Text>
+      </Row>
+      <table width="100%">
+        <tr className="w-full mt-4">
+          <td align="center" className="w-1/2 pr-3 align-baseline">
+            <Img
+              alt="heart icon"
+              height="48"
+              src="/static/heart-icon.png"
+              width="48"
+            />
+            <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
+              Timeless Beauty
+            </Text>
+            <Text className="mb-0 mt-2 text-base text-gray-500">
+              Indulge in the enduring beauty of our furniture pieces, crafted
+              with exquisite attention to detail and timeless design
+            </Text>
+          </td>
+          <td align="center" className="w-1/2 pr-3 align-baseline">
+            <Img
+              alt="rocket icon"
+              height="48"
+              src="/static/rocket-icon.png"
+              width="48"
+            />
+            <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
+              Effortless Function
+            </Text>
+            <Text className="mb-0 mt-2 text-base text-gray-500">
+              Discover furniture that seamlessly combines form and function,
+              making everyday living a breeze with its practicality
+            </Text>
+          </td>
+        </tr>
+        <tr className="w-full mt-4">
+          <td align="center" className="w-1/2 pr-3 align-baseline">
+            <Img
+              alt="megaphone icon"
+              height="48"
+              src="/static/megaphone-icon.png"
+              width="48"
+            />
+            <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
+              Customize Your Space
+            </Text>
+            <Text className="mb-0 mt-2 text-base text-gray-500">
+              Personalize your living environment with our customizable
+              furniture options, allowing you to tailor your space to perfection
+            </Text>
+          </td>
+          <td align="center" className="w-1/2 pr-3 align-baseline">
+            <Img
+              alt="cube icon"
+              height="48"
+              src="/static/cube-icon.png"
+              width="48"
+            />
+            <Text className="m-0 mt-4 text-xl font-semibold text-gray-900">
+              Outdoor Serenity
+            </Text>
+            <Text className="mb-0 mt-2 text-base text-gray-500">
+              Create a tranquil outdoor retreat with our premium outdoor
+              furniture, offering both durability and serene relaxation
+            </Text>
+          </td>
+        </tr>
+      </table>
+    </Section>
   );
 };
 
 export const InlineStyles = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Section style={{ marginTop: 16, marginBottom: 16 }}>
-        <Row>
-          <Text
+    <Section style={{ marginTop: 16, marginBottom: 16 }}>
+      <Row>
+        <Text
+          style={{
+            margin: 0,
+            fontSize: 24,
+            lineHeight: "32px",
+            fontWeight: 600,
+            color: "rgb(17,24,39)",
+          }}
+        >
+          Modern Comfort
+        </Text>
+        <Text
+          style={{
+            marginTop: 8,
+            fontSize: 16,
+            lineHeight: "24px",
+            color: "rgb(107,114,128)",
+          }}
+        >
+          Experience contemporary bliss with our sleek and cozy furniture
+          collection, designed for optimal comfort and style
+        </Text>
+      </Row>
+      <table width="100%">
+        <tr style={{ width: "100%", marginTop: 16 }}>
+          <td
+            align="center"
             style={{
-              margin: 0,
-              fontSize: 24,
-              lineHeight: "32px",
-              fontWeight: 600,
-              color: "rgb(17,24,39)",
+              width: "50%",
+              paddingRight: 12,
+              verticalAlign: "baseline",
             }}
           >
-            Modern Comfort
-          </Text>
-          <Text
+            <Img
+              alt="heart icon"
+              height="48"
+              src="/static/heart-icon.png"
+              width="48"
+            />
+            <Text
+              style={{
+                margin: 0,
+                marginTop: 16,
+                fontSize: 20,
+                lineHeight: "28px",
+                fontWeight: 600,
+                color: "rgb(17,24,39)",
+              }}
+            >
+              Timeless Beauty
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
+                fontSize: 16,
+                lineHeight: "24px",
+                color: "rgb(107,114,128)",
+              }}
+            >
+              Indulge in the enduring beauty of our furniture pieces, crafted
+              with exquisite attention to detail and timeless design
+            </Text>
+          </td>
+          <td
+            align="center"
             style={{
-              marginTop: 8,
-              fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              width: "50%",
+              paddingRight: 12,
+              verticalAlign: "baseline",
             }}
           >
-            Experience contemporary bliss with our sleek and cozy furniture
-            collection, designed for optimal comfort and style
-          </Text>
-        </Row>
-        <table width="100%">
-          <tr style={{ width: "100%", marginTop: 16 }}>
-            <td
-              align="center"
+            <Img
+              alt="rocket icon"
+              height="48"
+              src="/static/rocket-icon.png"
+              width="48"
+            />
+            <Text
               style={{
-                width: "50%",
-                paddingRight: 12,
-                verticalAlign: "baseline",
+                margin: 0,
+                marginTop: 16,
+                fontSize: 20,
+                lineHeight: "28px",
+                fontWeight: 600,
+                color: "rgb(17,24,39)",
               }}
             >
-              <Img
-                alt="heart icon"
-                height="48"
-                src="/static/heart-icon.png"
-                width="48"
-              />
-              <Text
-                style={{
-                  margin: 0,
-                  marginTop: 16,
-                  fontSize: 20,
-                  lineHeight: "28px",
-                  fontWeight: 600,
-                  color: "rgb(17,24,39)",
-                }}
-              >
-                Timeless Beauty
-              </Text>
-              <Text
-                style={{
-                  marginTop: 8,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "rgb(107,114,128)",
-                }}
-              >
-                Indulge in the enduring beauty of our furniture pieces, crafted
-                with exquisite attention to detail and timeless design
-              </Text>
-            </td>
-            <td
-              align="center"
+              Effortless Function
+            </Text>
+            <Text
               style={{
-                width: "50%",
-                paddingRight: 12,
-                verticalAlign: "baseline",
+                marginTop: 8,
+                fontSize: 16,
+                lineHeight: "24px",
+                color: "rgb(107,114,128)",
               }}
             >
-              <Img
-                alt="rocket icon"
-                height="48"
-                src="/static/rocket-icon.png"
-                width="48"
-              />
-              <Text
-                style={{
-                  margin: 0,
-                  marginTop: 16,
-                  fontSize: 20,
-                  lineHeight: "28px",
-                  fontWeight: 600,
-                  color: "rgb(17,24,39)",
-                }}
-              >
-                Effortless Function
-              </Text>
-              <Text
-                style={{
-                  marginTop: 8,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "rgb(107,114,128)",
-                }}
-              >
-                Discover furniture that seamlessly combines form and function,
-                making everyday living a breeze with its practicality
-              </Text>
-            </td>
-          </tr>
-          <tr style={{ width: "100%", marginTop: 16 }}>
-            <td
-              align="center"
+              Discover furniture that seamlessly combines form and function,
+              making everyday living a breeze with its practicality
+            </Text>
+          </td>
+        </tr>
+        <tr style={{ width: "100%", marginTop: 16 }}>
+          <td
+            align="center"
+            style={{
+              width: "50%",
+              paddingRight: 12,
+              verticalAlign: "baseline",
+            }}
+          >
+            <Img
+              alt="megaphone icon"
+              height="48"
+              src="/static/megaphone-icon.png"
+              width="48"
+            />
+            <Text
               style={{
-                width: "50%",
-                paddingRight: 12,
-                verticalAlign: "baseline",
+                margin: 0,
+                marginTop: 16,
+                fontSize: 20,
+                lineHeight: "28px",
+                fontWeight: 600,
+                color: "rgb(17,24,39)",
               }}
             >
-              <Img
-                alt="megaphone icon"
-                height="48"
-                src="/static/megaphone-icon.png"
-                width="48"
-              />
-              <Text
-                style={{
-                  margin: 0,
-                  marginTop: 16,
-                  fontSize: 20,
-                  lineHeight: "28px",
-                  fontWeight: 600,
-                  color: "rgb(17,24,39)",
-                }}
-              >
-                Customize Your Space
-              </Text>
-              <Text
-                style={{
-                  marginTop: 8,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "rgb(107,114,128)",
-                }}
-              >
-                Personalize your living environment with our customizable
-                furniture options, allowing you to tailor your space to
-                perfection
-              </Text>
-            </td>
-            <td
-              align="center"
+              Customize Your Space
+            </Text>
+            <Text
               style={{
-                width: "50%",
-                paddingRight: 12,
-                verticalAlign: "baseline",
+                marginTop: 8,
+                fontSize: 16,
+                lineHeight: "24px",
+                color: "rgb(107,114,128)",
               }}
             >
-              <Img
-                alt="cube icon"
-                height="48"
-                src="/static/cube-icon.png"
-                width="48"
-              />
-              <Text
-                style={{
-                  margin: 0,
-                  marginTop: 16,
-                  fontSize: 20,
-                  lineHeight: "28px",
-                  fontWeight: 600,
-                  color: "rgb(17,24,39)",
-                }}
-              >
-                Outdoor Serenity
-              </Text>
-              <Text
-                style={{
-                  marginTop: 8,
-                  fontSize: 16,
-                  lineHeight: "24px",
-                  color: "rgb(107,114,128)",
-                }}
-              >
-                Create a tranquil outdoor retreat with our premium outdoor
-                furniture, offering both durability and serene relaxation
-              </Text>
-            </td>
-          </tr>
-        </table>
-      </Section>
-      {/* end pattern code */}
-    </Layout>
+              Personalize your living environment with our customizable
+              furniture options, allowing you to tailor your space to perfection
+            </Text>
+          </td>
+          <td
+            align="center"
+            style={{
+              width: "50%",
+              paddingRight: 12,
+              verticalAlign: "baseline",
+            }}
+          >
+            <Img
+              alt="cube icon"
+              height="48"
+              src="/static/cube-icon.png"
+              width="48"
+            />
+            <Text
+              style={{
+                margin: 0,
+                marginTop: 16,
+                fontSize: 20,
+                lineHeight: "28px",
+                fontWeight: 600,
+                color: "rgb(17,24,39)",
+              }}
+            >
+              Outdoor Serenity
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
+                fontSize: 16,
+                lineHeight: "24px",
+                color: "rgb(107,114,128)",
+              }}
+            >
+              Create a tranquil outdoor retreat with our premium outdoor
+              furniture, offering both durability and serene relaxation
+            </Text>
+          </td>
+        </tr>
+      </table>
+    </Section>
   );
 };
 
-export default InlineStyles;
+export default () => {
+  return <Layout>
+    <InlineStyles/>
+  </Layout>
+};

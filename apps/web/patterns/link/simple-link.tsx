@@ -5,12 +5,8 @@ export const title = "Simple link";
 
 export const None = () => {
   return (
-    <Layout>
-      {/* start pattern code */}
-      <Link href="https://react.email">React Email</Link>
-      {/* end pattern code */}
-    </Layout>
+    <Link href="https://react.email">React Email</Link>
   );
 };
 
-export default None;
+export default () => <Layout><None/></Layout>;
