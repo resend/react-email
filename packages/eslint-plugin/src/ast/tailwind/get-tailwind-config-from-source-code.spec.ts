@@ -75,8 +75,11 @@ function Component() {
     config={${stringify(tailwindConfig)}} 
   />;
 }`);
-    expect(getTailwindConfigFromSourceCode(sourceCode, "./emails/fake-email-template.tsx")).toEqual(
-      tailwindConfig,
-    );
+    expect(
+      getTailwindConfigFromSourceCode(
+        sourceCode,
+        "./emails/fake-email-template.tsx",
+      ),
+    ).toEqual(tailwindConfig);
   });
 });
