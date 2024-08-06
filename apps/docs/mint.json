@@ -88,7 +88,7 @@
     },
     {
       "group": "Utilities",
-      "pages": ["utilities/render"]
+      "pages": ["utilities/render", "utilities/eslint-plugin"]
     },
     {
       "group": "Integrations",

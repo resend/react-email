@@ -1,0 +1,8 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@react-email"],
+  "extends": [
+    "plugin:@react-email/recommended",
+    "../.eslintrc.js"
+  ]
+}
