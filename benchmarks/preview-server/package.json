@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "local-vs-2.1.7-canary.2": "tsx ./src/local-vs-2.1.6-canary.2.ts"
+    "local-vs-2.1.7-canary.2": "tsx ./src/local-vs-2.1.7-canary.2.ts"
   },
   "license": "MIT",
   "repository": {
