@@ -12,7 +12,7 @@ let tailwindContext: JitContext | undefined;
 
 export const getSourceCodeTailwindMetadata = (
   sourceCode: SourceCode,
-  filename: string
+  filename: string,
 ):
   | { hasTailwind: false }
   | {

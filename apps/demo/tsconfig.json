@@ -21,6 +21,6 @@
     "target": "es6",
     "strictNullChecks": true
   },
-  "include": [".", ".eslintrc.js"],
+  "include": ["**/*", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }

@@ -71,7 +71,7 @@ async function run() {
       which might cause issues.
     */
     const properKebabCasedEmailClient = fromCamelToKebabCase(
-      camelCase(emailClient).replaceAll('_', ''),
+      camelCase(emailClient).replaceAll("_", ""),
     );
 
     for await (const platform of platforms.values()) {

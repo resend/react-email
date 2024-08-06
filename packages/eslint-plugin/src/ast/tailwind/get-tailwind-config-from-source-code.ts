@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import jiti from 'jiti';
+import jiti from "jiti";
 import { parse as parseJavascriptObject } from "json5";
 import type { SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -19,8 +19,8 @@ const getPathOfExistingFile = (...paths: string[]) => {
 };
 
 const runConfigFile = jiti(__filename, {
-  interopDefault: true
-})
+  interopDefault: true,
+});
 
 /**
  * Tries to find the user defined Tailwind config so that the eslint rules run on the actually
@@ -31,7 +31,10 @@ const runConfigFile = jiti(__filename, {
  * 2. If it doesn't find a Tailwind config file, it then tries to look for the `config` attribute in the `Tailwind` element as to read it like a JSON.
  * If is unable to do so, it errors.
  */
-export function getTailwindConfigFromSourceCode(sourceCode: SourceCode, filename: string) {
+export function getTailwindConfigFromSourceCode(
+  sourceCode: SourceCode,
+  filename: string,
+) {
   const tailwindConfigIdentifier = esquery(
     sourceCode.ast,
     /*
@@ -44,7 +47,7 @@ export function getTailwindConfigFromSourceCode(sourceCode: SourceCode, filename
       If the user is to add something like an `as` to the end, this will not match it, meaning
       the eslint plugin will fail to resolve their config properly.
     */
-    'JSXOpeningElement[name.name="Tailwind"] JSXAttribute[name.name="config"] JSXExpressionContainer > Identifier'
+    'JSXOpeningElement[name.name="Tailwind"] JSXAttribute[name.name="config"] JSXExpressionContainer > Identifier',
   )[0] as TSESTree.Identifier | undefined;
 
   if (tailwindConfigIdentifier !== undefined) {
@@ -64,11 +67,14 @@ export function getTailwindConfigFromSourceCode(sourceCode: SourceCode, filename
         Will be found and then parsed to find whether or not the file actually exists and
         then import it either with `jiti` or with `require`.
       */
-      `ImportDeclaration:has([specifiers] Identifier[name="${tailwindConfigIdentifierName}"])`
+      `ImportDeclaration:has([specifiers] Identifier[name="${tailwindConfigIdentifierName}"])`,
     )[0] as TSESTree.ImportDeclaration | undefined;
     if (tailwindConfigImport !== undefined) {
       const relativePath = tailwindConfigImport.source.value;
-      let tailwindConfigPath: string | undefined = path.resolve(path.dirname(filename), relativePath);
+      let tailwindConfigPath: string | undefined = path.resolve(
+        path.dirname(filename),
+        relativePath,
+      );
       tailwindConfigPath = getPathOfExistingFile(
         `${tailwindConfigPath}.ts`,
         `${tailwindConfigPath}.js`,
@@ -79,15 +85,15 @@ export function getTailwindConfigFromSourceCode(sourceCode: SourceCode, filename
       if (tailwindConfigPath === undefined) {
         console.error(
           `Could not find Tailwind config by inferring it's extension type (tried .ts, .js, .mjs and .cjs).`,
-          path.resolve(path.dirname(filename), relativePath)
+          path.resolve(path.dirname(filename), relativePath),
         );
         process.exit(-1);
       }
 
-      const tailwindConfigModule = tailwindConfigPath.endsWith('.ts')
-        ? runConfigFile(tailwindConfigPath) as unknown
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        : require(tailwindConfigPath) as unknown;
+      const tailwindConfigModule = tailwindConfigPath.endsWith(".ts")
+        ? (runConfigFile(tailwindConfigPath) as unknown)
+        : // eslint-disable-next-line @typescript-eslint/no-var-requires
+          (require(tailwindConfigPath) as unknown);
 
       if (
         typeof tailwindConfigModule === "object" &&

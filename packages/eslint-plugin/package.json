@@ -153,7 +153,7 @@
     "@types/pretty": "2.0.1",
     "@types/react": "18.2.33",
     "@types/sync-fetch": "0.4.3",
-    "@typescript-eslint/parser": "7.1.0",
+    "@typescript-eslint/parser": "8.0.1",
     "@typescript-eslint/rule-tester": "6.19.1",
     "eslint-config-custom": "workspace:*",
     "rollup": "4.4.1",
