@@ -17,7 +17,7 @@ export interface Pattern {
 
 const PatternModule = z.object({
   title: z.string(),
-  default: z.function()
+  default: z.function(),
 });
 
 // This function should be called when building
@@ -41,31 +41,31 @@ const getPatternAt = async (filepath: string) => {
     if (variant !== undefined && code !== undefined) {
       codePerVariant[variant] = code;
     } else {
-      throw new Error(
-        "Could not find the source code for the pattern",
-        {
-          cause: {
-            filepath,
-            code,
-            variant,
-            match,
-          },
+      throw new Error("Could not find the source code for the pattern", {
+        cause: {
+          filepath,
+          code,
+          variant,
+          match,
         },
-      );
+      });
     }
   }
 
   const relativeFilepath = path.relative(pathToPatterns, filepath);
   const patternModule = PatternModule.parse(
     await import(
-      `../../../patterns/${relativeFilepath.replace(path.extname(relativeFilepath), "")}`
+      `../../../patterns/${relativeFilepath.replace(
+        path.extname(relativeFilepath),
+        "",
+      )}`
     ),
   );
 
   return {
     title: patternModule.title,
     component: patternModule.default as React.FC,
-    codePerVariant
+    codePerVariant,
   } satisfies Pattern;
 };
 
