@@ -95,7 +95,7 @@ export const getEmailsDirectoryMetadata = async (
         );
 
         return getEmailsDirectoryMetadata(
-          path.join(absolutePathToEmailsDirectory, dirent.name),
+          direntAbsolutePath,
           keepFileExtensions,
           true,
           baseDirectoryPath,
