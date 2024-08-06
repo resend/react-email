@@ -95,10 +95,10 @@ export const getEmailsDirectoryMetadata = async (
         );
 
         return getEmailsDirectoryMetadata(
-            path.join(absolutePathToEmailsDirectory, dirent.name),
-            keepFileExtensions,
-            true,
-            baseDirectoryPath,
+          path.join(absolutePathToEmailsDirectory, dirent.name),
+          keepFileExtensions,
+          true,
+          baseDirectoryPath,
         ) as Promise<EmailsDirectory>;
       }),
   );
