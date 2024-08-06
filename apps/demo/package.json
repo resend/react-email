@@ -6,7 +6,8 @@
     "build": "pnpm install --frozen-lockfile && email build",
     "dev": "email dev",
     "start": "email start",
-    "export": "email export"
+    "export": "email export",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-email/components": "workspace:*",
@@ -15,9 +16,12 @@
     "react-email": "workspace:*"
   },
   "devDependencies": {
+    "@react-email/eslint-plugin": "workspace:0.0.1-canary.0",
     "next": "14.2.3",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
+    "@typescript-eslint/parser": "7.1.0",
+    "eslint": "8.56.0",
     "tsx": "4.9.0"
   }
 }
