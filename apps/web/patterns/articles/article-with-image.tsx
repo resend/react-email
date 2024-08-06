@@ -111,7 +111,9 @@ export const InlineStyles = () => {
 };
 
 export default () => {
-  return <Layout>
-    <InlineStyles/>
-  </Layout>
+  return (
+    <Layout>
+      <InlineStyles />
+    </Layout>
+  );
 };

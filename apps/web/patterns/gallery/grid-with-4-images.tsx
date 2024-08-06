@@ -182,7 +182,9 @@ export const InlineStyles = () => {
 };
 
 export default () => {
-  return <Layout>
-    <Tailwind/>
-  </Layout>
+  return (
+    <Layout>
+      <Tailwind />
+    </Layout>
+  );
 };

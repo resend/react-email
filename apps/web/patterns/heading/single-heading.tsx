@@ -7,4 +7,8 @@ export const None = () => {
   return <Heading>Simple h1 heading</Heading>;
 };
 
-export default () => <Layout><None/></Layout>;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);

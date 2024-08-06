@@ -11,4 +11,8 @@ export const None = () => {
   );
 };
 
-export default () => <Layout><None/></Layout>;
+export default () => (
+  <Layout>
+    <None />
+  </Layout>
+);
