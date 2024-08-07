@@ -16,12 +16,12 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         directoryName: 'magic-links',
         emailFilenames: [
           'aws-verify-email',
+          'jobaccepted-magic-link',
           'linear-login-code',
           'notion-magic-link',
           'plaid-verify-identity',
           'raycast-magic-link',
           'slack-confirm',
-          'jobaccepted-magic-link',
         ],
         subDirectories: [],
       },
