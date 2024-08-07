@@ -21,34 +21,22 @@ const pathToLocalCliScript = path.resolve(
     iterations: 30,
   });
 
-  const localServer = await runServer(pathToLocalCliScript);
-  const canaryServer = await runServer(pathToCanaryCliScript);
   bench
-    .add("local", async () => {
-      await fetch(
-        `${localServer.url}/preview/magic-links/notion-magic-link`,
-      );
+    .add("startup on local", async () => {
+      const server = await runServer(pathToLocalCliScript);
+      await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+      server.subprocess.kill();
     })
-    .add("2.1.7-canary.2", async () => {
-      await fetch(
-        `${canaryServer.url}/preview/magic-links/notion-magic-link`,
-      );
+    .add("startup on 2.1.7-canary.2", async () => {
+      const server = await runServer(pathToCanaryCliScript);
+      await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+      server.subprocess.kill();
     });
-
-  await fetch(
-    `${localServer.url}/preview/magic-links/notion-magic-link`,
-  );
-  await fetch(
-    `${canaryServer.url}/preview/magic-links/notion-magic-link`,
-  );
 
   await bench.run();
 
-  localServer.subprocess.kill();
-  canaryServer.subprocess.kill();
-
   await fs.writeFile(
-    "bench-results-30-iterations.json",
+    "startup-bench-results-30-iterations.json",
     JSON.stringify(bench.results),
     "utf8",
   );
