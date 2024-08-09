@@ -1,8 +1,8 @@
 import * as React from "react";
-import { parsePadding, pxToPt } from "./utils";
+import { parsePadding } from "./utils/parse-padding";
+import { pxToPt } from "./utils/px-to-pt";
 
-type ButtonElement = React.ElementRef<"a">;
-export type ButtonProps = React.ComponentPropsWithoutRef<"a">;
+export type ButtonProps = Readonly<React.ComponentPropsWithoutRef<"a">>;
 
 function computeFontWidthAndSpaceCount(expectedWidth: number) {
   let smallestSpaceCount = 0;
@@ -14,7 +14,7 @@ function computeFontWidthAndSpaceCount(expectedWidth: number) {
   return [expectedWidth / smallestSpaceCount / 2, smallestSpaceCount];
 }
 
-export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
+export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
   ({ children, style, target = "_blank", ...props }, ref) => {
     const { pt, pr, pb, pl } = parsePadding({
       padding: style?.padding,
