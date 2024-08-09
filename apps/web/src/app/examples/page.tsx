@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
-import { Example, type ExampleProps } from "../../components/example";
+import { Example } from "../../components/example";
 import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
@@ -98,7 +98,7 @@ const items = [
     name: "Plaid / Verify Identity",
     author: "zenorocha",
   },
-] satisfies ExampleProps[];
+];
 
 const title = "Examples — React Email";
 const description = "Open source templates built with React Email";
@@ -117,7 +117,7 @@ const Examples = () => {
       <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
         <Topbar />
 
-        <div className="relative mx-auto flex max-w-3xl flex-col justify-center py-10">
+        <div className="mx-auto flex max-w-3xl flex-col justify-center py-10">
           <div className="mb-12 max-w-[745px] text-center">
             <Heading className="mb-2 text-white" size="8">
               Examples
@@ -130,7 +130,6 @@ const Examples = () => {
             <Text as="p" className="text-slate-11" size="4">
               Recreate an{" "}
               <Anchor
-                appearance="white"
                 href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
                 target="_blank"
               >
@@ -138,7 +137,6 @@ const Examples = () => {
               </Anchor>{" "}
               or submit a{" "}
               <Anchor
-                appearance="white"
                 href="https://github.com/resend/react-email/tree/main/demo"
                 target="_blank"
               >

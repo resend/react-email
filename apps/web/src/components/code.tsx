@@ -1,5 +1,6 @@
 "use client";
-import classnames from "classnames";
+
+import classNames from "classnames";
 import { Highlight } from "prism-react-renderer";
 import * as React from "react";
 import { IconButton } from "./icon-button";
@@ -57,7 +58,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     <Highlight code={value} language={language} theme={theme}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={classnames(
+          className={classNames(
             "border-slate-6 relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border pl-4 pr-10 text-sm backdrop-blur-md",
             className,
           )}
@@ -91,7 +92,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             return (
               <div
                 {...getLineProps({ line, key: i })}
-                className={classnames("whitespace-pre", {
+                className={classNames("whitespace-pre", {
                   "before:text-slate-11 before:mr-2 before:content-['$']":
                     language === "bash" && tokens.length === 1,
                 })}

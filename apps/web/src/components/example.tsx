@@ -1,4 +1,4 @@
-import classnames from "classnames";
+import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -21,17 +21,14 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
   author,
   ...props
 }) => {
-  if (path.length === 0)
+  const emailName = path.split("/").pop();
+  if (path.length === 0 || !emailName) {
     throw new Error("Cannot have an empty path for an Example!");
+  }
 
-  // as the path is never going to be an empty string, this pop here always returns the last
-  // portion of the path
-  //
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const emailName = path.split("/").pop()!;
   return (
     <Link
-      className={classnames(
+      className={classNames(
         "bg-gradient border-slate-6 flex w-full flex-col rounded-md border backdrop-blur-[20px] focus:outline-none focus:ring-2",
         "hover:bg-gradientHover",
         "focus:bg-gradientHover focus:ring-white/20",
