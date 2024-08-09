@@ -1,27 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
-  type Declaration,
   type Plugin,
   type Container,
   type Document,
+  type Node,
+  type Declaration,
+  Rule,
+  rule as createRule,
+  decl as createDeclaration,
+  AtRule,
 } from "postcss";
 
 export const cssVariablesResolver = () => {
-  const variables = {} as Record<
-    string,
-    {
-      declaration: Declaration;
-      usages: Set<Declaration>;
-    }
-  >;
-  const variableUsages = new Set<{
-    declaration: Declaration;
-    /**
-     * @example ['var(--width)', 'var(--length)']
-     */
-    variablesUsed: string[];
-  }>();
-
   const removeIfEmptyRecursively = (node: Container | Document) => {
     if (node.first === undefined) {
       const parent = node.parent;
@@ -32,56 +22,100 @@ export const cssVariablesResolver = () => {
     }
   };
 
+  const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
+    if (first instanceof Rule && second instanceof Rule) {
+      return (
+        first.selector === second.selector ||
+        second.selector === "*" ||
+        second.selector === ":root"
+      );
+    }
+
+    return first === second;
+  };
+
   return {
     postcssPlugin: "CSS Variables Resolver",
     Once(root) {
+      root.walkRules((rule) => {
+        const declarationsForAtRules = new Map<AtRule, Set<Declaration>>();
+        const valueReplacingInformation = new Set<{
+          declaration: Declaration;
+          newValue: string;
+        }>();
+
+        rule.walkDecls((decl) => {
+          if (/var\(--[^\s)]+\)/.test(decl.value)) {
+            /**
+             * @example ['var(--width)', 'var(--length)']
+             */
+            const variablesUsed = /var\(--[^\s)]+\)/gm.exec(decl.value)!;
+            root.walkDecls((otherDecl) => {
+              if (/--[^\s]+/.test(otherDecl.prop)) {
+                const variable = `var(${otherDecl.prop})`;
+                if (
+                  variablesUsed.includes(variable) &&
+                  doNodesMatch(decl.parent, otherDecl.parent)
+                ) {
+                  if (otherDecl.parent?.parent instanceof AtRule) {
+                    const atRule = otherDecl.parent.parent;
+
+                    const clonedDeclaration = createDeclaration();
+                    clonedDeclaration.prop = decl.prop;
+                    clonedDeclaration.value =
+                      decl.value.replaceAll(
+                        variable,
+                        otherDecl.value,
+                      );
+                    clonedDeclaration.important = decl.important;
+                    if (declarationsForAtRules.has(atRule)) {
+                      declarationsForAtRules
+                        .get(otherDecl.parent.parent)!
+                        .add(clonedDeclaration);
+                    } else {
+                      declarationsForAtRules.set(
+                        otherDecl.parent.parent,
+                        new Set([clonedDeclaration]),
+                      );
+                    }
+                  } else {
+                    valueReplacingInformation.add({
+                      declaration: decl,
+                      newValue: decl.value.replaceAll(
+                        variable,
+                        otherDecl.value,
+                      ),
+                    });
+                  }
+                }
+              }
+            });
+          }
+        });
+
+        for (const { declaration, newValue } of valueReplacingInformation) {
+          declaration.value = newValue;
+        }
+
+        for (const [atRule, declarations] of declarationsForAtRules.entries()) {
+          const equivalentRule = createRule();
+          equivalentRule.selector = rule.selector;
+          equivalentRule.append(...declarations);
+
+          atRule.append(equivalentRule);
+        }
+      });
+
+      // Removes all variable definitions and then removes the rules that are empty
       root.walkDecls((decl) => {
         if (/--[^\s]+/.test(decl.prop)) {
-          variables[decl.prop] = {
-            declaration: decl,
-            usages: new Set(),
-          };
-        }
-      });
-      root.walkDecls((decl) => {
-        if (/var\(--[^\s)]+\)/.test(decl.value)) {
-          const matches = /var\(--[^\s)]+\)/gm.exec(decl.value)!;
-          variableUsages.add({
-            declaration: decl,
-            variablesUsed: matches,
-          });
-          for (const variable of matches) {
-            const variableName = variable.slice(4, -1);
-            variables[variableName].usages.add(decl);
-          }
-        }
-      });
-
-      for (const usage of variableUsages) {
-        for (const variable of usage.variablesUsed) {
-          const variableName = variable.slice(4, -1);
-          usage.declaration.value = usage.declaration.value.replaceAll(
-            variable,
-            variables[variableName].declaration.value,
-          );
-        }
-        for (const variable of usage.variablesUsed) {
-          const variableName = variable.slice(4, -1);
-          variables[variableName].usages.delete(usage.declaration);
-        }
-        variableUsages.delete(usage);
-      }
-
-      for (const variable of Object.values(variables)) {
-        console.log(variable);
-        if (variable.usages.size === 0) {
-          const parent = variable.declaration.parent;
+          const parent = decl.parent;
+          decl.remove();
           if (parent) {
-            variable.declaration.remove();
             removeIfEmptyRecursively(parent);
           }
         }
-      }
+      });
     },
   } satisfies Plugin;
 };

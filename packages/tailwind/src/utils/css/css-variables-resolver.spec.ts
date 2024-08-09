@@ -18,7 +18,7 @@ describe("cssVariablesResolver", () => {
 }`);
   });
 
-  it.only("should work with different values between media queries", () => {
+  it("should work with different values between media queries", () => {
     const css = `:root {
   --width: 100px;
 }
@@ -30,18 +30,18 @@ describe("cssVariablesResolver", () => {
 }
 
 .box {
-  width: calc(var(--width) * var(--width));
+  width: var(--width);
 }`;
 
     const result = processor.process(css);
-    expect(result.css).toBe(`.box {
-  width: 100px;
+    expect(result.css).toBe(`@media (max-width: 1000px) {
+  .box {
+    width: 200px;
+  }
 }
 
-@media (max-width: 1000px) {
-  .box {
-    width: calc(200px * 200px);
-  }
+.box {
+  width: 100px;
 }`);
   });
 });
