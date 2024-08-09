@@ -7,7 +7,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import normalize from 'normalize-path';
-import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
 import { tree } from '../utils';
 import {
   EmailsDirectory,
@@ -111,7 +111,7 @@ export const exportTemplates = async (
     },
   );
 
-  for (const template of allBuiltTemplates) {
+  for await (const template of allBuiltTemplates) {
     try {
       if (spinner) {
         spinner.text = `rendering ${template.split('/').pop()}`;

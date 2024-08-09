@@ -3,10 +3,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { EmailsDirectory } from '../../actions/get-emails-directory-metadata';
-import {
-  emailsDirectoryAbsolutePath,
-  pathSeparator,
-} from '../../utils/emails-directory-absolute-path';
+import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
 import { cn } from '../../utils';
 import { IconFile } from '../icons/icon-file';
 import { SidebarDirectory } from './sidebar-directory';
@@ -18,11 +15,6 @@ export const SidebarDirectoryChildren = (props: {
   isRoot?: boolean;
 }) => {
   const searchParams = useSearchParams();
-  const directoryPathRelativeToEmailsDirectory =
-    props.emailsDirectoryMetadata.absolutePath
-      .replace(`${emailsDirectoryAbsolutePath}${pathSeparator}`, '')
-      .replace(emailsDirectoryAbsolutePath, '')
-      .trim();
   const isBaseEmailsDirectory =
     props.emailsDirectoryMetadata.absolutePath === emailsDirectoryAbsolutePath;
 
@@ -58,9 +50,10 @@ export const SidebarDirectoryChildren = (props: {
 
                 {props.emailsDirectoryMetadata.emailFilenames.map(
                   (emailFilename, index) => {
-                    const emailSlug = `${directoryPathRelativeToEmailsDirectory}${
-                      !isBaseEmailsDirectory ? pathSeparator : ''
-                    }${emailFilename}`;
+                    const emailSlug = isBaseEmailsDirectory
+                      ? emailFilename
+                      : `${props.emailsDirectoryMetadata.relativePath}/${emailFilename}`;
+
                     const removeExtensionFrom = (path: string) => {
                       if (
                         path.split('.').pop() === 'tsx' ||

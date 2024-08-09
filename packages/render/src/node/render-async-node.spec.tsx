@@ -21,15 +21,6 @@ describe("renderAsync on node environments", () => {
 
       return {
         ...ReactDOMServer,
-        default: {
-          ...ReactDOMServer.default,
-          renderToString() {
-            throw new Error(ERROR_MESSAGE);
-          },
-          renderToStaticMarkup() {
-            throw new Error(ERROR_MESSAGE);
-          },
-        },
         renderToString() {
           throw new Error(ERROR_MESSAGE);
         },

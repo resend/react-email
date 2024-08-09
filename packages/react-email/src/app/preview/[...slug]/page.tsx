@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
 import path from 'node:path';
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
@@ -9,6 +9,8 @@ import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;
+
+export const dynamic = 'force-dynamic';
 
 export interface PreviewParams {
   slug: string[];
@@ -59,6 +61,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     <Suspense fallback={<Home />}>
       <Preview
         emailPath={emailPath}
+        pathSeparator={path.sep}
         renderingResult={emailRenderingResult}
         slug={slug}
       />
