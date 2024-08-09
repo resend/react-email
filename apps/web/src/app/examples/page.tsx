@@ -98,6 +98,11 @@ const items = [
     name: "Plaid / Verify Identity",
     author: "zenorocha",
   },
+  {
+    path: "magic-links/jobaccepted-magic-link",
+    name: "Job Accepted / Magic Link with code",
+    author: "vonsa",
+  },
 ] satisfies ExampleProps[];
 
 const title = "Examples — React Email";
