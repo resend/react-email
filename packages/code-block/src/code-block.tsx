@@ -68,46 +68,41 @@ const CodeBlockLine = ({
 /**
  * A component to show code using prismjs.
  */
-export const CodeBlock = React.forwardRef<
-  React.ElementRef<"pre">,
-  CodeBlockProps
->((props, ref) => {
-  const languageGrammar = Prism.languages[props.language];
-  if (typeof languageGrammar === "undefined")
-    throw new Error(
-      `CodeBlock: There is no language defined on Prism called ${props.language}`,
+export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
+  (props, ref) => {
+    const languageGrammar = Prism.languages[props.language];
+    if (typeof languageGrammar === "undefined") {
+      throw new Error(
+        `CodeBlock: There is no language defined on Prism called ${props.language}`,
+      );
+    }
+
+    const lines = props.code.split(/\r\n|\r|\n/gm);
+    const tokensPerLine = lines.map((line) =>
+      Prism.tokenize(line, languageGrammar),
     );
 
-  const lines = props.code.split(/\r\n|\r|\n/gm);
-  const tokensPerLine = lines.map((line) =>
-    Prism.tokenize(line, languageGrammar),
-  );
+    return (
+      <pre
+        ref={ref}
+        style={{ ...props.theme.base, width: "100%", ...props.style }}
+      >
+        <code>
+          {tokensPerLine.map((tokensForLine, lineIndex) => (
+            <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
+              {Boolean(props.lineNumbers) && (
+                <span style={{ paddingRight: 30 }}>{lineIndex + 1}</span>
+              )}
 
-  return (
-    <pre
-      ref={ref}
-      style={{ ...props.theme.base, width: "100%", ...props.style }}
-    >
-      <code>
-        {tokensPerLine.map((tokensForLine, lineIndex) => (
-          <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
-            {props.lineNumbers ? (
-              <span
-                style={{
-                  paddingRight: 30,
-                }}
-              >
-                {lineIndex + 1}
-              </span>
-            ) : null}
-            {tokensForLine.map((token, i) => (
-              <CodeBlockLine key={i} theme={props.theme} token={token} />
-            ))}
-          </p>
-        ))}
-      </code>
-    </pre>
-  );
-});
+              {tokensForLine.map((token, i) => (
+                <CodeBlockLine key={i} theme={props.theme} token={token} />
+              ))}
+            </p>
+          ))}
+        </code>
+      </pre>
+    );
+  },
+);
 
 CodeBlock.displayName = "CodeBlock";

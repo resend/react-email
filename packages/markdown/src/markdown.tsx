@@ -2,16 +2,13 @@ import type { StylesType } from "md-to-react-email";
 import { parseMarkdownToJSX } from "md-to-react-email";
 import * as React from "react";
 
-export interface MarkdownProps {
+export type MarkdownProps = Readonly<{
   children: string;
   markdownCustomStyles?: StylesType;
   markdownContainerStyles?: React.CSSProperties;
-}
+}>;
 
-export const Markdown = React.forwardRef<
-  React.ElementRef<"div">,
-  Readonly<MarkdownProps>
->(
+export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
   (
     { children, markdownContainerStyles, markdownCustomStyles, ...props },
     ref,

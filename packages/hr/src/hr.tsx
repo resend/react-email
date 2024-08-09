@@ -1,10 +1,8 @@
 import * as React from "react";
 
-type RootProps = React.ComponentPropsWithoutRef<"hr">;
+export type HrProps = Readonly<React.ComponentPropsWithoutRef<"hr">>;
 
-export type HrProps = RootProps;
-
-export const Hr = React.forwardRef<React.ElementRef<"hr">, Readonly<HrProps>>(
+export const Hr = React.forwardRef<HTMLHRElement, HrProps>(
   ({ style, ...props }, ref) => (
     <hr
       {...props}
