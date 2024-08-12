@@ -2,7 +2,7 @@ const colors = require("@radix-ui/colors");
 const { fontFamily } = require("tailwindcss/defaultTheme");
 const plugin = require("tailwindcss/plugin");
 
-const iOsHeight = plugin(function ({ addUtilities }) {
+const iOsHeight = plugin(({ addUtilities }) => {
   const supportsTouchRule = "@supports (-webkit-touch-callout: none)";
   const webkitFillAvailable = "-webkit-fill-available";
 
