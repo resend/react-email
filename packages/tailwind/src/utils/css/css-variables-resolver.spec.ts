@@ -18,6 +18,16 @@ describe("cssVariablesResolver", () => {
 }`);
   });
 
+  it("should keep variable usages if it cant find their declaration", () => {
+    const result = processor.process(`.box {
+  width: var(--width);
+}`);
+
+    expect(result.css).toBe(`.box {
+  width: var(--width);
+}`);
+  });
+
   it("should work with variables set in the same rule", () => {
     const result = processor.process(`.box {
   --width: 200px;
