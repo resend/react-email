@@ -26,8 +26,8 @@ export const cssVariablesResolver = () => {
     if (first instanceof Rule && second instanceof Rule) {
       return (
         first.selector === second.selector ||
-        second.selector === "*" ||
-        second.selector === ":root"
+        second.selector.includes("*") ||
+        second.selector.includes(":root")
       );
     }
 
@@ -57,16 +57,18 @@ export const cssVariablesResolver = () => {
                   variablesUsed.includes(variable) &&
                   doNodesMatch(decl.parent, otherDecl.parent)
                 ) {
-                  if (otherDecl.parent?.parent instanceof AtRule) {
+                  if (
+                    otherDecl.parent?.parent instanceof AtRule &&
+                    otherDecl.parent !== decl.parent
+                  ) {
                     const atRule = otherDecl.parent.parent;
 
                     const clonedDeclaration = createDeclaration();
                     clonedDeclaration.prop = decl.prop;
-                    clonedDeclaration.value =
-                      decl.value.replaceAll(
-                        variable,
-                        otherDecl.value,
-                      );
+                    clonedDeclaration.value = decl.value.replaceAll(
+                      variable,
+                      otherDecl.value,
+                    );
                     clonedDeclaration.important = decl.important;
                     if (declarationsForAtRules.has(atRule)) {
                       declarationsForAtRules
@@ -78,15 +80,13 @@ export const cssVariablesResolver = () => {
                         new Set([clonedDeclaration]),
                       );
                     }
-                  } else {
-                    valueReplacingInformation.add({
-                      declaration: decl,
-                      newValue: decl.value.replaceAll(
-                        variable,
-                        otherDecl.value,
-                      ),
-                    });
+                    return;
                   }
+
+                  valueReplacingInformation.add({
+                    declaration: decl,
+                    newValue: decl.value.replaceAll(variable, otherDecl.value),
+                  });
                 }
               }
             });
