@@ -34,10 +34,12 @@ const getPatternAt = async (filepath: string) => {
   const file = await fs.readFile(filepath, "utf8");
 
   const codePerVariant: Pattern["codePerVariant"] = {};
-  let match: RegExpMatchArray | null = null;
-  while ((match = codeRegex.exec(file)) !== null) {
+  let match: RegExpMatchArray | null = codeRegex.exec(file);
+
+  while (match !== null) {
     const variant = match.groups?.componentName;
     const code = match.groups?.patternCode;
+
     if (variant !== undefined && code !== undefined) {
       codePerVariant[variant] = code;
     } else {
@@ -50,6 +52,8 @@ const getPatternAt = async (filepath: string) => {
         },
       });
     }
+
+    match = codeRegex.exec(file);
   }
 
   const relativeFilepath = path.relative(pathToPatterns, filepath);

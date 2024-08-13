@@ -1,6 +1,7 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
+    "target": "ES2018",
     "plugins": [{ "name": "next" }]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
