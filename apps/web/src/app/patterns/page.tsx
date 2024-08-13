@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { getPatterns } from "./get-patterns";
+import { slugify } from "../../utils/slugify";
 
 const title = "Patterns — React Email";
 const description =
@@ -45,10 +46,11 @@ const Patterns = async () => {
           {Object.values(patterns)
             .flat()
             .map((pattern) => {
+              const slug = slugify(pattern.title);
               const componentCount = Object.keys(pattern.codePerVariant).length;
 
               return (
-                <Link href={`/patterns/${pattern.title}`} key={pattern.title}>
+                <Link href={`/patterns/${slug}`} key={slug}>
                   <Spotlight
                     className="group relative isolate mx-4 mt-4 flex cursor-pointer flex-col justify-end rounded-md p-4"
                     key={pattern.title}
