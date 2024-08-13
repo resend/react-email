@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  serverExternalPackages: [
-    "@react-email/components",
-    "@react-email/render"
-  ],
+  serverExternalPackages: ["@react-email/components", "@react-email/render"],
   async redirects() {
     return [
       {

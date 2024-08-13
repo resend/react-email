@@ -1,0 +1,7 @@
+{
+  "extends": ["custom/next", "next/core-web-vitals", "prettier"],
+  "rules": {
+    "eslint-comments/require-description": "off",
+    "react/display-name": "off"
+  }
+}

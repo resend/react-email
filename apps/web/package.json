@@ -3,16 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "pattern:dev": "email dev -d ./patterns",
-    "pattern:build": "email build -d ./patterns",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "format": "npx prettier . --write",
+    "lint": "next lint",
+    "pattern:build": "email build -d ./patterns",
+    "pattern:dev": "email dev -d ./patterns",
+    "start": "next start"
   },
   "dependencies": {
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-slot": "1.1.0",
+    "@radix-ui/react-tabs": "^1.1.0",
     "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.2",
     "@supabase/supabase-js": "2.45.1",
@@ -24,13 +26,17 @@
     "react": "19.0.0-rc-6230622a1a-20240610",
     "react-dom": "19.0.0-rc-6230622a1a-20240610",
     "resend": "3.5.0",
+    "shiki": "^1.12.1",
     "zod": "3.23.8"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.3",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
+    "eslint-config-prettier": "9.0.0",
     "postcss": "8.4.40",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "prettier": "^3.3.3",
     "react-email": "workspace:*",
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
