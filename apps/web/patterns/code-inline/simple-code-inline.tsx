@@ -7,7 +7,7 @@ export const Tailwind = () => {
   return (
     <Text>
       Install the{" "}
-      <CodeInline className="bg-gray-300 rounded-md px-1 py-0.5">
+      <CodeInline className="rounded-md bg-gray-300 px-1 py-0.5">
         @react-email/components
       </CodeInline>{" "}
       package

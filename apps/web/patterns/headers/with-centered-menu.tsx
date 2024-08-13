@@ -5,7 +5,7 @@ export const title = "Header with centered menu";
 
 export const Tailwind = () => {
   return (
-    <Section className="py-10 px-8 my-10">
+    <Section className="my-10 px-8 py-10">
       <Row>
         <Column align="center">
           <Img

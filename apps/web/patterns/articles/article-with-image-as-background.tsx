@@ -15,7 +15,7 @@ export const Tailwind = () => {
       border={0}
       cellPadding="0"
       cellSpacing="0"
-      className="h-[424px] my-4 rounded-xl bg-blue-600"
+      className="my-4 h-[424px] rounded-xl bg-blue-600"
       role="presentation"
       style={{
         // This url must be in quotes for Yahoo

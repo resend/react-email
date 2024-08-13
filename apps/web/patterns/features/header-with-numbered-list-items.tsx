@@ -24,9 +24,9 @@ export const Tailwind = () => {
             <table className="text-center">
               <td
                 align="center"
-                className="h-10 w-10 bg-indigo-200 rounded-full p-0"
+                className="h-10 w-10 rounded-full bg-indigo-200 p-0"
               >
-                <Text className="font-semibold m-0 text-indigo-600">1</Text>
+                <Text className="m-0 font-semibold text-indigo-600">1</Text>
               </td>
             </table>
           </Column>
@@ -48,9 +48,9 @@ export const Tailwind = () => {
             <table className="text-center">
               <td
                 align="center"
-                className="h-10 w-10 bg-indigo-200 rounded-full p-0"
+                className="h-10 w-10 rounded-full bg-indigo-200 p-0"
               >
-                <Text className="font-semibold m-0 text-indigo-600">2</Text>
+                <Text className="m-0 font-semibold text-indigo-600">2</Text>
               </td>
             </table>
           </Column>
@@ -72,9 +72,9 @@ export const Tailwind = () => {
             <table className="text-center">
               <td
                 align="center"
-                className="h-10 w-10 bg-indigo-200 rounded-full p-0"
+                className="h-10 w-10 rounded-full bg-indigo-200 p-0"
               >
-                <Text className="font-semibold m-0 text-indigo-600">3</Text>
+                <Text className="m-0 font-semibold text-indigo-600">3</Text>
               </td>
             </table>
           </Column>
@@ -97,9 +97,9 @@ export const Tailwind = () => {
             <table className="text-center">
               <td
                 align="center"
-                className="h-10 w-10 bg-indigo-200 rounded-full p-0"
+                className="h-10 w-10 rounded-full bg-indigo-200 p-0"
               >
-                <Text className="font-semibold m-0 text-indigo-600">4</Text>
+                <Text className="m-0 font-semibold text-indigo-600">4</Text>
               </td>
             </table>
           </Column>

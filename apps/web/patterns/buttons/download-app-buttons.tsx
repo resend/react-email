@@ -9,7 +9,7 @@ export const Tailwind = () => {
     <Row>
       <Column align="center">
         <Row>
-          <Text className="text-indigo-500 font-bold text-lg">What's new</Text>
+          <Text className="text-lg font-bold text-indigo-500">What's new</Text>
           <Text className="text-gray-900">
             Browse, Customize, and Shop an Extensive Range of Furniture Anytime,
             Anywhere with our app

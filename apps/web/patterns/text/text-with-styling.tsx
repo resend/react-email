@@ -6,7 +6,7 @@ export const title = "Text with styling";
 export const Tailwind = () => {
   return (
     <>
-      <Text className="text-indigo-400 text-2xl font-semibold">
+      <Text className="text-2xl font-semibold text-indigo-400">
         Amazing content
       </Text>
       <Text>

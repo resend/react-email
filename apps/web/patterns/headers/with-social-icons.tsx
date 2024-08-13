@@ -5,7 +5,7 @@ export const title = "With social icons";
 
 export const Tailwind = () => {
   return (
-    <Section className="py-10 px-8">
+    <Section className="px-8 py-10">
       <Row>
         <Column className="w-[80%]">
           <Img

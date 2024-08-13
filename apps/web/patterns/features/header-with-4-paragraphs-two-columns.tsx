@@ -16,7 +16,7 @@ export const Tailwind = () => {
         </Text>
       </Row>
       <table width="100%">
-        <tr className="w-full mt-4">
+        <tr className="mt-4 w-full">
           <td align="center" className="w-1/2 pr-3 align-baseline">
             <Img
               alt="heart icon"
@@ -48,7 +48,7 @@ export const Tailwind = () => {
             </Text>
           </td>
         </tr>
-        <tr className="w-full mt-4">
+        <tr className="mt-4 w-full">
           <td align="center" className="w-1/2 pr-3 align-baseline">
             <Img
               alt="megaphone icon"

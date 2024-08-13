@@ -21,7 +21,7 @@ export const Tailwind = () => {
             <Text className="my-2 text-base font-semibold text-gray-900">
               Acme corporation
             </Text>
-            <Text className="mt-1 mb-0 text-base text-gray-500">
+            <Text className="mb-0 mt-1 text-base text-gray-500">
               Think different
             </Text>
           </td>

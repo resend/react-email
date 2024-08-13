@@ -119,7 +119,7 @@ export const metadata: Metadata = {
 const Examples = () => {
   return (
     <main>
-      <div className="h-screen-ios relative z-20 mx-auto flex max-w-7xl flex-col px-4">
+      <div className="relative z-20 mx-auto flex max-w-7xl flex-col px-4 h-screen-ios">
         <Topbar />
 
         <div className="mx-auto flex max-w-3xl flex-col justify-center py-10">
@@ -163,7 +163,7 @@ const Examples = () => {
 
       <Image
         alt=""
-        className="absolute top-[220px] left-0 z-[10] h-full w-full select-none md:top-0"
+        className="absolute left-0 top-[220px] z-[10] h-full w-full select-none md:top-0"
         fill
         priority
         src="/static/bg.png"

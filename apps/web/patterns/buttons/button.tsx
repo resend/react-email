@@ -6,7 +6,7 @@ export const title = "One button";
 export const Tailwind = () => {
   return (
     <BaseButton
-      className="w-full box-border px-3 rounded-lg text-center bg-indigo-600 py-3 font-semibold text-white"
+      className="box-border w-full rounded-lg bg-indigo-600 px-3 py-3 text-center font-semibold text-white"
       href="https://react.email"
     >
       Example button

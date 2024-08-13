@@ -17,7 +17,7 @@ export const Tailwind = () => {
         </Text>
       </Row>
       <ResponsiveRow className="mt-4">
-        <ResponsiveColumn className="text-left pr-1 py-4">
+        <ResponsiveColumn className="py-4 pr-1 text-left">
           <Img
             alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
             className="w-full rounded-lg object-cover"
@@ -40,7 +40,7 @@ export const Tailwind = () => {
             Buy
           </Button>
         </ResponsiveColumn>
-        <ResponsiveColumn className="text-left px-1 py-4">
+        <ResponsiveColumn className="px-1 py-4 text-left">
           <Img
             alt="A picture of a two shampoos beside a box. All of them have text on them that reads 'Cureology'."
             className="w-full rounded-lg object-cover"
@@ -63,7 +63,7 @@ export const Tailwind = () => {
             Buy
           </Button>
         </ResponsiveColumn>
-        <ResponsiveColumn className="text-left pl-1 py-4">
+        <ResponsiveColumn className="py-4 pl-1 text-left">
           <Img
             alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
             className="w-full rounded-lg object-cover"
@@ -259,7 +259,7 @@ export const InlineStyles = () => {
             Buy
           </Button>
         </ResponsiveColumn>
-        <ResponsiveColumn className="text-left pl-1 py-4">
+        <ResponsiveColumn className="py-4 pl-1 text-left">
           <Img
             alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
             height={180}

@@ -23,7 +23,7 @@ const Patterns = async () => {
   const patterns = await getPatterns();
 
   return (
-    <div className="h-screen-ios relative mx-auto flex max-w-full flex-col px-4 text-sm text-zinc-400 md:max-w-7xl">
+    <div className="relative mx-auto flex max-w-full flex-col px-4 text-sm text-zinc-400 h-screen-ios md:max-w-7xl">
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-3 gap-4 px-4 lg:grid">
           <div className="border-x border-zinc-900" />

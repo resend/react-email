@@ -17,7 +17,7 @@ export const Tailwind = () => {
         </Text>
       </Row>
       <Row className="mt-4">
-        <Column className="w-[50%] align-baseline pr-2 box-border" colSpan={1}>
+        <Column className="box-border w-[50%] pr-2 align-baseline" colSpan={1}>
           <Img
             alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
             className="w-full rounded-lg object-cover"
@@ -36,7 +36,7 @@ export const Tailwind = () => {
             space and enhancing functionality in your home
           </Text>
         </Column>
-        <Column className="w-[50%] align-baseline pl-2 box-border" colSpan={1}>
+        <Column className="box-border w-[50%] pl-2 align-baseline" colSpan={1}>
           <Img
             alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
             className="w-full rounded-lg object-cover"

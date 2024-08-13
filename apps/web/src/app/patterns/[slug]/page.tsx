@@ -63,24 +63,30 @@ const PatternPage: React.FC<PatternPageParams> = async ({ params }) => {
                   key={variant}
                 >
                   <div className="absolute right-0 top-0 h-px w-[100dvw] bg-zinc-900" />
-                  <div className="flex gap-4 w-full items-center px-8 py-1">
+                  <div className="flex w-full items-center gap-4 px-8 py-1">
                     <div className="flex shrink grow basis-0 truncate text-base font-medium leading-7 text-zinc-200">
                       <span>{foundPattern.title}</span>
                     </div>
                     <Tabs.List className="flex w-fit items-center gap-4">
                       <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                       <Tabs.Trigger value="code">Code</Tabs.Trigger>
-                      <div className="w-px ml-2 hidden h-5 bg-zinc-900 sm:block" />
+                      <div className="ml-2 hidden h-5 w-px bg-zinc-900 sm:block" />
                       <button tabIndex={0} type="button">
                         <span>Copy</span>
                       </button>
                     </Tabs.List>
                   </div>
-                  <Tabs.Content value="preview" className="mx-8 my-4 h-fit rounded-md border border-zinc-900 relative">
+                  <Tabs.Content
+                    value="preview"
+                    className="relative mx-8 my-4 h-fit rounded-md border border-zinc-900"
+                  >
                     <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     <ComponentPreview component={<Component />} />
                   </Tabs.Content>
-                  <Tabs.Content value="code" className="mx-8 my-4 rounded-md border border-zinc-900 relative">
+                  <Tabs.Content
+                    value="code"
+                    className="relative mx-8 my-4 rounded-md border border-zinc-900"
+                  >
                     <CodePreview code={fileContent || ""}>
                       <CodeRenderer code={fileContent || ""} lang="tsx" />
                     </CodePreview>

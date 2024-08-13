@@ -24,7 +24,7 @@ export const Tailwind = () => {
 
       <Section align="center" className="my-4">
         <Button
-          className="bg-indigo-600 text-white w-full px-6 box-border py-3 text-center rounded-md"
+          className="box-border w-full rounded-md bg-indigo-600 px-6 py-3 text-center text-white"
           href="https://react.email"
         >
           See more

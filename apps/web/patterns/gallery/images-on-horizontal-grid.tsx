@@ -52,7 +52,7 @@ export const Tailwind = () => {
               </td>
             </Row>
           </Column>
-          <Column className="w-1/2 pl-2 py-2">
+          <Column className="w-1/2 py-2 pl-2">
             <Link href="#">
               <Img
                 alt="Two matching shoes on a white background. The second one is tilted diagonally being supported by a white box. The first one is on top of the same box"

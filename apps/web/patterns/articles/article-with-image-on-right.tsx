@@ -14,7 +14,7 @@ export const Tailwind = () => {
     <Section className="my-4">
       <Section
         align="left"
-        className="inline-block text-left w-full max-w-[250px] align-top"
+        className="inline-block w-full max-w-[250px] text-left align-top"
       >
         <Text className="m-0 text-base font-semibold text-indigo-600">
           What's new
@@ -32,7 +32,7 @@ export const Tailwind = () => {
       </Section>
       <Section
         align="right"
-        className="inline-block my-2 w-full max-w-[220px] align-top"
+        className="my-2 inline-block w-full max-w-[220px] align-top"
       >
         <Img
           alt="An aesthetic picture taken of an Iphone, flowers, glasses and a card that reads 'Gucci, bloom' coming out of a leathered bag with a ziper"

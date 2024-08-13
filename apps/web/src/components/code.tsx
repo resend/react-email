@@ -93,7 +93,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
               <div
                 {...getLineProps({ line, key: i })}
                 className={classNames("whitespace-pre", {
-                  "before:text-slate-11 before:mr-2 before:content-['$']":
+                  "before:mr-2 before:text-slate-11 before:content-['$']":
                     language === "bash" && tokens.length === 1,
                 })}
                 key={i}
@@ -116,7 +116,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             );
           })}
           <div
-            className="absolute left-0 bottom-0 h-px w-[200px]"
+            className="absolute bottom-0 left-0 h-px w-[200px]"
             style={{
               background:
                 "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",

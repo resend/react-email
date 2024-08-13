@@ -12,7 +12,7 @@ export const title = "Survey";
 
 export const Tailwind = () => {
   return (
-    <Section className="text-center py-4">
+    <Section className="py-4 text-center">
       <Text className="my-2 text-lg font-semibold text-indigo-600">
         Your opinion matters
       </Text>

@@ -14,7 +14,7 @@ export const Footer: React.FC = () => (
       >
         <Image
           alt=""
-          className="border-slate-7 inline-block rounded-full border"
+          className="inline-block rounded-full border border-slate-7"
           height="20"
           src="/static/resend.png"
           width="20"
