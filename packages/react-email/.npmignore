@@ -1,6 +1,5 @@
 .react-email
 emails
-.next
 static
 node_modules
 .turbo
