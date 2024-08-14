@@ -3,7 +3,6 @@ import React from "react";
 import Link from "next/link";
 import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
-import { getPatterns } from "./get-patterns";
 import { slugify } from "../../utils/slugify";
 import { getCategories } from "./get-categories";
 
