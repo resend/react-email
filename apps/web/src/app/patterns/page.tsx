@@ -5,6 +5,7 @@ import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { getPatterns } from "./get-patterns";
 import { slugify } from "../../utils/slugify";
+import { getCategories } from "./get-categories";
 
 const title = "Patterns — React Email";
 const description =
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const Patterns = async () => {
-  const patterns = await getPatterns();
+  const categories = await getCategories();
 
   return (
     <div className="relative mx-auto flex max-w-full flex-col px-4 text-sm text-zinc-400 h-screen-ios md:max-w-7xl">
@@ -43,27 +44,25 @@ const Patterns = async () => {
         <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
           <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
-          {Object.values(patterns)
-            .flat()
-            .map((pattern) => {
-              const slug = slugify(pattern.title);
-              const componentCount = Object.keys(pattern.codePerVariant).length;
+          {categories
+            .map((category) => {
+              const slug = slugify(category.name);
 
               return (
                 <Link href={`/patterns/${slug}`} key={slug}>
                   <Spotlight
                     className="group relative isolate mx-4 mt-4 flex cursor-pointer flex-col justify-end rounded-md p-4"
-                    key={pattern.title}
+                    key={category.name}
                   >
                     <div className="pointer-events-none absolute inset-0 rounded-md border border-zinc-900 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-zinc-800" />
                     <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm border border-dashed border-zinc-900">
                       <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     </div>
                     <span className="mt-4 text-xs text-zinc-500">
-                      {componentCount} component{componentCount > 1 && "s"}
+                      {category.componentsCount} component{category.componentsCount > 1 && "s"}
                     </span>
                     <h3 className="mt-1 font-semibold capitalize leading-7 text-zinc-50">
-                      {pattern.title}
+                      {category.name}
                     </h3>
                     <p className="mt-1">
                       Lorem ipsum dolor sit amet consectetur.

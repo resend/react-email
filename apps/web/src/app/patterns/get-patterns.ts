@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
+import { pathToPatterns } from "./get-categories";
 
 export interface Pattern {
   title: string;
@@ -19,12 +20,6 @@ const PatternModule = z.object({
   title: z.string(),
   default: z.function(),
 });
-
-// This function should be called when building
-// as the patterns page should be SSG'ed, so the sure fire
-// way to get the path to the actual `.tsx` patterns is
-// by going with the CWD
-const pathToPatterns = path.resolve(process.cwd(), "./patterns");
 
 const getPatternAt = async (filepath: string) => {
   // This regex matches React components, getting their name and their JSX code
@@ -73,7 +68,9 @@ const getPatternAt = async (filepath: string) => {
   } satisfies Pattern;
 };
 
-const getPatternsIn = async (categoryDirpath: string) => {
+export const getPatternsIn = async (name: string) => {
+  const categoryDirpath = path.join(pathToPatterns, name);
+
   const patternFilenames = await fs.readdir(categoryDirpath);
   const patternFilepaths = patternFilenames.map((filename) =>
     path.join(categoryDirpath, filename),
@@ -84,21 +81,3 @@ const getPatternsIn = async (categoryDirpath: string) => {
   );
 };
 
-export const getPatterns = async () => {
-  const patterns: Record<string, Pattern[]> = {};
-
-  const categoryDirnames = await fs.readdir(pathToPatterns);
-  for await (const categoryDirname of categoryDirnames) {
-    if (
-      categoryDirname === "_components" ||
-      categoryDirname === "static" ||
-      categoryDirname === "tailwind.config.ts"
-    )
-      continue;
-
-    const categoryDirpath = path.join(pathToPatterns, categoryDirname);
-    patterns[categoryDirname] = await getPatternsIn(categoryDirpath);
-  }
-
-  return patterns;
-};
