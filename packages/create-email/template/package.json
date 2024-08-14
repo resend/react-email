@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@react-email/components": "workspace:0.0.23-canary.2",
-    "react-email": "workspace:2.1.7-canary.2",
+    "react-email": "workspace:2.2.0-alpha-f8836a68-20240814",
     "react-dom": "19.0.0-rc.0",
     "react": "19.0.0-rc.0"
   },
