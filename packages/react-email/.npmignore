@@ -1,6 +1,6 @@
 .react-email
-emails
-static
+./emails
+./emails/static
 node_modules
 .turbo
 src/cli
