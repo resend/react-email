@@ -450,7 +450,7 @@ importers:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0(react@19.0.0-rc.0)
       react-email:
-        specifier: workspace:2.2.0-alpha-f8836a68-20240814
+        specifier: workspace:2.2.0-alpha-fa7021659-20240814
         version: link:../../react-email
     devDependencies:
       '@types/react':
