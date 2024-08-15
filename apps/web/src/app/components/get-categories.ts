@@ -21,7 +21,11 @@ export const getCategories = async (): Promise<Category[]> => {
     )
     .map(async (categoryDirname) => {
       const categoryDirpath = path.join(pathToComponents, categoryDirname);
-      const componentFilenames = await fs.readdir(categoryDirpath);
+      const componentFilenames = (
+        await fs.readdir(categoryDirpath, { withFileTypes: true })
+      )
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => dirent.name);
 
       return {
         name: categoryDirname,
