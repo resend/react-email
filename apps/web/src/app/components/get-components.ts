@@ -109,7 +109,11 @@ const getComponentAt = async (dirpath: string): Promise<Component> => {
 export const getComponentsIn = async (name: string) => {
   const categoryDirpath = path.join(pathToComponents, name);
 
-  const componentFilenames = await fs.readdir(categoryDirpath);
+  const componentFilenames = (
+    await fs.readdir(categoryDirpath, { withFileTypes: true })
+  )
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
   const componentFilepaths = componentFilenames.map((filename) =>
     path.join(categoryDirpath, filename),
   );
