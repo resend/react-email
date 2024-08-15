@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@radix-ui/colors": "1.0.1",
+    "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "@react-email/components": "workspace:*",
@@ -35,8 +36,8 @@
     "eslint-config-custom": "workspace:*",
     "eslint-config-prettier": "9.0.0",
     "postcss": "8.4.40",
-    "prettier-plugin-tailwindcss": "^0.6.6",
     "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
     "react-email": "workspace:*",
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",

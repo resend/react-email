@@ -36,7 +36,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         className={`${inter.variable} bg-black font-sans text-slate-12 selection:bg-cyan-5 selection:text-cyan-12`}
       >
         {children}
-
         <Analytics />
       </body>
     </html>

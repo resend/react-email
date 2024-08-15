@@ -33,11 +33,11 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
       className={classNames("overflow-hidden", className)}
       onMouseMove={handleMouseMove}
     >
+      {children}
       <motion.div
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
         style={{ background }}
       />
-      {children}
     </div>
   );
 };

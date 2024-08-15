@@ -2,10 +2,10 @@ import path from "node:path";
 import { promises as fs } from "node:fs";
 
 // This function should be called when building
-// as the patterns page should be SSG'ed, so the sure fire
-// way to get the path to the actual `.tsx` patterns is
+// as the components page should be SSG'ed, so the sure fire
+// way to get the path to the actual `.tsx` components is
 // by going with the CWD
-export const pathToPatterns = path.resolve(process.cwd(), "./patterns");
+export const pathToComponents = path.resolve(process.cwd(), "./patterns");
 
 export interface Category {
   name: string;
@@ -13,19 +13,19 @@ export interface Category {
 }
 
 export const getCategories = async (): Promise<Category[]> => {
-  const categoryDirnames = await fs.readdir(pathToPatterns);
+  const categoryDirnames = await fs.readdir(pathToComponents);
   const categoryPromises = categoryDirnames
     .filter(
       (dirname) =>
         !["_components", "static", "tailwind.config.ts"].includes(dirname),
     )
     .map(async (categoryDirname) => {
-      const categoryDirpath = path.join(pathToPatterns, categoryDirname);
-      const patternFilenames = await fs.readdir(categoryDirpath);
+      const categoryDirpath = path.join(pathToComponents, categoryDirname);
+      const componentFilenames = await fs.readdir(categoryDirpath);
 
       return {
         name: categoryDirname,
-        componentsCount: patternFilenames.length,
+        componentsCount: componentFilenames.length,
       };
     });
 

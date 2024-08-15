@@ -9,14 +9,14 @@ const DISCORD_URL = "/discord";
 export const Menu: React.FC = () => (
   <nav className="flex items-center gap-2">
     <ul className="flex gap-2">
-      <MenuItem className="w-full px-2" href="/docs">
-        Docs
-      </MenuItem>
-      <MenuItem className="w-full px-2" href="/patterns">
-        Patterns
+      <MenuItem className="w-full px-2" href="/components">
+        Components
       </MenuItem>
       <MenuItem className="w-full px-2" href="/examples">
         Examples
+      </MenuItem>
+      <MenuItem className="w-full px-2" href="/docs">
+        Docs
       </MenuItem>
     </ul>
     <span
