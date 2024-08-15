@@ -51,7 +51,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
             laudantium. Accusantium, exercitationem!
           </p>
         </div>
-        <ComponentViewWrapper componentsData={components} />
+        <ComponentViewWrapper components={components} />
       </main>
     </div>
   );
