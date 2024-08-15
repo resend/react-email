@@ -50,7 +50,8 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                   </Select.Trigger>
                   <Select.Content>
                     <Select.Viewport>
-                      {Object.keys(component.codePerVariant).map((variant) => (
+                      {/* TODO: treat the case where `code` here is just a string. Read its type description for more info. */}
+                      {Object.keys(component.code).map((variant) => (
                         <Select.Item key={variant} value={variant}>
                           <Select.ItemText>
                             {variant === "Tailwind"
@@ -78,11 +79,12 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
               className="relative mx-8 my-4 rounded-md border border-zinc-900"
               value="code"
             >
+              {/* TODO: treat the case where `code` here is just a string. Read its type description for more info. */}
               <CodePreview
-                code={component.codePerVariant[selectedVariant] || ""}
+                code={component.code[selectedVariant] || ""}
               >
                 <CodeRenderer
-                  code={component.codePerVariant[selectedVariant] || ""}
+                  code={component.code[selectedVariant] || ""}
                   lang="tsx"
                 />
               </CodePreview>

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { renderToStaticMarkup } from "react-dom/server";
 
 interface ComponentPreviewProps {
-  component: React.ReactElement | string;
+  component: React.ReactNode;
   hasReTrigger?: boolean;
   className?: string;
 }
@@ -29,7 +29,7 @@ export const ComponentPreview = ({
   };
 
   useEffect(() => {
-    if (iframeRef.current && component) {
+    if (iframeRef.current) {
       const htmlString =
         typeof component === "string"
           ? component
