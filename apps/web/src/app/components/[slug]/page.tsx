@@ -1,4 +1,4 @@
-'use server';
+"use server";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
 import { getCategories } from "../get-categories";
@@ -8,6 +8,7 @@ import {
   RenderedComponent,
 } from "../../../components/component-view-wrapper";
 import { renderAsync } from "@react-email/components";
+import { Layout } from "../../../../components/_components/layout";
 
 interface ComponentPageParams {
   params: {
@@ -38,7 +39,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
       delete componentWithoutElement.element;
       return {
         ...componentWithoutElement,
-        html: await renderAsync(component.element),
+        html: await renderAsync(<Layout>{component.element}</Layout>),
       } as RenderedComponent;
     }),
   );
