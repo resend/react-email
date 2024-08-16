@@ -5,6 +5,7 @@ import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
 import { getCategories } from "./get-categories";
+import classNames from "classnames";
 
 const title = "Components — React Email";
 const description =
@@ -43,16 +44,27 @@ const ComponentsPage = async () => {
         <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
           <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             const slug = slugify(category.name);
 
             return (
               <Link
                 href={`/components/${slug}`}
                 key={category.name}
-                className="group relative isolate mx-8 mt-8 cursor-pointer before:absolute before:inset-0 before:rounded-md before:border before:border-dashed before:border-zinc-900 before:transition-colors before:duration-[720ms] before:ease-[cubic-bezier(.24,.9,.32,1.4)] hover:before:border-zinc-800"
+                className="group relative isolate mx-8 mt-8 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-zinc-900 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-zinc-800"
               >
-                <Spotlight className="relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 transition-transform duration-[240ms] ease-[cubic-bezier(.36,.66,.6,1)] group-hover:-translate-x-2 group-hover:-translate-y-2">
+                <Spotlight
+                  className={classNames(
+                    "relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]",
+                    {
+                      "md:group-hover:-translate-x-2 md:group-hover:-translate-y-2":
+                        index % 3 === 0,
+                      "md:group-hover:-translate-y-2": index % 3 === 1,
+                      "md:group-hover:-translate-y-2 md:group-hover:translate-x-2":
+                        index % 3 === 2,
+                    },
+                  )}
+                >
                   <div className="pointer-events-none absolute inset-0 rounded-md border border-zinc-900 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-zinc-800" />
                   <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm border border-dashed border-zinc-900">
                     <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
