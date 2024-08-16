@@ -5,14 +5,14 @@ import classNames from "classnames";
 import { renderToStaticMarkup } from "react-dom/server";
 
 interface ComponentPreviewProps {
-  component: React.ReactNode;
+  componentElement: React.ReactNode;
   hasReTrigger?: boolean;
   className?: string;
 }
 
 export const ComponentPreview = ({
   className,
-  component,
+  componentElement,
   hasReTrigger = false,
 }: ComponentPreviewProps) => {
   const [reTriggerKey, setReTriggerKey] = useState<number>(Date.now());
@@ -30,14 +30,11 @@ export const ComponentPreview = ({
 
   useEffect(() => {
     if (iframeRef.current) {
-      const htmlString =
-        typeof component === "string"
-          ? component
-          : renderToStaticMarkup(component);
+      const htmlString = renderToStaticMarkup(componentElement);
 
       iframeRef.current.srcdoc = htmlString;
     }
-  }, [component, reTriggerKey]);
+  }, [componentElement, reTriggerKey]);
 
   return (
     <div className={classNames("relative", className)}>

@@ -73,7 +73,7 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
               value="preview"
             >
               <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-              <ComponentPreview component={<component.component />} />
+              <ComponentPreview componentElement={component.element} />
             </Tabs.Content>
             <Tabs.Content
               className="relative mx-8 my-4 rounded-md border border-zinc-900"
