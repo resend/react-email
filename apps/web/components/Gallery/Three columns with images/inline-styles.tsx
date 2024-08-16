@@ -4,7 +4,7 @@ import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 // Good callouts for users:
 // - Recommended proportions for all images is 192x186.
 
-export const component = (
+export const component =  (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Section>
       <Row>

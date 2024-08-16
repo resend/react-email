@@ -1,6 +1,6 @@
 import { Column, Img, Link, Row, Section } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section className="px-8 py-10">
     <Row>
       <Column className="w-[80%]">

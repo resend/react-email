@@ -1,6 +1,6 @@
 import { Container, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Container>
     <Text>
       Hello, I am a container. I keep content centered and maintain it to a

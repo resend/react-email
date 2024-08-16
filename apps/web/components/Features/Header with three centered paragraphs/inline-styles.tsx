@@ -1,6 +1,6 @@
 import { Column, Img, Row, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section
     style={{
       marginTop: 16,

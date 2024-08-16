@@ -1,10 +1,10 @@
 import * as React from "react";
 
-export interface IconProps extends React.ComponentPropsWithoutRef {
+export interface IconProps extends React.ComponentPropsWithoutRef<"svg"> {
   size?: number;
 }
 
-export const IconBase: React.FC = ({ size = 20, ...props }) => (
+export const IconBase: React.FC<IconProps> = ({ size = 20, ...props }) => (
   <svg
     fill="none"
     height={size}

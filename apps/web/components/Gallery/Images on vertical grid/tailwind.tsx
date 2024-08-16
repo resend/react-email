@@ -4,7 +4,7 @@ import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 // Good callouts for users:
 // - Recommended proportions for images 600x288, 292x268 and 292x268.
 
-export const component = (
+export const component =  (
   <Section className="my-4">
     <Section>
       <Row>

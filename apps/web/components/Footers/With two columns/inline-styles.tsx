@@ -1,6 +1,6 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section>
     <Row>
       <Column colSpan={4}>

@@ -7,7 +7,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section className="py-4 text-center">
     <Text className="my-2 text-lg font-semibold text-indigo-600">
       Your opinion matters

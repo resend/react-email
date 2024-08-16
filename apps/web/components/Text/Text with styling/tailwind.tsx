@@ -1,6 +1,6 @@
 import { Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <>
     <Text className="text-2xl font-semibold text-indigo-400">
       Amazing content

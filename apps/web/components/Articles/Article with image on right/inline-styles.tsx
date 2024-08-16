@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Img, Link, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section style={{ marginTop: "16px", marginBottom: "16px" }}>
     <Section
       align="left"

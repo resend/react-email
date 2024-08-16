@@ -1,6 +1,6 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section style={{ textAlign: "center" }}>
     <table style={{ width: "100%" }}>
       <tr style={{ width: "100%" }}>

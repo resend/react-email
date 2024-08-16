@@ -1,6 +1,6 @@
 import { Markdown } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Markdown
     markdownCustomStyles={{
       h1: { color: "red" },

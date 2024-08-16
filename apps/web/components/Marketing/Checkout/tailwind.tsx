@@ -8,7 +8,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section className="py-4 text-center">
     <Heading as="h1" className="mb-0 text-3xl font-semibold">
       You left something in your cart 👀

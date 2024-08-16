@@ -1,6 +1,6 @@
 import { Button, Column, Row } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Row>
     <Column align="center">
       <Row>

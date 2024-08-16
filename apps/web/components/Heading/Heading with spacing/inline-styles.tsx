@@ -1,6 +1,6 @@
 import { Heading } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <>
     <Heading
       as="h4"

@@ -1,7 +1,7 @@
 import { Button, Row, Img, Section, Text } from "@react-email/components";
 import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
 
-export const component = (
+export const component =  (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Row>
       <Text

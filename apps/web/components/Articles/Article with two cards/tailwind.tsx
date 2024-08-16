@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Img, Row, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section className="my-4">
     <Row>
       <Text className="m-0 text-xl font-semibold text-gray-900">

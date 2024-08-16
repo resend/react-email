@@ -14,7 +14,7 @@ export interface ExampleProps {
 
 const DEMO_EMAIL_PREVIEW_BASE_URL = "https://demo.react.email/preview";
 
-export const Example: React.FC = ({
+export const Example: React.FC<Readonly<ExampleProps>> = ({
   className,
   path,
   name,

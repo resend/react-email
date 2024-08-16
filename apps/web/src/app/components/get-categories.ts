@@ -12,7 +12,7 @@ export interface Category {
   componentsCount: number;
 }
 
-export const getCategories = async (): Promise => {
+export const getCategories = async (): Promise<Category[]> => {
   const categoryDirnames = await fs.readdir(pathToComponents);
   const categoryPromises = categoryDirnames
     .filter(

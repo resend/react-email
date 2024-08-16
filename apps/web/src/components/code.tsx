@@ -46,7 +46,11 @@ const theme = {
   ],
 };
 
-export const Code: React.FC = ({ children, className, language = "html" }) => {
+export const Code: React.FC<Readonly<CodeProps>> = ({
+  children,
+  className,
+  language = "html",
+}) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
 

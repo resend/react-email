@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Img, Row, Section, Text } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Row>
       <Text

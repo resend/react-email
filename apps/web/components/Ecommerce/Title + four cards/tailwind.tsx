@@ -8,7 +8,7 @@ import {
   Hr,
 } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <Section className="my-4">
     <Section>
       <Row>

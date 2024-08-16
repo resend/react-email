@@ -21,7 +21,7 @@ export interface Component {
    * for the same pattern, or just the code if there are no variants
    * for this pattern. This can happen on patterns that don't use any styles.
    */
-  code: Partial | string;
+  code: Partial<Record<"tailwind" | "inline-styles", string>> | string;
 }
 
 const ComponentModule = z.object({
@@ -57,7 +57,7 @@ const getComponentElement = async (filepath: string) => {
   return patternModule.component as React.ReactElement;
 };
 
-const getComponentAt = async (dirpath: string): Promise => {
+const getComponentAt = async (dirpath: string): Promise<Component> => {
   const componentName = path.basename(dirpath);
 
   const variantFilenames = await fs.readdir(dirpath);
@@ -72,7 +72,8 @@ const getComponentAt = async (dirpath: string): Promise => {
     };
   }
 
-  const codePerVariant: Partial = {};
+  const codePerVariant: Partial<Record<"tailwind" | "inline-styles", string>> =
+    {};
 
   let element!: React.ReactElement;
   for await (const [i, variantFilename] of variantFilenames.entries()) {

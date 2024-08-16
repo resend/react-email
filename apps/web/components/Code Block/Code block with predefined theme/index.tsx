@@ -1,6 +1,6 @@
 import { CodeBlock, dracula } from "@react-email/components";
 
-export const component = (
+export const component =  (
   <CodeBlock
     code={`await resend.emails.send({
   from: 'you@example.com',

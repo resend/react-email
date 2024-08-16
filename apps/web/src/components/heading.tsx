@@ -13,7 +13,7 @@ interface HeadingOwnProps {
   weight?: HeadingWeight;
 }
 
-type HeadingProps = As & HeadingOwnProps;
+type HeadingProps = As<"h1", "h2", "h3", "h4", "h5", "h6"> & HeadingOwnProps;
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   (
