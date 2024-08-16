@@ -34,7 +34,6 @@
     "@next/eslint-plugin-next": "14.2.3",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
-    "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "9.0.0",
     "postcss": "8.4.40",
     "prettier": "^3.3.3",
