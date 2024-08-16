@@ -103,8 +103,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       '@react-email/components':
-        specifier: workspace:*
-        version: link:../../packages/components
+        specifier: npm:@react-email/components@canary
+        version: 0.0.23-canary.2(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)
       '@responsive-email/react-email':
         specifier: 0.0.2
         version: 0.0.2(react@19.0.0-rc-6230622a1a-20240610)
@@ -2377,12 +2377,125 @@ packages:
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
 
+  '@react-email/body@0.0.10-canary.0':
+    resolution: {integrity: sha512-8PgTgpMZ/RFmJADl4iWairR0XCxVs9w/q2DSjWbXWIJihJX85ZYmT9gwLLns5Z0huQlLFRANd0M4lh4H50oPRA==}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/button@0.0.17-canary.1':
+    resolution: {integrity: sha512-R8DnUvU5GEDEkv2nsix5uYI1YblKt7uB2jzOAVxyfQ2BnM8aY0lcMzyKAOlUFa9xUq1zveOZKOxEfze1lo0hxw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/code-block@0.0.7-canary.0':
+    resolution: {integrity: sha512-i346rWCeXa9jvqrm5VGuKN2gjU+f16jt0YR1OKhNqH+gt72xS8fXymLGtZVvUUZivuly6R9IgCss6ST/cjDR0w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/code-inline@0.0.4-canary.0':
+    resolution: {integrity: sha512-sTFmBnMxUr1RLVnI/3PlwyFS58Qz+IP800Twg+fbUSKYUfugc6K/PmGbWsocLtLxXioTnac7G4jMBYS9Wcv3dw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/column@0.0.12-canary.0':
+    resolution: {integrity: sha512-YPaX1DLhifg0XnbxgqpZz8ZD8v8lIYPnG0l+EZ1E020oczt6p/vtZ9Aounhig8LuISEpFUaSY/jhZpqXJChyGA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/components@0.0.23-canary.2':
+    resolution: {integrity: sha512-6JTRwM4vOi98uUszgRy8QdrtbuPRt3NUGzz6AFK6erJ94VZ9E0eDNW9DRnkVJ8zIhRSuT9K5F1Z18KaAQODHYg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/container@0.0.14-canary.0':
+    resolution: {integrity: sha512-UbU1uLHJC/PD5GThElKyAdT4chUjSMa4TfC3PiKpUYAVX9NWM5ns8rbE+mCZx4XGczLwqhFWNGEKxCK1qN03XQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/font@0.0.8-canary.0':
+    resolution: {integrity: sha512-fVnIlsxy4deeJy0v649s9ys724QCUO0ANCKpvFvmYbO2fJ5rD4XyjWOC9trdoGvWDcgk7II9x3qxXXUw6K1yJw==}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/head@0.0.11-canary.0':
+    resolution: {integrity: sha512-kA5s9VVi85CQDJRKBzUqlG7v7aX2sbkoKhs4La1gnDWMf30v10Yt6xeWm9e0rT6Bo6ypbZao/YJYrK03oQys1g==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/heading@0.0.14-canary.0':
+    resolution: {integrity: sha512-mYsy0B/gIBuueRjBwCrb3gjmXEW4IkjDbJpxRzG6yHzKSAo/VzNnQ4D/xAVrAstBKBfjvGKvqA2o+RntHX01gQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/hr@0.0.10-canary.0':
+    resolution: {integrity: sha512-tl0DpeCYvvBzD/k4kqCnFxHqyKI+LeJB57iBslrBpgkuF3v7zV6nB9bDjsdjDJFNEaG+/g9jmR2+xVJZV/9y6w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/html@0.0.10-canary.0':
+    resolution: {integrity: sha512-3oIdxQ0MD7j8JW6qu8vsE45IM53OLsjYPzhm/TjLIcw+KeI3DgF73GcwFalNc9PxR/MDjyDF7OaMXHB4s8W2vg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/img@0.0.10-canary.0':
+    resolution: {integrity: sha512-m68K6lR4XvKUTNuzFy0CV5QCRamvohUeEnGgrixG+2rBroJJZYsxsw3dixlOMt7/hSQDKyowzoFxPArS4oso4w==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/link@0.0.10-canary.0':
+    resolution: {integrity: sha512-0h+1n/9mHslfYwPVXqx995uYmXJBav5wDaM2NGo4KIruPp6VchtWtw2Kx7ZHeUptvpbGtzWEMsEKqtoqUi52tQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/markdown@0.0.12-canary.0':
+    resolution: {integrity: sha512-ZjV0JG43BP07OeSHfedtxtY3I0TdVgsVJJuZ4G0SG1qyKMDJTjXeM5mtFYRHIyWmr6oDWYAZn+6+zbs0zQblGA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/preview@0.0.11-canary.0':
+    resolution: {integrity: sha512-1GDVx4n8hBb3UBIodEpsUHDwtSnmZfF0tG458399S7jDyW+A2o+clQQWDZkwAf2FwO3gEVYXbmpc2rWYH2jnYg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
   '@react-email/render@0.0.16':
     resolution: {integrity: sha512-wDaMy27xAq1cJHtSFptp0DTKPuV2GYhloqia95ub/DH9Dea1aWYsbdM918MOc/b/HvVS3w1z8DWzfAk13bGStQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
+
+  '@react-email/render@0.0.18-canary.0':
+    resolution: {integrity: sha512-sVvWTuERDHFljyhTR4EnfmG7nvpq3qLg0njgv/EW9NFBKefMEPC7khqvhXJ3r5jQcHwIlNnA7qBNpzDK27QpVw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/row@0.0.10-canary.0':
+    resolution: {integrity: sha512-/MztJVvS9i35n2LKBYN1H/Bv2QT1NUJlWK/rvFLGQWmYS6VFGFZuOdV6Twj+5Voy79+Z/ciUQhFAm/PsFDxraQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/section@0.0.14-canary.0':
+    resolution: {integrity: sha512-5E4XZdFKzdo2Wy+1adt3HbVW5YSO0QzNV+yLh8ySWFe+cMXr7fTrsBvJd2NVhbcjRQyk+AeeAhKnrc5nZN+IZg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
 
   '@react-email/tailwind@0.0.12':
     resolution: {integrity: sha512-s8Ch7GL30qRKScn9NWwItMqxjtzbyUtCnXfC6sL2YTVtulbfvZZ06W+aA0S6f7fdrVlOOlQzZuK/sVaQCHhcSw==}
@@ -2395,6 +2508,18 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: 18.2.0
+
+  '@react-email/tailwind@0.1.0-canary.1':
+    resolution: {integrity: sha512-Ui9ImoBV00/UCBksNkSUWCF8Fd5qnPGxGCT9kw6qoKeeRxrUokA/1jm7MKe2W7p+SA/DlkJh69VomJ6Ne8HhEg==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
+
+  '@react-email/text@0.0.10-canary.0':
+    resolution: {integrity: sha512-mr2REMVc8/aDQ3olwN9d+gUtgGtKUMg7vWEG08rl1yRzmj48MuFeWUMRwlcDR4BhxoRGcpJSd1g/4TJOFFOIyA==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
 
   '@responsive-email/react-email@0.0.2':
     resolution: {integrity: sha512-Zc4FuAuCAUVBJWLT0cmW5jx9jQycV+x1rcuKt+h3BT8DWBRuiDwPq48EjEC1m8qj+iDk2uaMSXud1Q66fXl9yA==}
@@ -8041,6 +8166,98 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
+  '@react-email/body@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/button@0.0.17-canary.1(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/code-block@0.0.7-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      prismjs: 1.29.0
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/code-inline@0.0.4-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/column@0.0.12-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/components@0.0.23-canary.2(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)':
+    dependencies:
+      '@react-email/body': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/button': 0.0.17-canary.1(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/code-block': 0.0.7-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/code-inline': 0.0.4-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/column': 0.0.12-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/container': 0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/font': 0.0.8-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/head': 0.0.11-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/heading': 0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)
+      '@react-email/hr': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/html': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/img': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/link': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/markdown': 0.0.12-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/preview': 0.0.11-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/render': 0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/row': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/section': 0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/tailwind': 0.1.0-canary.1(react@19.0.0-rc-6230622a1a-20240610)
+      '@react-email/text': 0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)
+      react: 19.0.0-rc-6230622a1a-20240610
+    transitivePeerDependencies:
+      - '@types/react'
+      - react-dom
+
+  '@react-email/container@0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/font@0.0.8-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/head@0.0.11-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/heading@0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)':
+    dependencies:
+      '@radix-ui/react-slot': 1.1.0(react@19.0.0-rc-6230622a1a-20240610)(types-react@19.0.0-rc.1)
+      react: 19.0.0-rc-6230622a1a-20240610
+    transitivePeerDependencies:
+      - '@types/react'
+
+  '@react-email/hr@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/html@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/img@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/link@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/markdown@0.0.12-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      md-to-react-email: 5.0.2(react@19.0.0-rc-6230622a1a-20240610)
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/preview@0.0.11-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
   '@react-email/render@0.0.16(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)':
     dependencies:
       html-to-text: 9.0.5
@@ -8048,6 +8265,22 @@ snapshots:
       react: 19.0.0-rc-6230622a1a-20240610
       react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
       react-promise-suspense: 0.3.4
+
+  '@react-email/render@0.0.18-canary.0(react-dom@19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610))(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      html-to-text: 9.0.5
+      js-beautify: 1.15.1
+      react: 19.0.0-rc-6230622a1a-20240610
+      react-dom: 19.0.0-rc-6230622a1a-20240610(react@19.0.0-rc-6230622a1a-20240610)
+      react-promise-suspense: 0.3.4
+
+  '@react-email/row@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/section@0.0.14-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
 
   '@react-email/tailwind@0.0.12(react@19.0.0-rc.0)':
     dependencies:
@@ -8060,6 +8293,14 @@ snapshots:
   '@react-email/tailwind@0.0.15(react@19.0.0-rc.0)':
     dependencies:
       react: 19.0.0-rc.0
+
+  '@react-email/tailwind@0.1.0-canary.1(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
+
+  '@react-email/text@0.0.10-canary.0(react@19.0.0-rc-6230622a1a-20240610)':
+    dependencies:
+      react: 19.0.0-rc-6230622a1a-20240610
 
   '@responsive-email/react-email@0.0.2(react@18.3.1)':
     dependencies:
@@ -10842,6 +11083,11 @@ snapshots:
     dependencies:
       marked: 7.0.4
       react: 18.3.1
+
+  md-to-react-email@5.0.2(react@19.0.0-rc-6230622a1a-20240610):
+    dependencies:
+      marked: 7.0.4
+      react: 19.0.0-rc-6230622a1a-20240610
 
   md5.js@1.3.5:
     dependencies:
