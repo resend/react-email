@@ -5,7 +5,7 @@ import { promises as fs } from "node:fs";
 // as the components page should be SSG'ed, so the sure fire
 // way to get the path to the actual `.tsx` components is
 // by going with the CWD
-export const pathToComponents = path.resolve(process.cwd(), "./patterns");
+export const pathToComponents = path.resolve(process.cwd(), "./components");
 
 export interface Category {
   name: string;

@@ -25,13 +25,12 @@ export interface Component {
 }
 
 const ComponentModule = z.object({
-  title: z.string(),
-  pattern: z.record(z.string(), z.any()),
+  component: z.record(z.string(), z.any()),
 });
 
 const getComponentCodeFrom = (fileContent: string) => {
   const componentCodeRegex =
-    /export\s+const\s+pattern\s*=\s*\(\s*(?<componentCode>[\s\S]+?)\s*\);/gm;
+    /export\s+const\s+component\s*=\s*\(\s*(?<componentCode>[\s\S]+?)\s*\);/gm;
   const match = componentCodeRegex.exec(fileContent);
   if (match?.groups?.componentCode) {
     return match.groups.componentCode;
