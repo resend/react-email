@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
+import classNames from "classnames";
 import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
 import { getCategories } from "./get-categories";
-import classNames from "classnames";
 
 const title = "Components — React Email";
 const description =
@@ -49,9 +49,9 @@ const ComponentsPage = async () => {
 
             return (
               <Link
+                className="group relative isolate mx-8 mt-8 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-zinc-900 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-zinc-800"
                 href={`/components/${slug}`}
                 key={category.name}
-                className="group relative isolate mx-8 mt-8 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-zinc-900 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-zinc-800"
               >
                 <Spotlight
                   className={classNames(
