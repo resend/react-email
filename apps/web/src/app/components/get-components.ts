@@ -15,7 +15,7 @@ export interface Component {
    * <MyElement>{pattern.element}</MyElement>
    * ```
    */
-  element: React.ReactNode;
+  element: React.ReactElement;
   /**
    * This will either be an object containing the proper code variants
    * for the same pattern, or just the code if there are no variants
@@ -54,7 +54,7 @@ const getComponentElement = async (filepath: string) => {
       )}`
     ),
   );
-  return patternModule.pattern as React.ReactNode;
+  return patternModule.component as React.ReactElement;
 };
 
 const getComponentAt = async (dirpath: string): Promise<Component> => {
@@ -75,7 +75,7 @@ const getComponentAt = async (dirpath: string): Promise<Component> => {
   const codePerVariant: Partial<Record<"tailwind" | "inline-styles", string>> =
     {};
 
-  let element: React.ReactNode;
+  let element!: React.ReactElement;
   for await (const [i, variantFilename] of variantFilenames.entries()) {
     const filePath = path.join(dirpath, variantFilename);
     if (i === 0) {

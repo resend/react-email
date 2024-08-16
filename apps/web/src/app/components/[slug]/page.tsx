@@ -1,10 +1,13 @@
-"use server";
-
+'use server';
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
 import { getCategories } from "../get-categories";
 import { getComponentsIn } from "../get-components";
-import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
+import {
+  ComponentViewWrapper,
+  RenderedComponent,
+} from "../../../components/component-view-wrapper";
+import { renderAsync } from "@react-email/components";
 
 interface ComponentPageParams {
   params: {
@@ -29,7 +32,16 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
 
   if (!foundCategory) return <p>Component category not found.</p>;
 
-  const components = await getComponentsIn(foundCategory.name);
+  const renderedComponents: RenderedComponent[] = await Promise.all(
+    (await getComponentsIn(foundCategory.name)).map(async (component) => {
+      const componentWithoutElement = { ...component } as any;
+      delete componentWithoutElement.element;
+      return {
+        ...componentWithoutElement,
+        html: await renderAsync(component.element),
+      } as RenderedComponent;
+    }),
+  );
 
   return (
     <div className="relative mx-auto flex min-h-[100dvh] max-w-full flex-col px-4 text-sm font-normal text-zinc-400 h-screen-ios md:max-w-7xl">
@@ -51,7 +63,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
             laudantium. Accusantium, exercitationem!
           </p>
         </div>
-        <ComponentViewWrapper components={components} />
+        <ComponentViewWrapper components={renderedComponents} />
       </main>
     </div>
   );
