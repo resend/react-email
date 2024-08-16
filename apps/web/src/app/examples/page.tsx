@@ -102,8 +102,8 @@ const items = [
     path: "magic-links/jobaccepted-magic-link",
     name: "Job Accepted / Magic Link with code",
     author: "vonsa",
-  }
-]
+  },
+];
 
 const title = "Examples — React Email";
 const description = "Open source templates built with React Email";
