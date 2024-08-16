@@ -1,13 +1,11 @@
-import { useRef } from "react";
 import classNames from "classnames";
-import { renderAsync } from "@react-email/components";
 
 interface ComponentPreviewProps {
   html: string;
   className?: string;
 }
 
-export const ComponentPreview = async ({
+export const ComponentPreview = ({
   className,
   html,
 }: ComponentPreviewProps) => {

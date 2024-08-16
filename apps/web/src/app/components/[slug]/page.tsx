@@ -1,13 +1,12 @@
 "use server";
+import { renderAsync } from "@react-email/components";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
 import { getCategories } from "../get-categories";
+import type { Component} from "../get-components";
 import { getComponentsIn } from "../get-components";
-import {
-  ComponentViewWrapper,
-  RenderedComponent,
-} from "../../../components/component-view-wrapper";
-import { renderAsync } from "@react-email/components";
+import type { RenderedComponent } from "../../../components/component-view-wrapper";
+import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
 import { Layout } from "../../../../components/_components/layout";
 
 interface ComponentPageParams {
@@ -35,8 +34,14 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
 
   const renderedComponents: RenderedComponent[] = await Promise.all(
     (await getComponentsIn(foundCategory.name)).map(async (component) => {
-      const componentWithoutElement = { ...component } as any;
-      delete componentWithoutElement.element;
+      const componentWithoutElement: Omit<Component, "element"> = {
+        ...component,
+      };
+      delete (
+        componentWithoutElement as Omit<Component, "element"> & {
+          element?: React.ReactElement;
+        }
+      ).element;
       return {
         ...componentWithoutElement,
         html: await renderAsync(<Layout>{component.element}</Layout>),

@@ -2,14 +2,14 @@
 
 import * as React from "react";
 import classNames from "classnames";
+import * as Tabs from "@radix-ui/react-tabs";
+import * as Select from "@radix-ui/react-select";
+import type { Component } from "../app/components/get-components";
 import { CodePreview } from "./code-preview";
 import { CodeRenderer } from "./code-renderer";
 import { ComponentPreview } from "./component-preview";
-import * as Tabs from "@radix-ui/react-tabs";
-import * as Select from "@radix-ui/react-select";
-import { Component } from "../app/components/get-components";
 
-export type RenderedComponent = (Omit<Component, "element"> & { html: string });
+export type RenderedComponent = Omit<Component, "element"> & { html: string };
 
 interface ComponentViewWrapperProps {
   components: RenderedComponent[];
@@ -43,8 +43,8 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                 <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 <div className="ml-2 hidden h-5 w-px bg-zinc-900 sm:block" />
                 <Select.Root
-                  value={selectedVariant}
                   onValueChange={setSelectedVariant}
+                  value={selectedVariant}
                 >
                   <Select.Trigger>
                     <Select.Value />
@@ -82,8 +82,10 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
               value="code"
             >
               {/* TODO: treat the case where `code` here is just a string. Read its type description for more info. */}
+              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
               <CodePreview code={component.code[selectedVariant] || ""}>
                 <CodeRenderer
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   code={component.code[selectedVariant] || ""}
                   lang="tsx"
                 />
