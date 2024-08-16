@@ -1,7 +1,7 @@
-import classnames from "classnames";
+import classNames from "classnames";
 import * as React from "react";
 
-export type IconButtonProps = React.ComponentPropsWithoutRef<"button">;
+type IconButtonProps = React.ComponentPropsWithoutRef<"button">;
 
 export const IconButton: React.FC<Readonly<IconButtonProps>> = ({
   children,
@@ -10,7 +10,7 @@ export const IconButton: React.FC<Readonly<IconButtonProps>> = ({
 }) => (
   <button
     {...props}
-    className={classnames(
+    className={classNames(
       "text-slate-11 focus:text-slate-12 focus:ring-slate-8 hover:text-slate-12 rounded transition duration-200 ease-in-out focus:outline-none focus:ring-2",
       className,
     )}

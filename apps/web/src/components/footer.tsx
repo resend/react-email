@@ -8,7 +8,6 @@ export const Footer: React.FC = () => (
     <Text className="inline-flex items-center gap-2">
       Brought to you by{" "}
       <Anchor
-        appearance="white"
         className="inline-flex items-center gap-2"
         href="https://resend.com"
         target="_blank"
