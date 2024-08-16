@@ -24,7 +24,7 @@ export const generateStaticParams = async () => {
   }));
 };
 
-const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
+const ComponentPage: React.FC = async ({ params }) => {
   const slug = decodeURIComponent(params.slug);
   const categories = await getCategories();
   const foundCategory = categories.find(

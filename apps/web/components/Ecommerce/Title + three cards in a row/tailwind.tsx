@@ -1,7 +1,7 @@
 import { Button, Row, Img, Section, Text } from "@react-email/components";
 import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <Row>
       <Text className="m-0 text-xl font-semibold text-gray-900">

@@ -6,21 +6,21 @@ export type As<
   T4 extends React.ElementType = T1,
   T5 extends React.ElementType = T1,
 > =
-  | (React.ComponentPropsWithRef<DefaultTag> & {
+  | (React.ComponentPropsWithRef & {
       as?: DefaultTag;
     })
-  | (React.ComponentPropsWithRef<T1> & {
+  | (React.ComponentPropsWithRef & {
       as: T1;
     })
-  | (React.ComponentPropsWithRef<T2> & {
+  | (React.ComponentPropsWithRef & {
       as: T2;
     })
-  | (React.ComponentPropsWithRef<T3> & {
+  | (React.ComponentPropsWithRef & {
       as: T3;
     })
-  | (React.ComponentPropsWithRef<T4> & {
+  | (React.ComponentPropsWithRef & {
       as: T4;
     })
-  | (React.ComponentPropsWithRef<T5> & {
+  | (React.ComponentPropsWithRef & {
       as: T5;
     });

@@ -8,7 +8,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Section style={{ paddingTop: 16, paddingBottom: 16, textAlign: "center" }}>
     <Heading
       as="h1"

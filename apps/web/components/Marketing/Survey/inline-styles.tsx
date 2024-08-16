@@ -7,7 +7,7 @@ import {
   Text,
 } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Section
     style={{
       textAlign: "center",

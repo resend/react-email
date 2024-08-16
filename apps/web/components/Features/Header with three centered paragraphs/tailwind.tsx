@@ -1,6 +1,6 @@
 import { Column, Img, Row, Section, Text } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <Row>
       <Text className="m-0 text-2xl font-semibold text-gray-900">

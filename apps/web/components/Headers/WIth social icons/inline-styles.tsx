@@ -1,6 +1,6 @@
 import { Column, Img, Link, Row, Section } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Section
     style={{
       paddingTop: 40,

@@ -1,6 +1,6 @@
 import { Img } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Img
     alt="Picture of part of a camera with other things around it, all unfocused except the camera piece."
     className="rounded-xl"

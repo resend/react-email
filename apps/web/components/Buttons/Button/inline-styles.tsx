@@ -1,6 +1,6 @@
 import { Button as BaseButton } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <BaseButton
     href="https://react.email"
     style={{

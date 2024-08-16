@@ -1,6 +1,6 @@
 import { CodeInline, Text } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Text>
     Install the{" "}
     <CodeInline

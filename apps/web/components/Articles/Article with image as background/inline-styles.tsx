@@ -5,7 +5,7 @@ import { Button, Heading, Text } from "@react-email/components";
 // - https://backgrounds.cm/
 // - use VML https://learn.microsoft.com/en-us/windows/win32/vml/msdn-online-vml-fill-element
 
-export const component =  (
+export const component = (
   <table
     align="center"
     border={0}

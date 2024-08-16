@@ -1,6 +1,6 @@
 import { Column, Row } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <>
     <Row>
       <Column style={{ width: "50%" }}>First</Column>

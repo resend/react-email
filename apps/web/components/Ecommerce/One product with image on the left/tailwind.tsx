@@ -1,6 +1,6 @@
 import { Button, Img, Section, Text } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <table className="w-full">
       <tbody className="w-full">

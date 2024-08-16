@@ -1,6 +1,6 @@
 import { Markdown } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Markdown
     markdownContainerStyles={{
       marginBlock: 30,

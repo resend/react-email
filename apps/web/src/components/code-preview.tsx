@@ -19,7 +19,7 @@ export const CodePreview = ({ code, children }: CodePreviewProps) => {
     }, 1000);
   };
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyUp = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
       onCopy();
     }

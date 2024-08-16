@@ -69,11 +69,7 @@ interface MenuItemProps {
   href: string;
 }
 
-const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
-  className,
-  children,
-  href,
-}) => (
+const MenuItem: React.FC = ({ className, children, href }) => (
   <li className="inline-flex items-center justify-center">
     <Link
       className={classnames(

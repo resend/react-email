@@ -9,15 +9,13 @@ import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
 import { Component } from "../app/components/get-components";
 
-export type RenderedComponent = (Omit<Component, "element"> & { html: string });
+export type RenderedComponent = Omit & { html: string };
 
 interface ComponentViewWrapperProps {
   components: RenderedComponent[];
 }
 
-export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
-  components,
-}) => {
+export const ComponentViewWrapper: React.FC = ({ components }) => {
   const [selectedVariant, setSelectedVariant] = React.useState("Tailwind");
 
   return (

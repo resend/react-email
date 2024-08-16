@@ -1,6 +1,6 @@
 import { Text } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <>
     <Text
       style={{

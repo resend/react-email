@@ -7,7 +7,7 @@ import {
   Section,
 } from "@react-email/components";
 
-export const component =  (
+export const component = (
   <Container>
     <Section>
       <Row>

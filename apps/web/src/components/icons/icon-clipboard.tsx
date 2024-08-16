@@ -2,7 +2,7 @@ import * as React from "react";
 import type { IconProps } from "./icon-base";
 import { IconBase } from "./icon-base";
 
-export const IconClipboard: React.FC<Readonly<IconProps>> = (props) => (
+export const IconClipboard: React.FC = (props) => (
   <IconBase {...props}>
     <path
       d="M9 6.75H7.75C6.64543 6.75 5.75 7.64543 5.75 8.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V8.75C18.25 7.64543 17.3546 6.75 16.25 6.75H15"
