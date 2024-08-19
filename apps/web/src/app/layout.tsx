@@ -5,7 +5,17 @@ import { inter } from "./inter";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://react.email"),
+  title: {
+    default: "React Email",
+    template: "%s • React Email",
+  },
+  description:
+    "A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.",
+  authors: {
+    name: "Resend Team",
+  },
   icons: {
+    apple: "/static/apple-touch-icon.png",
     icon: [
       {
         sizes: "any",
@@ -16,16 +26,27 @@ export const metadata: Metadata = {
         url: "/static/favicon.svg",
       },
     ],
-    apple: "/static/apple-touch-icon.png",
+  },
+  openGraph: {
+    description:
+      "A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.",
+    images: [
+      {
+        url: "static/cover.png",
+      },
+    ],
+    locale: "en_US",
+    siteName: "React Email",
+    title: "React Email",
+    type: "website",
+    url: "https://react.email",
   },
   twitter: {
     card: "summary_large_image",
     images: "https://react.email/static/cover.png",
   },
-  openGraph: {
-    images: "static/cover.png",
-    type: "website",
-    url: "https://react.email",
+  alternates: {
+    canonical: "/",
   },
 };
 

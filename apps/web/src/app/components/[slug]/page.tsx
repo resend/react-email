@@ -38,9 +38,9 @@ export const generateMetadata = async ({
   }
 
   return {
-    title: `${foundCategory.name} - React Email`,
+    title: foundCategory.name,
     description:
-      "Open-source copy-paste components to use as building blocks with React Email",
+      "Open-source copy-paste components to use as building blocks with React Email.",
     alternates: {
       canonical: `/components/${params.slug}`,
     },

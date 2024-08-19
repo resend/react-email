@@ -7,7 +7,7 @@ import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
 import { componentsStructure } from "../../../components/structure";
 
-const title = "Components — React Email";
+const title = "Components";
 const description =
   "Open-source copy-paste components to use as building blocks with React Email";
 

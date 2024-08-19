@@ -1,4 +1,7 @@
+"use client";
+
 import classNames from "classnames";
+import { useEffect, useRef, useState } from "react";
 
 interface ComponentPreviewProps {
   html: string;
@@ -9,11 +12,52 @@ export const ComponentPreview = ({
   className,
   html,
 }: ComponentPreviewProps) => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [height, setHeight] = useState("auto");
+
+  useEffect(() => {
+    const iframeElement = iframeRef.current;
+
+    const adjustHeight = () => {
+      if (iframeElement?.contentWindow) {
+        const iframeDocument =
+          iframeElement.contentDocument || iframeElement.contentWindow.document;
+        const iframeHeight = iframeDocument.body.scrollHeight;
+        setHeight(`${iframeHeight}px`);
+      }
+    };
+
+    const handleLoad = () => {
+      adjustHeight();
+
+      if (iframeElement?.contentDocument) {
+        const observer = new MutationObserver(adjustHeight);
+        observer.observe(iframeElement.contentDocument.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+        });
+      }
+    };
+
+    if (iframeElement) {
+      iframeElement.addEventListener("load", handleLoad);
+    }
+
+    return () => {
+      if (iframeElement) {
+        iframeElement.removeEventListener("load", handleLoad);
+      }
+    };
+  }, [html]);
+
   return (
     <div className={classNames("relative", className)}>
       <iframe
-        className="flex min-h-[350px] w-full items-center justify-center rounded-md bg-white"
+        className="flex h-full min-h-[30rem] w-full items-center justify-center rounded-md bg-white"
+        ref={iframeRef}
         srcDoc={html}
+        style={{ height }}
         title="Component preview"
       />
     </div>

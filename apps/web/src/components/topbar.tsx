@@ -9,7 +9,7 @@ export const Topbar: React.FC<
 > = ({ className, ...props }) => (
   <header
     className={classNames(
-      "flex h-[5rem] items-center justify-between md:h-[6.25rem]",
+      "flex h-[5rem] items-center justify-between px-4 md:h-[6.25rem]",
       className,
     )}
     {...props}

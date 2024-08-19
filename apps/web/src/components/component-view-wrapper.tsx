@@ -4,6 +4,7 @@ import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import type { ImportedComponent } from "../app/components/get-components";
 import { CodePreview } from "./code-preview";
 import { CodeRenderer } from "./code-renderer";
@@ -21,7 +22,15 @@ export type RenderedComponent = Omit<ImportedComponent, "element"> & {
 export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
   components,
 }) => {
-  const [selectedVariant, setSelectedVariant] = React.useState("Tailwind");
+  const [selectedVariants, setSelectedVariants] = React.useState<string[]>(
+    components.map(() => "tailwind"),
+  );
+
+  const handleVariantChange = (index: number, variant: string) => {
+    const newSelectedVariants = [...selectedVariants];
+    newSelectedVariants[index] = variant;
+    setSelectedVariants(newSelectedVariants);
+  };
 
   return (
     <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-3">
@@ -40,32 +49,60 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
               <h2 className="shrink grow basis-0 text-xl font-semibold text-zinc-200">
                 {component.title}
               </h2>
-              <Tabs.List className="flex w-fit items-center gap-4">
+              <Tabs.List className="flex w-fit items-center gap-4 text-xs">
                 <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                 <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 <div className="ml-2 hidden h-5 w-px bg-zinc-900 sm:block" />
                 <Select.Root
-                  onValueChange={setSelectedVariant}
-                  value={selectedVariant}
+                  onValueChange={(variant) => {
+                    handleVariantChange(index, variant);
+                  }}
+                  value={selectedVariants[index]}
                 >
-                  <Select.Trigger>
-                    <Select.Value />
-                    <Select.Icon />
+                  <Select.Trigger
+                    aria-label="Choose the styling solution"
+                    className="inline-flex h-8 items-center justify-center gap-1 rounded bg-zinc-900 px-3 leading-none outline-none data-[placeholder]:text-zinc-50"
+                  >
+                    <Select.Value>
+                      {selectedVariants[index] === "tailwind"
+                        ? "Tailwind CSS"
+                        : "Inline Styles"}
+                    </Select.Value>
+                    <Select.Icon>
+                      <ChevronDownIcon size={14} />
+                    </Select.Icon>
                   </Select.Trigger>
-                  <Select.Content>
-                    <Select.Viewport>
-                      {typeof component.code === "object" &&
-                        Object.keys(component.code).map((variant) => (
-                          <Select.Item key={variant} value={variant}>
-                            <Select.ItemText>
-                              {variant === "Tailwind"
-                                ? "Tailwind CSS"
-                                : "Inline Styles"}
-                            </Select.ItemText>
-                          </Select.Item>
-                        ))}
-                    </Select.Viewport>
-                  </Select.Content>
+                  <Select.Portal>
+                    <Select.Content className="overflow-hidden rounded-md bg-zinc-900">
+                      <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
+                        <ChevronUpIcon size={12} />
+                      </Select.ScrollUpButton>
+                      <Select.Viewport className="p-1">
+                        <Select.Group className="flex flex-col">
+                          <Select.Label className="px-2 pb-1 pt-2 text-xs text-zinc-200">
+                            Styling solution
+                          </Select.Label>
+                          {typeof component.code === "object" &&
+                            Object.keys(component.code).map((variant) => (
+                              <Select.Item
+                                className="relative mt-1 flex h-6 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-zinc-400 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-zinc-800 data-[highlighted]:text-zinc-50 data-[highlighted]:outline-none"
+                                key={variant}
+                                value={variant}
+                              >
+                                <Select.ItemText>
+                                  {variant === "tailwind"
+                                    ? "Tailwind CSS"
+                                    : "Inline Styles"}
+                                </Select.ItemText>
+                                <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-zinc-200">
+                                  <CheckIcon size={10} />
+                                </Select.ItemIndicator>
+                              </Select.Item>
+                            ))}
+                        </Select.Group>
+                      </Select.Viewport>
+                    </Select.Content>
+                  </Select.Portal>
                 </Select.Root>
                 <button tabIndex={0} type="button">
                   <span>Copy</span>
@@ -89,9 +126,11 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                   <CodeRenderer code={component.code} lang="tsx" />
                 </CodePreview>
               ) : (
-                <CodePreview code={component.code[selectedVariant] || ""}>
+                <CodePreview
+                  code={component.code[selectedVariants[index]] || ""}
+                >
                   <CodeRenderer
-                    code={component.code[selectedVariant] || ""}
+                    code={component.code[selectedVariants[index]] || ""}
                     lang="tsx"
                   />
                 </CodePreview>
