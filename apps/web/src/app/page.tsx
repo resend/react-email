@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <main>
-      <div className="relative z-20 mx-auto flex h-[100dvh] max-w-7xl flex-col justify-between px-4 h-screen-ios">
+      <div className="relative mx-auto flex h-[100dvh] max-w-7xl flex-col justify-between px-4 h-screen-ios">
         <Image
           alt=""
-          className="pointer-events-none absolute inset-0 z-[10] select-none mix-blend-lighten"
+          className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
           fill
           priority
           src="/static/bg.png"

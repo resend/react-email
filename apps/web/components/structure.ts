@@ -1,4 +1,4 @@
-import path from 'node:path';
+import path from "node:path";
 
 // This function should be called when building
 // as the components page should be SSG'ed, so the sure fire

@@ -1,7 +1,7 @@
 import { Column, Hr, Row } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <>
     <Row>
       <Column>First col</Column>
@@ -16,9 +16,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

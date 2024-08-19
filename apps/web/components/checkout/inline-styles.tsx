@@ -9,7 +9,7 @@ import {
 } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section style={{ paddingTop: 16, paddingBottom: 16, textAlign: "center" }}>
     <Heading
       as="h1"
@@ -246,9 +246,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

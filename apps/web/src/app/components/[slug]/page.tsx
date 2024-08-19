@@ -10,6 +10,7 @@ import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
 import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
+import PageTransition from "../../../components/page-transition";
 
 interface ComponentPageParams {
   params: {
@@ -76,13 +77,13 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
     <div className="relative mx-auto flex min-h-[100dvh] max-w-full flex-col px-4 text-sm font-normal text-zinc-400 h-screen-ios md:max-w-7xl">
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-3 gap-4 px-4 lg:grid">
-          <div className="border-x border-zinc-900" />
-          <div className="border-x border-zinc-900" />
-          <div className="border-x border-zinc-900" />
+          <div className="border-x border-l-zinc-900 border-r-zinc-950" />
+          <div className="border-x border-zinc-950" />
+          <div className="border-x border-l-zinc-950 border-r-zinc-900" />
         </div>
       </div>
       <Topbar />
-      <main className="pb-10">
+      <PageTransition className="pb-10" key="about" tag="main">
         <div className="flex w-full flex-col gap-4 px-8 pb-10 pt-16">
           <h1 className="text-2xl font-bold text-zinc-50">
             {foundCategory.name} Components
@@ -93,7 +94,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
           </p>
         </div>
         <ComponentViewWrapper components={renderedComponents} />
-      </main>
+      </PageTransition>
     </div>
   );
 };

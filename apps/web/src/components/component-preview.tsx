@@ -23,7 +23,7 @@ export const ComponentPreview = ({
         const iframeDocument =
           iframeElement.contentDocument || iframeElement.contentWindow.document;
         const iframeHeight = iframeDocument.body.scrollHeight;
-        setHeight(`calc(${iframeHeight}px + 6dvh)`);
+        setHeight(`calc(${iframeHeight}px + 2dvh)`);
       }
     };
 
@@ -54,7 +54,7 @@ export const ComponentPreview = ({
   return (
     <div className={classNames("relative", className)}>
       <iframe
-        className="flex h-full w-full rounded-md bg-white py-[2dvh]"
+        className="flex h-full w-full rounded-md"
         ref={iframeRef}
         srcDoc={html}
         style={{ height }}

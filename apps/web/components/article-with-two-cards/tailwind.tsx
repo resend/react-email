@@ -2,7 +2,7 @@
 import { Column, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <Row>
       <Text className="m-0 text-xl font-semibold text-gray-900">
@@ -57,9 +57,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

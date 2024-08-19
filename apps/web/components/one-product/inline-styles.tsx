@@ -1,7 +1,7 @@
 import { Button, Heading, Img, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <Img
       alt="A picture on nice dark carpet of various black items laid out. The items include: a box that has text that reads 'BLVCK, Paris', a bottle, some flip flops and two six-sided dices."
@@ -79,7 +79,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

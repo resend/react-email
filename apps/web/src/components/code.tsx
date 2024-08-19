@@ -59,7 +59,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            "border-slate-6 relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border pl-4 pr-10 text-sm backdrop-blur-md",
+            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-10 text-sm backdrop-blur-md",
             className,
           )}
           style={{

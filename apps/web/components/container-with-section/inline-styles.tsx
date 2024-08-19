@@ -8,7 +8,7 @@ import {
 } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Container>
     <Section>
       <Row>
@@ -42,9 +42,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

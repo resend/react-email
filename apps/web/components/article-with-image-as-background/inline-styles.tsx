@@ -6,7 +6,7 @@ import { Layout } from "../_components/layout";
 // - https://backgrounds.cm/
 // - use VML https://learn.microsoft.com/en-us/windows/win32/vml/msdn-online-vml-fill-element
 
-export const component =  (
+export const component = (
   <table
     align="center"
     border={0}
@@ -84,9 +84,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

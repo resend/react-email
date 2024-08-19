@@ -1,7 +1,7 @@
 import { Button, Img, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="my-4">
     <table className="w-full">
       <tbody className="w-full">
@@ -39,7 +39,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

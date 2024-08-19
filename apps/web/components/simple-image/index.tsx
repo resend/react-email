@@ -1,7 +1,7 @@
 import { Img } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Img
     alt="Picture of part of a camera with other things around it, all unfocused except the camera piece."
     height={288}
@@ -10,7 +10,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

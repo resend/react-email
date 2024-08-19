@@ -9,7 +9,7 @@ import {
 } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Section>
       <Row>
@@ -322,7 +322,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

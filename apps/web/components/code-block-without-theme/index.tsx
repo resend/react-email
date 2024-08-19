@@ -1,7 +1,7 @@
 import { CodeBlock } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <CodeBlock
     code={`await resend.emails.send({
   from: 'you@example.com',
@@ -15,9 +15,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

@@ -1,7 +1,7 @@
 import { CodeInline, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Text>
     Install the{" "}
     <CodeInline
@@ -21,7 +21,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

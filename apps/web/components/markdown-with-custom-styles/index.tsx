@@ -1,7 +1,7 @@
 import { Markdown } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Markdown
     markdownCustomStyles={{
       h1: { color: "red" },
@@ -19,7 +19,5 @@ This is meant to be rendered as a paragraph. There is no way around it.
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

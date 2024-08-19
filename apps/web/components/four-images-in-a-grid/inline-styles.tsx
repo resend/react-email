@@ -5,7 +5,7 @@ import { Layout } from "../_components/layout";
 // Good callouts for users:
 // - Recommended proportions for all images is 292x288.
 
-export const component =  (
+export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Section style={{ marginTop: 42 }}>
       <Row>
@@ -111,7 +111,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

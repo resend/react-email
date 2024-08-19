@@ -1,7 +1,7 @@
 import { Hr, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <>
     <Text>Before hr</Text>
     <Hr className="my-4 border-t-2" />
@@ -10,7 +10,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

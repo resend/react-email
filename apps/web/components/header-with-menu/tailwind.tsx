@@ -1,7 +1,7 @@
 import { Column, Link, Img, Row, Section } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="my-10 px-8 py-10">
     <Row>
       <Column className="w-[80%]">
@@ -35,7 +35,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

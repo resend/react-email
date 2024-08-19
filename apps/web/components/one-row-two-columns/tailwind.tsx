@@ -1,7 +1,7 @@
 import { Column, Row } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <>
     <Row>
       <Column className="w-1/2">First</Column>
@@ -15,7 +15,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

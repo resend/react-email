@@ -9,7 +9,7 @@ import {
 } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="py-4 text-center">
     <Heading as="h1" className="mb-0 text-3xl font-semibold">
       You left something in your cart 👀
@@ -114,9 +114,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };

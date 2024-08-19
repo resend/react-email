@@ -1,7 +1,7 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="text-center">
     <table className="w-full">
       <tr className="w-full">

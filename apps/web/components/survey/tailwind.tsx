@@ -8,7 +8,7 @@ import {
 } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section className="py-4 text-center">
     <Text className="my-2 text-lg font-semibold text-indigo-600">
       Your opinion matters
@@ -43,7 +43,5 @@ export const component =  (
 );
 
 export default () => {
-  return <Layout>
-    {component}
-  </Layout>;
+  return <Layout>{component}</Layout>;
 };

@@ -1,7 +1,7 @@
 import { Button as BaseButton } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <BaseButton
     href="https://react.email"
     style={{
@@ -20,9 +20,5 @@ export const component =  (
 );
 
 export default () => {
-  return (
-    <Layout>
-      {component}
-    </Layout>
-  );
+  return <Layout>{component}</Layout>;
 };
