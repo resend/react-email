@@ -1,12 +1,14 @@
 "use server";
+
 import { renderAsync } from "@react-email/components";
+import { notFound } from "next/navigation";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
 import type { RenderedComponent } from "../../../components/component-view-wrapper";
 import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
 import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
-import type { ImportedComponent} from "../get-components";
+import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 
 interface ComponentPageParams {
@@ -19,6 +21,30 @@ export const generateStaticParams = async () => {
   return componentsStructure.map((category) => ({
     params: { slug: slugify(category.name) },
   }));
+};
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  const slug = decodeURIComponent(params.slug);
+  const foundCategory = componentsStructure.find(
+    (category) => slugify(category.name) === slug,
+  );
+
+  if (!foundCategory) {
+    notFound();
+  }
+
+  return {
+    title: `${foundCategory.name} - React Email`,
+    description:
+      "Open-source copy-paste components to use as building blocks with React Email",
+    alternates: {
+      canonical: `/components/${params.slug}`,
+    },
+  };
 };
 
 const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {

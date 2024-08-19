@@ -9,13 +9,14 @@ import { CodePreview } from "./code-preview";
 import { CodeRenderer } from "./code-renderer";
 import { ComponentPreview } from "./component-preview";
 
-export type RenderedComponent = Omit<ImportedComponent, "element"> & {
-  html: string;
-};
-
 interface ComponentViewWrapperProps {
   components: RenderedComponent[];
 }
+
+export type RenderedComponent = Omit<ImportedComponent, "element"> & {
+  html: string;
+  code: string | Record<string, string>;
+};
 
 export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
   components,
@@ -53,16 +54,16 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                   </Select.Trigger>
                   <Select.Content>
                     <Select.Viewport>
-                      {/* TODO: treat the case where `code` here is just a string. Read its type description for more info. */}
-                      {Object.keys(component.code).map((variant) => (
-                        <Select.Item key={variant} value={variant}>
-                          <Select.ItemText>
-                            {variant === "Tailwind"
-                              ? "Tailwind CSS"
-                              : "Inline Styles"}
-                          </Select.ItemText>
-                        </Select.Item>
-                      ))}
+                      {typeof component.code === "object" &&
+                        Object.keys(component.code).map((variant) => (
+                          <Select.Item key={variant} value={variant}>
+                            <Select.ItemText>
+                              {variant === "Tailwind"
+                                ? "Tailwind CSS"
+                                : "Inline Styles"}
+                            </Select.ItemText>
+                          </Select.Item>
+                        ))}
                     </Select.Viewport>
                   </Select.Content>
                 </Select.Root>
@@ -83,15 +84,18 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
               className="relative mx-8 my-4 rounded-md border border-zinc-900"
               value="code"
             >
-              {/* TODO: treat the case where `code` here is just a string. Read its type description for more info. */}
-              {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-              <CodePreview code={component.code[selectedVariant] || ""}>
-                <CodeRenderer
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                  code={component.code[selectedVariant] || ""}
-                  lang="tsx"
-                />
-              </CodePreview>
+              {typeof component.code === "string" ? (
+                <CodePreview code={component.code}>
+                  <CodeRenderer code={component.code} lang="tsx" />
+                </CodePreview>
+              ) : (
+                <CodePreview code={component.code[selectedVariant] || ""}>
+                  <CodeRenderer
+                    code={component.code[selectedVariant] || ""}
+                    lang="tsx"
+                  />
+                </CodePreview>
+              )}
             </Tabs.Content>
           </Tabs.Root>
         </React.Fragment>

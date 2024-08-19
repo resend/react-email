@@ -18,6 +18,9 @@ export const metadata: Metadata = {
     title,
     description,
   },
+  alternates: {
+    canonical: "/components",
+  },
 };
 
 const ComponentsPage = async () => {
@@ -47,7 +50,7 @@ const ComponentsPage = async () => {
 
             return (
               <Link
-                className="group relative isolate mx-8 mt-8 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-zinc-900 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-zinc-800"
+                className="group relative isolate mx-6 mt-7 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-zinc-900 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-zinc-800"
                 href={`/components/${slug}`}
                 key={category.name}
               >

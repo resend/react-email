@@ -3,6 +3,12 @@ import classnames from "classnames";
 import Link from "next/link";
 import * as React from "react";
 
+interface MenuItemProps {
+  className?: string;
+  children: React.ReactNode;
+  href: string;
+}
+
 const GITHUB_URL = "https://github.com/resend/react-email";
 const DISCORD_URL = "/discord";
 
@@ -62,12 +68,6 @@ export const Menu: React.FC = () => (
     </ul>
   </nav>
 );
-
-interface MenuItemProps {
-  className?: string;
-  children: React.ReactNode;
-  href: string;
-}
 
 const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
   className,
