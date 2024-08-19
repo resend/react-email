@@ -20,7 +20,7 @@ export const getComponentPathFromSlug = (slug: string) => {
   return path.resolve(pathToComponents, slug);
 };
 
-export const structure: Category[] = [
+export const componentsStructure: Category[] = [
   {
     name: "Articles",
     components: [

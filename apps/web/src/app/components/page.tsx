@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
-import { structure } from "../../../components/structure";
+import { componentsStructure } from "../../../components/structure";
 
 const title = "Components — React Email";
 const description =
@@ -42,7 +42,7 @@ const ComponentsPage = async () => {
         <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
           <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
-          {structure.map((category, index) => {
+          {componentsStructure.map((category, index) => {
             const slug = slugify(category.name);
 
             return (

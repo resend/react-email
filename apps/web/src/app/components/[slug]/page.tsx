@@ -5,7 +5,7 @@ import { Topbar } from "../../../components/topbar";
 import type { RenderedComponent } from "../../../components/component-view-wrapper";
 import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
 import { Layout } from "../../../../components/_components/layout";
-import { structure } from "../../../../components/structure";
+import { componentsStructure } from "../../../../components/structure";
 import type { ImportedComponent} from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 
@@ -16,14 +16,14 @@ interface ComponentPageParams {
 }
 
 export const generateStaticParams = async () => {
-  return structure.map((category) => ({
+  return componentsStructure.map((category) => ({
     params: { slug: slugify(category.name) },
   }));
 };
 
 const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
   const slug = decodeURIComponent(params.slug);
-  const foundCategory = structure.find(
+  const foundCategory = componentsStructure.find(
     (category) => slugify(category.name) === slug,
   );
 
