@@ -1,9 +1,17 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
-import { pathToComponents } from "./get-categories";
+import type { Category, Component } from "../../../components/structure";
+import {
+  getComponentPathFromSlug,
+  pathToComponents,
+} from "../../../components/structure";
 
-export interface Component {
+/**
+ * A fuller version of the already defined `Component`.
+ */
+export interface ImportedComponent {
+  slug: string;
   title: string;
   /**
    * Even though there may be multiple variants of code for this one pattern, the code
@@ -57,8 +65,10 @@ const getComponentElement = async (filepath: string) => {
   return patternModule.component as React.ReactElement;
 };
 
-const getComponentAt = async (dirpath: string): Promise<Component> => {
-  const componentName = path.basename(dirpath);
+const getImportedComponent = async (
+  component: Component,
+): Promise<ImportedComponent> => {
+  const dirpath = getComponentPathFromSlug(component.slug);
 
   const variantFilenames = await fs.readdir(dirpath);
   if (variantFilenames.length === 1 && variantFilenames[0] === "index.tsx") {
@@ -66,7 +76,7 @@ const getComponentAt = async (dirpath: string): Promise<Component> => {
     const fileContent = await fs.readFile(filePath, "utf8");
     const code = getComponentCodeFrom(fileContent);
     return {
-      title: componentName,
+      ...component,
       element: await getComponentElement(filePath),
       code,
     };
@@ -99,25 +109,16 @@ const getComponentAt = async (dirpath: string): Promise<Component> => {
   }
 
   return {
-    title: componentName,
+    ...component,
     element,
     code: codePerVariant,
   };
 };
 
-export const getComponentsIn = async (name: string) => {
-  const categoryDirpath = path.join(pathToComponents, name);
-
-  const componentFilenames = (
-    await fs.readdir(categoryDirpath, { withFileTypes: true })
-  )
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name);
-  const componentFilepaths = componentFilenames.map((filename) =>
-    path.join(categoryDirpath, filename),
-  );
-
+export const getImportedComponentsFor = async (
+  category: Category,
+): Promise<ImportedComponent[]> => {
   return Promise.all(
-    componentFilepaths.map((filepath) => getComponentAt(filepath)),
+    category.components.map((component) => getImportedComponent(component)),
   );
 };

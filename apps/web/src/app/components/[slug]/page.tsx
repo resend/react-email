@@ -2,12 +2,12 @@
 import { renderAsync } from "@react-email/components";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
-import { getCategories } from "../get-categories";
-import type { Component} from "../get-components";
-import { getComponentsIn } from "../get-components";
 import type { RenderedComponent } from "../../../components/component-view-wrapper";
 import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
 import { Layout } from "../../../../components/_components/layout";
+import { structure } from "../../../../components/structure";
+import type { ImportedComponent} from "../get-components";
+import { getImportedComponentsFor } from "../get-components";
 
 interface ComponentPageParams {
   params: {
@@ -16,29 +16,26 @@ interface ComponentPageParams {
 }
 
 export const generateStaticParams = async () => {
-  const categories = await getCategories();
-
-  return categories.map((category) => ({
+  return structure.map((category) => ({
     params: { slug: slugify(category.name) },
   }));
 };
 
 const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
   const slug = decodeURIComponent(params.slug);
-  const categories = await getCategories();
-  const foundCategory = categories.find(
+  const foundCategory = structure.find(
     (category) => slugify(category.name) === slug,
   );
 
   if (!foundCategory) return <p>Component category not found.</p>;
 
   const renderedComponents: RenderedComponent[] = await Promise.all(
-    (await getComponentsIn(foundCategory.name)).map(async (component) => {
-      const componentWithoutElement: Omit<Component, "element"> = {
+    (await getImportedComponentsFor(foundCategory)).map(async (component) => {
+      const componentWithoutElement: Omit<ImportedComponent, "element"> = {
         ...component,
       };
       delete (
-        componentWithoutElement as Omit<Component, "element"> & {
+        componentWithoutElement as Omit<ImportedComponent, "element"> & {
           element?: React.ReactElement;
         }
       ).element;

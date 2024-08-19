@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Topbar } from "../../components/topbar";
 import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
-import { getCategories } from "./get-categories";
+import { structure } from "../../../components/structure";
 
 const title = "Components — React Email";
 const description =
@@ -21,8 +21,6 @@ export const metadata: Metadata = {
 };
 
 const ComponentsPage = async () => {
-  const categories = await getCategories();
-
   return (
     <div className="relative mx-auto flex max-w-full flex-col px-4 text-sm text-zinc-400 h-screen-ios md:max-w-7xl">
       <div className="pointer-events-none absolute inset-0 flex justify-center">
@@ -44,7 +42,7 @@ const ComponentsPage = async () => {
         <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
           <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 bg-zinc-900" />
-          {categories.map((category, index) => {
+          {structure.map((category, index) => {
             const slug = slugify(category.name);
 
             return (
@@ -73,8 +71,8 @@ const ComponentsPage = async () => {
                     {category.name}
                   </h3>
                   <span className="mt-1 text-xs text-zinc-500">
-                    {category.componentsCount} component
-                    {category.componentsCount > 1 && "s"}
+                    {category.components.length} component
+                    {category.components.length > 1 && "s"}
                   </span>
                 </Spotlight>
               </Link>
