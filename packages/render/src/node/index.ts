@@ -1,4 +1,4 @@
-export * from "../shared/render";
+export * from "./render";
 export * from "./render-async";
 
 export * from "../shared/options";
