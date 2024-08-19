@@ -23,23 +23,22 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
   const [selectedVariant, setSelectedVariant] = React.useState("Tailwind");
 
   return (
-    <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-4">
+    <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-3">
       {components.map((component, index) => (
         <React.Fragment key={index}>
-          <h2
-            className={classNames(
-              "px-8 text-xl font-semibold text-zinc-200",
-              index !== 0 && "border-t border-zinc-900 pt-4",
-            )}
-          >
-            {component.title}
-          </h2>
           <Tabs.Root
-            className="relative flex flex-col gap-2 px-8 pb-1 pt-4"
+            className="relative flex flex-col gap-2"
             defaultValue="preview"
           >
-            <div className="absolute right-0 top-0 h-px w-[100dvw] bg-zinc-900" />
-            <div className="flex w-full items-center gap-4 px-8 py-1">
+            <div
+              className={classNames(
+                "relative flex w-full items-center gap-4 px-8 pb-2",
+                index !== 0 && "border-t border-zinc-900 pt-4",
+              )}
+            >
+              <h2 className="shrink grow basis-0 text-xl font-semibold text-zinc-200">
+                {component.title}
+              </h2>
               <Tabs.List className="flex w-fit items-center gap-4">
                 <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                 <Tabs.Trigger value="code">Code</Tabs.Trigger>
@@ -71,6 +70,7 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                   <span>Copy</span>
                 </button>
               </Tabs.List>
+              <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-zinc-900" />
             </div>
             <Tabs.Content
               className="relative mx-8 my-4 h-fit rounded-md border border-zinc-900"
