@@ -7,8 +7,8 @@
     "dev": "next dev",
     "format": "npx prettier . --write",
     "lint": "next lint",
-    "pattern:build": "email build -d ./patterns",
-    "pattern:dev": "email dev -d ./patterns",
+    "pattern:build": "email build -d ./components",
+    "pattern:dev": "email dev -d ./components",
     "start": "next start"
   },
   "dependencies": {
