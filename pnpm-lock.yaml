@@ -121,7 +121,7 @@ importers:
         specifier: 12.0.0-alpha.0
         version: 12.0.0-alpha.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
       next:
-        specifier: v15.0.0-canary.117
+        specifier: 15.0.0-canary.117
         version: 15.0.0-canary.117(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
       prism-react-renderer:
         specifier: 2.3.1
