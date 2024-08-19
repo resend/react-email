@@ -18,10 +18,17 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <main>
-      <div className="relative z-20 mx-auto flex h-screen max-w-7xl flex-col justify-between px-4 h-screen-ios">
+      <div className="relative z-20 mx-auto flex h-[100dvh] max-w-7xl flex-col justify-between px-4 h-screen-ios">
+        <Image
+          alt=""
+          className="pointer-events-none absolute inset-0 z-[10] select-none mix-blend-lighten"
+          fill
+          priority
+          src="/static/bg.png"
+        />
         <Topbar />
         <div className="relative mx-auto flex max-w-3xl flex-col justify-center">
-          <div className="max-w-[725px] text-center">
+          <div className="max-w-[45rem] text-center">
             <div className="mb-8 flex items-center justify-center">
               <Image
                 alt="React Email Logo"
@@ -58,14 +65,6 @@ const Home = () => {
         </div>
         <Footer />
       </div>
-      <Image
-        alt=""
-        className="absolute left-0 top-[220px] z-[10] h-full w-full select-none md:top-0"
-        fill
-        priority
-        src="/static/bg.png"
-        style={{ position: "absolute" }}
-      />
     </main>
   );
 };

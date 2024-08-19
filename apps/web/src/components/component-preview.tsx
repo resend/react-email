@@ -13,7 +13,7 @@ export const ComponentPreview = ({
   html,
 }: ComponentPreviewProps) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [height, setHeight] = useState("auto");
+  const [height, setHeight] = useState("30rem");
 
   useEffect(() => {
     const iframeElement = iframeRef.current;
@@ -23,7 +23,7 @@ export const ComponentPreview = ({
         const iframeDocument =
           iframeElement.contentDocument || iframeElement.contentWindow.document;
         const iframeHeight = iframeDocument.body.scrollHeight;
-        setHeight(`${iframeHeight}px`);
+        setHeight(`calc(${iframeHeight}px + 6dvh)`);
       }
     };
 
@@ -54,7 +54,7 @@ export const ComponentPreview = ({
   return (
     <div className={classNames("relative", className)}>
       <iframe
-        className="flex h-full min-h-[30rem] w-full items-center justify-center rounded-md bg-white"
+        className="flex h-full w-full rounded-md bg-white py-[2dvh]"
         ref={iframeRef}
         srcDoc={html}
         style={{ height }}
