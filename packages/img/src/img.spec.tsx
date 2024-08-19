@@ -2,9 +2,9 @@ import { render } from "@react-email/render";
 import { Img } from "./index";
 
 describe("<Img> component", () => {
-  it("passes style and other props correctly", () => {
+  it("passes style and other props correctly", async () => {
     const style = { backgroundColor: "red", border: "solid 1px black" };
-    const html = render(
+    const html = await render(
       <Img
         alt="Cat"
         data-testid="img-test"
@@ -19,8 +19,8 @@ describe("<Img> component", () => {
     expect(html).toContain('data-testid="img-test"');
   });
 
-  it("renders correctly", () => {
-    const actualOutput = render(
+  it("renders correctly", async () => {
+    const actualOutput = await render(
       <Img alt="Cat" height="300" src="cat.jpg" width="300" />,
     );
     expect(actualOutput).toMatchInlineSnapshot(

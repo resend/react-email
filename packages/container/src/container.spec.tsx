@@ -2,15 +2,15 @@ import { render } from "@react-email/render";
 import { Container } from "./index";
 
 describe("<Container> component", () => {
-  it("renders children correctly", () => {
+  it("renders children correctly", async () => {
     const testMessage = "Test message";
-    const html = render(<Container>{testMessage}</Container>);
+    const html = await render(<Container>{testMessage}</Container>);
     expect(html).toContain(testMessage);
   });
 
-  it("passes style and other props correctly", () => {
+  it("passes style and other props correctly", async () => {
     const style = { maxWidth: 300, backgroundColor: "red" };
-    const html = render(
+    const html = await render(
       <Container data-testid="container-test" style={style}>
         Test
       </Container>,
@@ -19,8 +19,8 @@ describe("<Container> component", () => {
     expect(html).toContain('data-testid="container-test"');
   });
 
-  it("renders correctly", () => {
-    const container = render(
+  it("renders correctly", async () => {
+    const container = await render(
       <Container style={{ maxWidth: "300px" }}>
         <button type="button">Hi</button>
       </Container>,
