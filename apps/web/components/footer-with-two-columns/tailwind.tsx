@@ -1,6 +1,7 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
-export const component =  (
+export const component = (
   <Section>
     <Row>
       <Column colSpan={4}>
@@ -54,3 +55,7 @@ export const component =  (
     </Row>
   </Section>
 );
+
+export default () => {
+  return <Layout>{component}</Layout>;
+};

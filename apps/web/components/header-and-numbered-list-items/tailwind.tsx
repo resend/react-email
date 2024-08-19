@@ -1,4 +1,5 @@
 import { Column, Hr, Row, Section, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Section className="my-4">
@@ -112,3 +113,9 @@ export const component =  (
     <Hr className="mx-0 my-6 w-full border border-solid border-gray-200" />
   </Section>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

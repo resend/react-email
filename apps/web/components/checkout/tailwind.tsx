@@ -7,6 +7,7 @@ import {
   Section,
   Text,
 } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Section className="py-4 text-center">
@@ -111,3 +112,11 @@ export const component =  (
     </Section>
   </Section>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

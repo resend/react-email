@@ -1,4 +1,5 @@
 import { Button, Heading, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 // Notes for future exploration on finding a way to do this inside of
 // Desktop Outlook:
@@ -81,3 +82,11 @@ export const component =  (
     </tbody>
   </table>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

@@ -1,4 +1,5 @@
 import { CodeBlock } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <CodeBlock
@@ -133,3 +134,11 @@ export const component =  (
     }}
   />
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

@@ -1,4 +1,5 @@
 import { Img } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Img
@@ -8,3 +9,9 @@ export const component =  (
     style={{ borderRadius: 12 }}
   />
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Button, Column, Img, Row, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Row>
@@ -40,3 +41,11 @@ export const component =  (
     </Column>
   </Row>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 // Good callouts for users:
 // - Recommended proportions for images 292x152, 292x152 and 292x320.
@@ -62,3 +63,9 @@ export const component =  (
     </Section>
   </Section>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

@@ -1,4 +1,5 @@
 import { Column, Row } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Row>
@@ -7,3 +8,9 @@ export const component =  (
     <Column className="w-1/3">Third</Column>
   </Row>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

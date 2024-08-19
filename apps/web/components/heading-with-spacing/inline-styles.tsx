@@ -1,4 +1,5 @@
 import { Heading } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <>
@@ -37,3 +38,9 @@ export const component =  (
     </Heading>
   </>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

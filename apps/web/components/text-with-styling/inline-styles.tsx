@@ -1,4 +1,5 @@
 import { Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <>
@@ -17,3 +18,9 @@ export const component =  (
     </Text>
   </>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

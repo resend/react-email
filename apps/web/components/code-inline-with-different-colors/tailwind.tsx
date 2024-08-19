@@ -1,4 +1,5 @@
 import { CodeInline, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Text>
@@ -9,3 +10,11 @@ export const component =  (
     package
   </Text>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

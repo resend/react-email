@@ -1,5 +1,6 @@
 import { Button, Row, Img, Section, Text } from "@react-email/components";
 import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
@@ -234,3 +235,9 @@ export const component =  (
     </ResponsiveRow>
   </Section>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

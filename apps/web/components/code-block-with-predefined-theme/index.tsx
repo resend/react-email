@@ -1,4 +1,5 @@
 import { CodeBlock, dracula } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <CodeBlock
@@ -12,3 +13,11 @@ export const component =  (
     theme={dracula}
   />
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

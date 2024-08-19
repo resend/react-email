@@ -6,6 +6,7 @@ import {
   Row,
   Section,
 } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Container>
@@ -28,3 +29,11 @@ export const component =  (
     </Section>
   </Container>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

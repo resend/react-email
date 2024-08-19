@@ -1,4 +1,5 @@
 import { Img, Row, Section, Text } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Section className="my-4">
@@ -79,3 +80,9 @@ export const component =  (
     </table>
   </Section>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};

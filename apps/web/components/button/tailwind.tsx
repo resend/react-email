@@ -1,4 +1,5 @@
 import { Button as BaseButton } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <BaseButton
@@ -8,3 +9,11 @@ export const component =  (
     Example button
   </BaseButton>
 );
+
+export default () => {
+  return (
+    <Layout>
+      {component}
+    </Layout>
+  );
+};

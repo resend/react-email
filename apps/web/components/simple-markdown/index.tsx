@@ -1,4 +1,5 @@
 import { Markdown } from "@react-email/components";
+import { Layout } from "../_components/layout";
 
 export const component =  (
   <Markdown>
@@ -10,3 +11,9 @@ This is meant to be rendered as a paragraph. There is no way around it.
         `}
   </Markdown>
 );
+
+export default () => {
+  return <Layout>
+    {component}
+  </Layout>;
+};
