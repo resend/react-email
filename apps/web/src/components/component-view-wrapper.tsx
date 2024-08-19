@@ -4,12 +4,14 @@ import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
-import type { Component } from "../app/components/get-components";
+import type { ImportedComponent } from "../app/components/get-components";
 import { CodePreview } from "./code-preview";
 import { CodeRenderer } from "./code-renderer";
 import { ComponentPreview } from "./component-preview";
 
-export type RenderedComponent = Omit<Component, "element"> & { html: string };
+export type RenderedComponent = Omit<ImportedComponent, "element"> & {
+  html: string;
+};
 
 interface ComponentViewWrapperProps {
   components: RenderedComponent[];
