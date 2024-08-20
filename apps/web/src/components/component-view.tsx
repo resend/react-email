@@ -29,7 +29,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const code =
     typeof component.code === "string"
       ? component.code
-      : (component.code[codeVariant] ?? "");
+      : component.code[codeVariant] ?? "";
 
   return (
     <Tabs.Root

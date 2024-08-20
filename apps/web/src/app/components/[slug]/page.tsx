@@ -8,11 +8,8 @@ import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 import PageTransition from "../../../components/page-transition";
 import { Tooltip } from "../../../components/tooltip";
-import type {
-  RenderedComponent} from "../../../components/components-view";
-import {
-  ComponentsView
-} from "../../../components/components-view";
+import type { RenderedComponent } from "../../../components/components-view";
+import { ComponentsView } from "../../../components/components-view";
 
 interface ComponentPageParams {
   params: {

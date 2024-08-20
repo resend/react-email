@@ -26,7 +26,7 @@ export const CodePreview = ({ code, children }: CodePreviewProps) => {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative h-full w-full">
       <div
         aria-label="Copy code"
         className="absolute right-4 top-4 cursor-pointer bg-transparent p-2"

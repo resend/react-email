@@ -48,7 +48,7 @@ const getComponentCodeFrom = (fileContent: string) => {
     return match.groups.componentCode
       .split(/\r\n|\r|\n/)
       .map((line, index) => (index !== 0 ? line.slice(2) : line))
-      .join('\n');
+      .join("\n");
   }
 
   throw new Error("Could not find the source code for the pattern", {

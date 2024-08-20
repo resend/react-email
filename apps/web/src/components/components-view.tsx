@@ -17,9 +17,8 @@ export type RenderedComponent = Omit<ImportedComponent, "element"> & {
 export const ComponentsView: React.FC<ComponentsViewProps> = ({
   components,
 }) => {
-  const [selectedCodeVariant, setSelectedCodeVariant] = useState<CodeVariant>(
-    "tailwind"
-  );
+  const [selectedCodeVariant, setSelectedCodeVariant] =
+    useState<CodeVariant>("tailwind");
 
   useEffect(() => {
     if (localStorage.getItem("code-variant") === "inline-styles") {
