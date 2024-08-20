@@ -1,3 +1,5 @@
+"use server";
+
 import { codeToHtml } from "../utils/shiki";
 
 interface CodeRenderer {

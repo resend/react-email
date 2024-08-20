@@ -5,6 +5,7 @@ import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ImportedComponent } from "../app/components/get-components";
 import { CodePreview } from "./code-preview";
 import { CodeRenderer } from "./code-renderer";
@@ -22,9 +23,20 @@ export type RenderedComponent = Omit<ImportedComponent, "element"> & {
 export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
   components,
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const activeView = searchParams.get("view") ?? "desktop";
   const [selectedVariants, setSelectedVariants] = React.useState<string[]>(
     components.map(() => "tailwind"),
   );
+
+  const handleViewChange = (view: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("view", view);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   const handleVariantChange = (index: number, variant: string) => {
     const newSelectedVariants = [...selectedVariants];
@@ -38,7 +50,8 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
         <React.Fragment key={index}>
           <Tabs.Root
             className="relative flex flex-col gap-2"
-            defaultValue="preview"
+            defaultValue={activeView}
+            onValueChange={handleViewChange}
           >
             <div
               className={classNames(
@@ -50,60 +63,60 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
                 {component.title}
               </h2>
               <Tabs.List className="flex w-fit items-center gap-4 text-xs">
-                <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+                <Tabs.Trigger value="desktop">Desktop</Tabs.Trigger>
+                <Tabs.Trigger value="mobile">Mobile</Tabs.Trigger>
                 <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 <div className="ml-2 hidden h-5 w-px bg-zinc-900 sm:block" />
-                <Select.Root
-                  onValueChange={(variant) => {
-                    handleVariantChange(index, variant);
-                  }}
-                  value={selectedVariants[index]}
-                >
-                  <Select.Trigger
-                    aria-label="Choose the styling solution"
-                    className="inline-flex h-8 items-center justify-center gap-1 rounded bg-zinc-900 px-3 leading-none outline-none data-[placeholder]:text-zinc-50"
+                {activeView === "code" && (
+                  <Select.Root
+                    onValueChange={(variant) => {
+                      handleVariantChange(index, variant);
+                    }}
+                    value={selectedVariants[index]}
                   >
-                    <Select.Value>
-                      {selectedVariants[index] === "tailwind"
-                        ? "Tailwind CSS"
-                        : "Inline Styles"}
-                    </Select.Value>
-                    <Select.Icon>
-                      <ChevronDownIcon size={14} />
-                    </Select.Icon>
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Content className="overflow-hidden rounded-md bg-zinc-900">
-                      <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
-                        <ChevronUpIcon size={12} />
-                      </Select.ScrollUpButton>
-                      <Select.Viewport className="p-1">
-                        <Select.Group className="flex flex-col">
-                          <Select.Label className="px-2 pb-1 pt-2 text-xs text-zinc-200">
-                            Styling solution
-                          </Select.Label>
-                          {typeof component.code === "object" &&
-                            Object.keys(component.code).map((variant) => (
-                              <Select.Item
-                                className="relative mt-1 flex h-6 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-zinc-400 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-zinc-800 data-[highlighted]:text-zinc-50 data-[highlighted]:outline-none"
-                                key={variant}
-                                value={variant}
-                              >
-                                <Select.ItemText>
-                                  {variant === "tailwind"
-                                    ? "Tailwind CSS"
-                                    : "Inline Styles"}
-                                </Select.ItemText>
-                                <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-zinc-200">
-                                  <CheckIcon size={10} />
-                                </Select.ItemIndicator>
-                              </Select.Item>
-                            ))}
-                        </Select.Group>
-                      </Select.Viewport>
-                    </Select.Content>
-                  </Select.Portal>
-                </Select.Root>
+                    <Select.Trigger
+                      aria-label="Choose the styling solution"
+                      className="inline-flex h-8 items-center justify-center gap-1 rounded bg-zinc-900 px-3 leading-none outline-none data-[placeholder]:text-zinc-50"
+                    >
+                      <Select.Value>
+                        {selectedVariants[index] === "tailwind"
+                          ? "Tailwind CSS"
+                          : "Inline Styles"}
+                      </Select.Value>
+                      <Select.Icon>
+                        <ChevronDownIcon size={14} />
+                      </Select.Icon>
+                    </Select.Trigger>
+                    <Select.Portal>
+                      <Select.Content className="overflow-hidden rounded-md bg-zinc-900">
+                        <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
+                          <ChevronUpIcon size={12} />
+                        </Select.ScrollUpButton>
+                        <Select.Viewport className="p-1">
+                          <Select.Group className="flex flex-col gap-1">
+                            {typeof component.code === "object" &&
+                              Object.keys(component.code).map((variant) => (
+                                <Select.Item
+                                  className="relative flex h-6 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-zinc-400 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-zinc-800 data-[highlighted]:text-zinc-50 data-[highlighted]:outline-none"
+                                  key={variant}
+                                  value={variant}
+                                >
+                                  <Select.ItemText>
+                                    {variant === "tailwind"
+                                      ? "Tailwind CSS"
+                                      : "Inline CSS"}
+                                  </Select.ItemText>
+                                  <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-zinc-200">
+                                    <CheckIcon size={10} />
+                                  </Select.ItemIndicator>
+                                </Select.Item>
+                              ))}
+                          </Select.Group>
+                        </Select.Viewport>
+                      </Select.Content>
+                    </Select.Portal>
+                  </Select.Root>
+                )}
                 <button tabIndex={0} type="button">
                   <span>Copy</span>
                 </button>
@@ -112,10 +125,17 @@ export const ComponentViewWrapper: React.FC<ComponentViewWrapperProps> = ({
             </div>
             <Tabs.Content
               className="relative mx-8 my-4 h-max rounded-md border border-zinc-900 bg-slate-100"
-              value="preview"
+              value="desktop"
             >
               <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-              <ComponentPreview html={component.html} />
+              <ComponentPreview activeView="desktop" html={component.html} />
+            </Tabs.Content>
+            <Tabs.Content
+              className="relative mx-8 my-4 h-max rounded-md border border-zinc-900 bg-slate-100"
+              value="mobile"
+            >
+              <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+              <ComponentPreview activeView="mobile" html={component.html} />
             </Tabs.Content>
             <Tabs.Content
               className="relative mx-8 my-4 rounded-md border border-zinc-900"

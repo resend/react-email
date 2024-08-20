@@ -102,6 +102,9 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.0
         version: 1.1.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-tooltip':
+        specifier: 1.1.1
+        version: 1.1.1(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       '@react-email/components':
         specifier: npm:@react-email/components@canary
         version: 0.0.23-canary.2(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
@@ -8064,6 +8067,26 @@ snapshots:
       '@radix-ui/react-visually-hidden': 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@types/react': types-react@19.0.0-rc.1
+      '@types/react-dom': types-react-dom@19.0.0-rc.1
+
+  '@radix-ui/react-tooltip@1.1.1(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-compose-refs': 1.1.0(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-context': 1.1.0(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-dismissable-layer': 1.1.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-id': 1.1.0(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-popper': 1.2.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-portal': 1.1.1(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-presence': 1.1.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-primitive': 2.0.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-slot': 1.1.0(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-use-controllable-state': 1.1.0(react@19.0.0-rc-187dd6a7-20240806)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-visually-hidden': 1.1.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      react: 19.0.0-rc-187dd6a7-20240806
+      react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
       '@types/react-dom': types-react-dom@19.0.0-rc.1

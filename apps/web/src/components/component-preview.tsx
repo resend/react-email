@@ -4,11 +4,13 @@ import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 
 interface ComponentPreviewProps {
-  html: string;
+  activeView: string;
   className?: string;
+  html: string;
 }
 
 export const ComponentPreview = ({
+  activeView,
   className,
   html,
 }: ComponentPreviewProps) => {
@@ -52,9 +54,17 @@ export const ComponentPreview = ({
   }, [html]);
 
   return (
-    <div className={classNames("relative", className)}>
+    <div
+      className={classNames(
+        "relative flex items-center justify-center overflow-auto",
+        className,
+      )}
+    >
       <iframe
-        className="flex h-full w-full rounded-md"
+        className={classNames(
+          "flex h-full w-full rounded-md",
+          activeView === "mobile" && "max-w-80",
+        )}
         ref={iframeRef}
         srcDoc={html}
         style={{ height }}
