@@ -44,6 +44,9 @@ importers:
       prettier:
         specifier: 3.0.3
         version: 3.0.3
+      prettier-plugin-tailwindcss:
+        specifier: 0.6.6
+        version: 0.6.6(prettier@3.0.3)
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
@@ -164,10 +167,10 @@ importers:
         specifier: 8.4.40
         version: 8.4.40
       prettier:
-        specifier: ^3.3.3
+        specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.6
+        specifier: 0.6.6
         version: 0.6.6(prettier@3.3.3)
       react-email:
         specifier: workspace:*
@@ -11666,6 +11669,10 @@ snapshots:
       synckit: 0.9.0
     optionalDependencies:
       prettier: 3.3.3
+
+  prettier-plugin-tailwindcss@0.6.6(prettier@3.0.3):
+    dependencies:
+      prettier: 3.0.3
 
   prettier-plugin-tailwindcss@0.6.6(prettier@3.3.3):
     dependencies:
