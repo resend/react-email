@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames";
+import { frame } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 interface ComponentPreviewProps {
@@ -17,38 +18,50 @@ export const ComponentPreview = ({
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [height, setHeight] = useState("30rem");
 
+  const adjustHeight = (element: HTMLIFrameElement) => {
+    if (element.contentWindow) {
+      const iframeDocument =
+        element.contentDocument || element.contentWindow.document;
+      const iframeHeight = iframeDocument.body.scrollHeight;
+      setHeight(`calc(${iframeHeight}px + 2dvh)`);
+    }
+  };
+
+  const handleLoad = (element: HTMLIFrameElement) => {
+    adjustHeight(element);
+
+    if (iframeRef.current?.contentDocument) {
+      const observer = new MutationObserver(() => {
+        adjustHeight(element);
+      });
+      observer.observe(iframeRef.current.contentDocument.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+      });
+    }
+  };
+
   useEffect(() => {
-    const iframeElement = iframeRef.current;
+    if (iframeRef.current) {
+      handleLoad(iframeRef.current);
+    }
+  }, []);
 
-    const adjustHeight = () => {
-      if (iframeElement?.contentWindow) {
-        const iframeDocument =
-          iframeElement.contentDocument || iframeElement.contentWindow.document;
-        const iframeHeight = iframeDocument.body.scrollHeight;
-        setHeight(`calc(${iframeHeight}px + 2dvh)`);
-      }
-    };
+  useEffect(() => {
+    const element = iframeRef.current;
 
-    const handleLoad = () => {
-      adjustHeight();
-
-      if (iframeElement?.contentDocument) {
-        const observer = new MutationObserver(adjustHeight);
-        observer.observe(iframeElement.contentDocument.body, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-        });
-      }
-    };
-
-    if (iframeElement) {
-      iframeElement.addEventListener("load", handleLoad);
+    if (element) {
+      element.addEventListener("load", () => {
+        handleLoad(element);
+      });
     }
 
     return () => {
-      if (iframeElement) {
-        iframeElement.removeEventListener("load", handleLoad);
+      if (element) {
+        element.removeEventListener("load", () => {
+          handleLoad(element);
+        });
       }
     };
   }, [html]);
@@ -65,6 +78,9 @@ export const ComponentPreview = ({
           "flex h-full w-full rounded-md",
           activeView === "mobile" && "max-w-80",
         )}
+        onLoad={() => {
+          console.log("onLoad");
+        }}
         ref={iframeRef}
         srcDoc={html}
         style={{ height }}
