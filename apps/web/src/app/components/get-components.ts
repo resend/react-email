@@ -69,7 +69,7 @@ const getComponentCodeFrom = (fileContent: string) => {
     // in the original file for the pattern
     return componentCode
       .split(/\r\n|\r|\n/)
-      .map((line) => line.replace(/^\s{2}/, ''))
+      .map((line) => line.replace(/^\s{2}/, ""))
       .join("\n");
   }
 
