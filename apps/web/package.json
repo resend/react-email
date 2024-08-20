@@ -12,6 +12,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@babel/core": "7.24.5",
+    "@babel/parser": "7.24.5",
+    "@babel/preset-typescript": "7.24.7",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "1.1.0",
@@ -34,6 +37,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.3",
+    "@types/babel__core": "7.20.5",
     "autoprefixer": "10.4.14",
     "eslint-config-custom": "workspace:*",
     "eslint-config-prettier": "9.0.0",

@@ -1,5 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { traverse } from "@babel/core";
+import { parse } from "@babel/parser";
 import { z } from "zod";
 import type { Category, Component } from "../../../components/structure";
 import {
@@ -39,21 +41,42 @@ const ComponentModule = z.object({
 });
 
 const getComponentCodeFrom = (fileContent: string) => {
-  const componentCodeRegex =
-    /export\s+const\s+component\s*=\s*\(\s*(?<componentCode>[\s\S]+?)\s*\);/gm;
-  const match = componentCodeRegex.exec(fileContent);
-  if (match?.groups?.componentCode) {
+  const parsedContents = parse(fileContent, {
+    sourceType: "unambiguous",
+    strictMode: false,
+    errorRecovery: true,
+    plugins: ["jsx", "typescript", "decorators"],
+  });
+
+  let componentCode: string | undefined;
+  traverse(parsedContents, {
+    VariableDeclarator({ node }) {
+      if (
+        node.id.type === "Identifier" &&
+        node.id.name === "component" &&
+        (node.init?.type === "JSXElement" || node.init?.type === "JSXFragment")
+      ) {
+        const expression = node.init;
+        if (expression.start && expression.end) {
+          componentCode = fileContent.slice(expression.start, expression.end);
+        }
+      }
+    },
+  });
+
+  if (componentCode) {
     // We need to remove the extra spaces that are included because of formatting
     // in the original file for the pattern
-    return match.groups.componentCode
+    return componentCode
       .split(/\r\n|\r|\n/)
-      .map((line, index) => (index !== 0 ? line.slice(2) : line))
+      .map((line) => line.replace(/^\s{2}/, ''))
       .join("\n");
   }
 
   throw new Error("Could not find the source code for the pattern", {
     cause: {
-      match,
+      parsedContents,
+      componentCode,
       fileContent,
     },
   });
