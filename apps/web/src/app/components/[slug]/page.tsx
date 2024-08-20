@@ -2,14 +2,13 @@ import { renderAsync } from "@react-email/components";
 import { notFound } from "next/navigation";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
-import type { RenderedComponent } from "../../../components/component-view";
-import { ComponentView } from "../../../components/component-view";
 import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
 import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 import PageTransition from "../../../components/page-transition";
 import { Tooltip } from "../../../components/tooltip";
+import { ComponentsView, RenderedComponent } from "../../../components/components-view";
 
 interface ComponentPageParams {
   params: {
@@ -94,13 +93,9 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
             </p>
           </div>
           <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-3">
-            {renderedComponents.map((component, index) => (
-              <ComponentView
-                className={index !== 0 ? "border-t border-zinc-900 pt-4" : ""}
-                component={component}
-                key={component.slug}
-              />
-            ))}
+            <ComponentsView
+              components={renderedComponents}
+            />
           </div>
         </PageTransition>
       </div>

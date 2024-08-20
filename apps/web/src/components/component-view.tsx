@@ -1,48 +1,40 @@
-"use client";
-
 import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import type {
-  CodeVariant,
-  ImportedComponent,
-} from "../app/components/get-components";
+import type { CodeVariant } from "../app/components/get-components";
 import { CodePreview } from "./code-preview";
-import { CodeRenderer } from "./code-renderer";
 import { ComponentPreview } from "./component-preview";
-import { Code } from "./code";
 import { CodeBlock } from "./code-block";
+import type { RenderedComponent } from "./components-view";
 
 interface ComponentViewProps {
   component: RenderedComponent;
   className?: string;
-}
 
-export type RenderedComponent = Omit<ImportedComponent, "element"> & {
-  html: string;
-};
+  codeVariant: CodeVariant;
+  onChangeCodeVariant: (v: CodeVariant) => void;
+}
 
 type ActiveView = "code" | "desktop" | "mobile";
 
 export const ComponentView: React.FC<ComponentViewProps> = ({
   component,
   className,
+  codeVariant,
+  onChangeCodeVariant,
 }) => {
   const [activeView, setActiveView] = React.useState<ActiveView>("desktop");
-  const [selectedCodeVariant, setSelectedCodeVariant] =
-    React.useState<CodeVariant>("tailwind");
-
   const code =
     typeof component.code === "string"
       ? component.code
-      : (component.code[selectedCodeVariant] ?? "");
+      : (component.code[codeVariant] ?? "");
 
   return (
     <Tabs.Root
       className="relative flex flex-col gap-2"
-      defaultValue="desktop"
+      defaultValue={activeView}
       onValueChange={(v: ActiveView) => {
         setActiveView(v);
       }}
@@ -64,18 +56,16 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           {activeView === "code" && typeof component.code === "object" ? (
             <Select.Root
               onValueChange={(variant: CodeVariant) => {
-                setSelectedCodeVariant(variant);
+                onChangeCodeVariant(variant);
               }}
-              value={selectedCodeVariant}
+              value={codeVariant}
             >
               <Select.Trigger
                 aria-label="Choose the styling solution"
                 className="inline-flex h-8 items-center justify-center gap-1 rounded bg-zinc-900 px-3 leading-none outline-none data-[placeholder]:text-zinc-50"
               >
                 <Select.Value>
-                  {selectedCodeVariant === "tailwind"
-                    ? "Tailwind CSS"
-                    : "Inline CSS"}
+                  {codeVariant === "tailwind" ? "Tailwind CSS" : "Inline CSS"}
                 </Select.Value>
                 <Select.Icon>
                   <ChevronDownIcon size={14} />
