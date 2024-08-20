@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/button";
-import { Code } from "../components/code";
 import { Footer } from "../components/footer";
 import { Heading } from "../components/heading";
 import { IconArrowRight } from "../components/icons";
 import { Text } from "../components/text";
 import { Topbar } from "../components/topbar";
+import { Code } from "../components/code";
 
 export const metadata: Metadata = {
   title: "React Email",
@@ -58,9 +58,9 @@ const Home = () => {
                 <IconArrowRight />
               </Link>
             </Button>
-            <code className="hidden max-w-max md:!inline-flex">
+            <Code className="hidden max-w-max md:!inline-flex">
               npx create-email@latest
-            </code>
+            </Code>
           </div>
         </div>
         <Footer />

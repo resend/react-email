@@ -8,7 +8,11 @@ import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 import PageTransition from "../../../components/page-transition";
 import { Tooltip } from "../../../components/tooltip";
-import { ComponentsView, RenderedComponent } from "../../../components/components-view";
+import type {
+  RenderedComponent} from "../../../components/components-view";
+import {
+  ComponentsView
+} from "../../../components/components-view";
 
 interface ComponentPageParams {
   params: {
@@ -93,9 +97,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
             </p>
           </div>
           <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-3">
-            <ComponentsView
-              components={renderedComponents}
-            />
+            <ComponentsView components={renderedComponents} />
           </div>
         </PageTransition>
       </div>
