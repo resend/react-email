@@ -120,13 +120,13 @@ export const exportTemplates = async (
       delete require.cache[template];
       const emailModule = require(template) as {
         default: React.FC;
-        renderAsync: (
+        render: (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
         reactEmailCreateReactElement: typeof React.createElement;
       };
-      const rendered = await emailModule.renderAsync(
+      const rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
