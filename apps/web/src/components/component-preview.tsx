@@ -76,8 +76,8 @@ export const ComponentPreview = ({
     >
       <iframe
         className={classNames(
-          "flex h-full w-full rounded-md",
-          activeView === "mobile" && "max-w-80",
+          "flex rounded-md",
+          activeView === "mobile" ? "w-[360px]" : "w-full",
         )}
         ref={iframeRef}
         srcDoc={html}
