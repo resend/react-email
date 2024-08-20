@@ -1,7 +1,6 @@
 "use client";
 
 import classNames from "classnames";
-import { frame } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 interface ComponentPreviewProps {
@@ -23,7 +22,7 @@ export const ComponentPreview = ({
       const iframeDocument =
         element.contentDocument || element.contentWindow.document;
       const iframeHeight = iframeDocument.body.scrollHeight;
-      setHeight(`calc(${iframeHeight}px + 2dvh)`);
+      setHeight(`calc(${iframeHeight}px + 8dvh)`);
     }
   };
 
@@ -42,6 +41,8 @@ export const ComponentPreview = ({
     }
   };
 
+  // This is meant to handle the first load of the preview as it seems
+  // like the event is not listened to at first
   useEffect(() => {
     if (iframeRef.current) {
       handleLoad(iframeRef.current);
@@ -78,9 +79,6 @@ export const ComponentPreview = ({
           "flex h-full w-full rounded-md",
           activeView === "mobile" && "max-w-80",
         )}
-        onLoad={() => {
-          console.log("onLoad");
-        }}
         ref={iframeRef}
         srcDoc={html}
         style={{ height }}

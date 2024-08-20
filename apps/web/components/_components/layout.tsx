@@ -26,7 +26,9 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
         </Head>
 
         <Body>
-          <Container>{children}</Container>
+          {/* This margin here and h-screen are purely meant for the preview server, 
+              and might break if sent to email clients */}
+          <Container className="my-auto h-screen">{children}</Container>
         </Body>
       </Tailwind>
     </Html>
