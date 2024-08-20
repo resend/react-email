@@ -7,6 +7,8 @@ import {
   pathToComponents,
 } from "../../../components/structure";
 
+export type CodeVariant = "tailwind" | "inline-styles";
+
 /**
  * A fuller version of the already defined `Component`.
  */
@@ -29,7 +31,7 @@ export interface ImportedComponent {
    * for the same pattern, or just the code if there are no variants
    * for this pattern. This can happen on patterns that don't use any styles.
    */
-  code: Partial<Record<"tailwind" | "inline-styles", string>> | string;
+  code: Partial<Record<CodeVariant, string>> | string;
 }
 
 const ComponentModule = z.object({
@@ -41,7 +43,12 @@ const getComponentCodeFrom = (fileContent: string) => {
     /export\s+const\s+component\s*=\s*\(\s*(?<componentCode>[\s\S]+?)\s*\);/gm;
   const match = componentCodeRegex.exec(fileContent);
   if (match?.groups?.componentCode) {
-    return match.groups.componentCode;
+    // We need to remove the extra spaces that are included because of formatting
+    // in the original file for the pattern
+    return match.groups.componentCode
+      .split(/\r\n|\r|\n/)
+      .map((line, index) => (index !== 0 ? line.slice(2) : line))
+      .join('\n');
   }
 
   throw new Error("Could not find the source code for the pattern", {

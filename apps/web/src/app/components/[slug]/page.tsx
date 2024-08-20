@@ -1,11 +1,9 @@
-"use server";
-
 import { renderAsync } from "@react-email/components";
 import { notFound } from "next/navigation";
 import { slugify } from "../../../utils/slugify";
 import { Topbar } from "../../../components/topbar";
-import type { RenderedComponent } from "../../../components/component-view-wrapper";
-import { ComponentViewWrapper } from "../../../components/component-view-wrapper";
+import type { RenderedComponent } from "../../../components/component-view";
+import { ComponentView } from "../../../components/component-view";
 import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
 import type { ImportedComponent } from "../get-components";
@@ -95,7 +93,15 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
               laudantium. Accusantium, exercitationem!
             </p>
           </div>
-          <ComponentViewWrapper components={renderedComponents} />
+          <div className="relative flex flex-col gap-4 border-y border-zinc-900 pt-3">
+            {renderedComponents.map((component, index) => (
+              <ComponentView
+                className={index !== 0 ? "border-t border-zinc-900 pt-4" : ""}
+                component={component}
+                key={component.slug}
+              />
+            ))}
+          </div>
         </PageTransition>
       </div>
     </Tooltip.Provider>

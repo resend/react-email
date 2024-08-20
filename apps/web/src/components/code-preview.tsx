@@ -26,7 +26,7 @@ export const CodePreview = ({ code, children }: CodePreviewProps) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
       <div
         aria-label="Copy code"
         className="absolute right-4 top-4 cursor-pointer bg-transparent p-2"
@@ -46,8 +46,8 @@ export const CodePreview = ({ code, children }: CodePreviewProps) => {
           }`}
         />
       </div>
-      <div className="max-h-[650px] overflow-auto rounded-md bg-zinc-900">
-        <div className="inline-block overflow-x-auto p-4 text-sm">
+      <div className="max-h-[650px] w-full rounded-md bg-zinc-900">
+        <div className="inline-block w-full overflow-x-auto p-4 text-sm">
           {children}
         </div>
       </div>
