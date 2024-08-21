@@ -1,5 +1,9 @@
-/** @type {import('next').NextConfig} */
-module.exports = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  devIndicators: {
+    appIsrStatus: false,
+  },
   reactStrictMode: true,
   serverExternalPackages: ["@react-email/components", "@react-email/render"],
   async redirects() {
@@ -44,3 +48,5 @@ module.exports = {
     ];
   },
 };
+
+export default nextConfig;

@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import type { HTMLMotionProps, SVGMotionProps } from "framer-motion";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -29,7 +30,7 @@ const PageTransition = ({
           opacity: 1,
           y: 0,
         }}
-        className={className}
+        className={classNames("relative z-[2] w-full", className)}
         initial={{
           opacity: 0,
           y: 4,

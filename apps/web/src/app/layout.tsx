@@ -1,7 +1,35 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
-import "./globals.css";
-import { inter } from "./inter";
+import "@/styles/globals.css";
+import localFont from "next/font/local";
+import { Topbar } from "@/components/topbar";
+import { Footer } from "@/components/footer";
+
+const inter = localFont({
+  display: "swap",
+  preload: true,
+  src: "../../public/fonts/inter/inter.ttf",
+  variable: "--font-inter",
+  weight: "400 700",
+});
+
+const commitMono = localFont({
+  display: "swap",
+  preload: true,
+  src: [
+    {
+      path: "../../public/fonts/commit-mono/commit-mono-regular.ttf",
+      style: "normal",
+      weight: "400",
+    },
+    {
+      path: "../../public/fonts/commit-mono/commit-mono-italic.ttf",
+      style: "italic",
+      weight: "400",
+    },
+  ],
+  variable: "--font-commit-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://react.email"),
@@ -15,15 +43,15 @@ export const metadata: Metadata = {
     name: "Resend Team",
   },
   icons: {
-    apple: "/static/apple-touch-icon.png",
+    apple: "/meta/apple-touch-icon.png",
     icon: [
       {
         sizes: "any",
-        url: "/static/favicon.ico",
+        url: "/meta/favicon.ico",
       },
       {
         type: "image/svg+xml",
-        url: "/static/favicon.svg",
+        url: "/meta/favicon.svg",
       },
     ],
   },
@@ -32,7 +60,7 @@ export const metadata: Metadata = {
       "A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.",
     images: [
       {
-        url: "static/cover.png",
+        url: "meta/cover.png",
       },
     ],
     locale: "en_US",
@@ -52,11 +80,13 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} relative bg-black font-sans text-slate-12 selection:bg-cyan-5 selection:text-cyan-12`}
-      >
-        {children}
+    <html className={`${inter.variable} ${commitMono.variable}`} lang="en">
+      <body className="bg-black font-sans text-sm text-slate-11 h-screen-ios selection:bg-cyan-5 selection:text-cyan-12">
+        <div className="relative mx-auto flex min-h-[100dvh] max-w-7xl flex-col justify-between px-4">
+          <Topbar />
+          {children}
+          <Footer />
+        </div>
         <Analytics />
       </body>
     </html>

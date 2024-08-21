@@ -3,7 +3,6 @@
   "rules": {
     "@typescript-eslint/require-await": "off",
     "eslint-comments/require-description": "off",
-    "react/display-name": "off"
-  }
+    "react/display-name": "off",
+  },
 }
-

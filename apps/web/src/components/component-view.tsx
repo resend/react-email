@@ -1,133 +1,233 @@
+"use client";
+
 import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import * as Select from "@radix-ui/react-select";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClipboardIcon,
+} from "lucide-react";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { motion } from "framer-motion";
 import type { CodeVariant } from "../app/components/get-components";
-import { CodePreview } from "./code-preview";
 import { ComponentPreview } from "./component-preview";
 import { CodeBlock } from "./code-block";
 import type { RenderedComponent } from "./components-view";
+import { Tooltip } from "./tooltip";
+import { IconMonitor } from "./icons/icon-monitor";
+import { IconPhone } from "./icons/icon-phone";
+import { IconSource } from "./icons/icon-source";
 
 interface ComponentViewProps {
   component: RenderedComponent;
   className?: string;
-
-  codeVariant: CodeVariant;
-  onChangeCodeVariant: (v: CodeVariant) => void;
 }
 
 type ActiveView = "code" | "desktop" | "mobile";
 
+const TabTrigger: React.FC<{
+  value: ActiveView;
+  activeView: ActiveView;
+  icon: React.ReactNode;
+  tooltip: string;
+}> = ({ value, activeView, icon, tooltip }) => (
+  <Tooltip>
+    <Tooltip.Trigger asChild>
+      <Tabs.Trigger
+        className="relative px-3 py-1.5"
+        style={{ WebkitTapHighlightColor: "transparent" }}
+        value={value}
+      >
+        {activeView === value && (
+          <motion.span
+            className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6"
+            layoutId="tab-bubble"
+            transition={{
+              type: "spring",
+              bounce: 0.18,
+              duration: 0.6,
+            }}
+          />
+        )}
+        {icon}
+      </Tabs.Trigger>
+    </Tooltip.Trigger>
+    <Tooltip.Content>{tooltip}</Tooltip.Content>
+  </Tooltip>
+);
+
+const TabContent: React.FC<{
+  value: ActiveView;
+  children: React.ReactNode;
+  additionalClasses?: string;
+}> = ({ value, children, additionalClasses = "" }) => (
+  <Tabs.Content
+    className={`relative mx-8 my-4 h-max overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
+    value={value}
+  >
+    {children}
+  </Tabs.Content>
+);
+
 export const ComponentView: React.FC<ComponentViewProps> = ({
   component,
   className,
-  codeVariant,
-  onChangeCodeVariant,
 }) => {
   const [activeView, setActiveView] = React.useState<ActiveView>("desktop");
+  const [selectedCodeVariant, setSelectedCodeVariant] =
+    React.useState<CodeVariant>("tailwind");
+  const [isCopied, setIsCopied] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("code-variant") === "inline-styles") {
+      setSelectedCodeVariant("inline-styles");
+    }
+  }, []);
+
   const code =
     typeof component.code === "string"
       ? component.code
-      : component.code[codeVariant] ?? "";
+      : (component.code[selectedCodeVariant] ?? "");
+
+  const onCopy = () => {
+    void navigator.clipboard.writeText(code);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
+  const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
+    event,
+  ) => {
+    if (event.key === "Enter" || event.key === " ") {
+      onCopy();
+    }
+  };
 
   return (
     <Tabs.Root
-      className="relative flex flex-col gap-2"
+      className="relative flex w-full flex-col gap-2"
       defaultValue={activeView}
-      onValueChange={(v: ActiveView) => {
-        setActiveView(v);
+      onValueChange={(value: string) => {
+        setActiveView(value as ActiveView);
       }}
     >
-      <div
-        className={classNames(
-          "relative flex w-full items-center gap-4 px-8 pb-2",
-          className,
-        )}
-      >
-        <h2 className="shrink grow basis-0 text-xl font-semibold text-zinc-200">
-          {component.title}
-        </h2>
-        <Tabs.List className="flex w-fit items-center gap-4 text-xs">
-          <Tabs.Trigger value="desktop">Desktop</Tabs.Trigger>
-          <Tabs.Trigger value="mobile">Mobile</Tabs.Trigger>
-          <Tabs.Trigger value="code">Code</Tabs.Trigger>
-          <div className="ml-2 hidden h-5 w-px bg-zinc-900 sm:block" />
-          {activeView === "code" && typeof component.code === "object" ? (
-            <Select.Root
-              onValueChange={(variant: CodeVariant) => {
-                onChangeCodeVariant(variant);
-              }}
-              value={codeVariant}
-            >
-              <Select.Trigger
-                aria-label="Choose the styling solution"
-                className="inline-flex h-8 items-center justify-center gap-1 rounded bg-zinc-900 px-3 leading-none outline-none data-[placeholder]:text-zinc-50"
-              >
-                <Select.Value>
-                  {codeVariant === "tailwind" ? "Tailwind CSS" : "Inline CSS"}
-                </Select.Value>
-                <Select.Icon>
-                  <ChevronDownIcon size={14} />
-                </Select.Icon>
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content className="overflow-hidden rounded-md bg-zinc-900">
-                  <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
-                    <ChevronUpIcon size={12} />
-                  </Select.ScrollUpButton>
-                  <Select.Viewport className="p-1">
-                    <Select.Group className="flex flex-col gap-1">
-                      {Object.keys(component.code).map((variant) => (
-                        <Select.Item
-                          className="relative flex h-6 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-zinc-400 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-zinc-800 data-[highlighted]:text-zinc-50 data-[highlighted]:outline-none"
-                          key={variant}
-                          value={variant}
-                        >
-                          <Select.ItemText>
-                            {variant === "tailwind"
-                              ? "Tailwind CSS"
-                              : "Inline CSS"}
-                          </Select.ItemText>
-                          <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-zinc-200">
-                            <CheckIcon size={10} />
-                          </Select.ItemIndicator>
-                        </Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Viewport>
-                </Select.Content>
-              </Select.Portal>
-            </Select.Root>
-          ) : null}
-          <button tabIndex={0} type="button">
-            <span>Copy</span>
-          </button>
-        </Tabs.List>
-        <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-zinc-900" />
-      </div>
-      <Tabs.Content
-        className="relative mx-8 my-4 h-max rounded-md border border-zinc-900 bg-slate-100"
-        value="desktop"
-      >
-        <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-        <ComponentPreview activeView="desktop" html={component.html} />
-      </Tabs.Content>
-      <Tabs.Content
-        className="relative mx-8 my-4 h-max rounded-md border border-zinc-900 bg-slate-100"
-        value="mobile"
-      >
-        <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-        <ComponentPreview activeView="mobile" html={component.html} />
-      </Tabs.Content>
-      <Tabs.Content
-        className="relative mx-8 my-4 rounded-md border border-zinc-900"
-        value="code"
-      >
-        <CodePreview code={code}>
-          <CodeBlock language="tsx">{code}</CodeBlock>
-        </CodePreview>
-      </Tabs.Content>
+      <TooltipProvider>
+        <div
+          className={classNames(
+            "relative flex w-full items-center gap-4 px-8 pb-3",
+            className,
+          )}
+        >
+          <h2 className="shrink grow basis-0 text-xl font-semibold text-slate-12">
+            {component.title}
+          </h2>
+          <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden text-xs">
+            <TabTrigger
+              activeView={activeView}
+              icon={<IconMonitor />}
+              tooltip="Desktop"
+              value="desktop"
+            />
+            <TabTrigger
+              activeView={activeView}
+              icon={<IconPhone />}
+              tooltip="Mobile"
+              value="mobile"
+            />
+            <TabTrigger
+              activeView={activeView}
+              icon={<IconSource />}
+              tooltip="Code"
+              value="code"
+            />
+          </Tabs.List>
+          <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-slate-4" />
+        </div>
+        <div className="relative w-full transition-all duration-300 ease-in-out [height:calc-size(auto)] [transition-behavior:allow-discrete]">
+          <TabContent additionalClasses="bg-zinc-200" value="desktop">
+            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+            <ComponentPreview activeView="desktop" html={component.html} />
+          </TabContent>
+          <TabContent additionalClasses="bg-zinc-200" value="mobile">
+            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+            <ComponentPreview activeView="mobile" html={component.html} />
+          </TabContent>
+          <TabContent value="code">
+            <div className="flex w-full flex-col gap-2 overflow-x-auto bg-slate-3 p-4">
+              <div className="relative flex w-fit gap-4 self-end px-2 text-xs">
+                {activeView === "code" && typeof component.code === "object" ? (
+                  <Select.Root
+                    onValueChange={(variant: CodeVariant) => {
+                      setSelectedCodeVariant(variant);
+                      localStorage.setItem("code-variant", variant);
+                    }}
+                    value={selectedCodeVariant}
+                  >
+                    <Select.Trigger
+                      aria-label="Choose the styling solution"
+                      className="flex h-8 items-center justify-center gap-1 rounded bg-slate-4 px-3 leading-none outline-none data-[placeholder]:text-slate-11"
+                    >
+                      <Select.Value>
+                        {selectedCodeVariant === "tailwind"
+                          ? "Tailwind CSS"
+                          : "Inline CSS"}
+                      </Select.Value>
+                      <Select.Icon>
+                        <ChevronDownIcon size={14} />
+                      </Select.Icon>
+                    </Select.Trigger>
+                    <Select.Portal>
+                      <Select.Content className="z-[2] overflow-hidden rounded-md bg-[#1F2122]">
+                        <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
+                          <ChevronUpIcon size={12} />
+                        </Select.ScrollUpButton>
+                        <Select.Viewport className="p-1">
+                          {Object.keys(component.code).map((variant) => (
+                            <Select.Item
+                              className="relative flex h-6 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-6 data-[highlighted]:text-slate-11 data-[highlighted]:outline-none"
+                              key={variant}
+                              value={variant}
+                            >
+                              <Select.ItemText>
+                                {variant === "tailwind"
+                                  ? "Tailwind CSS"
+                                  : "Inline CSS"}
+                              </Select.ItemText>
+                              <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-slate-12">
+                                <CheckIcon size={10} />
+                              </Select.ItemIndicator>
+                            </Select.Item>
+                          ))}
+                        </Select.Viewport>
+                      </Select.Content>
+                    </Select.Portal>
+                  </Select.Root>
+                ) : null}
+                <button
+                  aria-label="Copy code"
+                  onClick={onCopy}
+                  onKeyUp={handleKeyUp}
+                  tabIndex={0}
+                  type="button"
+                >
+                  {isCopied ? (
+                    <CheckIcon size={16} />
+                  ) : (
+                    <ClipboardIcon size={16} />
+                  )}
+                </button>
+              </div>
+              <CodeBlock language="tsx">{code}</CodeBlock>
+            </div>
+          </TabContent>
+        </div>
+      </TooltipProvider>
     </Tabs.Root>
   );
 };

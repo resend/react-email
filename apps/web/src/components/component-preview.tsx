@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface ComponentPreviewProps {
   activeView: string;
@@ -22,11 +22,11 @@ export const ComponentPreview = ({
       const iframeDocument =
         element.contentDocument || element.contentWindow.document;
       const iframeHeight = iframeDocument.body.scrollHeight;
-      setHeight(`calc(${iframeHeight}px + 8dvh)`);
+      setHeight(`calc(${iframeHeight}px + 4dvh)`);
     }
   };
 
-  const handleLoad = (element: HTMLIFrameElement) => {
+  const handleLoad = useCallback((element: HTMLIFrameElement) => {
     adjustHeight(element);
 
     if (iframeRef.current?.contentDocument) {
@@ -39,7 +39,7 @@ export const ComponentPreview = ({
         attributes: true,
       });
     }
-  };
+  }, []);
 
   // This is meant to handle the first load of the preview as it seems
   // like the event is not listened to at first
@@ -47,7 +47,7 @@ export const ComponentPreview = ({
     if (iframeRef.current) {
       handleLoad(iframeRef.current);
     }
-  }, []);
+  }, [handleLoad]);
 
   useEffect(() => {
     const element = iframeRef.current;
@@ -65,25 +65,19 @@ export const ComponentPreview = ({
         });
       }
     };
-  }, [html]);
+  }, [handleLoad, html]);
 
   return (
-    <div
+    <iframe
       className={classNames(
-        "relative flex items-center justify-center overflow-auto",
+        "m-auto -mt-4 flex rounded-md",
+        activeView === "mobile" ? "w-[30rem]" : "w-full",
         className,
       )}
-    >
-      <iframe
-        className={classNames(
-          "flex rounded-md",
-          activeView === "mobile" ? "w-[360px]" : "w-full",
-        )}
-        ref={iframeRef}
-        srcDoc={html}
-        style={{ height }}
-        title="Component preview"
-      />
-    </div>
+      ref={iframeRef}
+      srcDoc={html}
+      style={{ height }}
+      title="Component preview"
+    />
   );
 };

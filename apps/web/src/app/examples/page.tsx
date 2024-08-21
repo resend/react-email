@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
 import { Example } from "../../components/example";
-import { Footer } from "../../components/footer";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
-import { Topbar } from "../../components/topbar";
 import PageTransition from "../../components/page-transition";
 
 const items = [
@@ -117,56 +115,52 @@ export const metadata: Metadata = {
   },
 };
 
-const Examples = () => {
-  return (
-    <div className="relative mx-auto flex h-[100dvh] max-w-7xl flex-col justify-between px-4 h-screen-ios">
-      <Image
-        alt=""
-        className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
-        fill
-        priority
-        src="/static/bg.png"
-      />
-      <Topbar />
-      <PageTransition
-        className="mx-auto flex max-w-3xl flex-col justify-center py-10"
-        key="about"
-        tag="main"
-      >
-        <div className="mb-12 max-w-[46rem] text-center">
-          <Heading className="mb-2 text-white" size="8">
-            Examples
-          </Heading>
-          <Text as="p" className="text-slate-11" size="4">
-            {description}.
-          </Text>
-          <Text as="p" className="text-slate-11" size="4">
-            Recreate an{" "}
-            <Anchor
-              href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
-              target="_blank"
-            >
-              existing email
-            </Anchor>{" "}
-            or submit a{" "}
-            <Anchor
-              href="https://github.com/resend/react-email/tree/main/demo"
-              target="_blank"
-            >
-              pull request
-            </Anchor>{" "}
-            to add your template here.
-          </Text>
-        </div>
-        <div className="grid grid-cols-2 gap-8">
-          {items.map((item) => (
-            <Example key={item.path} {...item} />
-          ))}
-        </div>
-      </PageTransition>
-      <Footer />
-    </div>
-  );
-};
+const Examples = () => (
+  <>
+    <Image
+      alt=""
+      className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
+      fill
+      priority
+      src="/static/bg.png"
+    />
+    <PageTransition
+      className="mx-auto flex max-w-3xl flex-col justify-center py-10"
+      key="about"
+      tag="main"
+    >
+      <div className="mb-12 max-w-[46rem] text-center">
+        <Heading className="mb-2 text-white" size="8">
+          Examples
+        </Heading>
+        <Text as="p" className="text-slate-11" size="4">
+          {description}.
+        </Text>
+        <Text as="p" className="text-slate-11" size="4">
+          Recreate an{" "}
+          <Anchor
+            href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+            target="_blank"
+          >
+            existing email
+          </Anchor>{" "}
+          or submit a{" "}
+          <Anchor
+            href="https://github.com/resend/react-email/tree/main/demo"
+            target="_blank"
+          >
+            pull request
+          </Anchor>{" "}
+          to add your template here.
+        </Text>
+      </div>
+      <div className="grid grid-cols-2 gap-8">
+        {items.map((item) => (
+          <Example key={item.path} {...item} />
+        ))}
+      </div>
+    </PageTransition>
+  </>
+);
 
 export default Examples;

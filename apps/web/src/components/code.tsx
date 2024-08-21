@@ -3,8 +3,8 @@
 import classNames from "classnames";
 import { Highlight } from "prism-react-renderer";
 import * as React from "react";
+import { CheckIcon, ClipboardIcon } from "lucide-react";
 import { IconButton } from "./icon-button";
-import { IconCheck, IconClipboard } from "./icons";
 
 interface CodeProps {
   children: string;
@@ -16,7 +16,7 @@ const theme = {
   plain: {
     color: "#EDEDEF",
     fontSize: 13,
-    fontFamily: "MonoLisa, Menlo, monospace",
+    fontFamily: "CommitMono, monospace",
   },
   styles: [
     {
@@ -59,18 +59,18 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-10 text-sm backdrop-blur-md",
+            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-10 font-mono text-sm backdrop-blur-md",
             className,
           )}
           style={{
             lineHeight: "130%",
             background:
               "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
-            boxShadow: "rgb(0 0 0 / 10%) 0px 5px 30px -5px",
+            boxShadow: "rgb(0 0 0 / 10%) 0rem .3125rem 1.875rem -0.3125rem",
           }}
         >
           <IconButton
-            className="absolute right-2"
+            className="absolute right-3"
             onClick={() => {
               setIsCopied(true);
               void navigator.clipboard.writeText(value);
@@ -79,10 +79,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
               }, 3000);
             }}
           >
-            {isCopied ? <IconCheck /> : <IconClipboard />}
+            {isCopied ? <CheckIcon size={16} /> : <ClipboardIcon size={16} />}
           </IconButton>
           <div
-            className="absolute right-0 top-0 h-px w-[200px]"
+            className="absolute right-0 top-0 h-px w-[12.5rem]"
             style={{
               background:
                 "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",
@@ -116,7 +116,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             );
           })}
           <div
-            className="absolute bottom-0 left-0 h-px w-[200px]"
+            className="absolute bottom-0 left-0 h-px w-[12.5rem]"
             style={{
               background:
                 "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",

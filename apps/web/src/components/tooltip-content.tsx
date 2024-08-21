@@ -1,9 +1,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import * as React from "react";
-import classNames from "classnames";
-import { inter } from "../app/inter";
 
-type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
+type ContentElement = React.ComponentRef<typeof TooltipPrimitive.Content>;
 type ContentProps = Omit<
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
   "sideOffset"
@@ -20,10 +18,7 @@ export const TooltipContent = React.forwardRef<
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       {...props}
-      className={classNames(
-        "z-20 rounded-md border border-slate-6 bg-black px-3 py-2 text-xs text-white",
-        `${inter.variable} font-sans`,
-      )}
+      className="z-20 rounded-md border border-slate-6 bg-black px-3 py-2 text-xs text-white"
       ref={forwardedRef}
       sideOffset={sideOffset}
     >
