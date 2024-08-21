@@ -33,7 +33,7 @@
   "exclude": [
     "tsconfig.export.json",
     ".next",
-    "cli",
+    "dist",
     "node_modules"
   ]
 }

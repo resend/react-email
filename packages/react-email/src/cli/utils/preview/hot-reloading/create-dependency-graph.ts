@@ -1,7 +1,7 @@
 import path, { resolve } from 'node:path';
 import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
-import { isRunningBuilt } from '../start-dev-server';
+import { isDev } from '../start-dev-server';
 
 interface Module {
   path: string;
@@ -117,7 +117,7 @@ export const createDependencyGraph = async (directory: string) => {
             );
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
-            } else if (!isRunningBuilt) {
+            } else if (isDev) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
               console.warn(
                 `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
@@ -135,7 +135,7 @@ export const createDependencyGraph = async (directory: string) => {
             );
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
-            } else if (!isRunningBuilt) {
+            } else if (isDev) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
               console.warn(
                 `Could not determine the file extension for the file at ${pathWithExtension}`,
