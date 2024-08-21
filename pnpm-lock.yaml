@@ -123,6 +123,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
+      react-email:
+        specifier: workspace:*
+        version: link:../../packages/react-email
       resend:
         specifier: 3.5.0
         version: 3.5.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
@@ -190,9 +193,6 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: 0.6.6
         version: 0.6.6(prettier@3.3.3)
-      react-email:
-        specifier: workspace:*
-        version: link:../../packages/react-email
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig

@@ -1,6 +1,6 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
-const nextConfig: NextConfig = {
+module.exports = {
   devIndicators: {
     appIsrStatus: false,
   },
@@ -48,5 +48,3 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
-export default nextConfig;
