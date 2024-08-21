@@ -56,7 +56,7 @@ Import an existing React component and convert into a HTML string.
 import { MyTemplate } from './email';
 import { render } from '@react-email/render';
 
-const html = render(<MyTemplate />, {
+const html = await render(<MyTemplate />, {
   pretty: true,
 });
 
@@ -98,7 +98,7 @@ Here's how to convert a React component into plain text.
 import { MyTemplate } from './email';
 import { render } from '@react-email/render';
 
-const text = render(<MyTemplate />, {
+const text = await render(<MyTemplate />, {
   plainText: true,
 });
 
@@ -127,11 +127,3 @@ Click me [https://example.com]
   `html-to-text` [options](https://github.com/html-to-text/node-html-to-text/tree/master/packages/html-to-text#options) used for rendering
 </ResponseField>
 
-## Caveats
-
-If you are using NextJS with the `render` function, be aware that
-with Next **14** or above you might have errors using it.
-
-So it is recommended that you use the `renderAsync` variant of this function.
-It has the same API but uses different underlying React functions to avoid
-problems like these.

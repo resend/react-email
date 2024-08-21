@@ -4,7 +4,7 @@ import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
 import { escapeStringForRegex } from './escape-string-for-regex';
 
 /**
- * Made to export the `renderAsync` function out of the user's email template
+ * Made to export the `render` function out of the user's email template
  * so that issues like https://github.com/resend/react-email/issues/649 don't
  * happen.
  *
@@ -28,7 +28,7 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};
-          export { renderAsync } from 'react-email-module-that-will-export-render'
+          export { render } from 'react-email-module-that-will-export-render'
           export { createElement as reactEmailCreateReactElement } from 'react';
         `,
           loader: path.extname(pathToFile).slice(1) as Loader,
@@ -54,7 +54,7 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
         result = await b.resolve('@react-email/components', options);
         if (result.errors.length > 0 && result.errors[0]) {
           result.errors[0].text =
-            "Failed trying to import `renderAsync` from either `@react-email/render` or `@react-email/components` to be able to render your email template.\n Maybe you don't have either of them installed?";
+            "Failed trying to import `render` from either `@react-email/render` or `@react-email/components` to be able to render your email template.\n Maybe you don't have either of them installed?";
         }
         return result;
       },

@@ -1,5 +1,5 @@
 import { render } from "@react-email/render";
-import { Tailwind as CurrentTailwind } from "../../../packages/tailwind/dist";
+import { Tailwind as CurrentTailwind } from "@react-email/tailwind";
 import EmailWithTailwind from "./emails/with-tailwind.js";
 
-render(EmailWithTailwind({ Tailwind: CurrentTailwind }));
+await render(EmailWithTailwind({ Tailwind: CurrentTailwind }));
