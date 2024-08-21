@@ -16,7 +16,7 @@ test('getEmailComponent() with a demo email template', async () => {
     expect(result.emailComponent).toBeTruthy();
     expect(result.sourceMapToOriginalFile).toBeTruthy();
 
-    const emailHtml = await result.renderAsync(
+    const emailHtml = await result.render(
       result.createElement(
         result.emailComponent,
         result.emailComponent.PreviewProps,

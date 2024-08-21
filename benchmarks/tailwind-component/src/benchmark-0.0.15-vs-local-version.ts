@@ -11,11 +11,11 @@ const main = async () => {
   });
 
   bench
-    .add("local", () => {
-      render(EmailWithTailwind({ Tailwind: LocalTailwind }));
+    .add("local", async () => {
+      await render(EmailWithTailwind({ Tailwind: LocalTailwind }));
     })
-    .add("0.0.15", () => {
-      render(EmailWithTailwind({ Tailwind: VersionFifteenTailwind }));
+    .add("0.0.15", async () => {
+      await render(EmailWithTailwind({ Tailwind: VersionFifteenTailwind }));
     });
 
   await bench.run();

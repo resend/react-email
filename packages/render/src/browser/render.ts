@@ -1,4 +1,3 @@
-import { Writable } from "node:stream";
 import { convert } from "html-to-text";
 import type {
   PipeableStream,
@@ -24,30 +23,20 @@ const readStream = async (
     });
     await stream.pipeTo(writableStream);
   } else {
-    const writable = new Writable({
-      write(chunk: BufferSource, _encoding, callback) {
-        result += decoder.decode(chunk);
-
-        callback();
+    throw new Error(
+      "For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.",
+      {
+        cause: {
+          stream,
+        },
       },
-    });
-    stream.pipe(writable);
-
-    return new Promise<string>((resolve, reject) => {
-      writable.on("error", reject);
-      writable.on("close", () => {
-        resolve(result);
-      });
-    });
+    );
   }
 
   return result;
 };
 
-/**
- * @deprecated use `render`
- */
-export const renderAsync = async (
+export const render = async (
   component: React.ReactElement,
   options?: Options,
 ) => {
