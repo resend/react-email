@@ -6,7 +6,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import packageJson from '../../../../package.json';
-import { closeOraOnSIGNIT } from '../close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../../../utils/close-ora-on-sigint';
 import { serveStaticFile } from './serve-static-file';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
 
@@ -26,10 +26,13 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isRunningBuilt = __filename.endsWith(path.join('cli', 'index.js'));
-export const cliPacakgeLocation = isRunningBuilt
-  ? path.resolve(__dirname, '..')
-  : path.resolve(__dirname, '../../../..');
+export const isDev = !__filename.endsWith(path.join('cli', 'index.js'));
+export const cliPacakgeLocation = isDev
+  ? path.resolve(__dirname, '../../../..')
+  : path.resolve(__dirname, '../..');
+export const previewServerLocation = isDev
+  ? path.resolve(__dirname, '../../../..')
+  : path.resolve(__dirname, '../preview');
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
@@ -120,16 +123,15 @@ export const startDevServer = async (
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
-      cliPacakgeLocation,
       process.cwd(),
     ),
   };
   const app = next({
     // passing in env here does not get the environment variables there
-    dev: true,
+    dev: isDev,
     hostname: 'localhost',
     port,
-    dir: cliPacakgeLocation,
+    dir: previewServerLocation,
   });
 
   let isNextReady = false;

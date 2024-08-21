@@ -7,8 +7,7 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
-import { getEnvVariablesForPreviewApp } from '../utils/preview/get-env-variables-for-preview-app';
-import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
+import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
 import logSymbols from 'log-symbols';
 
 interface Args {
@@ -43,24 +42,17 @@ const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
 ) => {
-  const envVariables = {
-    ...getEnvVariablesForPreviewApp(
-      // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
-      path.normalize(emailsDirRelativePath),
-      'PLACEHOLDER',
-      'PLACEHOLDER',
-    ),
-    NEXT_PUBLIC_IS_BUILDING: 'true',
-  };
-
   const nextConfigContents = `
 const path = require('path');
+const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
+const userProjectLocation = path.resolve(process.cwd(), '../');
 /** @type {import('next').NextConfig} */
 module.exports = {
   env: {
-    ...${JSON.stringify(envVariables)},
-    NEXT_PUBLIC_USER_PROJECT_LOCATION: path.resolve(process.cwd(), '../'),
-    NEXT_PUBLIC_CLI_PACKAGE_LOCATION: process.cwd(),
+    NEXT_PUBLIC_IS_BUILDING: 'true',
+    EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
+    EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
+    USER_PROJECT_LOCATION: userProjectLocation
   },
   // this is needed so that the code for building emails works properly
   webpack: (
@@ -137,6 +129,22 @@ const forceSSGForEmailPreviews = async (
     emailsDirPath,
   ).map((slug) => ({ slug }));
 
+  const removeForceDynamic = async (filePath: string) => {
+    const contents = await fs.promises.readFile(filePath, 'utf8');
+
+    await fs.promises.writeFile(
+      filePath,
+      contents.replace("export const dynamic = 'force-dynamic';", ''),
+      'utf8',
+    );
+  };
+  await removeForceDynamic(
+    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
+  );
+  await removeForceDynamic(
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
+  );
+
   await fs.promises.appendFile(
     path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
@@ -171,7 +179,6 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   // email templates without `@react-email/render` being installed.
   delete packageJson.devDependencies['@react-email/render'];
   delete packageJson.devDependencies['@react-email/components'];
-  packageJson.dependencies.sharp = '0.33.2';
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
@@ -186,7 +193,7 @@ const npmInstall = async (
   return new Promise<void>(async (resolve, reject) => {
     const childProc = spawn(
       packageManager,
-      ['install', '--silent', '--force'],
+      ['install', '--silent', '--include=dev'],
       {
         cwd: builtPreviewAppPath,
         shell: true,

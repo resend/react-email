@@ -1,7 +1,7 @@
 import type http from 'node:http';
 import path from 'node:path';
 import { Server as SocketServer, type Socket } from 'socket.io';
-import { FSWatcher, watch } from 'chokidar';
+import { watch } from 'chokidar';
 import debounce from 'debounce';
 import type { HotReloadChange } from '../../../../utils/types/hot-reload-change';
 import { createDependencyGraph } from './create-dependency-graph';
@@ -38,15 +38,15 @@ export const setupHotreloading = async (
     process.cwd(),
     emailDirRelativePath,
   );
+
   const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
     await createDependencyGraph(absolutePathToEmailsDirectory);
 
-  const watcher = watch(emailDirRelativePath, {
+  const watcher = watch('', {
     ignoreInitial: true,
-    cwd: process.cwd(),
-    // eslint-disable-next-line prefer-named-capture-group
-    ignored: /(^|[/\\])\../, // ignore dotfiles
+    cwd: absolutePathToEmailsDirectory,
   });
+
   const getFilesOutsideEmailsDirectory = () =>
     Object.keys(dependencyGraph).filter((p) =>
       path.relative(absolutePathToEmailsDirectory, p).startsWith('..'),
@@ -75,6 +75,7 @@ export const setupHotreloading = async (
     );
 
     await updateDependencyGraph(event, pathToChangeTarget);
+
     const newFilesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
     // updates the files outside of the user's emails directory by unwatching
     // the inexistant ones and watching the new ones
