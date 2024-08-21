@@ -10,6 +10,7 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
+    "@benchmarks/preview-server",
     "@benchmarks/tailwind-component",
     "demo",
     "web"
