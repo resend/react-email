@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.0-canary.1
+
+### Patch Changes
+
+- b87cbbf: Fix sharp warning when running `email dev`
+
 ## 3.0.0-canary.0
 
 ### Major Changes
