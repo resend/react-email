@@ -129,6 +129,12 @@ export const startDevServer = async (
   const app = next({
     // passing in env here does not get the environment variables there
     dev: isDev,
+    conf: {
+      images: {
+        // This is to avoid the warning with sharp
+        unoptimized: true
+      }
+    },
     hostname: 'localhost',
     port,
     dir: previewServerLocation,
