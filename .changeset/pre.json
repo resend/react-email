@@ -30,16 +30,20 @@
     "@react-email/section": "0.0.13",
     "@react-email/tailwind": "0.0.19",
     "@react-email/text": "0.0.9",
-    "tsconfig": "0.0.0"
+    "tsconfig": "0.0.0",
+    "@benchmarks/preview-server": "0.0.0"
   },
   "changesets": [
     "curly-fireants-allow",
     "dry-humans-return",
     "fast-countries-marry",
+    "five-humans-dream",
     "many-donuts-retire",
+    "nasty-carrots-burn",
     "new-coats-cover",
     "odd-bobcats-know",
     "old-suits-promise",
+    "popular-eagles-sniff",
     "tame-windows-look",
     "wild-mugs-kick"
   ]
