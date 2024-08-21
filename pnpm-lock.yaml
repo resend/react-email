@@ -713,8 +713,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       '@react-email/render':
-        specifier: 0.0.18-canary.0
-        version: 0.0.18-canary.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: workspace:*
+        version: link:../render
       '@swc/core':
         specifier: 1.4.15
         version: 1.4.15(@swc/helpers@0.5.11)
@@ -2315,13 +2315,6 @@ packages:
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
-
-  '@react-email/render@0.0.18-canary.0':
-    resolution: {integrity: sha512-sVvWTuERDHFljyhTR4EnfmG7nvpq3qLg0njgv/EW9NFBKefMEPC7khqvhXJ3r5jQcHwIlNnA7qBNpzDK27QpVw==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^18.0 || ^19.0 || ^19.0.0-rc
-      react-dom: ^18.0 || ^19.0 || ^19.0.0-rc
 
   '@react-email/tailwind@0.0.12':
     resolution: {integrity: sha512-s8Ch7GL30qRKScn9NWwItMqxjtzbyUtCnXfC6sL2YTVtulbfvZZ06W+aA0S6f7fdrVlOOlQzZuK/sVaQCHhcSw==}
@@ -7663,14 +7656,6 @@ snapshots:
       js-beautify: 1.15.1
       react: 19.0.0-rc.0
       react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
-      react-promise-suspense: 0.3.4
-
-  '@react-email/render@0.0.18-canary.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      html-to-text: 9.0.5
-      js-beautify: 1.15.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
       react-promise-suspense: 0.3.4
 
   '@react-email/tailwind@0.0.12(react@19.0.0-rc.0)':
