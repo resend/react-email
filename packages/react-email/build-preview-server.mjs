@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { existsSync, promises as fs } from 'node:fs';
+import fs from 'node:fs';
 
 const nextBuildProcess = spawn('next', ['build'], {
   detached: true,
@@ -10,15 +10,15 @@ process.on('SIGINT', () => {
   nextBuildProcess.kill('SIGINT');
 });
 
-nextBuildProcess.on('exit', async (code) => {
+nextBuildProcess.on('exit', (code) => {
   if (code !== 0) {
     process.exit(code);
   }
 
-  if (existsSync('dist/preview')) {
-    await fs.rm('dist/preview', { recursive: true });
+  if (fs.existsSync('dist/preview')) {
+    fs.rmSync('dist/preview', { recursive: true });
   }
-  await fs.mkdir('dist/preview', { recursive: true });
-  await fs.rename('.next', 'dist/preview/.next');
+  fs.mkdirSync('dist/preview', { recursive: true });
+  fs.renameSync('.next', 'dist/preview/.next');
 });
 
