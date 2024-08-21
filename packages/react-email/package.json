@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "2.2.0-alpha-fa7021659-20240814",
+  "version": "3.0.0-canary.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.js"

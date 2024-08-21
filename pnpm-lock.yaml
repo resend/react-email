@@ -366,7 +366,7 @@ importers:
         specifier: workspace:0.0.11-canary.0
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:0.0.18-canary.0
+        specifier: workspace:1.0.0-canary.1
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.10-canary.0
@@ -441,7 +441,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.23-canary.2
+        specifier: workspace:0.0.23-canary.3
         version: link:../../components
       react:
         specifier: 19.0.0-rc.0
@@ -450,7 +450,7 @@ importers:
         specifier: 19.0.0-rc.0
         version: 19.0.0-rc.0(react@19.0.0-rc.0)
       react-email:
-        specifier: workspace:2.2.0-alpha-fa7021659-20240814
+        specifier: workspace:3.0.0-canary.0
         version: link:../../react-email
     devDependencies:
       '@types/react':
