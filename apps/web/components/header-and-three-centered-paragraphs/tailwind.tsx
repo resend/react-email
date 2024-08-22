@@ -4,7 +4,7 @@ import { Layout } from "../_components/layout";
 export const component = (
   <Section className="m-[16px]">
     <Row>
-      <Text className="m-0 text-[24px] leading-[32px] font-semibold text-gray-900">
+      <Text className="m-0 text-[24px] font-semibold leading-[32px] text-gray-900">
         Modern Comfort
       </Text>
       <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -20,7 +20,7 @@ export const component = (
           src="/static/heart-icon.png"
           width="48"
         />
-        <Text className="m-0 mt-[16px] text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 mt-[16px] text-[20px] font-semibold leading-[28px] text-gray-900">
           Timeless Charm
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -35,7 +35,7 @@ export const component = (
           src="/static/rocket-icon.png"
           width="48"
         />
-        <Text className="m-0 mt-[16px] text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 mt-[16px] text-[20px] font-semibold leading-[28px] text-gray-900">
           Functional Beauty
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -50,7 +50,7 @@ export const component = (
           src="/static/megaphone-icon.png"
           width="48"
         />
-        <Text className="m-0 mt-[16px] text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 mt-[16px] text-[20px] font-semibold leading-[28px] text-gray-900">
           Endless Comfort
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">

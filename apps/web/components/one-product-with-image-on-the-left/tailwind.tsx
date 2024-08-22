@@ -15,14 +15,14 @@ export const component = (
             />
           </td>
           <td className="w-1/2 align-baseline">
-            <Text className="m-0 mt-[8px] text-[20px] leading-[28px] font-semibold text-gray-900">
+            <Text className="m-0 mt-[8px] text-[20px] font-semibold leading-[28px] text-gray-900">
               Sleek Storage
             </Text>
             <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
               Contemporary design with ample storage space, perfect for
               organizing your essentials.
             </Text>
-            <Text className="mt-[8px] text-[18px] leading-[28px] font-semibold text-gray-900">
+            <Text className="mt-[8px] text-[18px] font-semibold leading-[28px] text-gray-900">
               $599.99
             </Text>
             <Button

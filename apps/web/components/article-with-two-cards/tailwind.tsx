@@ -5,7 +5,7 @@ import { Layout } from "../_components/layout";
 export const component = (
   <Section className="m-[16px]">
     <Row>
-      <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+      <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
         Elevate Outdoor Living
       </Text>
       <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -14,17 +14,20 @@ export const component = (
       </Text>
     </Row>
     <Row className="mt-[16px]">
-      <Column className="box-border w-[50%] pr-[8px] align-baseline" colSpan={1}>
+      <Column
+        className="box-border w-[50%] pr-[8px] align-baseline"
+        colSpan={1}
+      >
         <Img
           alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
           className="w-full rounded-[8px] object-cover"
           height="180"
           src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         />
-        <Text className="text-[16px] leading-[24px] font-semibold text-indigo-600">
+        <Text className="text-[16px] font-semibold leading-[24px] text-indigo-600">
           What's new
         </Text>
-        <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
           Multifunctional Marvels
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -33,17 +36,20 @@ export const component = (
           space and enhancing functionality in your home
         </Text>
       </Column>
-      <Column className="box-border w-[50%] pl-[8px] align-baseline" colSpan={1}>
+      <Column
+        className="box-border w-[50%] pl-[8px] align-baseline"
+        colSpan={1}
+      >
         <Img
           alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
           className="w-full rounded-[8px] object-cover"
           height="180"
           src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         />
-        <Text className="text-[16px] leading-[24px] font-semibold text-indigo-600">
+        <Text className="text-[16px] font-semibold leading-[24px] text-indigo-600">
           What's new
         </Text>
-        <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
           Timeless Classics
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">

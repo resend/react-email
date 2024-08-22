@@ -9,10 +9,10 @@ export const component = (
   <Section className="m-[16px]">
     <Section className="mt-[4px]">
       <Row>
-        <Text className="m-0 text-[16px] leading-[24px] font-semibold text-indigo-600">
+        <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
           What's new
         </Text>
-        <Text className="m-0 mt-[8px] text-[24px] leading-[32px] font-semibold text-gray-900">
+        <Text className="m-0 mt-[8px] text-[24px] font-semibold leading-[32px] text-gray-900">
           Functional Style
         </Text>
         <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">

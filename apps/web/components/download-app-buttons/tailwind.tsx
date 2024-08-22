@@ -6,7 +6,9 @@ export const component = (
   <Row>
     <Column align="center">
       <Row>
-        <Text className="text-[18px] leading-[28px] font-bold text-indigo-500">What's new</Text>
+        <Text className="text-[18px] font-bold leading-[28px] text-indigo-500">
+          What's new
+        </Text>
         <Text className="text-gray-900">
           Browse, Customize, and Shop an Extensive Range of Furniture Anytime,
           Anywhere with our app

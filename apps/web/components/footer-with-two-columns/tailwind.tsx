@@ -10,10 +10,12 @@ export const component = (
           height="42"
           src="/static/logo-without-background.png"
         />
-        <Text className="my-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+        <Text className="my-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
           Acme corporation
         </Text>
-        <Text className="mt-[4px] text-[16px] leading-[24px] text-gray-500">Think different</Text>
+        <Text className="mt-[4px] text-[16px] leading-[24px] text-gray-500">
+          Think different
+        </Text>
       </Column>
       <Column align="left" className="table-cell align-bottom">
         <Row className="table-cell h-[44px] w-[56px] align-bottom">

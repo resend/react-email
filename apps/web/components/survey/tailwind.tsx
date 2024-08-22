@@ -10,10 +10,13 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Section className="py-[16px] text-center">
-    <Text className="my-[8px] text-[18px] leading-[28px] font-semibold text-indigo-600">
+    <Text className="my-[8px] text-[18px] font-semibold leading-[28px] text-indigo-600">
       Your opinion matters
     </Text>
-    <Heading as="h1" className="m-0 mt-[8px] text-[30px] leading-[36px] font-semibold text-gray-900">
+    <Heading
+      as="h1"
+      className="m-0 mt-[8px] text-[30px] font-semibold leading-[36px] text-gray-900"
+    >
       We want to hear from you
     </Heading>
     <Text className="text-[16px] leading-[24px] text-gray-700">

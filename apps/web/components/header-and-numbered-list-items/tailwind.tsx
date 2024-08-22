@@ -5,7 +5,7 @@ export const component = (
   <Section className="m-[16px]">
     <Section>
       <Row>
-        <Text className="m-0 text-[24px] leading-[32px] font-semibold text-gray-900">
+        <Text className="m-0 text-[24px] font-semibold leading-[32px] text-gray-900">
           Functional Style
         </Text>
         <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -28,7 +28,7 @@ export const component = (
           </table>
         </Column>
         <Column className="w-[90%]">
-          <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
             Versatile Comfort
           </Text>
           <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -52,7 +52,7 @@ export const component = (
           </table>
         </Column>
         <Column className="w-[90%]">
-          <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
             Luxurious Retreat
           </Text>
           <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -76,7 +76,7 @@ export const component = (
           </table>
         </Column>
         <Column className="w-[90%]">
-          <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
             Unleash Creativity
           </Text>
           <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -100,7 +100,7 @@ export const component = (
           </table>
         </Column>
         <Column className="w-[90%]">
-          <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
             Elevate Outdoor Living
           </Text>
           <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">

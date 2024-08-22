@@ -15,7 +15,7 @@ export const component = (
       </tr>
       <tr className="w-full">
         <td align="center">
-          <Text className="my-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+          <Text className="my-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
             Acme corporation
           </Text>
           <Text className="mb-0 mt-[4px] text-[16px] leading-[24px] text-gray-500">

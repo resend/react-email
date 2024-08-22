@@ -13,7 +13,7 @@ export const component = (
   <Section className="m-[16px]">
     <Section>
       <Row>
-        <Text className="m-0 text-[20px] leading-[28px] font-semibold text-gray-900">
+        <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
           Unleash Creativity
         </Text>
         <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
@@ -29,13 +29,13 @@ export const component = (
             height={180}
             src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <Text className="m-0 mt-[24px] text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
             Sleek study
           </Text>
           <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
             Minimalist design with ample workspace
           </Text>
-          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
             $999.99
           </Text>
           <Button
@@ -52,13 +52,13 @@ export const component = (
             height={180}
             src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=2789&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <Text className="m-0 mt-[24px] text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
             Sleek study
           </Text>
           <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
             Minimalist design with ample workspace
           </Text>
-          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
             $999.99
           </Text>
           <Button
@@ -80,13 +80,13 @@ export const component = (
             height={180}
             src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <Text className="m-0 mt-[24px] text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
             Sleek study
           </Text>
           <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
             Minimalist design with ample workspace
           </Text>
-          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
             $999.99
           </Text>
           <Button
@@ -103,13 +103,13 @@ export const component = (
             height={180}
             src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <Text className="m-0 mt-[24px] text-[20px] leading-[28px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
             Sleek study
           </Text>
           <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
             Minimalist design with ample workspace
           </Text>
-          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] font-semibold text-gray-900">
+          <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
             $999.99
           </Text>
           <Button

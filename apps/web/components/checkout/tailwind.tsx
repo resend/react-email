@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Section className="py-[16px] text-center">
-    <Heading as="h1" className="mb-0 text-[30px] leading-[36px] font-semibold">
+    <Heading as="h1" className="mb-0 text-[30px] font-semibold leading-[36px]">
       You left something in your cart 👀
     </Heading>
     <Section className="m-[16px] rounded-[8px] border border-solid border-gray-200 p-[16px] pt-0">
