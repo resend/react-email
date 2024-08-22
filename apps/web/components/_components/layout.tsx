@@ -8,7 +8,13 @@ import {
 } from "@react-email/components";
 import tailwindConfig from "../tailwind.config";
 
-export const Layout = ({ children, withTailwind = true }: { children?: React.ReactNode, withTailwind?: boolean }) => {
+export const Layout = ({
+  children,
+  withTailwind = true,
+}: {
+  children?: React.ReactNode;
+  withTailwind?: boolean;
+}) => {
   return (
     <Html>
       <Head>
@@ -27,12 +33,25 @@ export const Layout = ({ children, withTailwind = true }: { children?: React.Rea
       <Body>
         {/* This margin here and h-screen are purely meant for the preview server, 
               and might break if sent to email clients */}
-        {withTailwind
-          ? <Tailwind config={tailwindConfig}>
-            <Container style={{ marginLeft: 'auto', marginRight: 'auto', height: '100vh' }}>{children}</Container>
+        {withTailwind ? (
+          <Tailwind config={tailwindConfig}>
+            <Container
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                height: "100vh",
+              }}
+            >
+              {children}
+            </Container>
           </Tailwind>
-          : <Container style={{ marginLeft: 'auto', marginRight: 'auto', height: '100vh' }}>{children}</Container>
-        }
+        ) : (
+          <Container
+            style={{ marginLeft: "auto", marginRight: "auto", height: "100vh" }}
+          >
+            {children}
+          </Container>
+        )}
       </Body>
     </Html>
   );

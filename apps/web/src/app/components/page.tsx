@@ -49,7 +49,9 @@ const ComponentsPage = async () => (
           const Illustration = dynamic(
             () =>
               import(
-                `@/illustrations/${category.name.toLowerCase().replace(/ /g, "-")}`
+                `@/illustrations/${category.name
+                  .toLowerCase()
+                  .replace(/ /g, "-")}`
               ),
           );
 
