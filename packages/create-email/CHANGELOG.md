@@ -1,5 +1,11 @@
 # create-email
 
+## 0.0.31
+
+### Patch Changes
+
+- 3caaf53: Updated peer dependencies to allow for React 19 release candidated and React 19 itself
+
 ## 0.0.31-canary.6
 
 ## 0.0.31-canary.5

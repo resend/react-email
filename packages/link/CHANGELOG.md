@@ -1,5 +1,11 @@
 # @react-email/link
 
+## 0.0.10
+
+### Patch Changes
+
+- 3caaf53: Updated peer dependencies to allow for React 19 release candidated and React 19 itself
+
 ## 0.0.10-canary.0
 
 ### Patch Changes

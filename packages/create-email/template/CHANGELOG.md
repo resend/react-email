@@ -1,5 +1,22 @@
 # react-email-starter
 
+## 0.0.31
+
+### Patch Changes
+
+- ed8db84: add react-dom as a template dependency as well
+- Updated dependencies [19cab7b]
+- Updated dependencies [14b7d1d]
+- Updated dependencies [b68e166]
+- Updated dependencies [3caaf53]
+- Updated dependencies [1a47335]
+- Updated dependencies [9a5fd78]
+- Updated dependencies [d118a39]
+- Updated dependencies [481e339]
+- Updated dependencies [f9483ec]
+  - react-email@3.0.0
+  - @react-email/components@0.0.23
+
 ## 0.0.31-canary.6
 
 ### Patch Changes

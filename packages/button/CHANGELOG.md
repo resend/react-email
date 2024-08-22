@@ -1,5 +1,12 @@
 # @react-email/button
 
+## 0.0.17
+
+### Patch Changes
+
+- 3caaf53: Updated peer dependencies to allow for React 19 release candidated and React 19 itself
+- bec4b08: Add missing `msoPaddingAlt` to containing `<a>` tag
+
 ## 0.0.17-canary.1
 
 ### Patch Changes
