@@ -51,7 +51,7 @@ export const componentsStructure: Category[] = [
       "Components for creating headers with different menu layouts and social icons.",
     components: [
       { slug: "header-with-centered-menu", title: "Header with centered menu" },
-      { slug: "header-with-menu", title: "Header with menu" },
+      { slug: "header-with-side-menu", title: "Header with side menu" },
       { slug: "header-with-social-icons", title: "Header with social icons" },
     ],
   },

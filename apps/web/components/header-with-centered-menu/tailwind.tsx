@@ -23,17 +23,17 @@ export const component = (
             </td>
             <td className="px-[8px]">
               <Link className="text-gray-600 [text-decoration:none]" href="#">
-                Company
-              </Link>
-            </td>
-            <td className="px-[8px]">
-              <Link className="text-gray-600 [text-decoration:none]" href="#">
                 Blog
               </Link>
             </td>
             <td className="px-[8px]">
               <Link className="text-gray-600 [text-decoration:none]" href="#">
-                Contacts
+                Company
+              </Link>
+            </td>
+            <td className="px-[8px]">
+              <Link className="text-gray-600 [text-decoration:none]" href="#">
+                Features
               </Link>
             </td>
           </tr>
