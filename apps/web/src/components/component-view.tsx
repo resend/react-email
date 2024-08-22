@@ -82,6 +82,11 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    setActiveView(activeView);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
     if (localStorage.getItem("code-variant") === "inline-styles") {
       setSelectedCodeVariant("inline-styles");
     }
