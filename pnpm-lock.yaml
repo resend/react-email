@@ -272,7 +272,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -291,7 +291,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -313,7 +313,7 @@ importers:
         version: 1.29.0
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -335,7 +335,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -360,7 +360,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -439,7 +439,7 @@ importers:
         version: link:../text
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -455,7 +455,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -536,7 +536,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -555,7 +555,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -574,7 +574,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -593,7 +593,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -612,7 +612,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -631,7 +631,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -650,7 +650,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -669,10 +669,10 @@ importers:
     dependencies:
       md-to-react-email:
         specifier: 5.0.2
-        version: 5.0.2(react@18.3.1)
+        version: 5.0.2(react@19.0.0-rc-187dd6a7-20240806)
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -691,7 +691,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
