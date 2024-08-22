@@ -132,8 +132,8 @@ export const startDevServer = async (
     conf: {
       images: {
         // This is to avoid the warning with sharp
-        unoptimized: true
-      }
+        unoptimized: true,
+      },
     },
     hostname: 'localhost',
     port,
