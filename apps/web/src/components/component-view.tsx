@@ -228,7 +228,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
                   )}
                 </button>
               </div>
-              <div className="h-full w-full overflow-auto p-4">
+              <div className="h-full w-full overflow-auto">
                 <CodeBlock language="tsx">{code}</CodeBlock>
               </div>
             </div>
