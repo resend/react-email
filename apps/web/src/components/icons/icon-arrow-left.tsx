@@ -23,4 +23,4 @@ export const IconArrowLeft = React.forwardRef<IconElement, Readonly<IconProps>>(
   ),
 );
 
-IconArrowLeft.displayName = 'IconArrowLeft';
+IconArrowLeft.displayName = "IconArrowLeft";
