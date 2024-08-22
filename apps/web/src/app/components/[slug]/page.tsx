@@ -15,6 +15,8 @@ interface ComponentPageParams {
   };
 }
 
+export const dynamic = "force-static";
+
 export const generateStaticParams = async () => {
   return componentsStructure.map((category) => ({
     params: { slug: slugify(category.name) },
