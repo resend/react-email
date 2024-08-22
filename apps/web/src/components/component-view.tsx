@@ -65,7 +65,7 @@ const TabContent: React.FC<{
   additionalClasses?: string;
 }> = ({ value, children, additionalClasses = "" }) => (
   <Tabs.Content
-    className={`relative mx-8 my-4 h-max overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
+    className={`relative mx-8 my-4 h-full overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
     value={value}
   >
     {children}
@@ -154,18 +154,18 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           </Tabs.List>
           <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-slate-4" />
         </div>
-        <div className="relative w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [height:calc-size(auto)] [transition-behavior:allow-discrete]">
-          <TabContent additionalClasses="bg-zinc-200" value="desktop">
+        <div className="relative w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] h-[42rem] [transition-behavior:allow-discrete]">
+          <TabContent value="desktop">
             <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
             <ComponentPreview activeView="desktop" html={component.html} />
           </TabContent>
-          <TabContent additionalClasses="bg-zinc-200" value="mobile">
+          <TabContent value="mobile">
             <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
             <ComponentPreview activeView="mobile" html={component.html} />
           </TabContent>
           <TabContent value="code">
-            <div className="flex w-full flex-col gap-2 overflow-x-auto bg-slate-3 p-4">
-              <div className="relative flex w-fit gap-4 self-end px-2 text-xs">
+            <div className="flex w-full h-full flex-col gap-2 bg-slate-3">
+              <div className="relative flex w-fit gap-4 self-end pt-4 px-6 text-xs">
                 {activeView === "code" && typeof component.code === "object" ? (
                   <Select.Root
                     onValueChange={(variant: CodeVariant) => {
@@ -228,7 +228,9 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
                   )}
                 </button>
               </div>
-              <CodeBlock language="tsx">{code}</CodeBlock>
+              <div className="w-full h-full overflow-auto p-4">
+                <CodeBlock language="tsx">{code}</CodeBlock>
+              </div>
             </div>
           </TabContent>
         </div>

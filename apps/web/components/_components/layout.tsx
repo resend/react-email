@@ -31,25 +31,25 @@ export const Layout = ({
       </Head>
 
       <Body>
-        {withTailwind ? (
-          <Tailwind config={tailwindConfig}>
+        {(() => {
+          const container = (
             <Container
               style={{
                 marginLeft: "auto",
                 marginRight: "auto",
-                height: "100vh",
+                height: "40rem"
               }}
             >
               {children}
             </Container>
-          </Tailwind>
-        ) : (
-          <Container
-            style={{ marginLeft: "auto", marginRight: "auto", height: "100vh" }}
-          >
-            {children}
-          </Container>
-        )}
+          );
+
+          if (withTailwind) {
+            return <Tailwind config={tailwindConfig}>{container}</Tailwind>;
+          }
+
+          return container;
+        })()}
       </Body>
     </Html>
   );
