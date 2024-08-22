@@ -22,7 +22,7 @@
     },
     "react-email#build": {
       "dependsOn": ["^build"],
-      "outputs": ["cli/**"]
+      "outputs": ["dist/**"]
     },
     "lint": {},
     "//#format": {},
