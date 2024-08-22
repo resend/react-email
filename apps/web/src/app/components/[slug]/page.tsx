@@ -1,5 +1,6 @@
 import { renderAsync } from "@react-email/components";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { slugify } from "../../../utils/slugify";
 import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
@@ -8,6 +9,7 @@ import { getImportedComponentsFor } from "../get-components";
 import PageTransition from "../../../components/page-transition";
 import type { RenderedComponent } from "../../../components/components-view";
 import { ComponentsView } from "../../../components/components-view";
+import { IconArrowLeft } from "../../../components/icons/icon-arrow-left";
 
 interface ComponentPageParams {
   params: {
@@ -85,13 +87,18 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
       </div>
       <PageTransition className="pb-10" key="about" tag="main">
         <div className="flex w-full flex-col gap-4 px-8 pb-10 pt-16">
+          <div className="flex-inline flex">
+            <Link
+              className="flex justify-center self-start text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
+              href="/components"
+            >
+              <IconArrowLeft className="mr-1" />
+              Back
+            </Link>
+          </div>
           <h1 className="text-2xl font-bold text-slate-12">
-            {foundCategory.name} Components
+            {foundCategory.name}
           </h1>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad,
-            laudantium. Accusantium, exercitationem!
-          </p>
         </div>
         <div className="relative flex w-full flex-col gap-4 border-y border-slate-4 pt-3">
           <ComponentsView components={renderedComponents} />
