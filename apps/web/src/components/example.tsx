@@ -34,9 +34,7 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
     throw new Error("Cannot have an empty path for an Example!");
   }
 
-  const [imageSrc, setImageSrc] = React.useState(
-    `/examples/${emailName}.png`,
-  );
+  const [imageSrc, setImageSrc] = React.useState(`/examples/${emailName}.png`);
 
   const handleImageError = () => {
     setImageSrc(DEFAULT_IMAGE);
