@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "@react-email/components": "npm:@react-email/components@latest",
-    "@react-email/section": "npm:@react-email/section@latest",
-    "@responsive-email/react-email": "0.0.2",
+    "@responsive-email/react-email": "0.0.3",
     "@supabase/supabase-js": "2.45.1",
     "@vercel/analytics": "1.0.1",
     "framer-motion": "12.0.0-alpha.0",

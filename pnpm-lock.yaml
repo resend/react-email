@@ -96,12 +96,9 @@ importers:
       '@react-email/components':
         specifier: npm:@react-email/components@latest
         version: 0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
-      '@react-email/section':
-        specifier: npm:@react-email/section@latest
-        version: 0.0.14(react@19.0.0-rc-187dd6a7-20240806)
       '@responsive-email/react-email':
-        specifier: 0.0.2
-        version: 0.0.2(react@19.0.0-rc-187dd6a7-20240806)
+        specifier: 0.0.3
+        version: 0.0.3(react@19.0.0-rc-187dd6a7-20240806)
       '@supabase/supabase-js':
         specifier: 2.45.1
         version: 2.45.1
@@ -2676,6 +2673,11 @@ packages:
 
   '@responsive-email/react-email@0.0.2':
     resolution: {integrity: sha512-Zc4FuAuCAUVBJWLT0cmW5jx9jQycV+x1rcuKt+h3BT8DWBRuiDwPq48EjEC1m8qj+iDk2uaMSXud1Q66fXl9yA==}
+    peerDependencies:
+      react: 18.x
+
+  '@responsive-email/react-email@0.0.3':
+    resolution: {integrity: sha512-ZKr3woQ+KKIV/Z/2C1X/TF5VpAAiCtkgIAhmy/iqwkas+J8vjP/8L8MEvm1H3VPau9d7iBqJQn0a2wJXjENoGQ==}
     peerDependencies:
       react: 18.x
 
@@ -8639,6 +8641,11 @@ snapshots:
 
   '@responsive-email/react-email@0.0.2(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
+      react: 19.0.0-rc-187dd6a7-20240806
+
+  '@responsive-email/react-email@0.0.3(react@19.0.0-rc-187dd6a7-20240806)':
+    dependencies:
+      '@react-email/section': 0.0.14(react@19.0.0-rc-187dd6a7-20240806)
       react: 19.0.0-rc-187dd6a7-20240806
 
   '@rollup/plugin-inject@5.0.5(rollup@4.14.0)':
