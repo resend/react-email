@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
+import dynamic from "next/dynamic";
 import { Spotlight } from "../../components/spotlight";
 import { slugify } from "../../utils/slugify";
 import { componentsStructure } from "../../../components/structure";
@@ -45,15 +46,21 @@ const ComponentsPage = async () => (
         <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 border-b border-slate-4" />
         {componentsStructure.map((category, index) => {
           const slug = slugify(category.name);
+          const Illustration = dynamic(
+            () =>
+              import(
+                `@/illustrations/${category.name.toLowerCase().replace(/ /g, "-")}`
+              ),
+          );
 
           return (
             <Link
               className={classNames(
                 "group relative isolate mt-7 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-slate-4 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-slate-6",
                 {
-                  "ml-6": index % 3 === 0,
-                  "mx-3": index % 3 === 1,
-                  "mr-6": index % 3 === 2,
+                  "md:ml-6": index % 3 === 0,
+                  "md:mx-3": index % 3 === 1,
+                  "md:mr-6": index % 3 === 2,
                 },
               )}
               href={`/components/${slug}`}
@@ -72,8 +79,9 @@ const ComponentsPage = async () => (
                 )}
               >
                 <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6" />
-                <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm border border-slate-4">
+                <div className="relative flex aspect-[2/1] text-slate-300 items-center justify-center overflow-hidden rounded-sm border border-slate-4">
                   <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+                  <Illustration />
                 </div>
                 <h3 className="relative z-[2] mt-4 font-semibold capitalize leading-7 text-slate-12">
                   {category.name}

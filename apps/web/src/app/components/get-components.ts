@@ -54,7 +54,9 @@ const getComponentCodeFrom = (fileContent: string): string => {
     .join("\n");
 };
 
-const getComponentElement = async (filepath: string): Promise<React.ReactElement> => {
+const getComponentElement = async (
+  filepath: string,
+): Promise<React.ReactElement> => {
   const relativeFilepath = path.relative(pathToComponents, filepath);
   const patternModule = ComponentModule.parse(
     await import(
@@ -90,14 +92,14 @@ const getImportedComponent = async (
     variantFilenames.map(async (variantFilename) => {
       const filePath = path.join(dirpath, variantFilename);
       return getComponentElement(filePath);
-    })
+    }),
   );
 
   const fileContents = await Promise.all(
     variantFilenames.map(async (variantFilename) => {
       const filePath = path.join(dirpath, variantFilename);
       return fs.readFile(filePath, "utf8");
-    })
+    }),
   );
 
   variantFilenames.forEach((variantFilename, index) => {

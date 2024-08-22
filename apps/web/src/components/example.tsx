@@ -34,7 +34,9 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
     throw new Error("Cannot have an empty path for an Example!");
   }
 
-  const [imageSrc, setImageSrc] = React.useState<string>(`/examples/${emailName}.png`);
+  const [imageSrc, setImageSrc] = React.useState<string>(
+    `/examples/${emailName}.png`,
+  );
 
   const handleImageError = () => {
     setImageSrc(DEFAULT_IMAGE);
@@ -46,7 +48,7 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
         "flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-none focus:ring-2",
         "hover:bg-gradientHover",
         "focus:bg-gradientHover focus:ring-white/20",
-        className
+        className,
       )}
       href={`${DEMO_EMAIL_PREVIEW_BASE_URL}/${path}`}
       target="_blank"
