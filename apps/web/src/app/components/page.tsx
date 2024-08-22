@@ -37,8 +37,7 @@ const ComponentsPage = async () => (
       <div className="flex w-full flex-col gap-4 px-8 pb-10 pt-16">
         <h1 className="text-2xl font-bold text-slate-12">Components</h1>
         <p>
-          Just copy and paste, populate with your own data, and you will be
-          sending proper emails in no time.
+          Build beautiful emails with pre-built components that you can copy-and-paste into your app.
         </p>
       </div>
       <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
