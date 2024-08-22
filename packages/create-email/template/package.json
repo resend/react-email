@@ -10,11 +10,11 @@
   "dependencies": {
     "@react-email/components": "workspace:0.0.23-canary.3",
     "react-email": "workspace:3.0.0-canary.1",
-    "react-dom": "19.0.0-rc.0",
-    "react": "19.0.0-rc.0"
+    "react-dom": "18.3.1",
+    "react": "18.3.1"
   },
   "devDependencies": {
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc"
+    "@types/react": "18.3.4",
+    "@types/react-dom": "18.3.0"
   }
 }
