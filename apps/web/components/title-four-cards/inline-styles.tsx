@@ -253,7 +253,11 @@ export const component = (
             Buy
           </Button>
         </Column>
-        <Column align="left" className="w-1/2 pl-2" colSpan={1}>
+        <Column
+          align="left"
+          colSpan={1}
+          style={{ width: "50%", paddingLeft: 8 }}
+        >
           <Img
             alt="A picture of a very nice looking product in a bottle. The bottle has a black tap and it looks like it is brown overall. The product is sitting in front of a bage wall and on top of some wooden round board"
             height={180}

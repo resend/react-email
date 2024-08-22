@@ -169,7 +169,14 @@ export const component = (
           Buy
         </Button>
       </ResponsiveColumn>
-      <ResponsiveColumn className="py-4 pl-1 text-left">
+      <ResponsiveColumn
+        style={{
+          paddingTop: 16,
+          paddingBottom: 16,
+          paddingLeft: 4,
+          textAlign: "left",
+        }}
+      >
         <Img
           alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
           height={180}

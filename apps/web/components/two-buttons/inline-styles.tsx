@@ -35,7 +35,6 @@ export const component = (
           style={{ paddingLeft: 16, width: "50%" }}
         >
           <Button
-            className="box-border w-full rounded-lg border border-solid border-gray-200 bg-white px-5 py-3 text-center font-semibold text-gray-900"
             href="https://react.email"
             style={{
               width: "100%",
