@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <>
-    <Text className="text-2xl font-semibold text-indigo-400">
+    <Text className="text-[24px] leading-[32px] font-semibold text-indigo-400">
       Amazing content
     </Text>
     <Text>

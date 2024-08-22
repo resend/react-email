@@ -6,7 +6,7 @@ export const component = (
   <Row>
     <Column align="center">
       <Row>
-        <Text className="text-lg font-bold text-indigo-500">What's new</Text>
+        <Text className="text-[18px] leading-[28px] font-bold text-indigo-500">What's new</Text>
         <Text className="text-gray-900">
           Browse, Customize, and Shop an Extensive Range of Furniture Anytime,
           Anywhere with our app
@@ -16,7 +16,7 @@ export const component = (
         <td align="center">
           <table>
             <tr>
-              <td className="pr-4">
+              <td className="pr-[16px]">
                 <Button href="https://react.email">
                   <Img
                     alt="Get it on Google Play button"
@@ -25,7 +25,7 @@ export const component = (
                   />
                 </Button>
               </td>
-              <td className="pl-4">
+              <td className="pl-[16px]">
                 <Button href="https://react.email">
                   <Img
                     alt="Download on the App Store button"

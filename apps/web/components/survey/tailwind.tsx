@@ -9,14 +9,14 @@ import {
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="py-4 text-center">
-    <Text className="my-2 text-lg font-semibold text-indigo-600">
+  <Section className="py-[16px] text-center">
+    <Text className="my-[8px] text-[18px] leading-[28px] font-semibold text-indigo-600">
       Your opinion matters
     </Text>
-    <Heading as="h1" className="m-0 mt-2 text-3xl font-semibold text-gray-900">
+    <Heading as="h1" className="m-0 mt-[8px] text-[30px] leading-[36px] font-semibold text-gray-900">
       We want to hear from you
     </Heading>
-    <Text className="text-base text-gray-700">
+    <Text className="text-[16px] leading-[24px] text-gray-700">
       How would you rate your experience using our product in a scale from 1 to
       5?
     </Text>
@@ -25,9 +25,9 @@ export const component = (
         <table>
           <tr>
             {[1, 2, 3, 4, 5].map((number) => (
-              <td align="center" className="p-1" key={number}>
+              <td align="center" className="p-[4px]" key={number}>
                 <Button
-                  className="h-5 w-5 rounded-lg border border-solid border-indigo-600 p-2 font-semibold text-indigo-600"
+                  className="h-[20px] w-[20px] rounded-[8px] border border-solid border-indigo-600 p-[8px] font-semibold text-indigo-600"
                   // Replace with the proper URL that saves the selected number
                   href="https://react.email"
                 >

@@ -2,7 +2,7 @@ import { Column, Img, Link, Row, Section } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="px-8 py-10">
+  <Section className="px-[32px] py-[40px]">
     <Row>
       <Column className="w-[80%]">
         <Img
@@ -17,7 +17,7 @@ export const component = (
             <Link href="#">
               <Img
                 alt="Facebook"
-                className="mx-1"
+                className="mx-[4px]"
                 height="36"
                 src="/static/facebook-logo.png"
                 width="36"
@@ -28,7 +28,7 @@ export const component = (
             <Link href="#">
               <Img
                 alt="X"
-                className="mx-1"
+                className="mx-[4px]"
                 height="36"
                 src="/static/x-logo.png"
                 width="36"
@@ -39,7 +39,7 @@ export const component = (
             <Link href="#">
               <Img
                 alt="Instagram"
-                className="mx-1"
+                className="mx-[4px]"
                 height="36"
                 src="/static/instagram-logo.png"
                 width="36"

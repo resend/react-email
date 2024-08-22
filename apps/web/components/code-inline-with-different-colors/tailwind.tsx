@@ -4,7 +4,7 @@ import { Layout } from "../_components/layout";
 export const component = (
   <Text>
     Install the{" "}
-    <CodeInline className="rounded-md bg-green-300 px-1 py-0.5">
+    <CodeInline className="rounded-md bg-green-300 px-[4px] py-[2px]">
       @react-email/components
     </CodeInline>{" "}
     package

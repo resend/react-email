@@ -7,7 +7,7 @@ export const component = (
       <Column>First col</Column>
       <Column>Second col</Column>
     </Row>
-    <Hr className="my-4" />
+    <Hr className="m-[16px]" />
     <Row>
       <Column>First col</Column>
       <Column>Second col</Column>
