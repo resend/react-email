@@ -2,7 +2,7 @@ import { Button, Heading, Img, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section style={{ margin: 16 }}>
+  <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Img
       alt="A picture on nice dark carpet of various black items laid out. The items include: a box that has text that reads 'BLVCK, Paris', a bottle, some flip flops and two six-sided dices."
       height={320}

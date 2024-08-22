@@ -2,7 +2,7 @@ import { Button, Heading, Img, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section style={{ margin: 16 }}>
+  <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Img
       alt="A picture of a sunset on a curved road that goes up a mountain with lights of cars smeared from its start to finish. The picture was taken during a sunset, and has some trees all over."
       height="320"
