@@ -1,10 +1,11 @@
 import * as React from "react";
 
+export type IconElement = SVGSVGElement;
 export interface IconProps extends React.ComponentPropsWithoutRef<"svg"> {
   size?: number;
 }
 
-export const IconBase = React.forwardRef<SVGSVGElement, Readonly<IconProps>>(
+export const IconBase = React.forwardRef<IconElement, Readonly<IconProps>>(
   ({ size = 20, ...props }, forwardedRef) => (
     <svg
       fill="none"
