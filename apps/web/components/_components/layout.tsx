@@ -37,7 +37,7 @@ export const Layout = ({
               style={{
                 marginLeft: "auto",
                 marginRight: "auto",
-                height: "40rem"
+                height: "40rem",
               }}
             >
               {children}
