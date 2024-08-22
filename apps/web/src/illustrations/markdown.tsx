@@ -1,5 +1,3 @@
-const IllustrationMarkdown: React.FC = () => (
-  <div />
-);
+const IllustrationMarkdown: React.FC = () => <div />;
 
 export default IllustrationMarkdown;

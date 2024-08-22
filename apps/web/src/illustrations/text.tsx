@@ -1,5 +1,3 @@
-const IllustrationText: React.FC = () => (
-  <div />
-);
+const IllustrationText: React.FC = () => <div />;
 
 export default IllustrationText;

@@ -1,5 +1,3 @@
-const IllustrationImage: React.FC = () => (
-  <div />
-);
+const IllustrationImage: React.FC = () => <div />;
 
 export default IllustrationImage;

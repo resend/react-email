@@ -1,5 +1,3 @@
-const IllustrationSection: React.FC = () => (
-  <div />
-);
+const IllustrationSection: React.FC = () => <div />;
 
 export default IllustrationSection;

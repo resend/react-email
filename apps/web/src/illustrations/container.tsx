@@ -1,5 +1,3 @@
-const IllustrationContainer: React.FC = () => (
-  <div />
-);
+const IllustrationContainer: React.FC = () => <div />;
 
 export default IllustrationContainer;

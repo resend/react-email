@@ -1,5 +1,3 @@
-const IllustrationGrid: React.FC = () => (
-  <div />
-);
+const IllustrationGrid: React.FC = () => <div />;
 
 export default IllustrationGrid;

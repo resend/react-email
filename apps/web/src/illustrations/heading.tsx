@@ -1,5 +1,3 @@
-const IllustrationHeading: React.FC = () => (
-  <div />
-);
+const IllustrationHeading: React.FC = () => <div />;
 
 export default IllustrationHeading;

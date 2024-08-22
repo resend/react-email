@@ -1,5 +1,3 @@
-const IllustrationMarketing: React.FC = () => (
-  <div />
-);
+const IllustrationMarketing: React.FC = () => <div />;
 
 export default IllustrationMarketing;
