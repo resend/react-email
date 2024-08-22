@@ -65,7 +65,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
       ).element;
       return {
         ...componentWithoutElement,
-        html: await renderAsync(<Layout>{component.element}</Layout>),
+        html: await renderAsync(<Layout withTailwind={false}>{component.element}</Layout>),
       } as RenderedComponent;
     }),
   );

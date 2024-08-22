@@ -8,29 +8,32 @@ import {
 } from "@react-email/components";
 import tailwindConfig from "../tailwind.config";
 
-export const Layout = ({ children }: { children?: React.ReactNode }) => {
+export const Layout = ({ children, withTailwind = true }: { children?: React.ReactNode, withTailwind?: boolean }) => {
   return (
     <Html>
-      <Tailwind config={tailwindConfig}>
-        <Head>
-          <Font
-            fallbackFontFamily="Helvetica"
-            fontFamily="Inter"
-            fontStyle="normal"
-            fontWeight={400}
-            webFont={{
-              url: "https://fonts.googleapis.com/css2?family=Inter&display=swap",
-              format: "woff2",
-            }}
-          />
-        </Head>
+      <Head>
+        <Font
+          fallbackFontFamily="Helvetica"
+          fontFamily="Inter"
+          fontStyle="normal"
+          fontWeight={400}
+          webFont={{
+            url: "https://fonts.googleapis.com/css2?family=Inter&display=swap",
+            format: "woff2",
+          }}
+        />
+      </Head>
 
-        <Body>
-          {/* This margin here and h-screen are purely meant for the preview server, 
+      <Body>
+        {/* This margin here and h-screen are purely meant for the preview server, 
               and might break if sent to email clients */}
-          <Container className="my-auto h-screen">{children}</Container>
-        </Body>
-      </Tailwind>
+        {withTailwind
+          ? <Tailwind config={tailwindConfig}>
+            <Container style={{ marginLeft: 'auto', marginRight: 'auto', height: '100vh' }}>{children}</Container>
+          </Tailwind>
+          : <Container style={{ marginLeft: 'auto', marginRight: 'auto', height: '100vh' }}>{children}</Container>
+        }
+      </Body>
     </Html>
   );
 };
