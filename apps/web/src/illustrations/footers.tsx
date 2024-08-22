@@ -1,5 +1,5 @@
 const IllustrationFooters: React.FC = () => (
-  <div className="relative flex aspect-video w-[72%] translate-y-6 items-center gap-3 rounded-md bg-[#0D0E0E] px-6 pb-4 pt-2 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:-skew-x-2">
+  <div className="relative flex aspect-video w-[72%] translate-y-6 items-center gap-3 rounded-md bg-slate-3 px-6 pb-4 pt-2 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:-skew-x-2">
     <div className="flex w-[30%] flex-col gap-1">
       <div className="h-3 w-3 rounded-full bg-[#236380]" />
       <div className="mt-1 h-2 w-[90%] rounded-sm bg-slate-5" />
