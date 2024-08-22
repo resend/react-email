@@ -11,28 +11,8 @@ import {
 
 export type CodeVariant = "tailwind" | "inline-styles";
 
-/**
- * A fuller version of the already defined `Component`.
- */
-export interface ImportedComponent {
-  slug: string;
-  title: string;
-  /**
-   * Even though there may be multiple variants of code for this one pattern, the code
-   * should render to the same thing, therefore we only need one element for them.
-   *
-   * this can be used as follows:
-   *
-   * ```tsx
-   * <MyElement>{pattern.element}</MyElement>
-   * ```
-   */
+export interface ImportedComponent extends Component {
   element: React.ReactElement;
-  /**
-   * This will either be an object containing the proper code variants
-   * for the same pattern, or just the code if there are no variants
-   * for this pattern. This can happen on patterns that don't use any styles.
-   */
   code: Partial<Record<CodeVariant, string>> | string;
 }
 
@@ -40,7 +20,7 @@ const ComponentModule = z.object({
   component: z.record(z.string(), z.any()),
 });
 
-const getComponentCodeFrom = (fileContent: string) => {
+const getComponentCodeFrom = (fileContent: string): string => {
   const parsedContents = parse(fileContent, {
     sourceType: "unambiguous",
     strictMode: false,
@@ -57,32 +37,24 @@ const getComponentCodeFrom = (fileContent: string) => {
         (node.init?.type === "JSXElement" || node.init?.type === "JSXFragment")
       ) {
         const expression = node.init;
-        if (expression.start && expression.end) {
+        if (expression.start !== null && expression.end !== null) {
           componentCode = fileContent.slice(expression.start, expression.end);
         }
       }
     },
   });
 
-  if (componentCode) {
-    // We need to remove the extra spaces that are included because of formatting
-    // in the original file for the pattern
-    return componentCode
-      .split(/\r\n|\r|\n/)
-      .map((line) => line.replace(/^\s{2}/, ""))
-      .join("\n");
+  if (!componentCode) {
+    throw new Error("Could not find the source code for the component");
   }
 
-  throw new Error("Could not find the source code for the pattern", {
-    cause: {
-      parsedContents,
-      componentCode,
-      fileContent,
-    },
-  });
+  return componentCode
+    .split(/\r\n|\r|\n/)
+    .map((line) => line.replace(/^\s{2}/, ""))
+    .join("\n");
 };
 
-const getComponentElement = async (filepath: string) => {
+const getComponentElement = async (filepath: string): Promise<React.ReactElement> => {
   const relativeFilepath = path.relative(pathToComponents, filepath);
   const patternModule = ComponentModule.parse(
     await import(
@@ -99,8 +71,8 @@ const getImportedComponent = async (
   component: Component,
 ): Promise<ImportedComponent> => {
   const dirpath = getComponentPathFromSlug(component.slug);
-
   const variantFilenames = await fs.readdir(dirpath);
+
   if (variantFilenames.length === 1 && variantFilenames[0] === "index.tsx") {
     const filePath = path.join(dirpath, "index.tsx");
     const fileContent = await fs.readFile(filePath, "utf8");
@@ -112,35 +84,30 @@ const getImportedComponent = async (
     };
   }
 
-  const codePerVariant: Partial<Record<"tailwind" | "inline-styles", string>> =
-    {};
+  const codePerVariant: Partial<Record<CodeVariant, string>> = {};
 
-  let element!: React.ReactElement;
-  for await (const [i, variantFilename] of variantFilenames.entries()) {
-    const filePath = path.join(dirpath, variantFilename);
-    if (i === 0) {
-      element = await getComponentElement(filePath);
-    }
+  const elements = await Promise.all(
+    variantFilenames.map(async (variantFilename) => {
+      const filePath = path.join(dirpath, variantFilename);
+      return getComponentElement(filePath);
+    })
+  );
 
-    const fileContent = await fs.readFile(filePath, "utf8");
-    switch (variantFilename) {
-      case "tailwind.tsx":
-        codePerVariant.tailwind = getComponentCodeFrom(fileContent);
-        break;
-      case "inline-styles.tsx":
-        codePerVariant["inline-styles"] = getComponentCodeFrom(fileContent);
-        break;
-      default:
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Unknown variant of pattern "${variantFilename}". The current only supported ones are "tailwind" and "inline-styles".`,
-        );
-    }
-  }
+  const fileContents = await Promise.all(
+    variantFilenames.map(async (variantFilename) => {
+      const filePath = path.join(dirpath, variantFilename);
+      return fs.readFile(filePath, "utf8");
+    })
+  );
+
+  variantFilenames.forEach((variantFilename, index) => {
+    const variantKey = variantFilename.replace(".tsx", "") as CodeVariant;
+    codePerVariant[variantKey] = getComponentCodeFrom(fileContents[index]);
+  });
 
   return {
     ...component,
-    element,
+    element: elements[0],
     code: codePerVariant,
   };
 };
