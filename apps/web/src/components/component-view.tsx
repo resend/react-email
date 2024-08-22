@@ -95,7 +95,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const code =
     typeof component.code === "string"
       ? component.code
-      : component.code[selectedCodeVariant] ?? "";
+      : (component.code[selectedCodeVariant] ?? "");
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);
@@ -164,8 +164,8 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
             <ComponentPreview activeView="mobile" html={component.html} />
           </TabContent>
           <TabContent value="code">
-            <div className="flex w-full flex-col gap-2 overflow-x-auto bg-slate-3 p-4">
-              <div className="relative flex w-fit gap-4 self-end px-2 text-xs">
+            <div className="flex w-full flex-col gap-2 overflow-x-auto bg-slate-3">
+              <div className="relative flex w-fit w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
                 {activeView === "code" && typeof component.code === "object" ? (
                   <Select.Root
                     onValueChange={(variant: CodeVariant) => {
