@@ -19,9 +19,9 @@ export const component = (
       </Row>
     </Section>
 
-    <Section align="center" className="my-4">
+    <Section align="center" className="m-[16px]">
       <Button
-        className="box-border w-full rounded-md bg-indigo-600 px-6 py-3 text-center text-white"
+        className="box-border w-full rounded-md bg-indigo-600 px-[24px] py-[12px] text-center text-white"
         href="https://react.email"
       >
         See more

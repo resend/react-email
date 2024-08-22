@@ -111,7 +111,14 @@ export const component = (
           everyday life.
         </Text>
       </Column>
-      <Column align="center" className="w-1/3 pl-3 align-baseline">
+      <Column
+        align="center"
+        style={{
+          width: "33.333333%",
+          paddingLeft: 12,
+          verticalAlign: "baseline",
+        }}
+      >
         <Img
           alt="megaphone icon"
           height="48"

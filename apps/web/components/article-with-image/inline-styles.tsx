@@ -44,7 +44,9 @@ export const component = (
       >
         Designing with Furniture
       </Heading>
-      <Text className="text-base text-gray-500">
+      <Text
+        style={{ fontSize: 16, lineHeight: "24px", color: "rgb(107,114,128)" }}
+      >
         Unleash your inner designer as we explore how furniture plays a vital
         role in creating stunning interiors, offering insights into choosing the
         right pieces, arranging them harmoniously, and infusing your space with

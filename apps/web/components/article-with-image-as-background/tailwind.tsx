@@ -14,7 +14,7 @@ export const component = (
     border={0}
     cellPadding="0"
     cellSpacing="0"
-    className="my-4 h-[424px] rounded-xl bg-blue-600"
+    className="m-[16px] h-[424px] rounded-[12px] bg-blue-600"
     role="presentation"
     style={{
       // This url must be in quotes for Yahoo
@@ -25,19 +25,19 @@ export const component = (
   >
     <tbody>
       <tr>
-        <td align="center" className="p-10 text-center">
+        <td align="center" className="p-[40px] text-center">
           <Text className="m-0 font-semibold text-gray-200">New article</Text>
-          <Heading as="h1" className="m-0 mt-1 font-bold text-white">
+          <Heading as="h1" className="m-0 mt-[4px] font-bold text-white">
             Artful Accents
           </Heading>
-          <Text className="m-0 mt-2 text-base text-white">
+          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-white">
             Uncover the power of accent furniture in transforming your space
             with subtle touches of style, personality, and functionality, as we
             explore the art of curating captivating accents for a truly curated
             home
           </Text>
           <Button
-            className="mt-6 rounded-lg border border-solid border-gray-200 bg-white px-10 py-3 font-semibold text-gray-900"
+            className="mt-[24px] rounded-[8px] border border-solid border-gray-200 bg-white px-[40px] py-[12px] font-semibold text-gray-900"
             href="#"
           >
             Read more

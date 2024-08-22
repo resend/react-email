@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <BaseButton
-    className="box-border w-full rounded-lg bg-indigo-600 px-3 py-3 text-center font-semibold text-white"
+    className="box-border w-full rounded-[8px] bg-indigo-600 px-[12px] py-[12px] text-center font-semibold text-white"
     href="https://react.email"
   >
     Example button
