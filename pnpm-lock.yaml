@@ -876,10 +876,10 @@ importers:
         version: 1.15.1
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
       react-dom:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1(react@18.3.1)
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
       react-promise-suspense:
         specifier: 0.3.4
         version: 0.3.4
@@ -916,7 +916,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -935,7 +935,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -954,7 +954,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/button':
         specifier: workspace:^
@@ -973,7 +973,7 @@ importers:
         version: link:../html
       '@responsive-email/react-email':
         specifier: 0.0.2
-        version: 0.0.2(react@18.3.1)
+        version: 0.0.2(react@19.0.0-rc-187dd6a7-20240806)
       '@types/postcss-css-variables':
         specifier: 0.18.3
         version: 0.18.3
@@ -997,7 +997,7 @@ importers:
         version: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
       react-dom:
         specifier: 19.0.0-rc-187dd6a7-20240806
-        version: 19.0.0-rc-187dd6a7-20240806(react@18.3.1)
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2(patch_hash=tbktbbunwha5d2hk7egjdvzb6q)
@@ -1024,7 +1024,7 @@ importers:
     dependencies:
       react:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
-        version: 18.3.1
+        version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
