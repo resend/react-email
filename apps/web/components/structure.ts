@@ -182,7 +182,7 @@ export const componentsStructure: Category[] = [
     components: [
       { slug: "single-heading", title: "Single heading" },
       { slug: "multiple-headings", title: "Multiple headings" },
-      { slug: "headings-with-spacing", title: "Headings with spacing" },
+      { slug: "heading-with-spacing", title: "Headings with spacing" },
     ],
   },
   {
