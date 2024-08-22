@@ -37,6 +37,9 @@ export const Layout = ({
               style={{
                 marginLeft: "auto",
                 marginRight: "auto",
+                boxSizing: "border-box",
+                paddingTop: "1rem",
+                paddingBottom: "1rem",
                 height: "100vh",
               }}
             >
