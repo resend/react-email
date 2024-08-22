@@ -31,8 +31,6 @@ export const Layout = ({
       </Head>
 
       <Body>
-        {/* This margin here and h-screen are purely meant for the preview server, 
-              and might break if sent to email clients */}
         {withTailwind ? (
           <Tailwind config={tailwindConfig}>
             <Container
