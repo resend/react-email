@@ -44,17 +44,6 @@ export const component = (
                   textDecoration: "none",
                 }}
               >
-                Company
-              </Link>
-            </td>
-            <td style={{ paddingRight: 8, paddingLeft: 8 }}>
-              <Link
-                href="#"
-                style={{
-                  color: "rgb(75,85,99)",
-                  textDecoration: "none",
-                }}
-              >
                 Blog
               </Link>
             </td>
@@ -66,7 +55,18 @@ export const component = (
                   textDecoration: "none",
                 }}
               >
-                Contacts
+                Company
+              </Link>
+            </td>
+            <td style={{ paddingRight: 8, paddingLeft: 8 }}>
+              <Link
+                href="#"
+                style={{
+                  color: "rgb(75,85,99)",
+                  textDecoration: "none",
+                }}
+              >
+                Features
               </Link>
             </td>
           </tr>

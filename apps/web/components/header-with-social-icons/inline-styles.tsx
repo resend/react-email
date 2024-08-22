@@ -23,17 +23,6 @@ export const component = (
           <Column>
             <Link href="#">
               <Img
-                alt="Facebook"
-                height="36"
-                src="/static/facebook-logo.png"
-                style={{ marginLeft: 4, marginRight: 4 }}
-                width="36"
-              />
-            </Link>
-          </Column>
-          <Column>
-            <Link href="#">
-              <Img
                 alt="X"
                 height="36"
                 src="/static/x-logo.png"
@@ -55,6 +44,17 @@ export const component = (
                   marginLeft: 4,
                   marginRight: 4,
                 }}
+                width="36"
+              />
+            </Link>
+          </Column>
+          <Column>
+            <Link href="#">
+              <Img
+                alt="Facebook"
+                height="36"
+                src="/static/facebook-logo.png"
+                style={{ marginLeft: 4, marginRight: 4 }}
                 width="36"
               />
             </Link>

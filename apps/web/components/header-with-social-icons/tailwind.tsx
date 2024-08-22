@@ -16,17 +16,6 @@ export const component = (
           <Column>
             <Link href="#">
               <Img
-                alt="Facebook"
-                className="mx-[4px]"
-                height="36"
-                src="/static/facebook-logo.png"
-                width="36"
-              />
-            </Link>
-          </Column>
-          <Column>
-            <Link href="#">
-              <Img
                 alt="X"
                 className="mx-[4px]"
                 height="36"
@@ -42,6 +31,17 @@ export const component = (
                 className="mx-[4px]"
                 height="36"
                 src="/static/instagram-logo.png"
+                width="36"
+              />
+            </Link>
+          </Column>
+          <Column>
+            <Link href="#">
+              <Img
+                alt="Facebook"
+                className="mx-[4px]"
+                height="36"
+                src="/static/facebook-logo.png"
                 width="36"
               />
             </Link>
