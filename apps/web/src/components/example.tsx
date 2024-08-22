@@ -1,4 +1,7 @@
+"use client";
+
 import classNames from "classnames";
+import type { ImageLoader } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
@@ -13,6 +16,11 @@ export interface ExampleProps {
 }
 
 const DEMO_EMAIL_PREVIEW_BASE_URL = "https://demo.react.email/preview";
+const DEFAULT_IMAGE = "/covers/react-email.png";
+
+const imageLoader: ImageLoader = ({ src, width, quality }) => {
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
 
 export const Example: React.FC<Readonly<ExampleProps>> = ({
   className,
@@ -22,14 +30,20 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
   ...props
 }) => {
   const emailName = path.split("/").pop();
-  if (path.length === 0 || !emailName) {
+  if (!path || !emailName) {
     throw new Error("Cannot have an empty path for an Example!");
   }
+
+  const [imageSrc, setImageSrc] = React.useState(`/examples/${emailName}.png`);
+
+  const handleImageError = () => {
+    setImageSrc(DEFAULT_IMAGE);
+  };
 
   return (
     <Link
       className={classNames(
-        "bg-gradient border-slate-6 flex w-full flex-col rounded-md border backdrop-blur-[20px] focus:outline-none focus:ring-2",
+        "flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-none focus:ring-2",
         "hover:bg-gradientHover",
         "focus:bg-gradientHover focus:ring-white/20",
         className,
@@ -42,7 +56,10 @@ export const Example: React.FC<Readonly<ExampleProps>> = ({
         alt={name}
         className="rounded-t-md"
         height="300"
-        src={`/static/examples/${emailName}.png`}
+        loader={imageLoader}
+        onError={handleImageError}
+        priority
+        src={imageSrc}
         width="450"
       />
       <div className="p-4">

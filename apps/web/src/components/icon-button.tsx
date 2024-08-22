@@ -11,7 +11,7 @@ export const IconButton: React.FC<Readonly<IconButtonProps>> = ({
   <button
     {...props}
     className={classNames(
-      "text-slate-11 focus:text-slate-12 focus:ring-slate-8 hover:text-slate-12 rounded transition duration-200 ease-in-out focus:outline-none focus:ring-2",
+      "rounded text-slate-11 transition duration-200 ease-in-out hover:text-slate-12 focus:text-slate-12 focus:outline-none focus:ring-2 focus:ring-slate-8",
       className,
     )}
     type="button"

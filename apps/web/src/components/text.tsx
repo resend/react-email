@@ -11,7 +11,7 @@ interface TextOwnProps {
   color?: TextColor;
 }
 
-type TextProps = As<"span", "p"> & TextOwnProps;
+type TextProps = As<"span", "div", "p"> & TextOwnProps;
 
 export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
   (
