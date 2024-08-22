@@ -156,11 +156,11 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
         </div>
         <div className="relative w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [height:calc-size(auto)] [transition-behavior:allow-discrete]">
           <TabContent additionalClasses="bg-zinc-200" value="desktop">
-            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+            <div className="absolute inset-0 bg-transparent transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [height:calc-size(auto)] [transition-behavior:allow-discrete] bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
             <ComponentPreview activeView="desktop" html={component.html} />
           </TabContent>
           <TabContent additionalClasses="bg-zinc-200" value="mobile">
-            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+            <div className="absolute inset-0 bg-transparent transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [height:calc-size(auto)] [transition-behavior:allow-discrete] bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
             <ComponentPreview activeView="mobile" html={component.html} />
           </TabContent>
           <TabContent value="code">

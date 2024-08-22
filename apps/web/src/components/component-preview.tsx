@@ -70,7 +70,7 @@ export const ComponentPreview = ({
   return (
     <iframe
       className={classNames(
-        "m-auto -mt-4 flex rounded-md transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [height:calc-size(auto)] [transition-behavior:allow-discrete] [width:calc-size(auto)]",
+        "m-auto relative z-[2] -mt-4 flex rounded-md transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete] [width:calc-size(auto)]",
         activeView === "mobile" ? "w-[24rem]" : "w-full",
         className,
       )}
