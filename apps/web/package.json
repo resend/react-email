@@ -12,7 +12,7 @@
     "pattern:build": "email build -d ./components"
   },
   "dependencies": {
-    "@react-email/components": "npm:@react-email/components@canary",
+    "@react-email/components": "npm:@react-email/components@latest",
     "@responsive-email/react-email": "0.0.2",
     "@supabase/supabase-js": "2.45.1",
     "@vercel/analytics": "1.0.1",
