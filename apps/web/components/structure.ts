@@ -117,11 +117,11 @@ export const componentsStructure: Category[] = [
     description:
       "Inline code components for displaying small code snippets within text.",
     components: [
+      { slug: "simple-code-inline", title: "Simple Code Inline" },
       {
         slug: "code-inline-with-different-colors",
         title: "Code Inline with different colors",
       },
-      { slug: "simple-code-inline", title: "Simple Code Inline" },
     ],
   },
   {

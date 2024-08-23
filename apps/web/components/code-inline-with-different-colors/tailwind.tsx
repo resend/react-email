@@ -2,7 +2,7 @@ import { CodeInline, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Text>
+  <Text className="text-center">
     Install the{" "}
     <CodeInline className="rounded-md bg-green-300 px-[4px] py-[2px]">
       @react-email/components

@@ -2,7 +2,7 @@ import { CodeInline, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Text>
+  <Text style={{ textAlign: "center" }}>
     Install the{" "}
     <CodeInline
       style={{
