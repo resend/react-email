@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.1-canary.0
+
+### Patch Changes
+
+- a40904e: Fix hot reloading
+
 ## 3.0.0
 
 ### Major Changes
