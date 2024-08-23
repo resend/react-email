@@ -40,7 +40,7 @@ const Home = () => (
       </div>
       <div className="mt-10 flex items-center justify-center gap-4">
         <Button asChild size="4">
-          <Link href="https://react.email/docs">
+          <Link href="https://react.email/components">
             Explore components
             <ArrowRightIcon size={16} />
           </Link>
