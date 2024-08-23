@@ -4,12 +4,20 @@ import { Layout } from "../_components/layout";
 export const component = (
   <>
     <Row>
-      <Column className="w-1/2">First</Column>
-      <Column className="w-1/2">Second</Column>
+      <Column align="center" className="h-[40px] w-1/2 bg-emerald-400/60">
+        Half
+      </Column>
+      <Column align="center" className="h-[40px] w-1/2 bg-cyan-400/60">
+        Half
+      </Column>
     </Row>
     <Row>
-      <Column className="w-[30%]">First</Column>
-      <Column className="w-[70%]">Second</Column>
+      <Column align="center" className="h-[40px] w-1/3 bg-pink-400/60">
+        A third
+      </Column>
+      <Column align="center" className="h-[40px] w-2/3 bg-purple-400/60">
+        Two thirds
+      </Column>
     </Row>
   </>
 );
