@@ -16,7 +16,7 @@ const Home = () => (
       src="/static/bg.png"
     />
     <main className="relative mx-auto flex max-w-3xl flex-col justify-center">
-      <div className="max-w-[45rem] text-center">
+      <div className="max-w-full text-center md:max-w-[45rem]">
         <div className="mb-8 flex items-center justify-center">
           <Image
             alt="React Email Logo"

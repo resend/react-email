@@ -125,18 +125,18 @@ const Examples = () => (
       src="/static/bg.png"
     />
     <PageTransition
-      className="mx-auto flex max-w-3xl flex-col justify-center py-10"
+      className="mx-auto flex max-w-3xl flex-col justify-center px-1 py-10 md:px-0"
       key="about"
       tag="main"
     >
-      <div className="mb-12 max-w-[46rem] text-center">
-        <Heading className="mb-2 text-white" size="8">
+      <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
+        <Heading className="text-white" size="6">
           Examples
         </Heading>
-        <Text as="p" className="text-slate-11" size="4">
+        <Text as="p" className="mt-4 text-slate-11" size="2">
           {description}.
         </Text>
-        <Text as="p" className="text-slate-11" size="4">
+        <Text as="p" className="mt-2 text-slate-11" size="2">
           Recreate an{" "}
           <Anchor
             href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
@@ -154,7 +154,7 @@ const Examples = () => (
           to add your template here.
         </Text>
       </div>
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {items.map((item) => (
           <Example key={item.path} {...item} />
         ))}

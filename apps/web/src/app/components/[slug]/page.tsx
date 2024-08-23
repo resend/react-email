@@ -85,7 +85,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
         </div>
       </div>
       <PageTransition className="pb-10" key="about" tag="main">
-        <div className="flex w-full flex-col gap-4 px-8 pb-10 pt-16">
+        <div className="flex w-full flex-col gap-4 px-6 pb-10 pt-16 md:px-8">
           <div className="flex-inline flex">
             <Link
               className="flex justify-center self-start text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
