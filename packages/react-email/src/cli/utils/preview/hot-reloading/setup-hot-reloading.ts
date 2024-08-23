@@ -70,7 +70,7 @@ export const setupHotreloading = async (
       return;
     }
     const pathToChangeTarget = path.resolve(
-      process.cwd(),
+      absolutePathToEmailsDirectory,
       relativePathToChangeTarget,
     );
 

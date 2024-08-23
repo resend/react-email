@@ -1,4 +1,4 @@
-import path, { resolve } from 'node:path';
+import path from 'node:path';
 import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
 import { isDev } from '../start-dev-server';
