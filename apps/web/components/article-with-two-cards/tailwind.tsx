@@ -22,7 +22,7 @@ export const component = (
           alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
           className="w-full rounded-[8px] object-cover"
           height="180"
-          src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="/static/outdoor-living.jpg"
         />
         <Text className="text-[16px] font-semibold leading-[24px] text-indigo-600">
           What's new
@@ -44,7 +44,7 @@ export const component = (
           alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
           className="w-full rounded-[8px] object-cover"
           height="180"
-          src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="/static/outdoor-living.jpg"
         />
         <Text className="text-[16px] font-semibold leading-[24px] text-indigo-600">
           What's new

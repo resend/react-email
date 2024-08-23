@@ -2,9 +2,6 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-// Good callouts for users:
-// - Recommended proportions for images 292x152, 292x152 and 292x320.
-
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Section>
@@ -18,7 +15,7 @@ export const component = (
             color: "rgb(79,70,229)",
           }}
         >
-          What's new
+          Collections
         </Text>
         <Text
           style={{
@@ -30,7 +27,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          Functional Style
+          Bundle & Save
         </Text>
         <Text
           style={{
@@ -40,8 +37,7 @@ export const component = (
             color: "rgb(107,114,128)",
           }}
         >
-          Combine practicality and style effortlessly with our furniture,
-          offering functional designs that enhance your living space
+          Award-winning grinders and burrs for brewing like a barista at home.
         </Text>
       </Row>
     </Section>
@@ -52,9 +48,9 @@ export const component = (
             <td>
               <Link href="#">
                 <Img
-                  alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
+                  alt="Grinder Collection"
                   height={152}
-                  src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="/static/grinder-collection.jpg"
                   style={{
                     width: "100%",
                     borderRadius: 12,
@@ -68,9 +64,9 @@ export const component = (
             <td>
               <Link href="#">
                 <Img
-                  alt="A hand holding a blue water bottle with water poring down around it, all on a bage background."
+                  alt="Bundle Collection"
                   height={152}
-                  src="https://images.unsplash.com/photo-1610824352934-c10d87b700cc?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src="/static/bundle-collection.jpg"
                   style={{
                     width: "100%",
                     borderRadius: 12,
@@ -91,9 +87,9 @@ export const component = (
         >
           <Link href="#">
             <Img
-              alt="Two matching shoes on a white background. The second one is tilted diagonally being supported by a white box. The first one is on top of the same box"
+              alt="Clara French Press"
               height={152 + 152 + 8 + 8}
-              src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=2898&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/static/clara-french-press.jpg"
               style={{
                 width: "100%",
                 borderRadius: 12,

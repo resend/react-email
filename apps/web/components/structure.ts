@@ -19,6 +19,35 @@ export const getComponentPathFromSlug = (slug: string) => {
 
 export const componentsStructure: Category[] = [
   {
+    name: "Gallery",
+    description:
+      "Gallery components for displaying images in grids and columns.",
+    components: [
+      { slug: "four-images-in-a-grid", title: "Four images in a grid" },
+      { slug: "images-on-horizontal-grid", title: "Images on horizontal grid" },
+      { slug: "images-on-vertical-grid", title: "Images on vertical grid" },
+      { slug: "three-columns-with-images", title: "Three columns with images" },
+    ],
+  },
+  {
+    name: "Ecommerce",
+    description:
+      "Components designed for eCommerce layouts, including product displays and card grids.",
+    components: [
+      { slug: "one-product", title: "One product" },
+      {
+        slug: "one-product-with-image-on-the-left",
+        title: "One product with image on the left",
+      },
+      {
+        slug: "title-three-cards-in-a-row",
+        title: "Title + three cards in a row",
+      },
+      { slug: "title-four-cards", title: "Title + four cards" },
+      { slug: "checkout", title: "Checkout" },
+    ],
+  },
+  {
     name: "Articles",
     description:
       "Components for creating various types of articles, including layouts with images and cards.",
@@ -116,23 +145,6 @@ export const componentsStructure: Category[] = [
     ],
   },
   {
-    name: "Ecommerce",
-    description:
-      "Components designed for eCommerce layouts, including product displays and card grids.",
-    components: [
-      { slug: "one-product", title: "One product" },
-      {
-        slug: "one-product-with-image-on-the-left",
-        title: "One product with image on the left",
-      },
-      { slug: "title-four-cards", title: "Title + four cards" },
-      {
-        slug: "title-three-cards-in-a-row",
-        title: "Title + three cards in a row",
-      },
-    ],
-  },
-  {
     name: "Features",
     description:
       "Feature components for showcasing key features with headers, lists, and columns.",
@@ -154,17 +166,6 @@ export const componentsStructure: Category[] = [
         slug: "header-and-three-centered-paragraphs",
         title: "Header and three centered paragraphs",
       },
-    ],
-  },
-  {
-    name: "Gallery",
-    description:
-      "Gallery components for displaying images in grids and columns.",
-    components: [
-      { slug: "four-images-in-a-grid", title: "Four images in a grid" },
-      { slug: "images-on-horizontal-grid", title: "Images on horizontal grid" },
-      { slug: "images-on-vertical-grid", title: "Images on vertical grid" },
-      { slug: "three-columns-with-images", title: "Three columns with images" },
     ],
   },
   {
@@ -223,10 +224,7 @@ export const componentsStructure: Category[] = [
     name: "Marketing",
     description:
       "Marketing components for creating surveys and checkout forms.",
-    components: [
-      { slug: "survey", title: "Survey" },
-      { slug: "checkout", title: "Checkout" },
-    ],
+    components: [{ slug: "survey", title: "Survey" }],
   },
   {
     name: "Section",

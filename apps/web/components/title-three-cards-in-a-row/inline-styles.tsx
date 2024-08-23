@@ -14,7 +14,7 @@ export const component = (
           color: "rgb(17,24,39)",
         }}
       >
-        Unleash Creativity
+        Timing Products
       </Text>
       <Text
         style={{
@@ -24,8 +24,8 @@ export const component = (
           color: "rgb(107,114,128)",
         }}
       >
-        Unleash your inner designer with our customizable furniture options,
-        allowing you to create a space that reflects your unique vision
+        Dieter Rams consistently implemented his design principles over the
+        course of over three decades as the Braun design leader.
       </Text>
     </Row>
     <ResponsiveRow style={{ marginTop: 16 }}>
@@ -38,9 +38,9 @@ export const component = (
         }}
       >
         <Img
-          alt="A picture of a pink background with varios items laid out. Shoes, lipstick, sunglasses, some leafs and part of a purse."
+          alt="Braun Analogue Clock"
           height={180}
-          src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="/static/braun-analogue-clock.jpg"
           style={{
             width: "100%",
             borderRadius: 8,
@@ -57,7 +57,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          Sleek study
+          Analogue Clock
         </Text>
         <Text
           style={{
@@ -68,7 +68,7 @@ export const component = (
             color: "rgb(107,114,128)",
           }}
         >
-          Minimalist design with ample workspace
+          Thoughtful and simply designed.
         </Text>
         <Text
           style={{
@@ -80,7 +80,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          $999.99
+          $40.00
         </Text>
         <Button
           href="https://react.email"
@@ -108,9 +108,9 @@ export const component = (
         }}
       >
         <Img
-          alt="A picture of a two shampoos beside a box. All of them have text on them that reads 'Cureology'."
+          alt="Braun Wall Clock"
           height={180}
-          src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=2789&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="/static/braun-wall-clock.jpg"
           style={{
             width: "100%",
             borderRadius: 8,
@@ -127,7 +127,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          Sleek study
+          Wall Clock
         </Text>
         <Text
           style={{
@@ -138,7 +138,7 @@ export const component = (
             color: "rgb(107,114,128)",
           }}
         >
-          Minimalist design with ample workspace
+          The original easy to read dial layout.
         </Text>
         <Text
           style={{
@@ -150,7 +150,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          $999.99
+          $45.00
         </Text>
         <Button
           href="https://react.email"
@@ -178,9 +178,9 @@ export const component = (
         }}
       >
         <Img
-          alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
+          alt="Braun Classic Watch"
           height={180}
-          src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="/static/braun-classic-watch.jpg"
           style={{
             width: "100%",
             borderRadius: 8,
@@ -197,7 +197,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          Sleek study
+          Classic Watch
         </Text>
         <Text
           style={{
@@ -208,7 +208,7 @@ export const component = (
             color: "rgb(107,114,128)",
           }}
         >
-          Minimalist design with ample workspace
+          Functional, classic, and built to last.
         </Text>
         <Text
           style={{
@@ -220,7 +220,7 @@ export const component = (
             color: "rgb(17,24,39)",
           }}
         >
-          $999.99
+          $210.00
         </Text>
         <Button
           href="https://react.email"
