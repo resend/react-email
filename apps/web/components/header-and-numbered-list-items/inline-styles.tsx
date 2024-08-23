@@ -25,7 +25,7 @@ export const component = (
           }}
         >
           Combine practicality and style effortlessly with our furniture,
-          offering functional designs that enhance your living space
+          offering functional designs that enhance your living space.
         </Text>
       </Row>
     </Section>
