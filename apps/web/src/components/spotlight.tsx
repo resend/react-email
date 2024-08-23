@@ -22,8 +22,8 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
 
   const background = useMotionTemplate`
     radial-gradient(
-      40rem circle at ${mouseX}px ${mouseY}px,
-      rgba(24, 30, 42, 36%),
+      12rem circle at ${mouseX}px ${mouseY}px,
+      rgba(37, 174, 186, 30%),
       transparent 80%
     )
   `;
@@ -35,7 +35,7 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
     >
       {children}
       <motion.div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 mix-blend-color-dodge"
         style={{ background }}
       />
     </div>
