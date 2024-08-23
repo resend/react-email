@@ -26,7 +26,7 @@ export const component = (
               color: "rgb(255,255,255)",
             }}
           >
-            Explore
+            Login
           </Button>
         </td>
         <td
@@ -53,7 +53,7 @@ export const component = (
               color: "rgb(17,24,39)",
             }}
           >
-            Buy
+            Sign up
           </Button>
         </td>
       </Row>

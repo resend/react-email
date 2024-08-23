@@ -14,15 +14,14 @@ export const component = (
             lineHeight: "28px",
           }}
         >
-          What's new
+          Try now
         </Text>
         <Text
           style={{
             color: "rgb(17,24,39)",
           }}
         >
-          Browse, Customize, and Shop an Extensive Range of Furniture Anytime,
-          Anywhere with our app
+          The app all cheese enthusiasts have been waiting for
         </Text>
       </Row>
       <Row>

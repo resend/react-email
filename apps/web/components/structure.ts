@@ -69,9 +69,9 @@ export const componentsStructure: Category[] = [
     description:
       "A collection of button components to use in various parts of your application.",
     components: [
-      { slug: "button", title: "Button" },
-      { slug: "download-app-buttons", title: "Download app buttons" },
+      { slug: "single-button", title: "Single button" },
       { slug: "two-buttons", title: "Two buttons" },
+      { slug: "download-buttons", title: "Download buttons" },
     ],
   },
   {
@@ -137,11 +137,11 @@ export const componentsStructure: Category[] = [
     name: "Divider",
     description: "Divider components to separate content in rows or columns.",
     components: [
+      { slug: "simple-divider", title: "Simple divider" },
       {
         slug: "divider-between-rows-and-columns",
         title: "Divider between rows and columns",
       },
-      { slug: "simple-hr", title: "Simple Hr" },
     ],
   },
   {

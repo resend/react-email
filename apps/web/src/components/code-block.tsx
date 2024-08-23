@@ -61,7 +61,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
             }}
           />
 
-          <pre className="font-mono">
+          <pre className="p-4 font-mono">
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line, key: i });
 

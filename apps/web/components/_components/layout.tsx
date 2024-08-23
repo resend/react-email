@@ -30,7 +30,7 @@ export const Layout = ({
         />
       </Head>
 
-      <Body style={{ margin: 0 }}>
+      <Body style={{ margin: 0, marginLeft: 12, marginRight: 12 }}>
         {(() => {
           const container = (
             <Container
