@@ -2,22 +2,20 @@
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-// Good callouts for users:
-// - Recommended proportions for all images is 292x288.
-
 export const component = (
   <Section className="m-[16px]">
     <Section className="mt-[4px]">
       <Row>
         <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
-          What's new
+          Our products
         </Text>
         <Text className="m-0 mt-[8px] text-[24px] font-semibold leading-[32px] text-gray-900">
-          Functional Style
+          Elegant Style
         </Text>
         <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
-          Combine practicality and style effortlessly with our furniture,
-          offering functional designs that enhance your living space
+          We spent two years in development to bring you the next generation of
+          our award-winning home brew grinder. From the finest pour-overs to the
+          coarsest cold brews, your coffee will never be the same again.
         </Text>
       </Row>
     </Section>
@@ -26,20 +24,20 @@ export const component = (
         <Column className="w-[50%] pr-[8px]">
           <Link href="#">
             <Img
-              alt="Picture of part of a camera with other things around it, all unfocused except the camera piece."
+              alt="Stagg Electric Kettle"
               className="w-full rounded-[12px] object-cover"
               height={288}
-              src="https://images.unsplash.com/photo-1617005082133-548c4dd27f35?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/static/stagg-eletric-kettle.jpg"
             />
           </Link>
         </Column>
         <Column className="w-[50%] pl-[8px]">
           <Link href="#">
             <Img
-              alt="Picture of a white background, with a kettle on the left and some coffee being filtered into a glass recipient on the right."
+              alt="Ode Grinder"
               className="w-full rounded-[12px] object-cover"
               height={288}
-              src="https://images.unsplash.com/photo-1570569962804-5377da5be035?q=80&w=2995&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/static/ode-grinder.jpg"
             />
           </Link>
         </Column>
@@ -48,20 +46,20 @@ export const component = (
         <Column className="w-[50%] pr-[8px]">
           <Link href="#">
             <Img
-              alt="A picture of various Apple products laid out on a table. There is an Apple Watch with its box bellow it, there is a MacBook Pro with its box bellow it, there is an Iphone with some box bellow it, there is an Apple Keyboard, and some other items that can't quite be recognized from the picture"
+              alt="Atmos Vacuum Canister"
               className="w-full rounded-[12px] object-cover"
               height={288}
-              src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/static/atmos-vacuum-canister.jpg"
             />
           </Link>
         </Column>
         <Column className="w-[50%] pl-[8px]">
           <Link href="#">
             <Img
-              alt="A hand holding a blue water bottle with water poring down around it, all on a bage background."
+              alt="Clyde Electric Kettle"
               className="w-full rounded-[12px] object-cover"
               height={288}
-              src="https://images.unsplash.com/photo-1610824352934-c10d87b700cc?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/static/clyde-electric-kettle.jpg"
             />
           </Link>
         </Column>

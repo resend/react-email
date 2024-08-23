@@ -33,8 +33,7 @@ export const component = (
           <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-white">
             Uncover the power of accent furniture in transforming your space
             with subtle touches of style, personality, and functionality, as we
-            explore the art of curating captivating accents for a truly curated
-            home
+            explore the art of curating captivating accents.
           </Text>
           <Button
             className="mt-[24px] rounded-[8px] border border-solid border-gray-200 bg-white px-[40px] py-[12px] font-semibold text-gray-900"

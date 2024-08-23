@@ -3,10 +3,10 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Img
-    alt="Stagg Electric Kettle"
+    alt="Ode Grinder"
+    className="mx-auto"
     height={250}
-    src="/static/stagg-eletric-kettle.jpg"
-    style={{ borderRadius: 12, margin: "0 auto" }}
+    src="/static/ode-grinder.jpg"
   />
 );
 

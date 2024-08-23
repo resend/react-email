@@ -17,7 +17,7 @@ export const component = (
       as="h1"
       className="m-0 mt-[8px] text-[30px] font-semibold leading-[36px] text-gray-900"
     >
-      We want to hear from you
+      We want to hear you
     </Heading>
     <Text className="text-[16px] leading-[24px] text-gray-700">
       How would you rate your experience using our product in a scale from 1 to

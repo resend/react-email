@@ -39,7 +39,7 @@ export const component = (
         color: "rgb(17,24,39)",
       }}
     >
-      We want to hear from you
+      We want to hear you
     </Heading>
     <Text
       style={{

@@ -55,8 +55,7 @@ export const component = (
           >
             Uncover the power of accent furniture in transforming your space
             with subtle touches of style, personality, and functionality, as we
-            explore the art of curating captivating accents for a truly curated
-            home
+            explore the art of curating captivating accents.
           </Text>
           <Button
             href="https://react.email"

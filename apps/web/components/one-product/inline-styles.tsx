@@ -4,9 +4,9 @@ import { Layout } from "../_components/layout";
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Img
-      alt="A picture on nice dark carpet of various black items laid out. The items include: a box that has text that reads 'BLVCK, Paris', a bottle, some flip flops and two six-sided dices."
+      alt="Braun Collection"
       height={320}
-      src="https://images.unsplash.com/photo-1612188842101-f976582906fc?q=80&w=2864&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="/static/braun-collection.jpg"
       style={{
         width: "100%",
         borderRadius: 12,
@@ -23,7 +23,7 @@ export const component = (
           color: "rgb(79,70,229)",
         }}
       >
-        Our new product
+        Classic Watches
       </Text>
       <Heading
         as="h1"
@@ -45,8 +45,8 @@ export const component = (
           color: "rgb(107,114,128)",
         }}
       >
-        Luxurious, plush seating for a sophisticated and cozy living room
-        ambiance
+        Dieter Rams’ work has an outstanding quality which distinguishes it from
+        the vast majority of industrial design of the entire 20th Century.
       </Text>
       <Text
         style={{
@@ -56,7 +56,7 @@ export const component = (
           color: "rgb(17,24,39)",
         }}
       >
-        $999.99
+        $210.00
       </Text>
       <Button
         href="https://react.email"
@@ -72,7 +72,7 @@ export const component = (
           color: "rgb(255,255,255)",
         }}
       >
-        Buy
+        Buy now
       </Button>
     </Section>
   </Section>
