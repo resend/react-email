@@ -60,7 +60,7 @@ export const metadata: Metadata = {
       "A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.",
     images: [
       {
-        url: "meta/cover.png",
+        url: "/meta/cover.png",
       },
     ],
     locale: "en_US",
@@ -76,6 +76,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+};
+
+export const viewport = {
+  themeColor: "#25AEBA",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
