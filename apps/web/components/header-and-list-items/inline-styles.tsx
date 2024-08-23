@@ -25,7 +25,7 @@ export const component = (
           }}
         >
           Combine practicality and style effortlessly with our furniture,
-          offering functional designs that enhance your living space
+          offering functional designs that enhance your living space.
         </Text>
       </Row>
     </Section>
@@ -106,7 +106,6 @@ export const component = (
                 margin: 0,
                 fontSize: 20,
                 lineHeight: "28px",
-                fontWeight: 600,
                 color: "rgb(17,24,39)",
               }}
             >

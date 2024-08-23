@@ -24,8 +24,7 @@ export const component = (
           color: "rgb(107,114,128)",
         }}
       >
-        Elevate Your Space with Impeccable Quality, Versatile Styles, and
-        Personalised Service.
+        Elevate your space with impeccable quality, and versatile styles.
       </Text>
     </Row>
     <Row style={{ marginTop: 16 }}>
@@ -104,8 +103,7 @@ export const component = (
           Quality is our priority. Our furniture is meticulously crafted by
           skilled artisans, ensuring durability and elegance. From solid wood
           frames to carefully selected upholstery fabrics, each piece is
-          thoughtfully designed to deliver unmatched quality and long-lasting
-          performance.
+          thoughtfully designed to deliver unmatched quality.
         </Text>
       </Column>
     </Row>
@@ -148,8 +146,7 @@ export const component = (
           Express your unique style with our diverse range of furniture options.
           Whether you prefer contemporary minimalism, rustic charm, or timeless
           elegance, our selection offers something to complement every taste.
-          Choose from sleek modern lines to ornate detailing and enhance your
-          interior décor.
+          Choose from sleek modern lines to ornate detailing.
         </Text>
       </Column>
       <Column

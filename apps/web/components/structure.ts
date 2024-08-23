@@ -149,6 +149,11 @@ export const componentsStructure: Category[] = [
     description:
       "Feature components for showcasing key features with headers, lists, and columns.",
     components: [
+      { slug: "header-and-list-items", title: "Header and list items" },
+      {
+        slug: "header-and-numbered-list-items",
+        title: "Header and numbered list items",
+      },
       {
         slug: "header-and-four-paragraphs",
         title: "Header and four paragraphs",
@@ -156,11 +161,6 @@ export const componentsStructure: Category[] = [
       {
         slug: "header-and-four-paragraphs-and-two-columns",
         title: "Header, four paragraphs and two columns",
-      },
-      { slug: "header-and-list-items", title: "Header and list items" },
-      {
-        slug: "header-and-numbered-list-items",
-        title: "Header and numbered list items",
       },
       {
         slug: "header-and-three-centered-paragraphs",

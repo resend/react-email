@@ -10,7 +10,7 @@ export const component = (
         </Text>
         <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
           Combine practicality and style effortlessly with our furniture,
-          offering functional designs that enhance your living space
+          offering functional designs that enhance your living space.
         </Text>
       </Row>
     </Section>
