@@ -128,10 +128,7 @@ export const componentsStructure: Category[] = [
     name: "Container",
     description:
       "Container components for wrapping content with different layout options.",
-    components: [
-      { slug: "simple-container", title: "Simple container" },
-      { slug: "container-with-section", title: "Container with section" },
-    ],
+    components: [{ slug: "simple-container", title: "Simple container" }],
   },
   {
     name: "Divider",
