@@ -98,16 +98,16 @@ export const componentsStructure: Category[] = [
       "Code block components with options for themes, line numbers, and customization.",
     components: [
       {
-        slug: "code-block-with-custom-theme",
-        title: "Code Block with custom theme",
+        slug: "code-block-with-predefined-theme",
+        title: "Code Block with predefined theme",
       },
       {
         slug: "code-block-with-line-numbers",
         title: "Code Block with line numbers",
       },
       {
-        slug: "code-block-with-predefined-theme",
-        title: "Code Block with predefined theme",
+        slug: "code-block-with-custom-theme",
+        title: "Code Block with custom theme",
       },
       { slug: "code-block-without-theme", title: "Code Block without theme" },
     ],
