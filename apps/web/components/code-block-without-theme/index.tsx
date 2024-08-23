@@ -7,7 +7,7 @@ export const component = (
   from: 'you@example.com',
   to: 'user@gmail.com',
   subject: 'hello world',
-  html: '<strong>it works!</strong>',
+  react: EmailTemplate({ firstName: 'John' }),
 });`}
     language="javascript"
     theme={{}}
