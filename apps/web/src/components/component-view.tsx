@@ -168,7 +168,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           </TabContent>
           <TabContent value="code">
             <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
-              <div className="relative flex w-fit justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
+              <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
                 {activeView === "code" && typeof component.code === "object" ? (
                   <Select.Root
                     onValueChange={(variant: CodeVariant) => {
