@@ -1,5 +1,12 @@
 # react-email-starter
 
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [a40904e]
+  - react-email@3.0.1
+
 ## 0.0.31
 
 ### Patch Changes
