@@ -26,7 +26,7 @@ export const ComponentPreview = ({
             body.offsetHeight,
             htmlFrame.clientHeight,
             htmlFrame.scrollHeight,
-            htmlFrame.offsetHeight
+            htmlFrame.offsetHeight,
           );
           iframeRef.current.style.height = `${height + 20}px`;
         }
@@ -40,7 +40,7 @@ export const ComponentPreview = ({
       handleResize();
 
       return () => {
-          iframe.removeEventListener("load", handleResize);
+        iframe.removeEventListener("load", handleResize);
       };
     }
   }, []);
@@ -48,9 +48,9 @@ export const ComponentPreview = ({
   return (
     <iframe
       className={classNames(
-        "overflow-y-hidden relative z-[2] m-auto flex h-fit rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
+        "relative z-[2] m-auto flex h-fit overflow-y-hidden rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
         activeView === "mobile" ? "w-[360px]" : "w-full",
-        className
+        className,
       )}
       ref={iframeRef}
       srcDoc={html}
