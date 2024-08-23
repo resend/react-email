@@ -37,17 +37,13 @@ export const ComponentPreview = ({
     if (iframe) {
       iframe.addEventListener("load", handleResize);
 
-      // Call handleResize once to adjust height after initial load
       handleResize();
 
-      // Cleanup function to remove event listener
       return () => {
-        if (iframe) {
           iframe.removeEventListener("load", handleResize);
-        }
       };
     }
-  }, [html]); // Dependency array includes `html` so the effect runs when `html` changes
+  }, []);
 
   return (
     <iframe
