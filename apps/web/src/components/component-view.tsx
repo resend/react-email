@@ -37,9 +37,9 @@ const TabTrigger: React.FC<{
   <Tooltip>
     <Tooltip.Trigger asChild>
       <Tabs.Trigger
-        className={classNames("relative px-3 py-1.5",  {
-          'text-slate-11': activeView !== value,
-          'text-slate-12': activeView === value,        
+        className={classNames("relative px-3 py-1.5", {
+          "text-slate-11": activeView !== value,
+          "text-slate-12": activeView === value,
         })}
         style={{ WebkitTapHighlightColor: "transparent" }}
         value={value}
@@ -119,7 +119,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
 
   return (
     <Tabs.Root
-      className="relative flex w-full flex-col gap-2 mb-12"
+      className="relative mb-12 flex w-full flex-col gap-2"
       defaultValue={activeView}
       onValueChange={(value: string) => {
         setActiveView(value as ActiveView);
@@ -179,7 +179,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
                   >
                     <Select.Trigger
                       aria-label="Choose the styling solution"
-                      className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none data-[placeholder]:text-slate-11 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
+                      className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-[placeholder]:text-slate-11"
                     >
                       <Select.Value>
                         {selectedCodeVariant === "tailwind"
@@ -219,7 +219,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
                 ) : null}
                 <button
                   aria-label="Copy code"
-                  className="w-8 h-8 rounded-sm flex items-center justify-center outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
+                  className="flex h-8 w-8 items-center justify-center rounded-sm outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
                   onClick={onCopy}
                   onKeyUp={handleKeyUp}
                   tabIndex={0}
