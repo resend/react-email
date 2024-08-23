@@ -12,7 +12,7 @@ export const component = (
           backgroundColor: "rgb(52,211,153,0.6)",
         }}
       >
-        Half
+        1/2
       </Column>
       <Column
         align="center"
@@ -22,7 +22,7 @@ export const component = (
           backgroundColor: "rgb(34,211,238,0.6)",
         }}
       >
-        Half
+        1/2
       </Column>
     </Row>
     <Row>
@@ -34,7 +34,7 @@ export const component = (
           backgroundColor: "rgb(244,114,182,0.6)",
         }}
       >
-        A third
+        1/3
       </Column>
       <Column
         align="center"
@@ -44,7 +44,7 @@ export const component = (
           backgroundColor: "rgb(192,132,252,0.6)",
         }}
       >
-        Two thirds
+        2/3
       </Column>
     </Row>
   </>
