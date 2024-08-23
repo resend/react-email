@@ -4,13 +4,13 @@ import { Layout } from "../_components/layout";
 export const component = (
   <>
     <Row>
-      <Column>First col</Column>
-      <Column>Second col</Column>
+      <Column>First column</Column>
+      <Column>Second column</Column>
     </Row>
     <Hr className="m-[16px] border-[#cccccc]" />
     <Row>
-      <Column>First col</Column>
-      <Column>Second col</Column>
+      <Column>First column</Column>
+      <Column>Second column</Column>
     </Row>
   </>
 );
