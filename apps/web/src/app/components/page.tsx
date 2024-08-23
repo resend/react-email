@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
+    images: [
+      {
+        url: "https://react.email/static/covers/patterns.png",
+      },
+    ],
   },
   alternates: {
     canonical: "/components",
