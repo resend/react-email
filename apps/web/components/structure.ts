@@ -108,11 +108,11 @@ export const componentsStructure: Category[] = [
     name: "Divider",
     description: "Divider components to separate content in rows or columns.",
     components: [
+      { slug: "simple-divider", title: "Simple divider" },
       {
         slug: "divider-between-rows-and-columns",
         title: "Divider between rows and columns",
       },
-      { slug: "simple-hr", title: "Simple Hr" },
     ],
   },
   {

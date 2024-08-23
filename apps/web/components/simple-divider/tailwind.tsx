@@ -3,9 +3,9 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <>
-    <Text>Before hr</Text>
-    <Hr style={{ marginTop: 16, marginBottom: 16, borderTopWidth: 2 }} />
-    <Text>After hr</Text>
+    <Text>Before divider</Text>
+    <Hr className="m-[16px] border-t-2 border-[#cccccc]" />
+    <Text>After divider</Text>
   </>
 );
 

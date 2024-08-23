@@ -3,9 +3,36 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Column style={{ width: "33.333%" }}>First</Column>
-    <Column style={{ width: "33.333%" }}>Second</Column>
-    <Column style={{ width: "33.333%" }}>Third</Column>
+    <Column
+      align="center"
+      style={{
+        width: "33.333%",
+        height: 40,
+        backgroundColor: "rgb(251,146,60,0.6)",
+      }}
+    >
+      1/3
+    </Column>
+    <Column
+      align="center"
+      style={{
+        width: "33.333%",
+        height: 40,
+        backgroundColor: "rgb(52,211,153,0.6)",
+      }}
+    >
+      1/3
+    </Column>
+    <Column
+      align="center"
+      style={{
+        width: "33.333%",
+        height: 40,
+        backgroundColor: "rgb(34,211,238,0.6)",
+      }}
+    >
+      1/3
+    </Column>
   </Row>
 );
 
