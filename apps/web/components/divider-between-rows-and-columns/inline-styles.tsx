@@ -7,7 +7,7 @@ export const component = (
       <Column>First col</Column>
       <Column>Second col</Column>
     </Row>
-    <Hr style={{ marginTop: 16, marginBottom: 16 }} />
+    <Hr style={{ marginTop: 16, borderColor: "#cccccc", marginBottom: 16 }} />
     <Row>
       <Column>First col</Column>
       <Column>Second col</Column>

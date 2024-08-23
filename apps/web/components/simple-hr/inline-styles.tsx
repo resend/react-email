@@ -4,7 +4,14 @@ import { Layout } from "../_components/layout";
 export const component = (
   <>
     <Text>Before hr</Text>
-    <Hr style={{ marginTop: 16, marginBottom: 16, borderTopWidth: 2 }} />
+    <Hr
+      style={{
+        marginTop: 16,
+        borderColor: "#cccccc",
+        marginBottom: 16,
+        borderTopWidth: 2,
+      }}
+    />
     <Text>After hr</Text>
   </>
 );
