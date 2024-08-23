@@ -14,7 +14,7 @@ export const Topbar: React.FC<
     )}
     {...props}
   >
-    <Link href="/">
+    <Link className="-ml-2" href="/">
       <Logo />
     </Link>
     <Menu />

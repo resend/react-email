@@ -79,10 +79,9 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
   return (
     <>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
-        <div className="hidden h-full w-full max-w-7xl grid-cols-3 gap-4 px-4 lg:grid">
-          <div className="border-x border-l-slate-4 border-r-slate-3 [border-right-style:dashed]" />
-          <div className="border-x border-dashed border-slate-3" />
-          <div className="border-x border-l-slate-3 border-r-slate-4 [border-left-style:dashed]" />
+        <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
+          <div className="border-l border-l-slate-4 border-r-slate-3" />
+          <div className="border-r border-r-slate-4" />
         </div>
       </div>
       <PageTransition className="pb-10" key="about" tag="main">

@@ -27,21 +27,20 @@ export const metadata: Metadata = {
 const ComponentsPage = async () => (
   <>
     <div className="pointer-events-none absolute inset-0 flex justify-center">
-      <div className="hidden h-full w-full max-w-7xl grid-cols-3 gap-4 px-4 lg:grid">
-        <div className="border-x border-l-slate-4 border-r-slate-3 [border-right-style:dashed]" />
-        <div className="border-x border-dashed border-slate-3" />
-        <div className="border-x border-l-slate-3 border-r-slate-4 [border-left-style:dashed]" />
+      <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
+        <div className="border-l border-l-slate-4 border-r-slate-3" />
+        <div className="border-r border-r-slate-4" />
       </div>
     </div>
     <PageTransition className="pb-10" key="about" tag="main">
-      <div className="flex w-full flex-col gap-4 px-8 pb-10 pt-16">
+      <div className="flex w-full flex-col gap-2 px-8 pb-10 pt-16">
         <h1 className="text-2xl font-bold text-slate-12">Components</h1>
         <p>
           Build beautiful emails with pre-built components that you can
           copy-and-paste into your app.
         </p>
       </div>
-      <div className="relative grid grid-cols-1 gap-x-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative grid grid-cols-1 gap-x-4 pb-10 md:grid-cols-2 lg:grid-cols-3">
         <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 border-t border-slate-4" />
         <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 border-b border-slate-4" />
         {componentsStructure.map((category, index) => {
@@ -81,14 +80,14 @@ const ComponentsPage = async () => (
                 )}
               >
                 <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6" />
-                <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm border border-slate-4 text-slate-300">
+                <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
                   <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                   <Illustration />
                 </div>
-                <h3 className="relative z-[2] mt-4 font-semibold capitalize leading-7 text-slate-12">
+                <h3 className="relative z-[2] mt-4 font-semibold capitalize leading-7 tracking-wide text-slate-12">
                   {category.name}
                 </h3>
-                <span className="relative z-[2] mt-1 text-xs text-slate-11">
+                <span className="relative z-[2] text-xs text-slate-11">
                   {category.components.length} component
                   {category.components.length > 1 && "s"}
                 </span>
