@@ -8,9 +8,9 @@ import { slugify } from "../../utils/slugify";
 import { componentsStructure } from "../../../components/structure";
 import PageTransition from "../../components/page-transition";
 
-const title = "Components";
+const title = "Components - React Email";
 const description =
-  "Open-source copy-paste components to use as building blocks with React Email";
+  "Build beautiful emails with pre-built components that you can copy-and-paste into your app.";
 
 export const metadata: Metadata = {
   title,
@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
+    images: [
+      {
+        url: "https://react.email/static/covers/patterns.png",
+      },
+    ],
   },
   alternates: {
     canonical: "/components",

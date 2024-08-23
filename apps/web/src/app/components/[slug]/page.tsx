@@ -40,9 +40,17 @@ export const generateMetadata = async ({
   }
 
   return {
-    title: foundCategory.name,
-    description:
-      "Open-source copy-paste components to use as building blocks with React Email.",
+    title: `${foundCategory.name} Components - React Email`,
+    description: foundCategory.description,
+    openGraph: {
+      title: `${foundCategory.name} Components - React Email`,
+      description: foundCategory.description,
+      images: [
+        {
+          url: "https://react.email/static/covers/patterns.png",
+        },
+      ],
+    },
     alternates: {
       canonical: `/components/${params.slug}`,
     },
