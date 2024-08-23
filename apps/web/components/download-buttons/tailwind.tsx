@@ -6,30 +6,18 @@ export const component = (
   <Row>
     <Column align="center">
       <Row>
-        <Text
-          style={{
-            color: "rgb(99,102,241)",
-            fontWeight: 700,
-            fontSize: 18,
-            lineHeight: "28px",
-          }}
-        >
-          What's new
+        <Text className="text-[18px] font-bold leading-[28px] text-indigo-500">
+          Try now
         </Text>
-        <Text
-          style={{
-            color: "rgb(17,24,39)",
-          }}
-        >
-          Browse, Customize, and Shop an Extensive Range of Furniture Anytime,
-          Anywhere with our app
+        <Text className="text-gray-900">
+          The app all cheese enthusiasts have been waiting for
         </Text>
       </Row>
       <Row>
         <td align="center">
           <table>
             <tr>
-              <td style={{ paddingRight: 16 }}>
+              <td className="pr-[16px]">
                 <Button href="https://react.email">
                   <Img
                     alt="Get it on Google Play button"
@@ -38,7 +26,7 @@ export const component = (
                   />
                 </Button>
               </td>
-              <td style={{ paddingLeft: 16 }}>
+              <td className="pl-[16px]">
                 <Button href="https://react.email">
                   <Img
                     alt="Download on the App Store button"
