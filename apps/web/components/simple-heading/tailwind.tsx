@@ -1,7 +1,9 @@
 import { Heading } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
-export const component = <Heading>Simple h1 heading</Heading>;
+export const component = (
+  <Heading className="text-center">Ray Tomlinson</Heading>
+);
 
 export default () => {
   return <Layout>{component}</Layout>;
