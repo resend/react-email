@@ -130,7 +130,6 @@ export const componentsStructure: Category[] = [
       "Container components for wrapping content with different layout options.",
     components: [
       { slug: "simple-container", title: "Simple container" },
-      { slug: "container-with-section", title: "Container with section" },
     ],
   },
   {
