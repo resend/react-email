@@ -16,7 +16,7 @@ export interface ExampleProps {
 }
 
 const DEMO_EMAIL_PREVIEW_BASE_URL = "https://demo.react.email/preview";
-const DEFAULT_IMAGE = "/covers/react-email.png";
+const DEFAULT_IMAGE = "/static/covers/react-email.png";
 
 const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;

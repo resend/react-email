@@ -140,7 +140,7 @@ export const Menu: React.FC = () => {
             open={isDrawerOpen}
             shouldScaleBackground
           >
-            <Drawer.Trigger>
+            <Drawer.Trigger className="p-2">
               <MenuIcon />
             </Drawer.Trigger>
             <Drawer.Portal>

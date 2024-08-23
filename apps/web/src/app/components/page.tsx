@@ -33,14 +33,14 @@ const ComponentsPage = async () => (
       </div>
     </div>
     <PageTransition className="pb-10" key="about" tag="main">
-      <div className="flex w-full flex-col gap-2 px-8 pb-10 pt-16">
+      <div className="flex w-full flex-col gap-2 px-6 pb-10 pt-16 md:px-8">
         <h1 className="text-2xl font-bold text-slate-12">Components</h1>
         <p>
           Build beautiful emails with pre-built components that you can
           copy-and-paste into your app.
         </p>
       </div>
-      <div className="relative grid grid-cols-1 gap-x-4 pb-10 md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative grid grid-cols-1 gap-x-4 px-1 pb-10 md:grid-cols-2 md:px-0 lg:grid-cols-3">
         <div className="absolute left-1/2 top-0 h-px w-[100dvw] -translate-x-1/2 border-t border-slate-4" />
         <div className="absolute bottom-0 left-1/2 h-px w-[100dvw] -translate-x-1/2 border-b border-slate-4" />
         {componentsStructure.map((category, index) => {

@@ -68,7 +68,7 @@ const TabContent: React.FC<{
   additionalClasses?: string;
 }> = ({ value, children, additionalClasses = "" }) => (
   <Tabs.Content
-    className={`relative mx-8 my-4 h-fit overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
+    className={`relative m-4 mx-2 h-fit overflow-hidden rounded-md border border-slate-4 md:mx-8 ${additionalClasses}`}
     value={value}
   >
     {children}
@@ -98,7 +98,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const code =
     typeof component.code === "string"
       ? component.code
-      : component.code[selectedCodeVariant] ?? "";
+      : (component.code[selectedCodeVariant] ?? "");
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);
@@ -119,7 +119,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
 
   return (
     <Tabs.Root
-      className="relative mb-12 flex w-full flex-col gap-2"
+      className="relative mb-8 flex w-full flex-col gap-2 md:mb-12"
       defaultValue={activeView}
       onValueChange={(value: string) => {
         setActiveView(value as ActiveView);
@@ -128,11 +128,11 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
       <TooltipProvider>
         <div
           className={classNames(
-            "relative flex w-full items-center gap-4 px-8 pb-3",
+            "relative flex w-full items-center gap-6 px-6 pb-3 md:px-8",
             className,
           )}
         >
-          <h2 className="shrink grow basis-0 text-xl font-semibold text-slate-12">
+          <h2 className="shrink grow basis-0 text-pretty text-lg font-semibold text-slate-12 md:text-xl">
             {component.title}
           </h2>
           <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden text-xs">

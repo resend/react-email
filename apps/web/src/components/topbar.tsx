@@ -9,12 +9,12 @@ export const Topbar: React.FC<
 > = ({ className, ...props }) => (
   <header
     className={classNames(
-      "z-[3] flex items-center justify-between p-8",
+      "z-[3] flex items-center justify-between px-6 py-8",
       className,
     )}
     {...props}
   >
-    <Link className="-ml-2" href="/">
+    <Link className="-ml-[.375rem] flex" href="/">
       <Logo />
     </Link>
     <Menu />
