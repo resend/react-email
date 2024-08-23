@@ -18,23 +18,6 @@ export const Layout = ({
   return (
     <Html>
       <Head>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          @font-face {
-            font-family: 'Space Mono';
-            font-style: normal;
-            font-weight: 400;
-            mso-font-alt: monospace;
-            src: url(https://fonts.googleapis.com/css2?family=Space+Mono&display=swap) format('woff2');
-          }
-
-          pre, pre *, code, code * {
-            font-family: 'Space Mono', monospace;
-          }
-        `,
-          }}
-        />
         <Font
           fallbackFontFamily="Helvetica"
           fontFamily="Inter"
