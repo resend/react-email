@@ -68,7 +68,7 @@ const TabContent: React.FC<{
   additionalClasses?: string;
 }> = ({ value, children, additionalClasses = "" }) => (
   <Tabs.Content
-    className={`relative mx-8 my-4 h-full overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
+    className={`relative mx-8 my-4 h-fit overflow-hidden rounded-md border border-slate-4 ${additionalClasses}`}
     value={value}
   >
     {children}
@@ -157,7 +157,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           </Tabs.List>
           <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-slate-4" />
         </div>
-        <div className="relative h-[36rem] w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]">
+        <div className="relative h-fit w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]">
           <TabContent value="desktop">
             <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
             <ComponentPreview activeView="desktop" html={component.html} />
@@ -168,7 +168,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           </TabContent>
           <TabContent value="code">
             <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
-              <div className="relative flex w-fit w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
+              <div className="relative flex w-fit justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
                 {activeView === "code" && typeof component.code === "object" ? (
                   <Select.Root
                     onValueChange={(variant: CodeVariant) => {

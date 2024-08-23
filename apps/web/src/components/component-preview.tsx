@@ -1,3 +1,4 @@
+import * as React from "react";
 import classNames from "classnames";
 
 interface ComponentPreviewProps {
@@ -11,13 +12,51 @@ export const ComponentPreview = ({
   className,
   html,
 }: ComponentPreviewProps) => {
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (iframeRef.current) {
+        const iframeDocument = iframeRef.current.contentDocument;
+        if (iframeDocument) {
+          const body = iframeDocument.body;
+          const htmlFrame = iframeDocument.documentElement;
+          const height = Math.max(
+            body.scrollHeight,
+            body.offsetHeight,
+            htmlFrame.clientHeight,
+            htmlFrame.scrollHeight,
+            htmlFrame.offsetHeight
+          );
+          iframeRef.current.style.height = `${height + 20}px`;
+        }
+      }
+    };
+
+    const iframe = iframeRef.current;
+    if (iframe) {
+      iframe.addEventListener("load", handleResize);
+
+      // Call handleResize once to adjust height after initial load
+      handleResize();
+
+      // Cleanup function to remove event listener
+      return () => {
+        if (iframe) {
+          iframe.removeEventListener("load", handleResize);
+        }
+      };
+    }
+  }, [html]); // Dependency array includes `html` so the effect runs when `html` changes
+
   return (
     <iframe
       className={classNames(
-        "relative z-[2] m-auto -mt-4 flex h-full rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
+        "overflow-y-hidden relative z-[2] m-auto flex h-fit rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
         activeView === "mobile" ? "w-[360px]" : "w-full",
-        className,
+        className
       )}
+      ref={iframeRef}
       srcDoc={html}
       title="Component preview"
     />
