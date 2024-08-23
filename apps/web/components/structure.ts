@@ -181,9 +181,8 @@ export const componentsStructure: Category[] = [
     description:
       "Heading components for displaying titles and subtitles with different spacing options.",
     components: [
-      { slug: "single-heading", title: "Single heading" },
+      { slug: "simple-heading", title: "Simple heading" },
       { slug: "multiple-headings", title: "Multiple headings" },
-      { slug: "heading-with-spacing", title: "Headings with spacing" },
     ],
   },
   {
