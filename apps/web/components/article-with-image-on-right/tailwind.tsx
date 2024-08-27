@@ -3,9 +3,8 @@ import { Img, Link, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px] text-center">
     <Section
-      align="left"
       className="inline-block w-full max-w-[250px] text-left align-top"
     >
       <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
@@ -23,7 +22,6 @@ export const component = (
       </Link>
     </Section>
     <Section
-      align="right"
       className="my-[8px] inline-block w-full max-w-[220px] align-top"
     >
       <Img

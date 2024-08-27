@@ -3,14 +3,15 @@ import { Img, Link, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section style={{ marginTop: "16px", marginBottom: "16px" }}>
+  <Section
+    style={{ marginTop: "16px", textAlign: "center", marginBottom: "16px" }}
+  >
     <Section
-      align="left"
       style={{
         display: "inline-block",
         textAlign: "left",
         width: "100%",
-        maxWidth: "250px",
+        maxWidth: 250,
         verticalAlign: "top",
       }}
     >
@@ -56,7 +57,6 @@ export const component = (
       </Link>
     </Section>
     <Section
-      align="right"
       style={{
         display: "inline-block",
         marginTop: 8,
