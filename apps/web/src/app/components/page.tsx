@@ -62,7 +62,7 @@ const ComponentsPage = async () => (
           return (
             <Link
               className={classNames(
-                "group relative isolate mt-7 cursor-pointer md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-slate-4 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-slate-6",
+                "group relative isolate mt-7 cursor-pointer scroll-m-6 rounded-md focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-slate-4 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-slate-6 md:focus:before:border-slate-6",
                 {
                   "md:ml-6": index % 3 === 0,
                   "md:mx-3": index % 3 === 1,
@@ -71,20 +71,22 @@ const ComponentsPage = async () => (
               )}
               href={`/components/${slug}`}
               key={category.name}
+              tabIndex={0}
             >
               <Spotlight
                 className={classNames(
-                  "relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]",
+                  "relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 group-focus:ring group-focus:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]",
                   {
-                    "md:group-hover:-translate-x-2 md:group-hover:-translate-y-2":
+                    "md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2":
                       index % 3 === 0,
-                    "md:group-hover:-translate-y-2": index % 3 === 1,
-                    "md:group-hover:-translate-y-2 md:group-hover:translate-x-2":
+                    "md:group-hover:-translate-y-2 md:group-focus:-translate-y-2":
+                      index % 3 === 1,
+                    "md:group-hover:-translate-y-2 md:group-hover:translate-x-2 md:group-focus:-translate-y-2 md:group-focus:translate-x-2":
                       index % 3 === 2,
                   },
                 )}
               >
-                <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6" />
+                <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
                 <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
                   <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                   <Illustration />
