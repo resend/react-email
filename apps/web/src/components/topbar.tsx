@@ -14,7 +14,10 @@ export const Topbar: React.FC<
     )}
     {...props}
   >
-    <Link className="-ml-[.375rem] flex" href="/">
+    <Link
+      className="-ml-[.375rem] flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-none focus:ring focus:ring-slate-4"
+      href="/"
+    >
       <Logo />
     </Link>
     <Menu />
