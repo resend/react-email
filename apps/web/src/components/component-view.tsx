@@ -37,16 +37,21 @@ const TabTrigger: React.FC<{
   <Tooltip>
     <Tooltip.Trigger asChild>
       <Tabs.Trigger
-        className={classNames("relative px-3 py-1.5", {
-          "text-slate-11": activeView !== value,
-          "text-slate-12": activeView === value,
-        })}
+        className={classNames(
+          "group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none",
+          {
+            "text-slate-11": activeView !== value,
+            "text-slate-12": activeView === value,
+          },
+        )}
         style={{ WebkitTapHighlightColor: "transparent" }}
+        tabIndex={0}
         value={value}
       >
         {activeView === value && (
           <motion.span
-            className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6"
+            className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
+            initial={false}
             layoutId="tab-bubble"
             transition={{
               type: "spring",
@@ -135,7 +140,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
           <h2 className="shrink grow basis-0 text-pretty text-lg font-semibold text-slate-12 md:text-xl">
             {component.title}
           </h2>
-          <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden text-xs">
+          <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden p-1 text-xs">
             <TabTrigger
               activeView={activeView}
               icon={<IconMonitor />}
