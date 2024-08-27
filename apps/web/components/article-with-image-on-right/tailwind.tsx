@@ -3,11 +3,8 @@ import { Img, Link, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
-    <Section
-      align="left"
-      className="inline-block w-full max-w-[250px] text-left align-top"
-    >
+  <Section className="my-[16px] text-center">
+    <Section className="inline-block w-full max-w-[250px] text-left align-top">
       <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
         What's new
       </Text>
@@ -22,10 +19,7 @@ export const component = (
         Read more
       </Link>
     </Section>
-    <Section
-      align="right"
-      className="my-[8px] inline-block w-full max-w-[220px] align-top"
-    >
+    <Section className="my-[8px] inline-block w-full max-w-[220px] align-top">
       <Img
         alt="An aesthetic picture taken of an Iphone, flowers, glasses and a card that reads 'Gucci, bloom' coming out of a leathered bag with a ziper"
         className="rounded-[8px] object-cover"
