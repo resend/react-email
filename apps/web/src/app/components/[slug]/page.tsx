@@ -96,11 +96,11 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
         <div className="flex w-full flex-col gap-4 px-6 pb-10 pt-16 md:px-8">
           <div className="flex-inline flex">
             <Link
-              className="flex justify-center self-start text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
+              className="mr-2 flex scroll-m-2 items-center justify-center gap-2 self-start rounded-md px-2 py-1 text-slate-11 transition transition-colors duration-200 ease-in-out hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3"
               href="/components"
             >
-              <IconArrowLeft className="mr-1" />
-              Back
+              <IconArrowLeft className="mt-[.0625rem]" size={14} />
+              <span>Back</span>
             </Link>
           </div>
           <h1 className="text-2xl font-bold text-slate-12">

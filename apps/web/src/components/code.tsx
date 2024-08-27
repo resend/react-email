@@ -59,7 +59,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-10 font-mono text-sm backdrop-blur-md",
+            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-11 font-mono text-sm backdrop-blur-md",
             className,
           )}
           style={{
@@ -79,7 +79,11 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
               }, 3000);
             }}
           >
-            {isCopied ? <CheckIcon size={16} /> : <ClipboardIcon size={16} />}
+            {isCopied ? (
+              <CheckIcon className="mt-[-0.0938rem]" size={16} />
+            ) : (
+              <ClipboardIcon className="mt-[-0.0938rem]" size={16} />
+            )}
           </IconButton>
           <div
             className="absolute right-0 top-0 h-px w-[12.5rem]"

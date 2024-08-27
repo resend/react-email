@@ -68,7 +68,7 @@ const TabContent: React.FC<{
   additionalClasses?: string;
 }> = ({ value, children, additionalClasses = "" }) => (
   <Tabs.Content
-    className={`relative m-4 mx-2 h-fit overflow-hidden rounded-md border border-slate-4 md:mx-8 ${additionalClasses}`}
+    className={`relative m-4 mx-2 h-fit scroll-m-2 overflow-hidden rounded-md border border-slate-4 transition-colors focus:outline-none focus:ring focus:ring-slate-8 md:mx-8 ${additionalClasses}`}
     value={value}
   >
     {children}
@@ -98,7 +98,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const code =
     typeof component.code === "string"
       ? component.code
-      : component.code[selectedCodeVariant] ?? "";
+      : (component.code[selectedCodeVariant] ?? "");
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);

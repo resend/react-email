@@ -55,13 +55,13 @@ const getAppearance = (appearance: Appearance) => {
       return [
         "bg-white text-black",
         "hover:bg-white/90",
-        "focus:ring-2 focus:ring-white/20 focus:outline-none focus:bg-white/90",
+        "focus:ring-slate-8 focus:bg-white/90 focus:outline-none focus:ring-2",
       ];
     case "gradient":
       return [
-        "bg-gradient backdrop-blur-[20px] border-[#34343A]",
+        "bg-gradient border-[#34343A] backdrop-blur-[1.25rem]",
         "hover:bg-gradientHover",
-        "focus:ring-2 focus:ring-white/20 focus:outline-none focus:bg-gradientHover",
+        "focus:bg-gradientHover focus:outline-none focus:ring-2 focus:ring-white/20",
       ];
     default:
       unreachable(appearance);
@@ -73,11 +73,11 @@ const getSize = (size: Size) => {
     case "1":
       return "";
     case "2":
-      return "text-[14px] h-8 px-3 rounded-md gap-2";
+      return "h-8 gap-2 rounded-md px-3 text-[.875rem] transition-colors";
     case "3":
-      return "text-[14px] h-10 px-4 rounded-md gap-2";
+      return "h-10 gap-2 rounded-md px-4 text-[.875rem] transition-colors";
     case "4":
-      return "text-base h-11 px-4 rounded-md gap-2";
+      return "h-11 gap-2 rounded-md px-4 text-base transition-colors";
     default:
       unreachable(size);
   }

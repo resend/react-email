@@ -49,7 +49,7 @@ export const ComponentPreview = ({
     <iframe
       className={classNames(
         "relative z-[2] m-auto flex h-fit overflow-y-hidden rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
-        activeView === "mobile" ? "w-[360px]" : "w-full",
+        activeView === "mobile" ? "w-[22.5rem]" : "w-full",
         className,
       )}
       ref={iframeRef}

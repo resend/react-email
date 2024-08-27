@@ -25,13 +25,12 @@ const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
   <li className="inline-flex w-full items-center justify-center md:w-fit">
     <Link
       className={classnames(
-        "inline-flex h-8 items-center rounded-md text-sm text-slate-11 md:justify-center",
-        "hover:bg-white/10 hover:text-slate-12",
-        "outline-none focus:bg-white/10 focus:ring-2 focus:ring-white/20",
+        "inline-flex h-8 scroll-m-2 items-center rounded-md text-sm text-slate-11 transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center",
         className,
       )}
       href={href}
       onClick={onClick}
+      tabIndex={0}
     >
       {children}
     </Link>
