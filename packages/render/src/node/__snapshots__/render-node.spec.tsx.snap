@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`render on node environments > that it properly waits for Suepsense boundaries to resolve before resolving 1`] = `
-"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div><!doctype html>
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><!--$--><div><!doctype html>
 <html>
 <head>
     <title>Example Domain</title>
@@ -47,5 +47,5 @@ exports[`render on node environments > that it properly waits for Suepsense boun
 </div>
 </body>
 </html>
-</div><!--/$-->"
+</div><!--/$--><!--/$-->"
 `;
