@@ -98,7 +98,7 @@ const items = [
     author: "zenorocha",
   },
   {
-    path: "magic-links/job-accepted-magic-link",
+    path: "magic-links/jobaccepted-magic-link",
     name: "Job Accepted / Magic Link with code",
     author: "vonsa",
   },
