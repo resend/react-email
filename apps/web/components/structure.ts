@@ -62,6 +62,8 @@ export const componentsStructure: Category[] = [
         title: "Article with image on right",
       },
       { slug: "article-with-two-cards", title: "Article with two cards" },
+      { slug: "article-with-author", title: "Article with Author" },
+      { slug: "article-with-authors", title: "Article with Authors" },
     ],
   },
   {
