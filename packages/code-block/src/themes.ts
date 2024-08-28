@@ -4819,3 +4819,110 @@ export const ghcolors = {
     fontStyle: "italic",
   },
 } as const;
+
+export const vesper = {
+  base: {
+    color: "#a0a0a0",
+    fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
+    textAlign: "left",
+    whiteSpace: "pre",
+    wordSpacing: "normal",
+    wordBreak: "normal",
+    wordWrap: "normal",
+    lineHeight: "1.5",
+    MozTabSize: "4",
+    OTabSize: "4",
+    tabSize: "4",
+    WebkitHyphens: "none",
+    MozHyphens: "none",
+    MsHyphens: "none",
+    hyphens: "none",
+    overflowX: "auto",
+  },
+  selection: {
+    textShadow: "none",
+    background: "#ffffff25",
+  },
+  print: {
+    textShadow: "none",
+  },
+  pre: {
+    color: "#a0a0a0",
+    background: "#101010",
+  },
+  comment: {
+    color: "#8b8b8b94",
+  },
+  punctuation: {
+    color: "#8b8b8b94",
+  },
+  variable: {
+    color: "#a0a0a0",
+  },
+  tag: {
+    color: "#a0a0a0",
+  },
+  hexcode: {
+    color: "#a0a0a0",
+  },
+  string: {
+    color: "rgb(161, 252, 234)",
+  },
+  url: {
+    color: "#a0a0a0",
+  },
+  keyword: {
+    color: "#fff",
+  },
+  deleted: {
+    color: "#fff",
+  },
+  function: {
+    color: "#ffc799",
+  },
+  builtin: {
+    color: "#fff",
+  },
+  number: {
+    color: "#fff",
+  },
+  char: {
+    color: "#fff",
+  },
+  constant: {
+    color: "#fff",
+  },
+  boolean: {
+    color: "#fff",
+  },
+  changed: {
+    color: "#fff",
+  },
+  symbol: {
+    color: "#99ffe4",
+  },
+  inserted: {
+    color: "#ffc799",
+  },
+  "attr-name": {
+    color: "#a0a0a0",
+  },
+  selector: {
+    color: "#a0a0a0",
+  },
+  property: {
+    color: "#a0a0a0",
+  },
+  regex: {
+    color: "#a0a0a0",
+  },
+  important: {
+    fontWeight: "bold",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  italic: {
+    fontStyle: "italic",
+  },
+} as const;
