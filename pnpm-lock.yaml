@@ -429,7 +429,7 @@ importers:
         specifier: workspace:0.0.11
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1-canary.0
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.10
@@ -504,7 +504,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.23
+        specifier: workspace:0.0.24-canary.0
         version: link:../../components
       react:
         specifier: 18.3.1
