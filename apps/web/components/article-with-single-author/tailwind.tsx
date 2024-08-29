@@ -14,10 +14,10 @@ export const component = (
     <Hr className="my-4 border-gray-300" />
     <Section className="mt-[5px] inline-block max-h-[48px] max-w-[48px] text-left">
       <Img
-        alt="Zeno Rocha"
+        alt="Steve Jobs"
         className="block h-12 w-12 rounded-full object-cover object-center"
         height={48}
-        src="/static/zeno-rocha.jpeg"
+        src="/static/steve-jobs.jpg"
         width={48}
       />
     </Section>
@@ -26,7 +26,7 @@ export const component = (
         as="h3"
         className="m-0 text-[14px] font-medium leading-[20px] text-[#1A202C]"
       >
-        Zeno Rocha
+        Steve Jobs
       </Heading>
       <Text className="m-0 text-[12px] font-medium leading-[14px] text-[#718096]">
         Co-Founder & CEO
