@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.1
+
+### Patch Changes
+
+- 7481b12: Add a wrapping Suspense to all email templates before rendering
+
 ## 1.0.0
 
 ### Major Changes

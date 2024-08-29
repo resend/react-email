@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -43,7 +43,7 @@
   "dependencies": {
     "@react-email/body": "workspace:0.0.10",
     "@react-email/button": "workspace:0.0.17",
-    "@react-email/code-block": "workspace:0.0.7",
+    "@react-email/code-block": "workspace:0.0.8",
     "@react-email/code-inline": "workspace:0.0.4",
     "@react-email/column": "workspace:0.0.12",
     "@react-email/container": "workspace:0.0.14",
@@ -56,7 +56,7 @@
     "@react-email/link": "workspace:0.0.10",
     "@react-email/markdown": "workspace:0.0.12",
     "@react-email/preview": "workspace:0.0.11",
-    "@react-email/render": "workspace:1.0.0",
+    "@react-email/render": "workspace:1.0.1",
     "@react-email/row": "workspace:0.0.10",
     "@react-email/section": "workspace:0.0.14",
     "@react-email/tailwind": "workspace:0.1.0",
