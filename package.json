@@ -26,8 +26,8 @@
     "prettier-plugin-tailwindcss": "0.6.6",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
-    "turbo": "1.13.3",
-    "vite": "5.0.13",
+    "turbo": "2.1.0",
+    "vite": "5.4.2",
     "vitest": "2.0.5"
   },
   "packageManager": "pnpm@9.1.2",
