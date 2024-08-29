@@ -22,9 +22,9 @@ export const component = (
       }}
     >
       <Img
-        alt="Zeno Rocha"
+        alt="Steve Jobs"
         height={48}
-        src="/static/zeno-rocha.jpeg"
+        src="/static/steve-jobs.jpg"
         style={{
           borderRadius: "50%",
           display: "block",
@@ -55,7 +55,7 @@ export const component = (
           margin: 0,
         }}
       >
-        Zeno Rocha
+        Steve Jobs
       </Heading>
       <Text
         style={{

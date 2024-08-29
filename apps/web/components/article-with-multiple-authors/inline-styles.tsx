@@ -15,15 +15,15 @@ export const component = (
     <Section>
       {[
         {
-          name: "Zeno Rocha",
+          name: "Steve Jobs",
           title: "Co-Founder & CEO",
-          imgSrc: "/static/zeno-rocha.jpeg",
+          imgSrc: "/static/steve-jobs.jpg",
           showDivider: true,
         },
         {
-          name: "Bu Kinoshita",
+          name: "Steve Wozniak",
           title: "Co-Founder & CTO",
-          imgSrc: "/static/bu-kinoshita.jpeg",
+          imgSrc: "/static/steve-wozniak.jpg",
           showDivider: false,
         },
       ].map((author, index) => (
