@@ -2,4 +2,4 @@
 "@react-email/code-block": patch
 ---
 
-Add vesper theme
+Fix Versper theme's background color
