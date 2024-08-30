@@ -60,19 +60,21 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
             // >= 500% so we need to add extra spaces accordingly.
             //
             // See https://github.com/resend/react-email/issues/1512 for why we do not use letter-spacing instead.
-            __html: `<!--[if mso]><i style="mso-font-width:${plFontWidth * 100
-              }%;mso-text-raise:${textRaise}" hidden>${"&#8202;".repeat(
-                plSpaceCount,
-              )}</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${
+              plFontWidth * 100
+            }%;mso-text-raise:${textRaise}" hidden>${"&#8202;".repeat(
+              plSpaceCount,
+            )}</i><![endif]-->`,
           }}
         />
         <span style={buttonTextStyle(pb)}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="mso-font-width:${prFontWidth * 100
-              }%" hidden>${"&#8202;".repeat(
-                prSpaceCount,
-              )}&#8203;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${
+              prFontWidth * 100
+            }%" hidden>${"&#8202;".repeat(
+              prSpaceCount,
+            )}&#8203;</i><![endif]-->`,
           }}
         />
       </a>
