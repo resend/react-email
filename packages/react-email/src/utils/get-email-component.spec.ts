@@ -5,14 +5,11 @@ describe('getEmailComponent()', () => {
   describe('Node internals support', () => {
     test('Request', async () => {
       const result = await getEmailComponent(
-        path.resolve(
-          __dirname,
-          './testing/request-response-email.tsx',
-        ),
+        path.resolve(__dirname, './testing/request-response-email.tsx'),
       );
       if ('error' in result) {
         console.log(result.error);
-        expect('error' in result, "there should be no errors").toBe(false);
+        expect('error' in result, 'there should be no errors').toBe(false);
       }
     });
   });
