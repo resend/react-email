@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.0.9-canary.0
+
+### Patch Changes
+
+- 0a40975: Fix Versper theme's background color
+
 ## 0.0.8
 
 ### Patch Changes

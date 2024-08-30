@@ -1,5 +1,12 @@
 # @react-email/components
 
+## 0.0.25-canary.0
+
+### Patch Changes
+
+- Updated dependencies [0a40975]
+  - @react-email/code-block@0.0.9-canary.0
+
 ## 0.0.24
 
 ### Patch Changes
