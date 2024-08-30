@@ -4,14 +4,30 @@ import { pxToPt } from "./utils/px-to-pt";
 
 export type ButtonProps = Readonly<React.ComponentPropsWithoutRef<"a">>;
 
+const maxFontWidth = 5;
+
+/**
+ * Computes a msoFontWidth \<= 5 and a count of space characters that,
+ * when applied, end up being as close to `expectedWidth` as possible.
+ */
 function computeFontWidthAndSpaceCount(expectedWidth: number) {
+  if (expectedWidth === 0) return [0, 0];
+
   let smallestSpaceCount = 0;
 
-  while (expectedWidth / smallestSpaceCount / 2 > 5) {
+  const computeRequiredFontWidth = () => {
+    if (smallestSpaceCount > 0) {
+      return expectedWidth / smallestSpaceCount / 2;
+    }
+
+    return Infinity;
+  };
+
+  while (computeRequiredFontWidth() > maxFontWidth) {
     smallestSpaceCount++;
   }
 
-  return [expectedWidth / smallestSpaceCount / 2, smallestSpaceCount];
+  return [computeRequiredFontWidth(), smallestSpaceCount];
 }
 
 export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
@@ -44,21 +60,19 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
             // >= 500% so we need to add extra spaces accordingly.
             //
             // See https://github.com/resend/react-email/issues/1512 for why we do not use letter-spacing instead.
-            __html: `<!--[if mso]><i style="mso-font-width:${
-              plFontWidth * 100
-            }%;mso-text-raise:${textRaise}" hidden>${"&#8202;".repeat(
-              plSpaceCount,
-            )}</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${plFontWidth * 100
+              }%;mso-text-raise:${textRaise}" hidden>${"&#8202;".repeat(
+                plSpaceCount,
+              )}</i><![endif]-->`,
           }}
         />
         <span style={buttonTextStyle(pb)}>{children}</span>
         <span
           dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="mso-font-width:${
-              prFontWidth * 100
-            }%" hidden>${"&#8202;".repeat(
-              prSpaceCount,
-            )}&#8203;</i><![endif]-->`,
+            __html: `<!--[if mso]><i style="mso-font-width:${prFontWidth * 100
+              }%" hidden>${"&#8202;".repeat(
+                prSpaceCount,
+              )}&#8203;</i><![endif]-->`,
           }}
         />
       </a>
