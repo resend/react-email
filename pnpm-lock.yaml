@@ -390,7 +390,7 @@ importers:
         specifier: workspace:0.0.17
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:0.0.7
+        specifier: workspace:0.0.8
         version: link:../code-block
       '@react-email/code-inline':
         specifier: workspace:0.0.4
@@ -429,7 +429,7 @@ importers:
         specifier: workspace:0.0.11
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.0.0
+        specifier: workspace:1.0.1
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.10
@@ -504,7 +504,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.23
+        specifier: workspace:0.0.24
         version: link:../../components
       react:
         specifier: 18.3.1
