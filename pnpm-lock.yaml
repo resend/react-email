@@ -52,7 +52,7 @@ importers:
         version: link:packages/tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.41)(typescript@5.4.2)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@5.4.2)
       turbo:
         specifier: 2.1.0
         version: 2.1.0
@@ -354,7 +354,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.41)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -532,8 +532,8 @@ importers:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.50.0)
       eslint-config-turbo:
-        specifier: 1.10.12
-        version: 1.10.12(eslint@8.50.0)
+        specifier: 2.1.0
+        version: 2.1.0(eslint@8.50.0)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -861,7 +861,7 @@ importers:
         version: 3.4.0
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6)
       tsx:
         specifier: 4.9.0
         version: 4.9.0
@@ -910,7 +910,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.41)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1012,7 +1012,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -4315,6 +4315,11 @@ packages:
     peerDependencies:
       eslint: '>6.6.0'
 
+  eslint-config-turbo@2.1.0:
+    resolution: {integrity: sha512-3SeE2OCWnkA/84adGJXABm++966LNGxRdXtXKBcplJdIe4PmERkov1z6Kzp2PrPKT13wGu/bwoLV5h1rm7v9ug==}
+    peerDependencies:
+      eslint: '>6.6.0'
+
   eslint-import-resolver-alias@1.1.2:
     resolution: {integrity: sha512-WdviM1Eu834zsfjHtcGHtGfcu+F30Od3V7I9Fi57uhBEwPkjDcii7/yW8jAT+gOhn4P/vOxxNAXbFAKsrrc15w==}
     engines: {node: '>= 4'}
@@ -4425,6 +4430,11 @@ packages:
 
   eslint-plugin-turbo@1.10.12:
     resolution: {integrity: sha512-uNbdj+ohZaYo4tFJ6dStRXu2FZigwulR1b3URPXe0Q8YaE7thuekKNP+54CHtZPH9Zey9dmDx5btAQl9mfzGOw==}
+    peerDependencies:
+      eslint: '>6.6.0'
+
+  eslint-plugin-turbo@2.1.0:
+    resolution: {integrity: sha512-+CWVY29y7Qa+gvrKSzP+TOYrHAlNLCh/97K5VtDdnpH54h/JFmnd3U0aSG6WANe0HgAK8NHQfeWFDdRzfDqbKA==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -9459,7 +9469,7 @@ snapshots:
 
   '@types/webpack@5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)':
     dependencies:
-      '@types/node': 20.16.1
+      '@types/node': 18.18.0
       tapable: 2.2.1
       webpack: 5.91.0(@swc/core@1.3.101(@swc/helpers@0.5.12))(esbuild@0.19.11)
     transitivePeerDependencies:
@@ -10064,7 +10074,7 @@ snapshots:
       caniuse-lite: 1.0.30001605
       fraction.js: 4.3.7
       normalize-range: 0.1.2
-      picocolors: 1.0.1
+      picocolors: 1.0.0
       postcss: 8.4.39
       postcss-value-parser: 4.2.0
 
@@ -10870,6 +10880,11 @@ snapshots:
       eslint: 8.50.0
       eslint-plugin-turbo: 1.10.12(eslint@8.50.0)
 
+  eslint-config-turbo@2.1.0(eslint@8.50.0):
+    dependencies:
+      eslint: 8.50.0
+      eslint-plugin-turbo: 2.1.0(eslint@8.50.0)
+
   eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)):
     dependencies:
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
@@ -11023,6 +11038,11 @@ snapshots:
       '@microsoft/tsdoc-config': 0.16.2
 
   eslint-plugin-turbo@1.10.12(eslint@8.50.0):
+    dependencies:
+      dotenv: 16.0.3
+      eslint: 8.50.0
+
+  eslint-plugin-turbo@2.1.0(eslint@8.50.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.50.0
@@ -13516,7 +13536,7 @@ snapshots:
 
   tslib@2.6.2: {}
 
-  tsup@7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6):
+  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
@@ -13540,7 +13560,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@7.2.0(@swc/core@1.4.15)(postcss@8.4.41)(typescript@5.1.6):
+  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@5.1.6):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
@@ -13564,7 +13584,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@7.2.0(@swc/core@1.4.15)(postcss@8.4.41)(typescript@5.4.2):
+  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@5.4.2):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
