@@ -977,9 +977,12 @@ importers:
       '@react-email/html':
         specifier: workspace:*
         version: link:../html
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../render
       '@responsive-email/react-email':
         specifier: 0.0.2
-        version: 0.0.2
+        version: 0.0.2(react@19.0.0-rc-187dd6a7-20240806)
       '@types/postcss-css-variables':
         specifier: 0.18.3
         version: 0.18.3
@@ -9370,7 +9373,9 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@responsive-email/react-email@0.0.2': {}
+  '@responsive-email/react-email@0.0.2(react@19.0.0-rc-187dd6a7-20240806)':
+    dependencies:
+      react: 19.0.0-rc-187dd6a7-20240806
 
   '@responsive-email/react-email@0.0.3(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:

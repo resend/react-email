@@ -1,14 +1,14 @@
 import { useTailwindStyles } from "./use-tailwind-styles";
 
 describe("useTailwindStyles()", () => {
-  test("with basic media queries and nested elements", () => {
+  test("with basic media queries and nested elements", async () => {
     const node = (
       <div className="w-full md:w-[250px] bg-red-500">
         <span className="well-hello text-red-100">Well, hello friends!</span>
       </div>
     );
 
-    expect(useTailwindStyles(node, {})).toEqual({
+    expect(await useTailwindStyles(node, {})).toEqual({
       stylePerClassMap: {
         "w-full": { width: "100%" },
         "bg-red-500": { backgroundColor: "rgb(239,68,68)" },
@@ -21,12 +21,12 @@ describe("useTailwindStyles()", () => {
     });
   });
 
-  test("with more media queries", () => {
+  test("with more media queries", async () => {
     const node = (
       <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
     );
 
-    expect(useTailwindStyles(node, {})).toEqual({
+    expect(await useTailwindStyles(node, {})).toEqual({
       stylePerClassMap: {
         "bg-red-200": { backgroundColor: "rgb(254,202,202)" },
       },

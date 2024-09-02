@@ -21,10 +21,7 @@ export function useTailwindStyles(
 ) {
   const markup = quickSafeRenderToString(<>{node}</>);
   const css = useRgbNonSpacedSyntax(
-    useSuspensedPromise(
-      () => getCssForMarkup(markup, config),
-      "CSS for markup promise",
-    ),
+    useSuspensedPromise(getCssForMarkup, [markup, config]),
   );
 
   const [cssWithoutMediaQueries, mediaQueries] =

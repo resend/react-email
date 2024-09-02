@@ -4,6 +4,7 @@ import { useTailwindStyles } from "./hooks/use-tailwind-styles";
 import { useStyleInlining } from "./hooks/use-style-inlining";
 import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
 import { minifyCss } from "./utils/css/minify-css";
+import { useSuspensedPromise } from "./hooks/use-suspensed-promise";
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
@@ -44,6 +45,7 @@ const isComponent = (
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const { stylePerClassMap, nonInlinableClasses, sanitizedMediaQueries } =
+
     useTailwindStyles(children, config ?? {});
 
   const inline = useStyleInlining(stylePerClassMap);
@@ -137,7 +139,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       const component =
         typeof element.type === "object"
           ? // @ts-expect-error - we know this is a component with a render function
-            (element.type.render as React.FC)
+          (element.type.render as React.FC)
           : (element.type as React.FC);
       const renderedComponent = component({
         ...element.props,
