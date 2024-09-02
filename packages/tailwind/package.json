@@ -47,12 +47,13 @@
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "@responsive-email/react-email": "0.0.2",
     "@react-email/button": "workspace:^",
     "@react-email/head": "workspace:*",
     "@react-email/heading": "workspace:*",
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
+    "@react-email/render": "workspace:*",
+    "@responsive-email/react-email": "0.0.2",
     "@types/postcss-css-variables": "0.18.3",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
@@ -61,7 +62,7 @@
     "postcss-css-variables": "0.19.0",
     "process": "^0.11.10",
     "react-dom": "19.0.0-rc-187dd6a7-20240806",
-    "tailwindcss": "3.3.2",
+    "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
