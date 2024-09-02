@@ -39,7 +39,7 @@ describe("Tailwind component", () => {
   });
 
   describe("Inline styles", () => {
-    it("should await render children with inline Tailwind styles", async () => {
+    it("should render children with inline Tailwind styles", async () => {
       const actualOutput = await render(
         <Tailwind>
           <div className="bg-white" />
@@ -92,15 +92,11 @@ describe("Tailwind component", () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   test("it should not generate styles from text", async () => {
-    expect(await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>)).toBe(
-      "container bg-red-500 bg-blue-300",
-    );
+    expect(await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>)).toMatchSnapshot();
   });
 
   it("should work with components that return children", async () => {
@@ -127,9 +123,7 @@ describe("Tailwind component", () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should work with Heading component", async () => {
@@ -175,9 +169,7 @@ describe("Tailwind component", () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use background image", async () => {
@@ -187,9 +179,7 @@ describe("Tailwind component", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="background-image:url(https://example.com/image.png)"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should not override inline styles with Tailwind styles", async () => {
@@ -230,9 +220,7 @@ describe("Tailwind component", () => {
       </Html>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242)!important}.sm_text-sm{font-size:0.875rem!important;line-height:1.25rem!important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem!important;line-height:1.75rem!important}}</style></head><span><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span><div class="sm_bg-red-50 sm_text-sm md_text-lg custom-class" style="background-color:rgb(255,255,255)"></div></html>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should recognize custom responsive screen", async () => {
@@ -257,9 +245,7 @@ describe("Tailwind component", () => {
       </Html>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94)!important}}@media(min-width:1536px){.2xl_bg-blue-500{background-color:rgb(59,130,246)!important}}</style></head><div class="xl_bg-green-500" style="background-color:rgb(254,226,226)">Test</div><div class="2xl_bg-blue-500">Test</div></html>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should work with calc() with + sign", async () => {
@@ -272,9 +258,7 @@ describe("Tailwind component", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<head><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}</style></head><div class="lg_max-h-calc50pxplus5rem" style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px">something tall</div></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });
 
@@ -302,9 +286,7 @@ describe("Responsive styles", () => {
           </html>
         </Tailwind>,
       ),
-    ).toMatchInlineSnapshot(
-      `"<html lang="en"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
-    );
+    ).toMatchSnapshot();
 
     const MyHead = (props: Record<string, any>) => {
       return <head {...props} />;
@@ -321,9 +303,7 @@ describe("Responsive styles", () => {
           </html>
         </Tailwind>,
       ),
-    ).toMatchInlineSnapshot(
-      `"<html lang="en"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
-    );
+    ).toMatchSnapshot();
   });
 
   it("should add css to <head/> and keep responsive class names", async () => {
@@ -338,9 +318,7 @@ describe("Responsive styles", () => {
       </html>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<html lang="en"><head><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165)!important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113)!important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should work with relatively complex media query utilities", async () => {
@@ -367,7 +345,7 @@ describe("Responsive styles", () => {
         </Tailwind>,
       );
     }
-    await expect.poll(noHead).toThrowErrorMatchingSnapshot();
+    await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
   });
 
   it("should persist existing <head/> elements", async () => {
@@ -385,9 +363,7 @@ describe("Responsive styles", () => {
       </html>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<html lang="en"><head><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68)!important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div></body></html>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });
 
@@ -409,9 +385,7 @@ describe("Custom theme config", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use custom fonts", async () => {
@@ -433,9 +407,7 @@ describe("Custom theme config", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="font-family:Graphik, sans-serif"></div><div style="font-family:Merriweather, serif"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use custom spacing", async () => {
@@ -453,9 +425,7 @@ describe("Custom theme config", () => {
         <div className="m-8xl" />
       </Tailwind>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="margin:96rem"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use custom border radius", async () => {
@@ -473,9 +443,7 @@ describe("Custom theme config", () => {
         <div className="rounded-4xl" />
       </Tailwind>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="border-radius:2rem"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use custom text alignment", async () => {
@@ -495,9 +463,7 @@ describe("Custom theme config", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<div style="text-align:justify"></div>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });
 
@@ -523,9 +489,7 @@ describe("Custom plugins config", () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="border:2px solid"></div><!--/$-->"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   it("should be able to use custom plugins with responsive styles", async () => {
@@ -554,8 +518,6 @@ describe("Custom plugins config", () => {
       </html>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_border-custom{border:2px solid!important}}</style></head><body><div class="sm_border-custom" style="border:2px solid"></div><!--/$--></body></html>"`,
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });
