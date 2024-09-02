@@ -14,7 +14,7 @@ global.__OXIDE__ = undefined;
 // this may cause problems later down the line when upadting tailwind
 // since tailwind might migrate to using oxide for their transformations
 
-export const getCssForMarkup = (
+export const getCssForMarkup = async (
   markup: string,
   config: TailwindConfig | undefined,
 ) => {
@@ -35,7 +35,7 @@ export const getCssForMarkup = (
     }) as postcss.AcceptedPlugin,
     postcssCssVariables() as postcss.AcceptedPlugin,
   ]);
-  const result = processor.process(
+  const result = await processor.process(
     String.raw`
         @tailwind base;
         @tailwind components;
