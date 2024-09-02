@@ -4,7 +4,6 @@ import { useTailwindStyles } from "./hooks/use-tailwind-styles";
 import { useStyleInlining } from "./hooks/use-style-inlining";
 import { sanitizeClassName } from "./utils/compatibility/sanitize-class-name";
 import { minifyCss } from "./utils/css/minify-css";
-import { useSuspensedPromise } from "./hooks/use-suspensed-promise";
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
