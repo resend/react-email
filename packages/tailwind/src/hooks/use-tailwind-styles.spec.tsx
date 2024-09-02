@@ -42,12 +42,16 @@ describe("useTailwindStyles()", () => {
           "@media (min-width: 768px) {.md_bg-red-400 {background-color: rgb(248,113,113)!important}}",
           "@media (min-width: 1024px) {.lg_bg-red-500 {background-color: rgb(239,68,68)!important}}",
         ],
-        nonInlinableClasses: ["sm:bg-red-300", "md:bg-red-400", "lg:bg-red-500"],
+        nonInlinableClasses: [
+          "sm:bg-red-300",
+          "md:bg-red-400",
+          "lg:bg-red-500",
+        ],
       });
 
       return undefined;
     };
 
-    await render(<Comp/>);
+    await render(<Comp />);
   });
 });

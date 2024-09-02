@@ -96,7 +96,9 @@ describe("Tailwind component", () => {
   });
 
   test("it should not generate styles from text", async () => {
-    expect(await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>)).toMatchSnapshot();
+    expect(
+      await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>),
+    ).toMatchSnapshot();
   });
 
   it("should work with components that return children", async () => {
