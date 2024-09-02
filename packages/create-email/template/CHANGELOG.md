@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 0.0.34
+
+### Patch Changes
+
+- @react-email/components@0.0.25
+
 ## 0.0.33
 
 ### Patch Changes
