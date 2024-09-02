@@ -9,6 +9,7 @@ import { cssToJsxStyle } from "../utils/compatibility/css-to-jsx-style";
 import { unescapeClass } from "../utils/compatibility/unescape-class";
 import { sanitizeRuleSelector } from "../utils/compatibility/sanitize-rule-selector";
 import { makeAllRulePropertiesImportant } from "../utils/compatibility/make-all-rule-properties-important";
+import { useSuspensedPromise } from "./use-suspensed-promise";
 
 /**
  * Gets all the necessary information from the node and the Tailwind config to be able
@@ -19,7 +20,9 @@ export function useTailwindStyles(
   config: TailwindConfig,
 ) {
   const markup = quickSafeRenderToString(<>{node}</>);
-  const css = useRgbNonSpacedSyntax(getCssForMarkup(markup, config));
+  const css = useRgbNonSpacedSyntax(
+    useSuspensedPromise(() => getCssForMarkup(markup, config), markup),
+  );
 
   const [cssWithoutMediaQueries, mediaQueries] =
     separateMediaQueriesFromCSS(css);
