@@ -7,13 +7,10 @@ interface PromiseState {
 
 const promiseStates = new Map<string, PromiseState>();
 
-type Serializable = string | number | undefined | Record<string, string | number>;
-
-export const useSuspensedPromise = <Result, Args extends Serializable[]>(
-  promiseFn: (...args: Args) => Promise<Result>,
-  inputs: Args,
+export const useSuspensedPromise = <Result>(
+  promiseFn: () => Promise<Result>,
+  key: string,
 ) => {
-  const key = JSON.stringify(inputs);
   const previousState = promiseStates.get(key);
   if (previousState) {
     if ("error" in previousState) {
@@ -28,7 +25,7 @@ export const useSuspensedPromise = <Result, Args extends Serializable[]>(
   }
 
   const state: PromiseState = {
-    promise: promiseFn(...inputs)
+    promise: promiseFn()
       .then((result) => (state.result = result))
       .catch((error) => (state.error = error as unknown)),
   };
