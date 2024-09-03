@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr className="mb-0 mt-[16px] border-gray-300" />
+    <Hr className="mb-[0px] mt-[16px] border-gray-300" />
     <Section>
       {[
         {
@@ -46,7 +46,7 @@ export const component = (
               <Text className="m-0 text-[12px] font-medium leading-[16px] text-gray-500">
                 {author.title}
               </Text>
-              <Section className="mt-1">
+              <Section className="mt-[4px]">
                 <Link className="h-[12px] w-[12px] text-gray-400" href="#">
                   <svg
                     fill="currentColor"
@@ -76,7 +76,7 @@ export const component = (
             </Section>
           </Section>
           {author.showDivider ? (
-            <Hr className="float-left mr-[16px] inline-block h-[58px] w-px border-none bg-gray-300" />
+            <Hr className="float-left mr-[16px] inline-block h-[58px] w-[1px] border-none bg-gray-300" />
           ) : null}
         </>
       ))}

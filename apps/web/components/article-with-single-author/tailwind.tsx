@@ -11,11 +11,11 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr className="my-4 border-gray-300" />
+    <Hr className="my-[16px] border-gray-300" />
     <Section className="mt-[5px] inline-block max-h-[48px] max-w-[48px] text-left">
       <Img
         alt="Steve Jobs"
-        className="block h-12 w-12 rounded-full object-cover object-center"
+        className="block h-[48px] w-[48px] rounded-full object-cover object-center"
         height={48}
         src="/static/steve-jobs.jpg"
         width={48}
@@ -24,11 +24,11 @@ export const component = (
     <Section className="ml-[18px] inline-block max-w-[120px] text-left align-top">
       <Heading
         as="h3"
-        className="m-0 text-[14px] font-medium leading-[20px] text-[#1A202C]"
+        className="m-[0px] text-[14px] font-medium leading-[20px] text-[#1A202C]"
       >
         Steve Jobs
       </Heading>
-      <Text className="m-0 text-[12px] font-medium leading-[14px] text-[#718096]">
+      <Text className="m-[0px] text-[12px] font-medium leading-[14px] text-[#718096]">
         Co-Founder & CEO
       </Text>
       <Section className="mt-[4px]">
