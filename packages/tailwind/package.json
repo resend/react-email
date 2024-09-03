@@ -53,7 +53,7 @@
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
     "@react-email/render": "workspace:*",
-    "@responsive-email/react-email": "0.0.2",
+    "@responsive-email/react-email": "0.0.3",
     "@types/postcss-css-variables": "0.18.3",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",

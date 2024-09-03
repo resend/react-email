@@ -1236,8 +1236,8 @@ importers:
         specifier: workspace:*
         version: link:../render
       '@responsive-email/react-email':
-        specifier: 0.0.2
-        version: 0.0.2(react@19.0.0-rc-187dd6a7-20240806)
+        specifier: 0.0.3
+        version: 0.0.3(react@19.0.0-rc-187dd6a7-20240806)
       '@types/postcss-css-variables':
         specifier: 0.18.3
         version: 0.18.3
@@ -3500,11 +3500,6 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0 || ^19.0 || ^19.0.0-rc
-
-  '@responsive-email/react-email@0.0.2':
-    resolution: {integrity: sha512-Zc4FuAuCAUVBJWLT0cmW5jx9jQycV+x1rcuKt+h3BT8DWBRuiDwPq48EjEC1m8qj+iDk2uaMSXud1Q66fXl9yA==}
-    peerDependencies:
-      react: 18.x
 
   '@responsive-email/react-email@0.0.3':
     resolution: {integrity: sha512-ZKr3woQ+KKIV/Z/2C1X/TF5VpAAiCtkgIAhmy/iqwkas+J8vjP/8L8MEvm1H3VPau9d7iBqJQn0a2wJXjENoGQ==}
@@ -10748,10 +10743,6 @@ snapshots:
       react: 19.0.0-rc-187dd6a7-20240806
 
   '@react-email/text@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
-    dependencies:
-      react: 19.0.0-rc-187dd6a7-20240806
-
-  '@responsive-email/react-email@0.0.2(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
