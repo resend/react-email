@@ -16,7 +16,7 @@ describe("getCssForMarkup()", () => {
     const css = getCssForMarkup(markup, {});
 
     expect(minifyCss(css)).toMatchInlineSnapshot(
-      `".grid{display:grid}.h-screen{height:100vh}.w-screen{width:100vw}.place-items-center{place-items:center}.bg-white{background-color:rgb(255 255 255 / 1)}@media(prefers-color-scheme:dark){.dark\\\\:bg-black{background-color:rgb(0 0 0 / 1)}}"`,
+      `".grid{display:grid}.h-screen{height:100vh}.w-screen{width:100vw}.place-items-center{place-items:center}.bg-white{background-color:rgb(255 255 255 / 1)}@media(prefers-color-scheme:dark){.dark\\:bg-black{background-color:rgb(0 0 0 / 1)}}"`,
     );
   });
 });

@@ -21,8 +21,6 @@ describe("<Text> component", () => {
 
   it("renders correctly", async () => {
     const actualOutput = await render(<Text>Lorem ipsum</Text>);
-    expect(actualOutput).toMatchInlineSnapshot(
-      '"<!DOCTYPE html PUBLIC \\"-//W3C//DTD XHTML 1.0 Transitional//EN\\" \\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\\"><!--$--><p style=\\"font-size:14px;line-height:24px;margin:16px 0\\">Lorem ipsum</p><!--/$-->"',
-    );
+    expect(actualOutput).toMatchSnapshot();
   });
 });

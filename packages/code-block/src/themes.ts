@@ -4838,6 +4838,7 @@ export const vesper = {
     MsHyphens: "none",
     hyphens: "none",
     overflowX: "auto",
+    backgroundColor: "#1E1E1E",
   },
   selection: {
     textShadow: "none",
