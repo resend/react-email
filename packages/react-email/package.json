@@ -48,7 +48,7 @@
     "@radix-ui/react-popover": "1.1.1",
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toggle-group": "1.1.0",
-    "@radix-ui/react-tooltip": "1.1.1",
+    "@radix-ui/react-tooltip": "1.1.2",
     "@react-email/render": "workspace:*",
     "@swc/core": "1.4.15",
     "@types/babel__core": "7.20.5",
