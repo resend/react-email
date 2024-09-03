@@ -103,7 +103,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   const code =
     typeof component.code === "string"
       ? component.code
-      : (component.code[selectedCodeVariant] ?? "");
+      : component.code[selectedCodeVariant] ?? "";
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);
