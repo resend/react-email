@@ -1,0 +1,42 @@
+---
+title: "Deployment"
+sidebarTitle: "Deployment"
+description: "How to deploy the preview server to Vercel and others"
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+<Steps>
+  <Step title="Add 'build' script to ./package.json">
+    ```diff
+     {
+       "scripts": {
+         ...
+    +    "build": "email build",
+         ...
+       }
+     }
+    ```
+  </Step>
+  <Step title="Change 'Framework Preset' on Vercel's project settings to Next.js">
+    You also need to add "next" at least a devDependency so that it works properly:
+
+    ```diff
+     {
+       "devDependencies": {
+         ...
+    +    "next": "*",
+         ...
+       }
+     }
+    ```
+
+    This is a limitation on Vercel's Next Framework Preset.
+  </Step>
+  <Step title="Change 'Output Directory' to .react-email/.next"></Step>
+</Steps>
+
+In the end, your settings should look like this:
+
+<Frame>
+  <img alt="Proper Vercel settings" src="/images/preview-server-vercel-settings.png" />
+</Frame>

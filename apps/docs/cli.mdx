@@ -23,43 +23,6 @@ your email template when you make changes.
 **F.A.Q**
 
 <AccordionGroup>
-  <Accordion title="How can I deploy the preview server to Vercel?">
-    <Steps>
-      <Step title="Add 'build' script to ./package.json">
-        ```diff
-         {
-           "scripts": {
-             ...
-        +    "build": "email build",
-             ...
-           }
-         }
-        ```
-      </Step>
-      <Step title="Change 'Framework Preset' on Vercel's project settings to Next.js">
-        You also need to add "next" at least a devDependency so that it works properly:
-
-        ```diff
-         {
-           "devDependencies": {
-             ...
-        +    "next": "*",
-             ...
-           }
-         }
-        ```
-
-        This is a limitation on Vercel's Next Framework Preset.
-      </Step>
-      <Step title="Change 'Output Directory' to .react-email/.next"></Step>
-    </Steps>
-
-    In the end, your settings should look like this:
-
-    <img alt="Proper Vercel settings" src="/images/preview-server-vercel-settings.png" />
-
-  </Accordion>
-
   <Accordion title="Where can I place my static files for previewing?">
     Almost always you will need to have static files in your emails, and seeing
     them on the preview server without having to first host on a CDN is very helpful.

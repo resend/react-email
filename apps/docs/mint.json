@@ -43,7 +43,19 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": ["introduction", "contributing", "changelog", "roadmap", "cli"]
+      "pages": [
+        "introduction",
+        "contributing",
+        "changelog",
+        "roadmap",
+        {
+          "group": "CLI",
+          "icon": "square-terminal",
+          "pages": [
+            "cli/deployment"
+          ]
+        }
+      ]
     },
     {
       "group": "Getting Started",
@@ -88,7 +100,9 @@
     },
     {
       "group": "Utilities",
-      "pages": ["utilities/render"]
+      "pages": [
+        "utilities/render"
+      ]
     },
     {
       "group": "Integrations",
