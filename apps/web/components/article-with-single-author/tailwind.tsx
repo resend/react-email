@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr className="my-[16px] border-gray-300" />
+    <Hr className="my-[16px] !border-gray-300" />
     <Section className="mt-[5px] inline-block max-h-[48px] max-w-[48px] text-left">
       <Img
         alt="Steve Jobs"

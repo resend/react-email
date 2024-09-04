@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr style={{ borderColor: "#CCCCCC", margin: "16px 0" }} />
+    <Hr style={{ borderColor: "rgb(209,213,219)", margin: "16px 0" }} />
     <Section
       style={{
         display: "inline-block",
@@ -26,7 +26,7 @@ export const component = (
         height={48}
         src="/static/steve-jobs.jpg"
         style={{
-          borderRadius: "50%",
+          borderRadius: "9999px",
           display: "block",
           height: "48px",
           objectFit: "cover",
