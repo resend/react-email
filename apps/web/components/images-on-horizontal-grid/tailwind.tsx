@@ -3,7 +3,7 @@ import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Section>
       <Row>
         <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
@@ -20,7 +20,7 @@ export const component = (
     <Section className="mt-[16px]">
       <Row className="mt-[16px]">
         <Column className="w-1/2 pr-[8px]">
-          <Row className="pb-2">
+          <Row className="pb-[8px]">
             <td>
               <Link href="#">
                 <Img
@@ -32,7 +32,7 @@ export const component = (
               </Link>
             </td>
           </Row>
-          <Row className="pt-2">
+          <Row className="pt-[8px]">
             <td>
               <Link href="#">
                 <Img
