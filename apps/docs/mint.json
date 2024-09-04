@@ -49,13 +49,8 @@
         "contributing",
         "changelog",
         "roadmap",
-        {
-          "group": "CLI",
-          "icon": "square-terminal",
-          "pages": [
-            "cli/deployment"
-          ]
-        }
+        "cli",
+        "deployment"
       ]
     },
     {
