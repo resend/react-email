@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr className="mb-[0px] mt-[16px] border-gray-300" />
+    <Hr className="mb-[0px] mt-[16px] !border-gray-300" />
     <Section>
       {[
         {
@@ -28,30 +28,33 @@ export const component = (
         },
       ].map((author, index) => (
         <>
-          <Section className="mt-[16px] max-w-[288px] text-left" key={index}>
-            <Section className="mt-[6px] inline-block max-h-[48px] max-w-[48px] text-left">
+          <Section align="left" className="mt-[16px] max-w-[288px]" key={index}>
+            <Section className="mt-[5px] inline-block max-h-[48px] max-w-[48px] text-left">
               <Img
                 alt={author.name}
-                className="block h-[48px] w-[48px] rounded-full object-cover object-center"
+                className="block rounded-full object-cover object-center"
+                height={48}
                 src={author.imgSrc}
+                width={48}
               />
             </Section>
-            <Section className="ml-[16px] inline-block max-w-[120px] text-left align-top">
+            <Section className="ml-[18px] inline-block max-w-[120px] text-left align-top">
               <Heading
                 as="h3"
                 className="m-0 text-[14px] font-medium leading-[20px] text-gray-900"
               >
                 {author.name}
               </Heading>
-              <Text className="m-0 text-[12px] font-medium leading-[16px] text-gray-500">
+              <Text className="m-0 text-[12px] font-medium leading-[14px] text-gray-500">
                 {author.title}
               </Text>
               <Section className="mt-[4px]">
                 <Link className="inline-flex h-[12px] w-[12px]" href="#">
                   <Img
                     alt="X"
+                    height={12}
                     src="/static/x-icon.png"
-                    style={{ height: "12px", width: "12px" }}
+                    width={12}
                   />
                 </Link>
                 <Link
@@ -60,15 +63,19 @@ export const component = (
                 >
                   <Img
                     alt="LinkedIn"
+                    height={12}
                     src="/static/in-icon.png"
-                    style={{ height: "12px", width: "12px" }}
+                    width={12}
                   />
                 </Link>
               </Section>
             </Section>
           </Section>
           {author.showDivider ? (
-            <Hr className="float-left mr-[16px] inline-block h-[58px] w-[1px] border-none bg-gray-300" />
+            <Hr
+              className="mr-[16px] inline-block h-[58px] w-[1px] border-none bg-gray-300"
+              style={{ float: "left" }}
+            />
           ) : null}
         </>
       ))}

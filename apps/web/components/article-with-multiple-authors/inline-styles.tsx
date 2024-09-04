@@ -11,7 +11,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr style={{ borderColor: "#CCCCCC", margin: "16px 0 0 0" }} />
+    <Hr style={{ borderColor: "rgb(209,213,219)", margin: "16px 0 0 0" }} />
     <Section>
       {[
         {
@@ -44,15 +44,16 @@ export const component = (
             >
               <Img
                 alt={author.name}
+                height={48}
                 src={author.imgSrc}
                 style={{
-                  borderRadius: "50%",
+                  borderRadius: 9999,
                   display: "block",
-                  height: "48px",
                   objectFit: "cover",
                   objectPosition: "center",
                   width: "48px",
                 }}
+                width={48}
               />
             </Section>
             <Section
@@ -78,7 +79,7 @@ export const component = (
               </Heading>
               <Text
                 style={{
-                  color: "#718096",
+                  color: "rgb(107,114,128)",
                   fontSize: "12px",
                   fontWeight: 500,
                   lineHeight: "14px",
@@ -124,6 +125,7 @@ export const component = (
             <Hr
               style={{
                 border: "none",
+                backgroundColor: "rgb(209,213,219)",
                 display: "inline-block",
                 float: "left",
                 height: "58px",
