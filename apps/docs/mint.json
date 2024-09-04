@@ -1,4 +1,5 @@
 {
+  "$schema": "https://mintlify.com/schema.json",
   "name": "React Email",
   "logo": {
     "light": "/logo/light.svg",
