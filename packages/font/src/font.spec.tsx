@@ -46,4 +46,24 @@ describe("<Font> component", () => {
     );
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it("renders with quoted URLs and font names", async () => {
+    const webFont = {
+      url: '"http://example.com/font.woff"',
+      format: "woff",
+    } as const;
+  
+    const html = await render(
+      <Font
+        fallbackFontFamily={["Helvetica Neue", "Arial"]}
+        fontFamily="My 'Custom' Font"
+        webFont={webFont}
+      />,
+    );
+  
+    expect(html).toContain("font-family: 'My \\'Custom\\' Font';");
+    expect(html).toContain("Helvetica Neue, Arial");
+    expect(html).toContain('src: url("http://example.com/font.woff") format(\'woff\');');
+  });
+  
 });

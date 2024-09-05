@@ -48,27 +48,27 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontWeight = 400,
 }) => {
   const src = webFont
-    ? `src: url(${webFont.url}) format('${webFont.format}');`
+    ? `src: url(${webFont.url.replace(/"/g, '\\"')}) format('${webFont.format}');`
     : "";
 
   const style = `
     @font-face {
-      font-family: '${fontFamily}';
+      font-family: '${fontFamily.replace(/'/g, "\\'")}';
       font-style: ${fontStyle};
       font-weight: ${fontWeight};
       mso-font-alt: '${
         Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily[0]
-          : fallbackFontFamily
+          ? fallbackFontFamily[0].replace(/'/g, "\\'")
+          : fallbackFontFamily.replace(/'/g, "\\'")
       }';
       ${src}
     }
 
     * {
-      font-family: '${fontFamily}', ${
+      font-family: '${fontFamily.replace(/'/g, "\\'")}', ${
         Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.join(", ")
-          : fallbackFontFamily
+          ? fallbackFontFamily.map(font => font.replace(/'/g, "\\'")).join(", ")
+          : fallbackFontFamily.replace(/'/g, "\\'")
       };
     }
   `;
