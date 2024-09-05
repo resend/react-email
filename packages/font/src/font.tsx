@@ -48,7 +48,9 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontWeight = 400,
 }) => {
   const src = webFont
-    ? `src: url(${webFont.url.replace(/"/g, '\\"')}) format('${webFont.format}');`
+    ? `src: url(${webFont.url.replace(/"/g, '\\"')}) format('${
+        webFont.format
+      }');`
     : "";
 
   const style = `
@@ -66,10 +68,12 @@ export const Font: React.FC<Readonly<FontProps>> = ({
 
     * {
       font-family: '${fontFamily.replace(/'/g, "\\'")}', ${
-    Array.isArray(fallbackFontFamily)
-      ? fallbackFontFamily.map((font) => font.replace(/'/g, "\\'")).join(", ")
-      : fallbackFontFamily.replace(/'/g, "\\'")
-  };
+        Array.isArray(fallbackFontFamily)
+          ? fallbackFontFamily
+              .map((font) => font.replace(/'/g, "\\'"))
+              .join(", ")
+          : fallbackFontFamily.replace(/'/g, "\\'")
+      };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
