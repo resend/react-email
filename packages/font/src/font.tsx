@@ -66,10 +66,10 @@ export const Font: React.FC<Readonly<FontProps>> = ({
 
     * {
       font-family: '${fontFamily.replace(/'/g, "\\'")}', ${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.map(font => font.replace(/'/g, "\\'")).join(", ")
-          : fallbackFontFamily.replace(/'/g, "\\'")
-      };
+    Array.isArray(fallbackFontFamily)
+      ? fallbackFontFamily.map((font) => font.replace(/'/g, "\\'")).join(", ")
+      : fallbackFontFamily.replace(/'/g, "\\'")
+  };
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
