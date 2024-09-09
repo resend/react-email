@@ -104,7 +104,7 @@ const items = [
   },
 ];
 
-const title = "Examples — React Email";
+const title = "Templates — React Email";
 const description = "Open source templates built with React Email";
 export const metadata: Metadata = {
   title,
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
   },
 };
 
-const Examples = () => (
+const Templates = () => (
   <>
     <Image
       alt=""
@@ -163,4 +163,4 @@ const Examples = () => (
   </>
 );
 
-export default Examples;
+export default Templates;
