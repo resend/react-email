@@ -17,7 +17,7 @@ export const component = (
     >
       <Text
         style={{
-          margin: 0,
+          margin: "0px",
           fontSize: 16,
           lineHeight: "24px",
           fontWeight: 600,
@@ -28,7 +28,7 @@ export const component = (
       </Text>
       <Text
         style={{
-          margin: 0,
+          margin: "0px",
           marginTop: "8px",
           fontSize: 20,
           lineHeight: "28px",
@@ -51,7 +51,7 @@ export const component = (
       </Text>
       <Link
         href="https://react.email"
-        style={{ color: "rgb(79 70 229)", textDecorationLine: "underline" }}
+        style={{ color: "rgb(79,70,229)", textDecorationLine: "underline" }}
       >
         Read more
       </Link>

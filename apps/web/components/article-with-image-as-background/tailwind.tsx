@@ -14,7 +14,7 @@ export const component = (
     border={0}
     cellPadding="0"
     cellSpacing="0"
-    className="m-[16px] h-[424px] rounded-[12px] bg-blue-600"
+    className="my-[16px] h-[424px] rounded-[12px] bg-blue-600"
     role="presentation"
     style={{
       // This url must be in quotes for Yahoo
@@ -37,7 +37,7 @@ export const component = (
           </Text>
           <Button
             className="mt-[24px] rounded-[8px] border border-solid border-gray-200 bg-white px-[40px] py-[12px] font-semibold text-gray-900"
-            href="#"
+            href="https://react.email"
           >
             Read more
           </Button>

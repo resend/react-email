@@ -11,7 +11,13 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr style={{ borderColor: "rgb(209,213,219)", margin: "16px 0" }} />
+    <Hr
+      style={{
+        borderColor: "rgb(209,213,219)",
+        marginTop: "16px",
+        marginBottom: "16px",
+      }}
+    />
     <Section
       style={{
         display: "inline-block",
@@ -48,22 +54,22 @@ export const component = (
       <Heading
         as="h3"
         style={{
-          color: "#1A202C",
+          color: "rgb(26,32,44)",
           fontSize: "14px",
           fontWeight: 500,
           lineHeight: "20px",
-          margin: 0,
+          margin: "0px",
         }}
       >
         Steve Jobs
       </Heading>
       <Text
         style={{
-          color: "#718096",
+          color: "rgb(113,128,150)",
           fontSize: "12px",
           fontWeight: 500,
           lineHeight: "14px",
-          margin: 0,
+          margin: "0px",
         }}
       >
         Co-Founder & CEO

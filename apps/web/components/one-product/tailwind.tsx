@@ -10,12 +10,12 @@ export const component = (
       src="/static/braun-collection.jpg"
     />
     <Section className="mt-[32px] text-center">
-      <Text className="m-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
+      <Text className="mt-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
         Classic Watches
       </Text>
       <Heading
         as="h1"
-        className="text-[36px] font-semibold leading-[40px] tracking-tight text-gray-900"
+        className="text-[36px] font-semibold leading-[40px] tracking-[0.4px] text-gray-900"
       >
         Elegant Comfort
       </Heading>
