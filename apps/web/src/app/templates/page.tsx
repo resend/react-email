@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Anchor } from "../../components/anchor";
-import { Example } from "../../components/example";
+import { Template } from "../../components/template";
 import { Heading } from "../../components/heading";
 import { Text } from "../../components/text";
 import PageTransition from "../../components/page-transition";
@@ -104,7 +104,7 @@ const items = [
   },
 ];
 
-const title = "Examples — React Email";
+const title = "Templates — React Email";
 const description = "Open source templates built with React Email";
 export const metadata: Metadata = {
   title,
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
   },
 };
 
-const Examples = () => (
+const Templates = () => (
   <>
     <Image
       alt=""
@@ -131,7 +131,7 @@ const Examples = () => (
     >
       <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
         <Heading className="text-white" size="6">
-          Examples
+          Templates
         </Heading>
         <Text as="p" className="mt-4 text-slate-11" size="2">
           {description}.
@@ -156,11 +156,11 @@ const Examples = () => (
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {items.map((item) => (
-          <Example key={item.path} {...item} />
+          <Template key={item.path} {...item} />
         ))}
       </div>
     </PageTransition>
   </>
 );
 
-export default Examples;
+export default Templates;

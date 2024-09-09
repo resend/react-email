@@ -51,7 +51,7 @@ const MenuItems = ({ onItemClick }: { onItemClick: () => void }) => (
       href="/examples"
       onClick={onItemClick}
     >
-      Examples
+      Templates
     </MenuItem>
     <MenuItem
       className="w-full px-2 md:w-fit"
