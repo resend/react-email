@@ -1,18 +1,15 @@
 import path from "node:path";
 import { existsSync } from "node:fs";
 import { render } from "@react-email/components";
-import { parse } from "html-to-ast";
+import { parse, stringify } from "html-to-ast";
+import type { Attr, IDoc as Doc } from "html-to-ast/dist/types";
 import { getComponentElement } from "../src/app/components/get-components";
 import { componentsStructure, getComponentPathFromSlug } from "./structure";
 import { Layout } from "./_components/layout";
 
-type Doc = Omit<ReturnType<typeof parse>[number], "style">;
-type DocWithSetStyle = Omit<Doc, "children"> & {
-  style?: Record<string, string>;
-  children?: DocWithSetStyle[];
-};
+type MaybeDoc = ReturnType<typeof parse>[number];
 
-const walkAst = <T extends Doc>(ast: T[], callback: (doc: T) => void) => {
+const walkAst = <T extends MaybeDoc>(ast: T[], callback: (doc: T) => void) => {
   for (const doc of ast) {
     callback(doc);
     if (doc.children) {
@@ -21,22 +18,51 @@ const walkAst = <T extends Doc>(ast: T[], callback: (doc: T) => void) => {
   }
 };
 
-const getComparableAstFrom = (html: string): DocWithSetStyle[] => {
-  const ast = parse(html) as Doc[];
+const getStyleObjectFromString = (style: string): Record<string, string> => {
+  const obj: Record<string, string> = {};
+  for (const line of style.split(";")) {
+    const prop = line.split(":")[0];
+    const value = line.split(":").slice(1).join(":");
+
+    obj[prop] = value;
+  }
+  return obj;
+};
+
+const sortKeys = (object: object) => {
+  return Object.keys(object).sort((a, b) => {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  })
+}
+
+const sortStyle = (style: string): string => {
+  const object = getStyleObjectFromString(style);
+  const styleProperties = sortKeys(object);
+  return styleProperties.map((prop) => `${prop}:${object[prop]}`).join(";");
+};
+
+const getComparableHtml = (html: string): string => {
+  const ast = parse(html);
   walkAst(ast, (doc) => {
-    if (doc.attrs && "style" in doc.attrs) {
-      const style = doc.attrs.style as string;
-      (doc as DocWithSetStyle).style = {};
-      for (const line of style.split(";")) {
-        const prop = line.split(":")[0];
-        const value = line.split(":").slice(1).join(":");
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        (doc as DocWithSetStyle).style![prop] = value;
+    const orderedAttributes: Attr = {};
+    if (doc.attrs) {
+      for (const key of sortKeys(doc.attrs)) {
+        orderedAttributes[key] = doc.attrs[key];
       }
-      delete doc.attrs.style;
+      doc.attrs = orderedAttributes;
+      if ("style" in doc.attrs) {
+        const style = doc.attrs.style as string;
+        doc.attrs.style = sortStyle(style);
+      }
     }
   });
-  return ast as DocWithSetStyle[];
+  return stringify(ast as Doc[]);
 };
 
 describe("copy-paste components", () => {
@@ -60,15 +86,16 @@ describe("copy-paste components", () => {
         const inlineStylesElement = await getComponentElement(
           inlineStylesVariantPath,
         );
-        const tailwindAst = getComparableAstFrom(
-          await render(<Layout>{tailwindElement}</Layout>),
+        const tailwindHtml = getComparableHtml(
+          await render(<Layout>{tailwindElement}</Layout>, { pretty: true }),
         );
-        const inlineStylesAst = getComparableAstFrom(
+        const inlineStylesHtml = getComparableHtml(
           await render(
             <Layout withTailwind={false}>{inlineStylesElement}</Layout>,
+            { pretty: true },
           ),
         );
-        expect(tailwindAst).toEqual(inlineStylesAst);
+        expect(tailwindHtml).toEqual(inlineStylesHtml);
       }
     });
   }
