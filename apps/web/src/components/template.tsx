@@ -22,7 +22,7 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-export const Example: React.FC<Readonly<ExampleProps>> = ({
+export const Template: React.FC<Readonly<ExampleProps>> = ({
   className,
   path,
   name,
