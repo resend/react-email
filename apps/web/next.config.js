@@ -13,6 +13,11 @@ module.exports = {
         destination: "https://discord.com/invite/n2pWEjjNnD",
         permanent: true,
       },
+      {
+        source: "/examples",
+        destination: "/templates",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
