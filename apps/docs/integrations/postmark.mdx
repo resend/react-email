@@ -57,7 +57,7 @@ import { Email } from './email';
 
 const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const options = {
   From: 'you@example.com',
@@ -76,7 +76,7 @@ import { Email } from './email';
 
 const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
 
-const emailHtml = render(Email({ url: "https://example.com" }));
+const emailHtml = await render(Email({ url: "https://example.com" }));
 
 const options = {
   From: 'you@example.com',

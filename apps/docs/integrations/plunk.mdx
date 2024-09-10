@@ -59,7 +59,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);
 
-  const emailHtml = render(<Email url="https://example.com" />);
+  const emailHtml = await render(<Email url="https://example.com" />);
 
   plunk.emails.send({
     to: "hello@useplunk.com",
@@ -75,7 +75,7 @@ Import the email template you just built, convert into a HTML string, and use th
 
   const plunk = new Plunk(process.env.PLUNK_API_KEY);
 
-  const emailHtml = render(Email({ url: "https://example.com" }));
+  const emailHtml = await render(Email({ url: "https://example.com" }));
 
   plunk.emails.send({
     to: "hello@useplunk.com",
