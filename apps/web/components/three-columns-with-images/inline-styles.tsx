@@ -59,7 +59,9 @@ export const component = (
             />
           </Link>
         </Column>
-        <Column style={{ width: "33.333333%", paddingLeft: 8, paddingRight: 8 }}>
+        <Column
+          style={{ width: "33.333333%", paddingLeft: 8, paddingRight: 8 }}
+        >
           <Link href="#">
             <Img
               alt="Ode Grinder"

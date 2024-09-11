@@ -29,7 +29,11 @@ export const component = (
       <tr>
         <td align="center" style={{ padding: 40, textAlign: "center" }}>
           <Text
-            style={{ margin: "0px", fontWeight: 600, color: "rgb(229,231,235)" }}
+            style={{
+              margin: "0px",
+              fontWeight: 600,
+              color: "rgb(229,231,235)",
+            }}
           >
             New article
           </Text>

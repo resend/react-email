@@ -38,8 +38,8 @@ const sortKeys = (object: object) => {
       return 1;
     }
     return 0;
-  })
-}
+  });
+};
 
 const sortStyle = (style: string): string => {
   const object = getStyleObjectFromString(style);
@@ -71,11 +71,11 @@ describe("copy-paste components", () => {
   );
   for (const component of components) {
     // It currently fails due to a Tailwind limitation
-    if (component.slug === 'single-button') continue;
+    if (component.slug === "single-button") continue;
 
     // Tailwind seems to be leaving an empty space as a className
-    if (component.slug === 'simple-code-inline') continue;
-    if (component.slug === 'code-inline-with-different-colors') continue;
+    if (component.slug === "simple-code-inline") continue;
+    if (component.slug === "code-inline-with-different-colors") continue;
 
     // eslint-disable-next-line @typescript-eslint/no-loop-func
     test(`${component.slug}'s variants should all match`, async () => {
