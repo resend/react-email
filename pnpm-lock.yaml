@@ -280,12 +280,18 @@ importers:
         specifier: 3.341.0
         version: 3.341.0
       '@react-email/components':
-        specifier: '*'
-        version: 0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: workspace:0.0.25
+        version: link:../../packages/components
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806
+      react-dom:
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
     devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@4.8.3)
@@ -296,15 +302,21 @@ importers:
   examples/mailersend:
     dependencies:
       '@react-email/components':
-        specifier: '*'
-        version: 0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: workspace:0.0.25
+        version: link:../../packages/components
       mailersend:
         specifier: ^2.0.0
         version: 2.3.0
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806
+      react-dom:
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
     devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@4.8.3)
@@ -10576,43 +10588,22 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/body@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/button@0.0.17(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/button@0.0.17(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/code-block@0.0.7(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       prismjs: 1.29.0
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/code-block@0.0.7(react@19.0.0-rc.0)':
-    dependencies:
-      prismjs: 1.29.0
-      react: 19.0.0-rc.0
-
   '@react-email/code-inline@0.0.4(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/code-inline@0.0.4(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/column@0.0.12(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/column@0.0.12(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/components@0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
@@ -10640,113 +10631,46 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  '@react-email/components@0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)':
-    dependencies:
-      '@react-email/body': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/button': 0.0.17(react@19.0.0-rc.0)
-      '@react-email/code-block': 0.0.7(react@19.0.0-rc.0)
-      '@react-email/code-inline': 0.0.4(react@19.0.0-rc.0)
-      '@react-email/column': 0.0.12(react@19.0.0-rc.0)
-      '@react-email/container': 0.0.14(react@19.0.0-rc.0)
-      '@react-email/font': 0.0.8(react@19.0.0-rc.0)
-      '@react-email/head': 0.0.11(react@19.0.0-rc.0)
-      '@react-email/heading': 0.0.14(react@19.0.0-rc.0)
-      '@react-email/hr': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/html': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/img': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/link': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/markdown': 0.0.12(react@19.0.0-rc.0)
-      '@react-email/preview': 0.0.11(react@19.0.0-rc.0)
-      '@react-email/render': 1.0.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)
-      '@react-email/row': 0.0.10(react@19.0.0-rc.0)
-      '@react-email/section': 0.0.14(react@19.0.0-rc.0)
-      '@react-email/tailwind': 0.1.0(react@19.0.0-rc.0)
-      '@react-email/text': 0.0.10(react@19.0.0-rc.0)
-      react: 19.0.0-rc.0
-    transitivePeerDependencies:
-      - react-dom
-
   '@react-email/container@0.0.14(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/container@0.0.14(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/font@0.0.8(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/font@0.0.8(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/head@0.0.11(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/head@0.0.11(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/heading@0.0.14(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/heading@0.0.14(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/hr@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/hr@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/html@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/html@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/img@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/img@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/link@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/link@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/markdown@0.0.12(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       md-to-react-email: 5.0.2(react@19.0.0-rc-187dd6a7-20240806)
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/markdown@0.0.12(react@19.0.0-rc.0)':
-    dependencies:
-      md-to-react-email: 5.0.2(react@19.0.0-rc.0)
-      react: 19.0.0-rc.0
-
   '@react-email/preview@0.0.11(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/preview@0.0.11(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/render@0.0.16(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
@@ -10772,29 +10696,13 @@ snapshots:
       react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@1.0.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)':
-    dependencies:
-      html-to-text: 9.0.5
-      js-beautify: 1.15.1
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0)
-      react-promise-suspense: 0.3.4
-
   '@react-email/row@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/row@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/section@0.0.14(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/section@0.0.14(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@react-email/tailwind@0.0.12(react@19.0.0-rc.0)':
     dependencies:
@@ -10812,17 +10720,9 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
 
-  '@react-email/tailwind@0.1.0(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
-
   '@react-email/text@0.0.10(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-
-  '@react-email/text@0.0.10(react@19.0.0-rc.0)':
-    dependencies:
-      react: 19.0.0-rc.0
 
   '@responsive-email/react-email@0.0.2(react@19.0.0-rc-187dd6a7-20240806)':
     dependencies:
@@ -13967,11 +13867,6 @@ snapshots:
       marked: 7.0.4
       react: 19.0.0-rc-187dd6a7-20240806
 
-  md-to-react-email@5.0.2(react@19.0.0-rc.0):
-    dependencies:
-      marked: 7.0.4
-      react: 19.0.0-rc.0
-
   md5.js@1.3.5:
     dependencies:
       hash-base: 3.1.0
@@ -14658,11 +14553,6 @@ snapshots:
   react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806):
     dependencies:
       react: 19.0.0-rc-187dd6a7-20240806
-      scheduler: 0.25.0-rc-187dd6a7-20240806
-
-  react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0):
-    dependencies:
-      react: 19.0.0-rc.0
       scheduler: 0.25.0-rc-187dd6a7-20240806
 
   react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.12)(eslint@8.50.0):
