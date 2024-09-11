@@ -2,7 +2,7 @@ import { defineConfig } from "tsup";
 
 export default defineConfig({
   dts: true,
-  entry: ["./src/node/index.ts"],
-  outDir: "./dist/node",
+  entry: ["./src/index.ts"],
+  outDir: "./dist",
   format: ["cjs", "esm"],
 });
