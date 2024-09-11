@@ -1,6 +1,6 @@
 import path from "node:path";
 import { existsSync } from "node:fs";
-import postcss from 'postcss';
+import postcss from "postcss";
 import { render } from "@react-email/components";
 import { parse, stringify } from "html-to-ast";
 import type { Attr, IDoc as Doc } from "html-to-ast/dist/types";
