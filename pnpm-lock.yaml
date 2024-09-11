@@ -315,15 +315,24 @@ importers:
   examples/nodemailer:
     dependencies:
       '@react-email/components':
-        specifier: '*'
-        version: 0.0.23(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: workspace:0.0.25
+        version: link:../../packages/components
       nodemailer:
         specifier: 6.9.9
         version: 6.9.9
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806
+      react-dom:
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
     devDependencies:
+      '@types/nodemailer':
+        specifier: 6.4.15
+        version: 6.4.15
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.41)(typescript@4.8.3)
@@ -3960,6 +3969,9 @@ packages:
 
   '@types/node@22.3.0':
     resolution: {integrity: sha512-nrWpWVaDZuaVc5X84xJ0vNrLvomM205oQyLsRt7OHNZbSHslcWsvgFR7O7hire2ZonjLrWBbedmotmIlJDVd6g==}
+
+  '@types/nodemailer@6.4.15':
+    resolution: {integrity: sha512-0EBJxawVNjPkng1zm2vopRctuWVCxk34JcIlRuXSf54habUWdz1FB7wHDqOqvDa8Mtpt0Q3LTXQkAs2LNyK5jQ==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -11261,6 +11273,10 @@ snapshots:
     dependencies:
       undici-types: 6.18.2
     optional: true
+
+  '@types/nodemailer@6.4.15':
+    dependencies:
+      '@types/node': 20.16.1
 
   '@types/normalize-package-data@2.4.4': {}
 
