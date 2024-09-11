@@ -57,7 +57,7 @@ import { Email } from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const options = {
   from: 'you@example.com',
@@ -76,7 +76,7 @@ import { Email } from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
-const emailHtml = render(Email({ url: "https://example.com" }));
+const emailHtml = await render(Email({ url: "https://example.com" }));
 
 const options = {
   from: 'you@example.com',

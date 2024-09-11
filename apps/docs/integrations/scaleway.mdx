@@ -66,7 +66,7 @@ const client = createClient({
 const transactionalEmailClient = new TransactionalEmail.v1alpha1.API(client);
 
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const sender = {
   email: "react-email@transactional.email.fr",

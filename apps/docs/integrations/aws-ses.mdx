@@ -57,7 +57,7 @@ import { Email } from './email';
 
 const ses = new SES({ region: process.env.AWS_SES_REGION })
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const params = {
   Source: 'you@example.com',
@@ -88,7 +88,7 @@ import { Email } from './email';
 
 const ses = new SES({ region: process.env.AWS_SES_REGION })
 
-const emailHtml = render(Email({ url:"https://example.com" }));
+const emailHtml = await render(Email({ url:"https://example.com" }));
 
 const params = {
   Source: 'you@example.com',
