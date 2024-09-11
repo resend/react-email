@@ -29,7 +29,7 @@ pnpm add postmark @react-email/components
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
+```tsx email.tsx
 import * as React from 'react';
 import { Html, Button } from "@react-email/components";
 
@@ -46,11 +46,9 @@ export function Email(props) {
 
 ## 3. Convert to HTML and send email
 
-Import the email template you just built, convert into a HTML string, and use the Postmark SDK to send it.
+Import the email template you just built, convert into an HTML string, and use the Postmark SDK to send it.
 
-<CodeGroup>
-
-```js React
+```tsx
 import { render } from '@react-email/components';
 import postmark from 'postmark';
 import { Email } from './email';
@@ -66,29 +64,8 @@ const options = {
   HtmlBody: emailHtml,
 };
 
-client.sendEmail(options);
+await client.sendEmail(options);
 ```
-
-```js NodeJS
-import { render } from '@react-email/components';
-import postmark from 'postmark';
-import { Email } from './email';
-
-const client = new postmark.ServerClient(process.env.POSTMARK_API_KEY);
-
-const emailHtml = await render(Email({ url: "https://example.com" }));
-
-const options = {
-  From: 'you@example.com',
-  To: 'user@gmail.com',
-  Subject: 'hello world',
-  HtmlBody: emailHtml,
-};
-
-client.sendEmail(options);
-```
-
-</CodeGroup>
 
 ## Try it yourself
 
