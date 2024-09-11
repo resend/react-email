@@ -1129,9 +1129,9 @@ importers:
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
-      react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+      react-markup:
+        specifier: 0.0.0-experimental-d6cb4e77-20240911
+        version: 0.0.0-experimental-d6cb4e77-20240911(react@19.0.0-rc-02c0e824-20241028)
       react-promise-suspense:
         specifier: 0.3.4
         version: 0.3.4
@@ -6909,6 +6909,11 @@ packages:
 
   react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  react-markup@0.0.0-experimental-d6cb4e77-20240911:
+    resolution: {integrity: sha512-zm/WQRsqkzgVuXx6z60Wd4NJe6M61rLFHcSsIJospiiZzIU5ZZIuumS3YiNPTjxB2Iw3VbOq9dv7Y1VMtaOTsg==}
+    peerDependencies:
+      react: 0.0.0-experimental-d6cb4e77-20240911
 
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
@@ -14562,6 +14567,10 @@ snapshots:
   react-is@16.13.1: {}
 
   react-is@18.2.0: {}
+
+  react-markup@0.0.0-experimental-d6cb4e77-20240911(react@19.0.0-rc-02c0e824-20241028):
+    dependencies:
+      react: 19.0.0-rc-02c0e824-20241028
 
   react-promise-suspense@0.3.4:
     dependencies:

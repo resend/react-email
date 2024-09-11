@@ -3,63 +3,21 @@
   "version": "1.0.3-canary.1",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
-  "main": "./dist/browser/index.js",
-  "module": "./dist/browser/index.mjs",
-  "types": "./dist/browser/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "exports": {
-    ".": {
-      "node": {
-        "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
-        },
-        "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
-        }
+    "default": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
-      "deno": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "worker": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "browser": {
-        "import": {
-          "types": "./dist/browser/index.d.mts",
-          "default": "./dist/browser/index.mjs"
-        },
-        "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
-        }
-      },
-      "default": {
-        "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
-        },
-        "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
-        }
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     }
   },
@@ -88,7 +46,7 @@
     "html-to-text": "9.0.5",
     "js-beautify": "^1.14.11",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
-    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-markup": "0.0.0-experimental-d6cb4e77-20240911",
     "react-promise-suspense": "0.3.4"
   },
   "devDependencies": {
