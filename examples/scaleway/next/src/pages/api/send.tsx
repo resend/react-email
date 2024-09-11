@@ -22,7 +22,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     ],
     subject: "Waitlist",
-    html: await render(<WaitlistEmail name="User"/>),
+    html: await render(<WaitlistEmail name="User" />),
     text: "",
   });
 
