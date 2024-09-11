@@ -408,21 +408,21 @@ importers:
 
   examples/scaleway/next:
     dependencies:
-      '@react-email/render':
-        specifier: '*'
-        version: 1.0.0(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+      '@react-email/components':
+        specifier: workspace:0.0.25
+        version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.5.0
         version: 1.5.0
       next:
-        specifier: 13.5.6
-        version: 13.5.6(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)
+        specifier: 15.0.0-canary.117
+        version: 15.0.0-canary.117(@babel/core@7.24.5)(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)
       react:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806
       react-dom:
-        specifier: 19.0.0-rc.0
-        version: 19.0.0-rc.0(react@19.0.0-rc.0)
+        specifier: 19.0.0-rc-187dd6a7-20240806
+        version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
     devDependencies:
       '@types/node':
         specifier: 18.14.6
@@ -433,6 +433,9 @@ importers:
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0-rc.1
         version: types-react-dom@19.0.0-rc.1
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../../packages/eslint-config-custom
       typescript:
         specifier: 4.9.5
         version: 4.9.5
@@ -12052,14 +12055,6 @@ snapshots:
       js-beautify: 1.15.1
       react: 19.0.0-rc.0
       react-dom: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc.0)
-      react-promise-suspense: 0.3.4
-
-  '@react-email/render@1.0.0(react-dom@19.0.0-rc.0(react@19.0.0-rc.0))(react@19.0.0-rc.0)':
-    dependencies:
-      html-to-text: 9.0.5
-      js-beautify: 1.15.1
-      react: 19.0.0-rc.0
-      react-dom: 19.0.0-rc.0(react@19.0.0-rc.0)
       react-promise-suspense: 0.3.4
 
   '@react-email/row@0.0.10(react@18.3.1)':
