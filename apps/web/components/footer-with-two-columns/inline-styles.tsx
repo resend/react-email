@@ -25,7 +25,7 @@ export const component = (
         <Text
           style={{
             marginTop: 4,
-            marginBottom: 0,
+            marginBottom: "0px",
             fontSize: 16,
             lineHeight: "24px",
             color: "rgb(107,114,128)",
@@ -80,7 +80,7 @@ export const component = (
               fontSize: 16,
               lineHeight: "24px",
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: "rgb(107,114,128)",
             }}
           >
             123 Main Street Anytown, CA 12345
@@ -88,9 +88,10 @@ export const component = (
           <Text
             style={{
               marginTop: 4,
-              marginBottom: 0,
+              marginBottom: "0px",
               fontSize: 16,
               lineHeight: "24px",
+              fontWeight: 600,
               color: "rgb(107,114,128)",
             }}
           >

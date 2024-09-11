@@ -29,7 +29,7 @@ export const component = (
       <Column
         align="center"
         style={{
-          width: "33.3333%",
+          width: "33.333333%",
           height: 40,
           backgroundColor: "rgb(244,114,182,0.6)",
         }}
@@ -39,7 +39,7 @@ export const component = (
       <Column
         align="center"
         style={{
-          width: "66.6666%",
+          width: "66.666667%",
           height: 40,
           backgroundColor: "rgb(192,132,252,0.6)",
         }}

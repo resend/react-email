@@ -13,7 +13,7 @@ export const component = (
   <Row>
     <Hr
       style={{
-        borderColor: "rgb(209,213,219)",
+        borderColor: "rgb(209,213,219) !important",
         marginTop: "16px",
         marginBottom: "16px",
       }}
@@ -54,7 +54,7 @@ export const component = (
       <Heading
         as="h3"
         style={{
-          color: "rgb(26,32,44)",
+          color: "rgb(31,41,55)",
           fontSize: "14px",
           fontWeight: 500,
           lineHeight: "20px",
@@ -65,7 +65,7 @@ export const component = (
       </Heading>
       <Text
         style={{
-          color: "rgb(113,128,150)",
+          color: "rgb(107,114,128)",
           fontSize: "12px",
           fontWeight: 500,
           lineHeight: "14px",
