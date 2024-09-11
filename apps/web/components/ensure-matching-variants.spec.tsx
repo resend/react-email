@@ -1,5 +1,6 @@
 import path from "node:path";
 import { existsSync } from "node:fs";
+import postcss from 'postcss';
 import { render } from "@react-email/components";
 import { parse, stringify } from "html-to-ast";
 import type { Attr, IDoc as Doc } from "html-to-ast/dist/types";
@@ -20,30 +21,16 @@ const walkAst = <T extends MaybeDoc>(ast: T[], callback: (doc: T) => void) => {
 
 const getStyleObjectFromString = (style: string): Record<string, string> => {
   const obj: Record<string, string> = {};
-  for (const line of style.split(";")) {
-    const prop = line.split(":")[0];
-    const value = line.split(":").slice(1).join(":");
-
-    obj[prop] = value;
-  }
-  return obj;
-};
-
-const sortKeys = (object: object) => {
-  return Object.keys(object).sort((a, b) => {
-    if (a < b) {
-      return -1;
-    }
-    if (a > b) {
-      return 1;
-    }
-    return 0;
+  const root = postcss.parse(style);
+  root.walkDecls((decl) => {
+    obj[decl.prop] = decl.value;
   });
+  return obj;
 };
 
 const sortStyle = (style: string): string => {
   const object = getStyleObjectFromString(style);
-  const styleProperties = sortKeys(object);
+  const styleProperties = Object.keys(object).sort();
   return styleProperties.map((prop) => `${prop}:${object[prop]}`).join(";");
 };
 
@@ -52,7 +39,7 @@ const getComparableHtml = (html: string): string => {
   walkAst(ast, (doc) => {
     const orderedAttributes: Attr = {};
     if (doc.attrs) {
-      for (const key of sortKeys(doc.attrs)) {
+      for (const key of Object.keys(doc.attrs).sort()) {
         orderedAttributes[key] = doc.attrs[key];
       }
       doc.attrs = orderedAttributes;
