@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
+import * as React from 'react';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import { getEmailComponent } from '../utils/get-email-component';
@@ -10,6 +11,7 @@ import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap
 import { closeOraOnSIGNIT } from '../utils/close-ora-on-sigint';
 
 export interface RenderedEmailMetadata {
+  reactElement: React.ReactElement;
   markup: string;
   plainText: string;
   reactMarkup: string;
@@ -18,8 +20,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -48,7 +50,7 @@ export const renderEmailByPath = async (
 
   const {
     emailComponent: Email,
-    createElement,
+    //createElement,
     render,
     sourceMapToOriginalFile,
   } = result;
@@ -56,15 +58,13 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const element = React.createElement(EmailComponent, previewProps);
+    const markup = await render(element, {
       pretty: true,
     });
-    const plainText = await render(
-      createElement(EmailComponent, previewProps),
-      {
-        plainText: true,
-      },
-    );
+    const plainText = await render(element, {
+      plainText: true,
+    });
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
@@ -83,6 +83,7 @@ export const renderEmailByPath = async (
     });
 
     return {
+      reactElement: element,
       markup,
       plainText,
       reactMarkup,

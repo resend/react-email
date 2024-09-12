@@ -10,6 +10,7 @@ import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { Iframe } from '../../../components/iframe';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
@@ -94,19 +95,21 @@ const Preview = ({
         {hasNoErrors ? (
           <>
             {activeView === 'desktop' && (
-              <iframe
+              <Iframe
                 className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
-                srcDoc={renderedEmailMetadata.markup}
                 title={slug}
-              />
+              >
+                {renderedEmailMetadata.reactElement}
+              </Iframe>
             )}
 
             {activeView === 'mobile' && (
-              <iframe
+              <Iframe
                 className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
-                srcDoc={renderedEmailMetadata.markup}
                 title={slug}
-              />
+              >
+                {renderedEmailMetadata.reactElement}
+              </Iframe>
             )}
 
             {activeView === 'source' && (
