@@ -166,10 +166,10 @@ Generates the plain HTML files of your emails into a `out` directory.
 
   As an example, two cases where `email export` makes itself necessary include:
   - When the email content must be processed by a backend in a language other than JavaScript.
-  - When your email platform requires you do manual templating, such as when writing custom Shopify email templates.
+  - When the platform handling email, such as Shopify, forces you into manual templating.
 
-  You also don't have to worry much about `render` being slow as it should only be milliseconds
-  in difference when compare to manual templating.
+  You also should not have to worry about `render`'s performance, as typically, the introduced
+  time in rendering is going to be milliseconds when compared to manual templating.
 </Info>
 
 **Options**
