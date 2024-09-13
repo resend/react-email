@@ -10,8 +10,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup-node src/index.tsx --format esm --target node18",
-    "dev": "tsup-node src/index.tsx --format esm --target node18 --watch",
+    "build": "tsup-node src/index.tsx --format esm --target node20",
+    "dev": "tsup-node src/index.tsx --format esm --target node20 --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
