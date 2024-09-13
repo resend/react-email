@@ -34,6 +34,7 @@ import tls from 'node:tls';
 import tty from 'node:tty';
 import url from 'node:url';
 import util from 'node:util';
+import utilTypes from 'node:util/types';
 import v8 from 'node:v8';
 import vm from 'node:vm';
 import workerThreads from 'node:worker_threads';
@@ -81,6 +82,7 @@ export const staticNodeModulesForVM = {
   tty,
   url,
   util,
+  'util/types': utilTypes,
   v8,
   vm,
   'worker_threads': workerThreads,
