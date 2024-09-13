@@ -1,5 +1,12 @@
 # react-email
 
+## 3.0.2-canary.0
+
+### Patch Changes
+
+- 76bbf7b: Fix missing Request and Response globals
+- 1af53fb: Fix NODE_ENV for emails as "PRODUCTION" instead of "DEVELOPMENT"
+
 ## 3.0.1
 
 ### Patch Changes
