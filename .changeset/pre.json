@@ -43,8 +43,10 @@
     "tsconfig": "0.0.0"
   },
   "changesets": [
+    "brave-pumas-march",
     "few-experts-prove",
     "gorgeous-ravens-tease",
-    "lazy-jokes-matter"
+    "lazy-jokes-matter",
+    "twenty-trainers-argue"
   ]
 }

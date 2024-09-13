@@ -1,5 +1,7 @@
 # create-email
 
+## 0.0.35-canary.1
+
 ## 0.0.35-canary.0
 
 ## 0.0.34
