@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.0-canary.0
+
+### Major Changes
+
+- a4adb29: Updates `tailwindcss` to latest version, but requires use of `@react-email/render@>=1.0.0`
+
 ## 0.1.0
 
 ### Minor Changes
