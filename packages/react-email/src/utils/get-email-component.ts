@@ -66,6 +66,8 @@ export const getEmailComponent = async (
     console,
     Buffer,
     TextDecoder,
+    Request,
+    Response,
     TextDecoderStream,
     TextEncoder,
     TextEncoderStream,
