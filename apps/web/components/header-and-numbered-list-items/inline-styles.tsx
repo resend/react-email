@@ -38,7 +38,7 @@ export const component = (
         width: "100%",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderColor: "rgb(209,213,219) !important",
       }}
     />
     <Section>
@@ -103,7 +103,7 @@ export const component = (
         width: "100%",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderColor: "rgb(209,213,219) !important",
       }}
     />
     <Section>
@@ -168,7 +168,7 @@ export const component = (
         width: "100%",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderColor: "rgb(209,213,219) !important",
       }}
     />
     <Section>
@@ -233,7 +233,7 @@ export const component = (
         width: "100%",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderColor: "rgb(209,213,219) !important",
       }}
     />
     <Section>
@@ -298,7 +298,7 @@ export const component = (
         width: "100%",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderColor: "rgb(209,213,219) !important",
       }}
     />
   </Section>

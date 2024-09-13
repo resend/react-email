@@ -14,7 +14,7 @@ export const component = (
         </Text>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -38,7 +38,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -62,7 +62,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -86,7 +86,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -110,7 +110,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
   </Section>
 );
 
