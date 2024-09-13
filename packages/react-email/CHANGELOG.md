@@ -1,5 +1,12 @@
 # react-email
 
+## 3.0.2-canary.1
+
+### Patch Changes
+
+- 8ceb667: Add util/types as a module
+- da82d77: Add AbortSignal, Event and EventTarget
+
 ## 3.0.2-canary.0
 
 ### Patch Changes
