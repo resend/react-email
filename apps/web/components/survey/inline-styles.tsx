@@ -31,7 +31,7 @@ export const component = (
     <Heading
       as="h1"
       style={{
-        margin: 0,
+        margin: "0px",
         marginTop: 8,
         fontSize: 30,
         lineHeight: "36px",

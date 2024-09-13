@@ -7,7 +7,7 @@ export const component = (
     <Hr
       style={{
         marginTop: 16,
-        borderColor: "#cccccc",
+        borderColor: "rgb(209,213,219)",
         marginBottom: 16,
         borderTopWidth: 2,
       }}

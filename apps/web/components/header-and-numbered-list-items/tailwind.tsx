@@ -2,7 +2,7 @@ import { Column, Hr, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Section>
       <Row>
         <Text className="m-0 text-[24px] font-semibold leading-[32px] text-gray-900">
@@ -14,7 +14,7 @@ export const component = (
         </Text>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -38,7 +38,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -62,7 +62,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -86,7 +86,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
     <Section>
       <Row>
         <Column className="align-baseline">
@@ -110,7 +110,7 @@ export const component = (
         </Column>
       </Row>
     </Section>
-    <Hr className="mx-0 my-[24px] w-full border border-solid border-gray-200" />
+    <Hr className="mx-0 my-[24px] w-full border border-solid !border-gray-300" />
   </Section>
 );
 

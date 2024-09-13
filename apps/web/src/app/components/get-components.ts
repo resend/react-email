@@ -54,7 +54,7 @@ const getComponentCodeFrom = (fileContent: string): string => {
     .join("\n");
 };
 
-const getComponentElement = async (
+export const getComponentElement = async (
   filepath: string,
 ): Promise<React.ReactElement> => {
   const relativeFilepath = path.relative(pathToComponents, filepath);
@@ -69,7 +69,7 @@ const getComponentElement = async (
   return patternModule.component as React.ReactElement;
 };
 
-const getImportedComponent = async (
+export const getImportedComponent = async (
   component: Component,
 ): Promise<ImportedComponent> => {
   const dirpath = getComponentPathFromSlug(component.slug);

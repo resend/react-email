@@ -14,28 +14,28 @@ export const component = (
     <Heading as="h1" className="mb-0 text-[30px] font-semibold leading-[36px]">
       You left something in your cart
     </Heading>
-    <Section className="m-[16px] rounded-[8px] border border-solid border-gray-200 p-[16px] pt-0">
-      <table className="mb-4" width="100%">
+    <Section className="my-[16px] rounded-[8px] border border-solid border-gray-200 p-[16px] pt-0">
+      <table className="mb-[16px]" width="100%">
         <tr>
           <th className="border-0 border-b border-solid border-gray-200 py-[8px]">
             &nbsp;
           </th>
           <th
             align="left"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] font-bold text-gray-500"
+            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
             colSpan={6}
           >
             <Text className="font-semibold">Product</Text>
           </th>
           <th
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] font-bold text-gray-500"
+            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
           >
             <Text className="font-semibold">Quantity</Text>
           </th>
           <th
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] font-bold text-gray-500"
+            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
           >
             <Text className="font-semibold">Price</Text>
           </th>

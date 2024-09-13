@@ -7,7 +7,13 @@ export const component = (
       <Column>First column</Column>
       <Column>Second column</Column>
     </Row>
-    <Hr style={{ marginTop: 16, borderColor: "#cccccc", marginBottom: 16 }} />
+    <Hr
+      style={{
+        marginTop: 16,
+        borderColor: "rgb(209,213,219)",
+        marginBottom: 16,
+      }}
+    />
     <Row>
       <Column>First column</Column>
       <Column>Second column</Column>

@@ -12,7 +12,7 @@ export const component = (
         />
       </Column>
     </Row>
-    <Row className="mt-[4px]">
+    <Row className="mt-[40px]">
       <Column align="center">
         <table>
           <tr>

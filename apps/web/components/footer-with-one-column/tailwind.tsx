@@ -56,10 +56,10 @@ export const component = (
       </tr>
       <tr>
         <td align="center">
-          <Text className="my-[8px] text-[16px] leading-[24px] text-gray-500">
+          <Text className="my-[8px] text-[16px] font-semibold leading-[24px] text-gray-500">
             123 Main Street Anytown, CA 12345
           </Text>
-          <Text className="mt-[4px] text-[16px] leading-[24px] text-gray-500">
+          <Text className="mb-0 mt-[4px] text-[16px] font-semibold leading-[24px] text-gray-500">
             mail@example.com +123456789
           </Text>
         </td>

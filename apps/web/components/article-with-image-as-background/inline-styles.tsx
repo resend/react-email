@@ -29,16 +29,20 @@ export const component = (
       <tr>
         <td align="center" style={{ padding: 40, textAlign: "center" }}>
           <Text
-            style={{ margin: 0, fontWeight: 600, color: "rgb(229,231,235)" }}
+            style={{
+              margin: "0px",
+              fontWeight: 600,
+              color: "rgb(229,231,235)",
+            }}
           >
             New article
           </Text>
           <Heading
             as="h1"
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 4,
-              fontWeight: "bold",
+              fontWeight: 700,
               color: "rgb(255,255,255)",
             }}
           >
@@ -46,7 +50,7 @@ export const component = (
           </Heading>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",

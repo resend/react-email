@@ -27,7 +27,7 @@ export const component = (
           <td style={{ width: "50%", verticalAlign: "baseline" }}>
             <Text
               style={{
-                margin: 0,
+                margin: "0px",
                 marginTop: 8,
                 fontSize: 20,
                 lineHeight: "28px",

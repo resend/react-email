@@ -3,7 +3,7 @@ import { Column, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Row>
       <Text className="m-0 text-[24px] font-semibold leading-[32px] text-gray-900">
         Unleash Timeless Comfort in Your Home
@@ -30,14 +30,14 @@ export const component = (
           and functional storage solutions.
         </Text>
       </Column>
-      <Column className="w-base pl-[12px] align-baseline" colSpan={1}>
+      <Column className="w-1/2 pl-[12px] align-baseline" colSpan={1}>
+        <Img
+          alt="rocket icon"
+          height="48"
+          src="/static/rocket-icon.png"
+          width="48"
+        />
         <Text className="m-0 mt-[16px] text-[20px] font-semibold leading-[28px] text-gray-900">
-          <Img
-            alt="rocket icon"
-            height="48"
-            src="/static/rocket-icon.png"
-            width="48"
-          />
           Impeccable Quality
         </Text>
         <Text className="mb-0 mt-[8px] text-[16px] leading-[24px] text-gray-500">

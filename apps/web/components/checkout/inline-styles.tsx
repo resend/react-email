@@ -16,7 +16,7 @@ export const component = (
       style={{
         fontSize: 30,
         lineHeight: "36px",
-        marginBottom: 0,
+        marginBottom: "0px",
         fontWeight: 600,
       }}
     >
@@ -25,7 +25,7 @@ export const component = (
     <Section
       style={{
         padding: 16,
-        paddingTop: 0,
+        paddingTop: "0px",
         marginTop: 16,
         marginBottom: 16,
         borderRadius: 8,
@@ -40,7 +40,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -55,7 +55,7 @@ export const component = (
               paddingTop: 8,
               paddingBottom: 8,
               color: "rgb(107,114,128)",
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -69,7 +69,7 @@ export const component = (
               paddingTop: 8,
               paddingBottom: 8,
               color: "rgb(107,114,128)",
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -83,7 +83,7 @@ export const component = (
               paddingTop: 8,
               paddingBottom: 8,
               color: "rgb(107,114,128)",
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -97,7 +97,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -119,7 +119,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -132,7 +132,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -145,7 +145,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -159,7 +159,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -181,7 +181,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -194,7 +194,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",
@@ -207,7 +207,7 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: 0,
+              borderWidth: "0px",
               borderBottomWidth: 1,
               borderStyle: "solid",
               borderColor: "rgb(229,231,235)",

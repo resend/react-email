@@ -3,7 +3,8 @@
   "compilerOptions": {
     "target": "ES2018",
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/*"] },
+    "types": ["vitest/globals"]
   },
   "include": [
     "next-env.d.ts",

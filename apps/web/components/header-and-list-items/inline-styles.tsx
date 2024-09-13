@@ -7,7 +7,7 @@ export const component = (
       <Row>
         <Text
           style={{
-            margin: 0,
+            margin: "0px",
             fontSize: 24,
             lineHeight: "32px",
             fontWeight: 600,
@@ -32,14 +32,14 @@ export const component = (
     <Section>
       <Hr
         style={{
-          marginLeft: 0,
-          marginRight: 0,
+          marginLeft: "0px",
+          marginRight: "0px",
           marginTop: 32,
           marginBottom: 32,
           width: "100%",
           borderWidth: 1,
           borderStyle: "solid",
-          borderColor: "rgb(229,231,235)",
+          borderColor: "rgb(209,213,219) !important",
         }}
       />
       <Section>
@@ -55,8 +55,9 @@ export const component = (
           <Column style={{ width: "85%" }}>
             <Text
               style={{
-                margin: 0,
+                margin: "0px",
                 fontSize: 20,
+                fontWeight: 600,
                 lineHeight: "28px",
                 color: "rgb(17,24,39)",
               }}
@@ -65,7 +66,7 @@ export const component = (
             </Text>
             <Text
               style={{
-                margin: 0,
+                margin: "0px",
                 marginTop: 8,
                 fontSize: 16,
                 lineHeight: "24px",
@@ -80,14 +81,14 @@ export const component = (
       </Section>
       <Hr
         style={{
-          marginLeft: 0,
-          marginRight: 0,
+          marginLeft: "0px",
+          marginRight: "0px",
           marginTop: 32,
           marginBottom: 32,
           width: "100%",
           borderWidth: 1,
           borderStyle: "solid",
-          borderColor: "rgb(229,231,235)",
+          borderColor: "rgb(209,213,219) !important",
         }}
       />
       <Section>
@@ -103,8 +104,9 @@ export const component = (
           <Column style={{ width: "85%" }}>
             <Text
               style={{
-                margin: 0,
+                margin: "0px",
                 fontSize: 20,
+                fontWeight: 600,
                 lineHeight: "28px",
                 color: "rgb(17,24,39)",
               }}
@@ -113,7 +115,7 @@ export const component = (
             </Text>
             <Text
               style={{
-                margin: 0,
+                margin: "0px",
                 marginTop: 8,
                 fontSize: 16,
                 lineHeight: "24px",
@@ -128,13 +130,13 @@ export const component = (
       </Section>
       <Hr
         style={{
-          marginLeft: 0,
-          marginRight: 0,
+          marginLeft: "0px",
+          marginRight: "0px",
           marginTop: 32,
           marginBottom: 32,
           borderWidth: 1,
           borderStyle: "solid",
-          borderColor: "rgb(229,231,235)",
+          borderColor: "rgb(209,213,219) !important",
         }}
       />
     </Section>
