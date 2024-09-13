@@ -283,7 +283,10 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
       </div>
       <div className="h-full w-full overflow-auto">
         <CodeBlock language={selectedCodeVariant === "html" ? "html" : "tsx"}>
-          {code}
+          {code.replaceAll(
+            /src\s*=\s*"(?<URI>\/static.+)"/g,
+            (_match, uri) => `src="https://react.email${uri}"`,
+          )}
         </CodeBlock>
       </div>
     </div>
