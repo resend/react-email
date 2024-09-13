@@ -4,23 +4,25 @@
   "license": "MIT",
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.tsx --format esm,cjs --dts --external react --watch",
+    "build": "tsup-node src/index.tsx --format esm --target node20",
+    "dev": "tsup-node src/index.tsx --format esm --target node20 --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "*",
+    "@react-email/components": "workspace:0.0.25",
     "nodemailer": "6.9.9",
-    "react": "19.0.0-rc.0"
+    "react": "19.0.0-rc-187dd6a7-20240806",
+    "react-dom": "19.0.0-rc-187dd6a7-20240806"
   },
   "devDependencies": {
+    "@types/nodemailer": "6.4.15",
+    "eslint-config-custom": "workspace:*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   }

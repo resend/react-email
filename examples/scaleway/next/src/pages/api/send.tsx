@@ -1,4 +1,4 @@
-import { render } from "@react-email/render";
+import { render } from "@react-email/components";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { WaitlistEmail } from "../../../transactional/emails/waitlist";
 import { scalewayTEM } from "../../lib/scaleway";
@@ -22,11 +22,11 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     ],
     subject: "Waitlist",
-    html: render(WaitlistEmail({ name: "User" })),
+    html: await render(<WaitlistEmail name="User" />),
     text: "",
   });
 
-  return res.status(200).send({ data: "Email sent successfully" });
+  res.status(200).send({ data: "Email sent successfully" });
 };
 
 export default send;

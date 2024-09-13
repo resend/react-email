@@ -29,7 +29,7 @@ pnpm add mailersend @react-email/components
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
+```tsx email.tsx
 import * as React from 'react';
 import { Html, Button } from "@react-email/components";
 
@@ -46,10 +46,9 @@ export function Email(props) {
 
 ## 3. Convert to HTML and send email
 
-Import the email template you just built, convert into a HTML string, and use the MailerSend SDK to send it.
+Import the email template you just built, convert into an HTML string, and use the MailerSend SDK to send it.
 
-
-```jsx index.jsx
+```tsx
 import { render } from '@react-email/components';
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { Email } from './email';
@@ -71,9 +70,8 @@ const emailParams = new EmailParams()
   .setSubject("This is a Subject")
   .setHtml(emailHtml)
 
-mailerSend.email.send(emailParams);
+await mailerSend.email.send(emailParams);
 ```
-
 
 ## Try it yourself
 
