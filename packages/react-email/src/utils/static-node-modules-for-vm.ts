@@ -30,6 +30,7 @@ import repl from 'node:repl';
 import stream from 'node:stream';
 import stringDecoder from 'node:string_decoder';
 import timers from 'node:timers';
+import timersPromises from 'node:timers/promises';
 import tls from 'node:tls';
 import tty from 'node:tty';
 import url from 'node:url';
@@ -78,6 +79,7 @@ export const staticNodeModulesForVM = {
   stream,
   'string_decoder': stringDecoder,
   timers,
+  'timers/promises': timersPromises,
   tls,
   tty,
   url,
