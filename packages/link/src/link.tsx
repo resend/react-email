@@ -9,7 +9,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       ref={ref}
       style={{
         color: "#067df7",
-        textDecoration: "none",
+        textDecorationLine: "none",
         ...style,
       }}
       target={target}
