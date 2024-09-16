@@ -4,14 +4,30 @@ import { pxToPt } from "./utils/px-to-pt";
 
 export type ButtonProps = Readonly<React.ComponentPropsWithoutRef<"a">>;
 
+const maxFontWidth = 5;
+
+/**
+ * Computes a msoFontWidth \<= 5 and a count of space characters that,
+ * when applied, end up being as close to `expectedWidth` as possible.
+ */
 function computeFontWidthAndSpaceCount(expectedWidth: number) {
+  if (expectedWidth === 0) return [0, 0];
+
   let smallestSpaceCount = 0;
 
-  while (expectedWidth / smallestSpaceCount / 2 > 5) {
+  const computeRequiredFontWidth = () => {
+    if (smallestSpaceCount > 0) {
+      return expectedWidth / smallestSpaceCount / 2;
+    }
+
+    return Infinity;
+  };
+
+  while (computeRequiredFontWidth() > maxFontWidth) {
     smallestSpaceCount++;
   }
 
-  return [expectedWidth / smallestSpaceCount / 2, smallestSpaceCount];
+  return [computeRequiredFontWidth(), smallestSpaceCount];
 }
 
 export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
