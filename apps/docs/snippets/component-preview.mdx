@@ -1,0 +1,36 @@
+export const ComponentPreview = ({ code }) => {
+  return (
+    <iframe
+      className="w-full h-fit"
+      srcDoc={`
+    <html>
+    <head>
+      <script type="importmap">
+        {
+          "imports": {
+            "@react-email/components": "https://cdn.jsdelivr.net/npm/@react-email/components@0.0.25/+esm",
+            "react": "https://cdn.jsdelivr.net/npm/react@18.3.1/+esm",
+            "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/+esm"
+          }
+        }
+      </script>
+      <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      <script type="text/babel" data-type="module" data-presets="react">
+        import * as React from "react";
+        ${code}
+        import {render} from "@react-email/components";
+        render(<Email />)
+          .then(html => {
+            document.open("text/html");
+            document.write(html);
+            document.close();
+          });
+      </script>
+    </head>
+    </html>
+     `}
+    >
+      Your browser seems to not support iframes.
+    </iframe>
+  );
+};
