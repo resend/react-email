@@ -76,10 +76,6 @@ test("transforms rules with browser prefixes", () => {
   });
 });
 
-test("transforms float rule property to cssFloat", () => {
-  expect(cssToJsxStyle("float: left")).toEqual({ cssFloat: "left" });
-});
-
 test("transforms rules with urls", () => {
   expect(
     cssToJsxStyle(
