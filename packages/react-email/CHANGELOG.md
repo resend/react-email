@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.2-canary.2
+
+### Patch Changes
+
+- 59e27bc: Add missing timers/promises Node module for `email dev`
+
 ## 3.0.2-canary.1
 
 ### Patch Changes
