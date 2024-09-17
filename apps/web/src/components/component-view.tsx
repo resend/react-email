@@ -151,6 +151,8 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   );
 };
 
+const srcAttributeRegex = /src\s*=\s*"(?<URI>\/static.+)"/gm;
+
 const CodeView = ({ component }: { component: ImportedComponent }) => {
   const [selectedCodeVariant, setSelectedCodeVariant] =
     React.useState<CodeVariant>("html");
@@ -202,6 +204,9 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
       onCopy();
     }
   };
+
+  // Resets the regex so that it doesn't break in subsequent runs
+  srcAttributeRegex.lastIndex = 0;
 
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
@@ -284,7 +289,7 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
       <div className="h-full w-full overflow-auto">
         <CodeBlock language={selectedCodeVariant === "html" ? "html" : "tsx"}>
           {code.replaceAll(
-            /src\s*=\s*"(?<URI>\/static.+)"/g,
+            srcAttributeRegex,
             (_match, uri) => `src="https://react.email${uri}"`,
           )}
         </CodeBlock>
