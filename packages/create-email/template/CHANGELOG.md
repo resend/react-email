@@ -1,5 +1,13 @@
 # react-email-starter
 
+## 0.0.35-canary.2
+
+### Patch Changes
+
+- Updated dependencies [59e27bc]
+  - react-email@3.0.2-canary.2
+  - @react-email/components@0.0.26-canary.1
+
 ## 0.0.35-canary.1
 
 ### Patch Changes
