@@ -1,5 +1,11 @@
 # @react-email/link
 
+## 0.0.11-canary.0
+
+### Patch Changes
+
+- c8e0683: Fix textDecoration reset being too broad
+
 ## 0.0.10
 
 ### Patch Changes
