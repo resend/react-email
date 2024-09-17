@@ -1,7 +1,7 @@
 import tailwindcss from "tailwindcss";
 import type { CorePluginsConfig } from "tailwindcss/types/config";
-import postcssCssVariables from "postcss-css-variables";
 import postcss from "postcss";
+import { cssVariablesResolver } from "../css/css-variables-resolver";
 import type { TailwindConfig } from "../../tailwind";
 
 declare global {
@@ -33,7 +33,7 @@ export const getCssForMarkup = async (
       ...tailwindConfig,
       content: [{ raw: markup, extension: "html" }],
     }) as postcss.AcceptedPlugin,
-    postcssCssVariables() as postcss.AcceptedPlugin,
+    cssVariablesResolver(),
   ]);
   const result = await processor.process(
     String.raw`
