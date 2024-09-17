@@ -9,9 +9,6 @@ overrides:
   '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
 
 patchedDependencies:
-  postcss-css-variables@0.19.0:
-    hash: 2wxqv7k2gzlwmmem3fifiqjawa
-    path: patches/postcss-css-variables@0.19.0.patch
   process@0.11.10:
     hash: wpk4cjsj5eh7v5jak26jgis56e
     path: patches/process@0.11.10.patch
@@ -1238,9 +1235,6 @@ importers:
       '@responsive-email/react-email':
         specifier: 0.0.3
         version: 0.0.3(react@19.0.0-rc-187dd6a7-20240806)
-      '@types/postcss-css-variables':
-        specifier: 0.18.3
-        version: 0.18.3
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1253,9 +1247,6 @@ importers:
       postcss:
         specifier: 8.4.40
         version: 8.4.40
-      postcss-css-variables:
-        specifier: 0.19.0
-        version: 0.19.0(patch_hash=2wxqv7k2gzlwmmem3fifiqjawa)(postcss@8.4.40)
       process:
         specifier: ^0.11.10
         version: 0.11.10(patch_hash=wpk4cjsj5eh7v5jak26jgis56e)
@@ -3998,9 +3989,6 @@ packages:
   '@types/phoenix@1.6.4':
     resolution: {integrity: sha512-B34A7uot1Cv0XtaHRYDATltAdKx0BvVKNgYNqE4WjtPUa4VQJM7kxeXcVKaH+KS+kCmZ+6w+QaUdcljiheiBJA==}
 
-  '@types/postcss-css-variables@0.18.3':
-    resolution: {integrity: sha512-E7puBJg4Pxo39BgIRklr1ycHgjiyZ3PrYNKq3cguhPBltASIHMiB4+rTiTGOepBhoIIDTX4g4Y41PRr6cHFx5A==}
-
   '@types/prismjs@1.26.3':
     resolution: {integrity: sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==}
 
@@ -6614,11 +6602,6 @@ packages:
 
   postcss-css-variables@0.18.0:
     resolution: {integrity: sha512-lYS802gHbzn1GI+lXvy9MYIYDuGnl1WB4FTKoqMQqJ3Mab09A7a/1wZvGTkCEZJTM8mSbIyb1mJYn8f0aPye0Q==}
-    peerDependencies:
-      postcss: ^8.2.6
-
-  postcss-css-variables@0.19.0:
-    resolution: {integrity: sha512-Hr0WEYKLK9VCrY15anHXOd4RCvJy/xRvCnWdplGBeLInwEj6Z14hgzTb2W/39dYTCnS8hnHUfU4/F1zxX0IZuQ==}
     peerDependencies:
       postcss: ^8.2.6
 
@@ -11202,10 +11185,6 @@ snapshots:
 
   '@types/phoenix@1.6.4': {}
 
-  '@types/postcss-css-variables@0.18.3':
-    dependencies:
-      postcss: 8.4.40
-
   '@types/prismjs@1.26.3': {}
 
   '@types/prismjs@1.26.4': {}
@@ -14370,13 +14349,6 @@ snapshots:
       escape-string-regexp: 1.0.5
       extend: 3.0.2
       postcss: 8.4.31
-
-  postcss-css-variables@0.19.0(patch_hash=2wxqv7k2gzlwmmem3fifiqjawa)(postcss@8.4.40):
-    dependencies:
-      balanced-match: 1.0.2
-      escape-string-regexp: 1.0.5
-      extend: 3.0.2
-      postcss: 8.4.40
 
   postcss-import@15.1.0(postcss@8.4.40):
     dependencies:
