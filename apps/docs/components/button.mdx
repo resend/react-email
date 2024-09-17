@@ -7,6 +7,7 @@ icon: "b"
 ---
 
 import Support from '/snippets/support.mdx'
+import {ComponentPreview} from '/snippets/component-preview.mdx'
 
 <Info>
   Semantics: Quite often in the email world we talk about buttons, when actually
@@ -49,6 +50,20 @@ pnpm add @react-email/button -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Button } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Button
+      href="https://example.com"
+      style={{ color: "#61dafb", padding: "10px 20px" }}
+    >
+      Click me
+    </Button>
+  );
+};
+'/>
 ```jsx
 import { Button } from "@react-email/components";
 
