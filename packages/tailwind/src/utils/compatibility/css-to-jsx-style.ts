@@ -8,10 +8,6 @@ const convertPropertyName = (prop: string) => {
 
   modifiedProp = modifiedProp.toLowerCase();
 
-  if (modifiedProp === "float") {
-    return "cssFloat";
-  }
-
   if (modifiedProp.startsWith("--")) {
     return modifiedProp;
   }
