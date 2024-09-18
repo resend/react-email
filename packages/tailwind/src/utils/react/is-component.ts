@@ -7,4 +7,3 @@ export const isComponent = (
     element.type.render !== undefined
   );
 };
-
