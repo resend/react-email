@@ -1,6 +1,5 @@
 import type { Rule } from "postcss";
-import postcssCssVariables from "postcss-css-variables";
-import postcss from "postcss";
+import { parse } from "postcss";
 import evaluateTailwindFunctions from "tailwindcss/lib/lib/evaluateTailwindFunctions";
 import expandApplyAtRules from "tailwindcss/lib/lib/expandApplyAtRules";
 import resolveDefaultsAtRules from "tailwindcss/lib/lib/resolveDefaultsAtRules";
@@ -10,19 +9,14 @@ import partitionApplyAtRules from "tailwindcss/lib/lib/partitionApplyAtRules";
 import substituteScreenAtRules from "tailwindcss/lib/lib/substituteScreenAtRules";
 import { setupTailwindContext } from "../utils/tailwindcss/setup-tailwind-context";
 import type { TailwindConfig } from "../tailwind";
+import { resolveAllCSSVariables } from "../utils/css/resolve-all-css-variables";
 
-const tailwindAtRulesRoot = postcss
-  .parse(
-    `
+const tailwindAtRulesRoot = parse(
+  `
   @tailwind base;
   @tailwind components;
 `,
-  )
-  .root();
-
-const postcssVariablesProcessor = postcss([
-  postcssCssVariables() as postcss.Plugin,
-]);
+).root();
 
 export function useTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
@@ -45,8 +39,9 @@ export function useTailwind(config: TailwindConfig) {
       substituteScreenAtRules(tailwindContext)(root);
       resolveDefaultsAtRules(tailwindContext)(root);
 
-      return postcssVariablesProcessor.process(root.toString()).sync()
-        .root as postcss.Root;
+      resolveAllCSSVariables(root);
+
+      return root;
     },
   };
 }

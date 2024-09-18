@@ -1,35 +1,33 @@
-import postcss from "postcss";
-import { cssVariablesResolver } from "./css-variables-resolver";
+import { parse } from "postcss";
+import { resolveAllCSSVariables } from "./resolve-all-css-variables";
 
-describe("cssVariablesResolver", () => {
-  const processor = postcss([cssVariablesResolver()]);
-
+describe("resolveAllCSSVariables", () => {
   it("should work with simple css variables on a :root", () => {
-    const css = `:root {
+    const root = parse(`:root {
   --width: 100px;
 }
 
 .box {
   width: var(--width);
-}`;
+}`);
 
-    expect(processor.process(css).css).toBe(`.box {
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
   width: 100px;
 }`);
   });
 
   it("should keep variable usages if it cant find their declaration", () => {
-    const result = processor.process(`.box {
+    const root = parse(`.box {
   width: var(--width);
 }`);
 
-    expect(result.css).toBe(`.box {
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
   width: var(--width);
 }`);
   });
 
   it("should work with variables set in the same rule", () => {
-    const result = processor.process(`.box {
+    const root = parse(`.box {
   --width: 200px;
   width: var(--width);
 }
@@ -41,7 +39,7 @@ describe("cssVariablesResolver", () => {
   }
 }
 `);
-    expect(result.css).toBe(`.box {
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
   width: 200px;
 }
 
@@ -54,7 +52,7 @@ describe("cssVariablesResolver", () => {
   });
 
   it("should work with different values between media queries", () => {
-    const css = `:root {
+    const root = parse(`:root {
   --width: 100px;
 }
 
@@ -66,10 +64,9 @@ describe("cssVariablesResolver", () => {
 
 .box {
   width: var(--width);
-}`;
-
-    const result = processor.process(css);
-    expect(result.css).toBe(`@media (max-width: 1000px) {
+}`);
+    expect(resolveAllCSSVariables(root).toString())
+      .toBe(`@media (max-width: 1000px) {
   .box {
     width: 200px;
   }
