@@ -25,14 +25,29 @@ describe("Tailwind component", () => {
   });
 
   it("should work with class manipulation done on components", async () => {
-    const MyComponnt = (props: { className?: string }) => {
-      return <div className={`${props.className} bg-red-500`} />;
+    const MyComponnt = (props: {
+      className?: string;
+      style?: React.CSSProperties;
+    }) => {
+      expect(
+        props.style,
+        "Styles should be generated the same for a component",
+      ).toEqual({
+        color: "rgb(96,165,250)",
+        padding: "1rem",
+      });
+      return (
+        <div
+          className={`${props.className} bg-red-500`}
+          style={{ ...props.style, padding: "4px" }}
+        />
+      );
     };
 
     expect(
       await render(
         <Tailwind>
-          <MyComponnt className="text-blue-400" />
+          <MyComponnt className="text-blue-400 p-4" />
         </Tailwind>,
       ),
     ).toMatchSnapshot();
