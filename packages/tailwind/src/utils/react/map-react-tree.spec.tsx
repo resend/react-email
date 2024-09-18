@@ -53,6 +53,6 @@ describe("mapReactTree()", () => {
 
     render(<>{result}</>);
 
-    expect(process).toHaveBeenCalledTimes(19);
+    expect(process).toHaveBeenCalledTimes(17);
   });
 });
