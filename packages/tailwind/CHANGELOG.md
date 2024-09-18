@@ -1,5 +1,12 @@
 # @react-email/tailwind
 
+## 1.0.0-canary.1
+
+### Patch Changes
+
+- 15e95c7: Fixes CSS variables being replaced with `undefined`
+- 6c20067: Fix `css-float` being used for utilities such as `float-left`
+
 ## 1.0.0-canary.0
 
 ### Major Changes
