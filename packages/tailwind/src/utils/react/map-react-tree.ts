@@ -21,7 +21,7 @@ export function mapReactTree(
     if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
       const newProps = { ...node.props };
 
-      if (node.props.children) {
+      if (node.props.children && !isComponent(node)) {
         newProps.children = mapReactTree(node.props.children, process);
       }
 
