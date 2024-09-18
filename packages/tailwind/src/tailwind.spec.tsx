@@ -398,10 +398,12 @@ describe("Responsive styles", () => {
             </Component3>
           </div>
         </Tailwind>,
-      )
+      );
     }
 
-    await expect(renderComplexEmailWithoutHead).rejects.toThrowErrorMatchingSnapshot();
+    await expect(
+      renderComplexEmailWithoutHead,
+    ).rejects.toThrowErrorMatchingSnapshot();
   });
 
   it("should work with relatively complex media query utilities", async () => {
