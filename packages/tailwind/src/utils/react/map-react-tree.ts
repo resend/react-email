@@ -1,4 +1,5 @@
 import React from "react";
+import { isComponent } from "./is-component";
 
 /**
  * A function made for deep mapping a React tree from a node, even through its components.
