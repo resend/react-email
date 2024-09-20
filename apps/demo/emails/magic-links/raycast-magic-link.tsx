@@ -26,8 +26,8 @@ export const RaycastMagicLinkEmail = ({
 }: RaycastMagicLinkEmailProps) => (
   <Html>
     <Head />
-    <Preview>Log in with this magic link.</Preview>
     <Body style={main}>
+      <Preview>Log in with this magic link.</Preview>
       <Container style={container}>
         <Img
           src={`${baseUrl}/static/raycast-logo.png`}

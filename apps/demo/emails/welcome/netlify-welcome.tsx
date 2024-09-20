@@ -81,7 +81,6 @@ export const NetlifyWelcomeEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Netlify Welcome</Preview>
       <Tailwind
         config={{
           theme: {
@@ -99,6 +98,7 @@ export const NetlifyWelcomeEmail = ({
           },
         }}
       >
+        <Preview>Netlify Welcome</Preview>
         <Body className="bg-offwhite text-base font-sans">
           <Img
             src={`${baseUrl}/static/netlify-logo.png`}
