@@ -2,12 +2,8 @@ import type { ImportedComponent } from "../app/components/get-components";
 import { ComponentView } from "./component-view";
 
 interface ComponentsViewProps {
-  components: RenderedComponent[];
+  components: ImportedComponent[];
 }
-
-export type RenderedComponent = Omit<ImportedComponent, "element"> & {
-  html: string;
-};
 
 export const ComponentsView: React.FC<ComponentsViewProps> = ({
   components,
