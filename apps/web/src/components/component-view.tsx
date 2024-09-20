@@ -12,17 +12,19 @@ import {
 } from "lucide-react";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { motion } from "framer-motion";
-import type { CodeVariant } from "../app/components/get-components";
+import type {
+  CodeVariant,
+  ImportedComponent,
+} from "../app/components/get-components";
 import { ComponentPreview } from "./component-preview";
 import { CodeBlock } from "./code-block";
-import type { RenderedComponent } from "./components-view";
 import { Tooltip } from "./tooltip";
 import { IconMonitor } from "./icons/icon-monitor";
 import { IconPhone } from "./icons/icon-phone";
 import { IconSource } from "./icons/icon-source";
 
 interface ComponentViewProps {
-  component: RenderedComponent;
+  component: ImportedComponent;
   className?: string;
 }
 
@@ -85,42 +87,11 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   className,
 }) => {
   const [activeView, setActiveView] = React.useState<ActiveView>("desktop");
-  const [selectedCodeVariant, setSelectedCodeVariant] =
-    React.useState<CodeVariant>("tailwind");
-  const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setActiveView(activeView);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  React.useEffect(() => {
-    if (localStorage.getItem("code-variant") === "inline-styles") {
-      setSelectedCodeVariant("inline-styles");
-    }
-  }, []);
-
-  const code =
-    typeof component.code === "string"
-      ? component.code
-      : component.code[selectedCodeVariant] ?? "";
-
-  const onCopy = () => {
-    void navigator.clipboard.writeText(code);
-    setIsCopied(true);
-
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 1000);
-  };
-
-  const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
-    if (event.key === "Enter" || event.key === " ") {
-      onCopy();
-    }
-  };
 
   return (
     <Tabs.Root
@@ -165,85 +136,156 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
         <div className="relative h-fit w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]">
           <TabContent value="desktop">
             <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
-            <ComponentPreview activeView="desktop" html={component.html} />
+            <ComponentPreview activeView="desktop" html={component.code.html} />
           </TabContent>
           <TabContent value="mobile">
             <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
-            <ComponentPreview activeView="mobile" html={component.html} />
+            <ComponentPreview activeView="mobile" html={component.code.html} />
           </TabContent>
           <TabContent value="code">
-            <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
-              <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
-                {activeView === "code" && typeof component.code === "object" ? (
-                  <Select.Root
-                    onValueChange={(variant: CodeVariant) => {
-                      setSelectedCodeVariant(variant);
-                      localStorage.setItem("code-variant", variant);
-                    }}
-                    value={selectedCodeVariant}
-                  >
-                    <Select.Trigger
-                      aria-label="Choose the styling solution"
-                      className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-[placeholder]:text-slate-11"
-                    >
-                      <Select.Value>
-                        {selectedCodeVariant === "tailwind"
-                          ? "Tailwind CSS"
-                          : "Inline CSS"}
-                      </Select.Value>
-                      <Select.Icon>
-                        <ChevronDownIcon size={14} />
-                      </Select.Icon>
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Content className="z-[2] overflow-hidden rounded-md bg-[#1F2122]">
-                        <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
-                          <ChevronUpIcon size={12} />
-                        </Select.ScrollUpButton>
-                        <Select.Viewport className="p-1">
-                          {Object.keys(component.code).map((variant) => (
-                            <Select.Item
-                              className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
-                              key={variant}
-                              value={variant}
-                            >
-                              <Select.ItemText>
-                                {variant === "tailwind"
-                                  ? "Tailwind CSS"
-                                  : "Inline CSS"}
-                              </Select.ItemText>
-                              <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-slate-12">
-                                <CheckIcon size={10} />
-                              </Select.ItemIndicator>
-                            </Select.Item>
-                          ))}
-                        </Select.Viewport>
-                      </Select.Content>
-                    </Select.Portal>
-                  </Select.Root>
-                ) : null}
-                <button
-                  aria-label="Copy code"
-                  className="flex h-8 w-8 items-center justify-center rounded-sm outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
-                  onClick={onCopy}
-                  onKeyUp={handleKeyUp}
-                  tabIndex={0}
-                  type="button"
-                >
-                  {isCopied ? (
-                    <CheckIcon size={16} />
-                  ) : (
-                    <ClipboardIcon size={16} />
-                  )}
-                </button>
-              </div>
-              <div className="h-full w-full overflow-auto">
-                <CodeBlock language="tsx">{code}</CodeBlock>
-              </div>
-            </div>
+            <CodeView component={component} />
           </TabContent>
         </div>
       </TooltipProvider>
     </Tabs.Root>
+  );
+};
+
+const CodeView = ({ component }: { component: ImportedComponent }) => {
+  const [selectedCodeVariant, setSelectedCodeVariant] =
+    React.useState<CodeVariant>("html");
+  const [isCopied, setIsCopied] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const storedValue = localStorage.getItem("code-variant");
+    if (storedValue === "react") {
+      if (Object.keys(component.code).includes("react")) {
+        setSelectedCodeVariant("react");
+      } else {
+        setSelectedCodeVariant("tailwind");
+      }
+    } else if (Object.keys(component.code).includes("inline-styles")) {
+      if (storedValue === "inline-styles" || storedValue === "tailwind") {
+        setSelectedCodeVariant(storedValue);
+      }
+    } else if (storedValue === "html") {
+      setSelectedCodeVariant("html");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  let code = "";
+  if (selectedCodeVariant in component.code) {
+    code = component.code[selectedCodeVariant] ?? "";
+  } else {
+    throw new Error("The code variant selected is not available", {
+      cause: {
+        selectedCodeVariant,
+        component,
+      },
+    });
+  }
+
+  const onCopy = () => {
+    void navigator.clipboard.writeText(code);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
+
+  const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
+    event,
+  ) => {
+    if (event.key === "Enter" || event.key === " ") {
+      onCopy();
+    }
+  };
+
+  return (
+    <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
+      <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
+        {typeof component.code === "object" ? (
+          <Select.Root
+            onValueChange={(variant: CodeVariant) => {
+              setSelectedCodeVariant(variant);
+              localStorage.setItem("code-variant", variant);
+            }}
+            value={selectedCodeVariant}
+          >
+            <Select.Trigger
+              aria-label="Choose the styling solution"
+              className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-[placeholder]:text-slate-11"
+            >
+              <Select.Value>
+                {(() => {
+                  if (selectedCodeVariant === "tailwind") {
+                    return "TSX - Tailwind CSS";
+                  } else if (selectedCodeVariant === "inline-styles") {
+                    return "TSX - Inline CSS";
+                  } else if (selectedCodeVariant === "react") {
+                    return "TSX";
+                  }
+
+                  return "HTML";
+                })()}
+              </Select.Value>
+              <Select.Icon>
+                <ChevronDownIcon size={14} />
+              </Select.Icon>
+            </Select.Trigger>
+            <Select.Portal>
+              <Select.Content className="z-[2] overflow-hidden rounded-md bg-[#1F2122]">
+                <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
+                  <ChevronUpIcon size={12} />
+                </Select.ScrollUpButton>
+                <Select.Viewport className="p-1">
+                  {Object.keys(component.code).map((variant) => (
+                    <Select.Item
+                      className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
+                      key={variant}
+                      value={variant}
+                    >
+                      <Select.ItemText>
+                        {(() => {
+                          if (variant === "tailwind") {
+                            return "TSX - Tailwind CSS";
+                          } else if (variant === "inline-styles") {
+                            return "TSX - Inline CSS";
+                          } else if (variant === "react") {
+                            return "TSX";
+                          }
+
+                          return "HTML";
+                        })()}
+                      </Select.ItemText>
+                      <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-slate-12">
+                        <CheckIcon size={10} />
+                      </Select.ItemIndicator>
+                    </Select.Item>
+                  ))}
+                </Select.Viewport>
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
+        ) : null}
+        <button
+          aria-label="Copy code"
+          className="flex h-8 w-8 items-center justify-center rounded-sm outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
+          onClick={onCopy}
+          onKeyUp={handleKeyUp}
+          tabIndex={0}
+          type="button"
+        >
+          {isCopied ? <CheckIcon size={16} /> : <ClipboardIcon size={16} />}
+        </button>
+      </div>
+      <div className="h-full w-full overflow-auto">
+        <CodeBlock language={selectedCodeVariant === "html" ? "html" : "tsx"}>
+          {code}
+        </CodeBlock>
+      </div>
+    </div>
   );
 };

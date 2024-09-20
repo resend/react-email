@@ -3,17 +3,23 @@ import path from "node:path";
 import { traverse } from "@babel/core";
 import { parse } from "@babel/parser";
 import { z } from "zod";
+import { render } from "@react-email/components";
 import type { Category, Component } from "../../../components/structure";
 import {
   getComponentPathFromSlug,
   pathToComponents,
 } from "../../../components/structure";
+import { Layout } from "../../../components/_components/layout";
 
-export type CodeVariant = "tailwind" | "inline-styles";
+/**
+ * Tailwind and Inline Styles are both with React, but the React
+ * option is meant for where Tailwind nor Inline Styles are used
+ * at all in the markup.
+ */
+export type CodeVariant = "tailwind" | "inline-styles" | "react" | "html";
 
 export interface ImportedComponent extends Component {
-  element: React.ReactElement;
-  code: Partial<Record<CodeVariant, string>> | string;
+  code: Partial<Record<CodeVariant, string>> & { html: string };
 }
 
 const ComponentModule = z.object({
@@ -77,16 +83,22 @@ export const getImportedComponent = async (
 
   if (variantFilenames.length === 1 && variantFilenames[0] === "index.tsx") {
     const filePath = path.join(dirpath, "index.tsx");
+    const element = <Layout>{await getComponentElement(filePath)}</Layout>;
+    const html = await render(element, {
+      pretty: true,
+    });
     const fileContent = await fs.readFile(filePath, "utf8");
     const code = getComponentCodeFrom(fileContent);
     return {
       ...component,
-      element: await getComponentElement(filePath),
-      code,
+      code: {
+        react: code,
+        html,
+      },
     };
   }
 
-  const codePerVariant: Partial<Record<CodeVariant, string>> = {};
+  const codePerVariant: ImportedComponent["code"] = { html: "" };
 
   const elements = await Promise.all(
     variantFilenames.map(async (variantFilename) => {
@@ -107,9 +119,14 @@ export const getImportedComponent = async (
     codePerVariant[variantKey] = getComponentCodeFrom(fileContents[index]);
   });
 
+  const element = <Layout>{elements[0]}</Layout>;
+
+  codePerVariant.html = await render(element, {
+    pretty: true,
+  });
+
   return {
     ...component,
-    element: elements[0],
     code: codePerVariant,
   };
 };

@@ -1,13 +1,9 @@
-import { renderAsync } from "@react-email/components";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { slugify } from "../../../utils/slugify";
-import { Layout } from "../../../../components/_components/layout";
 import { componentsStructure } from "../../../../components/structure";
-import type { ImportedComponent } from "../get-components";
 import { getImportedComponentsFor } from "../get-components";
 import PageTransition from "../../../components/page-transition";
-import type { RenderedComponent } from "../../../components/components-view";
 import { ComponentsView } from "../../../components/components-view";
 import { IconArrowLeft } from "../../../components/icons/icon-arrow-left";
 
@@ -65,25 +61,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
 
   if (!foundCategory) return <p>Component category not found.</p>;
 
-  const renderedComponents: RenderedComponent[] = await Promise.all(
-    (await getImportedComponentsFor(foundCategory)).map(async (component) => {
-      const componentWithoutElement: Omit<ImportedComponent, "element"> = {
-        ...component,
-      };
-      delete (
-        componentWithoutElement as Omit<ImportedComponent, "element"> & {
-          element?: React.ReactElement;
-        }
-      ).element;
-      return {
-        ...componentWithoutElement,
-        html: await renderAsync(
-          <Layout withTailwind={false}>{component.element}</Layout>,
-        ),
-      } as RenderedComponent;
-    }),
-  );
-
+  const importedComponents = await getImportedComponentsFor(foundCategory);
   return (
     <>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
@@ -108,7 +86,7 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
           </h1>
         </div>
         <div className="relative flex w-full flex-col gap-4 border-y border-slate-4 pt-3">
-          <ComponentsView components={renderedComponents} />
+          <ComponentsView components={importedComponents} />
         </div>
       </PageTransition>
     </>
