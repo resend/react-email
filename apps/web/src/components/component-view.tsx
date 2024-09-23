@@ -178,7 +178,12 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
 
   let code = "";
   if (selectedCodeVariant in component.code) {
-    code = component.code[selectedCodeVariant] ?? "";
+    // Resets the regex so that it doesn't break in subsequent runs
+    srcAttributeRegex.lastIndex = 0;
+    code = (component.code[selectedCodeVariant] ?? "").replaceAll(
+      srcAttributeRegex,
+      (_match, uri) => `src="https://react.email${uri}"`,
+    );
   } else {
     throw new Error("The code variant selected is not available", {
       cause: {
@@ -204,9 +209,6 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
       onCopy();
     }
   };
-
-  // Resets the regex so that it doesn't break in subsequent runs
-  srcAttributeRegex.lastIndex = 0;
 
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
@@ -288,10 +290,7 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
       </div>
       <div className="h-full w-full overflow-auto">
         <CodeBlock language={selectedCodeVariant === "html" ? "html" : "tsx"}>
-          {code.replaceAll(
-            srcAttributeRegex,
-            (_match, uri) => `src="https://react.email${uri}"`,
-          )}
+          {code}
         </CodeBlock>
       </div>
     </div>
