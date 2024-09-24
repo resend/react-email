@@ -6,7 +6,7 @@ export const TabTrigger = ({
   value,
   activeView,
   children,
-  layoutId
+  layoutId,
 }: {
   value: string;
   activeView: string;
