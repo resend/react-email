@@ -7,7 +7,6 @@ import {
   ClipboardIcon,
 } from "lucide-react";
 import * as Tabs from "@radix-ui/react-tabs";
-import classNames from "classnames";
 import type {
   CodeVariant,
   ImportedComponent,
