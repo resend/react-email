@@ -1,9 +1,22 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 
-const nextBuildProcess = spawn('next', ['build'], {
-  detached: true,
-  stdio: "inherit"
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const isWindows = os.platform() === 'win32';
+const nextExecutable = path.resolve(
+  __dirname,
+  'node_modules',
+  '.bin',
+  isWindows ? 'next.cmd' : 'next'
+);
+
+const nextBuildProcess = spawn(nextExecutable, ['build'], {
+  stdio: 'inherit',
 });
 
 process.on('SIGINT', () => {
@@ -12,6 +25,7 @@ process.on('SIGINT', () => {
 
 nextBuildProcess.on('exit', (code) => {
   if (code !== 0) {
+    console.error(`next build failed with exit code ${code}`);
     process.exit(code);
   }
 
@@ -21,4 +35,3 @@ nextBuildProcess.on('exit', (code) => {
   fs.mkdirSync('dist/preview', { recursive: true });
   fs.renameSync('.next', 'dist/preview/.next');
 });
-
