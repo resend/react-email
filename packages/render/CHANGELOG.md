@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.2-canary.0
+
+### Patch Changes
+
+- 0fab161: Fix null characters in between chunks when using high-density characters
+
 ## 1.0.1
 
 ### Patch Changes
