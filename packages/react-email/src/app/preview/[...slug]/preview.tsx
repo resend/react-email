@@ -10,6 +10,7 @@ import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { EmailInsights } from '../../../components/email-insights';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
@@ -85,7 +86,7 @@ const Preview = ({
       setActiveView={hasNoErrors ? handleViewChange : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div className="relative h-full">
+      <div className="relative h-full overflow-auto">
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
@@ -137,6 +138,9 @@ const Preview = ({
         ) : null}
         <Toaster />
       </div>
+      {hasNoErrors ? (
+        <EmailInsights code={renderedEmailMetadata.reactMarkup} />
+      ) : null}
     </Shell>
   );
 };

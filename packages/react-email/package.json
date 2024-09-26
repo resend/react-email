@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist",
+    "caniemail:fetch": "node ./fill-caniemail-data.mjs",
     "lint": "eslint . && tsc"
   },
   "license": "MIT",
@@ -29,6 +30,7 @@
   "dependencies": {
     "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
+    "@radix-ui/react-tabs": "^1.1.0",
     "chalk": "4.1.2",
     "chokidar": "^4.0.1",
     "commander": "11.1.0",

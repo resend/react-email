@@ -108,7 +108,7 @@ export const Shell = ({
             />
           ) : null}
 
-          <div className="h-[calc(100vh_-_70px)] overflow-auto mx-auto">
+          <div className="h-[calc(100vh_-_70px)] flex flex-col mx-auto">
             {children}
           </div>
         </main>

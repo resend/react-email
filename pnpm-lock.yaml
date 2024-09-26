@@ -964,6 +964,9 @@ importers:
       '@babel/parser':
         specifier: 7.24.5
         version: 7.24.5
+      '@radix-ui/react-tabs':
+        specifier: ^1.1.0
+        version: 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -10369,6 +10372,22 @@ snapshots:
       react: 19.0.0-rc-187dd6a7-20240806
     optionalDependencies:
       '@types/react': types-react@19.0.0-rc.1
+
+  '@radix-ui/react-tabs@1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-context': 1.1.0(react@18.3.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-direction': 1.1.0(react@18.3.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-id': 1.1.0(react@18.3.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-presence': 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-primitive': 2.0.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-roving-focus': 1.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)
+      '@radix-ui/react-use-controllable-state': 1.1.0(react@18.3.1)(types-react@19.0.0-rc.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    optionalDependencies:
+      '@types/react': types-react@19.0.0-rc.1
+      '@types/react-dom': types-react-dom@19.0.0-rc.1
 
   '@radix-ui/react-tabs@1.1.0(react-dom@19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806))(react@19.0.0-rc-187dd6a7-20240806)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)':
     dependencies:
