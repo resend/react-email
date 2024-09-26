@@ -1,49 +1,9 @@
-import { Writable } from "node:stream";
 import { convert } from "html-to-text";
-import type {
-  PipeableStream,
-  ReactDOMServerReadableStream,
-} from "react-dom/server";
+import { Suspense } from "react";
 import { pretty } from "../shared/utils/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
 import type { Options } from "../shared/options";
-import { Suspense } from "react";
-
-const decoder = new TextDecoder("utf-8");
-
-const readStream = async (
-  stream: PipeableStream | ReactDOMServerReadableStream,
-) => {
-  let result = "";
-
-  if ("pipeTo" in stream) {
-    // means it's a readable stream
-    const writableStream = new WritableStream({
-      write(chunk: BufferSource) {
-        result += decoder.decode(chunk);
-      },
-    });
-    await stream.pipeTo(writableStream);
-  } else {
-    const writable = new Writable({
-      write(chunk: BufferSource, _encoding, callback) {
-        result += decoder.decode(chunk);
-
-        callback();
-      },
-    });
-    stream.pipe(writable);
-
-    return new Promise<string>((resolve, reject) => {
-      writable.on("error", reject);
-      writable.on("close", () => {
-        resolve(result);
-      });
-    });
-  }
-
-  return result;
-};
+import { readStream } from "./read-stream";
 
 export const render = async (
   element: React.ReactElement,

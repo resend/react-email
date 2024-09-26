@@ -3,23 +3,23 @@ import type {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from "react-dom/server";
+import { Suspense } from "react";
 import { pretty } from "../shared/utils/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
 import type { Options } from "../shared/options";
-import { Suspense } from "react";
 
 const decoder = new TextDecoder("utf-8");
 
 const readStream = async (
   stream: PipeableStream | ReactDOMServerReadableStream,
 ) => {
-  let result = "";
+  const chunks: Uint8Array[] = [];
 
   if ("pipeTo" in stream) {
     // means it's a readable stream
     const writableStream = new WritableStream({
-      write(chunk: BufferSource) {
-        result += decoder.decode(chunk);
+      write(chunk: Uint8Array) {
+        chunks.push(chunk);
       },
     });
     await stream.pipeTo(writableStream);
@@ -34,7 +34,18 @@ const readStream = async (
     );
   }
 
-  return result;
+  let length = 0;
+  chunks.forEach((item) => {
+    length += item.length;
+  });
+  const mergedChunks = new Uint8Array(length);
+  let offset = 0;
+  chunks.forEach((item) => {
+    mergedChunks.set(item, offset);
+    offset += item.length;
+  });
+
+  return decoder.decode(mergedChunks);
 };
 
 export const render = async (

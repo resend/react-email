@@ -1151,6 +1151,12 @@ importers:
       '@types/js-beautify':
         specifier: 1.14.3
         version: 1.14.3
+      '@types/react':
+        specifier: npm:types-react@19.0.0-rc.1
+        version: types-react@19.0.0-rc.1
+      '@types/react-dom':
+        specifier: npm:types-react-dom@19.0.0-rc.1
+        version: types-react-dom@19.0.0-rc.1
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
