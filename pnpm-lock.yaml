@@ -49,7 +49,7 @@ importers:
         version: link:packages/tsconfig
       tsup:
         specifier: 8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.43.0(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.12))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)
+        version: 8.2.4(@microsoft/api-extractor@7.43.0(@types/node@18.18.0))(@swc/core@1.4.15)(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)
       turbo:
         specifier: 2.1.0
         version: 2.1.0
@@ -294,7 +294,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -319,7 +319,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -347,7 +347,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -372,7 +372,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -397,7 +397,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -490,7 +490,7 @@ importers:
         version: link:../../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -515,7 +515,7 @@ importers:
         version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
-        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3)
+        version: 6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3)
       typescript:
         specifier: 4.8.3
         version: 4.8.3
@@ -600,7 +600,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.47)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -758,9 +758,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-email:
-        specifier: workspace:3.0.2-canary.2
-        version: link:../../react-email
     devDependencies:
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
@@ -768,6 +765,9 @@ importers:
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0-rc.1
         version: types-react-dom@19.0.0-rc.1
+      react-email:
+        specifier: workspace:3.0.2-canary.2
+        version: link:../../react-email
 
   packages/eslint-config-custom:
     devDependencies:
@@ -1107,7 +1107,7 @@ importers:
         version: 3.4.0
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6)
       tsx:
         specifier: 4.9.0
         version: 4.9.0
@@ -1156,7 +1156,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.47)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -1255,7 +1255,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 7.2.0
-        version: 7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6)
+        version: 7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -15641,7 +15641,7 @@ snapshots:
 
   tslib@2.6.2: {}
 
-  tsup@6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@4.8.3):
+  tsup@6.2.3(@swc/core@1.4.15)(postcss@8.4.47)(typescript@4.8.3):
     dependencies:
       bundle-require: 3.1.2(esbuild@0.15.18)
       cac: 6.7.14
@@ -15665,7 +15665,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.40)(typescript@5.1.6):
+  tsup@7.2.0(@swc/core@1.4.15)(postcss@8.4.40)(typescript@5.1.6):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
@@ -15689,7 +15689,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@7.2.0(@swc/core@1.4.15(@swc/helpers@0.5.12))(postcss@8.4.47)(typescript@5.1.6):
+  tsup@7.2.0(@swc/core@1.4.15)(postcss@8.4.47)(typescript@5.1.6):
     dependencies:
       bundle-require: 4.0.2(esbuild@0.18.20)
       cac: 6.7.14
@@ -15713,7 +15713,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@8.2.4(@microsoft/api-extractor@7.43.0(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.12))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2):
+  tsup@8.2.4(@microsoft/api-extractor@7.43.0(@types/node@18.18.0))(@swc/core@1.4.15)(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.1)
       cac: 6.7.14
