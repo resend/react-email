@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { on } from 'node:events';
 import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
+import { clsx } from 'clsx';
+import Markdown from 'react-markdown';
 import { supportEntries, nicenames } from '../app/caniemail-data';
-import { IconCheck } from './icons/icon-check';
 import { IconClose } from './icons/icon-close';
 import { IconWarning } from './icons/icon-warning';
-import { Button } from './button';
 import { IconCircleCheck } from './icons/icon-circle-check';
 import { Tooltip } from './tooltip';
-import clsx from 'clsx';
-import { IconSource } from './icons/icon-source';
 import { IconExternalLink } from './icons/icon-external-link';
 
 export type EmailClient =
@@ -90,6 +87,26 @@ export interface SupportEntry {
   notes_by_num: Record<number, string> | null;
 }
 
+const EmailClientInsightsTab = ({
+  emailClient,
+}: {
+  emailClient: EmailClient;
+}) => {
+  return (
+    <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
+      {supportEntries.map((entry) => {
+        if (emailClient in entry.stats) {
+          return (
+            <Insight {...getInsight(emailClient, entry)} key={entry.slug} />
+          );
+        }
+
+        return null;
+      })}
+    </Tabs.Content>
+  );
+};
+
 export const EmailInsights = ({ code }: { code: string }) => {
   const [selectedTab, setSelectedTab] =
     React.useState<EmailClient>('apple-mail');
@@ -109,20 +126,11 @@ export const EmailInsights = ({ code }: { code: string }) => {
           <Tabs.Trigger value="outlook">Outlook</Tabs.Trigger>
           <Tabs.Trigger value="yahoo">Yahoo</Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content className="flex gap-3" value="gmail">
-          {supportEntries.map((entry) => {
-            if (entry.slug === 'css-display-flex' && 'gmail' in entry.stats) {
-              return (
-                <Insight
-                  {...getInsight('gmail', entry)}
-                  key={entry.slug}
-                />
-              );
-            }
-
-            return null;
-          })}
-        </Tabs.Content>
+        <EmailClientInsightsTab emailClient="apple-mail" />
+        <EmailClientInsightsTab emailClient="gmail" />
+        <EmailClientInsightsTab emailClient="hey" />
+        <EmailClientInsightsTab emailClient="outlook" />
+        <EmailClientInsightsTab emailClient="yahoo" />
       </Tabs.Root>
     </div>
   );
@@ -157,25 +165,23 @@ const getInsight = (
       const statusString = latestStatus[Object.keys(latestStatus)[0]!]!;
       if (statusString.startsWith('u')) continue;
       if (statusString.startsWith('a')) {
-        let notes = '';
+        const notes: string[] = [];
         noteNumbersRegex.lastIndex = 0;
         for (const match of statusString.matchAll(noteNumbersRegex)) {
           if (match.groups?.noteNumber) {
             const { noteNumber } = match.groups;
             const note = supportEntry.notes_by_num?.[parseInt(noteNumber)];
             if (note) {
-              notes += `- ${note}\n`;
+              notes.push(note);
             } else {
-              throw new Error(
+              console.warn(
                 'Could not get note by the number for a support entry',
                 {
-                  cause: {
-                    platform,
-                    emailClient,
-                    supportEntry,
-                    statusString,
-                    note,
-                  },
+                  platform,
+                  emailClient,
+                  supportEntry,
+                  statusString,
+                  note,
                 },
               );
             }
@@ -184,7 +190,10 @@ const getInsight = (
         if (worseStatus === 'working') worseStatus = 'working with caveats';
         stats[platform as Platform] = {
           status: 'working with caveats',
-          notes,
+          notes:
+            notes.length === 1
+              ? notes[0]!
+              : notes.map((note) => `- ${note}`).join('\n'),
         };
       } else if (statusString.startsWith('y')) {
         stats[platform as Platform] = {
@@ -202,7 +211,7 @@ const getInsight = (
       stats,
       supportEntry,
       worseStatus,
-      emailClient
+      emailClient,
     };
   }
 
@@ -217,7 +226,7 @@ const getInsight = (
 interface InsightProps {
   supportEntry: SupportEntry;
   emailClient: EmailClient;
-  worseStatus: 'working' | 'working with caveats' | 'not working'
+  worseStatus: 'working' | 'working with caveats' | 'not working';
   stats: Partial<
     Record<
       Platform,
@@ -239,31 +248,33 @@ const Insight = ({
   emailClient,
   supportEntry,
   worseStatus,
-  stats
+  stats,
 }: InsightProps) => {
   const statEntries = Object.entries(stats);
   const orderPerStatus = {
     'working': 0,
     'working with caveats': 1,
-    'not working': 2
-  }
-  statEntries.sort(([_p1, { status: firstStatus }], [_p2, { status: secondStatus }]) => {
-    const firstOrder = orderPerStatus[firstStatus];
-    const secondOrder = orderPerStatus[secondStatus];
-    return secondOrder - firstOrder;
-  });
+    'not working': 2,
+  };
+  statEntries.sort(
+    ([_p1, { status: firstStatus }], [_p2, { status: secondStatus }]) => {
+      const firstOrder = orderPerStatus[firstStatus];
+      const secondOrder = orderPerStatus[secondStatus];
+      return secondOrder - firstOrder;
+    },
+  );
   return (
     <div
       aria-describedby={`${emailClient}-${supportEntry.slug}-title`}
-      className={clsx("border-2 space-y-3 w-fit rounded-md p-2", {
+      className={clsx('border-2 space-y-3 w-full rounded-md p-2', {
         'border-red-500': worseStatus === 'not working',
         'border-yellow-300': worseStatus === 'working with caveats',
         'border-green-500': worseStatus === 'working',
       })}
     >
-      <div className='flex justify-between items-center'>
+      <div className="flex justify-between items-center">
         <h3
-          className={clsx("font-semibold", {
+          className={clsx('font-semibold', {
             'text-red-400': worseStatus === 'not working',
             'text-yellow-300': worseStatus === 'working with caveats',
             'text-green-500': worseStatus === 'working',
@@ -280,15 +291,11 @@ const Insight = ({
 
       <ul className="list-none m-0 px-2 space-y-1">
         {statEntries.map(([platform, statsForPlatform]) => (
-          <Tooltip.Provider>
+          <Tooltip.Provider key={platform}>
             <Tooltip>
-              <li
-                key={platform}
-              >
+              <li key={platform}>
                 {statsForPlatform.status === 'working' ? (
-                  <span
-                    className="flex gap-2 text-green-400 cursor-default text-sm items-center align-middle"
-                  >
+                  <span className="flex gap-2 text-green-400 cursor-default text-sm items-center align-middle">
                     <IconCircleCheck
                       className="text-green-400  text-xs"
                       height="1rem"
@@ -298,35 +305,47 @@ const Insight = ({
                   </span>
                 ) : null}
                 {statsForPlatform.status === 'not working' ? (
-                  <span
-                    className="flex gap-2 text-red-400 cursor-default text-sm items-center align-middle"
-                  >
-                    <IconClose
-                      className="text-xs"
-                      height="1rem"
-                      width="1eem"
-                    />
+                  <span className="flex gap-2 text-red-400 cursor-default text-sm items-center align-middle">
+                    <IconClose className="text-xs" height="1rem" width="1eem" />
                     {nicenames.platform[platform]}
                   </span>
                 ) : null}
-                {statsForPlatform.status === 'working with caveats' ? (
-                  <Tooltip.Trigger className='cursor-default flex items-center gap-2 text-yellow-300 p-0 m-0 select-auto underline'>
-                    <Tooltip.Content>
-                      {statsForPlatform.notes}
-                    </Tooltip.Content>
-                    <IconWarning
-                      className="text-xs text-yellow-300"
-                      height="1rem"
-                      width="1eem"
-                    />
-                    {nicenames.platform[platform]}
-                  </Tooltip.Trigger>
-                ) : null}
+                {statsForPlatform.status === 'working with caveats'
+                  ? (() => {
+                    const hasNotes = statsForPlatform.notes.trim().length > 0;
+                    const span = (
+                      <span
+                        className={clsx(
+                          'flex gap-2 text-yellow-300 cursor-default text-sm items-center align-middle',
+                          hasNotes && 'underline',
+                        )}
+                      >
+                        <Tooltip.Content>
+                          <Markdown>{statsForPlatform.notes}</Markdown>
+                        </Tooltip.Content>
+                        <IconWarning
+                          className="text-xs text-yellow-300"
+                          height="1rem"
+                          width="1eem"
+                        />
+                        {nicenames.platform[platform]}
+                      </span>
+                    );
+
+                    if (hasNotes) {
+                      return (
+                        <Tooltip.Trigger asChild>{span}</Tooltip.Trigger>
+                      );
+                    }
+
+                    return span;
+                  })()
+                  : null}
               </li>
             </Tooltip>
           </Tooltip.Provider>
         ))}
       </ul>
-    </div>
+    </div >
   );
 };
