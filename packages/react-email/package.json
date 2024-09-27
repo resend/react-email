@@ -30,7 +30,7 @@
     "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
     "chalk": "4.1.2",
-    "chokidar": "3.6.0",
+    "chokidar": "^4.0.1",
     "commander": "11.1.0",
     "debounce": "2.0.0",
     "esbuild": "0.19.11",
