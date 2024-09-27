@@ -146,26 +146,38 @@ export const EmailInsights = ({ code }: { code: string }) => {
         'border-t flex-shrink border-slate-6 box-border bg-black',
         isExpanded && 'py-4',
       )}
+      transition={{
+        type: 'spring',
+        bounce: 0.18,
+        duration: 0.6,
+      }}
     >
       <AnimatePresence>
         {!isExpanded ? (
-          <button
-            className="bg-black flex items-center justify-center gap-1 w-full h-full transition-colors text-slate-11 hover:text-slate-12 text-xs font-semibold"
+          <motion.button
+            className="bg-black flex items-center justify-center gap-1 w-[10rem] h-[2.5rem] transition-colors text-slate-11 hover:text-slate-12 text-xs font-semibold"
+            key="expand-button"
             onClick={() => {
               setIsExpanded(true);
             }}
             type="button"
           >
             Compatibility insights
-            <IconArrowDown className='origin-center rotate-180' />
-          </button>
+            <IconArrowDown className="origin-center rotate-180" />
+          </motion.button>
         ) : null}
         {isExpanded ? (
           <motion.div
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 1, display: 'block' }}
             className="h-full"
-            exit={{ opacity: 0.5 }}
-            initial={{ opacity: 0.5 }}
+            exit={{ opacity: 0.2, display: 'none' }}
+            initial={{ opacity: 0.2, display: 'none' }}
+            key="expanded-insights"
+            transition={{
+              type: 'spring',
+              bounce: 0.18,
+              duration: 0.6,
+            }}
           >
             <Tabs.Root
               className="space-y-4 h-full flex flex-col"
@@ -183,8 +195,7 @@ export const EmailInsights = ({ code }: { code: string }) => {
                   }}
                   type="button"
                 >
-                  Compatibility insights{' '}
-                  <IconArrowDown />
+                  Compatibility insights <IconArrowDown />
                 </button>
                 <Tabs.List
                   aria-label="Diagnostics available per email client"
