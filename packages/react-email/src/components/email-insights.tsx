@@ -145,7 +145,7 @@ export const EmailInsights = ({ code }: { code: string }) => {
       >
         <div className="px-4 pb-3 border-b border-slate-6 flex justify-between items-center">
           <h2 className="text-xs font-semibold text-slate-11">
-            Support insights
+            Compatibility insights
           </h2>
           <Tabs.List
             aria-label="Diagnostics available per email client"
