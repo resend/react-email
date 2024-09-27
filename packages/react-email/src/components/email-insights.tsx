@@ -2,6 +2,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
 import Markdown from 'react-markdown';
 import { supportEntries, nicenames } from '../app/caniemail-data';
 import { IconClose } from './icons/icon-close';
@@ -93,7 +94,10 @@ const EmailClientInsightsTab = ({
   emailClient: EmailClient;
 }) => {
   return (
-    <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
+    <Tabs.Content
+      className="overflow-y-scroll h-full grid grid-cols-4 gap-2"
+      value={emailClient}
+    >
       {supportEntries.map((entry) => {
         if (emailClient in entry.stats) {
           return (
@@ -108,29 +112,80 @@ const EmailClientInsightsTab = ({
 };
 
 export const EmailInsights = ({ code }: { code: string }) => {
-  const [selectedTab, setSelectedTab] =
+  const emailClientsOfInterest: EmailClient[] = [
+    'apple-mail',
+    'gmail',
+    'hey',
+    'outlook',
+    'yahoo',
+  ];
+  const [selectedEmailClient, setSelectedEmailClient] =
     React.useState<EmailClient>('apple-mail');
 
+  React.useEffect(() => {
+    const storedValue = localStorage.getItem('selected-email-client');
+    if (
+      storedValue &&
+      (emailClientsOfInterest as string[]).includes(storedValue)
+    ) {
+      setSelectedEmailClient(storedValue as EmailClient);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="h-80 overflow-y-auto bg-black border-t border-slate-6 p-4">
+    <div className="h-96 bg-black overflow-y-auto flex-col border-t border-slate-6 py-4">
       <Tabs.Root
+        className="space-y-4 flex-shrink"
         onValueChange={(v) => {
-          setSelectedTab(v as EmailClient);
+          setSelectedEmailClient(v as EmailClient);
+          localStorage.setItem('selected-email-client', v);
         }}
-        value={selectedTab}
+        value={selectedEmailClient}
       >
-        <Tabs.List aria-label="Diagnostics available per email client">
-          <Tabs.Trigger value="apple-mail">Apple Mail</Tabs.Trigger>
-          <Tabs.Trigger value="gmail">Gmail</Tabs.Trigger>
-          <Tabs.Trigger value="hey">Hey</Tabs.Trigger>
-          <Tabs.Trigger value="outlook">Outlook</Tabs.Trigger>
-          <Tabs.Trigger value="yahoo">Yahoo</Tabs.Trigger>
-        </Tabs.List>
-        <EmailClientInsightsTab emailClient="apple-mail" />
-        <EmailClientInsightsTab emailClient="gmail" />
-        <EmailClientInsightsTab emailClient="hey" />
-        <EmailClientInsightsTab emailClient="outlook" />
-        <EmailClientInsightsTab emailClient="yahoo" />
+        <div className="px-4 pb-3 border-b border-slate-6 flex justify-between items-center">
+          <h2 className="text-xs font-semibold text-slate-11">
+            Support insights
+          </h2>
+          <Tabs.List
+            aria-label="Diagnostics available per email client"
+            className="space-x-4"
+          >
+            {emailClientsOfInterest.map((emailClient) => (
+              <Tabs.Trigger
+                className={clsx(
+                  'px-2 py-1 text-sm rounded-md relative',
+                  emailClient === selectedEmailClient && 'text-slate-12',
+                  emailClient !== selectedEmailClient && 'text-slate-11',
+                )}
+                key={emailClient}
+                value={emailClient}
+              >
+                {emailClient === selectedEmailClient && (
+                  <motion.span
+                    className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 border border-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
+                    initial={false}
+                    layoutId="caniemail-diagnostic-tab-bubble"
+                    transition={{
+                      type: 'spring',
+                      bounce: 0.18,
+                      duration: 0.6,
+                    }}
+                  />
+                )}
+                {nicenames.family[emailClient]}
+              </Tabs.Trigger>
+            ))}
+          </Tabs.List>
+        </div>
+        <div className="px-4 h-full flex-grow">
+          {emailClientsOfInterest.map((emailClient) => (
+            <EmailClientInsightsTab
+              emailClient={emailClient}
+              key={emailClient}
+            />
+          ))}
+        </div>
       </Tabs.Root>
     </div>
   );
@@ -231,15 +286,15 @@ interface InsightProps {
     Record<
       Platform,
       | {
-        status: 'working';
-      }
+          status: 'working';
+        }
       | {
-        status: 'not working';
-      }
+          status: 'not working';
+        }
       | {
-        status: 'working with caveats';
-        notes: string;
-      }
+          status: 'working with caveats';
+          notes: string;
+        }
     >
   >;
 }
@@ -312,40 +367,40 @@ const Insight = ({
                 ) : null}
                 {statsForPlatform.status === 'working with caveats'
                   ? (() => {
-                    const hasNotes = statsForPlatform.notes.trim().length > 0;
-                    const span = (
-                      <span
-                        className={clsx(
-                          'flex gap-2 text-yellow-300 cursor-default text-sm items-center align-middle',
-                          hasNotes && 'underline',
-                        )}
-                      >
-                        <Tooltip.Content>
-                          <Markdown>{statsForPlatform.notes}</Markdown>
-                        </Tooltip.Content>
-                        <IconWarning
-                          className="text-xs text-yellow-300"
-                          height="1rem"
-                          width="1eem"
-                        />
-                        {nicenames.platform[platform]}
-                      </span>
-                    );
-
-                    if (hasNotes) {
-                      return (
-                        <Tooltip.Trigger asChild>{span}</Tooltip.Trigger>
+                      const hasNotes = statsForPlatform.notes.trim().length > 0;
+                      const span = (
+                        <span
+                          className={clsx(
+                            'flex gap-2 text-yellow-300 cursor-default text-sm items-center align-middle',
+                            hasNotes && 'underline',
+                          )}
+                        >
+                          <Tooltip.Content>
+                            <Markdown>{statsForPlatform.notes}</Markdown>
+                          </Tooltip.Content>
+                          <IconWarning
+                            className="text-xs text-yellow-300"
+                            height="1rem"
+                            width="1rem"
+                          />
+                          {nicenames.platform[platform]}
+                        </span>
                       );
-                    }
 
-                    return span;
-                  })()
+                      if (hasNotes) {
+                        return (
+                          <Tooltip.Trigger asChild>{span}</Tooltip.Trigger>
+                        );
+                      }
+
+                      return span;
+                    })()
                   : null}
               </li>
             </Tooltip>
           </Tooltip.Provider>
         ))}
       </ul>
-    </div >
+    </div>
   );
 };
