@@ -2,7 +2,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 import { clsx } from 'clsx';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Markdown from 'react-markdown';
 import { supportEntries, nicenames } from '../app/caniemail-data';
 import { IconClose } from './icons/icon-close';
@@ -10,6 +10,7 @@ import { IconWarning } from './icons/icon-warning';
 import { IconCircleCheck } from './icons/icon-circle-check';
 import { Tooltip } from './tooltip';
 import { IconExternalLink } from './icons/icon-external-link';
+import { IconArrowDown } from './icons/icon-arrow-down';
 
 export type EmailClient =
   | 'gmail'
@@ -94,10 +95,7 @@ const EmailClientInsightsTab = ({
   emailClient: EmailClient;
 }) => {
   return (
-    <Tabs.Content
-      className="overflow-y-scroll h-full grid grid-cols-4 gap-2"
-      value={emailClient}
-    >
+    <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
       {supportEntries.map((entry) => {
         if (emailClient in entry.stats) {
           return (
@@ -133,61 +131,105 @@ export const EmailInsights = ({ code }: { code: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [isExpanded, setIsExpanded] = React.useState(false);
+
   return (
-    <div className="h-96 bg-black overflow-y-auto flex-col border-t border-slate-6 py-4">
-      <Tabs.Root
-        className="space-y-4 flex-shrink"
-        onValueChange={(v) => {
-          setSelectedEmailClient(v as EmailClient);
-          localStorage.setItem('selected-email-client', v);
-        }}
-        value={selectedEmailClient}
-      >
-        <div className="px-4 pb-3 border-b border-slate-6 flex justify-between items-center">
-          <h2 className="text-xs font-semibold text-slate-11">
-            Compatibility insights
-          </h2>
-          <Tabs.List
-            aria-label="Diagnostics available per email client"
-            className="space-x-4"
+    <motion.div
+      animate={{
+        width: isExpanded ? '100%' : '10rem',
+        height: isExpanded ? '24rem' : '2.5rem',
+        position: isExpanded ? 'static' : 'fixed',
+        left: isExpanded ? undefined : 0,
+        bottom: isExpanded ? undefined : 0,
+      }}
+      className={clsx(
+        'border-t flex-shrink border-slate-6 box-border bg-black',
+        isExpanded && 'py-4',
+      )}
+    >
+      <AnimatePresence>
+        {!isExpanded ? (
+          <button
+            className="bg-black flex items-center justify-center gap-1 w-full h-full transition-colors text-slate-11 hover:text-slate-12 text-xs font-semibold"
+            onClick={() => {
+              setIsExpanded(true);
+            }}
+            type="button"
           >
-            {emailClientsOfInterest.map((emailClient) => (
-              <Tabs.Trigger
-                className={clsx(
-                  'px-2 py-1 text-sm rounded-md relative',
-                  emailClient === selectedEmailClient && 'text-slate-12',
-                  emailClient !== selectedEmailClient && 'text-slate-11',
-                )}
-                key={emailClient}
-                value={emailClient}
-              >
-                {emailClient === selectedEmailClient && (
-                  <motion.span
-                    className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 border border-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
-                    initial={false}
-                    layoutId="caniemail-diagnostic-tab-bubble"
-                    transition={{
-                      type: 'spring',
-                      bounce: 0.18,
-                      duration: 0.6,
-                    }}
+            Compatibility insights
+            <IconArrowDown className='origin-center rotate-180' />
+          </button>
+        ) : null}
+        {isExpanded ? (
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="h-full"
+            exit={{ opacity: 0.5 }}
+            initial={{ opacity: 0.5 }}
+          >
+            <Tabs.Root
+              className="space-y-4 h-full flex flex-col"
+              onValueChange={(v) => {
+                setSelectedEmailClient(v as EmailClient);
+                localStorage.setItem('selected-email-client', v);
+              }}
+              value={selectedEmailClient}
+            >
+              <div className="px-4 pb-3 border-b border-slate-6 flex justify-between items-center">
+                <button
+                  className="bg-black flex items-center w-fit transition-colors text-slate-11 hover:text-slate-12 text-xs font-semibold"
+                  onClick={() => {
+                    setIsExpanded(false);
+                  }}
+                  type="button"
+                >
+                  Compatibility insights{' '}
+                  <IconArrowDown />
+                </button>
+                <Tabs.List
+                  aria-label="Diagnostics available per email client"
+                  className="space-x-4"
+                >
+                  {emailClientsOfInterest.map((emailClient) => (
+                    <Tabs.Trigger
+                      className={clsx(
+                        'px-2 py-1 text-sm rounded-md relative',
+                        emailClient === selectedEmailClient && 'text-slate-12',
+                        emailClient !== selectedEmailClient && 'text-slate-11',
+                      )}
+                      key={emailClient}
+                      value={emailClient}
+                    >
+                      {emailClient === selectedEmailClient && (
+                        <motion.span
+                          className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 border border-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
+                          initial={false}
+                          layoutId="caniemail-diagnostic-tab-bubble"
+                          transition={{
+                            type: 'spring',
+                            bounce: 0.18,
+                            duration: 0.6,
+                          }}
+                        />
+                      )}
+                      {nicenames.family[emailClient]}
+                    </Tabs.Trigger>
+                  ))}
+                </Tabs.List>
+              </div>
+              <div className="px-4 overflow-y-auto flex-grow">
+                {emailClientsOfInterest.map((emailClient) => (
+                  <EmailClientInsightsTab
+                    emailClient={emailClient}
+                    key={emailClient}
                   />
-                )}
-                {nicenames.family[emailClient]}
-              </Tabs.Trigger>
-            ))}
-          </Tabs.List>
-        </div>
-        <div className="px-4 h-full flex-grow">
-          {emailClientsOfInterest.map((emailClient) => (
-            <EmailClientInsightsTab
-              emailClient={emailClient}
-              key={emailClient}
-            />
-          ))}
-        </div>
-      </Tabs.Root>
-    </div>
+                ))}
+              </div>
+            </Tabs.Root>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
@@ -350,28 +392,32 @@ const Insight = ({
             <Tooltip>
               <li key={platform}>
                 {statsForPlatform.status === 'working' ? (
-                  <span className="flex gap-2 text-green-400 cursor-default text-sm items-center align-middle">
+                  <div className="flex gap-2 text-green-400 cursor-default text-sm items-center">
                     <IconCircleCheck
                       className="text-green-400  text-xs"
                       height="1rem"
                       width="1eem"
                     />
                     {nicenames.platform[platform]}
-                  </span>
+                  </div>
                 ) : null}
                 {statsForPlatform.status === 'not working' ? (
-                  <span className="flex gap-2 text-red-400 cursor-default text-sm items-center align-middle">
-                    <IconClose className="text-xs" height="1rem" width="1eem" />
+                  <div className="flex gap-2 text-red-400 cursor-default text-sm items-center">
+                    <IconClose
+                      className="text-xs flex-shrink"
+                      height="1rem"
+                      width="1eem"
+                    />
                     {nicenames.platform[platform]}
-                  </span>
+                  </div>
                 ) : null}
                 {statsForPlatform.status === 'working with caveats'
                   ? (() => {
                       const hasNotes = statsForPlatform.notes.trim().length > 0;
-                      const span = (
-                        <span
+                      const content = (
+                        <div
                           className={clsx(
-                            'flex gap-2 text-yellow-300 cursor-default text-sm items-center align-middle',
+                            'flex gap-2 text-yellow-300 cursor-default text-sm items-center',
                             hasNotes && 'underline',
                           )}
                         >
@@ -384,16 +430,16 @@ const Insight = ({
                             width="1rem"
                           />
                           {nicenames.platform[platform]}
-                        </span>
+                        </div>
                       );
 
                       if (hasNotes) {
                         return (
-                          <Tooltip.Trigger asChild>{span}</Tooltip.Trigger>
+                          <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
                         );
                       }
 
-                      return span;
+                      return content;
                     })()
                   : null}
               </li>
