@@ -151,6 +151,8 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   );
 };
 
+const srcAttributeRegex = /src\s*=\s*"(?<URI>\/static.+)"/gm;
+
 const CodeView = ({ component }: { component: ImportedComponent }) => {
   const [selectedCodeVariant, setSelectedCodeVariant] =
     React.useState<CodeVariant>("html");
@@ -176,7 +178,12 @@ const CodeView = ({ component }: { component: ImportedComponent }) => {
 
   let code = "";
   if (selectedCodeVariant in component.code) {
-    code = component.code[selectedCodeVariant] ?? "";
+    // Resets the regex so that it doesn't break in subsequent runs
+    srcAttributeRegex.lastIndex = 0;
+    code = (component.code[selectedCodeVariant] ?? "").replaceAll(
+      srcAttributeRegex,
+      (_match, uri) => `src="https://react.email${uri}"`,
+    );
   } else {
     throw new Error("The code variant selected is not available", {
       cause: {
