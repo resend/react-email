@@ -10,8 +10,7 @@ export const useStoredState = <T extends string | undefined>(
     if (storedValue) {
       setState(storedValue as T);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [key]);
 
   return [
     state,
