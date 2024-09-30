@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { traverse } from "@babel/core";
+import traverse from "@babel/traverse";
 import { parse } from "@babel/parser";
 import { z } from "zod";
 import { render } from "@react-email/components";
