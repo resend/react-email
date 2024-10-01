@@ -67,6 +67,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/react-email
     devDependencies:
+      '@types/babel__traverse':
+        specifier: 7.20.6
+        version: 7.20.6
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
         version: types-react@19.0.0-rc.1
@@ -1004,6 +1007,9 @@ importers:
         specifier: 4.7.5
         version: 4.7.5
     devDependencies:
+      '@babel/traverse':
+        specifier: 7.25.6
+        version: 7.25.6
       '@radix-ui/colors':
         specifier: 1.0.1
         version: 1.0.1
@@ -1031,6 +1037,9 @@ importers:
       '@types/babel__core':
         specifier: 7.20.5
         version: 7.20.5
+      '@types/babel__traverse':
+        specifier: 7.20.6
+        version: 7.20.6
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -1709,10 +1718,6 @@ packages:
 
   '@babel/helpers@7.24.5':
     resolution: {integrity: sha512-CiQmBMMpMQHwM5m01YnrM6imUG1ebgYJ+fAIW4FZe6m4qHTPaRHti+R8cggAwkdz4oXhtO4/K9JWlh+8hIfR2Q==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/highlight@7.24.2':
-    resolution: {integrity: sha512-Yac1ao4flkTxTteCDZLEvdxg2fZfz1v8M4QpaGypq/WPDqg3ijHYbDfs+LG5hvzSoqaSZ9/Z9lKSP3CjZjv+pA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/highlight@7.24.7':
@@ -8989,13 +8994,13 @@ snapshots:
 
   '@babel/code-frame@7.24.2':
     dependencies:
-      '@babel/highlight': 7.24.2
-      picocolors: 1.0.1
+      '@babel/highlight': 7.24.7
+      picocolors: 1.1.0
 
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/compat-data@7.24.4': {}
 
@@ -9158,25 +9163,18 @@ snapshots:
 
   '@babel/helpers@7.24.5':
     dependencies:
-      '@babel/template': 7.24.0
+      '@babel/template': 7.25.0
       '@babel/traverse': 7.25.6
       '@babel/types': 7.25.6
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/highlight@7.24.2':
-    dependencies:
-      '@babel/helper-validator-identifier': 7.22.20
-      chalk: 2.4.2
-      js-tokens: 4.0.0
-      picocolors: 1.0.1
 
   '@babel/highlight@7.24.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/parser@7.24.5':
     dependencies:
@@ -9243,7 +9241,7 @@ snapshots:
 
   '@babel/template@7.24.0':
     dependencies:
-      '@babel/code-frame': 7.24.2
+      '@babel/code-frame': 7.24.7
       '@babel/parser': 7.24.5
       '@babel/types': 7.25.6
 
@@ -11341,12 +11339,12 @@ snapshots:
 
   '@types/babel__generator@7.6.8':
     dependencies:
-      '@babel/types': 7.24.5
+      '@babel/types': 7.25.6
 
   '@types/babel__template@7.4.4':
     dependencies:
       '@babel/parser': 7.24.5
-      '@babel/types': 7.24.5
+      '@babel/types': 7.25.6
 
   '@types/babel__traverse@7.20.6':
     dependencies:

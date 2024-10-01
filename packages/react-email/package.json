@@ -45,6 +45,8 @@
     "socket.io": "4.7.5"
   },
   "devDependencies": {
+    "@babel/traverse": "7.25.6",
+    "@types/babel__traverse": "7.20.6",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
     "@radix-ui/react-popover": "1.1.1",

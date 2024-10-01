@@ -7,6 +7,7 @@ interface CodeProps {
   children: string;
   className?: string;
   language?: Language;
+  linesToHighlight?: number[];
 }
 
 const theme = {
@@ -46,6 +47,7 @@ const theme = {
 export const Code: React.FC<Readonly<CodeProps>> = ({
   children,
   language = 'html',
+  linesToHighlight,
 }) => {
   const value = children.trim();
 
@@ -66,11 +68,15 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 line,
                 key: i,
               });
+              const shouldHighlight = linesToHighlight
+                ? linesToHighlight.includes(i + 1)
+                : false;
               return (
                 <div
                   key={i}
                   {...lineProps}
                   className={cn('whitespace-pre', {
+                    'bg-amber-200/40': shouldHighlight,
                     "before:text-slate-11 before:mr-2 before:content-['$']":
                       language === 'bash' && tokens.length === 1,
                   })}

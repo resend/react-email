@@ -1,16 +1,20 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Markdown from 'react-markdown';
 import { supportEntries, nicenames } from '../app/caniemail-data';
+import {
+  Insight,
+  getInsightsForEmail,
+} from '../utils/caniemail/get-insights-for-email';
 import { IconClose } from './icons/icon-close';
 import { IconWarning } from './icons/icon-warning';
 import { IconCircleCheck } from './icons/icon-circle-check';
 import { Tooltip } from './tooltip';
 import { IconExternalLink } from './icons/icon-external-link';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { PartialCodeViewTooltip } from './partial-code-view-tooltip';
 
 export type EmailClient =
   | 'gmail'
@@ -90,26 +94,42 @@ export interface SupportEntry {
 }
 
 const EmailClientInsightsTab = ({
+  pathToFile,
   emailClient,
+  reactCode,
 }: {
+  pathToFile: string;
+  reactCode: string;
   emailClient: EmailClient;
 }) => {
+  const insights = React.useMemo(
+    () => getInsightsForEmail(reactCode, emailClient),
+    [reactCode, emailClient],
+  );
+
   return (
     <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
-      {supportEntries.map((entry) => {
-        if (emailClient in entry.stats) {
-          return (
-            <Insight {...getInsight(emailClient, entry)} key={entry.slug} />
-          );
-        }
-
-        return null;
+      {insights.map((insight) => {
+        return (
+          <Insight
+            emailClient={emailClient}
+            insight={insight}
+            key={insight.entry.slug}
+            pathToFile={pathToFile}
+          />
+        );
       })}
     </Tabs.Content>
   );
 };
 
-export const EmailInsights = ({ code }: { code: string }) => {
+export const EmailInsights = ({
+  code,
+  pathToFile,
+}: {
+  code: string;
+  pathToFile: string;
+}) => {
   const emailClientsOfInterest: EmailClient[] = [
     'apple-mail',
     'gmail',
@@ -233,6 +253,8 @@ export const EmailInsights = ({ code }: { code: string }) => {
                   <EmailClientInsightsTab
                     emailClient={emailClient}
                     key={emailClient}
+                    pathToFile={pathToFile}
+                    reactCode={code}
                   />
                 ))}
               </div>
@@ -244,121 +266,14 @@ export const EmailInsights = ({ code }: { code: string }) => {
   );
 };
 
-const noteNumbersRegex = /#(?<noteNumber>\d+)/g;
-
-const getInsight = (
-  emailClient: EmailClient,
-  supportEntry: SupportEntry,
-): InsightProps => {
-  const rawStats = supportEntry.stats[emailClient];
-  if (rawStats) {
-    const stats: InsightProps['stats'] = {};
-    let worseStatus: InsightProps['worseStatus'] = 'working';
-
-    for (const [platform, statusPerVersion] of Object.entries(rawStats)) {
-      const latestStatus = statusPerVersion[statusPerVersion.length - 1];
-      if (latestStatus === undefined)
-        throw new Error(
-          'Cannot load in status because there are none recorded for this platform/email client',
-          {
-            cause: {
-              latestStatus,
-              statusPerVersion,
-              platform,
-              emailClient,
-              supportEntry,
-            },
-          },
-        );
-      const statusString = latestStatus[Object.keys(latestStatus)[0]!]!;
-      if (statusString.startsWith('u')) continue;
-      if (statusString.startsWith('a')) {
-        const notes: string[] = [];
-        noteNumbersRegex.lastIndex = 0;
-        for (const match of statusString.matchAll(noteNumbersRegex)) {
-          if (match.groups?.noteNumber) {
-            const { noteNumber } = match.groups;
-            const note = supportEntry.notes_by_num?.[parseInt(noteNumber)];
-            if (note) {
-              notes.push(note);
-            } else {
-              console.warn(
-                'Could not get note by the number for a support entry',
-                {
-                  platform,
-                  emailClient,
-                  supportEntry,
-                  statusString,
-                  note,
-                },
-              );
-            }
-          }
-        }
-        if (worseStatus === 'working') worseStatus = 'working with caveats';
-        stats[platform as Platform] = {
-          status: 'working with caveats',
-          notes:
-            notes.length === 1
-              ? notes[0]!
-              : notes.map((note) => `- ${note}`).join('\n'),
-        };
-      } else if (statusString.startsWith('y')) {
-        stats[platform as Platform] = {
-          status: 'working',
-        };
-      } else if (statusString.startsWith('n')) {
-        if (worseStatus !== 'not working') worseStatus = 'not working';
-        stats[platform as Platform] = {
-          status: 'not working',
-        };
-      }
-    }
-
-    return {
-      stats,
-      supportEntry,
-      worseStatus,
-      emailClient,
-    };
-  }
-
-  throw new Error('Email client is not in the support entry', {
-    cause: {
-      emailClient,
-      supportEntry,
-    },
-  });
-};
-
 interface InsightProps {
-  supportEntry: SupportEntry;
+  insight: Insight;
+  pathToFile: string;
   emailClient: EmailClient;
-  worseStatus: 'working' | 'working with caveats' | 'not working';
-  stats: Partial<
-    Record<
-      Platform,
-      | {
-          status: 'working';
-        }
-      | {
-          status: 'not working';
-        }
-      | {
-          status: 'working with caveats';
-          notes: string;
-        }
-    >
-  >;
 }
 
-const Insight = ({
-  emailClient,
-  supportEntry,
-  worseStatus,
-  stats,
-}: InsightProps) => {
-  const statEntries = Object.entries(stats);
+const Insight = ({ emailClient, pathToFile, insight }: InsightProps) => {
+  const statEntries = Object.entries(insight.stats);
   const orderPerStatus = {
     'working': 0,
     'working with caveats': 1,
@@ -373,26 +288,27 @@ const Insight = ({
   );
   return (
     <div
-      aria-describedby={`${emailClient}-${supportEntry.slug}-title`}
+      aria-describedby={`${emailClient}-${insight.entry.slug}-title`}
       className={clsx('border-2 space-y-3 w-full rounded-md p-2', {
-        'border-red-500': worseStatus === 'not working',
-        'border-yellow-300': worseStatus === 'working with caveats',
-        'border-green-500': worseStatus === 'working',
+        'border-red-500': insight.worseStatus === 'not working',
+        'border-yellow-300': insight.worseStatus === 'working with caveats',
+        'border-green-500': insight.worseStatus === 'working',
       })}
     >
       <div className="flex justify-between items-center">
-        <h3
-          className={clsx('font-semibold', {
-            'text-red-400': worseStatus === 'not working',
-            'text-yellow-300': worseStatus === 'working with caveats',
-            'text-green-500': worseStatus === 'working',
+        <a
+          className={clsx('font-semibold underline', {
+            'text-red-400': insight.worseStatus === 'not working',
+            'text-yellow-300': insight.worseStatus === 'working with caveats',
+            'text-green-500': insight.worseStatus === 'working',
           })}
-          id={`${emailClient}-${supportEntry.slug}-title`}
+          href={`vscode://file/${pathToFile}:${insight.location.start.line}:${insight.location.start.column}`}
+          id={`${emailClient}-${insight.entry.slug}-title`}
         >
-          {supportEntry.title}
-        </h3>
+          {insight.entry.title}
+        </a>
 
-        <a href={supportEntry.url} rel="noopener" target="_blank">
+        <a href={insight.entry.url} rel="noopener" target="_blank">
           <IconExternalLink />
         </a>
       </div>

@@ -139,7 +139,10 @@ const Preview = ({
         <Toaster />
       </div>
       {hasNoErrors ? (
-        <EmailInsights code={renderedEmailMetadata.reactMarkup} />
+        <EmailInsights
+          code={renderedEmailMetadata.reactMarkup}
+          pathToFile={emailPath}
+        />
       ) : null}
     </Shell>
   );
