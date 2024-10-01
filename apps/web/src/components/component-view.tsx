@@ -130,4 +130,3 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
     </Tabs.Root>
   );
 };
-
