@@ -3,25 +3,15 @@
 import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
-import * as Select from "@radix-ui/react-select";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ClipboardIcon,
-} from "lucide-react";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { motion } from "framer-motion";
-import type {
-  CodeVariant,
-  ImportedComponent,
-} from "../app/components/get-components";
+import type { ImportedComponent } from "../app/components/get-components";
 import { ComponentPreview } from "./component-preview";
-import { CodeBlock } from "./code-block";
 import { Tooltip } from "./tooltip";
 import { IconMonitor } from "./icons/icon-monitor";
 import { IconPhone } from "./icons/icon-phone";
 import { IconSource } from "./icons/icon-source";
+import { ComponentCodeView } from "./component-code-view";
+import { TabTrigger } from "./tab-trigger";
 
 interface ComponentViewProps {
   component: ImportedComponent;
@@ -30,40 +20,24 @@ interface ComponentViewProps {
 
 type ActiveView = "code" | "desktop" | "mobile";
 
-const TabTrigger: React.FC<{
-  value: ActiveView;
-  activeView: ActiveView;
-  icon: React.ReactNode;
+const TabTriggetWithTooltip = ({
+  tooltip,
+  children,
+  activeView,
+  layoutId,
+  value,
+}: {
   tooltip: string;
-}> = ({ value, activeView, icon, tooltip }) => (
+  layoutId: string;
+  children: React.ReactNode;
+  activeView: string;
+  value: string;
+}) => (
   <Tooltip>
     <Tooltip.Trigger asChild>
-      <Tabs.Trigger
-        className={classNames(
-          "group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none",
-          {
-            "text-slate-11": activeView !== value,
-            "text-slate-12": activeView === value,
-          },
-        )}
-        style={{ WebkitTapHighlightColor: "transparent" }}
-        tabIndex={0}
-        value={value}
-      >
-        {activeView === value && (
-          <motion.span
-            className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
-            initial={false}
-            layoutId="tab-bubble"
-            transition={{
-              type: "spring",
-              bounce: 0.18,
-              duration: 0.6,
-            }}
-          />
-        )}
-        {icon}
-      </Tabs.Trigger>
+      <TabTrigger activeView={activeView} layoutId={layoutId} value={value}>
+        {children}
+      </TabTrigger>
     </Tooltip.Trigger>
     <Tooltip.Content>{tooltip}</Tooltip.Content>
   </Tooltip>
@@ -112,24 +86,30 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
             {component.title}
           </h2>
           <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden p-1 text-xs">
-            <TabTrigger
+            <TabTriggetWithTooltip
               activeView={activeView}
-              icon={<IconMonitor />}
+              layoutId={`${component.slug}-view`}
               tooltip="Desktop"
               value="desktop"
-            />
-            <TabTrigger
+            >
+              <IconMonitor />
+            </TabTriggetWithTooltip>
+            <TabTriggetWithTooltip
               activeView={activeView}
-              icon={<IconPhone />}
+              layoutId={`${component.slug}-view`}
               tooltip="Mobile"
               value="mobile"
-            />
-            <TabTrigger
+            >
+              <IconPhone />
+            </TabTriggetWithTooltip>
+            <TabTriggetWithTooltip
               activeView={activeView}
-              icon={<IconSource />}
+              layoutId={`${component.slug}-view`}
               tooltip="Code"
               value="code"
-            />
+            >
+              <IconSource />
+            </TabTriggetWithTooltip>
           </Tabs.List>
           <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-slate-4" />
         </div>
@@ -143,156 +123,10 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
             <ComponentPreview activeView="mobile" html={component.code.html} />
           </TabContent>
           <TabContent value="code">
-            <CodeView component={component} />
+            <ComponentCodeView component={component} />
           </TabContent>
         </div>
       </TooltipProvider>
     </Tabs.Root>
-  );
-};
-
-const srcAttributeRegex = /src\s*=\s*"(?<URI>\/static.+)"/gm;
-
-const CodeView = ({ component }: { component: ImportedComponent }) => {
-  const [selectedCodeVariant, setSelectedCodeVariant] =
-    React.useState<CodeVariant>("html");
-  const [isCopied, setIsCopied] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const storedValue = localStorage.getItem("code-variant");
-    if (storedValue === "react") {
-      if (Object.keys(component.code).includes("react")) {
-        setSelectedCodeVariant("react");
-      } else {
-        setSelectedCodeVariant("tailwind");
-      }
-    } else if (Object.keys(component.code).includes("inline-styles")) {
-      if (storedValue === "inline-styles" || storedValue === "tailwind") {
-        setSelectedCodeVariant(storedValue);
-      }
-    } else if (storedValue === "html") {
-      setSelectedCodeVariant("html");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  let code = "";
-  if (selectedCodeVariant in component.code) {
-    // Resets the regex so that it doesn't break in subsequent runs
-    srcAttributeRegex.lastIndex = 0;
-    code = (component.code[selectedCodeVariant] ?? "").replaceAll(
-      srcAttributeRegex,
-      (_match, uri) => `src="https://react.email${uri}"`,
-    );
-  } else {
-    throw new Error("The code variant selected is not available", {
-      cause: {
-        selectedCodeVariant,
-        component,
-      },
-    });
-  }
-
-  const onCopy = () => {
-    void navigator.clipboard.writeText(code);
-    setIsCopied(true);
-
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 1000);
-  };
-
-  const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
-    if (event.key === "Enter" || event.key === " ") {
-      onCopy();
-    }
-  };
-
-  return (
-    <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
-      <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
-        {typeof component.code === "object" ? (
-          <Select.Root
-            onValueChange={(variant: CodeVariant) => {
-              setSelectedCodeVariant(variant);
-              localStorage.setItem("code-variant", variant);
-            }}
-            value={selectedCodeVariant}
-          >
-            <Select.Trigger
-              aria-label="Choose the styling solution"
-              className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-[placeholder]:text-slate-11"
-            >
-              <Select.Value>
-                {(() => {
-                  if (selectedCodeVariant === "tailwind") {
-                    return "TSX - Tailwind CSS";
-                  } else if (selectedCodeVariant === "inline-styles") {
-                    return "TSX - Inline CSS";
-                  } else if (selectedCodeVariant === "react") {
-                    return "TSX";
-                  }
-
-                  return "HTML";
-                })()}
-              </Select.Value>
-              <Select.Icon>
-                <ChevronDownIcon size={14} />
-              </Select.Icon>
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Content className="z-[2] overflow-hidden rounded-md bg-[#1F2122]">
-                <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
-                  <ChevronUpIcon size={12} />
-                </Select.ScrollUpButton>
-                <Select.Viewport className="p-1">
-                  {Object.keys(component.code).map((variant) => (
-                    <Select.Item
-                      className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
-                      key={variant}
-                      value={variant}
-                    >
-                      <Select.ItemText>
-                        {(() => {
-                          if (variant === "tailwind") {
-                            return "TSX - Tailwind CSS";
-                          } else if (variant === "inline-styles") {
-                            return "TSX - Inline CSS";
-                          } else if (variant === "react") {
-                            return "TSX";
-                          }
-
-                          return "HTML";
-                        })()}
-                      </Select.ItemText>
-                      <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-slate-12">
-                        <CheckIcon size={10} />
-                      </Select.ItemIndicator>
-                    </Select.Item>
-                  ))}
-                </Select.Viewport>
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
-        ) : null}
-        <button
-          aria-label="Copy code"
-          className="flex h-8 w-8 items-center justify-center rounded-sm outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
-          onClick={onCopy}
-          onKeyUp={handleKeyUp}
-          tabIndex={0}
-          type="button"
-        >
-          {isCopied ? <CheckIcon size={16} /> : <ClipboardIcon size={16} />}
-        </button>
-      </div>
-      <div className="h-full w-full overflow-auto">
-        <CodeBlock language={selectedCodeVariant === "html" ? "html" : "tsx"}>
-          {code}
-        </CodeBlock>
-      </div>
-    </div>
   );
 };
