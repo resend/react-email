@@ -78,16 +78,16 @@ export const ComponentCodeView = ({
             <TabTrigger
               activeView={selectedLanguage}
               layoutId={`${component.slug}-language`}
-              value="html"
+              value="react"
             >
-              HTML
+              React
             </TabTrigger>
             <TabTrigger
               activeView={selectedLanguage}
               layoutId={`${component.slug}-language`}
-              value="react"
+              value="html"
             >
-              React
+              HTML
             </TabTrigger>
           </Tabs.List>
         </Tabs.Root>
