@@ -54,7 +54,25 @@ declare module "tailwindcss/lib/lib/expandTailwindAtRules" {
   import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
   import type { Root } from "postcss";
 
-  export default function expandTailwindAtRules(
+  export default async function expandTailwindAtRules(
+    context: JITContext,
+  ): (root: Root) => Promise<void>;
+}
+
+declare module "tailwindcss/lib/lib/collapseAdjacentRules" {
+  import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+  import type { Root } from "postcss";
+
+  export default async function collapseAdjacentRules(
+    context: JITContext,
+  ): (root: Root) => void;
+}
+
+declare module "tailwindcss/lib/lib/collapseDuplicateDeclarations" {
+  import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+  import type { Root } from "postcss";
+
+  export default async function collapseDuplicateDeclarations(
     context: JITContext,
   ): (root: Root) => void;
 }

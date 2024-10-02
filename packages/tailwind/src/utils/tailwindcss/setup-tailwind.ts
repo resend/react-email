@@ -7,6 +7,8 @@ import { generateRules as rawGenerateRules } from "tailwindcss/lib/lib/generateR
 import expandTailwindAtRules from "tailwindcss/lib/lib/expandTailwindAtRules";
 import partitionApplyAtRules from "tailwindcss/lib/lib/partitionApplyAtRules";
 import substituteScreenAtRules from "tailwindcss/lib/lib/substituteScreenAtRules";
+import collapseAdjacentRules from "tailwindcss/lib/lib/collapseAdjacentRules";
+import collapseDuplicateDeclarations from "tailwindcss/lib/lib/collapseDuplicateDeclarations";
 import type { TailwindConfig } from "../../tailwind";
 import { resolveAllCSSVariables } from "../css/resolve-all-css-variables";
 import { setupTailwindContext } from "./setup-tailwind-context";
@@ -22,7 +24,7 @@ export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
 
   return {
-    generateRootForClasses: (classes: string[]) => {
+    generateRootForClasses: async (classes: string[]) => {
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
@@ -31,12 +33,14 @@ export function setupTailwind(config: TailwindConfig) {
       const root = tailwindAtRulesRoot
         .clone()
         .append(...bigIntRuleTuples.map(([, rule]) => rule));
+      await expandTailwindAtRules(tailwindContext)(root);
       partitionApplyAtRules()(root);
-      expandTailwindAtRules(tailwindContext)(root);
       expandApplyAtRules(tailwindContext)(root);
       evaluateTailwindFunctions(tailwindContext)(root);
       substituteScreenAtRules(tailwindContext)(root);
       resolveDefaultsAtRules(tailwindContext)(root);
+      collapseAdjacentRules(tailwindContext)(root);
+      collapseDuplicateDeclarations(tailwindContext)(root);
 
       resolveAllCSSVariables(root);
 
