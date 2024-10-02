@@ -22,11 +22,6 @@ const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
   });
 };
 
-/**
- * A style inlining function that converts an element's className into inlined React styles.
- *
- * Also returns residual classes that could not be found on the map.
- */
 export function makeInlineStylesFor(
   className: string,
   tailwindStylesRoot: Root,
