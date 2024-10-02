@@ -12,7 +12,7 @@ export const useCloneElementWithInlinedStyles = (
   tailwind: ReturnType<typeof useTailwind>,
 ) => {
   return (element: React.ReactElement<EmailElementProps>) => {
-    const propsToOverwrite = {} as Partial<EmailElementProps>;
+    const propsToOverwrite: Partial<EmailElementProps> = {};
 
     let nonInlinableClasses: string[] = [];
     let nonInlineStyleNodes: Node[] = [];
