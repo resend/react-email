@@ -22,7 +22,6 @@ export function useTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
 
   return {
-    // inspired by the tailwind LSP server
     generateRootForClasses: (classes: string[]) => {
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
