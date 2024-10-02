@@ -1,7 +1,7 @@
-import { useTailwind } from "./use-tailwind";
+import { setupTailwind } from "./setup-tailwind";
 
-test("useTailwind()", () => {
-  const tailwind = useTailwind({});
+test("setupTailwind()", () => {
+  const tailwind = setupTailwind({});
 
   expect(
     tailwind

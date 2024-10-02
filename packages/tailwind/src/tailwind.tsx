@@ -2,7 +2,7 @@ import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "tailwindcss";
 import { Root } from "postcss";
 import { minifyCss } from "./utils/css/minify-css";
-import { useTailwind } from "./hooks/use-tailwind";
+import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
 import { useCloneElementWithInlinedStyles } from "./hooks/use-clone-element-with-inlined-styles";
 
@@ -34,7 +34,7 @@ export interface EmailElementProps {
 }
 
 export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  const tailwind = useTailwind(config ?? {});
+  const tailwind = setupTailwind(config ?? {});
 
   const cloneElementWithInlinedStyles =
     useCloneElementWithInlinedStyles(tailwind);

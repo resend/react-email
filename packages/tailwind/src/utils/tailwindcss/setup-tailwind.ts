@@ -7,9 +7,9 @@ import { generateRules as rawGenerateRules } from "tailwindcss/lib/lib/generateR
 import expandTailwindAtRules from "tailwindcss/lib/lib/expandTailwindAtRules";
 import partitionApplyAtRules from "tailwindcss/lib/lib/partitionApplyAtRules";
 import substituteScreenAtRules from "tailwindcss/lib/lib/substituteScreenAtRules";
-import { setupTailwindContext } from "../utils/tailwindcss/setup-tailwind-context";
-import type { TailwindConfig } from "../tailwind";
-import { resolveAllCSSVariables } from "../utils/css/resolve-all-css-variables";
+import { setupTailwindContext } from "./setup-tailwind-context";
+import type { TailwindConfig } from "../../tailwind";
+import { resolveAllCSSVariables } from "../css/resolve-all-css-variables";
 
 const tailwindAtRulesRoot = parse(
   `
@@ -18,7 +18,7 @@ const tailwindAtRulesRoot = parse(
 `,
 ).root();
 
-export function useTailwind(config: TailwindConfig) {
+export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
 
   return {

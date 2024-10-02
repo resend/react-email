@@ -6,10 +6,10 @@ import { sanitizeMediaQueries } from "../utils/css/media-queries/sanitize-media-
 import { makeInlineStylesFor } from "../utils/css/make-inline-styles-for";
 import { sanitizeClassName } from "../utils/compatibility/sanitize-class-name";
 import { isComponent } from "../utils/react/is-component";
-import type { useTailwind } from "./use-tailwind";
+import type { setupTailwind } from "../utils/tailwindcss/setup-tailwind";
 
 export const useCloneElementWithInlinedStyles = (
-  tailwind: ReturnType<typeof useTailwind>,
+  tailwind: ReturnType<typeof setupTailwind>,
 ) => {
   return (element: React.ReactElement<EmailElementProps>) => {
     const propsToOverwrite: Partial<EmailElementProps> = {};
