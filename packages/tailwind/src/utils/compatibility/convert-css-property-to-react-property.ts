@@ -1,9 +1,7 @@
 import { fromDashCaseToCamelCase } from "../text/from-dash-case-to-camel-case";
 
 export const convertCssPropertyToReactProperty = (prop: string) => {
-  let modifiedProp = prop;
-
-  modifiedProp = modifiedProp.toLowerCase();
+  const modifiedProp = prop.toLowerCase();
 
   if (modifiedProp === "float") {
     return "cssFloat";
