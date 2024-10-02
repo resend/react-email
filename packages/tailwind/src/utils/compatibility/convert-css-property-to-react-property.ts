@@ -14,7 +14,7 @@ export const convertCssPropertyToReactProperty = (prop: string) => {
   }
 
   if (modifiedProp.startsWith("-ms-")) {
-    modifiedProp = modifiedProp.slice(1);
+    return fromDashCaseToCamelCase(modifiedProp.slice(1));
   }
 
   return fromDashCaseToCamelCase(modifiedProp);
