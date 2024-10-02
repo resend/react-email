@@ -9,7 +9,7 @@ const digitToNameMap = {
   "7": "seven",
   "8": "eight",
   "9": "nine",
-};
+} as const;
 
 /**
  * Replaces special characters to avoid problems on email clients.
