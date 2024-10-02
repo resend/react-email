@@ -45,13 +45,11 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
   let mappedChildren = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
-      const element = node;
-
       const {
         elementWithInlinedStyles,
         nonInlinableClasses,
         nonInlineStyleNodes,
-      } = cloneElementWithInlinedStyles(element);
+      } = cloneElementWithInlinedStyles(node);
       mediaQueryClassesForAllElement =
         mediaQueryClassesForAllElement.concat(nonInlinableClasses);
       nonInlineStylesRootToApply.append(nonInlineStyleNodes);
@@ -74,9 +72,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       }
 
       if (React.isValidElement<EmailElementProps>(node)) {
-        const element = node;
-
-        if (element.type === "head") {
+        if (node.type === "head") {
           hasAppliedNonInlineStyles = true;
 
           /*                   only minify here since it is the only place that is going to be in the DOM */
@@ -87,9 +83,9 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
           );
 
           return React.cloneElement(
-            element,
-            element.props,
-            element.props.children,
+            node,
+            node.props,
+            node.props.children,
             styleElement,
           );
         }
