@@ -35,7 +35,11 @@ export interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config, internalId }) => {
+export const Tailwind: React.FC<TailwindProps> = ({
+  children,
+  config,
+  internalId,
+}) => {
   const tailwind = setupTailwind(config ?? {});
 
   const cloneElementWithInlinedStyles =

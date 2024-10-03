@@ -11,7 +11,10 @@ import collapseAdjacentRules from "tailwindcss/lib/lib/collapseAdjacentRules";
 import collapseDuplicateDeclarations from "tailwindcss/lib/lib/collapseDuplicateDeclarations";
 import type { TailwindConfig } from "../../tailwind";
 import { resolveAllCSSVariables } from "../css/resolve-all-css-variables";
-import { resetTailwindCache, setupTailwindContext } from "./setup-tailwind-context";
+import {
+  resetTailwindCache,
+  setupTailwindContext,
+} from "./setup-tailwind-context";
 
 const tailwindAtRulesRoot = parse(
   `

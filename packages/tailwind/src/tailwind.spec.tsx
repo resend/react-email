@@ -416,7 +416,7 @@ describe("Responsive styles", () => {
   });
 
   it("should work with relatively complex media query utilities", async () => {
-    const id = v4()
+    const id = v4();
     const Email = () => {
       return (
         <Tailwind internalId={id}>

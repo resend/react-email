@@ -1,8 +1,5 @@
-import type {
-  JitContext} from "tailwindcss/lib/lib/setupContextUtils";
-import {
-  createContext,
-} from "tailwindcss/lib/lib/setupContextUtils";
+import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
+import { createContext } from "tailwindcss/lib/lib/setupContextUtils";
 import resolveConfig from "tailwindcss/resolveConfig";
 import type { TailwindConfig } from "../../tailwind";
 
