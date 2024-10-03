@@ -114,6 +114,13 @@ declare module "tailwindcss/lib/lib/setupContextUtils" {
 
   export interface JitContext {
     changedContent: ChangedContent[];
+    ruleCache: Set<unknown>;
+    candidateRuleCache: Map<unknown, unknown>;
+    classCache: Map<unknown, unknown>;
+    applyClassCache: Map<unknown, unknown>;
+    notClassCache: Set<unknown>;
+    postCssNodeCache: Map<unknown, unknown>;
+
     getClassList: () => string[];
     tailwindConfig: TailwindConfig;
     variantMap: Map<VariantName, VariantFn[]>;

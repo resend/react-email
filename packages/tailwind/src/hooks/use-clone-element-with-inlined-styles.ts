@@ -11,14 +11,14 @@ import type { setupTailwind } from "../utils/tailwindcss/setup-tailwind";
 export const useCloneElementWithInlinedStyles = (
   tailwind: ReturnType<typeof setupTailwind>,
 ) => {
-  return (element: React.ReactElement<EmailElementProps>) => {
+  return async (element: React.ReactElement<EmailElementProps>) => {
     const propsToOverwrite: Partial<EmailElementProps> = {};
 
     let nonInlinableClasses: string[] = [];
     let nonInlineStyleNodes: Node[] = [];
 
     if (element.props.className) {
-      const rootForClasses = tailwind.generateRootForClasses(
+      const rootForClasses = await tailwind.generateRootForClasses(
         element.props.className.split(" "),
       );
       sanitizeDeclarations(rootForClasses);

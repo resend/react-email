@@ -1,8 +1,8 @@
-import { renderToStaticMarkup as render } from "react-dom/server";
+import { render } from "@react-email/render";
 import { mapReactTree } from "./map-react-tree";
 
 describe("mapReactTree()", () => {
-  it("process should be called for all normal elements", () => {
+  it("process should be called for all normal elements", async () => {
     const node = (
       <>
         <div>This is a div</div>
@@ -11,16 +11,16 @@ describe("mapReactTree()", () => {
       </>
     );
 
-    const process = vi.fn((n: React.ReactNode) => n);
+    const process = vi.fn((n: React.ReactNode) => Promise.resolve(n));
 
-    const result = mapReactTree(node, process);
+    const result = await mapReactTree(node, process);
 
-    render(<>{result}</>);
+    await render(<>{result}</>);
 
     expect(process).toHaveBeenCalledTimes(7);
   });
 
-  it("process should be called for all elements with custom components", () => {
+  it("process should be called for all elements with custom components", async () => {
     const Custom = (props: { children: React.ReactNode }) => {
       return (
         <>
@@ -47,11 +47,11 @@ describe("mapReactTree()", () => {
       </>
     );
 
-    const process = vi.fn((n: React.ReactNode) => n);
+    const process = vi.fn((n: React.ReactNode) => Promise.resolve(n));
 
-    const result = mapReactTree(node, process);
+    const result = await mapReactTree(node, process);
 
-    render(<>{result}</>);
+    await render(<>{result}</>);
 
     expect(process).toHaveBeenCalledTimes(17);
   });

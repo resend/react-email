@@ -5,6 +5,7 @@ import { minifyCss } from "./utils/css/minify-css";
 import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
 import { useCloneElementWithInlinedStyles } from "./hooks/use-clone-element-with-inlined-styles";
+import { useSuspensedPromise } from "./hooks/use-suspensed-promise";
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
@@ -25,6 +26,7 @@ export type TailwindConfig = Pick<
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
+  internalId?: string;
 }
 
 export interface EmailElementProps {
@@ -33,72 +35,78 @@ export interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+export const Tailwind: React.FC<TailwindProps> = ({ children, config, internalId }) => {
   const tailwind = setupTailwind(config ?? {});
 
   const cloneElementWithInlinedStyles =
     useCloneElementWithInlinedStyles(tailwind);
 
-  const nonInlineStylesRootToApply = new Root();
-  let mediaQueryClassesForAllElement: string[] = [];
-  let hasNonInlineStylesToApply = false as boolean;
+  const resultingChildren: React.ReactNode = useSuspensedPromise(async () => {
+    const nonInlineStylesRootToApply = new Root();
+    let mediaQueryClassesForAllElement: string[] = [];
 
-  let mappedChildren = mapReactTree(children, (node) => {
-    if (React.isValidElement<EmailElementProps>(node)) {
-      const {
-        elementWithInlinedStyles,
-        nonInlinableClasses,
-        nonInlineStyleNodes,
-      } = cloneElementWithInlinedStyles(node);
-      mediaQueryClassesForAllElement =
-        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-      nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+    let hasNonInlineStylesToApply = false as boolean;
 
-      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-        hasNonInlineStylesToApply = true;
-      }
+    let mappedChildren: React.ReactNode = await mapReactTree(
+      children,
+      async (node) => {
+        if (React.isValidElement<EmailElementProps>(node)) {
+          const {
+            elementWithInlinedStyles,
+            nonInlinableClasses,
+            nonInlineStyleNodes,
+          } = await cloneElementWithInlinedStyles(node);
+          mediaQueryClassesForAllElement =
+            mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+          nonInlineStylesRootToApply.append(nonInlineStyleNodes);
 
-      return elementWithInlinedStyles;
-    }
+          if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+            hasNonInlineStylesToApply = true;
+          }
 
-    return node;
-  });
-
-  if (hasNonInlineStylesToApply) {
-    let hasAppliedNonInlineStyles = false as boolean;
-    mappedChildren = mapReactTree(mappedChildren, (node) => {
-      if (hasAppliedNonInlineStyles) {
-        return node;
-      }
-
-      if (React.isValidElement<EmailElementProps>(node)) {
-        if (node.type === "head") {
-          hasAppliedNonInlineStyles = true;
-
-          /*                   only minify here since it is the only place that is going to be in the DOM */
-          const styleElement = (
-            <style>
-              {minifyCss(nonInlineStylesRootToApply.toString().trim())}
-            </style>
-          );
-
-          return React.cloneElement(
-            node,
-            node.props,
-            node.props.children,
-            styleElement,
-          );
+          return elementWithInlinedStyles;
         }
-      }
 
-      return node;
-    });
+        return node;
+      },
+    );
 
-    if (!hasAppliedNonInlineStyles) {
-      throw new Error(
-        `You are trying to use the following Tailwind classes that cannot be inlined: ${mediaQueryClassesForAllElement.join(
-          " ",
-        )}.
+    if (hasNonInlineStylesToApply) {
+      let hasAppliedNonInlineStyles = false as boolean;
+
+      mappedChildren = await mapReactTree(mappedChildren, async (node) => {
+        if (hasAppliedNonInlineStyles) {
+          return node;
+        }
+
+        if (React.isValidElement<EmailElementProps>(node)) {
+          if (node.type === "head") {
+            hasAppliedNonInlineStyles = true;
+
+            /*                   only minify here since it is the only place that is going to be in the DOM */
+            const styleElement = (
+              <style>
+                {minifyCss(nonInlineStylesRootToApply.toString().trim())}
+              </style>
+            );
+
+            return React.cloneElement(
+              node,
+              node.props,
+              node.props.children,
+              styleElement,
+            );
+          }
+        }
+
+        return node;
+      });
+
+      if (!hasAppliedNonInlineStyles) {
+        throw new Error(
+          `You are trying to use the following Tailwind classes that cannot be inlined: ${mediaQueryClassesForAllElement.join(
+            " ",
+          )}.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
 
@@ -107,9 +115,12 @@ This can also be our <Head> component.
 
 If you do already have a <head> element at some depth, 
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
-      );
+        );
+      }
     }
-  }
 
-  return <>{mappedChildren}</>;
+    return mappedChildren;
+  }, `Tailwind children mapping ${internalId}`);
+
+  return <>{resultingChildren}</>;
 };

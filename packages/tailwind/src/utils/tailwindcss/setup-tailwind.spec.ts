@@ -1,15 +1,15 @@
 import { setupTailwind } from "./setup-tailwind";
 
-test("setupTailwind()", () => {
+test("setupTailwind()", async () => {
   const tailwind = setupTailwind({});
 
   expect(
-    tailwind
-      .generateRootForClasses([
+    (
+      await tailwind.generateRootForClasses([
         "text-red-500",
         "sm:bg-blue-300",
         "bg-slate-900",
       ])
-      .toString(),
+    ).toString(),
   ).toMatchSnapshot();
 });

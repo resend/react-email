@@ -8,13 +8,14 @@ import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
 import React from "react";
 import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
+import { v4 } from "uuid";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
 describe("Tailwind component", () => {
   it("should allow for complex children manipulation", async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <ResponsiveRow>
           <ResponsiveColumn>This is the first column</ResponsiveColumn>
           <ResponsiveColumn>This is the second column</ResponsiveColumn>
@@ -46,7 +47,7 @@ describe("Tailwind component", () => {
 
     expect(
       await render(
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <MyComponnt className="text-blue-400 p-4" />
         </Tailwind>,
       ),
@@ -56,7 +57,7 @@ describe("Tailwind component", () => {
   describe("Inline styles", () => {
     it("should render children with inline Tailwind styles", async () => {
       const actualOutput = await render(
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <div className="bg-white" />
         </Tailwind>,
       );
@@ -95,7 +96,7 @@ describe("Tailwind component", () => {
 
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">
           Testing button
         </Button>
@@ -107,8 +108,9 @@ describe("Tailwind component", () => {
   });
 
   it("should work with custom components with fragment at the root", async () => {
+    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind>{props.children}</Tailwind>;
+      return <Tailwind internalId={id}>{props.children}</Tailwind>;
     };
 
     const Brand = () => {
@@ -140,13 +142,16 @@ describe("Tailwind component", () => {
 
   test("it should not generate styles from text", async () => {
     expect(
-      await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>),
+      await render(
+        <Tailwind internalId={v4()}>container bg-red-500 bg-blue-300</Tailwind>,
+      ),
     ).toMatchSnapshot();
   });
 
   it("should work with components that return children", async () => {
+    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind>{props.children}</Tailwind>;
+      return <Tailwind internalId={id}>{props.children}</Tailwind>;
     };
 
     const Brand = () => {
@@ -172,9 +177,10 @@ describe("Tailwind component", () => {
   });
 
   it("should work with Heading component", async () => {
+    const id = v4();
     const EmailTemplate = () => {
       return (
-        <Tailwind>
+        <Tailwind internalId={id}>
           Hello
           <Heading>My testing heading</Heading>
           friends
@@ -186,8 +192,9 @@ describe("Tailwind component", () => {
   });
 
   it("should work with components that use React.forwardRef", async () => {
+    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind>{props.children}</Tailwind>;
+      return <Tailwind internalId={id}>{props.children}</Tailwind>;
     };
 
     const Brand = React.forwardRef<HTMLDivElement>((ref, props) => {
@@ -219,7 +226,7 @@ describe("Tailwind component", () => {
 
   it("should be able to use background image", async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <div className="bg-[url(https://example.com/image.png)]" />
       </Tailwind>,
     );
@@ -229,7 +236,7 @@ describe("Tailwind component", () => {
 
   it("should not override inline styles with Tailwind styles", async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <div
           className="bg-black text-[16px]"
           style={{ backgroundColor: "red", fontSize: "12px" }}
@@ -242,7 +249,7 @@ describe("Tailwind component", () => {
 
   it("should override component styles with Tailwind styles", async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <Hr className="w-12" />
       </Tailwind>,
     );
@@ -253,7 +260,7 @@ describe("Tailwind component", () => {
   it("should preserve mso styles", async () => {
     const actualOutput = await render(
       <Html>
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <Head />
           <span
             dangerouslySetInnerHTML={{
@@ -282,7 +289,7 @@ describe("Tailwind component", () => {
     };
     const actualOutput = await render(
       <Html>
-        <Tailwind config={config}>
+        <Tailwind internalId={v4()} config={config}>
           <Head />
           <div className="bg-red-100 xl:bg-green-500">Test</div>
           <div className="2xl:bg-blue-500">Test</div>
@@ -295,7 +302,7 @@ describe("Tailwind component", () => {
 
   it("should work with calc() with + sign", async () => {
     const actualOutput = await render(
-      <Tailwind>
+      <Tailwind internalId={v4()}>
         <head />
         <div className="max-h-[calc(50px+3rem)] lg:max-h-[calc(50px+5rem)] bg-red-100">
           <div className="h-[200px]">something tall</div>
@@ -322,7 +329,7 @@ describe("Responsive styles", () => {
   it("should work with arbitrarily deep (in the React tree) <head> elements", async () => {
     expect(
       await render(
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <html lang="en">
             <head />
             <body>
@@ -339,7 +346,7 @@ describe("Responsive styles", () => {
 
     expect(
       await render(
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <html lang="en">
             <MyHead />
             <body>
@@ -354,7 +361,7 @@ describe("Responsive styles", () => {
   it("should add css to <head/> and keep responsive class names", async () => {
     const actualOutput = await render(
       <html lang="en">
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <head />
           <body>
             <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
@@ -389,9 +396,11 @@ describe("Responsive styles", () => {
       );
     };
 
+    const id = v4();
+
     function renderComplexEmailWithoutHead() {
       return render(
-        <Tailwind>
+        <Tailwind internalId={id}>
           <div className="bg-red-300">
             <Component3 className="random-classname w-full">
               <div className="w-50">Testing</div>
@@ -407,9 +416,10 @@ describe("Responsive styles", () => {
   });
 
   it("should work with relatively complex media query utilities", async () => {
+    const id = v4()
     const Email = () => {
       return (
-        <Tailwind>
+        <Tailwind internalId={id}>
           <Head />
           <p className="text-blue-700 max-sm:text-red-600">I am some text</p>
         </Tailwind>
@@ -420,9 +430,10 @@ describe("Responsive styles", () => {
   });
 
   it("should throw an error when used without a <head/>", async () => {
+    const id = v4();
     function noHead() {
       return render(
-        <Tailwind>
+        <Tailwind internalId={id}>
           <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
@@ -436,7 +447,7 @@ describe("Responsive styles", () => {
   it("should persist existing <head/> elements", async () => {
     const actualOutput = await render(
       <html lang="en">
-        <Tailwind>
+        <Tailwind internalId={v4()}>
           <head>
             <style />
             <link />
@@ -465,7 +476,7 @@ describe("Custom theme config", () => {
     };
 
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="text-custom bg-custom" />
       </Tailwind>,
     );
@@ -486,7 +497,7 @@ describe("Custom theme config", () => {
     };
 
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="font-sans" />
         <div className="font-serif" />
       </Tailwind>,
@@ -506,7 +517,7 @@ describe("Custom theme config", () => {
       },
     };
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="m-8xl" />
       </Tailwind>,
     );
@@ -524,7 +535,7 @@ describe("Custom theme config", () => {
       },
     };
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="rounded-4xl" />
       </Tailwind>,
     );
@@ -543,7 +554,7 @@ describe("Custom theme config", () => {
     };
 
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="text-justify" />
       </Tailwind>,
     );
@@ -569,7 +580,7 @@ describe("Custom plugins config", () => {
     };
 
     const actualOutput = await render(
-      <Tailwind config={config}>
+      <Tailwind internalId={v4()} config={config}>
         <div className="border-custom" />
       </Tailwind>,
     );
@@ -594,7 +605,7 @@ describe("Custom plugins config", () => {
 
     const actualOutput = await render(
       <html lang="en">
-        <Tailwind config={config}>
+        <Tailwind internalId={v4()} config={config}>
           <head />
           <body>
             <div className="border-custom sm:border-custom" />
