@@ -1,14 +1,11 @@
-export function sanitizeHtml(html: string): string {
-  // Replace HTML entities for single and double quotes in any context
-  return html.replace(/(&quot;|&#x27;|&#39;)/g, (match) => {
-    switch (match) {
-      case '&quot;':
-        return '"';
-      case '&#x27;':
-      case '&#39;':
-        return "'";
-      default:
-        return match;
-    }
-  });
-}
+export const sanitizeHtml = (html: string): string => {
+  return html
+    .replace(/(?:['"])javascript:/gi, '$&unsupported:')
+    .replace(/(?:['"])vbscript:/gi, '$&unsupported:')
+    .replace(/(?:['"])data:/gi, '$&unsupported:')
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(
+      /onclick|onload|onerror|onmouseover|onmouseout|onmousedown|onmouseup|onkeydown|onkeypress|onkeyup/gi,
+      'unsupported-event',
+    );
+};
