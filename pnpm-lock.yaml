@@ -1232,6 +1232,9 @@ importers:
       '@react-email/html':
         specifier: workspace:*
         version: link:../html
+      '@react-email/link':
+        specifier: workspace:*
+        version: link:../link
       '@react-email/render':
         specifier: workspace:*
         version: link:../render

@@ -24,12 +24,10 @@ const tailwindAtRulesRoot = parse(
 ).root();
 
 export function setupTailwind(config: TailwindConfig) {
+
   const tailwindContext = setupTailwindContext(config);
-
   return {
-    generateRootForClasses: async (classes: string[]) => {
-      resetTailwindCache(tailwindContext);
-
+    generateRootForClasses: (classes: string[]) => {
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
@@ -38,7 +36,11 @@ export function setupTailwind(config: TailwindConfig) {
       const root = tailwindAtRulesRoot
         .clone()
         .append(...bigIntRuleTuples.map(([, rule]) => rule));
-      await expandTailwindAtRules(tailwindContext)(root);
+      partitionApplyAtRules()(root);
+      // This is fine because the internal await is never actually called out
+      // because of there not being any `changedContent` files on the context
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      expandTailwindAtRules(tailwindContext)(root);
       partitionApplyAtRules()(root);
       expandApplyAtRules(tailwindContext)(root);
       evaluateTailwindFunctions(tailwindContext)(root);

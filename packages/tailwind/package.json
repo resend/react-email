@@ -52,6 +52,7 @@
     "@react-email/heading": "workspace:*",
     "@react-email/hr": "workspace:*",
     "@react-email/html": "workspace:*",
+    "@react-email/link": "workspace:*",
     "@react-email/render": "workspace:*",
     "@responsive-email/react-email": "0.0.3",
     "@types/shelljs": "0.8.15",

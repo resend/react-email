@@ -1,11 +1,11 @@
 import { setupTailwind } from "./setup-tailwind";
 
-test("setupTailwind()", async () => {
+test("tailwind's generateRootForClasses()", () => {
   const tailwind = setupTailwind({});
 
   expect(
     (
-      await tailwind.generateRootForClasses([
+      tailwind.generateRootForClasses([
         "text-red-500",
         "sm:bg-blue-300",
         "bg-slate-900",
