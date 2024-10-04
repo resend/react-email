@@ -9,7 +9,6 @@ import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
 import React from "react";
 import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
-import { v4 } from "uuid";
 import { Tailwind } from ".";
 import type { TailwindConfig } from ".";
 
@@ -139,9 +138,8 @@ describe("Tailwind component", () => {
   });
 
   it("should work with custom components with fragment at the root", async () => {
-    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind internalId={id}>{props.children}</Tailwind>;
+      return <Tailwind>{props.children}</Tailwind>;
     };
 
     const Brand = () => {
@@ -180,9 +178,8 @@ describe("Tailwind component", () => {
   });
 
   it("should work with components that return children", async () => {
-    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind internalId={id}>{props.children}</Tailwind>;
+      return <Tailwind>{props.children}</Tailwind>;
     };
 
     const Brand = () => {
@@ -208,10 +205,9 @@ describe("Tailwind component", () => {
   });
 
   it("should work with Heading component", async () => {
-    const id = v4();
     const EmailTemplate = () => {
       return (
-        <Tailwind internalId={id}>
+        <Tailwind>
           Hello
           <Heading>My testing heading</Heading>
           friends
@@ -223,9 +219,8 @@ describe("Tailwind component", () => {
   });
 
   it("should work with components that use React.forwardRef", async () => {
-    const id = v4();
     const Wrapper = (props: { children: React.ReactNode }) => {
-      return <Tailwind internalId={id}>{props.children}</Tailwind>;
+      return <Tailwind>{props.children}</Tailwind>;
     };
 
     const Brand = React.forwardRef<HTMLDivElement>((ref, props) => {
@@ -427,11 +422,10 @@ describe("Responsive styles", () => {
       );
     };
 
-    const id = v4();
 
     function renderComplexEmailWithoutHead() {
       return render(
-        <Tailwind internalId={id}>
+        <Tailwind>
           <div className="bg-red-300">
             <Component3 className="random-classname w-full">
               <div className="w-50">Testing</div>
@@ -447,10 +441,9 @@ describe("Responsive styles", () => {
   });
 
   it("should work with relatively complex media query utilities", async () => {
-    const id = v4();
     const Email = () => {
       return (
-        <Tailwind internalId={id}>
+        <Tailwind>
           <Head />
           <p className="text-blue-700 max-sm:text-red-600">I am some text</p>
         </Tailwind>
@@ -461,10 +454,9 @@ describe("Responsive styles", () => {
   });
 
   it("should throw an error when used without a <head/>", async () => {
-    const id = v4();
     function noHead() {
       return render(
-        <Tailwind internalId={id}>
+        <Tailwind>
           <html lang="en">
             {/* <Head></Head> */}
             <div className="bg-red-200 sm:bg-red-500" />
