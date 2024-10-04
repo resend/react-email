@@ -2,6 +2,7 @@ import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
 import { escapeStringForRegex } from './escape-string-for-regex';
+import { sanitizeHtml } from '../sanitize-html';
 
 /**
  * Made to export the `render` function out of the user's email template
@@ -27,9 +28,18 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
       },
       async ({ path: pathToFile }) => {
         return {
-          contents: `${await fs.readFile(pathToFile, 'utf8')};
-          export { render } from 'react-email-module-that-will-export-render'
+          contents: `
+          import { render as originalRender } from 'react-email-module-that-will-export-render';
+          
+          const sanitizeHtml = ${sanitizeHtml.toString()};
+          
+          export const render = async (...args) => {
+            const result = await originalRender(...args);
+            return sanitizeHtml(result);
+          };
           export { createElement as reactEmailCreateReactElement } from 'react';
+          
+          ${await fs.readFile(pathToFile, 'utf8')};
         `,
           loader: path.extname(pathToFile).slice(1) as Loader,
         };
