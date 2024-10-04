@@ -11,9 +11,7 @@ import collapseAdjacentRules from "tailwindcss/lib/lib/collapseAdjacentRules";
 import collapseDuplicateDeclarations from "tailwindcss/lib/lib/collapseDuplicateDeclarations";
 import type { TailwindConfig } from "../../tailwind";
 import { resolveAllCSSVariables } from "../css/resolve-all-css-variables";
-import {
-  setupTailwindContext,
-} from "./setup-tailwind-context";
+import { setupTailwindContext } from "./setup-tailwind-context";
 
 const tailwindAtRulesRoot = parse(
   `
@@ -23,7 +21,6 @@ const tailwindAtRulesRoot = parse(
 ).root();
 
 export function setupTailwind(config: TailwindConfig) {
-
   const tailwindContext = setupTailwindContext(config);
   return {
     generateRootForClasses: (classes: string[]) => {

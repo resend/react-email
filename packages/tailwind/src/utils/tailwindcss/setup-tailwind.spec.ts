@@ -4,12 +4,12 @@ test("tailwind's generateRootForClasses()", () => {
   const tailwind = setupTailwind({});
 
   expect(
-    (
-      tailwind.generateRootForClasses([
+    tailwind
+      .generateRootForClasses([
         "text-red-500",
         "sm:bg-blue-300",
         "bg-slate-900",
       ])
-    ).toString(),
+      .toString(),
   ).toMatchSnapshot();
 });

@@ -13,4 +13,3 @@ export const setupTailwindContext = (config: TailwindConfig) => {
     }),
   );
 };
-

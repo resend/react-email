@@ -33,10 +33,7 @@ export interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
-export const Tailwind: React.FC<TailwindProps> = ({
-  children,
-  config,
-}) => {
+export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   const tailwind = setupTailwind(config ?? {});
 
   const nonInlineStylesRootToApply = new Root();
@@ -44,29 +41,26 @@ export const Tailwind: React.FC<TailwindProps> = ({
 
   let hasNonInlineStylesToApply = false as boolean;
 
-  let mappedChildren: React.ReactNode = mapReactTree(
-    children,
-    (node) => {
-      if (React.isValidElement<EmailElementProps>(node)) {
-        const {
-          elementWithInlinedStyles,
-          nonInlinableClasses,
-          nonInlineStyleNodes,
-        } = cloneElementWithInlinedStyles(node, tailwind);
-        mediaQueryClassesForAllElement =
-          mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-        nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+  let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
+    if (React.isValidElement<EmailElementProps>(node)) {
+      const {
+        elementWithInlinedStyles,
+        nonInlinableClasses,
+        nonInlineStyleNodes,
+      } = cloneElementWithInlinedStyles(node, tailwind);
+      mediaQueryClassesForAllElement =
+        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+      nonInlineStylesRootToApply.append(nonInlineStyleNodes);
 
-        if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-          hasNonInlineStylesToApply = true;
-        }
-
-        return elementWithInlinedStyles;
+      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+        hasNonInlineStylesToApply = true;
       }
 
-      return node;
-    },
-  );
+      return elementWithInlinedStyles;
+    }
+
+    return node;
+  });
 
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;

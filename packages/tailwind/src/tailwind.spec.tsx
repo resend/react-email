@@ -171,9 +171,7 @@ describe("Tailwind component", () => {
 
   test("it should not generate styles from text", async () => {
     expect(
-      await render(
-        <Tailwind>container bg-red-500 bg-blue-300</Tailwind>,
-      ),
+      await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>),
     ).toMatchSnapshot();
   });
 
@@ -421,7 +419,6 @@ describe("Responsive styles", () => {
         </div>
       );
     };
-
 
     function renderComplexEmailWithoutHead() {
       return render(
