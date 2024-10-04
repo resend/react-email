@@ -1,12 +1,12 @@
 import { setupTailwind } from "../tailwindcss/setup-tailwind";
 import { makeInlineStylesFor } from "./make-inline-styles-for";
 
-test("makeInlineStylesFor()", async () => {
+test("makeInlineStylesFor()", () => {
   const tailwind = setupTailwind({});
 
   const className =
     "bg-red-500 sm:bg-blue-300 w-full md:max-w-[400px] my-custom-class";
-  const tailwindStyles = await tailwind.generateRootForClasses(
+  const tailwindStyles = tailwind.generateRootForClasses(
     className.split(" "),
   );
 
