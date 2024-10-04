@@ -1,8 +1,8 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
-import { escapeStringForRegex } from './escape-string-for-regex';
 import { sanitizeHtml } from '../sanitize-html';
+import { escapeStringForRegex } from './escape-string-for-regex';
 
 /**
  * Made to export the `render` function out of the user's email template
