@@ -11,9 +11,9 @@ describe("mapReactTree()", () => {
       </>
     );
 
-    const process = vi.fn((n: React.ReactNode) => Promise.resolve(n));
+    const process = vi.fn((n: React.ReactNode) => n);
 
-    const result = await mapReactTree(node, process);
+    const result = mapReactTree(node, process);
 
     await render(<>{result}</>);
 
@@ -47,9 +47,9 @@ describe("mapReactTree()", () => {
       </>
     );
 
-    const process = vi.fn((n: React.ReactNode) => Promise.resolve(n));
+    const process = vi.fn((n: React.ReactNode) => n);
 
-    const result = await mapReactTree(node, process);
+    const result = mapReactTree(node, process);
 
     await render(<>{result}</>);
 
