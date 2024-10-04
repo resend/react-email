@@ -35,9 +35,6 @@
     "overrides": {
       "@types/react": "npm:types-react@19.0.0-rc.1",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    },
-    "patchedDependencies": {
-      "tailwindcss@3.3.2": "patches/tailwindcss@3.3.2.patch"
     }
   }
 }
