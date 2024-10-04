@@ -103,7 +103,6 @@ export const resolveAllCSSVariables = (root: Root) => {
     }
   });
 
-  // Removes all variable definitions and then removes the rules that are empty
   root.walkDecls((decl) => {
     if (/--[^\s]+/.test(decl.prop)) {
       const parent = decl.parent;
