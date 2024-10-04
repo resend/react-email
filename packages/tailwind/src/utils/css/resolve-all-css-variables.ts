@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   type Container,
   type Root,
@@ -46,11 +45,12 @@ export const resolveAllCSSVariables = (root: Root) => {
         /**
          * @example ['var(--width)', 'var(--length)']
          */
-        const variablesUsed = /var\(--[^\s)]+\)/gm.exec(decl.value)!;
+        const variablesUsed = /var\(--[^\s)]+\)/gm.exec(decl.value);
         root.walkDecls((otherDecl) => {
           if (/--[^\s]+/.test(otherDecl.prop)) {
             const variable = `var(${otherDecl.prop})`;
             if (
+              variablesUsed &&
               variablesUsed.includes(variable) &&
               doNodesMatch(decl.parent, otherDecl.parent)
             ) {
@@ -67,10 +67,10 @@ export const resolveAllCSSVariables = (root: Root) => {
                   otherDecl.value,
                 );
                 clonedDeclaration.important = decl.important;
-                if (declarationsForAtRules.has(atRule)) {
-                  declarationsForAtRules
-                    .get(otherDecl.parent.parent)!
-                    .add(clonedDeclaration);
+
+                const declarationForAtRule = declarationsForAtRules.get(atRule);
+                if (declarationForAtRule) {
+                  declarationForAtRule.add(clonedDeclaration);
                 } else {
                   declarationsForAtRules.set(
                     otherDecl.parent.parent,
