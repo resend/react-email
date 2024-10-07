@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.2-canary.3
+
+### Patch Changes
+
+- ac01c91: bump chokidar to v4
+
 ## 3.0.2-canary.2
 
 ### Patch Changes
