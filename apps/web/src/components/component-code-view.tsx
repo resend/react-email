@@ -34,9 +34,7 @@ export const ComponentCodeView = ({
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   let code = component.code.html;
-  if (
-    selectedLanguage === "react"
-  ) {
+  if (selectedLanguage === "react") {
     const codeForSelectedVariant = component.code[selectedReactCodeVariant];
     if (codeForSelectedVariant) {
       code = codeForSelectedVariant;
