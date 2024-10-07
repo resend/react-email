@@ -34,14 +34,15 @@ export const ComponentCodeView = ({
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   let code = component.code.html;
-  if (
-    selectedLanguage === "react" &&
-    selectedReactCodeVariant in component.code
-  ) {
-    // Resets the regex so that it doesn't break in subsequent runs
-    srcAttributeRegex.lastIndex = 0;
-    code = component.code[selectedReactCodeVariant] ?? "";
+  if (selectedLanguage === "react") {
+    const codeForSelectedVariant = component.code[selectedReactCodeVariant];
+    if (codeForSelectedVariant) {
+      code = codeForSelectedVariant;
+    } else if (component.code.react) {
+      code = component.code.react;
+    }
   }
+  srcAttributeRegex.lastIndex = 0;
   code = code.replaceAll(
     srcAttributeRegex,
     (_match, uri) => `src="https://react.email${uri}"`,
@@ -92,7 +93,7 @@ export const ComponentCodeView = ({
           </Tabs.List>
         </Tabs.Root>
         <div className="flex gap-2">
-          {selectedLanguage === "react" ? (
+          {selectedLanguage === "react" && !component.code.react ? (
             <ReactVariantSelect
               onChange={(newValue) => {
                 localStorage.setItem("code-variant", newValue);
