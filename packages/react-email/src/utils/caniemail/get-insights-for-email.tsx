@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Style } from 'node:util';
 import { parse } from '@babel/parser';
 import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
@@ -48,11 +48,48 @@ export const getInsightsForEmail = (
     if (entry.category === 'css') {
       const entryFullProperty = getCssPropertyWithValue(entry.title);
       const entryProperties = getCssPropertyNames(entry.title, entry.keywords);
-
       const entryUnit = getCssUnit(entry.title);
       const entryFunctions = getCssFunctions(entry.title);
+
+      const cssEntryType = (() => {
+        if (entryFullProperty?.name && entryFullProperty.value) {
+          return 'full property';
+        }
+
+        if (entryFunctions.length > 0) {
+          return 'function';
+        }
+
+        if (entryUnit) {
+          return 'unit';
+        }
+
+        if (entryProperties.length > 0) {
+          return 'property name';
+        }
+      })();
+
+      if (!cssEntryType) continue;
+      const addToInsights = (
+        property: StylePropertyUsage & { location: SourceLocation },
+      ) => {
+        const codeLines = reactCode.split(/\n|\r|\r\n/);
+        const source = codeLines
+          .slice(
+            Math.max(property.location.start.line - 2, 0),
+            Math.min(property.location.end.line + 2, codeLines.length),
+          )
+          .join('\n');
+        insights.push({
+          entry,
+          location: property.location,
+          source,
+          ...stats,
+        });
+      };
+
       for (const property of usedStyleProperties) {
-        if (property.location === null || property.location === undefined)
+        if (!doesPropertyHaveLocation(property)) {
           throw new Error(
             "One of the properties' node did not contain the proper location for it on the source code. This must be an issue because we always need access to the source.",
             {
@@ -65,58 +102,40 @@ export const getInsightsForEmail = (
               },
             },
           );
-        const addToInsights = () => {
-          const codeLines = reactCode.split(/\n|\r|\r\n/);
-          const source = codeLines
-            .slice(
-              Math.max(property.location!.start.line - 2, 0),
-              Math.min(property.location!.end.line + 2, codeLines.length),
-            )
-            .join('\n');
-          insights.push({
-            entry,
-            location: property.location!,
-            source,
-            ...stats,
-          });
-        };
-
-        if (
-          property.name === entryFullProperty?.name &&
-          property.value === entryFullProperty.value
-        ) {
-          addToInsights();
-          break;
         }
 
-        if (
+        if (cssEntryType === 'full property') {
+          if (
+            property.name === entryFullProperty?.name &&
+            property.value === entryFullProperty.value
+          ) {
+            addToInsights(property);
+            break;
+          }
+        } else if (cssEntryType === 'function') {
+          const functionRegex =
+            /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
+          const functionName = functionRegex.exec(property.value)?.groups
+            ?.functionName;
+          if (functionName !== undefined) {
+            if (entryFunctions.includes(functionName)) {
+              addToInsights(property);
+              break;
+            }
+          }
+        } else if (cssEntryType === 'unit') {
+          const match = property.value.match(/[0-9](?<unit>[a-zA-Z%]+)$/g);
+          if (match) {
+            const unit = match.groups?.unit;
+            if (entryUnit && unit && entryUnit === unit) {
+              addToInsights(property);
+              break;
+            }
+          }
+        } else if (
           entryProperties.some((propertyName) => property.name === propertyName)
         ) {
-          addToInsights();
-          break;
-        }
-
-        const match = property.value.match(/[0-9](?<unit>[a-zA-Z%]+)$/g);
-        if (match) {
-          const unit = match.groups?.unit;
-          if (entryUnit && unit && entryUnit === unit) {
-            addToInsights();
-            break;
-          }
-        }
-
-        const functionRegex = /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
-        const functionName = functionRegex.exec(property.value)?.groups
-          ?.functionName;
-        let addedInsight = false;
-        while (functionName !== undefined) {
-          if (entryFunctions.includes(functionName)) {
-            addedInsight = true;
-            addToInsights();
-            break;
-          }
-        }
-        if (addedInsight) {
+          addToInsights(property);
           break;
         }
       }
@@ -169,6 +188,12 @@ const getObjectVariables = (ast: AST) => {
   });
 
   return objectVariables;
+};
+
+export const doesPropertyHaveLocation = (
+  prop: StylePropertyUsage,
+): prop is StylePropertyUsage & { location: SourceLocation } => {
+  return prop.location !== undefined && prop.location !== null;
 };
 
 const getUsedStyleProperties = (ast: AST, objectVariables: ObjectVariables) => {
