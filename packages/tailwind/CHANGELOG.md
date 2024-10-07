@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.0-canary.2
+
+### Minor Changes
+
+- 4520ca8: Refactored internally to have a much smaller bundle size
+
 ## 1.0.0-canary.1
 
 ### Patch Changes

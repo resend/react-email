@@ -278,7 +278,7 @@ importers:
         specifier: 3.341.0
         version: 3.341.0
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       react:
         specifier: 19.0.0-rc-187dd6a7-20240806
@@ -300,7 +300,7 @@ importers:
   examples/mailersend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       mailersend:
         specifier: ^2.0.0
@@ -325,7 +325,7 @@ importers:
   examples/nodemailer:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       nodemailer:
         specifier: 6.9.9
@@ -356,7 +356,7 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       react:
         specifier: 19.0.0-rc-187dd6a7-20240806
@@ -378,7 +378,7 @@ importers:
   examples/postmark:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       postmark:
         specifier: 3.0.14
@@ -403,7 +403,7 @@ importers:
   examples/resend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       next:
         specifier: 15.0.0-canary.117
@@ -437,7 +437,7 @@ importers:
   examples/scaleway/next:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.5.0
@@ -471,7 +471,7 @@ importers:
   examples/scaleway/node:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.4.0
@@ -496,7 +496,7 @@ importers:
   examples/sendgrid:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../packages/components
       '@sendgrid/mail':
         specifier: 7.7.0
@@ -682,7 +682,7 @@ importers:
         specifier: workspace:0.0.14
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:1.0.0-canary.1
+        specifier: workspace:1.0.0-canary.2
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.0.10
@@ -748,7 +748,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.3
+        specifier: workspace:0.0.26-canary.4
         version: link:../../components
       react:
         specifier: 18.3.1
@@ -757,7 +757,7 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       react-email:
-        specifier: workspace:3.0.2-canary.2
+        specifier: workspace:3.0.2-canary.3
         version: link:../../react-email
     devDependencies:
       '@types/react':
