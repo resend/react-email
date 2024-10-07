@@ -200,6 +200,7 @@ export const allCssProperties = [
   "list-style-position",
   "list-style-type",
   "margin",
+  "shape-margin",
   "margin-block",
   "margin-block-end",
   "margin-block-start",
