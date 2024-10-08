@@ -34,9 +34,9 @@ export const AirbnbReviewEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>{previewText}</Preview>
 
       <Body style={main}>
+        <Preview>{previewText}</Preview>
         <Container style={container}>
           <Section>
             <Img
