@@ -71,6 +71,7 @@ your email template when you make changes.
         You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source)
         for an example of how we do this with our demo deploy on Vercel.
     </Info>
+
   </Accordion>
   <Accordion title="How can I define props specific to the email's preview?">
     Considering that you are already default exporting the React component
@@ -98,6 +99,7 @@ your email template when you make changes.
 
     <Email {...Email.PreviewProps} />;
     ```
+
   </Accordion>
   <Accordion title="How to make the preview server ignore directories?">
     Once the preview server has started and is now open on `localhost`, the preview server
@@ -118,6 +120,7 @@ your email template when you make changes.
     ```
 
     Then the only file that will be shown on the preview server is going to be your `email.tsx`.
+
   </Accordion>
   <Accordion title="The heuristics for files to be considered emails">
     To avoid uncanny files appearing in the sidebar of the preview server,
@@ -130,6 +133,7 @@ your email template when you make changes.
 
     These can certainly fail as they are only heuristics, so if you do find
     any issues with these, feel free to open an [issue](https://github.com/resend/react-email/issues).
+
   </Accordion>
 </AccordionGroup>
 
@@ -156,16 +160,18 @@ Generates the plain HTML files of your emails into a `out` directory.
   A very common misconception is to assume that this command is
   the way meant to be used to send the email templates, but it is not.
 
-  The preferable way is to render the email using the [render](/utilities/render) utility,
-  by passing in the needed data through props, on the moment of sending the email,
-  This gives for a much better developer experience that it would with `email export`.
+The preferable way is to render the email using the [render](/utilities/render) utility,
+by passing in the needed data through props, on the moment of sending the email,
+This gives for a much better developer experience that it would with `email export`.
 
-  `email export` is a secondary way where the situation is not optimal. Two of them are:
-  - The email template is sent through some other language
-  - You are going to use separate templating, because the email platform you use forces you to do so
+`email export` is a secondary way where the situation is not optimal. Two of them are:
 
-  We strongly recommend users to gravitate towards using the preferable way, because otherwise
-  you will end up having to fight a lot with the rendered markup and many other issues arise.
+- The email template is sent through some other language
+- You are going to use separate templating, because the email platform you use forces you to do so
+
+We strongly recommend users to gravitate towards using the preferable way, because otherwise
+you will end up having to fight a lot with the rendered markup and many other issues arise.
+
 </Info>
 
 **Options**
