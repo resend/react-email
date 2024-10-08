@@ -11130,11 +11130,6 @@ snapshots:
       '@types/minimatch': 5.1.2
       '@types/node': 20.16.1
 
-  '@types/glob@7.2.0':
-    dependencies:
-      '@types/minimatch': 5.1.2
-      '@types/node': 20.16.1
-
   '@types/html-to-text@9.0.4': {}
 
   '@types/js-beautify@1.14.3': {}
