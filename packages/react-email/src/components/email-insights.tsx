@@ -215,12 +215,13 @@ export const EmailInsights = ({
                 {emailClientsOfInterest.map((emailClient) => (
                   <Tabs.Content
                     className="grid grid-cols-4 gap-2"
+                    key={emailClient}
                     value={emailClient}
                   >
                     <EmailClientInsightsTab
                       emailClient={emailClient}
+                      emailPath={pathToFile}
                       key={emailClient}
-                      pathToFile={pathToFile}
                       reactCode={code}
                     />
                   </Tabs.Content>
@@ -235,18 +236,18 @@ export const EmailInsights = ({
 };
 
 const EmailClientInsightsTab = ({
-  pathToFile,
+  emailPath,
   emailClient,
   reactCode,
 }: {
-  pathToFile: string;
+  emailPath: string;
   reactCode: string;
   emailClient: EmailClient;
 }) => {
   const [insights, setInsights] = React.useState<Insight[]>([]);
 
   React.useEffect(() => {
-    getInsightsForEmail(reactCode, emailClient)
+    getInsightsForEmail(reactCode, emailPath, emailClient)
       .then(setInsights)
       .catch((exception) => {
         if (exception instanceof Error) {
@@ -258,14 +259,14 @@ const EmailClientInsightsTab = ({
           console.error(exception);
         }
       });
-  }, [reactCode, emailClient]);
+  }, [reactCode, emailPath, emailClient]);
 
   return insights.map((insight) => (
     <EmailInsight
       emailClient={emailClient}
       insight={insight}
       key={insight.entry.slug}
-      pathToFile={pathToFile}
+      pathToFile={emailPath}
     />
   ));
 };

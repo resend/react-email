@@ -35,6 +35,7 @@ export interface Insight {
 
 export const getInsightsForEmail = async (
   reactCode: string,
+  emailPath: string,
   emailClient: EmailClient,
   // eslint-disable-next-line @typescript-eslint/require-await
 ) => {
@@ -59,7 +60,12 @@ export const getInsightsForEmail = async (
   };
 
   const objectVariables = getObjectVariables(ast);
-  const usedStyleProperties = getUsedStyleProperties(ast, objectVariables);
+  const usedStyleProperties = getUsedStyleProperties(
+    ast,
+    reactCode,
+    emailPath,
+    objectVariables,
+  );
   for (const entry of supportEntries) {
     const stats = getInsightsStatsForEntry(entry, emailClient);
     if (!stats) continue;
