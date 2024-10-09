@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import Markdown from 'react-markdown';
-import { Insight } from '../actions/get-insights-for-email';
+import type { Insight } from '../actions/get-insights-for-email';
 import { nicenames } from '../app/caniemail-data';
 import type { EmailClient } from './email-insights';
 import { IconExternalLink } from './icons/icon-external-link';
