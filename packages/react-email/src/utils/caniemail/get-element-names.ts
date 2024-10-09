@@ -6,7 +6,9 @@ export const getElementNames = (
   if (match) {
     const [_full, elementName] = match;
 
-    return [elementName];
+    if (elementName) {
+      return [elementName];
+    }
   }
 
   if (keywords !== null && keywords.length > 0) {

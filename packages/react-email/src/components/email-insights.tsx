@@ -3,18 +3,18 @@ import * as React from 'react';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Markdown from 'react-markdown';
+import { toast } from 'sonner';
 import { supportEntries, nicenames } from '../app/caniemail-data';
 import {
   Insight,
   getInsightsForEmail,
-} from '../utils/caniemail/get-insights-for-email';
+} from '../actions/get-insights-for-email';
 import { IconClose } from './icons/icon-close';
 import { IconWarning } from './icons/icon-warning';
 import { IconCircleCheck } from './icons/icon-circle-check';
 import { Tooltip } from './tooltip';
 import { IconExternalLink } from './icons/icon-external-link';
 import { IconArrowDown } from './icons/icon-arrow-down';
-import { PartialCodeViewTooltip } from './partial-code-view-tooltip';
 
 export type EmailClient =
   | 'gmail'
@@ -102,10 +102,22 @@ const EmailClientInsightsTab = ({
   reactCode: string;
   emailClient: EmailClient;
 }) => {
-  const insights = React.useMemo(
-    () => getInsightsForEmail(reactCode, emailClient),
-    [reactCode, emailClient],
-  );
+  const [insights, setInsights] = React.useState<Insight[]>([]);
+
+  React.useEffect(() => {
+    getInsightsForEmail(reactCode, emailClient)
+      .then(setInsights)
+      .catch((exception) => {
+        if (exception instanceof Error) {
+          toast.error(exception.message);
+        } else {
+          toast.error(
+            'Could not get the insights for the email, check your console!',
+          );
+          console.error(exception);
+        }
+      });
+  }, [reactCode, emailClient]);
 
   return (
     <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
