@@ -3,6 +3,7 @@
 import { Hr } from "@react-email/hr";
 import { render } from "@react-email/render";
 import { Html } from "@react-email/html";
+import { Link } from "@react-email/link";
 import { Heading } from "@react-email/heading";
 import { Head } from "@react-email/head";
 import { Button } from "@react-email/button";
@@ -25,17 +26,62 @@ describe("Tailwind component", () => {
   });
 
   it("should work with class manipulation done on components", async () => {
-    const MyComponnt = (props: { className?: string }) => {
-      return <div className={`${props.className} bg-red-500`} />;
+    const MyComponnt = (props: {
+      className?: string;
+      style?: React.CSSProperties;
+    }) => {
+      expect(
+        props.style,
+        "Styles should be generated the same for a component",
+      ).toEqual({
+        color: "rgb(96,165,250)",
+        padding: "1rem",
+      });
+      return (
+        <div
+          className={`${props.className} bg-red-500`}
+          style={{ ...props.style, padding: "4px" }}
+        />
+      );
     };
 
     expect(
       await render(
         <Tailwind>
-          <MyComponnt className="text-blue-400" />
+          <MyComponnt className="text-blue-400 p-4" />
         </Tailwind>,
       ),
     ).toMatchSnapshot();
+  });
+
+  it("should work properly with 'no-underline'", async () => {
+    const actualOutput = await render(
+      <Html>
+        <body>
+          <Tailwind>
+            <p className="text-black text-[14px] leading-[24px]">
+              or copy and paste this URL into your browser:{" "}
+              <Link
+                className="text-blue-600 no-underline other"
+                href="https://react.email"
+              >
+                https://react.email
+              </Link>
+            </p>
+            <p className="text-black text-[14px] leading-[24px]">
+              or copy and paste this URL into your browser:{" "}
+              <Link
+                className="text-blue-600 no-underline"
+                href="https://react.email"
+              >
+                https://react.email
+              </Link>
+            </p>
+          </Tailwind>
+        </body>
+      </Html>,
+    );
+    expect(actualOutput).toMatchSnapshot();
   });
 
   describe("Inline styles", () => {
@@ -49,6 +95,34 @@ describe("Tailwind component", () => {
       expect(actualOutput).not.toBeNull();
     });
   });
+
+  // test("with React context and custom components", () => {
+  //   const SharedDataContext = React.createContext<{ name: string } | undefined>(undefined);
+  //
+  //   const IsGreat = () => {
+  //     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //     const sharedData = React.useContext(SharedDataContext)!;
+  //
+  //     expect(sharedData).toBeDefined();
+  //
+  //     return <p className="text-red-500 sm:text-blue-300">
+  //       {sharedData.name} is great!
+  //     </p>;
+  //   };
+  //
+  //   render(
+  //     <Html>
+  //       <Tailwind>
+  //         <Head/>
+  //         <SharedDataContext.Provider value={{ name: 'React Email' }}>
+  //           <body className="bg-slate-900 text-gray-200">
+  //             <IsGreat/>
+  //           </body>
+  //         </SharedDataContext.Provider>
+  //       </Tailwind>
+  //     </Html>
+  //   );
+  // });
 
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
     const actualOutput = await render(
@@ -321,6 +395,46 @@ describe("Responsive styles", () => {
     );
 
     expect(actualOutput).toMatchSnapshot();
+  });
+
+  it("should throw error when used without the head and with media query class names only very deeply nested", async () => {
+    const Component1 = (props: Record<string, any>) => {
+      return (
+        <div {...props} className="w-40 h-30 sm:h-10 sm:w-10">
+          {props.children}
+        </div>
+      );
+    };
+    const Component2 = (props: Record<string, any>) => {
+      return (
+        <div {...props}>
+          <Component1>{props.children}</Component1>
+        </div>
+      );
+    };
+    const Component3 = (props: Record<string, any>) => {
+      return (
+        <div {...props}>
+          <Component2>{props.children}</Component2>
+        </div>
+      );
+    };
+
+    function renderComplexEmailWithoutHead() {
+      return render(
+        <Tailwind>
+          <div className="bg-red-300">
+            <Component3 className="random-classname w-full">
+              <div className="w-50">Testing</div>
+            </Component3>
+          </div>
+        </Tailwind>,
+      );
+    }
+
+    await expect(
+      renderComplexEmailWithoutHead,
+    ).rejects.toThrowErrorMatchingSnapshot();
   });
 
   it("should work with relatively complex media query utilities", async () => {

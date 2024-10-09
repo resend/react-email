@@ -16,7 +16,7 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.7",
+    "@changesets/cli": "2.27.8",
     "@types/node": "18.18.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
@@ -35,10 +35,6 @@
     "overrides": {
       "@types/react": "npm:types-react@19.0.0-rc.1",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    },
-    "patchedDependencies": {
-      "process@0.11.10": "patches/process@0.11.10.patch",
-      "tailwindcss@3.3.2": "patches/tailwindcss@3.3.2.patch"
     }
   }
 }
