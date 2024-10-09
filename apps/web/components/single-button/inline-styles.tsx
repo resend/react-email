@@ -1,8 +1,8 @@
-import { Button as BaseButton } from "@react-email/components";
+import { Button } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <BaseButton
+  <Button
     href="https://react.email"
     style={{
       width: "100%",
@@ -16,7 +16,7 @@ export const component = (
     }}
   >
     Get started
-  </BaseButton>
+  </Button>
 );
 
 export default () => {

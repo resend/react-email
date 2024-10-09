@@ -14,6 +14,9 @@
     "pattern:build": "email build -d ./components"
   },
   "dependencies": {
+    "@babel/parser": "7.24.5",
+    "@babel/preset-typescript": "7.24.7",
+    "@babel/traverse": "7.25.6",
     "@react-email/components": "npm:@react-email/components@latest",
     "@responsive-email/react-email": "0.0.3",
     "@supabase/supabase-js": "2.45.1",
@@ -29,9 +32,6 @@
     "vaul": "^0.9.1"
   },
   "devDependencies": {
-    "@babel/core": "7.24.5",
-    "@babel/parser": "7.24.5",
-    "@babel/preset-typescript": "7.24.7",
     "@next/eslint-plugin-next": "14.2.3",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-select": "^2.1.1",
@@ -39,6 +39,7 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@types/babel__core": "7.20.5",
+    "@types/babel__traverse": "7.20.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -54,6 +55,7 @@
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6",
+    "webpack": "5.94.0",
     "zod": "3.23.8"
   }
 }
