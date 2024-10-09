@@ -1,7 +1,4 @@
-export const getElementNames = (
-  title: string,
-  keywords: string | null,
-) => {
+export const getElementNames = (title: string, keywords: string | null) => {
   const match = /<(?<elementName>[^>]*)> element/.exec(title);
   if (match) {
     const [_full, elementName] = match;
@@ -15,10 +12,9 @@ export const getElementNames = (
     return keywords.split(/\s*,\s*/).map((piece) => piece.trim());
   }
 
-  if (title.split(",").length > 1) {
+  if (title.split(',').length > 1) {
     return title.split(/\s*,\s*/).map((piece) => piece.trim());
   }
 
   return [];
 };
-

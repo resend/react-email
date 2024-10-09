@@ -1,13 +1,10 @@
-import { allCssProperties } from "./all-css-properties";
+import { allCssProperties } from './all-css-properties';
 
-export const getCssPropertyNames = (
-  title: string,
-  keywords: string | null,
-) => {
-  if (allCssProperties.includes(title.replace(" property", "")))
-    return [title.replace(" property", "")];
+export const getCssPropertyNames = (title: string, keywords: string | null) => {
+  if (allCssProperties.includes(title.replace(' property', '')))
+    return [title.replace(' property', '')];
 
-  if (title.split("&").length > 1) {
+  if (title.split('&').length > 1) {
     return title
       .split(/\s*&\s*/)
       .map((piece) => piece.trim())
@@ -16,7 +13,7 @@ export const getCssPropertyNames = (
       );
   }
 
-  if (title.split(",").length > 1) {
+  if (title.split(',').length > 1) {
     return title
       .split(/\s*,\s*/)
       .map((piece) => piece.trim())
@@ -33,4 +30,3 @@ export const getCssPropertyNames = (
 
   return [];
 };
-

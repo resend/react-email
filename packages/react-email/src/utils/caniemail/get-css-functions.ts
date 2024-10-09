@@ -1,6 +1,6 @@
 export function getCssFunctions(title: string) {
   if (/^[a-zA-Z]\(\)$/.test(title.trim())) {
-    return [title.replace("()", "")];
+    return [title.replace('()', '')];
   }
 
   // ex: lch(), oklch(), lab(), oklab()
@@ -10,17 +10,16 @@ export function getCssFunctions(title: string) {
     return title
       .split(/\s*,\s*/)
       .map((functionCallWithoutParameters) =>
-        functionCallWithoutParameters.replace("()", ""),
+        functionCallWithoutParameters.replace('()', ''),
       );
   }
 
   // ex: CSS calc() function
   if (/^CSS [a-z]+\(\) function$/.test(title.trim())) {
     return [
-      title.replace("CSS ", "").replace(" function", "").replace("()", ""),
+      title.replace('CSS ', '').replace(' function', '').replace('()', ''),
     ];
   }
 
   return [];
 }
-

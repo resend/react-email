@@ -15,7 +15,11 @@ interface InsightProps {
   emailClient: EmailClient;
 }
 
-export const EmailInsight = ({ emailClient, pathToFile, insight }: InsightProps) => {
+export const EmailInsight = ({
+  emailClient,
+  pathToFile,
+  insight,
+}: InsightProps) => {
   const statEntries = Object.entries(insight.stats);
   const orderPerStatus = {
     'working': 0,

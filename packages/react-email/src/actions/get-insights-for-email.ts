@@ -1,10 +1,7 @@
 'use server';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import type {
-  EmailClient,
-  SupportEntry,
-} from '../components/email-insights';
+import type { EmailClient, SupportEntry } from '../components/email-insights';
 import { supportEntries } from '../app/caniemail-data';
 import { getCssPropertyNames } from '../utils/caniemail/get-css-property-names';
 import type {
@@ -22,8 +19,7 @@ import {
   getObjectVariables,
   type SourceLocation,
 } from '../utils/caniemail/ast/get-object-variables';
-import type {
-  StylePropertyUsage} from '../utils/caniemail/ast/get-used-style-properties';
+import type { StylePropertyUsage } from '../utils/caniemail/ast/get-used-style-properties';
 import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
@@ -40,7 +36,7 @@ export interface Insight {
 export const getInsightsForEmail = async (
   reactCode: string,
   emailClient: EmailClient,
-// eslint-disable-next-line @typescript-eslint/require-await
+  // eslint-disable-next-line @typescript-eslint/require-await
 ) => {
   const ast = parse(reactCode, {
     strictMode: false,
