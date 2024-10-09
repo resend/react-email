@@ -121,6 +121,7 @@ export const startDevServer = async (
   process.env = {
     ...process.env,
     NODE_ENV: 'development',
+    IS_INTERNAL_DEV: isDev.toString(),
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),

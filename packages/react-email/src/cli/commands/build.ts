@@ -50,6 +50,7 @@ const userProjectLocation = path.resolve(process.cwd(), '../');
 module.exports = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
+    IS_INTERNAL_DEV: 'false',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     USER_PROJECT_LOCATION: userProjectLocation

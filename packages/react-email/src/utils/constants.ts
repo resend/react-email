@@ -4,3 +4,5 @@ export const tabTransition = {
   damping: 80,
   mass: 1,
 };
+
+export const isInternalDev = process.env.IS_INTERNAL_DEV === 'true';

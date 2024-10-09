@@ -4,6 +4,7 @@ import type {
   EmailClient,
   SupportEntry,
 } from '../../components/email-insights';
+import { isInternalDev } from '../constants';
 
 export type InsightStatus = 'working' | 'working with caveats' | 'not working';
 
@@ -60,7 +61,7 @@ export const getInsightsStatsForEntry = (
             const note = entry.notes_by_num?.[parseInt(noteNumber)];
             if (note) {
               notes.push(note);
-            } else {
+            } else if (isInternalDev) {
               console.warn(
                 'Could not get note by the number for a support entry',
                 {
