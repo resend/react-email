@@ -15,21 +15,22 @@ interface InsightProps {
   emailClient: EmailClient;
 }
 
+  export const orderingPerStatus = {
+    'working': 0,
+    'working with caveats': 1,
+    'not working': 2,
+  };
+
 export const EmailInsight = ({
   emailClient,
   pathToFile,
   insight,
 }: InsightProps) => {
   const statEntries = Object.entries(insight.stats);
-  const orderPerStatus = {
-    'working': 0,
-    'working with caveats': 1,
-    'not working': 2,
-  };
   statEntries.sort(
     ([_p1, { status: firstStatus }], [_p2, { status: secondStatus }]) => {
-      const firstOrder = orderPerStatus[firstStatus];
-      const secondOrder = orderPerStatus[secondStatus];
+      const firstOrder = orderingPerStatus[firstStatus];
+      const secondOrder = orderingPerStatus[secondStatus];
       return secondOrder - firstOrder;
     },
   );

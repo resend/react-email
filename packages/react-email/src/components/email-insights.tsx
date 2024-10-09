@@ -7,7 +7,7 @@ import { nicenames } from '../app/caniemail-data';
 import type { Insight } from '../actions/get-insights-for-email';
 import { getInsightsForEmail } from '../actions/get-insights-for-email';
 import { IconArrowDown } from './icons/icon-arrow-down';
-import { EmailInsight } from './email-insight';
+import { EmailInsight, orderingPerStatus } from './email-insight';
 
 export type EmailClient =
   | 'gmail'
@@ -248,7 +248,15 @@ const EmailClientInsightsTab = ({
 
   React.useEffect(() => {
     getInsightsForEmail(reactCode, emailPath, emailClient)
-      .then(setInsights)
+      .then((unsortedInsights) => {
+        const sortedInsights = unsortedInsights;
+        sortedInsights.sort((a, b) => {
+          const firstOrder = orderingPerStatus[a.worseStatus];
+          const secondOrder = orderingPerStatus[b.worseStatus];
+          return secondOrder - firstOrder;
+        });
+        setInsights(sortedInsights);
+      })
       .catch((exception) => {
         if (exception instanceof Error) {
           toast.error(exception.message);
