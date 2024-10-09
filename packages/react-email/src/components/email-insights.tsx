@@ -2,19 +2,12 @@ import * as Tabs from '@radix-ui/react-tabs';
 import * as React from 'react';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import Markdown from 'react-markdown';
 import { toast } from 'sonner';
-import { supportEntries, nicenames } from '../app/caniemail-data';
-import {
-  Insight,
-  getInsightsForEmail,
-} from '../actions/get-insights-for-email';
-import { IconClose } from './icons/icon-close';
-import { IconWarning } from './icons/icon-warning';
-import { IconCircleCheck } from './icons/icon-circle-check';
-import { Tooltip } from './tooltip';
-import { IconExternalLink } from './icons/icon-external-link';
+import { nicenames } from '../app/caniemail-data';
+import type { Insight } from '../actions/get-insights-for-email';
+import { getInsightsForEmail } from '../actions/get-insights-for-email';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { EmailInsight } from './email-insight';
 
 export type EmailClient =
   | 'gmail'
@@ -92,48 +85,6 @@ export interface SupportEntry {
   notes: string | null;
   notes_by_num: Record<number, string> | null;
 }
-
-const EmailClientInsightsTab = ({
-  pathToFile,
-  emailClient,
-  reactCode,
-}: {
-  pathToFile: string;
-  reactCode: string;
-  emailClient: EmailClient;
-}) => {
-  const [insights, setInsights] = React.useState<Insight[]>([]);
-
-  React.useEffect(() => {
-    getInsightsForEmail(reactCode, emailClient)
-      .then(setInsights)
-      .catch((exception) => {
-        if (exception instanceof Error) {
-          toast.error(exception.message);
-        } else {
-          toast.error(
-            'Could not get the insights for the email, check your console!',
-          );
-          console.error(exception);
-        }
-      });
-  }, [reactCode, emailClient]);
-
-  return (
-    <Tabs.Content className="grid grid-cols-4 gap-2" value={emailClient}>
-      {insights.map((insight) => {
-        return (
-          <Insight
-            emailClient={emailClient}
-            insight={insight}
-            key={insight.entry.slug}
-            pathToFile={pathToFile}
-          />
-        );
-      })}
-    </Tabs.Content>
-  );
-};
 
 export const EmailInsights = ({
   code,
@@ -262,12 +213,17 @@ export const EmailInsights = ({
               </div>
               <div className="px-4 overflow-y-auto flex-grow">
                 {emailClientsOfInterest.map((emailClient) => (
-                  <EmailClientInsightsTab
-                    emailClient={emailClient}
-                    key={emailClient}
-                    pathToFile={pathToFile}
-                    reactCode={code}
-                  />
+                  <Tabs.Content
+                    className="grid grid-cols-4 gap-2"
+                    value={emailClient}
+                  >
+                    <EmailClientInsightsTab
+                      emailClient={emailClient}
+                      key={emailClient}
+                      pathToFile={pathToFile}
+                      reactCode={code}
+                    />
+                  </Tabs.Content>
                 ))}
               </div>
             </Tabs.Root>
@@ -278,114 +234,38 @@ export const EmailInsights = ({
   );
 };
 
-interface InsightProps {
-  insight: Insight;
+const EmailClientInsightsTab = ({
+  pathToFile,
+  emailClient,
+  reactCode,
+}: {
   pathToFile: string;
+  reactCode: string;
   emailClient: EmailClient;
-}
+}) => {
+  const [insights, setInsights] = React.useState<Insight[]>([]);
 
-const Insight = ({ emailClient, pathToFile, insight }: InsightProps) => {
-  const statEntries = Object.entries(insight.stats);
-  const orderPerStatus = {
-    'working': 0,
-    'working with caveats': 1,
-    'not working': 2,
-  };
-  statEntries.sort(
-    ([_p1, { status: firstStatus }], [_p2, { status: secondStatus }]) => {
-      const firstOrder = orderPerStatus[firstStatus];
-      const secondOrder = orderPerStatus[secondStatus];
-      return secondOrder - firstOrder;
-    },
-  );
-  return (
-    <div
-      aria-describedby={`${emailClient}-${insight.entry.slug}-title`}
-      className={clsx('border-2 space-y-3 w-full rounded-md p-2', {
-        'border-red-500': insight.worseStatus === 'not working',
-        'border-yellow-300': insight.worseStatus === 'working with caveats',
-        'border-green-500': insight.worseStatus === 'working',
-      })}
-    >
-      <div className="flex justify-between items-center">
-        <a
-          className={clsx('font-semibold underline', {
-            'text-red-400': insight.worseStatus === 'not working',
-            'text-yellow-300': insight.worseStatus === 'working with caveats',
-            'text-green-500': insight.worseStatus === 'working',
-          })}
-          href={`vscode://file/${pathToFile}:${insight.location.start.line}:${insight.location.start.column}`}
-          id={`${emailClient}-${insight.entry.slug}-title`}
-        >
-          {insight.entry.title}
-        </a>
+  React.useEffect(() => {
+    getInsightsForEmail(reactCode, emailClient)
+      .then(setInsights)
+      .catch((exception) => {
+        if (exception instanceof Error) {
+          toast.error(exception.message);
+        } else {
+          toast.error(
+            'Could not get the insights for the email, check your console!',
+          );
+          console.error(exception);
+        }
+      });
+  }, [reactCode, emailClient]);
 
-        <a href={insight.entry.url} rel="noopener" target="_blank">
-          <IconExternalLink />
-        </a>
-      </div>
-
-      <ul className="list-none m-0 px-2 space-y-1">
-        {statEntries.map(([platform, statsForPlatform]) => (
-          <Tooltip.Provider key={platform}>
-            <Tooltip>
-              <li key={platform}>
-                {statsForPlatform.status === 'working' ? (
-                  <div className="flex gap-2 text-green-400 cursor-default text-sm items-center">
-                    <IconCircleCheck
-                      className="text-green-400  text-xs"
-                      height="1rem"
-                      width="1eem"
-                    />
-                    {nicenames.platform[platform]}
-                  </div>
-                ) : null}
-                {statsForPlatform.status === 'not working' ? (
-                  <div className="flex gap-2 text-red-400 cursor-default text-sm items-center">
-                    <IconClose
-                      className="text-xs flex-shrink"
-                      height="1rem"
-                      width="1eem"
-                    />
-                    {nicenames.platform[platform]}
-                  </div>
-                ) : null}
-                {statsForPlatform.status === 'working with caveats'
-                  ? (() => {
-                      const hasNotes = statsForPlatform.notes.trim().length > 0;
-                      const content = (
-                        <div
-                          className={clsx(
-                            'flex gap-2 text-yellow-300 cursor-default text-sm items-center',
-                            hasNotes && 'underline',
-                          )}
-                        >
-                          <Tooltip.Content>
-                            <Markdown>{statsForPlatform.notes}</Markdown>
-                          </Tooltip.Content>
-                          <IconWarning
-                            className="text-xs text-yellow-300"
-                            height="1rem"
-                            width="1rem"
-                          />
-                          {nicenames.platform[platform]}
-                        </div>
-                      );
-
-                      if (hasNotes) {
-                        return (
-                          <Tooltip.Trigger asChild>{content}</Tooltip.Trigger>
-                        );
-                      }
-
-                      return content;
-                    })()
-                  : null}
-              </li>
-            </Tooltip>
-          </Tooltip.Provider>
-        ))}
-      </ul>
-    </div>
-  );
+  return insights.map((insight) => (
+    <EmailInsight
+      emailClient={emailClient}
+      insight={insight}
+      key={insight.entry.slug}
+      pathToFile={pathToFile}
+    />
+  ));
 };
