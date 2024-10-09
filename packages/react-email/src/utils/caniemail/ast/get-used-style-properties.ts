@@ -1,5 +1,7 @@
 import traverse from '@babel/traverse';
-import type { AST } from '../get-insights-for-email';
+import type { AST } from '../../../actions/get-insights-for-email';
+import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
+import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';
 
 export interface StylePropertyUsage {
@@ -14,8 +16,42 @@ export const doesPropertyHaveLocation = (
   return prop.location !== undefined && prop.location !== null;
 };
 
-export const getUsedStyleProperties = (ast: AST, objectVariables: ObjectVariables) => {
+export const getUsedStyleProperties = (
+  ast: AST,
+  sourceCode: string,
+  sourcePath: string,
+  objectVariables: ObjectVariables,
+) => {
   const styleProperties: StylePropertyUsage[] = [];
+  const tailwindMetadata = getTailwindMetadata(ast, sourceCode, sourcePath);
+
+  if (tailwindMetadata.hasTailwind) {
+    traverse(ast, {
+      JSXAttribute(path) {
+        if (path.node.name.name === 'className') {
+          path.traverse({
+            StringLiteral(stringPath) {
+              const className = stringPath.node.value;
+              const { rules } = generateTailwindCssRules(
+                className.split(' '),
+                tailwindMetadata.context,
+              );
+              for (const rule of rules) {
+                rule.walkDecls((decl) => {
+                  styleProperties.push({
+                    location: stringPath.node.loc,
+                    name: decl.prop,
+                    value: decl.value,
+                  });
+                });
+              }
+            },
+          });
+        }
+      },
+    });
+  }
+
   traverse(ast, {
     JSXAttribute(path) {
       if (
