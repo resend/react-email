@@ -211,10 +211,10 @@ export const EmailInsights = ({
                   ))}
                 </Tabs.List>
               </div>
-              <div className="px-4 overflow-y-auto flex-grow">
+              <div className="overflow-y-auto flex-grow">
                 {emailClientsOfInterest.map((emailClient) => (
                   <Tabs.Content
-                    className="grid grid-cols-4 gap-2"
+                    className="flex flex-col"
                     key={emailClient}
                     value={emailClient}
                   >

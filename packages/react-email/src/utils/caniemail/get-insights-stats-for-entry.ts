@@ -8,20 +8,20 @@ import { isInternalDev } from '../constants';
 
 export type InsightStatus = 'working' | 'working with caveats' | 'not working';
 
+export type StatusForPlatform =
+  | {
+      status: 'working';
+    }
+  | {
+      status: 'not working';
+    }
+  | {
+      status: 'working with caveats';
+      notes: string;
+    };
+
 export type InsightStatsPerPlatform = Partial<
-  Record<
-    Platform,
-    | {
-        status: 'working';
-      }
-    | {
-        status: 'not working';
-      }
-    | {
-        status: 'working with caveats';
-        notes: string;
-      }
-  >
+  Record<Platform, StatusForPlatform>
 >;
 
 const noteNumbersRegex = /#(?<noteNumber>\d+)/g;
