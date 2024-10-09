@@ -756,9 +756,6 @@ importers:
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
-      react-email:
-        specifier: workspace:3.0.2-canary.3
-        version: link:../../react-email
     devDependencies:
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
@@ -766,6 +763,9 @@ importers:
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0-rc.1
         version: types-react-dom@19.0.0-rc.1
+      react-email:
+        specifier: workspace:3.0.2-canary.3
+        version: link:../../react-email
 
   packages/eslint-config-custom:
     devDependencies:
