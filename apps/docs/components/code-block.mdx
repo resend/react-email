@@ -6,6 +6,7 @@ icon: 'file-lines'
 ---
 
 import Support from '/snippets/support.mdx'
+import { ComponentPreview } from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -43,8 +44,31 @@ pnpm add @react-email/code-block -E
 
 Add the component into your email component as follows.
 
+<ComponentPreview code='
+import { CodeBlock, dracula } from "@react-email/components";
+
+const Email = () => {
+  const code = `export default async (req, res) => {
+  try {
+    const html = await renderAsync(
+      EmailTemplate({ firstName: "John" })
+    );
+    return NextResponse.json({ html });
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
+}`;
+
+  return (<CodeBlock
+    code={code}
+    lineNumbers // add this so that there are line numbers beside each code line
+    theme={{ ...dracula, base: { ...dracula.base, margin: 0 } }}
+    language="javascript"
+  />);
+};
+'>
 ```jsx
-import { CodeBlock, dracula } from '@react-email/code-block';
+import { CodeBlock, dracula } from "@react-email/components";
 
 const Email = () => {
   const code = `export default async (req, res) => {
@@ -66,6 +90,7 @@ const Email = () => {
   />);
 };
 ```
+</ComponentPreview>
 
 This should render a code-block with the desired theme.
 
