@@ -6,6 +6,7 @@ icon: 'code'
 ---
 
 import Support from '/snippets/support.mdx'
+import {ComponentPreview} from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -43,12 +44,38 @@ pnpm add @react-email/code-inline -E
 
 Add the component to your email template. Include styles where needed.
 
-```jsx
-import { CodeInline } from "@react-email/code-inline";
+<ComponentPreview code='
+import { CodeInline } from "@react-email/components";
 
 const Email = () => {
-    return <CodeInline>@react-email/code-inline</CodeInline>;
+  return <CodeInline 
+    style={{ 
+      color: "#eee", 
+      padding: "2px 4px",
+      borderRadius: 4,
+      background: "#202020" 
+    }}
+  >
+    @react-email/code-inline
+  </CodeInline>;
+}
+'>
+```jsx
+import { CodeInline } from "@react-email/components";
+
+const Email = () => {
+  return <CodeInline 
+    style={{ 
+      color: "#eee", 
+      padding: "2px 4px",
+      borderRadius: 4,
+      background: "#202020" 
+    }}
+  >
+    @react-email/code-inline
+  </CodeInline>;
 }
 ```
+</ComponentPreview>
 
 <Support/>
