@@ -6,7 +6,6 @@ import type { Insight } from '../actions/get-insights-for-email';
 import { nicenames } from '../app/caniemail-data';
 import type { StatusForPlatform } from '../utils/caniemail/get-insights-stats-for-entry';
 import type { EmailClient, Platform } from './email-insights';
-import { IconExternalLink } from './icons/icon-external-link';
 import { Tooltip } from './tooltip';
 import { IconCircleCheck } from './icons/icon-circle-check';
 import { IconClose } from './icons/icon-close';
@@ -63,7 +62,7 @@ export const EmailInsight = ({ emailClient, insight }: InsightProps) => {
         >
           {insight.entry.title}
 
-          <span className='text-slate-10 text-sm'>
+          <span className="text-slate-10 text-sm">
             [Line: {insight.location.start.line}, Column:{' '}
             {insight.location.start.column}]
           </span>
