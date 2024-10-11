@@ -7,6 +7,7 @@ icon: "columns-3"
 ---
 
 import Support from '/snippets/support.mdx'
+import {ComponentPreview} from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -44,18 +45,80 @@ pnpm add @react-email/column -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Column, Row } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Row>
+      <Column
+        style={{
+          backgroundColor: "#ff7b6b",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        A
+      </Column>
+      <Column
+        style={{
+          backgroundColor: "#78ff69",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        B
+      </Column>
+      <Column
+        style={{
+          backgroundColor: "#6482fa",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        C
+      </Column>
+    </Row>
+  );
+};
+'>
 ```jsx
 import { Column, Row } from "@react-email/components";
 
 const Email = () => {
   return (
     <Row>
-      <Column>A</Column>
-      <Column>B</Column>
-      <Column>C</Column>
+      <Column
+        style={{
+          backgroundColor: "#ff7b6b",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        A
+      </Column>
+      <Column
+        style={{
+          backgroundColor: "#78ff69",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        B
+      </Column>
+      <Column
+        style={{
+          backgroundColor: "#6482fa",
+          textAlign: "center",
+          height: "100vh"
+        }}
+      >
+        C
+      </Column>
     </Row>
   );
 };
 ```
+</ComponentPreview>
 
 <Support />

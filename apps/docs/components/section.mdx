@@ -7,6 +7,7 @@ icon: "rectangles-mixed"
 ---
 
 import Support from '/snippets/support.mdx'
+import { ComponentPreview } from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -44,29 +45,58 @@ pnpm add @react-email/section -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Section, Column, Row, Text } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <>
+      {/* A simple `section` */}
+      <Section>
+        <Text style={{ color: "#eee" }}>Hello World</Text>
+      </Section>
+
+      {/* Formatted with `rows` and `columns` */}
+      <Section>
+        <Row>
+          <Column style={{ color: "#eee" }}>Column 1, Row 1</Column>
+          <Column style={{ color: "#eee" }}>Column 2, Row 1</Column>
+        </Row>
+        <Row>
+          <Column style={{ color: "#eee" }}>Column 1, Row 2</Column>
+          <Column style={{ color: "#eee" }}>Column 2, Row 2</Column>
+        </Row>
+      </Section>
+    </>
+  );
+};
+'>
 ```jsx
 import { Section, Column, Row, Text } from "@react-email/components";
 
 const Email = () => {
   return (
-    {/* A simple `section` */}
-    <Section>
-      <Text>Hello World</Text>
-    </Section>
+    <>
+      {/* A simple `section` */}
+      <Section>
+        <Text style={{ color: '#eee' }}>Hello World</Text>
+      </Section>
 
-    {/* Formatted with `rows` and `columns` */}
-     <Section>
-      <Row>
-        <Column>Column 1, Row 1</Column>
-        <Column>Column 2, Row 1</Column>
-      </Row>
-      <Row>
-        <Column>Column 1, Row 2</Column>
-        <Column>Column 2, Row 2</Column>
-      </Row>
-    </Section>
+      {/* Formatted with `rows` and `columns` */}
+      <Section>
+        <Row>
+          <Column style={{ color: '#eee' }}>Column 1, Row 1</Column>
+          <Column style={{ color: '#eee' }}>Column 2, Row 1</Column>
+        </Row>
+        <Row>
+          <Column style={{ color: '#eee' }}>Column 1, Row 2</Column>
+          <Column style={{ color: '#eee' }}>Column 2, Row 2</Column>
+        </Row>
+      </Section>
+    </>
   );
 };
 ```
+</ComponentPreview>
 
 <Support/>

@@ -7,6 +7,7 @@ icon: "horizontal-rule"
 ---
 
 import Support from '/snippets/support.mdx'
+import { ComponentPreview } from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -44,12 +45,28 @@ pnpm add @react-email/hr -E
 
 Add the component to your email template. Include styles where needed.
 
-```jsx
-import { Hr } from "@react-email/components";
+<ComponentPreview code='
+import { Hr, Heading, Text, Section } from "@react-email/components";
 
 const Email = () => {
-  return <Hr />;
+  return <Section>
+    <Text style={{ color: "#eee", textAlign: "center" }}>Hello</Text>
+    <Hr />
+    <Text style={{ color: "#eee", textAlign: "center" }}>world</Text>
+  </Section>;
+};
+'>
+```jsx
+import { Hr, Heading, Text, Section } from "@react-email/components";
+
+const Email = () => {
+  return <Section>
+    <Text style={{ color: "#eee", textAlign: "center" }}>Hello</Text>
+    <Hr />
+    <Text style={{ color: "#eee", textAlign: "center" }}>world</Text>
+  </Section>;
 };
 ```
+</ComponentPreview>
 
 <Support/>
