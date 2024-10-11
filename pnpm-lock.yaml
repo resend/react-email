@@ -1241,7 +1241,7 @@ importers:
         version: 0.8.15
       '@vitejs/plugin-react':
         specifier: 4.2.1
-        version: 4.2.1(vite@5.0.13(@types/node@22.3.0)(terser@5.30.3))
+        version: 4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1273,11 +1273,11 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       vite:
-        specifier: 5.0.13
-        version: 5.0.13(@types/node@22.3.0)(terser@5.30.3)
+        specifier: 5.1.8
+        version: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
       vite-plugin-dts:
         specifier: 3.6.3
-        version: 3.6.3(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.0.13(@types/node@22.3.0)(terser@5.30.3))
+        version: 3.6.3(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
       vitest:
         specifier: 1.1.1
         version: 1.1.1(@edge-runtime/vm@3.1.8)(@types/node@22.3.0)(happy-dom@12.2.2)(jsdom@23.0.1)(terser@5.30.3)
@@ -5352,6 +5352,7 @@ packages:
   eslint@8.50.0:
     resolution: {integrity: sha512-FOnOGSuFuFLv/Sa+FDVRZl4GGVAAFFi8LecRsI5a1tMO5HIE8nCm4ivAlzt4dT3ol/PaaGC0rJEEXQmHJBGoOg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -7785,6 +7786,34 @@ packages:
 
   vite@5.0.13:
     resolution: {integrity: sha512-/9ovhv2M2dGTuA+dY93B9trfyWMDRQw2jdVBhHNP6wr0oF34wG2i/N55801iZIpgUpnHDm4F/FabGQLyc+eOgg==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+
+  vite@5.1.8:
+    resolution: {integrity: sha512-mB8ToUuSmzODSpENgvpFk2fTiU/YQ1tmcVJJ4WZbq4fPdGJkFNVcmVL5k7iDug6xzWjjuGDKAuSievIsD6H7Xw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -11371,14 +11400,14 @@ snapshots:
       - jest
       - supports-color
 
-  '@vitejs/plugin-react@4.2.1(vite@5.0.13(@types/node@22.3.0)(terser@5.30.3))':
+  '@vitejs/plugin-react@4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.24.5)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.0.13(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -15670,7 +15699,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-dts@3.6.3(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.0.13(@types/node@22.3.0)(terser@5.30.3)):
+  vite-plugin-dts@3.6.3(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3)):
     dependencies:
       '@microsoft/api-extractor': 7.43.0(@types/node@22.3.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.21.1)
@@ -15680,7 +15709,7 @@ snapshots:
       typescript: 5.1.6
       vue-tsc: 1.8.27(typescript@5.1.6)
     optionalDependencies:
-      vite: 5.0.13(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -15706,11 +15735,11 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.30.3
 
-  vite@5.0.13(@types/node@22.3.0)(terser@5.30.3):
+  vite@5.1.8(@types/node@22.3.0)(terser@5.30.3):
     dependencies:
       esbuild: 0.19.11
       postcss: 8.4.40
-      rollup: 4.14.0
+      rollup: 4.21.1
     optionalDependencies:
       '@types/node': 22.3.0
       fsevents: 2.3.3
