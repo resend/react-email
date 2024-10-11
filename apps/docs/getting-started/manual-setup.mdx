@@ -10,7 +10,17 @@ import NextSteps from '/snippets/next-steps.mdx'
 
 <Note>Are you using monorepos? Then we recommend you follow our [monorepos setup](/getting-started/monorepo-setup/choose-package-manager).</Note>
 
-## 1. Install dependencies
+## 1. Create directory
+
+Create a new folder called `react-email-starter` and initialize a new npm project:
+
+```sh
+mkdir react-email-starter
+cd react-email-starter
+npm init
+```
+
+## 2. Install dependencies
 
 Install the React Email package locally and a few components.
 
@@ -38,7 +48,7 @@ bun add @react-email/components react react-dom -E
 
 </CodeGroup>
 
-## 2. Add scripts
+## 3. Add scripts
 
 Include the following script in your `package.json` file.
 
@@ -50,7 +60,7 @@ Include the following script in your `package.json` file.
 }
 ```
 
-## 3. Write an email template
+## 4. Write an email template
 
 Create a new folder called `emails`, create a file inside called `my-email.tsx`, and add the following code:
 
@@ -72,7 +82,7 @@ export default function Email() {
 }
 ```
 
-## 4. Run locally
+## 5. Run locally
 
 Start the development server.
 
@@ -96,7 +106,7 @@ bun dev
 
 </CodeGroup>
 
-## 5. See changes live
+## 6. See changes live
 
 Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to see the changes.
 
@@ -104,6 +114,6 @@ Visit [localhost:3000](http://localhost:3000) and edit the `index.tsx` file to s
   <img alt="Local Development" src="/images/local-dev.jpg" />
 </Frame>
 
-## 6. Next steps
+## 7. Next steps
 
 <NextSteps/>
