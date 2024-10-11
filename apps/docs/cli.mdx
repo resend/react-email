@@ -157,21 +157,23 @@ Runs the built preview app that is inside `.react-email`.
 Generates the plain HTML files of your emails into a `out` directory.
 
 <Info>
-  A very common misconception is to assume that this command is
-  the way meant to be used to send the email templates, but it is not.
+  A very common misconception is to assume that `email export` is the default or primary way of rendering
+  email templates.
 
-The preferable way is to render the email using the [render](/utilities/render) utility,
-by passing in the needed data through props, on the moment of sending the email,
-This gives for a much better developer experience that it would with `email export`.
+  The primary and preferable way is always going to be the [render](/utilities/render) utility,
+  by passing in the needed data through props, on the exact moment of sending the email.
 
-`email export` is a secondary way where the situation is not optimal. Two of them are:
+  `email export` is a secondary way meant for situations where React Email cannot be used optimally.
+  With this secondary way, comes significant drawbacks, mainly the need for manual templating, which
+  could be done easily with the `render` utility. It being a secondary way, we would strongly recommend
+  you don't use it unless you really are forced into it.
 
-- The email template is sent through some other language
-- You are going to use separate templating, because the email platform you use forces you to do so
+  As an example, two cases where `email export` makes itself necessary include:
+  - When the email content must be processed by a backend in a language other than JavaScript.
+  - When the platform handling email, such as Shopify, forces you into manual templating.
 
-We strongly recommend users to gravitate towards using the preferable way, because otherwise
-you will end up having to fight a lot with the rendered markup and many other issues arise.
-
+  You also should not have to worry about `render`'s performance, as typically, the introduced
+  time in rendering is going to be milliseconds when compared to manual templating.
 </Info>
 
 **Options**
