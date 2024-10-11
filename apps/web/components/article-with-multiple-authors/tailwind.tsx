@@ -73,7 +73,7 @@ export const component = (
           </Section>
           {author.showDivider ? (
             <Hr
-              className="mr-[16px] inline-block h-[58px] w-[1px] border-none bg-gray-300"
+              className="mr-[16px] inline-block h-[58px] w-[1px] bg-gray-300 [border:none]"
               style={{ float: "left" }}
             />
           ) : null}

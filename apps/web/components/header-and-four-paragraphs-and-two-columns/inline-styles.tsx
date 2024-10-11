@@ -6,7 +6,7 @@ export const component = (
     <Row>
       <Text
         style={{
-          margin: 0,
+          margin: "0px",
           fontSize: 24,
           lineHeight: "32px",
           fontWeight: 600,
@@ -45,7 +45,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 20,
               lineHeight: "28px",
@@ -57,6 +57,7 @@ export const component = (
           </Text>
           <Text
             style={{
+              marginBottom: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -83,7 +84,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 20,
               lineHeight: "28px",
@@ -95,6 +96,7 @@ export const component = (
           </Text>
           <Text
             style={{
+              marginBottom: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -123,7 +125,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 20,
               lineHeight: "28px",
@@ -135,6 +137,7 @@ export const component = (
           </Text>
           <Text
             style={{
+              marginBottom: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -161,7 +164,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 20,
               lineHeight: "28px",
@@ -173,6 +176,7 @@ export const component = (
           </Text>
           <Text
             style={{
+              marginBottom: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",

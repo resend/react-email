@@ -1,8 +1,8 @@
 ---
-title: 'Send email using Scaleway Transactional Email'
-sidebarTitle: 'Scaleway Transactional Email'
-description: 'Learn how to send an email using React Email and the Scaleway Node.js SDK.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+title: "Send email using Scaleway Transactional Email"
+sidebarTitle: "Scaleway Transactional Email"
+description: "Learn how to send an email using React Email and the Scaleway Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
 ---
 
 ## 1. Install dependencies
@@ -29,8 +29,8 @@ pnpm add @scaleway/sdk @react-email/components
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
-import * as React from 'react';
+```tsx email.tsx
+import * as React from "react";
 import { Html, Button } from "@react-email/components";
 
 export function Email(props) {
@@ -46,14 +46,12 @@ export function Email(props) {
 
 ## 3. Convert to HTML and send email
 
-Import the email template you just built, convert into a HTML string, and use the Scaleway SDK to send it.
+Import the email template you just built, convert into an HTML string, and use the Scaleway SDK to send it.
 
-<CodeGroup>
-
-```js React
-import { render } from '@react-email/components';
+```tsx
+import { render } from "@react-email/components";
 import { TransactionalEmail, createClient } from "@scaleway/sdk";
-import { Email } from './email';
+import { Email } from "./email";
 
 const client = createClient({
   accessKey: process.env.ACCESS_KEY,
@@ -65,52 +63,48 @@ const client = createClient({
 
 const transactionalEmailClient = new TransactionalEmail.v1alpha1.API(client);
 
-
 const emailHtml = await render(<Email url="https://example.com" />);
 
 const sender = {
   email: "react-email@transactional.email.fr",
   subject: "TEST",
-  name: "Team"
-}
+  name: "Team",
+};
 
 const userInvited = {
-  email :"XXXX@scaleway.com",
+  email: "XXXX@scaleway.com",
   name: "TEST",
-  teamName: "Team"
-}
+  teamName: "Team",
+};
 
 const userInvitedBy = {
-  email :"XXXX@scaleway.com",
+  email: "XXXX@scaleway.com",
   name: "TEST",
-  teamName: "Team"
-}
+  teamName: "Team",
+};
 
- transactionalEmailClient
-    .createEmail({
-      from: {
-        email: sender.email,
-        name: sender.name,
-      },
-      to: [
-        {
-          email: userInvited.email,
-          name: userInvited.name,
-        },
-      ],
-      subject: sender.subject,
-      text: null,
-      html: emailHtml,
-    })
+transactionalEmailClient.createEmail({
+  from: {
+    email: sender.email,
+    name: sender.name,
+  },
+  to: [
+    {
+      email: userInvited.email,
+      name: userInvited.name,
+    },
+  ],
+  subject: sender.subject,
+  text: null,
+  html: emailHtml,
+});
 ```
-
-</CodeGroup>
 
 ## Try it yourself
 
 <Card
   title="Scaleway Transactional Email"
-  icon='arrow-up-right-from-square'
+  icon="arrow-up-right-from-square"
   iconType="duotone"
   href="https://github.com/resend/react-email/tree/main/examples/scaleway"
 >

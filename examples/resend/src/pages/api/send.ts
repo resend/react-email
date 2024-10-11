@@ -14,7 +14,8 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         react: WaitlistEmail({ name: "Bu" }),
       });
 
-      return res.status(200).send(data);
+      res.status(200).send(data);
+      break;
     }
     default:
       res.setHeader("Allow", ["GET"]);

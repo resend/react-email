@@ -2,10 +2,9 @@ import { render } from "@react-email/components";
 import sendgrid from "@sendgrid/mail";
 import { Email } from "./email";
 
-// eslint-disable-next-line turbo/no-undeclared-env-vars
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY || "");
 
-const emailHtml = render(<Email url="https://example.com" />);
+const emailHtml = await render(<Email url="https://example.com" />);
 
 const options = {
   from: "you@example.com",
@@ -14,4 +13,4 @@ const options = {
   html: emailHtml,
 };
 
-sendgrid.send(options);
+await sendgrid.send(options);

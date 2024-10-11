@@ -1,10 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
-    <Section className="mt-[4px]">
+  <Section className="my-[16px]">
+    <Section className="mt-[42px]">
       <Row>
         <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
           Our products

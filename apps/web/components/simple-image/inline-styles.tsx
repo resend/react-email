@@ -6,7 +6,7 @@ export const component = (
     alt="Ode Grinder"
     height={250}
     src="/static/ode-grinder.jpg"
-    style={{ margin: "0 auto" }}
+    style={{ marginLeft: "auto", marginRight: "auto" }}
   />
 );
 

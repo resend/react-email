@@ -15,7 +15,7 @@ export const component = (
       <Row>
         <Text
           style={{
-            margin: 0,
+            margin: "0px",
             fontSize: 20,
             lineHeight: "28px",
             fontWeight: 600,
@@ -54,9 +54,10 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 24,
               fontSize: 20,
+              fontWeight: 600,
               lineHeight: "28px",
               color: "rgb(17,24,39)",
             }}
@@ -65,7 +66,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 16,
               lineHeight: "24px",
@@ -76,7 +77,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -120,7 +121,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 24,
               fontSize: 20,
               lineHeight: "28px",
@@ -132,7 +133,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 16,
               lineHeight: "24px",
@@ -143,7 +144,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -174,8 +175,8 @@ export const component = (
     </Section>
     <Hr
       style={{
-        marginLeft: 0,
-        marginRight: 0,
+        marginLeft: "0px",
+        marginRight: "0px",
         marginTop: 24,
         marginBottom: 24,
         width: "100%",
@@ -203,7 +204,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 24,
               fontSize: 20,
               lineHeight: "28px",
@@ -215,7 +216,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 16,
               lineHeight: "24px",
@@ -226,7 +227,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",
@@ -270,7 +271,7 @@ export const component = (
           />
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 24,
               fontSize: 20,
               lineHeight: "28px",
@@ -282,7 +283,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 16,
               fontSize: 16,
               lineHeight: "24px",
@@ -293,7 +294,7 @@ export const component = (
           </Text>
           <Text
             style={{
-              margin: 0,
+              margin: "0px",
               marginTop: 8,
               fontSize: 16,
               lineHeight: "24px",

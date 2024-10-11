@@ -24,11 +24,11 @@ export const component = (
     <Section className="ml-[18px] inline-block max-w-[120px] text-left align-top">
       <Heading
         as="h3"
-        className="m-[0px] text-[14px] font-medium leading-[20px] text-[#1A202C]"
+        className="m-[0px] text-[14px] font-medium leading-[20px] text-gray-800"
       >
         Steve Jobs
       </Heading>
-      <Text className="m-[0px] text-[12px] font-medium leading-[14px] text-[#718096]">
+      <Text className="m-[0px] text-[12px] font-medium leading-[14px] text-gray-500">
         Co-Founder & CEO
       </Text>
       <Section className="mt-[4px]">

@@ -71,6 +71,7 @@ your email template when you make changes.
         You can refer to our [demo emails source code](https://demo.react.email/preview/vercel-invite-user.tsx?view=source)
         for an example of how we do this with our demo deploy on Vercel.
     </Info>
+
   </Accordion>
   <Accordion title="How can I define props specific to the email's preview?">
     Considering that you are already default exporting the React component
@@ -98,6 +99,7 @@ your email template when you make changes.
 
     <Email {...Email.PreviewProps} />;
     ```
+
   </Accordion>
   <Accordion title="How to make the preview server ignore directories?">
     Once the preview server has started and is now open on `localhost`, the preview server
@@ -118,6 +120,7 @@ your email template when you make changes.
     ```
 
     Then the only file that will be shown on the preview server is going to be your `email.tsx`.
+
   </Accordion>
   <Accordion title="The heuristics for files to be considered emails">
     To avoid uncanny files appearing in the sidebar of the preview server,
@@ -130,6 +133,7 @@ your email template when you make changes.
 
     These can certainly fail as they are only heuristics, so if you do find
     any issues with these, feel free to open an [issue](https://github.com/resend/react-email/issues).
+
   </Accordion>
 </AccordionGroup>
 

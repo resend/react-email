@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
@@ -8,7 +7,7 @@ export const component = (
       <Row>
         <Text
           style={{
-            margin: 0,
+            margin: "0px",
             fontSize: 16,
             lineHeight: "24px",
             fontWeight: 600,
@@ -19,7 +18,7 @@ export const component = (
         </Text>
         <Text
           style={{
-            margin: 0,
+            margin: "0px",
             marginTop: 8,
             fontSize: 24,
             lineHeight: "32px",

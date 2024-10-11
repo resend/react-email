@@ -10,7 +10,7 @@ import {
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Section>
       <Row>
         <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">

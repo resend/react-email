@@ -29,7 +29,7 @@ export const component = (
         as="h1"
         style={{
           fontSize: 36,
-          lineHeight: "36px",
+          lineHeight: "40px",
           fontWeight: 600,
           letterSpacing: 0.4,
           color: "rgb(17,24,39)",

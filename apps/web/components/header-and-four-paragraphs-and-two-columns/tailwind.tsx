@@ -2,7 +2,7 @@ import { Img, Row, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Row>
       <Text className="m-0 text-[24px] font-semibold leading-[32px] text-gray-900">
         Modern Comfort

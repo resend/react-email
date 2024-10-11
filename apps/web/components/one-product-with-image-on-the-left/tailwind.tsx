@@ -2,7 +2,7 @@ import { Button, Img, Section, Text } from "@react-email/components";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <table className="w-full">
       <tbody className="w-full">
         <tr className="w-full">

@@ -1,8 +1,8 @@
 ---
-title: 'Send email using Plunk'
-sidebarTitle: 'Plunk'
-description: 'Learn how to send an email using React Email and the Plunk Node.js SDK.'
-'og:image': 'https://react.email/static/covers/react-email.png'
+title: "Send email using Plunk"
+sidebarTitle: "Plunk"
+description: "Learn how to send an email using React Email and the Plunk Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
 ---
 
 ## 1. Install dependencies
@@ -11,17 +11,17 @@ Get the [@react-email/components](https://www.npmjs.com/package/@react-email/com
 
 <CodeGroup>
 
-  ```sh npm
-  npm install @plunk/node @react-email/components
-  ```
+```sh npm
+npm install @plunk/node @react-email/components
+```
 
-  ```sh yarn
-  yarn add @plunk/node @react-email/components
-  ```
+```sh yarn
+yarn add @plunk/node @react-email/components
+```
 
-  ```sh pnpm
-  pnpm add @plunk/node @react-email/components
-  ```
+```sh pnpm
+pnpm add @plunk/node @react-email/components
+```
 
 </CodeGroup>
 
@@ -29,8 +29,8 @@ Get the [@react-email/components](https://www.npmjs.com/package/@react-email/com
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
-import * as React from 'react';
+```tsx email.tsx
+import * as React from "react";
 import { Html, Button } from "@react-email/components";
 
 export function Email(props) {
@@ -48,49 +48,29 @@ export default Email;
 
 ## 3. Convert to HTML and send email
 
-Import the email template you just built, convert into a HTML string, and use the Plunk SDK to send it.
+Import the email template you just built, convert into an HTML string, and use the Plunk SDK to send it.
 
-<CodeGroup>
+```tsx
+import Plunk from "@plunk/node";
+import { render } from "@react-email/components";
+import { Email } from "./email";
 
-  ```js React
-  import Plunk from '@plunk/node';
-  import { render } from '@react-email/components';
-  import { Email } from './email';
+const plunk = new Plunk(process.env.PLUNK_API_KEY);
 
-  const plunk = new Plunk(process.env.PLUNK_API_KEY);
+const emailHtml = await render(<Email url="https://example.com" />);
 
-  const emailHtml = await render(<Email url="https://example.com" />);
-
-  plunk.emails.send({
-    to: "hello@useplunk.com",
-    subject: "Hello world",
-    body: emailHtml,
-  });
-  ```
-
-  ```js NodeJS
-  import Plunk from '@plunk/node';
-  import { render } from '@react-email/components';
-  import { Email } from './email';
-
-  const plunk = new Plunk(process.env.PLUNK_API_KEY);
-
-  const emailHtml = await render(Email({ url: "https://example.com" }));
-
-  plunk.emails.send({
-    to: "hello@useplunk.com",
-    subject: "Hello world",
-    body: emailHtml,
-  });
-  ```
-
-</CodeGroup>
+plunk.emails.send({
+  to: "hello@useplunk.com",
+  subject: "Hello world",
+  body: emailHtml,
+});
+```
 
 ## Try it yourself
 
 <Card
   title="Plunk example"
-  icon='arrow-up-right-from-square'
+  icon="arrow-up-right-from-square"
   iconType="duotone"
   href="https://github.com/resend/react-email/tree/main/examples/plunk"
 >

@@ -3,7 +3,7 @@ import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
 import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section className="m-[16px]">
+  <Section className="my-[16px]">
     <Row>
       <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
         Timing Products

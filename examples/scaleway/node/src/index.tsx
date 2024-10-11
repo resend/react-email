@@ -30,34 +30,28 @@ const userInvitedBy = {
   teamName: "Team",
 };
 
-const emailHtml = render(
+const emailHtml = await render(
   <Email
-    url="https://www.scaleway.com/"
-    invitedByUsername={userInvitedBy.name}
     invitedByEmail={userInvitedBy.email}
-    username={userInvited.name}
+    invitedByUsername={userInvitedBy.name}
     teamName={userInvited.teamName}
+    url="https://www.scaleway.com/"
+    username={userInvited.name}
   />,
 );
 
-try {
-  transactionalEmailClient
-    .createEmail({
-      from: {
-        email: sender.email,
-        name: sender.name,
-      },
-      to: [
-        {
-          email: userInvited.email,
-          name: userInvited.name,
-        },
-      ],
-      subject: sender.subject,
-      text: null,
-      html: emailHtml,
-    })
-    .then((res) => console.debug({ ...res }));
-} catch (err) {
-  console.error({ err });
-}
+await transactionalEmailClient.createEmail({
+  from: {
+    email: sender.email,
+    name: sender.name,
+  },
+  to: [
+    {
+      email: userInvited.email,
+      name: userInvited.name,
+    },
+  ],
+  subject: sender.subject,
+  text: "",
+  html: emailHtml,
+});

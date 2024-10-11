@@ -11,7 +11,13 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <Row>
-    <Hr style={{ borderColor: "rgb(209,213,219)", margin: "16px 0 0 0" }} />
+    <Hr
+      style={{
+        borderColor: "rgb(209,213,219) !important",
+        marginTop: "16px",
+        marginBottom: "0px",
+      }}
+    />
     <Section>
       {[
         {
@@ -51,7 +57,6 @@ export const component = (
                   display: "block",
                   objectFit: "cover",
                   objectPosition: "center",
-                  width: "48px",
                 }}
                 width={48}
               />
@@ -68,11 +73,11 @@ export const component = (
               <Heading
                 as="h3"
                 style={{
-                  color: "#1A202C",
+                  color: "rgb(17,24,39)",
                   fontSize: "14px",
                   fontWeight: 500,
                   lineHeight: "20px",
-                  margin: 0,
+                  margin: "0px",
                 }}
               >
                 {author.name}
@@ -83,7 +88,7 @@ export const component = (
                   fontSize: "12px",
                   fontWeight: 500,
                   lineHeight: "14px",
-                  margin: 0,
+                  margin: "0px",
                 }}
               >
                 {author.title}
@@ -99,8 +104,9 @@ export const component = (
                 >
                   <Img
                     alt="X"
+                    height={12}
                     src="/static/x-icon.png"
-                    style={{ height: "12px", width: "12px" }}
+                    width={12}
                   />
                 </Link>
                 <Link
@@ -114,8 +120,9 @@ export const component = (
                 >
                   <Img
                     alt="LinkedIn"
+                    height={12}
                     src="/static/in-icon.png"
-                    style={{ height: "12px", width: "12px" }}
+                    width={12}
                   />
                 </Link>
               </Section>

@@ -4,13 +4,13 @@ import { Layout } from "../_components/layout";
 export const component = (
   <Row>
     <Column align="center" className="h-[40px] w-1/3 bg-orange-400/60">
-      First
+      1/3
     </Column>
     <Column align="center" className="h-[40px] w-1/3 bg-emerald-400/60">
-      Second
+      1/3
     </Column>
     <Column align="center" className="h-[40px] w-1/3 bg-cyan-400/60">
-      Third
+      1/3
     </Column>
   </Row>
 );

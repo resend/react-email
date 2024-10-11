@@ -31,7 +31,7 @@ pnpm add resend @react-email/components
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
-```jsx email.jsx
+```tsx email.tsx
 import * as React from 'react';
 import { Html, Button } from "@react-email/components";
 
@@ -54,7 +54,7 @@ export default Email;
 
 Import the email template you just built and use the Resend SDK to send it.
 
-```jsx index.jsx
+```tsx
 import { Resend } from 'resend';
 import { Email } from './email';
 

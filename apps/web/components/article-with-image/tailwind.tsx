@@ -10,12 +10,12 @@ export const component = (
       src="/static/herman-miller-chair.jpg"
     />
     <Section className="mt-[32px] text-center">
-      <Text className="m-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
+      <Text className="my-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
         Our new article
       </Text>
       <Heading
         as="h1"
-        className="m-0 mt-[8px] text-[36px] font-semibold leading-[40px] text-gray-900"
+        className="m-0 mt-[8px] text-[36px] font-semibold leading-[36px] text-gray-900"
       >
         Designing with Furniture
       </Heading>
