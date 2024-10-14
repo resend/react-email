@@ -15,9 +15,9 @@ export const Row = React.forwardRef<HTMLTableElement, RowProps>(
         border={0}
         cellPadding="0"
         cellSpacing="0"
+        role="presentation"
         {...props}
         ref={ref}
-        role="presentation"
         style={style}
       >
         <tbody style={{ width: "100%" }}>
