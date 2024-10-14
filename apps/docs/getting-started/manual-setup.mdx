@@ -28,17 +28,22 @@ Install the React Email package locally and a few components.
 
 ```sh npm
 npm install react-email -D -E
-npm install @react-email/components -E
+npm install @react-email/components react react-dom -E
 ```
 
 ```sh yarn
 yarn add react-email -D -E
-yarn add @react-email/components -E
+yarn add @react-email/components react react-dom -E
 ```
 
 ```sh pnpm
 pnpm add react-email -D -E
-pnpm add @react-email/components -E
+pnpm add @react-email/components react react-dom -E
+```
+
+```sh bun
+bun add react-email -D -E
+bun add @react-email/components react react-dom -E
 ```
 
 </CodeGroup>
@@ -55,11 +60,11 @@ Include the following script in your `package.json` file.
 }
 ```
 
-## 4. Include email template
+## 4. Write an email template
 
-Create a new folder called `emails`, create a file inside called `index.tsx`, and add the following code:
+Create a new folder called `emails`, create a file inside called `my-email.tsx`, and add the following code:
 
-```jsx index.tsx
+```jsx emails/my-email.tsx
 import { Button, Html } from "@react-email/components";
 import * as React from "react";
 
@@ -89,6 +94,14 @@ npm run dev
 
 ```sh yarn
 yarn dev
+```
+
+```sh pnpm
+pnpm dev
+```
+
+```sh bun
+bun dev
 ```
 
 </CodeGroup>
