@@ -8,12 +8,12 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
       <table
         align="center"
         width="100%"
-        {...props}
         border={0}
         cellPadding="0"
         cellSpacing="0"
-        ref={ref}
         role="presentation"
+        {...props}
+        ref={ref}
         style={style}
       >
         <tbody>
