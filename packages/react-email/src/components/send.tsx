@@ -2,41 +2,68 @@ import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 import { toast } from 'sonner';
 import { inter } from '../app/inter';
+import { sendTestEmail } from '../actions/send-test-email';
 import { Button } from './button';
 import { Text } from './text';
+
+const useTimer = (startingSeconds: number) => {
+  const [isRatelimiting, setIsRatelimiting] = React.useState(false);
+  const [secondsRemaining, setSecondsRemaining] =
+    React.useState(startingSeconds);
+
+  const interval = React.useRef<NodeJS.Timer | undefined>(undefined);
+
+  return {
+    isActive: isRatelimiting,
+    secondsRemaining,
+    start: () => {
+      setIsRatelimiting(true);
+      setSecondsRemaining(startingSeconds);
+      clearInterval(interval.current);
+
+      let secondsRemainingTemp = startingSeconds;
+      interval.current = setInterval(() => {
+        setSecondsRemaining((v) => v - 1);
+        secondsRemainingTemp -= 1;
+
+        if (secondsRemainingTemp <= 0) {
+          clearInterval(interval.current);
+          setIsRatelimiting(false);
+          setSecondsRemaining(startingSeconds);
+        }
+      }, 1_000);
+    },
+  };
+};
 
 export const Send = ({ markup }: { markup: string }) => {
   const [to, setTo] = React.useState('');
   const [subject, setSubject] = React.useState('Testing React Email');
   const [isSending, setIsSending] = React.useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = React.useState(false);
+  const rateLimiter = useTimer(15);
 
   const onFormSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault();
-      setIsSending(true);
+    e.preventDefault();
+    setIsSending(true);
 
-      const response = await fetch('https://react.email/api/send/test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to,
-          subject,
-          html: markup,
-        }),
+    try {
+      const { code, ok } = await sendTestEmail({
+        to,
+        subject,
+        markup,
       });
 
-      if (response.status === 429) {
-        const { error } = (await response.json()) as { error: string };
-        toast.error(error);
+      if (ok) {
+        toast.success('Email sent! Check your inbox.');
+      } else if (code === 429) {
+        toast.error('Too many requests.');
+        rateLimiter.start();
       }
-
-      toast.success('Email sent! Check your inbox.');
     } catch (exception) {
       toast.error('Something went wrong. Please try again.');
-    } finally {
-      setIsSending(false);
     }
+    setIsSending(false);
   };
 
   return (
@@ -121,10 +148,18 @@ export const Send = ({ markup }: { markup: string }) => {
               </Text>
               <Button
                 className="disabled:bg-slate-11 disabled:border-transparent"
-                disabled={subject.length === 0 || to.length === 0 || isSending}
+                disabled={
+                  subject.length === 0 ||
+                  to.length === 0 ||
+                  isSending ||
+                  rateLimiter.isActive
+                }
                 type="submit"
               >
                 Send
+                {rateLimiter.isActive
+                  ? ` ${rateLimiter.secondsRemaining}s`
+                  : null}
               </Button>
             </div>
           </form>
