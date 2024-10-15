@@ -27,8 +27,8 @@ export const SlackConfirmEmail = ({
 }: SlackConfirmEmailProps) => (
   <Html>
     <Head />
-    <Preview>Confirm your email address</Preview>
     <Body style={main}>
+      <Preview>Confirm your email address</Preview>
       <Container style={container}>
         <Section style={logoContainer}>
           <Img

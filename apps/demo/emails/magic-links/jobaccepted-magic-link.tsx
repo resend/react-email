@@ -15,8 +15,8 @@ const MagicCodeEmail = () => {
   return (
     <Html>
       <Head />
-      <Preview>Sign in to jobaccepted.com</Preview>
       <Body style={main}>
+        <Preview>Sign in to jobaccepted.com</Preview>
         <Container style={container}>
           <Text style={company}>Job Accepted</Text>
           <Heading style={codeTitle}>Your authentication code</Heading>

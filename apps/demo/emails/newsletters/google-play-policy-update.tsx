@@ -21,8 +21,8 @@ const baseUrl = process.env.VERCEL_URL
 export const GooglePlayPolicyUpdateEmail = () => (
   <Html>
     <Head />
-    <Preview>Google Play developers</Preview>
     <Body style={main}>
+      <Preview>Google Play developers</Preview>
       <Container style={container}>
         <Section>
           <Row>
