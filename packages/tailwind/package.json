@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && NODE_ENV=production vite build --mode production",
+    "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "lint": "eslint .",
