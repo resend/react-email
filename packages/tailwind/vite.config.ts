@@ -11,10 +11,6 @@ export default defineConfig({
           tailwindcss: [path.resolve(__dirname, "./dist/tailwindcss")],
         },
       },
-      // This was the supposed way for us to do it, but seems
-      // like this plugin fails when trying to bundle in the types
-      // from tailwind
-      //bundledPackages: ["tailwindcss"],
       rollupTypes: true,
       outDir: "dist",
     }),
