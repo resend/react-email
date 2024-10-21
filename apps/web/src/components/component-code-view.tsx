@@ -10,7 +10,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import type {
   CodeVariant,
   ImportedComponent,
-} from "@/app/components/get-components";
+} from "@/app/components/get-imported-components-for";
 import { useStoredState } from "@/hooks/use-stored-state";
 import { CodeBlock } from "./code-block";
 import { TabTrigger } from "./tab-trigger";
