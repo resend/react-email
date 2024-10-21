@@ -12,12 +12,12 @@ export const Row = React.forwardRef<HTMLTableElement, RowProps>(
       <table
         align="center"
         width="100%"
-        {...props}
         border={0}
         cellPadding="0"
         cellSpacing="0"
-        ref={ref}
         role="presentation"
+        {...props}
+        ref={ref}
         style={style}
       >
         <tbody style={{ width: "100%" }}>
