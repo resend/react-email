@@ -96,7 +96,7 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
           {tokensPerLine.map((tokensForLine, lineIndex) => (
             <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
               {props.lineNumbers ? (
-                <span style={{ maxWidth: '1.875em', fontFamily: props.fontFamily  }}>{lineIndex + 1}</span>
+                <span style={{ maxWidth: "1.875em", fontFamily: props.fontFamily   }}>{lineIndex + 1}</span>
               ) : null}
 
               {tokensForLine.map((token, i) => (
