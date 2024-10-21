@@ -12,12 +12,11 @@ import type {
   ImportedComponent,
 } from "@/app/components/get-imported-components-for";
 import { useStoredState } from "@/hooks/use-stored-state";
+import { convertUrisIntoUrls } from "@/utils/convert-uris-into-urls";
 import { CodeBlock } from "./code-block";
 import { TabTrigger } from "./tab-trigger";
 
 type ReactCodeVariant = Exclude<CodeVariant, "html" | "react">;
-
-const srcAttributeRegex = /src\s*=\s*"(?<URI>\/static.+)"/gm;
 
 export const ComponentCodeView = ({
   component,
@@ -42,11 +41,7 @@ export const ComponentCodeView = ({
       code = component.code.react;
     }
   }
-  srcAttributeRegex.lastIndex = 0;
-  code = code.replaceAll(
-    srcAttributeRegex,
-    (_match, uri) => `src="https://react.email${uri}"`,
-  );
+  code = convertUrisIntoUrls(code);
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);
