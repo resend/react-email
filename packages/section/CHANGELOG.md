@@ -1,5 +1,11 @@
 # @react-email/section
 
+## 0.0.15-canary.0
+
+### Patch Changes
+
+- de9d2ff: Fixes default attributes overriding props
+
 ## 0.0.14
 
 ### Patch Changes
