@@ -1,21 +1,8 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
-import path from 'node:path';
-import os from 'node:os';
-import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const isWindows = os.platform() === 'win32';
-const nextExecutable = path.resolve(
-  __dirname,
-  'node_modules',
-  '.bin',
-  isWindows ? 'next.cmd' : 'next'
-);
-
-const nextBuildProcess = spawn(nextExecutable, ['build'], {
+const nextBuildProcess = spawn('pnpm', ['next', 'build'], {
+  shell: true,
   stdio: 'inherit',
 });
 
