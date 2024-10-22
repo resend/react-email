@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 
 const nextBuildProcess = spawn('pnpm', ['next', 'build'], {
+  detached: true,
   shell: true,
   stdio: 'inherit',
 });
