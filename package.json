@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=!react-email-starter",
-    "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
+    "build": "turbo run build --filter=!./packages/create-email/templates/*",
+    "dev": "turbo run dev --filter=!./packages/create-email/templates/* --parallel --concurrency 25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
