@@ -38,7 +38,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
-        filter: ignoreNodeModulesFilter
+        filter: ignoreNodeModulesFilter,
       },
     );
   });
@@ -56,7 +56,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
-        filter: ignoreNodeModulesFilter
+        filter: ignoreNodeModulesFilter,
       },
     );
   });
@@ -74,7 +74,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
-        filter: ignoreNodeModulesFilter
+        filter: ignoreNodeModulesFilter,
       },
     );
   });
@@ -92,7 +92,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
-        filter: ignoreNodeModulesFilter
+        filter: ignoreNodeModulesFilter,
       },
     );
   });
