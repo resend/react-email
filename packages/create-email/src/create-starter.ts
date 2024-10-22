@@ -23,13 +23,17 @@ const updatePackageJsonToMatchFolderName = async (
   await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
 };
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export const ignoreNodeModulesFilter = (source: string) => {
+  return !source.replace(__dirname, "").includes("node_modules");
+};
+
 export const createStarter = async ({
   absoluteProjectPath,
   enableTypeScript,
   enableTailwindCSS,
 }: CreateServerMatadata) => {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
   let templateName;
   if (enableTypeScript && enableTailwindCSS) {
     templateName = "tailwind-and-typescript";
@@ -43,23 +47,31 @@ export const createStarter = async ({
 
   const templatePath = path.resolve(__dirname, "../templates/", templateName);
 
-  await fs.cp(templatePath, absoluteProjectPath, { recursive: true });
+  await fs.cp(templatePath, absoluteProjectPath, {
+    recursive: true,
+    filter: ignoreNodeModulesFilter,
+  });
 
   await updatePackageJsonToMatchFolderName(absoluteProjectPath);
 
   const templatePackageJsonPath = path.resolve(
-    resolvedProjectPath,
+    absoluteProjectPath,
     "./package.json",
   );
   const templatePackageJson = JSON.parse(
     await fs.readFile(templatePackageJsonPath, "utf8"),
-  ) as { dependencies: Record<string, string> };
+  ) as {
+    dependencies: Record<string, string>;
+    devDependencies: Record<string, string>;
+  };
   for (const key in templatePackageJson.dependencies) {
-    // We remove any workspace prefix that might have been added for the purposes
-    // of being used locally
     templatePackageJson.dependencies[key] = templatePackageJson.dependencies[
       key
     ].replace("workspace:", "");
+  }
+  for (const key in templatePackageJson.devDependencies) {
+    templatePackageJson.devDependencies[key] =
+      templatePackageJson.devDependencies[key].replace("workspace:", "");
   }
   await fs.writeFile(
     templatePackageJsonPath,
