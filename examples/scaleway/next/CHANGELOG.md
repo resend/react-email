@@ -1,5 +1,11 @@
 # react-email-with-next-scaleway
 
+## 1.0.1-canary.5
+
+### Patch Changes
+
+- @react-email/components@0.0.26-canary.5
+
 ## 1.0.1-canary.4
 
 ### Patch Changes
