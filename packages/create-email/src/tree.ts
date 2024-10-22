@@ -40,8 +40,7 @@ const getTreeLines = async (
       return b.name > a.name ? -1 : 1;
     });
 
-    for (let i = 0; i < childDirents.length; i++) {
-      const dirent = childDirents[i];
+    for await (const [i, dirent] of childDirents.entries()) {
       const isLast = i === childDirents.length - 1;
 
       const branchingSymbol = isLast ? SYMBOLS.LAST_BRANCH : SYMBOLS.BRANCH;

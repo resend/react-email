@@ -1,8 +1,6 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
   "ignorePatterns": ["templates/*"],
-  "extends": ["custom/react-internal"],
+  "extends": ["custom/library"],
   "rules": {
     "no-console": "off",
     "@typescript-eslint/no-unsafe-call": "off"

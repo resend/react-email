@@ -40,8 +40,8 @@
   },
   "devDependencies": {
     "@types/prompts": "2.4.9",
-    "@typescript-eslint/parser": "7.0.1",
     "eslint-config-custom": "workspace:*",
+    "typescript": "5.1.6",
     "prettier": "3.0.0",
     "tsconfig": "workspace:*",
     "vitest": "1.2.2"
