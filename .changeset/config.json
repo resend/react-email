@@ -3,7 +3,13 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [
-    ["react-email-starter", "create-email"]
+    [
+      "ts-template",
+      "js-template",
+      "tw-ts-template",
+      "tw-js-template",
+      "create-email"
+    ]
   ],
   "linked": [],
   "access": "public",
