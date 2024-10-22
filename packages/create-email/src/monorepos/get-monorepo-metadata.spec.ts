@@ -11,7 +11,11 @@ describe("tests with pnpm", () => {
       expect(meta.monorepoRoot).toBe(path.resolve(__dirname, "../../../.."));
       expect(meta.workspaceGlobs).toEqual([
         "apps/web",
+        "apps/demo",
+        "examples/*",
+        "examples/*/*",
         "packages/*",
+        "packages/create-email/templates/*",
         "benchmarks/*",
       ]);
     }

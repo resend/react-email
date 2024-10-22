@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs, { promises } from "node:fs";
 import type { SpyInstance } from "vitest";
-import { createStarter } from "./create-starter";
+import { createStarter, ignoreNodeModulesFilter } from "./create-starter";
 
 describe("createStarter tests per template type", () => {
   const testingTemporaryFolderPath = path.resolve(
@@ -38,6 +38,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
+        filter: ignoreNodeModulesFilter
       },
     );
   });
@@ -55,6 +56,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
+        filter: ignoreNodeModulesFilter
       },
     );
   });
@@ -72,6 +74,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
+        filter: ignoreNodeModulesFilter
       },
     );
   });
@@ -89,6 +92,7 @@ describe("createStarter tests per template type", () => {
       testingTemporaryFolderPath,
       {
         recursive: true,
+        filter: ignoreNodeModulesFilter
       },
     );
   });
