@@ -37,7 +37,7 @@
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
     "mime-types": "2.1.35",
-    "next": "14.2.10",
+    "next": "14.2.16",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "socket.io": "4.8.0"
