@@ -23,7 +23,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && NODE_ENV=production vite build --mode production",
+    "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "lint": "eslint .",
@@ -68,7 +68,7 @@
     "tsup": "7.2.0",
     "typescript": "5.1.6",
     "vite": "5.1.8",
-    "vite-plugin-dts": "3.6.3",
+    "vite-plugin-dts": "4.2.4",
     "vitest": "1.1.1",
     "yalc": "1.0.0-pre.53"
   },
