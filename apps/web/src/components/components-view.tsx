@@ -1,4 +1,4 @@
-import type { ImportedComponent } from "../app/components/get-components";
+import type { ImportedComponent } from "../app/components/get-imported-components-for";
 import { ComponentView } from "./component-view";
 
 interface ComponentsViewProps {

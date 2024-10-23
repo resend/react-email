@@ -3,7 +3,7 @@ import { Layout } from "../_components/layout";
 
 export const component = (
   <>
-    <Row>
+    <Row cellSpacing={8}>
       <Column align="center" className="h-[40px] w-1/2 bg-emerald-400/60">
         1/2
       </Column>

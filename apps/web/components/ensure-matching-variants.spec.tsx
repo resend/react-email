@@ -4,7 +4,7 @@ import postcss from "postcss";
 import { render } from "@react-email/components";
 import { parse, stringify } from "html-to-ast";
 import type { Attr, IDoc as Doc } from "html-to-ast/dist/types";
-import { getComponentElement } from "../src/app/components/get-components";
+import { getComponentElement } from "../src/app/components/get-imported-components-for";
 import { componentsStructure, getComponentPathFromSlug } from "./structure";
 import { Layout } from "./_components/layout";
 

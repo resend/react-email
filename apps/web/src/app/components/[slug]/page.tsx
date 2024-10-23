@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { slugify } from "../../../utils/slugify";
 import { componentsStructure } from "../../../../components/structure";
-import { getImportedComponentsFor } from "../get-components";
+import { getImportedComponentsFor } from "../get-imported-components-for";
 import PageTransition from "../../../components/page-transition";
 import { ComponentsView } from "../../../components/components-view";
 import { IconArrowLeft } from "../../../components/icons/icon-arrow-left";
