@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { pretty } from "../shared/utils/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
 import type { Options } from "../shared/options";
-import { readStream } from "./read-stream";
+import { readStream } from "../shared/read-stream";
 
 export const render = async (
   element: React.ReactElement,
