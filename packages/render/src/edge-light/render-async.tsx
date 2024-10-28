@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { pretty } from "../shared/utils/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
 import type { Options } from "../shared/options";
-import { readStream } from "../shared/read-stream";
+import { readStream } from "../shared/read-stream.browser";
 
 /**
  * @deprecated use `render`
