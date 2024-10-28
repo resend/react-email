@@ -3,7 +3,7 @@
  */
 
 import usePromise from "react-promise-suspense";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Template } from "../shared/utils/template";
 import { Preview } from "../shared/utils/preview";
 import { renderAsync } from "./render-async";

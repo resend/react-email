@@ -12,6 +12,16 @@ type Import = typeof import("react-dom/server") & {
 };
 
 describe("renderAsync on the edge", () => {
+  beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extraneous-class
+    global.MessageChannel = class {
+      constructor() {
+        throw new Error("MessageChannel is not supported");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any;
+  });
+
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
       const ReactDOMServer = await vi.importActual<Import>("react-dom/server");

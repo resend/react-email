@@ -1,19 +1,9 @@
-import { Writable } from "node:stream";
 import {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from "react-dom/server.browser";
 
 const decoder = new TextDecoder("utf-8");
-
-const promisify = (writable: Writable) => {
-  return new Promise<void>((resolve, reject) => {
-    writable.on("error", reject);
-    writable.on("close", () => {
-      resolve();
-    });
-  });
-};
 
 export const readStream = async (
   stream: PipeableStream | ReactDOMServerReadableStream,
@@ -29,16 +19,14 @@ export const readStream = async (
     });
     await stream.pipeTo(writableStream);
   } else {
-    const writable = new Writable({
-      write(chunk: Uint8Array, _encoding, callback) {
-        chunks.push(chunk);
-
-        callback();
+    throw new Error(
+      "For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.",
+      {
+        cause: {
+          stream,
+        },
       },
-    });
-    stream.pipe(writable);
-
-    await promisify(writable);
+    );
   }
 
   let length = 0;

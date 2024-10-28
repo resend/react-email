@@ -3,24 +3,23 @@ import { Suspense } from "react";
 import { pretty } from "../shared/utils/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
 import type { Options } from "../shared/options";
-import { readStream } from "../shared/read-stream";
-import { getReactDOMServer } from "./get-react-dom-server";
+import { readStream } from "../shared/read-stream.browser";
 
 export const renderAsync = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const ReactDOMServer = await getReactDOMServer();
+  const reactDOMServer = await import("react-dom/server");
 
   let html!: string;
-  if (Object.hasOwn(ReactDOMServer, "renderToReadableStream")) {
+  if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
     html = await readStream(
-      await ReactDOMServer.renderToReadableStream(suspendedElement),
+      await reactDOMServer.renderToReadableStream(suspendedElement),
     );
   } else {
     await new Promise<void>((resolve, reject) => {
-      const stream = ReactDOMServer.renderToPipeableStream(suspendedElement, {
+      const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
         async onAllReady() {
           html = await readStream(stream);
           resolve();
