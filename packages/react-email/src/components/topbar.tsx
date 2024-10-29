@@ -19,6 +19,8 @@ interface TopbarProps {
   currentEmailOpenSlug: string;
   pathSeparator: string;
   markup?: string;
+  theme?: string;
+  setTheme?: (theme: string) => void;
   onToggleSidebar?: () => void;
 }
 
@@ -26,6 +28,8 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   currentEmailOpenSlug,
   pathSeparator,
   markup,
+  theme,
+  setTheme,
   onToggleSidebar,
 }) => {
   const router = useRouter();
@@ -46,6 +50,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
     params.set('theme', theme);
     router.push(`${pathname}?${params.toString()}`);
   };
+
   return (
     <Tooltip.Provider>
       <header className="flex relative items-center px-4 justify-between h-[70px] border-b border-slate-6">
@@ -78,10 +83,10 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
             className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
             id="theme-toggle"
             onValueChange={(value) => {
-              if (value) setTheme(value);
+              if (value) setTheme?.(value);
             }}
+            value={theme}
             type="single"
-            value={activeTheme}
           >
             <ToggleGroup.Item value="light">
               <Tooltip>
@@ -90,12 +95,12 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                     className={cn(
                       'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        'text-slate-11': activeTheme !== 'light',
-                        'text-slate-12': activeTheme === 'light',
+                        'text-slate-11': theme !== 'light',
+                        'text-slate-12': theme === 'light',
                       },
                     )}
                   >
-                    {activeTheme === 'light' && (
+                    {theme === 'light' && (
                       <motion.span
                         animate={{ opacity: 1 }}
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -118,12 +123,12 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                     className={cn(
                       'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        'text-slate-11': activeTheme !== 'dark',
-                        'text-slate-12': activeTheme === 'dark',
+                        'text-slate-11': theme !== 'dark',
+                        'text-slate-12': theme === 'dark',
                       },
                     )}
                   >
-                    {activeTheme === 'dark' && (
+                    {theme === 'dark' && (
                       <motion.span
                         animate={{ opacity: 1 }}
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"

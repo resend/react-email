@@ -66,8 +66,6 @@ const Preview = ({
     });
   }
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
-
   const setActiveLang = (lang: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
@@ -75,11 +73,21 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
+  const handleThemeChange = (theme: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('theme', theme);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+
   return (
     <Shell
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
+      setTheme={hasNoErrors ? handleThemeChange : undefined}
+      theme={hasNoErrors ? activeTheme : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
