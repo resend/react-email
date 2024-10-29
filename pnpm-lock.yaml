@@ -278,7 +278,7 @@ importers:
         specifier: 3.341.0
         version: 3.341.0
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       react:
         specifier: 19.0.0-rc-187dd6a7-20240806
@@ -300,7 +300,7 @@ importers:
   examples/mailersend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       mailersend:
         specifier: ^2.0.0
@@ -325,7 +325,7 @@ importers:
   examples/nodemailer:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       nodemailer:
         specifier: 6.9.9
@@ -356,7 +356,7 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       react:
         specifier: 19.0.0-rc-187dd6a7-20240806
@@ -378,7 +378,7 @@ importers:
   examples/postmark:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       postmark:
         specifier: 3.0.14
@@ -403,7 +403,7 @@ importers:
   examples/resend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       next:
         specifier: 15.0.0-canary.117
@@ -437,7 +437,7 @@ importers:
   examples/scaleway/next:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.5.0
@@ -471,7 +471,7 @@ importers:
   examples/scaleway/node:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.4.0
@@ -496,7 +496,7 @@ importers:
   examples/sendgrid:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../packages/components
       '@sendgrid/mail':
         specifier: 7.7.0
@@ -676,10 +676,10 @@ importers:
         specifier: workspace:1.0.2-canary.0
         version: link:../render
       '@react-email/row':
-        specifier: workspace:0.0.10
+        specifier: workspace:0.0.11-canary.0
         version: link:../row
       '@react-email/section':
-        specifier: workspace:0.0.14
+        specifier: workspace:0.0.15-canary.0
         version: link:../section
       '@react-email/tailwind':
         specifier: workspace:1.0.0-canary.2
@@ -748,7 +748,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.26-canary.4
+        specifier: workspace:0.0.26-canary.5
         version: link:../../components
       react:
         specifier: 18.3.1
@@ -764,7 +764,7 @@ importers:
         specifier: npm:types-react-dom@19.0.0-rc.1
         version: types-react-dom@19.0.0-rc.1
       react-email:
-        specifier: workspace:3.0.2-canary.3
+        specifier: workspace:3.0.2-canary.4
         version: link:../../react-email
 
   packages/eslint-config-custom:
@@ -998,8 +998,8 @@ importers:
         specifier: 5.4.1
         version: 5.4.1
       socket.io:
-        specifier: 4.7.5
-        version: 4.7.5
+        specifier: 4.8.0
+        version: 4.8.0
     devDependencies:
       '@radix-ui/colors':
         specifier: 1.0.1
@@ -1086,8 +1086,8 @@ importers:
         specifier: 0.33.3
         version: 0.33.3
       socket.io-client:
-        specifier: 4.7.5
-        version: 4.7.5
+        specifier: 4.8.0
+        version: 4.8.0
       sonner:
         specifier: 1.3.1
         version: 1.3.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4774,6 +4774,10 @@ packages:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
 
+  cookie@0.7.2:
+    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
+    engines: {node: '>= 0.6'}
+
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
@@ -4970,12 +4974,19 @@ packages:
   engine.io-client@6.5.3:
     resolution: {integrity: sha512-9Z0qLB0NIisTRt1DZ/8U2k12RJn8yls/nXMZLn+/N8hANT3TcYjKFKcwbw5zFQiN4NTde3TSY9zb79e1ij6j9Q==}
 
+  engine.io-client@6.6.1:
+    resolution: {integrity: sha512-aYuoak7I+R83M/BBPIOs2to51BmFIpC1wZe6zZzMrT2llVsHy5cvcmdsJgP2Qz6smHu+sD9oexiSUAVd8OfBPw==}
+
   engine.io-parser@5.2.2:
     resolution: {integrity: sha512-RcyUFKA93/CXH20l4SoVvzZfrSDMOTUS3bWVpTt2FuFP+XYrL8i8oonHP7WInRyVHXh0n/ORtoeiE1os+8qkSw==}
     engines: {node: '>=10.0.0'}
 
   engine.io@6.5.4:
     resolution: {integrity: sha512-KdVSDKhVKyOi+r5uEabrDLZw2qXStVvCsEB/LN3mw4WFi6Gx50jTyuxYVCwAAC0U46FdnzP/ScKRBTXb/NiEOg==}
+    engines: {node: '>=10.2.0'}
+
+  engine.io@6.6.2:
+    resolution: {integrity: sha512-gmNvsYi9C8iErnZdVcJnvCpSKbWTt1E8+JZo8b+daLninywUWi5NQ5STSHZ9rFjFO7imNcvb8Pc5pe/wMR5xEw==}
     engines: {node: '>=10.2.0'}
 
   enhanced-resolve@5.16.0:
@@ -7131,12 +7142,20 @@ packages:
     resolution: {integrity: sha512-sJ/tqHOCe7Z50JCBCXrsY3I2k03iOiUe+tj1OmKeD2lXPiGH/RUCdTZFoqVyN7l1MnpIzPrGtLcijffmeouNlQ==}
     engines: {node: '>=10.0.0'}
 
+  socket.io-client@4.8.0:
+    resolution: {integrity: sha512-C0jdhD5yQahMws9alf/yvtsMGTaIDBnZ8Rb5HU56svyq0l5LIrGzIDZZD5pHQlmzxLuU91Gz+VpQMKgCTNYtkw==}
+    engines: {node: '>=10.0.0'}
+
   socket.io-parser@4.2.4:
     resolution: {integrity: sha512-/GbIKmo8ioc+NIWIhwdecY0ge+qVBSMdgxGygevmdHj24bsfgtCmcUUcQ5ZzcylGFHsN3k4HB4Cgkl96KVnuew==}
     engines: {node: '>=10.0.0'}
 
   socket.io@4.7.5:
     resolution: {integrity: sha512-DmeAkF6cwM9jSfmp6Dr/5/mfMwb5Z5qRrSXLpo3Fq5SqyU8CMF15jIN4ZhfSwu35ksM1qmHZDQ/DK5XTccSTvA==}
+    engines: {node: '>=10.2.0'}
+
+  socket.io@4.8.0:
+    resolution: {integrity: sha512-8U6BEgGjQOfGz3HHTYaC/L1GaxDCJ/KM0XTkJly0EhZ5U/du9uNEZy4ZgYzEzIqlx2CMm25CrCqr1ck899eLNA==}
     engines: {node: '>=10.2.0'}
 
   sonner@1.3.1:
@@ -8173,6 +8192,18 @@ packages:
       utf-8-validate:
         optional: true
 
+  ws@8.17.1:
+    resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   xml-name-validator@5.0.0:
     resolution: {integrity: sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==}
     engines: {node: '>=18'}
@@ -8182,6 +8213,10 @@ packages:
 
   xmlhttprequest-ssl@2.0.0:
     resolution: {integrity: sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==}
+    engines: {node: '>=0.4.0'}
+
+  xmlhttprequest-ssl@2.1.1:
+    resolution: {integrity: sha512-ptjR8YSJIXoA3Mbv5po7RtSYHO6mZr8s7i5VGmEk7QY2pQWyT1o0N+W1gKbOyJPUCGXGnuw0wqe8f0L6Y0ny7g==}
     engines: {node: '>=0.4.0'}
 
   y18n@5.0.8:
@@ -11302,7 +11337,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
-      debug: 4.3.4
+      debug: 4.3.6
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.0
@@ -12145,6 +12180,8 @@ snapshots:
 
   cookie@0.4.2: {}
 
+  cookie@0.7.2: {}
+
   core-util-is@1.0.3: {}
 
   cors@2.8.5:
@@ -12322,6 +12359,18 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  engine.io-client@6.6.1:
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.6
+      engine.io-parser: 5.2.2
+      ws: 8.17.1
+      xmlhttprequest-ssl: 2.1.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   engine.io-parser@5.2.2: {}
 
   engine.io@6.5.4:
@@ -12336,6 +12385,23 @@ snapshots:
       debug: 4.3.4
       engine.io-parser: 5.2.2
       ws: 8.11.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  engine.io@6.6.2:
+    dependencies:
+      '@types/cookie': 0.4.1
+      '@types/cors': 2.8.17
+      '@types/node': 20.16.1
+      accepts: 1.3.8
+      base64id: 2.0.0
+      cookie: 0.7.2
+      cors: 2.8.5
+      debug: 4.3.6
+      engine.io-parser: 5.2.2
+      ws: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -14834,7 +14900,7 @@ snapshots:
 
   socket.io-adapter@2.5.4:
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.6
       ws: 8.11.0
     transitivePeerDependencies:
       - bufferutil
@@ -14852,10 +14918,21 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  socket.io-client@4.8.0:
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.6
+      engine.io-client: 6.6.1
+      socket.io-parser: 4.2.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   socket.io-parser@4.2.4:
     dependencies:
       '@socket.io/component-emitter': 3.1.0
-      debug: 4.3.4
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -14866,6 +14943,20 @@ snapshots:
       cors: 2.8.5
       debug: 4.3.4
       engine.io: 6.5.4
+      socket.io-adapter: 2.5.4
+      socket.io-parser: 4.2.4
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  socket.io@4.8.0:
+    dependencies:
+      accepts: 1.3.8
+      base64id: 2.0.0
+      cors: 2.8.5
+      debug: 4.3.6
+      engine.io: 6.6.2
       socket.io-adapter: 2.5.4
       socket.io-parser: 4.2.4
     transitivePeerDependencies:
@@ -16200,11 +16291,15 @@ snapshots:
 
   ws@8.16.0: {}
 
+  ws@8.17.1: {}
+
   xml-name-validator@5.0.0: {}
 
   xmlchars@2.2.0: {}
 
   xmlhttprequest-ssl@2.0.0: {}
+
+  xmlhttprequest-ssl@2.1.1: {}
 
   y18n@5.0.8: {}
 

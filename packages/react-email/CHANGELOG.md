@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.2-canary.4
+
+### Patch Changes
+
+- 76183e0: Update socket.io and socket.io-client
+
 ## 3.0.2-canary.3
 
 ### Patch Changes

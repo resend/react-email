@@ -1,9 +1,10 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 
-const nextBuildProcess = spawn('next', ['build'], {
+const nextBuildProcess = spawn('pnpm', ['next', 'build'], {
   detached: true,
-  stdio: "inherit"
+  shell: true,
+  stdio: 'inherit',
 });
 
 process.on('SIGINT', () => {
@@ -12,6 +13,7 @@ process.on('SIGINT', () => {
 
 nextBuildProcess.on('exit', (code) => {
   if (code !== 0) {
+    console.error(`next build failed with exit code ${code}`);
     process.exit(code);
   }
 
@@ -21,4 +23,3 @@ nextBuildProcess.on('exit', (code) => {
   fs.mkdirSync('dist/preview', { recursive: true });
   fs.renameSync('.next', 'dist/preview/.next');
 });
-
