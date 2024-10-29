@@ -9,16 +9,20 @@ import { IconHideSidebar } from './icons/icon-hide-sidebar';
 import { IconMonitor } from './icons/icon-monitor';
 import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
+import { IconSun } from './icons/icon-sun';
+import { IconMoon } from './icons/icon-moon';
 import { Send } from './send';
 import { Tooltip } from './tooltip';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
   pathSeparator: string;
-  activeView?: string;
   markup?: string;
-  onToggleSidebar?: () => void;
+  activeView?: string;
   setActiveView?: (view: string) => void;
+  theme?: string;
+  setTheme?: (theme: string) => void;
+  onToggleSidebar?: () => void;
 }
 
 export const Topbar: React.FC<Readonly<TopbarProps>> = ({
@@ -27,6 +31,8 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
   markup,
   activeView,
   setActiveView,
+  theme,
+  setTheme,
   onToggleSidebar,
 }) => {
   return (
@@ -57,8 +63,77 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
 
         <div className="flex gap-3 justify-between lg:justify-start w-full lg:w-fit">
           <ToggleGroup.Root
+            aria-label="Color Scheme"
+            className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
+            id="theme-toggle"
+            onValueChange={(value) => {
+              if (value) setTheme?.(value);
+            }}
+            type="single"
+            value={theme}
+          >
+            <ToggleGroup.Item value="light">
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <div
+                    className={cn(
+                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      {
+                        'text-slate-11': theme !== 'light',
+                        'text-slate-12': theme === 'light',
+                      },
+                    )}
+                  >
+                    {theme === 'light' && (
+                      <motion.span
+                        animate={{ opacity: 1 }}
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0 }}
+                        layoutId="topbar-theme-tabs"
+                        transition={tabTransition}
+                      />
+                    )}
+                    <IconSun />
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Light</Tooltip.Content>
+              </Tooltip>
+            </ToggleGroup.Item>
+            <ToggleGroup.Item value="dark">
+              <Tooltip>
+                <Tooltip.Trigger asChild>
+                  <div
+                    className={cn(
+                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      {
+                        'text-slate-11': theme !== 'dark',
+                        'text-slate-12': theme === 'dark',
+                      },
+                    )}
+                  >
+                    {theme === 'dark' && (
+                      <motion.span
+                        animate={{ opacity: 1 }}
+                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0 }}
+                        layoutId="topbar-theme-tabs"
+                        transition={tabTransition}
+                      />
+                    )}
+                    <IconMoon />
+                  </div>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Dark</Tooltip.Content>
+              </Tooltip>
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
+
+          <ToggleGroup.Root
             aria-label="View mode"
             className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
+            id="view-toggle"
             onValueChange={(value) => {
               if (value) setActiveView?.(value);
             }}
@@ -83,7 +158,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
-                        layoutId="topbar-tabs"
+                        layoutId="topbar-view-tabs"
                         transition={tabTransition}
                       />
                     )}
@@ -111,7 +186,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
-                        layoutId="topbar-tabs"
+                        layoutId="topbar-view-tabs"
                         transition={tabTransition}
                       />
                     )}
@@ -139,7 +214,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
-                        layoutId="topbar-tabs"
+                        layoutId="topbar-view-tabs"
                         transition={tabTransition}
                       />
                     )}
