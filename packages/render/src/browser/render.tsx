@@ -1,58 +1,36 @@
 import { convert } from "html-to-text";
-import type {
-  PipeableStream,
-  ReactDOMServerReadableStream,
-} from "react-dom/server";
 import { Suspense } from "react";
-import { pretty } from "../shared/utils/pretty";
+import { renderToReadableStream } from "react-dom/server";
+import { Options } from "../shared/options";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
-import type { Options } from "../shared/options";
+import { pretty } from "../shared/pretty";
 
-const decoder = new TextDecoder("utf-8");
+async function streamToString(
+  stream: ReadableStream<Uint8Array>,
+): Promise<string> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let result = "";
+  let done: boolean | undefined;
 
-const readStream = async (
-  stream: PipeableStream | ReactDOMServerReadableStream,
-) => {
-  const chunks: Uint8Array[] = [];
-
-  if ("pipeTo" in stream) {
-    // means it's a readable stream
-    const writableStream = new WritableStream({
-      write(chunk: Uint8Array) {
-        chunks.push(chunk);
-      },
-    });
-    await stream.pipeTo(writableStream);
-  } else {
-    throw new Error(
-      "For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.",
-      {
-        cause: {
-          stream,
-        },
-      },
-    );
+  while (!done) {
+    // eslint-disable-next-line no-await-in-loop
+    const { value, done: doneReading } = await reader.read();
+    done = doneReading;
+    if (value) {
+      result += decoder.decode(value, { stream: !done });
+    }
   }
 
-  let length = 0;
-  chunks.forEach((item) => {
-    length += item.length;
-  });
-  const mergedChunks = new Uint8Array(length);
-  let offset = 0;
-  chunks.forEach((item) => {
-    mergedChunks.set(item, offset);
-    offset += item.length;
-  });
+  return result;
+}
 
-  return decoder.decode(mergedChunks);
-};
-
-export const render = async (
+export async function render(
   element: React.ReactElement,
   options?: Options,
-) => {
+): Promise<string> {
   const suspendedElement = <Suspense>{element}</Suspense>;
+<<<<<<< HEAD
   const reactDOMServer = await import("react-dom/server");
 
   let html!: string;
@@ -73,6 +51,10 @@ export const render = async (
       });
     });
   }
+=======
+  const readableStream = await renderToReadableStream(suspendedElement);
+  const html = await streamToString(readableStream);
+>>>>>>> 447c7780 (refactor: `render` package)
 
   if (options?.plainText) {
     return convert(html, {
@@ -91,4 +73,4 @@ export const render = async (
   }
 
   return document;
-};
+}

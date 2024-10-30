@@ -2,54 +2,13 @@
  * @vitest-environment node
  */
 
-import usePromise from "react-promise-suspense";
-import { Suspense } from "react";
-import { Template } from "../shared/utils/template";
-import { Preview } from "../shared/utils/preview";
+import { WithSuspense } from "../../tests/templates/with-suspense";
+import { Template } from "../../tests/templates/basic";
+import { Preview } from "../../tests/templates/preview";
 import { render } from "./render";
 
-type Import = typeof import("react-dom/server") & {
-  default: typeof import("react-dom/server");
-};
-
 describe("render on node environments", () => {
-  it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock("react-dom/server", async () => {
-      const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
-      const ERROR_MESSAGE =
-        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
-
-      return {
-        ...ReactDOMServer,
-        default: {
-          ...ReactDOMServer.default,
-          renderToString() {
-            throw new Error(ERROR_MESSAGE);
-          },
-          renderToStaticMarkup() {
-            throw new Error(ERROR_MESSAGE);
-          },
-        },
-        renderToString() {
-          throw new Error(ERROR_MESSAGE);
-        },
-        renderToStaticMarkup() {
-          throw new Error(ERROR_MESSAGE);
-        },
-      };
-    });
-
-    const actualOutput = await render(<Template firstName="Jim" />);
-
-    expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
-    );
-
-    vi.resetAllMocks();
-  });
-
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  // The error only happens with React 18, and thus is tested on React 18.
   it("should handle characters with a higher byte count gracefully in React 18", async () => {
     const actualOutput = await render(
       <>
@@ -85,28 +44,13 @@ describe("render on node environments", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
-    const EmailTemplate = () => {
-      const html = usePromise(
-        () => fetch("https://example.com").then((res) => res.text()),
-        [],
-      );
-
-      return <div dangerouslySetInnerHTML={{ __html: html }} />;
-    };
-
-    const renderedTemplate = await render(
-      <Suspense>
-        <EmailTemplate />
-      </Suspense>,
-    );
-
+  it("that it properly waits for Suspense boundaries to resolve before resolving", async () => {
+    const renderedTemplate = await render(<WithSuspense />);
     expect(renderedTemplate).toMatchSnapshot();
   });
 
   it("converts a React component into HTML", async () => {
     const actualOutput = await render(<Template firstName="Jim" />);
-
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
     );

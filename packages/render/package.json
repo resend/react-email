@@ -11,14 +11,14 @@
   ],
   "exports": {
     ".": {
-      "node": {
+      "bun": {
         "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
         },
         "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
         }
       },
       "deno": {
@@ -32,6 +32,26 @@
         }
       },
       "worker": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "node": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
+        }
+      },
+      "edge-light": {
         "import": {
           "types": "./dist/browser/index.d.mts",
           "default": "./dist/browser/index.mjs"
@@ -88,8 +108,7 @@
     "html-to-text": "9.0.5",
     "prettier": "3.3.3",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
-    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc",
-    "react-promise-suspense": "0.3.4"
+    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
     "@edge-runtime/vm": "3.1.8",

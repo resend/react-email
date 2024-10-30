@@ -1,35 +1,43 @@
-import { convert } from "html-to-text";
+import { Writable } from "node:stream";
+import { renderToPipeableStream } from "react-dom/server";
 import { Suspense } from "react";
-import { pretty } from "../shared/utils/pretty";
+import { convert } from "html-to-text";
+import { Options } from "../shared/options";
+import { pretty } from "../shared/pretty";
 import { plainTextSelectors } from "../shared/plain-text-selectors";
-import type { Options } from "../shared/options";
-import { readStream } from "./read-stream";
 
-export const render = async (
+export async function render(
   element: React.ReactElement,
   options?: Options,
-) => {
+): Promise<string> {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import("react-dom/server");
+  const html = await new Promise<string>((resolve, reject) => {
+    let htmlChunksString = "";
 
-  let html!: string;
-  if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
-    html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement),
-    );
-  } else {
-    await new Promise<void>((resolve, reject) => {
-      const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
-        async onAllReady() {
-          html = await readStream(stream);
-          resolve();
-        },
-        onError(error) {
-          reject(error as Error);
-        },
-      });
+    const writable = new Writable({
+      write(chunk: Buffer, _encoding, callback) {
+        htmlChunksString += chunk.toString();
+        callback();
+      },
     });
-  }
+
+    writable.on("finish", () => {
+      resolve(htmlChunksString);
+    });
+
+    writable.on("error", (err) => {
+      reject(err);
+    });
+
+    const stream = renderToPipeableStream(suspendedElement, {
+      onAllReady() {
+        stream.pipe(writable);
+      },
+      onError(error) {
+        reject(error as Error);
+      },
+    });
+  });
 
   if (options?.plainText) {
     return convert(html, {
@@ -48,4 +56,4 @@ export const render = async (
   }
 
   return document;
-};
+}

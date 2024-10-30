@@ -1132,9 +1132,6 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
-      react-promise-suspense:
-        specifier: 0.3.4
-        version: 0.3.4
     devDependencies:
       '@edge-runtime/vm':
         specifier: 3.1.8
