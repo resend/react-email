@@ -1,9 +1,20 @@
-import { resolve } from "node:path";
+import path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [dts({ include: ["src"], outDir: "dist" })],
+  plugins: [
+    dts({
+      include: ["src"],
+      compilerOptions: {
+        paths: {
+          tailwindcss: [path.resolve(__dirname, "./dist/tailwindcss")],
+        },
+      },
+      rollupTypes: true,
+      outDir: "dist",
+    }),
+  ],
   build: {
     rollupOptions: {
       // in summary, this bundles the following since vite defaults to bundling
@@ -13,7 +24,7 @@ export default defineConfig({
       external: ["react", /^react\/.*/, "react-dom", /react-dom\/.*/],
     },
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: path.resolve(__dirname, "src/index.ts"),
       fileName: "index",
       formats: ["es", "cjs"],
     },
