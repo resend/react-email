@@ -1,5 +1,20 @@
 # @react-email/tailwind
 
+## 1.0.0
+
+### Major Changes
+
+- 60db705: Updates `tailwindcss` to latest version, but requires use of `@react-email/render@>=1.0.0`
+
+### Minor Changes
+
+- d8b4630: Refactored internally to have a much smaller bundle size
+
+### Patch Changes
+
+- 9ea6073: Fixes CSS variables being replaced with `undefined`
+- 453229a: Fix `css-float` being used for utilities such as `float-left`
+
 ## 1.0.0-canary.2
 
 ### Minor Changes

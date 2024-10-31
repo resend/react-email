@@ -1,5 +1,11 @@
 # @react-email/row
 
+## 0.0.11
+
+### Patch Changes
+
+- de9d2ff: Fixes default attributes overriding props
+
 ## 0.0.11-canary.0
 
 ### Patch Changes
