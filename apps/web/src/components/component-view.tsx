@@ -4,7 +4,7 @@ import * as React from "react";
 import classNames from "classnames";
 import * as Tabs from "@radix-ui/react-tabs";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import type { ImportedComponent } from "../app/components/get-components";
+import type { ImportedComponent } from "../app/components/get-imported-components-for";
 import { ComponentPreview } from "./component-preview";
 import { Tooltip } from "./tooltip";
 import { IconMonitor } from "./icons/icon-monitor";
