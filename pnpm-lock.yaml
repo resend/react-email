@@ -8,6 +8,8 @@ overrides:
   '@types/react': npm:types-react@19.0.0-rc.1
   '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
 
+pnpmfileChecksum: szcjiaalv2ndb4sr2zexrc2pn4
+
 importers:
 
   .:
@@ -521,7 +523,7 @@ importers:
   packages/body:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -540,7 +542,7 @@ importers:
   packages/button:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -562,7 +564,7 @@ importers:
         specifier: 1.29.0
         version: 1.29.0
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -584,7 +586,7 @@ importers:
   packages/code-inline:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -609,7 +611,7 @@ importers:
   packages/column:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -688,7 +690,7 @@ importers:
         specifier: workspace:0.0.10
         version: link:../text
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       eslint-config-custom:
@@ -704,7 +706,7 @@ importers:
   packages/container:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -785,7 +787,7 @@ importers:
   packages/font:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -804,7 +806,7 @@ importers:
   packages/head:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -823,7 +825,7 @@ importers:
   packages/heading:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -842,7 +844,7 @@ importers:
   packages/hr:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -861,7 +863,7 @@ importers:
   packages/html:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -880,7 +882,7 @@ importers:
   packages/img:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -899,7 +901,7 @@ importers:
   packages/link:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -921,7 +923,7 @@ importers:
         specifier: 5.0.2
         version: 5.0.2(react@19.0.0-rc-187dd6a7-20240806)
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -940,7 +942,7 @@ importers:
   packages/preview:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -1125,10 +1127,10 @@ importers:
         specifier: ^1.14.11
         version: 1.15.1
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
       react-dom:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806(react@19.0.0-rc-187dd6a7-20240806)
       react-promise-suspense:
         specifier: 0.3.4
@@ -1171,7 +1173,7 @@ importers:
   packages/row:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -1190,7 +1192,7 @@ importers:
   packages/section:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -1209,7 +1211,7 @@ importers:
   packages/tailwind:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/button':
@@ -1288,7 +1290,7 @@ importers:
   packages/text:
     dependencies:
       react:
-        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        specifier: 19.0.0-rc-187dd6a7-20240806
         version: 19.0.0-rc-187dd6a7-20240806
     devDependencies:
       '@react-email/render':
@@ -3424,33 +3426,33 @@ packages:
     resolution: {integrity: sha512-wDaMy27xAq1cJHtSFptp0DTKPuV2GYhloqia95ub/DH9Dea1aWYsbdM918MOc/b/HvVS3w1z8DWzfAk13bGStQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
+      react: 19.0.0-rc-187dd6a7-20240806
+      react-dom: 19.0.0-rc-187dd6a7-20240806
 
   '@react-email/render@0.0.17':
     resolution: {integrity: sha512-xBQ+/73+WsGuXKY7r1U73zMBNV28xdV0cp9cFjhNYipBReDHhV97IpA6v7Hl0dDtDzt+yS/72dY5vYXrF1v8NA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: ^18.2.0
-      react-dom: ^18.2.0
+      react: 19.0.0-rc-187dd6a7-20240806
+      react-dom: 19.0.0-rc-187dd6a7-20240806
 
   '@react-email/section@0.0.14':
     resolution: {integrity: sha512-+fYWLb4tPU1A/+GE5J1+SEMA7/wR3V30lQ+OR9t2kAJqNrARDbMx0bLnYnR1QL5TiFRz0pCF05SQUobk6gHEDQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: ^18.0 || ^19.0 || ^19.0.0-rc
+      react: 19.0.0-rc-187dd6a7-20240806
 
   '@react-email/tailwind@0.0.12':
     resolution: {integrity: sha512-s8Ch7GL30qRKScn9NWwItMqxjtzbyUtCnXfC6sL2YTVtulbfvZZ06W+aA0S6f7fdrVlOOlQzZuK/sVaQCHhcSw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 18.2.0
+      react: 19.0.0-rc-187dd6a7-20240806
 
   '@react-email/tailwind@0.0.15':
     resolution: {integrity: sha512-TE3NQ7VKhhvv3Zv0Z1NtoV6AF7aOWiG4juVezMZw1hZCG0mkN6iXC63u23vPQi12y6xCp20ZUHfg67kQeDSP/g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 18.2.0
+      react: 19.0.0-rc-187dd6a7-20240806
 
   '@responsive-email/react-email@0.0.3':
     resolution: {integrity: sha512-ZKr3woQ+KKIV/Z/2C1X/TF5VpAAiCtkgIAhmy/iqwkas+J8vjP/8L8MEvm1H3VPau9d7iBqJQn0a2wJXjENoGQ==}
