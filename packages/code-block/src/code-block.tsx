@@ -7,6 +7,14 @@ import { Prism } from "./prism";
 export type CodeBlockProps = Readonly<{
   lineNumbers?: boolean;
   style?: React.CSSProperties;
+
+  /**
+   * This applies a certain font family on all elements render in this component,
+   * it is mostly meant to override a global font that has already been used with
+   * our `<Font>` component
+   */
+  fontFamily?: string;
+
   theme: Theme;
   language: PrismLangauge;
   code: string;
@@ -65,9 +73,6 @@ const CodeBlockLine = ({
   return <span style={inheritedStyles}>{token}</span>;
 };
 
-/**
- * A component to show code using prismjs.
- */
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   (props, ref) => {
     const languageGrammar = Prism.languages[props.language];
@@ -91,11 +96,20 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
           {tokensPerLine.map((tokensForLine, lineIndex) => (
             <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
               {Boolean(props.lineNumbers) && (
-                <span style={{ paddingRight: 30 }}>{lineIndex + 1}</span>
+                <span
+                  style={{ paddingRight: 30, fontFamily: props.fontFamily }}
+                >
+                  {lineIndex + 1}
+                </span>
               )}
 
               {tokensForLine.map((token, i) => (
-                <CodeBlockLine key={i} theme={props.theme} token={token} />
+                <CodeBlockLine
+                  inheritedStyles={{ fontFamily: props.fontFamily }}
+                  key={i}
+                  theme={props.theme}
+                  token={token}
+                />
               ))}
             </p>
           ))}
