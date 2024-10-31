@@ -95,13 +95,13 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
         <code>
           {tokensPerLine.map((tokensForLine, lineIndex) => (
             <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
-              {Boolean(props.lineNumbers) && (
+              {props.lineNumbers ? (
                 <span
-                  style={{ paddingRight: 30, fontFamily: props.fontFamily }}
+                  style={{ maxWidth: "1.875em", fontFamily: props.fontFamily }}
                 >
                   {lineIndex + 1}
                 </span>
-              )}
+              ) : null}
 
               {tokensForLine.map((token, i) => (
                 <CodeBlockLine
