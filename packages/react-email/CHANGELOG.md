@@ -1,5 +1,17 @@
 # react-email
 
+## 3.0.2
+
+### Patch Changes
+
+- dc72ca4: bump chokidar to v4
+- 2a8675a: Add util/types as a module
+- 4b174a4: Fix missing Request and Response globals
+- 7eb68af: Fix NODE_ENV for emails as "PRODUCTION" instead of "DEVELOPMENT"
+- 76183e0: Update socket.io and socket.io-client
+- f295614: Add AbortSignal, Event and EventTarget
+- bb79540: Add missing timers/promises Node module for `email dev`
+
 ## 3.0.2-canary.4
 
 ### Patch Changes

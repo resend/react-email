@@ -1,5 +1,11 @@
 # @react-email/button
 
+## 0.0.18
+
+### Patch Changes
+
+- 918e62c: Fix NaN values on rendered Button HTML
+
 ## 0.0.18-canary.0
 
 ### Patch Changes

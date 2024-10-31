@@ -1,5 +1,38 @@
 # @react-email/components
 
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [de9d2ff]
+- Updated dependencies [9ea6073]
+- Updated dependencies [60db705]
+- Updated dependencies [d8b4630]
+- Updated dependencies [453229a]
+- Updated dependencies [918e62c]
+- Updated dependencies [4627675]
+- Updated dependencies [7547f32]
+  - @react-email/section@0.0.15
+  - @react-email/row@0.0.11
+  - @react-email/tailwind@1.0.0
+  - @react-email/button@0.0.18
+  - @react-email/render@1.0.2
+  - @react-email/link@0.0.11
+  - @react-email/body@0.0.10
+  - @react-email/code-block@0.0.9
+  - @react-email/code-inline@0.0.4
+  - @react-email/column@0.0.12
+  - @react-email/container@0.0.14
+  - @react-email/font@0.0.8
+  - @react-email/head@0.0.11
+  - @react-email/heading@0.0.14
+  - @react-email/hr@0.0.10
+  - @react-email/html@0.0.10
+  - @react-email/img@0.0.10
+  - @react-email/markdown@0.0.12
+  - @react-email/preview@0.0.11
+  - @react-email/text@0.0.10
+
 ## 0.0.26-canary.5
 
 ### Patch Changes
