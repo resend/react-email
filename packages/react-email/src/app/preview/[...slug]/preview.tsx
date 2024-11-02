@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { useRef } from 'react';
 import { Toaster } from 'sonner';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
@@ -11,6 +11,7 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
+import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 
 interface PreviewProps {
   slug: string;
@@ -43,6 +44,9 @@ const Preview = ({
     renderingResult,
     serverRenderingResult,
   );
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  useIframeColorScheme(iframeRef, activeTheme);
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
@@ -103,6 +107,7 @@ const Preview = ({
             {activeView === 'desktop' && (
               <iframe
                 className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                ref={iframeRef}
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
@@ -111,6 +116,7 @@ const Preview = ({
             {activeView === 'mobile' && (
               <iframe
                 className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                ref={iframeRef}
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
