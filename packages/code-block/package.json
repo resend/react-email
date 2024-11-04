@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
-    "@types/prismjs": "1.26.4",
+    "@types/prismjs": "1.26.5",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"

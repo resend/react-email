@@ -571,8 +571,8 @@ importers:
         specifier: workspace:*
         version: link:../render
       '@types/prismjs':
-        specifier: 1.26.4
-        version: 1.26.4
+        specifier: 1.26.5
+        version: 1.26.5
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -3954,11 +3954,11 @@ packages:
   '@types/phoenix@1.6.4':
     resolution: {integrity: sha512-B34A7uot1Cv0XtaHRYDATltAdKx0BvVKNgYNqE4WjtPUa4VQJM7kxeXcVKaH+KS+kCmZ+6w+QaUdcljiheiBJA==}
 
-  '@types/prismjs@1.26.3':
-    resolution: {integrity: sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==}
-
   '@types/prismjs@1.26.4':
     resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
+
+  '@types/prismjs@1.26.5':
+    resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -11045,9 +11045,9 @@ snapshots:
 
   '@types/phoenix@1.6.4': {}
 
-  '@types/prismjs@1.26.3': {}
-
   '@types/prismjs@1.26.4': {}
+
+  '@types/prismjs@1.26.5': {}
 
   '@types/semver@7.5.8': {}
 
@@ -14191,7 +14191,7 @@ snapshots:
 
   prism-react-renderer@2.1.0(react@18.3.1):
     dependencies:
-      '@types/prismjs': 1.26.3
+      '@types/prismjs': 1.26.5
       clsx: 1.2.1
       react: 18.3.1
 
