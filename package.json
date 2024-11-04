@@ -16,7 +16,7 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.8",
+    "@changesets/cli": "2.27.9",
     "@types/node": "18.18.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
