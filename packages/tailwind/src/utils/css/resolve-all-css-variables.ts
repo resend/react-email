@@ -1,7 +1,5 @@
 import {
-  type Container,
   type Root,
-  type Document,
   type Node,
   type Declaration,
   Rule,
@@ -9,16 +7,7 @@ import {
   decl as createDeclaration,
   AtRule,
 } from "postcss";
-
-const removeIfEmptyRecursively = (node: Container | Document) => {
-  if (node.first === undefined) {
-    const parent = node.parent;
-    if (parent) {
-      node.remove();
-      removeIfEmptyRecursively(parent);
-    }
-  }
-};
+import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
 
 const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
   if (first instanceof Rule && second instanceof Rule) {

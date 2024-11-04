@@ -382,6 +382,22 @@ describe("Responsive styles", () => {
     ).toMatchSnapshot();
   });
 
+  it("should not have duplicate media queries", async () => {
+    const Body = (props: { className: string; children: React.ReactNode }) => {
+      return <body className={props.className}>{props.children}</body>;
+    };
+    const output = await render(
+      <Tailwind>
+        <Head />
+        <Body className="bg-white my-auto mx-auto font-sans md:px-[64px]">
+          <div className="md:px-[64px]"></div>
+        </Body>
+      </Tailwind>,
+    );
+
+    expect(output).toMatchSnapshot();
+  });
+
   it("should add css to <head/> and keep responsive class names", async () => {
     const actualOutput = await render(
       <html lang="en">
