@@ -11,8 +11,6 @@ interface ShellProps extends RootProps {
   markup?: string;
   currentEmailOpenSlug?: string;
   pathSeparator?: string;
-  theme?: string;
-  setTheme?: (theme: string) => void;
 }
 
 export const Shell = ({
@@ -20,8 +18,6 @@ export const Shell = ({
   children,
   pathSeparator,
   markup,
-  theme,
-  setTheme,
 }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(false);
   const [triggerTransition, setTriggerTransition] = React.useState(false);
@@ -89,7 +85,6 @@ export const Shell = ({
         >
           {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
-              activeView={activeView}
               currentEmailOpenSlug={currentEmailOpenSlug}
               markup={markup}
               onToggleSidebar={() => {

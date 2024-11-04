@@ -13,7 +13,6 @@ import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { RenderingError } from './rendering-error';
-import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 
 interface PreviewProps {
   slug: string;
@@ -67,6 +66,8 @@ const Preview = ({
     });
   }
 
+  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+
   const setActiveLang = (lang: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
@@ -74,21 +75,11 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const handleThemeChange = (theme: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('theme', theme);
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
-
   return (
     <Shell
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
-      setTheme={hasNoErrors ? handleThemeChange : undefined}
-      theme={hasNoErrors ? activeTheme : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
@@ -100,7 +91,7 @@ const Preview = ({
           <>
             {activeView === 'desktop' && (
               <iframe
-                className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                className="h-[calc(100vh_-_140px)] w-full bg-white lg:h-[calc(100vh_-_70px)]"
                 ref={iframeRef}
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
@@ -109,7 +100,7 @@ const Preview = ({
 
             {activeView === 'mobile' && (
               <iframe
-                className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                className="mx-auto h-[calc(100vh_-_140px)] w-[360px] bg-white lg:h-[calc(100vh_-_70px)]"
                 ref={iframeRef}
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
@@ -117,7 +108,7 @@ const Preview = ({
             )}
 
             {activeView === 'source' && (
-              <div className="flex gap-6 mx-auto p-6 max-w-3xl">
+              <div className="mx-auto flex max-w-3xl gap-6 p-6">
                 <Tooltip.Provider>
                   <CodeContainer
                     activeLang={activeLang}
