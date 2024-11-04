@@ -10,8 +10,8 @@ import { Tooltip } from '../../../components/tooltip';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import { RenderingError } from './rendering-error';
 import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
+import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
@@ -65,36 +65,20 @@ const Preview = ({
     });
   }
 
-  const handleViewChange = (view: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('view', view);
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
-  const handleLangChange = (lang: string) => {
+  const setActiveLang = (lang: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
     params.set('lang', lang);
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const handleThemeChange = (theme: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('theme', theme);
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
-
   return (
     <Shell
-      activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
-      setActiveView={hasNoErrors ? handleViewChange : undefined}
-      setTheme={hasNoErrors ? handleThemeChange : undefined}
-      theme={hasNoErrors ? activeTheme : undefined}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
@@ -141,7 +125,7 @@ const Preview = ({
                         content: renderedEmailMetadata.plainText,
                       },
                     ]}
-                    setActiveLang={handleLangChange}
+                    setActiveLang={setActiveLang}
                   />
                 </Tooltip.Provider>
               </div>
