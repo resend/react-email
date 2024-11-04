@@ -42,6 +42,13 @@ const init = async (name) => {
       key
     ].replace("workspace:", "");
   }
+  for (const key in templatePackageJson.devDependencies) {
+    // We remove any workspace prefix that might have been added for the purposes
+    // of being used locally
+    templatePackageJson.devDependencies[key] = templatePackageJson.devDependencies[
+      key
+    ].replace("workspace:", "");
+  }
   fse.writeFileSync(
     templatePackageJsonPath,
     JSON.stringify(templatePackageJson, null, 2),
