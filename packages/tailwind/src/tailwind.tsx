@@ -65,7 +65,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
-    mappedChildren = mapReactTree(mappedChildren, async (node) => {
+    mappedChildren = mapReactTree(mappedChildren, (node) => {
       if (hasAppliedNonInlineStyles) {
         return node;
       }
