@@ -5,6 +5,7 @@ import { minifyCss } from "./utils/css/minify-css";
 import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
 import { cloneElementWithInlinedStyles } from "./utils/tailwindcss/clone-element-with-inlined-styles";
+import { removeRuleDuplicatesFromRoot } from "./utils/css/remove-rule-duplicates-from-root";
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
@@ -62,10 +63,12 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     return node;
   });
 
+  removeRuleDuplicatesFromRoot(nonInlineStylesRootToApply);
+
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
-    mappedChildren = mapReactTree(mappedChildren, async (node) => {
+    mappedChildren = mapReactTree(mappedChildren, (node) => {
       if (hasAppliedNonInlineStyles) {
         return node;
       }
