@@ -1,5 +1,12 @@
 # @react-email/tailwind
 
+## 1.0.1
+
+### Patch Changes
+
+- 6bd37a7: Fix duplicate media query styles
+- 6bd37a7: Fix Promise being returned as a React Node
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # create-email
 
+## 0.1.1
+
+### Patch Changes
+
+- 8780204: Fix workspace: prefix not being removed from `react-email` dev dep
+
 ## 0.1.0
 
 ### Minor Changes
