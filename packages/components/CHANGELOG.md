@@ -1,5 +1,13 @@
 # @react-email/components
 
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies [6bd37a7]
+- Updated dependencies [6bd37a7]
+  - @react-email/tailwind@1.0.1
+
 ## 0.0.26
 
 ### Patch Changes
