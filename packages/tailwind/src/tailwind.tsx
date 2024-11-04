@@ -5,7 +5,6 @@ import { minifyCss } from "./utils/css/minify-css";
 import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
 import { cloneElementWithInlinedStyles } from "./utils/tailwindcss/clone-element-with-inlined-styles";
-import { removeIfEmptyRecursively } from "./utils/css/resolve-all-css-variables";
 import { removeRuleDuplicatesFromRoot } from "./utils/css/remove-rule-duplicates-from-root";
 
 export type TailwindConfig = Pick<
