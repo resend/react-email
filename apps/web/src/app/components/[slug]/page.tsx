@@ -8,9 +8,9 @@ import { ComponentsView } from "../../../components/components-view";
 import { IconArrowLeft } from "../../../components/icons/icon-arrow-left";
 
 interface ComponentPageParams {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export const dynamic = "force-static";
@@ -24,9 +24,10 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) => {
-  const slug = decodeURIComponent(params.slug);
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const foundCategory = componentsStructure.find(
     (category) => slugify(category.name) === slug,
   );
@@ -48,13 +49,14 @@ export const generateMetadata = async ({
       ],
     },
     alternates: {
-      canonical: `/components/${params.slug}`,
+      canonical: `/components/${rawSlug}`,
     },
   };
 };
 
 const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
-  const slug = decodeURIComponent(params.slug);
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const foundCategory = componentsStructure.find(
     (category) => slugify(category.name) === slug,
   );
