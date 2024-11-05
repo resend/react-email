@@ -61,7 +61,7 @@
     "eslint-plugin-regex": "1.10.0",
     "postcss": "8.4.40",
     "postcss-selector-parser": "6.0.16",
-    "react-dom": "19.0.0-rc-187dd6a7-20240806",
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
     "shelljs": "0.8.5",
     "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",

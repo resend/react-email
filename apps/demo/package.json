@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@react-email/components": "workspace:*",
-    "react": "19.0.0-rc-187dd6a7-20240806",
-    "react-dom": "19.0.0-rc-187dd6a7-20240806",
+    "react": "19.0.0-rc-02c0e824-20241028",
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-email": "workspace:*"
   },
   "devDependencies": {
-    "next": "14.2.10",
+    "next": "14.2.16",
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "tsx": "4.9.0"
