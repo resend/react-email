@@ -6,6 +6,22 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## Nov 04, 2024
+
+**Tailwind 1.0.1**
+
+- Fix duplicate media query styles
+- Fix Promise being returned as a React Node
+
+**Create Email 0.1.1**
+
+- Fix `workspace:` prefix not being removed from react-email dev dep
+
+**Components 0.0.27**
+
+- Updated dependencies
+  - @react-email/tailwind@1.0.1
+
 ## Oct 31, 2024
 
 **Tailwind 1.0.0**
@@ -47,44 +63,43 @@ icon: "list-check"
 
 ## Sep 02, 2024
 
-
 **Create Email 0.1.0**
 
 - Move "react-email" package to devDependencies for the template
 
 **Components 0.0.26**
 
--   Updated dependencies
-    -   @react-email/section@0.0.15
-    -   @react-email/row@0.0.11
-    -   @react-email/tailwind@1.0.0
-    -   @react-email/button@0.0.18
-    -   @react-email/render@1.0.2
-    -   @react-email/link@0.0.11
-    -   @react-email/body@0.0.10
-    -   @react-email/code-block@0.0.9
-    -   @react-email/code-inline@0.0.4
-    -   @react-email/column@0.0.12
-    -   @react-email/container@0.0.14
-    -   @react-email/font@0.0.8
-    -   @react-email/head@0.0.11
-    -   @react-email/heading@0.0.14
-    -   @react-email/hr@0.0.10
-    -   @react-email/html@0.0.10
-    -   @react-email/img@0.0.10
-    -   @react-email/markdown@0.0.12
-    -   @react-email/preview@0.0.11
-    -   @react-email/text@0.0.10
+- Updated dependencies
+  - @react-email/section@0.0.15
+  - @react-email/row@0.0.11
+  - @react-email/tailwind@1.0.0
+  - @react-email/button@0.0.18
+  - @react-email/render@1.0.2
+  - @react-email/link@0.0.11
+  - @react-email/body@0.0.10
+  - @react-email/code-block@0.0.9
+  - @react-email/code-inline@0.0.4
+  - @react-email/column@0.0.12
+  - @react-email/container@0.0.14
+  - @react-email/font@0.0.8
+  - @react-email/head@0.0.11
+  - @react-email/heading@0.0.14
+  - @react-email/hr@0.0.10
+  - @react-email/html@0.0.10
+  - @react-email/img@0.0.10
+  - @react-email/markdown@0.0.12
+  - @react-email/preview@0.0.11
+  - @react-email/text@0.0.10
 
 **Create Email 0.0.34**
 
 - Update dependencies
-    - @react-email/components@0.0.25
+  - @react-email/components@0.0.25
 
 **Components 0.0.25**
 
 - Updated dependencies
-    - @react-email/code-block@0.0.9
+  - @react-email/code-block@0.0.9
 
 **Code Block 0.0.9**
 
@@ -118,13 +133,13 @@ icon: "list-check"
 
 - Add `react-dom` as a dependency of the template
 - Update dependencies
-    - react-email@3.0.0
-    - @react-email/components@0.0.23
+  - react-email@3.0.0
+  - @react-email/components@0.0.23
 
 **Tailwind 0.1.0**
 
 - Add support for proper `className` manipulation
-    * This means support for `twMerge`
+  - This means support for `twMerge`
 - Make inline styles override Tailwind styles.
 - Updated peer dependencies to allow for React 19 release candidate and React 19 itself
 - Fixes generation of unnecessary styles (ex: including `container` as text somewhere in your template)
@@ -189,7 +204,7 @@ icon: "list-check"
 **Components 0.0.23**
 
 - Updated peer dependencies to allow for React 19 release candidate and React 19 itself
-- Update dependencies 
+- Update dependencies
   - @react-email/code-inline@0.0.4
   - @react-email/code-block@0.0.7
   - @react-email/container@0.0.14
@@ -405,7 +420,7 @@ icon: "list-check"
 
 - Fixed `email export` failing when emails use hooks
 - Fixed different `react-dom` version being used to render email templates
-- Fixed the "__filanem" typo passed on the VM context for resolving email components on the preview
+- Fixed the "\_\_filanem" typo passed on the VM context for resolving email components on the preview
 - Fixed possible file system race conditions
 - Redirect users back to `/` if the email is not found on `/preview`
 - Show only the filename on the preview page title and on the top bar
@@ -416,41 +431,41 @@ icon: "list-check"
 
 **Create Email 0.0.26**
 
-* Updated template dependencies to the latest versions
-* Fixed `Tailwind` being imported from `@react-email/tailwind` instead of `@react-email/components`
+- Updated template dependencies to the latest versions
+- Fixed `Tailwind` being imported from `@react-email/tailwind` instead of `@react-email/components`
 
 **Tailwind 0.0.17**
 
-* Remove `react` from normal dependencies, and only keep it as a peer dependency
-* Fixed the React JSX runtime being bundled
-* Fixed types for `TailwindConfig` being basically a `Record<string, any>`
-* Fixed children always being transformed into an array
-* Fixed `React.forwardRef` components not working inside of Tailwind
+- Remove `react` from normal dependencies, and only keep it as a peer dependency
+- Fixed the React JSX runtime being bundled
+- Fixed types for `TailwindConfig` being basically a `Record<string, any>`
+- Fixed children always being transformed into an array
+- Fixed `React.forwardRef` components not working inside of Tailwind
 
-**Render 0.0.14** 
+**Render 0.0.14**
 
-* Fixed Issue with the `await import` when using inside Next.js 
-* Use the `renderToPipeableStream` instead of `renderToStaticNodeStream`
+- Fixed Issue with the `await import` when using inside Next.js
+- Use the `renderToPipeableStream` instead of `renderToStaticNodeStream`
 
 **Head 0.0.9**
 
-* Added an iOS formatting meta tag as default
+- Added an iOS formatting meta tag as default
 
 **Components 0.0.18**
 
-* Updated dependency on `@react-email/head` to `0.0.9`
-* Updated dependency on `@react-email/render` to `0.0.14`
-* Updated dependency on `@react-email/tailwind` to `0.0.17`
+- Updated dependency on `@react-email/head` to `0.0.9`
+- Updated dependency on `@react-email/render` to `0.0.14`
+- Updated dependency on `@react-email/tailwind` to `0.0.17`
 
 ## Apr 29, 2024
 
-|                   |                      |                       |                      |
-|-------------------|----------------------|-----------------------|----------------------|
-|  **Body 0.0.8**   |   **Button 0.0.15**  | **Code Inline 0.0.2** | **Code block 0.0.4** |
-| **Column 0.0.10** | **Container 0.0.12** |     **Font 0.0.6**    |    **Head 0.0.8**    | 
-|**Heading 0.0.12** |     **Hr 0.0.8**     |    **Html 0.0.8**     |     **Img 0.0.8**    |
-|   **Link 0.0.8**  |  **Markdown 0.0.10** |    **Preview 0.0.9**  |   **Render 0.0.13**  |
-|   **Row 0.0.8**   |  **Section 0.0.12**  |   **Tailwind 0.0.16** |    **Text 0.0.8**    |
+|                    |                      |                       |                      |
+| ------------------ | -------------------- | --------------------- | -------------------- |
+| **Body 0.0.8**     | **Button 0.0.15**    | **Code Inline 0.0.2** | **Code block 0.0.4** |
+| **Column 0.0.10**  | **Container 0.0.12** | **Font 0.0.6**        | **Head 0.0.8**       |
+| **Heading 0.0.12** | **Hr 0.0.8**         | **Html 0.0.8**        | **Img 0.0.8**        |
+| **Link 0.0.8**     | **Markdown 0.0.10**  | **Preview 0.0.9**     | **Render 0.0.13**    |
+| **Row 0.0.8**      | **Section 0.0.12**   | **Tailwind 0.0.16**   | **Text 0.0.8**       |
 
 - Fixed the peer dependency on React to allow for all minor versions after `18.2.0`
 
@@ -526,7 +541,7 @@ icon: "list-check"
 **Create Email `0.0.23`**
 
 - Template having the static directory at the root of the `react-email-starter` instead of inside `emails`
-- Fixes missing obligatory dependencies on the template as of `react-email` `2.0` 
+- Fixes missing obligatory dependencies on the template as of `react-email` `2.0`
 
 **Button `0.0.14`**
 
