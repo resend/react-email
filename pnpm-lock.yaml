@@ -1243,7 +1243,7 @@ importers:
         version: 0.8.15
       '@vitejs/plugin-react':
         specifier: 4.2.1
-        version: 4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
+        version: 4.2.1(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1275,11 +1275,11 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       vite:
-        specifier: 5.1.8
-        version: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+        specifier: 5.2.14
+        version: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
       vite-plugin-dts:
         specifier: 4.2.4
-        version: 4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
+        version: 4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))
       vitest:
         specifier: 1.1.1
         version: 1.1.1(@edge-runtime/vm@3.1.8)(@types/node@22.3.0)(happy-dom@12.2.2)(jsdom@23.0.1)(terser@5.30.3)
@@ -7916,8 +7916,8 @@ packages:
       terser:
         optional: true
 
-  vite@5.1.8:
-    resolution: {integrity: sha512-mB8ToUuSmzODSpENgvpFk2fTiU/YQ1tmcVJJ4WZbq4fPdGJkFNVcmVL5k7iDug6xzWjjuGDKAuSievIsD6H7Xw==}
+  vite@5.2.14:
+    resolution: {integrity: sha512-TFQLuwWLPms+NBNlh0D9LZQ+HXW471COABxw/9TEUBrjuHMo9BrYBPrN/SYAwIuVL+rLerycxiLT41t4f5MZpA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -11492,14 +11492,14 @@ snapshots:
       - jest
       - supports-color
 
-  '@vitejs/plugin-react@4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))':
+  '@vitejs/plugin-react@4.2.1(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.24.5)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -15918,7 +15918,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-dts@4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3)):
+  vite-plugin-dts@4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3)):
     dependencies:
       '@microsoft/api-extractor': 7.47.7(@types/node@22.3.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.21.1)
@@ -15931,7 +15931,7 @@ snapshots:
       magic-string: 0.30.11
       typescript: 5.1.6
     optionalDependencies:
-      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -15957,9 +15957,9 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.30.3
 
-  vite@5.1.8(@types/node@22.3.0)(terser@5.30.3):
+  vite@5.2.14(@types/node@22.3.0)(terser@5.30.3):
     dependencies:
-      esbuild: 0.19.11
+      esbuild: 0.20.2
       postcss: 8.4.40
       rollup: 4.21.1
     optionalDependencies:
