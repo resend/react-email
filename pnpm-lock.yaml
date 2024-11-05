@@ -43,7 +43,7 @@ importers:
         version: link:packages/tsconfig
       tsup:
         specifier: 8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.13))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.13))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.0)
       turbo:
         specifier: 2.1.0
         version: 2.1.0
@@ -8314,6 +8314,11 @@ packages:
     engines: {node: '>= 14'}
     hasBin: true
 
+  yaml@2.6.0:
+    resolution: {integrity: sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ==}
+    engines: {node: '>= 14'}
+    hasBin: true
+
   yargs-parser@20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
     engines: {node: '>=10'}
@@ -8889,7 +8894,7 @@ snapshots:
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
-      picocolors: 1.0.1
+      picocolors: 1.1.0
 
   '@babel/compat-data@7.24.4': {}
 
@@ -11237,7 +11242,7 @@ snapshots:
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 20.16.1
+      '@types/node': 22.3.0
 
   '@types/estree@1.0.5': {}
 
@@ -11282,7 +11287,6 @@ snapshots:
   '@types/node@22.3.0':
     dependencies:
       undici-types: 6.18.2
-    optional: true
 
   '@types/nodemailer@6.4.15':
     dependencies:
@@ -11802,7 +11806,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -12474,7 +12478,7 @@ snapshots:
     dependencies:
       '@types/cookie': 0.4.1
       '@types/cors': 2.8.17
-      '@types/node': 20.16.1
+      '@types/node': 22.3.0
       accepts: 1.3.8
       base64id: 2.0.0
       cookie: 0.7.2
@@ -13438,7 +13442,7 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -13452,7 +13456,7 @@ snapshots:
   https-proxy-agent@7.0.4:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4
+      debug: 4.3.6
     transitivePeerDependencies:
       - supports-color
 
@@ -14268,7 +14272,7 @@ snapshots:
 
   parse-json@5.2.0:
     dependencies:
-      '@babel/code-frame': 7.24.2
+      '@babel/code-frame': 7.24.7
       error-ex: 1.3.2
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
@@ -14373,13 +14377,14 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.47
 
-  postcss-load-config@6.0.1(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0):
+  postcss-load-config@6.0.1(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(yaml@2.6.0):
     dependencies:
       lilconfig: 3.1.1
     optionalDependencies:
       jiti: 1.21.0
       postcss: 8.4.47
       tsx: 4.9.0
+      yaml: 2.6.0
 
   postcss-nested@6.0.1(postcss@8.4.40):
     dependencies:
@@ -15594,7 +15599,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.13))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2):
+  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.13))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.0):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.1)
       cac: 6.7.14
@@ -15606,7 +15611,7 @@ snapshots:
       globby: 11.1.0
       joycon: 3.1.1
       picocolors: 1.0.1
-      postcss-load-config: 6.0.1(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)
+      postcss-load-config: 6.0.1(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(yaml@2.6.0)
       resolve-from: 5.0.0
       rollup: 4.21.1
       source-map: 0.8.0-beta.0
@@ -15750,8 +15755,7 @@ snapshots:
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
 
-  undici-types@6.18.2:
-    optional: true
+  undici-types@6.18.2: {}
 
   undici-types@6.19.8: {}
 
@@ -16442,6 +16446,9 @@ snapshots:
   yaml@1.10.2: {}
 
   yaml@2.4.1: {}
+
+  yaml@2.6.0:
+    optional: true
 
   yargs-parser@20.2.9: {}
 
