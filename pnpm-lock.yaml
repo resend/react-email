@@ -8,8 +8,6 @@ overrides:
   '@types/react': npm:types-react@19.0.0-rc.1
   '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
 
-pnpmfileChecksum: peavqwq6bixcnybwoo6g2i6vta
-
 importers:
 
   .:
@@ -523,8 +521,8 @@ importers:
   packages/body:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -542,8 +540,8 @@ importers:
   packages/button:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -564,8 +562,8 @@ importers:
         specifier: 1.29.0
         version: 1.29.0
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -586,8 +584,8 @@ importers:
   packages/code-inline:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -611,8 +609,8 @@ importers:
   packages/column:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -690,8 +688,8 @@ importers:
         specifier: workspace:0.0.10
         version: link:../text
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -706,8 +704,8 @@ importers:
   packages/container:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -787,8 +785,8 @@ importers:
   packages/font:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -806,8 +804,8 @@ importers:
   packages/head:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -825,8 +823,8 @@ importers:
   packages/heading:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -844,8 +842,8 @@ importers:
   packages/hr:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -863,8 +861,8 @@ importers:
   packages/html:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -882,8 +880,8 @@ importers:
   packages/img:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -901,8 +899,8 @@ importers:
   packages/link:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -921,10 +919,10 @@ importers:
     dependencies:
       md-to-react-email:
         specifier: 5.0.2
-        version: 5.0.2(react@19.0.0-rc-02c0e824-20241028)
+        version: 5.0.2(react@18.3.1)
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -942,8 +940,8 @@ importers:
   packages/preview:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -1127,11 +1125,11 @@ importers:
         specifier: ^1.14.11
         version: 1.15.1
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1(react@18.3.1)
       react-promise-suspense:
         specifier: 0.3.4
         version: 0.3.4
@@ -1173,8 +1171,8 @@ importers:
   packages/row:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -1192,8 +1190,8 @@ importers:
   packages/section:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -1211,8 +1209,8 @@ importers:
   packages/tailwind:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/button':
         specifier: workspace:^
@@ -1237,13 +1235,13 @@ importers:
         version: link:../render
       '@responsive-email/react-email':
         specifier: 0.0.3
-        version: 0.0.3(react@19.0.0-rc-02c0e824-20241028)
+        version: 0.0.3(react@18.3.1)
       '@types/shelljs':
         specifier: 0.8.15
         version: 0.8.15
       '@vitejs/plugin-react':
         specifier: 4.2.1
-        version: 4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
+        version: 4.2.1(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1258,7 +1256,7 @@ importers:
         version: 6.0.16
       react-dom:
         specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        version: 19.0.0-rc-02c0e824-20241028(react@18.3.1)
       shelljs:
         specifier: 0.8.5
         version: 0.8.5
@@ -1275,11 +1273,11 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       vite:
-        specifier: 5.1.8
-        version: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+        specifier: 5.2.14
+        version: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
       vite-plugin-dts:
         specifier: 4.2.4
-        version: 4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))
+        version: 4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))
       vitest:
         specifier: 1.1.1
         version: 1.1.1(@edge-runtime/vm@3.1.8)(@types/node@22.3.0)(happy-dom@12.2.2)(jsdom@23.0.1)(terser@5.30.3)
@@ -1290,8 +1288,8 @@ importers:
   packages/text:
     dependencies:
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
     devDependencies:
       '@react-email/render':
         specifier: workspace:*
@@ -3585,33 +3583,33 @@ packages:
     resolution: {integrity: sha512-wDaMy27xAq1cJHtSFptp0DTKPuV2GYhloqia95ub/DH9Dea1aWYsbdM918MOc/b/HvVS3w1z8DWzfAk13bGStQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
-      react-dom: 19.0.0-rc-02c0e824-20241028
+      react: ^18.2.0
+      react-dom: ^18.2.0
 
   '@react-email/render@0.0.17':
     resolution: {integrity: sha512-xBQ+/73+WsGuXKY7r1U73zMBNV28xdV0cp9cFjhNYipBReDHhV97IpA6v7Hl0dDtDzt+yS/72dY5vYXrF1v8NA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
-      react-dom: 19.0.0-rc-02c0e824-20241028
+      react: ^18.2.0
+      react-dom: ^18.2.0
 
   '@react-email/section@0.0.14':
     resolution: {integrity: sha512-+fYWLb4tPU1A/+GE5J1+SEMA7/wR3V30lQ+OR9t2kAJqNrARDbMx0bLnYnR1QL5TiFRz0pCF05SQUobk6gHEDQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
+      react: ^18.0 || ^19.0 || ^19.0.0-rc
 
   '@react-email/tailwind@0.0.12':
     resolution: {integrity: sha512-s8Ch7GL30qRKScn9NWwItMqxjtzbyUtCnXfC6sL2YTVtulbfvZZ06W+aA0S6f7fdrVlOOlQzZuK/sVaQCHhcSw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
+      react: 18.2.0
 
   '@react-email/tailwind@0.0.15':
     resolution: {integrity: sha512-TE3NQ7VKhhvv3Zv0Z1NtoV6AF7aOWiG4juVezMZw1hZCG0mkN6iXC63u23vPQi12y6xCp20ZUHfg67kQeDSP/g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
+      react: 18.2.0
 
   '@responsive-email/react-email@0.0.3':
     resolution: {integrity: sha512-ZKr3woQ+KKIV/Z/2C1X/TF5VpAAiCtkgIAhmy/iqwkas+J8vjP/8L8MEvm1H3VPau9d7iBqJQn0a2wJXjENoGQ==}
@@ -7916,8 +7914,8 @@ packages:
       terser:
         optional: true
 
-  vite@5.1.8:
-    resolution: {integrity: sha512-mB8ToUuSmzODSpENgvpFk2fTiU/YQ1tmcVJJ4WZbq4fPdGJkFNVcmVL5k7iDug6xzWjjuGDKAuSievIsD6H7Xw==}
+  vite@5.2.14:
+    resolution: {integrity: sha512-TFQLuwWLPms+NBNlh0D9LZQ+HXW471COABxw/9TEUBrjuHMo9BrYBPrN/SYAwIuVL+rLerycxiLT41t4f5MZpA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -10825,6 +10823,10 @@ snapshots:
       react-dom: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
       react-promise-suspense: 0.3.4
 
+  '@react-email/section@0.0.14(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
   '@react-email/section@0.0.14(react@19.0.0-rc-02c0e824-20241028)':
     dependencies:
       react: 19.0.0-rc-02c0e824-20241028
@@ -10840,6 +10842,11 @@ snapshots:
   '@react-email/tailwind@0.0.15(react@19.0.0-rc.0)':
     dependencies:
       react: 19.0.0-rc.0
+
+  '@responsive-email/react-email@0.0.3(react@18.3.1)':
+    dependencies:
+      '@react-email/section': 0.0.14(react@18.3.1)
+      react: 18.3.1
 
   '@responsive-email/react-email@0.0.3(react@19.0.0-rc-02c0e824-20241028)':
     dependencies:
@@ -11492,14 +11499,14 @@ snapshots:
       - jest
       - supports-color
 
-  '@vitejs/plugin-react@4.2.1(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3))':
+  '@vitejs/plugin-react@4.2.1(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.24.5)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.24.5)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -13881,10 +13888,10 @@ snapshots:
 
   marked@7.0.4: {}
 
-  md-to-react-email@5.0.2(react@19.0.0-rc-02c0e824-20241028):
+  md-to-react-email@5.0.2(react@18.3.1):
     dependencies:
       marked: 7.0.4
-      react: 19.0.0-rc-02c0e824-20241028
+      react: 18.3.1
 
   merge-stream@2.0.0: {}
 
@@ -14507,6 +14514,11 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  react-dom@19.0.0-rc-02c0e824-20241028(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      scheduler: 0.25.0-rc-02c0e824-20241028
 
   react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028):
     dependencies:
@@ -15918,7 +15930,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-dts@4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.1.8(@types/node@22.3.0)(terser@5.30.3)):
+  vite-plugin-dts@4.2.4(@types/node@22.3.0)(rollup@4.21.1)(typescript@5.1.6)(vite@5.2.14(@types/node@22.3.0)(terser@5.30.3)):
     dependencies:
       '@microsoft/api-extractor': 7.47.7(@types/node@22.3.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.21.1)
@@ -15931,7 +15943,7 @@ snapshots:
       magic-string: 0.30.11
       typescript: 5.1.6
     optionalDependencies:
-      vite: 5.1.8(@types/node@22.3.0)(terser@5.30.3)
+      vite: 5.2.14(@types/node@22.3.0)(terser@5.30.3)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -15957,9 +15969,9 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.30.3
 
-  vite@5.1.8(@types/node@22.3.0)(terser@5.30.3):
+  vite@5.2.14(@types/node@22.3.0)(terser@5.30.3):
     dependencies:
-      esbuild: 0.19.11
+      esbuild: 0.20.2
       postcss: 8.4.40
       rollup: 4.21.1
     optionalDependencies:
