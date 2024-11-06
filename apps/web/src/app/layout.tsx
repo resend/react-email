@@ -88,7 +88,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       className={`${inter.variable} ${commitMono.variable} antialiased`}
       lang="en"
     >
-      <body className="bg-black font-sans text-sm text-slate-11 h-screen-ios selection:bg-cyan-5 selection:text-cyan-12">
+      <body className="overflow-x-hidden bg-black font-sans text-sm text-slate-11 h-screen-ios selection:bg-cyan-5 selection:text-cyan-12">
         <div
           className="relative mx-auto flex min-h-[100dvh] flex-col justify-between px-2 md:max-w-7xl md:px-4"
           // eslint-disable-next-line react/no-unknown-property
