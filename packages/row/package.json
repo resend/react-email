@@ -1,6 +1,6 @@
 {
   "name": "@react-email/row",
-  "version": "0.0.11",
+  "version": "0.0.12-canary.0",
   "description": "A React row component",
   "sideEffects": false,
   "main": "./dist/index.js",
