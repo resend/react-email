@@ -97,7 +97,11 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
             <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
               {props.lineNumbers ? (
                 <span
-                  style={{ width: "2em", display: "inline-block", fontFamily: props.fontFamily }}
+                  style={{
+                    width: "2em",
+                    display: "inline-block",
+                    fontFamily: props.fontFamily,
+                  }}
                 >
                   {lineIndex + 1}
                 </span>
