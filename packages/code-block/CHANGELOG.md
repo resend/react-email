@@ -1,5 +1,12 @@
 # @react-email/code-block
 
+## 0.0.10
+
+### Patch Changes
+
+- e62b58f: fix improper padding on the line numbers
+- ae2eb5f: Add `fontFamily` prop that is inlined into the elements for all tokens
+
 ## 0.0.9
 
 ### Patch Changes

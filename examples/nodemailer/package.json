@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-nodemailer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -15,7 +15,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "workspace:0.0.27",
+    "@react-email/components": "workspace:0.0.28",
     "nodemailer": "6.9.9",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"
