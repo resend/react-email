@@ -16,6 +16,19 @@ const components = packages
 
 function readPackage(pkg) {
   if (components.includes(pkg.name)) {
+    if (
+      "react" in pkg.dependencies &&
+      pkg.dependencies["react"] === "^18.0 || ^19.0 || ^19.0.0-rc"
+    ) {
+      pkg.dependencies.react = "19.0.0-rc-02c0e824-20241028";
+    }
+    if (
+      "react-dom" in pkg.dependencies &&
+      pkg.dependencies["react-dom"] === "^18.0 || ^19.0 || ^19.0.0-rc"
+    ) {
+      pkg.dependencies["react-dom"] = "19.0.0-rc-02c0e824-20241028";
+    }
+
     if ("react" in pkg.peerDependencies) {
       pkg.peerDependencies.react = "19.0.0-rc-02c0e824-20241028";
     }
