@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview",
-  "version": "0.0.11",
+  "version": "0.0.12-canary.0",
   "description": "A preview text that will be displayed in the inbox of the recipient",
   "sideEffects": false,
   "main": "./dist/index.js",

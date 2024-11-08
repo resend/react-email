@@ -1,5 +1,11 @@
 # @react-email/code-inline
 
+## 0.0.5-canary.0
+
+### Patch Changes
+
+- f7833da: Move react and react-dom to just dependencies for better DX
+
 ## 0.0.4
 
 ### Patch Changes

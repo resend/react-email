@@ -1,5 +1,11 @@
 # @react-email/row
 
+## 0.0.12-canary.0
+
+### Patch Changes
+
+- f7833da: Move react and react-dom to just dependencies for better DX
+
 ## 0.0.11
 
 ### Patch Changes
