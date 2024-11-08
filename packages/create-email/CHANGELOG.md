@@ -1,5 +1,7 @@
 # create-email
 
+## 0.1.2-canary.0
+
 ## 0.1.1
 
 ### Patch Changes

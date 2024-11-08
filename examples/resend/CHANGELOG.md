@@ -1,5 +1,11 @@
 # react-email-with-resend
 
+## 1.0.3-canary.0
+
+### Patch Changes
+
+- @react-email/components@0.0.28-canary.0
+
 ## 1.0.2
 
 ### Patch Changes
