@@ -40,8 +40,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "peerDependencies": {
-    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+  "dependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "prismjs": "1.29.0"
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
@@ -52,8 +53,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "prismjs": "1.29.0"
   }
 }
