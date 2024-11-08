@@ -1,5 +1,11 @@
 # @react-email/font
 
+## 0.0.9-canary.0
+
+### Patch Changes
+
+- f7833da: Move react and react-dom to just dependencies for better DX
+
 ## 0.0.8
 
 ### Patch Changes

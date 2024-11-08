@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.3-canary.0
+
+### Patch Changes
+
+- f7833da: Move react and react-dom to just dependencies for better DX
+
 ## 1.0.2
 
 ### Patch Changes

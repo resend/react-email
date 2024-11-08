@@ -1,6 +1,6 @@
 {
   "name": "@react-email/head",
-  "version": "0.0.11",
+  "version": "0.0.12-canary.0",
   "description": "Contains head components such as style and meta elements.",
   "sideEffects": false,
   "main": "./dist/index.js",
