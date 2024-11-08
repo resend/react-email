@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.2
+
+### Patch Changes
+
+- 93de4ce: Fix TailwindConfig's type broken when tailwindcss is not installed on the user's project
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
