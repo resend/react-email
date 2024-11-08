@@ -8,7 +8,7 @@ overrides:
   '@types/react': npm:types-react@19.0.0-rc.1
   '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
 
-pnpmfileChecksum: peavqwq6bixcnybwoo6g2i6vta
+pnpmfileChecksum: 5ltuaxv2wlfok4dbiqlujxtslm
 
 importers:
 
