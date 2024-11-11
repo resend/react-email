@@ -1130,8 +1130,8 @@ importers:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
       react-markup:
-        specifier: 0.0.0-experimental-d6cb4e77-20240911
-        version: 0.0.0-experimental-d6cb4e77-20240911(react@19.0.0-rc-02c0e824-20241028)
+        specifier: 0.0.0-experimental-5c56b873-20241107
+        version: 0.0.0-experimental-5c56b873-20241107(react@19.0.0-rc-02c0e824-20241028)
       react-promise-suspense:
         specifier: 0.3.4
         version: 0.3.4
@@ -6910,10 +6910,10 @@ packages:
   react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  react-markup@0.0.0-experimental-d6cb4e77-20240911:
-    resolution: {integrity: sha512-zm/WQRsqkzgVuXx6z60Wd4NJe6M61rLFHcSsIJospiiZzIU5ZZIuumS3YiNPTjxB2Iw3VbOq9dv7Y1VMtaOTsg==}
+  react-markup@0.0.0-experimental-5c56b873-20241107:
+    resolution: {integrity: sha512-8eCIGaeDLxPubCkZXUTvVuKZR69RMltxJnxF31yPe8+IK7YjA4DRT7Peu3waZ/PkHN9h60QDT9cM/zX9vqddng==}
     peerDependencies:
-      react: 0.0.0-experimental-d6cb4e77-20240911
+      react: 0.0.0-experimental-5c56b873-20241107
 
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
@@ -14568,7 +14568,7 @@ snapshots:
 
   react-is@18.2.0: {}
 
-  react-markup@0.0.0-experimental-d6cb4e77-20240911(react@19.0.0-rc-02c0e824-20241028):
+  react-markup@0.0.0-experimental-5c56b873-20241107(react@19.0.0-rc-02c0e824-20241028):
     dependencies:
       react: 19.0.0-rc-02c0e824-20241028
 

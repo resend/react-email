@@ -40,7 +40,8 @@ describe("renderAsync on node environments", () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it("should handle characters with a higher byte count gracefully in React 18", async () => {
+  // The error mentioned only happens with React 18
+  it("should handle characters with a higher byte count gracefully", async () => {
     const actualOutput = await renderAsync(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>

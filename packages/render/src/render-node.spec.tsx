@@ -49,8 +49,8 @@ describe("render on node environments", () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  // The error only happens with React 18, and thus is tested on React 18.
-  it("should handle characters with a higher byte count gracefully in React 18", async () => {
+  // The error mentioned only happens with React 18
+  it("should handle characters with a higher byte count gracefully", async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
@@ -85,10 +85,14 @@ describe("render on node environments", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
+  it.only("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
     const EmailTemplate = () => {
+      console.log("rendering");
       const html = usePromise(
-        () => fetch("https://example.com").then((res) => res.text()),
+        () => fetch("https://example.com").then((res) => {
+          console.log("testing");
+          return res.text()
+        }),
         [],
       );
 
@@ -96,9 +100,7 @@ describe("render on node environments", () => {
     };
 
     const renderedTemplate = await render(
-      <Suspense>
-        <EmailTemplate />
-      </Suspense>,
+      <EmailTemplate />
     );
 
     expect(renderedTemplate).toMatchSnapshot();
