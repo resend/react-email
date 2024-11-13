@@ -53,7 +53,7 @@ export const render = async (
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const { default: reactDOMServer } = await import("react-dom/server");
+  const reactDOMServer = await import("react-dom/server");
 
   let html!: string;
   if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
