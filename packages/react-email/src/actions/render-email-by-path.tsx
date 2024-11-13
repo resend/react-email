@@ -83,7 +83,10 @@ export const renderEmailByPath = async (
     });
 
     return {
-      markup,
+      // This ensures that no null byte character ends up in the rendered
+      // markup making users suspect of any issues. These null byte characters
+      // only seem to happen with React 18, as it has no similar incident with React 19.
+      markup: markup.replaceAll('\0', ''),
       plainText,
       reactMarkup,
     };
