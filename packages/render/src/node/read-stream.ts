@@ -29,10 +29,10 @@ export const readStream = async (
     });
     stream.pipe(writable);
 
-    return new Promise<string>((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       writable.on("error", reject);
       writable.on("close", () => {
-        resolve(result);
+        resolve();
       });
     });
   }
