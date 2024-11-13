@@ -31,7 +31,9 @@ export const readStream = async (
 
     await new Promise<void>((resolve, reject) => {
       writable.on("error", reject);
-      writable.on("close", () => { resolve(); });
+      writable.on("close", () => {
+        resolve();
+      });
     });
   }
 
