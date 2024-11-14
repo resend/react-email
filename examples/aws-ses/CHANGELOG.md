@@ -1,5 +1,11 @@
 # react-email-with-aws-ses
 
+## 1.0.4-canary.1
+
+### Patch Changes
+
+- @react-email/components@0.0.29-canary.1
+
 ## 1.0.4-canary.0
 
 ### Patch Changes
