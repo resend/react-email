@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.3-canary.1
+
+### Patch Changes
+
+- 0f32e50: Remove uncessary destructuring of react-dom/server
+
 ## 1.0.3-canary.0
 
 ### Patch Changes
