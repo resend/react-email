@@ -1,6 +1,6 @@
 {
   "name": "react-email-starter",
-  "version": "0.1.3-canary.1",
+  "version": "0.1.3-canary.2",
   "private": true,
   "scripts": {
     "build": "email build",
@@ -8,7 +8,7 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:0.0.29-canary.1",
+    "@react-email/components": "workspace:0.0.29-canary.2",
     "react-dom": "18.3.1",
     "react": "18.3.1"
   },
