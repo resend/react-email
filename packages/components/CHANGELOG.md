@@ -1,5 +1,12 @@
 # @react-email/components
 
+## 0.0.29-canary.2
+
+### Patch Changes
+
+- Updated dependencies [e48e1a0]
+  - @react-email/markdown@0.0.13-canary.1
+
 ## 0.0.29-canary.1
 
 ### Patch Changes
