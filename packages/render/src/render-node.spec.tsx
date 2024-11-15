@@ -6,12 +6,22 @@ import usePromise from "react-promise-suspense";
 import { Template } from "./shared/utils/template";
 import { Preview } from "./shared/utils/preview";
 import { render } from "./render";
+import React from "react";
 
 type Import = typeof import("react-dom/server") & {
   default: typeof import("react-dom/server");
 };
 
 describe("render on node environments", () => {
+  it("works with hooks just as normal SSR would", async () => {
+    const Component = () => {
+      const [name, setName] = React.useState("Aristotle");
+      return <div>What is going on with {name}!?</div>;
+    }
+
+    expect(await render(<Component/>)).toMatchSnapshot();
+  });
+  
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
       const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
@@ -84,9 +94,8 @@ describe("render on node environments", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it.only("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
+  it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
     const EmailTemplate = () => {
-      console.log("rendering");
       const html = usePromise(
         () => fetch("https://example.com").then((res) => {
           console.log("testing");
