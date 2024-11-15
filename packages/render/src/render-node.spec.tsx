@@ -3,10 +3,10 @@
  */
 
 import usePromise from "react-promise-suspense";
+import React from "react";
 import { Template } from "./shared/utils/template";
 import { Preview } from "./shared/utils/preview";
 import { render } from "./render";
-import React from "react";
 
 type Import = typeof import("react-dom/server") & {
   default: typeof import("react-dom/server");
@@ -14,14 +14,22 @@ type Import = typeof import("react-dom/server") & {
 
 describe("render on node environments", () => {
   it("works with hooks just as normal SSR would", async () => {
+    const Context = React.createContext({ surname: "big A" });
     const Component = () => {
       const [name, setName] = React.useState("Aristotle");
-      return <div>What is going on with {name}!?</div>;
-    }
+      const value = React.useContext(Context);
+      return <div>What is going on with {name}/{value.surname}!?</div>;
+    };
 
-    expect(await render(<Component/>)).toMatchSnapshot();
+    expect(
+      await render(
+        <Context.Provider value={{ surname: 'big B' }}>
+          <Component />
+        </Context.Provider>,
+      ),
+    ).toMatchSnapshot();
   });
-  
+
   it("converts a React component into HTML with Next 14 error stubs", async () => {
     vi.mock("react-dom/server", async () => {
       const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
@@ -97,19 +105,18 @@ describe("render on node environments", () => {
   it("that it properly waits for Suepsense boundaries to resolve before resolving", async () => {
     const EmailTemplate = () => {
       const html = usePromise(
-        () => fetch("https://example.com").then((res) => {
-          console.log("testing");
-          return res.text()
-        }),
+        () =>
+          fetch("https://example.com").then((res) => {
+            console.log("testing");
+            return res.text();
+          }),
         [],
       );
 
       return <div dangerouslySetInnerHTML={{ __html: html }} />;
     };
 
-    const renderedTemplate = await render(
-      <EmailTemplate />
-    );
+    const renderedTemplate = await render(<EmailTemplate />);
 
     expect(renderedTemplate).toMatchSnapshot();
   });
