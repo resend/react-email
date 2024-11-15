@@ -1,5 +1,11 @@
 # react-email-with-nodemailer
 
+## 1.0.4-canary.2
+
+### Patch Changes
+
+- @react-email/components@0.0.29-canary.2
+
 ## 1.0.4-canary.1
 
 ### Patch Changes
