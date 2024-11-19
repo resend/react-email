@@ -77,9 +77,10 @@ and the class names associated with them on a `<style>` tag on the `<head>` elem
 
 ### The treatment for Tailwind's CSS variables
 
-This is also something we need to keep in mind here, emails don't really have great support
-for CSS variables, so we needed to use a [postcss plugin](https://github.com/MadLittleMods/postcss-css-variables)
-alongisde Tailwind to resolve all of these variables.
+Emails don't really have great support for CSS variables, 
+so we needed to use a custom postcss plugin alongisde Tailwind to resolve 
+all of these variables. When the plugin finds a CSS Variable that it cannot resolve,
+it leaves it without any changes.
 
 ### The treatment for media query class names
 
