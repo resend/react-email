@@ -1123,9 +1123,9 @@ importers:
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
-      js-beautify:
-        specifier: ^1.14.11
-        version: 1.15.1
+      prettier:
+        specifier: 3.3.3
+        version: 3.3.3
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
@@ -1142,9 +1142,9 @@ importers:
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
-      '@types/js-beautify':
-        specifier: 1.14.3
-        version: 1.14.3
+      '@types/prettier':
+        specifier: 3.0.0
+        version: 3.0.0
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
         version: types-react@19.0.0-rc.1
@@ -4056,9 +4056,6 @@ packages:
   '@types/html-to-text@9.0.4':
     resolution: {integrity: sha512-pUY3cKH/Nm2yYrEmDlPR1mR7yszjGx4DrwPjQ702C4/D5CwHuZTgZdIdwPkRbcuhs7BAh2L5rg3CL5cbRiGTCQ==}
 
-  '@types/js-beautify@1.14.3':
-    resolution: {integrity: sha512-FMbQHz+qd9DoGvgLHxeqqVPaNRffpIu5ZjozwV8hf9JAGpIOzuAf4wGbRSo8LNITHqGjmmVjaMggTT5P4v4IHg==}
-
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -4103,6 +4100,10 @@ packages:
 
   '@types/phoenix@1.6.4':
     resolution: {integrity: sha512-B34A7uot1Cv0XtaHRYDATltAdKx0BvVKNgYNqE4WjtPUa4VQJM7kxeXcVKaH+KS+kCmZ+6w+QaUdcljiheiBJA==}
+
+  '@types/prettier@3.0.0':
+    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
+    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
 
   '@types/prismjs@1.26.4':
     resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
@@ -11247,8 +11248,6 @@ snapshots:
 
   '@types/html-to-text@9.0.4': {}
 
-  '@types/js-beautify@1.14.3': {}
-
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
@@ -11287,6 +11286,10 @@ snapshots:
   '@types/normalize-path@3.0.2': {}
 
   '@types/phoenix@1.6.4': {}
+
+  '@types/prettier@3.0.0':
+    dependencies:
+      prettier: 3.3.3
 
   '@types/prismjs@1.26.4': {}
 

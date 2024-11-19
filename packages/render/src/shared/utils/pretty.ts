@@ -1,15 +1,17 @@
-// importing the exact function used here will cause
-// issues with esm because js-beautify is written with commonjs only
-import jsBeautify from "js-beautify";
+import { format } from "prettier/standalone";
+import html from "prettier/plugins/html";
+import type { Options } from "prettier";
 
-const defaults = {
-  unformatted: ["code", "pre", "em", "strong", "span"],
-  indent_inner_html: true,
-  indent_char: " ",
-  indent_size: 2,
-  sep: "\n",
+const defaults: Options = {
+  endOfLine: "lf",
+  tabWidth: 2,
+  plugins: [html],
+  parser: "html",
 };
 
-export const pretty = (str: string, options = {}) => {
-  return jsBeautify.html(str, { ...defaults, ...options });
+export const pretty = (str: string, options: Options = {}) => {
+  return format(str, {
+    ...defaults,
+    ...options,
+  });
 };
