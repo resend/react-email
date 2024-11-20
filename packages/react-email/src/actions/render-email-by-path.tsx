@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import { getEmailComponent } from '../utils/get-email-component';
 import type { ErrorObject } from '../utils/types/error-object';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
-import { registerSpinnerAutostopping } from '../utils/register-spinner-autostoppingtostopping';
+import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 
 export interface RenderedEmailMetadata {
   markup: string;
