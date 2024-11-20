@@ -7,7 +7,7 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
-import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
+import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import logSymbols from 'log-symbols';
 
 interface Args {
@@ -224,11 +224,11 @@ export const build = async ({
       text: 'Starting build process...',
       prefixText: '  ',
     }).start();
-    closeOraOnSIGNIT(spinner);
+    registerSpinnerAutostopping(spinner);
 
-    spinner.text = 'Checking if emails folder exists';
+    spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
     if (!fs.existsSync(emailsDirRelativePath)) {
-      throw new Error(`Missing ${emailsDirRelativePath} folder`);
+      process.exit(1);
     }
 
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);

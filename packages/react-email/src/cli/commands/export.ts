@@ -7,7 +7,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import normalize from 'normalize-path';
-import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
+import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import { tree } from '../utils';
 import {
   EmailsDirectory,
@@ -49,7 +49,7 @@ export const exportTemplates = async (
   let spinner: ora.Ora | undefined;
   if (!options.silent) {
     spinner = ora('Preparing files...\n').start();
-    closeOraOnSIGNIT(spinner);
+    registerSpinnerAutostopping(spinner);
   }
 
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(

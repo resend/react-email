@@ -6,7 +6,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
 import packageJson from '../../../../package.json';
-import { closeOraOnSIGNIT } from '../../../utils/close-ora-on-sigint';
+import { registerSpinnerAutostopping } from '../../../utils/register-spinner-autostopping';
 import { serveStaticFile } from './serve-static-file';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
 
@@ -113,7 +113,7 @@ export const startDevServer = async (
     prefixText: ' ',
   }).start();
 
-  closeOraOnSIGNIT(spinner);
+  registerSpinnerAutostopping(spinner);
   const timeBeforeNextReady = performance.now();
 
   // these environment variables are used on the next app
