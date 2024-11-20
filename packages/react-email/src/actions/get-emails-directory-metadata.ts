@@ -3,8 +3,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const isFileAnEmail = (fullPath: string): boolean => {
-  const stat = fs.statSync(fullPath);
+const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
+  const fd = await fs.promises.open(fullPath, 'r');
+  const stat = await fd.stat();
 
   if (stat.isDirectory()) return false;
 
@@ -12,16 +13,9 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
 
-  // This is to avoid a possible race condition where the file doesn't exist anymore
-  // once we are checking if it is an actual email, this couuld cause issues that
-  // would be very hard to debug and find out the why of it happening.
-  if (!fs.existsSync(fullPath)) {
-    return false;
-  }
+  const fileContents = await fd.readFile('utf8');
 
-  // check with a heuristic to see if the file has at least
-  // a default export
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  await fd.close();
 
   return /\bexport\s+default\b/gm.test(fileContents);
 };
@@ -57,6 +51,16 @@ const mergeDirectoriesWithSubDirectories = (
   return currentResultingMergedDirectory;
 };
 
+const asyncFilter = async <T>(
+  array: T[],
+  predicate: (item: T) => Promise<boolean>,
+): Promise<T[]> => {
+  const filteringResults = await Promise.all(
+    array.map((item) => predicate(item)),
+  );
+  return array.filter((item, i) => filteringResults[i]);
+};
+
 export const getEmailsDirectoryMetadata = async (
   absolutePathToEmailsDirectory: string,
   keepFileExtensions = false,
@@ -70,15 +74,15 @@ export const getEmailsDirectoryMetadata = async (
     withFileTypes: true,
   });
 
-  const emailFilenames = dirents
-    .filter((dirent) =>
+  const emailFilenames = (
+    await asyncFilter(dirents, (dirent) =>
       isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
     )
-    .map((dirent) =>
-      keepFileExtensions
-        ? dirent.name
-        : dirent.name.replace(path.extname(dirent.name), ''),
-    );
+  ).map((dirent) =>
+    keepFileExtensions
+      ? dirent.name
+      : dirent.name.replace(path.extname(dirent.name), ''),
+  );
 
   const subDirectories = await Promise.all(
     dirents
