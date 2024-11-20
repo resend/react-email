@@ -1,5 +1,32 @@
 # @react-email/components
 
+## 0.0.29-canary.3
+
+### Patch Changes
+
+- Updated dependencies [2ebf17f]
+- Updated dependencies [92594b8]
+  - @react-email/render@1.0.3-canary.2
+  - @react-email/code-block@0.0.11-canary.1
+  - @react-email/body@0.0.11-canary.0
+  - @react-email/button@0.0.19-canary.0
+  - @react-email/code-inline@0.0.5-canary.0
+  - @react-email/column@0.0.13-canary.0
+  - @react-email/container@0.0.15-canary.0
+  - @react-email/font@0.0.9-canary.0
+  - @react-email/head@0.0.12-canary.0
+  - @react-email/heading@0.0.15-canary.0
+  - @react-email/hr@0.0.11-canary.0
+  - @react-email/html@0.0.11-canary.0
+  - @react-email/img@0.0.11-canary.0
+  - @react-email/link@0.0.12-canary.0
+  - @react-email/markdown@0.0.13-canary.1
+  - @react-email/preview@0.0.12-canary.0
+  - @react-email/row@0.0.12-canary.0
+  - @react-email/section@0.0.16-canary.0
+  - @react-email/tailwind@1.0.3-canary.0
+  - @react-email/text@0.0.11-canary.0
+
 ## 0.0.29-canary.2
 
 ### Patch Changes

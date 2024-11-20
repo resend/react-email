@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.0.11-canary.1
+
+### Patch Changes
+
+- 92594b8: Fix typo in the PrismLanguage type
+
 ## 0.0.11-canary.0
 
 ### Patch Changes
