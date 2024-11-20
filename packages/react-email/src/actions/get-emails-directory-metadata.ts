@@ -17,7 +17,7 @@ const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
 
   await fd.close();
 
-  return /\bexport\s+default\b/gm.test(fileContents);
+  return /\bexport\s+default\b|\bmodule\s*\.\s*exports\s*=\b/gm.test(fileContents);
 };
 
 export interface EmailsDirectory {
