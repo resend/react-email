@@ -10,9 +10,10 @@ export const start = async () => {
       './.react-email',
     );
     if (!fs.existsSync(builtPreviewPath)) {
-      throw new Error(
-        "Could not find `.react-email`, maybe you haven't ran `email build`?",
+      console.error(
+        "Could not find .react-email, maybe you haven't ran email build?",
       );
+      process.exit(1);
     }
 
     const nextStart = spawn('npm', ['start'], {
