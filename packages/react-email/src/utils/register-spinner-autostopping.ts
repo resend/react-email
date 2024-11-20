@@ -16,14 +16,13 @@ process.on('exit', (code) => {
     spinners.forEach((spinner) => {
       if (spinner.isSpinning) {
         spinner.stopAndPersist({
-          symbol: logSymbols.error
+          symbol: logSymbols.error,
         });
       }
     });
   }
-})
+});
 
 export const registerSpinnerAutostopping = (spinner: Ora) => {
   spinners.add(spinner);
 };
-

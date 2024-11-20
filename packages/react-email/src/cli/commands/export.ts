@@ -74,7 +74,6 @@ export const exportTemplates = async (
       bundle: true,
       entryPoints: allTemplates,
       plugins: [renderingUtilitiesExporter(allTemplates)],
-      sourcemap: "external",
       platform: 'node',
       format: 'cjs',
       loader: { '.js': 'jsx' },
