@@ -74,6 +74,7 @@ export const exportTemplates = async (
       bundle: true,
       entryPoints: allTemplates,
       plugins: [renderingUtilitiesExporter(allTemplates)],
+      sourcemap: "external",
       platform: 'node',
       format: 'cjs',
       loader: { '.js': 'jsx' },
@@ -90,14 +91,7 @@ export const exportTemplates = async (
         text: 'Failed to build emails',
       });
     }
-
-    console.warn(buildFailure.warnings);
-    console.error(buildFailure.errors);
-    throw new Error(
-      `esbuild bundling process for email templates failed:\n${allTemplates
-        .map((p) => `- ${p}`)
-        .join('\n')}`,
-    );
+    process.exit(1);
   }
 
   if (spinner) {
@@ -144,7 +138,7 @@ export const exportTemplates = async (
         });
       }
       console.error(exception);
-      throw exception;
+      process.exit(1);
     }
   }
   if (spinner) {
@@ -178,9 +172,10 @@ export const exportTemplates = async (
           text: 'Failed to copy static files',
         });
       }
-      throw new Error(
+      console.error(
         `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${exception}`,
       );
+      process.exit(1);
     }
   }
 
