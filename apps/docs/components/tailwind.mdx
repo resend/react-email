@@ -170,13 +170,13 @@ const Email = () => {
 ## Known limitations
 
 <AccordionGroup>
-  <Accordion title="Support up to Tailwind v3.3.2">
-    Due to an internal technical limitation, we are still running on Tailwind `3.3.2`. This is 
-because Tailwind migrated into using async APIs internally after [`3.3.3`](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.3.3)
-and the only way we can migrate is by using Suspense on the Tailwind component which would
-force everyone into using only `renderAsync`.
+  <Accordion title="No support for contexts inside the component">
+    Currently adding a context's provider inside of the Tailwind component, won't allow you 
+to properly call the `useContext` in any of the children of it, due to some technical limitations
+regarding on how we currently map the classNames into styles. 
 
-You can track our progress on [this issue](https://github.com/resend/react-email/issues/1372).
+The current workaround for this right now is to move the context's provider higher than the Tailwind
+component, so that all children inside Tailwind can properly call `useContext` with the context.
   </Accordion>
   <Accordion title="No support for prose from @tailwindcss/typography">
     We do not yet support `prose`, and beyond that, we don't yet support classes that might
@@ -195,55 +195,5 @@ do the same for `hover:` styles though, but since [their support is not best](ht
 
 In the future, we will be inlining all the styles we can by actually matching the 
 selectors *against the elements* themselves.
-  </Accordion>
-  <Accordion title="Limitations when trying to manipulate classes">
-    Currently, the component works, at a high level, going through the following steps:
-
-1. Do a very surface-level rendering on the children to have something resembling the HTML
-2. Run `tailwind` as a `postcss` plugin in the new fake rendered email template to generate a CSS stylesheet with all the styles of the template
-3. Generate a map of all the class names pointing to their respective styles
-4. Run recursively through all elements, and their children, by looking up class by class to add the appropriate styles to it while removing the classes
-
-The biggest cause of limitation here is going to be `1.`. Since that fake rendering process does not render
-the components, that means that, if a class name doesn't appear in the resulting HTML, it won't have
-its style either, so the class isn't removed. Here's an example:
-
-```jsx
-const Component = ({ className, style }) => {
-  console.log(className, style);
-  return <div className={`bg-red-500`} style={style} />;
-};
-
-export default function Email() {
-  return <Tailwind>
-    <Component className="bg-blue-400" />
-  </Tailwind>;
-};
-```
-
-The prop for `className` will come in as `bg-blue-400` which would seem like you can manipulate the `className`,
-but once you add it somewhere to the resulting HTML, like:
-
-```jsx
-const Component = ({ className, style }) => {
-  console.log(className, style);
-  return <div className={`bg-red-500 ${className}`} style={style} />;
-};
-
-export default function Email() {
-  return <Tailwind>
-    <Component className="bg-blue-400" />
-  </Tailwind>;
-};
-```
-
-The email will render with a red background and a `class="undefined"` attribute as the class will have
-been removed. This means that manipulations are very unstable in the current version. 
-
-In a future version, the behavior is going to be of resolving the styles regardless of them appearing
-in the HTML, and it will not remove the classes that were inlined if they were done in a React component,
-so that you are able to manipulate both the `className` and `style` at the same time.
-
-On small email templates this is most likely not going to be an issue, though.
   </Accordion>
 </AccordionGroup>
