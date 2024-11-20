@@ -7,17 +7,24 @@ const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
   const fd = await fs.promises.open(fullPath, 'r');
   const stat = await fd.stat();
 
-  if (stat.isDirectory()) return false;
+  if (stat.isDirectory()) {
+    await fd.close();
+    return false;
+  }
 
   const { ext } = path.parse(fullPath);
 
-  if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
+  if (!['.js', '.tsx', '.jsx'].includes(ext)) {
+    await fd.close();
+    return false;
+  }
 
   const fileContents = await fd.readFile('utf8');
 
   await fd.close();
-
-  return /\bexport\s+default\b|\bmodule\s*\.\s*exports\s*=\b/gm.test(fileContents);
+  return /\bexport\s+default\b|\bmodule\s*\.\s*exports\s*=\b/gm.test(
+    fileContents,
+  );
 };
 
 export interface EmailsDirectory {
