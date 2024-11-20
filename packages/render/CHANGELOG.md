@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.3-canary.2
+
+### Patch Changes
+
+- 2ebf17f: Use prettier's stadalone API instead of js-beautify
+
 ## 1.0.3-canary.1
 
 ### Patch Changes
