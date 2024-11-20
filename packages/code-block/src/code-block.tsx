@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import * as React from "react";
-import type { PrismLangauge } from "./languages-available";
+import type { PrismLanguage } from "./languages-available";
 import type { Theme } from "./themes";
 import { Prism } from "./prism";
 
@@ -16,7 +16,7 @@ export type CodeBlockProps = Readonly<{
   fontFamily?: string;
 
   theme: Theme;
-  language: PrismLangauge;
+  language: PrismLanguage;
   code: string;
 }>;
 

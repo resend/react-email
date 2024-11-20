@@ -1,4 +1,4 @@
-export type PrismLangauge =
+export type PrismLanguage =
   | "markup"
   | "html"
   | "xml"
