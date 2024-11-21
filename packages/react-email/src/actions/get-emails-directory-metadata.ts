@@ -22,8 +22,8 @@ const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
   const fileContents = await fd.readFile('utf8');
 
   await fd.close();
-  return /\bexport\s+default\b|\bmodule\s*\.\s*exports\s*=\b/gm.test(
-    fileContents,
+  return (
+    /\bexport\s+default\b|\bmodule\s*\.\s*exports\b/gm.test(fileContents)
   );
 };
 
@@ -65,7 +65,7 @@ const asyncFilter = async <T>(
   const filteringResults = await Promise.all(
     array.map((item) => predicate(item)),
   );
-  return array.filter((item, i) => filteringResults[i]);
+  return array.filter((_, i) => filteringResults[i]);
 };
 
 export const getEmailsDirectoryMetadata = async (
