@@ -28,8 +28,14 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
       async ({ path: pathToFile }) => {
         return {
           contents: `${await fs.readFile(pathToFile, 'utf8')};
-          export { render } from 'react-email-module-that-will-export-render'
-          export { createElement as reactEmailCreateReactElement } from 'react';
+          import { render } from 'react-email-module-that-will-export-render'
+          import { createElement as reactEmailCreateReactElement } from 'react';
+          const actualExport = module.exports;
+          module.exports = {
+            actualExport,
+            reactEmailCreateReactElement,
+            render
+          }
         `,
           loader: path.extname(pathToFile).slice(1) as Loader,
         };
