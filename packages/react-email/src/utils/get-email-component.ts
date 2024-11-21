@@ -10,6 +10,7 @@ import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import { userProjectLocation } from './emails-directory-absolute-path';
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -133,7 +134,7 @@ export const getEmailComponent = async (
     return {
       error: improveErrorWithSourceMap(
         new Error(
-          `The email component at ${emailPath} does not contain a default export`,
+          `The email component at ${path.relative(userProjectLocation, emailPath)} does not contain a default export`,
         ),
         emailPath,
         sourceMapToEmail,
