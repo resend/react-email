@@ -22,9 +22,7 @@ const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
   const fileContents = await fd.readFile('utf8');
 
   await fd.close();
-  return (
-    /\bexport\s+default\b|\bmodule\s*\.\s*exports\b/gm.test(fileContents)
-  );
+  return /\bexport\s+default\b|\bmodule\s*\.\s*exports\b/gm.test(fileContents);
 };
 
 export interface EmailsDirectory {
