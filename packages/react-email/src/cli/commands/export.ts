@@ -76,6 +76,7 @@ export const exportTemplates = async (
       plugins: [renderingUtilitiesExporter(allTemplates)],
       platform: 'node',
       format: 'cjs',
+      logLevel: 'error',
       loader: { '.js': 'jsx' },
       outExtension: { '.js': '.cjs' },
       jsx: 'transform',
@@ -91,7 +92,6 @@ export const exportTemplates = async (
       });
     }
 
-    console.warn(buildFailure.warnings);
     console.error(buildFailure.errors);
     throw new Error(
       `esbuild bundling process for email templates failed:\n${allTemplates
@@ -119,7 +119,11 @@ export const exportTemplates = async (
       }
       delete require.cache[template];
       const emailModule = require(template) as {
-        default: React.FC;
+        actualExport:
+          | {
+              default: React.FC;
+            }
+          | React.FC;
         render: (
           element: React.ReactElement,
           options: Record<string, unknown>,
@@ -127,7 +131,12 @@ export const exportTemplates = async (
         reactEmailCreateReactElement: typeof React.createElement;
       };
       const rendered = await emailModule.render(
-        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
+        emailModule.reactEmailCreateReactElement(
+          typeof emailModule.actualExport === 'function'
+            ? emailModule.actualExport
+            : emailModule.actualExport.default,
+          {},
+        ),
         options,
       );
       const htmlPath = template.replace(
