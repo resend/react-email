@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-aws-ses",
-  "version": "1.0.4-canary.3",
+  "version": "1.0.4-canary.4",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "3.341.0",
-    "@react-email/components": "workspace:0.0.29-canary.3",
+    "@react-email/components": "workspace:0.0.29-canary.4",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"
   },
