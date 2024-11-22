@@ -1,5 +1,11 @@
 # @react-email/markdown
 
+## 0.0.13-canary.2
+
+### Patch Changes
+
+- 45bd050: Fix memory leak by updating md-to-react-email
+
 ## 0.0.13-canary.1
 
 ### Patch Changes
