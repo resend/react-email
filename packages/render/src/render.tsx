@@ -10,7 +10,15 @@ export const render = async (
 ) => {
   const destination = new Destination();
 
-  const request = Renderer.createRequest(element, null, null, null, undefined);
+  const request = Renderer.createRequest(
+    element,
+    null,
+    {
+      plugins: options?.plugins ?? [],
+    },
+    null,
+    undefined,
+  );
   Renderer.startWork(request);
   Renderer.startFlowing(request, destination);
 

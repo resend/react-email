@@ -1,7 +1,9 @@
 import type { HtmlToTextOptions } from "html-to-text";
+import { RenderPlugin } from "./renderer/renderer";
 
 export type Options = {
   pretty?: boolean;
+  plugins?: RenderPlugin[];
 } & (
   | {
       plainText?: false;

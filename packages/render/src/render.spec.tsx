@@ -46,8 +46,8 @@ describe("render", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should work on a component that has the `use` hook", async () => {
-    const user = {
+  it.only("should work on a component that has the `use` hook", async () => {
+    const promisedUser = {
       name: {
         title: "Ms",
         first: "Rebecca",
@@ -55,9 +55,9 @@ describe("render", () => {
       },
       gender: "female",
     };
-    const promise = new Promise<typeof user>((resolve) => {
+    const promise = new Promise<typeof promisedUser>((resolve) => {
       setTimeout(() => {
-        resolve(user);
+        resolve(promisedUser);
       }, 1500);
     });
 
@@ -74,7 +74,11 @@ describe("render", () => {
       );
     };
 
-    expect(await render(<FetchingComponent />)).toMatchSnapshot();
+    expect(
+      await render(
+        <FetchingComponent />,
+      ),
+    ).toMatchSnapshot();
   });
 
   it("converts a React component into PlainText", async () => {

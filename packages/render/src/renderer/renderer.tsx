@@ -52,7 +52,24 @@ export class Destination {
 
 const encoder = new TextEncoder();
 
-export const Renderer = ReactServer<Destination, null, null, null, number>({
+export interface RenderPlugin {
+  beforeCompleting?: (html: string) => string;
+
+  mapChildren?: (type: string, props: object, children: unknown) => unknown;
+  mapProps?: (type: string, props: object) => object;
+}
+
+export interface RenderState {
+  plugins: RenderPlugin[];
+}
+
+export const Renderer = ReactServer<
+  Destination,
+  null,
+  RenderState,
+  null,
+  number
+>({
   scheduleMicrotask(callback) {
     queueMicrotask(() => {
       callback();
@@ -87,11 +104,17 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
   resetResumableState() { },
   completeResumableState() { },
 
-  pushTextInstance(target, text, _renderState, _textEmbedded) {
+  pushTextInstance(target, text) {
     target.push(encoder.encode(escapeTextForBrowser(text)));
     return true;
   },
-  pushStartInstance(target, type, props) {
+  pushStartInstance(target, type, originalProps, _, renderState) {
+    const props = renderState.plugins.reduce(
+      (propsToMap, plugin) =>
+        plugin.mapProps ? plugin.mapProps(type, propsToMap) : propsToMap,
+      originalProps,
+    );
+
     target.push(encoder.encode(`<${type}`));
     let dangerouslySetInnerHTML: unknown;
     let children: unknown;
@@ -130,6 +153,14 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
       const html = dangerouslySetInnerHTML.__html;
       target.push(encoder.encode(html));
     }
+
+    children = renderState.plugins.reduce(
+      (childrenToMap, plugin) =>
+        plugin.mapChildren
+          ? plugin.mapChildren(type, props, childrenToMap)
+          : childrenToMap,
+      children,
+    );
 
     if (
       typeof children === "string" ||
