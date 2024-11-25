@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module "react-server" {
   export interface HostConfig<
     Destination,
@@ -7,127 +8,134 @@ declare module "react-server" {
     SuspenseInstance,
     FormatContext,
   > {
-    scheduleMicrotask(callback: () => void): void;
-    scheduleWork(callback: () => void): void;
-    beginWriting(destination: Destination): void;
-    writeChunk(destination: Destination, buffer: Uint8Array): void;
-    writeChunkAndReturn(destination: Destination, buffer: Uint8Array): boolean;
-    completeWriting(destination: Destination): void;
-    close(destination: Destination): void;
-    closeWithError(destination: Destination, error: unknown): void;
-    flushBuffered(destination: Destination): void;
+    scheduleMicrotask: (callback: () => void) => void;
+    scheduleWork: (callback: () => void) => void;
+    beginWriting: (destination: Destination) => void;
+    writeChunk: (destination: Destination, buffer: Uint8Array) => void;
+    writeChunkAndReturn: (
+      destination: Destination,
+      buffer: Uint8Array,
+    ) => boolean;
+    completeWriting: (destination: Destination) => void;
+    close: (destination: Destination) => void;
+    closeWithError: (destination: Destination, error: unknown) => void;
+    flushBuffered: (destination: Destination) => void;
 
     // TODO: figure out type
-    getChildFormatContext(): unknown;
+    getChildFormatContext: () => unknown;
 
-    resetResumableState(): void;
-    completeResumableState(): void;
+    resetResumableState: () => void;
+    completeResumableState: () => void;
 
-    pushTextInstance(
-      target: Array<Uint8Array>,
+    pushTextInstance: (
+      target: Uint8Array[],
       text: string,
       renderState: RenderState,
       textEmbedded: boolean,
-    ): boolean;
-    pushStartInstance(
-      target: Array<Uint8Array>,
+    ) => boolean;
+    pushStartInstance: (
+      target: Uint8Array[],
       type: string,
-      props: Object,
+      props: object,
       resumableState: ResumableState,
       renderState: RenderState,
       hoistableState: null | HoistableState,
       formatContext: FormatContext,
       textEmbedded: boolean,
       isFallback: boolean,
-    ): React.ReactNode;
-    pushEndInstance(
-      target: Array<Uint8Array>,
+    ) => React.ReactNode;
+    pushEndInstance: (
+      target: Uint8Array[],
       type: string,
-      props: Object,
-    ): void;
+      props: object,
+    ) => void;
 
     // This is a noop in ReactNoop
-    pushSegmentFinale(
-      target: Array<Uint8Array>,
+    pushSegmentFinale: (
+      target: Uint8Array[],
       renderState: RenderState,
       lastPushedText: boolean,
       textEmbedded: boolean,
-    ): void;
+    ) => void;
 
-    writeCompletedRoot(
+    writeCompletedRoot: (
       destination: Destination,
       renderState: RenderState,
-    ): boolean;
+    ) => boolean;
 
-    writePlaceholder(
+    writePlaceholder: (
       destination: Destination,
       renderState: RenderState,
       id: number,
-    ): boolean;
+    ) => boolean;
 
-    writeStartCompletedSuspenseBoundary(
+    writeStartCompletedSuspenseBoundary: (
       destination: Destination,
       renderState: RenderState,
       suspenseInstance: SuspenseInstance,
-    ): boolean;
-    writeStartPendingSuspenseBoundary(
+    ) => boolean;
+    writeStartPendingSuspenseBoundary: (
       destination: Destination,
       renderState: RenderState,
       suspenseInstance: SuspenseInstance,
-    ): boolean;
-    writeStartClientRenderedSuspenseBoundary(
+    ) => boolean;
+    writeStartClientRenderedSuspenseBoundary: (
       destination: Destination,
       renderState: RenderState,
       errorDigest?: string,
       errorMessage?: string,
       errorStack?: string,
       errorComponentStack?: string,
-    ): boolean;
-    writeEndCompletedSuspenseBoundary(destination: Destination): boolean;
-    writeEndPendingSuspenseBoundary(destination: Destination): boolean;
-    writeEndClientRenderedSuspenseBoundary(destination: Destination): boolean;
+    ) => boolean;
+    writeEndCompletedSuspenseBoundary: (destination: Destination) => boolean;
+    writeEndPendingSuspenseBoundary: (destination: Destination) => boolean;
+    writeEndClientRenderedSuspenseBoundary: (
+      destination: Destination,
+    ) => boolean;
 
-    writeStartSegment(
+    writeStartSegment: (
       destination: Destination,
       renderState: RenderState,
       formatContext: null,
       id: number,
-    ): boolean;
-    writeEndSegment(destination: Destination, formatContext: null): boolean;
+    ) => boolean;
+    writeEndSegment: (destination: Destination, formatContext: null) => boolean;
 
-    writeCompletedSegmentInstruction(
+    writeCompletedSegmentInstruction: (
       destination: Destination,
       renderState: RenderState,
       contentSegmentID: number,
-    ): boolean;
-    writeCompletedBoundaryInstruction(
+    ) => boolean;
+    writeCompletedBoundaryInstruction: (
       destination: Destination,
       renderState: RenderState,
       boundary: SuspenseInstance,
       contentSegmentID: number,
-    ): boolean;
+    ) => boolean;
 
-    writeClientRenderBoundaryInstruction(
+    writeClientRenderBoundaryInstruction: (
       destination: Destination,
       renderState: RenderState,
       boundary: SuspenseInstance,
-    ): boolean;
+    ) => boolean;
 
-    writePreamble(
+    writePreamble: (
       destination: Destination,
       resumableState: ResumableState,
       renderState: RenderState,
       willFlushAllSegments: boolean,
-    ): void;
-    writeHoistables(): void;
-    writeHoistablesForBoundary(): void;
-    writePostamble(): void;
-    hoistHoistables(parent: HoistableState, child: HoistableState): void;
-    createHoistableState(): HoistableState;
-    emitEarlyPreloads(): void;
+    ) => void;
+    writeHoistables: () => void;
+    writeHoistablesForBoundary: () => void;
+    writePostamble: () => void;
+    hoistHoistables: (parent: HoistableState, child: HoistableState) => void;
+    createHoistableState: () => HoistableState;
+    emitEarlyPreloads: () => void;
   }
 
-  type ThrownInfo = { componentStack?: string };
+  interface ThrownInfo {
+    componentStack?: string;
+  }
 
   export interface Request<
     Destination,
@@ -148,11 +156,11 @@ declare module "react-server" {
     pendingRootTasks: number; // when this reaches zero, we've finished at least the root boundary.
     completedRootSegment: null | object; // Completed but not yet flushed root segments.
     abortableTasks: Set<object>;
-    pingedTasks: Array<object>; // High priority tasks that should be worked on first.
+    pingedTasks: object[]; // High priority tasks that should be worked on first.
     // Queues to flush in order of priority
-    clientRenderedBoundaries: Array<object>; // Errored or client rendered but not yet flushed.
-    completedBoundaries: Array<object>; // Completed but not yet fully flushed boundaries to show.
-    partialBoundaries: Array<object>; // Partially completed boundaries that can flush its segments early.
+    clientRenderedBoundaries: object[]; // Errored or client rendered but not yet flushed.
+    completedBoundaries: object[]; // Completed but not yet fully flushed boundaries to show.
+    partialBoundaries: object[]; // Partially completed boundaries that can flush its segments early.
     trackedPostpones: null | object; // Gets set to non-null while we want to track postponed holes. I.e. during a prerender.
     // onError is called when an error happens anywhere in the tree. It might recover.
     // The return string is used in production  primarily to avoid leaking internals, secondarily to save bytes.
@@ -184,7 +192,7 @@ declare module "react-server" {
     RenderState,
     FormatContext,
   > {
-    createRequest(
+    createRequest: (
       children: React.ReactNode,
       resumableState: ResumableState,
       renderState: RenderState,
@@ -197,16 +205,16 @@ declare module "react-server" {
       onFatalError?: () => void,
       onPostpone?: (reason: string, postponeInfo: ThrownInfo) => void,
       formState?: [any, string, any, number] | null,
-    ): Request<Destination, ResumableState, RenderState, FormatContext>;
+    ) => Request<Destination, ResumableState, RenderState, FormatContext>;
 
-    startWork(
+    startWork: (
       request: Request<Destination, ResumableState, RenderState, FormatContext>,
-    ): void;
+    ) => void;
 
-    startFlowing(
+    startFlowing: (
       request: Request<Destination, ResumableState, RenderState, FormatContext>,
       destination: Destination,
-    ): void;
+    ) => void;
   }
 
   export default function <

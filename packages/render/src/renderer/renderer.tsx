@@ -1,14 +1,19 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import ReactServer from "react-server";
-import { propToHtmlAttribute } from "./attribute-processing/prop-to-html-attribute";
+import {
+  PropValue,
+  propToHtmlAttribute,
+} from "./attribute-processing/prop-to-html-attribute";
 import { escapeTextForBrowser } from "./escape-html";
 
 export class Destination {
   html: string;
   decoder: TextDecoder;
 
-  listeners: Array<
-    [resolve: (value: string) => void, reject: (error: unknown) => void]
-  >;
+  listeners: [
+    resolve: (value: string) => void,
+    reject: (error: unknown) => void,
+  ][];
 
   constructor() {
     this.html = "";
@@ -33,11 +38,15 @@ export class Destination {
   }
 
   completeWithError(error: unknown) {
-    this.listeners.forEach(([_, reject]) => reject(error));
+    this.listeners.forEach(([_, reject]) => {
+      reject(error);
+    });
   }
 
   complete() {
-    this.listeners.forEach(([resolve]) => resolve(this.html));
+    this.listeners.forEach(([resolve]) => {
+      resolve(this.html);
+    });
   }
 }
 
@@ -45,14 +54,16 @@ const encoder = new TextEncoder();
 
 export const Renderer = ReactServer<Destination, null, null, null, number>({
   scheduleMicrotask(callback) {
-    queueMicrotask(() => callback());
+    queueMicrotask(() => {
+      callback();
+    });
   },
   scheduleWork(callback) {
     setTimeout(() => {
       callback();
     });
   },
-  beginWriting(destination) {},
+  beginWriting() { },
   writeChunk(destination, buffer) {
     destination.writeEncoded(buffer);
   },
@@ -60,30 +71,30 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
     destination.writeEncoded(buffer);
     return true;
   },
-  completeWriting(destination) {},
+  completeWriting() { },
   close(destination) {
     destination.complete();
   },
   closeWithError(destination, error) {
     destination.completeWithError(error);
   },
-  flushBuffered(destination) {},
+  flushBuffered() { },
 
   getChildFormatContext() {
     return null;
   },
 
-  resetResumableState() {},
-  completeResumableState() {},
+  resetResumableState() { },
+  completeResumableState() { },
 
-  pushTextInstance(target, text, renderState, textEmbedded) {
+  pushTextInstance(target, text, _renderState, _textEmbedded) {
     target.push(encoder.encode(escapeTextForBrowser(text)));
     return true;
   },
   pushStartInstance(target, type, props) {
     target.push(encoder.encode(`<${type}`));
-    let dangerouslySetInnerHTML: { __html: string } | undefined = undefined;
-    let children: React.ReactNode = undefined;
+    let dangerouslySetInnerHTML: unknown;
+    let children: unknown;
     for (const [name, value] of Object.entries(props)) {
       if (name === "children") {
         children = value;
@@ -92,7 +103,9 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
         dangerouslySetInnerHTML = value;
         continue;
       }
-      target.push(encoder.encode(propToHtmlAttribute(name, value)));
+      target.push(
+        encoder.encode(propToHtmlAttribute(name, value as PropValue)),
+      );
     }
     target.push(encoder.encode(">"));
 
@@ -103,19 +116,19 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
         );
       }
       if (
+        !dangerouslySetInnerHTML ||
         typeof dangerouslySetInnerHTML !== "object" ||
-        !("__html" in dangerouslySetInnerHTML)
+        !("__html" in dangerouslySetInnerHTML) ||
+        typeof dangerouslySetInnerHTML.__html !== "string"
       ) {
         throw new Error(
           "`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. " +
-            "Please visit https://react.dev/link/dangerously-set-inner-html " +
-            "for more information.",
+          "Please visit https://react.dev/link/dangerously-set-inner-html " +
+          "for more information.",
         );
       }
       const html = dangerouslySetInnerHTML.__html;
-      if (html !== null && html !== undefined) {
-        target.push(encoder.encode("" + html));
-      }
+      target.push(encoder.encode(html));
     }
 
     if (
@@ -124,10 +137,10 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
       typeof children === "boolean" ||
       typeof children === "bigint"
     ) {
-      target.push(encoder.encode(escapeTextForBrowser("" + children)));
+      target.push(encoder.encode(escapeTextForBrowser(`${children}`)));
       return null;
     }
-    return children;
+    return children as React.ReactNode;
   },
 
   pushEndInstance(target, type) {
@@ -153,7 +166,7 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
     target.push(encoder.encode(`</${type}>`));
   },
 
-  pushSegmentFinale(target, _, lastPushedText, textEmbedded) {},
+  pushSegmentFinale() { },
 
   writeCompletedRoot() {
     return true;
@@ -172,24 +185,24 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
   writeStartClientRenderedSuspenseBoundary() {
     return true;
   },
-  writeEndCompletedSuspenseBoundary(destination) {
+  writeEndCompletedSuspenseBoundary() {
     return true;
   },
-  writeEndPendingSuspenseBoundary(destination) {
+  writeEndPendingSuspenseBoundary() {
     return true;
   },
-  writeEndClientRenderedSuspenseBoundary(destination) {
-    return true;
-  },
-
-  writeStartSegment(destination, renderState, formatContext, id): boolean {
-    return true;
-  },
-  writeEndSegment(destination, formatContext): boolean {
+  writeEndClientRenderedSuspenseBoundary() {
     return true;
   },
 
-  writeCompletedSegmentInstruction(destination, renderState, contentSegmentID) {
+  writeStartSegment() {
+    return true;
+  },
+  writeEndSegment() {
+    return true;
+  },
+
+  writeCompletedSegmentInstruction() {
     return true;
   },
 
@@ -206,13 +219,12 @@ export const Renderer = ReactServer<Destination, null, null, null, number>({
       '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
     );
   },
-  writeHoistables() {},
-  writeHoistablesForBoundary() {},
-  writePostamble() {},
-  hoistHoistables(parent, child) {},
+  writeHoistables() { },
+  writeHoistablesForBoundary() { },
+  writePostamble() { },
+  hoistHoistables() { },
   createHoistableState() {
     return null;
   },
-  emitEarlyPreloads() {},
+  emitEarlyPreloads() { },
 });
-
