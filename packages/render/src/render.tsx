@@ -1,8 +1,7 @@
 import { convert } from "html-to-text";
-import { Suspense } from "react";
-import { pretty } from "./shared/utils/pretty";
-import { plainTextSelectors } from "./shared/plain-text-selectors";
-import type { Options } from "./shared/options";
+import { pretty } from "./utils/pretty";
+import { plainTextSelectors } from "./plain-text-selectors";
+import type { Options } from "./options";
 import { Destination, Renderer } from "./renderer/renderer";
 
 export const render = async (
@@ -20,7 +19,7 @@ export const render = async (
   if (options?.plainText) {
     return convert(html, {
       selectors: plainTextSelectors,
-      ...options.htmlToTextOptions
+      ...options.htmlToTextOptions,
     });
   }
 

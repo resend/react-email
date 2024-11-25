@@ -1,6 +1,6 @@
 import React from "react";
-import { Template } from "./shared/utils/template";
-import { Preview } from "./shared/utils/preview";
+import { Template } from "./utils/template";
+import { Preview } from "./utils/preview";
 import { render } from "./render";
 
 describe("render", () => {
