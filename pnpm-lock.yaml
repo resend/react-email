@@ -45,8 +45,8 @@ importers:
         specifier: 8.2.4
         version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@18.18.0))(@swc/core@1.4.15(@swc/helpers@0.5.13))(jiti@1.21.0)(postcss@8.4.47)(tsx@4.9.0)(typescript@5.4.2)
       turbo:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.3.1
+        version: 2.3.1
       vite:
         specifier: 5.4.6
         version: 5.4.6(@types/node@18.18.0)(terser@5.30.3)
@@ -7638,38 +7638,38 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  turbo-darwin-64@2.1.0:
-    resolution: {integrity: sha512-gHwpDk2gyB7qZ57gUUwDIS/IkglqEjjVtPZCTxmCRg28Tiwjui0azsLVKrnHP9UZHllozwbi28x8HXLXLEFF1w==}
+  turbo-darwin-64@2.3.1:
+    resolution: {integrity: sha512-tjHfjW/Gs8Q9IO+9gPdIsSStZ8I09QYDRT/SyhFTPLnc7O2ZlxHPBVFfjUkHUjanHNYO8CpRGt+zdp1PaMCruw==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.1.0:
-    resolution: {integrity: sha512-GLaqGetNC6eS4eqXgsheLOHic/OcnGCGDi5boVf+TFZTXYH6YE15L4ugZha4xHXCr1KouCLILHh+f8EHEmWylg==}
+  turbo-darwin-arm64@2.3.1:
+    resolution: {integrity: sha512-At1WStnxCfrBQ4M2g6ynre8WsusGwA11okhVolBxyFUemYozDTtbZwelr+IqNggjT251vviokxOkcFzzogbiFw==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.1.0:
-    resolution: {integrity: sha512-VzBOsj7JyGoZtiNZZ6brjnY7UehRnClluw7pwznuLPzClkqOOPMd2jOcgkWxnP/xW4NBmOoFANXXrtvKBD4f2w==}
+  turbo-linux-64@2.3.1:
+    resolution: {integrity: sha512-COwEev7s9fsxLM2eoRCyRLPj+BXvZjFIS+GxzdAubYhoSoZit8B8QGKczyDl6448xhuFEWKrpHhcR9aBuwB4ag==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.1.0:
-    resolution: {integrity: sha512-St7svJnOO5g4F6R7Z32e10I/0M3e6qpNjEYybXwPNul9NSfnUXeky4WoKaALwqNhyJ7nYemoFpZ1d+i8hFQTHg==}
+  turbo-linux-arm64@2.3.1:
+    resolution: {integrity: sha512-AP0uE15Rhxza2Jl+Q3gxdXRA92IIeFAYaufz6CMcZuGy9yZsBlLt9w6T47H6g7XQPzWuw8pzfjM1omcTKkkDpQ==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.1.0:
-    resolution: {integrity: sha512-iSobNud2MrJ1SZ1upVPlErT8xexsr0MQtKapdfq6z0M0rBnrDGEq5bUCSScWyGu+O4+glB4br9xkTAkGFqaxqQ==}
+  turbo-windows-64@2.3.1:
+    resolution: {integrity: sha512-HDSneq0dNZYZch74c2eygq+OiJE/JYDs7OsGM0yRYVj336383xkUnxz6W2I7qiyMCQXzp4UVUDZXvZhUYcX3BA==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.1.0:
-    resolution: {integrity: sha512-d61jN4rjE5PnUfF66GKrKoj8S8Ql4FGXzFFzZz4kjsHpZZzCTtqlzPZBmd1byzGYhDPTorTqG3G1USohbdyohA==}
+  turbo-windows-arm64@2.3.1:
+    resolution: {integrity: sha512-7/2/sJZiquwoT/jWBCfV0qKq4NarsJPmDRjMcR9dDMIwCYsGM8ljomkDRTCtkNeFcUvYw54MiRWHehWgbcRPsw==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.1.0:
-    resolution: {integrity: sha512-A969/LO/sPHKlapIarY2VVzqQ5JnnW2/1kksZlnMEpsRD6gwOELvVL+ozfMiO7av9RILt3UeN02L17efr6HUCA==}
+  turbo@2.3.1:
+    resolution: {integrity: sha512-vHZe/e6k1HZVKiMQPQ1BWFn53vjVQDFKdkjUq/pBKlRWi1gw9LQO6ntH4qZCcHY1rH6TXgsRmexXdgWl96YvVQ==}
     hasBin: true
 
   tw-to-css@0.0.12:
@@ -11465,7 +11465,7 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint@8.50.0)(typescript@5.1.6)
       '@typescript-eslint/parser': 6.21.0(eslint@8.50.0)(typescript@5.1.6)
       eslint-config-prettier: 9.0.0(eslint@8.50.0)
-      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0))
+      eslint-import-resolver-alias: 1.1.2(eslint-plugin-import@2.29.1)
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-plugin-import@2.29.1)(eslint@8.50.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.50.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
@@ -12827,7 +12827,7 @@ snapshots:
       eslint: 8.50.0
       eslint-plugin-turbo: 2.1.0(eslint@8.50.0)
 
-  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)):
+  eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.29.1):
     dependencies:
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
 
@@ -12844,7 +12844,7 @@ snapshots:
       debug: 4.3.4
       enhanced-resolve: 5.17.1
       eslint: 8.50.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-plugin-import@2.29.1)(eslint@8.50.0))(eslint@8.50.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.3
@@ -12856,7 +12856,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-plugin-import@2.29.1)(eslint@8.50.0))(eslint@8.50.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -12883,7 +12883,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.50.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-plugin-import@2.29.1)(eslint@8.50.0))(eslint@8.50.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.50.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
       is-glob: 4.0.3
@@ -15634,32 +15634,32 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  turbo-darwin-64@2.1.0:
+  turbo-darwin-64@2.3.1:
     optional: true
 
-  turbo-darwin-arm64@2.1.0:
+  turbo-darwin-arm64@2.3.1:
     optional: true
 
-  turbo-linux-64@2.1.0:
+  turbo-linux-64@2.3.1:
     optional: true
 
-  turbo-linux-arm64@2.1.0:
+  turbo-linux-arm64@2.3.1:
     optional: true
 
-  turbo-windows-64@2.1.0:
+  turbo-windows-64@2.3.1:
     optional: true
 
-  turbo-windows-arm64@2.1.0:
+  turbo-windows-arm64@2.3.1:
     optional: true
 
-  turbo@2.1.0:
+  turbo@2.3.1:
     optionalDependencies:
-      turbo-darwin-64: 2.1.0
-      turbo-darwin-arm64: 2.1.0
-      turbo-linux-64: 2.1.0
-      turbo-linux-arm64: 2.1.0
-      turbo-windows-64: 2.1.0
-      turbo-windows-arm64: 2.1.0
+      turbo-darwin-64: 2.3.1
+      turbo-darwin-arm64: 2.3.1
+      turbo-linux-64: 2.3.1
+      turbo-linux-arm64: 2.3.1
+      turbo-windows-64: 2.3.1
+      turbo-windows-arm64: 2.3.1
 
   tw-to-css@0.0.12:
     dependencies:
