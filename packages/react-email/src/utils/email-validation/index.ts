@@ -1,9 +1,8 @@
-import type { EmailValidationWarning } from '../../actions/get-warnings-for-emails';
+import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
 import { getUrlWarnings } from './get-url-warnings';
 
 export const getValiationWarningsFor = (
-  code: string,
-  emailPath: string,
+  code: string
 ): Promise<EmailValidationWarning[]> => {
-  return getUrlWarnings(code, emailPath);
+  return getUrlWarnings(code);
 };

@@ -9,7 +9,8 @@ import { cn } from '../../utils';
 import { Logo } from '../logo';
 import { IconEmail } from '../icons/icon-email';
 import { IconStamp } from '../icons/icon-stamp';
-import type { EmailValidationWarning } from '../../actions/get-warnings-for-emails';
+import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
+import { IconCheck } from '../icons/icon-check';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
 interface SidebarProps {
@@ -65,6 +66,7 @@ export const Sidebar = ({
       onValueChange={(v) => {
         setActiveTabValue(v as SidebarTab);
       }}
+      orientation="vertical"
       value={activeTabValue}
     >
       <aside
@@ -88,25 +90,56 @@ export const Sidebar = ({
               tabValue="validation"
             >
               <IconStamp />
-              <span className="absolute left-full text-yellow-400 text-xs font-bold -translate-x-full w-5 h-5 top-0 bg-black rounded-full border-2 border-slate-6">
-                {emailValidationWarnings?.length}
+              <span className="absolute w-4 bg-black border border-slate-6 rounded-full h-4 text-xs left-4 top-0">
+                {emailValidationWarnings &&
+                emailValidationWarnings.length > 0 ? (
+                  emailValidationWarnings.length
+                ) : (
+                  <IconCheck />
+                )}
               </span>
             </SidebarTabTrigger>
           </Tabs.List>
-          <Tabs.Content className="flex flex-col" value="email-templates">
-            <nav className="p-4 flex-grow lg:pt-0 pl-0 w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px] flex flex-col overflow-y-auto">
-              <Collapsible.Root>
-                <React.Suspense>
-                  <SidebarDirectoryChildren
-                    currentEmailOpenSlug={currentEmailOpenSlug}
-                    emailsDirectoryMetadata={emailsDirectoryMetadata}
-                    isRoot
-                    open
-                  />
-                </React.Suspense>
-              </Collapsible.Root>
-            </nav>
-          </Tabs.Content>
+          {activeTabValue === 'validation' ? (
+            <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
+              {emailValidationWarnings !== undefined &&
+              emailValidationWarnings.length > 0 ? (
+                <ul className="text-sm w-full h-full list-none pl-0">
+                  {emailValidationWarnings.map((warning) => (
+                    <li
+                      className="flex px-4 py-2 items-center bg-transparent hover:bg-slate-6"
+                      key={warning.line}
+                    >
+                      {warning.message}{' '}
+                      <span className="ml-auto">
+                        {warning.line}:{warning.column}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="text-lg w-full text-center text-white/90 font-bold">
+                  No warnings
+                </div>
+              )}
+            </div>
+          ) : null}
+          {activeTabValue === 'email-templates' ? (
+            <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
+              <nav className="p-4 flex-grow lg:pt-0 pl-0 w-full flex flex-col overflow-y-auto">
+                <Collapsible.Root>
+                  <React.Suspense>
+                    <SidebarDirectoryChildren
+                      currentEmailOpenSlug={currentEmailOpenSlug}
+                      emailsDirectoryMetadata={emailsDirectoryMetadata}
+                      isRoot
+                      open
+                    />
+                  </React.Suspense>
+                </Collapsible.Root>
+              </nav>
+            </div>
+          ) : null}
         </div>
       </aside>
     </Tabs.Root>
