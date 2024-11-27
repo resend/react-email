@@ -10,12 +10,14 @@ import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import type { EmailValidationWarning } from '../../../actions/get-warnings-for-emails';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
+  emailValidationWarnings: EmailValidationWarning[];
   renderingResult: EmailRenderingResult;
 }
 
@@ -23,6 +25,7 @@ const Preview = ({
   slug,
   emailPath,
   pathSeparator,
+  emailValidationWarnings,
   renderingResult: initialRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -80,6 +83,7 @@ const Preview = ({
     <Shell
       activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
+      emailValidationWarnings={emailValidationWarnings}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
       setActiveView={hasNoErrors ? handleViewChange : undefined}
