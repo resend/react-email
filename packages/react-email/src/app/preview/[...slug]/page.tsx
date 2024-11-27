@@ -6,7 +6,7 @@ import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-director
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Home from '../../page';
-import { getWarningsForEmails } from '../../../actions/get-warnings-for-emails';
+import { getWarningsForEmail } from '../../../actions/get-warnings-for-email';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -55,7 +55,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     });
   }
 
-  const emailValidationWarnings = await getWarningsForEmails(emailsDirMetadata);
+  const emailWarnings = await getWarningsForEmail(emailPath);
 
   return (
     // This suspense is so that this page doesn't throw warnings
@@ -64,7 +64,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     <Suspense fallback={<Home />}>
       <Preview
         emailPath={emailPath}
-        emailValidationWarnings={emailValidationWarnings}
+        emailValidationWarnings={emailWarnings}
         pathSeparator={path.sep}
         renderingResult={emailRenderingResult}
         slug={slug}
