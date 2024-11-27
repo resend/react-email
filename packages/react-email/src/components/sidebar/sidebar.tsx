@@ -9,10 +9,12 @@ import { cn } from '../../utils';
 import { Logo } from '../logo';
 import { IconEmail } from '../icons/icon-email';
 import { IconStamp } from '../icons/icon-stamp';
+import type { EmailValidationWarning } from '../../actions/get-warnings-for-emails';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
 interface SidebarProps {
   className?: string;
+  emailValidationWarnings?: EmailValidationWarning[];
   currentEmailOpenSlug?: string;
   style?: React.CSSProperties;
 }
@@ -50,6 +52,7 @@ const SidebarTabTrigger = ({
 export const Sidebar = ({
   className,
   currentEmailOpenSlug,
+  emailValidationWarnings,
   style,
 }: SidebarProps) => {
   const [activeTabValue, setActiveTabValue] =
@@ -71,8 +74,8 @@ export const Sidebar = ({
         <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
           <Logo />
         </div>
-        <div className="flex border-t border-slate-6">
-          <Tabs.List className="flex flex-col w-[36px] border-r border-slate-6">
+        <div className="flex border-t border-slate-6 h-[calc(100vh_-_70px)]">
+          <Tabs.List className="flex flex-col w-[36px] h-full border-r border-slate-6">
             <SidebarTabTrigger
               activeTabValue={activeTabValue}
               tabValue="email-templates"
@@ -86,12 +89,12 @@ export const Sidebar = ({
             >
               <IconStamp />
               <span className="absolute left-full text-yellow-400 text-xs font-bold -translate-x-full w-5 h-5 top-0 bg-black rounded-full border-2 border-slate-6">
-                3
+                {emailValidationWarnings?.length}
               </span>
             </SidebarTabTrigger>
           </Tabs.List>
           <Tabs.Content className="flex flex-col" value="email-templates">
-            <nav className="p-4 flex-grow lg:pt-0 pl-0 w-[calc(100vw-36px)] h-[calc(100vh_-_70px)] lg:w-full lg:min-w-[231px] lg:max-w-[231px] flex flex-col overflow-y-auto">
+            <nav className="p-4 flex-grow lg:pt-0 pl-0 w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px] flex flex-col overflow-y-auto">
               <Collapsible.Root>
                 <React.Suspense>
                   <SidebarDirectoryChildren
