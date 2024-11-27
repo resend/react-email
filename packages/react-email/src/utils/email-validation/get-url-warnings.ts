@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import type { EmailValidationWarning } from '../../actions/get-warnings-for-emails';
+import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
 import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
 
 const existantURLs = new Map<URL, boolean>();
@@ -20,7 +20,7 @@ const doesURLExist = async (url: URL) => {
   return existantURLs.get(url)!;
 };
 
-export const getUrlWarnings = async (code: string, emailPath: string) => {
+export const getUrlWarnings = async (code: string) => {
   const ast = parse(code, {
     plugins: ['jsx', 'typescript', 'decorators'],
     strictMode: false,
@@ -79,7 +79,6 @@ export const getUrlWarnings = async (code: string, emailPath: string) => {
       if (!exists) {
         warnings.push({
           message: 'URL does not exist',
-          emailPath,
           line,
           column,
         });
@@ -87,7 +86,6 @@ export const getUrlWarnings = async (code: string, emailPath: string) => {
     } catch (exception) {
       warnings.push({
         message: 'Invalid URL',
-        emailPath,
         line,
         column,
       });

@@ -10,7 +10,8 @@ import { Tooltip } from '../../../components/tooltip';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import type { EmailValidationWarning } from '../../../actions/get-warnings-for-emails';
+import type { EmailValidationWarning } from '../../../actions/get-warnings-for-email';
+import { useEmails } from '../../../contexts/emails';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
@@ -26,7 +27,7 @@ const Preview = ({
   emailPath,
   pathSeparator,
   serverRenderingResult,
-  emailValidationWarnings,
+  emailValidationWarnings: initialEmailValidationWarnings,
 }: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -35,9 +36,16 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
+  const { useEmailWarnings } = useEmails();
+
   const renderingResult = useEmailRenderingResult(
     emailPath,
     serverRenderingResult,
+  );
+
+  const emailValidationWarnings = useEmailWarnings(
+    emailPath,
+    initialEmailValidationWarnings,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(

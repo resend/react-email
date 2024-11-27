@@ -1,10 +1,10 @@
 'use client';
 import * as React from 'react';
 import { cn } from '../utils';
-import type { EmailValidationWarning } from '../actions/get-warnings-for-emails';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
+import { EmailValidationWarning } from '../actions/get-warnings-for-email';
 
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
@@ -19,9 +19,9 @@ interface ShellProps extends RootProps {
 
 export const Shell = ({
   currentEmailOpenSlug,
-  emailValidationWarnings,
   children,
   pathSeparator,
+  emailValidationWarnings,
   markup,
   activeView,
   setActiveView,
