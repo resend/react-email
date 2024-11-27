@@ -5,12 +5,26 @@ import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import logo from './logo.png';
+import { getEmailsDirectoryMetadata } from '../actions/get-emails-directory-metadata';
+import { getWarningsForEmails } from '../actions/get-warnings-for-emails';
 
-const Home = () => {
+const Home = async () => {
   const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);
+  const emailsDirMetadata = await getEmailsDirectoryMetadata(
+    emailsDirectoryAbsolutePath,
+  );
+  if (typeof emailsDirMetadata === 'undefined') {
+    throw new Error(
+      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!
+
+This is most likely not an issue with the preview server. Maybe there was a typo on the "--dir" flag?`,
+    );
+  }
+
+  const emailValidationWarnings = await getWarningsForEmails(emailsDirMetadata);
 
   return (
-    <Shell>
+    <Shell emailValidationWarnings={emailValidationWarnings}>
       <div className="relative max-w-lg mx-auto p-8 flex items-center justify-center h-[inherit]">
         <div className="relative z-10 flex flex-col text-center items-center">
           <Image

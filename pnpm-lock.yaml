@@ -846,12 +846,12 @@ importers:
 
   packages/react-email:
     dependencies:
-      '@babel/core':
-        specifier: 7.24.5
-        version: 7.24.5
       '@babel/parser':
         specifier: 7.24.5
         version: 7.24.5
+      '@babel/traverse':
+        specifier: 7.25.6
+        version: 7.25.6
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -919,6 +919,9 @@ importers:
       '@types/babel__core':
         specifier: 7.20.5
         version: 7.20.5
+      '@types/babel__traverse':
+        specifier: '*'
+        version: 7.20.6
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
