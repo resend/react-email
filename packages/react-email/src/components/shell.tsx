@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { cn } from '../utils';
+import type { EmailValidationWarning } from '../actions/get-warnings-for-emails';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
@@ -10,6 +11,7 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 interface ShellProps extends RootProps {
   markup?: string;
   currentEmailOpenSlug?: string;
+  emailValidationWarnings?: EmailValidationWarning[];
   pathSeparator?: string;
   activeView?: string;
   setActiveView?: (view: string) => void;
@@ -17,6 +19,7 @@ interface ShellProps extends RootProps {
 
 export const Shell = ({
   currentEmailOpenSlug,
+  emailValidationWarnings,
   children,
   pathSeparator,
   markup,
@@ -67,6 +70,7 @@ export const Shell = ({
               '-translate-x-full lg:translate-x-0': !sidebarToggled,
             },
           )}
+          emailValidationWarnings={emailValidationWarnings}
           currentEmailOpenSlug={currentEmailOpenSlug}
           style={{
             transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
