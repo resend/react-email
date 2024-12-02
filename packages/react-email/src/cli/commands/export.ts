@@ -7,7 +7,7 @@ import ora from 'ora';
 import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
 import normalize from 'normalize-path';
-import { closeOraOnSIGNIT } from '../../utils/close-ora-on-sigint';
+import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import { tree } from '../utils';
 import {
   EmailsDirectory,
@@ -49,7 +49,7 @@ export const exportTemplates = async (
   let spinner: ora.Ora | undefined;
   if (!options.silent) {
     spinner = ora('Preparing files...\n').start();
-    closeOraOnSIGNIT(spinner);
+    registerSpinnerAutostopping(spinner);
   }
 
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
@@ -90,14 +90,7 @@ export const exportTemplates = async (
         text: 'Failed to build emails',
       });
     }
-
-    console.warn(buildFailure.warnings);
-    console.error(buildFailure.errors);
-    throw new Error(
-      `esbuild bundling process for email templates failed:\n${allTemplates
-        .map((p) => `- ${p}`)
-        .join('\n')}`,
-    );
+    process.exit(1);
   }
 
   if (spinner) {
@@ -144,7 +137,7 @@ export const exportTemplates = async (
         });
       }
       console.error(exception);
-      throw exception;
+      process.exit(1);
     }
   }
   if (spinner) {
@@ -178,9 +171,10 @@ export const exportTemplates = async (
           text: 'Failed to copy static files',
         });
       }
-      throw new Error(
+      console.error(
         `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${exception}`,
       );
+      process.exit(1);
     }
   }
 

@@ -9,7 +9,8 @@ interface Args {
 export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
-      throw new Error(`Missing ${emailsDirRelativePath} folder`);
+      console.error(`Missing ${emailsDirRelativePath} folder`);
+      process.exit(1);
     }
 
     const devServer = await startDevServer(
