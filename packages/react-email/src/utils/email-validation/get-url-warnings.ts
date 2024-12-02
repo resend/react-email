@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import http from 'node:http';
-import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
 import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
-import { AST } from '.';
+import type { AST } from '.';
 
 const existantURLs = new Map<URL, boolean>();
 
