@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import http from 'node:http';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
@@ -8,14 +9,16 @@ const existantURLs = new Map<URL, boolean>();
 
 const doesURLExist = async (url: URL) => {
   if (!existantURLs.has(url)) {
-    try {
-      await fetch(url, {
-        cache: "no-cache" 
+    await new Promise<void>((resolve) => {
+      http.get(url, (res) => {
+        if (res.statusCode && (res.statusCode < 400 || res.statusCode >= 500)) {
+          existantURLs.set(url, true);
+        } else {
+          existantURLs.set(url, false);
+        }
+        resolve();
       });
-      existantURLs.set(url, true);
-    } catch (_) {
-      existantURLs.set(url, false);
-    }
+    });
   }
   return existantURLs.get(url)!;
 };
