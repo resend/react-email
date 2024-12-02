@@ -41,7 +41,16 @@ export const ComponentCodeView = ({
       code = component.code.react;
     }
   }
+
+  const importedComponents = extractReactComponents(code);
+  const importStatements = `import { ${importedComponents.join(
+    ", ",
+  )} } from "@react-email/components";\n\n`;
   code = convertUrisIntoUrls(code);
+
+  if (selectedLanguage === "react") {
+    code = importStatements + code;
+  }
 
   const onCopy = () => {
     void navigator.clipboard.writeText(code);
@@ -59,14 +68,6 @@ export const ComponentCodeView = ({
       onCopy();
     }
   };
-
-  const importedComponents = extractReactComponents(code);
-  const importStatements =
-    selectedLanguage === "react"
-      ? `import { ${importedComponents.join(
-          ", ",
-        )} } from "@react-email/components";\n\n`
-      : "";
 
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
@@ -119,7 +120,7 @@ export const ComponentCodeView = ({
       </div>
       <div className="h-full w-full overflow-auto">
         <CodeBlock language={selectedLanguage === "html" ? "html" : "tsx"}>
-          {importStatements + code}
+          {code}
         </CodeBlock>
       </div>
     </div>
