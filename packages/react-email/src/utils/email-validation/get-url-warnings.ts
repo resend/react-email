@@ -82,7 +82,7 @@ export const getUrlWarnings = async (ast: AST, code: string) => {
       }
     } catch (exception) {
       warnings.push({
-        message: 'Invalid URL',
+        message: 'invalid URL',
         line,
         column,
       });
