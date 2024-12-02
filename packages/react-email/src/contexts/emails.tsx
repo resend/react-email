@@ -10,23 +10,26 @@ import {
   type EmailRenderingResult,
 } from '../actions/render-email-by-path';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
-import { EmailValidationWarning, getWarningsForEmail } from '../actions/get-warnings-for-email';
+import {
+  EmailValidationWarning,
+  getWarningsForEmail,
+} from '../actions/get-warnings-for-email';
 
 const EmailsContext = createContext<
   | {
-    emailsDirectoryMetadata: EmailsDirectory;
-    useEmailWarnings: (
-      emailPath: string,
-      serverValidationWarnings: EmailValidationWarning[]
-    ) => EmailValidationWarning[];
-    /**
-     * Uses the hot reloaded bundled build and rendering email result
-     */
-    useEmailRenderingResult: (
-      emailPath: string,
-      serverEmailRenderedResult: EmailRenderingResult,
-    ) => EmailRenderingResult;
-  }
+      emailsDirectoryMetadata: EmailsDirectory;
+      useEmailWarnings: (
+        emailPath: string,
+        serverValidationWarnings: EmailValidationWarning[],
+      ) => EmailValidationWarning[];
+      /**
+       * Uses the hot reloaded bundled build and rendering email result
+       */
+      useEmailRenderingResult: (
+        emailPath: string,
+        serverEmailRenderedResult: EmailRenderingResult,
+      ) => EmailRenderingResult;
+    }
   | undefined
 >(undefined);
 
@@ -92,7 +95,8 @@ export const EmailsProvider = (props: {
           }));
         }
 
-        const lastWarnings = validationWarningsPerEmailPath[pathForChangedEmail];
+        const lastWarnings =
+          validationWarningsPerEmailPath[pathForChangedEmail];
 
         if (typeof lastWarnings !== 'undefined') {
           const warnings = await getWarningsForEmail(pathForChangedEmail);
@@ -112,7 +116,9 @@ export const EmailsProvider = (props: {
         emailsDirectoryMetadata,
         useEmailWarnings: (emailPath, serverValidationWarnings) => {
           useEffect(() => {
-            if (typeof validationWarningsPerEmailPath[emailPath] === 'undefined') {
+            if (
+              typeof validationWarningsPerEmailPath[emailPath] === 'undefined'
+            ) {
               setValidationWarningsPerEmailPath((map) => ({
                 ...map,
                 [emailPath]: serverValidationWarnings,
@@ -120,7 +126,9 @@ export const EmailsProvider = (props: {
             }
           }, [serverValidationWarnings, emailPath]);
 
-          if (typeof validationWarningsPerEmailPath[emailPath] !== 'undefined') {
+          if (
+            typeof validationWarningsPerEmailPath[emailPath] !== 'undefined'
+          ) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return validationWarningsPerEmailPath[emailPath]!;
           }
