@@ -4,6 +4,7 @@ import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
 import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
+import { AST } from '.';
 
 const existantURLs = new Map<URL, boolean>();
 
@@ -23,14 +24,7 @@ const doesURLExist = async (url: URL) => {
   return existantURLs.get(url)!;
 };
 
-export const getUrlWarnings = async (code: string) => {
-  const ast = parse(code, {
-    plugins: ['jsx', 'typescript', 'decorators'],
-    strictMode: false,
-    ranges: true,
-    sourceType: 'unambiguous',
-  });
-
+export const getUrlWarnings = async (ast: AST, code: string) => {
   const warnings: EmailValidationWarning[] = [];
 
   const instancesToValidate: {
