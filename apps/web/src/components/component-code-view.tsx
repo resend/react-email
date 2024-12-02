@@ -60,6 +60,14 @@ export const ComponentCodeView = ({
     }
   };
 
+  const importedComponents = extractReactComponents(code);
+  const importStatements =
+    selectedLanguage === "react"
+      ? `import { ${importedComponents.join(
+          ", ",
+        )} } from "@react-email/components";\n\n`
+      : "";
+
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
       <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
@@ -111,7 +119,7 @@ export const ComponentCodeView = ({
       </div>
       <div className="h-full w-full overflow-auto">
         <CodeBlock language={selectedLanguage === "html" ? "html" : "tsx"}>
-          {code}
+          {importStatements + code}
         </CodeBlock>
       </div>
     </div>
@@ -180,4 +188,23 @@ const ReactVariantSelect = ({
       </Select.Portal>
     </Select.Root>
   );
+};
+
+/**
+ * Extracts React component names from a string of React/JSX code
+ */
+const extractReactComponents = (code: string): string[] => {
+  const componentPattern =
+    /(?:<|import\s+\{?\s*)(?<componentName>[A-Z][a-zA-Z0-9]*)/g;
+  const matches = Array.from(code.matchAll(componentPattern));
+
+  const componentNames = Array.from(
+    new Set(
+      matches
+        .map((match) => match.groups?.componentName)
+        .filter((name): name is string => Boolean(name)),
+    ),
+  );
+
+  return componentNames;
 };
