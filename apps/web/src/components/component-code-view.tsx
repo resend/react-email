@@ -46,26 +46,26 @@ export const ComponentCodeView = ({
   code = convertUrisIntoUrls(code);
 
   if (selectedLanguage === "react") {
-    const importedReactResponsiveComponents = extractReactComponents(
+    const importsReactResponsive = extractReactComponents(
       code,
       Object.keys(allReactResponsiveComponents),
     );
 
-    const importedReactEmailComponents = extractReactComponents(
+    const importsReactEmail = extractReactComponents(
       code,
       Object.keys(allReactEmailComponents),
     );
 
     let importStatements = "";
 
-    if (importedReactEmailComponents.length > 0) {
-      importStatements += `import { ${importedReactEmailComponents.join(
+    if (importsReactEmail.length > 0) {
+      importStatements += `import { ${importsReactEmail.join(
         ", ",
       )} } from "@react-email/components";\n`;
     }
 
-    if (importedReactResponsiveComponents.length > 0) {
-      importStatements += `import { ${importedReactResponsiveComponents.join(
+    if (importsReactResponsive.length > 0) {
+      importStatements += `import { ${importsReactResponsive.join(
         ", ",
       )} } from "@responsive-email/react-email";\n`;
     }
