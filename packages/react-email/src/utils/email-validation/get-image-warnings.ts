@@ -20,7 +20,7 @@ export const getImageWarnings = (ast: AST, code: string) => {
           path.node.start!,
         );
         warnings.push({
-          message: "missing alt text",
+          message: 'missing alt text',
           line,
           column,
         });

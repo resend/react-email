@@ -13,7 +13,7 @@ const splitByLines = (text: string) => {
   }
 
   return properSplit;
-}
+};
 
 export const getLineAndColumnFromIndex = (
   code: string,
@@ -35,7 +35,7 @@ export const getLineAndColumnFromIndex = (
   while (charactersUpToLineStart + line().length < index) {
     charactersUpToLineStart += line().length;
     lineNumber++;
-  };
+  }
 
   const columnNumber = index - charactersUpToLineStart + 1;
 
