@@ -93,7 +93,7 @@ export const Sidebar = ({
               <IconStamp />
               <span className="absolute w-4 bg-black border border-slate-6 rounded-full h-4 text-xs left-4 top-0">
                 {emailValidationWarnings &&
-                  emailValidationWarnings.length > 0 ? (
+                emailValidationWarnings.length > 0 ? (
                   emailValidationWarnings.length
                 ) : (
                   <IconCheck />

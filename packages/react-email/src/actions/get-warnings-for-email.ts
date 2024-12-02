@@ -9,9 +9,7 @@ export interface EmailValidationWarning {
   column: number;
 }
 
-export const getWarningsForEmail = async (
-  emailPath: string,
-) => {
+export const getWarningsForEmail = async (emailPath: string) => {
   const code = await fs.readFile(emailPath, 'utf8');
 
   return getValiationWarningsFor(code);
