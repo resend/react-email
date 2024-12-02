@@ -1,20 +1,22 @@
-import * as React from "react";
-import * as Select from "@radix-ui/react-select";
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ClipboardIcon,
-} from "lucide-react";
-import * as Tabs from "@radix-ui/react-tabs";
 import type {
   CodeVariant,
   ImportedComponent,
 } from "@/app/components/get-imported-components-for";
 import { useStoredState } from "@/hooks/use-stored-state";
 import { convertUrisIntoUrls } from "@/utils/convert-uris-into-urls";
+import * as Select from "@radix-ui/react-select";
+import * as Tabs from "@radix-ui/react-tabs";
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClipboardIcon,
+} from "lucide-react";
+import * as React from "react";
 import { CodeBlock } from "./code-block";
 import { TabTrigger } from "./tab-trigger";
+import * as allReactEmailComponents from "@react-email/components";
+import * as allReactResponsiveComponents from "@responsive-email/react-email";
 
 type ReactCodeVariant = Exclude<CodeVariant, "html" | "react">;
 
@@ -41,15 +43,34 @@ export const ComponentCodeView = ({
       code = component.code.react;
     }
   }
-
-  const importedComponents = extractReactComponents(code);
-  const importStatements = `import { ${importedComponents.join(
-    ", ",
-  )} } from "@react-email/components";\n\n`;
   code = convertUrisIntoUrls(code);
 
   if (selectedLanguage === "react") {
-    code = importStatements + code;
+    const importedReactResponsiveComponents = extractReactComponents(
+      code,
+      Object.keys(allReactResponsiveComponents),
+    );
+
+    const importedReactEmailComponents = extractReactComponents(
+      code,
+      Object.keys(allReactEmailComponents),
+    );
+
+    let importStatements = "";
+
+    if (importedReactEmailComponents.length > 0) {
+      importStatements += `import { ${importedReactEmailComponents.join(
+        ", ",
+      )} } from "@react-email/components";\n`;
+    }
+
+    if (importedReactResponsiveComponents.length > 0) {
+      importStatements += `import { ${importedReactResponsiveComponents.join(
+        ", ",
+      )} } from "@responsive-email/react-email";\n`;
+    }
+
+    code = `${importStatements}\n${code}`;
   }
 
   const onCopy = () => {
@@ -194,7 +215,10 @@ const ReactVariantSelect = ({
 /**
  * Extracts React component names from a string of React/JSX code
  */
-const extractReactComponents = (code: string): string[] => {
+const extractReactComponents = (
+  code: string,
+  supportedComponents: string[],
+): string[] => {
   const componentPattern =
     /(?:<|import\s+\{?\s*)(?<componentName>[A-Z][a-zA-Z0-9]*)/g;
   const matches = Array.from(code.matchAll(componentPattern));
@@ -207,5 +231,5 @@ const extractReactComponents = (code: string): string[] => {
     ),
   );
 
-  return componentNames;
+  return componentNames.filter((name) => supportedComponents.includes(name));
 };
