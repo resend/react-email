@@ -12,6 +12,7 @@ import { IconStamp } from '../icons/icon-stamp';
 import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
 import { IconCheck } from '../icons/icon-check';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
+import { WarningsView } from './email-validation-warnings';
 
 interface SidebarProps {
   className?: string;
@@ -92,7 +93,7 @@ export const Sidebar = ({
               <IconStamp />
               <span className="absolute w-4 bg-black border border-slate-6 rounded-full h-4 text-xs left-4 top-0">
                 {emailValidationWarnings &&
-                emailValidationWarnings.length > 0 ? (
+                  emailValidationWarnings.length > 0 ? (
                   emailValidationWarnings.length
                 ) : (
                   <IconCheck />
@@ -100,29 +101,8 @@ export const Sidebar = ({
               </span>
             </SidebarTabTrigger>
           </Tabs.List>
-          {activeTabValue === 'validation' ? (
-            <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
-              {emailValidationWarnings !== undefined &&
-              emailValidationWarnings.length > 0 ? (
-                <ul className="text-sm w-full h-full list-none pl-0">
-                  {emailValidationWarnings.map((warning) => (
-                    <li
-                      className="flex px-4 py-2 items-center bg-transparent hover:bg-slate-6"
-                      key={warning.line}
-                    >
-                      {warning.message}{' '}
-                      <span className="ml-auto">
-                        {warning.line}:{warning.column}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="text-lg w-full text-center text-white/90 font-bold">
-                  No warnings
-                </div>
-              )}
-            </div>
+          {activeTabValue === 'validation' && emailValidationWarnings ? (
+            <WarningsView warnings={emailValidationWarnings} />
           ) : null}
           {activeTabValue === 'email-templates' ? (
             <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
