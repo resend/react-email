@@ -61,7 +61,7 @@ test('createDependencyGraph()', async () => {
         'get-imported-modules.spec.ts',
       ],
       dependencyPaths: [],
-      moduleDependencies: ['@babel/core', '@babel/parser'],
+      moduleDependencies: ['@babel/traverse', '@babel/parser'],
     },
     'get-imported-modules.spec.ts': {
       path: 'get-imported-modules.spec.ts',
