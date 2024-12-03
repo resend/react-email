@@ -746,15 +746,15 @@ importers:
 
   packages/create-email/template:
     dependencies:
-      '@react-email/components':
-        specifier: workspace:0.0.29-canary.5
-        version: link:../../components
       react:
         specifier: 18.3.1
         version: 18.3.1
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
+      react-email:
+        specifier: workspace:3.0.3-canary.2
+        version: link:../../react-email
     devDependencies:
       '@types/react':
         specifier: npm:types-react@19.0.0-rc.1
@@ -762,9 +762,6 @@ importers:
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0
         version: types-react-dom@19.0.0
-      react-email:
-        specifier: workspace:3.0.3-canary.2
-        version: link:../../react-email
 
   packages/eslint-config-custom:
     devDependencies:
