@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.3-canary.2
+
+### Patch Changes
+
+- 6781316: Improve error messages for all CLI commands
+
 ## 3.0.3-canary.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.3-canary.3
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 1.0.3-canary.2
 
 ### Patch Changes

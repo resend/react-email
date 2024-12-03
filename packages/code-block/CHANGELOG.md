@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.0.11-canary.2
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 0.0.11-canary.1
 
 ### Patch Changes

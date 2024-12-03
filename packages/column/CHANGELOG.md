@@ -1,5 +1,11 @@
 # @react-email/column
 
+## 0.0.13-canary.1
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 0.0.13-canary.0
 
 ### Patch Changes

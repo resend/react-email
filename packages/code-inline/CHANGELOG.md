@@ -1,5 +1,11 @@
 # @react-email/code-inline
 
+## 0.0.5-canary.1
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 0.0.5-canary.0
 
 ### Patch Changes

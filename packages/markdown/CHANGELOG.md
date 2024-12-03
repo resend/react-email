@@ -1,5 +1,11 @@
 # @react-email/markdown
 
+## 0.0.13-canary.3
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 0.0.13-canary.2
 
 ### Patch Changes

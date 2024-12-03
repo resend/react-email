@@ -1,5 +1,11 @@
 # @react-email/font
 
+## 0.0.9-canary.1
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 0.0.9-canary.0
 
 ### Patch Changes

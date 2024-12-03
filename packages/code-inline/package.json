@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-inline",
-  "version": "0.0.5-canary.0",
+  "version": "0.0.5-canary.1",
   "description": "Display a predictable inline code HTML element that works on all email clients",
   "sideEffects": false,
   "main": "./dist/index.js",
