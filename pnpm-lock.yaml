@@ -50,6 +50,9 @@ importers:
 
   apps/demo:
     dependencies:
+      '@react-email/components':
+        specifier: workspace:*
+        version: link:../../packages/components
       react:
         specifier: ^19
         version: 19.0.0
@@ -958,64 +961,64 @@ importers:
         specifier: 7.24.5
         version: 7.24.5
       '@react-email/body':
-        specifier: workspace:0.0.11-canary.1
+        specifier: workspace:0.0.11
         version: link:../body
       '@react-email/button':
-        specifier: workspace:0.0.19-canary.1
+        specifier: workspace:0.0.19
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:0.0.11-canary.2
+        specifier: workspace:0.0.11
         version: link:../code-block
       '@react-email/code-inline':
-        specifier: workspace:0.0.5-canary.1
+        specifier: workspace:0.0.5
         version: link:../code-inline
       '@react-email/column':
-        specifier: workspace:0.0.13-canary.1
+        specifier: workspace:0.0.13
         version: link:../column
       '@react-email/container':
-        specifier: workspace:0.0.15-canary.1
+        specifier: workspace:0.0.15
         version: link:../container
       '@react-email/font':
-        specifier: workspace:0.0.9-canary.1
+        specifier: workspace:0.0.9
         version: link:../font
       '@react-email/head':
-        specifier: workspace:0.0.12-canary.1
+        specifier: workspace:0.0.12
         version: link:../head
       '@react-email/heading':
-        specifier: workspace:0.0.15-canary.1
+        specifier: workspace:0.0.15
         version: link:../heading
       '@react-email/hr':
-        specifier: workspace:0.0.11-canary.1
+        specifier: workspace:0.0.11
         version: link:../hr
       '@react-email/html':
-        specifier: workspace:0.0.11-canary.1
+        specifier: workspace:0.0.11
         version: link:../html
       '@react-email/img':
-        specifier: workspace:0.0.11-canary.1
+        specifier: workspace:0.0.11
         version: link:../img
       '@react-email/link':
-        specifier: workspace:0.0.12-canary.1
+        specifier: workspace:0.0.12
         version: link:../link
       '@react-email/markdown':
-        specifier: workspace:0.0.13-canary.3
+        specifier: workspace:0.0.14
         version: link:../markdown
       '@react-email/preview':
-        specifier: workspace:0.0.12-canary.1
+        specifier: workspace:0.0.12
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.0.3-canary.3
+        specifier: workspace:1.0.3
         version: link:../render
       '@react-email/row':
-        specifier: workspace:0.0.12-canary.1
+        specifier: workspace:0.0.12
         version: link:../row
       '@react-email/section':
-        specifier: workspace:0.0.16-canary.1
+        specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:1.0.3-canary.1
+        specifier: workspace:1.0.4
         version: link:../tailwind
       '@react-email/text':
-        specifier: workspace:0.0.11-canary.1
+        specifier: workspace:0.0.11
         version: link:../text
       chalk:
         specifier: 4.1.2
@@ -1072,9 +1075,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.2
         version: 1.1.2(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
       '@swc/core':
         specifier: 1.4.15
         version: 1.4.15(@swc/helpers@0.5.15)
@@ -1127,8 +1127,8 @@ importers:
         specifier: 8.4.40
         version: 8.4.40
       prism-react-renderer:
-        specifier: 2.1.0
-        version: 2.1.0(react@19.0.0)
+        specifier: 2.4.0
+        version: 2.4.0(react@19.0.0)
       react:
         specifier: ^19
         version: 19.0.0
@@ -3481,7 +3481,7 @@ packages:
   '@radix-ui/react-slot@1.1.0':
     resolution: {integrity: sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==}
     peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
+      '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -6886,6 +6886,11 @@ packages:
 
   prism-react-renderer@2.3.1:
     resolution: {integrity: sha512-Rdf+HzBLR7KYjzpJ1rSoxT9ioO85nZngQEoFIhL07XhtJHlCU3SOz0GJ6+qvMyQe0Se+BV3qpe6Yd/NmQF5Juw==}
+    peerDependencies:
+      react: '>=16.0.0'
+
+  prism-react-renderer@2.4.0:
+    resolution: {integrity: sha512-327BsVCD/unU4CNLZTWVHyUHKnsqcvj2qbPlQ8MiBE2eq2rgctjigPA1Gp9HLF83kZ20zNN6jgizHJeEsyFYOw==}
     peerDependencies:
       react: '>=16.0.0'
 
@@ -14328,13 +14333,13 @@ snapshots:
       clsx: 1.2.1
       react: 18.3.1
 
-  prism-react-renderer@2.1.0(react@19.0.0):
+  prism-react-renderer@2.3.1(react@19.0.0):
     dependencies:
       '@types/prismjs': 1.26.5
-      clsx: 1.2.1
+      clsx: 2.1.0
       react: 19.0.0
 
-  prism-react-renderer@2.3.1(react@19.0.0):
+  prism-react-renderer@2.4.0(react@19.0.0):
     dependencies:
       '@types/prismjs': 1.26.5
       clsx: 2.1.0
