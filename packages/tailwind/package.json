@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "1.0.3-canary.0",
+  "version": "1.0.3-canary.1",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",

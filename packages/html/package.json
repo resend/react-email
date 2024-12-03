@@ -1,6 +1,6 @@
 {
   "name": "@react-email/html",
-  "version": "0.0.11-canary.0",
+  "version": "0.0.11-canary.1",
   "description": "A React html component to wrap emails",
   "sideEffects": false,
   "main": "./dist/index.js",

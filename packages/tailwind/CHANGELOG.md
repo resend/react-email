@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.3-canary.1
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+
 ## 1.0.3-canary.0
 
 ### Patch Changes

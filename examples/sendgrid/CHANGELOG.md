@@ -1,5 +1,12 @@
 # react-email-with-sendgrid
 
+## 1.0.4-canary.5
+
+### Patch Changes
+
+- Updated dependencies [467af4e]
+  - @react-email/components@0.0.29-canary.5
+
 ## 1.0.4-canary.4
 
 ### Patch Changes
