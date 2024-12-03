@@ -12,8 +12,7 @@ import {
   Section,
   Text,
   Row,
-} from "@react-email/components";
-import * as React from "react";
+} from "react-email";
 
 interface StackOverflowTipsEmailProps {
   tips?: { id: number; description: string }[];

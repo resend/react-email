@@ -50,9 +50,6 @@ importers:
 
   apps/demo:
     dependencies:
-      '@react-email/components':
-        specifier: workspace:*
-        version: link:../../packages/components
       react:
         specifier: ^19
         version: 19.0.0
@@ -960,6 +957,66 @@ importers:
       '@babel/parser':
         specifier: 7.24.5
         version: 7.24.5
+      '@react-email/body':
+        specifier: workspace:0.0.11-canary.1
+        version: link:../body
+      '@react-email/button':
+        specifier: workspace:0.0.19-canary.1
+        version: link:../button
+      '@react-email/code-block':
+        specifier: workspace:0.0.11-canary.2
+        version: link:../code-block
+      '@react-email/code-inline':
+        specifier: workspace:0.0.5-canary.1
+        version: link:../code-inline
+      '@react-email/column':
+        specifier: workspace:0.0.13-canary.1
+        version: link:../column
+      '@react-email/container':
+        specifier: workspace:0.0.15-canary.1
+        version: link:../container
+      '@react-email/font':
+        specifier: workspace:0.0.9-canary.1
+        version: link:../font
+      '@react-email/head':
+        specifier: workspace:0.0.12-canary.1
+        version: link:../head
+      '@react-email/heading':
+        specifier: workspace:0.0.15-canary.1
+        version: link:../heading
+      '@react-email/hr':
+        specifier: workspace:0.0.11-canary.1
+        version: link:../hr
+      '@react-email/html':
+        specifier: workspace:0.0.11-canary.1
+        version: link:../html
+      '@react-email/img':
+        specifier: workspace:0.0.11-canary.1
+        version: link:../img
+      '@react-email/link':
+        specifier: workspace:0.0.12-canary.1
+        version: link:../link
+      '@react-email/markdown':
+        specifier: workspace:0.0.13-canary.3
+        version: link:../markdown
+      '@react-email/preview':
+        specifier: workspace:0.0.12-canary.1
+        version: link:../preview
+      '@react-email/render':
+        specifier: workspace:1.0.3-canary.3
+        version: link:../render
+      '@react-email/row':
+        specifier: workspace:0.0.12-canary.1
+        version: link:../row
+      '@react-email/section':
+        specifier: workspace:0.0.16-canary.1
+        version: link:../section
+      '@react-email/tailwind':
+        specifier: workspace:1.0.3-canary.1
+        version: link:../tailwind
+      '@react-email/text':
+        specifier: workspace:0.0.11-canary.1
+        version: link:../text
       chalk:
         specifier: 4.1.2
         version: 4.1.2
