@@ -1,5 +1,14 @@
 # @react-email/render
 
+## 1.0.3
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+- b34aa90: Move react and react-dom to just dependencies for better DX
+- da3e719: Use prettier's stadalone API instead of js-beautify
+- fd3b9de: Remove uncessary destructuring of react-dom/server
+
 ## 1.0.3-canary.3
 
 ### Patch Changes

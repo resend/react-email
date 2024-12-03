@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-next-scaleway",
-  "version": "1.0.4-canary.5",
+  "version": "1.0.4",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -12,7 +12,7 @@
   "dependencies": {
     "@scaleway/sdk": "1.5.0",
     "next": "15.0.0-canary.117",
-    "@react-email/components": "workspace:0.0.29-canary.5",
+    "@react-email/components": "workspace:0.0.29",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"
   },

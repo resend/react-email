@@ -1,5 +1,12 @@
 # @react-email/container
 
+## 0.0.15
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+- b34aa90: Move react and react-dom to just dependencies for better DX
+
 ## 0.0.15-canary.1
 
 ### Patch Changes

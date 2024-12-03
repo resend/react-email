@@ -1,5 +1,14 @@
 # @react-email/markdown
 
+## 0.0.13
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+- b34aa90: Move react and react-dom to just dependencies for better DX
+- cb9ac11: Fix memory leak by updating md-to-react-email
+- 946ffff: Fixes `fontWeight` styles erroring when using numbers
+
 ## 0.0.13-canary.3
 
 ### Patch Changes

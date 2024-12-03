@@ -1,5 +1,13 @@
 # react-email
 
+## 3.0.3
+
+### Patch Changes
+
+- 1e82151: fix null byte characters being rendered in the preview server
+- b34aa90: Move react and react-dom to just dependencies for better DX
+- 6781316: Improve error messages for all CLI commands
+
 ## 3.0.3-canary.2
 
 ### Patch Changes

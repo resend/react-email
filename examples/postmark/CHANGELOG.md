@@ -1,5 +1,13 @@
 # react-email-with-postmark
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [467af4e]
+- Updated dependencies [b34aa90]
+  - @react-email/components@0.0.29
+
 ## 1.0.4-canary.5
 
 ### Patch Changes
