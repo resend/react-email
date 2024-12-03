@@ -1,5 +1,39 @@
 # @react-email/components
 
+## 0.0.29
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+- b34aa90: Move react and react-dom to just dependencies for better DX
+- Updated dependencies [467af4e]
+- Updated dependencies [b34aa90]
+- Updated dependencies [cb9ac11]
+- Updated dependencies [da3e719]
+- Updated dependencies [946ffff]
+- Updated dependencies [cb16506]
+- Updated dependencies [fd3b9de]
+  - @react-email/code-inline@0.0.5
+  - @react-email/code-block@0.0.11
+  - @react-email/container@0.0.15
+  - @react-email/markdown@0.0.13
+  - @react-email/tailwind@1.0.3
+  - @react-email/heading@0.0.15
+  - @react-email/preview@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/button@0.0.19
+  - @react-email/column@0.0.13
+  - @react-email/render@1.0.3
+  - @react-email/body@0.0.11
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/html@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/text@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/row@0.0.12
+  - @react-email/hr@0.0.11
+
 ## 0.0.29-canary.5
 
 ### Patch Changes

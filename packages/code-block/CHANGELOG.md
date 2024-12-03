@@ -1,5 +1,13 @@
 # @react-email/code-block
 
+## 0.0.11
+
+### Patch Changes
+
+- 467af4e: Use peerDependencies for react and react-dom
+- b34aa90: Move react and react-dom to just dependencies for better DX
+- cb16506: Fix typo in the PrismLanguage type
+
 ## 0.0.11-canary.2
 
 ### Patch Changes
