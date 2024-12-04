@@ -1,4 +1,4 @@
-import { parse } from "@babel/parser"
+import { parse } from '@babel/parser';
 
 export const parseCode = (code: string) => {
   return parse(code, {
@@ -7,4 +7,4 @@ export const parseCode = (code: string) => {
     ranges: true,
     sourceType: 'unambiguous',
   });
-}
+};
