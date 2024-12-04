@@ -17,7 +17,6 @@ interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
-  emailValidationWarnings: EmailValidationWarning[];
   renderingResult: EmailRenderingResult;
 }
 
@@ -25,7 +24,6 @@ const Preview = ({
   slug,
   emailPath,
   pathSeparator,
-  emailValidationWarnings: initialEmailValidationWarnings,
   renderingResult: initialRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -34,16 +32,11 @@ const Preview = ({
 
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
-  const { useEmailRenderingResult, useEmailWarnings } = useEmails();
+  const { useEmailRenderingResult } = useEmails();
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
     initialRenderingResult,
-  );
-
-  const emailValidationWarnings = useEmailWarnings(
-    emailPath,
-    initialEmailValidationWarnings,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
@@ -88,7 +81,6 @@ const Preview = ({
     <Shell
       activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
-      emailValidationWarnings={emailValidationWarnings}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
       setActiveView={hasNoErrors ? handleViewChange : undefined}
