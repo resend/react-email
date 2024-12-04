@@ -3,6 +3,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
+import { clsx } from 'clsx';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Logo } from '../logo';
