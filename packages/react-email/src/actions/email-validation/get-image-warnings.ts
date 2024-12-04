@@ -1,5 +1,5 @@
 import traverse from '@babel/traverse';
-import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
+import type { EmailValidationWarning } from '../get-warnings-for-email';
 import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
 import type { AST } from '.';
 
