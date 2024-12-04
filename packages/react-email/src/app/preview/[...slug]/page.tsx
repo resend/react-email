@@ -55,8 +55,6 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     });
   }
 
-  const emailWarnings = await getWarningsForEmail(emailPath);
-
   return (
     // This suspense is so that this page doesn't throw warnings
     // on the build of the preview server de-opting into
@@ -64,7 +62,6 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     <Suspense fallback={<Home />}>
       <Preview
         emailPath={emailPath}
-        emailValidationWarnings={emailWarnings}
         pathSeparator={path.sep}
         renderingResult={emailRenderingResult}
         slug={slug}

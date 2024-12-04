@@ -10,26 +10,18 @@ import {
   type EmailRenderingResult,
 } from '../actions/render-email-by-path';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
-import {
-  EmailValidationWarning,
-  getWarningsForEmail,
-} from '../actions/get-warnings-for-email';
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-      useEmailWarnings: (
-        emailPath: string,
-        serverValidationWarnings: EmailValidationWarning[],
-      ) => EmailValidationWarning[];
-      /**
-       * Uses the hot reloaded bundled build and rendering email result
-       */
-      useEmailRenderingResult: (
-        emailPath: string,
-        serverEmailRenderedResult: EmailRenderingResult,
-      ) => EmailRenderingResult;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+    /**
+     * Uses the hot reloaded bundled build and rendering email result
+     */
+    useEmailRenderingResult: (
+      emailPath: string,
+      serverEmailRenderedResult: EmailRenderingResult,
+    ) => EmailRenderingResult;
+  }
   | undefined
 >(undefined);
 
@@ -54,9 +46,6 @@ export const EmailsProvider = (props: {
 
   const [renderingResultPerEmailPath, setRenderingResultPerEmailPath] =
     useState<Record<string, EmailRenderingResult>>({});
-
-  const [validationWarningsPerEmailPath, setValidationWarningsPerEmailPath] =
-    useState<Record<string, EmailValidationWarning[]>>({});
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
@@ -94,18 +83,6 @@ export const EmailsProvider = (props: {
             [pathForChangedEmail]: renderingResult,
           }));
         }
-
-        const lastWarnings =
-          validationWarningsPerEmailPath[pathForChangedEmail];
-
-        if (typeof lastWarnings !== 'undefined') {
-          const warnings = await getWarningsForEmail(pathForChangedEmail);
-
-          setValidationWarningsPerEmailPath((map) => ({
-            ...map,
-            [pathForChangedEmail]: warnings,
-          }));
-        }
       }
     });
   }
@@ -114,27 +91,6 @@ export const EmailsProvider = (props: {
     <EmailsContext.Provider
       value={{
         emailsDirectoryMetadata,
-        useEmailWarnings: (emailPath, serverValidationWarnings) => {
-          useEffect(() => {
-            if (
-              typeof validationWarningsPerEmailPath[emailPath] === 'undefined'
-            ) {
-              setValidationWarningsPerEmailPath((map) => ({
-                ...map,
-                [emailPath]: serverValidationWarnings,
-              }));
-            }
-          }, [serverValidationWarnings, emailPath]);
-
-          if (
-            typeof validationWarningsPerEmailPath[emailPath] !== 'undefined'
-          ) {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return validationWarningsPerEmailPath[emailPath]!;
-          }
-
-          return serverValidationWarnings;
-        },
         useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
           useEffect(() => {
             if (typeof renderingResultPerEmailPath[emailPath] === 'undefined') {
