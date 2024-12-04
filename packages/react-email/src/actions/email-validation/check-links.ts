@@ -1,7 +1,10 @@
 'use server';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import http from 'node:http';
+import { promises as fs } from 'node:fs';
 import traverse from '@babel/traverse';
+import { Passero_One } from 'next/font/google';
+import { getEmailPathFromSlug } from '../get-email-path-from-slug';
 import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
 import { parseCode } from './parse-code';
 
@@ -23,21 +26,22 @@ const doesURLSucceedResponse = async (url: URL) => {
   return succeedingURLs.get(url)!;
 };
 
-interface LinkCheck {
-  type: 'syntax' | 'security' | 'response-code';
-  status: 'failed' | 'passed';
-}
-
-interface LinkCheckingResult {
+export interface LinkCheckingResult {
   link: string;
 
   line: number;
   column: number;
 
-  checks: LinkCheck[];
+  checks: {
+    syntax: 'failed' | 'passed';
+    security?: 'failed' | 'passed';
+    responseCode?: 'failed' | 'passed';
+  };
 }
 
-export const checkLinks = async (code: string) => {
+export const checkLinks = async (emailSlug: string) => {
+  const emailPath = await getEmailPathFromSlug(emailSlug);
+  const code = await fs.readFile(emailPath, 'utf8');
   const ast = parseCode(code);
 
   const linkCheckingResults: LinkCheckingResult[] = [];
@@ -49,11 +53,10 @@ export const checkLinks = async (code: string) => {
   }[] = [];
 
   traverse(ast, {
-    // <a href="...">
     JSXOpeningElement(nodePath) {
       if (
         nodePath.node.name.type !== 'JSXIdentifier' ||
-        nodePath.node.name.name !== 'a'
+        (nodePath.node.name.name !== 'a' && nodePath.node.name.name !== 'Link')
       )
         return;
 
@@ -95,34 +98,19 @@ export const checkLinks = async (code: string) => {
       continue;
     }
 
-    if (link.startsWith('/')) {
-      continue;
-    }
-
-    const checks: LinkCheck[] = [];
+    const checks: LinkCheckingResult['checks'] = {
+      syntax: 'passed',
+    };
 
     try {
       const url = new URL(link);
-      checks.push({
-        type: 'syntax',
-        status: 'passed',
-      });
 
       const hasSucceeded = await doesURLSucceedResponse(url);
-      checks.push({
-        type: 'response-code',
-        status: hasSucceeded ? 'passed' : 'failed',
-      });
+      checks.responseCode = hasSucceeded ? 'passed' : 'failed';
 
-      checks.push({
-        type: 'security',
-        status: link.startsWith('https://') ? 'passed' : 'failed',
-      });
+      checks.security = link.startsWith('https://') ? 'passed' : 'failed';
     } catch (exception) {
-      checks.push({
-        type: 'syntax',
-        status: 'failed',
-      });
+      checks.syntax = 'failed';
     }
 
     linkCheckingResults.push({
