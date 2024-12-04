@@ -10,7 +10,6 @@ import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import type { EmailValidationWarning } from '../../../actions/get-warnings-for-email';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
