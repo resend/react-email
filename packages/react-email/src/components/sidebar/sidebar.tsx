@@ -3,20 +3,14 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
-import clsx from 'clsx';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Logo } from '../logo';
 import { IconEmail } from '../icons/icon-email';
-import { IconStamp } from '../icons/icon-stamp';
-import type { EmailValidationWarning } from '../../actions/get-warnings-for-email';
-import { IconCheck } from '../icons/icon-check';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
-import { WarningsView } from './email-validation-warnings';
 
 interface SidebarProps {
   className?: string;
-  emailValidationWarnings?: EmailValidationWarning[];
   currentEmailOpenSlug?: string;
   style?: React.CSSProperties;
 }
@@ -54,7 +48,6 @@ const SidebarTabTrigger = ({
 export const Sidebar = ({
   className,
   currentEmailOpenSlug,
-  emailValidationWarnings,
   style,
 }: SidebarProps) => {
   const [activeTabValue, setActiveTabValue] =
@@ -85,7 +78,7 @@ export const Sidebar = ({
             >
               <IconEmail />
             </SidebarTabTrigger>
-            <SidebarTabTrigger
+            {/*<SidebarTabTrigger
               activeTabValue={activeTabValue}
               className="relative"
               tabValue="validation"
@@ -99,11 +92,11 @@ export const Sidebar = ({
                   <IconCheck />
                 )}
               </span>
-            </SidebarTabTrigger>
+            </SidebarTabTrigger>*/}
           </Tabs.List>
-          {activeTabValue === 'validation' && emailValidationWarnings ? (
+          {/*activeTabValue === 'validation' && emailValidationWarnings ? (
             <WarningsView warnings={emailValidationWarnings} />
-          ) : null}
+          ) : null*/}
           {activeTabValue === 'email-templates' ? (
             <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
               <nav className="p-4 flex-grow lg:pt-0 pl-0 w-full flex flex-col overflow-y-auto">

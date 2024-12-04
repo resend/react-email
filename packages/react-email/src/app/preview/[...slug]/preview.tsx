@@ -10,15 +10,12 @@ import { Tooltip } from '../../../components/tooltip';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import type { EmailValidationWarning } from '../../../actions/get-warnings-for-email';
-import { useEmails } from '../../../contexts/emails';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
-  emailValidationWarnings: EmailValidationWarning[];
   serverRenderingResult: EmailRenderingResult;
 }
 
@@ -27,7 +24,6 @@ const Preview = ({
   emailPath,
   pathSeparator,
   serverRenderingResult,
-  emailValidationWarnings: initialEmailValidationWarnings,
 }: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -36,16 +32,9 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
-  const { useEmailWarnings } = useEmails();
-
   const renderingResult = useEmailRenderingResult(
     emailPath,
     serverRenderingResult,
-  );
-
-  const emailValidationWarnings = useEmailWarnings(
-    emailPath,
-    initialEmailValidationWarnings,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
@@ -90,7 +79,6 @@ const Preview = ({
     <Shell
       activeView={hasNoErrors ? activeView : undefined}
       currentEmailOpenSlug={slug}
-      emailValidationWarnings={emailValidationWarnings}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
       setActiveView={hasNoErrors ? handleViewChange : undefined}
