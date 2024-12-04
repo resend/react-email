@@ -6,7 +6,6 @@ import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-director
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Home from '../../page';
-import { getWarningsForEmail } from '../../../actions/get-warnings-for-email';
 import Preview from './preview';
 
 export const dynamicParams = true;
