@@ -1,25 +1,14 @@
 'use server';
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import http from 'node:http';
-import { getLineAndColumnFromIndex } from './get-line-and-column-from-index';
 import { parse } from 'node-html-parser';
 
-const succeedingURLs = new Map<URL, boolean>();
-
-const doesURLSucceedResponse = async (url: URL) => {
-  if (!succeedingURLs.has(url)) {
-    await new Promise<void>((resolve) => {
-      http.get(url, (res) => {
-        if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
-          succeedingURLs.set(url, true);
-        } else {
-          succeedingURLs.set(url, false);
-        }
-        resolve();
-      });
+const quickCheckResponseStatusCodeFor = (url: URL) => {
+  return new Promise<number | undefined>((resolve, reject) => {
+    http.get(url, (res) => {
+      resolve(res.statusCode);
     });
-  }
-  return succeedingURLs.get(url)!;
+  });
 };
 
 export interface LinkCheckingResult {
@@ -28,8 +17,9 @@ export interface LinkCheckingResult {
   checks: {
     syntax: 'failed' | 'passed';
     security?: 'failed' | 'passed';
-    responseCode?: 'failed' | 'passed';
   };
+
+  responseStatusCode?: number;
 }
 
 export const checkLinks = async (code: string) => {
@@ -43,25 +33,27 @@ export const checkLinks = async (code: string) => {
     if (!link) continue;
     if (link.startsWith('mailto:')) continue;
 
-    const checks: LinkCheckingResult['checks'] = {
-      syntax: 'passed',
+    const result: LinkCheckingResult = {
+      link,
+      checks: {
+        syntax: 'passed',
+      },
     };
 
     try {
       const url = new URL(link);
 
-      const hasSucceeded = await doesURLSucceedResponse(url);
-      checks.responseCode = hasSucceeded ? 'passed' : 'failed';
+      const statusCode = await quickCheckResponseStatusCodeFor(url);
+      result.responseStatusCode = statusCode;
 
-      checks.security = link.startsWith('https://') ? 'passed' : 'failed';
+      result.checks.security = link.startsWith('https://')
+        ? 'passed'
+        : 'failed';
     } catch (exception) {
-      checks.syntax = 'failed';
+      result.checks.syntax = 'failed';
     }
 
-    linkCheckingResults.push({
-      link,
-      checks,
-    });
+    linkCheckingResults.push(result);
   }
 
   return linkCheckingResults;
