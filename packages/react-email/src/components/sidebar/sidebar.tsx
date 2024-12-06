@@ -9,8 +9,10 @@ import { cn } from '../../utils';
 import { Logo } from '../logo';
 import { IconEmail } from '../icons/icon-email';
 import { IconLink } from '../icons/icon-link';
-import { SidebarDirectoryChildren } from './sidebar-directory-children';
+import { IconImage } from '../icons/icon-image';
+import { SidebarDirectoryChildren } from './file-tree-directory-childrenen';
 import { LinkChecker } from './link-checker';
+import { FileTree } from './file-tree';
 
 interface SidebarProps {
   className?: string;
@@ -27,7 +29,7 @@ interface SidebarTabTriggerProps {
   activeTabValue: SidebarTab;
 }
 
-type SidebarTab = 'file-tree' | 'link-checker';
+type SidebarTab = 'file-tree' | 'link-checker' | 'image-checker';
 
 const SidebarTabTrigger = ({
   children,
@@ -89,6 +91,14 @@ export const Sidebar = ({
             >
               <IconLink height="24" width="24" />
             </SidebarTabTrigger>
+            <SidebarTabTrigger
+              activeTabValue={activeTabValue}
+              className="relative"
+              disabled={currentEmailOpenSlug === undefined}
+              tabValue="image-checker"
+            >
+              <IconImage height="24" width="24" />
+            </SidebarTabTrigger>
           </Tabs.List>
           <div>
             <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
@@ -98,21 +108,14 @@ export const Sidebar = ({
               {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
                 <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
               ) : null}
+              {activeTabValue === 'image-checker' && currentEmailOpenSlug ? (
+                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
+              ) : null}
               {activeTabValue === 'file-tree' ? (
-                <div className="flex flex-col w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
-                  <nav className="p-4 flex-grow lg:pt-0 pl-0 w-full flex flex-col overflow-y-auto">
-                    <Collapsible.Root>
-                      <React.Suspense>
-                        <SidebarDirectoryChildren
-                          currentEmailOpenSlug={currentEmailOpenSlug}
-                          emailsDirectoryMetadata={emailsDirectoryMetadata}
-                          isRoot
-                          open
-                        />
-                      </React.Suspense>
-                    </Collapsible.Root>
-                  </nav>
-                </div>
+                <FileTree
+                  currentEmailOpenSlug={currentEmailOpenSlug}
+                  emailsDirectoryMetadata={emailsDirectoryMetadata}
+                />
               ) : null}
             </div>
           </div>

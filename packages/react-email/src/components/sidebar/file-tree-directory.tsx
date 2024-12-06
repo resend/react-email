@@ -2,12 +2,12 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
-import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import { type EmailsDirectory } from '../../actions/get-emails-directory-metadata';
 import { Heading } from '../heading';
-import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
-import { SidebarDirectoryChildren } from './file-tree-directory-childrenen';
+import { IconArrowDown } from '../icons/icon-arrow-down';
+import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface SidebarDirectoryProps {
   emailsDirectoryMetadata: EmailsDirectory;
@@ -17,7 +17,7 @@ interface SidebarDirectoryProps {
 
 const persistedOpenDirectories = new Set<string>();
 
-export const SidebarDirectory = ({
+export const FileTreeDirectory = ({
   emailsDirectoryMetadata: directoryMetadata,
   className,
   currentEmailOpenSlug,
@@ -82,7 +82,7 @@ export const SidebarDirectory = ({
       </Collapsible.Trigger>
 
       {!isEmpty ? (
-        <SidebarDirectoryChildren
+        <FileTreeDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
           emailsDirectoryMetadata={directoryMetadata}
           open={open}
