@@ -1,10 +1,11 @@
-import React from 'react';
-import clsx from 'clsx';
+import * as React from 'react';
 import {
   checkLinks,
   type LinkCheckingResult,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
+import { useEmails } from '../../contexts/emails';
+import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -17,8 +18,15 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
     LinkCheckingResult[] | undefined
   >(checkingResultsCache.get(currentEmailOpenSlug));
 
+  const { renderingResultPerEmailPath } = useEmails();
+
+  const emailPath = emailSlugToPathMap[currentEmailOpenSlug];
+  if (!emailPath) return;
+  const renderingResult = renderingResultPerEmailPath[emailPath];
+  if (!renderingResult || 'error' in renderingResult) return;
+
   const handleRun = () => {
-    checkLinks(currentEmailOpenSlug)
+    checkLinks(renderingResult.markup)
       .then((newResults) => {
         checkingResultsCache.set(currentEmailOpenSlug, newResults);
         setResults(newResults);
