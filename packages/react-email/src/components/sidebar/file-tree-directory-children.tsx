@@ -6,9 +6,9 @@ import type { EmailsDirectory } from '../../actions/get-emails-directory-metadat
 import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
 import { cn } from '../../utils';
 import { IconFile } from '../icons/icon-file';
-import { SidebarDirectory } from './sidebar-directory';
+import { FileTreeDirectory } from './file-tree-directory';
 
-export const SidebarDirectoryChildren = (props: {
+export const FileTreeDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
   currentEmailOpenSlug?: string;
   open: boolean;
@@ -39,7 +39,7 @@ export const SidebarDirectoryChildren = (props: {
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
-                    <SidebarDirectory
+                    <FileTreeDirectory
                       className="pl-4 py-0"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
