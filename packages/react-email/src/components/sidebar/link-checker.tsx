@@ -6,6 +6,8 @@ import {
 import { Button } from '../button';
 import { useEmails } from '../../contexts/emails';
 import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
+import { IconCheck } from '../icons/icon-check';
+import { IconCircleCheck } from '../icons/icon-circle-check';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -74,14 +76,41 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
   if (props.checks.syntax === 'failed') {
     status = 'error';
   }
-  if (props.checks.responseCode === 'failed') {
+  if (props.responseStatusCode === undefined) {
     status = 'error';
   }
   return (
-    <li className="group" data-status={status}>
-      <div className="data-[status=error]:text-red-400 data-[status=warning]:text-yellow-300 data-[status=success]:text-green-400">
-        {props.link}
+    <li className="group my-4 text-left" data-status={status}>
+      <div className="flex items-center text-sm gap-2 group-data-[status=error]:text-red-400 group-data-[status=warning]:text-yellow-300 group-data-[status=success]:text-green-400">
+        {(() => {
+          if (status === 'success') {
+            return <IconCircleCheck />;
+          }
+          if (status === 'error') {
+            return <IconCircleCheck />;
+          }
+        })()}
+        <a
+          className="flex-shrink overflow-hidden whitespace-nowrap text-ellipsis"
+          href={props.link}
+        >
+          {props.link}
+        </a>
       </div>
+
+      {(() => {
+        if (props.checks.syntax === 'failed') {
+          return 'Invalid URL';
+        }
+
+        if (props.responseStatusCode) {
+          return `${props.responseStatusCode} - ${props.checks.security === 'failed' ? 'Insecure' : 'Secure'}`;
+        }
+
+        if (!props.responseStatusCode) {
+          return `URL could not be reached`;
+        }
+      })()}
     </li>
   );
 };
