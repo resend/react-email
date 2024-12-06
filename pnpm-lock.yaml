@@ -920,8 +920,8 @@ importers:
   packages/markdown:
     dependencies:
       md-to-react-email:
-        specifier: 5.0.4
-        version: 5.0.4(react@19.0.0-rc-02c0e824-20241028)
+        specifier: 5.0.5
+        version: 5.0.5(react@19.0.0-rc-02c0e824-20241028)
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
@@ -6229,10 +6229,10 @@ packages:
     engines: {node: '>= 16'}
     hasBin: true
 
-  md-to-react-email@5.0.4:
-    resolution: {integrity: sha512-+XXP7QWNh2g2EGKeCSP8UIrOG45hX4mxUaxSyn1qSO+BFH2uTZ7LE5tt2TAdGAeIUuGuvzZ/o3cByulQ68OxJg==}
+  md-to-react-email@5.0.5:
+    resolution: {integrity: sha512-OvAXqwq57uOk+WZqFFNCMZz8yDp8BD3WazW1wAKHUrPbbdr89K9DWS6JXY09vd9xNdPNeurI8DU/X4flcfaD8A==}
     peerDependencies:
-      react: 18.x
+      react: ^18.0 || ^19.0
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -13873,7 +13873,7 @@ snapshots:
 
   marked@7.0.4: {}
 
-  md-to-react-email@5.0.4(react@19.0.0-rc-02c0e824-20241028):
+  md-to-react-email@5.0.5(react@19.0.0-rc-02c0e824-20241028):
     dependencies:
       marked: 7.0.4
       react: 19.0.0-rc-02c0e824-20241028
