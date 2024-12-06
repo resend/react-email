@@ -1,11 +1,13 @@
 'use server';
 
+import https from 'node:https';
 import http from 'node:http';
 import { parse } from 'node-html-parser';
 
 const quickCheckResponseStatusCodeFor = (url: URL) => {
-  return new Promise<number | undefined>((resolve, reject) => {
-    http.get(url, (res) => {
+  return new Promise<number | undefined>((resolve) => {
+    const caller = url.protocol === 'https:' ? https : http;
+    caller.get(url, (res) => {
       resolve(res.statusCode);
     });
   });
