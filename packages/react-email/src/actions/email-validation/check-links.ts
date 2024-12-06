@@ -1,17 +1,7 @@
 'use server';
 
-import https from 'node:https';
-import http from 'node:http';
 import { parse } from 'node-html-parser';
-
-const quickCheckResponseStatusCodeFor = (url: URL) => {
-  return new Promise<number | undefined>((resolve) => {
-    const caller = url.protocol === 'https:' ? https : http;
-    caller.get(url, (res) => {
-      resolve(res.statusCode);
-    });
-  });
-};
+import { quickFetch } from './quick-fetch';
 
 export interface LinkCheckingResult {
   link: string;
@@ -45,8 +35,8 @@ export const checkLinks = async (code: string) => {
     try {
       const url = new URL(link);
 
-      const statusCode = await quickCheckResponseStatusCodeFor(url);
-      result.responseStatusCode = statusCode;
+      const res = await quickFetch(url);
+      result.responseStatusCode = res.statusCode;
 
       result.checks.security = link.startsWith('https://')
         ? 'passed'
