@@ -8,6 +8,8 @@ import { useEmails } from '../../contexts/emails';
 import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
 import { IconCheck } from '../icons/icon-check';
 import { IconCircleCheck } from '../icons/icon-circle-check';
+import { IconCircleClose } from '../icons/icon-circle-close';
+import { IconCircleWarning } from '../icons/icon-circle-warning';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -38,16 +40,14 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
       });
   };
 
-  console.log(results);
-
   return (
     <div className="flex flex-col text-center p-2 gap-3 w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
       <h2 className="text-xl">Link Checker</h2>
       {results ? (
         <>
           <ol className="list-none p-0">
-            {results.map((result) => (
-              <LinkCheckingResultView {...result} key={result.link} />
+            {results.map((result, i) => (
+              <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
           <Button className="w-fit mt-auto mr-auto" onClick={handleRun}>
@@ -76,7 +76,10 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
   if (props.checks.syntax === 'failed') {
     status = 'error';
   }
-  if (props.responseStatusCode === undefined) {
+  if (
+    props.responseStatusCode === undefined ||
+    !props.responseStatusCode.toString().startsWith('2')
+  ) {
     status = 'error';
   }
   return (
@@ -86,9 +89,10 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
           if (status === 'success') {
             return <IconCircleCheck />;
           }
-          if (status === 'error') {
-            return <IconCircleCheck />;
+          if (status === 'warning') {
+            return <IconCircleWarning />;
           }
+          return <IconCircleClose />;
         })()}
         <a
           className="flex-shrink overflow-hidden whitespace-nowrap text-ellipsis"
