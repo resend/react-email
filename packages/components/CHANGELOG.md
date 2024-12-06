@@ -1,5 +1,12 @@
 # @react-email/components
 
+## 0.0.30
+
+### Patch Changes
+
+- Updated dependencies [fe91c59]
+  - @react-email/markdown@0.0.14
+
 ## 0.0.29
 
 ### Patch Changes
