@@ -7,7 +7,7 @@ import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
 import { IconArrowDown } from '../icons/icon-arrow-down';
-import { SidebarDirectoryChildren } from './file-tree-directory-childrenen';
+import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface SidebarDirectoryProps {
   emailsDirectoryMetadata: EmailsDirectory;
@@ -17,7 +17,7 @@ interface SidebarDirectoryProps {
 
 const persistedOpenDirectories = new Set<string>();
 
-export const SidebarDirectory = ({
+export const FileTreeDirectory = ({
   emailsDirectoryMetadata: directoryMetadata,
   className,
   currentEmailOpenSlug,
@@ -82,7 +82,7 @@ export const SidebarDirectory = ({
       </Collapsible.Trigger>
 
       {!isEmpty ? (
-        <SidebarDirectoryChildren
+        <FileTreeDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
           emailsDirectoryMetadata={directoryMetadata}
           open={open}
