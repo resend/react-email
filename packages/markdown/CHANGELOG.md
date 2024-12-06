@@ -1,5 +1,11 @@
 # @react-email/markdown
 
+## 0.0.14
+
+### Patch Changes
+
+- fe91c59: Upgrade md-to-react-email
+
 ## 0.0.13
 
 ### Patch Changes

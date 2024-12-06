@@ -1,5 +1,11 @@
 # react-email-with-plunk
 
+## 1.0.5
+
+### Patch Changes
+
+- @react-email/components@0.0.30
+
 ## 1.0.4
 
 ### Patch Changes
