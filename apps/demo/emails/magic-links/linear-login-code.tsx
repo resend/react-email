@@ -11,8 +11,7 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
+} from "react-email";
 
 interface LinearLoginCodeEmailProps {
   validationCode?: string;
