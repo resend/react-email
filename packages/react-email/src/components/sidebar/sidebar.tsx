@@ -9,8 +9,6 @@ import { cn } from '../../utils';
 import { Logo } from '../logo';
 import { IconEmail } from '../icons/icon-email';
 import { IconLink } from '../icons/icon-link';
-import { IconImage } from '../icons/icon-image';
-import { SidebarDirectoryChildren } from './file-tree-directory-childrenen';
 import { LinkChecker } from './link-checker';
 import { FileTree } from './file-tree';
 
@@ -91,14 +89,6 @@ export const Sidebar = ({
             >
               <IconLink height="24" width="24" />
             </SidebarTabTrigger>
-            <SidebarTabTrigger
-              activeTabValue={activeTabValue}
-              className="relative"
-              disabled={currentEmailOpenSlug === undefined}
-              tabValue="image-checker"
-            >
-              <IconImage height="24" width="24" />
-            </SidebarTabTrigger>
           </Tabs.List>
           <div>
             <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
@@ -106,9 +96,6 @@ export const Sidebar = ({
             </div>
             <div className="h-[calc(100vh-70px)]">
               {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
-                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
-              ) : null}
-              {activeTabValue === 'image-checker' && currentEmailOpenSlug ? (
                 <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
               ) : null}
               {activeTabValue === 'file-tree' ? (

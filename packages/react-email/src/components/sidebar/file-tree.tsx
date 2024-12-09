@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import type { EmailsDirectory } from '../../actions/get-emails-directory-metadata';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface FileTreeProps {

@@ -2,7 +2,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
-import { type EmailsDirectory } from '../../actions/get-emails-directory-metadata';
+import { type EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
