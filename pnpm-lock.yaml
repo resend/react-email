@@ -15,10 +15,10 @@ importers:
         specifier: 18.18.0
         version: 18.18.0
       '@types/react':
-        specifier: ^19
+        specifier: 19.0.1
         version: 19.0.1
       '@types/react-dom':
-        specifier: ^19
+        specifier: 19.0.1
         version: 19.0.1
       eslint:
         specifier: 8.50.0
