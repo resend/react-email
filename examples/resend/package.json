@@ -10,17 +10,17 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "15.0.0-canary.117",
+    "next": "15.0.4",
     "@react-email/components": "workspace:0.0.30",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "resend": "4.0.0"
+    "react": "^19",
+    "react-dom": "^19",
+    "resend": "4.0.1"
   },
   "devDependencies": {
     "eslint-config-custom": "workspace:*",
     "@types/node": "^20.2.5",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "^5.1.3"
   }
 }

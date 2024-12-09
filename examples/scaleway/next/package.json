@@ -11,16 +11,16 @@
   },
   "dependencies": {
     "@scaleway/sdk": "1.5.0",
-    "next": "15.0.0-canary.117",
+    "next": "15.0.4",
     "@react-email/components": "workspace:0.0.30",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@types/node": "18.14.6",
     "eslint-config-custom": "workspace:*",
-    "@types/react": "npm:types-react@rc",
-    "@types/react-dom": "npm:types-react-dom@rc",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "4.9.5"
   }
 }

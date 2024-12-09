@@ -18,8 +18,8 @@
   "devDependencies": {
     "@changesets/cli": "2.27.9",
     "@types/node": "18.18.0",
-    "@types/react": "npm:types-react@19.0.0",
-    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@types/react": "19.0.1",
+    "@types/react-dom": "19.0.1",
     "eslint": "8.50.0",
     "happy-dom": "15.10.2",
     "prettier": "3.0.3",
@@ -30,11 +30,5 @@
     "vite": "5.4.6",
     "vitest": "2.0.5"
   },
-  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387",
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0"
-    }
-  }
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }
