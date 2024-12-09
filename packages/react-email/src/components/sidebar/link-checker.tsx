@@ -107,7 +107,9 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
         }
 
         if (props.responseStatusCode) {
-          return `${props.responseStatusCode} - ${props.checks.security === 'failed' ? 'Insecure' : 'Secure'}`;
+          return `${props.responseStatusCode} - ${
+            props.checks.security === 'failed' ? 'Insecure' : 'Secure'
+          }`;
         }
 
         if (!props.responseStatusCode) {
