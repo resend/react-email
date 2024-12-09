@@ -21,7 +21,7 @@
     "@responsive-email/react-email": "0.0.3",
     "@supabase/supabase-js": "2.45.1",
     "@vercel/analytics": "1.0.1",
-    "framer-motion": "12.0.0-alpha.1",
+    "framer-motion": "12.0.0-alpha.2",
     "lucide-react": "^0.428.0",
     "next": "15.0.4",
     "prism-react-renderer": "2.3.1",
