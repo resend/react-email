@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 0.1.5
+
+### Patch Changes
+
+- 8f395d2: Update to React 19
+
 ## 0.1.4
 
 ### Patch Changes

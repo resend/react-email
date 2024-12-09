@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.4
+
+### Patch Changes
+
+- 8f395d2: Update to React 19
+
 ## 3.0.3
 
 ### Patch Changes
