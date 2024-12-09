@@ -760,7 +760,7 @@ importers:
         specifier: 19.0.1
         version: 19.0.1
       react-email:
-        specifier: workspace:3.0.3
+        specifier: workspace:3.0.4
         version: link:../../react-email
 
   packages/eslint-config-custom:
