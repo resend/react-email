@@ -19,6 +19,8 @@ interface PreviewProps {
   renderingResult: EmailRenderingResult;
 }
 
+export const emailSlugToPathMap: Record<string, string> = {};
+
 const Preview = ({
   slug,
   emailPath,
@@ -32,6 +34,7 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
   const { useEmailRenderingResult } = useEmails();
+  emailSlugToPathMap[slug] = emailPath;
 
   const renderingResult = useEmailRenderingResult(
     emailPath,

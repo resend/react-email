@@ -8,7 +8,6 @@ import logo from './logo.png';
 
 const Home = () => {
   const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);
-
   return (
     <Shell>
       <div className="relative max-w-lg mx-auto p-8 flex items-center justify-center h-[inherit]">

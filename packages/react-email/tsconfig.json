@@ -3,6 +3,7 @@
   "display": "Next.js",
   "compilerOptions": {
     "composite": false,
+    "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
