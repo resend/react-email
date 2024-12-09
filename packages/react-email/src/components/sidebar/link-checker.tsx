@@ -6,7 +6,6 @@ import {
 import { Button } from '../button';
 import { useEmails } from '../../contexts/emails';
 import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
-import { IconCheck } from '../icons/icon-check';
 import { IconCircleCheck } from '../icons/icon-circle-check';
 import { IconCircleClose } from '../icons/icon-circle-close';
 import { IconCircleWarning } from '../icons/icon-circle-warning';
