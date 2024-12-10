@@ -1,5 +1,11 @@
 # react-email-with-postmark
 
+## 1.0.6
+
+### Patch Changes
+
+- @react-email/components@0.0.31
+
 ## 1.0.5
 
 ### Patch Changes

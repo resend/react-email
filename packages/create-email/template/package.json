@@ -1,6 +1,6 @@
 {
   "name": "react-email-starter",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "scripts": {
     "build": "email build",
@@ -8,7 +8,7 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:0.0.30",
+    "@react-email/components": "workspace:0.0.31",
     "react-dom": "19.0.0",
     "react": "19.0.0"
   },
