@@ -54,7 +54,7 @@ export const Send = ({ markup }: { markup: string }) => {
     >
       <Popover.Trigger asChild>
         <button
-          className="box-border outline-none self-center w-20 h-5 flex items-center justify-center rounded-lg bg-slate-2 text-center transition duration-300  ease-in-out border border-slate-6 text-slate-11 text-sm px-4 py-4 hover:border-slate-10 hover:text-slate-12 font-sans"
+          className="box-border flex h-5 w-20 items-center justify-center self-center rounded-lg border border-slate-6 bg-slate-2 px-4 py-4 text-center font-sans text-sm text-slate-11 outline-none transition duration-300 ease-in-out hover:border-slate-10 hover:text-slate-12"
           type="submit"
         >
           Send
@@ -64,19 +64,19 @@ export const Send = ({ markup }: { markup: string }) => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className={`w-80 -mt-10 p-3 bg-black/70 backdrop-blur-lg border border-slate-6 text-slate-11 rounded-lg shadow-md font-sans ${inter.variable}`}
+          className={`-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 font-sans text-slate-11 shadow-md backdrop-blur-lg ${inter.variable}`}
           sideOffset={48}
         >
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
             <label
-              className="text-slate-10 text-xs uppercase mb-2 block"
+              className="mb-2 block text-xs uppercase text-slate-10"
               htmlFor="to"
             >
               Recipient
             </label>
             <input
               autoFocus
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={to}
               id="to"
               onChange={(e) => {
@@ -87,13 +87,13 @@ export const Send = ({ markup }: { markup: string }) => {
               type="email"
             />
             <label
-              className="text-slate-10 text-xs uppercase mb-2 mt-1 block"
+              className="mb-2 mt-1 block text-xs uppercase text-slate-10"
               htmlFor="subject"
             >
               Subject
             </label>
             <input
-              className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={subject}
               id="subject"
               onChange={(e) => {
@@ -107,11 +107,11 @@ export const Send = ({ markup }: { markup: string }) => {
               className="appearance-none checked:bg-blue-500"
               type="checkbox"
             />
-            <div className="flex items-center justify-between mt-3">
+            <div className="mt-3 flex items-center justify-between">
               <Text className="inline-block" size="1">
                 Powered by{' '}
                 <a
-                  className="text-white/85 hover:text-slate-12 transition ease-in-out duration-300"
+                  className="text-white/85 transition duration-300 ease-in-out hover:text-slate-12"
                   href="https://resend.com"
                   rel="noreferrer"
                   target="_blank"
@@ -120,7 +120,7 @@ export const Send = ({ markup }: { markup: string }) => {
                 </a>
               </Text>
               <Button
-                className="disabled:bg-slate-11 disabled:border-transparent"
+                className="disabled:border-transparent disabled:bg-slate-11"
                 disabled={subject.length === 0 || to.length === 0 || isSending}
                 type="submit"
               >

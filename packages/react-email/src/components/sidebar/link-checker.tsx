@@ -40,7 +40,7 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
   };
 
   return (
-    <div className="flex flex-col text-center p-2 gap-3 w-[calc(100vw-36px)] h-full lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
+    <div className="flex h-full w-[calc(100vw-36px)] flex-col gap-3 p-2 text-center lg:w-full lg:min-w-[231px] lg:max-w-[231px]">
       <h2 className="text-xl">Link Checker</h2>
       {results ? (
         <>
@@ -49,16 +49,16 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
               <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
-          <Button className="w-fit mt-auto mr-auto" onClick={handleRun}>
+          <Button className="mr-auto mt-auto w-fit" onClick={handleRun}>
             Re-run
           </Button>
         </>
       ) : (
         <>
-          <span className="text-gray-300 text-sm">
+          <span className="text-sm text-gray-300">
             Check if all links are valid and going to the right pages
           </span>
-          <Button className="w-fit mx-auto" onClick={handleRun}>
+          <Button className="mx-auto w-fit" onClick={handleRun}>
             Run
           </Button>
         </>
@@ -83,7 +83,7 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
   }
   return (
     <li className="group my-4 text-left" data-status={status}>
-      <div className="flex items-center text-sm gap-2 group-data-[status=error]:text-red-400 group-data-[status=warning]:text-yellow-300 group-data-[status=success]:text-green-400">
+      <div className="flex items-center gap-2 text-sm group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300">
         {(() => {
           if (status === 'success') {
             return <IconCircleCheck />;
@@ -94,7 +94,7 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
           return <IconCircleClose />;
         })()}
         <a
-          className="flex-shrink overflow-hidden whitespace-nowrap text-ellipsis"
+          className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap"
           href={props.link}
         >
           {props.link}
