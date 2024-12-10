@@ -767,7 +767,7 @@ importers:
     devDependencies:
       '@vercel/style-guide':
         specifier: 5.1.0
-        version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.3.3)(typescript@5.1.6)
+        version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.4.2)(typescript@5.1.6)
       eslint-config-prettier:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.50.0)
@@ -960,6 +960,9 @@ importers:
       '@babel/traverse':
         specifier: 7.25.6
         version: 7.25.6
+      '@lottiefiles/dotlottie-react':
+        specifier: ^0.11.1
+        version: 0.11.1(react@19.0.0)
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -1053,7 +1056,7 @@ importers:
         version: 5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.13))(esbuild@0.19.11)
       '@vercel/style-guide':
         specifier: 5.1.0
-        version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.3.3)(typescript@5.1.6)
+        version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.4.2)(typescript@5.1.6)
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.40)
@@ -1078,6 +1081,12 @@ importers:
       postcss:
         specifier: 8.4.40
         version: 8.4.40
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
+      prettier-plugin-tailwindcss:
+        specifier: 0.6.6
+        version: 0.6.6(prettier@3.4.2)
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
@@ -2885,6 +2894,14 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
+  '@lottiefiles/dotlottie-react@0.11.1':
+    resolution: {integrity: sha512-pS/f2eI2DJJkzxLHrqUGw5JDEFqp+eqTQFWpoc6nTrbJshOkweUvyD5ON6kkmd4n6auQorHfBcdSLIgg4jIReA==}
+    peerDependencies:
+      react: ^17 || ^18
+
+  '@lottiefiles/dotlottie-web@0.38.2':
+    resolution: {integrity: sha512-01d+UjJ8NG7ZStYQxtb8FPzknzGmauG7gEkcH+wHfSdiSQJY9PoBNVSTB9V6F5hAnmFqOxaocTtd7TIEEnzMnA==}
+
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
 
@@ -3128,8 +3145,8 @@ packages:
   '@radix-ui/react-dialog@1.1.1':
     resolution: {integrity: sha512-zysS+iU4YP3STKNS6USvFVqI4qqx8EpiwmT5TuCApVEBca+eRCbONi4EgzfNSuVnOXvC5UPHHMjs8RXO6DH9Bg==}
     peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
+      '@types/react': npm:types-react@19.0.0-rc.1
+      '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
@@ -3394,8 +3411,8 @@ packages:
   '@radix-ui/react-tooltip@1.1.1':
     resolution: {integrity: sha512-LLE8nzNE4MzPMw3O2zlVlkLFid3y9hMUs7uCbSHyKSo+tCN4yMCf+ZCCcfrYgsOC0TiHBPQ1mtpJ2liY3ZT3SQ==}
     peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
+      '@types/react': npm:types-react@19.0.0-rc.1
+      '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
@@ -3420,7 +3437,7 @@ packages:
   '@radix-ui/react-use-callback-ref@1.1.0':
     resolution: {integrity: sha512-CasTfvsy+frcFkbXtSJ2Zu9JHpN8TYKxkgJGWbjiZhFivxaeW7rMeZt7QELGVLaYVfFMsKHjb7Ak0nMEe+2Vfw==}
     peerDependencies:
-      '@types/react': '*'
+      '@types/react': npm:types-react@19.0.0-rc.1
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -6774,6 +6791,11 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
+  prettier@3.4.2:
+    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -9928,6 +9950,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@lottiefiles/dotlottie-react@0.11.1(react@19.0.0)':
+    dependencies:
+      '@lottiefiles/dotlottie-web': 0.38.2
+      react: 19.0.0
+
+  '@lottiefiles/dotlottie-web@0.38.2': {}
+
   '@manypkg/find-root@1.1.0':
     dependencies:
       '@babel/runtime': 7.24.4
@@ -11466,7 +11495,7 @@ snapshots:
 
   '@vercel/analytics@1.0.1': {}
 
-  '@vercel/style-guide@5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.3.3)(typescript@5.1.6)':
+  '@vercel/style-guide@5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.4.2)(typescript@5.1.6)':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/eslint-parser': 7.24.1(@babel/core@7.26.0)(eslint@8.50.0)
@@ -11486,11 +11515,11 @@ snapshots:
       eslint-plugin-testing-library: 6.2.0(eslint@8.50.0)(typescript@5.1.6)
       eslint-plugin-tsdoc: 0.2.17
       eslint-plugin-unicorn: 48.0.1(eslint@8.50.0)
-      prettier-plugin-packagejson: 2.4.14(prettier@3.3.3)
+      prettier-plugin-packagejson: 2.4.14(prettier@3.4.2)
     optionalDependencies:
       '@next/eslint-plugin-next': 14.2.16
       eslint: 8.50.0
-      prettier: 3.3.3
+      prettier: 3.4.2
       typescript: 5.1.6
     transitivePeerDependencies:
       - eslint-import-resolver-node
@@ -14393,12 +14422,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-packagejson@2.4.14(prettier@3.3.3):
+  prettier-plugin-packagejson@2.4.14(prettier@3.4.2):
     dependencies:
       sort-package-json: 2.10.0
       synckit: 0.9.0
     optionalDependencies:
-      prettier: 3.3.3
+      prettier: 3.4.2
 
   prettier-plugin-tailwindcss@0.6.6(prettier@3.0.3):
     dependencies:
@@ -14408,6 +14437,10 @@ snapshots:
     dependencies:
       prettier: 3.3.3
 
+  prettier-plugin-tailwindcss@0.6.6(prettier@3.4.2):
+    dependencies:
+      prettier: 3.4.2
+
   prettier@2.8.8: {}
 
   prettier@3.0.0: {}
@@ -14415,6 +14448,8 @@ snapshots:
   prettier@3.0.3: {}
 
   prettier@3.3.3: {}
+
+  prettier@3.4.2: {}
 
   pretty-format@29.7.0:
     dependencies:
