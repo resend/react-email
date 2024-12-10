@@ -29,22 +29,20 @@ export const FileTreeDirectoryChildren = (props: {
             initial={{ opacity: 0, height: 0 }}
           >
             {props.isRoot ? null : (
-              <div className="line absolute left-2.5 w-px h-full bg-slate-6" />
+              <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-
             <div className="flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
                     <FileTreeDirectory
-                      className="pl-4 py-0"
+                      className="p-0"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
                       key={subDirectory.absolutePath}
                     />
                   ),
                 )}
-
                 {props.emailsDirectoryMetadata.emailFilenames.map(
                   (emailFilename, index) => {
                     const emailSlug = props.isRoot
@@ -78,7 +76,7 @@ export const FileTreeDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition-colors',
+                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-[14px] text-slate-11 transition-colors',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -94,17 +92,17 @@ export const FileTreeDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5 opacity-0"
+                              className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-cyan-5 opacity-0"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
                               {!props.isRoot && (
-                                <div className="bg-cyan-11 w-px absolute top-1 left-1.5 h-6" />
+                                <div className="absolute left-[.625rem] top-1 h-6 w-px bg-cyan-11" />
                               )}
                             </motion.span>
                           ) : null}
                           <IconFile
-                            className="absolute left-4 w-[24px] h-[24px]"
+                            className="absolute left-4 h-[24px] w-[24px]"
                             height="24"
                             width="24"
                           />

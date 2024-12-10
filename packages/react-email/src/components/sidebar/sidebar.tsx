@@ -36,16 +36,30 @@ const SidebarTabTrigger = ({
   disabled,
   activeTabValue,
 }: SidebarTabTriggerProps) => {
+  const isActive = tabValue === activeTabValue;
+
   return (
     <Tabs.Trigger
       className={clsx(
-        'w-[40px] h-[40px] disabled:bg-slate-4 disabled:text-slate-10 flex items-center justify-center bg-transparent data-[active=true]:bg-slate-6 text-white',
+        'relative flex aspect-square w-full cursor-pointer items-center justify-center pl-1 text-slate-12 transition-colors duration-150 ease-[bezier(.36,.66,.6,1)] disabled:cursor-not-allowed disabled:bg-slate-2 disabled:text-slate-10',
         className,
+        {
+          'bg-slate-6': isActive,
+        },
       )}
-      data-active={tabValue === activeTabValue}
+      data-active={isActive}
       disabled={disabled}
       value={tabValue}
     >
+      <div
+        className={clsx(
+          'absolute left-0 top-0 h-full w-1 transition-colors duration-75 ease-[bezier(.36,.66,.6,1)]',
+          {
+            'bg-[#246078]': isActive,
+          },
+        )}
+        data-active={isActive}
+      />
       {children}
     </Tabs.Trigger>
   );
@@ -70,11 +84,11 @@ export const Sidebar = ({
       value={activeTabValue}
     >
       <aside
-        className={cn('border-r flex flex-col border-slate-6', className)}
+        className={cn('flex flex-col bg-black', className)}
         style={{ ...style }}
       >
-        <div className="flex border-t border-slate-6 h-screen">
-          <Tabs.List className="flex flex-col w-[40px] h-full border-r border-slate-6">
+        <div className="flex h-screen">
+          <Tabs.List className="flex h-full w-[3rem] flex-col border-r border-slate-6">
             <SidebarTabTrigger
               activeTabValue={activeTabValue}
               tabValue="file-tree"
@@ -90,11 +104,11 @@ export const Sidebar = ({
               <IconLink height="24" width="24" />
             </SidebarTabTrigger>
           </Tabs.List>
-          <div>
-            <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
+          <div className="flex flex-col p-1 pt-[.625rem]">
+            <div className="hidden h-8 flex-shrink items-center pl-1 lg:flex">
               <Logo />
             </div>
-            <div className="h-[calc(100vh-70px)]">
+            <div className="h-[calc(100vh-4.375rem)]">
               {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
                 <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
               ) : null}
