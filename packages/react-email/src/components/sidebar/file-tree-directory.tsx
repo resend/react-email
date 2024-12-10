@@ -51,13 +51,13 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'text-[14px] flex items-center font-medium gap-2 justify-between w-full my-1',
+          'my-1 flex w-full items-center justify-between gap-2 text-[14px] font-medium',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12 gap-1">
+        <div className="flex items-center gap-1 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
           {open ? (
             <IconFolderOpen height="24" width="24" />
           ) : (
@@ -65,7 +65,7 @@ export const FileTreeDirectory = ({
           )}
           <Heading
             as="h3"
-            className="transition ease-in-out duration-200 hover:text-slate-12"
+            className="transition duration-200 ease-in-out hover:text-slate-12"
             color="gray"
             size="2"
             weight="medium"
@@ -75,7 +75,7 @@ export const FileTreeDirectory = ({
         </div>
         {!isEmpty ? (
           <IconArrowDown
-            className="data-[open=true]:rotate-180 transition-transform opacity-60 justify-self-end"
+            className="justify-self-end opacity-60 transition-transform data-[open=true]:rotate-180"
             data-open={open}
           />
         ) : null}

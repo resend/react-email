@@ -63,8 +63,8 @@ export const startDevServer = async (
       ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
       } else if (!isNextReady) {
-        void nextReadyPromise.then(
-          () => nextHandleRequest?.(req, res, parsedUrl),
+        void nextReadyPromise.then(() =>
+          nextHandleRequest?.(req, res, parsedUrl),
         );
       } else {
         void nextHandleRequest?.(req, res, parsedUrl);
