@@ -5,4 +5,4 @@ module.exports = {
     tailwindcss: { config: path.resolve(__dirname, 'tailwind.config.ts') },
     autoprefixer: {},
   },
-}
+};
