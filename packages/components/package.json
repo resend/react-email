@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -59,7 +59,7 @@
     "@react-email/render": "workspace:1.0.3",
     "@react-email/row": "workspace:0.0.12",
     "@react-email/section": "workspace:0.0.16",
-    "@react-email/tailwind": "workspace:1.0.3",
+    "@react-email/tailwind": "workspace:1.0.4",
     "@react-email/text": "workspace:0.0.11"
   },
   "peerDependencies": {
