@@ -72,7 +72,7 @@ export const Shell = ({
       />
       <main
         className={cn(
-          'will-change-width w-[100vw] p-2 overflow-hidden md:absolute md:right-0 lg:h-screen',
+          'will-change-width w-[100vw] overflow-hidden p-2 md:absolute md:right-0 lg:h-screen',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
             'lg:w-[calc(100vw-18rem)] lg:translate-x-0': !sidebarToggled,
@@ -84,7 +84,7 @@ export const Shell = ({
             : '',
         }}
       >
-        <div className="w-full h-full border-slate-6 lg:rounded-lg lg:border lg:shadow-sm">
+        <div className="h-full w-full border-slate-6 lg:rounded-lg lg:border lg:shadow-sm">
           {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
               activeView={activeView}

@@ -961,6 +961,12 @@ importers:
       postcss:
         specifier: 8.4.40
         version: 8.4.40
+      prettier:
+        specifier: ^3.4.2
+        version: 3.4.2
+      prettier-plugin-tailwindcss:
+        specifier: 0.6.6
+        version: 0.6.6(prettier@3.4.2)
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
