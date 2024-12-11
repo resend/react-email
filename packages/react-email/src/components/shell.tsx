@@ -1,11 +1,12 @@
 'use client';
+
 import * as React from 'react';
 import { cn } from '../utils';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
 import { Logo } from './logo';
 
-type RootProps = React.ComponentPropsWithoutRef<'div'>;
+type RootProps = React.ComponentPropsWithoutRef;
 
 interface ShellProps extends RootProps {
   markup?: string;
@@ -59,7 +60,7 @@ export const Shell = ({
       </div>
       <Sidebar
         className={cn(
-          'fixed left-0 top-[4.375rem] z-50 h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[18rem]',
+          'fixed left-0 top-[4.375rem] z-[9999] h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[19rem]',
           {
             'translate-x-0 lg:-translate-x-full': sidebarToggled,
             '-translate-x-full lg:translate-x-0': !sidebarToggled,
@@ -72,10 +73,10 @@ export const Shell = ({
       />
       <main
         className={cn(
-          'will-change-width w-[100vw] overflow-hidden p-2 md:absolute md:right-0 lg:h-screen',
+          'will-change-width relative w-[100vw] overflow-hidden p-2 md:absolute md:right-0 lg:h-screen',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
-            'lg:w-[calc(100vw-18rem)] lg:translate-x-0': !sidebarToggled,
+            'lg:w-[calc(100vw-19rem)] lg:translate-x-0': !sidebarToggled,
           },
         )}
         style={{
@@ -84,7 +85,7 @@ export const Shell = ({
             : '',
         }}
       >
-        <div className="h-full w-full border-slate-6 lg:rounded-lg lg:border lg:shadow-sm">
+        <div className="relative h-full w-full border-slate-6 lg:rounded-lg lg:border lg:shadow-sm">
           {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
               activeView={activeView}
@@ -105,7 +106,7 @@ export const Shell = ({
               setActiveView={setActiveView}
             />
           ) : null}
-          <div className="mx-auto h-[calc(100vh-4.375rem)] grow md:h-full">
+          <div className="relative mx-auto h-[calc(100vh-4.375rem)] grow md:h-full">
             {children}
           </div>
         </div>

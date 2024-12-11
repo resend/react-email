@@ -31,12 +31,12 @@ export const FileTreeDirectoryChildren = (props: {
             {props.isRoot ? null : (
               <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-            <div className="flex flex-col truncate">
+            <div className="flex flex-col gap-0.5 truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
                     <FileTreeDirectory
-                      className="p-0"
+                      className="p-0 data-[state=open]:mb-2"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
                       key={subDirectory.absolutePath}
@@ -76,7 +76,7 @@ export const FileTreeDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-[14px] text-slate-11 transition-colors',
+                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-sm text-slate-11 transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -92,12 +92,20 @@ export const FileTreeDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-cyan-5 opacity-0"
+                              className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-cyan-5 opacity-0 transition-all duration-200 ease-[cubic-bezier(.6,.12,.34,.96)]"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
                               {!props.isRoot && (
-                                <div className="absolute left-[.625rem] top-1 h-6 w-px bg-cyan-11" />
+                                <motion.div
+                                  className="absolute left-[.625rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
+                                  layoutId="active-file"
+                                  transition={{
+                                    type: 'spring',
+                                    bounce: 0.2,
+                                    duration: 0.6,
+                                  }}
+                                />
                               )}
                             </motion.span>
                           ) : null}

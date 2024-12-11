@@ -21,14 +21,14 @@ interface TopbarProps {
   setActiveView?: (view: string) => void;
 }
 
-export const Topbar: React.FC<Readonly<TopbarProps>> = ({
+export const Topbar: React.FC = ({
   currentEmailOpenSlug,
   pathSeparator,
   markup,
   activeView,
   setActiveView,
   onToggleSidebar,
-}) => {
+}: TopbarProps) => {
   return (
     <Tooltip.Provider>
       <header className="relative flex h-[70px] items-center justify-between border-b border-slate-6 px-4">
@@ -48,13 +48,16 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
           </Tooltip.Trigger>
           <Tooltip.Content>Show/hide sidebar</Tooltip.Content>
         </Tooltip>
-
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform items-center overflow-hidden text-center lg:flex">
-          <Heading as="h2" className="truncate" size="2" weight="medium">
+          <Heading
+            as="h2"
+            className="truncate font-mono"
+            size="2"
+            weight="medium"
+          >
             {currentEmailOpenSlug.split(pathSeparator).pop()}
           </Heading>
         </div>
-
         <div className="flex w-full justify-between gap-3 lg:w-fit lg:justify-start">
           <ToggleGroup.Root
             aria-label="View mode"
@@ -150,7 +153,6 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
               </Tooltip>
             </ToggleGroup.Item>
           </ToggleGroup.Root>
-
           {markup ? (
             <div className="flex justify-end">
               <Send markup={markup} />

@@ -2,7 +2,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
-import { type EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { Heading } from '../heading';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
@@ -51,7 +51,7 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'my-1 flex w-full items-center justify-between gap-2 text-[14px] font-medium',
+          'mb-1.5 mt-1 flex w-full items-center justify-between gap-2 text-[14px] font-medium',
           {
             'cursor-pointer': !isEmpty,
           },
@@ -80,7 +80,6 @@ export const FileTreeDirectory = ({
           />
         ) : null}
       </Collapsible.Trigger>
-
       {!isEmpty ? (
         <FileTreeDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
