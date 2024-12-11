@@ -1,5 +1,5 @@
 import type { Rule } from "postcss";
-import { parse } from "postcss";
+import parse from "postcss/lib/parse";
 import evaluateTailwindFunctions from "tailwindcss/lib/lib/evaluateTailwindFunctions";
 import expandApplyAtRules from "tailwindcss/lib/lib/expandApplyAtRules";
 import resolveDefaultsAtRules from "tailwindcss/lib/lib/resolveDefaultsAtRules";
