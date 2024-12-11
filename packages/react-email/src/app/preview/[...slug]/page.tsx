@@ -12,15 +12,11 @@ export const dynamicParams = true;
 
 export const dynamic = 'force-dynamic';
 
-export interface PreviewParams {
+export type PreviewParams = Promise<{
   slug: string[];
-}
+}>
 
-const Page = async ({
-  params: paramsPromise,
-}: {
-  params: Promise<PreviewParams>;
-}) => {
+const Page = async ({ params: paramsPromise }: { params: PreviewParams }) => {
   const params = await paramsPromise;
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
@@ -80,6 +76,7 @@ export async function generateMetadata({
   params: Promise<PreviewParams>;
 }) {
   const { slug } = await params;
+
   return { title: `${path.basename(slug.join('/'))} — React Email` };
 }
 
