@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 
 export type PreviewParams = Promise<{
   slug: string[];
-}>
+}>;
 
 const Page = async ({ params: paramsPromise }: { params: PreviewParams }) => {
   const params = await paramsPromise;
@@ -70,11 +70,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   );
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: PreviewParams;
-}) {
+export async function generateMetadata({ params }: { params: PreviewParams }) {
   const { slug } = await params;
 
   return { title: `${path.basename(slug.join('/'))} — React Email` };
