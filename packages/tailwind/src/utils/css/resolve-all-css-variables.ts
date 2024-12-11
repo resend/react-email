@@ -1,12 +1,7 @@
-import {
-  type Root,
-  type Node,
-  type Declaration,
-  Rule,
-  rule as createRule,
-  decl as createDeclaration,
-  AtRule,
-} from "postcss";
+import type { Node, Root } from "postcss";
+import Declaration from "postcss/lib/declaration";
+import Rule from "postcss/lib/rule";
+import AtRule from "postcss/lib/at-rule";
 import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
 
 const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
@@ -49,7 +44,7 @@ export const resolveAllCSSVariables = (root: Root) => {
               ) {
                 const atRule = otherDecl.parent.parent;
 
-                const clonedDeclaration = createDeclaration();
+                const clonedDeclaration = new Declaration();
                 clonedDeclaration.prop = decl.prop;
                 clonedDeclaration.value = decl.value.replaceAll(
                   variable,
@@ -84,7 +79,7 @@ export const resolveAllCSSVariables = (root: Root) => {
     }
 
     for (const [atRule, declarations] of declarationsForAtRules.entries()) {
-      const equivalentRule = createRule();
+      const equivalentRule = new Rule();
       equivalentRule.selector = rule.selector;
       equivalentRule.append(...declarations);
 
