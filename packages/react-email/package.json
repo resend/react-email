@@ -36,6 +36,7 @@
     "esbuild": "0.19.11",
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
+    "lottie-react": "^2.4.0",
     "mime-types": "2.1.35",
     "next": "15.0.4",
     "normalize-path": "3.0.0",
