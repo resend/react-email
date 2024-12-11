@@ -68,12 +68,12 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
               });
               return (
                 <div
-                  key={i}
                   {...lineProps}
                   className={cn('whitespace-pre', {
                     "before:mr-2 before:text-slate-11 before:content-['$']":
                       language === 'bash' && tokens.length === 1,
                   })}
+                  key={i}
                 >
                   {line.map((token, key) => {
                     const tokenProps = getTokenProps({
