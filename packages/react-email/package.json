@@ -11,8 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist",
-    "lint": "eslint . && tsc",
-    "format": "prettier --write ."
+    "lint": "eslint . && tsc"
   },
   "license": "MIT",
   "repository": {
@@ -71,7 +70,6 @@
     "framer-motion": "12.0.0-alpha.2",
     "node-html-parser": "6.1.13",
     "postcss": "8.4.40",
-    "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "0.6.6",
     "prism-react-renderer": "2.1.0",
     "react": "^19",
