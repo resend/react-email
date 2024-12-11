@@ -6,9 +6,9 @@ import type { EmailsDirectory } from '../../actions/get-emails-directory-metadat
 import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
 import { cn } from '../../utils';
 import { IconFile } from '../icons/icon-file';
-import { SidebarDirectory } from './sidebar-directory';
+import { FileTreeDirectory } from './file-tree-directory';
 
-export const SidebarDirectoryChildren = (props: {
+export const FileTreeDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
   currentEmailOpenSlug?: string;
   open: boolean;
@@ -23,7 +23,7 @@ export const SidebarDirectoryChildren = (props: {
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative data-[root=true]:mt-2 overflow-y-hidden pl-1"
+          className="relative overflow-y-hidden data-[root=true]:mt-2"
           forceMount
         >
           <motion.div
@@ -32,22 +32,20 @@ export const SidebarDirectoryChildren = (props: {
             initial={{ opacity: 0, height: 0 }}
           >
             {props.isRoot ? null : (
-              <div className="line absolute left-2.5 w-px h-full bg-slate-6" />
+              <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-
-            <div className="data-[root=true]:py-2 flex flex-col truncate">
+            <div className="flex flex-col gap-0.5 truncate data-[root=true]:py-2">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
-                    <SidebarDirectory
-                      className="pl-4 py-0"
+                    <FileTreeDirectory
+                      className="p-0 data-[state=open]:mb-2"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
                       key={subDirectory.absolutePath}
                     />
                   ),
                 )}
-
                 {props.emailsDirectoryMetadata.emailFilenames.map(
                   (emailFilename, index) => {
                     const emailSlug = isBaseEmailsDirectory
@@ -81,7 +79,7 @@ export const SidebarDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition-colors',
+                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-sm text-slate-11 transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -97,17 +95,25 @@ export const SidebarDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5 opacity-0"
+                              className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-cyan-5 opacity-0 transition-all duration-200 ease-[cubic-bezier(.6,.12,.34,.96)]"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
                               {!props.isRoot && (
-                                <div className="bg-cyan-11 w-px absolute top-1 left-1.5 h-6" />
+                                <motion.div
+                                  className="absolute left-[.625rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
+                                  layoutId="active-file"
+                                  transition={{
+                                    type: 'spring',
+                                    bounce: 0.2,
+                                    duration: 0.6,
+                                  }}
+                                />
                               )}
                             </motion.span>
                           ) : null}
                           <IconFile
-                            className="absolute left-4 w-[24px] h-[24px]"
+                            className="absolute left-4 h-[24px] w-[24px]"
                             height="24"
                             width="24"
                           />

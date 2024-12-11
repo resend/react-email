@@ -21,6 +21,8 @@ const EmailsContext = createContext<
         emailPath: string,
         serverEmailRenderedResult: EmailRenderingResult,
       ) => EmailRenderingResult;
+
+      renderingResultPerEmailPath: Record<string, EmailRenderingResult>;
     }
   | undefined
 >(undefined);
@@ -91,6 +93,9 @@ export const EmailsProvider = (props: {
     <EmailsContext.Provider
       value={{
         emailsDirectoryMetadata,
+
+        renderingResultPerEmailPath,
+
         useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
           useEffect(() => {
             if (typeof renderingResultPerEmailPath[emailPath] === 'undefined') {

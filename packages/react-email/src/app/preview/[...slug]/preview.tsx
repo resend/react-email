@@ -19,6 +19,8 @@ interface PreviewProps {
   renderingResult: EmailRenderingResult;
 }
 
+export const emailSlugToPathMap: Record<string, string> = {};
+
 const Preview = ({
   slug,
   emailPath,
@@ -32,6 +34,7 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
   const { useEmailRenderingResult } = useEmails();
+  emailSlugToPathMap[slug] = emailPath;
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
@@ -95,7 +98,7 @@ const Preview = ({
           <>
             {activeView === 'desktop' && (
               <iframe
-                className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                className="h-[calc(100vh_-_140px)] w-full bg-white lg:h-[calc(100vh_-_70px)]"
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
@@ -103,14 +106,14 @@ const Preview = ({
 
             {activeView === 'mobile' && (
               <iframe
-                className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                className="mx-auto h-[calc(100vh_-_140px)] w-[360px] bg-white lg:h-[calc(100vh_-_70px)]"
                 srcDoc={renderedEmailMetadata.markup}
                 title={slug}
               />
             )}
 
             {activeView === 'source' && (
-              <div className="flex gap-6 mx-auto p-6 max-w-3xl">
+              <div className="mx-auto flex max-w-3xl gap-6 p-6">
                 <Tooltip.Provider>
                   <CodeContainer
                     activeLang={activeLang}
