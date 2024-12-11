@@ -960,9 +960,6 @@ importers:
       '@babel/traverse':
         specifier: 7.25.6
         version: 7.25.6
-      '@lottiefiles/dotlottie-react':
-        specifier: ^0.11.1
-        version: 0.11.1(react@19.0.0)
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -2894,14 +2891,6 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@lottiefiles/dotlottie-react@0.11.1':
-    resolution: {integrity: sha512-pS/f2eI2DJJkzxLHrqUGw5JDEFqp+eqTQFWpoc6nTrbJshOkweUvyD5ON6kkmd4n6auQorHfBcdSLIgg4jIReA==}
-    peerDependencies:
-      react: ^17 || ^18
-
-  '@lottiefiles/dotlottie-web@0.38.2':
-    resolution: {integrity: sha512-01d+UjJ8NG7ZStYQxtb8FPzknzGmauG7gEkcH+wHfSdiSQJY9PoBNVSTB9V6F5hAnmFqOxaocTtd7TIEEnzMnA==}
-
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
 
@@ -3145,8 +3134,8 @@ packages:
   '@radix-ui/react-dialog@1.1.1':
     resolution: {integrity: sha512-zysS+iU4YP3STKNS6USvFVqI4qqx8EpiwmT5TuCApVEBca+eRCbONi4EgzfNSuVnOXvC5UPHHMjs8RXO6DH9Bg==}
     peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
-      '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
+      '@types/react': '*'
+      '@types/react-dom': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
@@ -3411,8 +3400,8 @@ packages:
   '@radix-ui/react-tooltip@1.1.1':
     resolution: {integrity: sha512-LLE8nzNE4MzPMw3O2zlVlkLFid3y9hMUs7uCbSHyKSo+tCN4yMCf+ZCCcfrYgsOC0TiHBPQ1mtpJ2liY3ZT3SQ==}
     peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
-      '@types/react-dom': npm:types-react-dom@19.0.0-rc.1
+      '@types/react': '*'
+      '@types/react-dom': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
       react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
@@ -3437,7 +3426,7 @@ packages:
   '@radix-ui/react-use-callback-ref@1.1.0':
     resolution: {integrity: sha512-CasTfvsy+frcFkbXtSJ2Zu9JHpN8TYKxkgJGWbjiZhFivxaeW7rMeZt7QELGVLaYVfFMsKHjb7Ak0nMEe+2Vfw==}
     peerDependencies:
-      '@types/react': npm:types-react@19.0.0-rc.1
+      '@types/react': '*'
       react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
     peerDependenciesMeta:
       '@types/react':
@@ -9937,13 +9926,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@lottiefiles/dotlottie-react@0.11.1(react@19.0.0)':
-    dependencies:
-      '@lottiefiles/dotlottie-web': 0.38.2
-      react: 19.0.0
-
-  '@lottiefiles/dotlottie-web@0.38.2': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:
