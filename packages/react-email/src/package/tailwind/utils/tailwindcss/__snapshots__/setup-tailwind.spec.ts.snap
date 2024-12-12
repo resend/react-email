@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tailwind's generateRootForClasses() 1`] = `
+".text-red-500 {
+    color: rgb(239 68 68 / 1)
+}
+  @media (min-width: 640px) {
+    .sm\\:bg-blue-300 {
+        background-color: rgb(147 197 253 / 1)
+    }
+}
+  .bg-slate-900 {
+    background-color: rgb(15 23 42 / 1)
+}
+"
+`;

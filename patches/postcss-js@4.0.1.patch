@@ -1,0 +1,83 @@
+diff --git a/async.js b/async.js
+index 4c2f3c6c21e0b57be1fa5a751374f058f8234714..9026394d68a4accdcb3cee64430fc3fa03bbfe66 100644
+--- a/async.js
++++ b/async.js
+@@ -1,10 +1,10 @@
+-let postcss = require('postcss')
++let Processor = require('postcss/lib/processor')
+ 
+ let processResult = require('./process-result')
+ let parse = require('./parser')
+ 
+ module.exports = function async(plugins) {
+-  let processor = postcss(plugins)
++  let processor = new Processor(plugins)
+   return async input => {
+     let result = await processor.process(input, {
+       parser: parse,
+diff --git a/parser.js b/parser.js
+index 17ae264bb9f4461ebf9ce6466e9606c4cf5e66e3..fb36fbbf3a3931334a418ee9e66b2cbedfa2464d 100644
+--- a/parser.js
++++ b/parser.js
+@@ -1,4 +1,7 @@
+-let postcss = require('postcss')
++let Declaration = require('postcss/lib/declaration');
++let AtRule = require('postcss/lib/at-rule');
++let Rule = require('postcss/lib/rule');
++let Root = require('postcss/lib/root');
+ 
+ let IMPORTANT = /\s*!important\s*$/i
+ 
+@@ -53,14 +56,14 @@ function decl(parent, name, value) {
+ 
+   if (IMPORTANT.test(value)) {
+     value = value.replace(IMPORTANT, '')
+-    parent.push(postcss.decl({ prop: name, value, important: true }))
++    parent.push(new Declaration({ prop: name, value, important: true }))
+   } else {
+-    parent.push(postcss.decl({ prop: name, value }))
++    parent.push(new Declaration({ prop: name, value }))
+   }
+ }
+ 
+ function atRule(parent, parts, value) {
+-  let node = postcss.atRule({ name: parts[1], params: parts[3] || '' })
++  let node = new AtRule({ name: parts[1], params: parts[3] || '' })
+   if (typeof value === 'object') {
+     node.nodes = []
+     parse(value, node)
+@@ -88,7 +91,7 @@ function parse(obj, parent) {
+         decl(parent, name, i)
+       }
+     } else if (typeof value === 'object') {
+-      node = postcss.rule({ selector: name })
++      node = new Rule({ selector: name })
+       parse(value, node)
+       parent.push(node)
+     } else {
+@@ -98,7 +101,7 @@ function parse(obj, parent) {
+ }
+ 
+ module.exports = function (obj) {
+-  let root = postcss.root()
++  let root = new Root()
+   parse(obj, root)
+   return root
+ }
+diff --git a/sync.js b/sync.js
+index 745bd278cc7bb65aac13c1863244bad29282557d..3ea41890df69770f2467363355f87497df21fcc3 100644
+--- a/sync.js
++++ b/sync.js
+@@ -1,10 +1,10 @@
+-let postcss = require('postcss')
++let Processor = require('postcss/lib/processor')
+ 
+ let processResult = require('./process-result')
+ let parse = require('./parser')
+ 
+ module.exports = function (plugins) {
+-  let processor = postcss(plugins)
++  let processor = new Processor(plugins)
+   return input => {
+     let result = processor.process(input, { parser: parse, from: undefined })
+     return processResult(result)

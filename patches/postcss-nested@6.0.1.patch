@@ -1,0 +1,11 @@
+diff --git a/index.js b/index.js
+index fe8618eb1355a0c3341ad7ecb49fd999d95ee229..97f7550a5008ab48de6ea4d1575c1ed93aa54b94 100644
+--- a/index.js
++++ b/index.js
+@@ -1,4 +1,5 @@
+-const { Rule, AtRule } = require('postcss')
++const Rule = require('postcss/lib/rule')
++const AtRule = require('postcss/lib/at-rule')
+ let parser = require('postcss-selector-parser')
+ 
+ /**
