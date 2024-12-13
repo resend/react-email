@@ -145,10 +145,7 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
             {props.link}
           </a>
         </motion.div>
-        <motion.div
-          variants={childVariants}
-          className="mt-1 text-xs text-gray-400"
-        >
+        <motion.div variants={childVariants} className="mt-1 text-xs">
           {(() => {
             if (props.checks.syntax === 'failed') {
               return 'Invalid URL';
