@@ -21,7 +21,7 @@ interface TopbarProps {
   setActiveView?: (view: string) => void;
 }
 
-export const Topbar: React.FC = ({
+export const Topbar = ({
   currentEmailOpenSlug,
   pathSeparator,
   markup,
