@@ -125,6 +125,7 @@ export const Sidebar = ({
             tabValue="file-tree"
           >
             <Lottie
+              autoPlay={false}
               animationData={animatedMailIcon as object}
               className="h-5 w-5"
               loop={false}
@@ -140,6 +141,7 @@ export const Sidebar = ({
             tabValue="link-checker"
           >
             <Lottie
+              autoPlay={false}
               animationData={animatedLinkIcon as object}
               className="h-6 w-6"
               loop={false}
