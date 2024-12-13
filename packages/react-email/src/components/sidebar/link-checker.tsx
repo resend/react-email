@@ -10,7 +10,7 @@ import { IconCircleCheck } from '../icons/icon-circle-check';
 import { IconCircleClose } from '../icons/icon-circle-close';
 import { IconCircleWarning } from '../icons/icon-circle-warning';
 import { Heading } from '../heading';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -43,12 +43,12 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
 
   return (
     <div className="mt-4 flex w-full flex-col gap-2 text-pretty p-2 pr-2.5">
-      <Heading as="h2" size="3" weight="medium">
+      <Heading as="h2" size="2" weight="medium">
         Link Checker
       </Heading>
       {results ? (
         <>
-          <ol className="list-none p-0">
+          <ol className="mb-3.5 mt-2 flex list-none flex-col gap-4 p-0">
             {results.map((result, i) => (
               <LinkCheckingResultView {...result} key={i} />
             ))}
@@ -72,13 +72,32 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
 };
 
 const containerVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: {
+    opacity: 0,
+    y: 10,
+  },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      staggerChildren: 0.15,
+      duration: 0.6,
+      ease: 'easeOut',
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const childVariants = {
+  hidden: {
+    opacity: 0,
+    y: 5,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut',
     },
   },
 };
@@ -95,45 +114,58 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
     status = 'error';
 
   return (
-    <motion.li
-      className="group relative my-4"
-      data-status={status}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <motion.div className="flex items-center gap-2 text-sm group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300">
-        <span>
-          {(() => {
-            if (status === 'success') return <IconCircleCheck size={14} />;
-            if (status === 'warning') return <IconCircleWarning size={14} />;
-            return <IconCircleClose size={14} />;
-          })()}
-        </span>
-        <a
-          className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap"
-          href={props.link}
+    <AnimatePresence mode="wait">
+      <motion.li
+        className="group relative"
+        data-status={status}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        layout
+      >
+        <motion.div
+          variants={childVariants}
+          className="flex items-center gap-2 text-sm group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300"
         >
-          {props.link}
-        </a>
-      </motion.div>
-      <motion.div className="mt-1 text-xs">
-        {(() => {
-          if (props.checks.syntax === 'failed') {
-            return 'Invalid URL';
-          }
+          <motion.span
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            {(() => {
+              if (status === 'success') return <IconCircleCheck size={14} />;
+              if (status === 'warning') return <IconCircleWarning size={14} />;
+              return <IconCircleClose size={14} />;
+            })()}
+          </motion.span>
+          <a
+            className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap transition-colors duration-200 hover:underline"
+            href={props.link}
+          >
+            {props.link}
+          </a>
+        </motion.div>
+        <motion.div
+          variants={childVariants}
+          className="mt-1 text-xs text-gray-400"
+        >
+          {(() => {
+            if (props.checks.syntax === 'failed') {
+              return 'Invalid URL';
+            }
 
-          if (props.responseStatusCode) {
-            return `${props.responseStatusCode} - ${
-              props.checks.security === 'failed' ? 'Insecure' : 'Secure'
-            }`;
-          }
+            if (props.responseStatusCode) {
+              return `${props.responseStatusCode} - ${
+                props.checks.security === 'failed' ? 'Insecure' : 'Secure'
+              }`;
+            }
 
-          if (!props.responseStatusCode) {
-            return `URL could not be reached`;
-          }
-        })()}
-      </motion.div>
-    </motion.li>
+            if (!props.responseStatusCode) {
+              return `URL could not be reached`;
+            }
+          })()}
+        </motion.div>
+      </motion.li>
+    </AnimatePresence>
   );
 };
