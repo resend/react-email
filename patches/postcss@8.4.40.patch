@@ -201,7 +201,7 @@ index 4b5ee5e02f8ecdf880594d191ec1e84b983faeaa..7c73ea0a0338450804e7dbce16b7687a
 -  terminalHighlight.registerInput(Input)
 -}
 diff --git a/lib/lazy-result.js b/lib/lazy-result.js
-index 126f40c7e9d7a1f131e2d75b68aeab6c93ee9673..75f9c946ed862d08b80afd00a6b3f2c6b3ab373a 100644
+index 126f40c7e9d7a1f131e2d75b68aeab6c93ee9673..c714eeeab0dc56559a24cbe4ba25fa25713c9401 100644
 --- a/lib/lazy-result.js
 +++ b/lib/lazy-result.js
 @@ -1,7 +1,6 @@
@@ -221,17 +221,14 @@ index 126f40c7e9d7a1f131e2d75b68aeab6c93ee9673..75f9c946ed862d08b80afd00a6b3f2c6
 -    this.result.css = data[0]
 -    this.result.map = data[1]
 +    this.result.css = '';
-+    stringify(str(this.result.root), chunk => {
++    str(this.result.root, chunk => {
 +      this.result.css += chunk;
 +    });
  
      return this.result
    }
-diff --git a/lib/map-generator.js b/lib/map-generator.js
-deleted file mode 100644
-index 71b21caa2e067b00383cf68c5f15bd68dae7c88b..0000000000000000000000000000000000000000
 diff --git a/lib/no-work-result.js b/lib/no-work-result.js
-index 05821b7a318c04b787b62441872b2680681aea4f..574815cadfa8d69f954f395480157a34166fd7fd 100644
+index 05821b7a318c04b787b62441872b2680681aea4f..b1e55ee59d7aa28fd0eea115a657671ce61aad71 100644
 --- a/lib/no-work-result.js
 +++ b/lib/no-work-result.js
 @@ -1,6 +1,5 @@
@@ -241,10 +238,11 @@ index 05821b7a318c04b787b62441872b2680681aea4f..574815cadfa8d69f954f395480157a34
  let stringify = require('./stringify')
  let warnOnce = require('./warn-once')
  let parse = require('./parse')
-@@ -28,19 +27,7 @@ class NoWorkResult {
+@@ -27,20 +26,6 @@ class NoWorkResult {
+         return self.root
        }
      })
- 
+-
 -    let map = new MapGenerator(str, root, this._opts, css)
 -    if (map.isMap()) {
 -      let [generatedCSS, generatedMap] = map.generate()
@@ -258,7 +256,6 @@ index 05821b7a318c04b787b62441872b2680681aea4f..574815cadfa8d69f954f395480157a34
 -      map.clearAnnotation()
 -      this.result.css = map.css
 -    }
-+    this.result.css = css;
    }
  
    async() {

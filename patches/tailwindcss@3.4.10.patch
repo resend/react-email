@@ -513,7 +513,7 @@ index 9ffdfb7e619f07c27abafdce8b24bea178b72682..46ea502db535c1db87b01cb7ed1189fb
          ] : [
              messages,
 diff --git a/lib/util/parseObjectStyles.js b/lib/util/parseObjectStyles.js
-index 995d87d5b83ed2745f43ab74c9282bfc8bc65c96..28cfda06dc8c9afdfd1c085944a62212fc16fc85 100644
+index 995d87d5b83ed2745f43ab74c9282bfc8bc65c96..fde38437e69159c5ce8210175bc15bc39b56a60f 100644
 --- a/lib/util/parseObjectStyles.js
 +++ b/lib/util/parseObjectStyles.js
 @@ -8,7 +8,7 @@ Object.defineProperty(exports, "default", {
@@ -530,7 +530,7 @@ index 995d87d5b83ed2745f43ab74c9282bfc8bc65c96..28cfda06dc8c9afdfd1c085944a62212
      }
      return styles.flatMap((style)=>{
 -        return (0, _postcss.default)([
-+        return new (0, _processor.default)([
++        return new _processor.default([
              (0, _postcssnested.default)({
                  bubble: [
                      "screen"
