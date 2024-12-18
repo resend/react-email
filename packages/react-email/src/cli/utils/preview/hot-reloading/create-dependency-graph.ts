@@ -259,7 +259,7 @@ export const createDependencyGraph = async (directory: string) => {
             await updateModuleDependenciesInGraph(pathToModified);
           }
           break;
-        case 'addDir':
+        case 'addDir': {
           const filesInsideAddedDirectory =
             await readAllFilesInsideDirectory(pathToModified);
           const modulesInsideAddedDirectory =
@@ -268,12 +268,13 @@ export const createDependencyGraph = async (directory: string) => {
             await updateModuleDependenciesInGraph(filePath);
           }
           break;
+        }
         case 'unlink':
           if (isJavascriptModule(pathToModified)) {
             removeModuleFromGraph(pathToModified);
           }
           break;
-        case 'unlinkDir':
+        case 'unlinkDir': {
           const filesInsideDeletedDirectory =
             await readAllFilesInsideDirectory(pathToModified);
           const modulesInsideDeletedDirectory =
@@ -282,6 +283,7 @@ export const createDependencyGraph = async (directory: string) => {
             removeModuleFromGraph(filePath);
           }
           break;
+        }
       }
     },
     {
