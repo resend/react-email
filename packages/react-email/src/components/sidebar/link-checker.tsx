@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   checkLinks,
   type LinkCheckingResult,
@@ -10,7 +11,6 @@ import { IconCircleCheck } from '../icons/icon-circle-check';
 import { IconCircleClose } from '../icons/icon-circle-close';
 import { IconCircleWarning } from '../icons/icon-circle-warning';
 import { Heading } from '../heading';
-import { AnimatePresence, motion } from 'framer-motion';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -103,38 +103,28 @@ const childVariants = {
 };
 
 const LinkCheckingResultView = (props: LinkCheckingResult) => {
-  let status: 'success' | 'error' | 'warning' = 'success';
-
-  if (props.checks.security === 'failed') status = 'warning';
-  if (props.checks.syntax === 'failed') status = 'error';
-  if (
-    props.responseStatusCode === undefined ||
-    !props.responseStatusCode.toString().startsWith('2')
-  )
-    status = 'error';
-
   return (
     <AnimatePresence mode="wait">
       <motion.li
-        className="group relative"
-        data-status={status}
-        variants={containerVariants}
-        initial="hidden"
         animate="visible"
+        className="group relative"
+        data-status={props.status}
+        initial="hidden"
         layout
+        variants={containerVariants}
       >
         <motion.div
-          variants={childVariants}
           className="flex items-center gap-2 text-sm group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300"
+          variants={childVariants}
         >
           <motion.span
-            initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
+            initial={{ scale: 0.8 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             {(() => {
-              if (status === 'success') return <IconCircleCheck size={14} />;
-              if (status === 'warning') return <IconCircleWarning size={14} />;
+              if (props.status === 'success') return <IconCircleCheck size={14} />;
+              if (props.status === 'warning') return <IconCircleWarning size={14} />;
               return <IconCircleClose size={14} />;
             })()}
           </motion.span>
@@ -145,16 +135,15 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
             {props.link}
           </a>
         </motion.div>
-        <motion.div variants={childVariants} className="mt-1 text-xs">
+        <motion.div className="mt-1 text-xs" variants={childVariants}>
           {(() => {
             if (props.checks.syntax === 'failed') {
               return 'Invalid URL';
             }
 
             if (props.responseStatusCode) {
-              return `${props.responseStatusCode} - ${
-                props.checks.security === 'failed' ? 'Insecure' : 'Secure'
-              }`;
+              return `${props.responseStatusCode} - ${props.checks.security === 'failed' ? 'Insecure' : 'Secure'
+                }`;
             }
 
             if (!props.responseStatusCode) {
