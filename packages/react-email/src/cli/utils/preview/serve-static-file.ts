@@ -32,7 +32,7 @@ export const serveStaticFile = async (
 
     res.statusCode = 500;
     res.end(
-      `Could not read file to be served! Check your terminal for more information.`,
+      'Could not read file to be served! Check your terminal for more information.',
     );
   } finally {
     fileHandle.close();
