@@ -6,6 +6,8 @@ import { quickFetch } from './quick-fetch';
 export interface LinkCheckingResult {
   link: string;
 
+  status: 'success' | 'warning' | 'error';
+
   checks: {
     syntax: 'failed' | 'passed';
     security?: 'failed' | 'passed';
@@ -27,6 +29,7 @@ export const checkLinks = async (code: string) => {
 
     const result: LinkCheckingResult = {
       link,
+      status: 'success',
       checks: {
         syntax: 'passed',
       },
@@ -37,12 +40,22 @@ export const checkLinks = async (code: string) => {
 
       const res = await quickFetch(url);
       result.responseStatusCode = res.statusCode;
+      if (
+        result.responseStatusCode === undefined ||
+        !result.responseStatusCode.toString().startsWith('2')
+      ) {
+        result.status = 'error';
+      }
 
-      result.checks.security = link.startsWith('https://')
-        ? 'passed'
-        : 'failed';
+      if (link.startsWith('https://')) {
+        result.checks.security = 'passed';
+      } else {
+        result.checks.security = 'failed';
+        result.status = 'warning';
+      }
     } catch (exception) {
       result.checks.syntax = 'failed';
+      result.status = 'error';
     }
 
     linkCheckingResults.push(result);
