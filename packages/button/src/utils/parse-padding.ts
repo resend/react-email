@@ -19,7 +19,7 @@ export function convertToPx(value: PaddingType) {
     return px;
   }
 
-  if (typeof value === 'number') {
+  if (typeof value === "number") {
     return value;
   }
 
@@ -30,13 +30,13 @@ export function convertToPx(value: PaddingType) {
     const unit = matches[2];
 
     switch (unit) {
-      case 'px':
+      case "px":
         return numValue;
-      case 'em':
-      case 'rem':
+      case "em":
+      case "rem":
         px = numValue * 16;
         return px;
-      case '%':
+      case "%":
         px = (numValue / 100) * 600;
         return px;
       default:
@@ -52,7 +52,7 @@ export function convertToPx(value: PaddingType) {
  * @example e.g. "10px" =\> pt: 10, pr: 10, pb: 10, pl: 10
  */
 export function parsePadding({
-  padding = '',
+  padding = "",
   paddingTop,
   paddingRight,
   paddingBottom,
@@ -63,7 +63,7 @@ export function parsePadding({
   let pb = 0;
   let pl = 0;
 
-  if (typeof padding === 'number') {
+  if (typeof padding === "number") {
     pt = padding;
     pr = padding;
     pb = padding;
