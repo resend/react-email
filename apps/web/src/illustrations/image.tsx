@@ -1,4 +1,4 @@
-import { ImageIcon } from "lucide-react";
+import { ImageIcon } from 'lucide-react';
 
 const IllustrationImage: React.FC = () => (
   <div className="flex aspect-square w-[30%] items-center justify-center rounded-md bg-slate-4 transition-colors group-hover:bg-slate-5">

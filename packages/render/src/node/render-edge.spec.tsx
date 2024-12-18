@@ -2,21 +2,21 @@
  * @vitest-environment edge-runtime
  */
 
-import React from "react";
-import { Template } from "../shared/utils/template";
-import { Preview } from "../shared/utils/preview";
-import { render } from "./render";
+import React from 'react';
+import { Preview } from '../shared/utils/preview';
+import { Template } from '../shared/utils/template';
+import { render } from './render';
 
-type Import = typeof import("react-dom/server") & {
-  default: typeof import("react-dom/server");
+type Import = typeof import('react-dom/server') & {
+  default: typeof import('react-dom/server');
 };
 
-describe("render on the edge", () => {
-  it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock("react-dom/server", async () => {
-      const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
+describe('render on the edge', () => {
+  it('converts a React component into HTML with Next 14 error stubs', async () => {
+    vi.mock('react-dom/server', async () => {
+      const ReactDOMServer = await vi.importActual<Import>('react-dom/server');
       const ERROR_MESSAGE =
-        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
+        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
 
       return {
         ...ReactDOMServer,
@@ -48,13 +48,13 @@ describe("render on the edge", () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it("should handle characters with a higher byte count gracefully in React 18", async () => {
+  it('should handle characters with a higher byte count gracefully in React 18', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
         <p>
           平素よりお世話になっております。 情報Ⅰサポートチームです。
-          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{" "}
+          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{' '}
         </p>
         今後ジクタス上の講座につきましては、8回分の授業をひとまとまりとしてパート分けされた状態で公開されてまいります。
         <p>
@@ -83,7 +83,7 @@ describe("render on the edge", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("converts a React component into HTML", async () => {
+  it('converts a React component into HTML', async () => {
     const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -91,7 +91,7 @@ describe("render on the edge", () => {
     );
   });
 
-  it("converts a React component into PlainText", async () => {
+  it('converts a React component into PlainText', async () => {
     const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
     });
@@ -103,7 +103,7 @@ describe("render on the edge", () => {
     `);
   });
 
-  it("converts to plain text and removes reserved ID", async () => {
+  it('converts to plain text and removes reserved ID', async () => {
     const actualOutput = await render(<Preview />, {
       plainText: true,
     });

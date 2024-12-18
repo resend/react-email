@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import classNames from "classnames";
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import type { MouseEvent, ReactNode } from "react";
+import classNames from 'classnames';
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import type { MouseEvent, ReactNode } from 'react';
 
 interface SpotlightProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
 
   return (
     <div
-      className={classNames("overflow-hidden", className)}
+      className={classNames('overflow-hidden', className)}
       onMouseMove={handleMouseMove}
     >
       {children}

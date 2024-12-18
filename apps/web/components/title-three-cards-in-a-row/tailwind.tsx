@@ -1,6 +1,6 @@
-import { Button, Row, Img, Section, Text } from "@react-email/components";
-import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
-import { Layout } from "../_components/layout";
+import { Button, Img, Row, Section, Text } from '@react-email/components';
+import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="my-[16px]">

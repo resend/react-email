@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Column, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
@@ -12,11 +12,11 @@ export const component = (
     <Row>
       <Text
         style={{
-          margin: "0px",
+          margin: '0px',
           fontSize: 20,
-          lineHeight: "28px",
+          lineHeight: '28px',
           fontWeight: 600,
-          color: "rgb(17,24,39)",
+          color: 'rgb(17,24,39)',
         }}
       >
         Elevate Outdoor Living
@@ -25,8 +25,8 @@ export const component = (
         style={{
           marginTop: 8,
           fontSize: 16,
-          lineHeight: "24px",
-          color: "rgb(107,114,128)",
+          lineHeight: '24px',
+          color: 'rgb(107,114,128)',
         }}
       >
         Take your outdoor space to new heights with our premium outdoor
@@ -41,10 +41,10 @@ export const component = (
       <Column
         colSpan={1}
         style={{
-          width: "50%",
-          verticalAlign: "baseline",
+          width: '50%',
+          verticalAlign: 'baseline',
           paddingRight: 8,
-          boxSizing: "border-box",
+          boxSizing: 'border-box',
         }}
       >
         <Img
@@ -52,39 +52,39 @@ export const component = (
           height="180"
           src="/static/outdoor-living.jpg"
           style={{
-            width: "100%",
+            width: '100%',
             borderRadius: 8,
-            objectFit: "cover",
+            objectFit: 'cover',
           }}
         />
         <Text
           style={{
             fontSize: 16,
-            lineHeight: "24px",
+            lineHeight: '24px',
             fontWeight: 600,
-            color: "rgb(79,70,229)",
+            color: 'rgb(79,70,229)',
           }}
         >
           What's new
         </Text>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Multifunctional Marvels
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Discover the innovative world of multifunctional furniture, where
@@ -95,10 +95,10 @@ export const component = (
       <Column
         colSpan={1}
         style={{
-          width: "50%",
-          verticalAlign: "baseline",
+          width: '50%',
+          verticalAlign: 'baseline',
           paddingLeft: 8,
-          boxSizing: "border-box",
+          boxSizing: 'border-box',
         }}
       >
         <Img
@@ -106,39 +106,39 @@ export const component = (
           height="180"
           src="/static/outdoor-living.jpg"
           style={{
-            width: "100%",
+            width: '100%',
             borderRadius: 8,
-            objectFit: "cover",
+            objectFit: 'cover',
           }}
         />
         <Text
           style={{
             fontSize: 16,
-            lineHeight: "24px",
+            lineHeight: '24px',
             fontWeight: 600,
-            color: "rgb(79,70,229)",
+            color: 'rgb(79,70,229)',
           }}
         >
           What's new
         </Text>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Timeless Classics
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Step into the world of timeless classics as we explore iconic

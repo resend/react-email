@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
-import type React from 'react';
-import { type RawSourceMap } from 'source-map-js';
-import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { render } from '@react-email/render';
-import type { EmailTemplate as EmailComponent } from './types/email-template';
-import type { ErrorObject } from './types/error-object';
+import { type BuildFailure, type OutputFile, build } from 'esbuild';
+import type React from 'react';
+import type { RawSourceMap } from 'source-map-js';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
-import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import type { EmailTemplate as EmailComponent } from './types/email-template';
+import type { ErrorObject } from './types/error-object';
 
 export const getEmailComponent = async (
   emailPath: string,

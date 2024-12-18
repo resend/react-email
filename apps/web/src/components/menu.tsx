@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import classnames from "classnames";
-import { MenuIcon } from "lucide-react";
-import Link from "next/link";
-import * as React from "react";
-import { Drawer } from "vaul";
+import classnames from 'classnames';
+import { MenuIcon } from 'lucide-react';
+import Link from 'next/link';
+import * as React from 'react';
+import { Drawer } from 'vaul';
 
 interface MenuItemProps {
   className?: string;
@@ -13,8 +13,8 @@ interface MenuItemProps {
   onClick?: () => void;
 }
 
-const GITHUB_URL = "https://github.com/resend/react-email";
-const DISCORD_URL = "/discord";
+const GITHUB_URL = 'https://github.com/resend/react-email';
+const DISCORD_URL = '/discord';
 
 const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
   className,
@@ -25,7 +25,7 @@ const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
   <li className="inline-flex w-full items-center justify-center md:w-fit">
     <Link
       className={classnames(
-        "inline-flex h-8 scroll-m-2 items-center rounded-md text-sm text-slate-11 transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center",
+        'inline-flex h-8 scroll-m-2 items-center rounded-md text-sm text-slate-11 transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
         className,
       )}
       href={href}

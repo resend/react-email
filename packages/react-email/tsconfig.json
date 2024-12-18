@@ -30,10 +30,5 @@
     "outDir": "dist"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": [
-    "tsconfig.export.json",
-    ".next",
-    "dist",
-    "node_modules"
-  ]
+  "exclude": ["tsconfig.export.json", ".next", "dist", "node_modules"]
 }

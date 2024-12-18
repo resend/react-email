@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { startDevServer, setupHotreloading } from '../utils';
+import { setupHotreloading, startDevServer } from '../utils';
 
 interface Args {
   dir: string;

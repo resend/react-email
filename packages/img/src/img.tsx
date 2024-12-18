@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type ImgProps = Readonly<React.ComponentPropsWithoutRef<"img">>;
+export type ImgProps = Readonly<React.ComponentPropsWithoutRef<'img'>>;
 
 export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
   ({ alt, src, width, height, style, ...props }, ref) => (
@@ -11,10 +11,10 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
       ref={ref}
       src={src}
       style={{
-        display: "block",
-        outline: "none",
-        border: "none",
-        textDecoration: "none",
+        display: 'block',
+        outline: 'none',
+        border: 'none',
+        textDecoration: 'none',
         ...style,
       }}
       width={width}
@@ -22,4 +22,4 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
   ),
 );
 
-Img.displayName = "Img";
+Img.displayName = 'Img';

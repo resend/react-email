@@ -1,4 +1,4 @@
-import { ImageIcon } from "lucide-react";
+import { ImageIcon } from 'lucide-react';
 
 const IllustrationGallery: React.FC = () => (
   <div className="relative flex h-full w-full items-stretch gap-2 overflow-visible">

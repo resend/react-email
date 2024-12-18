@@ -1,7 +1,7 @@
-import { convertUrisIntoUrls } from "./convert-uris-into-urls";
+import { convertUrisIntoUrls } from './convert-uris-into-urls';
 
-describe("convertUrisIntoUrls()", () => {
-  it("should work with src attributes", () => {
+describe('convertUrisIntoUrls()', () => {
+  it('should work with src attributes', () => {
     expect(
       convertUrisIntoUrls(`
 const MyComp = () => {
@@ -29,7 +29,7 @@ const MyComp = () => {
 `);
   });
 
-  it("should work with url() function calls for fonts in styles", () => {
+  it('should work with url() function calls for fonts in styles', () => {
     expect(
       convertUrisIntoUrls(`
 const MyComp = () => {

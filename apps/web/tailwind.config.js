@@ -1,30 +1,30 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("@radix-ui/colors");
-const plugin = require("tailwindcss/plugin");
+const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('@radix-ui/colors');
+const plugin = require('tailwindcss/plugin');
 
 const iOsHeight = plugin(({ addUtilities }) => {
-  const supportsTouchRule = "@supports (-webkit-touch-callout: none)";
-  const webkitFillAvailable = "-webkit-fill-available";
+  const supportsTouchRule = '@supports (-webkit-touch-callout: none)';
+  const webkitFillAvailable = '-webkit-fill-available';
 
   const utilities = {
-    ".min-h-screen-ios": {
+    '.min-h-screen-ios': {
       [supportsTouchRule]: {
         minHeight: webkitFillAvailable,
       },
     },
-    ".h-screen-ios": {
+    '.h-screen-ios': {
       [supportsTouchRule]: {
         height: webkitFillAvailable,
       },
     },
   };
 
-  addUtilities(utilities, ["responsive"]);
+  addUtilities(utilities, ['responsive']);
 });
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["src/**/*.{js,ts,jsx,tsx}"],
+  content: ['src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -58,25 +58,25 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
-        mono: ["var(--font-commit-mono)", ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        mono: ['var(--font-commit-mono)', ...defaultTheme.fontFamily.mono],
       },
       backgroundImage: {
         gradient:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
+          'linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)',
         gradientHover:
-          "linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)",
+          'linear-gradient(145.37deg, rgba(255, 255, 255, 0.1) -8.75%, rgba(255, 255, 255, 0.057) 83.95%)',
         shine:
-          "linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)",
+          'linear-gradient(45deg, rgba(255,255,255,0) 45%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 55%,rgba(255,255,255,0) 100%)',
       },
       keyframes: {
         shine: {
-          "0%": { backgroundPosition: "-100%" },
-          "100%": { backgroundPosition: "100%" },
+          '0%': { backgroundPosition: '-100%' },
+          '100%': { backgroundPosition: '100%' },
         },
         dash: {
-          "0%": { strokeDashoffset: 1000 },
-          "100%": { strokeDashoffset: 0 },
+          '0%': { strokeDashoffset: 1000 },
+          '100%': { strokeDashoffset: 0 },
         },
       },
     },

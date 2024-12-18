@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
@@ -7,23 +7,23 @@ export const component = (
       <Row>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             fontSize: 16,
-            lineHeight: "24px",
+            lineHeight: '24px',
             fontWeight: 600,
-            color: "rgb(79,70,229)",
+            color: 'rgb(79,70,229)',
           }}
         >
           Collections
         </Text>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 8,
             fontSize: 24,
-            lineHeight: "32px",
+            lineHeight: '32px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Bundle & Save
@@ -32,8 +32,8 @@ export const component = (
           style={{
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Award-winning grinders and burrs for brewing like a barista at home.
@@ -42,7 +42,7 @@ export const component = (
     </Section>
     <Section style={{ marginTop: 16 }}>
       <Row style={{ marginTop: 16 }}>
-        <Column style={{ width: "50%", paddingRight: 8 }}>
+        <Column style={{ width: '50%', paddingRight: 8 }}>
           <Row style={{ paddingBottom: 8 }}>
             <td>
               <Link href="#">
@@ -51,9 +51,9 @@ export const component = (
                   height={152}
                   src="/static/grinder-collection.jpg"
                   style={{
-                    width: "100%",
+                    width: '100%',
                     borderRadius: 12,
-                    objectFit: "cover",
+                    objectFit: 'cover',
                   }}
                 />
               </Link>
@@ -67,9 +67,9 @@ export const component = (
                   height={152}
                   src="/static/bundle-collection.jpg"
                   style={{
-                    width: "100%",
+                    width: '100%',
                     borderRadius: 12,
-                    objectFit: "cover",
+                    objectFit: 'cover',
                   }}
                 />
               </Link>
@@ -78,7 +78,7 @@ export const component = (
         </Column>
         <Column
           style={{
-            width: "50%",
+            width: '50%',
             paddingLeft: 8,
             paddingTop: 8,
             paddingBottom: 8,
@@ -90,9 +90,9 @@ export const component = (
               height={152 + 152 + 8 + 8}
               src="/static/clara-french-press.jpg"
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 12,
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </Link>

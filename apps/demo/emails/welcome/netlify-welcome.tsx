@@ -11,10 +11,10 @@ import {
   Preview,
   Row,
   Section,
-  Text,
   Tailwind,
-} from "@react-email/components";
-import * as React from "react";
+  Text,
+} from '@react-email/components';
+import type * as React from 'react';
 
 interface NetlifyWelcomeEmailProps {
   steps?: {
@@ -26,7 +26,7 @@ interface NetlifyWelcomeEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : '';
 
 const PropDefaults: NetlifyWelcomeEmailProps = {
   steps: [
@@ -34,7 +34,7 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
       id: 1,
       Description: (
         <li className="mb-20" key={1}>
-          <strong>Deploy your first project.</strong>{" "}
+          <strong>Deploy your first project.</strong>{' '}
           <Link>Connect to Git, choose a template</Link>, or manually deploy a
           project you've been working on locally.
         </li>
@@ -45,7 +45,7 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
       Description: (
         <li className="mb-20" key={2}>
           <strong>Check your deploy logs.</strong> Find out what's included in
-          your build and watch for errors or failed deploys.{" "}
+          your build and watch for errors or failed deploys.{' '}
           <Link>Learn how to read your deploy logs</Link>.
         </li>
       ),
@@ -71,7 +71,7 @@ const PropDefaults: NetlifyWelcomeEmailProps = {
       ),
     },
   ],
-  links: ["Visit the forums", "Read the docs", "Contact an expert"],
+  links: ['Visit the forums', 'Read the docs', 'Contact an expert'],
 };
 
 export const NetlifyWelcomeEmail = ({
@@ -87,13 +87,13 @@ export const NetlifyWelcomeEmail = ({
           theme: {
             extend: {
               colors: {
-                brand: "#2250f4",
-                offwhite: "#fafbfb",
+                brand: '#2250f4',
+                offwhite: '#fafbfb',
               },
               spacing: {
-                0: "0px",
-                20: "20px",
-                45: "45px",
+                0: '0px',
+                20: '20px',
+                45: '45px',
               },
             },
           },
@@ -138,7 +138,7 @@ export const NetlifyWelcomeEmail = ({
                   <Column key={link}>
                     <Link className="text-black underline font-bold">
                       {link}
-                    </Link>{" "}
+                    </Link>{' '}
                     <span className="text-green-500">→</span>
                   </Column>
                 ))}

@@ -1,7 +1,7 @@
+import { promises as fs } from 'node:fs';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type http from 'node:http';
 import path from 'node:path';
-import { promises as fs } from 'node:fs';
 import type url from 'node:url';
 import { lookup } from 'mime-types';
 
@@ -14,7 +14,7 @@ export const serveStaticFile = async (
   const pathname = parsedUrl.pathname!;
   const ext = path.parse(pathname).ext;
 
-  let fileAbsolutePath = path.join(staticBaseDir, pathname);
+  const fileAbsolutePath = path.join(staticBaseDir, pathname);
 
   const fileHandle = await fs.open(fileAbsolutePath, 'r');
 

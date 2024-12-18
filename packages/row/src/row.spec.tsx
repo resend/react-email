@@ -1,16 +1,16 @@
 /* eslint-disable react/no-children-prop */
-import { render } from "@react-email/render";
-import { Row } from "./index";
+import { render } from '@react-email/render';
+import { Row } from './index';
 
-describe("<Row> component", () => {
-  it("renders children correctly", async () => {
-    const testMessage = "Test message";
+describe('<Row> component', () => {
+  it('renders children correctly', async () => {
+    const testMessage = 'Test message';
     const html = await render(<Row>{testMessage}</Row>);
     expect(html).toContain(testMessage);
   });
 
-  it("passes style and other props correctly", async () => {
-    const style = { backgroundColor: "red" };
+  it('passes style and other props correctly', async () => {
+    const style = { backgroundColor: 'red' };
     const html = await render(
       <Row data-testid="row-test" style={style}>
         Test
@@ -20,7 +20,7 @@ describe("<Row> component", () => {
     expect(html).toContain('data-testid="row-test"');
   });
 
-  it("renders correctly", async () => {
+  it('renders correctly', async () => {
     const actualOutput = await render(<Row children={undefined} />);
     expect(actualOutput).toMatchSnapshot();
   });

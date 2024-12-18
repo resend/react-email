@@ -6,8 +6,8 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="py-[16px] text-center">

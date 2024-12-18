@@ -1,16 +1,16 @@
-import { Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Img, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Row>
       <Text
         style={{
-          margin: "0px",
+          margin: '0px',
           fontSize: 24,
-          lineHeight: "32px",
+          lineHeight: '32px',
           fontWeight: 600,
-          color: "rgb(17,24,39)",
+          color: 'rgb(17,24,39)',
         }}
       >
         Modern Comfort
@@ -19,8 +19,8 @@ export const component = (
         style={{
           marginTop: 8,
           fontSize: 16,
-          lineHeight: "24px",
-          color: "rgb(107,114,128)",
+          lineHeight: '24px',
+          color: 'rgb(107,114,128)',
         }}
       >
         Experience contemporary bliss with our sleek and cozy furniture
@@ -28,13 +28,13 @@ export const component = (
       </Text>
     </Row>
     <table width="100%">
-      <tr style={{ width: "100%", marginTop: 16 }}>
+      <tr style={{ width: '100%', marginTop: 16 }}>
         <td
           align="center"
           style={{
-            width: "50%",
+            width: '50%',
             paddingRight: 12,
-            verticalAlign: "baseline",
+            verticalAlign: 'baseline',
           }}
         >
           <Img
@@ -45,23 +45,23 @@ export const component = (
           />
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 16,
               fontSize: 20,
-              lineHeight: "28px",
+              lineHeight: '28px',
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Timeless Beauty
           </Text>
           <Text
             style={{
-              marginBottom: "0px",
+              marginBottom: '0px',
               marginTop: 8,
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              lineHeight: '24px',
+              color: 'rgb(107,114,128)',
             }}
           >
             Indulge in the enduring beauty of our furniture pieces, crafted with
@@ -71,9 +71,9 @@ export const component = (
         <td
           align="center"
           style={{
-            width: "50%",
+            width: '50%',
             paddingRight: 12,
-            verticalAlign: "baseline",
+            verticalAlign: 'baseline',
           }}
         >
           <Img
@@ -84,23 +84,23 @@ export const component = (
           />
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 16,
               fontSize: 20,
-              lineHeight: "28px",
+              lineHeight: '28px',
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Effortless Function
           </Text>
           <Text
             style={{
-              marginBottom: "0px",
+              marginBottom: '0px',
               marginTop: 8,
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              lineHeight: '24px',
+              color: 'rgb(107,114,128)',
             }}
           >
             Discover furniture that seamlessly combines form and function,
@@ -108,13 +108,13 @@ export const component = (
           </Text>
         </td>
       </tr>
-      <tr style={{ width: "100%", marginTop: 16 }}>
+      <tr style={{ width: '100%', marginTop: 16 }}>
         <td
           align="center"
           style={{
-            width: "50%",
+            width: '50%',
             paddingRight: 12,
-            verticalAlign: "baseline",
+            verticalAlign: 'baseline',
           }}
         >
           <Img
@@ -125,23 +125,23 @@ export const component = (
           />
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 16,
               fontSize: 20,
-              lineHeight: "28px",
+              lineHeight: '28px',
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Customize Your Space
           </Text>
           <Text
             style={{
-              marginBottom: "0px",
+              marginBottom: '0px',
               marginTop: 8,
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              lineHeight: '24px',
+              color: 'rgb(107,114,128)',
             }}
           >
             Personalize your living environment with our customizable furniture
@@ -151,9 +151,9 @@ export const component = (
         <td
           align="center"
           style={{
-            width: "50%",
+            width: '50%',
             paddingRight: 12,
-            verticalAlign: "baseline",
+            verticalAlign: 'baseline',
           }}
         >
           <Img
@@ -164,23 +164,23 @@ export const component = (
           />
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 16,
               fontSize: 20,
-              lineHeight: "28px",
+              lineHeight: '28px',
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Outdoor Serenity
           </Text>
           <Text
             style={{
-              marginBottom: "0px",
+              marginBottom: '0px',
               marginTop: 8,
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              lineHeight: '24px',
+              color: 'rgb(107,114,128)',
             }}
           >
             Create a tranquil outdoor retreat with our premium outdoor

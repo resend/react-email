@@ -1,7 +1,7 @@
+import { promises as fs, existsSync } from 'node:fs';
 import path from 'node:path';
-import { existsSync, promises as fs } from 'node:fs';
 import {
-  DependencyGraph,
+  type DependencyGraph,
   createDependencyGraph,
 } from './create-dependency-graph';
 

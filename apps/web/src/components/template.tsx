@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import classNames from "classnames";
-import type { ImageLoader } from "next/image";
-import Image from "next/image";
-import Link from "next/link";
-import * as React from "react";
-import { Heading } from "./heading";
-import { Text } from "./text";
+import classNames from 'classnames';
+import type { ImageLoader } from 'next/image';
+import Image from 'next/image';
+import Link from 'next/link';
+import * as React from 'react';
+import { Heading } from './heading';
+import { Text } from './text';
 
 export interface ExampleProps {
   path: string;
@@ -15,8 +15,8 @@ export interface ExampleProps {
   author: string;
 }
 
-const DEMO_EMAIL_PREVIEW_BASE_URL = "https://demo.react.email/preview";
-const DEFAULT_IMAGE = "/static/covers/react-email.png";
+const DEMO_EMAIL_PREVIEW_BASE_URL = 'https://demo.react.email/preview';
+const DEFAULT_IMAGE = '/static/covers/react-email.png';
 
 const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
@@ -29,9 +29,9 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
   author,
   ...props
 }) => {
-  const emailName = path.split("/").pop();
+  const emailName = path.split('/').pop();
   if (!path || !emailName) {
-    throw new Error("Cannot have an empty path for an Example!");
+    throw new Error('Cannot have an empty path for an Example!');
   }
 
   const [imageSrc, setImageSrc] = React.useState(`/examples/${emailName}.png`);
@@ -43,9 +43,9 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
   return (
     <Link
       className={classNames(
-        "flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-none focus:ring-2",
-        "hover:bg-gradientHover",
-        "focus:bg-gradientHover focus:ring-white/20",
+        'flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-none focus:ring-2',
+        'hover:bg-gradientHover',
+        'focus:bg-gradientHover focus:ring-white/20',
         className,
       )}
       href={`${DEMO_EMAIL_PREVIEW_BASE_URL}/${path}`}

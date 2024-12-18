@@ -1,10 +1,10 @@
-import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
-  <Section style={{ textAlign: "center" }}>
-    <table style={{ width: "100%" }}>
-      <tr style={{ width: "100%" }}>
+  <Section style={{ textAlign: 'center' }}>
+    <table style={{ width: '100%' }}>
+      <tr style={{ width: '100%' }}>
         <td align="center">
           <Img
             alt="React Email logo"
@@ -13,16 +13,16 @@ export const component = (
           />
         </td>
       </tr>
-      <tr style={{ width: "100%" }}>
+      <tr style={{ width: '100%' }}>
         <td align="center">
           <Text
             style={{
               marginTop: 8,
               marginBottom: 8,
               fontSize: 16,
-              lineHeight: "24px",
+              lineHeight: '24px',
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Acme corporation
@@ -30,10 +30,10 @@ export const component = (
           <Text
             style={{
               marginTop: 4,
-              marginBottom: "0px",
+              marginBottom: '0px',
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(107,114,128)",
+              lineHeight: '24px',
+              color: 'rgb(107,114,128)',
             }}
           >
             Think different
@@ -44,10 +44,10 @@ export const component = (
         <td align="center">
           <Row
             style={{
-              display: "table-cell",
+              display: 'table-cell',
               height: 44,
               width: 56,
-              verticalAlign: "bottom",
+              verticalAlign: 'bottom',
             }}
           >
             <Column style={{ paddingRight: 8 }}>
@@ -85,9 +85,9 @@ export const component = (
               marginTop: 8,
               marginBottom: 8,
               fontSize: 16,
-              lineHeight: "24px",
+              lineHeight: '24px',
               fontWeight: 600,
-              color: "rgb(107,114,128)",
+              color: 'rgb(107,114,128)',
             }}
           >
             123 Main Street Anytown, CA 12345
@@ -95,11 +95,11 @@ export const component = (
           <Text
             style={{
               marginTop: 4,
-              marginBottom: "0px",
+              marginBottom: '0px',
               fontSize: 16,
-              lineHeight: "24px",
+              lineHeight: '24px',
               fontWeight: 600,
-              color: "rgb(107,114,128)",
+              color: 'rgb(107,114,128)',
             }}
           >
             mail@example.com +123456789

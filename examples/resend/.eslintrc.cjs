@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["custom/react-internal"]
+  extends: ['custom/react-internal'],
 };

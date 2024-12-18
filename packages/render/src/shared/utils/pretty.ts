@@ -1,12 +1,12 @@
-import { format } from "prettier/standalone";
-import html from "prettier/plugins/html";
-import type { Options } from "prettier";
+import type { Options } from 'prettier';
+import html from 'prettier/plugins/html';
+import { format } from 'prettier/standalone';
 
 const defaults: Options = {
-  endOfLine: "lf",
+  endOfLine: 'lf',
   tabWidth: 2,
   plugins: [html],
-  parser: "html",
+  parser: 'html',
 };
 
 export const pretty = (str: string, options: Options = {}) => {

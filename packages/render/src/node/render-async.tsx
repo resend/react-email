@@ -1,9 +1,9 @@
-import { convert } from "html-to-text";
-import { Suspense } from "react";
-import { pretty } from "../shared/utils/pretty";
-import { plainTextSelectors } from "../shared/plain-text-selectors";
-import type { Options } from "../shared/options";
-import { readStream } from "./read-stream";
+import { convert } from 'html-to-text';
+import { Suspense } from 'react';
+import type { Options } from '../shared/options';
+import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { pretty } from '../shared/utils/pretty';
+import { readStream } from './read-stream';
 
 /**
  * @deprecated use `render`
@@ -13,10 +13,10 @@ export const renderAsync = async (
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import("react-dom/server");
+  const reactDOMServer = await import('react-dom/server');
 
   let html!: string;
-  if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
+  if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
     html = await readStream(
       await reactDOMServer.renderToReadableStream(suspendedElement),
     );
@@ -44,7 +44,7 @@ export const renderAsync = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, "")}`;
+  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
 
   if (options?.pretty) {
     return pretty(document);

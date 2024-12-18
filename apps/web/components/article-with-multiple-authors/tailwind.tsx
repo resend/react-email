@@ -6,8 +6,8 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Row>
@@ -15,15 +15,15 @@ export const component = (
     <Section>
       {[
         {
-          name: "Steve Jobs",
-          title: "Co-Founder & CEO",
-          imgSrc: "/static/steve-jobs.jpg",
+          name: 'Steve Jobs',
+          title: 'Co-Founder & CEO',
+          imgSrc: '/static/steve-jobs.jpg',
           showDivider: true,
         },
         {
-          name: "Steve Wozniak",
-          title: "Co-Founder & CTO",
-          imgSrc: "/static/steve-wozniak.jpg",
+          name: 'Steve Wozniak',
+          title: 'Co-Founder & CTO',
+          imgSrc: '/static/steve-wozniak.jpg',
           showDivider: false,
         },
       ].map((author, index) => (
@@ -74,7 +74,7 @@ export const component = (
           {author.showDivider ? (
             <Hr
               className="mr-[16px] inline-block h-[58px] w-[1px] bg-gray-300 [border:none]"
-              style={{ float: "left" }}
+              style={{ float: 'left' }}
             />
           ) : null}
         </>

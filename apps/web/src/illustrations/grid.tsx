@@ -1,4 +1,4 @@
-import { MoveDownRightIcon } from "lucide-react";
+import { MoveDownRightIcon } from 'lucide-react';
 
 const IllustrationGrid: React.FC = () => (
   <div className="relative grid aspect-square w-[24%] grid-cols-2 grid-rows-2 items-center gap-2 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/20 p-2 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:skew-x-2">

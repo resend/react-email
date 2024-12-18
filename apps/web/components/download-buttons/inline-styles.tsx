@@ -1,5 +1,5 @@
-import { Button, Column, Img, Row, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Button, Column, Img, Row, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Row>
@@ -7,17 +7,17 @@ export const component = (
       <Row>
         <Text
           style={{
-            color: "rgb(99,102,241)",
+            color: 'rgb(99,102,241)',
             fontWeight: 700,
             fontSize: 18,
-            lineHeight: "28px",
+            lineHeight: '28px',
           }}
         >
           Try now
         </Text>
         <Text
           style={{
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           The app all cheese enthusiasts have been waiting for
