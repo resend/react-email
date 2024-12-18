@@ -16,7 +16,6 @@
     "Visualization"
   ],
   "activationEvents": [],
-  "packageManager": "npm@9.6.7",
   "main": "./out/extension.js",
   "icon": "./icon.png",
   "contributes": {
@@ -42,7 +41,7 @@
   "scripts": {
     "publish": "vsce publish",
     "package": "vsce package",
-    "vscode:prepublish": "npm run compile -- --minify",
+    "vscode:prepublish": "pnpm compile --minify",
     "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts"
@@ -80,7 +79,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "@vscode/test-electron": "2.3.4",
-    "@vscode/vsce": "2.23.0",
+    "@vscode/vsce": "3.2.1",
     "eslint": "^8.50.0",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
