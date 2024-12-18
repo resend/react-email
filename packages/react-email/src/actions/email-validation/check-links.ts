@@ -3,17 +3,25 @@
 import { parse } from 'node-html-parser';
 import { quickFetch } from './quick-fetch';
 
+type Check = { passed: boolean } & (
+  | {
+    type: 'fetch_attempt';
+    metadata: {
+      fetchStatusCode: number | undefined;
+    };
+  }
+  | {
+    type: 'syntax';
+  }
+  | {
+    type: 'security';
+  }
+);
+
 export interface LinkCheckingResult {
-  link: string;
-
   status: 'success' | 'warning' | 'error';
-
-  checks: {
-    syntax: 'failed' | 'passed';
-    security?: 'failed' | 'passed';
-  };
-
-  responseStatusCode?: number;
+  link: string;
+  checks: Check[];
 }
 
 export const checkLinks = async (code: string) => {
@@ -30,31 +38,44 @@ export const checkLinks = async (code: string) => {
     const result: LinkCheckingResult = {
       link,
       status: 'success',
-      checks: {
-        syntax: 'passed',
-      },
+      checks: [],
     };
 
     try {
       const url = new URL(link);
 
       const res = await quickFetch(url);
-      result.responseStatusCode = res.statusCode;
-      if (
-        result.responseStatusCode === undefined ||
-        !result.responseStatusCode.toString().startsWith('2')
-      ) {
+      const succeeded =
+        res.statusCode === undefined ||
+        !res.statusCode.toString().startsWith('2');
+      result.checks.push({
+        type: 'fetch_attempt',
+        passed: succeeded,
+        metadata: {
+          fetchStatusCode: res.statusCode,
+        },
+      });
+      if (succeeded) {
         result.status = 'error';
       }
 
       if (link.startsWith('https://')) {
-        result.checks.security = 'passed';
+        result.checks.push({
+          passed: true,
+          type: 'security',
+        });
       } else {
-        result.checks.security = 'failed';
+        result.checks.push({
+          passed: false,
+          type: 'security',
+        });
         result.status = 'warning';
       }
     } catch (exception) {
-      result.checks.syntax = 'failed';
+      result.checks.push({
+        passed: false,
+        type: 'syntax',
+      });
       result.status = 'error';
     }
 

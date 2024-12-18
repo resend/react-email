@@ -123,8 +123,10 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             {(() => {
-              if (props.status === 'success') return <IconCircleCheck size={14} />;
-              if (props.status === 'warning') return <IconCircleWarning size={14} />;
+              if (props.status === 'success')
+                return <IconCircleCheck size={14} />;
+              if (props.status === 'warning')
+                return <IconCircleWarning size={14} />;
               return <IconCircleClose size={14} />;
             })()}
           </motion.span>
@@ -136,20 +138,24 @@ const LinkCheckingResultView = (props: LinkCheckingResult) => {
           </a>
         </motion.div>
         <motion.div className="mt-1 text-xs" variants={childVariants}>
-          {(() => {
-            if (props.checks.syntax === 'failed') {
-              return 'Invalid URL';
-            }
+          {props.checks
+            .map((check) => {
+              if (check.type === 'syntax' && !check.passed) {
+                return 'Invalid URL';
+              }
 
-            if (props.responseStatusCode) {
-              return `${props.responseStatusCode} - ${props.checks.security === 'failed' ? 'Insecure' : 'Secure'
-                }`;
-            }
+              if (check.type === 'fetch_attempt') {
+                return `${check.metadata.fetchStatusCode}`;
+              }
 
-            if (!props.responseStatusCode) {
-              return `URL could not be reached`;
-            }
-          })()}
+              if (check.type === 'security') {
+                return check.passed ? 'Secure' : 'Insecure';
+              }
+
+              return null;
+            })
+            .filter(Boolean)
+            .join(' - ')}
         </motion.div>
       </motion.li>
     </AnimatePresence>
