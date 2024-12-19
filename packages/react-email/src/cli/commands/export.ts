@@ -142,7 +142,7 @@ export const exportTemplates = async (
   }
   if (spinner) {
     spinner.succeed('Rendered all files');
-    spinner.text = `Copying static files`;
+    spinner.text = 'Copying static files';
     spinner.render();
   }
 
