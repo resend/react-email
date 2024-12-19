@@ -277,11 +277,11 @@ importers:
         specifier: workspace:0.0.31
         version: link:../../packages/components
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -302,11 +302,11 @@ importers:
         specifier: ^2.0.0
         version: 2.3.0
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -327,11 +327,11 @@ importers:
         specifier: 6.9.9
         version: 6.9.9
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       '@types/nodemailer':
         specifier: 6.4.15
@@ -355,11 +355,11 @@ importers:
         specifier: workspace:0.0.31
         version: link:../../packages/components
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -380,11 +380,11 @@ importers:
         specifier: 3.0.14
         version: 3.0.14
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -473,11 +473,11 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -498,11 +498,11 @@ importers:
         specifier: 7.7.0
         version: 7.7.0
       react:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028
+        specifier: ^19
+        version: 19.0.0
       react-dom:
-        specifier: 19.0.0-rc-02c0e824-20241028
-        version: 19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028)
+        specifier: ^19
+        version: 19.0.0(react@19.0.0)
     devDependencies:
       eslint-config-custom:
         specifier: workspace:*
@@ -6746,11 +6746,6 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  react-dom@19.0.0-rc-02c0e824-20241028:
-    resolution: {integrity: sha512-LrZf3DfHL6Fs07wwlUCHrzFTCMM19yA99MvJpfLokN4I2nBAZvREGZjZAn8VPiSfN72+i9j1eL4wB8gC695F3Q==}
-    peerDependencies:
-      react: 19.0.0-rc-02c0e824-20241028
-
   react-email@2.1.7-canary.2:
     resolution: {integrity: sha512-Ry5AMBzQ4itpnuCPrR1mDVdLh/G4u0Svs2ZJfW6ssKUFccYwdRxlaq8uHGRde/tdsirhxup+n/aFcXPW1Cq60A==}
     engines: {node: '>=18.0.0'}
@@ -6819,10 +6814,6 @@ packages:
 
   react@19.0.0:
     resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
-    engines: {node: '>=0.10.0'}
-
-  react@19.0.0-rc-02c0e824-20241028:
-    resolution: {integrity: sha512-GbZ7hpPHQMiEu53BqEaPQVM/4GG4hARo+mqEEnx4rYporDvNvUjutiAFxYFSbu6sgHwcr7LeFv8htEOwALVA2A==}
     engines: {node: '>=0.10.0'}
 
   read-cache@1.0.0:
@@ -6984,9 +6975,6 @@ packages:
 
   scheduler@0.25.0:
     resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
-
-  scheduler@0.25.0-rc-02c0e824-20241028:
-    resolution: {integrity: sha512-GysnKjmMSaWcwsKTLzeJO0IhU3EyIiC0ivJKE6yDNLqt3IMxDByx8b6lSNXRNdN+ULUY0WLLjSPaZ0LuU/GnTg==}
 
   schema-utils@3.3.0:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
@@ -14269,11 +14257,6 @@ snapshots:
       react: 19.0.0
       scheduler: 0.25.0
 
-  react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028):
-    dependencies:
-      react: 19.0.0-rc-02c0e824-20241028
-      scheduler: 0.25.0-rc-02c0e824-20241028
-
   react-email@2.1.7-canary.2(@emotion/is-prop-valid@0.8.8)(@swc/helpers@0.5.13)(eslint@8.50.0):
     dependencies:
       '@babel/core': 7.24.5
@@ -14417,8 +14400,6 @@ snapshots:
       loose-envify: 1.4.0
 
   react@19.0.0: {}
-
-  react@19.0.0-rc-02c0e824-20241028: {}
 
   read-cache@1.0.0:
     dependencies:
@@ -14632,8 +14613,6 @@ snapshots:
       loose-envify: 1.4.0
 
   scheduler@0.25.0: {}
-
-  scheduler@0.25.0-rc-02c0e824-20241028: {}
 
   schema-utils@3.3.0:
     dependencies:
