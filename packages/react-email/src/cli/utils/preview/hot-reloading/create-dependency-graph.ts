@@ -44,15 +44,25 @@ const checkFileExtensionsUntilItExists = (
 ): string | undefined => {
   if (existsSync(`${pathWithoutExtension}.ts`)) {
     return `${pathWithoutExtension}.ts`;
-  } else if (existsSync(`${pathWithoutExtension}.tsx`)) {
+  }
+
+  if (existsSync(`${pathWithoutExtension}.tsx`)) {
     return `${pathWithoutExtension}.tsx`;
-  } else if (existsSync(`${pathWithoutExtension}.js`)) {
+  }
+
+  if (existsSync(`${pathWithoutExtension}.js`)) {
     return `${pathWithoutExtension}.js`;
-  } else if (existsSync(`${pathWithoutExtension}.jsx`)) {
+  }
+
+  if (existsSync(`${pathWithoutExtension}.jsx`)) {
     return `${pathWithoutExtension}.jsx`;
-  } else if (existsSync(`${pathWithoutExtension}.mjs`)) {
+  }
+
+  if (existsSync(`${pathWithoutExtension}.mjs`)) {
     return `${pathWithoutExtension}.mjs`;
-  } else if (existsSync(`${pathWithoutExtension}.cjs`)) {
+  }
+
+  if (existsSync(`${pathWithoutExtension}.cjs`)) {
     return `${pathWithoutExtension}.cjs`;
   }
 };
@@ -133,9 +143,12 @@ export const createDependencyGraph = async (directory: string) => {
             const pathWithExtension = checkFileExtensionsUntilItExists(
               pathToDependencyFromDirectory,
             );
+
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
-            } else if (isDev) {
+            }
+
+            if (isDev) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
               console.warn(
                 `Could not determine the file extension for the file at ${pathWithExtension}`,
