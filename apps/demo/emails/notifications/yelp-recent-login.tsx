@@ -1,8 +1,8 @@
 import {
   Body,
   Button,
-  Container,
   Column,
+  Container,
   Head,
   Heading,
   Html,
@@ -11,8 +11,8 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
+} from '@react-email/components';
+import * as React from 'react';
 
 interface YelpRecentLoginEmailProps {
   userFirstName?: string;
@@ -24,7 +24,7 @@ interface YelpRecentLoginEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : '';
 
 export const YelpRecentLoginEmail = ({
   userFirstName,
@@ -33,9 +33,9 @@ export const YelpRecentLoginEmail = ({
   loginLocation,
   loginIp,
 }: YelpRecentLoginEmailProps) => {
-  const formattedDate = new Intl.DateTimeFormat("en", {
-    dateStyle: "long",
-    timeStyle: "short",
+  const formattedDate = new Intl.DateTimeFormat('en', {
+    dateStyle: 'long',
+    timeStyle: 'short',
   }).format(loginDate);
 
   return (
@@ -57,13 +57,13 @@ export const YelpRecentLoginEmail = ({
               />
             </Row>
 
-            <Row style={{ ...boxInfos, paddingBottom: "0" }}>
+            <Row style={{ ...boxInfos, paddingBottom: '0' }}>
               <Column>
                 <Heading
                   style={{
                     fontSize: 32,
-                    fontWeight: "bold",
-                    textAlign: "center",
+                    fontWeight: 'bold',
+                    textAlign: 'center',
                   }}
                 >
                   Hi {userFirstName},
@@ -72,8 +72,8 @@ export const YelpRecentLoginEmail = ({
                   as="h2"
                   style={{
                     fontSize: 26,
-                    fontWeight: "bold",
-                    textAlign: "center",
+                    fontWeight: 'bold',
+                    textAlign: 'center',
                   }}
                 >
                   We noticed a recent login to your Yelp account.
@@ -93,7 +93,7 @@ export const YelpRecentLoginEmail = ({
                 </Text>
                 <Text
                   style={{
-                    color: "rgb(0,0,0, 0.5)",
+                    color: 'rgb(0,0,0, 0.5)',
                     fontSize: 14,
                     marginTop: -5,
                   }}
@@ -111,7 +111,7 @@ export const YelpRecentLoginEmail = ({
                 </Text>
               </Column>
             </Row>
-            <Row style={{ ...boxInfos, paddingTop: "0" }}>
+            <Row style={{ ...boxInfos, paddingTop: '0' }}>
               <Column style={containerButton} colSpan={2}>
                 <Button style={button}>Learn More</Button>
               </Column>
@@ -128,9 +128,9 @@ export const YelpRecentLoginEmail = ({
 
           <Text
             style={{
-              textAlign: "center",
+              textAlign: 'center',
               fontSize: 12,
-              color: "rgb(0,0,0, 0.7)",
+              color: 'rgb(0,0,0, 0.7)',
             }}
           >
             © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
@@ -143,17 +143,17 @@ export const YelpRecentLoginEmail = ({
 };
 
 YelpRecentLoginEmail.PreviewProps = {
-  userFirstName: "Alan",
-  loginDate: new Date("September 7, 2022, 10:58 am"),
-  loginDevice: "Chrome on Mac OS X",
-  loginLocation: "Upland, California, United States",
-  loginIp: "47.149.53.167",
+  userFirstName: 'Alan',
+  loginDate: new Date('September 7, 2022, 10:58 am'),
+  loginDevice: 'Chrome on Mac OS X',
+  loginLocation: 'Upland, California, United States',
+  loginIp: '47.149.53.167',
 } as YelpRecentLoginEmailProps;
 
 export default YelpRecentLoginEmail;
 
 const main = {
-  backgroundColor: "#fff",
+  backgroundColor: '#fff',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
@@ -163,39 +163,39 @@ const paragraph = {
 };
 
 const logo = {
-  padding: "30px 20px",
+  padding: '30px 20px',
 };
 
 const containerButton = {
-  display: "flex",
-  justifyContent: "center",
-  width: "100%",
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
 };
 
 const button = {
-  backgroundColor: "#e00707",
+  backgroundColor: '#e00707',
   borderRadius: 3,
-  color: "#FFF",
-  fontWeight: "bold",
-  border: "1px solid rgb(0,0,0, 0.1)",
-  cursor: "pointer",
-  padding: "12px 30px",
+  color: '#FFF',
+  fontWeight: 'bold',
+  border: '1px solid rgb(0,0,0, 0.1)',
+  cursor: 'pointer',
+  padding: '12px 30px',
 };
 
 const content = {
-  border: "1px solid rgb(0,0,0, 0.1)",
-  borderRadius: "3px",
-  overflow: "hidden",
+  border: '1px solid rgb(0,0,0, 0.1)',
+  borderRadius: '3px',
+  overflow: 'hidden',
 };
 
 const image = {
-  maxWidth: "100%",
+  maxWidth: '100%',
 };
 
 const boxInfos = {
-  padding: "20px",
+  padding: '20px',
 };
 
 const containerImageFooter = {
-  padding: "45px 0 0 0",
+  padding: '45px 0 0 0',
 };

@@ -1,5 +1,5 @@
-import { Column, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
@@ -11,11 +11,11 @@ export const component = (
     <Row>
       <Text
         style={{
-          margin: "0px",
+          margin: '0px',
           fontSize: 24,
-          lineHeight: "32px",
+          lineHeight: '32px',
           fontWeight: 600,
-          color: "rgb(17,24,39)",
+          color: 'rgb(17,24,39)',
         }}
       >
         Modern Comfort
@@ -24,8 +24,8 @@ export const component = (
         style={{
           marginTop: 8,
           fontSize: 16,
-          lineHeight: "24px",
-          color: "rgb(107,114,128)",
+          lineHeight: '24px',
+          color: 'rgb(107,114,128)',
         }}
       >
         Experience contemporary bliss with our sleek and cozy furniture
@@ -36,9 +36,9 @@ export const component = (
       <Column
         align="center"
         style={{
-          width: "33.333333%",
+          width: '33.333333%',
           paddingRight: 12,
-          verticalAlign: "baseline",
+          verticalAlign: 'baseline',
         }}
       >
         <Img
@@ -49,23 +49,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "24px",
+            lineHeight: '24px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Timeless Charm
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Classic designs that never go out of style. Experience enduring
@@ -75,9 +75,9 @@ export const component = (
       <Column
         align="center"
         style={{
-          width: "33.333333%",
+          width: '33.333333%',
           paddingLeft: 12,
-          verticalAlign: "baseline",
+          verticalAlign: 'baseline',
         }}
       >
         <Img
@@ -88,23 +88,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Functional Beauty
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Seamlessly blending form and function. Furniture that enhances your
@@ -114,9 +114,9 @@ export const component = (
       <Column
         align="center"
         style={{
-          width: "33.333333%",
+          width: '33.333333%',
           paddingLeft: 12,
-          verticalAlign: "baseline",
+          verticalAlign: 'baseline',
         }}
       >
         <Img
@@ -127,23 +127,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Endless Comfort
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Sink into pure relaxation. Discover furniture that embraces your

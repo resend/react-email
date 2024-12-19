@@ -1,13 +1,13 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type HtmlProps = Readonly<React.ComponentPropsWithoutRef<"html">>;
+export type HtmlProps = Readonly<React.ComponentPropsWithoutRef<'html'>>;
 
 export const Html = React.forwardRef<HTMLHtmlElement, HtmlProps>(
-  ({ children, lang = "en", dir = "ltr", ...props }, ref) => (
+  ({ children, lang = 'en', dir = 'ltr', ...props }, ref) => (
     <html {...props} dir={dir} lang={lang} ref={ref}>
       {children}
     </html>
   ),
 );
 
-Html.displayName = "Html";
+Html.displayName = 'Html';

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { getEmailsDirectoryMetadata } from '../actions/get-emails-directory-metadata';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import { EmailsProvider } from '../contexts/emails';
+import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import { inter } from './inter';
 
 export const metadata: Metadata = {

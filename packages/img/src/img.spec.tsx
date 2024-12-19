@@ -1,9 +1,9 @@
-import { render } from "@react-email/render";
-import { Img } from "./index";
+import { render } from '@react-email/render';
+import { Img } from './index';
 
-describe("<Img> component", () => {
-  it("passes style and other props correctly", async () => {
-    const style = { backgroundColor: "red", border: "solid 1px black" };
+describe('<Img> component', () => {
+  it('passes style and other props correctly', async () => {
+    const style = { backgroundColor: 'red', border: 'solid 1px black' };
     const html = await render(
       <Img
         alt="Cat"
@@ -14,12 +14,12 @@ describe("<Img> component", () => {
         width="300"
       />,
     );
-    expect(html).toContain("background-color:red");
-    expect(html).toContain("border:solid 1px black");
+    expect(html).toContain('background-color:red');
+    expect(html).toContain('border:solid 1px black');
     expect(html).toContain('data-testid="img-test"');
   });
 
-  it("renders correctly", async () => {
+  it('renders correctly', async () => {
     const actualOutput = await render(
       <Img alt="Cat" height="300" src="cat.jpg" width="300" />,
     );

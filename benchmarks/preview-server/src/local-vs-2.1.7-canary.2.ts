@@ -1,19 +1,19 @@
-import path from "node:path";
-import { Bench } from "tinybench";
-import { runServerAndFetchPreviewPage } from "./utils/run-server-and-fetch-preview-page";
-import { promises as fs } from "node:fs";
-import { runServer } from "./utils/run-server";
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { Bench } from 'tinybench';
+import { runServer } from './utils/run-server';
+import { runServerAndFetchPreviewPage } from './utils/run-server-and-fetch-preview-page';
 
 const pathToCanaryCliScript = path.resolve(
   __dirname,
-  "../",
-  "./node_modules/react-email-canary/cli/index.js",
+  '../',
+  './node_modules/react-email-canary/cli/index.js',
 );
 
 const pathToLocalCliScript = path.resolve(
   __dirname,
-  "../",
-  "./node_modules/react-email/dist/cli/index.js",
+  '../',
+  './node_modules/react-email/dist/cli/index.js',
 );
 
 (async () => {
@@ -24,10 +24,10 @@ const pathToLocalCliScript = path.resolve(
   const localServer = await runServer(pathToLocalCliScript);
   const canaryServer = await runServer(pathToCanaryCliScript);
   bench
-    .add("local", async () => {
+    .add('local', async () => {
       await fetch(`${localServer.url}/preview/magic-links/notion-magic-link`);
     })
-    .add("2.1.7-canary.2", async () => {
+    .add('2.1.7-canary.2', async () => {
       await fetch(`${canaryServer.url}/preview/magic-links/notion-magic-link`);
     });
 
@@ -40,8 +40,8 @@ const pathToLocalCliScript = path.resolve(
   canaryServer.subprocess.kill();
 
   await fs.writeFile(
-    "bench-results-30-iterations.json",
+    'bench-results-30-iterations.json',
     JSON.stringify(bench.results),
-    "utf8",
+    'utf8',
   );
 })();

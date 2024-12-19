@@ -1,14 +1,14 @@
-import path from 'node:path';
 import http from 'node:http';
+import path from 'node:path';
 import url from 'node:url';
+import chalk from 'chalk';
+import logSymbols from 'log-symbols';
 import next from 'next';
 import ora from 'ora';
-import logSymbols from 'log-symbols';
-import chalk from 'chalk';
 import packageJson from '../../../../package.json';
 import { registerSpinnerAutostopping } from '../../../utils/register-spinner-autostopping';
-import { serveStaticFile } from './serve-static-file';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
+import { serveStaticFile } from './serve-static-file';
 
 let devServer: http.Server | undefined;
 
@@ -57,14 +57,13 @@ export const startDevServer = async (
 
     try {
       if (
-        parsedUrl.path &&
-        parsedUrl.path.includes('static/') &&
+        parsedUrl.path?.includes('static/') &&
         !parsedUrl.path.includes('_next/static/')
       ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
       } else if (!isNextReady) {
-        void nextReadyPromise.then(
-          () => nextHandleRequest?.(req, res, parsedUrl),
+        void nextReadyPromise.then(() =>
+          nextHandleRequest?.(req, res, parsedUrl),
         );
       } else {
         void nextHandleRequest?.(req, res, parsedUrl);

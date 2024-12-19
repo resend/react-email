@@ -1,6 +1,6 @@
-import type { StylesType } from "md-to-react-email";
-import { parseMarkdownToJSX } from "md-to-react-email";
-import * as React from "react";
+import type { StylesType } from 'md-to-react-email';
+import { parseMarkdownToJSX } from 'md-to-react-email';
+import * as React from 'react';
 
 export type MarkdownProps = Readonly<{
   children: string;
@@ -30,4 +30,4 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
   },
 );
 
-Markdown.displayName = "Markdown";
+Markdown.displayName = 'Markdown';

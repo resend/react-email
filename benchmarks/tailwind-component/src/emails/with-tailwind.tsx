@@ -1,7 +1,7 @@
 import {
   Body,
-  Container,
   Column,
+  Container,
   Head,
   Hr,
   Html,
@@ -11,12 +11,12 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import type { TailwindProps } from "../../../../packages/tailwind/dist";
+} from '@react-email/components';
+import type { TailwindProps } from '../../../../packages/tailwind/dist';
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : '';
 
 export const GooglePlayPolicyUpdateEmailWithTailwind = ({
   Tailwind,
@@ -73,7 +73,7 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
               users.
             </Text>
             <Text className="text-sm leading-5">
-              We've added clarifications to our{" "}
+              We've added clarifications to our{' '}
               <Link
                 className="text-sm leading-5 text-[#004dcf]"
                 href="https://notifications.google.com"
@@ -86,14 +86,14 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
           </Section>
           <Section className="pl-10">
             <Text className="text-sm leading-5">
-              We’re noting exceptions to the{" "}
+              We’re noting exceptions to the{' '}
               <Link
                 className="text-sm leading-5 text-[#004dcf]"
                 href="https://notifications.google.com"
               >
                 Target API Level policy
               </Link>
-              , which can be found in our updated{" "}
+              , which can be found in our updated{' '}
               <Link
                 className="text-sm leading-5 text-[#004dcf]"
                 href="https://notifications.google.com"
@@ -102,7 +102,7 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
               </Link>
               These exceptions include permanently private apps and apps that
               target automotive or wearables form factors and are bundled within
-              the same package.{" "}
+              the same package.{' '}
               <Link
                 className="text-sm leading-5 text-[#004dcf]"
                 href="https://notifications.google.com"
@@ -115,7 +115,7 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
             <Text className="text-sm leading-5">
               We’re also extending the deadline to give you more time to adjust
               to these changes. Now, apps that target API level 29 or below will
-              start experiencing reduced distribution starting{" "}
+              start experiencing reduced distribution starting{' '}
               <b>Jan 31, 2023</b> instead of Nov 1, 2022. If you need more time
               to update your app, you can request an extension to keep your app
               discoverable to all users until May 1, 2023.
@@ -137,11 +137,11 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
             <Row
               align="left"
               style={{
-                width: "84px",
-                float: "left",
+                width: '84px',
+                float: 'left',
               }}
             >
-              <Column style={{ paddingRight: "4px" }}>
+              <Column style={{ paddingRight: '4px' }}>
                 <Link href="https://notifications.google.com">
                   <Img
                     height="28"
@@ -150,7 +150,7 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
                   />
                 </Link>
               </Column>
-              <Column style={{ paddingRight: "4px" }}>
+              <Column style={{ paddingRight: '4px' }}>
                 <Link href="https://notifications.google.com">
                   <Img
                     height="28"
@@ -159,7 +159,7 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
                   />
                 </Link>
               </Column>
-              <Column style={{ paddingRight: "4px" }}>
+              <Column style={{ paddingRight: '4px' }}>
                 <Link href="https://notifications.google.com">
                   <Img
                     height="28"

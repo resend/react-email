@@ -6,30 +6,30 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Row>
     <Hr
       style={{
-        borderColor: "rgb(209,213,219) !important",
-        marginTop: "16px",
-        marginBottom: "0px",
+        borderColor: 'rgb(209,213,219) !important',
+        marginTop: '16px',
+        marginBottom: '0px',
       }}
     />
     <Section>
       {[
         {
-          name: "Steve Jobs",
-          title: "Co-Founder & CEO",
-          imgSrc: "/static/steve-jobs.jpg",
+          name: 'Steve Jobs',
+          title: 'Co-Founder & CEO',
+          imgSrc: '/static/steve-jobs.jpg',
           showDivider: true,
         },
         {
-          name: "Steve Wozniak",
-          title: "Co-Founder & CTO",
-          imgSrc: "/static/steve-wozniak.jpg",
+          name: 'Steve Wozniak',
+          title: 'Co-Founder & CTO',
+          imgSrc: '/static/steve-wozniak.jpg',
           showDivider: false,
         },
       ].map((author, index) => (
@@ -37,15 +37,15 @@ export const component = (
           <Section
             align="left"
             key={index}
-            style={{ marginTop: "16px", maxWidth: "288px" }}
+            style={{ marginTop: '16px', maxWidth: '288px' }}
           >
             <Section
               style={{
-                display: "inline-block",
-                marginTop: "5px",
-                maxHeight: "48px",
-                maxWidth: "48px",
-                textAlign: "left",
+                display: 'inline-block',
+                marginTop: '5px',
+                maxHeight: '48px',
+                maxWidth: '48px',
+                textAlign: 'left',
               }}
             >
               <Img
@@ -54,52 +54,52 @@ export const component = (
                 src={author.imgSrc}
                 style={{
                   borderRadius: 9999,
-                  display: "block",
-                  objectFit: "cover",
-                  objectPosition: "center",
+                  display: 'block',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
                 }}
                 width={48}
               />
             </Section>
             <Section
               style={{
-                display: "inline-block",
-                marginLeft: "18px",
-                maxWidth: "120px",
-                textAlign: "left",
-                verticalAlign: "top",
+                display: 'inline-block',
+                marginLeft: '18px',
+                maxWidth: '120px',
+                textAlign: 'left',
+                verticalAlign: 'top',
               }}
             >
               <Heading
                 as="h3"
                 style={{
-                  color: "rgb(17,24,39)",
-                  fontSize: "14px",
+                  color: 'rgb(17,24,39)',
+                  fontSize: '14px',
                   fontWeight: 500,
-                  lineHeight: "20px",
-                  margin: "0px",
+                  lineHeight: '20px',
+                  margin: '0px',
                 }}
               >
                 {author.name}
               </Heading>
               <Text
                 style={{
-                  color: "rgb(107,114,128)",
-                  fontSize: "12px",
+                  color: 'rgb(107,114,128)',
+                  fontSize: '12px',
                   fontWeight: 500,
-                  lineHeight: "14px",
-                  margin: "0px",
+                  lineHeight: '14px',
+                  margin: '0px',
                 }}
               >
                 {author.title}
               </Text>
-              <Section style={{ marginTop: "4px" }}>
+              <Section style={{ marginTop: '4px' }}>
                 <Link
                   href="#"
                   style={{
-                    display: "inline-flex",
-                    height: "12px",
-                    width: "12px",
+                    display: 'inline-flex',
+                    height: '12px',
+                    width: '12px',
                   }}
                 >
                   <Img
@@ -112,10 +112,10 @@ export const component = (
                 <Link
                   href="#"
                   style={{
-                    display: "inline-flex",
-                    height: "12px",
-                    marginLeft: "8px",
-                    width: "12px",
+                    display: 'inline-flex',
+                    height: '12px',
+                    marginLeft: '8px',
+                    width: '12px',
                   }}
                 >
                   <Img
@@ -131,13 +131,13 @@ export const component = (
           {author.showDivider ? (
             <Hr
               style={{
-                border: "none",
-                backgroundColor: "rgb(209,213,219)",
-                display: "inline-block",
-                float: "left",
-                height: "58px",
-                marginRight: "16px",
-                width: "1px",
+                border: 'none',
+                backgroundColor: 'rgb(209,213,219)',
+                display: 'inline-block',
+                float: 'left',
+                height: '58px',
+                marginRight: '16px',
+                width: '1px',
               }}
             />
           ) : null}

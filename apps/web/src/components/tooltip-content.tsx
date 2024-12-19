@@ -1,10 +1,10 @@
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
-import * as React from "react";
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import * as React from 'react';
 
 type ContentElement = React.ComponentRef<typeof TooltipPrimitive.Content>;
 type ContentProps = Omit<
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>,
-  "sideOffset"
+  'sideOffset'
 > & {
   sideOffset?: number;
 };
@@ -27,4 +27,4 @@ export const TooltipContent = React.forwardRef<
   </TooltipPrimitive.Portal>
 ));
 
-TooltipContent.displayName = "TooltipContent";
+TooltipContent.displayName = 'TooltipContent';

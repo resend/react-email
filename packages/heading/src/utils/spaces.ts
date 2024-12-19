@@ -1,11 +1,11 @@
-import type React from "react";
+import type React from 'react';
 
 type MarginCSSProperty = React.CSSProperties[
-  | "margin"
-  | "marginLeft"
-  | "marginRight"
-  | "marginTop"
-  | "marginBottom"];
+  | 'margin'
+  | 'marginLeft'
+  | 'marginRight'
+  | 'marginTop'
+  | 'marginBottom'];
 
 export interface Margin {
   m?: number | string;
@@ -19,13 +19,13 @@ export interface Margin {
 
 export const withMargin = (props: Margin) => {
   const nonEmptyStyles = [
-    withSpace(props.m, ["margin"]),
-    withSpace(props.mx, ["marginLeft", "marginRight"]),
-    withSpace(props.my, ["marginTop", "marginBottom"]),
-    withSpace(props.mt, ["marginTop"]),
-    withSpace(props.mr, ["marginRight"]),
-    withSpace(props.mb, ["marginBottom"]),
-    withSpace(props.ml, ["marginLeft"]),
+    withSpace(props.m, ['margin']),
+    withSpace(props.mx, ['marginLeft', 'marginRight']),
+    withSpace(props.my, ['marginTop', 'marginBottom']),
+    withSpace(props.mt, ['marginTop']),
+    withSpace(props.mr, ['marginRight']),
+    withSpace(props.mb, ['marginBottom']),
+    withSpace(props.ml, ['marginLeft']),
   ].filter((s) => Object.keys(s).length);
 
   const mergedStyles = nonEmptyStyles.reduce((acc, style) => {
@@ -40,7 +40,7 @@ export const withSpace = (
 ) => {
   return properties.reduce((styles, property) => {
     // Check to ensure string value is a valid number
-    if (!isNaN(Number.parseFloat(value as string))) {
+    if (!Number.isNaN(Number.parseFloat(value as string))) {
       return { ...styles, [property as keyof MarginCSSProperty]: `${value}px` };
     }
     return styles;

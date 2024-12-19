@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type RowProps = Readonly<
-  React.ComponentPropsWithoutRef<"table"> & {
+  React.ComponentPropsWithoutRef<'table'> & {
     children: React.ReactNode;
   }
 >;
@@ -20,12 +20,12 @@ export const Row = React.forwardRef<HTMLTableElement, RowProps>(
         ref={ref}
         style={style}
       >
-        <tbody style={{ width: "100%" }}>
-          <tr style={{ width: "100%" }}>{children}</tr>
+        <tbody style={{ width: '100%' }}>
+          <tr style={{ width: '100%' }}>{children}</tr>
         </tbody>
       </table>
     );
   },
 );
 
-Row.displayName = "Row";
+Row.displayName = 'Row';

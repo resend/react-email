@@ -1,6 +1,6 @@
-const { resolve } = require("node:path");
+const { resolve } = require('node:path');
 
-const project = resolve(process.cwd(), "tsconfig.json");
+const project = resolve(process.cwd(), 'tsconfig.json');
 
 /*
  * This is a custom ESLint configuration for use with
@@ -14,12 +14,12 @@ const project = resolve(process.cwd(), "tsconfig.json");
 
 module.exports = {
   extends: [
-    "@vercel/style-guide/eslint/browser",
-    "@vercel/style-guide/eslint/typescript",
-    "@vercel/style-guide/eslint/react",
+    '@vercel/style-guide/eslint/browser',
+    '@vercel/style-guide/eslint/typescript',
+    '@vercel/style-guide/eslint/react',
   ]
     .map(require.resolve)
-    .concat(["eslint-config-prettier"]),
+    .concat(['eslint-config-prettier']),
   parserOptions: {
     project,
   },
@@ -30,25 +30,25 @@ module.exports = {
     JSX: true,
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         project,
       },
     },
   },
-  ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js"],
+  ignorePatterns: ['node_modules/', 'dist/', '.eslintrc.js'],
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "react/no-unescaped-entities": "off",
-    "import/no-default-export": "off",
-    "import/no-named-as-default-member": "off",
-    "prefer-named-capture-group": "off",
-    "eslint-comments/require-description": "off",
-    "react/function-component-definition": [
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'react/no-unescaped-entities': 'off',
+    'import/no-default-export': 'off',
+    'import/no-named-as-default-member': 'off',
+    'prefer-named-capture-group': 'off',
+    'eslint-comments/require-description': 'off',
+    'react/function-component-definition': [
       2,
       {
-        namedComponents: "arrow-function",
-        unnamedComponents: "arrow-function",
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
       },
     ],
   },

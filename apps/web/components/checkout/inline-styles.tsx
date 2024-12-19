@@ -6,17 +6,17 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
-  <Section style={{ paddingTop: 16, paddingBottom: 16, textAlign: "center" }}>
+  <Section style={{ paddingTop: 16, paddingBottom: 16, textAlign: 'center' }}>
     <Heading
       as="h1"
       style={{
         fontSize: 30,
-        lineHeight: "36px",
-        marginBottom: "0px",
+        lineHeight: '36px',
+        marginBottom: '0px',
         fontWeight: 600,
       }}
     >
@@ -25,13 +25,13 @@ export const component = (
     <Section
       style={{
         padding: 16,
-        paddingTop: "0px",
+        paddingTop: '0px',
         marginTop: 16,
         marginBottom: 16,
         borderRadius: 8,
         borderWidth: 1,
-        borderStyle: "solid",
-        borderColor: "rgb(229,231,235)",
+        borderStyle: 'solid',
+        borderColor: 'rgb(229,231,235)',
       }}
     >
       <table style={{ marginBottom: 16 }} width="100%">
@@ -40,10 +40,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             &nbsp;
@@ -54,11 +54,11 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              color: "rgb(107,114,128)",
-              borderWidth: "0px",
+              color: 'rgb(107,114,128)',
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text style={{ fontWeight: 600 }}>Product</Text>
@@ -68,11 +68,11 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              color: "rgb(107,114,128)",
-              borderWidth: "0px",
+              color: 'rgb(107,114,128)',
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text style={{ fontWeight: 600 }}>Quantity</Text>
@@ -82,11 +82,11 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              color: "rgb(107,114,128)",
-              borderWidth: "0px",
+              color: 'rgb(107,114,128)',
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text style={{ fontWeight: 600 }}>Price</Text>
@@ -97,10 +97,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Img
@@ -108,7 +108,7 @@ export const component = (
               height={110}
               src="/static/braun-classic-watch.jpg"
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
                 borderRadius: 8,
               }}
             />
@@ -119,10 +119,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>Classic Watch</Text>
@@ -132,10 +132,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>1</Text>
@@ -145,10 +145,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>$210.00</Text>
@@ -159,10 +159,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Img
@@ -170,7 +170,7 @@ export const component = (
               height={110}
               src="/static/braun-analogue-clock.jpg"
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
                 borderRadius: 8,
               }}
             />
@@ -181,10 +181,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>Analogue Clock</Text>
@@ -194,10 +194,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>1</Text>
@@ -207,10 +207,10 @@ export const component = (
             style={{
               paddingTop: 8,
               paddingBottom: 8,
-              borderWidth: "0px",
+              borderWidth: '0px',
               borderBottomWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
             }}
           >
             <Text>$40.00</Text>
@@ -222,17 +222,17 @@ export const component = (
           <Button
             href="https://react.email"
             style={{
-              width: "100%",
-              boxSizing: "border-box",
+              width: '100%',
+              boxSizing: 'border-box',
               paddingLeft: 12,
               paddingRight: 12,
               borderRadius: 8,
-              textAlign: "center",
-              backgroundColor: "rgb(79,70,229)",
+              textAlign: 'center',
+              backgroundColor: 'rgb(79,70,229)',
               paddingTop: 12,
               paddingBottom: 12,
               fontWeight: 600,
-              color: "rgb(255,255,255)",
+              color: 'rgb(255,255,255)',
             }}
           >
             Checkout

@@ -1,4 +1,4 @@
-import { CircleDollarSign } from "lucide-react";
+import { CircleDollarSign } from 'lucide-react';
 
 const IllustrationEcommerce: React.FC = () => (
   <div className="relative flex aspect-video w-[42%] items-center gap-2 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/20 px-3 py-2 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:skew-x-2">

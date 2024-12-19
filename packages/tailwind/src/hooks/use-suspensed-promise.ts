@@ -13,11 +13,11 @@ export const useSuspensedPromise = <Result>(
 ) => {
   const previousState = promiseStates.get(key);
   if (previousState) {
-    if ("error" in previousState) {
+    if ('error' in previousState) {
       throw previousState.error;
     }
 
-    if ("result" in previousState) {
+    if ('result' in previousState) {
       return previousState.result as Result;
     }
 

@@ -1,5 +1,5 @@
-import { Container, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Container, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Container className="bg-gray-400">

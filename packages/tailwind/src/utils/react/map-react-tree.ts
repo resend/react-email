@@ -1,5 +1,5 @@
-import React from "react";
-import { isComponent } from "./is-component";
+import React from 'react';
+import { isComponent } from './is-component';
 
 /**
  * A function made for deep mapping a React tree from a node, even through its components.
@@ -31,12 +31,12 @@ export function mapReactTree(
 
       if (
         React.isValidElement<{ children?: React.ReactNode }>(processed) &&
-        (typeof processed.type === "function" ||
+        (typeof processed.type === 'function' ||
           // @ts-expect-error - we know this is a component that may have a render function
           processed.type.render)
       ) {
         const OriginalComponent =
-          typeof processed.type === "object"
+          typeof processed.type === 'object'
             ? // @ts-expect-error - we know this is a component with a render function
               (processed.type.render as React.FC)
             : (processed.type as React.FC);

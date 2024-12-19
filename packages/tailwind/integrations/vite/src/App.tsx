@@ -1,5 +1,5 @@
-import { render } from "@react-email/components";
-import { VercelInviteUserEmail } from "../emails/vercel-invite-user";
+import { render } from '@react-email/components';
+import { VercelInviteUserEmail } from '../emails/vercel-invite-user';
 
 function App() {
   const emailHtml = render(<VercelInviteUserEmail />);

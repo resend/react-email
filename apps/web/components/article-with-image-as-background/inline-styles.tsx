@@ -1,5 +1,5 @@
-import { Button, Heading, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Button, Heading, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 // Notes for future exploration on finding a way to do this inside of
 // Desktop Outlook:
@@ -18,21 +18,21 @@ export const component = (
       marginTop: 16,
       marginBottom: 16,
       borderRadius: 12,
-      backgroundColor: "rgb(37,99,235)",
+      backgroundColor: 'rgb(37,99,235)',
       // This url must be in quotes for Yahoo
       backgroundImage: "url('/static/my-image.png')",
-      backgroundSize: "100% 100%",
+      backgroundSize: '100% 100%',
     }}
     width="100%"
   >
     <tbody>
       <tr>
-        <td align="center" style={{ padding: 40, textAlign: "center" }}>
+        <td align="center" style={{ padding: 40, textAlign: 'center' }}>
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               fontWeight: 600,
-              color: "rgb(229,231,235)",
+              color: 'rgb(229,231,235)',
             }}
           >
             New article
@@ -40,21 +40,21 @@ export const component = (
           <Heading
             as="h1"
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 4,
               fontWeight: 700,
-              color: "rgb(255,255,255)",
+              color: 'rgb(255,255,255)',
             }}
           >
             Artful Accents
           </Heading>
           <Text
             style={{
-              margin: "0px",
+              margin: '0px',
               marginTop: 8,
               fontSize: 16,
-              lineHeight: "24px",
-              color: "rgb(255,255,255)",
+              lineHeight: '24px',
+              color: 'rgb(255,255,255)',
             }}
           >
             Uncover the power of accent furniture in transforming your space
@@ -67,15 +67,15 @@ export const component = (
               marginTop: 24,
               borderRadius: 8,
               borderWidth: 1,
-              borderStyle: "solid",
-              borderColor: "rgb(229,231,235)",
-              backgroundColor: "rgb(255,255,255)",
+              borderStyle: 'solid',
+              borderColor: 'rgb(229,231,235)',
+              backgroundColor: 'rgb(255,255,255)',
               paddingLeft: 40,
               paddingRight: 40,
               paddingTop: 12,
               paddingBottom: 12,
               fontWeight: 600,
-              color: "rgb(17,24,39)",
+              color: 'rgb(17,24,39)',
             }}
           >
             Read more

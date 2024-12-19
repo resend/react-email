@@ -1,19 +1,19 @@
+import { Button } from '@react-email/button';
+import { Head } from '@react-email/head';
+import { Heading } from '@react-email/heading';
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Hr } from "@react-email/hr";
-import { render } from "@react-email/render";
-import { Html } from "@react-email/html";
-import { Link } from "@react-email/link";
-import { Heading } from "@react-email/heading";
-import { Head } from "@react-email/head";
-import { Button } from "@react-email/button";
-import React from "react";
-import { ResponsiveRow, ResponsiveColumn } from "@responsive-email/react-email";
-import { Tailwind } from ".";
-import type { TailwindConfig } from ".";
+import { Hr } from '@react-email/hr';
+import { Html } from '@react-email/html';
+import { Link } from '@react-email/link';
+import { render } from '@react-email/render';
+import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
+import React from 'react';
+import { Tailwind } from '.';
+import type { TailwindConfig } from '.';
 
-describe("Tailwind component", () => {
-  it("should allow for complex children manipulation", async () => {
+describe('Tailwind component', () => {
+  it('should allow for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
         <ResponsiveRow>
@@ -25,22 +25,22 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should work with class manipulation done on components", async () => {
+  it('should work with class manipulation done on components', async () => {
     const MyComponnt = (props: {
       className?: string;
       style?: React.CSSProperties;
     }) => {
       expect(
         props.style,
-        "Styles should be generated the same for a component",
+        'Styles should be generated the same for a component',
       ).toEqual({
-        color: "rgb(96,165,250)",
-        padding: "1rem",
+        color: 'rgb(96,165,250)',
+        padding: '1rem',
       });
       return (
         <div
           className={`${props.className} bg-red-500`}
-          style={{ ...props.style, padding: "4px" }}
+          style={{ ...props.style, padding: '4px' }}
         />
       );
     };
@@ -60,7 +60,7 @@ describe("Tailwind component", () => {
         <body>
           <Tailwind>
             <p className="text-black text-[14px] leading-[24px]">
-              or copy and paste this URL into your browser:{" "}
+              or copy and paste this URL into your browser:{' '}
               <Link
                 className="text-blue-600 no-underline other"
                 href="https://react.email"
@@ -69,7 +69,7 @@ describe("Tailwind component", () => {
               </Link>
             </p>
             <p className="text-black text-[14px] leading-[24px]">
-              or copy and paste this URL into your browser:{" "}
+              or copy and paste this URL into your browser:{' '}
               <Link
                 className="text-blue-600 no-underline"
                 href="https://react.email"
@@ -84,8 +84,8 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  describe("Inline styles", () => {
-    it("should render children with inline Tailwind styles", async () => {
+  describe('Inline styles', () => {
+    it('should render children with inline Tailwind styles', async () => {
       const actualOutput = await render(
         <Tailwind>
           <div className="bg-white" />
@@ -137,7 +137,7 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should work with custom components with fragment at the root", async () => {
+  it('should work with custom components with fragment at the root', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -169,13 +169,13 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  test("it should not generate styles from text", async () => {
+  test('it should not generate styles from text', async () => {
     expect(
       await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>),
     ).toMatchSnapshot();
   });
 
-  it("should work with components that return children", async () => {
+  it('should work with components that return children', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -202,7 +202,7 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should work with Heading component", async () => {
+  it('should work with Heading component', async () => {
     const EmailTemplate = () => {
       return (
         <Tailwind>
@@ -216,7 +216,7 @@ describe("Tailwind component", () => {
     expect(await render(<EmailTemplate />)).toMatchSnapshot();
   });
 
-  it("should work with components that use React.forwardRef", async () => {
+  it('should work with components that use React.forwardRef', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -232,7 +232,7 @@ describe("Tailwind component", () => {
         </div>
       );
     });
-    Brand.displayName = "Brand";
+    Brand.displayName = 'Brand';
 
     const EmailTemplate = () => {
       return (
@@ -248,7 +248,7 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use background image", async () => {
+  it('should be able to use background image', async () => {
     const actualOutput = await render(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
@@ -258,12 +258,12 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should not override inline styles with Tailwind styles", async () => {
+  it('should not override inline styles with Tailwind styles', async () => {
     const actualOutput = await render(
       <Tailwind>
         <div
           className="bg-black text-[16px]"
-          style={{ backgroundColor: "red", fontSize: "12px" }}
+          style={{ backgroundColor: 'red', fontSize: '12px' }}
         />
       </Tailwind>,
     );
@@ -271,17 +271,17 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should override component styles with Tailwind styles", async () => {
+  it('should override component styles with Tailwind styles', async () => {
     const actualOutput = await render(
       <Tailwind>
         <Hr className="w-12" />
       </Tailwind>,
     );
 
-    expect(actualOutput).toContain("width:3rem");
+    expect(actualOutput).toContain('width:3rem');
   });
 
-  it("should preserve mso styles", async () => {
+  it('should preserve mso styles', async () => {
     const actualOutput = await render(
       <Html>
         <Tailwind>
@@ -299,15 +299,15 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should recognize custom responsive screen", async () => {
+  it('should recognize custom responsive screen', async () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
-          sm: { min: "640px" },
-          md: { min: "768px" },
-          lg: { min: "1024px" },
-          xl: { min: "1280px" },
-          "2xl": { min: "1536px" },
+          sm: { min: '640px' },
+          md: { min: '768px' },
+          lg: { min: '1024px' },
+          xl: { min: '1280px' },
+          '2xl': { min: '1536px' },
         },
       },
     };
@@ -324,7 +324,7 @@ describe("Tailwind component", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should work with calc() with + sign", async () => {
+  it('should work with calc() with + sign', async () => {
     const actualOutput = await render(
       <Tailwind>
         <head />
@@ -338,7 +338,7 @@ describe("Tailwind component", () => {
   });
 });
 
-describe("Responsive styles", () => {
+describe('Responsive styles', () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
@@ -350,7 +350,7 @@ describe("Responsive styles", () => {
     and apply the styles there. This also fixes the issue where it would not be allowed to use
     Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
   */
-  it("should work with arbitrarily deep (in the React tree) <head> elements", async () => {
+  it('should work with arbitrarily deep (in the React tree) <head> elements', async () => {
     expect(
       await render(
         <Tailwind>
@@ -382,7 +382,7 @@ describe("Responsive styles", () => {
     ).toMatchSnapshot();
   });
 
-  it("should not have duplicate media queries", async () => {
+  it('should not have duplicate media queries', async () => {
     const Body = (props: { className: string; children: React.ReactNode }) => {
       return <body className={props.className}>{props.children}</body>;
     };
@@ -398,7 +398,7 @@ describe("Responsive styles", () => {
     expect(output).toMatchSnapshot();
   });
 
-  it("should add css to <head/> and keep responsive class names", async () => {
+  it('should add css to <head/> and keep responsive class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
@@ -413,7 +413,7 @@ describe("Responsive styles", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should throw error when used without the head and with media query class names only very deeply nested", async () => {
+  it('should throw error when used without the head and with media query class names only very deeply nested', async () => {
     const Component1 = (props: Record<string, any>) => {
       return (
         <div {...props} className="w-40 h-30 sm:h-10 sm:w-10">
@@ -453,7 +453,7 @@ describe("Responsive styles", () => {
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 
-  it("should work with relatively complex media query utilities", async () => {
+  it('should work with relatively complex media query utilities', async () => {
     const Email = () => {
       return (
         <Tailwind>
@@ -466,7 +466,7 @@ describe("Responsive styles", () => {
     expect(await render(<Email />)).toMatchSnapshot();
   });
 
-  it("should throw an error when used without a <head/>", async () => {
+  it('should throw an error when used without a <head/>', async () => {
     function noHead() {
       return render(
         <Tailwind>
@@ -480,7 +480,7 @@ describe("Responsive styles", () => {
     await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
   });
 
-  it("should persist existing <head/> elements", async () => {
+  it('should persist existing <head/> elements', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
@@ -499,13 +499,13 @@ describe("Responsive styles", () => {
   });
 });
 
-describe("Custom theme config", () => {
-  it("should be able to use custom colors", async () => {
+describe('Custom theme config', () => {
+  it('should be able to use custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           colors: {
-            custom: "#1fb6ff",
+            custom: '#1fb6ff',
           },
         },
       },
@@ -520,13 +520,13 @@ describe("Custom theme config", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use custom fonts", async () => {
+  it('should be able to use custom fonts', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ["Graphik", "sans-serif"],
-            serif: ["Merriweather", "serif"],
+            sans: ['Graphik', 'sans-serif'],
+            serif: ['Merriweather', 'serif'],
           },
         },
       },
@@ -542,12 +542,12 @@ describe("Custom theme config", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use custom spacing", async () => {
+  it('should be able to use custom spacing', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           spacing: {
-            "8xl": "96rem",
+            '8xl': '96rem',
           },
         },
       },
@@ -560,12 +560,12 @@ describe("Custom theme config", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use custom border radius", async () => {
+  it('should be able to use custom border radius', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           borderRadius: {
-            "4xl": "2rem",
+            '4xl': '2rem',
           },
         },
       },
@@ -578,12 +578,12 @@ describe("Custom theme config", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use custom text alignment", async () => {
+  it('should be able to use custom text alignment', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
           textAlign: {
-            justify: "justify",
+            justify: 'justify',
           },
         },
       },
@@ -599,14 +599,14 @@ describe("Custom theme config", () => {
   });
 });
 
-describe("Custom plugins config", () => {
-  it("should be able to use custom plugins", async () => {
+describe('Custom plugins config', () => {
+  it('should be able to use custom plugins', async () => {
     const config: TailwindConfig = {
       plugins: [
         ({ addUtilities }: any) => {
           const newUtilities = {
-            ".border-custom": {
-              border: "2px solid",
+            '.border-custom': {
+              border: '2px solid',
             },
           };
 
@@ -624,13 +624,13 @@ describe("Custom plugins config", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("should be able to use custom plugins with responsive styles", async () => {
+  it('should be able to use custom plugins with responsive styles', async () => {
     const config: TailwindConfig = {
       plugins: [
         ({ addUtilities }: any) => {
           const newUtilities = {
-            ".border-custom": {
-              border: "2px solid",
+            '.border-custom': {
+              border: '2px solid',
             },
           };
 

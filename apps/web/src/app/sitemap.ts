@@ -1,7 +1,7 @@
 const Sitemap = async () => {
-  const routes = ["", "/components", "/examples"].map((route) => ({
+  const routes = ['', '/components', '/examples'].map((route) => ({
     url: `https://react.email${route}`,
-    lastModified: new Date().toISOString().split("T")[0],
+    lastModified: new Date().toISOString().split('T')[0],
   }));
 
   return [...routes];

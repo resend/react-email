@@ -1,39 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Img, Link, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Img, Link, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
-    style={{ marginTop: "16px", textAlign: "center", marginBottom: "16px" }}
+    style={{ marginTop: '16px', textAlign: 'center', marginBottom: '16px' }}
   >
     <Section
       style={{
-        display: "inline-block",
-        textAlign: "left",
-        width: "100%",
+        display: 'inline-block',
+        textAlign: 'left',
+        width: '100%',
         maxWidth: 250,
-        verticalAlign: "top",
+        verticalAlign: 'top',
       }}
     >
       <Text
         style={{
-          margin: "0px",
+          margin: '0px',
           fontSize: 16,
-          lineHeight: "24px",
+          lineHeight: '24px',
           fontWeight: 600,
-          color: "rgb(79,70,229)",
+          color: 'rgb(79,70,229)',
         }}
       >
         What's new
       </Text>
       <Text
         style={{
-          margin: "0px",
-          marginTop: "8px",
+          margin: '0px',
+          marginTop: '8px',
           fontSize: 20,
-          lineHeight: "28px",
+          lineHeight: '28px',
           fontWeight: 600,
-          color: "rgb(17,24,39)",
+          color: 'rgb(17,24,39)',
         }}
       >
         Versatile Comfort
@@ -42,8 +42,8 @@ export const component = (
         style={{
           marginTop: 8,
           fontSize: 16,
-          lineHeight: "24px",
-          color: "rgb(107,114,128)",
+          lineHeight: '24px',
+          color: 'rgb(107,114,128)',
         }}
       >
         Experience ultimate comfort and versatility with our furniture
@@ -51,19 +51,19 @@ export const component = (
       </Text>
       <Link
         href="https://react.email"
-        style={{ color: "rgb(79,70,229)", textDecorationLine: "underline" }}
+        style={{ color: 'rgb(79,70,229)', textDecorationLine: 'underline' }}
       >
         Read more
       </Link>
     </Section>
     <Section
       style={{
-        display: "inline-block",
+        display: 'inline-block',
         marginTop: 8,
         marginBottom: 8,
-        width: "100%",
+        width: '100%',
         maxWidth: 220,
-        verticalAlign: "top",
+        verticalAlign: 'top',
       }}
     >
       <Img
@@ -72,7 +72,7 @@ export const component = (
         src="/static/versatile-comfort.jpg"
         style={{
           borderRadius: 8,
-          objectFit: "cover",
+          objectFit: 'cover',
         }}
         width={220}
       />

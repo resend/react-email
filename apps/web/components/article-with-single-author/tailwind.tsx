@@ -6,8 +6,8 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Row>
@@ -36,14 +36,14 @@ export const component = (
           <Img
             alt="X"
             src="/static/x-icon.png"
-            style={{ height: "12px", width: "12px" }}
+            style={{ height: '12px', width: '12px' }}
           />
         </Link>
         <Link className="ml-[8px] inline-flex h-[12px] w-[12px]" href="#">
           <Img
             alt="LinkedIn"
             src="/static/in-icon.png"
-            style={{ height: "12px", width: "12px" }}
+            style={{ height: '12px', width: '12px' }}
           />
         </Link>
       </Section>

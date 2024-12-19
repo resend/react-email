@@ -1,5 +1,5 @@
-import path from "node:path";
-import shell from "shelljs";
+import path from 'node:path';
+import shell from 'shelljs';
 
 /**
  * Just a function that runs `shell.exec` and expects it returns code 0, i.e. expects command not to fail
@@ -8,7 +8,7 @@ import shell from "shelljs";
  */
 export const $ = (
   command: string,
-  cwd: string = path.resolve(__dirname, ".."),
+  cwd: string = path.resolve(__dirname, '..'),
 ) => {
   expect(
     shell.exec(command, { cwd, fatal: true }).code,

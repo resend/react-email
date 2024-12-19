@@ -1,5 +1,5 @@
-import * as React from "react";
-import classNames from "classnames";
+import classNames from 'classnames';
+import * as React from 'react';
 
 interface ComponentPreviewProps {
   activeView: string;
@@ -35,12 +35,12 @@ export const ComponentPreview = ({
 
     const iframe = iframeRef.current;
     if (iframe) {
-      iframe.addEventListener("load", handleResize);
+      iframe.addEventListener('load', handleResize);
 
       handleResize();
 
       return () => {
-        iframe.removeEventListener("load", handleResize);
+        iframe.removeEventListener('load', handleResize);
       };
     }
   }, []);
@@ -48,8 +48,8 @@ export const ComponentPreview = ({
   return (
     <iframe
       className={classNames(
-        "relative z-[2] m-auto flex h-fit overflow-y-hidden rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]",
-        activeView === "mobile" ? "w-[22.5rem]" : "w-full",
+        'relative z-[2] m-auto flex h-fit overflow-y-hidden rounded-md bg-zinc-200 transition-none duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]',
+        activeView === 'mobile' ? 'w-[22.5rem]' : 'w-full',
         className,
       )}
       ref={iframeRef}

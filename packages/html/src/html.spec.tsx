@@ -1,14 +1,14 @@
-import { render } from "@react-email/render";
-import { Html } from "./index";
+import { render } from '@react-email/render';
+import { Html } from './index';
 
-describe("<Html> component", () => {
-  it("renders children correctly", async () => {
-    const testMessage = "Test message";
+describe('<Html> component', () => {
+  it('renders children correctly', async () => {
+    const testMessage = 'Test message';
     const html = await render(<Html>{testMessage}</Html>);
     expect(html).toContain(testMessage);
   });
 
-  it("passes props correctly", async () => {
+  it('passes props correctly', async () => {
     const html = await render(
       <Html data-testid="html-test" dir="rtl" lang="fr" />,
     );
@@ -17,7 +17,7 @@ describe("<Html> component", () => {
     expect(html).toContain('data-testid="html-test"');
   });
 
-  it("renders correctly", async () => {
+  it('renders correctly', async () => {
     const actualOutput = await render(<Html />);
     expect(actualOutput).toMatchSnapshot();
   });

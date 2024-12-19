@@ -1,5 +1,5 @@
-import { Heading } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Heading } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>

@@ -1,5 +1,5 @@
-import { Column, Hr, Row } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Hr, Row } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>
@@ -10,7 +10,7 @@ export const component = (
     <Hr
       style={{
         marginTop: 16,
-        borderColor: "rgb(209,213,219)",
+        borderColor: 'rgb(209,213,219)',
         marginBottom: 16,
       }}
     />

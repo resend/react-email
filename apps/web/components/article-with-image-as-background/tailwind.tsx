@@ -1,7 +1,7 @@
-import { Button, Heading, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Button, Heading, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
-export const title = "Article with image as background";
+export const title = 'Article with image as background';
 
 // Notes for future exploration on finding a way to do this inside of
 // Desktop Outlook:
@@ -19,7 +19,7 @@ export const component = (
     style={{
       // This url must be in quotes for Yahoo
       backgroundImage: "url('/static/my-image.png')",
-      backgroundSize: "100% 100%",
+      backgroundSize: '100% 100%',
     }}
     width="100%"
   >

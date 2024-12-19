@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Column, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
     <Row>
       <Text
         style={{
-          margin: "0px",
+          margin: '0px',
           fontSize: 24,
-          lineHeight: "32px",
+          lineHeight: '32px',
           fontWeight: 600,
-          color: "rgb(17,24,39)",
+          color: 'rgb(17,24,39)',
         }}
       >
         Unleash Timeless Comfort in Your Home
@@ -20,8 +20,8 @@ export const component = (
         style={{
           marginTop: 8,
           fontSize: 16,
-          lineHeight: "24px",
-          color: "rgb(107,114,128)",
+          lineHeight: '24px',
+          color: 'rgb(107,114,128)',
         }}
       >
         Elevate your space with impeccable quality, and versatile styles.
@@ -31,9 +31,9 @@ export const component = (
       <Column
         colSpan={1}
         style={{
-          width: "50%",
+          width: '50%',
           paddingRight: 12,
-          verticalAlign: "baseline",
+          verticalAlign: 'baseline',
         }}
       >
         <Img
@@ -44,23 +44,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Multifunctional Marvels
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Discover comfort and style with our exquisite furniture collection at
@@ -71,7 +71,7 @@ export const component = (
       </Column>
       <Column
         colSpan={1}
-        style={{ paddingLeft: 12, verticalAlign: "baseline", width: "50%" }}
+        style={{ paddingLeft: 12, verticalAlign: 'baseline', width: '50%' }}
       >
         <Img
           alt="rocket icon"
@@ -81,23 +81,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Impeccable Quality
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Quality is our priority. Our furniture is meticulously crafted by
@@ -111,9 +111,9 @@ export const component = (
       <Column
         colSpan={1}
         style={{
-          width: "50%",
+          width: '50%',
           paddingRight: 12,
-          verticalAlign: "baseline",
+          verticalAlign: 'baseline',
         }}
       >
         <Img
@@ -124,23 +124,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Versatile Styles
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Express your unique style with our diverse range of furniture options.
@@ -151,7 +151,7 @@ export const component = (
       </Column>
       <Column
         colSpan={1}
-        style={{ width: "50%", paddingLeft: 12, verticalAlign: "baseline" }}
+        style={{ width: '50%', paddingLeft: 12, verticalAlign: 'baseline' }}
       >
         <Img
           alt="cube icon"
@@ -161,23 +161,23 @@ export const component = (
         />
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 16,
             fontSize: 20,
-            lineHeight: "28px",
+            lineHeight: '28px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Personalized Service
         </Text>
         <Text
           style={{
-            marginBottom: "0px",
+            marginBottom: '0px',
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           Experience personalised service at Acme. Our friendly team is

@@ -1,6 +1,6 @@
 import path from 'node:path';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import { Shell } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';

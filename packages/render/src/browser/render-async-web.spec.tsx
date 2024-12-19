@@ -2,19 +2,19 @@
  * @vitest-environment jsdom
  */
 
-import { Template } from "../shared/utils/template";
-import { Preview } from "../shared/utils/preview";
-import { renderAsync } from "./render-async";
+import { Preview } from '../shared/utils/preview';
+import { Template } from '../shared/utils/template';
+import { renderAsync } from './render-async';
 
-type Import = typeof import("react-dom/server") & {
-  default: typeof import("react-dom/server");
+type Import = typeof import('react-dom/server') & {
+  default: typeof import('react-dom/server');
 };
 
-describe("renderAsync on the browser environment", () => {
+describe('renderAsync on the browser environment', () => {
   beforeEach(() => {
     vi.mock(
-      "react-dom/server",
-      (_importOriginal) => import("react-dom/server.browser"),
+      'react-dom/server',
+      (_importOriginal) => import('react-dom/server.browser'),
     );
   });
 
@@ -22,13 +22,13 @@ describe("renderAsync on the browser environment", () => {
     vi.resetAllMocks();
   });
 
-  it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock("react-dom/server", async (_importOriginal) => {
+  it('converts a React component into HTML with Next 14 error stubs', async () => {
+    vi.mock('react-dom/server', async (_importOriginal) => {
       const ReactDOMServerBrowser = await vi.importActual<Import>(
-        "react-dom/server.browser",
+        'react-dom/server.browser',
       );
       const ERROR_MESSAGE =
-        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
+        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
 
       return {
         ...ReactDOMServerBrowser,
@@ -57,7 +57,7 @@ describe("renderAsync on the browser environment", () => {
     );
   });
 
-  it("converts a React component into HTML", async () => {
+  it('converts a React component into HTML', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -66,13 +66,13 @@ describe("renderAsync on the browser environment", () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it("should handle characters with a higher byte count gracefully", async () => {
+  it('should handle characters with a higher byte count gracefully', async () => {
     const actualOutput = await renderAsync(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
         <p>
           平素よりお世話になっております。 情報Ⅰサポートチームです。
-          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{" "}
+          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{' '}
         </p>
         今後ジクタス上の講座につきましては、8回分の授業をひとまとまりとしてパート分けされた状態で公開されてまいります。
         <p>
@@ -101,7 +101,7 @@ describe("renderAsync on the browser environment", () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("converts a React component into PlainText", async () => {
+  it('converts a React component into PlainText', async () => {
     const actualOutput = await renderAsync(<Template firstName="Jim" />, {
       plainText: true,
     });
@@ -113,7 +113,7 @@ describe("renderAsync on the browser environment", () => {
     `);
   });
 
-  it("converts to plain text and removes reserved ID", async () => {
+  it('converts to plain text and removes reserved ID', async () => {
     const actualOutput = await renderAsync(<Preview />, {
       plainText: true,
     });

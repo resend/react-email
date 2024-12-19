@@ -1,4 +1,4 @@
-import type { HtmlToTextOptions } from "html-to-text";
+import type { HtmlToTextOptions } from 'html-to-text';
 
 export type Options = {
   pretty?: boolean;

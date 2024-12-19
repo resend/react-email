@@ -1,15 +1,15 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  getEmailsDirectoryMetadata,
-  type EmailsDirectory,
-} from '../actions/get-emails-directory-metadata';
-import { useHotreload } from '../hooks/use-hot-reload';
-import {
-  renderEmailByPath,
-  type EmailRenderingResult,
-} from '../actions/render-email-by-path';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
+import {
+  type EmailsDirectory,
+  getEmailsDirectoryMetadata,
+} from '../actions/get-emails-directory-metadata';
+import {
+  type EmailRenderingResult,
+  renderEmailByPath,
+} from '../actions/render-email-by-path';
+import { useHotreload } from '../hooks/use-hot-reload';
 
 const EmailsContext = createContext<
   | {

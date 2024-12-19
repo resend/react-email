@@ -1,18 +1,18 @@
-import path from "node:path";
-import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
+import path from 'node:path';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   plugins: [
     dts({
-      include: ["src"],
+      include: ['src'],
       compilerOptions: {
         paths: {
-          tailwindcss: [path.resolve(__dirname, "./dist/tailwindcss")],
+          tailwindcss: [path.resolve(__dirname, './dist/tailwindcss')],
         },
       },
       rollupTypes: true,
-      outDir: "dist",
+      outDir: 'dist',
     }),
   ],
   build: {
@@ -21,13 +21,13 @@ export default defineConfig({
       // - tailwindcss
       // - postcss
       // - postcss-selector-parser
-      external: ["react", /^react\/.*/, "react-dom", /react-dom\/.*/],
+      external: ['react', /^react\/.*/, 'react-dom', /react-dom\/.*/],
     },
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
-      fileName: "index",
-      formats: ["es", "cjs"],
+      entry: path.resolve(__dirname, 'src/index.ts'),
+      fileName: 'index',
+      formats: ['es', 'cjs'],
     },
-    outDir: "dist",
+    outDir: 'dist',
   },
 });

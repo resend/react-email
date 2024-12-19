@@ -1,7 +1,7 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import * as React from 'react';
-import { cn } from '../utils';
 import { inter } from '../app/inter';
+import { cn } from '../utils';
 
 type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
 type ContentProps = React.ComponentPropsWithoutRef<

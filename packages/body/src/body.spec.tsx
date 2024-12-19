@@ -1,15 +1,15 @@
-import { render } from "@react-email/render";
-import { Body } from "./index";
+import { render } from '@react-email/render';
+import { Body } from './index';
 
-describe("<Body> component", () => {
-  it("renders children correctly", async () => {
-    const testMessage = "Test message";
+describe('<Body> component', () => {
+  it('renders children correctly', async () => {
+    const testMessage = 'Test message';
     const html = await render(<Body>{testMessage}</Body>);
     expect(html).toContain(testMessage);
   });
 
-  it("passes style and other props correctly", async () => {
-    const style = { backgroundColor: "red" };
+  it('passes style and other props correctly', async () => {
+    const style = { backgroundColor: 'red' };
     const html = await render(
       <Body data-testid="body-test" style={style}>
         Test
@@ -19,7 +19,7 @@ describe("<Body> component", () => {
     expect(html).toContain('data-testid="body-test"');
   });
 
-  it("renders correctly", async () => {
+  it('renders correctly', async () => {
     const actualOutput = await render(<Body>Lorem ipsum</Body>);
     expect(actualOutput).toMatchSnapshot();
   });

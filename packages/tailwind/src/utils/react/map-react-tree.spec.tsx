@@ -1,8 +1,8 @@
-import { render } from "@react-email/render";
-import { mapReactTree } from "./map-react-tree";
+import { render } from '@react-email/render';
+import { mapReactTree } from './map-react-tree';
 
-describe("mapReactTree()", () => {
-  it("process should be called for all normal elements", async () => {
+describe('mapReactTree()', () => {
+  it('process should be called for all normal elements', async () => {
     const node = (
       <>
         <div>This is a div</div>
@@ -20,7 +20,7 @@ describe("mapReactTree()", () => {
     expect(process).toHaveBeenCalledTimes(7);
   });
 
-  it("process should be called for all elements with custom components", async () => {
+  it('process should be called for all elements with custom components', async () => {
     const Custom = (props: { children: React.ReactNode }) => {
       return (
         <>

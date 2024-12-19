@@ -1,13 +1,13 @@
 import {
   Button,
-  Row,
   Column,
+  Hr,
   Img,
+  Row,
   Section,
   Text,
-  Hr,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="my-[16px]">

@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import React from "react";
-import Link from "next/link";
-import classNames from "classnames";
-import dynamic from "next/dynamic";
-import { Spotlight } from "../../components/spotlight";
-import { slugify } from "../../utils/slugify";
-import { componentsStructure } from "../../../components/structure";
-import PageTransition from "../../components/page-transition";
+import classNames from 'classnames';
+import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import React from 'react';
+import { componentsStructure } from '../../../components/structure';
+import PageTransition from '../../components/page-transition';
+import { Spotlight } from '../../components/spotlight';
+import { slugify } from '../../utils/slugify';
 
-const title = "Components - React Email";
+const title = 'Components - React Email';
 const description =
-  "Build beautiful emails with pre-built components that you can copy-and-paste into your app.";
+  'Build beautiful emails with pre-built components that you can copy-and-paste into your app.';
 
 export const metadata: Metadata = {
   title,
@@ -20,12 +20,12 @@ export const metadata: Metadata = {
     description,
     images: [
       {
-        url: "https://react.email/static/covers/patterns.png",
+        url: 'https://react.email/static/covers/patterns.png',
       },
     ],
   },
   alternates: {
-    canonical: "/components",
+    canonical: '/components',
   },
 };
 
@@ -55,18 +55,18 @@ const ComponentsPage = async () => (
               import(
                 `@/illustrations/${category.name
                   .toLowerCase()
-                  .replace(/ /g, "-")}`
+                  .replace(/ /g, '-')}`
               ),
           );
 
           return (
             <Link
               className={classNames(
-                "group relative isolate mt-7 cursor-pointer scroll-m-6 rounded-md focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-slate-4 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-slate-6 md:focus:before:border-slate-6",
+                'group relative isolate mt-7 cursor-pointer scroll-m-6 rounded-md focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-dashed md:before:border-slate-4 md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:hover:before:border-slate-6 md:focus:before:border-slate-6',
                 {
-                  "md:ml-6": index % 3 === 0,
-                  "md:mx-3": index % 3 === 1,
-                  "md:mr-6": index % 3 === 2,
+                  'md:ml-6': index % 3 === 0,
+                  'md:mx-3': index % 3 === 1,
+                  'md:mr-6': index % 3 === 2,
                 },
               )}
               href={`/components/${slug}`}
@@ -75,13 +75,13 @@ const ComponentsPage = async () => (
             >
               <Spotlight
                 className={classNames(
-                  "relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 group-focus:ring group-focus:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]",
+                  'relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 group-focus:ring group-focus:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
                   {
-                    "md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2":
+                    'md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2':
                       index % 3 === 0,
-                    "md:group-hover:-translate-y-2 md:group-focus:-translate-y-2":
+                    'md:group-hover:-translate-y-2 md:group-focus:-translate-y-2':
                       index % 3 === 1,
-                    "md:group-hover:-translate-y-2 md:group-hover:translate-x-2 md:group-focus:-translate-y-2 md:group-focus:translate-x-2":
+                    'md:group-hover:-translate-y-2 md:group-hover:translate-x-2 md:group-focus:-translate-y-2 md:group-focus:translate-x-2':
                       index % 3 === 2,
                   },
                 )}
@@ -96,7 +96,7 @@ const ComponentsPage = async () => (
                 </h3>
                 <span className="relative z-[2] text-xs text-slate-11">
                   {category.components.length} component
-                  {category.components.length > 1 && "s"}
+                  {category.components.length > 1 && 's'}
                 </span>
               </Spotlight>
             </Link>

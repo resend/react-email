@@ -1,6 +1,6 @@
 import * as SlotPrimitive from '@radix-ui/react-slot';
 import * as React from 'react';
-import { type As, unreachable, cn } from '../utils';
+import { type As, cn, unreachable } from '../utils';
 
 export type HeadingSize =
   | '1'

@@ -5,13 +5,13 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Layout } from "../_components/layout";
+} from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
     style={{
-      textAlign: "center",
+      textAlign: 'center',
       paddingTop: 16,
       paddingBottom: 16,
     }}
@@ -21,9 +21,9 @@ export const component = (
         marginTop: 8,
         marginBottom: 8,
         fontSize: 18,
-        lineHeight: "28px",
+        lineHeight: '28px',
         fontWeight: 600,
-        color: "rgb(79,70,229)",
+        color: 'rgb(79,70,229)',
       }}
     >
       Your opinion matters
@@ -31,12 +31,12 @@ export const component = (
     <Heading
       as="h1"
       style={{
-        margin: "0px",
+        margin: '0px',
         marginTop: 8,
         fontSize: 30,
-        lineHeight: "36px",
+        lineHeight: '36px',
         fontWeight: 600,
-        color: "rgb(17,24,39)",
+        color: 'rgb(17,24,39)',
       }}
     >
       We want to hear you
@@ -44,8 +44,8 @@ export const component = (
     <Text
       style={{
         fontSize: 16,
-        lineHeight: "24px",
-        color: "rgb(55,65,81)",
+        lineHeight: '24px',
+        color: 'rgb(55,65,81)',
       }}
     >
       How would you rate your experience using our product in a scale from 1 to
@@ -65,11 +65,11 @@ export const component = (
                     width: 20,
                     borderRadius: 8,
                     borderWidth: 1,
-                    borderStyle: "solid",
-                    borderColor: "rgb(79,70,229)",
+                    borderStyle: 'solid',
+                    borderColor: 'rgb(79,70,229)',
                     padding: 8,
                     fontWeight: 600,
-                    color: "rgb(79,70,229)",
+                    color: 'rgb(79,70,229)',
                   }}
                 >
                   {number}

@@ -1,16 +1,16 @@
-import {
+import type {
   PipeableStream,
   ReactDOMServerReadableStream,
-} from "react-dom/server.browser";
+} from 'react-dom/server.browser';
 
-const decoder = new TextDecoder("utf-8");
+const decoder = new TextDecoder('utf-8');
 
 export const readStream = async (
   stream: PipeableStream | ReactDOMServerReadableStream,
 ) => {
   const chunks: Uint8Array[] = [];
 
-  if ("pipeTo" in stream) {
+  if ('pipeTo' in stream) {
     // means it's a readable stream
     const writableStream = new WritableStream({
       write(chunk: Uint8Array) {
@@ -20,7 +20,7 @@ export const readStream = async (
     await stream.pipeTo(writableStream);
   } else {
     throw new Error(
-      "For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.",
+      'For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.',
       {
         cause: {
           stream,

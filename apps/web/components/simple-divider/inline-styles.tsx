@@ -1,5 +1,5 @@
-import { Hr, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Hr, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>
@@ -7,7 +7,7 @@ export const component = (
     <Hr
       style={{
         marginTop: 16,
-        borderColor: "rgb(209,213,219)",
+        borderColor: 'rgb(209,213,219)',
         marginBottom: 16,
         borderTopWidth: 2,
       }}

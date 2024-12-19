@@ -1,17 +1,17 @@
-import { Writable } from "node:stream";
-import {
+import { Writable } from 'node:stream';
+import type {
   PipeableStream,
   ReactDOMServerReadableStream,
-} from "react-dom/server.browser";
+} from 'react-dom/server.browser';
 
-const decoder = new TextDecoder("utf-8");
+const decoder = new TextDecoder('utf-8');
 
 export const readStream = async (
   stream: PipeableStream | ReactDOMServerReadableStream,
 ) => {
-  let result = "";
+  let result = '';
 
-  if ("pipeTo" in stream) {
+  if ('pipeTo' in stream) {
     // means it's a readable stream
     const writableStream = new WritableStream({
       write(chunk: BufferSource) {
@@ -30,8 +30,8 @@ export const readStream = async (
     stream.pipe(writable);
 
     await new Promise<void>((resolve, reject) => {
-      writable.on("error", reject);
-      writable.on("close", () => {
+      writable.on('error', reject);
+      writable.on('close', () => {
         resolve();
       });
     });
