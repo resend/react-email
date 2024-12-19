@@ -20,7 +20,7 @@ function computeFontWidthAndSpaceCount(expectedWidth: number) {
       return expectedWidth / smallestSpaceCount / 2;
     }
 
-    return Infinity;
+    return Number.POSITIVE_INFINITY;
   };
 
   while (computeRequiredFontWidth() > maxFontWidth) {
