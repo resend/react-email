@@ -12,11 +12,12 @@ export const dynamicParams = true;
 
 export const dynamic = 'force-dynamic';
 
-export interface PreviewParams {
+export type PreviewParams = Promise<{
   slug: string[];
-}
+}>;
 
-const Page = async ({ params }: { params: PreviewParams }) => {
+const Page = async ({ params: paramsPromise }: { params: PreviewParams }) => {
+  const params = await paramsPromise;
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
   const slug = decodeURIComponent(params.slug.join('/'));
@@ -69,8 +70,10 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   );
 };
 
-export function generateMetadata({ params }: { params: PreviewParams }) {
-  return { title: `${path.basename(params.slug.join('/'))} — React Email` };
+export async function generateMetadata({ params }: { params: PreviewParams }) {
+  const { slug } = await params;
+
+  return { title: `${path.basename(slug.join('/'))} — React Email` };
 }
 
 export default Page;
