@@ -146,12 +146,10 @@ export const createDependencyGraph = async (directory: string) => {
 
             if (pathWithExtension) {
               pathToDependencyFromDirectory = pathWithExtension;
-            }
-
-            if (isDev) {
+            } else if (isDev) {
               // only warn about this on development as it is probably going to be irrelevant otherwise
               console.warn(
-                `Could not determine the file extension for the file at ${pathWithExtension}`,
+                `Could not determine the file extension for the file at ${pathToDependencyFromDirectory}`,
               );
             }
           }
