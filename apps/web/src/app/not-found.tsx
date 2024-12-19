@@ -1,9 +1,9 @@
 import PageTransition from "@/components/page-transition";
 
 export const metadata = {
-  title: `404 Not found`,
+  title: "404 Not found",
   alternates: {
-    canonical: `/not-found`,
+    canonical: "/not-found",
   },
 };
 
