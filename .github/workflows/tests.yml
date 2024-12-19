@@ -5,7 +5,7 @@ on:
       - main
   pull_request:
 jobs:
-  format:
+  lint:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
       image: node:18
@@ -32,8 +32,8 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-      - name: Run Format Check
-        run: pnpm format:check
+      - name: Run Lint
+        run: pnpm lint
 
   test:
     runs-on: buildjet-4vcpu-ubuntu-2204
