@@ -13,7 +13,6 @@ import {
   Tailwind,
   Text,
 } from "@react-email/components";
-import * as React from "react";
 
 interface PapermarkYearInReviewEmailProps {
   year: number;
@@ -30,17 +29,17 @@ interface PapermarkYearInReviewEmailProps {
 }
 
 export default function PapermarkYearInReviewEmail({
-  year = 2024,
-  minutesSpentOnDocs = 1234,
-  uploadedDocuments = 25,
-  sharedLinks = 50,
-  receivedViews = 500,
-  topDocumentName = "Q4 Financial Report",
-  topDocumentViews = 150,
-  mostActiveMonth = "September",
-  mostActiveMonthViews = 200,
-  sharerPercentile = 95,
-  viewingLocations = ["United States", "United Kingdom", "Germany", "Japan"],
+  year,
+  minutesSpentOnDocs,
+  uploadedDocuments,
+  sharedLinks,
+  receivedViews,
+  topDocumentName,
+  topDocumentViews,
+  mostActiveMonth,
+  mostActiveMonthViews,
+  sharerPercentile,
+  viewingLocations,
 }: PapermarkYearInReviewEmailProps) {
   return (
     <Html>
@@ -162,8 +161,8 @@ export default function PapermarkYearInReviewEmail({
                 of sharers on Papermark
               </Text>
               <Text className="text-sm leading-5 text-gray-900">
-                You&apos;re one of our most active users. Thank you for
-                sharing with Papermark!
+                You&apos;re one of our most active users. Thank you for sharing
+                with Papermark!
               </Text>
             </Section>
 
@@ -216,3 +215,17 @@ export default function PapermarkYearInReviewEmail({
     </Html>
   );
 }
+
+PapermarkYearInReviewEmail.PreviewProps = {
+  year: 2024,
+  minutesSpentOnDocs: 1234,
+  uploadedDocuments: 25,
+  sharedLinks: 50,
+  receivedViews: 500,
+  topDocumentName: "Q4 Financial Report",
+  topDocumentViews: 150,
+  mostActiveMonth: "September",
+  mostActiveMonthViews: 200,
+  sharerPercentile: 95,
+  viewingLocations: ["United States", "United Kingdom", "Germany", "Japan"],
+} satisfies PapermarkYearInReviewEmailProps;
