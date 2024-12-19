@@ -29,8 +29,8 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       previewPanel = vscode.window.createWebviewPanel(
-        "react-email preview - try opening an email",
-        "react-email preview - try opening an email",
+        "React Email — try opening an email",
+        "React Email — try opening an email",
         vscode.ViewColumn.Two,
         { enableScripts: true },
       );

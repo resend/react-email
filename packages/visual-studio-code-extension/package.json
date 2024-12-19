@@ -42,6 +42,7 @@
     "publish": "vsce publish",
     "package": "node ./prebuild.mjs && vsce package",
     "vscode:prepublish": "pnpm build --minify",
+    "dev": "pnpm build --watch",
     "build": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
     "pretest": "pnpm build && pnpm lint",
     "lint": "eslint ."
@@ -72,7 +73,7 @@
     "esbuild": "^0.19.12"
   },
   "devDependencies": {
-    "@react-email/render": "workspace:*",
+    "preview-utils": "workspace:*",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
     "@types/vscode": "^1.83.0",
