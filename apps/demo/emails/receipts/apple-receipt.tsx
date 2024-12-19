@@ -155,7 +155,7 @@ export const AppleReceiptEmail = () => (
             <Column style={tableCell} align="right">
               <Text style={productPriceTotal}>TOTAL</Text>
             </Column>
-            <Column style={productPriceVerticalLine}></Column>
+            <Column style={productPriceVerticalLine} />
             <Column style={productPriceLargeWrapper}>
               <Text style={productPriceLarge}>$14.99</Text>
             </Column>
