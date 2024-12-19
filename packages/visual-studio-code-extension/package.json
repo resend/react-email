@@ -40,7 +40,7 @@
   },
   "scripts": {
     "publish": "vsce publish",
-    "package": "vsce package",
+    "package": "node ./prebuild.mjs && vsce package",
     "vscode:prepublish": "pnpm build --minify",
     "build": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
     "pretest": "pnpm build && pnpm lint",
