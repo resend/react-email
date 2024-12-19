@@ -5,11 +5,10 @@ import type React from 'react';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
 import type { render } from '@react-email/render';
-import type { EmailTemplate as EmailComponent } from './types/email-template';
-import type { ErrorObject } from './types/error-object';
-import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
-import { staticNodeModulesForVM } from './static-node-modules-for-vm';
-import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import type { EmailTemplate as EmailComponent } from './utils/email-template';
+import { improveErrorWithSourceMap } from './utils/improve-error-with-source-map';
+import { staticNodeModulesForVM } from './utils/static-node-modules-for-vm';
+import { renderingUtilitiesExporter } from './utils/rendering-utilities-exporter';
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -23,7 +22,7 @@ export const getEmailComponent = async (
 
       sourceMapToOriginalFile: RawSourceMap;
     }
-  | { error: ErrorObject }
+  | { error: Error }
 > => {
   let outputFiles: OutputFile[];
   try {
@@ -100,8 +99,7 @@ export const getEmailComponent = async (
 
       // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
       return require(`${specifiedModule}`) as unknown;
-      // this stupid string templating was necessary to not have
-      // webpack warnings like:
+      // this string templating was necessary to not have webpack warnings like:
       //
       // Import trace for requested module:
       // ./src/utils/get-email-component.tsx

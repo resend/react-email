@@ -952,6 +952,25 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
+  packages/preview-utils:
+    dependencies:
+      esbuild:
+        specifier: 0.19.11
+        version: 0.19.11
+      source-map-js:
+        specifier: 1.0.2
+        version: 1.0.2
+      stacktrace-parser:
+        specifier: 0.1.10
+        version: 0.1.10
+    devDependencies:
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../render
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
   packages/react-email:
     dependencies:
       '@babel/core':
@@ -1069,6 +1088,9 @@ importers:
       postcss:
         specifier: 8.4.40
         version: 8.4.40
+      preview-utils:
+        specifier: workspace:*
+        version: link:../preview-utils
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
@@ -1370,13 +1392,13 @@ importers:
       '@esbuild/win32-x64':
         specifier: 0.19.12
         version: 0.19.12
-      '@react-email/render':
-        specifier: ^0.0.12
-        version: 0.0.12
       esbuild:
         specifier: ^0.19.12
         version: 0.19.12
     devDependencies:
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../render
       '@types/mocha':
         specifier: ^10.0.2
         version: 10.0.10
@@ -3749,10 +3771,6 @@ packages:
 
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
-
-  '@react-email/render@0.0.12':
-    resolution: {integrity: sha512-S8WRv/PqECEi6x0QJBj0asnAb5GFtJaHlnByxLETLkgJjc76cxMYDH4r9wdbuJ4sjkcbpwP3LPnVzwS+aIjT7g==}
-    engines: {node: '>=18.0.0'}
 
   '@react-email/render@1.0.1':
     resolution: {integrity: sha512-W3gTrcmLOVYnG80QuUp22ReIT/xfLsVJ+n7ghSlG2BITB8evNABn1AO2rGQoXuK84zKtDAlxCdm3hRyIpZdGSA==}
@@ -11373,13 +11391,6 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@react-email/render@0.0.12':
-    dependencies:
-      html-to-text: 9.0.5
-      js-beautify: 1.15.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-
   '@react-email/render@1.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       html-to-text: 9.0.5
@@ -16683,7 +16694,7 @@ snapshots:
 
   tsx@4.7.1:
     dependencies:
-      esbuild: 0.19.11
+      esbuild: 0.19.12
       get-tsconfig: 4.8.1
     optionalDependencies:
       fsevents: 2.3.3

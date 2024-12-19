@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import type {
-  EmailRenderingResult,
-  RenderedEmailMetadata,
-} from '../actions/render-email-by-path';
+import type { RenderedEmailMetadata } from 'preview-utils';
+import type { ActionResult } from '../actions/render-email-by-path';
 
 const lastRenderingMetadataPerEmailPath = {} as Record<
   string,
@@ -15,8 +13,8 @@ const lastRenderingMetadataPerEmailPath = {} as Record<
  */
 export const useRenderingMetadata = (
   emailPath: string,
-  renderingResult: EmailRenderingResult,
-  initialRenderingMetadata?: EmailRenderingResult,
+  renderingResult: ActionResult,
+  initialRenderingMetadata?: ActionResult,
 ): RenderedEmailMetadata | undefined => {
   useEffect(() => {
     if ('markup' in renderingResult) {

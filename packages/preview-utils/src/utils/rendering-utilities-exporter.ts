@@ -1,7 +1,10 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Loader, PluginBuild, ResolveOptions } from 'esbuild';
-import { escapeStringForRegex } from './escape-string-for-regex';
+
+export function escapeStringForRegex(string: string) {
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d');
+}
 
 /**
  * Made to export the `render` function out of the user's email template

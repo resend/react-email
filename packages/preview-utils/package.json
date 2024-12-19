@@ -1,0 +1,23 @@
+{
+  "name": "preview-utils",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "main": "./src/index.ts",
+  "devDependencies": {
+    "@react-email/render": "workspace:*",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "esbuild": "0.19.11",
+    "source-map-js": "1.0.2",
+    "stacktrace-parser": "0.1.10"
+  }
+}

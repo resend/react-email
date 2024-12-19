@@ -1,14 +1,13 @@
 import path from 'node:path';
 import * as stackTraceParser from 'stacktrace-parser';
 import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
-import type { ErrorObject } from './types/error-object';
 
 export const improveErrorWithSourceMap = (
   error: Error,
 
   originalFilePath: string,
   sourceMapToOriginalFile: RawSourceMap,
-): ErrorObject => {
+): Error => {
   let stack: string | undefined;
 
   const sourceRoot =
