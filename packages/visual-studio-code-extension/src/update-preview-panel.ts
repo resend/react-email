@@ -22,7 +22,10 @@ export async function updatePreiewPanel(
           builtEmail.html &&
           builtEmail.html.trim().length > 0
         ) {
-          previewPanel.title = `react-email preview - ${builtEmail.filename}`;
+          previewPanel.title = `React Email — ${builtEmail.filename}`;
+          console.log(
+            builtEmail.html
+          );
           previewPanel.webview.html =
             convertAllEmailAssetSourcesIntoWebviewURIs(
               builtEmail.html,
@@ -37,7 +40,7 @@ export async function updatePreiewPanel(
         // this invalidness can happen if the focused content is a image,
         // does not a export a default and for some other similar situations
       } catch (exception) {
-        previewPanel.title = `react-email preview - error on the email ${basename(
+        previewPanel.title = `React Email — error on the email ${basename(
           vscode.window.activeTextEditor.document.fileName,
         )}`;
         let errorMessage: string;
@@ -52,7 +55,7 @@ export async function updatePreiewPanel(
         );
       }
     } else if (previewPanel.webview.html.trim().length === 0) {
-      previewPanel.title = `react-email preview - try opening an email!`;
+      previewPanel.title = `React Email — try opening an email!`;
       previewPanel.webview.html = noEmailOpenHTML;
     }
   }
