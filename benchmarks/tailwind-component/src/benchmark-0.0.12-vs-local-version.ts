@@ -1,5 +1,5 @@
 import { render } from "@react-email/render";
-import { writeFileSync } from "fs";
+import { writeFileSync } from "node:fs";
 import { Bench } from "tinybench";
 import EmailWithTailwind from "./emails/with-tailwind.js";
 import { Tailwind as LocalTailwind } from "@react-email/tailwind";
