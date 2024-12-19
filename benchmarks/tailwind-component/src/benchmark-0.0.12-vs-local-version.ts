@@ -1,9 +1,9 @@
-import { render } from "@react-email/render";
-import { writeFileSync } from "node:fs";
-import { Bench } from "tinybench";
-import EmailWithTailwind from "./emails/with-tailwind.js";
-import { Tailwind as LocalTailwind } from "@react-email/tailwind";
-import { Tailwind as VersionTwelveTailwind } from "tailwind-0.0.12";
+import { writeFileSync } from 'node:fs';
+import { render } from '@react-email/render';
+import { Tailwind as LocalTailwind } from '@react-email/tailwind';
+import { Tailwind as VersionTwelveTailwind } from 'tailwind-0.0.12';
+import { Bench } from 'tinybench';
+import EmailWithTailwind from './emails/with-tailwind.js';
 
 const main = async () => {
   const bench = new Bench({
