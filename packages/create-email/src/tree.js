@@ -26,7 +26,8 @@ const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
       // orders directories before files
       if (a.isDirectory() && b.isFile()) {
         return -1;
-      } else if (a.isFile() && b.isDirectory()) {
+      }
+      if (a.isFile() && b.isDirectory()) {
         return 1;
       }
 

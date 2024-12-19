@@ -42,9 +42,8 @@ export function convertToPx(value: PaddingType) {
       default:
         return numValue;
     }
-  } else {
-    return 0;
   }
+  return 0;
 }
 
 /**
