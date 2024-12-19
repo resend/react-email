@@ -15,17 +15,17 @@ import {
 } from "@react-email/components";
 
 interface PapermarkYearInReviewEmailProps {
-  year: number;
-  minutesSpentOnDocs: number;
-  uploadedDocuments: number;
-  sharedLinks: number;
-  receivedViews: number;
-  topDocumentName: string;
-  topDocumentViews: number;
-  mostActiveMonth: string;
-  mostActiveMonthViews: number;
-  sharerPercentile: number;
-  viewingLocations: string[];
+  year?: number;
+  minutesSpentOnDocs?: number;
+  uploadedDocuments?: number;
+  sharedLinks?: number;
+  receivedViews?: number;
+  topDocumentName?: string;
+  topDocumentViews?: number;
+  mostActiveMonth?: string;
+  mostActiveMonthViews?: number;
+  sharerPercentile?: number;
+  viewingLocations?: string[];
 }
 
 export default function PapermarkYearInReviewEmail({
@@ -39,7 +39,7 @@ export default function PapermarkYearInReviewEmail({
   mostActiveMonth,
   mostActiveMonthViews,
   sharerPercentile,
-  viewingLocations,
+  viewingLocations = [],
 }: PapermarkYearInReviewEmailProps) {
   return (
     <Html>
