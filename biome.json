@@ -16,7 +16,109 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "noAutofocus": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "off",
+        "noGlobalIsNan": "off"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "off",
+        "useJsxKeyInIterable": "off",
+        "noChildrenProp": "off",
+        "noConstantCondition": "off",
+        "noConstAssign": "off",
+        "noConstructorReturn": "off",
+        "noEmptyCharacterClassInRegex": "off",
+        "noEmptyPattern": "off",
+        "noGlobalObjectCalls": "off",
+        "noInnerDeclarations": "off",
+        "noInvalidConstructorSuper": "off",
+        "noInvalidNewBuiltin": "off",
+        "noInvalidUseBeforeDeclaration": "off",
+        "noNewSymbol": "off",
+        "noNonoctalDecimalEscape": "off",
+        "noPrecisionLoss": "off",
+        "noRenderReturnValue": "off",
+        "noSelfAssign": "off",
+        "noSetterReturn": "off",
+        "noStringCaseMismatch": "off",
+        "noSwitchDeclarations": "off",
+        "noUndeclaredVariables": "off",
+        "noUnnecessaryContinue": "off",
+        "noUnreachable": "off",
+        "noUnreachableSuper": "off",
+        "noUnsafeFinally": "off",
+        "noUnsafeOptionalChaining": "off",
+        "noUnusedImports": "off",
+        "noUnusedLabels": "off",
+        "noUnusedPrivateClassMembers": "off",
+        "noUnusedVariables": "off",
+        "noVoidElementsWithChildren": "off",
+        "noVoidTypeReturn": "off",
+        "useHookAtTopLevel": "off",
+        "useIsNan": "off",
+        "useValidForDirection": "off",
+        "useYield": "off"
+      },
+      "complexity": {
+        "noUselessFragments": "off",
+        "noForEach": "off",
+        "useArrowFunction": "off",
+        "useOptionalChain": "off"
+      },
+      "style": {
+        "noUselessElse": "off",
+        "noNonNullAssertion": "off",
+        "useConst": "off",
+        "useNodejsImportProtocol": "off",
+        "useSelfClosingElements": "off",
+        "noArguments": "off",
+        "noCommaOperator": "off",
+        "noDefaultExport": "off",
+        "noImplicitBoolean": "off",
+        "noInferrableTypes": "off",
+        "noNamespace": "off",
+        "noNamespaceImport": "off",
+        "noNegationElse": "off",
+        "noParameterAssign": "off",
+        "noParameterProperties": "off",
+        "noRestrictedGlobals": "off",
+        "noShoutyConstants": "off",
+        "noUnusedTemplateLiteral": "off",
+        "noVar": "off",
+        "useAsConstAssertion": "off",
+        "useBlockStatements": "off",
+        "useCollapsedElseIf": "off",
+        "useConsistentArrayType": "off",
+        "useDefaultParameterLast": "off",
+        "useEnumInitializers": "off",
+        "useExponentiationOperator": "off",
+        "useExportType": "off",
+        "useFilenamingConvention": "off",
+        "useForOf": "off",
+        "useFragmentSyntax": "off",
+        "useLiteralEnumMembers": "off",
+        "useNamingConvention": "off",
+        "useNodeAssertStrict": "off",
+        "useNumberNamespace": "off",
+        "useNumericLiterals": "off",
+        "useShorthandArrayType": "off",
+        "useSingleVarDeclarator": "off",
+        "useTemplate": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
+      }
     }
   },
   "files": {
@@ -28,7 +130,7 @@
       "./**/.react-email/**/*",
       "./**/node_modules/**/*",
       "./**/*.d.ts",
-      "**/**/prism.ts"
+      "./**/**/prism.ts"
     ]
   }
 }

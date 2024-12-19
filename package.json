@@ -10,7 +10,7 @@
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
     "lint": "biome check",
-    "lint:apply": "biome check --write .",
+    "lint:fix": "biome check --write .",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
   },
