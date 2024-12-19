@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "html-to-text": "9.0.5",
-    "prettier": "3.3.3",
+    "prettier": "3.3.4",
     "react-promise-suspense": "0.3.4"
   },
   "peerDependencies": {
