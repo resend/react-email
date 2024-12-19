@@ -36,7 +36,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "vs-code-extension"
+    "directory": "packages/visual-code-extension"
   },
   "scripts": {
     "publish": "vsce publish",
@@ -69,10 +69,10 @@
     "@esbuild/win32-arm64": "0.19.12",
     "@esbuild/win32-ia32": "0.19.12",
     "@esbuild/win32-x64": "0.19.12",
-    "@react-email/render": "^0.0.12",
     "esbuild": "^0.19.12"
   },
   "devDependencies": {
+    "@react-email/render": "workspace:*",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
     "@types/vscode": "^1.83.0",
