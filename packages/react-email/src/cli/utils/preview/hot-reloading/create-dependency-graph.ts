@@ -156,10 +156,9 @@ export const createDependencyGraph = async (directory: string) => {
           }
 
           return pathToDependencyFromDirectory;
-        } else {
-          // when either the path is a module or is absolute
-          return dependencyPath;
         }
+        // when either the path is a module or is absolute
+        return dependencyPath;
       },
     );
 

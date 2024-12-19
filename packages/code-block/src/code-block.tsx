@@ -53,7 +53,8 @@ const CodeBlockLine = ({
           <CodeBlockLine theme={theme} token={token.content} />
         </span>
       );
-    } else if (typeof token.content === "string") {
+    }
+    if (typeof token.content === 'string') {
       return <span style={styleForToken}>{token.content}</span>;
     }
     return (
