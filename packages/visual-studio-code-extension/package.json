@@ -41,10 +41,10 @@
   "scripts": {
     "publish": "vsce publish",
     "package": "vsce package",
-    "vscode:prepublish": "pnpm compile --minify",
-    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts"
+    "vscode:prepublish": "pnpm build --minify",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
+    "pretest": "pnpm build && pnpm lint",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@esbuild/android-arm": "0.19.12",
