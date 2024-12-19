@@ -390,7 +390,7 @@ describe("Responsive styles", () => {
       <Tailwind>
         <Head />
         <Body className="bg-white my-auto mx-auto font-sans md:px-[64px]">
-          <div className="md:px-[64px]"></div>
+          <div className="md:px-[64px]" />
         </Body>
       </Tailwind>,
     );
