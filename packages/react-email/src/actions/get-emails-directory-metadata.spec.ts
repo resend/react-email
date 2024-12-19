@@ -44,6 +44,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         relativePath: 'notifications',
         emailFilenames: [
           'github-access-token',
+          'papermark-year-in-review',
           'vercel-invite-user',
           'yelp-recent-login',
         ],
