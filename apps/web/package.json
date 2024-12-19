@@ -50,7 +50,7 @@
     "eslint-config-prettier": "9.0.0",
     "html-to-ast": "0.0.6",
     "postcss": "8.4.40",
-    "prettier": "3.3.3",
+    "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.6",
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
