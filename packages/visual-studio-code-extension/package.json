@@ -35,8 +35,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/resendlabs/react-email.git",
-    "directory": "packages/visual-code-extension"
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/visual-studio-code-extension"
   },
   "scripts": {
     "publish": "vsce publish",
