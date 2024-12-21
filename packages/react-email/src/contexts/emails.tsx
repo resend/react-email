@@ -7,21 +7,21 @@ import {
 import { useHotreload } from '../hooks/use-hot-reload';
 import {
   renderEmailByPath,
-  type EmailRenderingResult,
+  type ActionResult,
 } from '../actions/render-email-by-path';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-      /**
-       * Uses the hot reloaded bundled build and rendering email result
-       */
-      useEmailRenderingResult: (
-        emailPath: string,
-        serverEmailRenderedResult: EmailRenderingResult,
-      ) => EmailRenderingResult;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+    /**
+     * Uses the hot reloaded bundled build and rendering email result
+     */
+    useEmailRenderingResult: (
+      emailPath: string,
+      serverEmailRenderedResult: ActionResult,
+    ) => ActionResult;
+  }
   | undefined
 >(undefined);
 
@@ -45,7 +45,7 @@ export const EmailsProvider = (props: {
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
   const [renderingResultPerEmailPath, setRenderingResultPerEmailPath] =
-    useState<Record<string, EmailRenderingResult>>({});
+    useState<Record<string, ActionResult>>({});
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
