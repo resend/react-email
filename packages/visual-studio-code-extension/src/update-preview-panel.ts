@@ -23,9 +23,6 @@ export async function updatePreiewPanel(
           builtEmail.html.trim().length > 0
         ) {
           previewPanel.title = `React Email — ${builtEmail.filename}`;
-          console.log(
-            builtEmail.html
-          );
           previewPanel.webview.html =
             convertAllEmailAssetSourcesIntoWebviewURIs(
               builtEmail.html,
