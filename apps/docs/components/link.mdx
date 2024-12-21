@@ -6,7 +6,8 @@ description: "A hyperlink to web pages, email addresses, or anything else a URL 
 icon: "link"
 ---
 
-import Support from '/snippets/support.mdx'
+import Support from "/snippets/support.mdx";
+import { ComponentPreview } from "/snippets/component-preview.mdx";
 
 ## Install
 
@@ -44,6 +45,14 @@ pnpm add @react-email/link -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Link } from "@react-email/components";
+
+const Email = () => {
+return <Link href="https://example.com">Example</Link>;
+};
+'>
+
 ```jsx
 import { Link } from "@react-email/components";
 
@@ -51,6 +60,8 @@ const Email = () => {
   return <Link href="https://example.com">Example</Link>;
 };
 ```
+
+</ComponentPreview>
 
 ## Props
 
@@ -62,4 +73,4 @@ const Email = () => {
   Specify the target attribute for the button link
 </ResponseField>
 
-<Support/>
+<Support />
