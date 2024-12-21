@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import { useState } from 'react';
 import { Toaster } from 'sonner';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
@@ -29,7 +29,7 @@ const Preview = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const activeView = searchParams.get('view') ?? 'desktop';
+  const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
   const renderingResult = useEmailRenderingResult(
@@ -75,34 +75,37 @@ const Preview = ({
 
   const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
+  const [width, setWidth] = useState(600);
+  const [height, setHeight] = useState(812);
+
   return (
     <Shell
-      activeView={hasNoErrors ? activeView : undefined}
+      activeView={activeView}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
-      setActiveView={hasNoErrors ? handleViewChange : undefined}
+      setActiveView={handleViewChange}
+      setViewHeight={setHeight}
+      setViewWidth={setWidth}
+      viewHeight={height}
+      viewWidth={width}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div className="relative h-full">
+      <div className="relative h-full flex">
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
 
         {hasNoErrors ? (
           <>
-            {activeView === 'desktop' && (
+            {activeView === 'preview' && (
               <iframe
-                className="h-full w-full bg-white"
+                className="bg-white mx-auto my-auto rounded-lg max-h-full"
                 srcDoc={renderedEmailMetadata.markup}
-                title={slug}
-              />
-            )}
-
-            {activeView === 'mobile' && (
-              <iframe
-                className="mx-auto h-full w-[360px] bg-white"
-                srcDoc={renderedEmailMetadata.markup}
+                style={{
+                  width: `${width}px`,
+                  height: `${height}px`,
+                }}
                 title={slug}
               />
             )}

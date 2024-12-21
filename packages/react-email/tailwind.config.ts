@@ -3,6 +3,22 @@ import colors = require('@radix-ui/colors');
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
+const numberInputArrowHide = plugin(({ addUtilities }) => {
+  addUtilities({
+    '.arrow-hide': {
+      "appearance": "textfield",
+      '&::-webkit-inner-spin-button': {
+        'appearance': 'none',
+        'margin': '0px',
+      },
+      '&::-webkit-outer-spin-button': {
+        'appearance': 'none',
+        'margin': '0px',
+      },
+    },
+  });
+});
+
 const iOsHeight = plugin(({ addUtilities }) => {
   const supportsTouchRule = '@supports (-webkit-touch-callout: none)';
   const webkitFillAvailable = '-webkit-fill-available';
@@ -89,6 +105,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [iOsHeight],
+  plugins: [iOsHeight, numberInputArrowHide],
 };
 export default config;
