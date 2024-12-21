@@ -621,6 +621,25 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
+  packages/comment:
+    dependencies:
+      react:
+        specifier: ^18.0 || ^19.0 || ^19.0.0-rc
+        version: 18.3.1
+    devDependencies:
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../render
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+
   packages/components:
     dependencies:
       '@react-email/body':
@@ -11121,7 +11140,7 @@ snapshots:
 
   '@types/webpack@5.28.5(@swc/core@1.3.101(@swc/helpers@0.5.13))(esbuild@0.19.11)':
     dependencies:
-      '@types/node': 20.16.1
+      '@types/node': 18.18.0
       tapable: 2.2.1
       webpack: 5.95.0(@swc/core@1.3.101(@swc/helpers@0.5.13))(esbuild@0.19.11)
     transitivePeerDependencies:
