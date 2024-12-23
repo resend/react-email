@@ -1,6 +1,6 @@
-import path from "node:path";
-import * as stackTraceParser from "stacktrace-parser";
-import { SourceMapConsumer, type RawSourceMap } from "source-map-js";
+import path from 'node:path';
+import * as stackTraceParser from 'stacktrace-parser';
+import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
 
 export const improveErrorWithSourceMap = (
   error: Error,
@@ -21,17 +21,17 @@ export const improveErrorWithSourceMap = (
   ) => {
     const columnAndLine =
       column || line
-        ? `${line ?? ""}${line && column ? ":" : ""}${column ?? ""}`
+        ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
         : undefined;
     const sourceToDisplay = path.relative(sourceRoot, source);
-    return methodName === "<unknown>"
-      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ""}`
+    return methodName === '<unknown>'
+      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
       : ` at ${methodName} (${sourceToDisplay}${
-          columnAndLine ? `:${columnAndLine}` : ""
+          columnAndLine ? `:${columnAndLine}` : ''
         })`;
   };
 
-  if (typeof error.stack !== "undefined") {
+  if (typeof error.stack !== 'undefined') {
     const parsedStack = stackTraceParser.parse(error.stack);
     const sourceMapConsumer = new SourceMapConsumer(sourceMapToOriginalFile);
     const newStackLines = [] as string[];
@@ -73,7 +73,7 @@ export const improveErrorWithSourceMap = (
         newStackLines.push(stackLine);
       }
     }
-    stack = newStackLines.join("\n");
+    stack = newStackLines.join('\n');
   }
 
   return {

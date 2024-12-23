@@ -1,6 +1,6 @@
-import fs from "node:fs";
-import { getEmailComponent } from "./get-email-component";
-import { improveErrorWithSourceMap } from "./utils/improve-error-with-source-map";
+import fs from 'node:fs';
+import { getEmailComponent } from './get-email-component';
+import { improveErrorWithSourceMap } from './utils/improve-error-with-source-map';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -19,7 +19,7 @@ export const renderEmailByPath = async (
 ): Promise<EmailRenderingResult> => {
   const result = await getEmailComponent(emailPath);
 
-  if ("error" in result) {
+  if ('error' in result) {
     return { error: result.error };
   }
 
@@ -43,13 +43,13 @@ export const renderEmailByPath = async (
       },
     );
 
-    const reactMarkup = await fs.promises.readFile(emailPath, "utf-8");
+    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
     return {
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
-      markup: markup.replaceAll("\0", ""),
+      markup: markup.replaceAll('\0', ''),
       plainText,
       reactMarkup,
     };
