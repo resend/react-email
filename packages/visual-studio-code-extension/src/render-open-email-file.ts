@@ -6,11 +6,11 @@ import { isFileAnEmail, renderEmailByPath } from "preview-utils";
 
 export type BuiltEmail =
   | {
-    filename: string;
-    html: string;
-    text: string;
-    valid: true;
-  }
+      filename: string;
+      html: string;
+      text: string;
+      valid: true;
+    }
   | { valid: false };
 
 export async function renderOpenEmailFile(

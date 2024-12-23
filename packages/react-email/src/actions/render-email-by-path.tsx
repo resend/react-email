@@ -11,8 +11,8 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 export type ActionResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const action = async (emailPath: string): Promise<ActionResult> => {
   const timeBeforeEmailRendered = performance.now();

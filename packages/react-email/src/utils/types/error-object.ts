@@ -15,6 +15,6 @@ export const fromError = (error: Error): ErrorObject => {
     name: error.name,
     message: error.message,
     cause: error.cause,
-    stack: error.stack
-  }
-}
+    stack: error.stack,
+  };
+};

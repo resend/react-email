@@ -13,15 +13,15 @@ import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
-    emailsDirectoryMetadata: EmailsDirectory;
-    /**
-     * Uses the hot reloaded bundled build and rendering email result
-     */
-    useEmailRenderingResult: (
-      emailPath: string,
-      serverEmailRenderedResult: ActionResult,
-    ) => ActionResult;
-  }
+      emailsDirectoryMetadata: EmailsDirectory;
+      /**
+       * Uses the hot reloaded bundled build and rendering email result
+       */
+      useEmailRenderingResult: (
+        emailPath: string,
+        serverEmailRenderedResult: ActionResult,
+      ) => ActionResult;
+    }
   | undefined
 >(undefined);
 

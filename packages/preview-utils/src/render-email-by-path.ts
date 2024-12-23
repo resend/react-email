@@ -11,8 +11,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: Error;
-  };
+      error: Error;
+    };
 
 export const renderEmailByPath = async (
   emailPath: string,
