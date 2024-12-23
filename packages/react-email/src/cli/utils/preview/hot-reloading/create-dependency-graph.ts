@@ -2,6 +2,7 @@ import path from 'node:path';
 import { existsSync, promises as fs, statSync } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
 import { isDev } from '../start-dev-server';
+import { EventName } from 'chokidar/handler';
 
 interface Module {
   path: string;
@@ -255,10 +256,7 @@ export const createDependencyGraph = async (directory: string) => {
 
   return [
     graph,
-    async (
-      event: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir',
-      pathToModified: string,
-    ) => {
+    async (event: EventName, pathToModified: string) => {
       switch (event) {
         case 'change':
           if (isJavascriptModule(pathToModified)) {

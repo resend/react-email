@@ -1,6 +1,3 @@
-export type HotReloadEvent =
-  | 'add'
-  | 'addDir'
-  | 'change'
-  | 'unlink'
-  | 'unlinkDir';
+import type { EventName } from 'chokidar/handler';
+
+export type HotReloadEvent = EventName;
