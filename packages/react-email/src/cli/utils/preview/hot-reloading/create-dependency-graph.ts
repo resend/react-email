@@ -256,10 +256,7 @@ export const createDependencyGraph = async (directory: string) => {
 
   return [
     graph,
-    async (
-      event: EventName,
-      pathToModified: string,
-    ) => {
+    async (event: EventName, pathToModified: string) => {
       switch (event) {
         case 'change':
           if (isJavascriptModule(pathToModified)) {
