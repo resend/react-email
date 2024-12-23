@@ -72,7 +72,8 @@ export const ResizableWarpper = ({
       <div
         aria-label="resize-west"
         aria-valuenow={width}
-        className="absolute cursor-w-resize p-2 left-2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        className="absolute [user-drag:none] cursor-w-resize p-2 left-2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        draggable="false"
         onMouseDown={() => {
           handleStartResizing('west');
         }}
@@ -84,7 +85,8 @@ export const ResizableWarpper = ({
       <div
         aria-label="resize-east"
         aria-valuenow={width}
-        className="absolute cursor-e-resize p-2 left-full top-1/2 -translate-x-full -translate-y-1/2"
+        className="absolute [user-drag:none] cursor-e-resize p-2 left-full top-1/2 -translate-x-full -translate-y-1/2"
+        draggable="false"
         onMouseDown={() => {
           handleStartResizing('east');
         }}
@@ -96,7 +98,8 @@ export const ResizableWarpper = ({
       <div
         aria-label="resize-north"
         aria-valuenow={height}
-        className="absolute cursor-n-resize p-2 left-1/2 top-0 -translate-x-1/2 -translate-y-1/2"
+        className="absolute [user-drag:none] cursor-n-resize p-2 left-1/2 top-0 -translate-x-1/2 -translate-y-1/2"
+        draggable="false"
         onMouseDown={() => {
           handleStartResizing('north');
         }}
@@ -108,7 +111,8 @@ export const ResizableWarpper = ({
       <div
         aria-label="resize-south"
         aria-valuenow={height}
-        className="absolute cursor-s-resize p-2 left-1/2 top-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute [user-drag:none] cursor-s-resize p-2 left-1/2 top-full -translate-x-1/2 -translate-y-1/2"
+        draggable="false"
         onMouseDown={() => {
           handleStartResizing('south');
         }}
