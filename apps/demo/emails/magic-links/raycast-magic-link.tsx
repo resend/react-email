@@ -85,7 +85,7 @@ const main = {
 const container = {
   margin: "0 auto",
   padding: "20px 25px 48px",
-  backgroundImage: 'url("/assets/raycast-bg.png")',
+  backgroundImage: 'url("/static/raycast-bg.png")',
   backgroundPosition: "bottom",
   backgroundRepeat: "no-repeat, no-repeat",
 };
