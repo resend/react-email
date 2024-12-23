@@ -46,7 +46,7 @@ test('createDependencyGraph()', async () => {
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
       ],
-      moduleDependencies: ['node:path', 'node:fs'],
+      moduleDependencies: ['node:path', 'node:fs', 'chokidar/handler'],
     },
     'create-dependency-graph.spec.ts': {
       path: 'create-dependency-graph.spec.ts',
