@@ -12,19 +12,17 @@ interface ResizableWarpperProps {
 }
 
 export const makeIframeDocumentBubbleEvents = (iframe: HTMLIFrameElement) => {
-  iframe.contentDocument?.addEventListener('mousemove', (event) => {
-    document.dispatchEvent(new MouseEvent('mousemove', { ...event }));
-  });
-  iframe.contentDocument?.addEventListener('mouseup', (event) => {
-    document.dispatchEvent(new MouseEvent('mouseup', { ...event }));
-  });
+  const mouseMoveBubbler = (event: MouseEvent) => {
+    document.dispatchEvent(new MouseEvent('mousemove', event));
+  };
+  const mouseUpBubbler = (event: MouseEvent) => {
+    document.dispatchEvent(new MouseEvent('mouseup', event));
+  };
+  iframe.contentDocument?.addEventListener('mousemove', mouseMoveBubbler);
+  iframe.contentDocument?.addEventListener('mouseup', mouseUpBubbler);
   return () => {
-    iframe.contentDocument?.removeEventListener('mousemove', (event) => {
-      document.dispatchEvent(new MouseEvent('mousemove', { ...event }));
-    });
-    iframe.contentDocument?.removeEventListener('mouseup', (event) => {
-      document.dispatchEvent(new MouseEvent('mouseup', { ...event }));
-    });
+    iframe.contentDocument?.removeEventListener('mousemove', mouseMoveBubbler);
+    iframe.contentDocument?.removeEventListener('mouseup', mouseUpBubbler);
   };
 };
 
@@ -45,7 +43,6 @@ export const ResizableWarpper = ({
 
   const handleStartResizing = (direction: Direction) => {
     mouseMoveListener = (event) => {
-      console.log(event.button);
       if (event.button === 0) {
         const signMultiplier =
           direction === 'west' || direction === 'north' ? -1 : 1;
