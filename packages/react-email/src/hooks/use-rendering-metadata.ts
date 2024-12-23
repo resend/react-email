@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { RenderedEmailMetadata } from 'preview-utils';
+import type { RenderedEmailMetadata } from '../package';
 import type { ActionResult } from '../actions/render-email-by-path';
 
 const lastRenderingMetadataPerEmailPath = {} as Record<

@@ -13,7 +13,7 @@ import {
   EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../actions/get-emails-directory-metadata';
-import { renderingUtilitiesExporter } from 'preview-utils';
+import { renderingUtilitiesExporter } from '../../package';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];

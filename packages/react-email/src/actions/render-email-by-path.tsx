@@ -3,8 +3,8 @@ import path from 'node:path';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
 import chalk from 'chalk';
-import type { RenderedEmailMetadata } from 'preview-utils';
-import { renderEmailByPath } from 'preview-utils';
+import type { RenderedEmailMetadata } from '../package';
+import { renderEmailByPath } from '../package';
 import { fromError, type ErrorObject } from '../utils/types/error-object';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 

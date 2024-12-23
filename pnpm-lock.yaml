@@ -952,25 +952,6 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  packages/preview-utils:
-    dependencies:
-      esbuild:
-        specifier: 0.19.11
-        version: 0.19.11
-      source-map-js:
-        specifier: 1.0.2
-        version: 1.0.2
-      stacktrace-parser:
-        specifier: 0.1.10
-        version: 0.1.10
-    devDependencies:
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-
   packages/react-email:
     dependencies:
       '@babel/core':
@@ -1088,9 +1069,6 @@ importers:
       postcss:
         specifier: 8.4.40
         version: 8.4.40
-      preview-utils:
-        specifier: workspace:*
-        version: link:../preview-utils
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
@@ -1426,9 +1404,9 @@ importers:
       mocha:
         specifier: ^10.2.0
         version: 10.8.2
-      preview-utils:
+      react-email:
         specifier: workspace:*
-        version: link:../preview-utils
+        version: link:../react-email
       typescript:
         specifier: ^5.2.2
         version: 5.4.2

@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 import * as path from "path";
 
-import { isFileAnEmail, renderEmailByPath } from "preview-utils";
+import { isFileAnEmail, renderEmailByPath } from "react-email";
 
 export type BuiltEmail =
   | {
@@ -41,7 +41,6 @@ export async function renderOpenEmailFile(
       const err = new Error(result.error.message);
       err.stack = result.error.stack;
       err.name = result.error.name;
-      err.cause = result.error.cause;
       throw err;
     }
 
