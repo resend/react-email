@@ -53,12 +53,12 @@ export const ViewSizeControls = ({
             sideOffset={5}
           >
             <ViewPresetDropdownMenuItem
-              height={600}
+              height={1024}
               onClick={() => {
                 setViewWidth(600);
                 setViewHeight(1024);
               }}
-              width={1024}
+              width={600}
             >
               Desktop
             </ViewPresetDropdownMenuItem>
