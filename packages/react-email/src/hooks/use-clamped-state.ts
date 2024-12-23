@@ -13,7 +13,7 @@ export const useClampedState = (initial: number, min: number, max: number) => {
       if (typeof valueOrFunction === 'function') {
         setV((value: number) => clamp(valueOrFunction(value), min, max));
       } else {
-        clamp(valueOrFunction, min, max);
+        setV(clamp(valueOrFunction, min, max));
       }
     },
   ] as const;
