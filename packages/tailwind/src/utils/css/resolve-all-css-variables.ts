@@ -39,8 +39,7 @@ export const resolveAllCSSVariables = (root: Root) => {
           if (/--[^\s]+/.test(otherDecl.prop)) {
             const variable = `var(${otherDecl.prop})`;
             if (
-              variablesUsed &&
-              variablesUsed.includes(variable) &&
+              variablesUsed?.includes(variable) &&
               doNodesMatch(decl.parent, otherDecl.parent)
             ) {
               if (
