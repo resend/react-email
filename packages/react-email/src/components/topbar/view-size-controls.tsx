@@ -26,7 +26,9 @@ export const ViewSizeControls = ({
           type="number"
           value={viewWidth}
         />
-        <span className="absolute text-sm left-2 top-1/2 font-bold -translate-y-1/2">W</span>
+        <span className="absolute text-sm left-2 top-1/2 font-bold -translate-y-1/2">
+          W
+        </span>
       </div>
       <div className="relative p-0 m-0 w-fit h-fit">
         <input
@@ -37,7 +39,9 @@ export const ViewSizeControls = ({
           type="number"
           value={viewHeight}
         />
-        <span className="absolute text-sm left-2 top-1/2 font-bold -translate-y-1/2">H</span>
+        <span className="absolute text-sm left-2 top-1/2 font-bold -translate-y-1/2">
+          H
+        </span>
       </div>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild>
