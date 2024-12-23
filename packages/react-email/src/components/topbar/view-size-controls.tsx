@@ -95,7 +95,7 @@ const ViewPresetDropdownMenuItem = ({
 }: ViewPresetDropdownMenuItemProps) => {
   return (
     <DropdownMenu.Item
-      className="flex w-full rounded-md select-none px-2 py-1 items-center outline-none transition-colors data-[highlighted]:bg-white/30"
+      className="flex w-full rounded-md select-none px-2 py-1 items-center outline-none transition-colors data-[highlighted]:bg-slate-6"
       onClick={onClick}
     >
       {children}{' '}
