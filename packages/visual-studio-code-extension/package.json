@@ -16,7 +16,7 @@
     "Visualization"
   ],
   "activationEvents": [],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "icon": "./icon.png",
   "contributes": {
     "commands": [
@@ -43,7 +43,7 @@
     "package": "node ./prebuild.mjs && vsce package",
     "vscode:prepublish": "pnpm build --minify",
     "dev": "pnpm build --watch",
-    "build": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
     "pretest": "pnpm build && pnpm lint",
     "lint": "eslint ."
   },
@@ -73,17 +73,16 @@
     "esbuild": "^0.19.12"
   },
   "devDependencies": {
-    "react-email": "workspace:*",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
     "@types/vscode": "^1.83.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
     "@vscode/test-electron": "2.3.4",
     "@vscode/vsce": "3.2.1",
-    "eslint": "^8.50.0",
+    "eslint-config-custom": "workspace:*",
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
-    "typescript": "^5.2.2"
+    "react-email": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "5.1.6"
   }
 }

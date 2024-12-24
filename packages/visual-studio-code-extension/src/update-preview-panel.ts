@@ -1,19 +1,17 @@
+import { basename } from "node:path";
 import * as vscode from "vscode";
-
-import { basename } from "path";
-
 import { renderOpenEmailFile } from "./render-open-email-file";
 import { convertAllEmailAssetSourcesIntoWebviewURIs } from "./convert-all-email-asset-sources-into-webview-uris";
-
-import { emailWithErrorHTML, noEmailOpenHTML } from "./extension";
+import { getConstants } from "./constants";
 
 export async function updatePreiewPanel(
   previewPanel: vscode.WebviewPanel | undefined,
 ) {
+  const { emailWithErrorHTML, noEmailOpenHTML } = getConstants();
   if (previewPanel) {
     if (vscode.window.activeTextEditor) {
       try {
-        let builtEmail = await renderOpenEmailFile(
+        const builtEmail = await renderOpenEmailFile(
           vscode.window.activeTextEditor,
         );
         if (

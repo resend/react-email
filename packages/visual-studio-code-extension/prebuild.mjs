@@ -5,7 +5,7 @@ async function dereferenceSymlinks(directory) {
   async function traverse(dir) {
     const entries = await fs.readdir(dir, { withFileTypes: true });
 
-    for (const entry of entries) {
+    for await (const entry of entries) {
       const fullPath = path.resolve(entry.path, entry.name);
       const stats = await fs.lstat(fullPath);
       

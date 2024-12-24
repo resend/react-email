@@ -19,12 +19,12 @@ export function convertAllEmailAssetSourcesIntoWebviewURIs(
 ): string {
   return originalHTML.replace(
     /src\s*=\s*"(\/static\/[^"]*)"/,
-    (_srcProperty, /* the first capturing group */ uri) => {
+    (_srcProperty, /* the first capturing group */ uri: string) => {
       const newSource = previewPanel.webview.asWebviewUri(
         vscode.Uri.joinPath(emailsDirVSCodeURI, uri),
       );
 
-      return `src="${newSource}"`;
+      return `src="${newSource.toString()}"`;
     },
   );
 }

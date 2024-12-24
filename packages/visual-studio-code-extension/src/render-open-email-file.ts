@@ -1,7 +1,5 @@
+import * as path from "node:path";
 import * as vscode from "vscode";
-
-import * as path from "path";
-
 import { isFileAnEmail, renderEmailByPath } from "react-email";
 
 export type BuiltEmail =

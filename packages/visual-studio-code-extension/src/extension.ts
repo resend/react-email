@@ -1,27 +1,15 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import { readFileSync } from "fs";
-
 import { updatePreiewPanel } from "./update-preview-panel";
-
-export let noEmailOpenHTML: string;
-export let emailWithErrorHTML: string;
+import { setupConstants } from "./constants";
 
 export function activate(context: vscode.ExtensionContext) {
-  let previewPanel: vscode.WebviewPanel | undefined = undefined;
+  let previewPanel: vscode.WebviewPanel | undefined;
 
-  // loads in the default htmls
-  noEmailOpenHTML = readFileSync(
-    context.asAbsolutePath("./assets/no email open.html"),
-    { encoding: "utf-8" },
-  );
-  emailWithErrorHTML = readFileSync(
-    context.asAbsolutePath("./assets/email with error.html"),
-    { encoding: "utf-8" },
-  );
+  const { noEmailOpenHTML } = setupConstants(context);
 
-  let disposable = vscode.commands.registerCommand(
+  const disposable = vscode.commands.registerCommand(
     "react-email-preview.open",
     () => {
       if (typeof previewPanel !== "undefined") {
@@ -40,12 +28,12 @@ export function activate(context: vscode.ExtensionContext) {
 
       vscode.workspace.onDidSaveTextDocument((ev) => {
         if (ev.fileName === vscode.window.activeTextEditor?.document.fileName) {
-          updatePreiewPanel(previewPanel);
+          void updatePreiewPanel(previewPanel);
         }
       });
 
       vscode.window.onDidChangeActiveTextEditor(() => {
-        updatePreiewPanel(previewPanel);
+        void updatePreiewPanel(previewPanel);
       });
     },
   );
@@ -53,4 +41,3 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 }
 
-export function deactivate() {}
