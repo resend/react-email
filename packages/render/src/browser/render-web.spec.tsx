@@ -37,7 +37,6 @@ describe('render on the browser environment', () => {
     ).toMatchSnapshot();
   });
 
-
   it('converts a React component into HTML with Next 14 error stubs', async () => {
     vi.mock('react-dom/server', async (_importOriginal) => {
       const ReactDOMServerBrowser = await vi.importActual<Import>(

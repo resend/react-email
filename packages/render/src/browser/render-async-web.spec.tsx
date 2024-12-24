@@ -21,7 +21,7 @@ describe('renderAsync on the browser environment', () => {
   afterEach(() => {
     vi.resetAllMocks();
   });
-  
+
   test("if mso does not wrap syntax", async () => {
     expect(
       await renderAsync(
@@ -36,7 +36,6 @@ describe('renderAsync on the browser environment', () => {
       ),
     ).toMatchSnapshot();
   });
-
 
   it('converts a React component into HTML with Next 14 error stubs', async () => {
     vi.mock('react-dom/server', async (_importOriginal) => {
