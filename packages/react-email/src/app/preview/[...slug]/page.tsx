@@ -49,15 +49,15 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     throw exception;
   }
 
-  let serverEmailRenderingResult: EmailRenderingResult | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING === 'true') {
-    serverEmailRenderingResult = await renderEmailByPath(emailPath);
+  const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-    if ('error' in serverEmailRenderingResult) {
-      throw new Error(serverEmailRenderingResult.error.message, {
-        cause: serverEmailRenderingResult.error,
-      });
-    }
+  if (
+    process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
+    'error' in serverEmailRenderingResult
+  ) {
+    throw new Error(serverEmailRenderingResult.error.message, {
+      cause: serverEmailRenderingResult.error,
+    });
   }
 
   return (

@@ -1,26 +1,14 @@
 'use client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
 } from '../actions/get-emails-directory-metadata';
 import { useHotreload } from '../hooks/use-hot-reload';
-import {
-  renderEmailByPath,
-  type EmailRenderingResult,
-} from '../actions/render-email-by-path';
-import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
       emailsDirectoryMetadata: EmailsDirectory;
-      /**
-       * Uses the hot reloaded bundled build and rendering email result
-       */
-      useEmailRenderingResult: (
-        emailPath: string,
-        serverEmailRenderedResult: EmailRenderingResult | undefined,
-      ) => EmailRenderingResult | undefined;
     }
   | undefined
 >(undefined);
@@ -44,14 +32,11 @@ export const EmailsProvider = (props: {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
-  const [renderingResultPerEmailPath, setRenderingResultPerEmailPath] =
-    useState<Record<string, EmailRenderingResult>>({});
-
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload(async (changes) => {
+    useHotreload(async () => {
       const metadata = await getEmailsDirectoryMetadata(
         props.initialEmailsDirectoryMetadata.absolutePath,
       );
@@ -62,27 +47,6 @@ export const EmailsProvider = (props: {
           'Hot reloading: unable to find the emails directory to update the sidebar',
         );
       }
-
-      for await (const change of changes) {
-        const slugForChangedEmail =
-          // ex: apple-receipt.tsx
-          // it will be the path relative to the emails directory, so it is already
-          // going to be equivalent to the slug
-          change.filename;
-
-        const pathForChangedEmail =
-          await getEmailPathFromSlug(slugForChangedEmail);
-
-        const lastResult = renderingResultPerEmailPath[pathForChangedEmail];
-
-        if (typeof lastResult !== 'undefined') {
-          const renderingResult = await renderEmailByPath(pathForChangedEmail);
-          setRenderingResultPerEmailPath((map) => ({
-            ...map,
-            [pathForChangedEmail]: renderingResult,
-          }));
-        }
-      }
     });
   }
 
@@ -90,30 +54,6 @@ export const EmailsProvider = (props: {
     <EmailsContext.Provider
       value={{
         emailsDirectoryMetadata,
-        useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
-          // This does not break the rules for hooks
-          if (serverEmailRenderedResult) return serverEmailRenderedResult;
-
-          const storedValue = renderingResultPerEmailPath[emailPath];
-
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          useEffect(() => {
-            if (typeof storedValue === 'undefined') {
-              renderEmailByPath(emailPath)
-                .then((v) => {
-                  setRenderingResultPerEmailPath((map) => ({
-                    ...map,
-                    [emailPath]: v,
-                  }));
-                })
-                .catch((exception) => {
-                  throw exception;
-                });
-            }
-          }, [storedValue, emailPath]);
-
-          return storedValue;
-        },
       }}
     >
       {props.children}

@@ -8,15 +8,15 @@ import type { EmailRenderingResult } from '../../../actions/render-email-by-path
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
-import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
-  serverRenderingResult: EmailRenderingResult | undefined;
+  serverRenderingResult: EmailRenderingResult;
 }
 
 const Preview = ({
@@ -31,10 +31,10 @@ const Preview = ({
 
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
-  const { useEmailRenderingResult } = useEmails();
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
+    slug,
     serverRenderingResult,
   );
 
@@ -74,9 +74,7 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors =
-    typeof renderingResult !== 'undefined' &&
-    typeof renderedEmailMetadata !== 'undefined';
+  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
   return (
     <Shell
@@ -88,62 +86,54 @@ const Preview = ({
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
-        {renderingResult ? (
+        {'error' in renderingResult ? (
+          <RenderingError error={renderingResult.error} />
+        ) : null}
+
+        {hasNoErrors ? (
           <>
-            {'error' in renderingResult ? (
-              <RenderingError error={renderingResult.error} />
-            ) : null}
+            {activeView === 'desktop' && (
+              <iframe
+                className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
+                srcDoc={renderedEmailMetadata.markup}
+                title={slug}
+              />
+            )}
 
-            {hasNoErrors ? (
-              <>
-                {activeView === 'desktop' && (
-                  <iframe
-                    className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
-                    srcDoc={renderedEmailMetadata.markup}
-                    title={slug}
+            {activeView === 'mobile' && (
+              <iframe
+                className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
+                srcDoc={renderedEmailMetadata.markup}
+                title={slug}
+              />
+            )}
+
+            {activeView === 'source' && (
+              <div className="flex gap-6 mx-auto p-6 max-w-3xl">
+                <Tooltip.Provider>
+                  <CodeContainer
+                    activeLang={activeLang}
+                    markups={[
+                      {
+                        language: 'jsx',
+                        content: renderedEmailMetadata.reactMarkup,
+                      },
+                      {
+                        language: 'markup',
+                        content: renderedEmailMetadata.markup,
+                      },
+                      {
+                        language: 'markdown',
+                        content: renderedEmailMetadata.plainText,
+                      },
+                    ]}
+                    setActiveLang={handleLangChange}
                   />
-                )}
-
-                {activeView === 'mobile' && (
-                  <iframe
-                    className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
-                    srcDoc={renderedEmailMetadata.markup}
-                    title={slug}
-                  />
-                )}
-
-                {activeView === 'source' && (
-                  <div className="flex gap-6 mx-auto p-6 max-w-3xl">
-                    <Tooltip.Provider>
-                      <CodeContainer
-                        activeLang={activeLang}
-                        markups={[
-                          {
-                            language: 'jsx',
-                            content: renderedEmailMetadata.reactMarkup,
-                          },
-                          {
-                            language: 'markup',
-                            content: renderedEmailMetadata.markup,
-                          },
-                          {
-                            language: 'markdown',
-                            content: renderedEmailMetadata.plainText,
-                          },
-                        ]}
-                        setActiveLang={handleLangChange}
-                      />
-                    </Tooltip.Provider>
-                  </div>
-                )}
-              </>
-            ) : null}
+                </Tooltip.Provider>
+              </div>
+            )}
           </>
-        ) : (
-          <div className="w-full bg-white flex h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] py-12">
-            <div className="w-[600px] h-full bg-gray-100 relative border border-solid border-gray-200 mx-auto rounded-lg" />
-          </div>
-        )}
+        ) : null}
 
         <Toaster />
       </div>
