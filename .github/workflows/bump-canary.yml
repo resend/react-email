@@ -1,5 +1,7 @@
 name: Bump canary
-
+permissions: 
+  contents: read
+  pull-requests: write
 on:
   push:
     branches:
