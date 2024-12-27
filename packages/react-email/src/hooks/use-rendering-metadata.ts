@@ -15,10 +15,12 @@ const lastRenderingMetadataPerEmailPath = {} as Record<
  */
 export const useRenderingMetadata = (
   emailPath: string,
-  renderingResult: EmailRenderingResult,
-  initialRenderingMetadata?: EmailRenderingResult,
+  renderingResult: EmailRenderingResult | undefined,
+  initialRenderingMetadata: EmailRenderingResult | undefined,
 ): RenderedEmailMetadata | undefined => {
   useEffect(() => {
+    if (!renderingResult) return;
+
     if ('markup' in renderingResult) {
       lastRenderingMetadataPerEmailPath[emailPath] = renderingResult;
     } else if (
@@ -30,7 +32,11 @@ export const useRenderingMetadata = (
     }
   }, [renderingResult, emailPath, initialRenderingMetadata]);
 
-  return 'error' in renderingResult
-    ? lastRenderingMetadataPerEmailPath[emailPath]
-    : renderingResult;
+  if (renderingResult) {
+    return 'error' in renderingResult
+      ? lastRenderingMetadataPerEmailPath[emailPath]
+      : renderingResult;
+  }
+
+  return undefined;
 };

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fs from 'node:fs';
 import path from 'node:path';
+import { cache } from 'react';
 
 const isFileAnEmail = (fullPath: string): boolean => {
   const stat = fs.statSync(fullPath);
@@ -57,7 +58,7 @@ const mergeDirectoriesWithSubDirectories = (
   return currentResultingMergedDirectory;
 };
 
-export const getEmailsDirectoryMetadata = async (
+export const getEmailsDirectoryMetadata = cache(async (
   absolutePathToEmailsDirectory: string,
   keepFileExtensions = false,
   isSubDirectory = false,
@@ -117,4 +118,4 @@ export const getEmailsDirectoryMetadata = async (
   return isSubDirectory
     ? mergeDirectoriesWithSubDirectories(emailsMetadata)
     : emailsMetadata;
-};
+});

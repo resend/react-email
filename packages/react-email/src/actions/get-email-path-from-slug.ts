@@ -1,10 +1,11 @@
 'use server';
 import path from 'node:path';
 import fs from 'node:fs';
+import { cache } from 'react';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 
 // eslint-disable-next-line @typescript-eslint/require-await
-export const getEmailPathFromSlug = async (slug: string) => {
+export const getEmailPathFromSlug = cache(async (slug: string) => {
   if (['.tsx', '.jsx', '.ts', '.js'].includes(path.extname(slug)))
     return path.join(emailsDirectoryAbsolutePath, slug);
 
@@ -25,4 +26,4 @@ export const getEmailPathFromSlug = async (slug: string) => {
 
     This is most likely not an issue with the preview server. It most likely is that the email doesn't exist.`,
   );
-};
+});

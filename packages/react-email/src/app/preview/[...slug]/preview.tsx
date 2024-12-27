@@ -16,14 +16,14 @@ interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
-  renderingResult: EmailRenderingResult;
+  serverRenderingResult: EmailRenderingResult | undefined;
 }
 
 const Preview = ({
   slug,
   emailPath,
   pathSeparator,
-  renderingResult: initialRenderingResult,
+  serverRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -35,13 +35,13 @@ const Preview = ({
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
-    initialRenderingResult,
+    serverRenderingResult,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
     emailPath,
     renderingResult,
-    initialRenderingResult,
+    serverRenderingResult,
   );
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
@@ -74,7 +74,9 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasNoErrors =
+    typeof renderingResult !== 'undefined' &&
+    typeof renderedEmailMetadata !== 'undefined';
 
   return (
     <Shell
@@ -86,12 +88,12 @@ const Preview = ({
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
-        {'error' in renderingResult ? (
+        {renderingResult && 'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
 
         {/* If this is undefined means that the initial server render of the email had errors */}
-        {hasNoErrors ? (
+        {renderingResult && hasNoErrors ? (
           <>
             {activeView === 'desktop' && (
               <iframe

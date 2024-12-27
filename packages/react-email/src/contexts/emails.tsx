@@ -1,5 +1,10 @@
 'use client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
@@ -13,15 +18,15 @@ import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-      /**
-       * Uses the hot reloaded bundled build and rendering email result
-       */
-      useEmailRenderingResult: (
-        emailPath: string,
-        serverEmailRenderedResult: EmailRenderingResult,
-      ) => EmailRenderingResult;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+    /**
+     * Uses the hot reloaded bundled build and rendering email result
+     */
+    useEmailRenderingResult: (
+      emailPath: string,
+      serverEmailRenderedResult: EmailRenderingResult | undefined,
+    ) => EmailRenderingResult | undefined;
+  }
   | undefined
 >(undefined);
 
@@ -77,7 +82,6 @@ export const EmailsProvider = (props: {
 
         if (typeof lastResult !== 'undefined') {
           const renderingResult = await renderEmailByPath(pathForChangedEmail);
-
           setRenderingResultPerEmailPath((map) => ({
             ...map,
             [pathForChangedEmail]: renderingResult,
@@ -92,21 +96,28 @@ export const EmailsProvider = (props: {
       value={{
         emailsDirectoryMetadata,
         useEmailRenderingResult: (emailPath, serverEmailRenderedResult) => {
+          // This does not break the rules for hooks
+          if (serverEmailRenderedResult) return serverEmailRenderedResult;
+
+          const storedValue = renderingResultPerEmailPath[emailPath];
+
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           useEffect(() => {
-            if (typeof renderingResultPerEmailPath[emailPath] === 'undefined') {
-              setRenderingResultPerEmailPath((map) => ({
-                ...map,
-                [emailPath]: serverEmailRenderedResult,
-              }));
+            if (typeof storedValue === 'undefined') {
+              renderEmailByPath(emailPath)
+                .then((v) => {
+                  setRenderingResultPerEmailPath((map) => ({
+                    ...map,
+                    [emailPath]: v,
+                  }));
+                })
+                .catch((exception) => {
+                  throw exception;
+                });
             }
-          }, [serverEmailRenderedResult, emailPath]);
+          }, [storedValue, emailPath]);
 
-          if (typeof renderingResultPerEmailPath[emailPath] !== 'undefined') {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return renderingResultPerEmailPath[emailPath]!;
-          }
-
-          return serverEmailRenderedResult;
+          return storedValue;
         },
       }}
     >

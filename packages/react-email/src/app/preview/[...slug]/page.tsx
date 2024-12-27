@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
+import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Home from '../../page';
@@ -48,15 +49,15 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     throw exception;
   }
 
-  const emailRenderingResult = await renderEmailByPath(emailPath);
+  let serverEmailRenderingResult: EmailRenderingResult | undefined;
+  if (process.env.NEXT_PUBLIC_IS_BUILDING === 'true') {
+    serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-  if (
-    'error' in emailRenderingResult &&
-    process.env.NEXT_PUBLIC_IS_BUILDING === 'true'
-  ) {
-    throw new Error(emailRenderingResult.error.message, {
-      cause: emailRenderingResult.error,
-    });
+    if ('error' in serverEmailRenderingResult) {
+      throw new Error(serverEmailRenderingResult.error.message, {
+        cause: serverEmailRenderingResult.error,
+      });
+    }
   }
 
   return (
@@ -67,7 +68,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       <Preview
         emailPath={emailPath}
         pathSeparator={path.sep}
-        renderingResult={emailRenderingResult}
+        serverRenderingResult={serverEmailRenderingResult}
         slug={slug}
       />
     </Suspense>
