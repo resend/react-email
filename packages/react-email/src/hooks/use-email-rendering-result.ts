@@ -27,8 +27,11 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);
 
-        // We always render the email template here so that we can allow 
-        const newRenderingResult = await renderEmailByPath(pathForChangedEmail, true);
+        // We always render the email template here so that we can allow
+        const newRenderingResult = await renderEmailByPath(
+          pathForChangedEmail,
+          true,
+        );
 
         if (pathForChangedEmail === emailPath) {
           setRenderingResult(newRenderingResult);
