@@ -8,7 +8,6 @@ import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
   emailPath: string,
-  emailSlug: string,
   serverEmailRenderedResult: EmailRenderingResult,
 ) => {
   const [renderingResult, setRenderingResult] = useState(
@@ -25,7 +24,10 @@ export const useEmailRenderingResult = (
           // going to be equivalent to the slug
           change.filename;
 
-        if (slugForChangedEmail === emailSlug) {
+        const pathForChangedEmail =
+          await getEmailPathFromSlug(slugForChangedEmail);
+
+        if (pathForChangedEmail === emailPath) {
           setRenderingResult(
             await renderEmailByPath(emailPath, true),
           );

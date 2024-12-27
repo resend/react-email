@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Home from '../../page';

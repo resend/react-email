@@ -34,7 +34,6 @@ const Preview = ({
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
-    slug,
     serverRenderingResult,
   );
 
