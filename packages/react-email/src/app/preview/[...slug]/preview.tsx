@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Toaster } from 'sonner';
 import { useHotreload } from '../../../hooks/use-hot-reload';
-import type { EmailRenderingResult } from '../../../actions/rnder-email-by-path';
+import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
