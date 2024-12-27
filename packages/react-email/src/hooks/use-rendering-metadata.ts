@@ -15,28 +15,22 @@ const lastRenderingMetadataPerEmailPath = {} as Record<
  */
 export const useRenderingMetadata = (
   emailPath: string,
-  renderingResult: EmailRenderingResult | undefined,
-  initialRenderingMetadata: EmailRenderingResult | undefined,
+  renderingResult: EmailRenderingResult,
+  serverRenderingMetadata: EmailRenderingResult,
 ): RenderedEmailMetadata | undefined => {
   useEffect(() => {
-    if (!renderingResult) return;
-
     if ('markup' in renderingResult) {
       lastRenderingMetadataPerEmailPath[emailPath] = renderingResult;
     } else if (
-      typeof initialRenderingMetadata !== 'undefined' &&
-      'markup' in initialRenderingMetadata &&
+      typeof serverRenderingMetadata !== 'undefined' &&
+      'markup' in serverRenderingMetadata &&
       typeof lastRenderingMetadataPerEmailPath[emailPath] === 'undefined'
     ) {
-      lastRenderingMetadataPerEmailPath[emailPath] = initialRenderingMetadata;
+      lastRenderingMetadataPerEmailPath[emailPath] = serverRenderingMetadata;
     }
-  }, [renderingResult, emailPath, initialRenderingMetadata]);
+  }, [renderingResult, emailPath, serverRenderingMetadata]);
 
-  if (renderingResult) {
-    return 'error' in renderingResult
-      ? lastRenderingMetadataPerEmailPath[emailPath]
-      : renderingResult;
-  }
-
-  return undefined;
+  return 'error' in renderingResult
+    ? lastRenderingMetadataPerEmailPath[emailPath]
+    : renderingResult;
 };
