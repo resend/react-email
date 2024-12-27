@@ -58,64 +58,66 @@ const mergeDirectoriesWithSubDirectories = (
   return currentResultingMergedDirectory;
 };
 
-export const getEmailsDirectoryMetadata = cache(async (
-  absolutePathToEmailsDirectory: string,
-  keepFileExtensions = false,
-  isSubDirectory = false,
+export const getEmailsDirectoryMetadata = cache(
+  async (
+    absolutePathToEmailsDirectory: string,
+    keepFileExtensions = false,
+    isSubDirectory = false,
 
-  baseDirectoryPath = absolutePathToEmailsDirectory,
-): Promise<EmailsDirectory | undefined> => {
-  if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
+    baseDirectoryPath = absolutePathToEmailsDirectory,
+  ): Promise<EmailsDirectory | undefined> => {
+    if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 
-  const dirents = await fs.promises.readdir(absolutePathToEmailsDirectory, {
-    withFileTypes: true,
-  });
+    const dirents = await fs.promises.readdir(absolutePathToEmailsDirectory, {
+      withFileTypes: true,
+    });
 
-  const emailFilenames = dirents
-    .filter((dirent) =>
-      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
-    )
-    .map((dirent) =>
-      keepFileExtensions
-        ? dirent.name
-        : dirent.name.replace(path.extname(dirent.name), ''),
+    const emailFilenames = dirents
+      .filter((dirent) =>
+        isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
+      )
+      .map((dirent) =>
+        keepFileExtensions
+          ? dirent.name
+          : dirent.name.replace(path.extname(dirent.name), ''),
+      );
+
+    const subDirectories = await Promise.all(
+      dirents
+        .filter(
+          (dirent) =>
+            dirent.isDirectory() &&
+            !dirent.name.startsWith('_') &&
+            dirent.name !== 'static',
+        )
+        .map((dirent) => {
+          const direntAbsolutePath = path.join(
+            absolutePathToEmailsDirectory,
+            dirent.name,
+          );
+
+          return getEmailsDirectoryMetadata(
+            direntAbsolutePath,
+            keepFileExtensions,
+            true,
+            baseDirectoryPath,
+          ) as Promise<EmailsDirectory>;
+        }),
     );
 
-  const subDirectories = await Promise.all(
-    dirents
-      .filter(
-        (dirent) =>
-          dirent.isDirectory() &&
-          !dirent.name.startsWith('_') &&
-          dirent.name !== 'static',
-      )
-      .map((dirent) => {
-        const direntAbsolutePath = path.join(
-          absolutePathToEmailsDirectory,
-          dirent.name,
-        );
+    const emailsMetadata = {
+      absolutePath: absolutePathToEmailsDirectory,
+      relativePath: path.relative(
+        baseDirectoryPath,
+        absolutePathToEmailsDirectory,
+      ),
+      directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
+      emailFilenames,
+      subDirectories,
+    } satisfies EmailsDirectory;
 
-        return getEmailsDirectoryMetadata(
-          direntAbsolutePath,
-          keepFileExtensions,
-          true,
-          baseDirectoryPath,
-        ) as Promise<EmailsDirectory>;
-      }),
-  );
-
-  const emailsMetadata = {
-    absolutePath: absolutePathToEmailsDirectory,
-    relativePath: path.relative(
-      baseDirectoryPath,
-      absolutePathToEmailsDirectory,
-    ),
-    directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
-    emailFilenames,
-    subDirectories,
-  } satisfies EmailsDirectory;
-
-  return isSubDirectory
-    ? mergeDirectoriesWithSubDirectories(emailsMetadata)
-    : emailsMetadata;
-});
+    return isSubDirectory
+      ? mergeDirectoriesWithSubDirectories(emailsMetadata)
+      : emailsMetadata;
+  },
+);

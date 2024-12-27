@@ -1,10 +1,5 @@
 'use client';
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   getEmailsDirectoryMetadata,
   type EmailsDirectory,
@@ -18,15 +13,15 @@ import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 
 const EmailsContext = createContext<
   | {
-    emailsDirectoryMetadata: EmailsDirectory;
-    /**
-     * Uses the hot reloaded bundled build and rendering email result
-     */
-    useEmailRenderingResult: (
-      emailPath: string,
-      serverEmailRenderedResult: EmailRenderingResult | undefined,
-    ) => EmailRenderingResult | undefined;
-  }
+      emailsDirectoryMetadata: EmailsDirectory;
+      /**
+       * Uses the hot reloaded bundled build and rendering email result
+       */
+      useEmailRenderingResult: (
+        emailPath: string,
+        serverEmailRenderedResult: EmailRenderingResult | undefined,
+      ) => EmailRenderingResult | undefined;
+    }
   | undefined
 >(undefined);
 
