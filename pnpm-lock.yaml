@@ -161,8 +161,8 @@ importers:
         specifier: ^19
         version: 19.0.1
       autoprefixer:
-        specifier: 10.4.14
-        version: 10.4.14(postcss@8.4.40)
+        specifier: 10.4.20
+        version: 10.4.20(postcss@8.4.40)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -1049,8 +1049,8 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.4.2)(typescript@5.1.6)
       autoprefixer:
-        specifier: 10.4.14
-        version: 10.4.14(postcss@8.4.40)
+        specifier: 10.4.20
+        version: 10.4.20(postcss@8.4.40)
       clsx:
         specifier: 2.1.0
         version: 2.1.0
@@ -4417,6 +4417,13 @@ packages:
 
   autoprefixer@10.4.14:
     resolution: {integrity: sha512-FQzyfOsTlwVzjHxKEqRIAdJx9niO6VCBCoEwax/VLSoQF29ggECcPuBqUMZ+u8jCZOPSy8b8/8KnuFbp0SaFZQ==}
+    engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
+
+  autoprefixer@10.4.20:
+    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -11608,7 +11615,7 @@ snapshots:
       postcss: 8.4.39
       postcss-value-parser: 4.2.0
 
-  autoprefixer@10.4.14(postcss@8.4.40):
+  autoprefixer@10.4.20(postcss@8.4.40):
     dependencies:
       browserslist: 4.24.3
       caniuse-lite: 1.0.30001690
