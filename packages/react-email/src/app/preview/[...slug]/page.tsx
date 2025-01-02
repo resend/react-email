@@ -112,7 +112,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     // client-side rendering on build
     <Suspense fallback={<Home />}>
       <Preview
-        controls={(controlsResult as { controls: Controls }).controls}
+        controlsResult={controlsResult}
         emailPath={emailPath}
         pathSeparator={path.sep}
         serverRenderingResult={serverEmailRenderingResult}

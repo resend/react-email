@@ -3,6 +3,8 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { flushSync } from 'react-dom';
+import type { RefObject } from 'react';
+import React, { useRef } from 'react';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
@@ -17,6 +19,7 @@ import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import type { ControlsResult } from '../../../actions/get-email-controls';
 import type { Controls } from '../../../package';
 import { RenderingError } from './rendering-error';
 
@@ -25,7 +28,7 @@ interface PreviewProps {
   emailPath: string;
   pathSeparator: string;
 
-  controls: Controls;
+  controlsResult: ControlsResult;
   serverRenderingResult: EmailRenderingResult;
 }
 
@@ -33,6 +36,7 @@ const Preview = ({
   slug,
   emailPath,
   pathSeparator,
+  controlsResult,
   serverRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -41,6 +45,8 @@ const Preview = ({
 
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
+
+  const previewProps = useRef<Record<string, unknown>>({});
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
@@ -83,7 +89,7 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasErrors = 'error' in renderingResult;
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -153,11 +159,17 @@ const Preview = ({
           };
         }}
       >
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
-        ) : null}
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
 
-        {hasNoErrors ? (
+        {hasErrors ? null : (
+          <PreviewPropControls
+            controls={(controlsResult as { controls: Controls }).controls}
+            previewProps={previewProps}
+          />
+        )}
+
+        {/* If this is undefined means that the initial server render of the email had errors */}
+        {typeof renderedEmailMetadata !== 'undefined' ? (
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
@@ -230,6 +242,15 @@ const Preview = ({
       </div>
     </Shell>
   );
+};
+
+interface PreviewPropControls {
+  previewProps: RefObject<Record<string, unknown>>;
+  controls: Controls;
+}
+
+const PreviewPropControls = (props: PreviewPropControls) => {
+  return <></>;
 };
 
 export default Preview;
