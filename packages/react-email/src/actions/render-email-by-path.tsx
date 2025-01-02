@@ -25,6 +25,7 @@ const cache = new Map<string, EmailRenderingResult>();
 
 export const renderEmailByPath = async (
   emailPath: string,
+  props: object,
   invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
   if (invalidatingCache) cache.delete(emailPath);
@@ -60,14 +61,13 @@ export const renderEmailByPath = async (
     sourceMapToOriginalFile,
   } = componentResult;
 
-  const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const markup = await render(createElement(EmailComponent, props), {
       pretty: true,
     });
     const plainText = await render(
-      createElement(EmailComponent, previewProps),
+      createElement(EmailComponent, props),
       {
         plainText: true,
       },

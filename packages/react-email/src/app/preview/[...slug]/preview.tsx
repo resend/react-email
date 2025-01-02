@@ -10,12 +10,15 @@ import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
+import type { Controls } from '../../../package';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
+
+  controls: Controls;
   serverRenderingResult: EmailRenderingResult;
 }
 
