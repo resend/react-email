@@ -5,6 +5,21 @@
   "bin": {
     "email": "./dist/cli/index.js"
   },
+  "main": "./dist/package/index.js",
+  "module": "./dist/package/index.mjs",
+  "types": "./dist/package/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/package/index.d.mts",
+        "default": "./dist/package/index.mjs"
+      },
+      "require": {
+        "types": "./dist/package/index.d.ts",
+        "default": "./dist/package/index.js"
+      }
+    }
+  },
   "scripts": {
     "build": "tsup-node && node build-preview-server.mjs",
     "dev": "tsup-node --watch",
