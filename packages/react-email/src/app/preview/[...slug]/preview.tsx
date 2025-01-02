@@ -17,12 +17,15 @@ import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import type { Controls } from '../../../package';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
+
+  controls: Controls;
   serverRenderingResult: EmailRenderingResult;
 }
 
