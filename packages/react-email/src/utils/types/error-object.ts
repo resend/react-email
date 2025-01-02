@@ -9,3 +9,12 @@ export interface ErrorObject {
   cause: unknown;
   message: string;
 }
+
+export const fromError = (error: Error): ErrorObject => {
+  return {
+    name: error.name,
+    message: error.message,
+    cause: error.cause,
+    stack: error.stack,
+  };
+};

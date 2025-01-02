@@ -1,0 +1,88 @@
+{
+  "name": "react-email-preview",
+  "displayName": "React Email",
+  "description": "A easy way to view the preview of a email made with react-email from your editor",
+  "version": "0.0.4",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": true,
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "publisher": "resend",
+  "categories": [
+    "Visualization"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "icon": "./icon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "react-email-preview.open",
+        "title": "Start live preview of email open"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "react-email-preview.open",
+        "key": "shift+ctrl+e",
+        "mac": "shift+cmd+e"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/visual-studio-code-extension"
+  },
+  "scripts": {
+    "publish": "vsce publish",
+    "package": "node ./prebuild.mjs && vsce package",
+    "vscode:prepublish": "pnpm build --minify",
+    "dev": "pnpm build --watch",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --tsconfig=./tsconfig.json --external:vscode --external:esbuild --format=cjs --platform=node",
+    "pretest": "pnpm build && pnpm lint",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@esbuild/android-arm": "0.19.12",
+    "@esbuild/android-arm64": "0.19.12",
+    "@esbuild/android-x64": "0.19.12",
+    "@esbuild/darwin-arm64": "0.19.12",
+    "@esbuild/darwin-x64": "0.19.12",
+    "@esbuild/freebsd-arm64": "0.19.12",
+    "@esbuild/freebsd-x64": "0.19.12",
+    "@esbuild/linux-arm": "0.19.12",
+    "@esbuild/linux-arm64": "0.19.12",
+    "@esbuild/linux-ia32": "0.19.12",
+    "@esbuild/linux-loong64": "0.19.12",
+    "@esbuild/linux-mips64el": "0.19.12",
+    "@esbuild/linux-ppc64": "0.19.12",
+    "@esbuild/linux-riscv64": "0.19.12",
+    "@esbuild/linux-s390x": "0.19.12",
+    "@esbuild/linux-x64": "0.19.12",
+    "@esbuild/netbsd-x64": "0.19.12",
+    "@esbuild/openbsd-x64": "0.19.12",
+    "@esbuild/sunos-x64": "0.19.12",
+    "@esbuild/win32-arm64": "0.19.12",
+    "@esbuild/win32-ia32": "0.19.12",
+    "@esbuild/win32-x64": "0.19.12",
+    "esbuild": "^0.19.12"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.83.0",
+    "@vscode/test-electron": "2.3.4",
+    "@vscode/vsce": "3.2.1",
+    "eslint-config-custom": "workspace:*",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "react-email": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "5.1.6"
+  }
+}
