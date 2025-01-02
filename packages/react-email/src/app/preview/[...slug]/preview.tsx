@@ -1,7 +1,8 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import type { RefObject } from 'react';
+import React, { useRef } from 'react';
 import { Toaster } from 'sonner';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
@@ -10,6 +11,7 @@ import { Tooltip } from '../../../components/tooltip';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import type { ControlsResult } from '../../../actions/get-email-controls';
 import type { Controls } from '../../../package';
 import { RenderingError } from './rendering-error';
 
@@ -18,7 +20,7 @@ interface PreviewProps {
   emailPath: string;
   pathSeparator: string;
 
-  controls: Controls;
+  controlsResult: ControlsResult;
   serverRenderingResult: EmailRenderingResult;
 }
 
@@ -26,6 +28,7 @@ const Preview = ({
   slug,
   emailPath,
   pathSeparator,
+  controlsResult,
   serverRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -34,6 +37,8 @@ const Preview = ({
 
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
+
+  const previewProps = useRef<Record<string, unknown>>({});
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
@@ -76,23 +81,29 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasErrors = 'error' in renderingResult;
 
   return (
     <Shell
-      activeView={hasNoErrors ? activeView : undefined}
+      activeView={hasErrors ? undefined : activeView}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
-      setActiveView={hasNoErrors ? handleViewChange : undefined}
+      setActiveView={hasErrors ? undefined : handleViewChange}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
-        ) : null}
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
 
-        {hasNoErrors ? (
+        {hasErrors ? null : (
+          <PreviewPropControls
+            controls={(controlsResult as { controls: Controls }).controls}
+            previewProps={previewProps}
+          />
+        )}
+
+        {/* If this is undefined means that the initial server render of the email had errors */}
+        {typeof renderedEmailMetadata !== 'undefined' ? (
           <>
             {activeView === 'desktop' && (
               <iframe
@@ -141,6 +152,15 @@ const Preview = ({
       </div>
     </Shell>
   );
+};
+
+interface PreviewPropControls {
+  previewProps: RefObject<Record<string, unknown>>;
+  controls: Controls;
+}
+
+const PreviewPropControls = (props: PreviewPropControls) => {
+  return <></>;
 };
 
 export default Preview;
