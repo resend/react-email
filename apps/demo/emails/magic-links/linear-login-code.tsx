@@ -11,11 +11,11 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components';
-import * as React from 'react';
+} from "@react-email/components";
+import { setupForPreview } from "react-email";
 
 interface LinearLoginCodeEmailProps {
-  validationCode?: string;
+  validationCode: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -57,9 +57,12 @@ export const LinearLoginCodeEmail = ({
   </Html>
 );
 
-LinearLoginCodeEmail.PreviewProps = {
-  validationCode: 'tt226-5398x',
-} as LinearLoginCodeEmailProps;
+setupForPreview(LinearLoginCodeEmail, {
+  validationCode: {
+    type: 'text',
+    defaultValue: 'tt226-5398x',
+  },
+});
 
 export default LinearLoginCodeEmail;
 
