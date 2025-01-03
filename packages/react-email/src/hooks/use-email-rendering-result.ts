@@ -1,6 +1,4 @@
-import path from 'node:path/posix';
-import type { RefObject } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   renderEmailByPath,
   type EmailRenderingResult,
