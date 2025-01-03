@@ -10,9 +10,10 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
+import { setupForPreview } from "react-email";
 
 interface PlaidVerifyIdentityEmailProps {
-  validationCode?: string;
+  validationCode: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -54,9 +55,12 @@ export const PlaidVerifyIdentityEmail = ({
   </Html>
 );
 
-PlaidVerifyIdentityEmail.PreviewProps = {
-  validationCode: "144833",
-} as PlaidVerifyIdentityEmailProps;
+setupForPreview(PlaidVerifyIdentityEmail, {
+  validationCode: {
+    type: "text",
+    defaultValue: "144833"
+  }
+});
 
 export default PlaidVerifyIdentityEmail;
 

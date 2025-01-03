@@ -13,9 +13,10 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
+import { setupForPreview } from "react-email/src/package";
 
 interface SlackConfirmEmailProps {
-  validationCode?: string;
+  validationCode: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -155,9 +156,12 @@ export const SlackConfirmEmail = ({
   </Html>
 );
 
-SlackConfirmEmail.PreviewProps = {
-  validationCode: "DJZ-TLX",
-} as SlackConfirmEmailProps;
+setupForPreview(SlackConfirmEmail, {
+  validationCode: {
+    type: "text",
+    defaultValue: "DJZ-TLX",
+  },
+});
 
 export default SlackConfirmEmail;
 

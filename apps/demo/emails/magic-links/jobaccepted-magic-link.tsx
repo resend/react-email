@@ -10,8 +10,13 @@ import {
   Text,
   Button,
 } from "@react-email/components";
+import { setupForPreview } from "react-email/src/package";
 
-const MagicCodeEmail = () => {
+interface MagicCodeEmailProps {
+  code: string;
+}
+
+const MagicCodeEmail = ({ code }: MagicCodeEmailProps) => {
   return (
     <Html>
       <Head />
@@ -25,7 +30,7 @@ const MagicCodeEmail = () => {
             This code will expire in 15 minutes.
           </Text>
           <Section style={codeContainer}>
-            <Heading style={codeStyle}>564873</Heading>
+            <Heading style={codeStyle}>{code}</Heading>
           </Section>
           <Section style={buttonContainer}>
             <Button href="https://www.jobaccepted.com/" style={button}>
@@ -45,6 +50,13 @@ const MagicCodeEmail = () => {
     </Html>
   );
 };
+
+setupForPreview(MagicCodeEmail, {
+  code: {
+    type: "text",
+    defaultValue: "544432"
+  }
+});
 
 export default MagicCodeEmail;
 
