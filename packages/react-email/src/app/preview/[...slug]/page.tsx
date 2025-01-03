@@ -2,6 +2,7 @@ import path from 'node:path';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { cookies } from 'next/headers';
+import { getPrerenderResumeDataCache } from 'next/dist/server/app-render/work-unit-async-storage.external';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
@@ -9,6 +10,7 @@ import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-
 import Home from '../../page';
 import { getEmailControls } from '../../../actions/get-email-controls';
 import type { Controls } from '../../../package';
+import { getPreviewProps } from '../../../actions/get-preview-props';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -51,11 +53,6 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     throw exception;
   }
 
-  const cookieStore = await cookies();
-
-  const previewPropsCoookieName = `preview-props-${params.slug.join('-')}`;
-  const previewPropsCookie = cookieStore.get(previewPropsCoookieName);
-
   const controlsResult = await getEmailControls(emailPath);
 
   if (
@@ -70,23 +67,10 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     });
   }
 
-  let previewProps: Record<string, unknown>;
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    previewProps = JSON.parse(previewPropsCookie!.value) as Record<
-      string,
-      unknown
-    >;
-  } catch (exception) {
-    previewProps = {};
-    if ('controls' in controlsResult) {
-      const { controls } = controlsResult;
-      for (const [key, control] of Object.entries(controls)) {
-        previewProps[key] = control?.defaultValue;
-      }
-      cookieStore.set(previewPropsCoookieName, JSON.stringify(previewProps));
-    }
-  }
+  const previewProps = await getPreviewProps(
+    slug,
+    'controls' in controlsResult ? controlsResult.controls : undefined,
+  );
 
   const serverEmailRenderingResult = await renderEmailByPath(
     emailPath,
@@ -112,9 +96,10 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     // client-side rendering on build
     <Suspense fallback={<Home />}>
       <Preview
-        controlsResult={controlsResult}
+        serverControlsResult={controlsResult}
         emailPath={emailPath}
         pathSeparator={path.sep}
+        previewProps={previewProps}
         serverRenderingResult={serverEmailRenderingResult}
         slug={slug}
       />

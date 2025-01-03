@@ -4,10 +4,10 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { cachedGetEmailComponent } from '../utils/cached-get-email-component';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -21,17 +21,11 @@ export type EmailRenderingResult =
       error: ErrorObject;
     };
 
-const cache = new Map<string, EmailRenderingResult>();
-
 export const renderEmailByPath = async (
   emailPath: string,
   props: object,
   invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
-  if (invalidatingCache) cache.delete(emailPath);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (cache.has(emailPath)) return cache.get(emailPath)!;
-
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
@@ -44,7 +38,10 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const componentResult = await getEmailComponent(emailPath);
+  const componentResult = await cachedGetEmailComponent(
+    emailPath,
+    invalidatingCache,
+  );
 
   if ('error' in componentResult) {
     spinner?.stopAndPersist({
@@ -66,12 +63,9 @@ export const renderEmailByPath = async (
     const markup = await render(createElement(EmailComponent, props), {
       pretty: true,
     });
-    const plainText = await render(
-      createElement(EmailComponent, props),
-      {
-        plainText: true,
-      },
-    );
+    const plainText = await render(createElement(EmailComponent, props), {
+      plainText: true,
+    });
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
@@ -89,7 +83,7 @@ export const renderEmailByPath = async (
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
-    const renderingResult = {
+    return {
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
@@ -97,10 +91,6 @@ export const renderEmailByPath = async (
       plainText,
       reactMarkup,
     };
-
-    cache.set(emailPath, renderingResult);
-
-    return renderingResult;
   } catch (exception) {
     const error = exception as Error;
 

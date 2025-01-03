@@ -1,4 +1,4 @@
-type Control<ValueType> =
+export type Control<ValueType> =
   | {
     type: 'number';
     defaultValue: ValueType;
@@ -20,7 +20,7 @@ type Control<ValueType> =
 type SafeControl<ValueType> = ValueType extends string
   ? Control<ValueType> & { type: 'email' | 'text' | 'select' }
   : ValueType extends number
-  ? Control<ValueType> & { type: 'number' | 'select' }
+  ? Control<ValueType> & { type: 'number' }
   : ValueType extends boolean
   ? Control<ValueType> & { type: 'checkbox' }
   : Control<ValueType>;
