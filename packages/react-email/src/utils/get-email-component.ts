@@ -11,20 +11,21 @@ import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
+export type GetEmailComponentResult =
+  | {
+    emailComponent: EmailComponent;
+
+    createElement: typeof React.createElement;
+
+    render: typeof render;
+
+    sourceMapToOriginalFile: RawSourceMap;
+  }
+  | { error: ErrorObject };
+
 export const getEmailComponent = async (
   emailPath: string,
-): Promise<
-  | {
-      emailComponent: EmailComponent;
-
-      createElement: typeof React.createElement;
-
-      render: typeof render;
-
-      sourceMapToOriginalFile: RawSourceMap;
-    }
-  | { error: ErrorObject }
-> => {
+): Promise<GetEmailComponentResult> => {
   let outputFiles: OutputFile[];
   try {
     const buildData = await build({
