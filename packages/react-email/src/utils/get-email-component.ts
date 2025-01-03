@@ -11,20 +11,21 @@ import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 
+export type GetEmailComponentResult =
+  | {
+    emailComponent: EmailComponent;
+
+    createElement: typeof React.createElement;
+
+    render: typeof render;
+
+    sourceMapToOriginalFile: RawSourceMap;
+  }
+  | { error: ErrorObject };
+
 export const getEmailComponent = async (
   emailPath: string,
-): Promise<
-  | {
-      emailComponent: EmailComponent;
-
-      createElement: typeof React.createElement;
-
-      render: typeof render;
-
-      sourceMapToOriginalFile: RawSourceMap;
-    }
-  | { error: ErrorObject }
-> => {
+): Promise<GetEmailComponentResult> => {
   let outputFiles: OutputFile[];
   try {
     const buildData = await build({

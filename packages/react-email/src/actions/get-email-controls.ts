@@ -1,15 +1,16 @@
 'use server';
 
 import type { Controls } from '../package';
-import { getEmailComponent } from '../utils/get-email-component';
+import { cachedGetEmailComponent } from '../utils/cached-get-email-component';
 import type { ErrorObject } from '../utils/types/error-object';
 
 export type ControlsResult = { error: ErrorObject } | { controls: Controls };
 
 export const getEmailControls = async (
   emailPath: string,
+  invalidatingCache = false,
 ): Promise<ControlsResult> => {
-  const result = await getEmailComponent(emailPath);
+  const result = await cachedGetEmailComponent(emailPath, invalidatingCache);
   if ('error' in result) {
     return { error: result.error };
   }
