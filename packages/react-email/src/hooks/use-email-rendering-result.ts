@@ -3,6 +3,7 @@ import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
   renderEmailByPath,
+  invalidateRenderingCache,
 } from '../actions/render-email-by-path';
 import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
 import { useHotreload } from './use-hot-reload';
@@ -29,7 +30,10 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);
 
-        await invalidateEmailComponentCache(pathForChangedEmail);
+        await Promise.all([
+          invalidateEmailComponentCache(pathForChangedEmail),
+          invalidateRenderingCache(pathForChangedEmail),
+        ]);
 
         if (pathForChangedEmail === emailPath) {
           setRenderingResult(

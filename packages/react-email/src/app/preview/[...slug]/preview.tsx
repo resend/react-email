@@ -136,7 +136,7 @@ const Preview = ({
 
               debouncedUpdatePreviewProps(newPreviewProps);
 
-              renderEmailByPath(emailPath, newPreviewProps)
+              renderEmailByPath(emailPath, newPreviewProps, true)
                 .then((newRenderingResult) => {
                   setRenderingResult(newRenderingResult);
                 })
