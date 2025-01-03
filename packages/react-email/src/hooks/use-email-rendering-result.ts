@@ -1,8 +1,10 @@
+import path from 'node:path/posix';
 import type { RefObject } from 'react';
 import { useEffect, useState } from 'react';
 import {
   renderEmailByPath,
   type EmailRenderingResult,
+  invalidateRenderingCache,
 } from '../actions/render-email-by-path';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
@@ -30,7 +32,10 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);
 
-        await invalidateEmailComponentCache(pathForChangedEmail);
+        await Promise.all([
+          invalidateEmailComponentCache(pathForChangedEmail),
+          invalidateRenderingCache(pathForChangedEmail),
+        ]);
 
         if (pathForChangedEmail === emailPath) {
           setRenderingResult(

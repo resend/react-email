@@ -1,15 +1,12 @@
 import path from 'node:path';
 import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { getPrerenderResumeDataCache } from 'next/dist/server/app-render/work-unit-async-storage.external';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getEmailsDirectoryMetadata } from '../../../actions/get-emails-directory-metadata';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import Home from '../../page';
 import { getEmailControls } from '../../../actions/get-email-controls';
-import type { Controls } from '../../../package';
 import { getPreviewProps } from '../../../actions/get-preview-props';
 import Preview from './preview';
 
