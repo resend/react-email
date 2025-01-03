@@ -21,9 +21,16 @@ export type EmailRenderingResult =
       error: ErrorObject;
     };
 
+const cache = new Map<string, EmailRenderingResult>();
+
 export const renderEmailByPath = async (
   emailPath: string,
+  invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
+  if (invalidatingCache) cache.delete(emailPath);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  if (cache.has(emailPath)) return cache.get(emailPath)!;
+
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
@@ -36,14 +43,14 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const result = await getEmailComponent(emailPath);
+  const componentResult = await getEmailComponent(emailPath);
 
-  if ('error' in result) {
+  if ('error' in componentResult) {
     spinner?.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    return { error: result.error };
+    return { error: componentResult.error };
   }
 
   const {
@@ -51,7 +58,7 @@ export const renderEmailByPath = async (
     createElement,
     render,
     sourceMapToOriginalFile,
-  } = result;
+  } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
@@ -82,7 +89,7 @@ export const renderEmailByPath = async (
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
-    return {
+    const renderingResult = {
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
@@ -90,6 +97,10 @@ export const renderEmailByPath = async (
       plainText,
       reactMarkup,
     };
+
+    cache.set(emailPath, renderingResult);
+
+    return renderingResult;
   } catch (exception) {
     const error = exception as Error;
 
