@@ -2,7 +2,7 @@ import { getEmailComponent, type GetEmailComponentResult } from './get-email-com
 
 export const componentCache = new Map<string, GetEmailComponentResult>();
 
-export const cachedGetEmailComponent = (
+export const cachedGetEmailComponent = async (
   emailPath: string,
   invalidatingCache = false,
 ) => {
@@ -10,5 +10,9 @@ export const cachedGetEmailComponent = (
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   if (componentCache.has(emailPath)) return componentCache.get(emailPath)!;
 
-  return getEmailComponent(emailPath);
+  const result = await getEmailComponent(emailPath);
+
+  componentCache.set(emailPath, result);
+
+  return result;
 };
