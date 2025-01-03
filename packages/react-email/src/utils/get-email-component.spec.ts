@@ -32,7 +32,7 @@ describe('getEmailComponent()', () => {
       const emailHtml = await result.render(
         result.createElement(
           result.emailComponent,
-          result.emailComponent.PreviewProps,
+          {},
         ),
       );
       expect(emailHtml).toMatchSnapshot();
