@@ -49,25 +49,25 @@ export const renderEmailByPath = async (
   if (renderingResultCache.has(emailPath))
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return renderingResultCache.get(emailPath)!;
-  //const timeBeforeEmailRendered = performance.now();
+  const timeBeforeEmailRendered = performance.now();
 
-  //const emailFilename = path.basename(emailPath);
-  //let spinner: ora.Ora | undefined;
-  //if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-  //  spinner = ora({
-  //    text: `Rendering email template ${emailFilename}\n`,
-  //    prefixText: ' ',
-  //  }).start();
-  //  registerSpinnerAutostopping(spinner);
-  //}
+  const emailFilename = path.basename(emailPath);
+  let spinner: ora.Ora | undefined;
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+    spinner = ora({
+      text: `Rendering email template ${emailFilename}\n`,
+      prefixText: ' ',
+    }).start();
+    registerSpinnerAutostopping(spinner);
+  }
 
   const componentResult = await cachedGetEmailComponent(emailPath, invalidatingComponentCache);
 
   if ('error' in componentResult) {
-    //spinner?.stopAndPersist({
-    //  symbol: logSymbols.error,
-    //  text: `Failed while rendering ${emailFilename}`,
-    //});
+    spinner?.stopAndPersist({
+      symbol: logSymbols.error,
+      text: `Failed while rendering ${emailFilename}`,
+    });
     return { error: componentResult.error };
   }
 
@@ -89,19 +89,19 @@ export const renderEmailByPath = async (
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
-    //const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
-    //let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
-    //if (milisecondsToRendered <= 450) {
-    //  timeForConsole = chalk.green(timeForConsole);
-    //} else if (milisecondsToRendered <= 1000) {
-    //  timeForConsole = chalk.yellow(timeForConsole);
-    //} else {
-    //  timeForConsole = chalk.red(timeForConsole);
-    //}
-    //spinner?.stopAndPersist({
-    //  symbol: logSymbols.success,
-    //  text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
-    //});
+    const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
+    let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
+    if (milisecondsToRendered <= 450) {
+      timeForConsole = chalk.green(timeForConsole);
+    } else if (milisecondsToRendered <= 1000) {
+      timeForConsole = chalk.yellow(timeForConsole);
+    } else {
+      timeForConsole = chalk.red(timeForConsole);
+    }
+    spinner?.stopAndPersist({
+      symbol: logSymbols.success,
+      text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
+    });
 
     const renderingResult = {
       // This ensures that no null byte character ends up in the rendered
@@ -118,10 +118,10 @@ export const renderEmailByPath = async (
   } catch (exception) {
     const error = exception as Error;
 
-    //spinner?.stopAndPersist({
-    //  symbol: logSymbols.error,
-    //  text: `Failed while rendering ${emailFilename}`,
-    //});
+    spinner?.stopAndPersist({
+      symbol: logSymbols.error,
+      text: `Failed while rendering ${emailFilename}`,
+    });
 
     return {
       error: improveErrorWithSourceMap(
