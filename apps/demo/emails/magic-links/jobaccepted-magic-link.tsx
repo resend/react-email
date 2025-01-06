@@ -10,7 +10,7 @@ import {
   Text,
   Button,
 } from "@react-email/components";
-import { setupForPreview } from "react-email/src/package";
+import { setupForPreview } from "react-email";
 
 interface MagicCodeEmailProps {
   code: string;
