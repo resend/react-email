@@ -1,5 +1,4 @@
 'use server';
-import fs from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
