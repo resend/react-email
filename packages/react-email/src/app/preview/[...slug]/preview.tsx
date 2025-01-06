@@ -1,19 +1,16 @@
 'use client';
 
-import * as Checkbox from '@radix-ui/react-checkbox';
-import * as Select from '@radix-ui/react-select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { ControlsResult } from '../../../actions/get-email-controls';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
-import { renderEmailByPath } from '../../../actions/render-email-by-path';
+import {
+  type EmailRenderingResult,
+  renderEmailByPath,
+} from '../../../actions/render-email-by-path';
 import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
-import { IconArrowDown } from '../../../components/icons/icon-arrow-down';
-import { IconCheck } from '../../../components/icons/icon-check';
 import {
   ResizableWarpper,
   makeIframeDocumentBubbleEvents,
@@ -25,8 +22,9 @@ import { useEmailControls } from '../../../hooks/use-email-controls';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import type { Controls } from '../../../package';
 import { RenderingError } from './rendering-error';
+import { flushSync } from 'react-dom';
+import { PreviewPropControls } from '../../../components/preview-prop-controls';
 
 interface PreviewProps {
   slug: string;
@@ -199,7 +197,7 @@ const Preview = ({
               debouncedUpdatePreviewProps(newPreviewProps);
 
               renderEmailByPath(emailPath, newPreviewProps, {
-                invalidatingRenderingCache: true
+                invalidatingRenderingCache: true,
               })
                 .then((newRenderingResult) => {
                   setRenderingResult(newRenderingResult);
@@ -290,119 +288,6 @@ const Preview = ({
         <Toaster />
       </div>
     </Shell>
-  );
-};
-
-interface PreviewPropControls {
-  previewProps: Record<string, unknown>;
-  onValueChange: (key: string, newValue: unknown) => void;
-  controls: Controls;
-}
-
-const PreviewPropControls = ({
-  previewProps,
-  onValueChange,
-  controls,
-}: PreviewPropControls) => {
-  return (
-    <div className="fixed bottom-0 left-0 grid h-40 w-full grid-cols-1 gap-3 border-t border-t-slate-9 border-solid bg-black px-3 py-2 md:grid-cols-3 lg:grid-cols-4">
-      {Object.entries(controls).map(([key, control]) => {
-        if (control) {
-          const fieldId = `${key}-${control.type}`;
-          const value = previewProps[key];
-
-          switch (control.type) {
-            case 'text':
-            case 'email':
-            case 'number':
-              return (
-                <div key={fieldId}>
-                  <label
-                    className="mb-2 block text-slate-10 text-sm"
-                    htmlFor={fieldId}
-                  >
-                    {key}
-                  </label>
-                  <input
-                    className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-slate-12 text-sm placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
-                    data-1p-ignore
-                    id={fieldId}
-                    onChange={(event) => {
-                      onValueChange(key, event.currentTarget.value);
-                    }}
-                    type={control.type}
-                    value={value as string}
-                  />
-                </div>
-              );
-            case 'select':
-              return (
-                <div key={fieldId}>
-                  <label
-                    className="mb-2 block text-slate-10 text-sm"
-                    htmlFor={fieldId}
-                  >
-                    {key}
-                  </label>
-                  <Select.Root
-                    onValueChange={(newValue) => {
-                      onValueChange(key, newValue);
-                    }}
-                    value={value as string}
-                  >
-                    <Select.Trigger id={fieldId}>
-                      <Select.Value />
-                      <Select.Icon>
-                        <IconArrowDown />
-                      </Select.Icon>
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Content>
-                        <Select.Viewport>
-                          {control.options.map((option) => (
-                            <Select.Item
-                              key={option.name}
-                              value={option.value as string}
-                            >
-                              <Select.ItemText>{option.name}</Select.ItemText>
-                              <Select.ItemIndicator>
-                                <IconCheck />
-                              </Select.ItemIndicator>
-                            </Select.Item>
-                          ))}
-                        </Select.Viewport>
-                      </Select.Content>
-                    </Select.Portal>
-                  </Select.Root>
-                </div>
-              );
-            case 'checkbox':
-              return (
-                <div key={fieldId}>
-                  <Checkbox.Root
-                    checked={value as boolean}
-                    id={fieldId}
-                    onCheckedChange={(newValue) => {
-                      onValueChange(key, newValue);
-                    }}
-                  >
-                    <Checkbox.Indicator>
-                      <IconCheck />
-                    </Checkbox.Indicator>
-                  </Checkbox.Root>
-                  <label
-                    className="mb-2 block text-slate-10 text-sm"
-                    htmlFor={fieldId}
-                  >
-                    {key}
-                  </label>
-                </div>
-              );
-          }
-        }
-        return null;
-      })}
-    </div>
   );
 };
 
