@@ -12,7 +12,7 @@ import {
   Text,
 } from "@react-email/components";
 import * as React from "react";
-import { setupForPreview } from "react-email/src/package";
+import { setupForPreview } from "react-email";
 
 interface RaycastMagicLinkEmailProps {
   magicLink: string;
