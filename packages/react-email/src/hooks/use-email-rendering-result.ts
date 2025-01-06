@@ -4,6 +4,7 @@ import {
   type EmailRenderingResult,
   renderEmailByPath,
   invalidateRenderingCache,
+  invalidateComponentCache,
 } from '../actions/render-email-by-path';
 import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
 import { useHotreload } from './use-hot-reload';
@@ -31,13 +32,16 @@ export const useEmailRenderingResult = (
           await getEmailPathFromSlug(slugForChangedEmail);
 
         await Promise.all([
-          invalidateEmailComponentCache(pathForChangedEmail),
+          invalidateComponentCache(pathForChangedEmail),
           invalidateRenderingCache(pathForChangedEmail),
         ]);
 
         if (pathForChangedEmail === emailPath) {
           setRenderingResult(
-            await renderEmailByPath(pathForChangedEmail, previewProps, true),
+            await renderEmailByPath(pathForChangedEmail, previewProps, {
+              invalidatingComponentCache: true,
+              invalidatingRenderingCache: true
+            }),
           );
         }
       }
