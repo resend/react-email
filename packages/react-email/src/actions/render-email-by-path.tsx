@@ -52,19 +52,17 @@ export const renderEmailByPath = async (
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
-  let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    spinner = ora({
-      text: `Rendering email template ${emailFilename}\n`,
-      prefixText: ' ',
-    }).start();
-    registerSpinnerAutostopping(spinner);
-  }
+
+  const spinner = ora({
+    text: `Rendering email template ${emailFilename}\n`,
+    prefixText: ' ',
+  }).start();
+  registerSpinnerAutostopping(spinner);
 
   const componentResult = await cachedGetEmailComponent(emailPath, invalidatingComponentCache);
 
   if ('error' in componentResult) {
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
@@ -75,6 +73,7 @@ export const renderEmailByPath = async (
     emailComponent: Email,
     createElement,
     render,
+    fileContents: reactMarkup,
     sourceMapToOriginalFile,
   } = componentResult;
 
@@ -87,8 +86,6 @@ export const renderEmailByPath = async (
       plainText: true,
     });
 
-    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
-
     const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
     if (milisecondsToRendered <= 450) {
@@ -98,7 +95,7 @@ export const renderEmailByPath = async (
     } else {
       timeForConsole = chalk.red(timeForConsole);
     }
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
@@ -118,7 +115,7 @@ export const renderEmailByPath = async (
   } catch (exception) {
     const error = exception as Error;
 
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
