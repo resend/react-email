@@ -1,5 +1,11 @@
 # react-email-with-nodemailer
 
+## 1.0.7
+
+### Patch Changes
+
+- @react-email/components@0.0.32
+
 ## 1.0.6
 
 ### Patch Changes

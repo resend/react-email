@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.4
+
+### Patch Changes
+
+- 1ff196a: Update prettier dependency.
+
 ## 1.0.3
 
 ### Patch Changes

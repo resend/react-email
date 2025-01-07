@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.5
+
+### Patch Changes
+
+- 7337d04: Fix emails being re-rendered each time there is navigation in the preview server
+
 ## 3.0.4
 
 ### Patch Changes
