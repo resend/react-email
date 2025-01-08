@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup-node",
-    "dev": "tsup-node --watch",
+    "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
+    "dev": "vite build --watch",
     "clean": "rm -rf dist",
     "lint": "eslint .",
     "test:watch": "vitest",
@@ -56,22 +56,23 @@
     "@react-email/render": "workspace:*",
     "@responsive-email/react-email": "0.0.3",
     "@types/shelljs": "0.8.15",
+    "@vitejs/plugin-react": "4.2.1",
     "eslint-config-custom": "workspace:*",
     "eslint-plugin-regex": "1.10.0",
-    "postcss": "workspace:patched-postcss@8.4.40",
-    "postcss-selector-parser": "workspace:patched-postcss-selector-parser@6.0.16",
+    "postcss": "8.4.40",
+    "postcss-selector-parser": "6.0.16",
     "react-dom": "^19",
     "shelljs": "0.8.5",
-    "tailwindcss": "workspace:patched-tailwindcss@3.4.10",
+    "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
+    "vite": "5.2.14",
+    "vite-plugin-dts": "4.2.4",
+    "vitest": "1.1.1",
     "yalc": "1.0.0-pre.53"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "uuid": "11.0.3"
   }
 }
