@@ -50,9 +50,6 @@ importers:
 
   apps/demo:
     dependencies:
-      '@react-email/components':
-        specifier: workspace:*
-        version: link:../../packages/components
       react:
         specifier: ^19
         version: 19.0.0
