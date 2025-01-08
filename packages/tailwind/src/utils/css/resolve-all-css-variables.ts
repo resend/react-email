@@ -1,19 +1,45 @@
 import type { Node, Root } from "postcss";
 import Declaration from "postcss/lib/declaration";
 import Rule from "postcss/lib/rule";
-import AtRule from "postcss/lib/at-rule";
+import type AtRule from "postcss/lib/at-rule";
 import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
 
-const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
-  if (first instanceof Rule && second instanceof Rule) {
+const isRule = (node: Node | undefined): node is Rule => {
+  return node?.type === "rule";
+};
+
+const isAtRule = (node: Node | undefined): node is AtRule => {
+  return node?.type === "atrule";
+};
+
+const doesNodeShareVariableWith = (
+  node: Node | undefined,
+  nodeToShareWith: Node | undefined,
+) => {
+  if (isRule(node) && isRule(nodeToShareWith)) {
     return (
-      first.selector === second.selector ||
-      second.selector.includes("*") ||
-      second.selector.includes(":root")
+      node.selector === nodeToShareWith.selector ||
+      node.selector.includes("*") ||
+      node.selector.includes(":root")
     );
   }
 
-  return first === second;
+  return node === nodeToShareWith;
+};
+
+const findVariableDeclarations = (root: Root, rule: Rule, variable: string) => {
+  const variableDeclarations = new Set<Declaration>();
+  root.walkDecls((declaration) => {
+    if (/--[^\s]+/.test(declaration.prop)) {
+      if (
+        `var(${declaration.prop})` === variable &&
+        doesNodeShareVariableWith(declaration.parent, rule)
+      ) {
+        variableDeclarations.add(declaration);
+      }
+    }
+  });
+  return variableDeclarations;
 };
 
 export const resolveAllCSSVariables = (root: Root) => {
@@ -24,53 +50,59 @@ export const resolveAllCSSVariables = (root: Root) => {
       newValue: string;
     }>();
 
-    rule.walkDecls((decl) => {
-      if (/var\(--[^\s)]+\)/.test(decl.value)) {
+    rule.walkDecls((declaration) => {
+      if (/var\(--[^\s)]+\)/.test(declaration.value)) {
         /**
          * @example ['var(--width)', 'var(--length)']
          */
-        const variablesUsed = /var\(--[^\s)]+\)/gm.exec(decl.value);
-        root.walkDecls((otherDecl) => {
-          if (/--[^\s]+/.test(otherDecl.prop)) {
-            const variable = `var(${otherDecl.prop})`;
+        const variablesUsed = [
+          ...(/var\(--[^\s)]+\)/gm.exec(declaration.value) ?? []),
+        ];
+        for (const variableUsed of variablesUsed) {
+          const variableDeclarations = findVariableDeclarations(
+            root,
+            rule,
+            variableUsed,
+          );
+
+          for (const variableDeclaration of variableDeclarations) {
             if (
-              variablesUsed &&
-              variablesUsed.includes(variable) &&
-              doNodesMatch(decl.parent, otherDecl.parent)
+              variableDeclaration.parent &&
+              isAtRule(variableDeclaration.parent.parent) &&
+              variableDeclaration.parent !== rule
             ) {
-              if (
-                otherDecl.parent?.parent instanceof AtRule &&
-                otherDecl.parent !== decl.parent
-              ) {
-                const atRule = otherDecl.parent.parent;
+              const atRule = variableDeclaration.parent.parent;
 
-                const clonedDeclaration = new Declaration();
-                clonedDeclaration.prop = decl.prop;
-                clonedDeclaration.value = decl.value.replaceAll(
-                  variable,
-                  otherDecl.value,
+              const declarationWithoutVariable = new Declaration({
+                important: declaration.important,
+                prop: declaration.prop,
+                value: declaration.value.replaceAll(
+                  variableUsed,
+                  variableDeclaration.value,
+                ),
+              });
+
+              const declarationForAtRule = declarationsForAtRules.get(atRule);
+              if (declarationForAtRule) {
+                declarationForAtRule.add(declarationWithoutVariable);
+              } else {
+                declarationsForAtRules.set(
+                  atRule,
+                  new Set([declarationWithoutVariable]),
                 );
-                clonedDeclaration.important = decl.important;
-
-                const declarationForAtRule = declarationsForAtRules.get(atRule);
-                if (declarationForAtRule) {
-                  declarationForAtRule.add(clonedDeclaration);
-                } else {
-                  declarationsForAtRules.set(
-                    otherDecl.parent.parent,
-                    new Set([clonedDeclaration]),
-                  );
-                }
-                return;
               }
-
+              break;
+            } else {
               valueReplacingInformation.add({
-                declaration: decl,
-                newValue: decl.value.replaceAll(variable, otherDecl.value),
+                declaration,
+                newValue: declaration.value.replaceAll(
+                  variableUsed,
+                  variableDeclaration.value,
+                ),
               });
             }
           }
-        });
+        }
       }
     });
 
@@ -79,10 +111,11 @@ export const resolveAllCSSVariables = (root: Root) => {
     }
 
     for (const [atRule, declarations] of declarationsForAtRules.entries()) {
-      const equivalentRule = new Rule();
-      equivalentRule.selector = rule.selector;
-      equivalentRule.append(...declarations);
-
+      const equivalentRule = new Rule({
+        selector: rule.selector,
+        selectors: rule.selectors,
+        nodes: [...declarations]
+      });
       atRule.append(equivalentRule);
     }
   });
