@@ -9,8 +9,18 @@ export default defineConfig([
   },
   {
     dts: true,
-    entry: ['./src/package/index.ts'],
+    entry: ['./src/package/index.browser.ts'],
+    target: "chrome",
+    noExternal: [/@react-email\/.*/],
     format: ['cjs', 'esm'],
-    outDir: 'dist',
+    outDir: 'dist/browser',
+  },
+  {
+    dts: true,
+    entry: ['./src/package/index.node.ts'],
+    target: "node",
+    noExternal: [/@react-email\/.*/],
+    format: ['cjs', 'esm'],
+    outDir: 'dist/node',
   },
 ]);
