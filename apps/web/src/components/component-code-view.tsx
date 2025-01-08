@@ -1,9 +1,3 @@
-import type {
-  CodeVariant,
-  ImportedComponent,
-} from "@/app/components/get-imported-components-for";
-import { useStoredState } from "@/hooks/use-stored-state";
-import { convertUrisIntoUrls } from "@/utils/convert-uris-into-urls";
 import * as Select from "@radix-ui/react-select";
 import * as Tabs from "@radix-ui/react-tabs";
 import {
@@ -13,10 +7,16 @@ import {
   ClipboardIcon,
 } from "lucide-react";
 import * as React from "react";
-import { CodeBlock } from "./code-block";
-import { TabTrigger } from "./tab-trigger";
 import * as allReactEmailComponents from "@react-email/components";
 import * as allReactResponsiveComponents from "@responsive-email/react-email";
+import { convertUrisIntoUrls } from "@/utils/convert-uris-into-urls";
+import { useStoredState } from "@/hooks/use-stored-state";
+import type {
+  CodeVariant,
+  ImportedComponent,
+} from "@/app/components/get-imported-components-for";
+import { TabTrigger } from "./tab-trigger";
+import { CodeBlock } from "./code-block";
 
 type ReactCodeVariant = Exclude<CodeVariant, "html" | "react">;
 
