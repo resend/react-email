@@ -1,9 +1,9 @@
-import { render } from "@react-email/components";
+import { render } from "react-email";
 import { VercelInviteUserEmail } from "../emails/vercel-invite-user";
 
-function App() {
-  const emailHtml = render(<VercelInviteUserEmail />);
+const emailHtml = await render(<VercelInviteUserEmail />);
 
+function App() {
   return <div dangerouslySetInnerHTML={{ __html: emailHtml }} />;
 }
 

@@ -13,8 +13,8 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
+  Tailwind
+} from "react-email";
 
 interface VercelInviteUserEmailProps {
   username?: string;

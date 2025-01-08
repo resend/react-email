@@ -7,19 +7,17 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preinstall:tailwind": "cd ../../ && turbo build && yalc installations clean @react-email/tailwind && yalc publish",
-    "preinstall": "npm run preinstall:tailwind && yalc add @react-email/tailwind",
+    "preinstall": "yalc add react-email",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-email/components": "^0.0.15",
-    "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-email": "file:.yalc/react-email",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",

@@ -4,6 +4,10 @@
     "@react-email/tailwind": {
       "signature": "86a570b2a24d64b489e56e4aa862fcec",
       "file": true
+    },
+    "react-email": {
+      "signature": "a9e6d0ee12f70c93b7f520664410b854",
+      "file": true
     }
   }
 }
