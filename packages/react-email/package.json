@@ -5,7 +5,6 @@
   "bin": {
     "email": "./dist/cli/index.js"
   },
-  "sideEffects": false,
   "main": "./dist/index.browser.js",
   "module": "./dist/index.browser.mjs",
   "types": "./dist/index.browser.d.ts",

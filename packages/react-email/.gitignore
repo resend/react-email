@@ -1,6 +1,7 @@
 node_modules
 .next
 cli
+yalc.lock
 !src/cli
 
 # for testing
