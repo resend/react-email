@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build:preview": "node ./scripts/build-preview-server.mjs",
-    "build:tsup": "tsup-node",
+    "build:tsup": "node --max-old-space-size=8192 ./node_modules/tsup/dist/cli-node.js",
     "build:package": "pnpm build:tsup && node ./scripts/adjust-package-index.mjs",
     "build": "pnpm build:package && pnpm build:preview",
     "dev": "pnpm build:tsup --watch",
