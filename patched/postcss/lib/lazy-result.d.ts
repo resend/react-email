@@ -1,13 +1,13 @@
-import Document from './document.js'
-import { SourceMap } from './postcss.js'
-import Processor from './processor.js'
-import Result, { Message, ResultOptions } from './result.js'
-import Root from './root.js'
-import Warning from './warning.js'
+import Document from "./document.js";
+import { SourceMap } from "./postcss.js";
+import Processor from "./processor.js";
+import Result, { Message, ResultOptions } from "./result.js";
+import Root from "./root.js";
+import Warning from "./warning.js";
 
 declare namespace LazyResult {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { LazyResult_ as default }
+  export { LazyResult_ as default };
 }
 
 /**
@@ -36,7 +36,7 @@ declare class LazyResult_<RootNode = Document | Root>
    * })
    * ```
    */
-  catch: Promise<Result<RootNode>>['catch']
+  catch: Promise<Result<RootNode>>["catch"];
 
   /**
    * Processes input CSS through synchronous and asynchronous plugins
@@ -50,7 +50,7 @@ declare class LazyResult_<RootNode = Document | Root>
    * })
    * ```
    */
-  finally: Promise<Result<RootNode>>['finally']
+  finally: Promise<Result<RootNode>>["finally"];
 
   /**
    * Processes input CSS through synchronous and asynchronous plugins
@@ -65,28 +65,28 @@ declare class LazyResult_<RootNode = Document | Root>
    * })
    * ```
    */
-  then: Promise<Result<RootNode>>['then']
+  then: Promise<Result<RootNode>>["then"];
 
   /**
    * @param processor Processor used for this transformation.
    * @param css       CSS to parse and transform.
    * @param opts      Options from the `Processor#process` or `Root#toResult`.
    */
-  constructor(processor: Processor, css: string, opts: ResultOptions)
+  constructor(processor: Processor, css: string, opts: ResultOptions);
 
   /**
    * Run plugin in async way and return `Result`.
    *
    * @return Result with output content.
    */
-  async(): Promise<Result<RootNode>>
+  async(): Promise<Result<RootNode>>;
 
   /**
    * Run plugin in sync way and return `Result`.
    *
    * @return Result with output content.
    */
-  sync(): Result<RootNode>
+  sync(): Result<RootNode>;
 
   /**
    * Alias for the `LazyResult#css` property.
@@ -97,7 +97,7 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * @return Output CSS.
    */
-  toString(): string
+  toString(): string;
 
   /**
    * Processes input CSS through synchronous plugins
@@ -105,7 +105,7 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * @return Warnings from plugins.
    */
-  warnings(): Warning[]
+  warnings(): Warning[];
 
   /**
    * An alias for the `css` property. Use it with syntaxes
@@ -117,7 +117,7 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * PostCSS runners should always use `LazyResult#then`.
    */
-  get content(): string
+  get content(): string;
 
   /**
    * Processes input CSS through synchronous plugins, converts `Root`
@@ -129,7 +129,7 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * PostCSS runners should always use `LazyResult#then`.
    */
-  get css(): string
+  get css(): string;
 
   /**
    * Processes input CSS through synchronous plugins
@@ -141,7 +141,7 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * PostCSS runners should always use `LazyResult#then`.
    */
-  get map(): SourceMap
+  get map(): SourceMap;
 
   /**
    * Processes input CSS through synchronous plugins
@@ -152,18 +152,18 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * PostCSS runners should always use `LazyResult#then`.
    */
-  get messages(): Message[]
+  get messages(): Message[];
 
   /**
    * Options from the `Processor#process` call.
    */
-  get opts(): ResultOptions
+  get opts(): ResultOptions;
 
   /**
    * Returns a `Processor` instance, which will be used
    * for CSS transformations.
    */
-  get processor(): Processor
+  get processor(): Processor;
 
   /**
    * Processes input CSS through synchronous plugins
@@ -174,17 +174,17 @@ declare class LazyResult_<RootNode = Document | Root>
    *
    * PostCSS runners should always use `LazyResult#then`.
    */
-  get root(): RootNode
+  get root(): RootNode;
 
   /**
    * Returns the default string description of an object.
    * Required to implement the Promise interface.
    */
-  get [Symbol.toStringTag](): string
+  get [Symbol.toStringTag](): string;
 }
 
 declare class LazyResult<
-  RootNode = Document | Root
+  RootNode = Document | Root,
 > extends LazyResult_<RootNode> {}
 
-export = LazyResult
+export = LazyResult;

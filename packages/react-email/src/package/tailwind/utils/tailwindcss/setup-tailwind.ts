@@ -1,17 +1,17 @@
-import type { Rule } from "patched-postcss";
-import parse from "patched-postcss/lib/parse";
-import evaluateTailwindFunctions from "patched-tailwindcss/lib/lib/evaluateTailwindFunctions";
-import expandApplyAtRules from "patched-tailwindcss/lib/lib/expandApplyAtRules";
-import resolveDefaultsAtRules from "patched-tailwindcss/lib/lib/resolveDefaultsAtRules";
-import { generateRules as rawGenerateRules } from "patched-tailwindcss/lib/lib/generateRules";
-import expandTailwindAtRules from "patched-tailwindcss/lib/lib/expandTailwindAtRules";
-import partitionApplyAtRules from "patched-tailwindcss/lib/lib/partitionApplyAtRules";
-import substituteScreenAtRules from "patched-tailwindcss/lib/lib/substituteScreenAtRules";
-import collapseAdjacentRules from "patched-tailwindcss/lib/lib/collapseAdjacentRules";
-import collapseDuplicateDeclarations from "patched-tailwindcss/lib/lib/collapseDuplicateDeclarations";
-import type { TailwindConfig } from "../../tailwind";
-import { resolveAllCSSVariables } from "../css/resolve-all-css-variables";
-import { setupTailwindContext } from "./setup-tailwind-context";
+import type { Rule } from 'patched-postcss';
+import parse from 'patched-postcss/lib/parse';
+import evaluateTailwindFunctions from 'patched-tailwindcss/lib/lib/evaluateTailwindFunctions';
+import expandApplyAtRules from 'patched-tailwindcss/lib/lib/expandApplyAtRules';
+import resolveDefaultsAtRules from 'patched-tailwindcss/lib/lib/resolveDefaultsAtRules';
+import { generateRules as rawGenerateRules } from 'patched-tailwindcss/lib/lib/generateRules';
+import expandTailwindAtRules from 'patched-tailwindcss/lib/lib/expandTailwindAtRules';
+import partitionApplyAtRules from 'patched-tailwindcss/lib/lib/partitionApplyAtRules';
+import substituteScreenAtRules from 'patched-tailwindcss/lib/lib/substituteScreenAtRules';
+import collapseAdjacentRules from 'patched-tailwindcss/lib/lib/collapseAdjacentRules';
+import collapseDuplicateDeclarations from 'patched-tailwindcss/lib/lib/collapseDuplicateDeclarations';
+import type { TailwindConfig } from '../../tailwind';
+import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
+import { setupTailwindContext } from './setup-tailwind-context';
 
 const tailwindAtRulesRoot = parse(
   `

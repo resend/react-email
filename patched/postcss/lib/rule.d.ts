@@ -1,56 +1,56 @@
 import Container, {
   ContainerProps,
-  ContainerWithChildren
-} from './container.js'
+  ContainerWithChildren,
+} from "./container.js";
 
 declare namespace Rule {
   export interface RuleRaws extends Record<string, unknown> {
     /**
      * The space symbols after the last child of the node to the end of the node.
      */
-    after?: string
+    after?: string;
 
     /**
      * The space symbols before the node. It also stores `*`
      * and `_` symbols before the declaration (IE hack).
      */
-    before?: string
+    before?: string;
 
     /**
      * The symbols between the selector and `{` for rules.
      */
-    between?: string
+    between?: string;
 
     /**
      * Contains `true` if there is semicolon after rule.
      */
-    ownSemicolon?: string
+    ownSemicolon?: string;
 
     /**
      * The rule’s selector with comments.
      */
     selector?: {
-      raw: string
-      value: string
-    }
+      raw: string;
+      value: string;
+    };
 
     /**
      * Contains `true` if the last child has an (optional) semicolon.
      */
-    semicolon?: boolean
+    semicolon?: boolean;
   }
 
   export interface RuleProps extends ContainerProps {
     /** Information used to generate byte-to-byte equal node string as it was in the origin input. */
-    raws?: RuleRaws
+    raws?: RuleRaws;
     /** Selector or selectors of the rule. */
-    selector?: string
+    selector?: string;
     /** Selectors of the rule represented as an array of strings. */
-    selectors?: string[]
+    selectors?: string[];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Rule_ as default }
+  export { Rule_ as default };
 }
 
 /**
@@ -72,9 +72,9 @@ declare namespace Rule {
  * ```
  */
 declare class Rule_ extends Container {
-  nodes: NonNullable<Container['nodes']>
-  parent: ContainerWithChildren | undefined
-  raws: Rule.RuleRaws
+  nodes: NonNullable<Container["nodes"]>;
+  parent: ContainerWithChildren | undefined;
+  raws: Rule.RuleRaws;
   /**
    * The rule’s full selector represented as a string.
    *
@@ -84,7 +84,7 @@ declare class Rule_ extends Container {
    * rule.selector //=> 'a, b'
    * ```
    */
-  get selector(): string
+  get selector(): string;
   set selector(value: string);
 
   /**
@@ -102,18 +102,18 @@ declare class Rule_ extends Container {
    * rule.selector //=> 'a, strong'
    * ```
    */
-  get selectors(): string[]
+  get selectors(): string[];
   set selectors(values: string[]);
 
-  type: 'rule'
+  type: "rule";
 
-  constructor(defaults?: Rule.RuleProps)
-  assign(overrides: object | Rule.RuleProps): this
-  clone(overrides?: Partial<Rule.RuleProps>): Rule
-  cloneAfter(overrides?: Partial<Rule.RuleProps>): Rule
-  cloneBefore(overrides?: Partial<Rule.RuleProps>): Rule
+  constructor(defaults?: Rule.RuleProps);
+  assign(overrides: object | Rule.RuleProps): this;
+  clone(overrides?: Partial<Rule.RuleProps>): Rule;
+  cloneAfter(overrides?: Partial<Rule.RuleProps>): Rule;
+  cloneBefore(overrides?: Partial<Rule.RuleProps>): Rule;
 }
 
 declare class Rule extends Rule_ {}
 
-export = Rule
+export = Rule;

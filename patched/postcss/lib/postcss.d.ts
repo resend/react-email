@@ -1,14 +1,14 @@
-import { RawSourceMap, SourceMapGenerator } from 'source-map-js'
+import { RawSourceMap, SourceMapGenerator } from "source-map-js";
 
-import AtRule, { AtRuleProps } from './at-rule.js'
-import Comment, { CommentProps } from './comment.js'
-import Container, { ContainerProps } from './container.js'
-import CssSyntaxError from './css-syntax-error.js'
-import Declaration, { DeclarationProps } from './declaration.js'
-import Document, { DocumentProps } from './document.js'
-import Input, { FilePosition } from './input.js'
-import LazyResult from './lazy-result.js'
-import list from './list.js'
+import AtRule, { AtRuleProps } from "./at-rule.js";
+import Comment, { CommentProps } from "./comment.js";
+import Container, { ContainerProps } from "./container.js";
+import CssSyntaxError from "./css-syntax-error.js";
+import Declaration, { DeclarationProps } from "./declaration.js";
+import Document, { DocumentProps } from "./document.js";
+import Input, { FilePosition } from "./input.js";
+import LazyResult from "./lazy-result.js";
+import list from "./list.js";
 import Node, {
   AnyNode,
   ChildNode,
@@ -16,29 +16,38 @@ import Node, {
   NodeErrorOptions,
   NodeProps,
   Position,
-  Source
-} from './node.js'
-import Processor from './processor.js'
-import Result, { Message } from './result.js'
-import Root, { RootProps } from './root.js'
-import Rule, { RuleProps } from './rule.js'
-import Warning, { WarningOptions } from './warning.js'
+  Source,
+} from "./node.js";
+import Processor from "./processor.js";
+import Result, { Message } from "./result.js";
+import Root, { RootProps } from "./root.js";
+import Rule, { RuleProps } from "./rule.js";
+import Warning, { WarningOptions } from "./warning.js";
 
 type DocumentProcessor = (
   document: Document,
-  helper: postcss.Helpers
-) => Promise<void> | void
-type RootProcessor = (root: Root, helper: postcss.Helpers) => Promise<void> | void
+  helper: postcss.Helpers,
+) => Promise<void> | void;
+type RootProcessor = (
+  root: Root,
+  helper: postcss.Helpers,
+) => Promise<void> | void;
 type DeclarationProcessor = (
   decl: Declaration,
-  helper: postcss.Helpers
-) => Promise<void> | void
-type RuleProcessor = (rule: Rule, helper: postcss.Helpers) => Promise<void> | void
-type AtRuleProcessor = (atRule: AtRule, helper: postcss.Helpers) => Promise<void> | void
+  helper: postcss.Helpers,
+) => Promise<void> | void;
+type RuleProcessor = (
+  rule: Rule,
+  helper: postcss.Helpers,
+) => Promise<void> | void;
+type AtRuleProcessor = (
+  atRule: AtRule,
+  helper: postcss.Helpers,
+) => Promise<void> | void;
 type CommentProcessor = (
   comment: Comment,
-  helper: postcss.Helpers
-) => Promise<void> | void
+  helper: postcss.Helpers,
+) => Promise<void> | void;
 
 interface Processors {
   /**
@@ -46,21 +55,21 @@ interface Processors {
    *
    * Will be called again on node or children changes.
    */
-  AtRule?: { [name: string]: AtRuleProcessor } | AtRuleProcessor
+  AtRule?: { [name: string]: AtRuleProcessor } | AtRuleProcessor;
 
   /**
    * Will be called on all `AtRule` nodes, when all children will be processed.
    *
    * Will be called again on node or children changes.
    */
-  AtRuleExit?: { [name: string]: AtRuleProcessor } | AtRuleProcessor
+  AtRuleExit?: { [name: string]: AtRuleProcessor } | AtRuleProcessor;
 
   /**
    * Will be called on all `Comment` nodes.
    *
    * Will be called again on node or children changes.
    */
-  Comment?: CommentProcessor
+  Comment?: CommentProcessor;
 
   /**
    * Will be called on all `Comment` nodes after listeners
@@ -68,7 +77,7 @@ interface Processors {
    *
    * Will be called again on node or children changes.
    */
-  CommentExit?: CommentProcessor
+  CommentExit?: CommentProcessor;
 
   /**
    * Will be called on all `Declaration` nodes after listeners
@@ -76,7 +85,7 @@ interface Processors {
    *
    * Will be called again on node or children changes.
    */
-  Declaration?: { [prop: string]: DeclarationProcessor } | DeclarationProcessor
+  Declaration?: { [prop: string]: DeclarationProcessor } | DeclarationProcessor;
 
   /**
    * Will be called on all `Declaration` nodes.
@@ -85,59 +94,59 @@ interface Processors {
    */
   DeclarationExit?:
     | { [prop: string]: DeclarationProcessor }
-    | DeclarationProcessor
+    | DeclarationProcessor;
 
   /**
    * Will be called on `Document` node.
    *
    * Will be called again on children changes.
    */
-  Document?: DocumentProcessor
+  Document?: DocumentProcessor;
 
   /**
    * Will be called on `Document` node, when all children will be processed.
    *
    * Will be called again on children changes.
    */
-  DocumentExit?: DocumentProcessor
+  DocumentExit?: DocumentProcessor;
 
   /**
    * Will be called on `Root` node once.
    */
-  Once?: RootProcessor
+  Once?: RootProcessor;
 
   /**
    * Will be called on `Root` node once, when all children will be processed.
    */
-  OnceExit?: RootProcessor
+  OnceExit?: RootProcessor;
 
   /**
    * Will be called on `Root` node.
    *
    * Will be called again on children changes.
    */
-  Root?: RootProcessor
+  Root?: RootProcessor;
 
   /**
    * Will be called on `Root` node, when all children will be processed.
    *
    * Will be called again on children changes.
    */
-  RootExit?: RootProcessor
+  RootExit?: RootProcessor;
 
   /**
    * Will be called on all `Rule` nodes.
    *
    * Will be called again on node or children changes.
    */
-  Rule?: RuleProcessor
+  Rule?: RuleProcessor;
 
   /**
    * Will be called on all `Rule` nodes, when all children will be processed.
    *
    * Will be called again on node or children changes.
    */
-  RuleExit?: RuleProcessor
+  RuleExit?: RuleProcessor;
 }
 
 declare namespace postcss {
@@ -173,86 +182,86 @@ declare namespace postcss {
     RuleProps,
     Source,
     Warning,
-    WarningOptions
-  }
+    WarningOptions,
+  };
 
   export type SourceMap = SourceMapGenerator & {
-    toJSON(): RawSourceMap
-  }
+    toJSON(): RawSourceMap;
+  };
 
-  export type Helpers = { postcss: Postcss; result: Result } & Postcss
+  export type Helpers = { postcss: Postcss; result: Result } & Postcss;
 
   export interface Plugin extends Processors {
-    postcssPlugin: string
-    prepare?: (result: Result) => Processors
+    postcssPlugin: string;
+    prepare?: (result: Result) => Processors;
   }
 
   export interface PluginCreator<PluginOptions> {
-    (opts?: PluginOptions): Plugin | Processor
-    postcss: true
+    (opts?: PluginOptions): Plugin | Processor;
+    postcss: true;
   }
 
   export interface Transformer extends TransformCallback {
-    postcssPlugin: string
-    postcssVersion: string
+    postcssPlugin: string;
+    postcssVersion: string;
   }
 
   export interface TransformCallback {
-    (root: Root, result: Result): Promise<void> | void
+    (root: Root, result: Result): Promise<void> | void;
   }
 
   export interface OldPlugin<T> extends Transformer {
-    (opts?: T): Transformer
-    postcss: Transformer
+    (opts?: T): Transformer;
+    postcss: Transformer;
   }
 
   export type AcceptedPlugin =
     | {
-        postcss: Processor | TransformCallback
+        postcss: Processor | TransformCallback;
       }
     | OldPlugin<any>
     | Plugin
     | PluginCreator<any>
     | Processor
-    | TransformCallback
+    | TransformCallback;
 
   export interface Parser<RootNode = Document | Root> {
     (
       css: { toString(): string } | string,
-      opts?: Pick<ProcessOptions, 'from' | 'map'>
-    ): RootNode
+      opts?: Pick<ProcessOptions, "from" | "map">,
+    ): RootNode;
   }
 
   export interface Builder {
-    (part: string, node?: AnyNode, type?: 'end' | 'start'): void
+    (part: string, node?: AnyNode, type?: "end" | "start"): void;
   }
 
   export interface Stringifier {
-    (node: AnyNode, builder: Builder): void
+    (node: AnyNode, builder: Builder): void;
   }
 
   export interface JSONHydrator {
-    (data: object): Node
-    (data: object[]): Node[]
+    (data: object): Node;
+    (data: object[]): Node[];
   }
 
   export interface Syntax<RootNode = Document | Root> {
     /**
      * Function to generate AST by string.
      */
-    parse?: Parser<RootNode>
+    parse?: Parser<RootNode>;
 
     /**
      * Class to generate string by AST.
      */
-    stringify?: Stringifier
+    stringify?: Stringifier;
   }
 
   export interface SourceMapOptions {
     /**
      * Use absolute path in generated source map.
      */
-    absolute?: boolean
+    absolute?: boolean;
 
     /**
      * Indicates that PostCSS should add annotation comments to the CSS.
@@ -266,12 +275,12 @@ declare namespace postcss {
      *
      * If you have set `inline: true`, annotation cannot be disabled.
      */
-    annotation?: ((file: string, root: Root) => string) | boolean | string
+    annotation?: ((file: string, root: Root) => string) | boolean | string;
 
     /**
      * Override `from` in map’s sources.
      */
-    from?: string
+    from?: string;
 
     /**
      * Indicates that the source map should be embedded in the output CSS
@@ -282,7 +291,7 @@ declare namespace postcss {
      * If you have an inline source map, the result.map property will be empty,
      * as the source map will be contained within the text of `result.css`.
      */
-    inline?: boolean
+    inline?: boolean;
 
     /**
      * Source map content from a previous processing step (e.g., Sass).
@@ -293,7 +302,7 @@ declare namespace postcss {
      *
      * If desired, you can omit the previous map with prev: `false`.
      */
-    prev?: ((file: string) => string) | boolean | object | string
+    prev?: ((file: string) => string) | boolean | object | string;
 
     /**
      * Indicates that PostCSS should set the origin content (e.g., Sass source)
@@ -301,7 +310,7 @@ declare namespace postcss {
      * contain sources content, PostCSS will also leave it out even if you
      * do not set this option.
      */
-    sourcesContent?: boolean
+    sourcesContent?: boolean;
   }
 
   export interface ProcessOptions<RootNode = Document | Root> {
@@ -309,41 +318,41 @@ declare namespace postcss {
      * The path of the CSS source file. You should always set `from`,
      * because it is used in source map generation and syntax error messages.
      */
-    from?: string | undefined
+    from?: string | undefined;
 
     /**
      * Source map options
      */
-    map?: boolean | SourceMapOptions
+    map?: boolean | SourceMapOptions;
 
     /**
      * Function to generate AST by string.
      */
-    parser?: Parser<RootNode> | Syntax<RootNode>
+    parser?: Parser<RootNode> | Syntax<RootNode>;
 
     /**
      * Class to generate string by AST.
      */
-    stringifier?: Stringifier | Syntax<RootNode>
+    stringifier?: Stringifier | Syntax<RootNode>;
 
     /**
      * Object with parse and stringify.
      */
-    syntax?: Syntax<RootNode>
+    syntax?: Syntax<RootNode>;
 
     /**
      * The path where you'll put the output CSS file. You should always set `to`
      * to generate correct source maps.
      */
-    to?: string
+    to?: string;
   }
 
-  export type Postcss = typeof postcss
+  export type Postcss = typeof postcss;
 
   /**
    * Default function to convert a node tree into a CSS string.
    */
-  export let stringify: Stringifier
+  export let stringify: Stringifier;
 
   /**
    * Parses source css and returns a new `Root` or `Document` node,
@@ -356,7 +365,7 @@ declare namespace postcss {
    * root1.append(root2).toResult().css
    * ```
    */
-  export let parse: Parser<Root>
+  export let parse: Parser<Root>;
 
   /**
    * Rehydrate a JSON AST (from `Node#toJSON`) back into the AST classes.
@@ -367,7 +376,7 @@ declare namespace postcss {
    * const root2  = postcss.fromJSON(json)
    * ```
    */
-  export let fromJSON: JSONHydrator
+  export let fromJSON: JSONHydrator;
 
   /**
    * Creates a new `Comment` node.
@@ -375,7 +384,7 @@ declare namespace postcss {
    * @param defaults Properties for the new node.
    * @return New comment node
    */
-  export function comment(defaults?: CommentProps): Comment
+  export function comment(defaults?: CommentProps): Comment;
 
   /**
    * Creates a new `AtRule` node.
@@ -383,7 +392,7 @@ declare namespace postcss {
    * @param defaults Properties for the new node.
    * @return New at-rule node.
    */
-  export function atRule(defaults?: AtRuleProps): AtRule
+  export function atRule(defaults?: AtRuleProps): AtRule;
 
   /**
    * Creates a new `Declaration` node.
@@ -391,7 +400,7 @@ declare namespace postcss {
    * @param defaults Properties for the new node.
    * @return New declaration node.
    */
-  export function decl(defaults?: DeclarationProps): Declaration
+  export function decl(defaults?: DeclarationProps): Declaration;
 
   /**
    * Creates a new `Rule` node.
@@ -399,7 +408,7 @@ declare namespace postcss {
    * @param default Properties for the new node.
    * @return New rule node.
    */
-  export function rule(defaults?: RuleProps): Rule
+  export function rule(defaults?: RuleProps): Rule;
 
   /**
    * Creates a new `Root` node.
@@ -407,7 +416,7 @@ declare namespace postcss {
    * @param defaults Properties for the new node.
    * @return New root node.
    */
-  export function root(defaults?: RootProps): Root
+  export function root(defaults?: RootProps): Root;
 
   /**
    * Creates a new `Document` node.
@@ -415,9 +424,9 @@ declare namespace postcss {
    * @param defaults Properties for the new node.
    * @return New document node.
    */
-  export function document(defaults?: DocumentProps): Document
+  export function document(defaults?: DocumentProps): Document;
 
-  export { postcss as default }
+  export { postcss as default };
 }
 
 /**
@@ -435,7 +444,7 @@ declare namespace postcss {
  * @param plugins PostCSS plugins.
  * @return Processor to process multiple CSS.
  */
-declare function postcss(plugins?: postcss.AcceptedPlugin[]): Processor
-declare function postcss(...plugins: postcss.AcceptedPlugin[]): Processor
+declare function postcss(plugins?: postcss.AcceptedPlugin[]): Processor;
+declare function postcss(...plugins: postcss.AcceptedPlugin[]): Processor;
 
-export = postcss
+export = postcss;

@@ -1,11 +1,11 @@
-import Container, { ContainerProps } from './container.js'
-import { ProcessOptions } from './postcss.js'
-import Result from './result.js'
-import Root from './root.js'
+import Container, { ContainerProps } from "./container.js";
+import { ProcessOptions } from "./postcss.js";
+import Result from "./result.js";
+import Root from "./root.js";
 
 declare namespace Document {
   export interface DocumentProps extends ContainerProps {
-    nodes?: Root[]
+    nodes?: Root[];
 
     /**
      * Information to generate byte-to-byte equal node string as it was
@@ -13,11 +13,11 @@ declare namespace Document {
      *
      * Every parser saves its own properties.
      */
-    raws?: Record<string, any>
+    raws?: Record<string, any>;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Document_ as default }
+  export { Document_ as default };
 }
 
 /**
@@ -35,16 +35,16 @@ declare namespace Document {
  * ```
  */
 declare class Document_ extends Container<Root> {
-  nodes: Root[]
-  parent: undefined
-  type: 'document'
+  nodes: Root[];
+  parent: undefined;
+  type: "document";
 
-  constructor(defaults?: Document.DocumentProps)
+  constructor(defaults?: Document.DocumentProps);
 
-  assign(overrides: Document.DocumentProps | object): this
-  clone(overrides?: Partial<Document.DocumentProps>): Document
-  cloneAfter(overrides?: Partial<Document.DocumentProps>): Document
-  cloneBefore(overrides?: Partial<Document.DocumentProps>): Document
+  assign(overrides: Document.DocumentProps | object): this;
+  clone(overrides?: Partial<Document.DocumentProps>): Document;
+  cloneAfter(overrides?: Partial<Document.DocumentProps>): Document;
+  cloneBefore(overrides?: Partial<Document.DocumentProps>): Document;
 
   /**
    * Returns a `Result` instance representing the document’s CSS roots.
@@ -61,9 +61,9 @@ declare class Document_ extends Container<Root> {
    * @param opts Options.
    * @return Result with current document’s CSS.
    */
-  toResult(options?: ProcessOptions): Result
+  toResult(options?: ProcessOptions): Result;
 }
 
 declare class Document extends Document_ {}
 
-export = Document
+export = Document;

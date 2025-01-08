@@ -14,9 +14,9 @@ For example, to use [Stylelint] or [RTLCSS] plugins in your workflow.
 </a>
 
 [Stylelint]: https://github.com/stylelint/stylelint
-[PostCSS]:   https://github.com/postcss/postcss
-[RTLCSS]:    https://github.com/MohammadYounes/rtlcss
-
+[PostCSS]: https://github.com/postcss/postcss
+[RTLCSS]: https://github.com/MohammadYounes/rtlcss
 
 ## Docs
+
 Read full docs **[here](https://github.com/postcss/postcss-js#readme)**.

@@ -175,7 +175,7 @@ export interface ThemeConfig {
           configuration: Partial<{
             fontFeatureSettings: string
             fontVariationSettings: string
-          }>
+          }>,
         ]
     >
   >
@@ -190,7 +190,7 @@ export interface ThemeConfig {
             lineHeight: string
             letterSpacing: string
             fontWeight: string | number
-          }>
+          }>,
         ]
     >
   >

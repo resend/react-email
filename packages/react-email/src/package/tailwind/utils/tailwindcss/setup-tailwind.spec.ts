@@ -1,4 +1,4 @@
-import { setupTailwind } from "./setup-tailwind";
+import { setupTailwind } from './setup-tailwind';
 
 test("tailwind's generateRootForClasses()", () => {
   const tailwind = setupTailwind({});
@@ -6,9 +6,9 @@ test("tailwind's generateRootForClasses()", () => {
   expect(
     tailwind
       .generateRootForClasses([
-        "text-red-500",
-        "sm:bg-blue-300",
-        "bg-slate-900",
+        'text-red-500',
+        'sm:bg-blue-300',
+        'bg-slate-900',
       ])
       .toString(),
   ).toMatchSnapshot();

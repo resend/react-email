@@ -1,15 +1,15 @@
-import type { Node, Root } from "patched-postcss";
-import Declaration from "patched-postcss/lib/declaration";
-import Rule from "patched-postcss/lib/rule";
-import type AtRule from "patched-postcss/lib/at-rule";
-import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
+import type { Node, Root } from 'patched-postcss';
+import Declaration from 'patched-postcss/lib/declaration';
+import Rule from 'patched-postcss/lib/rule';
+import type AtRule from 'patched-postcss/lib/at-rule';
+import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 const isRule = (node: Node | undefined): node is Rule => {
-  return node?.type === "rule";
+  return node?.type === 'rule';
 };
 
 const isAtRule = (node: Node | undefined): node is AtRule => {
-  return node?.type === "atrule";
+  return node?.type === 'atrule';
 };
 
 const doesNodeShareVariableWith = (
@@ -19,8 +19,8 @@ const doesNodeShareVariableWith = (
   if (isRule(node) && isRule(nodeToShareWith)) {
     return (
       node.selector === nodeToShareWith.selector ||
-      node.selector.includes("*") ||
-      node.selector.includes(":root")
+      node.selector.includes('*') ||
+      node.selector.includes(':root')
     );
   }
 
@@ -114,7 +114,7 @@ export const resolveAllCSSVariables = (root: Root) => {
       const equivalentRule = new Rule({
         selector: rule.selector,
         selectors: rule.selectors,
-        nodes: [...declarations]
+        nodes: [...declarations],
       });
       atRule.append(equivalentRule);
     }

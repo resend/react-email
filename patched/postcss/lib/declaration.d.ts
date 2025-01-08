@@ -1,5 +1,5 @@
-import { ContainerWithChildren } from './container.js'
-import Node from './node.js'
+import { ContainerWithChildren } from "./container.js";
+import Node from "./node.js";
 
 declare namespace Declaration {
   export interface DeclarationRaws extends Record<string, unknown> {
@@ -7,40 +7,40 @@ declare namespace Declaration {
      * The space symbols before the node. It also stores `*`
      * and `_` symbols before the declaration (IE hack).
      */
-    before?: string
+    before?: string;
 
     /**
      * The symbols between the property and value for declarations.
      */
-    between?: string
+    between?: string;
 
     /**
      * The content of the important statement, if it is not just `!important`.
      */
-    important?: string
+    important?: string;
 
     /**
      * Declaration value with comments.
      */
     value?: {
-      raw: string
-      value: string
-    }
+      raw: string;
+      value: string;
+    };
   }
 
   export interface DeclarationProps {
     /** Whether the declaration has an `!important` annotation. */
-    important?: boolean
+    important?: boolean;
     /** Name of the declaration. */
-    prop: string
+    prop: string;
     /** Information used to generate byte-to-byte equal node string as it was in the origin input. */
-    raws?: DeclarationRaws
+    raws?: DeclarationRaws;
     /** Value of the declaration. */
-    value: string
+    value: string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Declaration_ as default }
+  export { Declaration_ as default };
 }
 
 /**
@@ -77,10 +77,10 @@ declare class Declaration_ extends Node {
    * root.first.last.important  //=> undefined
    * ```
    */
-  get important(): boolean
-  set important(value: boolean)
+  get important(): boolean;
+  set important(value: boolean);
 
-  parent: ContainerWithChildren | undefined
+  parent: ContainerWithChildren | undefined;
 
   /**
    * The property name for a CSS declaration.
@@ -92,12 +92,12 @@ declare class Declaration_ extends Node {
    * decl.prop //=> 'color'
    * ```
    */
-  get prop(): string
-  set prop(value: string)
+  get prop(): string;
+  set prop(value: string);
 
-  raws: Declaration.DeclarationRaws
+  raws: Declaration.DeclarationRaws;
 
-  type: 'decl'
+  type: "decl";
 
   /**
    * The property value for a CSS declaration.
@@ -116,8 +116,8 @@ declare class Declaration_ extends Node {
    * decl.value //=> 'black'
    * ```
    */
-  get value(): string
-  set value(value: string)
+  get value(): string;
+  set value(value: string);
 
   /**
    * It represents a getter that returns `true` if a declaration starts with
@@ -137,16 +137,16 @@ declare class Declaration_ extends Node {
    * one.variable //=> true
    * ```
    */
-  get variable(): boolean
-  set varaible(value: string)
+  get variable(): boolean;
+  set varaible(value: string);
 
-  constructor(defaults?: Declaration.DeclarationProps)
-  assign(overrides: Declaration.DeclarationProps | object): this
-  clone(overrides?: Partial<Declaration.DeclarationProps>): Declaration
-  cloneAfter(overrides?: Partial<Declaration.DeclarationProps>): Declaration
-  cloneBefore(overrides?: Partial<Declaration.DeclarationProps>): Declaration
+  constructor(defaults?: Declaration.DeclarationProps);
+  assign(overrides: Declaration.DeclarationProps | object): this;
+  clone(overrides?: Partial<Declaration.DeclarationProps>): Declaration;
+  cloneAfter(overrides?: Partial<Declaration.DeclarationProps>): Declaration;
+  cloneBefore(overrides?: Partial<Declaration.DeclarationProps>): Declaration;
 }
 
 declare class Declaration extends Declaration_ {}
 
-export = Declaration
+export = Declaration;

@@ -1,19 +1,19 @@
-import Document from './document.js'
-import LazyResult from './lazy-result.js'
-import NoWorkResult from './no-work-result.js'
+import Document from "./document.js";
+import LazyResult from "./lazy-result.js";
+import NoWorkResult from "./no-work-result.js";
 import {
   AcceptedPlugin,
   Plugin,
   ProcessOptions,
   TransformCallback,
-  Transformer
-} from './postcss.js'
-import Result from './result.js'
-import Root from './root.js'
+  Transformer,
+} from "./postcss.js";
+import Result from "./result.js";
+import Root from "./root.js";
 
 declare namespace Processor {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Processor_ as default }
+  export { Processor_ as default };
 }
 
 /**
@@ -35,7 +35,7 @@ declare class Processor_ {
    * processor.plugins.length //=> 2
    * ```
    */
-  plugins: (Plugin | TransformCallback | Transformer)[]
+  plugins: (Plugin | TransformCallback | Transformer)[];
 
   /**
    * Current PostCSS version.
@@ -46,12 +46,12 @@ declare class Processor_ {
    * }
    * ```
    */
-  version: string
+  version: string;
 
   /**
    * @param plugins PostCSS plugins
    */
-  constructor(plugins?: AcceptedPlugin[])
+  constructor(plugins?: AcceptedPlugin[]);
 
   /**
    * Parses source CSS and returns a `LazyResult` Promise proxy.
@@ -73,12 +73,12 @@ declare class Processor_ {
    * @return Promise proxy.
    */
   process(
-    css: { toString(): string } | LazyResult | Result | Root | string
-  ): LazyResult | NoWorkResult
+    css: { toString(): string } | LazyResult | Result | Root | string,
+  ): LazyResult | NoWorkResult;
   process<RootNode extends Document | Root = Root>(
     css: { toString(): string } | LazyResult | Result | Root | string,
-    options: ProcessOptions<RootNode>
-  ): LazyResult<RootNode>
+    options: ProcessOptions<RootNode>,
+  ): LazyResult<RootNode>;
 
   /**
    * Adds a plugin to be used as a CSS processor.
@@ -107,9 +107,9 @@ declare class Processor_ {
    * @param plugin PostCSS plugin or `Processor` with plugins.
    * @return Current processor to make methods chain.
    */
-  use(plugin: AcceptedPlugin): this
+  use(plugin: AcceptedPlugin): this;
 }
 
 declare class Processor extends Processor_ {}
 
-export = Processor
+export = Processor;

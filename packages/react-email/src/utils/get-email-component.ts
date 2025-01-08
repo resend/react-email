@@ -17,14 +17,14 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    createElement: typeof React.createElement;
+      createElement: typeof React.createElement;
 
-    render: typeof render;
+      render: typeof render;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   if (!buildContexts.has(emailPath)) {

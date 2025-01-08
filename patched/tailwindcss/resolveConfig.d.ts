@@ -20,10 +20,10 @@ type MergeThemes<Overrides extends object, Extensions extends object> = {
   [K in keyof ThemeConfigResolved | keyof Overrides]: (K extends keyof Overrides
     ? Overrides[K]
     : K extends keyof DefaultThemeFull
-    ? DefaultThemeFull[K]
-    : K extends keyof ThemeConfigResolved
-    ? ThemeConfigResolved[K]
-    : never) &
+      ? DefaultThemeFull[K]
+      : K extends keyof ThemeConfigResolved
+        ? ThemeConfigResolved[K]
+        : never) &
     (K extends keyof Extensions ? Extensions[K] : {})
 }
 

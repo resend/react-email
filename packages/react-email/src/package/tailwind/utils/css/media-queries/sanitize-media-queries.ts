@@ -1,6 +1,6 @@
-import selectorParser from "patched-postcss-selector-parser";
-import type { AtRule, Root } from "patched-postcss";
-import { sanitizeClassName } from "../../compatibility/sanitize-class-name";
+import selectorParser from 'patched-postcss-selector-parser';
+import type { AtRule, Root } from 'patched-postcss';
+import { sanitizeClassName } from '../../compatibility/sanitize-class-name';
 
 /**
  * This function goes through a few steps to ensure the best email client support and

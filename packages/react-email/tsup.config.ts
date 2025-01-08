@@ -38,7 +38,7 @@ export default defineConfig([
   {
     dts: true,
     entry: componentEntries,
-    tsconfig: "./src/package/tsconfig.json",
+    tsconfig: './src/package/tsconfig.json',
     treeshake: true,
     noExternal: [
       /patched-tailwindcss\/.*/,
@@ -59,7 +59,7 @@ export default defineConfig([
   },
   {
     dts: true,
-    tsconfig: "./src/package/tsconfig.json",
+    tsconfig: './src/package/tsconfig.json',
     entry: ['./src/package/index.browser.ts', './src/package/index.node.ts'],
     bundle: false,
     format: ['cjs', 'esm'],

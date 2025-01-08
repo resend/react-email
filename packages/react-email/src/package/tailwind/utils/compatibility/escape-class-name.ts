@@ -10,7 +10,7 @@ export const escapeClassName = (className: string) => {
     /*      we need this look ahead capturing group to avoid using negative look behinds */
     /([^\\]|^)(?=([^a-zA-Z0-9\-_]))/g,
     (match, prefixCharacter: string, characterToEscape: string) => {
-      if (prefixCharacter === "" && characterToEscape === "\\") return match;
+      if (prefixCharacter === '' && characterToEscape === '\\') return match;
 
       return `${prefixCharacter}\\`;
     },

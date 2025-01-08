@@ -1,20 +1,20 @@
-import AtRule = require('./at-rule.js')
+import AtRule = require("./at-rule.js");
 
-import { AtRuleProps } from './at-rule.js'
-import Comment, { CommentProps } from './comment.js'
-import Container from './container.js'
-import CssSyntaxError from './css-syntax-error.js'
-import Declaration, { DeclarationProps } from './declaration.js'
-import Document from './document.js'
-import Input from './input.js'
-import { Stringifier, Syntax } from './postcss.js'
-import Result from './result.js'
-import Root from './root.js'
-import Rule, { RuleProps } from './rule.js'
-import Warning, { WarningOptions } from './warning.js'
+import { AtRuleProps } from "./at-rule.js";
+import Comment, { CommentProps } from "./comment.js";
+import Container from "./container.js";
+import CssSyntaxError from "./css-syntax-error.js";
+import Declaration, { DeclarationProps } from "./declaration.js";
+import Document from "./document.js";
+import Input from "./input.js";
+import { Stringifier, Syntax } from "./postcss.js";
+import Result from "./result.js";
+import Root from "./root.js";
+import Rule, { RuleProps } from "./rule.js";
+import Warning, { WarningOptions } from "./warning.js";
 
 declare namespace Node {
-  export type ChildNode = AtRule.default | Comment | Declaration | Rule
+  export type ChildNode = AtRule.default | Comment | Declaration | Rule;
 
   export type AnyNode =
     | AtRule.default
@@ -22,41 +22,41 @@ declare namespace Node {
     | Declaration
     | Document
     | Root
-    | Rule
+    | Rule;
 
   export type ChildProps =
     | AtRuleProps
     | CommentProps
     | DeclarationProps
-    | RuleProps
+    | RuleProps;
 
   export interface Position {
     /**
      * Source line in file. In contrast to `offset` it starts from 1.
      */
-    column: number
+    column: number;
 
     /**
      * Source column in file.
      */
-    line: number
+    line: number;
 
     /**
      * Source offset in file. It starts from 0.
      */
-    offset: number
+    offset: number;
   }
 
   export interface Range {
     /**
      * End position, exclusive.
      */
-    end: Position
+    end: Position;
 
     /**
      * Start position, inclusive.
      */
-    start: Position
+    start: Position;
   }
 
   /**
@@ -67,18 +67,18 @@ declare namespace Node {
      * The inclusive ending position for the source
      * code of a node.
      */
-    end?: Position
+    end?: Position;
 
     /**
      * The source file from where a node has originated.
      */
-    input: Input
+    input: Input;
 
     /**
      * The inclusive starting position for the source
      * code of a node.
      */
-    start?: Position
+    start?: Position;
   }
 
   /**
@@ -86,7 +86,7 @@ declare namespace Node {
    * as parameter by Node class constructor.
    */
   export interface NodeProps {
-    source?: Source
+    source?: Source;
   }
 
   export interface NodeErrorOptions {
@@ -94,26 +94,26 @@ declare namespace Node {
      * An ending index inside a node's string that should be highlighted as
      * source of error.
      */
-    endIndex?: number
+    endIndex?: number;
     /**
      * An index inside a node's string that should be highlighted as source
      * of error.
      */
-    index?: number
+    index?: number;
     /**
      * Plugin name that created this error. PostCSS will set it automatically.
      */
-    plugin?: string
+    plugin?: string;
     /**
      * A word inside a node's string, that should be highlighted as source
      * of error.
      */
-    word?: string
+    word?: string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
   class Node extends Node_ {}
-  export { Node as default }
+  export { Node as default };
 }
 
 /**
@@ -131,7 +131,7 @@ declare abstract class Node_ {
    * root.nodes[0].parent === root //=> true
    * ```
    */
-  parent: Container | Document | undefined
+  parent: Container | Document | undefined;
 
   /**
    * It represents unnecessary whitespace and characters present
@@ -167,7 +167,7 @@ declare abstract class Node_ {
    * root.first.first.raws //=> { before: '\n  ', between: ':' }
    * ```
    */
-  raws: any
+  raws: any;
 
   /**
    * It represents information related to origin of a node and is required
@@ -212,7 +212,7 @@ declare abstract class Node_ {
    * }
    * ```
    */
-  source?: Node.Source
+  source?: Node.Source;
 
   /**
    * It represents type of a node in
@@ -230,9 +230,9 @@ declare abstract class Node_ {
    * declaration.type //=> 'decl'
    * ```
    */
-  type: string
+  type: string;
 
-  constructor(defaults?: object)
+  constructor(defaults?: object);
 
   /**
    * Insert new node after current node to current node’s parent.
@@ -246,7 +246,7 @@ declare abstract class Node_ {
    * @param newNode New node.
    * @return This node for methods chain.
    */
-  after(newNode: Node | Node.ChildProps | Node[] | string | undefined): this
+  after(newNode: Node | Node.ChildProps | Node[] | string | undefined): this;
 
   /**
    * It assigns properties to an existing node instance.
@@ -259,7 +259,7 @@ declare abstract class Node_ {
    *
    * @return `this` for method chaining.
    */
-  assign(overrides: object): this
+  assign(overrides: object): this;
 
   /**
    * Insert new node before current node to current node’s parent.
@@ -273,7 +273,7 @@ declare abstract class Node_ {
    * @param newNode New node.
    * @return This node for methods chain.
    */
-  before(newNode: Node | Node.ChildProps | Node[] | string | undefined): this
+  before(newNode: Node | Node.ChildProps | Node[] | string | undefined): this;
 
   /**
    * Clear the code style properties for the node and its children.
@@ -286,7 +286,7 @@ declare abstract class Node_ {
    *
    * @param keepBetween Keep the `raws.between` symbols.
    */
-  cleanRaws(keepBetween?: boolean): void
+  cleanRaws(keepBetween?: boolean): void;
 
   /**
    * It creates clone of an existing node, which includes all the properties
@@ -303,7 +303,7 @@ declare abstract class Node_ {
    *
    * @return Duplicate of the node instance.
    */
-  clone(overrides?: object): Node
+  clone(overrides?: object): Node;
 
   /**
    * Shortcut to clone the node and insert the resulting cloned node
@@ -312,7 +312,7 @@ declare abstract class Node_ {
    * @param overrides New properties to override in the clone.
    * @return New node.
    */
-  cloneAfter(overrides?: object): Node
+  cloneAfter(overrides?: object): Node;
 
   /**
    * Shortcut to clone the node and insert the resulting cloned node
@@ -326,7 +326,7 @@ declare abstract class Node_ {
    *
    * @return New node
    */
-  cloneBefore(overrides?: object): Node
+  cloneBefore(overrides?: object): Node;
 
   /**
    * It creates an instance of the class `CssSyntaxError` and parameters passed
@@ -362,7 +362,7 @@ declare abstract class Node_ {
    *
    * @return Error instance is returned.
    */
-  error(message: string, options?: Node.NodeErrorOptions): CssSyntaxError
+  error(message: string, options?: Node.NodeErrorOptions): CssSyntaxError;
 
   /**
    * Returns the next child of the node’s parent.
@@ -379,7 +379,7 @@ declare abstract class Node_ {
    *
    * @return Next node.
    */
-  next(): Node.ChildNode | undefined
+  next(): Node.ChildNode | undefined;
 
   /**
    * Get the position for a word or an index inside the node.
@@ -387,7 +387,7 @@ declare abstract class Node_ {
    * @param opts Options.
    * @return Position.
    */
-  positionBy(opts?: Pick<WarningOptions, 'index' | 'word'>): Node.Position
+  positionBy(opts?: Pick<WarningOptions, "index" | "word">): Node.Position;
 
   /**
    * Convert string index to line/column.
@@ -395,7 +395,7 @@ declare abstract class Node_ {
    * @param index The symbol number in the node’s string.
    * @return Symbol position in file.
    */
-  positionInside(index: number): Node.Position
+  positionInside(index: number): Node.Position;
 
   /**
    * Returns the previous child of the node’s parent.
@@ -410,7 +410,7 @@ declare abstract class Node_ {
    *
    * @return Previous node.
    */
-  prev(): Node.ChildNode | undefined
+  prev(): Node.ChildNode | undefined;
 
   /**
    * Get the range for a word or start and end index inside the node.
@@ -420,8 +420,8 @@ declare abstract class Node_ {
    * @return Range.
    */
   rangeBy(
-    opts?: Pick<WarningOptions, 'endIndex' | 'index' | 'word'>
-  ): Node.Range
+    opts?: Pick<WarningOptions, "endIndex" | "index" | "word">,
+  ): Node.Range;
 
   /**
    * Returns a `raws` value. If the node is missing
@@ -441,7 +441,7 @@ declare abstract class Node_ {
    *                    if the value is the same as prop.
    * @return {string} Code style value.
    */
-  raw(prop: string, defaultType?: string): string
+  raw(prop: string, defaultType?: string): string;
 
   /**
    * It removes the node from its parent and deletes its parent property.
@@ -454,7 +454,7 @@ declare abstract class Node_ {
    *
    * @return `this` for method chaining.
    */
-  remove(): this
+  remove(): this;
 
   /**
    * Inserts node(s) before the current node and removes the current node.
@@ -477,7 +477,7 @@ declare abstract class Node_ {
       | Node.ChildProps
       | Node.ChildProps[]
     )[]
-  ): this
+  ): this;
 
   /**
    * Finds the Root instance of the node’s tree.
@@ -488,14 +488,14 @@ declare abstract class Node_ {
    *
    * @return Root parent.
    */
-  root(): Root
+  root(): Root;
 
   /**
    * Fix circular links on `JSON.stringify()`.
    *
    * @return Cleaned object.
    */
-  toJSON(): object
+  toJSON(): object;
 
   /**
    * It compiles the node to browser readable cascading style sheets string
@@ -508,7 +508,7 @@ declare abstract class Node_ {
    * @param stringifier A syntax to use in string generation.
    * @return CSS string of this node.
    */
-  toString(stringifier?: Stringifier | Syntax): string
+  toString(stringifier?: Stringifier | Syntax): string;
 
   /**
    * It is a wrapper for {@link Result#warn}, providing convenient
@@ -528,9 +528,9 @@ declare abstract class Node_ {
    *
    * @return `Warning` instance is returned
    */
-  warn(result: Result, message: string, options?: WarningOptions): Warning
+  warn(result: Result, message: string, options?: WarningOptions): Warning;
 }
 
 declare class Node extends Node_ {}
 
-export = Node
+export = Node;

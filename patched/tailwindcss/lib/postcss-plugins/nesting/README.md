@@ -12,7 +12,7 @@ module.exports = {
     require('tailwindcss/nesting'),
     require('tailwindcss'),
     require('autoprefixer'),
-  ]
+  ],
 }
 ```
 
@@ -34,9 +34,8 @@ module.exports = {
     require('tailwindcss/nesting')(require('postcss-nesting')),
     require('tailwindcss'),
     require('autoprefixer'),
-  ]
+  ],
 }
 ```
 
 This can also be helpful if for whatever reason you need to use a very specific version of `postcss-nested` and want to override the version we bundle with `tailwindcss/nesting` itself.
-

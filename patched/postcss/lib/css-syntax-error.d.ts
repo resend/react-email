@@ -1,4 +1,4 @@
-import { FilePosition } from './input.js'
+import { FilePosition } from "./input.js";
 
 declare namespace CssSyntaxError {
   /**
@@ -8,16 +8,16 @@ declare namespace CssSyntaxError {
     /**
      * The column number in the input.
      */
-    column: number
+    column: number;
 
     /**
      * The line number in the input.
      */
-    line: number
+    line: number;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { CssSyntaxError_ as default }
+  export { CssSyntaxError_ as default };
 }
 
 /**
@@ -61,7 +61,7 @@ declare class CssSyntaxError_ extends Error {
    * PostCSS will use the input source map to detect the original location.
    * If you need the position in the PostCSS input, use `error.input.column`.
    */
-  column?: number
+  column?: number;
 
   /**
    * Source column of the error's end, exclusive. Provided if the error pertains
@@ -75,7 +75,7 @@ declare class CssSyntaxError_ extends Error {
    * PostCSS will use the input source map to detect the original location.
    * If you need the position in the PostCSS input, use `error.input.endColumn`.
    */
-  endColumn?: number
+  endColumn?: number;
 
   /**
    * Source line of the error's end, exclusive. Provided if the error pertains
@@ -89,7 +89,7 @@ declare class CssSyntaxError_ extends Error {
    * PostCSS will use the input source map to detect the original location.
    * If you need the position in the PostCSS input, use `error.input.endLine`.
    */
-  endLine?: number
+  endLine?: number;
 
   /**
    * Absolute path to the broken file.
@@ -102,7 +102,7 @@ declare class CssSyntaxError_ extends Error {
    * PostCSS will use the input source map to detect the original location.
    * If you need the position in the PostCSS input, use `error.input.file`.
    */
-  file?: string
+  file?: string;
 
   /**
    * Input object with PostCSS internal information
@@ -116,7 +116,7 @@ declare class CssSyntaxError_ extends Error {
    * error.file       //=> 'a.sass'
    * ```
    */
-  input?: FilePosition
+  input?: FilePosition;
 
   /**
    * Source line of the error.
@@ -129,7 +129,7 @@ declare class CssSyntaxError_ extends Error {
    * PostCSS will use the input source map to detect the original location.
    * If you need the position in the PostCSS input, use `error.input.line`.
    */
-  line?: number
+  line?: number;
 
   /**
    * Full error text in the GNU error format
@@ -139,7 +139,7 @@ declare class CssSyntaxError_ extends Error {
    * error.message //=> 'a.css:1:1: Unclosed block'
    * ```
    */
-  message: string
+  message: string;
 
   /**
    * Always equal to `'CssSyntaxError'`. You should always check error type
@@ -153,7 +153,7 @@ declare class CssSyntaxError_ extends Error {
    * }
    * ```
    */
-  name: 'CssSyntaxError'
+  name: "CssSyntaxError";
 
   /**
    * Plugin name, if error came from plugin.
@@ -162,7 +162,7 @@ declare class CssSyntaxError_ extends Error {
    * error.plugin //=> 'postcss-vars'
    * ```
    */
-  plugin?: string
+  plugin?: string;
 
   /**
    * Error message.
@@ -171,7 +171,7 @@ declare class CssSyntaxError_ extends Error {
    * error.message //=> 'Unclosed block'
    * ```
    */
-  reason: string
+  reason: string;
 
   /**
    * Source code of the broken file.
@@ -181,9 +181,9 @@ declare class CssSyntaxError_ extends Error {
    * error.input.source //=> 'a b { }'
    * ```
    */
-  source?: string
+  source?: string;
 
-  stack: string
+  stack: string;
 
   /**
    * Instantiates a CSS syntax error. Can be instantiated for a single position
@@ -203,8 +203,8 @@ declare class CssSyntaxError_ extends Error {
     columnOrEndPos?: CssSyntaxError.RangePosition | number,
     source?: string,
     file?: string,
-    plugin?: string
-  )
+    plugin?: string,
+  );
 
   /**
    * Returns a few lines of CSS source that caused the error.
@@ -227,7 +227,7 @@ declare class CssSyntaxError_ extends Error {
    *              and `process.env.NODE_DISABLE_COLORS`.
    * @return Few lines of CSS source that caused the error.
    */
-  showSourceCode(color?: boolean): string
+  showSourceCode(color?: boolean): string;
 
   /**
    * Returns error position, message and source code of the broken part.
@@ -240,9 +240,9 @@ declare class CssSyntaxError_ extends Error {
    *
    * @return Error position, message and source code.
    */
-  toString(): string
+  toString(): string;
 }
 
 declare class CssSyntaxError extends CssSyntaxError_ {}
 
-export = CssSyntaxError
+export = CssSyntaxError;

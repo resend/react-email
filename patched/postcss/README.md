@@ -17,12 +17,12 @@ and JetBrains. The [Autoprefixer] and [Stylelint] PostCSS plugins is one of
 
 ---
 
-[Abstract Syntax Tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
-[Evil Martians]:        https://evilmartians.com/?utm_source=postcss
-[Autoprefixer]:         https://github.com/postcss/autoprefixer
-[Stylelint]:            https://stylelint.io/
-[plugins]:              https://github.com/postcss/postcss#plugins
-
+[Abstract Syntax Tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+[Evil Martians]: https://evilmartians.com/?utm_source=postcss
+[Autoprefixer]: https://github.com/postcss/autoprefixer
+[Stylelint]: https://stylelint.io/
+[plugins]: https://github.com/postcss/postcss#plugins
 
 ## Docs
+
 Read full docs **[here](https://postcss.org/)**.

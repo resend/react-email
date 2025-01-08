@@ -1,47 +1,47 @@
-import { RangePosition } from './css-syntax-error.js'
-import Node from './node.js'
+import { RangePosition } from "./css-syntax-error.js";
+import Node from "./node.js";
 
 declare namespace Warning {
   export interface WarningOptions {
     /**
      * End position, exclusive, in CSS node string that caused the warning.
      */
-    end?: RangePosition
+    end?: RangePosition;
 
     /**
      * End index, exclusive, in CSS node string that caused the warning.
      */
-    endIndex?: number
+    endIndex?: number;
 
     /**
      * Start index, inclusive, in CSS node string that caused the warning.
      */
-    index?: number
+    index?: number;
 
     /**
      * CSS node that caused the warning.
      */
-    node?: Node
+    node?: Node;
 
     /**
      * Name of the plugin that created this warning. `Result#warn` fills
      * this property automatically.
      */
-    plugin?: string
+    plugin?: string;
 
     /**
      * Start position, inclusive, in CSS node string that caused the warning.
      */
-    start?: RangePosition
+    start?: RangePosition;
 
     /**
      * Word in CSS source that caused the warning.
      */
-    word?: string
+    word?: string;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Warning_ as default }
+  export { Warning_ as default };
 }
 
 /**
@@ -61,7 +61,7 @@ declare class Warning_ {
    * warning.column //=> 6
    * ```
    */
-  column: number
+  column: number;
 
   /**
    * Column for exclusive end position in the input file with this warning’s source.
@@ -70,7 +70,7 @@ declare class Warning_ {
    * warning.endColumn //=> 4
    * ```
    */
-  endColumn?: number
+  endColumn?: number;
 
   /**
    * Line for exclusive end position in the input file with this warning’s source.
@@ -79,7 +79,7 @@ declare class Warning_ {
    * warning.endLine //=> 6
    * ```
    */
-  endLine?: number
+  endLine?: number;
 
   /**
    * Line for inclusive start position in the input file with this warning’s source.
@@ -88,7 +88,7 @@ declare class Warning_ {
    * warning.line //=> 5
    * ```
    */
-  line: number
+  line: number;
 
   /**
    * Contains the CSS node that caused the warning.
@@ -97,7 +97,7 @@ declare class Warning_ {
    * warning.node.toString() //=> 'color: white !important'
    * ```
    */
-  node: Node
+  node: Node;
 
   /**
    * The name of the plugin that created this warning.
@@ -107,7 +107,7 @@ declare class Warning_ {
    * warning.plugin //=> 'postcss-important'
    * ```
    */
-  plugin: string
+  plugin: string;
 
   /**
    * The warning message.
@@ -116,19 +116,19 @@ declare class Warning_ {
    * warning.text //=> 'Try to avoid !important'
    * ```
    */
-  text: string
+  text: string;
 
   /**
    * Type to filter warnings from `Result#messages`.
    * Always equal to `"warning"`.
    */
-  type: 'warning'
+  type: "warning";
 
   /**
    * @param text Warning message.
    * @param opts Warning options.
    */
-  constructor(text: string, opts?: Warning.WarningOptions)
+  constructor(text: string, opts?: Warning.WarningOptions);
 
   /**
    * Returns a warning position and message.
@@ -139,9 +139,9 @@ declare class Warning_ {
    *
    * @return Warning position and message.
    */
-  toString(): string
+  toString(): string;
 }
 
 declare class Warning extends Warning_ {}
 
-export = Warning
+export = Warning;

@@ -1,14 +1,14 @@
-import Container, { ContainerProps } from './container.js'
-import Document from './document.js'
-import { ProcessOptions } from './postcss.js'
-import Result from './result.js'
+import Container, { ContainerProps } from "./container.js";
+import Document from "./document.js";
+import { ProcessOptions } from "./postcss.js";
+import Result from "./result.js";
 
 declare namespace Root {
   export interface RootRaws extends Record<string, any> {
     /**
      * The space symbols after the last child to the end of file.
      */
-    after?: string
+    after?: string;
 
     /**
      * Non-CSS code after `Root`, when `Root` is inside `Document`.
@@ -16,7 +16,7 @@ declare namespace Root {
      * **Experimental:** some aspects of this node could change within minor
      * or patch version releases.
      */
-    codeAfter?: string
+    codeAfter?: string;
 
     /**
      * Non-CSS code before `Root`, when `Root` is inside `Document`.
@@ -24,12 +24,12 @@ declare namespace Root {
      * **Experimental:** some aspects of this node could change within minor
      * or patch version releases.
      */
-    codeBefore?: string
+    codeBefore?: string;
 
     /**
      * Is the last child has an (optional) semicolon.
      */
-    semicolon?: boolean
+    semicolon?: boolean;
   }
 
   export interface RootProps extends ContainerProps {
@@ -37,11 +37,11 @@ declare namespace Root {
      * Information used to generate byte-to-byte equal node string
      * as it was in the origin input.
      * */
-    raws?: RootRaws
+    raws?: RootRaws;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Root_ as default }
+  export { Root_ as default };
 }
 
 /**
@@ -54,17 +54,17 @@ declare namespace Root {
  * ```
  */
 declare class Root_ extends Container {
-  nodes: NonNullable<Container['nodes']>
-  parent: Document | undefined
-  raws: Root.RootRaws
-  type: 'root'
+  nodes: NonNullable<Container["nodes"]>;
+  parent: Document | undefined;
+  raws: Root.RootRaws;
+  type: "root";
 
-  constructor(defaults?: Root.RootProps)
+  constructor(defaults?: Root.RootProps);
 
-  assign(overrides: object | Root.RootProps): this
-  clone(overrides?: Partial<Root.RootProps>): Root
-  cloneAfter(overrides?: Partial<Root.RootProps>): Root
-  cloneBefore(overrides?: Partial<Root.RootProps>): Root
+  assign(overrides: object | Root.RootProps): this;
+  clone(overrides?: Partial<Root.RootProps>): Root;
+  cloneAfter(overrides?: Partial<Root.RootProps>): Root;
+  cloneBefore(overrides?: Partial<Root.RootProps>): Root;
 
   /**
    * Returns a `Result` instance representing the root’s CSS.
@@ -79,9 +79,9 @@ declare class Root_ extends Container {
    * @param opts Options.
    * @return Result with current root’s CSS.
    */
-  toResult(options?: ProcessOptions): Result
+  toResult(options?: ProcessOptions): Result;
 }
 
 declare class Root extends Root_ {}
 
-export = Root
+export = Root;

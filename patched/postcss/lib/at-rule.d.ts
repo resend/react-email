@@ -1,56 +1,56 @@
 import Container, {
   ContainerProps,
-  ContainerWithChildren
-} from './container.js'
+  ContainerWithChildren,
+} from "./container.js";
 
 declare namespace AtRule {
   export interface AtRuleRaws extends Record<string, unknown> {
     /**
      * The space symbols after the last child of the node to the end of the node.
      */
-    after?: string
+    after?: string;
 
     /**
      * The space between the at-rule name and its parameters.
      */
-    afterName?: string
+    afterName?: string;
 
     /**
      * The space symbols before the node. It also stores `*`
      * and `_` symbols before the declaration (IE hack).
      */
-    before?: string
+    before?: string;
 
     /**
      * The symbols between the last parameter and `{` for rules.
      */
-    between?: string
+    between?: string;
 
     /**
      * The rule’s selector with comments.
      */
     params?: {
-      raw: string
-      value: string
-    }
+      raw: string;
+      value: string;
+    };
 
     /**
      * Contains `true` if the last child has an (optional) semicolon.
      */
-    semicolon?: boolean
+    semicolon?: boolean;
   }
 
   export interface AtRuleProps extends ContainerProps {
     /** Name of the at-rule. */
-    name: string
+    name: string;
     /** Parameters following the name of the at-rule. */
-    params?: number | string
+    params?: number | string;
     /** Information used to generate byte-to-byte equal node string as it was in the origin input. */
-    raws?: AtRuleRaws
+    raws?: AtRuleRaws;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { AtRule_ as default }
+  export { AtRule_ as default };
 }
 
 /**
@@ -88,8 +88,8 @@ declare class AtRule_ extends Container {
    * media.name //=> 'media'
    * ```
    */
-  get name(): string
-  set name(value: string)
+  get name(): string;
+  set name(value: string);
 
   /**
    * An array containing the layer’s children.
@@ -109,7 +109,7 @@ declare class AtRule_ extends Container {
    * layer.nodes //=> undefined
    * ```
    */
-  nodes: Container['nodes']
+  nodes: Container["nodes"];
   /**
    * The at-rule’s parameters, the values that follow the at-rule’s name
    * but precede any `{}` block.
@@ -120,21 +120,21 @@ declare class AtRule_ extends Container {
    * media.params //=> 'print, screen'
    * ```
    */
-  get params(): string
-  set params(value: string)
-  parent: ContainerWithChildren | undefined
+  get params(): string;
+  set params(value: string);
+  parent: ContainerWithChildren | undefined;
 
-  raws: AtRule.AtRuleRaws
+  raws: AtRule.AtRuleRaws;
 
-  type: 'atrule'
+  type: "atrule";
 
-  constructor(defaults?: AtRule.AtRuleProps)
-  assign(overrides: AtRule.AtRuleProps | object): this
-  clone(overrides?: Partial<AtRule.AtRuleProps>): AtRule
-  cloneAfter(overrides?: Partial<AtRule.AtRuleProps>): AtRule
-  cloneBefore(overrides?: Partial<AtRule.AtRuleProps>): AtRule
+  constructor(defaults?: AtRule.AtRuleProps);
+  assign(overrides: AtRule.AtRuleProps | object): this;
+  clone(overrides?: Partial<AtRule.AtRuleProps>): AtRule;
+  cloneAfter(overrides?: Partial<AtRule.AtRuleProps>): AtRule;
+  cloneBefore(overrides?: Partial<AtRule.AtRuleProps>): AtRule;
 }
 
 declare class AtRule extends AtRule_ {}
 
-export = AtRule
+export = AtRule;

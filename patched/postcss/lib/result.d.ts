@@ -7,41 +7,40 @@ import {
   SourceMap,
   TransformCallback,
   Warning,
-  WarningOptions
-} from './postcss.js'
-import Processor from './processor.js'
+  WarningOptions,
+} from "./postcss.js";
+import Processor from "./processor.js";
 
 declare namespace Result {
   export interface Message {
-    [others: string]: any
+    [others: string]: any;
 
     /**
      * Source PostCSS plugin name.
      */
-    plugin?: string
+    plugin?: string;
 
     /**
      * Message type.
      */
-    type: string
+    type: string;
   }
 
   export interface ResultOptions extends ProcessOptions {
     /**
      * The CSS node that was the source of the warning.
      */
-    node?: Node
+    node?: Node;
 
     /**
      * Name of plugin that created this warning. `Result#warn` will fill it
      * automatically with `Plugin#postcssPlugin` value.
      */
-    plugin?: string
+    plugin?: string;
   }
 
-
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  export { Result_ as default }
+  export { Result_ as default };
 }
 
 /**
@@ -68,12 +67,12 @@ declare class Result_<RootNode = Document | Root> {
    * postcss.parse('a{}').toResult().css //=> "a{}"
    * ```
    */
-  css: string
+  css: string;
 
   /**
    * Last runned PostCSS plugin.
    */
-  lastPlugin: Plugin | TransformCallback
+  lastPlugin: Plugin | TransformCallback;
 
   /**
    * An instance of `SourceMapGenerator` class from the `source-map` library,
@@ -89,7 +88,7 @@ declare class Result_<RootNode = Document | Root> {
    * }
    * ```
    */
-  map: SourceMap
+  map: SourceMap;
 
   /**
    * Contains messages from plugins (e.g., warnings or custom messages).
@@ -109,7 +108,7 @@ declare class Result_<RootNode = Document | Root> {
    * }
    * ```
    */
-  messages: Result.Message[]
+  messages: Result.Message[];
 
   /**
    * Options from the `Processor#process` or `Root#toResult` call
@@ -119,7 +118,7 @@ declare class Result_<RootNode = Document | Root> {
    * root.toResult(opts).opts === opts
    * ```
    */
-  opts: Result.ResultOptions
+  opts: Result.ResultOptions;
 
   /**
    * The Processor instance used for this transformation.
@@ -132,7 +131,7 @@ declare class Result_<RootNode = Document | Root> {
    * })
    * ```
    */
-  processor: Processor
+  processor: Processor;
 
   /**
    * Root node after all transformations.
@@ -141,14 +140,14 @@ declare class Result_<RootNode = Document | Root> {
    * root.toResult().root === root
    * ```
    */
-  root: RootNode
+  root: RootNode;
 
   /**
    * @param processor Processor used for this transformation.
    * @param root      Root node after all transformations.
    * @param opts      Options from the `Processor#process` or `Root#toResult`.
    */
-  constructor(processor: Processor, root: RootNode, opts: Result.ResultOptions)
+  constructor(processor: Processor, root: RootNode, opts: Result.ResultOptions);
 
   /**
    * Returns for `Result#css` content.
@@ -159,7 +158,7 @@ declare class Result_<RootNode = Document | Root> {
    *
    * @return String representing of `Result#root`.
    */
-  toString(): string
+  toString(): string;
 
   /**
    * Creates an instance of `Warning` and adds it to `Result#messages`.
@@ -174,7 +173,7 @@ declare class Result_<RootNode = Document | Root> {
    * @param opts Warning options.
    * @return Created warning.
    */
-  warn(message: string, options?: WarningOptions): Warning
+  warn(message: string, options?: WarningOptions): Warning;
 
   /**
    * Returns warnings from plugins. Filters `Warning` instances
@@ -188,7 +187,7 @@ declare class Result_<RootNode = Document | Root> {
    *
    * @return Warnings from plugins.
    */
-  warnings(): Warning[]
+  warnings(): Warning[];
 
   /**
    * An alias for the `Result#css` property.
@@ -198,9 +197,9 @@ declare class Result_<RootNode = Document | Root> {
    * result.css === result.content
    * ```
    */
-  get content(): string
+  get content(): string;
 }
 
 declare class Result<RootNode = Document | Root> extends Result_<RootNode> {}
 
-export = Result
+export = Result;
