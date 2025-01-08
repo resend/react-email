@@ -5,6 +5,7 @@
   "bin": {
     "email": "./dist/cli/index.js"
   },
+  "sideEffects": false,
   "main": "./dist/index.browser.js",
   "module": "./dist/index.browser.mjs",
   "types": "./dist/index.browser.d.ts",
@@ -63,9 +64,10 @@
     }
   },
   "scripts": {
-    "build:preview": "node build-preview-server.mjs",
+    "build:preview": "node ./scripts/build-preview-server.mjs",
     "build:tsup": "tsup-node",
-    "build": "pnpm build:tsup && pnpm build:preview",
+    "build:package": "pnpm build:tsup && node ./scripts/adjust-package-index.mjs",
+    "build": "pnpm build:package && pnpm build:preview",
     "dev": "pnpm build:tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
