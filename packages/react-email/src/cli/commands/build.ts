@@ -173,16 +173,13 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   packageJson.scripts.start = 'next start';
 
   packageJson.name = 'preview-server';
-  // We remove these dependencies to avoid having resolve issues on our demo's build process.
-  // The `render` function is only used in the `email export` command so it is irrelevant to have
-  // it during this build.
-  for (const key in packageJson.dependencies) {
-    if (key.startsWith('@react-email')) {
+  for (const [key, value] of Object.entries(packageJson.dependencies)) {
+    if (value.startsWith('workspace:')) {
       delete packageJson.dependencies[key];
     }
   }
-  for (const key in packageJson.devDependencies) {
-    if (key.startsWith('@react-email')) {
+  for (const [key, value] of Object.entries(packageJson.devDependencies)) {
+    if (value.startsWith('workspace:')) {
       delete packageJson.devDependencies[key];
     }
   }
