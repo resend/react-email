@@ -4,7 +4,7 @@ import { $ } from './utils/run-testing-command';
 describe('integrations', () => {
   beforeAll(() => {
     const reactEmailLocation = path.resolve(__dirname, '../../../../..');
-    $('pnpm build:tsup', reactEmailLocation);
+    $('pnpm build:package', reactEmailLocation);
     $('yalc installations clean react-email', reactEmailLocation);
     $('yalc publish', reactEmailLocation);
   });
