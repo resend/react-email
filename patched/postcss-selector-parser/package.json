@@ -32,14 +32,6 @@
     "postcss-selector-parser.d.ts",
     "!**/__tests__"
   ],
-  "scripts": {
-    "typecheck": "tsc --noEmit --strict postcss-selector-parser.d.ts postcss-selector-parser.test.ts",
-    "pretest": "eslint src && npm run typecheck",
-    "lintfix": "eslint --fix src",
-    "report": "nyc report --reporter=html",
-    "test": "nyc ava src/__tests__/*.mjs",
-    "testone": "ava"
-  },
   "dependencies": {
     "cssesc": "^3.0.0"
   },
