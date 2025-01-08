@@ -9,5 +9,5 @@ Object.defineProperty(exports, "default", {
     }
 });
 function bigSign(bigIntValue) {
-    return (bigIntValue > 0n) - (bigIntValue < 0n);
+    return (bigIntValue > BigInt(0)) - (bigIntValue < BigInt(0));
 }

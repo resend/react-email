@@ -23,32 +23,32 @@ class Offsets {
      *
      * @type {Record<Layer, bigint>}
      */ this.offsets = {
-            defaults: 0n,
-            base: 0n,
-            components: 0n,
-            utilities: 0n,
-            variants: 0n,
-            user: 0n
+            defaults: BigInt(0),
+            base: BigInt(0),
+            components: BigInt(0),
+            utilities: BigInt(0),
+            variants: BigInt(0),
+            user: BigInt(0)
         };
         /**
      * Positions for a given layer
      *
      * @type {Record<Layer, bigint>}
      */ this.layerPositions = {
-            defaults: 0n,
-            base: 1n,
-            components: 2n,
-            utilities: 3n,
+            defaults: BigInt(0),
+            base: BigInt(1),
+            components: BigInt(2),
+            utilities: BigInt(3),
             // There isn't technically a "user" layer, but we need to give it a position
             // Because it's used for ordering user-css from @apply
-            user: 4n,
-            variants: 5n
+            user: BigInt(4),
+            variants: BigInt(5)
         };
         /**
      * The total number of functions currently registered across all variants (including arbitrary variants)
      *
      * @type {bigint}
-     */ this.reservedVariantBits = 0n;
+     */ this.reservedVariantBits = BigInt(0);
         /**
      * Positions for a given variant
      *
@@ -62,11 +62,11 @@ class Offsets {
         return {
             layer,
             parentLayer: layer,
-            arbitrary: 0n,
-            variants: 0n,
-            parallelIndex: 0n,
+            arbitrary: BigInt(0),
+            variants: BigInt(0),
+            parallelIndex: BigInt(0),
             index: this.offsets[layer]++,
-            propertyOffset: 0n,
+            propertyOffset: BigInt(0),
             property: "",
             options: []
         };
@@ -77,7 +77,7 @@ class Offsets {
    */ arbitraryProperty(name) {
         return {
             ...this.create("utilities"),
-            arbitrary: 1n,
+            arbitrary: BigInt(1),
             property: name
         };
     }
@@ -150,7 +150,7 @@ class Offsets {
    *
    * @returns {RuleOffset} The highest offset for this variant
    */ recordVariant(variant, fnCount = 1) {
-        this.variantOffsets.set(variant, 1n << this.reservedVariantBits);
+        this.variantOffsets.set(variant, BigInt(1) << this.reservedVariantBits);
         // Ensure space is reserved for each "function" in the parallel variant
         // by offsetting the next variant by the number of parallel variants
         // in the one we just added.
@@ -187,9 +187,9 @@ class Offsets {
                 let maxFnVariant = (_max = max([
                     aOptions.variant,
                     bOptions.variant
-                ])) !== null && _max !== void 0 ? _max : 0n;
+                ])) !== null && _max !== void 0 ? _max : BigInt(0);
                 // Create a mask of 0s from bits 1..N where N represents the mask of the Nth bit
-                let mask = ~(maxFnVariant | maxFnVariant - 1n);
+                let mask = ~(maxFnVariant | maxFnVariant - BigInt(1));
                 let aVariantsAfterFn = a.variants & mask;
                 let bVariantsAfterFn = b.variants & mask;
                 // If the variants the same, we _can_ sort them
@@ -279,7 +279,7 @@ class Offsets {
         // Collect all known arbitrary properties
         let known = new Set();
         for (let [offset] of list){
-            if (offset.arbitrary === 1n) {
+            if (offset.arbitrary === BigInt(1)) {
                 known.add(offset.property);
             }
         }
@@ -291,7 +291,7 @@ class Offsets {
         let properties = Array.from(known).sort();
         // Create a map from the property name to its offset
         let offsets = new Map();
-        let offset = 1n;
+        let offset = BigInt(1);
         for (let property of properties){
             offsets.set(property, offset++);
         }
@@ -301,7 +301,7 @@ class Offsets {
             var _offsets_get;
             offset = {
                 ...offset,
-                propertyOffset: (_offsets_get = offsets.get(offset.property)) !== null && _offsets_get !== void 0 ? _offsets_get : 0n
+                propertyOffset: (_offsets_get = offsets.get(offset.property)) !== null && _offsets_get !== void 0 ? _offsets_get : BigInt(0)
             };
             return [
                 offset,
