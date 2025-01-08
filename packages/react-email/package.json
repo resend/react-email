@@ -63,8 +63,10 @@
     }
   },
   "scripts": {
-    "build": "tsup-node && node build-preview-server.mjs",
-    "dev": "tsup-node --watch",
+    "build:preview": "node build-preview-server.mjs",
+    "build:tsup": "tsup-node",
+    "build": "pnpm build:tsup && pnpm build:preview",
+    "dev": "pnpm build:tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist",

@@ -4,5 +4,6 @@ cli
 !src/cli
 
 # for testing
+package-lock.json
 .for-dependency-graph.ts
 static
