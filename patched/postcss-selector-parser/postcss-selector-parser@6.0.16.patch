@@ -1,0 +1,152 @@
+diff --git a/dist/selectors/attribute.js b/dist/selectors/attribute.js
+index 0351a22bfa597caa3b991433f56b9b3a73de68d2..202e38d149fa9278b0caf86bf4cefc7f97bc06d1 100644
+--- a/dist/selectors/attribute.js
++++ b/dist/selectors/attribute.js
+@@ -13,11 +13,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
+ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+ function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+-var deprecate = require("util-deprecate");
+ var WRAPPED_IN_QUOTES = /^('|")([^]*)\1$/;
+-var warnOfDeprecatedValueAssignment = deprecate(function () {}, "Assigning an attribute a value containing characters that might need to be escaped is deprecated. " + "Call attribute.setValue() instead.");
+-var warnOfDeprecatedQuotedAssignment = deprecate(function () {}, "Assigning attr.quoted is deprecated and has no effect. Assign to attr.quoteMark instead.");
+-var warnOfDeprecatedConstructor = deprecate(function () {}, "Constructing an Attribute selector with a value without specifying quoteMark is deprecated. Note: The value should be unescaped now.");
+ function unescapeValue(value) {
+   var deprecatedUsage = false;
+   var quoteMark = null;
+@@ -44,7 +40,7 @@ function handleDeprecatedContructorOpts(opts) {
+   if (opts.value === undefined) {
+     return opts;
+   }
+-  warnOfDeprecatedConstructor();
++  console.warn("Constructing an Attribute selector with a value without specifying quoteMark is deprecated. Note: The value should be unescaped now.");
+   var _unescapeValue = unescapeValue(opts.value),
+     quoteMark = _unescapeValue.quoteMark,
+     unescaped = _unescapeValue.unescaped;
+@@ -58,7 +54,7 @@ function handleDeprecatedContructorOpts(opts) {
+   opts.quoteMark = quoteMark;
+   return opts;
+ }
+-var Attribute = /*#__PURE__*/function (_Namespace) {
++var Attribute = /*#__PURE__*/function(_Namespace) {
+   _inheritsLoose(Attribute, _Namespace);
+   function Attribute(opts) {
+     var _this;
+@@ -69,12 +65,14 @@ var Attribute = /*#__PURE__*/function (_Namespace) {
+     _this.type = _types.ATTRIBUTE;
+     _this.raws = _this.raws || {};
+     Object.defineProperty(_this.raws, 'unquoted', {
+-      get: deprecate(function () {
++      get: function() {
++        console.warn("attr.raws.unquoted is deprecated. Call attr.value instead.");
+         return _this.value;
+-      }, "attr.raws.unquoted is deprecated. Call attr.value instead."),
+-      set: deprecate(function () {
++      },
++      set: function() {
++        console.warn("Setting attr.raws.unquoted is deprecated and has no effect. attr.value is unescaped by default now.");
+         return _this.value;
+-      }, "Setting attr.raws.unquoted is deprecated and has no effect. attr.value is unescaped by default now.")
++      },
+     });
+     _this._constructed = true;
+     return _this;
+@@ -293,7 +291,7 @@ var Attribute = /*#__PURE__*/function (_Namespace) {
+     if (this.operator && (this.value || this.value === '')) {
+       selector.push(this._stringFor('operator'));
+       selector.push(this._stringFor('value'));
+-      selector.push(this._stringFor('insensitiveFlag', 'insensitive', function (attrValue, attrSpaces) {
++      selector.push(this._stringFor('insensitiveFlag', 'insensitive', function(attrValue, attrSpaces) {
+         if (attrValue.length > 0 && !_this2.quoted && attrSpaces.before.length === 0 && !(_this2.spaces.value && _this2.spaces.value.after)) {
+           attrSpaces.before = " ";
+         }
+@@ -311,7 +309,7 @@ var Attribute = /*#__PURE__*/function (_Namespace) {
+       return qm === "'" || qm === '"';
+     },
+     set: function set(value) {
+-      warnOfDeprecatedQuotedAssignment();
++      console.warn("Assigning attr.quoted is deprecated and has no effect. Assign to attr.quoteMark instead.");
+     }
+ 
+     /**
+@@ -359,37 +357,37 @@ var Attribute = /*#__PURE__*/function (_Namespace) {
+       return this._value;
+     },
+     set:
+-    /**
+-     * Before 3.0, the value had to be set to an escaped value including any wrapped
+-     * quote marks. In 3.0, the semantics of `Attribute.value` changed so that the value
+-     * is unescaped during parsing and any quote marks are removed.
+-     *
+-     * Because the ambiguity of this semantic change, if you set `attr.value = newValue`,
+-     * a deprecation warning is raised when the new value contains any characters that would
+-     * require escaping (including if it contains wrapped quotes).
+-     *
+-     * Instead, you should call `attr.setValue(newValue, opts)` and pass options that describe
+-     * how the new value is quoted.
+-     */
+-    function set(v) {
+-      if (this._constructed) {
+-        var _unescapeValue2 = unescapeValue(v),
+-          deprecatedUsage = _unescapeValue2.deprecatedUsage,
+-          unescaped = _unescapeValue2.unescaped,
+-          quoteMark = _unescapeValue2.quoteMark;
+-        if (deprecatedUsage) {
+-          warnOfDeprecatedValueAssignment();
+-        }
+-        if (unescaped === this._value && quoteMark === this._quoteMark) {
+-          return;
++      /**
++       * Before 3.0, the value had to be set to an escaped value including any wrapped
++       * quote marks. In 3.0, the semantics of `Attribute.value` changed so that the value
++       * is unescaped during parsing and any quote marks are removed.
++       *
++       * Because the ambiguity of this semantic change, if you set `attr.value = newValue`,
++       * a deprecation warning is raised when the new value contains any characters that would
++       * require escaping (including if it contains wrapped quotes).
++       *
++       * Instead, you should call `attr.setValue(newValue, opts)` and pass options that describe
++       * how the new value is quoted.
++       */
++      function set(v) {
++        if (this._constructed) {
++          var _unescapeValue2 = unescapeValue(v),
++            deprecatedUsage = _unescapeValue2.deprecatedUsage,
++            unescaped = _unescapeValue2.unescaped,
++            quoteMark = _unescapeValue2.quoteMark;
++          if (deprecatedUsage) {
++            console.warn("Assigning an attribute a value containing characters that might need to be escaped is deprecated. ");
++          }
++          if (unescaped === this._value && quoteMark === this._quoteMark) {
++            return;
++          }
++          this._value = unescaped;
++          this._quoteMark = quoteMark;
++          this._syncRawValue();
++        } else {
++          this._value = v;
+         }
+-        this._value = unescaped;
+-        this._quoteMark = quoteMark;
+-        this._syncRawValue();
+-      } else {
+-        this._value = v;
+       }
+-    }
+   }, {
+     key: "insensitive",
+     get: function get() {
+diff --git a/package.json b/package.json
+index 0d1af5d373f20e569e1415d067edafbab9518a2d..7aae94532f2c2883fb9c32b953d0e9c2d2dfd91d 100644
+--- a/package.json
++++ b/package.json
+@@ -42,8 +42,7 @@
+     "testone": "ava"
+   },
+   "dependencies": {
+-    "cssesc": "^3.0.0",
+-    "util-deprecate": "^1.0.2"
++    "cssesc": "^3.0.0"
+   },
+   "license": "MIT",
+   "engines": {

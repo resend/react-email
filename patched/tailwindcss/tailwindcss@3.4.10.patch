@@ -1,0 +1,590 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index 81c863478c6e31f15e68a692be763fcfe7e68f68..0000000000000000000000000000000000000000
+diff --git a/lib/corePlugins.js b/lib/corePlugins.js
+index d1cfb6970c9b9f75987020feb0d884a9f82bd78b..79761f9e30fd5b760b3cedb92566188517b324c3 100644
+--- a/lib/corePlugins.js
++++ b/lib/corePlugins.js
+@@ -16,9 +16,10 @@ _export(exports, {
+         return corePlugins;
+     }
+ });
+-const _fs = /*#__PURE__*/ _interop_require_default(require("fs"));
+-const _path = /*#__PURE__*/ _interop_require_wildcard(require("path"));
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _parse = _interop_require_default(require("postcss/lib/parse"));
++const _declaration = _interop_require_default(require("postcss/lib/declaration"));
++const _comment = _interop_require_default(require("postcss/lib/comment"));
++const _preflight = _interop_require_default(require("./css/preflight"));
+ const _createUtilityPlugin = /*#__PURE__*/ _interop_require_default(require("./util/createUtilityPlugin"));
+ const _buildMediaQuery = /*#__PURE__*/ _interop_require_default(require("./util/buildMediaQuery"));
+ const _escapeClassName = /*#__PURE__*/ _interop_require_default(require("./util/escapeClassName"));
+@@ -115,7 +116,7 @@ let variantPlugins = {
+                     foundContent = true;
+                 });
+                 if (!foundContent) {
+-                    rule.prepend(_postcss.default.decl({
++                    rule.prepend(new _declaration.default({
+                         prop: "content",
+                         value: "var(--tw-content)"
+                     }));
+@@ -130,7 +131,7 @@ let variantPlugins = {
+                     foundContent = true;
+                 });
+                 if (!foundContent) {
+-                    rule.prepend(_postcss.default.decl({
++                    rule.prepend(new _declaration.default({
+                         prop: "content",
+                         value: "var(--tw-content)"
+                     }));
+@@ -552,12 +553,12 @@ let cssBackdropFilterValue = [
+ ].join(" ");
+ let corePlugins = {
+     preflight: ({ addBase  })=>{
+-        let preflightStyles = _postcss.default.parse(_fs.default.readFileSync(_path.join(__dirname, "./css/preflight.css"), "utf8"));
++        let preflightStyles = _parse.default(_preflight.default);
+         addBase([
+-            _postcss.default.comment({
++            new _comment.default({
+                 text: `! tailwindcss v${_packagejson.version} | MIT License | https://tailwindcss.com`
+             }),
+-            ...preflightStyles.nodes
++            ...preflightStyles.nodes,
+         ]);
+     },
+     container: (()=>{
+diff --git a/lib/css/preflight.css b/lib/css/preflight.js
+similarity index 85%
+rename from lib/css/preflight.css
+rename to lib/css/preflight.js
+index 7a0d82d46e040f2bf7b133e47380b1dc599e855c..e41d02c38467f21eb3f1bc23ba082e81c432b82a 100644
+--- a/lib/css/preflight.css
++++ b/lib/css/preflight.js
+@@ -1,4 +1,4 @@
+-/*
++module.exports = `/*
+ 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+ 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+ */
+@@ -21,9 +21,9 @@
+ 1. Use a consistent sensible line-height in all browsers.
+ 2. Prevent adjustments of font size after orientation changes in iOS.
+ 3. Use a more readable tab size.
+-4. Use the user's configured `sans` font-family by default.
+-5. Use the user's configured `sans` font-feature-settings by default.
+-6. Use the user's configured `sans` font-variation-settings by default.
++4. Use the user's configured \`sans\` font-family by default.
++5. Use the user's configured \`sans\` font-feature-settings by default.
++6. Use the user's configured \`sans\` font-variation-settings by default.
+ 7. Disable tap highlights on iOS
+ */
+ 
+@@ -41,7 +41,7 @@ html,
+ 
+ /*
+ 1. Remove the margin in all browsers.
+-2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
++2. Inherit line-height from \`html\` so users can set them as a class directly on the \`html\` element.
+ */
+ 
+ body {
+@@ -102,10 +102,10 @@ strong {
+ }
+ 
+ /*
+-1. Use the user's configured `mono` font-family by default.
+-2. Use the user's configured `mono` font-feature-settings by default.
+-3. Use the user's configured `mono` font-variation-settings by default.
+-4. Correct the odd `em` font sizing in all browsers.
++1. Use the user's configured \`mono\` font-family by default.
++2. Use the user's configured \`mono\` font-feature-settings by default.
++3. Use the user's configured \`mono\` font-variation-settings by default.
++4. Correct the odd \`em\` font sizing in all browsers.
+ */
+ 
+ code,
+@@ -127,7 +127,7 @@ small {
+ }
+ 
+ /*
+-Prevent `sub` and `sup` elements from affecting the line height in all browsers.
++Prevent \`sub\` and \`sup\` elements from affecting the line height in all browsers.
+ */
+ 
+ sub,
+@@ -213,7 +213,7 @@ Use the modern Firefox focus style for all focusable elements.
+ }
+ 
+ /*
+-Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
++Remove the additional \`:invalid\` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+ */
+ 
+ :-moz-ui-invalid {
+@@ -257,7 +257,7 @@ Remove the inner padding in Chrome and Safari on macOS.
+ 
+ /*
+ 1. Correct the inability to style clickable types in iOS and Safari.
+-2. Change font properties to `inherit` in Safari.
++2. Change font properties to \`inherit\` in Safari.
+ */
+ 
+ ::-webkit-file-upload-button {
+@@ -353,8 +353,8 @@ Make sure disabled buttons don't get the pointer cursor.
+ }
+ 
+ /*
+-1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+-2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
++1. Make replaced elements \`display: block\` by default. (https://github.com/mozdevs/cssremedy/issues/14)
++2. Add \`vertical-align: middle\` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+    This can trigger a poorly considered lint error in some tools but is included by design.
+ */
+ 
+@@ -384,3 +384,4 @@ video {
+ [hidden] {
+   display: none;
+ }
++`;
+diff --git a/lib/featureFlags.js b/lib/featureFlags.js
+index 78826fd661c88b54aa0cdcb38117555ff423703f..c901d95b63dacd7c5e3c23e784f77ee97981bf40 100644
+--- a/lib/featureFlags.js
++++ b/lib/featureFlags.js
+@@ -19,7 +19,6 @@ _export(exports, {
+         return _default;
+     }
+ });
+-const _picocolors = /*#__PURE__*/ _interop_require_default(require("picocolors"));
+ const _log = /*#__PURE__*/ _interop_require_default(require("./util/log"));
+ function _interop_require_default(obj) {
+     return obj && obj.__esModule ? obj : {
+@@ -69,7 +68,7 @@ function issueFlagNotices(config) {
+         return;
+     }
+     if (experimentalFlagsEnabled(config).length > 0) {
+-        let changes = experimentalFlagsEnabled(config).map((s)=>_picocolors.default.yellow(s)).join(", ");
++        let changes = experimentalFlagsEnabled(config).map((s)=>""+s).join(", ");
+         _log.default.warn("experimental-flags-enabled", [
+             `You have enabled experimental features: ${changes}`,
+             "Experimental features in Tailwind CSS are not covered by semver, may introduce breaking changes, and can change at any time."
+diff --git a/lib/lib/cacheInvalidation.js b/lib/lib/cacheInvalidation.js
+index c24717970ed01726821b4028479dc9d5ad522e06..5bd6f6535216b5203fbd4bcca2acf15fe3d6fade 100644
+--- a/lib/lib/cacheInvalidation.js
++++ b/lib/lib/cacheInvalidation.js
+@@ -8,7 +8,7 @@ Object.defineProperty(exports, "hasContentChanged", {
+         return hasContentChanged;
+     }
+ });
+-const _crypto = /*#__PURE__*/ _interop_require_default(require("crypto"));
++//const _crypto = /*#__PURE__*/ _interop_require_default(require("crypto"));
+ const _sharedState = /*#__PURE__*/ _interop_require_wildcard(require("./sharedState"));
+ function _interop_require_default(obj) {
+     return obj && obj.__esModule ? obj : {
+@@ -71,11 +71,12 @@ function _interop_require_wildcard(obj, nodeInterop) {
+  *
+  * @param {string} str
+  */ function getHash(str) {
+-    try {
+-        return _crypto.default.createHash("md5").update(str, "utf-8").digest("binary");
+-    } catch (err) {
+-        return "";
+-    }
++   throw new Error("Cannot compute a hash using 'crypto' on this patch made for the browser!");
++    //try {
++    //    return _crypto.default.createHash("md5").update(str, "utf-8").digest("binary");
++    //} catch (err) {
++    //    return "";
++    //}
+ }
+ function hasContentChanged(sourcePath, root) {
+     let css = root.toString();
+diff --git a/lib/lib/expandApplyAtRules.js b/lib/lib/expandApplyAtRules.js
+index c47ea1a74270dbf0889c5628a9c2fd70b196e685..168778e98ee7b3eb088448c38c5fc3b9fd28fd62 100644
+--- a/lib/lib/expandApplyAtRules.js
++++ b/lib/lib/expandApplyAtRules.js
+@@ -8,7 +8,7 @@ Object.defineProperty(exports, "default", {
+         return expandApplyAtRules;
+     }
+ });
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _root = /*#__PURE__*/ _interop_require_default(require("postcss/lib/root"));
+ const _postcssselectorparser = /*#__PURE__*/ _interop_require_default(require("postcss-selector-parser"));
+ const _generateRules = require("./generateRules");
+ const _escapeClassName = /*#__PURE__*/ _interop_require_default(require("../util/escapeClassName"));
+@@ -21,7 +21,7 @@ function _interop_require_default(obj) {
+ }
+ /** @typedef {Map<string, [any, import('postcss').Rule[]]>} ApplyCache */ function extractClasses(node) {
+     /** @type {Map<string, Set<string>>} */ let groups = new Map();
+-    let container = _postcss.default.root({
++    let container = new _root.default({
+         nodes: [
+             node.clone()
+         ]
+@@ -442,7 +442,7 @@ function processApply(root, context, localCache) {
+                 if (intersects) {
+                     throw node.error(`You cannot \`@apply\` the \`${applyCandidate}\` utility here because it creates a circular dependency.`);
+                 }
+-                let root = _postcss.default.root({
++                let root = new Root({
+                     nodes: [
+                         node.clone()
+                     ]
+diff --git a/lib/lib/expandTailwindAtRules.js b/lib/lib/expandTailwindAtRules.js
+index 338a6195bb6fb5e4a7f2bc4822fab82f698b84ce..d7c165bf2e28fc9d5b2c5f14278e37bb73474873 100644
+--- a/lib/lib/expandTailwindAtRules.js
++++ b/lib/lib/expandTailwindAtRules.js
+@@ -8,7 +8,7 @@ Object.defineProperty(exports, "default", {
+         return expandTailwindAtRules;
+     }
+ });
+-const _fs = /*#__PURE__*/ _interop_require_default(require("fs"));
++//const _fs = /*#__PURE__*/ _interop_require_default(require("fs"));
+ const _quicklru = /*#__PURE__*/ _interop_require_default(require("@alloc/quick-lru"));
+ const _sharedState = /*#__PURE__*/ _interop_require_wildcard(require("./sharedState"));
+ const _generateRules = require("./generateRules");
+@@ -154,26 +154,26 @@ function expandTailwindAtRules(context) {
+         ]);
+         let seen = new Set();
+         env.DEBUG && console.time("Reading changed files");
+-        /** @type {[item: {file?: string, content?: string}, meta: {transformer: any, extractor: any}][]} */ let regexParserContent = [];
+-        for (let item of context.changedContent){
+-            let transformer = getTransformer(context.tailwindConfig, item.extension);
+-            let extractor = getExtractor(context, item.extension);
+-            regexParserContent.push([
+-                item,
+-                {
+-                    transformer,
+-                    extractor
+-                }
+-            ]);
+-        }
+-        const BATCH_SIZE = 500;
+-        for(let i = 0; i < regexParserContent.length; i += BATCH_SIZE){
+-            let batch = regexParserContent.slice(i, i + BATCH_SIZE);
+-            await Promise.all(batch.map(async ([{ file , content  }, { transformer , extractor  }])=>{
+-                content = file ? await _fs.default.promises.readFile(file, "utf8") : content;
+-                getClassCandidates(transformer(content), extractor, candidates, seen);
+-            }));
+-        }
++        ///** @type {[item: {file?: string, content?: string}, meta: {transformer: any, extractor: any}][]} */ let regexParserContent = [];
++        //for (let item of context.changedContent){
++        //    let transformer = getTransformer(context.tailwindConfig, item.extension);
++        //    let extractor = getExtractor(context, item.extension);
++        //    regexParserContent.push([
++        //        item,
++        //        {
++        //            transformer,
++        //            extractor
++        //        }
++        //    ]);
++        //}
++        //const BATCH_SIZE = 500;
++        //for(let i = 0; i < regexParserContent.length; i += BATCH_SIZE){
++        //    let batch = regexParserContent.slice(i, i + BATCH_SIZE);
++        //    await Promise.all(batch.map(async ([{ file , content  }, { transformer , extractor  }])=>{
++        //        content = file ? await _fs.default.promises.readFile(file, "utf8") : content;
++        //        getClassCandidates(transformer(content), extractor, candidates, seen);
++        //    }));
++        //}
+         env.DEBUG && console.timeEnd("Reading changed files");
+         // ---
+         // Generate the actual CSS
+diff --git a/lib/lib/generateRules.js b/lib/lib/generateRules.js
+index 46a5dbbb7ffc998a88272eb648d375bade785342..5d32b650daeae8aa5907e44601b3d528ee42b4f2 100644
+--- a/lib/lib/generateRules.js
++++ b/lib/lib/generateRules.js
+@@ -19,7 +19,8 @@ _export(exports, {
+         return generateRules;
+     }
+ });
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _root = /*#__PURE__*/ _interop_require_default(require("postcss/lib/root"));
++const _parse = /*#__PURE__*/ _interop_require_default(require("postcss/lib/parse"));
+ const _postcssselectorparser = /*#__PURE__*/ _interop_require_default(require("postcss-selector-parser"));
+ const _parseObjectStyles = /*#__PURE__*/ _interop_require_default(require("../util/parseObjectStyles"));
+ const _isPlainObject = /*#__PURE__*/ _interop_require_default(require("../util/isPlainObject"));
+@@ -138,7 +139,7 @@ function applyPrefix(matches, context) {
+     for (let match of matches){
+         let [meta] = match;
+         if (meta.options.respectPrefix) {
+-            let container = _postcss.default.root({
++            let container = new _root.default({
+                 nodes: [
+                     match[1].clone()
+                 ]
+@@ -166,7 +167,7 @@ function applyImportant(matches, classCandidate) {
+         return rule.parent && rule.parent.type === "atrule" && rule.parent.name === "keyframes";
+     }
+     for (let [meta, rule] of matches){
+-        let container = _postcss.default.root({
++        let container = new _root.default({
+             nodes: [
+                 rule.clone()
+             ]
+@@ -283,7 +284,7 @@ function applyVariant(variant, matches, context) {
+             if (meta.layer === "user") {
+                 continue;
+             }
+-            let container = _postcss.default.root({
++            let container = new _root.default({
+                 nodes: [
+                     rule.clone()
+                 ]
+@@ -490,7 +491,7 @@ function isParsableCssValue(property, value) {
+         return false;
+     }
+     try {
+-        _postcss.default.parse(`a{${property}:${value}}`).toResult();
++        _parse.default(`a{${property}:${value}}`).toResult();
+         return true;
+     } catch (err) {
+         return false;
+@@ -793,7 +794,7 @@ function applyFinalFormat(match, { context , candidate  }) {
+         // So we'll throw out the candidate instead
+         return null;
+     }
+-    let container = _postcss.default.root({
++    let container = new _root.default({
+         nodes: [
+             match[1].clone()
+         ]
+@@ -881,7 +882,7 @@ function generateRules(candidates, context, isSorting = false) {
+         for (const match of matches){
+             let [{ sort , options  }, rule] = match;
+             if (options.respectImportant && strategy) {
+-                let container = _postcss.default.root({
++                let container = new _root.default({
+                     nodes: [
+                         rule.clone()
+                     ]
+diff --git a/lib/lib/resolveDefaultsAtRules.js b/lib/lib/resolveDefaultsAtRules.js
+index 49debe7e428b46b45d0a155e1392f54c8b9b39a2..d18e3fcd850370ca9dd5891044c20ddda16f752a 100644
+--- a/lib/lib/resolveDefaultsAtRules.js
++++ b/lib/lib/resolveDefaultsAtRules.js
+@@ -16,7 +16,7 @@ _export(exports, {
+         return resolveDefaultsAtRules;
+     }
+ });
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _rule = /*#__PURE__*/ _interop_require_default(require("postcss/lib/rule"));
+ const _postcssselectorparser = /*#__PURE__*/ _interop_require_default(require("postcss-selector-parser"));
+ const _featureFlags = require("../featureFlags");
+ function _interop_require_default(obj) {
+@@ -126,7 +126,7 @@ function resolveDefaultsAtRules({ tailwindConfig  }) {
+                         continue;
+                     }
+                     for (let [, selectors] of selectorGroups){
+-                        let universalRule = _postcss.default.rule({
++                        let universalRule = new _rule.default({
+                             source: universal.source
+                         });
+                         universalRule.selectors = [
+@@ -139,7 +139,7 @@ function resolveDefaultsAtRules({ tailwindConfig  }) {
+                 universal.remove();
+             }
+         } else if (universals.size) {
+-            let universalRule = _postcss.default.rule({
++            let universalRule = new _rule.default({
+                 selectors: [
+                     "*",
+                     "::before",
+diff --git a/lib/lib/setupContextUtils.js b/lib/lib/setupContextUtils.js
+index 0d72e2955d49ab866756902a5c5e668e4f916354..0ed18d0e37345f0ba158517bbcd71d3b7dc9d87e 100644
+--- a/lib/lib/setupContextUtils.js
++++ b/lib/lib/setupContextUtils.js
+@@ -28,9 +28,9 @@ _export(exports, {
+         return getContext;
+     }
+ });
+-const _fs = /*#__PURE__*/ _interop_require_default(require("fs"));
+-const _url = /*#__PURE__*/ _interop_require_default(require("url"));
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _atRule = /*#__PURE__*/ _interop_require_default(require("postcss/lib/at-rule"));
++const _rule = /*#__PURE__*/ _interop_require_default(require("postcss/lib/rule"));
++const _root = /*#__PURE__*/ _interop_require_default(require("postcss/lib/root"));
+ const _dlv = /*#__PURE__*/ _interop_require_default(require("dlv"));
+ const _postcssselectorparser = /*#__PURE__*/ _interop_require_default(require("postcss-selector-parser"));
+ const _transformThemeValue = /*#__PURE__*/ _interop_require_default(require("../util/transformThemeValue"));
+@@ -279,7 +279,7 @@ function parseVariant(variant) {
+         let [, name, params] = /@(\S*)( .+|[({].*)?/g.exec(str);
+         var _params_trim;
+         return ({ wrap  })=>{
+-            return wrap(_postcss.default.atRule({
++            return wrap(new _atRule.default({
+                 name,
+                 params: (_params_trim = params === null || params === void 0 ? void 0 : params.trim()) !== null && _params_trim !== void 0 ? _params_trim : ""
+             }));
+@@ -323,7 +323,6 @@ function parseVariant(variant) {
+     }
+     let variantIdentifier = 0;
+     let api = {
+-        postcss: _postcss.default,
+         prefix: applyConfiguredPrefix,
+         e: _escapeClassName.default,
+         config: getConfigValue,
+@@ -650,23 +649,6 @@ function getFileModifiedMap(context) {
+ function trackModified(files, fileModifiedMap) {
+     let changed = false;
+     let mtimesToCommit = new Map();
+-    for (let file of files){
+-        var _fs_statSync;
+-        if (!file) continue;
+-        let parsed = _url.default.parse(file);
+-        let pathname = parsed.hash ? parsed.href.replace(parsed.hash, "") : parsed.href;
+-        pathname = parsed.search ? pathname.replace(parsed.search, "") : pathname;
+-        let newModified = (_fs_statSync = _fs.default.statSync(decodeURIComponent(pathname), {
+-            throwIfNoEntry: false
+-        })) === null || _fs_statSync === void 0 ? void 0 : _fs_statSync.mtimeMs;
+-        if (!newModified) {
+-            continue;
+-        }
+-        if (!fileModifiedMap.has(file) || newModified > fileModifiedMap.get(file)) {
+-            changed = true;
+-        }
+-        mtimesToCommit.set(file, newModified);
+-    }
+     return [
+         changed,
+         mtimesToCommit
+@@ -1036,10 +1018,10 @@ function registerPlugins(plugins, context) {
+                 hasDash: name !== "@",
+                 selectors ({ modifier , value  } = {}) {
+                     let candidate = `TAILWINDPLACEHOLDER${id}`;
+-                    let rule = _postcss.default.rule({
++                    let rule = new _rule.default({
+                         selector: `.${candidate}`
+                     });
+-                    let container = _postcss.default.root({
++                    let container = new _root.default({
+                         nodes: [
+                             rule.clone()
+                         ]
+@@ -1197,7 +1179,7 @@ function registerPlugins(plugins, context) {
+     }
+     markInvalidUtilityCandidate(context, candidate);
+ }
+-function createContext(tailwindConfig, changedContent = [], root = _postcss.default.root()) {
++function createContext(tailwindConfig, changedContent = [], root = new _root.default()) {
+     var _tailwindConfig_blocklist;
+     let context = {
+         disposables: [],
+diff --git a/lib/util/log.js b/lib/util/log.js
+index 9ffdfb7e619f07c27abafdce8b24bea178b72682..46ea502db535c1db87b01cb7ed1189fb5afe3e52 100644
+--- a/lib/util/log.js
++++ b/lib/util/log.js
+@@ -16,7 +16,6 @@ _export(exports, {
+         return _default;
+     }
+ });
+-const _picocolors = /*#__PURE__*/ _interop_require_default(require("picocolors"));
+ function _interop_require_default(obj) {
+     return obj && obj.__esModule ? obj : {
+         default: obj
+@@ -30,12 +29,9 @@ function log(type, messages, key) {
+     console.warn("");
+     messages.forEach((message)=>console.warn(type, "-", message));
+ }
+-function dim(input) {
+-    return _picocolors.default.dim(input);
+-}
+ const _default = {
+     info (key, messages) {
+-        log(_picocolors.default.bold(_picocolors.default.cyan("info")), ...Array.isArray(key) ? [
++        log("info", ...Array.isArray(key) ? [
+             key
+         ] : [
+             messages,
+@@ -43,7 +39,7 @@ const _default = {
+         ]);
+     },
+     warn (key, messages) {
+-        log(_picocolors.default.bold(_picocolors.default.yellow("warn")), ...Array.isArray(key) ? [
++        log("warn", ...Array.isArray(key) ? [
+             key
+         ] : [
+             messages,
+@@ -51,7 +47,7 @@ const _default = {
+         ]);
+     },
+     risk (key, messages) {
+-        log(_picocolors.default.bold(_picocolors.default.magenta("risk")), ...Array.isArray(key) ? [
++        log("risk", ...Array.isArray(key) ? [
+             key
+         ] : [
+             messages,
+diff --git a/lib/util/parseObjectStyles.js b/lib/util/parseObjectStyles.js
+index 995d87d5b83ed2745f43ab74c9282bfc8bc65c96..fde38437e69159c5ce8210175bc15bc39b56a60f 100644
+--- a/lib/util/parseObjectStyles.js
++++ b/lib/util/parseObjectStyles.js
+@@ -8,7 +8,7 @@ Object.defineProperty(exports, "default", {
+         return parseObjectStyles;
+     }
+ });
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _processor = /*#__PURE__*/ _interop_require_default(require("postcss/lib/processor"));
+ const _postcssnested = /*#__PURE__*/ _interop_require_default(require("postcss-nested"));
+ const _postcssjs = /*#__PURE__*/ _interop_require_default(require("postcss-js"));
+ function _interop_require_default(obj) {
+@@ -23,7 +23,7 @@ function parseObjectStyles(styles) {
+         ]);
+     }
+     return styles.flatMap((style)=>{
+-        return (0, _postcss.default)([
++        return new _processor.default([
+             (0, _postcssnested.default)({
+                 bubble: [
+                     "screen"
+diff --git a/lib/util/transformThemeValue.js b/lib/util/transformThemeValue.js
+index a7572e7ac69804205b75b30fa078216343a9f74c..82d7e9b900ee68855c390c60d4777756d9ab3bd9 100644
+--- a/lib/util/transformThemeValue.js
++++ b/lib/util/transformThemeValue.js
+@@ -8,7 +8,7 @@ Object.defineProperty(exports, "default", {
+         return transformThemeValue;
+     }
+ });
+-const _postcss = /*#__PURE__*/ _interop_require_default(require("postcss"));
++const _list = /*#__PURE__*/ _interop_require_default(require("postcss/lib/list"));
+ const _isPlainObject = /*#__PURE__*/ _interop_require_default(require("./isPlainObject"));
+ function _interop_require_default(obj) {
+     return obj && obj.__esModule ? obj : {
+@@ -60,7 +60,7 @@ function transformThemeValue(themeSection) {
+     ].includes(themeSection)) {
+         return (value)=>{
+             if (typeof value === "function") value = value({});
+-            if (typeof value === "string") value = _postcss.default.list.comma(value).join(" ");
++            if (typeof value === "string") value = _list.default.comma(value).join(" ");
+             return value;
+         };
+     }
+diff --git a/src/util/log.js b/src/util/log.js
+index 0df5c87192a1aced242f1a428dacc43db602fdd2..def3295f97c6c133f802ae06a42f77a85d2bbd96 100644
+--- a/src/util/log.js
++++ b/src/util/log.js
+@@ -1,5 +1,3 @@
+-import colors from 'picocolors'
+-
+ let alreadyShown = new Set()
+ 
+ function log(type, messages, key) {
+@@ -12,18 +10,14 @@ function log(type, messages, key) {
+   messages.forEach((message) => console.warn(type, '-', message))
+ }
+ 
+-export function dim(input) {
+-  return colors.dim(input)
+-}
+-
+ export default {
+   info(key, messages) {
+-    log(colors.bold(colors.cyan('info')), ...(Array.isArray(key) ? [key] : [messages, key]))
++    log('info', ...(Array.isArray(key) ? [key] : [messages, key]))
+   },
+   warn(key, messages) {
+-    log(colors.bold(colors.yellow('warn')), ...(Array.isArray(key) ? [key] : [messages, key]))
++    log('warn', ...(Array.isArray(key) ? [key] : [messages, key]))
+   },
+   risk(key, messages) {
+-    log(colors.bold(colors.magenta('risk')), ...(Array.isArray(key) ? [key] : [messages, key]))
++    log('risk', ...(Array.isArray(key) ? [key] : [messages, key]))
+   },
+ }

@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=!react-email-starter",
-    "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
+    "build": "turbo run build --filter=!./patched/*",
+    "dev": "turbo run dev --filter=!./patched/* --parallel --concurrency 25",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
-    "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
@@ -30,13 +30,5 @@
     "vite": "5.4.6",
     "vitest": "2.0.5"
   },
-  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c",
-  "pnpm": {
-    "patchedDependencies": {
-      "tailwindcss@3.4.10": "patches/tailwindcss@3.4.10.patch",
-      "postcss-js@4.0.1": "patches/postcss-js@4.0.1.patch",
-      "postcss-selector-parser@6.0.16": "patches/postcss-selector-parser@6.0.16.patch",
-      "postcss@8.4.40": "patches/postcss@8.4.40.patch"
-    }
-  }
+  "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
 }
