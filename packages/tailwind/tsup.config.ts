@@ -7,16 +7,18 @@ export default defineConfig({
   outDir: "./dist",
   treeshake: true,
   noExternal: [
-    /tailwindcss\/.*/,
+    /patched-tailwindcss\/.*/,
+    /patched-postcss\/.*/,
     /postcss\/.*/,
     "dlv",
     "didyoumean",
     "@alloc/quick-lru",
+    "patched-postcss-selector-parser",
     "postcss-selector-parser",
     "postcss-js",
     "postcss-nested",
     "cssesc",
-    "camelcase-css"
+    "camelcase-css",
   ],
   format: ["esm", "cjs"],
 });
