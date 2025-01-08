@@ -12,7 +12,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from "react-email";
+} from "@react-email/components";
 
 interface PapermarkYearInReviewEmailProps {
   year?: number;

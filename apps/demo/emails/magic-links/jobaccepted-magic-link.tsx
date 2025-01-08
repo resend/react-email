@@ -9,7 +9,7 @@ import {
   Section,
   Text,
   Button,
-} from "react-email";
+} from "@react-email/components";
 
 const MagicCodeEmail = () => {
   return (

@@ -13,7 +13,8 @@ import {
   Section,
   Text,
   Tailwind,
-} from "react-email";
+} from "@react-email/components";
+import * as React from "react";
 
 interface NetlifyWelcomeEmailProps {
   steps?: {
