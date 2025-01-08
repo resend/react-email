@@ -1,0 +1,56 @@
+{
+  "name": "@react-email/tailwind",
+  "version": "1.0.4",
+  "description": "A React component to wrap emails with Tailwind CSS",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup-node",
+    "dev": "tsup-node --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "test:watch": "vitest",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/tailwind"
+  },
+  "keywords": [
+    "react",
+    "email",
+    "tailwind"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "uuid": "11.0.3"
+  },
+  "yalcSig": "86a570b2a24d64b489e56e4aa862fcec"
+}

@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@react-email/tailwind": {
+      "signature": "86a570b2a24d64b489e56e4aa862fcec",
+      "file": true
+    }
+  }
+}

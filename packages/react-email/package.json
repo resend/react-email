@@ -5,18 +5,60 @@
   "bin": {
     "email": "./dist/cli/index.js"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/browser/index.js",
+  "module": "./dist/browser/index.mjs",
+  "types": "./dist/browser/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
+      "node": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
+        }
       },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+      "deno": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "worker": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "browser": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "default": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
+        }
       }
     }
   },
@@ -42,26 +84,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@react-email/body": "workspace:0.0.11",
-    "@react-email/button": "workspace:0.0.19",
-    "@react-email/code-block": "workspace:0.0.11",
-    "@react-email/code-inline": "workspace:0.0.5",
-    "@react-email/column": "workspace:0.0.13",
-    "@react-email/container": "workspace:0.0.15",
-    "@react-email/font": "workspace:0.0.9",
-    "@react-email/head": "workspace:0.0.12",
-    "@react-email/heading": "workspace:0.0.15",
-    "@react-email/hr": "workspace:0.0.11",
-    "@react-email/html": "workspace:0.0.11",
-    "@react-email/img": "workspace:0.0.11",
-    "@react-email/link": "workspace:0.0.12",
-    "@react-email/markdown": "workspace:0.0.14",
-    "@react-email/preview": "workspace:0.0.12",
-    "@react-email/render": "workspace:1.0.3",
-    "@react-email/row": "workspace:0.0.12",
-    "@react-email/section": "workspace:0.0.16",
-    "@react-email/tailwind": "workspace:1.0.4",
-    "@react-email/text": "workspace:0.0.11",
     "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
     "chalk": "4.1.2",
@@ -87,7 +109,26 @@
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
-    "@react-email/render": "workspace:*",
+    "@react-email/body": "workspace:0.0.11",
+    "@react-email/button": "workspace:0.0.19",
+    "@react-email/code-block": "workspace:0.0.11",
+    "@react-email/code-inline": "workspace:0.0.5",
+    "@react-email/column": "workspace:0.0.13",
+    "@react-email/container": "workspace:0.0.15",
+    "@react-email/font": "workspace:0.0.9",
+    "@react-email/head": "workspace:0.0.12",
+    "@react-email/heading": "workspace:0.0.15",
+    "@react-email/hr": "workspace:0.0.11",
+    "@react-email/html": "workspace:0.0.11",
+    "@react-email/img": "workspace:0.0.11",
+    "@react-email/link": "workspace:0.0.12",
+    "@react-email/markdown": "workspace:0.0.14",
+    "@react-email/preview": "workspace:0.0.12",
+    "@react-email/render": "workspace:1.0.3",
+    "@react-email/row": "workspace:0.0.12",
+    "@react-email/section": "workspace:0.0.16",
+    "@react-email/tailwind": "workspace:1.0.4",
+    "@react-email/text": "workspace:0.0.11",
     "@swc/core": "1.4.15",
     "@types/babel__core": "7.20.5",
     "@types/fs-extra": "11.0.1",
