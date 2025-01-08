@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Next.js",
   "compilerOptions": {
+    "rootDir": ".",
     "composite": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -29,11 +30,11 @@
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", ".", ".next/types/**/*.ts"],
   "exclude": [
-    "tsconfig.export.json",
     ".next",
     "dist",
-    "node_modules"
+    "node_modules",
+    "src/package/*"
   ]
 }

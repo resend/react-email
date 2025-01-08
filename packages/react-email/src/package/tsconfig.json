@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "tsconfig/react-library.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules", "integrations/vite", "integrations/nextjs"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmit": true
+  }
+}

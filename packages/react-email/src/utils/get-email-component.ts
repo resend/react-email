@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import type React from 'react';
 import { type RawSourceMap } from 'source-map-js';
 import { type OutputFile, build, type BuildFailure } from 'esbuild';
-import type { render } from '@react-email/render';
+import type { render } from '../package/render/node';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';

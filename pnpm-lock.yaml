@@ -166,6 +166,9 @@ importers:
       classnames:
         specifier: 2.5.1
         version: 2.5.1
+      eslint:
+        specifier: ^8
+        version: 8.50.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -975,9 +978,15 @@ importers:
       glob:
         specifier: 10.3.4
         version: 10.3.4
+      html-to-text:
+        specifier: 9.0.5
+        version: 9.0.5
       log-symbols:
         specifier: 4.1.0
         version: 4.1.0
+      md-to-react-email:
+        specifier: 5.0.5
+        version: 5.0.5(react@19.0.0)
       mime-types:
         specifier: 2.1.35
         version: 2.1.35
@@ -990,10 +999,19 @@ importers:
       ora:
         specifier: 5.4.1
         version: 5.4.1
+      prettier:
+        specifier: 3.4.2
+        version: 3.4.2
+      prismjs:
+        specifier: 1.29.0
+        version: 1.29.0
       socket.io:
         specifier: 4.8.0
         version: 4.8.0
     devDependencies:
+      '@edge-runtime/vm':
+        specifier: 3.1.8
+        version: 3.1.8
       '@radix-ui/colors':
         specifier: 1.0.1
         version: 1.0.1
@@ -1012,9 +1030,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.2
         version: 1.1.2(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
+      '@responsive-email/react-email':
+        specifier: 0.0.3
+        version: 0.0.3(react@19.0.0)
       '@swc/core':
         specifier: 1.4.15
         version: 1.4.15(@swc/helpers@0.5.15)
@@ -1024,6 +1042,9 @@ importers:
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
+      '@types/html-to-text':
+        specifier: 9.0.4
+        version: 9.0.4
       '@types/mime-types':
         specifier: 2.1.4
         version: 2.1.4
@@ -1033,12 +1054,21 @@ importers:
       '@types/normalize-path':
         specifier: 3.0.2
         version: 3.0.2
+      '@types/prettier':
+        specifier: 3.0.0
+        version: 3.0.0
+      '@types/prismjs':
+        specifier: 1.26.5
+        version: 1.26.5
       '@types/react':
         specifier: ^19
         version: 19.0.1
       '@types/react-dom':
         specifier: ^19
         version: 19.0.1
+      '@types/shelljs':
+        specifier: 0.8.15
+        version: 0.8.15
       '@types/webpack':
         specifier: 5.28.5
         version: 5.28.5(@swc/core@1.4.15(@swc/helpers@0.5.15))(esbuild@0.19.11)
@@ -1051,15 +1081,36 @@ importers:
       clsx:
         specifier: 2.1.0
         version: 2.1.0
+      eslint:
+        specifier: 8.50.0
+        version: 8.50.0
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
       eslint-config-prettier:
         specifier: 9.0.0
         version: 9.0.0(eslint@8.50.0)
+      eslint-config-turbo:
+        specifier: 2.1.0
+        version: 2.1.0(eslint@8.50.0)
+      eslint-plugin-regex:
+        specifier: 1.10.0
+        version: 1.10.0(eslint@8.50.0)
       framer-motion:
         specifier: 12.0.0-alpha.2
         version: 12.0.0-alpha.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      jsdom:
+        specifier: 23.0.1
+        version: 23.0.1
+      patched-postcss:
+        specifier: workspace:8.4.40
+        version: link:../../patched/postcss
+      patched-postcss-selector-parser:
+        specifier: workspace:6.0.16
+        version: link:../../patched/postcss-selector-parser
+      patched-tailwindcss:
+        specifier: workspace:3.4.10
+        version: link:../../patched/tailwindcss
       postcss:
         specifier: 8.4.40
         version: 8.4.40
@@ -1075,6 +1126,9 @@ importers:
       sharp:
         specifier: 0.33.3
         version: 0.33.3
+      shelljs:
+        specifier: 0.8.5
+        version: 0.8.5
       socket.io-client:
         specifier: 4.8.0
         version: 4.8.0
@@ -1108,6 +1162,9 @@ importers:
       vitest:
         specifier: 1.1.3
         version: 1.1.3(@edge-runtime/vm@3.1.8)(@types/node@22.10.2)(happy-dom@15.10.2)(jsdom@23.0.1)(lightningcss@1.24.1)(terser@5.37.0)
+      yalc:
+        specifier: 1.0.0-pre.53
+        version: 1.0.0-pre.53
 
   packages/render:
     dependencies:
@@ -14322,7 +14379,7 @@ snapshots:
 
   '@types/prettier@3.0.0':
     dependencies:
-      prettier: 3.4.2
+      prettier: 2.8.8
 
   '@types/prismjs@1.26.5': {}
 

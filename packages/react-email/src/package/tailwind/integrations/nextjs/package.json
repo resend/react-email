@@ -1,0 +1,27 @@
+{
+  "name": "nextjs-with-tailwind",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "preinstall:tailwind": "cd ../../ && turbo build && yalc installations clean @react-email/tailwind && yalc publish",
+    "preinstall": "npm run preinstall:tailwind && yalc add @react-email/tailwind",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-email/components": "^0.0.15",
+    "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
+    "next": "14.2.21",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "yalc": "1.0.0-pre.53"
+  }
+}
