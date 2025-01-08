@@ -33,7 +33,7 @@ class Input {
     //}
 
     if (!this.file) {
-      this.id = '<input css ' + crypto.randomUUID() + '>'
+      this.id = '<input css ' + Math.random().toString().slice(2) + '>'
     }
     if (this.map) this.map.file = this.from
   }
