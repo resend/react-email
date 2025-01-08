@@ -1,6 +1,7 @@
 {
   "name": "patched-postcss-js",
   "version": "4.0.1",
+  "private": true,
   "description": "PostCSS for CSS-in-JS and styles in JS objects",
   "keywords": [
     "postcss",

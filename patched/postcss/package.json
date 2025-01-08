@@ -2,6 +2,7 @@
   "name": "patched-postcss",
   "version": "8.4.40",
   "description": "Tool for transforming styles with JS plugins",
+  "private": true,
   "engines": {
     "node": "^10 || ^12 || >=14"
   },

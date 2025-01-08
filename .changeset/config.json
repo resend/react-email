@@ -12,11 +12,6 @@
   "ignore": [
     "@benchmarks/preview-server",
     "@benchmarks/tailwind-component",
-    "patched-postcss",
-    "patched-postcss-nested",
-    "patched-postcss-js",
-    "patched-tailwindcss",
-    "patched-postcss-selector-parser",
     "demo",
     "web"
   ]
