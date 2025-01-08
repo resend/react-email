@@ -6,7 +6,7 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     exclude: [
-      '.yalc',
+      'node_modules',
       './src/package/tailwind/integrations/nextjs',
       './src/package/tailwind/integrations/vite',
     ],
