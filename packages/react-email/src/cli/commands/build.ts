@@ -183,6 +183,10 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
       delete packageJson.devDependencies[key];
     }
   }
+
+  // This is meant to avoid issues with peer dependencies while the package doesn't upgrade
+  delete packageJson.devDependencies['@responsive-email/react-email'];
+
   delete packageJson.peerDependencies;
   await fs.promises.writeFile(
     packageJsonPath,
