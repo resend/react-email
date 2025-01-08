@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { Config as TailwindOriginalConfig } from "patched-tailwindcss";
-import { Root } from "patched-postcss";
+import Root from "patched-postcss/lib/root";
 import { minifyCss } from "./utils/css/minify-css";
 import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
 import { mapReactTree } from "./utils/react/map-react-tree";
