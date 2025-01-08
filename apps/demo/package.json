@@ -9,7 +9,6 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:*",
     "react": "^19",
     "react-dom": "^19",
     "react-email": "workspace:*"
