@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.6
+
+### Patch Changes
+
+- c6fcd94: Fix preview server crashing without React 19
+
 ## 3.0.5
 
 ### Patch Changes
