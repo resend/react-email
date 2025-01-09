@@ -16,7 +16,7 @@ export async function adjustPackageIndex() {
         pathToFile,
         originalContents.replaceAll(
           /"(?<componentPath>\.\/[^"]+)"/g,
-          (value, componentPath) => {
+          (value, componentPath: string) => {
             if (componentPath.startsWith('./render')) {
               const newComponentPath = componentPath
                 .replace('/browser', '.browser')
