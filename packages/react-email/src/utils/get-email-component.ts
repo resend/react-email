@@ -3,13 +3,15 @@ import path from 'node:path';
 import vm from 'node:vm';
 import type React from 'react';
 import { type RawSourceMap } from 'source-map-js';
-import { type OutputFile, build, type BuildFailure } from 'esbuild';
-import type { render } from '@react-email/render';
+import * as esbuild from 'esbuild';
+import type { render } from '../package/render/node';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+
+const buildContexts = new Map<string, esbuild.BuildContext<{ write: false }>>();
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -25,28 +27,37 @@ export const getEmailComponent = async (
     }
   | { error: ErrorObject }
 > => {
-  let outputFiles: OutputFile[];
-  try {
-    const buildData = await build({
-      bundle: true,
-      entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
-      platform: 'node',
-      write: false,
+  if (!buildContexts.has(emailPath)) {
+    buildContexts.set(
+      emailPath,
+      await esbuild.context({
+        bundle: true,
+        entryPoints: [emailPath],
+        plugins: [renderingUtilitiesExporter([emailPath])],
+        platform: 'node',
+        write: false,
 
-      format: 'cjs',
-      jsx: 'automatic',
-      logLevel: 'silent',
-      // allows for using jsx on a .js file
-      loader: {
-        '.js': 'jsx',
-      },
-      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
-      sourcemap: 'external',
-    });
+        format: 'cjs',
+        jsx: 'automatic',
+        logLevel: 'silent',
+        // allows for using jsx on a .js file
+        loader: {
+          '.js': 'jsx',
+        },
+        outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
+        sourcemap: 'external',
+      }),
+    );
+  }
+
+  const context = buildContexts.get(emailPath)!;
+
+  let outputFiles: esbuild.OutputFile[];
+  try {
+    const buildData = await context.rebuild();
     outputFiles = buildData.outputFiles;
   } catch (exception) {
-    const buildFailure = exception as BuildFailure;
+    const buildFailure = exception as esbuild.BuildFailure;
     return {
       error: {
         message: buildFailure.message,

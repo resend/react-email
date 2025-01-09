@@ -5,7 +5,7 @@ import { glob } from 'glob';
 import { BuildFailure, build } from 'esbuild';
 import ora from 'ora';
 import logSymbols from 'log-symbols';
-import type { Options } from '@react-email/render';
+import type { Options } from '../../package/render/node';
 import normalize from 'normalize-path';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import { tree } from '../utils';

@@ -1,0 +1,286 @@
+diff --git a/lib/css-syntax-error.js b/lib/css-syntax-error.js
+index 169303329e6359e12d59b32cfffc302dd84d2280..56c88c0aa8e8f2de1aa65b685727082febf9256f 100644
+--- a/lib/css-syntax-error.js
++++ b/lib/css-syntax-error.js
+@@ -1,9 +1,5 @@
+ 'use strict'
+ 
+-let pico = require('picocolors')
+-
+-let terminalHighlight = require('./terminal-highlight')
+-
+ class CssSyntaxError extends Error {
+   constructor(message, line, column, source, file, plugin) {
+     super(message)
+@@ -51,10 +47,6 @@ class CssSyntaxError extends Error {
+     if (!this.source) return ''
+ 
+     let css = this.source
+-    if (color == null) color = pico.isColorSupported
+-    if (terminalHighlight) {
+-      if (color) css = terminalHighlight(css)
+-    }
+ 
+     let lines = css.split(/\r?\n/)
+     let start = Math.max(this.line - 3, 0)
+@@ -63,13 +55,7 @@ class CssSyntaxError extends Error {
+     let maxWidth = String(end).length
+ 
+     let mark, aside
+-    if (color) {
+-      let { bold, gray, red } = pico.createColors(true)
+-      mark = text => bold(red(text))
+-      aside = text => gray(text)
+-    } else {
+-      mark = aside = str => str
+-    }
++    mark = aside = str => str
+ 
+     return lines
+       .slice(start, end)
+diff --git a/lib/fromJSON.js b/lib/fromJSON.js
+index 09f2b89aa698adf926fae201ca39ad96a52fd488..20fc8db9ed19ff5cd135e5d38e556753caf08333 100644
+--- a/lib/fromJSON.js
++++ b/lib/fromJSON.js
+@@ -1,7 +1,6 @@
+ 'use strict'
+ 
+ let Declaration = require('./declaration')
+-let PreviousMap = require('./previous-map')
+ let Comment = require('./comment')
+ let AtRule = require('./at-rule')
+ let Input = require('./input')
+@@ -16,12 +15,6 @@ function fromJSON(json, inputs) {
+     inputs = []
+     for (let input of ownInputs) {
+       let inputHydrated = { ...input, __proto__: Input.prototype }
+-      if (inputHydrated.map) {
+-        inputHydrated.map = {
+-          ...inputHydrated.map,
+-          __proto__: PreviousMap.prototype
+-        }
+-      }
+       inputs.push(inputHydrated)
+     }
+   }
+diff --git a/lib/input.js b/lib/input.js
+index 4b5ee5e02f8ecdf880594d191ec1e84b983faeaa..7c73ea0a0338450804e7dbce16b7687ae06ca13d 100644
+--- a/lib/input.js
++++ b/lib/input.js
+@@ -1,21 +1,11 @@
+ 'use strict'
+ 
+-let { SourceMapConsumer, SourceMapGenerator } = require('source-map-js')
+-let { fileURLToPath, pathToFileURL } = require('url')
+-let { isAbsolute, resolve } = require('path')
+-let { nanoid } = require('nanoid/non-secure')
+-
+-let terminalHighlight = require('./terminal-highlight')
+ let CssSyntaxError = require('./css-syntax-error')
+-let PreviousMap = require('./previous-map')
+ 
+ let fromOffsetCache = Symbol('fromOffsetCache')
+ 
+-let sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator)
+-let pathAvailable = Boolean(resolve && isAbsolute)
+-
+ class Input {
+-  constructor(css, opts = {}) {
++  constructor(css) {
+     if (
+       css === null ||
+       typeof css === 'undefined' ||
+@@ -33,29 +23,17 @@ class Input {
+       this.hasBOM = false
+     }
+ 
+-    if (opts.from) {
+-      if (
+-        !pathAvailable ||
+-        /^\w+:\/\//.test(opts.from) ||
+-        isAbsolute(opts.from)
+-      ) {
+-        this.file = opts.from
+-      } else {
+-        this.file = resolve(opts.from)
+-      }
+-    }
+-
+-    if (pathAvailable && sourceMapAvailable) {
+-      let map = new PreviousMap(this.css, opts)
+-      if (map.text) {
+-        this.map = map
+-        let file = map.consumer().file
+-        if (!this.file && file) this.file = this.mapResolve(file)
+-      }
+-    }
++    //if (pathAvailable && sourceMapAvailable) {
++    //  let map = new PreviousMap(this.css, opts)
++    //  if (map.text) {
++    //    this.map = map
++    //    let file = map.consumer().file
++    //    if (!this.file && file) this.file = this.mapResolve(file)
++    //  }
++    //}
+ 
+     if (!this.file) {
+-      this.id = '<input css ' + nanoid(6) + '>'
++      this.id = '<input css ' + crypto.randomUUID() + '>'
+     }
+     if (this.map) this.map.file = this.from
+   }
+@@ -114,12 +92,6 @@ class Input {
+     }
+ 
+     result.input = { column, endColumn, endLine, line, source: this.css }
+-    if (this.file) {
+-      if (pathToFileURL) {
+-        result.input.url = pathToFileURL(this.file).toString()
+-      }
+-      result.input.file = this.file
+-    }
+ 
+     return result
+   }
+@@ -174,49 +146,7 @@ class Input {
+   }
+ 
+   origin(line, column, endLine, endColumn) {
+-    if (!this.map) return false
+-    let consumer = this.map.consumer()
+-
+-    let from = consumer.originalPositionFor({ column, line })
+-    if (!from.source) return false
+-
+-    let to
+-    if (typeof endLine === 'number') {
+-      to = consumer.originalPositionFor({ column: endColumn, line: endLine })
+-    }
+-
+-    let fromUrl
+-
+-    if (isAbsolute(from.source)) {
+-      fromUrl = pathToFileURL(from.source)
+-    } else {
+-      fromUrl = new URL(
+-        from.source,
+-        this.map.consumer().sourceRoot || pathToFileURL(this.map.mapFile)
+-      )
+-    }
+-
+-    let result = {
+-      column: from.column,
+-      endColumn: to && to.column,
+-      endLine: to && to.line,
+-      line: from.line,
+-      url: fromUrl.toString()
+-    }
+-
+-    if (fromUrl.protocol === 'file:') {
+-      if (fileURLToPath) {
+-        result.file = fileURLToPath(fromUrl)
+-      } else {
+-        /* c8 ignore next 2 */
+-        throw new Error(`file: protocol is not available in this PostCSS build`)
+-      }
+-    }
+-
+-    let source = consumer.sourceContentFor(from.source)
+-    if (source) result.source = source
+-
+-    return result
++    return false;
+   }
+ 
+   toJSON() {
+@@ -243,6 +173,3 @@ class Input {
+ module.exports = Input
+ Input.default = Input
+ 
+-if (terminalHighlight && terminalHighlight.registerInput) {
+-  terminalHighlight.registerInput(Input)
+-}
+diff --git a/lib/lazy-result.js b/lib/lazy-result.js
+index 126f40c7e9d7a1f131e2d75b68aeab6c93ee9673..c714eeeab0dc56559a24cbe4ba25fa25713c9401 100644
+--- a/lib/lazy-result.js
++++ b/lib/lazy-result.js
+@@ -1,7 +1,6 @@
+ 'use strict'
+ 
+ let { isClean, my } = require('./symbols')
+-let MapGenerator = require('./map-generator')
+ let stringify = require('./stringify')
+ let Container = require('./container')
+ let Document = require('./document')
+@@ -346,10 +345,10 @@ class LazyResult {
+     if (opts.stringifier) str = opts.stringifier
+     if (str.stringify) str = str.stringify
+ 
+-    let map = new MapGenerator(str, this.result.root, this.result.opts)
+-    let data = map.generate()
+-    this.result.css = data[0]
+-    this.result.map = data[1]
++    this.result.css = '';
++    str(this.result.root, chunk => {
++      this.result.css += chunk;
++    });
+ 
+     return this.result
+   }
+diff --git a/lib/no-work-result.js b/lib/no-work-result.js
+index 05821b7a318c04b787b62441872b2680681aea4f..b1e55ee59d7aa28fd0eea115a657671ce61aad71 100644
+--- a/lib/no-work-result.js
++++ b/lib/no-work-result.js
+@@ -1,6 +1,5 @@
+ 'use strict'
+ 
+-let MapGenerator = require('./map-generator')
+ let stringify = require('./stringify')
+ let warnOnce = require('./warn-once')
+ let parse = require('./parse')
+@@ -27,20 +26,6 @@ class NoWorkResult {
+         return self.root
+       }
+     })
+-
+-    let map = new MapGenerator(str, root, this._opts, css)
+-    if (map.isMap()) {
+-      let [generatedCSS, generatedMap] = map.generate()
+-      if (generatedCSS) {
+-        this.result.css = generatedCSS
+-      }
+-      if (generatedMap) {
+-        this.result.map = generatedMap
+-      }
+-    } else {
+-      map.clearAnnotation()
+-      this.result.css = map.css
+-    }
+   }
+ 
+   async() {
+diff --git a/lib/previous-map.d.ts b/lib/previous-map.d.ts
+deleted file mode 100644
+index 23edeb5c5efc6c0f328282bf4a3b5f338587b11a..0000000000000000000000000000000000000000
+diff --git a/lib/previous-map.js b/lib/previous-map.js
+deleted file mode 100644
+index f3093dfb8e77e305a648ae72a8062cac759e81e9..0000000000000000000000000000000000000000
+diff --git a/lib/terminal-highlight.js b/lib/terminal-highlight.js
+deleted file mode 100644
+index 6196c9df19d6fc2c3bd0c3de7dc662dca5408048..0000000000000000000000000000000000000000
+diff --git a/package.json b/package.json
+index 8808b5de3d6d849103ee2cf669c887aaf38fb796..87bbd5faae9d8f5ebef727c5673840d10ac3f04c 100755
+--- a/package.json
++++ b/package.json
+@@ -73,11 +73,6 @@
+   "bugs": {
+     "url": "https://github.com/postcss/postcss/issues"
+   },
+-  "dependencies": {
+-    "nanoid": "^3.3.7",
+-    "picocolors": "^1.0.1",
+-    "source-map-js": "^1.2.0"
+-  },
+   "browser": {
+     "./lib/terminal-highlight": false,
+     "source-map-js": false,

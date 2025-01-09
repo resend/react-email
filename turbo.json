@@ -20,15 +20,21 @@
       "dependsOn": ["^build"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
     },
+    "react-email-starter#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
+    },
     "react-email#build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": ["^build"]
+    },
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "test:watch": {
       "cache": false

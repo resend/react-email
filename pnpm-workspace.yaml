@@ -5,4 +5,5 @@ packages:
   - "examples/*/*"
   - "packages/*"
   - "packages/create-email/template"
+  - "patched/*"
   - "benchmarks/*"
