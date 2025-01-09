@@ -6,7 +6,6 @@
 .yalc
 yalc.lock
 .pnp.js
-yalc.lock
 .yarn/install-state.gz
 
 # testing
