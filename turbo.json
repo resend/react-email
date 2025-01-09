@@ -28,7 +28,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "lint": {},
+    "lint": {
+      "dependsOn": ["^build"]
+    },
     "//#format": {},
     "//#format:check": {},
     "test": {
