@@ -5,7 +5,9 @@
   "bin": {
     "email": "./dist/cli/index.js"
   },
-  "sideEffects": ["./dist/code-block.*"],
+  "sideEffects": [
+    "./dist/code-block.*"
+  ],
   "main": "./dist/index.browser.js",
   "module": "./dist/index.browser.mjs",
   "types": "./dist/index.browser.d.ts",
@@ -161,7 +163,7 @@
     "tsup": "7.2.0",
     "tsx": "4.9.0",
     "typescript": "5.1.6",
-    "vitest": "1.1.3",
+    "vitest": "2.1.8",
     "yalc": "1.0.0-pre.53"
   }
 }
