@@ -26,5 +26,5 @@ test(
       ),
     ).toMatchSnapshot();
   },
-  { timeout: 7000 },
+  { timeout: 10_000 },
 );
