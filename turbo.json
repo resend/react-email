@@ -34,7 +34,7 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "test:watch": {
       "cache": false
