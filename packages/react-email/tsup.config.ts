@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'tsup';
+import { adjustPackageIndex } from './scripts/adjust-package-index';
 
 const componentDirectories = fs
   .readdirSync('./src/package', { withFileTypes: true })
@@ -61,6 +62,9 @@ export default defineConfig([
     dts: true,
     tsconfig: './src/package/tsconfig.json',
     entry: ['./src/package/index.browser.ts', './src/package/index.node.ts'],
+    onSuccess: async () => {
+      await adjustPackageIndex();
+    },
     bundle: false,
     format: ['cjs', 'esm'],
     outDir: 'dist',
