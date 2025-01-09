@@ -6,8 +6,8 @@ import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 
 const EmailsContext = createContext<
   | {
-    emailsDirectoryMetadata: EmailsDirectory;
-  }
+      emailsDirectoryMetadata: EmailsDirectory;
+    }
   | undefined
 >(undefined);
 
