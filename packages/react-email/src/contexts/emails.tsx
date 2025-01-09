@@ -1,15 +1,13 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
-import {
-  getEmailsDirectoryMetadata,
-  type EmailsDirectory,
-} from '../actions/get-emails-directory-metadata';
+import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
 import { useHotreload } from '../hooks/use-hot-reload';
+import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+  }
   | undefined
 >(undefined);
 
@@ -37,7 +35,7 @@ export const EmailsProvider = (props: {
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async () => {
-      const metadata = await getEmailsDirectoryMetadata(
+      const metadata = await getEmailsDirectoryMetadataAction(
         props.initialEmailsDirectoryMetadata.absolutePath,
       );
       if (metadata) {
