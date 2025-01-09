@@ -8,7 +8,6 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-package-lock.json
 dist
 .yalc
 yalc.lock
