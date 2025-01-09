@@ -2,4 +2,4 @@
 "react-email": major
 ---
 
-Export all components to substitute @react-email/components
+Add the source for all components, build and export them all unified with `react-email`
