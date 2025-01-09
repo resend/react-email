@@ -119,8 +119,10 @@ export const startDevServer = async (
   // these environment variables are used on the next app
   // this is the most reliable way of communicating these paths through
   process.env = {
-    ...process.env,
     NODE_ENV: 'development',
+    ...(process.env as Omit<NodeJS.ProcessEnv, 'NODE_ENV'> & {
+      NODE_ENV?: NodeJS.ProcessEnv['NODE_ENV'];
+    }),
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
