@@ -27,12 +27,13 @@ test("sanitizePseudoClasses()", async () => {
     )
     .async();
 
-  const { pseudoClassClasses, sanitizedPseudoClassRules } = sanitizePseudoClasses(root as Root);
+  const { pseudoClassClasses, sanitizedPseudoClassRules } =
+    sanitizePseudoClasses(root as Root);
 
   expect(pseudoClassClasses).toEqual([
     "hover:text-sky-600",
     "focus:outline-none",
-    "hover:bg-gray-100"
+    "hover:bg-gray-100",
   ]);
 
   expect(new Root({ nodes: sanitizedPseudoClassRules }).toString()).toBe(`

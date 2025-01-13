@@ -53,7 +53,10 @@ export const cloneElementWithInlinedStyles = (
           a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of [...mediaQueryClasses, ...pseudoClassClasses]) {
+        for (const singleClass of [
+          ...mediaQueryClasses,
+          ...pseudoClassClasses,
+        ]) {
           propsToOverwrite.className = propsToOverwrite.className.replace(
             singleClass,
             sanitizeClassName(singleClass),
