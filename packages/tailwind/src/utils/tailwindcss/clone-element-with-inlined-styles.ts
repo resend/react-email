@@ -4,6 +4,7 @@ import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { sanitizeMediaQueries } from '../css/media-queries/sanitize-media-queries';
+import { sanitizePseudoClasses } from '../css/pseudo-classes/sanitize-pseudo-classes';
 import { sanitizeDeclarations } from '../css/sanitize-declarations';
 import { isComponent } from '../react/is-component';
 import type { setupTailwind } from './setup-tailwind';
@@ -28,6 +29,11 @@ export const cloneElementWithInlinedStyles = (
     nonInlinableClasses = mediaQueryClasses;
     nonInlineStyleNodes = sanitizedAtRules;
 
+    const { sanitizedPseudoClassRules, pseudoClassClasses } =
+      sanitizePseudoClasses(rootForClasses);
+    nonInlinableClasses.push(...pseudoClassClasses);
+    nonInlineStyleNodes.push(...sanitizedPseudoClassRules);
+
     const { styles, residualClassName } = makeInlineStylesFor(
       element.props.className,
       rootForClasses,
@@ -44,10 +50,10 @@ export const cloneElementWithInlinedStyles = (
         /*
           We sanitize only the class names of Tailwind classes that we are not going to inline
           to avoid unpredictable behavior on the user's code. If we did sanitize all classes
-          a user-defined class could end up also being sanitized which would lead to unexpected 
+          a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of mediaQueryClasses) {
+        for (const singleClass of [...mediaQueryClasses, ...pseudoClassClasses]) {
           propsToOverwrite.className = propsToOverwrite.className.replace(
             singleClass,
             sanitizeClassName(singleClass),
