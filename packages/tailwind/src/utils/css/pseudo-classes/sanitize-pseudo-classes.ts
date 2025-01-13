@@ -41,7 +41,7 @@ export const sanitizePseudoClasses = (root: Root): PseudoClassResult => {
             selectorParser.className({
               ...singleClass,
               value: sanitizeClassName(singleClass.value),
-            })
+            }),
           );
         });
       }
