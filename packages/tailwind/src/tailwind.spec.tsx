@@ -404,7 +404,7 @@ describe('Responsive styles', () => {
         <Tailwind>
           <head />
           <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 hover:bg-red-600 focus:bg-red-700" />
           </body>
         </Tailwind>
       </html>,
