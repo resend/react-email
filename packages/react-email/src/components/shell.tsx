@@ -106,7 +106,7 @@ export const Shell = ({
               setActiveView={setActiveView}
             />
           ) : null}
-          <div className="relative mx-auto h-[calc(100vh-4.375rem)] grow md:h-full">
+          <div className="relative mx-auto h-[calc(100vh-3.3125rem)] grow md:h-full">
             {children}
           </div>
         </div>
