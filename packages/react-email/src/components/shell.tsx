@@ -60,7 +60,7 @@ export const Shell = ({
       </div>
       <Sidebar
         className={cn(
-          'fixed left-0 top-[4.375rem] z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[19rem]',
+          'fixed left-0 top-[4.375rem] z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
           {
             'translate-x-0 lg:-translate-x-full': sidebarToggled,
             '-translate-x-full lg:translate-x-0': !sidebarToggled,
@@ -73,10 +73,10 @@ export const Shell = ({
       />
       <main
         className={cn(
-          'will-change-width relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden p-2 md:absolute md:right-0',
+          'will-change-width relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden md:absolute md:right-0',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
-            'lg:w-[calc(100vw-19rem)] lg:translate-x-0': !sidebarToggled,
+            'lg:w-[calc(100vw-20rem)] lg:translate-x-0': !sidebarToggled,
           },
         )}
         style={{
@@ -85,7 +85,7 @@ export const Shell = ({
             : '',
         }}
       >
-        <div className="relative h-full w-full border-slate-6 lg:rounded-lg lg:border lg:shadow-sm">
+        <div className="relative h-full w-full">
           {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
               activeView={activeView}

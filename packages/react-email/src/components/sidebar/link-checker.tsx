@@ -10,7 +10,6 @@ import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
 import { IconCircleCheck } from '../icons/icon-circle-check';
 import { IconCircleClose } from '../icons/icon-circle-close';
 import { IconCircleWarning } from '../icons/icon-circle-warning';
-import { Heading } from '../heading';
 
 const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
@@ -42,27 +41,22 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
   };
 
   return (
-    <div className="mt-4 flex w-full flex-col gap-2 text-pretty p-2 pr-2.5">
-      <Heading as="h2" size="2" weight="medium">
-        Link Checker
-      </Heading>
+    <div className="mt-3 flex w-full flex-col gap-2 text-pretty">
       {results ? (
         <>
-          <ol className="mb-3.5 mt-2 flex list-none flex-col gap-4 p-0">
+          <ol className="mb-3.5 flex list-none flex-col gap-4 p-0">
             {results.map((result, i) => (
               <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
-          <Button className="mr-auto mt-auto w-fit" onClick={handleRun}>
-            Re-run
-          </Button>
+          <Button onClick={handleRun}>Re-run</Button>
         </>
       ) : (
         <>
-          <span className="text-xs">
+          <span className="text-xs leading-relaxed">
             Check if all links are valid and going to the correct pages.
           </span>
-          <Button className="mt-1.5 w-fit" onClick={handleRun}>
+          <Button className="mt-1.5" onClick={handleRun}>
             Run
           </Button>
         </>

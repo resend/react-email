@@ -8,12 +8,13 @@ import Lottie from 'lottie-react';
 import { motion } from 'framer-motion';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
-import { Logo } from '../logo';
 import animatedLinkIcon from '../../animated-icons-data/link.json';
 import animatedMailIcon from '../../animated-icons-data/mail.json';
 import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { LinkChecker } from './link-checker';
 import { FileTree } from './file-tree';
+import { Heading } from '../heading';
+import { Tooltip } from '../tooltip';
 
 interface SidebarProps {
   className?: string;
@@ -45,39 +46,52 @@ const SidebarTabTrigger = ({
   const isActive = tabValue === activeTabValue;
 
   return (
-    <Tabs.Trigger
-      className={clsx(
-        'group relative aspect-square w-full cursor-pointer text-slate-12 transition-colors duration-150 ease-[cubic-bezier(.36,.66,.6,1)] disabled:cursor-not-allowed disabled:bg-slate-2 disabled:text-slate-10',
-        className,
-        {
-          'bg-slate-6': isActive,
-        },
-      )}
-      data-active={isActive}
-      disabled={disabled}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      value={tabValue}
-    >
-      {isActive ? (
-        <motion.div
-          className="absolute left-0 top-0 h-full w-1 bg-[#246078] transition-colors duration-300 ease-[bezier(.36,.66,.6,1)] group-hover:bg-[#0BB9CD]"
-          layoutId="sidebar-active-tab"
-          transition={{ type: 'spring', bounce: 0.12, duration: 0.6 }}
-        />
-      ) : null}
-      <div
-        aria-hidden
-        className={clsx(
-          'pointer-events-none absolute inset-0 flex items-center justify-center pl-1 transition-opacity duration-150 ease-in',
-          {
-            'opacity-20 group-hover:opacity-60': !isActive,
-          },
-        )}
-      >
-        {children}
-      </div>
-    </Tabs.Trigger>
+    <Tooltip.Provider>
+      <Tooltip>
+        <Tooltip.Trigger asChild>
+          <Tabs.Trigger
+            className={clsx(
+              'group relative aspect-square w-full cursor-pointer text-slate-12 transition-colors duration-150 ease-[cubic-bezier(.36,.66,.6,1)] disabled:cursor-not-allowed disabled:bg-slate-2 disabled:text-slate-10',
+              className,
+              {
+                'bg-slate-6': isActive,
+              },
+            )}
+            data-active={isActive}
+            disabled={disabled}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            value={tabValue}
+          >
+            {isActive ? (
+              <motion.div
+                className="absolute left-0 top-0 h-full w-1 bg-[#0BB9CD] transition-colors duration-300 ease-[bezier(.36,.66,.6,1)]"
+                layoutId="sidebar-active-tab"
+                transition={{ type: 'spring', bounce: 0.12, duration: 0.6 }}
+              />
+            ) : null}
+            <div
+              aria-hidden
+              className={clsx(
+                'pointer-events-none absolute inset-0 flex items-center justify-center pl-1 transition-opacity duration-150 ease-in',
+                {
+                  'opacity-20 group-hover:opacity-60': !isActive,
+                },
+              )}
+            >
+              {children}
+            </div>
+          </Tabs.Trigger>
+        </Tooltip.Trigger>
+        <Tooltip.Content side="bottom">
+          {disabled
+            ? 'Select a file first to use this feature'
+            : tabValue === 'link-checker'
+              ? 'Link Checker'
+              : 'File Explorer'}
+        </Tooltip.Content>
+      </Tooltip>
+    </Tooltip.Provider>
   );
 };
 
@@ -112,7 +126,7 @@ export const Sidebar = ({
     >
       <aside
         className={cn(
-          'grid h-screen grid-cols-[3.125rem,1fr] bg-black pr-6 md:px-0',
+          'grid h-screen grid-cols-[3.375rem,1fr] bg-black',
           className,
         )}
         style={{ ...style }}
@@ -149,21 +163,34 @@ export const Sidebar = ({
             />
           </SidebarTabTrigger>
         </Tabs.List>
-        <div className="flex flex-col pl-4 md:pr-1 md:pt-[.625rem]">
-          <div className="hidden h-8 flex-shrink items-center pl-1 lg:flex">
-            <Logo />
-          </div>
-          <div className="h-[calc(100vh-4.375rem)] w-full">
-            {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
-              <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
-            ) : null}
-            {activeTabValue === 'file-tree' ? (
-              <FileTree
-                currentEmailOpenSlug={currentEmailOpenSlug}
-                emailsDirectoryMetadata={emailsDirectoryMetadata}
-              />
-            ) : null}
-          </div>
+        <div className="flex flex-col border-r border-slate-6">
+          {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
+            <>
+              <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
+                <Heading as="h2" className="truncate" size="2" weight="medium">
+                  Link Checker
+                </Heading>
+              </div>
+              <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
+                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
+              </div>
+            </>
+          ) : null}
+          {activeTabValue === 'file-tree' ? (
+            <>
+              <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
+                <Heading as="h2" className="truncate" size="2" weight="medium">
+                  Explorer: react-email-preview
+                </Heading>
+              </div>
+              <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
+                <FileTree
+                  currentEmailOpenSlug={currentEmailOpenSlug}
+                  emailsDirectoryMetadata={emailsDirectoryMetadata}
+                />
+              </div>
+            </>
+          ) : null}
         </div>
       </aside>
     </Tabs.Root>

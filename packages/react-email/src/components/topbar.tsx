@@ -31,7 +31,7 @@ export const Topbar = ({
 }: TopbarProps) => {
   return (
     <Tooltip.Provider>
-      <header className="relative flex h-[70px] items-center justify-between border-b border-slate-6 px-4">
+      <header className="relative flex h-[3.3125rem] items-center justify-between border-b border-slate-6 px-3">
         <Tooltip>
           <Tooltip.Trigger asChild>
             <button
@@ -49,12 +49,7 @@ export const Topbar = ({
           <Tooltip.Content>Show/hide sidebar</Tooltip.Content>
         </Tooltip>
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform items-center overflow-hidden text-center lg:flex">
-          <Heading
-            as="h2"
-            className="truncate font-mono"
-            size="2"
-            weight="medium"
-          >
+          <Heading as="h2" className="truncate" size="2" weight="medium">
             {currentEmailOpenSlug.split(pathSeparator).pop()}
           </Heading>
         </div>
