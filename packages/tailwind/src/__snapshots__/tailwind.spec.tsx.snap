@@ -14,6 +14,42 @@ exports[`Custom theme config > should be able to use custom spacing 1`] = `"<!DO
 
 exports[`Custom theme config > should be able to use custom text alignment 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="text-align:justify"></div><!--/$-->"`;
 
+exports[`Non-inlinable styles > should add css to <head/> and keep responsive class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500 hover_bg-red-600 focus_bg-red-700" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Non-inlinable styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}</style></head><body class="md_px-64px" style="background-color:rgb(255,255,255);margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="md_px-64px"></div><!--/$--></body>"`;
+
+exports[`Non-inlinable styles > should persist existing <head/> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Non-inlinable styles > should throw an error when used without a <head/> 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:bg-red-500.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Non-inlinable styles > should throw error when used without the head and with media query class names only very deeply nested 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:h-10 sm:w-10.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Non-inlinable styles > should work with relatively complex media query utilities 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media not all and(min-width:640px){.max-sm_text-red-600{color:rgb(220,38,38) !important}}</style></head><p class="max-sm_text-red-600" style="color:rgb(29,78,216)">I am some text</p><!--/$-->"`;
+
 exports[`Responsive styles > should add css to <head/> and keep responsive class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500 hover_bg-red-600 focus_bg-red-700" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
 
 exports[`Responsive styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}</style></head><body class="md_px-64px" style="background-color:rgb(255,255,255);margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="md_px-64px"></div><!--/$--></body>"`;
@@ -77,3 +113,39 @@ exports[`Tailwind component > should work with components that return children 1
 exports[`Tailwind component > should work with components that use React.forwardRef 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
 
 exports[`Tailwind component > should work with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`non-inlinable styles > should add css to <head/> and keep responsive class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500 hover_bg-red-600 focus_bg-red-700" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`non-inlinable styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}</style></head><body class="md_px-64px" style="background-color:rgb(255,255,255);margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="md_px-64px"></div><!--/$--></body>"`;
+
+exports[`non-inlinable styles > should persist existing <head/> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`non-inlinable styles > should throw an error when used without a <head/> 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:bg-red-500.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`non-inlinable styles > should throw error when used without the head and with media query class names only very deeply nested 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:h-10 sm:w-10.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`non-inlinable styles > should work with relatively complex media query utilities 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media not all and(min-width:640px){.max-sm_text-red-600{color:rgb(220,38,38) !important}}</style></head><p class="max-sm_text-red-600" style="color:rgb(29,78,216)">I am some text</p><!--/$-->"`;

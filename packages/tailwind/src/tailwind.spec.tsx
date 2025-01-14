@@ -338,7 +338,7 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
+describe("non-inlinable styles", () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
@@ -398,7 +398,7 @@ describe('Responsive styles', () => {
     expect(output).toMatchSnapshot();
   });
 
-  it('should add css to <head/> and keep responsive class names', async () => {
+  it("should add css to <head/> and keep class names", async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
