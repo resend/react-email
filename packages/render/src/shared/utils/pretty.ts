@@ -1,7 +1,7 @@
 import type { Options, Plugin } from 'prettier';
 import type { builders } from 'prettier/doc';
-import html from 'prettier/plugins/html';
-import { format } from 'prettier/standalone';
+import * as html from "prettier/plugins/html";
+import { format } from "prettier/standalone";
 
 interface HtmlNode {
   type: 'element' | 'text' | 'ieConditionalComment';
