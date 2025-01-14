@@ -23,7 +23,6 @@ import os from 'node:os';
 import path from 'node:path';
 import perfHooks from 'node:perf_hooks';
 import process from 'node:process';
-import punycode from 'node:punycode';
 import querystring from 'node:querystring';
 import readline from 'node:readline';
 import repl from 'node:repl';
@@ -40,6 +39,8 @@ import v8 from 'node:v8';
 import vm from 'node:vm';
 import workerThreads from 'node:worker_threads';
 import zlib from 'node:zlib';
+// See https://github.com/resend/react-email/issues/1841#issuecomment-2589985562
+import punycode from 'module-punycode';
 
 /**
  * A map of the name of the modules (including `node:` prefixed ones)
