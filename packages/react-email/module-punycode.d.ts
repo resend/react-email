@@ -1,3 +1,3 @@
-declare module "module-punycode" {
-  export * from "node:punycode";
+declare module 'module-punycode' {
+  export * from 'node:punycode';
 }
