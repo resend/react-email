@@ -5,7 +5,7 @@ import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
-} from '../../actions/get-emails-directory-metadata';
+} from '../../utils/get-emails-directory-metadata';
 import { cliPacakgeLocation } from '../utils';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import logSymbols from 'log-symbols';

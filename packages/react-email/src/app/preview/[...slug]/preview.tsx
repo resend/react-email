@@ -8,22 +8,22 @@ import type { EmailRenderingResult } from '../../../actions/render-email-by-path
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
-import { useEmails } from '../../../contexts/emails';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
-  renderingResult: EmailRenderingResult;
+  serverRenderingResult: EmailRenderingResult;
 }
 
 const Preview = ({
   slug,
   emailPath,
   pathSeparator,
-  renderingResult: initialRenderingResult,
+  serverRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -31,17 +31,16 @@ const Preview = ({
 
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
-  const { useEmailRenderingResult } = useEmails();
 
   const renderingResult = useEmailRenderingResult(
     emailPath,
-    initialRenderingResult,
+    serverRenderingResult,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
     emailPath,
     renderingResult,
-    initialRenderingResult,
+    serverRenderingResult,
   );
 
   if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
@@ -90,7 +89,6 @@ const Preview = ({
           <RenderingError error={renderingResult.error} />
         ) : null}
 
-        {/* If this is undefined means that the initial server render of the email had errors */}
         {hasNoErrors ? (
           <>
             {activeView === 'desktop' && (
@@ -135,6 +133,7 @@ const Preview = ({
             )}
           </>
         ) : null}
+
         <Toaster />
       </div>
     </Shell>

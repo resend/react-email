@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-postmark",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "postmark": "3.0.14",
-    "@react-email/components": "workspace:0.0.31",
+    "@react-email/components": "workspace:0.0.32",
     "react": "^19",
     "react-dom": "^19"
   },

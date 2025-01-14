@@ -1,6 +1,6 @@
 {
   "name": "create-email",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
   "type": "module",

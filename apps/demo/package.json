@@ -15,7 +15,7 @@
     "react-email": "workspace:*"
   },
   "devDependencies": {
-    "next": "15.0.4",
+    "next": "15.1.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tsx": "4.9.0"

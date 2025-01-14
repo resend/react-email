@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "3.0.4",
+  "version": "3.0.6",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.js"
@@ -37,7 +37,7 @@
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
     "mime-types": "2.1.35",
-    "next": "15.0.4",
+    "next": "15.1.2",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "socket.io": "4.8.0"
@@ -60,7 +60,7 @@
     "@types/react-dom": "^19",
     "@types/webpack": "5.28.5",
     "@vercel/style-guide": "5.1.0",
-    "autoprefixer": "10.4.14",
+    "autoprefixer": "10.4.20",
     "clsx": "2.1.0",
     "eslint": "8.50.0",
     "eslint-config-prettier": "9.0.0",
