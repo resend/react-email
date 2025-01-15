@@ -187,12 +187,11 @@ export const Sidebar = ({
           markup ? (
             <SidebarPanel title="Link Checker">
               <LinkChecker
-                currentEmailOpenSlug={currentEmailOpenSlug}
-                markup={markup}
+                emailSlug={currentEmailOpenSlug}
+                emailMarkup={markup}
               />
             </SidebarPanel>
           ) : null}
-
           {activeTabValue === 'file-tree' ? (
             <SidebarPanel title="Explorer: react-email-preview">
               <FileTree
