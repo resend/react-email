@@ -4,6 +4,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import clsx from 'clsx';
 import {
   checkLinks,
+  getLinkCheckingCache,
   type LinkCheckingResult,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
@@ -38,8 +39,6 @@ const statusStyles = {
   warning: 'text-yellow-300 hover:bg-yellow-400/10',
   success: 'text-green-400 hover:bg-green-400/10',
 };
-
-const resultsCache = new Map<string, LinkCheckingResult[]>();
 
 interface CollapsibleTriggerProps {
   count: number;
@@ -124,8 +123,20 @@ const ResultSection = ({
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
-  >(resultsCache.get(emailSlug));
+  >();
   const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setLoading(true);
+    getLinkCheckingCache(emailSlug)
+      .then((cachedResults) => {
+        setResults(cachedResults);
+      })
+      .catch(console.error)
+      .finally(() => {
+        setLoading(false)
+      });
+  }, [emailSlug]);
 
   const errorResults = React.useMemo(
     () => results?.filter((result) => result.status === 'error') || [],
@@ -142,9 +153,8 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
 
   const handleRun = () => {
     setLoading(true);
-    checkLinks(emailMarkup)
+    checkLinks(emailMarkup, emailSlug, true)
       .then((newResults) => {
-        resultsCache.set(emailSlug, newResults);
         setResults(newResults);
       })
       .catch(console.error)

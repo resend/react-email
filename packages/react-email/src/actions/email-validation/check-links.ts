@@ -2,20 +2,21 @@
 
 import { parse } from 'node-html-parser';
 import { quickFetch } from './quick-fetch';
+import { cache } from 'react';
 
 type Check = { passed: boolean } & (
   | {
-      type: 'fetch_attempt';
-      metadata: {
-        fetchStatusCode: number | undefined;
-      };
-    }
+    type: 'fetch_attempt';
+    metadata: {
+      fetchStatusCode: number | undefined;
+    };
+  }
   | {
-      type: 'syntax';
-    }
+    type: 'syntax';
+  }
   | {
-      type: 'security';
-    }
+    type: 'security';
+  }
 );
 
 export interface LinkCheckingResult {
@@ -24,7 +25,19 @@ export interface LinkCheckingResult {
   checks: Check[];
 }
 
-export const checkLinks = async (code: string) => {
+const resultsCache = new Map<string, LinkCheckingResult[]>();
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getLinkCheckingCache = async (cacheKey: string) => {
+  return resultsCache.get(cacheKey);
+}
+
+export const checkLinks = async (code: string, cacheKey: string, invalidating = false) => {
+  if (invalidating) resultsCache.delete(cacheKey);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  if (resultsCache.has(cacheKey)) return resultsCache.get(cacheKey)!;
+
   const ast = parse(code);
 
   const linkCheckingResults: LinkCheckingResult[] = [];
@@ -81,6 +94,8 @@ export const checkLinks = async (code: string) => {
 
     linkCheckingResults.push(result);
   }
+
+  resultsCache.set(cacheKey, linkCheckingResults);
 
   return linkCheckingResults;
 };
