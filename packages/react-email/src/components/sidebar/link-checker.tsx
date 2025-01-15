@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import {
   checkLinks,
   getLinkCheckingCache,

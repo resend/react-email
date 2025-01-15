@@ -2,7 +2,6 @@
 
 import { parse } from 'node-html-parser';
 import { quickFetch } from './quick-fetch';
-import { cache } from 'react';
 
 type Check = { passed: boolean } & (
   | {
@@ -30,9 +29,13 @@ const resultsCache = new Map<string, LinkCheckingResult[]>();
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getLinkCheckingCache = async (cacheKey: string) => {
   return resultsCache.get(cacheKey);
-}
+};
 
-export const checkLinks = async (code: string, cacheKey: string, invalidating = false) => {
+export const checkLinks = async (
+  code: string,
+  cacheKey: string,
+  invalidating = false,
+) => {
   if (invalidating) resultsCache.delete(cacheKey);
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
