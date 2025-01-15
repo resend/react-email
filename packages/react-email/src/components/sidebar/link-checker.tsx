@@ -21,7 +21,10 @@ export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) 
     LinkCheckingResult[] | undefined
   >(checkingResultsCache.get(currentEmailOpenSlug));
 
+  const [loading, setLoading] = React.useState(false);
+
   const handleRun = () => {
+    setLoading(true);
     checkLinks(markup)
       .then((newResults) => {
         checkingResultsCache.set(currentEmailOpenSlug, newResults);
@@ -29,6 +32,9 @@ export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) 
       })
       .catch((exception) => {
         throw exception;
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -41,7 +47,7 @@ export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) 
               <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
-          <Button onClick={() => {
+          <Button className="disabled:border-transparent disabled:bg-slate-11" disabled={loading} onClick={() => {
             handleRun();
           }}>Re-run</Button>
         </>
@@ -50,7 +56,7 @@ export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) 
           <span className="text-xs leading-relaxed">
             Check if all links are valid and going to the correct pages.
           </span>
-          <Button className="mt-1.5" onClick={() => {
+          <Button className="mt-1.5 disabled:border-transparent disabled:bg-slate-11" disabled={loading} onClick={() => {
             handleRun();
           }}>
             Run
