@@ -7,9 +7,6 @@ import {
   type LinkCheckingResult,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
-import { IconCircleCheck } from '../icons/icon-circle-check';
-import { IconCircleClose } from '../icons/icon-circle-close';
-import { IconCircleWarning } from '../icons/icon-circle-warning';
 
 interface LinkCheckerProps {
   emailSlug: string;
@@ -52,50 +49,46 @@ const statusStyles = {
 
 const resultsCache = new Map<string, LinkCheckingResult[]>();
 
-const ResultIcon = ({ status }: { status: ResultStatus }) => {
-  const icons = {
-    success: <IconCircleCheck size={14} />,
-    warning: <IconCircleWarning size={14} />,
-    error: <IconCircleClose size={14} />,
-  };
-  return icons[status];
-};
+const CollapsibleTrigger = ({ count, label, variant, open }) => {
+  const isDisabled = count === 0;
 
-const CollapsibleTrigger = ({ count, label, variant, open }) => (
-  <Collapsible.Trigger
-    className={clsx(
-      'flex w-full items-center gap-1 rounded p-2 text-sm',
-      statusStyles[variant],
-    )}
-  >
-    <div className="flex flex-1 items-center gap-1">
-      <ResultIcon status={variant} />
-      <span>{label}</span>
-      <span>({count})</span>
-    </div>
-    <span
+  return (
+    <Collapsible.Trigger
       className={clsx(
-        'transition-transform duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
-        open ? 'rotate-90' : 'rotate-0',
+        'flex w-full items-center gap-1 rounded p-2',
+        statusStyles[variant],
+        isDisabled && 'cursor-not-allowed opacity-50',
       )}
+      disabled={isDisabled}
     >
-      <svg
-        width="15"
-        height="15"
-        viewBox="0 0 15 15"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        className={clsx(
+          '-mt-[.125rem] transition-transform duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
+          open ? 'rotate-90' : 'rotate-0',
+        )}
       >
-        <path
-          d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z"
-          fill="currentColor"
-          fillRule="evenodd"
-          clipRule="evenodd"
-        />
-      </svg>
-    </span>
-  </Collapsible.Trigger>
-);
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z"
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+          />
+        </svg>
+      </span>
+      <div className="flex flex-1 items-center gap-1 text-[.625rem] font-bold uppercase tracking-wide">
+        <span>{label}</span>
+        <span>({count})</span>
+      </div>
+    </Collapsible.Trigger>
+  );
+};
 
 const ResultSection = ({
   status,
@@ -111,13 +104,15 @@ const ResultSection = ({
       variant={status}
       open={isOpen}
     />
-    <Collapsible.Content>
-      <ol className="mb-1 flex list-none flex-col gap-4 pl-3.5 pt-2">
-        {results.map((result, index) => (
-          <LinkResultView key={index} {...result} />
-        ))}
-      </ol>
-    </Collapsible.Content>
+    {results.length > 0 && (
+      <Collapsible.Content>
+        <ol className="mb-1 flex list-none flex-col gap-4 pl-3.5 pt-2">
+          {results.map((result, index) => (
+            <LinkResultView key={index} {...result} />
+          ))}
+        </ol>
+      </Collapsible.Content>
+    )}
   </Collapsible.Root>
 );
 
@@ -217,7 +212,7 @@ const LinkResultView = (props: LinkCheckingResult) => (
       variants={containerAnimation}
     >
       <motion.div
-        className="flex items-center gap-2 text-sm group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300"
+        className="flex items-center gap-2 text-xs group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300"
         variants={childAnimation}
       >
         <a
@@ -227,7 +222,10 @@ const LinkResultView = (props: LinkCheckingResult) => (
           {props.link}
         </a>
       </motion.div>
-      <motion.div className="mt-1 text-xs" variants={childAnimation}>
+      <motion.div
+        className="mt-1 text-[.625rem] font-semibold uppercase"
+        variants={childAnimation}
+      >
         {props.checks
           .map((check) => {
             if (check.type === 'syntax' && !check.passed) return 'Invalid URL';
