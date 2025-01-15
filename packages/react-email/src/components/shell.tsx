@@ -67,6 +67,7 @@ export const Shell = ({
           },
         )}
         currentEmailOpenSlug={currentEmailOpenSlug}
+        markup={markup}
         style={{
           transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
         }}

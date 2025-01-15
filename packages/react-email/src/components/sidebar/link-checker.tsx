@@ -5,8 +5,6 @@ import {
   type LinkCheckingResult,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
-import { useEmails } from '../../contexts/emails';
-import { emailSlugToPathMap } from '../../app/preview/[...slug]/preview';
 import { IconCircleCheck } from '../icons/icon-circle-check';
 import { IconCircleClose } from '../icons/icon-circle-close';
 import { IconCircleWarning } from '../icons/icon-circle-warning';
@@ -15,22 +13,16 @@ const checkingResultsCache = new Map<string, LinkCheckingResult[]>();
 
 interface LinkCheckerProps {
   currentEmailOpenSlug: string;
+  markup: string;
 }
 
-export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
+export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) => {
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
   >(checkingResultsCache.get(currentEmailOpenSlug));
 
-  const { renderingResultPerEmailPath } = useEmails();
-
-  const emailPath = emailSlugToPathMap[currentEmailOpenSlug];
-  if (!emailPath) return;
-  const renderingResult = renderingResultPerEmailPath[emailPath];
-  if (!renderingResult || 'error' in renderingResult) return;
-
   const handleRun = () => {
-    checkLinks(renderingResult.markup)
+    checkLinks(markup)
       .then((newResults) => {
         checkingResultsCache.set(currentEmailOpenSlug, newResults);
         setResults(newResults);
@@ -49,14 +41,18 @@ export const LinkChecker = ({ currentEmailOpenSlug }: LinkCheckerProps) => {
               <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
-          <Button onClick={handleRun}>Re-run</Button>
+          <Button onClick={() => {
+            handleRun();
+          }}>Re-run</Button>
         </>
       ) : (
         <>
           <span className="text-xs leading-relaxed">
             Check if all links are valid and going to the correct pages.
           </span>
-          <Button className="mt-1.5" onClick={handleRun}>
+          <Button className="mt-1.5" onClick={() => {
+            handleRun();
+          }}>
             Run
           </Button>
         </>

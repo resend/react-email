@@ -11,14 +11,15 @@ import { cn } from '../../utils';
 import animatedLinkIcon from '../../animated-icons-data/link.json';
 import animatedMailIcon from '../../animated-icons-data/mail.json';
 import { useIconAnimation } from '../../hooks/use-icon-animation';
-import { LinkChecker } from './link-checker';
-import { FileTree } from './file-tree';
 import { Heading } from '../heading';
 import { Tooltip } from '../tooltip';
+import { LinkChecker } from './link-checker';
+import { FileTree } from './file-tree';
 
 interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
+  markup?: string;
   style?: React.CSSProperties;
 }
 
@@ -98,6 +99,7 @@ const SidebarTabTrigger = ({
 export const Sidebar = ({
   className,
   currentEmailOpenSlug,
+  markup,
   style,
 }: SidebarProps) => {
   const [activeTabValue, setActiveTabValue] =
@@ -139,8 +141,8 @@ export const Sidebar = ({
             tabValue="file-tree"
           >
             <Lottie
-              autoPlay={false}
               animationData={animatedMailIcon as object}
+              autoPlay={false}
               className="h-5 w-5"
               loop={false}
               lottieRef={mailIconRef}
@@ -155,8 +157,8 @@ export const Sidebar = ({
             tabValue="link-checker"
           >
             <Lottie
-              autoPlay={false}
               animationData={animatedLinkIcon as object}
+              autoPlay={false}
               className="h-6 w-6"
               loop={false}
               lottieRef={linkIconRef}
@@ -164,7 +166,7 @@ export const Sidebar = ({
           </SidebarTabTrigger>
         </Tabs.List>
         <div className="flex flex-col border-r border-slate-6">
-          {activeTabValue === 'link-checker' && currentEmailOpenSlug ? (
+          {activeTabValue === 'link-checker' && currentEmailOpenSlug && markup ? (
             <>
               <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
                 <Heading as="h2" className="truncate" size="2" weight="medium">
@@ -172,7 +174,7 @@ export const Sidebar = ({
                 </Heading>
               </div>
               <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
-                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} />
+                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} markup={markup} />
               </div>
             </>
           ) : null}
