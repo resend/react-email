@@ -3,7 +3,6 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
-import { emailsDirectoryAbsolutePath } from '../../utils/emails-directory-absolute-path';
 import { cn } from '../../utils';
 import { IconFile } from '../icons/icon-file';
 import { SidebarDirectory } from './sidebar-directory';
@@ -15,15 +14,13 @@ export const SidebarDirectoryChildren = (props: {
   isRoot?: boolean;
 }) => {
   const searchParams = useSearchParams();
-  const isBaseEmailsDirectory =
-    props.emailsDirectoryMetadata.absolutePath === emailsDirectoryAbsolutePath;
 
   return (
     <AnimatePresence initial={false}>
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative data-[root=true]:mt-2 overflow-y-hidden pl-1"
+          className="relative overflow-y-hidden pl-1"
           forceMount
         >
           <motion.div
@@ -35,7 +32,7 @@ export const SidebarDirectoryChildren = (props: {
               <div className="line absolute left-2.5 w-px h-full bg-slate-6" />
             )}
 
-            <div className="data-[root=true]:py-2 flex flex-col truncate">
+            <div className="flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
@@ -50,7 +47,7 @@ export const SidebarDirectoryChildren = (props: {
 
                 {props.emailsDirectoryMetadata.emailFilenames.map(
                   (emailFilename, index) => {
-                    const emailSlug = isBaseEmailsDirectory
+                    const emailSlug = props.isRoot
                       ? emailFilename
                       : `${props.emailsDirectoryMetadata.relativePath}/${emailFilename}`;
 
@@ -67,7 +64,7 @@ export const SidebarDirectoryChildren = (props: {
                     };
                     const isCurrentPage = props.currentEmailOpenSlug
                       ? removeExtensionFrom(props.currentEmailOpenSlug) ===
-                        emailSlug
+                      emailSlug
                       : false;
 
                     return (
