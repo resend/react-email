@@ -33,6 +33,11 @@ interface SidebarTabTriggerProps {
   onMouseLeave?: () => void;
 }
 
+interface SidebarPanelProps {
+  title: string;
+  children: React.ReactNode;
+}
+
 type SidebarTab = 'file-tree' | 'link-checker' | 'image-checker';
 
 const SidebarTabTrigger = ({
@@ -95,6 +100,17 @@ const SidebarTabTrigger = ({
     </Tooltip.Provider>
   );
 };
+
+const SidebarPanel = ({ title, children }: SidebarPanelProps) => (
+  <>
+    <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 pl-3.5 lg:flex">
+      <Heading as="h2" className="truncate" size="2" weight="medium">
+        {title}
+      </Heading>
+    </div>
+    <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">{children}</div>
+  </>
+);
 
 export const Sidebar = ({
   className,
@@ -169,34 +185,21 @@ export const Sidebar = ({
           {activeTabValue === 'link-checker' &&
           currentEmailOpenSlug &&
           markup ? (
-            <>
-              <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
-                <Heading as="h2" className="truncate" size="2" weight="medium">
-                  Link Checker
-                </Heading>
-              </div>
-              <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
-                <LinkChecker
-                  currentEmailOpenSlug={currentEmailOpenSlug}
-                  markup={markup}
-                />
-              </div>
-            </>
+            <SidebarPanel title="Link Checker">
+              <LinkChecker
+                currentEmailOpenSlug={currentEmailOpenSlug}
+                markup={markup}
+              />
+            </SidebarPanel>
           ) : null}
+
           {activeTabValue === 'file-tree' ? (
-            <>
-              <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
-                <Heading as="h2" className="truncate" size="2" weight="medium">
-                  Explorer: react-email-preview
-                </Heading>
-              </div>
-              <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
-                <FileTree
-                  currentEmailOpenSlug={currentEmailOpenSlug}
-                  emailsDirectoryMetadata={emailsDirectoryMetadata}
-                />
-              </div>
-            </>
+            <SidebarPanel title="Explorer: react-email-preview">
+              <FileTree
+                currentEmailOpenSlug={currentEmailOpenSlug}
+                emailsDirectoryMetadata={emailsDirectoryMetadata}
+              />
+            </SidebarPanel>
           ) : null}
         </div>
       </aside>
