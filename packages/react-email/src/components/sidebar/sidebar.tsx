@@ -3,6 +3,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { clsx } from 'clsx';
 import Lottie from 'lottie-react';
 import { motion } from 'framer-motion';
@@ -27,8 +28,8 @@ interface SidebarTabTriggerProps {
   className?: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  tabValue: SidebarTab;
-  activeTabValue: SidebarTab;
+  tabValue: SidebarPanelValue;
+  activeTabValue: SidebarPanelValue;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }
@@ -38,7 +39,7 @@ interface SidebarPanelProps {
   children: React.ReactNode;
 }
 
-type SidebarTab = 'file-tree' | 'link-checker' | 'image-checker';
+type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
 
 const SidebarTabTrigger = ({
   children,
@@ -118,8 +119,19 @@ export const Sidebar = ({
   markup: emailMarkup,
   style,
 }: SidebarProps) => {
-  const [activeTabValue, setActiveTabValue] =
-    React.useState<SidebarTab>('file-tree');
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const activePanelValue = (searchParams.get(
+    'sidebar-panel',
+  ) ?? 'file-tree') as SidebarPanelValue;
+
+  const setActivePanelValue = (newValue: SidebarPanelValue) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('sidebar-panel', newValue);
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
   const { emailsDirectoryMetadata } = useEmails();
   const {
     ref: mailIconRef,
@@ -137,10 +149,10 @@ export const Sidebar = ({
     <Tabs.Root
       asChild
       onValueChange={(v) => {
-        setActiveTabValue(v as SidebarTab);
+        setActivePanelValue(v as SidebarPanelValue);
       }}
       orientation="vertical"
-      value={activeTabValue}
+      value={activePanelValue}
     >
       <aside
         className={cn(
@@ -151,7 +163,7 @@ export const Sidebar = ({
       >
         <Tabs.List className="flex h-full flex-col border-r border-slate-6">
           <SidebarTabTrigger
-            activeTabValue={activeTabValue}
+            activeTabValue={activePanelValue}
             onMouseEnter={onMailEnter}
             onMouseLeave={onMailLeave}
             tabValue="file-tree"
@@ -165,7 +177,7 @@ export const Sidebar = ({
             />
           </SidebarTabTrigger>
           <SidebarTabTrigger
-            activeTabValue={activeTabValue}
+            activeTabValue={activePanelValue}
             className="relative"
             disabled={currentEmailOpenSlug === undefined}
             onMouseEnter={onLinkEnter}
@@ -182,7 +194,7 @@ export const Sidebar = ({
           </SidebarTabTrigger>
         </Tabs.List>
         <div className="flex flex-col border-r border-slate-6">
-          {activeTabValue === 'link-checker' &&
+          {activePanelValue === 'link-checker' &&
             currentEmailOpenSlug &&
             emailMarkup ? (
             <SidebarPanel title="React Email - Link Checker">
@@ -192,7 +204,7 @@ export const Sidebar = ({
               />
             </SidebarPanel>
           ) : null}
-          {activeTabValue === 'file-tree' ? (
+          {activePanelValue === 'file-tree' ? (
             <SidebarPanel title="React Email - File Explorer">
               <FileTree
                 currentEmailOpenSlug={currentEmailOpenSlug}
