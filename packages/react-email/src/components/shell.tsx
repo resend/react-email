@@ -58,20 +58,22 @@ export const Shell = ({
           </svg>
         </button>
       </div>
-      <Sidebar
-        className={cn(
-          'fixed left-0 top-[4.375rem] z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
-          {
-            'translate-x-0 lg:-translate-x-full': sidebarToggled,
-            '-translate-x-full lg:translate-x-0': !sidebarToggled,
-          },
-        )}
-        currentEmailOpenSlug={currentEmailOpenSlug}
-        markup={markup}
-        style={{
-          transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
-        }}
-      />
+      <React.Suspense>
+        <Sidebar
+          className={cn(
+            'fixed left-0 top-[4.375rem] z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
+            {
+              'translate-x-0 lg:-translate-x-full': sidebarToggled,
+              '-translate-x-full lg:translate-x-0': !sidebarToggled,
+            },
+          )}
+          currentEmailOpenSlug={currentEmailOpenSlug}
+          markup={markup}
+          style={{
+            transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
+          }}
+        />
+      </React.Suspense>
       <main
         className={cn(
           'will-change-width relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden md:absolute md:right-0',
