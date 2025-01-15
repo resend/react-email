@@ -115,7 +115,7 @@ const SidebarPanel = ({ title, children }: SidebarPanelProps) => (
 export const Sidebar = ({
   className,
   currentEmailOpenSlug,
-  markup,
+  markup: emailMarkup,
   style,
 }: SidebarProps) => {
   const [activeTabValue, setActiveTabValue] =
@@ -183,17 +183,17 @@ export const Sidebar = ({
         </Tabs.List>
         <div className="flex flex-col border-r border-slate-6">
           {activeTabValue === 'link-checker' &&
-          currentEmailOpenSlug &&
-          markup ? (
-            <SidebarPanel title="Link Checker">
+            currentEmailOpenSlug &&
+            emailMarkup ? (
+            <SidebarPanel title="React Email - Link Checker">
               <LinkChecker
+                emailMarkup={emailMarkup}
                 emailSlug={currentEmailOpenSlug}
-                emailMarkup={markup}
               />
             </SidebarPanel>
           ) : null}
           {activeTabValue === 'file-tree' ? (
-            <SidebarPanel title="Explorer: react-email-preview">
+            <SidebarPanel title="React Email - File Explorer">
               <FileTree
                 currentEmailOpenSlug={currentEmailOpenSlug}
                 emailsDirectoryMetadata={emailsDirectoryMetadata}
