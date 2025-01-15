@@ -12,9 +12,9 @@ export const dynamicParams = true;
 
 export const dynamic = 'force-dynamic';
 
-export type PreviewParams = {
+export interface PreviewParams {
   slug: string[];
-};
+}
 
 const Page = async ({
   params: paramsPromise,

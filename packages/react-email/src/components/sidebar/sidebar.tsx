@@ -85,11 +85,11 @@ const SidebarTabTrigger = ({
           </Tabs.Trigger>
         </Tooltip.Trigger>
         <Tooltip.Content side="bottom">
-          {disabled
-            ? 'Select a file first to use this feature'
-            : tabValue === 'link-checker'
-              ? 'Link Checker'
-              : 'File Explorer'}
+          {disabled ? 'Select a file first to use this feature' : null}
+
+          {!disabled && tabValue === 'link-checker' ? 'Link Checker' : null}
+
+          {!disabled && tabValue === 'file-tree' ? 'File explorer' : null}
         </Tooltip.Content>
       </Tooltip>
     </Tooltip.Provider>
