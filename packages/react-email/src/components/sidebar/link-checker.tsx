@@ -68,17 +68,17 @@ const CollapsibleTrigger = ({ count, label, variant, open }) => {
         )}
       >
         <svg
-          width="15"
+          fill="none"
           height="15"
           viewBox="0 0 15 15"
-          fill="none"
+          width="15"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
+            clipRule="evenodd"
             d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z"
             fill="currentColor"
             fillRule="evenodd"
-            clipRule="evenodd"
           />
         </svg>
       </span>
@@ -97,12 +97,12 @@ const ResultSection = ({
   isOpen,
   setOpen,
 }: ResultSection) => (
-  <Collapsible.Root open={isOpen} onOpenChange={setOpen}>
+  <Collapsible.Root onOpenChange={setOpen} open={isOpen}>
     <CollapsibleTrigger
       count={results.length}
       label={label}
-      variant={status}
       open={isOpen}
+      variant={status}
     />
     {results.length > 0 && (
       <Collapsible.Content>
@@ -125,37 +125,18 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const [warningOpen, setWarningOpen] = React.useState(false);
   const [successOpen, setSuccessOpen] = React.useState(false);
 
-  const resultSections = React.useMemo(() => {
-    const filteredResults = {
-      error: results?.filter((result) => result.status === 'error') || [],
-      warning: results?.filter((result) => result.status === 'warning') || [],
-      success: results?.filter((result) => result.status === 'success') || [],
-    };
-
-    return [
-      {
-        status: 'error' as ResultStatus,
-        label: 'Errors',
-        results: filteredResults.error,
-        isOpen: errorOpen,
-        setOpen: setErrorOpen,
-      },
-      {
-        status: 'warning' as ResultStatus,
-        label: 'Warnings',
-        results: filteredResults.warning,
-        isOpen: warningOpen,
-        setOpen: setWarningOpen,
-      },
-      {
-        status: 'success' as ResultStatus,
-        label: 'Success',
-        results: filteredResults.success,
-        isOpen: successOpen,
-        setOpen: setSuccessOpen,
-      },
-    ];
-  }, [results, errorOpen, warningOpen, successOpen]);
+  const errorResults = React.useMemo(
+    () => results?.filter((result) => result.status === 'error') || [],
+    [results],
+  );
+  const warningResults = React.useMemo(
+    () => results?.filter((result) => result.status === 'warning') || [],
+    [results],
+  );
+  const successResults = React.useMemo(
+    () => results?.filter((result) => result.status === 'success') || [],
+    [results],
+  );
 
   const handleRun = () => {
     setLoading(true);
@@ -165,16 +146,36 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
         setResults(newResults);
       })
       .catch(console.error)
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
     <div className="mt-3 flex w-full flex-col gap-2 text-pretty">
       {results ? (
         <>
-          {resultSections.map((section) => (
-            <ResultSection key={section.status} {...section} />
-          ))}
+          <ResultSection
+            isOpen={errorOpen}
+            label="Errors"
+            results={errorResults}
+            setOpen={setErrorOpen}
+            status="error"
+          />
+          <ResultSection
+            isOpen={warningOpen}
+            label="Warnings"
+            results={warningResults}
+            setOpen={setWarningOpen}
+            status="warning"
+          />
+          <ResultSection
+            isOpen={successOpen}
+            label="Success"
+            results={successResults}
+            setOpen={setSuccessOpen}
+            status="success"
+          />
           <Button
             className="mt-2 disabled:border-transparent disabled:bg-slate-11"
             disabled={loading}
