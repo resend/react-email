@@ -15,14 +15,6 @@ interface LinkCheckerProps {
 
 type ResultStatus = 'error' | 'warning' | 'success';
 
-interface ResultSection {
-  status: ResultStatus;
-  label: string;
-  results: LinkCheckingResult[];
-  isOpen: boolean;
-  setOpen: (open: boolean) => void;
-}
-
 const containerAnimation = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -49,13 +41,23 @@ const statusStyles = {
 
 const resultsCache = new Map<string, LinkCheckingResult[]>();
 
-const CollapsibleTrigger = ({ count, label, variant, open }) => {
+interface CollapsibleTriggerProps {
+  count: number;
+  label: string;
+  variant: 'error' | 'warning' | 'success';
+}
+
+const CollapsibleTrigger = ({
+  count,
+  label,
+  variant,
+}: CollapsibleTriggerProps) => {
   const isDisabled = count === 0;
 
   return (
     <Collapsible.Trigger
       className={clsx(
-        'flex w-full items-center gap-1 rounded p-2',
+        'group flex w-full items-center gap-1 rounded p-2',
         statusStyles[variant],
         isDisabled && 'cursor-not-allowed opacity-50',
       )}
@@ -64,7 +66,7 @@ const CollapsibleTrigger = ({ count, label, variant, open }) => {
       <span
         className={clsx(
           '-mt-[.125rem] transition-transform duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
-          open ? 'rotate-90' : 'rotate-0',
+          'rotate-0 group-data-[state=open]:rotate-90',
         )}
       >
         <svg
@@ -90,20 +92,23 @@ const CollapsibleTrigger = ({ count, label, variant, open }) => {
   );
 };
 
+interface ResultSectionProps {
+  status: ResultStatus;
+  label: string;
+  results: LinkCheckingResult[];
+
+  defaultOpen?: boolean;
+}
+
 const ResultSection = ({
   status,
   label,
   results,
-  isOpen,
-  setOpen,
-}: ResultSection) => (
-  <Collapsible.Root onOpenChange={setOpen} open={isOpen}>
-    <CollapsibleTrigger
-      count={results.length}
-      label={label}
-      open={isOpen}
-      variant={status}
-    />
+
+  defaultOpen,
+}: ResultSectionProps) => (
+  <Collapsible.Root className="group" defaultOpen={defaultOpen}>
+    <CollapsibleTrigger count={results.length} label={label} variant={status} />
     {results.length > 0 && (
       <Collapsible.Content>
         <ol className="mb-1 flex list-none flex-col gap-4 pl-3.5 pt-2">
@@ -121,9 +126,6 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
     LinkCheckingResult[] | undefined
   >(resultsCache.get(emailSlug));
   const [loading, setLoading] = React.useState(false);
-  const [errorOpen, setErrorOpen] = React.useState(true);
-  const [warningOpen, setWarningOpen] = React.useState(false);
-  const [successOpen, setSuccessOpen] = React.useState(false);
 
   const errorResults = React.useMemo(
     () => results?.filter((result) => result.status === 'error') || [],
@@ -156,24 +158,19 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
       {results ? (
         <>
           <ResultSection
-            isOpen={errorOpen}
+            defaultOpen
             label="Errors"
             results={errorResults}
-            setOpen={setErrorOpen}
             status="error"
           />
           <ResultSection
-            isOpen={warningOpen}
             label="Warnings"
             results={warningResults}
-            setOpen={setWarningOpen}
             status="warning"
           />
           <ResultSection
-            isOpen={successOpen}
             label="Success"
             results={successResults}
-            setOpen={setSuccessOpen}
             status="success"
           />
           <Button
