@@ -16,7 +16,10 @@ interface LinkCheckerProps {
   markup: string;
 }
 
-export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) => {
+export const LinkChecker = ({
+  currentEmailOpenSlug,
+  markup,
+}: LinkCheckerProps) => {
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
   >(checkingResultsCache.get(currentEmailOpenSlug));
@@ -47,18 +50,28 @@ export const LinkChecker = ({ currentEmailOpenSlug, markup }: LinkCheckerProps) 
               <LinkCheckingResultView {...result} key={i} />
             ))}
           </ol>
-          <Button className="disabled:border-transparent disabled:bg-slate-11" disabled={loading} onClick={() => {
-            handleRun();
-          }}>Re-run</Button>
+          <Button
+            className="disabled:border-transparent disabled:bg-slate-11"
+            disabled={loading}
+            onClick={() => {
+              handleRun();
+            }}
+          >
+            Re-run
+          </Button>
         </>
       ) : (
         <>
           <span className="text-xs leading-relaxed">
             Check if all links are valid and going to the correct pages.
           </span>
-          <Button className="mt-1.5 disabled:border-transparent disabled:bg-slate-11" disabled={loading} onClick={() => {
-            handleRun();
-          }}>
+          <Button
+            className="mt-1.5 disabled:border-transparent disabled:bg-slate-11"
+            disabled={loading}
+            onClick={() => {
+              handleRun();
+            }}
+          >
             Run
           </Button>
         </>

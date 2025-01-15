@@ -166,7 +166,9 @@ export const Sidebar = ({
           </SidebarTabTrigger>
         </Tabs.List>
         <div className="flex flex-col border-r border-slate-6">
-          {activeTabValue === 'link-checker' && currentEmailOpenSlug && markup ? (
+          {activeTabValue === 'link-checker' &&
+          currentEmailOpenSlug &&
+          markup ? (
             <>
               <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-b border-slate-6 p-3 lg:flex">
                 <Heading as="h2" className="truncate" size="2" weight="medium">
@@ -174,7 +176,10 @@ export const Sidebar = ({
                 </Heading>
               </div>
               <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">
-                <LinkChecker currentEmailOpenSlug={currentEmailOpenSlug} markup={markup} />
+                <LinkChecker
+                  currentEmailOpenSlug={currentEmailOpenSlug}
+                  markup={markup}
+                />
               </div>
             </>
           ) : null}
