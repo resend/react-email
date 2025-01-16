@@ -57,14 +57,13 @@ export const startDevServer = async (
 
     try {
       if (
-        parsedUrl.path &&
-        parsedUrl.path.includes('static/') &&
+        parsedUrl.path?.includes('static/') &&
         !parsedUrl.path.includes('_next/static/')
       ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
       } else if (!isNextReady) {
-        void nextReadyPromise.then(() =>
-          nextHandleRequest?.(req, res, parsedUrl),
+        void nextReadyPromise.then(
+          () => nextHandleRequest?.(req, res, parsedUrl),
         );
       } else {
         void nextHandleRequest?.(req, res, parsedUrl);
