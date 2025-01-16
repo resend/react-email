@@ -1,11 +1,11 @@
 import path from 'node:path';
-import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
-import Home from '../../page';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
+import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;

@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import * as Collapsible from '@radix-ui/react-collapsible';
+import * as React from 'react';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Logo } from '../logo';

@@ -1,4 +1,4 @@
-import type { Container, Document } from "postcss";
+import type { Container, Document } from 'postcss';
 
 export const removeIfEmptyRecursively = (node: Container | Document) => {
   if (node.first === undefined) {

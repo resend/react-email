@@ -1,7 +1,7 @@
+import { promises as fs, existsSync } from 'node:fs';
 import path from 'node:path';
-import { existsSync, promises as fs } from 'node:fs';
 import {
-  DependencyGraph,
+  type DependencyGraph,
   createDependencyGraph,
 } from './create-dependency-graph';
 
@@ -41,18 +41,18 @@ test('createDependencyGraph()', async () => {
   const initialDependencyGraph = convertPathsToAbsolute({
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
-      dependencyPaths: ['get-imported-modules.ts', '../start-dev-server.ts'],
+      dependencyPaths: ['../start-dev-server.ts', 'get-imported-modules.ts'],
       dependentPaths: [
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
       ],
-      moduleDependencies: ['node:path', 'node:fs', 'chokidar/handler'],
+      moduleDependencies: ['node:fs', 'node:path', 'chokidar/handler'],
     },
     'create-dependency-graph.spec.ts': {
       path: 'create-dependency-graph.spec.ts',
       dependencyPaths: ['create-dependency-graph.ts'],
       dependentPaths: [],
-      moduleDependencies: ['node:path', 'node:fs'],
+      moduleDependencies: ['node:fs', 'node:path'],
     },
     'get-imported-modules.ts': {
       path: 'get-imported-modules',
@@ -79,9 +79,9 @@ test('createDependencyGraph()', async () => {
       moduleDependencies: [
         'node:http',
         'node:path',
-        'socket.io',
         'chokidar',
         'debounce',
+        'socket.io',
       ],
     },
     '../start-dev-server.ts': {

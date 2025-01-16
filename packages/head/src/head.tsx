@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type HeadProps = Readonly<React.ComponentPropsWithoutRef<"head">>;
+export type HeadProps = Readonly<React.ComponentPropsWithoutRef<'head'>>;
 
 export const Head = React.forwardRef<HTMLHeadElement, HeadProps>(
   ({ children, ...props }, ref) => (
@@ -12,4 +12,4 @@ export const Head = React.forwardRef<HTMLHeadElement, HeadProps>(
   ),
 );
 
-Head.displayName = "Head";
+Head.displayName = 'Head';

@@ -21,7 +21,6 @@
     "tinybench": "2.5.1"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "tsx": "4.7.1",
     "typescript": "5.1.6"

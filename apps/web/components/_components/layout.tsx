@@ -1,12 +1,12 @@
 import {
-  Html,
-  Head,
-  Tailwind,
   Body,
   Container,
   Font,
-} from "@react-email/components";
-import tailwindConfig from "../tailwind.config";
+  Head,
+  Html,
+  Tailwind,
+} from '@react-email/components';
+import tailwindConfig from '../tailwind.config';
 
 export const Layout = ({
   children,
@@ -24,8 +24,8 @@ export const Layout = ({
           fontStyle="normal"
           fontWeight={400}
           webFont={{
-            url: "https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2",
-            format: "woff2",
+            url: 'https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2',
+            format: 'woff2',
           }}
         />
         <Font
@@ -34,8 +34,8 @@ export const Layout = ({
           fontStyle="normal"
           fontWeight={600}
           webFont={{
-            url: "https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50PDca1ZL7.woff2",
-            format: "woff2",
+            url: 'https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50PDca1ZL7.woff2',
+            format: 'woff2',
           }}
         />
         <Font
@@ -44,8 +44,8 @@ export const Layout = ({
           fontStyle="normal"
           fontWeight={700}
           webFont={{
-            url: "https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50BTca1ZL7.woff2",
-            format: "woff2",
+            url: 'https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fjbvMwCp50BTca1ZL7.woff2',
+            format: 'woff2',
           }}
         />
       </Head>
@@ -55,12 +55,12 @@ export const Layout = ({
           const container = (
             <Container
               style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                boxSizing: "border-box",
-                paddingTop: "1rem",
-                paddingBottom: "1rem",
-                height: "100vh",
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                boxSizing: 'border-box',
+                paddingTop: '1rem',
+                paddingBottom: '1rem',
+                height: '100vh',
               }}
             >
               {children}

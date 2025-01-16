@@ -1,5 +1,5 @@
-import { Button, Heading, Img, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Button, Heading, Img, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="my-[16px]">

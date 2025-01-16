@@ -1,19 +1,19 @@
-import { render } from "@react-email/render";
-import { Head } from "./index";
+import { render } from '@react-email/render';
+import { Head } from './index';
 
-describe("<Head> component", () => {
-  it("renders children correctly", async () => {
-    const testMessage = "Test message";
+describe('<Head> component', () => {
+  it('renders children correctly', async () => {
+    const testMessage = 'Test message';
     const html = await render(<Head>{testMessage}</Head>);
     expect(html).toContain(testMessage);
   });
 
-  it("renders correctly", async () => {
+  it('renders correctly', async () => {
     const actualOutput = await render(<Head />);
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it("renders style tags", async () => {
+  it('renders style tags', async () => {
     const actualOutput = await render(
       <Head>
         <style>

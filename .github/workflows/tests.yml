@@ -5,7 +5,7 @@ on:
       - main
   pull_request:
 jobs:
-  format:
+  lint:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
       image: node:18
@@ -32,8 +32,11 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-      - name: Run Format Check
-        run: pnpm format:check
+      - name: Run Build
+        run: pnpm build
+
+      - name: Run Lint
+        run: pnpm lint
 
   test:
     runs-on: buildjet-4vcpu-ubuntu-2204
@@ -67,39 +70,6 @@ jobs:
 
       - name: Run Tests
         run: pnpm test
-
-  lint:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    container:
-      image: node:18
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - name: pnpm Cache
-        uses: buildjet/cache@v4
-        with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install packages
-        run: pnpm install --frozen-lockfile
-
-      - name: Run Build
-        run: pnpm build
-
-      - name: Run Lint
-        run: pnpm lint
 
   build:
     runs-on: buildjet-4vcpu-ubuntu-2204

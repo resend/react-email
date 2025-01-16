@@ -16,10 +16,7 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/create-email"
   },
-  "keywords": [
-    "react",
-    "email"
-  ],
+  "keywords": ["react", "email"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -27,8 +24,6 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "prettier": "3.0.0",
     "tsconfig": "workspace:*"
   }
 }

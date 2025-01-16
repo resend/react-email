@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
@@ -12,4 +12,4 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   },
 );
 
-Body.displayName = "Body";
+Body.displayName = 'Body';

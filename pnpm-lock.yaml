@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
       '@changesets/cli':
         specifier: 2.27.11
         version: 2.27.11
@@ -127,9 +130,6 @@ importers:
         specifier: 1.1.1
         version: 1.1.1(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
-      '@next/eslint-plugin-next':
-        specifier: 14.2.16
-        version: 14.2.16
       '@radix-ui/colors':
         specifier: 1.0.1
         version: 1.0.1
@@ -166,27 +166,12 @@ importers:
       classnames:
         specifier: 2.5.1
         version: 2.5.1
-      eslint:
-        specifier: ^8
-        version: 8.50.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      eslint-config-prettier:
-        specifier: 9.0.0
-        version: 9.0.0(eslint@8.50.0)
       html-to-ast:
         specifier: 0.0.6
         version: 0.0.6
       postcss:
         specifier: 8.4.40
         version: 8.4.40
-      prettier:
-        specifier: 3.4.2
-        version: 3.4.2
-      prettier-plugin-tailwindcss:
-        specifier: 0.6.6
-        version: 0.6.6(prettier@3.4.2)
       tailwindcss:
         specifier: 3.4.3
         version: 3.4.3
@@ -215,9 +200,6 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -252,9 +234,6 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       flamebearer:
         specifier: 1.1.3
         version: 1.1.3
@@ -283,9 +262,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -308,9 +284,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -336,9 +309,6 @@ importers:
       '@types/nodemailer':
         specifier: 6.4.15
         version: 6.4.15
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -361,9 +331,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -386,9 +353,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -423,9 +387,6 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.0.1
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       typescript:
         specifier: ^5.1.3
         version: 5.1.6
@@ -457,9 +418,6 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.0.1
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../../packages/eslint-config-custom
       typescript:
         specifier: 4.9.5
         version: 4.9.5
@@ -479,9 +437,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -504,9 +459,6 @@ importers:
         specifier: ^19
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       tsup:
         specifier: 6.2.3
         version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.4.49)(typescript@4.8.3)
@@ -523,9 +475,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -542,9 +491,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -567,9 +513,6 @@ importers:
       '@types/prismjs':
         specifier: 1.26.5
         version: 1.26.5
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -586,9 +529,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -611,9 +551,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -687,9 +624,6 @@ importers:
         specifier: ^18.0 || ^19.0 || ^19.0.0-rc
         version: 19.0.0
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -706,9 +640,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -731,12 +662,6 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
     devDependencies:
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      prettier:
-        specifier: 3.0.0
-        version: 3.0.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -763,21 +688,6 @@ importers:
         specifier: workspace:3.0.6
         version: link:../../react-email
 
-  packages/eslint-config-custom:
-    devDependencies:
-      '@vercel/style-guide':
-        specifier: 5.1.0
-        version: 5.1.0(@next/eslint-plugin-next@14.2.16)(eslint@8.50.0)(prettier@3.4.2)(typescript@5.1.6)
-      eslint-config-prettier:
-        specifier: 9.0.0
-        version: 9.0.0(eslint@8.50.0)
-      eslint-config-turbo:
-        specifier: 2.1.0
-        version: 2.1.0(eslint@8.50.0)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-
   packages/font:
     dependencies:
       react:
@@ -787,9 +697,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -806,9 +713,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -825,9 +729,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -844,9 +745,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -863,9 +761,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -882,9 +777,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -901,9 +793,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -923,9 +812,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -942,9 +828,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1054,15 +937,6 @@ importers:
       clsx:
         specifier: 2.1.0
         version: 2.1.0
-      eslint:
-        specifier: 8.50.0
-        version: 8.50.0
-      eslint-config-prettier:
-        specifier: 9.0.0
-        version: 9.0.0(eslint@8.50.0)
-      eslint-config-turbo:
-        specifier: 2.1.0
-        version: 2.1.0(eslint@8.50.0)
       framer-motion:
         specifier: 12.0.0-alpha.2
         version: 12.0.0-alpha.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1145,9 +1019,6 @@ importers:
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0
         version: types-react-dom@19.0.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jsdom:
         specifier: 23.0.1
         version: 23.0.1
@@ -1173,9 +1044,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1192,9 +1060,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1238,12 +1103,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.2.1
         version: 4.2.1(vite@5.2.14(@types/node@22.10.2)(terser@5.37.0))
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      eslint-plugin-regex:
-        specifier: 1.10.0
-        version: 1.10.0(eslint@8.50.0)
       postcss:
         specifier: 8.4.40
         version: 8.4.40
@@ -1290,9 +1149,6 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../render
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1718,6 +1574,59 @@ packages:
   '@babel/types@7.26.3':
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
+
+  '@biomejs/biome@1.9.4':
+    resolution: {integrity: sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog==}
+    engines: {node: '>=14.21.3'}
+    hasBin: true
+
+  '@biomejs/cli-darwin-arm64@1.9.4':
+    resolution: {integrity: sha512-bFBsPWrNvkdKrNCYeAp+xo2HecOGPAy9WyNyB/jKnnedgzl4W4Hb9ZMzYNbf8dMCGmUdSavlYHiR01QaYR58cw==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@biomejs/cli-darwin-x64@1.9.4':
+    resolution: {integrity: sha512-ngYBh/+bEedqkSevPVhLP4QfVPCpb+4BBe2p7Xs32dBgs7rh9nY2AIYUL6BgLw1JVXV8GlpKmb/hNiuIxfPfZg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@biomejs/cli-linux-arm64-musl@1.9.4':
+    resolution: {integrity: sha512-v665Ct9WCRjGa8+kTr0CzApU0+XXtRgwmzIf1SeKSGAv+2scAlW6JR5PMFo6FzqqZ64Po79cKODKf3/AAmECqA==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@biomejs/cli-linux-arm64@1.9.4':
+    resolution: {integrity: sha512-fJIW0+LYujdjUgJJuwesP4EjIBl/N/TcOX3IvIHJQNsAqvV2CHIogsmA94BPG6jZATS4Hi+xv4SkBBQSt1N4/g==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@biomejs/cli-linux-x64-musl@1.9.4':
+    resolution: {integrity: sha512-gEhi/jSBhZ2m6wjV530Yy8+fNqG8PAinM3oV7CyO+6c3CEh16Eizm21uHVsyVBEB6RIM8JHIl6AGYCv6Q6Q9Tg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+
+  '@biomejs/cli-linux-x64@1.9.4':
+    resolution: {integrity: sha512-lRCJv/Vi3Vlwmbd6K+oQ0KhLHMAysN8lXoCI7XeHlxaajk06u7G+UsFSO01NAs5iYuWKmVZjmiOzJ0OJmGsMwg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [linux]
+
+  '@biomejs/cli-win32-arm64@1.9.4':
+    resolution: {integrity: sha512-tlbhLk+WXZmgwoIKwHIHEBZUwxml7bRJgk0X2sPyNR3S93cdRq6XulAZRQJ17FYGGzWne0fgrXBKpl7l4M87Hg==}
+    engines: {node: '>=14.21.3'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@biomejs/cli-win32-x64@1.9.4':
+    resolution: {integrity: sha512-8Y5wMhVIPaWe6jw2H+KlEm4wP/f7EW3810ZLmDlrEEy5KvBsb9ECEfu/kMWD484ijfQ8+nIi0giMgu9g1UAuuA==}
+    engines: {node: '>=14.21.3'}
+    cpu: [x64]
+    os: [win32]
 
   '@changesets/apply-release-plan@7.0.7':
     resolution: {integrity: sha512-qnPOcmmmnD0MfMg9DjU1/onORFyRpDXkMMl2IJg9mECY6RnxL3wN0TCCc92b2sXt1jt8DgjAUUsZYGUGTdYIXA==}
@@ -5237,11 +5146,6 @@ packages:
     peerDependencies:
       eslint: '>6.6.0'
 
-  eslint-config-turbo@2.1.0:
-    resolution: {integrity: sha512-3SeE2OCWnkA/84adGJXABm++966LNGxRdXtXKBcplJdIe4PmERkov1z6Kzp2PrPKT13wGu/bwoLV5h1rm7v9ug==}
-    peerDependencies:
-      eslint: '>6.6.0'
-
   eslint-import-resolver-alias@1.1.2:
     resolution: {integrity: sha512-WdviM1Eu834zsfjHtcGHtGfcu+F30Od3V7I9Fi57uhBEwPkjDcii7/yW8jAT+gOhn4P/vOxxNAXbFAKsrrc15w==}
     engines: {node: '>= 4'}
@@ -5341,12 +5245,6 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-regex@1.10.0:
-    resolution: {integrity: sha512-C8/qYKkkbIb0epxKzaz4aw7oVAOmm19fJpR/moUrUToq/vc4xW4sEKMlTQqH6EtNGpvLjYsbbZRlWNWwQGeTSA==}
-    engines: {node: '>=6.0.0'}
-    peerDependencies:
-      eslint: '>=4.0.0'
-
   eslint-plugin-testing-library@6.5.0:
     resolution: {integrity: sha512-Ls5TUfLm5/snocMAOlofSOJxNN0aKqwTlco7CrNtMjkTdQlkpSMaeTCDHCuXfzrI97xcx2rSCNeKeJjtpkNC1w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6'}
@@ -5358,11 +5256,6 @@ packages:
 
   eslint-plugin-turbo@1.10.12:
     resolution: {integrity: sha512-uNbdj+ohZaYo4tFJ6dStRXu2FZigwulR1b3URPXe0Q8YaE7thuekKNP+54CHtZPH9Zey9dmDx5btAQl9mfzGOw==}
-    peerDependencies:
-      eslint: '>6.6.0'
-
-  eslint-plugin-turbo@2.1.0:
-    resolution: {integrity: sha512-+CWVY29y7Qa+gvrKSzP+TOYrHAlNLCh/97K5VtDdnpH54h/JFmnd3U0aSG6WANe0HgAK8NHQfeWFDdRzfDqbKA==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -6806,11 +6699,6 @@ packages:
   prettier@2.8.8:
     resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
-    hasBin: true
-
-  prettier@3.0.0:
-    resolution: {integrity: sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==}
-    engines: {node: '>=14'}
     hasBin: true
 
   prettier@3.4.2:
@@ -8989,6 +8877,41 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
+  '@biomejs/biome@1.9.4':
+    optionalDependencies:
+      '@biomejs/cli-darwin-arm64': 1.9.4
+      '@biomejs/cli-darwin-x64': 1.9.4
+      '@biomejs/cli-linux-arm64': 1.9.4
+      '@biomejs/cli-linux-arm64-musl': 1.9.4
+      '@biomejs/cli-linux-x64': 1.9.4
+      '@biomejs/cli-linux-x64-musl': 1.9.4
+      '@biomejs/cli-win32-arm64': 1.9.4
+      '@biomejs/cli-win32-x64': 1.9.4
+
+  '@biomejs/cli-darwin-arm64@1.9.4':
+    optional: true
+
+  '@biomejs/cli-darwin-x64@1.9.4':
+    optional: true
+
+  '@biomejs/cli-linux-arm64-musl@1.9.4':
+    optional: true
+
+  '@biomejs/cli-linux-arm64@1.9.4':
+    optional: true
+
+  '@biomejs/cli-linux-x64-musl@1.9.4':
+    optional: true
+
+  '@biomejs/cli-linux-x64@1.9.4':
+    optional: true
+
+  '@biomejs/cli-win32-arm64@1.9.4':
+    optional: true
+
+  '@biomejs/cli-win32-x64@1.9.4':
+    optional: true
+
   '@changesets/apply-release-plan@7.0.7':
     dependencies:
       '@changesets/config': 3.0.5
@@ -9807,6 +9730,7 @@ snapshots:
   '@next/eslint-plugin-next@14.2.16':
     dependencies:
       glob: 10.3.10
+    optional: true
 
   '@next/swc-darwin-arm64@14.2.3':
     optional: true
@@ -12667,11 +12591,6 @@ snapshots:
       eslint: 8.50.0
       eslint-plugin-turbo: 1.10.12(eslint@8.50.0)
 
-  eslint-config-turbo@2.1.0(eslint@8.50.0):
-    dependencies:
-      eslint: 8.50.0
-      eslint-plugin-turbo: 2.1.0(eslint@8.50.0)
-
   eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.31.0):
     dependencies:
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@6.21.0(eslint@8.50.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.7.0)(eslint@8.50.0)
@@ -12807,10 +12726,6 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-regex@1.10.0(eslint@8.50.0):
-    dependencies:
-      eslint: 8.50.0
-
   eslint-plugin-testing-library@6.5.0(eslint@8.50.0)(typescript@5.1.6):
     dependencies:
       '@typescript-eslint/utils': 5.62.0(eslint@8.50.0)(typescript@5.1.6)
@@ -12825,11 +12740,6 @@ snapshots:
       '@microsoft/tsdoc-config': 0.16.2
 
   eslint-plugin-turbo@1.10.12(eslint@8.50.0):
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 8.50.0
-
-  eslint-plugin-turbo@2.1.0(eslint@8.50.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.50.0
@@ -13168,6 +13078,7 @@ snapshots:
       minimatch: 9.0.5
       minipass: 7.1.2
       path-scurry: 1.11.1
+    optional: true
 
   glob@10.3.4:
     dependencies:
@@ -14254,8 +14165,6 @@ snapshots:
       prettier: 3.4.2
 
   prettier@2.8.8: {}
-
-  prettier@3.0.0: {}
 
   prettier@3.4.2: {}
 

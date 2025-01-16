@@ -1,5 +1,5 @@
-import type { Root } from "postcss";
-import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
+import type { Root } from 'postcss';
+import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 export const removeRuleDuplicatesFromRoot = (root: Root) => {
   root.walkRules((rule) => {
