@@ -12,10 +12,10 @@ import {
   Text,
 } from '@react-email/components';
 import { setupForPreview } from 'react-email';
-import { z } from "zod";
+import { z } from 'zod';
 
 const AWSVerifyEmailProps = z.object({
-  verificationCode: z.string()
+  verificationCode: z.string(),
 });
 
 type AWSVerifyEmailProps = z.infer<typeof AWSVerifyEmailProps>;
@@ -88,7 +88,7 @@ export default function AWSVerifyEmail({
 }
 
 AWSVerifyEmail.PreviewProps = {
-  verificationCode: '596583'
+  verificationCode: '596583',
 } satisfies AWSVerifyEmailProps;
 
 AWSVerifyEmail.PreviewSchema = AWSVerifyEmailProps;
