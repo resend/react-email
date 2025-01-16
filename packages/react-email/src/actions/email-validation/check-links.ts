@@ -61,18 +61,20 @@ export const checkLinks = async (
       const url = new URL(link);
 
       const res = await quickFetch(url);
-      const succeeded =
+      const hasntSucceeded =
         res.statusCode === undefined ||
         !res.statusCode.toString().startsWith('2');
       result.checks.push({
         type: 'fetch_attempt',
-        passed: succeeded,
+        passed: hasntSucceeded,
         metadata: {
           fetchStatusCode: res.statusCode,
         },
       });
-      if (succeeded) {
-        result.status = 'error';
+      if (hasntSucceeded) {
+        result.status = res.statusCode && res.statusCode.toString().startsWith('3') 
+          ? 'warning' 
+          : 'error';
       }
 
       if (link.startsWith('https://')) {
