@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="text-center">

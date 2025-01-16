@@ -1,6 +1,6 @@
 'use server';
-import path from 'node:path';
 import fs from 'node:fs';
+import path from 'node:path';
 import { cache } from 'react';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 
@@ -13,11 +13,14 @@ export const getEmailPathFromSlug = cache(async (slug: string) => {
 
   if (fs.existsSync(`${pathWithoutExtension}.tsx`)) {
     return `${pathWithoutExtension}.tsx`;
-  } else if (fs.existsSync(`${pathWithoutExtension}.jsx`)) {
+  }
+  if (fs.existsSync(`${pathWithoutExtension}.jsx`)) {
     return `${pathWithoutExtension}.jsx`;
-  } else if (fs.existsSync(`${pathWithoutExtension}.ts`)) {
+  }
+  if (fs.existsSync(`${pathWithoutExtension}.ts`)) {
     return `${pathWithoutExtension}.ts`;
-  } else if (fs.existsSync(`${pathWithoutExtension}.js`)) {
+  }
+  if (fs.existsSync(`${pathWithoutExtension}.js`)) {
     return `${pathWithoutExtension}.js`;
   }
 

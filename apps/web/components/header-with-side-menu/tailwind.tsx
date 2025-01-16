@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="my-[40px] px-[32px] py-[40px]">

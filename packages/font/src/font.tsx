@@ -1,27 +1,27 @@
-import * as React from "react";
+import type * as React from 'react';
 
 type FallbackFont =
-  | "Arial"
-  | "Helvetica"
-  | "Verdana"
-  | "Georgia"
-  | "Times New Roman"
-  | "serif"
-  | "sans-serif"
-  | "monospace"
-  | "cursive"
-  | "fantasy";
+  | 'Arial'
+  | 'Helvetica'
+  | 'Verdana'
+  | 'Georgia'
+  | 'Times New Roman'
+  | 'serif'
+  | 'sans-serif'
+  | 'monospace'
+  | 'cursive'
+  | 'fantasy';
 
 type FontFormat =
-  | "woff"
-  | "woff2"
-  | "truetype"
-  | "opentype"
-  | "embedded-opentype"
-  | "svg";
+  | 'woff'
+  | 'woff2'
+  | 'truetype'
+  | 'opentype'
+  | 'embedded-opentype'
+  | 'svg';
 
-type FontWeight = React.CSSProperties["fontWeight"];
-type FontStyle = React.CSSProperties["fontStyle"];
+type FontWeight = React.CSSProperties['fontWeight'];
+type FontStyle = React.CSSProperties['fontStyle'];
 
 export interface FontProps {
   /** The font you want to use. NOTE: Do not insert multiple fonts here, use fallbackFontFamily for that */
@@ -44,12 +44,12 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontFamily,
   fallbackFontFamily,
   webFont,
-  fontStyle = "normal",
+  fontStyle = 'normal',
   fontWeight = 400,
 }) => {
   const src = webFont
     ? `src: url(${webFont.url}) format('${webFont.format}');`
-    : "";
+    : '';
 
   const style = `
     @font-face {
@@ -67,7 +67,7 @@ export const Font: React.FC<Readonly<FontProps>> = ({
     * {
       font-family: '${fontFamily}', ${
         Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.join(", ")
+          ? fallbackFontFamily.join(', ')
           : fallbackFontFamily
       };
     }

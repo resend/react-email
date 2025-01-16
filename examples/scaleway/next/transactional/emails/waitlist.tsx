@@ -6,7 +6,7 @@ import {
   Html,
   Preview,
   Text,
-} from "@react-email/components";
+} from '@react-email/components';
 
 interface WaitlistEmailProps {
   name: string;
@@ -33,28 +33,28 @@ export const WaitlistEmail: React.FC<Readonly<WaitlistEmailProps>> = ({
 export default WaitlistEmail;
 
 const main = {
-  backgroundColor: "#000000",
-  margin: "0 auto",
+  backgroundColor: '#000000',
+  margin: '0 auto',
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
 };
 
 const container = {
-  margin: "auto",
-  padding: "96px 20px 64px",
+  margin: 'auto',
+  padding: '96px 20px 64px',
 };
 
 const h1 = {
-  color: "#ffffff",
-  fontSize: "24px",
-  fontWeight: "600",
-  lineHeight: "40px",
-  margin: "0 0 20px",
+  color: '#ffffff',
+  fontSize: '24px',
+  fontWeight: '600',
+  lineHeight: '40px',
+  margin: '0 0 20px',
 };
 
 const text = {
-  color: "#aaaaaa",
-  fontSize: "14px",
-  lineHeight: "24px",
-  margin: "0 0 40px",
+  color: '#aaaaaa',
+  fontSize: '14px',
+  lineHeight: '24px',
+  margin: '0 0 40px',
 };

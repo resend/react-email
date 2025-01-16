@@ -1,5 +1,5 @@
-import { Column, Img, Link, Row, Section } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
@@ -11,7 +11,7 @@ export const component = (
     }}
   >
     <Row>
-      <Column style={{ width: "80%" }}>
+      <Column style={{ width: '80%' }}>
         <Img
           alt="React Email logo"
           height="42"

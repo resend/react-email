@@ -1,12 +1,12 @@
-import path from "node:path";
-import { existsSync } from "node:fs";
-import postcss from "postcss";
-import { render } from "@react-email/components";
-import { parse, stringify } from "html-to-ast";
-import type { Attr, IDoc as Doc } from "html-to-ast/dist/types";
-import { getComponentElement } from "../src/app/components/get-imported-components-for";
-import { componentsStructure, getComponentPathFromSlug } from "./structure";
-import { Layout } from "./_components/layout";
+import { existsSync } from 'node:fs';
+import path from 'node:path';
+import { render } from '@react-email/components';
+import { parse, stringify } from 'html-to-ast';
+import type { Attr, IDoc as Doc } from 'html-to-ast/dist/types';
+import postcss from 'postcss';
+import { getComponentElement } from '../src/app/components/get-imported-components-for';
+import { Layout } from './_components/layout';
+import { componentsStructure, getComponentPathFromSlug } from './structure';
 
 type MaybeDoc = ReturnType<typeof parse>[number];
 
@@ -31,7 +31,7 @@ const getStyleObjectFromString = (style: string): Record<string, string> => {
 const sortStyle = (style: string): string => {
   const object = getStyleObjectFromString(style);
   const styleProperties = Object.keys(object).sort();
-  return styleProperties.map((prop) => `${prop}:${object[prop]}`).join(";");
+  return styleProperties.map((prop) => `${prop}:${object[prop]}`).join(';');
 };
 
 const getComparableHtml = (html: string): string => {
@@ -43,7 +43,7 @@ const getComparableHtml = (html: string): string => {
         orderedAttributes[key] = doc.attrs[key];
       }
       doc.attrs = orderedAttributes;
-      if ("style" in doc.attrs) {
+      if ('style' in doc.attrs) {
         const style = doc.attrs.style as string;
         doc.attrs.style = sortStyle(style);
       }
@@ -52,25 +52,25 @@ const getComparableHtml = (html: string): string => {
   return stringify(ast as Doc[]);
 };
 
-describe("copy-paste components", () => {
+describe('copy-paste components', () => {
   const components = componentsStructure.flatMap(
     (category) => category.components,
   );
   for (const component of components) {
     // It currently fails due to a Tailwind limitation
-    if (component.slug === "single-button") continue;
+    if (component.slug === 'single-button') continue;
 
     // Tailwind seems to be leaving an empty space as a className
-    if (component.slug === "simple-code-inline") continue;
-    if (component.slug === "code-inline-with-different-colors") continue;
+    if (component.slug === 'simple-code-inline') continue;
+    if (component.slug === 'code-inline-with-different-colors') continue;
 
     // eslint-disable-next-line @typescript-eslint/no-loop-func
     test(`${component.slug}'s variants should all match`, async () => {
       const componentPath = getComponentPathFromSlug(component.slug);
-      const tailwindVariantPath = path.join(componentPath, "tailwind.tsx");
+      const tailwindVariantPath = path.join(componentPath, 'tailwind.tsx');
       const inlineStylesVariantPath = path.join(
         componentPath,
-        "inline-styles.tsx",
+        'inline-styles.tsx',
       );
       if (
         existsSync(tailwindVariantPath) &&

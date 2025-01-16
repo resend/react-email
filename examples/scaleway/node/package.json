@@ -6,9 +6,7 @@
   "sideEffects": false,
   "main": "./dist/index.js",
   "type": "module",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "scripts": {
     "build": "tsup-node src/index.tsx --format esm --target node20",
     "dev": "tsup-node src/index.tsx --format esm --target node20 --watch"
@@ -20,7 +18,6 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   }

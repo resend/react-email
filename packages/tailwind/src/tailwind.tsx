@@ -1,26 +1,26 @@
-import * as React from "react";
-import type { Config as TailwindOriginalConfig } from "tailwindcss";
-import { Root } from "postcss";
-import { minifyCss } from "./utils/css/minify-css";
-import { setupTailwind } from "./utils/tailwindcss/setup-tailwind";
-import { mapReactTree } from "./utils/react/map-react-tree";
-import { cloneElementWithInlinedStyles } from "./utils/tailwindcss/clone-element-with-inlined-styles";
-import { removeRuleDuplicatesFromRoot } from "./utils/css/remove-rule-duplicates-from-root";
+import { Root } from 'postcss';
+import * as React from 'react';
+import type { Config as TailwindOriginalConfig } from 'tailwindcss';
+import { minifyCss } from './utils/css/minify-css';
+import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
+import { mapReactTree } from './utils/react/map-react-tree';
+import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
+import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
-  | "important"
-  | "prefix"
-  | "separator"
-  | "safelist"
-  | "blocklist"
-  | "presets"
-  | "future"
-  | "experimental"
-  | "darkMode"
-  | "theme"
-  | "corePlugins"
-  | "plugins"
+  | 'important'
+  | 'prefix'
+  | 'separator'
+  | 'safelist'
+  | 'blocklist'
+  | 'presets'
+  | 'future'
+  | 'experimental'
+  | 'darkMode'
+  | 'theme'
+  | 'corePlugins'
+  | 'plugins'
 >;
 
 export interface TailwindProps {
@@ -74,7 +74,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
       }
 
       if (React.isValidElement<EmailElementProps>(node)) {
-        if (node.type === "head") {
+        if (node.type === 'head') {
           hasAppliedNonInlineStyles = true;
 
           /*                   only minify here since it is the only place that is going to be in the DOM */
@@ -99,7 +99,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
     if (!hasAppliedNonInlineStyles) {
       throw new Error(
         `You are trying to use the following Tailwind classes that cannot be inlined: ${mediaQueryClassesForAllElement.join(
-          " ",
+          ' ',
         )}.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
