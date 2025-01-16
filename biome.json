@@ -21,6 +21,9 @@
         "noSvgWithoutTitle": "off",
         "noAutofocus": "off"
       },
+      "nursery": {
+        "useSortedClasses": "warn"
+      },
       "suspicious": {
         "noArrayIndexKey": "off",
         "noExplicitAny": "off",
