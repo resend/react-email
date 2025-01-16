@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import classNames from "classnames";
-import * as Tabs from "@radix-ui/react-tabs";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
-import type { ImportedComponent } from "../app/components/get-imported-components-for";
-import { ComponentPreview } from "./component-preview";
-import { Tooltip } from "./tooltip";
-import { IconMonitor } from "./icons/icon-monitor";
-import { IconPhone } from "./icons/icon-phone";
-import { IconSource } from "./icons/icon-source";
-import { ComponentCodeView } from "./component-code-view";
-import { TabTrigger } from "./tab-trigger";
+import * as Tabs from '@radix-ui/react-tabs';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
+import classNames from 'classnames';
+import * as React from 'react';
+import type { ImportedComponent } from '../app/components/get-imported-components-for';
+import { ComponentCodeView } from './component-code-view';
+import { ComponentPreview } from './component-preview';
+import { IconMonitor } from './icons/icon-monitor';
+import { IconPhone } from './icons/icon-phone';
+import { IconSource } from './icons/icon-source';
+import { TabTrigger } from './tab-trigger';
+import { Tooltip } from './tooltip';
 
 interface ComponentViewProps {
   component: ImportedComponent;
   className?: string;
 }
 
-type ActiveView = "code" | "desktop" | "mobile";
+type ActiveView = 'code' | 'desktop' | 'mobile';
 
 const TabTriggetWithTooltip = ({
   tooltip,
@@ -47,7 +47,7 @@ const TabContent: React.FC<{
   value: ActiveView;
   children: React.ReactNode;
   additionalClasses?: string;
-}> = ({ value, children, additionalClasses = "" }) => (
+}> = ({ value, children, additionalClasses = '' }) => (
   <Tabs.Content
     className={`relative m-4 mx-2 h-fit scroll-m-2 overflow-hidden rounded-md border border-slate-4 transition-colors focus:outline-none focus:ring focus:ring-slate-8 md:mx-8 ${additionalClasses}`}
     value={value}
@@ -60,7 +60,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
   component,
   className,
 }) => {
-  const [activeView, setActiveView] = React.useState<ActiveView>("desktop");
+  const [activeView, setActiveView] = React.useState<ActiveView>('desktop');
 
   React.useEffect(() => {
     setActiveView(activeView);
@@ -78,7 +78,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
       <TooltipProvider>
         <div
           className={classNames(
-            "relative flex w-full items-center gap-6 px-6 pb-3 md:px-8",
+            'relative flex w-full items-center gap-6 px-6 pb-3 md:px-8',
             className,
           )}
         >

@@ -1,19 +1,19 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type React from 'react';
-import { glob } from 'glob';
-import { BuildFailure, build } from 'esbuild';
-import ora from 'ora';
-import logSymbols from 'log-symbols';
 import type { Options } from '@react-email/render';
+import { type BuildFailure, build } from 'esbuild';
+import { glob } from 'glob';
+import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
-import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
-import { tree } from '../utils';
+import ora from 'ora';
+import type React from 'react';
+import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
 import {
-  EmailsDirectory,
+  type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../utils/get-emails-directory-metadata';
-import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
+import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
+import { tree } from '../utils';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];

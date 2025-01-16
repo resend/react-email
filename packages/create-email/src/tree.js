@@ -12,11 +12,7 @@ const SYMBOLS = {
   VERTICAL: '│   ',
 };
 
-const getTreeLines = async (
-  dirPath,
-  depth,
-  currentDepth = 0,
-) => {
+const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
   const base = process.cwd();
   const dirFullpath = path.resolve(base, dirPath);
   const dirname = path.basename(dirFullpath);

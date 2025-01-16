@@ -1,4 +1,4 @@
-import PageTransition from "@/components/page-transition";
+import PageTransition from '@/components/page-transition';
 
 export const metadata = {
   title: '404 Not found',

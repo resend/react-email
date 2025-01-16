@@ -3,13 +3,13 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { Toaster } from 'sonner';
-import { useHotreload } from '../../../hooks/use-hot-reload';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
-import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
+import { useHotreload } from '../../../hooks/use-hot-reload';
+import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {

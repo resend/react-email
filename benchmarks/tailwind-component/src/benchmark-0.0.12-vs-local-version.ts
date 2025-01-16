@@ -11,10 +11,10 @@ const main = async () => {
   });
 
   bench
-    .add("local", async () => {
+    .add('local', async () => {
       await render(EmailWithTailwind({ Tailwind: LocalTailwind }));
     })
-    .add("0.0.12", async () => {
+    .add('0.0.12', async () => {
       await render(EmailWithTailwind({ Tailwind: VersionTwelveTailwind }));
     });
 
@@ -26,9 +26,9 @@ const main = async () => {
 main()
   .then((bench) => {
     writeFileSync(
-      "bench-results-100-iterations.json",
+      'bench-results-100-iterations.json',
       JSON.stringify(bench.results),
-      "utf-8",
+      'utf-8',
     );
     console.table(bench.table());
   })

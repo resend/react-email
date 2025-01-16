@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type SectionProps = Readonly<React.ComponentPropsWithoutRef<"table">>;
+export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
   ({ children, style, ...props }, ref) => {
@@ -26,4 +26,4 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
   },
 );
 
-Section.displayName = "Section";
+Section.displayName = 'Section';

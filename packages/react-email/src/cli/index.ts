@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import packageJson from '../../package.json';
+import { build } from './commands/build';
 import { dev } from './commands/dev';
 import { exportTemplates } from './commands/export';
-import { build } from './commands/build';
 import { start } from './commands/start';
 
 const PACKAGE_NAME = 'react-email';

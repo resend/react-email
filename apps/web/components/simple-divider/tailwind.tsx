@@ -1,5 +1,5 @@
-import { Hr, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Hr, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>

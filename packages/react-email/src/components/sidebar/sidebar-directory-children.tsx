@@ -1,9 +1,9 @@
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { cn } from '../../utils';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
 import { SidebarDirectory } from './sidebar-directory';
 
@@ -64,7 +64,7 @@ export const SidebarDirectoryChildren = (props: {
                     };
                     const isCurrentPage = props.currentEmailOpenSlug
                       ? removeExtensionFrom(props.currentEmailOpenSlug) ===
-                      emailSlug
+                        emailSlug
                       : false;
 
                     return (

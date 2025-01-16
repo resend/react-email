@@ -1,6 +1,6 @@
 'use server';
-import path from 'node:path';
 import fs from 'node:fs';
+import path from 'node:path';
 import { cache } from 'react';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 

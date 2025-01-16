@@ -1,21 +1,21 @@
-import { convert } from "html-to-text";
+import { convert } from 'html-to-text';
+import { Suspense } from 'react';
 import type {
   PipeableStream,
   ReactDOMServerReadableStream,
-} from "react-dom/server";
-import { Suspense } from "react";
-import { pretty } from "../shared/utils/pretty";
-import { plainTextSelectors } from "../shared/plain-text-selectors";
-import type { Options } from "../shared/options";
+} from 'react-dom/server';
+import type { Options } from '../shared/options';
+import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { pretty } from '../shared/utils/pretty';
 
-const decoder = new TextDecoder("utf-8");
+const decoder = new TextDecoder('utf-8');
 
 const readStream = async (
   stream: PipeableStream | ReactDOMServerReadableStream,
 ) => {
   const chunks: Uint8Array[] = [];
 
-  if ("pipeTo" in stream) {
+  if ('pipeTo' in stream) {
     // means it's a readable stream
     const writableStream = new WritableStream({
       write(chunk: Uint8Array) {
@@ -25,7 +25,7 @@ const readStream = async (
     await stream.pipeTo(writableStream);
   } else {
     throw new Error(
-      "For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.",
+      'For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.',
       {
         cause: {
           stream,
@@ -53,10 +53,10 @@ export const render = async (
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import("react-dom/server");
+  const reactDOMServer = await import('react-dom/server');
 
   let html!: string;
-  if (Object.hasOwn(reactDOMServer, "renderToReadableStream")) {
+  if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
     html = await readStream(
       await reactDOMServer.renderToReadableStream(suspendedElement),
     );
@@ -84,7 +84,7 @@ export const render = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, "")}`;
+  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
 
   if (options?.pretty) {
     return pretty(document);

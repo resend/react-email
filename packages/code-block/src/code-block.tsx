@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
-import * as React from "react";
-import type { PrismLanguage } from "./languages-available";
-import type { Theme } from "./themes";
-import { Prism } from "./prism";
+import * as React from 'react';
+import type { PrismLanguage } from './languages-available';
+import { Prism } from './prism';
+import type { Theme } from './themes';
 
 export type CodeBlockProps = Readonly<{
   lineNumbers?: boolean;
@@ -77,7 +77,7 @@ const CodeBlockLine = ({
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   (props, ref) => {
     const languageGrammar = Prism.languages[props.language];
-    if (typeof languageGrammar === "undefined") {
+    if (typeof languageGrammar === 'undefined') {
       throw new Error(
         `CodeBlock: There is no language defined on Prism called ${props.language}`,
       );
@@ -91,16 +91,16 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
     return (
       <pre
         ref={ref}
-        style={{ ...props.theme.base, width: "100%", ...props.style }}
+        style={{ ...props.theme.base, width: '100%', ...props.style }}
       >
         <code>
           {tokensPerLine.map((tokensForLine, lineIndex) => (
-            <p key={lineIndex} style={{ margin: 0, minHeight: "1em" }}>
+            <p key={lineIndex} style={{ margin: 0, minHeight: '1em' }}>
               {props.lineNumbers ? (
                 <span
                   style={{
-                    width: "2em",
-                    display: "inline-block",
+                    width: '2em',
+                    display: 'inline-block',
                     fontFamily: props.fontFamily,
                   }}
                 >
@@ -124,4 +124,4 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   },
 );
 
-CodeBlock.displayName = "CodeBlock";
+CodeBlock.displayName = 'CodeBlock';

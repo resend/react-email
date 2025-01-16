@@ -1,7 +1,7 @@
-import postcss, { Root } from "postcss";
-import { sanitizeMediaQueries } from "./sanitize-media-queries";
+import postcss, { Root } from 'postcss';
+import { sanitizeMediaQueries } from './sanitize-media-queries';
 
-test("sanitizeMediaQueries()", async () => {
+test('sanitizeMediaQueries()', async () => {
   const { root } = await postcss()
     .process(
       `
@@ -54,11 +54,11 @@ test("sanitizeMediaQueries()", async () => {
     root as Root,
   );
   expect(mediaQueryClasses).toEqual([
-    "sm:mx-auto",
-    "sm:max-w-lg",
-    "sm:rounded-lg",
-    "sm:px-10",
-    "sm:py-12",
+    'sm:mx-auto',
+    'sm:max-w-lg',
+    'sm:rounded-lg',
+    'sm:px-10',
+    'sm:py-12',
   ]);
   expect(new Root({ nodes: sanitizedAtRules }).toString()).toBe(`
 @media (min-width: 640px){

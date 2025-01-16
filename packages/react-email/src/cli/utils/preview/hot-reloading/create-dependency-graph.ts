@@ -1,8 +1,8 @@
+import { promises as fs, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
-import { existsSync, promises as fs, statSync } from 'node:fs';
-import { getImportedModules } from './get-imported-modules';
+import type { EventName } from 'chokidar/handler';
 import { isDev } from '../start-dev-server';
-import { EventName } from 'chokidar/handler';
+import { getImportedModules } from './get-imported-modules';
 
 interface Module {
   path: string;
