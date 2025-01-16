@@ -5,17 +5,17 @@ import { quickFetch } from './quick-fetch';
 
 type Check = { passed: boolean } & (
   | {
-    type: 'fetch_attempt';
-    metadata: {
-      fetchStatusCode: number | undefined;
-    };
-  }
+      type: 'fetch_attempt';
+      metadata: {
+        fetchStatusCode: number | undefined;
+      };
+    }
   | {
-    type: 'syntax';
-  }
+      type: 'syntax';
+    }
   | {
-    type: 'security';
-  }
+      type: 'security';
+    }
 );
 
 export interface LinkCheckingResult {
@@ -72,9 +72,10 @@ export const checkLinks = async (
         },
       });
       if (hasntSucceeded) {
-        result.status = res.statusCode && res.statusCode.toString().startsWith('3') 
-          ? 'warning' 
-          : 'error';
+        result.status =
+          res.statusCode && res.statusCode.toString().startsWith('3')
+            ? 'warning'
+            : 'error';
       }
 
       if (link.startsWith('https://')) {
