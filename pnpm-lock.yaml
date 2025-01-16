@@ -873,9 +873,6 @@ importers:
       log-symbols:
         specifier: 4.1.0
         version: 4.1.0
-      lottie-react:
-        specifier: ^2.4.0
-        version: 2.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       mime-types:
         specifier: 2.1.35
         version: 2.1.35
@@ -958,6 +955,9 @@ importers:
       framer-motion:
         specifier: 12.0.0-alpha.2
         version: 12.0.0-alpha.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      lottie-react:
+        specifier: ^2.4.0
+        version: 2.4.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       node-html-parser:
         specifier: 6.1.13
         version: 6.1.13
