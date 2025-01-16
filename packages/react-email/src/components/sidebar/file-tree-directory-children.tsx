@@ -62,7 +62,7 @@ export const FileTreeDirectoryChildren = (props: {
                     };
                     const isCurrentPage = props.currentEmailOpenSlug
                       ? removeExtensionFrom(props.currentEmailOpenSlug) ===
-                        emailSlug
+                      emailSlug
                       : false;
 
                     return (
@@ -96,17 +96,15 @@ export const FileTreeDirectoryChildren = (props: {
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
-                              {!props.isRoot && (
-                                <motion.div
-                                  className="absolute left-[.375rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
-                                  layoutId="active-file"
-                                  transition={{
-                                    type: 'spring',
-                                    bounce: 0.2,
-                                    duration: 0.6,
-                                  }}
-                                />
-                              )}
+                              <motion.div
+                                className="absolute left-[.375rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
+                                layoutId="active-file"
+                                transition={{
+                                  type: 'spring',
+                                  bounce: 0.2,
+                                  duration: 0.6,
+                                }}
+                              />
                             </motion.span>
                           ) : null}
                           <IconFile
