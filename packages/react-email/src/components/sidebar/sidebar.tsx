@@ -82,7 +82,7 @@ const SidebarTabTrigger = ({
               className={clsx(
                 'pointer-events-none absolute inset-0 flex items-center justify-center pl-1 transition-opacity duration-150 ease-in',
                 {
-                  'opacity-20 group-hover:opacity-60': !isActive,
+                  'opacity-30 group-hover:opacity-60': !isActive,
                 },
               )}
             >
@@ -122,9 +122,8 @@ export const Sidebar = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const activePanelValue = (searchParams.get(
-    'sidebar-panel',
-  ) ?? 'file-tree') as SidebarPanelValue;
+  const activePanelValue = (searchParams.get('sidebar-panel') ??
+    'file-tree') as SidebarPanelValue;
 
   const setActivePanelValue = (newValue: SidebarPanelValue) => {
     const params = new URLSearchParams(searchParams);
@@ -156,7 +155,7 @@ export const Sidebar = ({
     >
       <aside
         className={cn(
-          'grid h-screen grid-cols-[3.375rem,1fr] bg-black',
+          'grid h-screen grid-cols-[3.375rem,1fr] overflow-hidden bg-black',
           className,
         )}
         style={{ ...style }}
@@ -195,8 +194,8 @@ export const Sidebar = ({
         </Tabs.List>
         <div className="flex flex-col border-r border-slate-6">
           {activePanelValue === 'link-checker' &&
-            currentEmailOpenSlug &&
-            emailMarkup ? (
+          currentEmailOpenSlug &&
+          emailMarkup ? (
             <SidebarPanel title="React Email - Link Checker">
               <LinkChecker
                 emailMarkup={emailMarkup}

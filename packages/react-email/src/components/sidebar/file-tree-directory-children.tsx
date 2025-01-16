@@ -92,13 +92,13 @@ export const FileTreeDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute bottom-0 left-0 right-0 top-0 rounded-md bg-cyan-5 opacity-0 transition-all duration-200 ease-[cubic-bezier(.6,.12,.34,.96)]"
+                              className="absolute inset-0 rounded-md bg-cyan-5 opacity-0 transition-all duration-200 ease-[cubic-bezier(.6,.12,.34,.96)]"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
                               {!props.isRoot && (
                                 <motion.div
-                                  className="absolute left-[.625rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
+                                  className="absolute left-[.375rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
                                   layoutId="active-file"
                                   transition={{
                                     type: 'spring',

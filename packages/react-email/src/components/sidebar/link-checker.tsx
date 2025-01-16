@@ -56,9 +56,9 @@ const CollapsibleTrigger = ({
   return (
     <Collapsible.Trigger
       className={clsx(
-        'group flex w-full items-center gap-1 rounded p-2',
+        'group flex w-full items-center gap-1 rounded p-2 transition-colors duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
         statusStyles[variant],
-        isDisabled && 'cursor-not-allowed opacity-50',
+        isDisabled && 'cursor-not-allowed opacity-60',
       )}
       disabled={isDisabled}
     >
@@ -110,7 +110,7 @@ const ResultSection = ({
     <CollapsibleTrigger count={results.length} label={label} variant={status} />
     {results.length > 0 && (
       <Collapsible.Content>
-        <ol className="mb-1 flex list-none flex-col gap-4 pl-3.5 pt-2">
+        <ol className="mb-1 mt-2 flex list-none flex-col gap-4">
           {results.map((result, index) => (
             <LinkResultView key={index} {...result} />
           ))}
@@ -134,7 +134,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
       })
       .catch(console.error)
       .finally(() => {
-        setLoading(false)
+        setLoading(false);
       });
   }, [emailSlug]);
 
@@ -184,7 +184,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
             status="success"
           />
           <Button
-            className="mt-2 disabled:border-transparent disabled:bg-slate-11"
+            className="mt-2 transition-all disabled:border-transparent disabled:bg-slate-11"
             disabled={loading}
             onClick={handleRun}
           >
@@ -197,7 +197,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
             Check if all links are valid and redirect to the correct pages.
           </span>
           <Button
-            className="mt-1.5 disabled:border-transparent disabled:bg-slate-11"
+            className="mt-1.5 transition-all disabled:border-transparent disabled:bg-slate-11"
             disabled={loading}
             onClick={handleRun}
           >
@@ -213,39 +213,39 @@ const LinkResultView = (props: LinkCheckingResult) => (
   <AnimatePresence mode="wait">
     <motion.li
       animate="visible"
-      className="group relative"
+      className="group/item relative rounded-md p-2 pl-4 transition-colors duration-300 ease-out hover:bg-slate-5"
       data-status={props.status}
       initial="hidden"
       layout
       variants={containerAnimation}
     >
-      <motion.div
-        className="flex items-center gap-2 text-xs group-data-[status=error]:text-red-400 group-data-[status=success]:text-green-400 group-data-[status=warning]:text-yellow-300"
-        variants={childAnimation}
-      >
-        <a
-          className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap transition-colors duration-200 hover:underline"
-          href={props.link}
+      <a href={props.link} target="_blank" rel="noopener noreferrer">
+        <motion.div
+          className="flex items-center gap-2 text-xs group-data-[status=error]/item:text-red-400 group-data-[status=success]/item:text-green-400 group-data-[status=warning]/item:text-yellow-300"
+          variants={childAnimation}
         >
-          {props.link}
-        </a>
-      </motion.div>
-      <motion.div
-        className="mt-1 text-[.625rem] font-semibold uppercase"
-        variants={childAnimation}
-      >
-        {props.checks
-          .map((check) => {
-            if (check.type === 'syntax' && !check.passed) return 'Invalid URL';
-            if (check.type === 'fetch_attempt')
-              return `${check.metadata.fetchStatusCode}`;
-            if (check.type === 'security')
-              return check.passed ? 'Secure' : 'Insecure';
-            return null;
-          })
-          .filter(Boolean)
-          .join(' - ')}
-      </motion.div>
+          <span className="flex-shrink overflow-hidden text-ellipsis whitespace-nowrap transition-all duration-200">
+            {props.link}
+          </span>
+        </motion.div>
+        <motion.div
+          className="mt-1 text-[.625rem] font-semibold uppercase"
+          variants={childAnimation}
+        >
+          {props.checks
+            .map((check) => {
+              if (check.type === 'syntax' && !check.passed)
+                return 'Invalid URL';
+              if (check.type === 'fetch_attempt')
+                return `${check.metadata.fetchStatusCode}`;
+              if (check.type === 'security')
+                return check.passed ? 'Secure' : 'Insecure';
+              return null;
+            })
+            .filter(Boolean)
+            .join(' - ')}
+        </motion.div>
+      </a>
     </motion.li>
   </AnimatePresence>
 );
