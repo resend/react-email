@@ -66,7 +66,6 @@
     "build": "tsup-node",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch",
-    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -94,7 +93,6 @@
     "@types/prettier": "3.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
-    "eslint-config-custom": "workspace:*",
     "jsdom": "23.0.1",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",

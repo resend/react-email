@@ -23,8 +23,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint ."
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
   },
   "repository": {
     "type": "git",
@@ -61,7 +60,6 @@
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },

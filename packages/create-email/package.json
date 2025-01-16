@@ -24,8 +24,6 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
-    "prettier": "3.0.0",
     "tsconfig": "workspace:*"
   }
 }

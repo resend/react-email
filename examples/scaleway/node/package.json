@@ -18,7 +18,6 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
     "tsup": "6.2.3",
     "typescript": "4.8.3"
   }
