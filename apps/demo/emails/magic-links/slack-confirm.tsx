@@ -11,9 +11,9 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
-import { setupForPreview } from "react-email";
+} from '@react-email/components';
+import * as React from 'react';
+import { setupForPreview } from 'react-email';
 
 interface SlackConfirmEmailProps {
   validationCode: string;

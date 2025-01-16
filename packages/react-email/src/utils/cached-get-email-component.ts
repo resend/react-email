@@ -1,4 +1,7 @@
-import { getEmailComponent, type GetEmailComponentResult } from './get-email-component';
+import {
+  type GetEmailComponentResult,
+  getEmailComponent,
+} from './get-email-component';
 
 export const componentCache = new Map<string, GetEmailComponentResult>();
 

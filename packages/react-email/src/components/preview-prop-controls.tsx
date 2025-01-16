@@ -1,5 +1,5 @@
-import * as Select from '@radix-ui/react-select';
 import * as Checkbox from '@radix-ui/react-checkbox';
+import * as Select from '@radix-ui/react-select';
 import type { Controls } from '../package';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
@@ -61,14 +61,20 @@ export const PreviewPropControls = ({
                     }}
                     value={value as string}
                   >
-                    <Select.Trigger className="flex rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out" id={fieldId}>
+                    <Select.Trigger
+                      className="flex rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
+                      id={fieldId}
+                    >
                       <Select.Value />
                       <Select.Icon className="ml-auto">
                         <IconArrowDown />
                       </Select.Icon>
                     </Select.Trigger>
                     <Select.Portal>
-                      <Select.Content className="bg-[#0d0f0f] px-2 py-1 text-slate-12 rounded-lg border border-solid border-slate-6 text-sm" position='item-aligned'>
+                      <Select.Content
+                        className="bg-[#0d0f0f] px-2 py-1 text-slate-12 rounded-lg border border-solid border-slate-6 text-sm"
+                        position="item-aligned"
+                      >
                         <Select.Viewport>
                           {control.options.map((option) => (
                             <Select.Item

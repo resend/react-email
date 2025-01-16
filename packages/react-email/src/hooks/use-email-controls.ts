@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
-  getEmailControls,
   type ControlsResult,
+  getEmailControls,
 } from '../actions/get-email-controls';
 import type { EmailRenderingResult } from '../actions/render-email-by-path';
 import type { Controls } from '../package';
@@ -18,7 +18,9 @@ export const useEmailControls = (
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       getEmailControls(emailPath)
-        .then((result) => { setEmailControlsResult(result); })
+        .then((result) => {
+          setEmailControlsResult(result);
+        })
         .catch((exception) => {
           throw new Error('Could not get controls after rendering email', {
             cause: exception,

@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { ControlsResult } from '../../../actions/get-email-controls';
@@ -11,6 +12,7 @@ import {
 } from '../../../actions/render-email-by-path';
 import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
+import { PreviewPropControls } from '../../../components/preview-prop-controls';
 import {
   ResizableWarpper,
   makeIframeDocumentBubbleEvents,
@@ -23,8 +25,6 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
-import { flushSync } from 'react-dom';
-import { PreviewPropControls } from '../../../components/preview-prop-controls';
 
 interface PreviewProps {
   slug: string;

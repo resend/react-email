@@ -8,9 +8,9 @@ import {
   Link,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
-import { setupForPreview } from "react-email";
+} from '@react-email/components';
+import * as React from 'react';
+import { setupForPreview } from 'react-email';
 
 interface PlaidVerifyIdentityEmailProps {
   validationCode: string;
@@ -58,8 +58,8 @@ export const PlaidVerifyIdentityEmail = ({
 setupForPreview(PlaidVerifyIdentityEmail, {
   validationCode: {
     type: 'text',
-    defaultValue: '144833'
-  }
+    defaultValue: '144833',
+  },
 });
 
 export default PlaidVerifyIdentityEmail;

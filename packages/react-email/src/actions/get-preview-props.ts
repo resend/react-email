@@ -1,9 +1,12 @@
 'use server';
 
-import { cookies } from "next/headers";
-import type { Controls } from "../package";
+import { cookies } from 'next/headers';
+import type { Controls } from '../package';
 
-export const getPreviewProps = async (emailSlug: string, controls: Controls | undefined) => {
+export const getPreviewProps = async (
+  emailSlug: string,
+  controls: Controls | undefined,
+) => {
   const cookieStore = await cookies();
 
   const previewPropsCoookieName = `preview-props-${emailSlug.replaceAll('/', '-')}`;
@@ -12,7 +15,10 @@ export const getPreviewProps = async (emailSlug: string, controls: Controls | un
   let previewProps: Record<string, unknown>;
   try {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    previewProps = JSON.parse(previewPropsCookie!.value) as Record<string, unknown>;
+    previewProps = JSON.parse(previewPropsCookie!.value) as Record<
+      string,
+      unknown
+    >;
   } catch (exception) {
     previewProps = {};
     if (controls) {
@@ -23,4 +29,4 @@ export const getPreviewProps = async (emailSlug: string, controls: Controls | un
   }
 
   return previewProps;
-}
+};

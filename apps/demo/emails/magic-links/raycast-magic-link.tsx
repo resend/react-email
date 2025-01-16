@@ -10,9 +10,9 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
-import { setupForPreview } from "react-email";
+} from '@react-email/components';
+import * as React from 'react';
+import { setupForPreview } from 'react-email';
 
 interface RaycastMagicLinkEmailProps {
   magicLink: string;
@@ -74,8 +74,8 @@ export const RaycastMagicLinkEmail = ({
 setupForPreview(RaycastMagicLinkEmail, {
   magicLink: {
     type: 'text',
-    defaultValue: 'https://raycast.com'
-  }
+    defaultValue: 'https://raycast.com',
+  },
 });
 
 export default RaycastMagicLinkEmail;
