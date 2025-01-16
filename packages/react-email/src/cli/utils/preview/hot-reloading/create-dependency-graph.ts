@@ -98,67 +98,68 @@ export const createDependencyGraph = async (directory: string) => {
     const importedPathsRelativeToDirectory = importedPaths.map(
       (dependencyPath) => {
         const isModulePath = !dependencyPath.startsWith('.');
+
         /*
           path.isAbsolute will return false if the path looks like JavaScript module imports
           e.g. path.isAbsolute('react-dom/server') will return false, but for our purposes this
           path is not a relative one.
         */
-        if (!isModulePath && !path.isAbsolute(dependencyPath)) {
-          let pathToDependencyFromDirectory = path.resolve(
-            /*
-              path.resolve resolves paths differently from what imports on javascript do.
+        if (isModulePath || path.isAbsolute(dependencyPath)) {
+          return dependencyPath;
+        }
 
-              So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependecy path of "./other-email" 
-              would end up going into /path/to/email.tsx/other-email instead of /path/to/other-email which is the
-              one the import is meant to go to
-            */
-            path.dirname(filePath),
-            dependencyPath,
+        let pathToDependencyFromDirectory = path.resolve(
+          /*
+            path.resolve resolves paths differently from what imports on javascript do.
+
+            So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependecy path of "./other-email" 
+            would end up going into /path/to/email.tsx/other-email instead of /path/to/other-email which is the
+            one the import is meant to go to
+          */
+          path.dirname(filePath),
+          dependencyPath,
+        );
+
+        let isDirectory = false;
+        try {
+          // will throw if the the file is not existant
+          isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
+        } catch (_) {}
+        if (isDirectory) {
+          const pathToSubDirectory = pathToDependencyFromDirectory;
+          const pathWithExtension = checkFileExtensionsUntilItExists(
+            `${pathToSubDirectory}/index`,
+          );
+          if (pathWithExtension) {
+            pathToDependencyFromDirectory = pathWithExtension;
+          } else if (isDev) {
+            // only warn about this on development as it is probably going to be irrelevant otherwise
+            console.warn(
+              `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
+            );
+          }
+        }
+
+        /*
+          If the path to the dependency does not include a file extension, such that our check
+          for it being a javascript module fails, then we can assume it has the same as the `filePath`
+        */
+        if (!isJavascriptModule(pathToDependencyFromDirectory)) {
+          const pathWithExtension = checkFileExtensionsUntilItExists(
+            pathToDependencyFromDirectory,
           );
 
-          let isDirectory = false;
-          try {
-            // will throw if the the file is not existant
-            isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-          } catch (_) {}
-          if (isDirectory) {
-            const pathToSubDirectory = pathToDependencyFromDirectory;
-            const pathWithExtension = checkFileExtensionsUntilItExists(
-              `${pathToSubDirectory}/index`,
+          if (pathWithExtension) {
+            pathToDependencyFromDirectory = pathWithExtension;
+          } else if (isDev) {
+            // only warn about this on development as it is probably going to be irrelevant otherwise
+            console.warn(
+              `Could not determine the file extension for the file at ${pathToDependencyFromDirectory}`,
             );
-            if (pathWithExtension) {
-              pathToDependencyFromDirectory = pathWithExtension;
-            } else if (isDev) {
-              // only warn about this on development as it is probably going to be irrelevant otherwise
-              console.warn(
-                `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
-              );
-            }
           }
-
-          /*
-            If the path to the dependency does not include a file extension, such that our check
-            for it being a javascript module fails, then we can assume it has the same as the `filePath`
-          */
-          if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-            const pathWithExtension = checkFileExtensionsUntilItExists(
-              pathToDependencyFromDirectory,
-            );
-
-            if (pathWithExtension) {
-              pathToDependencyFromDirectory = pathWithExtension;
-            } else if (isDev) {
-              // only warn about this on development as it is probably going to be irrelevant otherwise
-              console.warn(
-                `Could not determine the file extension for the file at ${pathToDependencyFromDirectory}`,
-              );
-            }
-          }
-
-          return pathToDependencyFromDirectory;
         }
-        // when either the path is a module or is absolute
-        return dependencyPath;
+
+        return pathToDependencyFromDirectory;
       },
     );
 
