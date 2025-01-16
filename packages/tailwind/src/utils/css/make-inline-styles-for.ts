@@ -1,11 +1,11 @@
-import selectorParser from "postcss-selector-parser";
-import type { Root, Rule } from "postcss";
-import { unescapeClass } from "../compatibility/unescape-class";
-import { convertCssPropertyToReactProperty } from "../compatibility/convert-css-property-to-react-property";
+import type { Root, Rule } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
+import { convertCssPropertyToReactProperty } from '../compatibility/convert-css-property-to-react-property';
+import { unescapeClass } from '../compatibility/unescape-class';
 
 const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
   root.walkRules((rule) => {
-    if (rule.parent?.type === "atrule") {
+    if (rule.parent?.type === 'atrule') {
       return;
     }
 
@@ -26,7 +26,7 @@ export function makeInlineStylesFor(
   className: string,
   tailwindStylesRoot: Root,
 ) {
-  const classes = className.split(" ");
+  const classes = className.split(' ');
 
   let residualClasses = [...classes];
   const styles: Record<string, string> = {};
@@ -45,12 +45,12 @@ export function makeInlineStylesFor(
 
     rule.walkDecls((declaration) => {
       styles[convertCssPropertyToReactProperty(declaration.prop)] =
-        declaration.value + (declaration.important ? "!important" : "");
+        declaration.value + (declaration.important ? '!important' : '');
     });
   });
 
   return {
     styles,
-    residualClassName: residualClasses.join(" "),
+    residualClassName: residualClasses.join(' '),
   };
 }

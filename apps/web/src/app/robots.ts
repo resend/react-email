@@ -2,12 +2,12 @@ const Robots = () => {
   return {
     rules: [
       {
-        userAgent: "*",
-        allow: "/",
+        userAgent: '*',
+        allow: '/',
       },
     ],
-    sitemap: "https://react.email/sitemap.xml",
-    host: "https://react.email",
+    sitemap: 'https://react.email/sitemap.xml',
+    host: 'https://react.email',
   };
 };
 

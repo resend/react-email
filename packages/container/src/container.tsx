@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<"table">>;
+export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
   ({ children, style, ...props }, ref) => {
@@ -14,10 +14,10 @@ export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
         cellSpacing="0"
         ref={ref}
         role="presentation"
-        style={{ maxWidth: "37.5em", ...style }}
+        style={{ maxWidth: '37.5em', ...style }}
       >
         <tbody>
-          <tr style={{ width: "100%" }}>
+          <tr style={{ width: '100%' }}>
             <td>{children}</td>
           </tr>
         </tbody>
@@ -26,4 +26,4 @@ export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
   },
 );
 
-Container.displayName = "Container";
+Container.displayName = 'Container';

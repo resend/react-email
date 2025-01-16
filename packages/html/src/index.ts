@@ -1,1 +1,1 @@
-export * from "./html";
+export * from './html';

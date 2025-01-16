@@ -1,106 +1,106 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import { Anchor } from "../../components/anchor";
-import { Template } from "../../components/template";
-import { Heading } from "../../components/heading";
-import { Text } from "../../components/text";
-import PageTransition from "../../components/page-transition";
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import { Anchor } from '../../components/anchor';
+import { Heading } from '../../components/heading';
+import PageTransition from '../../components/page-transition';
+import { Template } from '../../components/template';
+import { Text } from '../../components/text';
 
 const items = [
   {
-    path: "magic-links/aws-verify-email",
-    name: "AWS / Verify Email",
-    author: "thecodeinfluencer",
+    path: 'magic-links/aws-verify-email',
+    name: 'AWS / Verify Email',
+    author: 'thecodeinfluencer',
   },
   {
-    path: "notifications/github-access-token",
-    name: "GitHub / Access Token",
-    author: "bruno88cabral",
+    path: 'notifications/github-access-token',
+    name: 'GitHub / Access Token',
+    author: 'bruno88cabral',
   },
   {
-    path: "receipts/apple-receipt",
-    name: "Apple / Receipt",
-    author: "relferreira",
+    path: 'receipts/apple-receipt',
+    name: 'Apple / Receipt',
+    author: 'relferreira',
   },
   {
-    path: "receipts/nike-receipt",
-    name: "Nike / Receipt",
-    author: "camillegachido",
+    path: 'receipts/nike-receipt',
+    name: 'Nike / Receipt',
+    author: 'camillegachido',
   },
   {
-    path: "newsletters/stack-overflow-tips",
-    name: "Stack Overflow / Tips",
-    author: "bruno88cabral",
+    path: 'newsletters/stack-overflow-tips',
+    name: 'Stack Overflow / Tips',
+    author: 'bruno88cabral',
   },
   {
-    path: "magic-links/slack-confirm",
-    name: "Slack / Confirm Email",
-    author: "c0dr",
+    path: 'magic-links/slack-confirm',
+    name: 'Slack / Confirm Email',
+    author: 'c0dr',
   },
   {
-    path: "reset-password/twitch-reset-password",
-    name: "Twitch / Reset Password",
-    author: "EmersonGarrido",
+    path: 'reset-password/twitch-reset-password',
+    name: 'Twitch / Reset Password',
+    author: 'EmersonGarrido',
   },
   {
-    path: "magic-links/raycast-magic-link",
-    name: "Raycast / Magic Link",
-    author: "abhinandanwadwa",
+    path: 'magic-links/raycast-magic-link',
+    name: 'Raycast / Magic Link',
+    author: 'abhinandanwadwa',
   },
   {
-    path: "notifications/yelp-recent-login",
-    name: "Yelp / Recent Login",
-    author: "EmersonGarrido",
+    path: 'notifications/yelp-recent-login',
+    name: 'Yelp / Recent Login',
+    author: 'EmersonGarrido',
   },
   {
-    path: "magic-links/linear-login-code",
-    name: "Linear / Login Code",
-    author: "Rychillie",
+    path: 'magic-links/linear-login-code',
+    name: 'Linear / Login Code',
+    author: 'Rychillie',
   },
   {
-    path: "newsletters/google-play-policy-update",
-    name: "Google Play / Policy Update",
-    author: "EmersonGarrido",
+    path: 'newsletters/google-play-policy-update',
+    name: 'Google Play / Policy Update',
+    author: 'EmersonGarrido',
   },
   {
-    path: "reviews/airbnb-review",
-    name: "Airbnb / Review",
-    author: "joaom00",
+    path: 'reviews/airbnb-review',
+    name: 'Airbnb / Review',
+    author: 'joaom00',
   },
   {
-    path: "reset-password/dropbox-reset-password",
-    name: "Dropbox / Reset Password",
-    author: "ribeiroevandro",
+    path: 'reset-password/dropbox-reset-password',
+    name: 'Dropbox / Reset Password',
+    author: 'ribeiroevandro',
   },
   {
-    path: "welcome/koala-welcome",
-    name: "Koala / Welcome",
-    author: "nettofarah",
+    path: 'welcome/koala-welcome',
+    name: 'Koala / Welcome',
+    author: 'nettofarah',
   },
   {
-    path: "notifications/vercel-invite-user",
-    name: "Vercel / Invite User",
-    author: "zenorocha",
+    path: 'notifications/vercel-invite-user',
+    name: 'Vercel / Invite User',
+    author: 'zenorocha',
   },
   {
-    path: "welcome/stripe-welcome",
-    name: "Stripe / Welcome",
-    author: "zenorocha",
+    path: 'welcome/stripe-welcome',
+    name: 'Stripe / Welcome',
+    author: 'zenorocha',
   },
   {
-    path: "magic-links/notion-magic-link",
-    name: "Notion / Magic Link",
-    author: "bukinoshita",
+    path: 'magic-links/notion-magic-link',
+    name: 'Notion / Magic Link',
+    author: 'bukinoshita',
   },
   {
-    path: "magic-links/plaid-verify-identity",
-    name: "Plaid / Verify Identity",
-    author: "zenorocha",
+    path: 'magic-links/plaid-verify-identity',
+    name: 'Plaid / Verify Identity',
+    author: 'zenorocha',
   },
 ];
 
-const title = "Templates — React Email";
-const description = "Open source templates built with React Email";
+const title = 'Templates — React Email';
+const description = 'Open source templates built with React Email';
 export const metadata: Metadata = {
   title,
   description,
@@ -132,20 +132,20 @@ const Templates = () => (
           {description}.
         </Text>
         <Text as="p" className="mt-2 text-slate-11" size="2">
-          Recreate an{" "}
+          Recreate an{' '}
           <Anchor
             href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
             target="_blank"
           >
             existing email
-          </Anchor>{" "}
-          or submit a{" "}
+          </Anchor>{' '}
+          or submit a{' '}
           <Anchor
             href="https://github.com/resend/react-email/tree/main/demo"
             target="_blank"
           >
             pull request
-          </Anchor>{" "}
+          </Anchor>{' '}
           to add your template here.
         </Text>
       </div>

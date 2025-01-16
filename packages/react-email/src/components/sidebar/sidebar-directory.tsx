@@ -2,11 +2,11 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
-import { type EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { Heading } from '../heading';
+import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
-import { IconArrowDown } from '../icons/icon-arrow-down';
 import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
 interface SidebarDirectoryProps {

@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
@@ -29,8 +29,8 @@ export const component = (
               <Link
                 href="#"
                 style={{
-                  color: "rgb(75,85,99)",
-                  textDecoration: "none",
+                  color: 'rgb(75,85,99)',
+                  textDecoration: 'none',
                 }}
               >
                 About
@@ -40,8 +40,8 @@ export const component = (
               <Link
                 href="#"
                 style={{
-                  color: "rgb(75,85,99)",
-                  textDecoration: "none",
+                  color: 'rgb(75,85,99)',
+                  textDecoration: 'none',
                 }}
               >
                 Blog
@@ -51,8 +51,8 @@ export const component = (
               <Link
                 href="#"
                 style={{
-                  color: "rgb(75,85,99)",
-                  textDecoration: "none",
+                  color: 'rgb(75,85,99)',
+                  textDecoration: 'none',
                 }}
               >
                 Company
@@ -62,8 +62,8 @@ export const component = (
               <Link
                 href="#"
                 style={{
-                  color: "rgb(75,85,99)",
-                  textDecoration: "none",
+                  color: 'rgb(75,85,99)',
+                  textDecoration: 'none',
                 }}
               >
                 Features

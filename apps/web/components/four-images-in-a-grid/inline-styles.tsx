@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section style={{ marginTop: 16, marginBottom: 16 }}>
@@ -7,23 +7,23 @@ export const component = (
       <Row>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             fontSize: 16,
-            lineHeight: "24px",
+            lineHeight: '24px',
             fontWeight: 600,
-            color: "rgb(79,70,229)",
+            color: 'rgb(79,70,229)',
           }}
         >
           Our products
         </Text>
         <Text
           style={{
-            margin: "0px",
+            margin: '0px',
             marginTop: 8,
             fontSize: 24,
-            lineHeight: "32px",
+            lineHeight: '32px',
             fontWeight: 600,
-            color: "rgb(17,24,39)",
+            color: 'rgb(17,24,39)',
           }}
         >
           Elegant Style
@@ -32,8 +32,8 @@ export const component = (
           style={{
             marginTop: 8,
             fontSize: 16,
-            lineHeight: "24px",
-            color: "rgb(107,114,128)",
+            lineHeight: '24px',
+            color: 'rgb(107,114,128)',
           }}
         >
           We spent two years in development to bring you the next generation of
@@ -44,60 +44,60 @@ export const component = (
     </Section>
     <Section style={{ marginTop: 16 }}>
       <Row style={{ marginTop: 16 }}>
-        <Column style={{ width: "50%", paddingRight: 8 }}>
+        <Column style={{ width: '50%', paddingRight: 8 }}>
           <Link href="#">
             <Img
               alt="Stagg Electric Kettle"
               height={288}
               src="/static/stagg-eletric-kettle.jpg"
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 12,
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </Link>
         </Column>
-        <Column style={{ width: "50%", paddingLeft: 8 }}>
+        <Column style={{ width: '50%', paddingLeft: 8 }}>
           <Link href="#">
             <Img
               alt="Ode Grinder"
               height={288}
               src="/static/ode-grinder.jpg"
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 12,
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </Link>
         </Column>
       </Row>
       <Row style={{ marginTop: 16 }}>
-        <Column style={{ width: "50%", paddingRight: 8 }}>
+        <Column style={{ width: '50%', paddingRight: 8 }}>
           <Link href="#">
             <Img
               alt="Atmos Vacuum Canister"
               height={288}
               src="/static/atmos-vacuum-canister.jpg"
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 12,
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </Link>
         </Column>
-        <Column style={{ width: "50%", paddingLeft: 8 }}>
+        <Column style={{ width: '50%', paddingLeft: 8 }}>
           <Link href="#">
             <Img
               alt="Clyde Electric Kettle"
               height={288}
               src="/static/clyde-electric-kettle.jpg"
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 12,
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </Link>

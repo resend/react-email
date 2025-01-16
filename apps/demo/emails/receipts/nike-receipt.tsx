@@ -1,7 +1,7 @@
 import {
   Body,
-  Container,
   Column,
+  Container,
   Head,
   Heading,
   Hr,
@@ -12,12 +12,12 @@ import {
   Row,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
+} from '@react-email/components';
+import type * as React from 'react';
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : '';
 
 export const NikeReceiptEmail = () => (
   <Html>
@@ -43,7 +43,7 @@ export const NikeReceiptEmail = () => (
             width="66"
             height="22"
             alt="Nike"
-            style={{ margin: "auto" }}
+            style={{ margin: 'auto' }}
           />
           <Heading style={global.heading}>It's On Its Way.</Heading>
           <Text style={global.text}>
@@ -64,19 +64,19 @@ export const NikeReceiptEmail = () => (
         </Section>
         <Hr style={global.hr} />
         <Section
-          style={{ ...paddingX, paddingTop: "40px", paddingBottom: "40px" }}
+          style={{ ...paddingX, paddingTop: '40px', paddingBottom: '40px' }}
         >
           <Row>
             <Column>
               <Img
                 src={`${baseUrl}/static/nike-product.png`}
                 alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                style={{ float: "left" }}
+                style={{ float: 'left' }}
                 width="260px"
               />
             </Column>
-            <Column style={{ verticalAlign: "top", paddingLeft: "12px" }}>
-              <Text style={{ ...paragraph, fontWeight: "500" }}>
+            <Column style={{ verticalAlign: 'top', paddingLeft: '12px' }}>
+              <Text style={{ ...paragraph, fontWeight: '500' }}>
                 Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
               </Text>
               <Text style={global.text}>Size L (12–14)</Text>
@@ -85,8 +85,8 @@ export const NikeReceiptEmail = () => (
         </Section>
         <Hr style={global.hr} />
         <Section style={global.defaultPadding}>
-          <Row style={{ display: "inline-flex", marginBottom: 40 }}>
-            <Column style={{ width: "170px" }}>
+          <Row style={{ display: 'inline-flex', marginBottom: 40 }}>
+            <Column style={{ width: '170px' }}>
               <Text style={global.paragraphWithBold}>Order Number</Text>
               <Text style={track.number}>C0106373851</Text>
             </Column>
@@ -108,7 +108,7 @@ export const NikeReceiptEmail = () => (
           </Row>
           <Row style={recomendations.container}>
             <Column
-              style={{ ...recomendations.product, paddingLeft: "4px" }}
+              style={{ ...recomendations.product, paddingLeft: '4px' }}
               align="center"
             >
               <Img
@@ -146,7 +146,7 @@ export const NikeReceiptEmail = () => (
               <Text style={recomendations.text}>Women's Soccer Jacket</Text>
             </Column>
             <Column
-              style={{ ...recomendations.product, paddingRight: "4px" }}
+              style={{ ...recomendations.product, paddingRight: '4px' }}
               align="center"
             >
               <Img
@@ -167,29 +167,29 @@ export const NikeReceiptEmail = () => (
             <Text style={menu.title}>Get Help</Text>
           </Row>
           <Row style={menu.content}>
-            <Column style={{ width: "33%" }} colSpan={1}>
+            <Column style={{ width: '33%' }} colSpan={1}>
               <Link href="/" style={menu.text}>
                 Shipping Status
               </Link>
             </Column>
-            <Column style={{ width: "33%" }} colSpan={1}>
+            <Column style={{ width: '33%' }} colSpan={1}>
               <Link href="/" style={menu.text}>
                 Shipping & Delivery
               </Link>
             </Column>
-            <Column style={{ width: "33%" }} colSpan={1}>
+            <Column style={{ width: '33%' }} colSpan={1}>
               <Link href="/" style={menu.text}>
                 Returns & Exchanges
               </Link>
             </Column>
           </Row>
-          <Row style={{ ...menu.content, paddingTop: "0" }}>
-            <Column style={{ width: "33%" }} colSpan={1}>
+          <Row style={{ ...menu.content, paddingTop: '0' }}>
+            <Column style={{ width: '33%' }} colSpan={1}>
               <Link href="/" style={menu.text}>
                 How to Return
               </Link>
             </Column>
-            <Column style={{ width: "66%" }} colSpan={2}>
+            <Column style={{ width: '66%' }} colSpan={2}>
               <Link href="/" style={menu.text}>
                 Contact Options
               </Link>
@@ -199,16 +199,16 @@ export const NikeReceiptEmail = () => (
           <Row style={menu.tel}>
             <Column>
               <Row>
-                <Column style={{ width: "16px" }}>
+                <Column style={{ width: '16px' }}>
                   <Img
                     src={`${baseUrl}/static/nike-phone.png`}
                     width="16px"
                     height="26px"
-                    style={{ paddingRight: "14px" }}
+                    style={{ paddingRight: '14px' }}
                   />
                 </Column>
                 <Column>
-                  <Text style={{ ...menu.text, marginBottom: "0" }}>
+                  <Text style={{ ...menu.text, marginBottom: '0' }}>
                     1-800-806-6453
                   </Text>
                 </Column>
@@ -218,7 +218,7 @@ export const NikeReceiptEmail = () => (
               <Text
                 style={{
                   ...menu.text,
-                  marginBottom: "0",
+                  marginBottom: '0',
                 }}
               >
                 4 am - 11 pm PT
@@ -254,7 +254,7 @@ export const NikeReceiptEmail = () => (
             </Column>
           </Row>
         </Section>
-        <Hr style={{ ...global.hr, marginTop: "12px" }} />
+        <Hr style={{ ...global.hr, marginTop: '12px' }} />
         <Section style={paddingY}>
           <Row style={footer.policy}>
             <Column>
@@ -289,18 +289,18 @@ export const NikeReceiptEmail = () => (
 export default NikeReceiptEmail;
 
 const paddingX = {
-  paddingLeft: "40px",
-  paddingRight: "40px",
+  paddingLeft: '40px',
+  paddingRight: '40px',
 };
 
 const paddingY = {
-  paddingTop: "22px",
-  paddingBottom: "22px",
+  paddingTop: '22px',
+  paddingBottom: '22px',
 };
 
 const paragraph = {
-  margin: "0",
-  lineHeight: "2",
+  margin: '0',
+  lineHeight: '2',
 };
 
 const global = {
@@ -310,151 +310,151 @@ const global = {
     ...paddingX,
     ...paddingY,
   },
-  paragraphWithBold: { ...paragraph, fontWeight: "bold" },
+  paragraphWithBold: { ...paragraph, fontWeight: 'bold' },
   heading: {
-    fontSize: "32px",
-    lineHeight: "1.3",
-    fontWeight: "700",
-    textAlign: "center",
-    letterSpacing: "-1px",
+    fontSize: '32px',
+    lineHeight: '1.3',
+    fontWeight: '700',
+    textAlign: 'center',
+    letterSpacing: '-1px',
   } as React.CSSProperties,
   text: {
     ...paragraph,
-    color: "#747474",
-    fontWeight: "500",
+    color: '#747474',
+    fontWeight: '500',
   },
   button: {
-    border: "1px solid #929292",
-    fontSize: "16px",
-    textDecoration: "none",
-    padding: "10px 0px",
-    width: "220px",
-    display: "block",
-    textAlign: "center",
+    border: '1px solid #929292',
+    fontSize: '16px',
+    textDecoration: 'none',
+    padding: '10px 0px',
+    width: '220px',
+    display: 'block',
+    textAlign: 'center',
     fontWeight: 500,
-    color: "#000",
+    color: '#000',
   } as React.CSSProperties,
   hr: {
-    borderColor: "#E5E5E5",
-    margin: "0",
+    borderColor: '#E5E5E5',
+    margin: '0',
   },
 };
 
 const main = {
-  backgroundColor: "#ffffff",
+  backgroundColor: '#ffffff',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const container = {
-  margin: "10px auto",
-  width: "600px",
-  maxWidth: "100%",
-  border: "1px solid #E5E5E5",
+  margin: '10px auto',
+  width: '600px',
+  maxWidth: '100%',
+  border: '1px solid #E5E5E5',
 };
 
 const track = {
   container: {
-    padding: "22px 40px",
-    backgroundColor: "#F7F7F7",
+    padding: '22px 40px',
+    backgroundColor: '#F7F7F7',
   },
   number: {
-    margin: "12px 0 0 0",
+    margin: '12px 0 0 0',
     fontWeight: 500,
-    lineHeight: "1.4",
-    color: "#6F6F6F",
+    lineHeight: '1.4',
+    color: '#6F6F6F',
   },
 };
 
 const message = {
-  padding: "40px 74px",
-  textAlign: "center",
+  padding: '40px 74px',
+  textAlign: 'center',
 } as React.CSSProperties;
 
 const adressTitle = {
   ...paragraph,
-  fontSize: "15px",
-  fontWeight: "bold",
+  fontSize: '15px',
+  fontWeight: 'bold',
 };
 
 const recomendationsText = {
-  margin: "0",
-  fontSize: "15px",
-  lineHeight: "1",
-  paddingLeft: "10px",
-  paddingRight: "10px",
+  margin: '0',
+  fontSize: '15px',
+  lineHeight: '1',
+  paddingLeft: '10px',
+  paddingRight: '10px',
 };
 
 const recomendations = {
   container: {
-    padding: "20px 0",
+    padding: '20px 0',
   },
   product: {
-    verticalAlign: "top",
-    textAlign: "left" as const,
-    paddingLeft: "2px",
-    paddingRight: "2px",
+    verticalAlign: 'top',
+    textAlign: 'left' as const,
+    paddingLeft: '2px',
+    paddingRight: '2px',
   },
-  title: { ...recomendationsText, paddingTop: "12px", fontWeight: "500" },
+  title: { ...recomendationsText, paddingTop: '12px', fontWeight: '500' },
   text: {
     ...recomendationsText,
-    paddingTop: "4px",
-    color: "#747474",
+    paddingTop: '4px',
+    color: '#747474',
   },
 };
 
 const menu = {
   container: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    paddingTop: "20px",
-    backgroundColor: "#F7F7F7",
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '20px',
+    backgroundColor: '#F7F7F7',
   },
   content: {
     ...paddingY,
-    paddingLeft: "20px",
-    paddingRight: "20px",
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
   title: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    fontWeight: "bold",
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    fontWeight: 'bold',
   },
   text: {
-    fontSize: "13.5px",
+    fontSize: '13.5px',
     marginTop: 0,
     fontWeight: 500,
-    color: "#000",
+    color: '#000',
   },
   tel: {
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    paddingTop: "32px",
-    paddingBottom: "22px",
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '32px',
+    paddingBottom: '22px',
   },
 };
 
 const categories = {
   container: {
-    width: "370px",
-    margin: "auto",
-    paddingTop: "12px",
+    width: '370px',
+    margin: 'auto',
+    paddingTop: '12px',
   },
   text: {
-    fontWeight: "500",
-    color: "#000",
+    fontWeight: '500',
+    color: '#000',
   },
 };
 
 const footer = {
   policy: {
-    width: "166px",
-    margin: "auto",
+    width: '166px',
+    margin: 'auto',
   },
   text: {
-    margin: "0",
-    color: "#AFAFAF",
-    fontSize: "13px",
-    textAlign: "center",
+    margin: '0',
+    color: '#AFAFAF',
+    fontSize: '13px',
+    textAlign: 'center',
   } as React.CSSProperties,
 };

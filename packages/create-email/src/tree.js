@@ -12,11 +12,7 @@ const SYMBOLS = {
   VERTICAL: '│   ',
 };
 
-const getTreeLines = async (
-  dirPath,
-  depth,
-  currentDepth = 0,
-) => {
+const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
   const base = process.cwd();
   const dirFullpath = path.resolve(base, dirPath);
   const dirname = path.basename(dirFullpath);
@@ -30,7 +26,8 @@ const getTreeLines = async (
       // orders directories before files
       if (a.isDirectory() && b.isFile()) {
         return -1;
-      } else if (a.isFile() && b.isDirectory()) {
+      }
+      if (a.isFile() && b.isDirectory()) {
         return 1;
       }
 

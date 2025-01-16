@@ -1,12 +1,12 @@
-import { CodeInline, Text } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { CodeInline, Text } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
-  <Text style={{ textAlign: "center" }}>
-    Install the{" "}
+  <Text style={{ textAlign: 'center' }}>
+    Install the{' '}
     <CodeInline
       style={{
-        backgroundColor: "rgb(134,239,172)",
+        backgroundColor: 'rgb(134,239,172)',
         borderRadius: 6,
         paddingLeft: 4,
         paddingRight: 4,
@@ -15,7 +15,7 @@ export const component = (
       }}
     >
       @react-email/components
-    </CodeInline>{" "}
+    </CodeInline>{' '}
     package
   </Text>
 );

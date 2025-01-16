@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { slugify } from "../../../utils/slugify";
-import { componentsStructure } from "../../../../components/structure";
-import { getImportedComponentsFor } from "../get-imported-components-for";
-import PageTransition from "../../../components/page-transition";
-import { ComponentsView } from "../../../components/components-view";
-import { IconArrowLeft } from "../../../components/icons/icon-arrow-left";
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { componentsStructure } from '../../../../components/structure';
+import { ComponentsView } from '../../../components/components-view';
+import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
+import PageTransition from '../../../components/page-transition';
+import { slugify } from '../../../utils/slugify';
+import { getImportedComponentsFor } from '../get-imported-components-for';
 
 interface ComponentPageParams {
   params: Promise<{
@@ -13,7 +13,7 @@ interface ComponentPageParams {
   }>;
 }
 
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
 
 export const generateStaticParams = async () => {
   return componentsStructure.map((category) => ({
@@ -44,7 +44,7 @@ export const generateMetadata = async ({
       description: foundCategory.description,
       images: [
         {
-          url: "https://react.email/static/covers/patterns.png",
+          url: 'https://react.email/static/covers/patterns.png',
         },
       ],
     },
