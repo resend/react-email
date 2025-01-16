@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { cn } from '../utils';
+import { Logo } from './logo';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
-import { Logo } from './logo';
 
 type RootProps = React.ComponentPropsWithoutRef<'div'>;
 

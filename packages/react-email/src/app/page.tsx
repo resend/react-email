@@ -2,9 +2,9 @@ import path from 'node:path';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
+import CodeSnippet from '../components/code-snippet';
 import { Shell } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
-import CodeSnippet from '../components/code-snippet';
 import logo from './logo.png';
 
 const Home = () => {

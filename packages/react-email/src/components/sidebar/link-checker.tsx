@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { clsx } from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
+import * as React from 'react';
 import {
+  type LinkCheckingResult,
   checkLinks,
   getLinkCheckingCache,
-  type LinkCheckingResult,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
 

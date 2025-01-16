@@ -1,21 +1,21 @@
 'use client';
 
 import * as Collapsible from '@radix-ui/react-collapsible';
-import * as React from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { clsx } from 'clsx';
-import Lottie from 'lottie-react';
 import { motion } from 'framer-motion';
-import { useEmails } from '../../contexts/emails';
-import { cn } from '../../utils';
+import Lottie from 'lottie-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type * as React from 'react';
 import animatedLinkIcon from '../../animated-icons-data/link.json';
 import animatedMailIcon from '../../animated-icons-data/mail.json';
+import { useEmails } from '../../contexts/emails';
 import { useIconAnimation } from '../../hooks/use-icon-animation';
+import { cn } from '../../utils';
 import { Heading } from '../heading';
 import { Tooltip } from '../tooltip';
-import { LinkChecker } from './link-checker';
 import { FileTree } from './file-tree';
+import { LinkChecker } from './link-checker';
 
 interface SidebarProps {
   className?: string;
