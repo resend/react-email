@@ -68,6 +68,9 @@ importers:
       react-email:
         specifier: workspace:*
         version: link:../../packages/react-email
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
     devDependencies:
       '@types/react':
         specifier: 19.0.1
