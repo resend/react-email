@@ -11,6 +11,7 @@ import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
+import { useHotreload } from '../../../hooks/use-hot-reload';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
