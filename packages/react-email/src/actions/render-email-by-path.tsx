@@ -3,10 +3,13 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
+import {
+  cachedGetEmailComponent,
+  componentCache,
+} from '../utils/cached-get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
-import { cachedGetEmailComponent, componentCache } from '../utils/cached-get-email-component';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -17,8 +20,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const renderingResultCache = new Map<string, EmailRenderingResult>();
 
@@ -30,18 +33,18 @@ export const invalidateRenderingCache = async (emailPath: string) => {
 // eslint-disable-next-line @typescript-eslint/require-await
 export const invalidateComponentCache = async (emailPath: string) => {
   componentCache.delete(emailPath);
-}
+};
 
 export const renderEmailByPath = async (
   emailPath: string,
   props: object,
   {
     invalidatingComponentCache = false,
-    invalidatingRenderingCache = false
+    invalidatingRenderingCache = false,
   }: {
     invalidatingRenderingCache?: boolean;
     invalidatingComponentCache?: boolean;
-  } = {}
+  } = {},
 ): Promise<EmailRenderingResult> => {
   if (invalidatingRenderingCache) renderingResultCache.delete(emailPath);
 
@@ -58,7 +61,10 @@ export const renderEmailByPath = async (
   }).start();
   registerSpinnerAutostopping(spinner);
 
-  const componentResult = await cachedGetEmailComponent(emailPath, invalidatingComponentCache);
+  const componentResult = await cachedGetEmailComponent(
+    emailPath,
+    invalidatingComponentCache,
+  );
 
   if ('error' in componentResult) {
     spinner.stopAndPersist({

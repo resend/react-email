@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
+import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
 import {
   type EmailRenderingResult,
-  renderEmailByPath,
-  invalidateRenderingCache,
   invalidateComponentCache,
+  invalidateRenderingCache,
+  renderEmailByPath,
 } from '../actions/render-email-by-path';
-import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
@@ -40,7 +40,7 @@ export const useEmailRenderingResult = (
           setRenderingResult(
             await renderEmailByPath(pathForChangedEmail, previewProps, {
               invalidatingComponentCache: true,
-              invalidatingRenderingCache: true
+              invalidatingRenderingCache: true,
             }),
           );
         }

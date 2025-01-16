@@ -4,20 +4,20 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
+import type { ControlsResult } from '../../../actions/get-email-controls';
 import {
-  renderEmailByPath,
   type EmailRenderingResult,
+  renderEmailByPath,
 } from '../../../actions/render-email-by-path';
+import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
+import { PreviewPropControls } from '../../../components/preview-prop-controls';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
+import { useEmailControls } from '../../../hooks/use-email-controls';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import type { ControlsResult } from '../../../actions/get-email-controls';
-import { useEmailControls } from '../../../hooks/use-email-controls';
-import { updatePreviewProps } from '../../../actions/update-preview-props';
-import { PreviewPropControls } from '../../../components/preview-prop-controls';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
