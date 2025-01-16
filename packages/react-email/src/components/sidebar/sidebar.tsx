@@ -1,6 +1,5 @@
 'use client';
 
-import * as Collapsible from '@radix-ui/react-collapsible';
 import * as Tabs from '@radix-ui/react-tabs';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
