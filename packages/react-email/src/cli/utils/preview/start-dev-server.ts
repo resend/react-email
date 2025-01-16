@@ -57,7 +57,7 @@ export const startDevServer = async (
 
     try {
       if (
-        parsedUrl?.path?.includes('static/') &&
+        parsedUrl.path?.includes('static/') &&
         !parsedUrl.path.includes('_next/static/')
       ) {
         void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
