@@ -64,7 +64,7 @@ export const SidebarDirectoryChildren = (props: {
                     };
                     const isCurrentPage = props.currentEmailOpenSlug
                       ? removeExtensionFrom(props.currentEmailOpenSlug) ===
-                      emailSlug
+                        emailSlug
                       : false;
 
                     return (
