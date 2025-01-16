@@ -6,9 +6,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
     ".": {
       "import": {
@@ -26,7 +24,6 @@
     "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
     "dev": "vite build --watch",
     "clean": "rm -rf dist",
-    "lint": "eslint .",
     "test:watch": "vitest",
     "test": "vitest run"
   },
@@ -35,11 +32,7 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/tailwind"
   },
-  "keywords": [
-    "react",
-    "email",
-    "tailwind"
-  ],
+  "keywords": ["react", "email", "tailwind"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -57,8 +50,6 @@
     "@responsive-email/react-email": "0.0.4",
     "@types/shelljs": "0.8.15",
     "@vitejs/plugin-react": "4.2.1",
-    "eslint-config-custom": "workspace:*",
-    "eslint-plugin-regex": "1.10.0",
     "postcss": "8.4.40",
     "postcss-selector-parser": "6.0.16",
     "react-dom": "^19",

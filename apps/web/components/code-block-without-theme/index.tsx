@@ -1,5 +1,5 @@
-import { CodeBlock, Font } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { CodeBlock, Font } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>
@@ -9,8 +9,8 @@ export const component = (
       fontStyle="normal"
       fontWeight={400}
       webFont={{
-        url: "/fonts/commit-mono/commit-mono-regular.ttf",
-        format: "truetype",
+        url: '/fonts/commit-mono/commit-mono-regular.ttf',
+        format: 'truetype',
       }}
     />
     <CodeBlock

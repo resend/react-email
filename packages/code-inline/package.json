@@ -6,9 +6,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
     ".": {
       "import": {
@@ -25,8 +23,7 @@
   "scripts": {
     "dev": "pnpm build --watch",
     "clean": "rm -rf dist",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "lint": "eslint ."
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -39,7 +36,6 @@
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
-    "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",

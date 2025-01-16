@@ -1,130 +1,130 @@
 {
-	"$schema": "https://mintlify.com/schema.json",
-	"name": "React Email",
-	"logo": {
-		"light": "/logo/light.svg",
-		"dark": "/logo/dark.svg"
-	},
-	"favicon": "/favicon.png",
-	"colors": {
-		"primary": "#06BCEE",
-		"light": "#81D7F7",
-		"dark": "#06A6D1",
-		"ultraLight": "#F2F8FB",
-		"ultraDark": "#0B0101",
-		"background": {
-			"dark": "#111111"
-		}
-	},
-	"modeToggle": {
-		"default": "dark",
-		"isHidden": true
-	},
-	"topbarCtaButton": {
-		"type": "github",
-		"url": "https://github.com/resend/react-email"
-	},
-	"anchors": [
-		{
-			"name": "Components",
-			"icon": "grid-2-plus",
-			"url": "https://react.email/components"
-		},
-		{
-			"name": "Templates",
-			"icon": "arrow-pointer",
-			"url": "https://demo.react.email/preview/notifications/vercel-invite-user"
-		},
-		{
-			"name": "Discord",
-			"icon": "discord",
-			"url": "https://react.email/discord"
-		},
-		{
-			"name": "GitHub",
-			"icon": "github",
-			"url": "https://github.com/resend/react-email"
-		}
-	],
-	"navigation": [
-		{
-			"group": "Overview",
-			"pages": [
-				"introduction",
-				"contributing",
-				"changelog",
-				"roadmap",
-				"cli",
-				"deployment"
-			]
-		},
-		{
-			"group": "Getting Started",
-			"pages": [
-				"getting-started/automatic-setup",
-				"getting-started/manual-setup",
-				{
-					"group": "Monorepo Setup",
-					"icon": "diagram-project",
-					"pages": [
-						"getting-started/monorepo-setup/npm",
-						"getting-started/monorepo-setup/pnpm",
-						"getting-started/monorepo-setup/yarn",
-						"getting-started/monorepo-setup/bun"
-					]
-				},
-				"getting-started/migrating-to-react-email"
-			]
-		},
-		{
-			"group": "Internal components",
-			"pages": [
-				"components/html",
-				"components/head",
-				"components/button",
-				"components/container",
-				"components/code-block",
-				"components/code-inline",
-				"components/column",
-				"components/row",
-				"components/font",
-				"components/heading",
-				"components/hr",
-				"components/image",
-				"components/link",
-				"components/markdown",
-				"components/preview",
-				"components/section",
-				"components/tailwind",
-				"components/text"
-			]
-		},
-		{
-			"group": "Utilities",
-			"pages": ["utilities/render"]
-		},
-		{
-			"group": "Integrations",
-			"pages": [
-				"integrations/overview",
-				"integrations/resend",
-				"integrations/nodemailer",
-				"integrations/sendgrid",
-				"integrations/postmark",
-				"integrations/aws-ses",
-				"integrations/mailersend",
-				"integrations/plunk"
-			]
-		}
-	],
-	"classes": {
-		"anchors": "group-hover:bg-gradient-to-tr from-primary to-primary-dark dark:from-[#61DAFB] dark:to-[#06BCEE]",
-		"activeAnchors": "bg-gradient-to-tr"
-	},
-	"backgroundImage": "/images/background.png",
-	"analytics": {
-		"ga4": {
-			"measurementId": "G-2LXLLQLM5D"
-		}
-	}
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "React Email",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#06BCEE",
+    "light": "#81D7F7",
+    "dark": "#06A6D1",
+    "ultraLight": "#F2F8FB",
+    "ultraDark": "#0B0101",
+    "background": {
+      "dark": "#111111"
+    }
+  },
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": true
+  },
+  "topbarCtaButton": {
+    "type": "github",
+    "url": "https://github.com/resend/react-email"
+  },
+  "anchors": [
+    {
+      "name": "Components",
+      "icon": "grid-2-plus",
+      "url": "https://react.email/components"
+    },
+    {
+      "name": "Templates",
+      "icon": "arrow-pointer",
+      "url": "https://demo.react.email/preview/notifications/vercel-invite-user"
+    },
+    {
+      "name": "Discord",
+      "icon": "discord",
+      "url": "https://react.email/discord"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/resend/react-email"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Overview",
+      "pages": [
+        "introduction",
+        "contributing",
+        "changelog",
+        "roadmap",
+        "cli",
+        "deployment"
+      ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/automatic-setup",
+        "getting-started/manual-setup",
+        {
+          "group": "Monorepo Setup",
+          "icon": "diagram-project",
+          "pages": [
+            "getting-started/monorepo-setup/npm",
+            "getting-started/monorepo-setup/pnpm",
+            "getting-started/monorepo-setup/yarn",
+            "getting-started/monorepo-setup/bun"
+          ]
+        },
+        "getting-started/migrating-to-react-email"
+      ]
+    },
+    {
+      "group": "Internal components",
+      "pages": [
+        "components/html",
+        "components/head",
+        "components/button",
+        "components/container",
+        "components/code-block",
+        "components/code-inline",
+        "components/column",
+        "components/row",
+        "components/font",
+        "components/heading",
+        "components/hr",
+        "components/image",
+        "components/link",
+        "components/markdown",
+        "components/preview",
+        "components/section",
+        "components/tailwind",
+        "components/text"
+      ]
+    },
+    {
+      "group": "Utilities",
+      "pages": ["utilities/render"]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "integrations/overview",
+        "integrations/resend",
+        "integrations/nodemailer",
+        "integrations/sendgrid",
+        "integrations/postmark",
+        "integrations/aws-ses",
+        "integrations/mailersend",
+        "integrations/plunk"
+      ]
+    }
+  ],
+  "classes": {
+    "anchors": "group-hover:bg-gradient-to-tr from-primary to-primary-dark dark:from-[#61DAFB] dark:to-[#06BCEE]",
+    "activeAnchors": "bg-gradient-to-tr"
+  },
+  "backgroundImage": "/images/background.png",
+  "analytics": {
+    "ga4": {
+      "measurementId": "G-2LXLLQLM5D"
+    }
+  }
 }

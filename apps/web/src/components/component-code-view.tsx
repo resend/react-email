@@ -1,24 +1,24 @@
 import type {
   CodeVariant,
   ImportedComponent,
-} from "@/app/components/get-imported-components-for";
-import { useStoredState } from "@/hooks/use-stored-state";
-import { convertUrisIntoUrls } from "@/utils/convert-uris-into-urls";
-import * as Select from "@radix-ui/react-select";
-import * as Tabs from "@radix-ui/react-tabs";
+} from '@/app/components/get-imported-components-for';
+import { useStoredState } from '@/hooks/use-stored-state';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
+import * as Select from '@radix-ui/react-select';
+import * as Tabs from '@radix-ui/react-tabs';
+import * as allReactEmailComponents from '@react-email/components';
+import * as allReactResponsiveComponents from '@responsive-email/react-email';
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   ClipboardIcon,
-} from "lucide-react";
-import * as React from "react";
-import { CodeBlock } from "./code-block";
-import { TabTrigger } from "./tab-trigger";
-import * as allReactEmailComponents from "@react-email/components";
-import * as allReactResponsiveComponents from "@responsive-email/react-email";
+} from 'lucide-react';
+import * as React from 'react';
+import { CodeBlock } from './code-block';
+import { TabTrigger } from './tab-trigger';
 
-type ReactCodeVariant = Exclude<CodeVariant, "html" | "react">;
+type ReactCodeVariant = Exclude<CodeVariant, 'html' | 'react'>;
 
 export const ComponentCodeView = ({
   component,
@@ -26,16 +26,16 @@ export const ComponentCodeView = ({
   component: ImportedComponent;
 }) => {
   const [selectedReactCodeVariant, setSelectedReactCodeVariant] =
-    useStoredState<ReactCodeVariant>("code-variant", "tailwind");
+    useStoredState<ReactCodeVariant>('code-variant', 'tailwind');
 
   const [selectedLanguage, setSelectedLanguage] = useStoredState<
-    "html" | "react"
-  >("code-language", "react");
+    'html' | 'react'
+  >('code-language', 'react');
 
   const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   let code = component.code.html;
-  if (selectedLanguage === "react") {
+  if (selectedLanguage === 'react') {
     const codeForSelectedVariant = component.code[selectedReactCodeVariant];
     if (codeForSelectedVariant) {
       code = codeForSelectedVariant;
@@ -45,7 +45,7 @@ export const ComponentCodeView = ({
   }
   code = convertUrisIntoUrls(code);
 
-  if (selectedLanguage === "react") {
+  if (selectedLanguage === 'react') {
     const importsReactResponsive = extractReactComponents(
       code,
       Object.keys(allReactResponsiveComponents),
@@ -56,17 +56,17 @@ export const ComponentCodeView = ({
       Object.keys(allReactEmailComponents),
     );
 
-    let importStatements = "";
+    let importStatements = '';
 
     if (importsReactEmail.length > 0) {
       importStatements += `import { ${importsReactEmail.join(
-        ", ",
+        ', ',
       )} } from "@react-email/components";\n`;
     }
 
     if (importsReactResponsive.length > 0) {
       importStatements += `import { ${importsReactResponsive.join(
-        ", ",
+        ', ',
       )} } from "@responsive-email/react-email";\n`;
     }
 
@@ -85,7 +85,7 @@ export const ComponentCodeView = ({
   const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
     event,
   ) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === 'Enter' || event.key === ' ') {
       onCopy();
     }
   };
@@ -96,7 +96,7 @@ export const ComponentCodeView = ({
         <Tabs.Root
           defaultValue={selectedLanguage}
           onValueChange={(v) => {
-            setSelectedLanguage(v as "react" | "html");
+            setSelectedLanguage(v as 'react' | 'html');
           }}
           value={selectedLanguage}
         >
@@ -118,10 +118,10 @@ export const ComponentCodeView = ({
           </Tabs.List>
         </Tabs.Root>
         <div className="flex gap-2">
-          {selectedLanguage === "react" && !component.code.react ? (
+          {selectedLanguage === 'react' && !component.code.react ? (
             <ReactVariantSelect
               onChange={(newValue) => {
-                localStorage.setItem("code-variant", newValue);
+                localStorage.setItem('code-variant', newValue);
                 setSelectedReactCodeVariant(newValue);
               }}
               value={selectedReactCodeVariant}
@@ -140,7 +140,7 @@ export const ComponentCodeView = ({
         </div>
       </div>
       <div className="h-full w-full overflow-auto">
-        <CodeBlock language={selectedLanguage === "html" ? "html" : "tsx"}>
+        <CodeBlock language={selectedLanguage === 'html' ? 'html' : 'tsx'}>
           {code}
         </CodeBlock>
       </div>
@@ -168,11 +168,11 @@ const ReactVariantSelect = ({
       >
         <Select.Value>
           {(() => {
-            if (value === "tailwind") {
-              return "Tailwind CSS";
+            if (value === 'tailwind') {
+              return 'Tailwind CSS';
             }
 
-            return "Inline CSS";
+            return 'Inline CSS';
           })()}
         </Select.Value>
         <Select.Icon>
@@ -185,7 +185,7 @@ const ReactVariantSelect = ({
             <ChevronUpIcon size={12} />
           </Select.ScrollUpButton>
           <Select.Viewport className="p-1">
-            {["tailwind", "inline-styles"].map((variant) => (
+            {['tailwind', 'inline-styles'].map((variant) => (
               <Select.Item
                 className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
                 key={variant}
@@ -193,11 +193,11 @@ const ReactVariantSelect = ({
               >
                 <Select.ItemText>
                   {(() => {
-                    if (variant === "tailwind") {
-                      return "Tailwind CSS";
+                    if (variant === 'tailwind') {
+                      return 'Tailwind CSS';
                     }
 
-                    return "Inline CSS";
+                    return 'Inline CSS';
                   })()}
                 </Select.ItemText>
                 <Select.ItemIndicator className="absolute left-0 inline-flex w-6 items-center justify-center text-slate-12">

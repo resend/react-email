@@ -1,12 +1,12 @@
-import { Markdown } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Markdown } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Markdown
     markdownCustomStyles={{
-      h1: { color: "red" },
-      h2: { color: "blue" },
-      codeInline: { background: "grey" },
+      h1: { color: 'red' },
+      h2: { color: 'blue' },
+      codeInline: { background: 'grey' },
     }}
   >
     {`## Hello, this is my email template

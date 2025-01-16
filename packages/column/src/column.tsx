@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-export type ColumnProps = Readonly<React.ComponentPropsWithoutRef<"td">>;
+export type ColumnProps = Readonly<React.ComponentPropsWithoutRef<'td'>>;
 
 export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
   ({ children, style, ...props }, ref) => {
@@ -12,4 +12,4 @@ export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
   },
 );
 
-Column.displayName = "Column";
+Column.displayName = 'Column';

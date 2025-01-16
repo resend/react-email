@@ -6,9 +6,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
     ".": {
       "import": {
@@ -25,18 +23,14 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint ."
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/code-block"
   },
-  "keywords": [
-    "react",
-    "email"
-  ],
+  "keywords": ["react", "email"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -46,7 +40,6 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "@types/prismjs": "1.26.5",
-    "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },

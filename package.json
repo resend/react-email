@@ -5,17 +5,17 @@
   "scripts": {
     "build": "turbo run build --filter=!react-email-starter",
     "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
-    "lint": "turbo run lint",
+    "lint": "biome check",
+    "lint:fix": "biome check --write .",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.27.11",
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",

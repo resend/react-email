@@ -1,5 +1,5 @@
-import { Column, Link, Img, Row, Section } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Img, Link, Row, Section } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section
@@ -13,7 +13,7 @@ export const component = (
     }}
   >
     <Row>
-      <Column style={{ width: "80%" }}>
+      <Column style={{ width: '80%' }}>
         <Img
           alt="React Email logo"
           height="42"
@@ -25,7 +25,7 @@ export const component = (
           <Column style={{ paddingLeft: 8, paddingRight: 8 }}>
             <Link
               href="#"
-              style={{ color: "rgb(75,85,99)", textDecoration: "none" }}
+              style={{ color: 'rgb(75,85,99)', textDecoration: 'none' }}
             >
               About
             </Link>
@@ -33,7 +33,7 @@ export const component = (
           <Column style={{ paddingLeft: 8, paddingRight: 8 }}>
             <Link
               href="#"
-              style={{ color: "rgb(75,85,99)", textDecoration: "none" }}
+              style={{ color: 'rgb(75,85,99)', textDecoration: 'none' }}
             >
               Company
             </Link>
@@ -41,7 +41,7 @@ export const component = (
           <Column style={{ paddingLeft: 8, paddingRight: 8 }}>
             <Link
               href="#"
-              style={{ color: "rgb(75,85,99)", textDecoration: "none" }}
+              style={{ color: 'rgb(75,85,99)', textDecoration: 'none' }}
             >
               Blog
             </Link>
