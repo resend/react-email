@@ -65,6 +65,9 @@ importers:
       react-email:
         specifier: workspace:*
         version: link:../../packages/react-email
+      zod:
+        specifier: 3.24.1
+        version: 3.24.1
     devDependencies:
       '@types/react':
         specifier: ^19
@@ -8203,6 +8206,9 @@ packages:
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
@@ -16293,3 +16299,5 @@ snapshots:
   yocto-queue@1.1.1: {}
 
   zod@3.23.8: {}
+
+  zod@3.24.1: {}
