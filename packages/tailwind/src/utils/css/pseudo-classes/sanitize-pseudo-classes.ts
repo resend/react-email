@@ -1,10 +1,10 @@
 import selectorParser from "postcss-selector-parser";
-import type { Root, Rule } from "postcss";
+import type { Root, Rule, AtRule } from "postcss";
 import { sanitizeClassName } from "../../compatibility/sanitize-class-name";
 
 interface PseudoClassResult {
   pseudoClassClasses: string[];
-  sanitizedPseudoClassRules: Rule[];
+  sanitizedPseudoClassRules: (Rule | AtRule)[];
 }
 
 /**
@@ -14,12 +14,13 @@ interface PseudoClassResult {
  * 1. Extracts only rules that have pseudo selectors
  * 2. Sanitizes the class names while preserving pseudo-classes
  * 3. Maintains separate rules for different class names
+ * 4. Preserves media queries and other at-rules
  */
 export const sanitizePseudoClasses = (root: Root): PseudoClassResult => {
-  const sanitizedPseudoClassRules: Rule[] = [];
+  const sanitizedPseudoClassRules: (Rule | AtRule)[] = [];
   const pseudoClassClasses: string[] = [];
 
-  root.walkRules((rule) => {
+  const processRule = (rule: Rule): Rule | null => {
     let hasPseudoSelector = false as boolean;
 
     // Parse the selector to check for pseudo-classes
@@ -56,7 +57,37 @@ export const sanitizePseudoClasses = (root: Root): PseudoClassResult => {
         declaration.important = true;
       });
 
-      sanitizedPseudoClassRules.push(newRule);
+      return newRule;
+    }
+
+    return null;
+  };
+
+  // Process rules within at-rules (like media queries)
+  root.walkAtRules((atRule) => {
+    const pseudoRules: Rule[] = [];
+
+    atRule.walkRules((rule) => {
+      const processedRule = processRule(rule);
+      if (processedRule) {
+        pseudoRules.push(processedRule);
+      }
+    });
+
+    if (pseudoRules.length > 0) {
+      const newAtRule = atRule.clone({ nodes: [] });
+      newAtRule.nodes = pseudoRules;
+      sanitizedPseudoClassRules.push(newAtRule);
+    }
+  });
+
+  // Process top-level rules
+  root.walkRules((rule) => {
+    if (!rule.parent?.type || rule.parent.type === "root") {
+      const processedRule = processRule(rule);
+      if (processedRule) {
+        sanitizedPseudoClassRules.push(processedRule);
+      }
     }
   });
 
