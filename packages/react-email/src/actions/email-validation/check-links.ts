@@ -24,23 +24,9 @@ export interface LinkCheckingResult {
   checks: Check[];
 }
 
-const resultsCache = new Map<string, LinkCheckingResult[]>();
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export const getLinkCheckingCache = async (cacheKey: string) => {
-  return resultsCache.get(cacheKey);
-};
-
 export const checkLinks = async (
-  code: string,
-  cacheKey: string,
-  invalidating = false,
+  code: string
 ) => {
-  if (invalidating) resultsCache.delete(cacheKey);
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (resultsCache.has(cacheKey)) return resultsCache.get(cacheKey)!;
-
   const ast = parse(code);
 
   const linkCheckingResults: LinkCheckingResult[] = [];
@@ -73,7 +59,7 @@ export const checkLinks = async (
       });
       if (hasntSucceeded) {
         result.status =
-          res.statusCode && res.statusCode.toString().startsWith('3')
+          res.statusCode?.toString().startsWith('3')
             ? 'warning'
             : 'error';
       }
@@ -100,8 +86,6 @@ export const checkLinks = async (
 
     linkCheckingResults.push(result);
   }
-
-  resultsCache.set(cacheKey, linkCheckingResults);
 
   return linkCheckingResults;
 };

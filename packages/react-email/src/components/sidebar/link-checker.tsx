@@ -121,22 +121,13 @@ const ResultSection = ({
 );
 
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
+  const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
+  const cachedResults = localStorage.getItem(cacheKey);
+
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
-  >();
+  >(cachedResults ? JSON.parse(cachedResults) : undefined);
   const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setLoading(true);
-    getLinkCheckingCache(emailSlug)
-      .then((cachedResults) => {
-        setResults(cachedResults);
-      })
-      .catch(console.error)
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [emailSlug]);
 
   const errorResults = React.useMemo(
     () => results?.filter((result) => result.status === 'error') || [],
@@ -153,9 +144,10 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
 
   const handleRun = () => {
     setLoading(true);
-    checkLinks(emailMarkup, emailSlug, true)
+    checkLinks(emailMarkup)
       .then((newResults) => {
         setResults(newResults);
+        localStorage.setItem(cacheKey, JSON.stringify(newResults));
       })
       .catch(console.error)
       .finally(() => {
