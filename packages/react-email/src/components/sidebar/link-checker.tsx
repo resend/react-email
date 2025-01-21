@@ -82,7 +82,7 @@ const CollapsibleTrigger = ({
           />
         </svg>
       </span>
-      <div className="flex flex-1 items-center gap-1 text-[.625rem] font-bold uppercase tracking-wide">
+      <div className="flex flex-1 items-center gap-1 font-bold text-[.625rem] uppercase tracking-wide">
         <span>{label}</span>
         <span>({count})</span>
       </div>
@@ -109,7 +109,7 @@ const ResultSection = ({
     <CollapsibleTrigger count={results.length} label={label} variant={status} />
     {results.length > 0 && (
       <Collapsible.Content>
-        <ol className="mb-1 mt-2 flex list-none flex-col gap-4">
+        <ol className="mt-2 mb-1 flex list-none flex-col gap-4">
           {results.map((result, index) => (
             <LinkResultView key={index} {...result} />
           ))}
@@ -220,7 +220,7 @@ const LinkResultView = (props: LinkCheckingResult) => (
           </span>
         </motion.div>
         <motion.div
-          className="mt-1 text-[.625rem] font-semibold uppercase"
+          className="mt-1 font-semibold text-[.625rem] uppercase"
           variants={childAnimation}
         >
           {props.checks
