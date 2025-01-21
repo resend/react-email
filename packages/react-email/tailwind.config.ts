@@ -6,7 +6,7 @@ import plugin from 'tailwindcss/plugin';
 const numberInputArrowHide = plugin(({ addUtilities }) => {
   addUtilities({
     '.arrow-hide': {
-      'appearance': 'textfield',
+      appearance: 'textfield',
       '&::-webkit-inner-spin-button': {
         appearance: 'none',
         margin: '0px',

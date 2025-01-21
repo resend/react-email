@@ -1,15 +1,15 @@
 'use client';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { motion } from 'framer-motion';
+import type * as React from 'react';
 import { cn } from '../utils';
 import { tabTransition } from '../utils/constants';
-import type * as React from 'react';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
 import { Send } from './send';
 import { Tooltip } from './tooltip';
-import { ViewSizeControls } from './topbar/view-size-controls';
 import { ActiveViewToggleGroup } from './topbar/active-view-toggle-group';
+import { ViewSizeControls } from './topbar/view-size-controls';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
