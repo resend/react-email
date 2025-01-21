@@ -31,7 +31,7 @@ export const Topbar = ({
 }: TopbarProps) => {
   return (
     <Tooltip.Provider>
-      <header className="relative flex h-[3.3125rem] items-center justify-between border-b border-slate-6 px-3">
+      <header className="relative flex h-[3.3125rem] items-center justify-between border-slate-6 border-b px-3">
         <Tooltip>
           <Tooltip.Trigger asChild>
             <button
@@ -48,7 +48,7 @@ export const Topbar = ({
           </Tooltip.Trigger>
           <Tooltip.Content>Show/hide sidebar</Tooltip.Content>
         </Tooltip>
-        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform items-center overflow-hidden text-center lg:flex">
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 hidden transform items-center overflow-hidden text-center lg:flex">
           <Heading as="h2" className="truncate" size="2" weight="medium">
             {currentEmailOpenSlug.split(pathSeparator).pop()}
           </Heading>
@@ -78,7 +78,7 @@ export const Topbar = ({
                     {activeView === 'desktop' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute bottom-0 left-0 right-0 top-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-tabs"
@@ -106,7 +106,7 @@ export const Topbar = ({
                     {activeView === 'mobile' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute bottom-0 left-0 right-0 top-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-tabs"
@@ -134,7 +134,7 @@ export const Topbar = ({
                     {activeView === 'source' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute bottom-0 left-0 right-0 top-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-tabs"
