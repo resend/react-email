@@ -5,7 +5,6 @@ import * as React from 'react';
 import {
   type LinkCheckingResult,
   checkLinks,
-  getLinkCheckingCache,
 } from '../../actions/email-validation/check-links';
 import { Button } from '../button';
 
