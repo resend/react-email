@@ -2,8 +2,8 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { motion } from 'framer-motion';
 import { cn } from '../../utils';
 import { tabTransition } from '../../utils/constants';
-import { IconSource } from '../icons/icon-source';
 import { IconMonitor } from '../icons/icon-monitor';
+import { IconSource } from '../icons/icon-source';
 import { Tooltip } from '../tooltip';
 
 interface ActiveViewToggleGroupProps {

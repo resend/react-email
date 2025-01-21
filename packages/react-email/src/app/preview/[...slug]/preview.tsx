@@ -4,16 +4,16 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Toaster } from 'sonner';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
+import {
+  ResizableWarpper,
+  makeIframeDocumentBubbleEvents,
+} from '../../../components/resizable-wrapper';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
+import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import {
-  makeIframeDocumentBubbleEvents,
-  ResizableWarpper,
-} from '../../../components/resizable-wrapper';
-import { useClampedState } from '../../../hooks/use-clamped-state';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
