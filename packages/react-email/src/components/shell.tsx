@@ -29,7 +29,7 @@ export const Shell = ({
 
   return (
     <>
-      <div className="flex h-[4.375rem] items-center justify-between border-b border-slate-6 px-6 lg:hidden">
+      <div className="flex h-[4.375rem] items-center justify-between border-slate-6 border-b px-6 lg:hidden">
         <div className="flex h-[4.375rem] items-center">
           <Logo />
         </div>
@@ -61,9 +61,9 @@ export const Shell = ({
       <React.Suspense>
         <Sidebar
           className={cn(
-            'fixed left-0 top-[4.375rem] z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
+            'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
             {
-              'translate-x-0 lg:-translate-x-full': sidebarToggled,
+              'lg:-translate-x-full translate-x-0': sidebarToggled,
               '-translate-x-full lg:translate-x-0': !sidebarToggled,
             },
           )}
@@ -76,7 +76,7 @@ export const Shell = ({
       </React.Suspense>
       <main
         className={cn(
-          'will-change-width relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden md:absolute md:right-0',
+          'relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width md:absolute md:right-0',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
             'lg:w-[calc(100vw-20rem)] lg:translate-x-0': !sidebarToggled,

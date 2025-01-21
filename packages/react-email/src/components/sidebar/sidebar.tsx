@@ -266,7 +266,7 @@ export const Sidebar = ({
         </Tabs.List>
         <div className="flex flex-col border-slate-6 border-r">
           {activePanelValue === 'link-checker' && (
-            <Panel title="React Email - Link Checker">
+            <Panel title="Link Checker">
               {currentEmailOpenSlug && emailMarkup ? (
                 <LinkChecker
                   emailMarkup={emailMarkup}
@@ -294,7 +294,7 @@ export const Sidebar = ({
             </Panel>
           )}
           {activePanelValue === 'file-tree' && (
-            <Panel title="React Email - File Explorer">
+            <Panel title="File Explorer">
               <FileTree
                 currentEmailOpenSlug={currentEmailOpenSlug}
                 emailsDirectoryMetadata={emailsDirectoryMetadata}
