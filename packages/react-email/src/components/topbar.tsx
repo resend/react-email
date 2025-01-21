@@ -1,9 +1,5 @@
 'use client';
-import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { motion } from 'framer-motion';
 import type * as React from 'react';
-import { cn } from '../utils';
-import { tabTransition } from '../utils/constants';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
 import { Send } from './send';
