@@ -51,17 +51,17 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'mb-1.5 mt-1 flex w-full items-center justify-between gap-2 text-[14px] font-medium',
+          'mt-1 mb-1.5 flex w-full items-center justify-between gap-2 font-medium text-[14px]',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center gap-1 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
+        <div className="flex items-center gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
           {open ? (
-            <IconFolderOpen height="24" width="24" />
+            <IconFolderOpen height="20" width="20" />
           ) : (
-            <IconFolder height="24" width="24" />
+            <IconFolder height="20" width="20" />
           )}
           <Heading
             as="h3"

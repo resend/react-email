@@ -20,7 +20,7 @@ export const FileTreeDirectoryChildren = (props: {
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative overflow-y-hidden pl-1"
+          className="relative overflow-y-hidden"
           forceMount
         >
           <motion.div
@@ -76,7 +76,7 @@ export const FileTreeDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-sm text-slate-11 transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
+                            'relative flex h-8 max-w-full items-center rounded-md pl-3 align-middle text-slate-11 text-sm transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -97,7 +97,7 @@ export const FileTreeDirectoryChildren = (props: {
                               initial={{ opacity: 0 }}
                             >
                               <motion.div
-                                className="absolute left-[.375rem] top-1 h-6 w-px rounded-sm bg-cyan-11"
+                                className="absolute top-1 left-[.625rem] h-6 w-px rounded-sm bg-cyan-11"
                                 layoutId="active-file"
                                 transition={{
                                   type: 'spring',
@@ -108,9 +108,9 @@ export const FileTreeDirectoryChildren = (props: {
                             </motion.span>
                           ) : null}
                           <IconFile
-                            className="absolute left-4 h-[24px] w-[24px]"
-                            height="24"
-                            width="24"
+                            className="absolute left-4 h-5 w-5"
+                            height="20"
+                            width="20"
                           />
                           <span className="truncate pl-8">{emailFilename}</span>
                         </motion.span>

@@ -155,7 +155,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   };
 
   return (
-    <div className="mt-3 flex w-full flex-col gap-2 text-pretty">
+    <div className="mt-4 flex w-full flex-col gap-2 text-pretty">
       {results ? (
         <>
           <ResultSection
@@ -188,7 +188,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
             Check if all links are valid and redirect to the correct pages.
           </span>
           <Button
-            className="mt-1.5 transition-all disabled:border-transparent disabled:bg-slate-11"
+            className="mt-2 transition-all disabled:border-transparent disabled:bg-slate-11"
             disabled={loading}
             onClick={handleRun}
           >

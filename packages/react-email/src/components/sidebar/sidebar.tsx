@@ -50,6 +50,7 @@ interface TabTriggerProps {
 }
 
 interface PanelProps {
+  active: boolean;
   children: React.ReactNode;
   title: string;
 }
@@ -135,14 +136,23 @@ const TabTrigger = ({
   );
 };
 
-const Panel = ({ title, children }: PanelProps) => (
+const Panel = ({ title, active, children }: PanelProps) => (
   <>
-    <div className="hidden min-h-[3.3125rem] flex-shrink items-center border-slate-6 border-b p-3 pl-3.5 lg:flex">
+    <div
+      className={clsx(
+        'hidden min-h-[3.3125rem] flex-shrink items-center p-3 px-4 lg:flex',
+        {
+          'bg-slate-3': active,
+        },
+      )}
+    >
       <Heading as="h2" className="truncate" size="2" weight="medium">
         {title}
       </Heading>
     </div>
-    <div className="h-[calc(100vh-4.375rem)] w-full px-3 pb-3">{children}</div>
+    <div className="-mt-[.5px] relative h-[calc(100vh-4.375rem)] w-full border-slate-4 border-t px-4 pb-3">
+      {children}
+    </div>
   </>
 );
 
@@ -153,7 +163,7 @@ const ReactIcon = () => (
     viewBox="0 0 32 32"
     width="32"
     xmlns="http://www.w3.org/2000/svg"
-    className="pointer-events-none duration-500 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:rotate-180"
+    className="pointer-events-none duration-300 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:rotate-45"
   >
     <g clipPath="url(#clip0_27_291)">
       <path
@@ -266,24 +276,23 @@ export const Sidebar = ({
         </Tabs.List>
         <div className="flex flex-col border-slate-6 border-r">
           {activePanelValue === 'link-checker' && (
-            <Panel title="Link Checker">
+            <Panel
+              title="Link Checker"
+              active={activePanelValue === 'link-checker'}
+            >
               {currentEmailOpenSlug && emailMarkup ? (
                 <LinkChecker
                   emailMarkup={emailMarkup}
                   emailSlug={currentEmailOpenSlug}
                 />
               ) : (
-                <div className="mt-3 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
-                  <span>
-                    Check if all links are valid and redirect to the correct
-                    pages.
-                  </span>
-                  <div className="mt-2 flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
-                    <span className="mx-2 mt-1.5">
+                <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
+                  <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
+                    <span className="mx-2.5 mt-2">
                       To use the Link Checker, you need to select a template.
                     </span>
                     <Button
-                      className="mx-1.5 my-2 transition-all disabled:border-transparent disabled:bg-slate-11"
+                      className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
                       onClick={() => setActivePanelValue('file-tree')}
                     >
                       Select a template
@@ -294,7 +303,10 @@ export const Sidebar = ({
             </Panel>
           )}
           {activePanelValue === 'file-tree' && (
-            <Panel title="File Explorer">
+            <Panel
+              title="File Explorer"
+              active={activePanelValue === 'file-tree'}
+            >
               <FileTree
                 currentEmailOpenSlug={currentEmailOpenSlug}
                 emailsDirectoryMetadata={emailsDirectoryMetadata}
