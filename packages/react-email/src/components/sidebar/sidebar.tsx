@@ -258,7 +258,7 @@ export const Sidebar = ({
               href="https://react.email"
               side="right"
             >
-              <div className="flex h-7 w-7">
+              <div className="flex h-7 w-7 items-center justify-center">
                 <ReactIcon />
               </div>
             </NavigationButton>
@@ -278,7 +278,7 @@ export const Sidebar = ({
                     Check if all links are valid and redirect to the correct
                     pages.
                   </span>
-                  <div className="mt-2 flex flex-col gap-1 rounded-lg border border-[#a02b2b] bg-[#a02b2b]/40 text-white">
+                  <div className="mt-2 flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
                     <span className="mx-2 mt-1.5">
                       To use the Link Checker, you need to select a template.
                     </span>
