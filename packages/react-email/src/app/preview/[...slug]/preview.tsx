@@ -79,6 +79,10 @@ const Preview = ({
 
   const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
+  let maxWidth = Number.POSITIVE_INFINITY;
+  let maxHeight = Number.POSITIVE_INFINITY;
+  const minWidth = 350;
+  const minHeight = 600;
   const [width, setWidth] = useClampedState(600, 350, Number.POSITIVE_INFINITY);
   const [height, setHeight] = useClampedState(
     1024,
@@ -99,7 +103,15 @@ const Preview = ({
       viewWidth={width}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div className="relative h-full flex">
+      <div
+        className="relative flex h-full"
+        ref={(element) => {
+          if (element) {
+            maxWidth = element?.clientWidth;
+            maxHeight = element?.clientWidth;
+          }
+        }}
+      >
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
@@ -108,6 +120,10 @@ const Preview = ({
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
+                minHeight={minHeight}
+                minWidth={minWidth}
+                maxHeight={maxHeight}
+                maxWidth={maxWidth}
                 height={height}
                 onResize={(difference, direction) => {
                   switch (direction) {
@@ -128,7 +144,7 @@ const Preview = ({
                 width={width}
               >
                 <iframe
-                  className="bg-white rounded-lg max-h-full"
+                  className="max-h-full rounded-lg bg-white"
                   ref={(iframe) => {
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);

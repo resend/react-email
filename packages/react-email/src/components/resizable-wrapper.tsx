@@ -6,6 +6,11 @@ interface ResizableWarpperProps {
   width: number;
   height: number;
 
+  maxWidth: number;
+  maxHeight: number;
+  minWidth: number;
+  minHeight: number;
+
   onResize: (difference: number, direction: Direction) => void;
 
   children: React.ReactNode;
@@ -31,6 +36,11 @@ export const ResizableWarpper = ({
   height,
   onResize,
   children,
+
+  maxHeight,
+  maxWidth,
+  minHeight,
+  minWidth,
 }: ResizableWarpperProps) => {
   let mouseMoveListener: ((event: MouseEvent) => void) | undefined;
 
@@ -68,11 +78,13 @@ export const ResizableWarpper = ({
   }, []);
 
   return (
-    <div className="relative box-content px-4 py-2 mx-auto my-auto">
+    <div className="relative mx-auto my-auto box-content px-4 py-2">
       <div
         aria-label="resize-west"
         aria-valuenow={width}
-        className="absolute [user-drag:none] cursor-w-resize p-2 left-2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        aria-valuemin={minWidth}
+        aria-valuemax={maxWidth}
+        className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('west');
@@ -80,12 +92,14 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="rounded-md w-1 h-8 bg-slate-8" />
+        <div className="h-8 w-1 rounded-md bg-slate-8" />
       </div>
       <div
         aria-label="resize-east"
         aria-valuenow={width}
-        className="absolute [user-drag:none] cursor-e-resize p-2 left-full top-1/2 -translate-x-full -translate-y-1/2"
+        aria-valuemin={minWidth}
+        aria-valuemax={maxWidth}
+        className="-translate-x-full -translate-y-1/2 absolute top-1/2 left-full cursor-e-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('east');
@@ -93,12 +107,14 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="rounded-md w-1 h-8 bg-slate-8" />
+        <div className="h-8 w-1 rounded-md bg-slate-8" />
       </div>
       <div
         aria-label="resize-north"
         aria-valuenow={height}
-        className="absolute [user-drag:none] cursor-n-resize p-2 left-1/2 top-0 -translate-x-1/2 -translate-y-1/2"
+        aria-valuemin={minHeight}
+        aria-valuemax={maxHeight}
+        className="-translate-x-1/2 -translate-y-1/2 absolute top-0 left-1/2 cursor-n-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('north');
@@ -106,12 +122,14 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="rounded-md w-8 h-1 bg-slate-8" />
+        <div className="h-1 w-8 rounded-md bg-slate-8" />
       </div>
       <div
         aria-label="resize-south"
         aria-valuenow={height}
-        className="absolute [user-drag:none] cursor-s-resize p-2 left-1/2 top-full -translate-x-1/2 -translate-y-1/2"
+        aria-valuemin={minHeight}
+        aria-valuemax={maxHeight}
+        className="-translate-x-1/2 -translate-y-1/2 absolute top-full left-1/2 cursor-s-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('south');
@@ -119,7 +137,7 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="rounded-md w-8 h-1 bg-slate-8" />
+        <div className="h-1 w-8 rounded-md bg-slate-8" />
       </div>
 
       {children}
