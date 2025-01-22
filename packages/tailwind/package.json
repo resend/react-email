@@ -58,7 +58,7 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "vite": "5.4.12",
+    "vite": "5.4.13",
     "vite-plugin-dts": "4.2.4",
     "vitest": "1.1.1",
     "yalc": "1.0.0-pre.53"
