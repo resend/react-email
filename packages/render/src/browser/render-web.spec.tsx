@@ -22,7 +22,7 @@ describe('render on the browser environment', () => {
     vi.resetAllMocks();
   });
 
-  test("if mso does not wrap syntax", async () => {
+  test('if mso does not wrap syntax', async () => {
     expect(
       await render(
         <div

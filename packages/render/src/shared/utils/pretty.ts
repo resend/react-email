@@ -1,6 +1,6 @@
-import { format } from 'prettier/standalone';
-import html from 'prettier/plugins/html';
 import type { Options, Plugin } from 'prettier';
+import html from 'prettier/plugins/html';
+import { format } from 'prettier/standalone';
 
 const modifiedHtml = { ...html } as Plugin;
 if (modifiedHtml.printers) {
@@ -16,7 +16,7 @@ if (modifiedHtml.printers) {
       };
     };
 
-    if (node.type === "ieConditionalComment") {
+    if (node.type === 'ieConditionalComment') {
       return options.originalText.slice(
         node.sourceSpan.start.offset,
         node.sourceSpan.end.offset,
