@@ -34,7 +34,7 @@ const defaults: Options = {
   parser: 'html',
 };
 
-export const pretty = async (str: string, options: Options = {}) => {
+export const pretty = (str: string, options: Options = {}) => {
   return format(str.replaceAll("\0", ""), {
     ...defaults,
     ...options,
