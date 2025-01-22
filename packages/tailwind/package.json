@@ -54,7 +54,7 @@
     "@react-email/html": "workspace:*",
     "@react-email/link": "workspace:*",
     "@react-email/render": "workspace:*",
-    "@responsive-email/react-email": "0.0.3",
+    "@responsive-email/react-email": "0.0.4",
     "@types/shelljs": "0.8.15",
     "@vitejs/plugin-react": "4.2.1",
     "eslint-config-custom": "workspace:*",
