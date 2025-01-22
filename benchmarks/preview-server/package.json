@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "react-email": "workspace:*",
-    "react-email-canary": "npm:react-email@2.1.7-canary.2",
-    "tinybench": "2.5.1"
+    "react-email-2.1.7-canary.2": "npm:react-email@2.1.7-canary.2",
+    "tinybench": "3.1.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
