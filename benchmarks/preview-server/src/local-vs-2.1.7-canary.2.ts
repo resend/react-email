@@ -7,7 +7,7 @@ import { runServerAndFetchPreviewPage } from './utils/run-server-and-fetch-previ
 const pathToCanaryCliScript = path.resolve(
   __dirname,
   '../',
-  './node_modules/react-email-canary/cli/index.js',
+  './node_modules/react-email-2.1.7-canary.2/cli/index.js',
 );
 
 const pathToLocalCliScript = path.resolve(
