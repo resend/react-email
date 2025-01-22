@@ -18,7 +18,7 @@
     "@babel/preset-typescript": "7.24.7",
     "@babel/traverse": "7.25.6",
     "@react-email/components": "workspace:*",
-    "@responsive-email/react-email": "0.0.3",
+    "@responsive-email/react-email": "0.0.4",
     "@supabase/supabase-js": "2.45.1",
     "@vercel/analytics": "1.0.1",
     "framer-motion": "12.0.0-alpha.2",
