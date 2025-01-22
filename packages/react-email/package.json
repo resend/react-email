@@ -29,7 +29,7 @@
     "chokidar": "4.0.3",
     "commander": "11.1.0",
     "debounce": "2.0.0",
-    "esbuild": "0.19.11",
+    "esbuild": "0.23.0",
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
     "mime-types": "2.1.35",
