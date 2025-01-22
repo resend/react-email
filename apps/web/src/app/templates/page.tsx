@@ -96,12 +96,7 @@ const items = [
     path: "magic-links/plaid-verify-identity",
     name: "Plaid / Verify Identity",
     author: "zenorocha",
-  },
-  {
-    path: "magic-links/jobaccepted-magic-link",
-    name: "Job Accepted / Magic Link with code",
-    author: "vonsa",
-  },
+  }
 ];
 
 const title = "Templates — React Email";
