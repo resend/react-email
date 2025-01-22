@@ -4,7 +4,7 @@ import { pretty } from './pretty';
 
 describe('pretty', () => {
   it("should prettify Preview component's complex characters correctly", async () => {
-    const stripeHTML = await fs.readFile(path.resolve(__dirname, './pretty.spec.ts'), 'utf8');
+    const stripeHTML = await fs.readFile(path.resolve(__dirname, './stripe-email.html'), 'utf8');
 
     expect(await pretty(stripeHTML)).toMatchSnapshot();
   });
