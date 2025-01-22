@@ -96,7 +96,7 @@ const items = [
     path: "magic-links/plaid-verify-identity",
     name: "Plaid / Verify Identity",
     author: "zenorocha",
-  }
+  },
 ];
 
 const title = "Templates — React Email";
