@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { render } from '@react-email/render';
 import { Tailwind as LocalTailwind } from '@react-email/tailwind';
-import { Tailwind as VersionFifteenTailwind } from 'tailwind-0.0.15';
+import { Tailwind as VersionSeventeenTailwind } from 'tailwind-0.0.17';
 import { Bench } from 'tinybench';
 import EmailWithTailwind from './emails/with-tailwind.js';
 
@@ -12,10 +12,10 @@ const main = async () => {
 
   bench
     .add('local', async () => {
-      await render(EmailWithTailwind({ Tailwind: LocalTailwind }));
+      await render(<EmailWithTailwind Tailwind={LocalTailwind} />);
     })
-    .add('0.0.15', async () => {
-      await render(EmailWithTailwind({ Tailwind: VersionFifteenTailwind }));
+    .add('0.0.17', async () => {
+      await render(<EmailWithTailwind Tailwind={VersionSeventeenTailwind} />);
     });
 
   await bench.run();

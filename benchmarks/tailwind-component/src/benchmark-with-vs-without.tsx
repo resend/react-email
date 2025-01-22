@@ -12,10 +12,10 @@ async function main() {
 
   bench
     .add('without tailwind', async () => {
-      await render(EmailWithoutTailwind());
+      await render(<EmailWithoutTailwind />);
     })
     .add('with current tailwind', async () => {
-      await render(EmailWithTailwind({ Tailwind: CurrentTailwind }));
+      await render(<EmailWithTailwind Tailwind={CurrentTailwind} />);
     });
 
   await bench.run();

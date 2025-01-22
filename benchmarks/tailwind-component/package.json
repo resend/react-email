@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "scripts": {
     "with-vs-without": "tsx ./src/benchmark-with-vs-without",
-    "0.0.15-vs-local": "tsx --max-old-space-size=256 ./src/benchmark-0.0.15-vs-local-version",
+    "0.0.17-vs-local": "tsx --max-old-space-size=256 ./src/benchmark-0.0.17-vs-local-version",
     "0.0.12-vs-local": "tsx ./src/benchmark-0.0.12-vs-local-version",
     "flamegraph-render-tailwind": "tsx --prof ./src/tailwind-render && node --prof-process --preprocess -j isolate*.log | flamebearer"
   },
@@ -22,10 +22,11 @@
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "workspace:*",
-    "react": "18.2.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "tailwind-0.0.12": "npm:@react-email/tailwind@0.0.12",
-    "tailwind-0.0.15": "npm:@react-email/tailwind@0.0.15",
-    "tinybench": "2.5.1"
+    "tailwind-0.0.17": "npm:@react-email/tailwind@0.0.17",
+    "tinybench": "3.1.0"
   },
   "devDependencies": {
     "flamebearer": "1.1.3",
