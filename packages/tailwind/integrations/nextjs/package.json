@@ -14,13 +14,13 @@
     "@react-email/components": "^0.0.15",
     "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
     "next": "14.2.21",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "typescript": "^5",
     "yalc": "1.0.0-pre.53"
   }

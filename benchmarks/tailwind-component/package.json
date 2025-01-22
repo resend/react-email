@@ -22,7 +22,7 @@
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "workspace:*",
-    "react": "18.2.0",
+    "react": "19.0.0",
     "tailwind-0.0.12": "npm:@react-email/tailwind@0.0.12",
     "tailwind-0.0.15": "npm:@react-email/tailwind@0.0.15",
     "tinybench": "2.5.1"

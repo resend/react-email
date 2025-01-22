@@ -222,14 +222,14 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tailwind
       react:
-        specifier: 18.2.0
-        version: 18.2.0
+        specifier: 19.0.0
+        version: 19.0.0
       tailwind-0.0.12:
         specifier: npm:@react-email/tailwind@0.0.12
-        version: '@react-email/tailwind@0.0.12(react@18.2.0)'
+        version: '@react-email/tailwind@0.0.12(react@19.0.0)'
       tailwind-0.0.15:
         specifier: npm:@react-email/tailwind@0.0.15
-        version: '@react-email/tailwind@0.0.15(react@18.2.0)'
+        version: '@react-email/tailwind@0.0.15(react@19.0.0)'
       tinybench:
         specifier: 2.5.1
         version: 2.5.1
@@ -6836,10 +6836,6 @@ packages:
       '@types/react':
         optional: true
 
-  react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
-    engines: {node: '>=0.10.0'}
-
   react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -10650,17 +10646,17 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@react-email/tailwind@0.0.12(react@18.2.0)':
+  '@react-email/tailwind@0.0.12(react@19.0.0)':
     dependencies:
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
+      react: 19.0.0
+      react-dom: 18.2.0(react@19.0.0)
       tw-to-css: 0.0.12
     transitivePeerDependencies:
       - ts-node
 
-  '@react-email/tailwind@0.0.15(react@18.2.0)':
+  '@react-email/tailwind@0.0.15(react@19.0.0)':
     dependencies:
-      react: 18.2.0
+      react: 19.0.0
 
   '@responsive-email/react-email@0.0.3(react@19.0.0)':
     dependencies:
@@ -14225,10 +14221,10 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  react-dom@18.2.0(react@18.2.0):
+  react-dom@18.2.0(react@19.0.0):
     dependencies:
       loose-envify: 1.4.0
-      react: 18.2.0
+      react: 19.0.0
       scheduler: 0.23.2
 
   react-dom@18.3.1(react@18.3.1):
@@ -14384,10 +14380,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.0.1
-
-  react@18.2.0:
-    dependencies:
-      loose-envify: 1.4.0
 
   react@18.3.1:
     dependencies:
