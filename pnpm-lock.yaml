@@ -199,7 +199,7 @@ importers:
       react-email:
         specifier: workspace:*
         version: link:../../packages/react-email
-      react-email-canary:
+      react-email-2.1.7-canary.2:
         specifier: npm:react-email@2.1.7-canary.2
         version: react-email@2.1.7-canary.2(@swc/helpers@0.5.15)(eslint@8.50.0)
       tinybench:
