@@ -6,9 +6,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
     ".": {
       "import": {
@@ -28,11 +26,7 @@
     "test:watch": "vitest",
     "test": "vitest run"
   },
-  "keywords": [
-    "react",
-    "email",
-    "markdown"
-  ],
+  "keywords": ["react", "email", "markdown"],
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
