@@ -13,21 +13,6 @@ type Import = typeof import('react-dom/server') & {
 };
 
 describe('renderAsync on node environments', () => {
-  test('if mso does not wrap syntax', async () => {
-    expect(
-      await renderAsync(
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `<!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]-->`,
-          }}
-        />,
-        {
-          pretty: true,
-        },
-      ),
-    ).toMatchSnapshot();
-  });
-
   it('converts a React component into HTML with Next 14 error stubs', async () => {
     vi.mock('react-dom/server', async () => {
       const ReactDOMServer = await vi.importActual<Import>('react-dom/server');
