@@ -1,5 +1,12 @@
 # react-email
 
+## 3.0.7-canary.0
+
+### Patch Changes
+
+- 98b434c: Fixes active state for root email templats on file tree
+- 1c5c986: Respect user's NODE_ENV when previewing templates
+
 ## 3.0.6
 
 ### Patch Changes

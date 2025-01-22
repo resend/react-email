@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-sendgrid",
-  "version": "1.0.7",
+  "version": "1.0.8-canary.0",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "7.7.0",
-    "@react-email/components": "workspace:0.0.32",
+    "@react-email/components": "workspace:0.0.33-canary.0",
     "react": "^19",
     "react-dom": "^19"
   },

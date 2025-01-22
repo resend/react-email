@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.0.5-canary.0
+
+### Patch Changes
+
+- ed2fa33: Fix pretty option breaking button components
+
 ## 1.0.4
 
 ### Patch Changes
