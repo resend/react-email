@@ -1,12 +1,14 @@
 {
   "name": "react-email-with-aws-ses",
-  "version": "1.0.7",
+  "version": "1.0.8-canary.0",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "main": "./dist/index.js",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "tsup-node src/index.tsx --format esm --target node20",
     "dev": "tsup-node src/index.tsx --format esm --target node20 --watch",
@@ -14,7 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "3.341.0",
-    "@react-email/components": "workspace:0.0.32",
+    "@react-email/components": "workspace:0.0.33-canary.0",
     "react": "^19",
     "react-dom": "^19"
   },

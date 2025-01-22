@@ -6,7 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -32,7 +34,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/preview"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },

@@ -1,12 +1,14 @@
 {
   "name": "@react-email/render",
-  "version": "1.0.4",
+  "version": "1.0.5-canary.0",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
   "module": "./dist/browser/index.mjs",
   "types": "./dist/browser/index.d.ts",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "exports": {
     ".": {
       "node": {
@@ -74,7 +76,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/render"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
