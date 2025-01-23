@@ -24,7 +24,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html className={inter.className} lang="en">
-      <body className="relative flex h-screen flex-col overflow-x-hidden bg-black leading-loose text-slate-11 selection:bg-cyan-5 selection:text-cyan-12">
+      <body className="relative flex h-screen flex-col overflow-x-hidden bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
         <EmailsProvider
           initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
         >

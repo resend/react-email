@@ -210,7 +210,7 @@ export const Sidebar = ({
     >
       <aside
         className={cn(
-          'grid h-screen grid-cols-[3.375rem,1fr] overflow-hidden bg-black',
+          'fixed top-[4.375rem] left-0 z-[9999] grid h-full max-h-[calc(100dvh-4.375rem)] w-screen max-w-full grid-cols-[3.375rem,1fr] overflow-hidden bg-black will-change-auto lg:top-0 lg:z-auto lg:max-h-screen lg:max-w-[20rem]',
           className,
         )}
         style={style}

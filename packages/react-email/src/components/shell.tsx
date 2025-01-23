@@ -60,13 +60,10 @@ export const Shell = ({
       </div>
       <React.Suspense>
         <Sidebar
-          className={cn(
-            'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full min-h-screen w-screen max-w-full will-change-auto lg:top-0 lg:z-auto lg:h-auto lg:max-w-[20rem]',
-            {
-              'lg:-translate-x-full translate-x-0': sidebarToggled,
-              '-translate-x-full lg:translate-x-0': !sidebarToggled,
-            },
-          )}
+          className={cn({
+            'lg:-translate-x-full translate-x-0': sidebarToggled,
+            '-translate-x-full lg:translate-x-0': !sidebarToggled,
+          })}
           currentEmailOpenSlug={currentEmailOpenSlug}
           markup={markup}
           style={{
@@ -76,7 +73,7 @@ export const Shell = ({
       </React.Suspense>
       <main
         className={cn(
-          'relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width md:absolute md:right-0',
+          'relative mt-[4.375rem] h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width md:absolute md:right-0 lg:mt-0',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
             'lg:w-[calc(100vw-20rem)] lg:translate-x-0': !sidebarToggled,
