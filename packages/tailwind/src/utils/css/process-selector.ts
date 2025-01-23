@@ -1,6 +1,6 @@
-import selectorParser from "postcss-selector-parser";
-import type { Rule } from "postcss";
-import { sanitizeClassName } from "../compatibility/sanitize-class-name";
+import type { Rule } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
+import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 
 /**
  * Helper function to process selectors and sanitize class names.
