@@ -249,11 +249,11 @@ export const Sidebar = ({
           </TabTrigger>
           <div className="mt-auto flex flex-col">
             <NavigationButton
+              className="flex items-center justify-center"
               href="https://react.email/docs"
-              tooltip="Help & Documentation"
               onMouseEnter={helpAnimation.onMouseEnter}
               onMouseLeave={helpAnimation.onMouseLeave}
-              className="flex items-center justify-center"
+              tooltip="Documentation"
             >
               <Lottie
                 animationData={animatedHelpIcon as object}
@@ -267,6 +267,7 @@ export const Sidebar = ({
               className="flex items-center justify-center"
               href="https://react.email"
               side="right"
+              tooltip="Website"
             >
               <div className="flex h-7 w-7 items-center justify-center">
                 <ReactIcon />
