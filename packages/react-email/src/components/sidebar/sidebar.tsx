@@ -163,7 +163,7 @@ const ReactIcon = () => (
     viewBox="0 0 32 32"
     width="32"
     xmlns="http://www.w3.org/2000/svg"
-    className="pointer-events-none duration-300 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:rotate-45"
+    className="pointer-events-none duration-300 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:rotate-90"
   >
     <g clipPath="url(#clip0_27_291)">
       <path
