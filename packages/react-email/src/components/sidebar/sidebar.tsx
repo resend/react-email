@@ -130,7 +130,7 @@ const TabTrigger = ({
             </div>
           </Tabs.Trigger>
         </Tooltip.Trigger>
-        <Tooltip.Content side="bottom">{tooltipText}</Tooltip.Content>
+        <Tooltip.Content side="right">{tooltipText}</Tooltip.Content>
       </Tooltip>
     </Tooltip.Provider>
   );
