@@ -221,7 +221,7 @@ export const Sidebar = ({
             onMouseEnter={mailAnimation.onMouseEnter}
             onMouseLeave={mailAnimation.onMouseLeave}
             tabValue="file-tree"
-            tooltipText="File explorer"
+            tooltipText="File Explorer"
           >
             <Lottie
               animationData={animatedMailIcon as object}

@@ -34,9 +34,9 @@ const childAnimation = {
 };
 
 const statusStyles = {
-  error: 'text-red-400 hover:bg-red-400/10',
+  error: 'text-red-600 hover:bg-red-600/10',
   warning: 'text-yellow-300 hover:bg-yellow-400/10',
-  success: 'text-green-400 hover:bg-green-400/10',
+  success: 'text-green-600 hover:bg-green-600/10',
 };
 
 interface CollapsibleTriggerProps {
@@ -57,7 +57,7 @@ const CollapsibleTrigger = ({
       className={clsx(
         'group flex w-full items-center gap-1 rounded p-2 transition-colors duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
         statusStyles[variant],
-        disabled && 'cursor-not-allowed opacity-60',
+        disabled && 'cursor-not-allowed opacity-70',
       )}
       disabled={disabled}
     >
