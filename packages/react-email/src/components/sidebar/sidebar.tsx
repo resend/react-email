@@ -253,6 +253,7 @@ export const Sidebar = ({
               href="https://react.email/docs"
               onMouseEnter={helpAnimation.onMouseEnter}
               onMouseLeave={helpAnimation.onMouseLeave}
+              side="right"
               tooltip="Documentation"
             >
               <Lottie
