@@ -43,23 +43,23 @@ interface CollapsibleTriggerProps {
   count: number;
   label: string;
   variant: 'error' | 'warning' | 'success';
+  disabled?: boolean;
 }
 
 const CollapsibleTrigger = ({
   count,
   label,
   variant,
+  disabled,
 }: CollapsibleTriggerProps) => {
-  const isDisabled = count === 0;
-
   return (
     <Collapsible.Trigger
       className={clsx(
         'group flex w-full items-center gap-1 rounded p-2 transition-colors duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
         statusStyles[variant],
-        isDisabled && 'cursor-not-allowed opacity-60',
+        disabled && 'cursor-not-allowed opacity-60',
       )}
-      disabled={isDisabled}
+      disabled={disabled}
     >
       <span
         className={clsx(
@@ -94,30 +94,37 @@ interface ResultSectionProps {
   status: ResultStatus;
   label: string;
   results: LinkCheckingResult[];
-
-  defaultOpen?: boolean;
+  open: boolean;
 }
 
 const ResultSection = ({
   status,
   label,
   results,
+  open,
+}: ResultSectionProps) => {
+  const isEmpty = results.length === 0;
 
-  defaultOpen,
-}: ResultSectionProps) => (
-  <Collapsible.Root className="group" defaultOpen={defaultOpen}>
-    <CollapsibleTrigger count={results.length} label={label} variant={status} />
-    {results.length > 0 && (
-      <Collapsible.Content>
-        <ol className="mt-2 mb-1 flex list-none flex-col gap-4">
-          {results.map((result, index) => (
-            <LinkResultView key={index} {...result} />
-          ))}
-        </ol>
-      </Collapsible.Content>
-    )}
-  </Collapsible.Root>
-);
+  return (
+    <Collapsible.Root className="group" defaultOpen={open && !isEmpty}>
+      <CollapsibleTrigger
+        count={results.length}
+        label={label}
+        variant={status}
+        disabled={isEmpty}
+      />
+      {!isEmpty && (
+        <Collapsible.Content>
+          <ol className="mt-2 mb-1 flex list-none flex-col gap-4">
+            {results.map((result, index) => (
+              <LinkResultView key={index} {...result} />
+            ))}
+          </ol>
+        </Collapsible.Content>
+      )}
+    </Collapsible.Root>
+  );
+};
 
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
@@ -127,6 +134,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
     LinkCheckingResult[] | undefined
   >(cachedResults ? JSON.parse(cachedResults) : undefined);
   const [loading, setLoading] = React.useState(false);
+  const [sectionsOpen, setSectionsOpen] = React.useState(false);
 
   const errorResults = React.useMemo(
     () => results?.filter((result) => result.status === 'error') || [],
@@ -146,6 +154,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
     checkLinks(emailMarkup)
       .then((newResults) => {
         setResults(newResults);
+        setSectionsOpen(true);
         localStorage.setItem(cacheKey, JSON.stringify(newResults));
       })
       .catch(console.error)
@@ -159,20 +168,22 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
       {results ? (
         <>
           <ResultSection
-            defaultOpen
             label="Errors"
             results={errorResults}
             status="error"
+            open={sectionsOpen}
           />
           <ResultSection
             label="Warnings"
             results={warningResults}
             status="warning"
+            open={sectionsOpen}
           />
           <ResultSection
             label="Success"
             results={successResults}
             status="success"
+            open={sectionsOpen}
           />
           <Button
             className="mt-2 transition-all disabled:border-transparent disabled:bg-slate-11"
