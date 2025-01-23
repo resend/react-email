@@ -73,7 +73,7 @@ export const Shell = ({
       </React.Suspense>
       <main
         className={cn(
-          'relative mt-[4.375rem] h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width md:absolute md:right-0 lg:mt-0',
+          'relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width sm:mt-[4.375rem] md:absolute md:right-0 lg:mt-0',
           {
             'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
             'lg:w-[calc(100vw-20rem)] lg:translate-x-0': !sidebarToggled,

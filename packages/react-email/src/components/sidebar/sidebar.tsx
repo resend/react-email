@@ -271,45 +271,47 @@ export const Sidebar = ({
             </NavigationButton>
           </div>
         </Tabs.List>
-        <div className="flex flex-col border-slate-6 border-r">
-          {activePanelValue === 'link-checker' && (
-            <Panel
-              title="Link Checker"
-              active={activePanelValue === 'link-checker'}
-            >
-              {currentEmailOpenSlug && emailMarkup ? (
-                <LinkChecker
-                  emailMarkup={emailMarkup}
-                  emailSlug={currentEmailOpenSlug}
-                />
-              ) : (
-                <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
-                  <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
-                    <span className="mx-2.5 mt-2">
-                      To use the Link Checker, you need to select a template.
-                    </span>
-                    <Button
-                      className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
-                      onClick={() => setActivePanelValue('file-tree')}
-                    >
-                      Select a template
-                    </Button>
+        <div className="flex overflow-y-auto overflow-x-hidden">
+          <div className="flex w-full flex-col border-slate-6 border-r">
+            {activePanelValue === 'link-checker' && (
+              <Panel
+                title="Link Checker"
+                active={activePanelValue === 'link-checker'}
+              >
+                {currentEmailOpenSlug && emailMarkup ? (
+                  <LinkChecker
+                    emailMarkup={emailMarkup}
+                    emailSlug={currentEmailOpenSlug}
+                  />
+                ) : (
+                  <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
+                    <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
+                      <span className="mx-2.5 mt-2">
+                        To use the Link Checker, you need to select a template.
+                      </span>
+                      <Button
+                        className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
+                        onClick={() => setActivePanelValue('file-tree')}
+                      >
+                        Select a template
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              )}
-            </Panel>
-          )}
-          {activePanelValue === 'file-tree' && (
-            <Panel
-              title="File Explorer"
-              active={activePanelValue === 'file-tree'}
-            >
-              <FileTree
-                currentEmailOpenSlug={currentEmailOpenSlug}
-                emailsDirectoryMetadata={emailsDirectoryMetadata}
-              />
-            </Panel>
-          )}
+                )}
+              </Panel>
+            )}
+            {activePanelValue === 'file-tree' && (
+              <Panel
+                title="File Explorer"
+                active={activePanelValue === 'file-tree'}
+              >
+                <FileTree
+                  currentEmailOpenSlug={currentEmailOpenSlug}
+                  emailsDirectoryMetadata={emailsDirectoryMetadata}
+                />
+              </Panel>
+            )}
+          </div>
         </div>
       </aside>
     </Tabs.Root>
