@@ -119,12 +119,7 @@ const TabTrigger = ({
             )}
             <div
               aria-hidden
-              className={clsx(
-                'pointer-events-none absolute inset-0 flex items-center justify-center pl-1 transition-opacity duration-150 ease-in',
-                {
-                  'opacity-30 group-hover:opacity-60': !isActive,
-                },
-              )}
+              className="pointer-events-none absolute inset-0 flex items-center justify-center pl-1 transition-opacity duration-150 ease-in"
             >
               {children}
             </div>
