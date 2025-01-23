@@ -1,6 +1,5 @@
-import type { AtRule, Root } from 'postcss';
-import selectorParser from 'postcss-selector-parser';
-import { sanitizeClassName } from '../../compatibility/sanitize-class-name';
+import type { AtRule, Root } from "postcss";
+import { processSelector } from "../process-selector";
 
 /**
  * This function goes through a few steps to ensure the best email client support and
@@ -21,23 +20,12 @@ export const sanitizeMediaQueries = (root: Root) => {
     const sanitizedAtRule = atRule.clone();
 
     sanitizedAtRule.walkRules((rule) => {
-      let hasPseudoSelector = false as boolean;
-      rule.selector = selectorParser((selectorRoot) => {
-        selectorRoot.walkPseudos(() => {
-          hasPseudoSelector = true;
-        });
-        if (!hasPseudoSelector) {
-          selectorRoot.walkClasses((singleClass) => {
-            mediaQueryClasses.push(singleClass.value);
-            singleClass.replaceWith(
-              selectorParser.className({
-                ...singleClass,
-                value: sanitizeClassName(singleClass.value),
-              }),
-            );
-          });
-        }
-      }).processSync(rule.selector);
+      const { processedSelector, hasPseudoSelector } = processSelector(
+        rule,
+        false,
+        mediaQueryClasses,
+      );
+      rule.selector = processedSelector;
 
       if (!hasPseudoSelector) {
         rule.walkDecls((declaration) => {
