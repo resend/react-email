@@ -1,6 +1,5 @@
-import selectorParser from "postcss-selector-parser";
 import type { Root, Rule, AtRule } from "postcss";
-import { sanitizeClassName } from "../../compatibility/sanitize-class-name";
+import { processSelector } from "../process-selector";
 
 interface PseudoClassResult {
   pseudoClassClasses: string[];
@@ -21,38 +20,16 @@ export const sanitizePseudoClasses = (root: Root): PseudoClassResult => {
   const pseudoClassClasses: string[] = [];
 
   const processRule = (rule: Rule): Rule | null => {
-    let hasPseudoSelector = false as boolean;
-
-    // Parse the selector to check for pseudo-classes
-    const processedSelector = selectorParser((selectorRoot) => {
-      selectorRoot.walkPseudos(() => {
-        hasPseudoSelector = true;
-      });
-
-      if (hasPseudoSelector) {
-        // Store the original class name before sanitization
-        selectorRoot.walkClasses((singleClass) => {
-          const originalClass = singleClass.value;
-          if (!pseudoClassClasses.includes(originalClass)) {
-            pseudoClassClasses.push(originalClass);
-          }
-
-          // Sanitize the class name
-          singleClass.replaceWith(
-            selectorParser.className({
-              ...singleClass,
-              value: sanitizeClassName(singleClass.value),
-            }),
-          );
-        });
-      }
-    }).processSync(rule.selector);
+    const { processedSelector, hasPseudoSelector } = processSelector(
+      rule,
+      true,
+      pseudoClassClasses,
+    );
 
     if (hasPseudoSelector) {
       const newRule = rule.clone();
       newRule.selector = processedSelector;
 
-      // Make all declarations !important
       newRule.walkDecls((declaration) => {
         declaration.important = true;
       });
