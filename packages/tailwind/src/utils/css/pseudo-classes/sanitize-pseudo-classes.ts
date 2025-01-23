@@ -1,5 +1,5 @@
-import type { Root, Rule, AtRule } from "postcss";
-import { processSelector } from "../process-selector";
+import type { AtRule, Root, Rule } from 'postcss';
+import { processSelector } from '../process-selector';
 
 interface PseudoClassResult {
   pseudoClassClasses: string[];
@@ -60,7 +60,7 @@ export const sanitizePseudoClasses = (root: Root): PseudoClassResult => {
 
   // Process top-level rules
   root.walkRules((rule) => {
-    if (!rule.parent?.type || rule.parent.type === "root") {
+    if (!rule.parent?.type || rule.parent.type === 'root') {
       const processedRule = processRule(rule);
       if (processedRule) {
         sanitizedPseudoClassRules.push(processedRule);

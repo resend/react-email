@@ -1,7 +1,7 @@
-import postcss, { Root } from "postcss";
-import { sanitizePseudoClasses } from "./sanitize-pseudo-classes";
+import postcss, { Root } from 'postcss';
+import { sanitizePseudoClasses } from './sanitize-pseudo-classes';
 
-test("sanitizePseudoClasses()", async () => {
+test('sanitizePseudoClasses()', async () => {
   const { root } = await postcss()
     .process(
       `
@@ -43,11 +43,11 @@ test("sanitizePseudoClasses()", async () => {
     sanitizePseudoClasses(root as Root);
 
   expect(pseudoClassClasses).toEqual([
-    "hover:text-gray-100",
-    "hover:underline",
-    "hover:text-sky-600",
-    "focus:outline-none",
-    "hover:bg-gray-100",
+    'hover:text-gray-100',
+    'hover:underline',
+    'hover:text-sky-600',
+    'focus:outline-none',
+    'hover:bg-gray-100',
   ]);
 
   expect(new Root({ nodes: sanitizedPseudoClassRules }).toString()).toBe(`

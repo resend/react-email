@@ -1,5 +1,5 @@
-import type { AtRule, Root } from "postcss";
-import { processSelector } from "../process-selector";
+import type { AtRule, Root } from 'postcss';
+import { processSelector } from '../process-selector';
 
 /**
  * This function goes through a few steps to ensure the best email client support and
