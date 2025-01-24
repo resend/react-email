@@ -338,7 +338,7 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Non-inlinable styles', () => {
+describe('non-inlinable styles', () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
