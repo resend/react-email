@@ -42,6 +42,8 @@ pnpm add @react-email/tailwind -E
 
 ## Getting started
 
+<Info>The current `tailwindcss` version used for this component is `3.4.10`</Info>
+
 Add the component around your email body content.
 
 ```jsx
@@ -75,7 +77,7 @@ const Email = () => {
 
 <ResponseField name="config" type="object">
   Customize the default theme for your project with the available properties in
-  [Tailwind docs](https://tailwindcss.com/docs/theme).
+  [Tailwind docs](https://v3.tailwindcss.com/docs/theme).
 </ResponseField>
 
 <Info>
@@ -188,7 +190,7 @@ and look these up later on the elements, and since `prose`, by using more compli
 cannot be directly inlined without matching the selectors to the elements, it isn't able to
 match the selectors appropriately.
 
-This also means some other utilities do not work either, like the [`space-*` utility](https://tailwindcss.com/docs/space).
+This also means some other utilities do not work either, like the [`space-*` utility](https://v3.tailwindcss.com/docs/space).
 
 The only exception for this inlining of styles is with media queries, as they are not inlinable. We do not
 do the same for `hover:` styles though, but since [their support is not best](https://www.caniemail.com/features/css-pseudo-class-hover/), you probably won't need it.
