@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 0.1.9-alpha.0
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.0
+
 ## 0.1.8
 
 ### Patch Changes
