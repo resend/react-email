@@ -60,7 +60,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
-          <pre className="p-4 h-[650px] overflow-auto">
+          <pre className="h-[650px] overflow-auto p-4">
             {tokens.map((line, i) => {
               const lineProps = getLineProps({
                 line,
@@ -68,12 +68,12 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
               });
               return (
                 <div
-                  key={i}
                   {...lineProps}
                   className={cn('whitespace-pre', {
-                    "before:text-slate-11 before:mr-2 before:content-['$']":
+                    "before:mr-2 before:text-slate-11 before:content-['$']":
                       language === 'bash' && tokens.length === 1,
                   })}
+                  key={i}
                 >
                   {line.map((token, key) => {
                     const tokenProps = getTokenProps({
@@ -99,7 +99,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             })}
           </pre>
           <div
-            className="absolute left-0 bottom-0 h-px w-[200px]"
+            className="absolute bottom-0 left-0 h-px w-[200px]"
             style={{
               background:
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
