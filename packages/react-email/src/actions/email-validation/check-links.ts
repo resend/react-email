@@ -24,9 +24,7 @@ export interface LinkCheckingResult {
   checks: Check[];
 }
 
-export const checkLinks = async (
-  code: string
-) => {
+export const checkLinks = async (code: string) => {
   const ast = parse(code);
 
   const linkCheckingResults: LinkCheckingResult[] = [];
@@ -58,10 +56,9 @@ export const checkLinks = async (
         },
       });
       if (hasntSucceeded) {
-        result.status =
-          res.statusCode?.toString().startsWith('3')
-            ? 'warning'
-            : 'error';
+        result.status = res.statusCode?.toString().startsWith('3')
+          ? 'warning'
+          : 'error';
       }
 
       if (link.startsWith('https://')) {
