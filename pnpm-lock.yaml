@@ -694,7 +694,7 @@ importers:
         specifier: 19.0.1
         version: 19.0.1
       react-email:
-        specifier: workspace:3.0.7
+        specifier: workspace:4.0.0-alpha.0
         version: link:../../react-email
 
   packages/font:
