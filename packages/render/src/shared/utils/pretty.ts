@@ -3,7 +3,7 @@ import type { builders } from 'prettier/doc';
 import html from 'prettier/plugins/html';
 import { format } from 'prettier/standalone';
 
-interface HTMLNode {
+interface HtmlNode {
   type: 'element' | 'text' | 'ieConditionalComment';
   name?: string;
   sourceSpan: {
@@ -11,7 +11,7 @@ interface HTMLNode {
     end: { file: unknown[]; offset: number; line: number; col: number };
     details: null;
   };
-  parent?: HTMLNode;
+  parent?: HtmlNode;
 }
 
 function recursivelyMapDoc(
@@ -65,7 +65,7 @@ if (modifiedHtml.printers) {
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const previousPrint = modifiedHtml.printers.html.print;
   modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = path.getNode() as HTMLNode;
+    const node = path.getNode() as HtmlNode;
 
     const rawPrintingResult = previousPrint(path, options, print, args);
 
