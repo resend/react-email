@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.0
+
+### Major Changes
+
+- f7d352e: Added toolbar with a link checker
+
 ## 3.0.7
 
 ### Patch Changes
