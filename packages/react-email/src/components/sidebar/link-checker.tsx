@@ -1,15 +1,15 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import * as React from 'react';
 import {
-  checkLinks,
   type LinkCheckingResult,
+  checkLinks,
 } from '../../actions/email-validation/check-links';
-import { Button } from '../button';
-import Lottie from 'lottie-react';
 import animatedLoadIcon from '../../animated-icons-data/load.json';
 import { cn } from '../../utils';
+import { Button } from '../button';
 
 const containerAnimation = {
   hidden: { opacity: 0, y: 10 },

@@ -1,23 +1,23 @@
 'use client';
 
-import type * as React from 'react';
+import * as Tabs from '@radix-ui/react-tabs';
+import { clsx } from 'clsx';
+import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import * as Tabs from '@radix-ui/react-tabs';
-import { motion } from 'framer-motion';
-import { clsx } from 'clsx';
-import Lottie from 'lottie-react';
+import type * as React from 'react';
+import animatedHelpIcon from '../../animated-icons-data/help.json';
+import animatedLinkIcon from '../../animated-icons-data/link.json';
+import animatedMailIcon from '../../animated-icons-data/mail.json';
 import { useEmails } from '../../contexts/emails';
 import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
+import { Button } from '../button';
 import { Heading } from '../heading';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
 import { LinkChecker } from './link-checker';
-import animatedMailIcon from '../../animated-icons-data/mail.json';
-import animatedLinkIcon from '../../animated-icons-data/link.json';
-import animatedHelpIcon from '../../animated-icons-data/help.json';
-import { Button } from '../button';
 
 type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
 
