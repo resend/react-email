@@ -3,7 +3,7 @@ import * as React from 'react';
 import { inter } from '../app/inter';
 import { cn } from '../utils';
 
-type ContentElement = React.ElementRef<typeof TooltipPrimitive.Content>;
+type ContentElement = React.ComponentRef<typeof TooltipPrimitive.Content>;
 type ContentProps = React.ComponentPropsWithoutRef<
   typeof TooltipPrimitive.Content
 >;
@@ -18,7 +18,7 @@ export const TooltipContent = React.forwardRef<
     <TooltipPrimitive.Content
       {...props}
       className={cn(
-        'bg-black text-white border border-slate-6 z-20 px-3 py-2 rounded-md text-xs',
+        'z-20 rounded-md border border-slate-6 bg-black px-3 py-2 text-white text-xs',
         `${inter.variable} font-sans`,
       )}
       ref={forwardedRef}

@@ -80,6 +80,7 @@ export async function generateMetadata({
   params: Promise<PreviewParams>;
 }) {
   const { slug } = await params;
+
   return { title: `${path.basename(slug.join('/'))} — React Email` };
 }
 
