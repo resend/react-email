@@ -70,12 +70,12 @@ exports[`pretty > should prettify Preview component's complex characters correct
                       style="line-height:100%;text-decoration:none;display:block;max-width:100%;mso-padding-alt:0px;background-color:#656ee8;border-radius:5px;color:#fff;font-size:16px;font-weight:bold;text-align:center;width:100%;padding:10px 10px 10px 10px"
                       target="_blank"
                       ><span
-                        <!--[if mso]><i style="mso-font-width:500%;mso-text-raise:15" hidden>&#8202;</i><![endif]-->
+                        ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:15" hidden>&#8202;</i><![endif]--></span
                       ><span
                         style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:7.5px"
                         >View your Stripe Dashboard</span
                       ><span
-                        <!--[if mso]><i style="mso-font-width:500%" hidden>&#8202;&#8203;</i><![endif]-->
+                        ><!--[if mso]><i style="mso-font-width:500%" hidden>&#8202;&#8203;</i><![endif]--></span
                       ></a
                     >
                     <hr
