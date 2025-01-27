@@ -1,14 +1,11 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import Lottie from 'lottie-react';
 import * as React from 'react';
 import {
   type LinkCheckingResult,
   checkLinks,
 } from '../../actions/email-validation/check-links';
-import animatedLoadIcon from '../../animated-icons-data/load.json';
-import { cn } from '../../utils';
 import { Button } from '../button';
 
 const containerAnimation = {
@@ -127,46 +124,6 @@ const ResultSection = ({
   );
 };
 
-const LoadingButton = ({
-  loading,
-  onClick,
-  loadAnimation,
-  animatedLoadIcon,
-  children,
-}: any) => {
-  React.useEffect(() => {
-    if (loading) {
-      loadAnimation.current?.play();
-    }
-  }, [loading, loadAnimation]);
-
-  return (
-    <Button
-      className="mt-2 mb-4 min-w-[5rem] transition-all disabled:border-transparent disabled:bg-slate-11"
-      disabled={loading}
-      onClick={onClick}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <span
-          className={cn(
-            '-ml-7 opacity-0 transition-opacity duration-200',
-            loading && 'opacity-100',
-          )}
-        >
-          <Lottie
-            animationData={animatedLoadIcon}
-            autoPlay={false}
-            className="h-5 w-5"
-            loop={true}
-            lottieRef={loadAnimation}
-          />
-        </span>
-        <span>{children}</span>
-      </div>
-    </Button>
-  );
-};
-
 const LinkResultView = (props: LinkCheckingResult) => (
   <AnimatePresence mode="wait">
     <motion.li
@@ -215,14 +172,20 @@ const LinkResultView = (props: LinkCheckingResult) => (
 
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
-  const cachedResults =
-    'localStorage' in window ? window.localStorage.getItem(cacheKey) : null;
 
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
-  >(cachedResults ? JSON.parse(cachedResults) : undefined);
+  >();
+
+  React.useEffect(() => {
+    const cachedValue =
+      'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
+    if (cachedValue) {
+      setResults(JSON.parse(cachedValue));
+    }
+  }, [cacheKey]);
+
   const [sectionsOpen, setSectionsOpen] = React.useState(false);
-  const loadAnimation = React.useRef(null);
   const [loading, setLoading] = React.useState(false);
 
   const errorResults = React.useMemo(
@@ -278,14 +241,9 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
           Check if all links are valid and redirect to the correct pages.
         </span>
       )}
-      <LoadingButton
-        loading={loading}
-        onClick={handleRun}
-        loadAnimation={loadAnimation}
-        animatedLoadIcon={animatedLoadIcon}
-      >
+      <Button loading={loading} onClick={handleRun}>
         {results ? 'Re-run' : 'Run'}
-      </LoadingButton>
+      </Button>
     </div>
   );
 };
