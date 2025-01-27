@@ -9,12 +9,12 @@ describe('pretty', () => {
       'utf8',
     );
 
-    expect(pretty(stripeHTML)).toMatchSnapshot();
+    expect(await pretty(stripeHTML)).toMatchSnapshot();
   });
 
-  test('if mso syntax does not wrap', () => {
+  test('if mso syntax does not wrap', async () => {
     expect(
-      pretty(
+      await pretty(
         `<!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]-->`,
       ),
     ).toMatchSnapshot();
