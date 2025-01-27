@@ -215,7 +215,8 @@ const LinkResultView = (props: LinkCheckingResult) => (
 
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
-  const cachedResults = localStorage.getItem(cacheKey);
+  const cachedResults =
+    'localStorage' in window ? window.localStorage.getItem(cacheKey) : null;
 
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
