@@ -16,6 +16,14 @@
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "react-email-with-resend#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "react-email-with-next-scaleway#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "demo#build": {
       "dependsOn": ["^build"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
