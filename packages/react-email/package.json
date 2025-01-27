@@ -23,8 +23,8 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
+    "@babel/traverse": "7.25.6",
     "chalk": "4.1.2",
     "chokidar": "4.0.3",
     "commander": "11.1.0",
@@ -38,16 +38,22 @@
     "ora": "5.4.1",
     "socket.io": "4.8.0"
   },
+  "overrides": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
   "devDependencies": {
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
     "@radix-ui/react-popover": "1.1.1",
     "@radix-ui/react-slot": "1.1.0",
+    "@radix-ui/react-tabs": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@react-email/render": "workspace:*",
     "@swc/core": "1.4.15",
     "@types/babel__core": "7.20.5",
+    "@types/babel__traverse": "*",
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
@@ -59,7 +65,10 @@
     "autoprefixer": "10.4.20",
     "clsx": "2.1.0",
     "framer-motion": "12.0.0-alpha.2",
+    "lottie-react": "^2.4.0",
+    "node-html-parser": "6.1.13",
     "postcss": "8.4.40",
+    "prettier-plugin-tailwindcss": "0.6.6",
     "prism-react-renderer": "2.1.0",
     "react": "^19",
     "react-dom": "^19",
