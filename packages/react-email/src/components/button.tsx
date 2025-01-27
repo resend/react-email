@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cn } from '../utils/cn';
 import { unreachable } from '../utils/unreachable';
 
-type ButtonElement = React.ElementRef<'button'>;
+type ButtonElement = React.ComponentRef<'button'>;
 type RootProps = React.ComponentPropsWithoutRef<'button'>;
 
 type Appearance = 'white' | 'gradient';
@@ -58,15 +58,15 @@ const getAppearance = (appearance: Appearance | undefined) => {
     case undefined:
     case 'white':
       return [
-        'bg-white text-black',
+        'border-white bg-white text-black transition-colors duration-200 ease-in-out',
         'hover:bg-white/90',
-        'focus:ring-2 focus:ring-white/20 focus:outline-none focus:bg-white/90',
+        'focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20',
       ];
     case 'gradient':
       return [
-        'bg-gradient backdrop-blur-[20px] border-[#34343A]',
+        'bg-gradient border-[#34343A] backdrop-blur-[1.25rem]',
         'hover:bg-gradientHover',
-        'focus:ring-2 focus:ring-white/20 focus:outline-none focus:bg-gradientHover',
+        'focus:bg-gradientHover focus:outline-none focus:ring-2 focus:ring-white/20',
       ];
     default:
       unreachable(appearance);
@@ -79,9 +79,9 @@ const getSize = (size: Size | undefined) => {
       return '';
     case undefined:
     case '2':
-      return 'text-[14px] h-8 px-3 rounded-md gap-2';
+      return 'text-[.875rem] h-8 px-3 rounded-md gap-2';
     case '3':
-      return 'text-[14px] h-10 px-4 rounded-md gap-2';
+      return 'text-[.875rem] h-10 px-4 rounded-md gap-2';
     case '4':
       return 'text-base h-11 px-4 rounded-md gap-2';
     default:
