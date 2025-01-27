@@ -1,6 +1,6 @@
 import type { Options, Plugin } from 'prettier';
-import html from 'prettier/plugins/html';
 import type { builders } from 'prettier/doc';
+import html from 'prettier/plugins/html';
 import { format } from 'prettier/standalone';
 
 interface HTMLNode {
