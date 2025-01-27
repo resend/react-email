@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "3.0.7",
+  "version": "4.0.0-alpha.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.js"
@@ -18,7 +18,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/react-email"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },

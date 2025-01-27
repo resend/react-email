@@ -1,5 +1,5 @@
 ---
-"react-email": minor
+"react-email": major
 ---
 
 Added toolbar with a link checker
