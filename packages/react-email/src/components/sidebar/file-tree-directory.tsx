@@ -7,7 +7,7 @@ import { Heading } from '../heading';
 import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
-import { SidebarDirectoryChildren } from './sidebar-directory-children';
+import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface SidebarDirectoryProps {
   emailsDirectoryMetadata: EmailsDirectory;
@@ -17,7 +17,7 @@ interface SidebarDirectoryProps {
 
 const persistedOpenDirectories = new Set<string>();
 
-export const SidebarDirectory = ({
+export const FileTreeDirectory = ({
   emailsDirectoryMetadata: directoryMetadata,
   className,
   currentEmailOpenSlug,
@@ -51,21 +51,21 @@ export const SidebarDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'text-[14px] flex items-center font-medium gap-2 justify-between w-full my-1',
+          'mt-1 mb-1.5 flex w-full items-center justify-between gap-2 font-medium text-[14px]',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center text-slate-11 transition ease-in-out duration-200 hover:text-slate-12 gap-1">
+        <div className="flex items-center gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
           {open ? (
-            <IconFolderOpen height="24" width="24" />
+            <IconFolderOpen height="20" width="20" />
           ) : (
-            <IconFolder height="24" width="24" />
+            <IconFolder height="20" width="20" />
           )}
           <Heading
             as="h3"
-            className="transition ease-in-out duration-200 hover:text-slate-12"
+            className="transition duration-200 ease-in-out hover:text-slate-12"
             color="gray"
             size="2"
             weight="medium"
@@ -75,14 +75,13 @@ export const SidebarDirectory = ({
         </div>
         {!isEmpty ? (
           <IconArrowDown
-            className="data-[open=true]:rotate-180 transition-transform opacity-60 justify-self-end"
+            className="justify-self-end opacity-60 transition-transform data-[open=true]:rotate-180"
             data-open={open}
           />
         ) : null}
       </Collapsible.Trigger>
-
       {!isEmpty ? (
-        <SidebarDirectoryChildren
+        <FileTreeDirectoryChildren
           currentEmailOpenSlug={currentEmailOpenSlug}
           emailsDirectoryMetadata={directoryMetadata}
           open={open}
