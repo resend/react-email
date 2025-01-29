@@ -38,7 +38,7 @@ const ImageCheckerResults = ({
         <Result className="flex gap-2" key={source} status={status}>
           <img
             width="24px"
-            className='my-auto rounded-sm'
+            className="my-auto rounded-sm"
             src={source}
             // biome-ignore lint/a11y/noRedundantAlt: The word image does fit in with the context and thus is not redundant
             alt="image checked"
