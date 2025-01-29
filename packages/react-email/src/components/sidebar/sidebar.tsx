@@ -15,11 +15,11 @@ import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
 import { Button } from '../button';
 import { Heading } from '../heading';
+import { IconImage } from '../icons/icon-image';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
-import { LinkChecker } from './link-checker';
-import { IconImage } from '../icons/icon-image';
 import { ImageChecker } from './image-checker';
+import { LinkChecker } from './link-checker';
 
 type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
 

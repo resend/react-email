@@ -1,11 +1,11 @@
+import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
+import {
+  type ImageCheckingResult,
+  checkImages,
+} from '../../actions/email-validation/check-images';
 import { Button } from '../button';
 import { Result, ResultList, type ResultStatus } from './checking-results';
-import prettyBytes from 'pretty-bytes';
-import {
-  checkImages,
-  type ImageCheckingResult,
-} from '../../actions/email-validation/check-images';
 
 interface ImageCheckerResultsProps {
   label: string;

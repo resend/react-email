@@ -1,7 +1,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
-import { cn } from '../../utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { ComponentProps } from 'react';
+import { cn } from '../../utils';
 
 export type ResultStatus = 'error' | 'warning' | 'success';
 

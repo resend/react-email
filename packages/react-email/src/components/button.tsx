@@ -1,9 +1,9 @@
 'use client';
 import * as SlotPrimitive from '@radix-ui/react-slot';
-import type * as React from 'react';
 import Lottie from 'lottie-react';
-import { cn } from '../utils/cn';
+import type * as React from 'react';
 import animatedLoadIcon from '../animated-icons-data/load.json';
+import { cn } from '../utils/cn';
 import { unreachable } from '../utils/unreachable';
 
 type RootProps = React.ComponentProps<'button'>;
