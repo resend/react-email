@@ -36,11 +36,14 @@ const ImageCheckerResults = ({
     >
       {results.map(({ source, status, checks }) => (
         <Result className="flex gap-2" key={source} status={status}>
-          <div>
-            {/* biome-ignore lint/a11y/noRedundantAlt: The word image does fit in with the context and thus is not redundant */}
-            <img width="24px" src={source} alt="image checked" />
-          </div>
-          <div className="flex flex-grow flex-col">
+          <img
+            width="24px"
+            className='my-auto rounded-sm'
+            src={source}
+            // biome-ignore lint/a11y/noRedundantAlt: The word image does fit in with the context and thus is not redundant
+            alt="image checked"
+          />
+          <div className="flex w-[calc(100%-.5rem-24px)] flex-col">
             <Result.Title>
               <span className="block overflow-hidden truncate text-ellipsis whitespace-nowrap">
                 {source}
