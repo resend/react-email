@@ -73,6 +73,11 @@ export const checkLinks = async (code: string) => {
         });
         result.status = 'warning';
       }
+
+      result.checks.push({
+        passed: true,
+        type: 'syntax',
+      });
     } catch (exception) {
       result.checks.push({
         passed: false,
