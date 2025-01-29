@@ -12,6 +12,7 @@ interface ResizableWarpperProps {
   minHeight: number;
 
   onResize: (difference: number, direction: Direction) => void;
+  onResizeEnd?: () => void;
 
   children: React.ReactNode;
 }
@@ -35,6 +36,7 @@ export const ResizableWarpper = ({
   width,
   height,
   onResize,
+  onResizeEnd,
   children,
 
   maxHeight,
@@ -49,6 +51,7 @@ export const ResizableWarpper = ({
       document.removeEventListener('mousemove', mouseMoveListener);
     }
     document.removeEventListener('mouseup', handleStopResizing);
+    onResizeEnd?.();
   };
 
   const handleStartResizing = (direction: Direction) => {
