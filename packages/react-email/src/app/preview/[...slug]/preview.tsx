@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Toaster } from 'sonner';
+import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
 import {
@@ -15,6 +16,7 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
+import { flushSync } from 'react-dom';
 
 interface PreviewProps {
   slug: string;
@@ -83,12 +85,25 @@ const Preview = ({
   let maxHeight = Number.POSITIVE_INFINITY;
   const minWidth = 350;
   const minHeight = 600;
-  const [width, setWidth] = useClampedState(600, 350, Number.POSITIVE_INFINITY);
+  const storedWidth = searchParams.get('width');
+  const storedHeight = searchParams.get('height');
+  const [width, setWidth] = useClampedState(
+    storedWidth ? Number.parseInt(storedWidth) : 600,
+    350,
+    Number.POSITIVE_INFINITY,
+  );
   const [height, setHeight] = useClampedState(
-    1024,
+    storedHeight ? Number.parseInt(storedHeight) : 1024,
     600,
     Number.POSITIVE_INFINITY,
   );
+
+  const handleSaveViewSize = useDebouncedCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set('width', width.toString());
+    params.set('height', height.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  }, 300);
 
   return (
     <Shell
@@ -97,8 +112,18 @@ const Preview = ({
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
       setActiveView={handleViewChange}
-      setViewHeight={setHeight}
-      setViewWidth={setWidth}
+      setViewHeight={(height) => {
+        setHeight(height);
+        flushSync(() => {
+          handleSaveViewSize();
+        });
+      }}
+      setViewWidth={(width) => {
+        setWidth(width);
+        flushSync(() => {
+          handleSaveViewSize();
+        });
+      }}
       viewHeight={height}
       viewWidth={width}
     >
@@ -125,6 +150,9 @@ const Preview = ({
                 maxHeight={maxHeight}
                 maxWidth={maxWidth}
                 height={height}
+                onResizeEnd={() => {
+                  handleSaveViewSize();
+                }}
                 onResize={(difference, direction) => {
                   switch (direction) {
                     case 'north':
