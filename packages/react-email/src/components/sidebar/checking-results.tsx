@@ -1,6 +1,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { cn } from '../../utils';
 import { AnimatePresence, motion } from 'framer-motion';
+import type { ComponentProps } from 'react';
 
 export type ResultStatus = 'error' | 'warning' | 'success';
 
@@ -75,10 +76,9 @@ export const ResultList = ({
   );
 };
 
-interface ResultProps {
+type ResultProps = {
   status: ResultStatus;
-  children: React.ReactNode;
-}
+} & ComponentProps<typeof motion.li>;
 
 const resultAnimation = {
   hidden: { opacity: 0, y: 10 },
@@ -89,19 +89,25 @@ const resultAnimation = {
   },
 };
 
-export const Result = ({ children, status }: ResultProps) => {
-  return <AnimatePresence mode="wait">
-    <motion.li
-      animate="visible"
-      className="group/item relative w-full rounded-md p-2 pl-4 transition-colors duration-300 ease-out hover:bg-slate-5"
-      data-status={status}
-      initial="hidden"
-      layout
-      variants={resultAnimation}
-    >
-      {children}
-    </motion.li>
-  </AnimatePresence>;
+export const Result = ({ children, status, ...rest }: ResultProps) => {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.li
+        data-status={status}
+        initial="hidden"
+        layout
+        variants={resultAnimation}
+        animate="visible"
+        {...rest}
+        className={cn(
+          'group/item relative w-full rounded-md p-2 pl-4 transition-colors duration-300 ease-out hover:bg-slate-5',
+          rest.className,
+        )}
+      >
+        {children}
+      </motion.li>
+    </AnimatePresence>
+  );
 };
 
 const titleStatusAnimation = {

@@ -19,6 +19,7 @@ import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
 import { LinkChecker } from './link-checker';
 import { IconImage } from '../icons/icon-image';
+import { ImageChecker } from './image-checker';
 
 type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
 
@@ -306,7 +307,10 @@ export const Sidebar = ({
                 active={activePanelValue === 'image-checker'}
               >
                 {currentEmailOpenSlug && emailMarkup ? (
-                  <></>
+                  <ImageChecker
+                    emailMarkup={emailMarkup}
+                    emailSlug={currentEmailOpenSlug}
+                  />
                 ) : (
                   <EmptyState
                     title="Image Checker"
