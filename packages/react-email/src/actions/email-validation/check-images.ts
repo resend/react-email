@@ -71,6 +71,23 @@ export const checkImages = async (code: string) => {
 
     try {
       const url = new URL(source);
+      result.checks.push({
+        passed: true,
+        type: 'syntax',
+      });
+
+      if (source.startsWith('https://')) {
+        result.checks.push({
+          passed: true,
+          type: 'security',
+        });
+      } else {
+        result.checks.push({
+          passed: false,
+          type: 'security',
+        });
+        result.status = 'warning';
+      }
 
       const res = await quickFetch(url);
       const hasSucceeded = res.statusCode?.toString().startsWith('2') ?? false;
@@ -90,24 +107,6 @@ export const checkImages = async (code: string) => {
           ? 'warning'
           : 'error';
       }
-
-      if (source.startsWith('https://')) {
-        result.checks.push({
-          passed: true,
-          type: 'security',
-        });
-      } else {
-        result.checks.push({
-          passed: false,
-          type: 'security',
-        });
-        result.status = 'warning';
-      }
-
-      result.checks.push({
-        passed: true,
-        type: 'syntax',
-      });
     } catch (exception) {
       result.checks.push({
         passed: false,

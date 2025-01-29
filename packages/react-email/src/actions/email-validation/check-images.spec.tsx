@@ -1,9 +1,16 @@
+import { render } from '@react-email/render';
+import * as React from 'react';
 import { type ImageCheckingResult, checkImages } from './check-images';
 
 test('checkImages()', async () => {
   expect(
     await checkImages(
-      `<img src="https://resend.com/static/brand/resend-icon-white.png" />`,
+      await render(
+        <div>
+          {/* biome-ignore lint/a11y/useAltText: This is intentional to test the checking for accessibility */}
+          <img src="https://resend.com/static/brand/resend-icon-white.png" />,
+        </div>,
+      ),
     ),
   ).toEqual([
     {
@@ -18,11 +25,7 @@ test('checkImages()', async () => {
         },
         {
           passed: true,
-          type: 'fetch_attempt',
-          metadata: {
-            imageSize: 23138,
-            fetchStatusCode: 200,
-          },
+          type: 'syntax',
         },
         {
           passed: true,
@@ -30,7 +33,11 @@ test('checkImages()', async () => {
         },
         {
           passed: true,
-          type: 'syntax',
+          type: 'fetch_attempt',
+          metadata: {
+            imageSize: 23138,
+            fetchStatusCode: 200,
+          },
         },
       ],
       status: 'warning',
