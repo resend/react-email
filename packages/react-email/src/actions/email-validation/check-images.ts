@@ -55,6 +55,8 @@ export const checkImages = async (code: string, base: string) => {
   for await (const image of images) {
     const rawSource = image.attributes.src;
     if (!rawSource) continue;
+    if (imageCheckingResults.some(result => result.source === rawSource)) continue;
+
     const source = rawSource?.startsWith('/')
       ? `${base}${rawSource}`
       : rawSource;

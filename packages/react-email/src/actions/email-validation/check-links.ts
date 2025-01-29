@@ -33,6 +33,7 @@ export const checkLinks = async (code: string) => {
   for await (const anchor of anchors) {
     const link = anchor.attributes.href;
     if (!link) continue;
+    if (linkCheckingResults.some(result => result.link === link)) continue;
     if (link.startsWith('mailto:')) continue;
 
     const result: LinkCheckingResult = {
