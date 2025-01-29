@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { parse } from 'node-html-parser';
 import { quickFetch } from './quick-fetch';
 import type { IncomingMessage } from 'node:http';
@@ -45,19 +46,21 @@ const getResponseSizeInBytes = async (res: IncomingMessage) => {
   return totalBytes;
 };
 
-export const checkImages = async (code: string) => {
+export const checkImages = async (code: string, base: string) => {
   const ast = parse(code);
 
   const imageCheckingResults: ImageCheckingResult[] = [];
 
   const images = ast.querySelectorAll('img');
   for await (const image of images) {
-    const source = image.attributes.src;
-    if (!source) continue;
-    if (source.startsWith('mailto:')) continue;
+    const rawSource = image.attributes.src;
+    if (!rawSource) continue;
+    const source = rawSource?.startsWith('/')
+      ? `${base}${rawSource}`
+      : rawSource;
 
     const result: ImageCheckingResult = {
-      source,
+      source: rawSource,
       status: 'success',
       checks: [],
     };
