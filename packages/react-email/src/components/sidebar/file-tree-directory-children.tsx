@@ -23,7 +23,7 @@ export const FileTreeDirectoryChildren = (props: {
       {props.open ? (
         <Collapsible.Content
           asChild
-          className="relative data-[root=true]:mt-2 overflow-y-hidden pl-1"
+          className="relative data-[root=true]:mt-2 overflow-y-hidden"
           forceMount
         >
           <motion.div
@@ -34,7 +34,7 @@ export const FileTreeDirectoryChildren = (props: {
             {props.isRoot ? null : (
               <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-            <div className="data-[root=true]:py-2 flex flex-col truncate">
+            <div className="flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
