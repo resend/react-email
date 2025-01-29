@@ -15,7 +15,12 @@ type Check = { passed: boolean } & (
       type: 'fetch_attempt';
       metadata: {
         fetchStatusCode: number | undefined;
-        imageSize: number | undefined;
+      };
+    }
+  | {
+      type: 'image_size';
+      metadata: {
+        byteCount: number | undefined;
       };
     }
   | {
@@ -92,13 +97,10 @@ export const checkImages = async (code: string) => {
       const res = await quickFetch(url);
       const hasSucceeded = res.statusCode?.toString().startsWith('2') ?? false;
 
-      const responseSizeBytes = await getResponseSizeInBytes(res);
-
       result.checks.push({
         type: 'fetch_attempt',
         passed: hasSucceeded,
         metadata: {
-          imageSize: responseSizeBytes,
           fetchStatusCode: res.statusCode,
         },
       });
@@ -106,6 +108,18 @@ export const checkImages = async (code: string) => {
         result.status = res.statusCode?.toString().startsWith('3')
           ? 'warning'
           : 'error';
+      }
+
+      const responseSizeBytes = await getResponseSizeInBytes(res);
+      result.checks.push({
+        type: 'image_size',
+        passed: responseSizeBytes < 1_048_576, // 1024 x 1024 bytes
+        metadata: {
+          byteCount: responseSizeBytes,
+        },
+      });
+      if (responseSizeBytes > 1_048_576) {
+        result.status = 'warning';
       }
     } catch (exception) {
       result.checks.push({

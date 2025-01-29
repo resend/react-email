@@ -35,8 +35,14 @@ test('checkImages()', async () => {
           passed: true,
           type: 'fetch_attempt',
           metadata: {
-            imageSize: 23138,
             fetchStatusCode: 200,
+          },
+        },
+        {
+          passed: true,
+          type: 'image_size',
+          metadata: {
+            byteCount: 23138,
           },
         },
       ],
