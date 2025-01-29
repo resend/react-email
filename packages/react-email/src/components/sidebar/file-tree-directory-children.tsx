@@ -31,7 +31,6 @@ export const FileTreeDirectoryChildren = (props: {
             {props.isRoot ? null : (
               <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-
             <div className="flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
