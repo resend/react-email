@@ -41,7 +41,5 @@
     "@react-email/text": "0.0.11",
     "tsconfig": "0.0.0"
   },
-  "changesets": [
-    "empty-rivers-laugh"
-  ]
+  "changesets": ["empty-rivers-laugh"]
 }
