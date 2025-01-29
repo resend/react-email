@@ -43,23 +43,10 @@ export const checkLinks = async (code: string) => {
 
     try {
       const url = new URL(link);
-
-      const res = await quickFetch(url);
-      const hasntSucceeded =
-        res.statusCode === undefined ||
-        !res.statusCode.toString().startsWith('2');
       result.checks.push({
-        type: 'fetch_attempt',
-        passed: hasntSucceeded,
-        metadata: {
-          fetchStatusCode: res.statusCode,
-        },
+        passed: true,
+        type: 'syntax',
       });
-      if (hasntSucceeded) {
-        result.status = res.statusCode?.toString().startsWith('3')
-          ? 'warning'
-          : 'error';
-      }
 
       if (link.startsWith('https://')) {
         result.checks.push({
@@ -74,10 +61,20 @@ export const checkLinks = async (code: string) => {
         result.status = 'warning';
       }
 
+      const res = await quickFetch(url);
+      const hasSucceeded = res.statusCode?.toString().startsWith('2') ?? false;
       result.checks.push({
-        passed: true,
-        type: 'syntax',
+        type: 'fetch_attempt',
+        passed: hasSucceeded,
+        metadata: {
+          fetchStatusCode: res.statusCode,
+        },
       });
+      if (!hasSucceeded) {
+        result.status = res.statusCode?.toString().startsWith('3')
+          ? 'warning'
+          : 'error';
+      }
     } catch (exception) {
       result.checks.push({
         passed: false,
