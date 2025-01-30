@@ -20,7 +20,6 @@
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "eslint": "8.50.0",
     "happy-dom": "15.10.2",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.6",
