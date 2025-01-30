@@ -83,7 +83,7 @@ test('checkImages()', async () => {
           type: 'image_size',
         },
       ],
-      source: 'https://demo.react.email/static/codepen-challengers.png',
+      source: '/static/codepen-challengers.png',
       status: 'success',
     },
   ] satisfies ImageCheckingResult[]);
