@@ -18,7 +18,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/react-email"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -36,7 +39,7 @@
     "next": "15.1.2",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
-    "socket.io": "4.8.0"
+    "socket.io": "4.8.1"
   },
   "devDependencies": {
     "@radix-ui/colors": "1.0.1",
