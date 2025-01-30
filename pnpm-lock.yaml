@@ -23,9 +23,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.1
         version: 19.0.1
-      eslint:
-        specifier: 8.50.0
-        version: 8.50.0
       happy-dom:
         specifier: 15.10.2
         version: 15.10.2
