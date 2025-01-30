@@ -1,5 +1,12 @@
 # @react-email/render
 
+## 1.0.5-canary.1
+
+### Patch Changes
+
+- dfc49b5: Fix extra `<` characters being kept when rendering if mso comments under certain conditions
+- 301f54b: Fix unstable rendering when prettifying with the Preview component
+
 ## 1.0.5-canary.0
 
 ### Patch Changes
