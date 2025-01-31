@@ -78,9 +78,9 @@ const getComponentCodeFrom = (
     throw new Error('Could not find the source code for the component');
   }
 
-  componentCode = `const ${componentName} = () => (
-  ${componentCode}
-)`;
+  componentCode = `export default function ${componentName}() {
+  return ${componentCode}
+}`;
 
   let importedComponents = '';
 
