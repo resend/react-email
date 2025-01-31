@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
-import type * as React from 'react';
 
 const theme = {
   plain: {
