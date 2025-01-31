@@ -6,6 +6,9 @@ import { Code } from '../components/code';
 import { Heading } from '../components/heading';
 import { Text } from '../components/text';
 
+const sentence = "The next generation of writing emails";
+const words = sentence.split(" ");
+  
 const Home = () => (
   <>
     <Image
@@ -29,7 +32,19 @@ const Home = () => (
           className="relative mb-8 !text-white/80 before:absolute before:left-0 before:top-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-shine before:bg-[length:200%] before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails']"
           size="10"
         >
-          The next generation of writing emails
+          <div className="relative mb-8">
+            {words.map((word, index) => (
+            <span
+            key={index}
+            className={`text-white opacity-0 animate-fadeIn delay-${index * 300}`}
+            style={{
+              animation: `fadeIn 0.5s forwards ${index * 0.3}s`,
+            }}
+          >
+            {word}{" "}
+           </span>
+           ))}
+         </div>  
         </Heading>
         <div className="sm:px-20">
           <Text size="5">
