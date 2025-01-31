@@ -1,5 +1,11 @@
 # react-email
 
+## 3.0.7-canary.1
+
+### Patch Changes
+
+- 57db6f7: Upgrade socket.io to 4.8.1
+
 ## 3.0.7-canary.0
 
 ### Patch Changes
