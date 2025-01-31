@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
-import * as React from 'react';
+import type * as React from 'react';
 
 const theme = {
   plain: {
@@ -84,9 +84,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
                       ? [...token.types, 'key-white']
                       : token.types;
 
-                    return (
-                      <span {...tokenProps} key={key} />
-                    );
+                    return <span {...tokenProps} key={key} />;
                   })}
                 </div>
               );
