@@ -1,10 +1,11 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import * as allReactEmailComponents from '@react-email/components';
-import * as allReactResponsiveComponents from '@responsive-email/react-email';
+import { spec } from 'node:test/reporters';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
+import * as allReactEmailComponents from '@react-email/components';
 import { render } from '@react-email/components';
+import * as allReactResponsiveComponents from '@responsive-email/react-email';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
@@ -12,7 +13,6 @@ import {
   getComponentPathFromSlug,
   pathToComponents,
 } from '../../../components/structure';
-import { spec } from 'node:test/reporters';
 
 /**
  * Tailwind and Inline Styles are both with React, but the React
