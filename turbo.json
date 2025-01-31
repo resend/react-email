@@ -28,7 +28,8 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "test:watch": {
       "cache": false
