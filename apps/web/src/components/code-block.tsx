@@ -63,19 +63,19 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
 
           <pre className="p-4 font-mono">
             {tokens.map((line, i) => {
-              const lineProps = getLineProps({ line, key: i });
+              const lineProps = getLineProps({ line });
 
               return (
                 <div
-                  key={i}
                   {...lineProps}
+                  key={i}
                   className={classNames('whitespace-pre', {
                     "before:mr-2 before:text-slate-11 before:content-['$']":
                       language === 'bash' && tokens.length === 1,
                   })}
                 >
                   {line.map((token, key) => {
-                    const tokenProps = getTokenProps({ token, key });
+                    const tokenProps = getTokenProps({ token });
 
                     const isException =
                       token.content === 'from' &&
@@ -85,9 +85,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
                       : token.types;
 
                     return (
-                      <React.Fragment key={key}>
-                        <span {...tokenProps} />
-                      </React.Fragment>
+                      <span {...tokenProps} key={key} />
                     );
                   })}
                 </div>
