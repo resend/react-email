@@ -82,21 +82,33 @@ const getComponentCodeFrom = (
   return ${componentCode}
 }`;
 
-  let importedComponents = '';
+  let importStatements = 'import * as React from "react";\n';
+
+  function generateImportStatement(specifiers: string[], source: string) {
+    let statement = `import { ${specifiers.join(', ')} } from "${source}";\n`;
+
+    if (statement.length > 80) {
+      statement = `import {${specifiers.map((specifier) => `\n  ${specifier}`).join(',')}\n} from "${source}";\n`;
+    }
+
+    return statement;
+  }
 
   if (usedNativeComponents.size > 0) {
-    importedComponents += `import { ${Array.from(usedNativeComponents).join(
-      ', ',
-    )} } from "@react-email/components";\n`;
+    importStatements += generateImportStatement(
+      Array.from(usedNativeComponents),
+      '@react-email/components',
+    );
   }
 
   if (usedResponsiveEmailComponents.size > 0) {
-    importedComponents += `import { ${Array.from(
-      usedResponsiveEmailComponents,
-    ).join(', ')} } from "@responsive-email/react-email";\n`;
+    importStatements += generateImportStatement(
+      Array.from(responsiveEmailComponents),
+      '@responsive-email/react-email',
+    );
   }
 
-  componentCode = `${importedComponents}\n${componentCode}`;
+  componentCode = `${importStatements}\n${componentCode}`;
 
   return componentCode;
 };
