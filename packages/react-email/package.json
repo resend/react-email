@@ -61,6 +61,7 @@
     "framer-motion": "12.0.0-alpha.2",
     "postcss": "8.4.40",
     "prism-react-renderer": "2.1.0",
+    "module-punycode": "npm:punycode@2.3.1",
     "react": "^19",
     "react-dom": "^19",
     "sharp": "0.33.3",
