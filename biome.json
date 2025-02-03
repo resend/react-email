@@ -30,6 +30,7 @@
         "noAssignInExpressions": "off"
       },
       "correctness": {
+        "noUnusedImports": "warn",
         "useExhaustiveDependencies": "off",
         "useJsxKeyInIterable": "off",
         "noChildrenProp": "off"
