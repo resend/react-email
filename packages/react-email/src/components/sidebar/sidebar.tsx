@@ -5,6 +5,7 @@ import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
 import Link from 'next/link';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type * as React from 'react';
 import animatedHelpIcon from '../../animated-icons-data/help.json';
@@ -220,12 +221,14 @@ export const Sidebar = ({
             tabValue="file-tree"
             tooltipText="File Explorer"
           >
-            <Lottie
-              animationData={animatedMailIcon as object}
-              autoPlay={false}
+            <DotLottieReact
+              data={animatedMailIcon}
+              autoplay={false}
               className="h-5 w-5"
               loop={false}
-              lottieRef={mailAnimation.ref}
+              dotLottieRefCallback={(instance) => {
+                mailAnimation.ref.current = instance;
+              }}
             />
           </TabTrigger>
           <TabTrigger
@@ -236,12 +239,14 @@ export const Sidebar = ({
             tabValue="link-checker"
             tooltipText="Link Checker"
           >
-            <Lottie
-              animationData={animatedLinkIcon as object}
-              autoPlay={false}
+            <DotLottieReact
+              data={animatedLinkIcon}
+              autoplay={false}
               className="h-6 w-6"
               loop={false}
-              lottieRef={linkAnimation.ref}
+              dotLottieRefCallback={(instance) => {
+                linkAnimation.ref.current = instance;
+              }}
             />
           </TabTrigger>
           <TabTrigger
@@ -261,12 +266,14 @@ export const Sidebar = ({
               side="right"
               tooltip="Documentation"
             >
-              <Lottie
-                animationData={animatedHelpIcon as object}
-                autoPlay={false}
+              <DotLottieReact
+                data={animatedHelpIcon}
+                autoplay={false}
                 className="h-5 w-5"
                 loop={false}
-                lottieRef={helpAnimation.ref}
+                dotLottieRefCallback={(instance) => {
+                  helpAnimation.ref.current = instance;
+                }}
               />
             </NavigationButton>
             <NavigationButton
