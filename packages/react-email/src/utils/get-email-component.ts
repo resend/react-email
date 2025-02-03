@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
@@ -11,20 +12,19 @@ import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
-export const getEmailComponent = async (
-  emailPath: string,
-): Promise<
+export type GetEmailComponentResult =
   | {
+      fileContents: string;
       emailComponent: EmailComponent;
-
       createElement: typeof React.createElement;
-
       render: typeof render;
-
       sourceMapToOriginalFile: RawSourceMap;
     }
-  | { error: ErrorObject }
-> => {
+  | { error: ErrorObject };
+
+export const getEmailComponent = async (
+  emailPath: string,
+): Promise<GetEmailComponentResult> => {
   let outputFiles: OutputFile[];
   try {
     const buildData = await build({
@@ -141,7 +141,11 @@ export const getEmailComponent = async (
     };
   }
 
+  const fileContents = await fs.promises.readFile(emailPath, 'utf-8');
+
   return {
+    fileContents,
+
     emailComponent: fakeContext.module.exports.default as EmailComponent,
     render: fakeContext.module.exports.render as typeof render,
     createElement: fakeContext.module.exports

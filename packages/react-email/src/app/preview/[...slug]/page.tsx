@@ -1,7 +1,10 @@
 import path from 'node:path';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+import { getEmailControls } from '../../../actions/get-email-controls';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
+import { getPreviewProps } from '../../../actions/get-preview-props';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
@@ -48,14 +51,37 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     throw exception;
   }
 
-  const serverEmailRenderingResult = await renderEmailByPath(emailPath);
+  const controlsResult = await getEmailControls(emailPath);
+
+  if (
+    'error' in controlsResult &&
+    process.env.NEXT_PUBLIC_IS_BUILDING === 'true'
+  ) {
+    throw new Error('Failed getting controls for email template', {
+      cause: {
+        emailPath,
+        error: controlsResult.error,
+      },
+    });
+  }
+
+  const previewProps = await getPreviewProps(emailPath);
+
+  const serverEmailRenderingResult = await renderEmailByPath(
+    emailPath,
+    previewProps,
+  );
 
   if (
     process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
     'error' in serverEmailRenderingResult
   ) {
-    throw new Error(serverEmailRenderingResult.error.message, {
-      cause: serverEmailRenderingResult.error,
+    throw new Error('Failed rendering email by path', {
+      cause: {
+        emailPath,
+        previewProps,
+        error: serverEmailRenderingResult.error,
+      },
     });
   }
 
@@ -65,8 +91,10 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     // client-side rendering on build
     <Suspense fallback={<Home />}>
       <Preview
+        serverControlsResult={controlsResult}
         emailPath={emailPath}
         pathSeparator={path.sep}
+        previewProps={previewProps}
         serverRenderingResult={serverEmailRenderingResult}
         slug={slug}
       />

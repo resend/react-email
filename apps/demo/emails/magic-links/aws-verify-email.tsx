@@ -11,18 +11,20 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
+import { z } from 'zod';
 
-interface AWSVerifyEmailProps {
-  verificationCode?: string;
-}
+const AWSVerifyEmailProps = z.object({
+  verificationCode: z.string(),
+});
+
+type AWSVerifyEmailProps = z.infer<typeof AWSVerifyEmailProps>;
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
 export default function AWSVerifyEmail({
-  verificationCode = '596853',
+  verificationCode,
 }: AWSVerifyEmailProps) {
   return (
     <Html>
@@ -83,6 +85,12 @@ export default function AWSVerifyEmail({
     </Html>
   );
 }
+
+AWSVerifyEmail.PreviewProps = {
+  verificationCode: '596583',
+} satisfies AWSVerifyEmailProps;
+
+AWSVerifyEmail.PreviewSchema = AWSVerifyEmailProps;
 
 const main = {
   backgroundColor: '#fff',

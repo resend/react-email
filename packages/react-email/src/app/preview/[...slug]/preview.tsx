@@ -1,12 +1,20 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { Toaster } from 'sonner';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
+import { useDebouncedCallback } from 'use-debounce';
+import type { ControlsResult } from '../../../actions/get-email-controls';
+import {
+  type EmailRenderingResult,
+  renderEmailByPath,
+} from '../../../actions/render-email-by-path';
+import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
+import { PreviewPropControls } from '../../../components/preview-prop-controls';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
+import { useEmailControls } from '../../../hooks/use-email-controls';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
@@ -16,6 +24,10 @@ interface PreviewProps {
   slug: string;
   emailPath: string;
   pathSeparator: string;
+
+  previewProps: Record<string, unknown>;
+
+  serverControlsResult: ControlsResult;
   serverRenderingResult: EmailRenderingResult;
 }
 
@@ -23,6 +35,10 @@ const Preview = ({
   slug,
   emailPath,
   pathSeparator,
+
+  previewProps: initialPreviewProps,
+
+  serverControlsResult,
   serverRenderingResult,
 }: PreviewProps) => {
   const router = useRouter();
@@ -32,9 +48,18 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
-  const renderingResult = useEmailRenderingResult(
+  const [previewProps, setPreviewProps] =
+    useState<Record<string, unknown>>(initialPreviewProps);
+
+  const [renderingResult, setRenderingResult] = useEmailRenderingResult(
     emailPath,
+    previewProps,
     serverRenderingResult,
+  );
+  const previewPropsControls = useEmailControls(
+    emailPath,
+    serverControlsResult,
+    renderingResult,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
@@ -73,23 +98,61 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const debouncedUpdatePreviewProps = useDebouncedCallback(
+    (newProps: Record<string, unknown>) => {
+      updatePreviewProps(slug, newProps).catch((exception) => {
+        throw new Error('Could not update cookie for preview props', {
+          cause: exception,
+        });
+      });
+    },
+    200,
+  );
+
+  const hasErrors = 'error' in renderingResult;
 
   return (
     <Shell
-      activeView={hasNoErrors ? activeView : undefined}
+      activeView={hasErrors ? undefined : activeView}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
       pathSeparator={pathSeparator}
-      setActiveView={hasNoErrors ? handleViewChange : undefined}
+      setActiveView={hasErrors ? undefined : handleViewChange}
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div className="relative h-full">
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
+
+        {previewPropsControls ? (
+          <PreviewPropControls
+            controls={previewPropsControls}
+            onValueChange={(key, newValue) => {
+              const newPreviewProps = { ...previewProps, [key]: newValue };
+              setPreviewProps(newPreviewProps);
+
+              debouncedUpdatePreviewProps(newPreviewProps);
+
+              renderEmailByPath(emailPath, newPreviewProps, {
+                invalidatingRenderingCache: true,
+              })
+                .then((newRenderingResult) => {
+                  setRenderingResult(newRenderingResult);
+                })
+                .catch((exception) => {
+                  throw new Error(
+                    'Could not render the email after changing the props',
+                    {
+                      cause: exception,
+                    },
+                  );
+                });
+            }}
+            previewProps={previewProps}
+          />
         ) : null}
 
-        {hasNoErrors ? (
+        {/* If this is undefined means that the initial server render of the email had errors */}
+        {typeof renderedEmailMetadata !== 'undefined' ? (
           <>
             {activeView === 'desktop' && (
               <iframe
