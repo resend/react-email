@@ -1,10 +1,12 @@
+'use client';
 import * as SlotPrimitive from '@radix-ui/react-slot';
-import * as React from 'react';
+import Lottie from 'lottie-react';
+import type * as React from 'react';
+import animatedLoadIcon from '../animated-icons-data/load.json';
 import { cn } from '../utils/cn';
 import { unreachable } from '../utils/unreachable';
 
-type ButtonElement = React.ComponentRef<'button'>;
-type RootProps = React.ComponentPropsWithoutRef<'button'>;
+type RootProps = React.ComponentProps<'button'>;
 
 type Appearance = 'white' | 'gradient';
 type Size = '1' | '2' | '3' | '4';
@@ -13,43 +15,51 @@ interface ButtonProps extends RootProps {
   asChild?: boolean;
   appearance?: Appearance;
   size?: Size;
+  loading?: boolean;
 }
 
-export const Button = React.forwardRef<ButtonElement, Readonly<ButtonProps>>(
-  (
-    {
-      asChild,
-      appearance = 'white',
-      className,
-      children,
-      size = '2',
-      ...props
-    },
-    forwardedRef,
-  ) => {
-    const classNames = cn(
-      getSize(size),
-      getAppearance(appearance),
-      'inline-flex items-center justify-center border font-medium',
-      className,
-    );
+export const Button = ({
+  asChild,
+  appearance = 'white',
+  className,
+  children,
+  size = '2',
+  loading,
+  ref,
+  ...props
+}: ButtonProps) => {
+  const Root = asChild ? SlotPrimitive.Slot : 'button';
 
-    return asChild ? (
-      <SlotPrimitive.Slot ref={forwardedRef} {...props} className={classNames}>
-        <SlotPrimitive.Slottable>{children}</SlotPrimitive.Slottable>
-      </SlotPrimitive.Slot>
-    ) : (
-      <button
-        className={classNames}
-        ref={forwardedRef}
-        type="button"
-        {...props}
+  return (
+    <Root
+      ref={ref}
+      type="button"
+      {...props}
+      className={cn(
+        getSize(size),
+        getAppearance(appearance),
+        'inline-flex items-center justify-center gap-2 border font-medium',
+        className,
+      )}
+      aria-disabled={loading}
+    >
+      <span
+        className={cn(
+          '-ml-7 opacity-0 transition-opacity duration-200',
+          loading && 'opacity-100',
+        )}
       >
-        {children}
-      </button>
-    );
-  },
-);
+        <Lottie
+          animationData={animatedLoadIcon}
+          autoPlay={false}
+          className="h-5 w-5"
+          loop={true}
+        />
+      </span>
+      <SlotPrimitive.Slottable>{children}</SlotPrimitive.Slottable>
+    </Root>
+  );
+};
 
 Button.displayName = 'Button';
 
@@ -61,6 +71,7 @@ const getAppearance = (appearance: Appearance | undefined) => {
         'border-white bg-white text-black transition-colors duration-200 ease-in-out',
         'hover:bg-white/90',
         'focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20',
+        'mt-2 mb-4 aria-disabled:border-transparent aria-disabled:bg-slate-11',
       ];
     case 'gradient':
       return [
