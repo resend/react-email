@@ -8,7 +8,7 @@ jobs:
   lint:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:18
+      image: node:22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,7 +17,7 @@ jobs:
         id: pnpm-setup
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
@@ -41,7 +41,7 @@ jobs:
   test:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:18
+      image: node:22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
         id: pnpm-setup
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
@@ -74,7 +74,7 @@ jobs:
   build:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:18
+      image: node:22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -83,7 +83,7 @@ jobs:
         id: pnpm-setup
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
