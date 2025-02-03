@@ -75,6 +75,7 @@ export const ResizableWarpper = ({
 
   useEffect(() => {
     return () => {
+      if (!window.document) return;
       handleStopResizing();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
