@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import type * as React from 'react';
 import animatedHelpIcon from '../../animated-icons-data/help.json';
 import animatedLinkIcon from '../../animated-icons-data/link.json';
@@ -21,6 +22,10 @@ import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
 import { ImageChecker } from './image-checker';
 import { LinkChecker } from './link-checker';
+
+const Lottie = dynamic(() => {
+  return import('lottie-react');
+}, { ssr: false });
 
 type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
 
