@@ -1,11 +1,11 @@
-import type { LottieRefCurrentProps } from 'lottie-react';
+import type { DotLottie } from '@lottiefiles/dotlottie-react';
 import * as React from 'react';
 
 const TIMEOUT = 150;
 const THRESHOLD_ANIMATION = 0.9;
 
 export const useIconAnimation = () => {
-  const ref = React.useRef<LottieRefCurrentProps>(null);
+  const ref = React.useRef<DotLottie>(null);
   const timer = React.useRef<NodeJS.Timeout | null>(null);
 
   const onMouseLeave = React.useCallback(() => {
@@ -17,9 +17,9 @@ export const useIconAnimation = () => {
       return;
     }
 
-    const total = Math.round(ref.current.animationItem?.totalFrames ?? 0);
+    const total = Math.round(ref.current.totalFrames ?? 0);
     const current = Math.round(
-      (ref.current.animationItem?.currentFrame ?? 0) + 1,
+      (ref.current.currentFrame ?? 0) + 1,
     );
 
     if (current === 1 || current >= total * THRESHOLD_ANIMATION) {
@@ -29,7 +29,6 @@ export const useIconAnimation = () => {
         }
 
         ref.current.stop();
-        ref.current.setDirection(1);
         ref.current.setSpeed(1);
         ref.current.play();
       }, TIMEOUT);

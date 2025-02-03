@@ -38,10 +38,6 @@
     "ora": "5.4.1",
     "socket.io": "4.8.1"
   },
-  "overrides": {
-    "react": "^19",
-    "react-dom": "^19"
-  },
   "devDependencies": {
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
@@ -65,7 +61,7 @@
     "autoprefixer": "10.4.20",
     "clsx": "2.1.0",
     "framer-motion": "12.0.0-alpha.2",
-    "lottie-react": "^2.4.0",
+    "@lottiefiles/dotlottie-react": "0.12.3",
     "node-html-parser": "6.1.13",
     "postcss": "8.4.40",
     "prettier-plugin-tailwindcss": "0.6.6",
