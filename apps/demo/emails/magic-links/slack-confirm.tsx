@@ -12,8 +12,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
-import { setupForPreview } from 'react-email';
 
 interface SlackConfirmEmailProps {
   validationCode: string;
@@ -156,12 +154,9 @@ export const SlackConfirmEmail = ({
   </Html>
 );
 
-setupForPreview(SlackConfirmEmail, {
-  validationCode: {
-    type: 'text',
-    defaultValue: 'DJZ-TLX',
-  },
-});
+SlackConfirmEmail.PreviewProps = {
+  validationCode: 'DJZ-TLX',
+};
 
 export default SlackConfirmEmail;
 

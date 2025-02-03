@@ -12,7 +12,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import { setupForPreview } from 'react-email';
 
 interface LinearLoginCodeEmailProps {
   validationCode: string;
@@ -57,12 +56,9 @@ export const LinearLoginCodeEmail = ({
   </Html>
 );
 
-setupForPreview(LinearLoginCodeEmail, {
-  validationCode: {
-    type: 'text',
-    defaultValue: 'tt226-5398x',
-  },
-});
+LinearLoginCodeEmail.PreviewProps = {
+  validationCode: 'tt226-5398x',
+};
 
 export default LinearLoginCodeEmail;
 
