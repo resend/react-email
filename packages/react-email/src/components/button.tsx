@@ -1,10 +1,10 @@
 'use client';
 import * as SlotPrimitive from '@radix-ui/react-slot';
-import Lottie from 'lottie-react';
 import type * as React from 'react';
 import animatedLoadIcon from '../animated-icons-data/load.json';
 import { cn } from '../utils/cn';
 import { unreachable } from '../utils/unreachable';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 type RootProps = React.ComponentProps<'button'>;
 
@@ -49,9 +49,9 @@ export const Button = ({
           loading && 'opacity-100',
         )}
       >
-        <Lottie
-          animationData={animatedLoadIcon}
-          autoPlay={false}
+        <DotLottieReact
+          data={animatedLoadIcon}
+          autoplay={false}
           className="h-5 w-5"
           loop={true}
         />
