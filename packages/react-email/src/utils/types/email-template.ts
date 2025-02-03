@@ -1,8 +1,9 @@
-import type { Controls } from '../../package';
+import type { ZodObject, ZodType, ZodTypeDef } from 'zod';
 
 export interface EmailTemplate {
   (props: Record<string, unknown> | Record<string, never>): React.ReactNode;
-  controls?: Controls;
+  PreviewProps?: Record<string, unknown>;
+  PreviewSchema?: ZodObject<Record<string, ZodType<any, ZodTypeDef, any>>>;
 }
 
 export const isEmailTemplate = (val: unknown): val is EmailTemplate => {

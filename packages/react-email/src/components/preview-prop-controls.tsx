@@ -1,13 +1,13 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Select from '@radix-ui/react-select';
-import type { Controls } from '../package';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
+import type { Control } from '../actions/get-email-controls';
 
 interface PreviewPropControls {
   previewProps: Record<string, unknown>;
   onValueChange: (key: string, newValue: unknown) => void;
-  controls: Controls;
+  controls: Control[];
 }
 
 export const PreviewPropControls = ({
@@ -17,10 +17,10 @@ export const PreviewPropControls = ({
 }: PreviewPropControls) => {
   return (
     <div className="fixed px-3 py-2 border-t border-solid border-t-slate-9 left-0 bottom-0 bg-black w-full grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 h-40">
-      {Object.entries(controls).map(([key, control]) => {
+      {controls.map((control) => {
         if (control) {
-          const fieldId = `${key}-${control.type}`;
-          const value = previewProps[key];
+          const fieldId = `${control.key}-${control.type}`;
+          const value = previewProps[control.key];
 
           switch (control.type) {
             case 'text':
@@ -32,14 +32,14 @@ export const PreviewPropControls = ({
                     className="text-slate-10 text-sm mb-2 block"
                     htmlFor={fieldId}
                   >
-                    {key}
+                    {control.key}
                   </label>
                   <input
                     className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
                     data-1p-ignore
                     id={fieldId}
                     onChange={(event) => {
-                      onValueChange(key, event.currentTarget.value);
+                      onValueChange(control.key, event.currentTarget.value);
                     }}
                     type={control.type}
                     value={value as string}
@@ -53,11 +53,11 @@ export const PreviewPropControls = ({
                     className="text-slate-10 text-sm mb-2 block"
                     htmlFor={fieldId}
                   >
-                    {key}
+                    {control.key}
                   </label>
                   <Select.Root
                     onValueChange={(newValue) => {
-                      onValueChange(key, newValue);
+                      onValueChange(control.key, newValue);
                     }}
                     value={value as string}
                   >
@@ -101,7 +101,7 @@ export const PreviewPropControls = ({
                     checked={value as boolean}
                     id={fieldId}
                     onCheckedChange={(newValue) => {
-                      onValueChange(key, newValue);
+                      onValueChange(control.key, newValue);
                     }}
                   >
                     <Checkbox.Indicator>
@@ -112,7 +112,7 @@ export const PreviewPropControls = ({
                     className="text-slate-10 text-sm mb-2 block"
                     htmlFor={fieldId}
                   >
-                    {key}
+                    {control.key}
                   </label>
                 </div>
               );
