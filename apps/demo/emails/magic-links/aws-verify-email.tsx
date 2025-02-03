@@ -11,7 +11,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import { setupForPreview } from 'react-email';
 import { z } from 'zod';
 
 const AWSVerifyEmailProps = z.object({

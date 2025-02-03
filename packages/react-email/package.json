@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsup-node && node build-preview-server.mjs",
-    "dev": "tsup-node --watch",
+    "dev": "cd ../../apps/demo && tsx ../../packages/react-email/src/cli/index.ts dev",
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist"
@@ -33,7 +33,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/react-email"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -100,6 +103,7 @@
     "tsx": "4.9.0",
     "typescript": "5.1.6",
     "use-debounce": "10.0.4",
-    "vitest": "1.1.3"
+    "vitest": "1.1.3",
+    "zod": "3.24.1"
   }
 }
