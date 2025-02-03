@@ -342,7 +342,7 @@ export const Sidebar = ({
             )}
             {activePanelValue === 'spam-assassin' && (
               <Panel
-                title="Image Checker"
+                title="Spam assassin"
                 active={activePanelValue === 'spam-assassin'}
               >
                 {currentEmailOpenSlug && emailMarkup && emailPlainText ? (
