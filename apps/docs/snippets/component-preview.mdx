@@ -1,0 +1,72 @@
+export const ComponentPreview = ({ children, code }) => {
+  const preElement = children.props.children;
+
+  return (
+
+    <div className="mt-5 mb-8 not-prose bg-[#0F1117] dark:bg-codeblock rounded-xl dark:ring-1 dark:ring-gray-800/50 relative">
+      <iframe
+        className="w-full h-fit bg-transparent rounded-t-xl"
+        srcDoc={`
+<html>
+<head>
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://cdn.jsdelivr.net/npm/react@18.3.1/+esm",
+        "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@18.3.1/jsx-runtime/+esm",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/+esm",
+        "react-dom/server": "https://cdn.jsdelivr.net/npm/react-dom@18.3.1/server/+esm",
+        "@react-email/components": "https://cdn.jsdelivr.net/npm/@react-email/components@0.0.26-canary.4/+esm"
+      }
+    }
+  </script>
+  <script type="text/javascript" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" data-type="module" data-presets="react">
+    import * as React from "react";
+    ${code}
+    import {render} from "@react-email/components";
+    render(<div style={{ display: 'flex', width: '100%', height: 'fit', minHeight: '100vh', alignItems: 'center', justifyContent: 'center' }}><Email /></div>)
+      .then(html => {
+        document.open("text/html");
+        document.write(html);
+        document.close();
+
+        const style = document.createElement('style');
+        style.type = "text/css";
+        style.appendChild(document.createTextNode("html, body { background: #0d0d0d; padding: 0; margin: 0 }"));
+        document.head.appendChild(style);
+      });
+
+  </script>
+  <style>
+    html, body {
+      background: #0d0d0d;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+</html>
+       `}
+      >
+        Your browser seems to not support iframes.
+      </iframe>
+      <div className="border-t p-5 text-sm leading-6 relative" style={{ borderColor: 'rgb(var(--gray-800)/0.5)' }}>
+        <div className="z-10 group absolute right-5 top-5">
+          <button 
+            className="flex relative items-center justify-center" 
+            onClick={() => {
+              navigator.clipboard.writeText(code);
+            }}
+          >
+            <Icon color="#374151" icon="clone" iconType="solid" />
+            <div class="absolute top-11 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden group-hover:block text-white rounded-lg px-1.5 py-0.5 text-xs bg-primary-dark">
+              'Copy'
+            </div>
+          </button>
+        </div>
+        {preElement}
+      </div>
+    </div>
+  );
+};
