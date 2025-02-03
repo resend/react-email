@@ -65,10 +65,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     });
   }
 
-  const previewProps = await getPreviewProps(
-    slug,
-    'controls' in controlsResult ? controlsResult.controls : undefined,
-  );
+  const previewProps = await getPreviewProps(emailPath);
 
   const serverEmailRenderingResult = await renderEmailByPath(
     emailPath,
