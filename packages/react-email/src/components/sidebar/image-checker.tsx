@@ -1,26 +1,27 @@
+import prettyBytes from 'pretty-bytes';
 import * as React from 'react';
 import {
-  type LinkCheckingResult,
-  checkLinks,
-} from '../../actions/email-validation/check-links';
+  type ImageCheckingResult,
+  checkImages,
+} from '../../actions/email-validation/check-images';
 import { Button } from '../button';
 import { Result, ResultList, type ResultStatus } from './checking-results';
 
-interface LinkCheckerResultsProps {
+interface ImageCheckerResultsProps {
   label: string;
   status: ResultStatus;
-  results: LinkCheckingResult[];
+  results: ImageCheckingResult[];
 
   justLoadedIn: boolean;
 }
 
-const LinkCheckerResults = ({
+const ImageCheckerResults = ({
   label,
   status,
   results,
 
   justLoadedIn,
-}: LinkCheckerResultsProps) => {
+}: ImageCheckerResultsProps) => {
   return (
     <ResultList
       label={
@@ -33,17 +34,19 @@ const LinkCheckerResults = ({
       status={status}
       disabled={results.length === 0}
     >
-      {results.map(({ link, status, checks }) => (
-        <Result key={link} status={status}>
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full"
-          >
+      {results.map(({ source, status, checks }) => (
+        <Result className="flex gap-2" key={source} status={status}>
+          <img
+            width="24px"
+            className="my-auto rounded-sm"
+            src={source}
+            // biome-ignore lint/a11y/noRedundantAlt: The word image does fit in with the context and thus is not redundant
+            alt="image checked"
+          />
+          <div className="flex w-[calc(100%-.5rem-24px)] flex-col">
             <Result.Title>
               <span className="block overflow-hidden truncate text-ellipsis whitespace-nowrap">
-                {link}
+                {source}
               </span>
             </Result.Title>
             <Result.StatusDescription>
@@ -51,32 +54,39 @@ const LinkCheckerResults = ({
                 .map((check) => {
                   if (check.type === 'syntax' && !check.passed)
                     return 'Invalid URL';
-                  if (check.type === 'fetch_attempt')
-                    return `${check.metadata.fetchStatusCode}`;
+                  if (check.type === 'accessibility' && !check.passed)
+                    return 'Missing alt';
                   if (check.type === 'security')
                     return check.passed ? 'Secure' : 'Insecure';
+                  if (
+                    check.type === 'fetch_attempt' &&
+                    check.metadata.fetchStatusCode
+                  )
+                    return `${check.metadata.fetchStatusCode}`;
+                  if (check.type === 'image_size' && check.metadata.byteCount)
+                    return `${prettyBytes(check.metadata.byteCount)}`;
                   return null;
                 })
                 .filter(Boolean)
                 .join(' - ')}
             </Result.StatusDescription>
-          </a>
+          </div>
         </Result>
       ))}
     </ResultList>
   );
 };
 
-interface LinkCheckerProps {
+interface ImageCheckerProps {
   emailSlug: string;
   emailMarkup: string;
 }
 
-export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
-  const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
+export const ImageChecker = ({ emailSlug, emailMarkup }: ImageCheckerProps) => {
+  const cacheKey = `image-checking-results-${emailSlug.replaceAll('/', '-')}`;
 
   const [results, setResults] = React.useState<
-    LinkCheckingResult[] | undefined
+    ImageCheckingResult[] | undefined
   >();
 
   React.useEffect(() => {
@@ -92,7 +102,7 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
 
   const handleRun = () => {
     setLoading(true);
-    checkLinks(emailMarkup)
+    checkImages(emailMarkup, `${location.protocol}//${location.host}`)
       .then((newResults) => {
         setResults(newResults);
         setJustLoadedIn(true);
@@ -119,19 +129,19 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
     <div className="mt-4 flex w-full flex-col gap-2 text-pretty">
       {results ? (
         <>
-          <LinkCheckerResults
+          <ImageCheckerResults
             label="Errors"
             results={errorResults}
             justLoadedIn={justLoadedIn}
             status="error"
           />
-          <LinkCheckerResults
+          <ImageCheckerResults
             label="Warnings"
             results={warningResults}
             justLoadedIn={justLoadedIn}
             status="warning"
           />
-          <LinkCheckerResults
+          <ImageCheckerResults
             label="Success"
             results={successResults}
             justLoadedIn={justLoadedIn}

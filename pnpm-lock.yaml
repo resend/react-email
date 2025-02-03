@@ -29,9 +29,6 @@ importers:
       '@types/react-dom':
         specifier: 19.0.1
         version: 19.0.1
-      eslint:
-        specifier: 8.50.0
-        version: 8.50.0
       happy-dom:
         specifier: 15.10.2
         version: 15.10.2
@@ -970,6 +967,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: 0.6.6
         version: 0.6.6(prettier@3.4.2)
+      pretty-bytes:
+        specifier: 6.1.1
+        version: 6.1.1
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
@@ -6871,6 +6871,10 @@ packages:
     resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
     engines: {node: '>=14'}
     hasBin: true
+
+  pretty-bytes@6.1.1:
+    resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
+    engines: {node: ^14.13.1 || >=16.0.0}
 
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
@@ -14155,6 +14159,8 @@ snapshots:
   prettier@2.8.8: {}
 
   prettier@3.4.2: {}
+
+  pretty-bytes@6.1.1: {}
 
   pretty-format@29.7.0:
     dependencies:
