@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@changesets/cli": "2.27.11",
+    "@changesets/cli": "2.27.12",
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
