@@ -9,8 +9,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
-import { setupForPreview } from 'react-email';
 
 interface PlaidVerifyIdentityEmailProps {
   validationCode: string;
@@ -55,12 +53,9 @@ export const PlaidVerifyIdentityEmail = ({
   </Html>
 );
 
-setupForPreview(PlaidVerifyIdentityEmail, {
-  validationCode: {
-    type: 'text',
-    defaultValue: '144833',
-  },
-});
+PlaidVerifyIdentityEmail.PreviewProps = {
+  validationCode: '144833',
+};
 
 export default PlaidVerifyIdentityEmail;
 

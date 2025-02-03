@@ -9,8 +9,6 @@ import {
   Preview,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
-import { setupForPreview } from 'react-email';
 
 interface NotionMagicLinkEmailProps {
   loginCode: string;
@@ -88,12 +86,9 @@ export const NotionMagicLinkEmail = ({
   </Html>
 );
 
-setupForPreview(NotionMagicLinkEmail, {
-  loginCode: {
-    type: 'text',
-    defaultValue: 'sparo-ndigo-amurt-secan',
-  },
-});
+NotionMagicLinkEmail.PreviewProps = {
+  loginCode: 'sparo-ndigo-amurt-secan',
+};
 
 export default NotionMagicLinkEmail;
 
