@@ -15,8 +15,10 @@ import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
 import { Button } from '../button';
 import { Heading } from '../heading';
+import { IconImage } from '../icons/icon-image';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
+import { ImageChecker } from './image-checker';
 import { LinkChecker } from './link-checker';
 
 type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
@@ -242,6 +244,14 @@ export const Sidebar = ({
               lottieRef={linkAnimation.ref}
             />
           </TabTrigger>
+          <TabTrigger
+            activeTabValue={activePanelValue}
+            className="relative"
+            tabValue="image-checker"
+            tooltipText="Image Checker"
+          >
+            <IconImage className="h-6 w-6" />
+          </TabTrigger>
           <div className="mt-auto flex flex-col">
             <NavigationButton
               className="flex items-center justify-center"
@@ -284,19 +294,28 @@ export const Sidebar = ({
                     emailSlug={currentEmailOpenSlug}
                   />
                 ) : (
-                  <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
-                    <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
-                      <span className="mx-2.5 mt-2">
-                        To use the Link Checker, you need to select a template.
-                      </span>
-                      <Button
-                        className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
-                        onClick={() => setActivePanelValue('file-tree')}
-                      >
-                        Select a template
-                      </Button>
-                    </div>
-                  </div>
+                  <EmptyState
+                    title="Link Checker"
+                    onSelectTemplate={() => setActivePanelValue('file-tree')}
+                  />
+                )}
+              </Panel>
+            )}
+            {activePanelValue === 'image-checker' && (
+              <Panel
+                title="Image Checker"
+                active={activePanelValue === 'image-checker'}
+              >
+                {currentEmailOpenSlug && emailMarkup ? (
+                  <ImageChecker
+                    emailMarkup={emailMarkup}
+                    emailSlug={currentEmailOpenSlug}
+                  />
+                ) : (
+                  <EmptyState
+                    title="Image Checker"
+                    onSelectTemplate={() => setActivePanelValue('file-tree')}
+                  />
                 )}
               </Panel>
             )}
@@ -315,5 +334,28 @@ export const Sidebar = ({
         </div>
       </aside>
     </Tabs.Root>
+  );
+};
+
+interface EmptyStateProps {
+  onSelectTemplate: () => void;
+  title: string;
+}
+
+const EmptyState = ({ onSelectTemplate, title }: EmptyStateProps) => {
+  return (
+    <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
+      <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
+        <span className="mx-2.5 mt-2">
+          To use the {title}, you need to select a template.
+        </span>
+        <Button
+          className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
+          onClick={() => onSelectTemplate()}
+        >
+          Select a template
+        </Button>
+      </div>
+    </div>
   );
 };
