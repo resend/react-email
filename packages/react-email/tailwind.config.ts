@@ -36,7 +36,6 @@ const iOsHeight = plugin(({ addUtilities }) => {
     },
   };
 
-  // @ts-expect-error This works normally, not sure what this error is
   addUtilities(utilities, ['responsive']);
 });
 

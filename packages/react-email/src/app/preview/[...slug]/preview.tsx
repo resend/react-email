@@ -165,26 +165,18 @@ const Preview = ({
                 onResizeEnd={() => {
                   handleSaveViewSize();
                 }}
-                onResize={(difference, direction) => {
-                  switch (direction) {
-                    case 'north':
-                      setHeight((h) => h + 2 * difference);
-                      break;
-                    case 'south':
-                      setHeight((h) => h + 2 * difference);
-                      break;
-                    case 'east':
-                      setWidth((w) => w + 2 * difference);
-                      break;
-                    case 'west':
-                      setWidth((w) => w + 2 * difference);
-                      break;
+                onResize={(value, direction) => {
+                  const isHorizontal = direction === 'east' || direction === 'west';
+                  if (isHorizontal) {
+                    setWidth(value);
+                  } else {
+                    setHeight(value);
                   }
                 }}
                 width={width}
               >
                 <iframe
-                  className="max-h-full rounded-lg bg-white"
+                  className="solid max-h-full rounded-lg bg-white"
                   ref={(iframe) => {
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);

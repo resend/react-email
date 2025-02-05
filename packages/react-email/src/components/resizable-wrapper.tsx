@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { type ComponentProps, useEffect, useRef, useCallback } from 'react';
+import { cn } from '../utils';
+import { Slot } from '@radix-ui/react-slot';
 
 type Direction = 'north' | 'south' | 'east' | 'west';
 
-interface ResizableWarpperProps {
+type ResizableWarpperProps = {
   width: number;
   height: number;
 
@@ -11,15 +13,22 @@ interface ResizableWarpperProps {
   minWidth: number;
   minHeight: number;
 
-  onResize: (difference: number, direction: Direction) => void;
+  onResize: (newSize: number, direction: Direction) => void;
   onResizeEnd?: () => void;
 
   children: React.ReactNode;
-}
+} & Omit<ComponentProps<'div'>, 'onResize' | 'children'>;
 
 export const makeIframeDocumentBubbleEvents = (iframe: HTMLIFrameElement) => {
   const mouseMoveBubbler = (event: MouseEvent) => {
-    document.dispatchEvent(new MouseEvent('mousemove', event));
+    const bounds = iframe.getBoundingClientRect();
+    document.dispatchEvent(
+      new MouseEvent('mousemove', {
+        ...event,
+        clientX: event.clientX + bounds.x,
+        clientY: event.clientY + bounds.y,
+      }),
+    );
   };
   const mouseUpBubbler = (event: MouseEvent) => {
     document.dispatchEvent(new MouseEvent('mouseup', event));
@@ -43,52 +52,66 @@ export const ResizableWarpper = ({
   maxWidth,
   minHeight,
   minWidth,
-}: ResizableWarpperProps) => {
-  let mouseMoveListener: ((event: MouseEvent) => void) | undefined;
 
-  const handleStopResizing = () => {
-    if (mouseMoveListener) {
-      document.removeEventListener('mousemove', mouseMoveListener);
+  ...rest
+}: ResizableWarpperProps) => {
+  const resizableRef = useRef<HTMLElement>(null);
+
+  const mouseMoveListener = useRef<(event: MouseEvent) => void>(null);
+
+  const handleStopResizing = useCallback(() => {
+    if (mouseMoveListener.current) {
+      document.removeEventListener('mousemove', mouseMoveListener.current);
     }
     document.removeEventListener('mouseup', handleStopResizing);
     onResizeEnd?.();
-  };
+  }, []);
 
   const handleStartResizing = (direction: Direction) => {
-    mouseMoveListener = (event) => {
-      if (event.button === 0) {
-        const signMultiplier =
-          direction === 'west' || direction === 'north' ? -1 : 1;
-        const difference =
-          direction === 'east' || direction === 'west'
-            ? event.movementX
-            : event.movementY;
-        onResize(difference * signMultiplier, direction);
+    mouseMoveListener.current = (event) => {
+      if (event.button === 0 && resizableRef.current) {
+        const isHorizontal = direction === 'east' || direction === 'west';
+
+        const mousePosition = isHorizontal ? event.clientX : event.clientY;
+        const resizableBoundingRect =
+          resizableRef.current.getBoundingClientRect();
+        const center = isHorizontal
+          ? resizableBoundingRect.x + resizableBoundingRect.width / 2
+          : resizableBoundingRect.y + resizableBoundingRect.height / 2;
+        onResize(Math.abs(mousePosition - center) * 2, direction);
       } else {
         handleStopResizing();
       }
     };
 
     document.addEventListener('mouseup', handleStopResizing);
-    document.addEventListener('mousemove', mouseMoveListener);
+    document.addEventListener('mousemove', mouseMoveListener.current);
   };
 
   useEffect(() => {
+    if (!window.document) return;
+
     return () => {
-      if (!window.document) return;
       handleStopResizing();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="relative mx-auto my-auto box-content px-4 py-2">
+    <div
+      {...rest}
+      className={cn(
+        'relative mx-auto my-auto box-content px-4 py-2',
+        rest.className,
+      )}
+    >
       <div
         aria-label="resize-west"
         aria-valuenow={width}
         aria-valuemin={minWidth}
         aria-valuemax={maxWidth}
         className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2 [user-drag:none]"
+        onDragStart={(event) => event.preventDefault()}
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('west');
@@ -103,6 +126,7 @@ export const ResizableWarpper = ({
         aria-valuenow={width}
         aria-valuemin={minWidth}
         aria-valuemax={maxWidth}
+        onDragStart={(event) => event.preventDefault()}
         className="-translate-x-full -translate-y-1/2 absolute top-1/2 left-full cursor-e-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
@@ -118,6 +142,7 @@ export const ResizableWarpper = ({
         aria-valuenow={height}
         aria-valuemin={minHeight}
         aria-valuemax={maxHeight}
+        onDragStart={(event) => event.preventDefault()}
         className="-translate-x-1/2 -translate-y-1/2 absolute top-0 left-1/2 cursor-n-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
@@ -133,6 +158,7 @@ export const ResizableWarpper = ({
         aria-valuenow={height}
         aria-valuemin={minHeight}
         aria-valuemax={maxHeight}
+        onDragStart={(event) => event.preventDefault()}
         className="-translate-x-1/2 -translate-y-1/2 absolute top-full left-1/2 cursor-s-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
@@ -144,7 +170,7 @@ export const ResizableWarpper = ({
         <div className="h-1 w-8 rounded-md bg-slate-8" />
       </div>
 
-      {children}
+      <Slot ref={resizableRef}>{children}</Slot>
     </div>
   );
 };
