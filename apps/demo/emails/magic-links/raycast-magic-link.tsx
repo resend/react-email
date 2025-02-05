@@ -70,8 +70,8 @@ export const RaycastMagicLinkEmail = ({
 );
 
 RaycastMagicLinkEmail.PreviewProps = {
-  magicLink: 'https://raycast.com'
-}
+  magicLink: 'https://raycast.com',
+};
 
 export default RaycastMagicLinkEmail;
 

@@ -1,8 +1,8 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import { cachedGetEmailComponent } from '../utils/cached-get-email-component';
+import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 
 export const getPreviewProps = async (emailPath: string) => {
   const cookieStore = await cookies();
@@ -17,7 +17,7 @@ export const getPreviewProps = async (emailPath: string) => {
       string,
       unknown
     >;
-  } catch (exception) { }
+  } catch (exception) {}
 
   const componentResult = await cachedGetEmailComponent(emailPath);
   if ('emailComponent' in componentResult) {
