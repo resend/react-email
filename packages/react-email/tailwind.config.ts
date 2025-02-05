@@ -19,26 +19,6 @@ const numberInputArrowHide = plugin(({ addUtilities }) => {
   });
 });
 
-const iOsHeight = plugin(({ addUtilities }) => {
-  const supportsTouchRule = '@supports (-webkit-touch-callout: none)';
-  const webkitFillAvailable = '-webkit-fill-available';
-
-  const utilities = {
-    '.min-h-screen-ios': {
-      [supportsTouchRule]: {
-        minHeight: webkitFillAvailable,
-      },
-    },
-    '.h-screen-ios': {
-      [supportsTouchRule]: {
-        height: webkitFillAvailable,
-      },
-    },
-  };
-
-  addUtilities(utilities, ['responsive']);
-});
-
 const config: Config = {
   content: {
     // needs to be relative because tailwind will find the content
@@ -104,6 +84,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [iOsHeight, numberInputArrowHide],
+  plugins: [numberInputArrowHide],
 };
 export default config;
