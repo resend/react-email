@@ -15,7 +15,7 @@ export type Control =
     options: { name: string; value: string }[];
   };
 
-type ControlsResult =
+export type ControlsResult =
   | { error: ErrorObject }
   | { controls: Control[] | undefined };
 

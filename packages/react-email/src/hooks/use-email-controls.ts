@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
+  type Control,
   type ControlsResult,
   getEmailControls,
 } from '../actions/get-email-controls';
 import type { EmailRenderingResult } from '../actions/render-email-by-path';
-import type { Controls } from '../package';
 
 export const useEmailControls = (
   emailPath: string,
@@ -31,5 +31,5 @@ export const useEmailControls = (
 
   return 'error' in emailRenderingResult
     ? undefined
-    : (emailControlsResult as { controls: Controls }).controls;
+    : (emailControlsResult as { controls: Control[] }).controls;
 };
