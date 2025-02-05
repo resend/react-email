@@ -17,14 +17,14 @@ export const getPreviewProps = async (emailPath: string) => {
       string,
       unknown
     >;
-  } catch (exception) {
-    const componentResult = await cachedGetEmailComponent(emailPath);
-    if ('emailComponent' in componentResult) {
-      const { emailComponent: Email } = componentResult;
+  } catch (exception) { }
 
-      if (Email.PreviewProps) {
-        previewProps = Email.PreviewProps;
-      }
+  const componentResult = await cachedGetEmailComponent(emailPath);
+  if ('emailComponent' in componentResult) {
+    const { emailComponent: Email } = componentResult;
+
+    if (Email.PreviewProps) {
+      previewProps = { ...Email.PreviewProps, ...previewProps };
     }
   }
 
