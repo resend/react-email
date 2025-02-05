@@ -6,14 +6,14 @@ import type { ErrorObject } from '../utils/types/error-object';
 
 export type Control =
   | {
-    key: string;
-    type: 'email' | 'text' | 'checkbox' | 'number';
-  }
+      key: string;
+      type: 'email' | 'text' | 'checkbox' | 'number';
+    }
   | {
-    key: string;
-    type: 'select';
-    options: { name: string; value: string }[];
-  };
+      key: string;
+      type: 'select';
+      options: { name: string; value: string }[];
+    };
 
 export type ControlsResult =
   | { error: ErrorObject }
