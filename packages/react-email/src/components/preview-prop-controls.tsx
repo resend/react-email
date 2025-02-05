@@ -16,7 +16,7 @@ export const PreviewPropControls = ({
   controls,
 }: PreviewPropControls) => {
   return (
-    <div className="fixed px-3 py-2 border-t border-solid border-t-slate-9 left-0 bottom-0 bg-black w-full grid gap-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 h-40">
+    <div className="fixed bottom-0 left-0 grid h-40 w-full grid-cols-1 gap-3 border-t border-t-slate-9 border-solid bg-black px-3 py-2 md:grid-cols-3 lg:grid-cols-4">
       {controls.map((control) => {
         if (control) {
           const fieldId = `${control.key}-${control.type}`;
@@ -29,13 +29,13 @@ export const PreviewPropControls = ({
               return (
                 <div key={fieldId}>
                   <label
-                    className="text-slate-10 text-sm mb-2 block"
+                    className="mb-2 block text-slate-10 text-sm"
                     htmlFor={fieldId}
                   >
                     {control.key}
                   </label>
                   <input
-                    className="appearance-none rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
+                    className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-slate-12 text-sm placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
                     data-1p-ignore
                     id={fieldId}
                     onChange={(event) => {
@@ -44,54 +44,6 @@ export const PreviewPropControls = ({
                     type={control.type}
                     value={value as string}
                   />
-                </div>
-              );
-            case 'select':
-              return (
-                <div key={fieldId}>
-                  <label
-                    className="text-slate-10 text-sm mb-2 block"
-                    htmlFor={fieldId}
-                  >
-                    {control.key}
-                  </label>
-                  <Select.Root
-                    onValueChange={(newValue) => {
-                      onValueChange(control.key, newValue);
-                    }}
-                    value={value as string}
-                  >
-                    <Select.Trigger
-                      className="flex rounded-lg px-2 py-1 mb-3 outline-none w-full bg-slate-3 border placeholder-slate-10 border-slate-6 text-slate-12 text-sm focus:ring-1 focus:ring-slate-10 transition duration-300 ease-in-out"
-                      id={fieldId}
-                    >
-                      <Select.Value />
-                      <Select.Icon className="ml-auto">
-                        <IconArrowDown />
-                      </Select.Icon>
-                    </Select.Trigger>
-                    <Select.Portal>
-                      <Select.Content
-                        className="bg-[#0d0f0f] px-2 py-1 text-slate-12 rounded-lg border border-solid border-slate-6 text-sm"
-                        position="item-aligned"
-                      >
-                        <Select.Viewport>
-                          {control.options.map((option) => (
-                            <Select.Item
-                              className="flex relative items-center select-none rounded-md data-[highlighted]:bg-slate-3 data-[highlighted]:outline-none h-6 pl-6 pr-9"
-                              key={option.name}
-                              value={option.value as string}
-                            >
-                              <Select.ItemText>{option.name}</Select.ItemText>
-                              <Select.ItemIndicator className="absolute left-0 flex items-center justify-center">
-                                <IconCheck />
-                              </Select.ItemIndicator>
-                            </Select.Item>
-                          ))}
-                        </Select.Viewport>
-                      </Select.Content>
-                    </Select.Portal>
-                  </Select.Root>
                 </div>
               );
             case 'checkbox':
@@ -109,7 +61,7 @@ export const PreviewPropControls = ({
                     </Checkbox.Indicator>
                   </Checkbox.Root>
                   <label
-                    className="text-slate-10 text-sm mb-2 block"
+                    className="mb-2 block text-slate-10 text-sm"
                     htmlFor={fieldId}
                   >
                     {control.key}
