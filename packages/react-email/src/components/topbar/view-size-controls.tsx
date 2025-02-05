@@ -1,9 +1,9 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { IconArrowDown } from '../icons/icon-arrow-down';
-import { cn } from '../../utils';
 import { motion } from 'framer-motion';
-import { Tooltip } from '../tooltip';
 import * as React from 'react';
+import { cn } from '../../utils';
+import { IconArrowDown } from '../icons/icon-arrow-down';
+import { Tooltip } from '../tooltip';
 
 interface ViewDimensions {
   width: number;

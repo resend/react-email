@@ -1,6 +1,6 @@
-import { type ComponentProps, useEffect, useRef, useCallback } from 'react';
-import { cn } from '../utils';
 import { Slot } from '@radix-ui/react-slot';
+import { type ComponentProps, useCallback, useEffect, useRef } from 'react';
+import { cn } from '../utils';
 
 type Direction = 'north' | 'south' | 'east' | 'west';
 

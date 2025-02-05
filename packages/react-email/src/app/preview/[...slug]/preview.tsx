@@ -1,6 +1,8 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
@@ -16,8 +18,6 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
-import { flushSync } from 'react-dom';
-import { useState } from 'react';
 
 interface PreviewProps {
   slug: string;
@@ -166,7 +166,8 @@ const Preview = ({
                   handleSaveViewSize();
                 }}
                 onResize={(value, direction) => {
-                  const isHorizontal = direction === 'east' || direction === 'west';
+                  const isHorizontal =
+                    direction === 'east' || direction === 'west';
                   if (isHorizontal) {
                     setWidth(value);
                   } else {
