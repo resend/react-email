@@ -17,6 +17,7 @@ import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 import { flushSync } from 'react-dom';
+import { useState } from 'react';
 
 interface PreviewProps {
   slug: string;
@@ -81,8 +82,8 @@ const Preview = ({
 
   const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
 
-  let maxWidth = Number.POSITIVE_INFINITY;
-  let maxHeight = Number.POSITIVE_INFINITY;
+  const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
+  const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
   const minWidth = 350;
   const minHeight = 600;
   const storedWidth = searchParams.get('width');
@@ -90,12 +91,12 @@ const Preview = ({
   const [width, setWidth] = useClampedState(
     storedWidth ? Number.parseInt(storedWidth) : 600,
     350,
-    Number.POSITIVE_INFINITY,
+    maxWidth,
   );
   const [height, setHeight] = useClampedState(
     storedHeight ? Number.parseInt(storedHeight) : 1024,
     600,
-    Number.POSITIVE_INFINITY,
+    maxHeight,
   );
 
   const handleSaveViewSize = useDebouncedCallback(() => {
@@ -129,12 +130,23 @@ const Preview = ({
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div
-        className="relative flex h-full"
+        className="relative flex h-full pb-8"
         ref={(element) => {
+          const observer = new ResizeObserver((entry) => {
+            const [elementEntry] = entry;
+            if (elementEntry) {
+              setMaxWidth(elementEntry.contentRect.width - 80);
+              setMaxHeight(elementEntry.contentRect.height - 80);
+            }
+          });
+
           if (element) {
-            maxWidth = element?.clientWidth;
-            maxHeight = element?.clientWidth;
+            observer.observe(element);
           }
+
+          return () => {
+            observer.disconnect();
+          };
         }}
       >
         {'error' in renderingResult ? (
