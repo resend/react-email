@@ -1,7 +1,5 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
-import * as Select from '@radix-ui/react-select';
 import type { Control } from '../actions/get-email-controls';
-import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 
 interface PreviewPropControls {
