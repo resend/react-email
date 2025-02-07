@@ -130,7 +130,7 @@ const Preview = ({
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div
-        className="relative flex h-full pb-8"
+        className="relative flex h-full pb-8 bg-gray-200"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;

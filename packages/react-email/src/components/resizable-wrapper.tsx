@@ -119,7 +119,7 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-8 w-1 rounded-md bg-slate-8" />
+        <div className="h-8 w-1 rounded-md bg-black/30" />
       </div>
       <div
         aria-label="resize-east"
@@ -135,7 +135,7 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-8 w-1 rounded-md bg-slate-8" />
+        <div className="h-8 w-1 rounded-md bg-black/30" />
       </div>
       <div
         aria-label="resize-north"
@@ -151,7 +151,7 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-1 w-8 rounded-md bg-slate-8" />
+        <div className="h-1 w-8 rounded-md bg-black/30" />
       </div>
       <div
         aria-label="resize-south"
@@ -167,7 +167,7 @@ export const ResizableWarpper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-1 w-8 rounded-md bg-slate-8" />
+        <div className="h-1 w-8 rounded-md bg-black/30" />
       </div>
 
       <Slot ref={resizableRef}>{children}</Slot>
