@@ -85,8 +85,8 @@ export const Shell = ({
         className={cn(
           'relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width sm:mt-[4.375rem] md:absolute md:right-0 lg:mt-0',
           {
-            'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
-            'lg:w-[calc(100vw-20rem)] lg:translate-x-0': !sidebarToggled,
+            'lg:w-[calc(100dvw)] lg:translate-x-0': sidebarToggled,
+            'lg:w-[calc(100dvw-20rem)] lg:translate-x-0': !sidebarToggled,
           },
         )}
         style={{
@@ -120,7 +120,7 @@ export const Shell = ({
               viewWidth={viewWidth}
             />
           ) : null}
-          <div className="relative mx-auto h-[calc(100vh-3.3125rem)] grow md:h-full">
+          <div className="relative mx-auto h-[calc(100dvh-3.3125rem)] grow md:h-full">
             {children}
           </div>
         </div>
