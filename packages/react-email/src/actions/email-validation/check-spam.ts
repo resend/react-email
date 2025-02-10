@@ -1,6 +1,5 @@
 'use server';
 
-import type { ErrorObject } from '../../utils/types/error-object';
 import { parsePointingTableRows } from './spam-assassin/parse-pointing-table-rows';
 import { sendToSpamd } from './spam-assassin/send-to-spamd';
 
@@ -10,13 +9,11 @@ interface Check {
   description: string;
 }
 
-type SpamCheckingResult =
-  | {
-      isSpam: boolean;
-      points: number;
-      checks: Check[];
-    }
-  | { error: ErrorObject };
+export type SpamCheckingResult = {
+  isSpam: boolean;
+  points: number;
+  checks: Check[];
+};
 
 export const checkSpam = async (
   html: string,
@@ -41,11 +38,9 @@ export const checkSpam = async (
 
   const points = checks.reduce((acc, check) => acc + check.points, 0);
 
-  const result: SpamCheckingResult = {
+  return {
     checks,
     isSpam: points >= 5.0,
     points,
   };
-
-  return result;
 };
