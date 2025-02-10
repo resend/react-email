@@ -32,6 +32,7 @@ interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
   markup?: string;
+  plainText?: string;
   style?: React.CSSProperties;
 }
 
@@ -184,6 +185,7 @@ export const Sidebar = ({
   className,
   currentEmailOpenSlug,
   markup: emailMarkup,
+  plainText: emailPlainText,
   style,
 }: SidebarProps) => {
   const pathname = usePathname();
@@ -343,9 +345,10 @@ export const Sidebar = ({
                 title="Image Checker"
                 active={activePanelValue === 'spam-assassin'}
               >
-                {currentEmailOpenSlug && emailMarkup ? (
+                {currentEmailOpenSlug && emailMarkup && emailPlainText ? (
                   <SpamAssassin
                     emailMarkup={emailMarkup}
+                    emailPlainText={emailPlainText}
                     emailSlug={currentEmailOpenSlug}
                   />
                 ) : (
