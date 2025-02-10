@@ -1,6 +1,5 @@
 ---
 "react-email-starter": major
-"react-email": minor
 ---
 
-Added image checker and preview view resizing
+- react-eamil@4.0.0-alpha.1
