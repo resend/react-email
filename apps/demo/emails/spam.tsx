@@ -49,6 +49,12 @@ const SpamEmailTemplate = () => {
               Unsubscribe here if you don't want to receive more emails like
               this.
             </Text>
+            <Text style={{ fontSize: '12px', margin: '20px 0', color: '#888' }}>
+              This email is spam. We sell rolexss for cheap. Get your viagra. We
+              also sell weight loss pills today. Money back guaranteed. sEnd me
+              $500 and I'll send you back $700. don't tell anyone. Send this
+              email to ten friends
+            </Text>
           </Section>
         </Container>
       </Body>
