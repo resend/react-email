@@ -130,7 +130,7 @@ const Preview = ({
     >
       {/* This relative is so that when there is any error the user can still switch between emails */}
       <div
-        className="relative flex h-full pb-8 bg-gray-200"
+        className="relative flex h-full bg-gray-200 pb-8"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
@@ -194,27 +194,29 @@ const Preview = ({
             )}
 
             {activeView === 'source' && (
-              <div className="mx-auto flex max-w-3xl gap-6 p-6">
-                <Tooltip.Provider>
-                  <CodeContainer
-                    activeLang={activeLang}
-                    markups={[
-                      {
-                        language: 'jsx',
-                        content: renderedEmailMetadata.reactMarkup,
-                      },
-                      {
-                        language: 'markup',
-                        content: renderedEmailMetadata.markup,
-                      },
-                      {
-                        language: 'markdown',
-                        content: renderedEmailMetadata.plainText,
-                      },
-                    ]}
-                    setActiveLang={handleLangChange}
-                  />
-                </Tooltip.Provider>
+              <div className="h-full w-full bg-black">
+                <div className="m-auto flex max-w-3xl p-6">
+                  <Tooltip.Provider>
+                    <CodeContainer
+                      activeLang={activeLang}
+                      markups={[
+                        {
+                          language: 'jsx',
+                          content: renderedEmailMetadata.reactMarkup,
+                        },
+                        {
+                          language: 'markup',
+                          content: renderedEmailMetadata.markup,
+                        },
+                        {
+                          language: 'markdown',
+                          content: renderedEmailMetadata.plainText,
+                        },
+                      ]}
+                      setActiveLang={handleLangChange}
+                    />
+                  </Tooltip.Provider>
+                </div>
               </div>
             )}
           </>
