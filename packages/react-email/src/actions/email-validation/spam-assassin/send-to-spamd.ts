@@ -1,5 +1,5 @@
-import net from 'node:net';
 import crypto from 'node:crypto';
+import net from 'node:net';
 
 const host = '127.0.0.1';
 const port = 783;
@@ -26,8 +26,9 @@ export const sendToSpamd = (html: string, plainText: string) => {
       const boundary = `Part_${crypto.randomBytes(16).toString('hex')}`;
       const command = [
         'PROCESS SPAMC/1.5',
+        '',
         'MIME-Version: 1.0',
-        `Content-Type: multipart/mixed; boundary="${boundary}"`,
+        `Content-Type: multipart/alternative; boundary="${boundary}"`,
         '',
         `--${boundary}`,
         'Content-Type: text/html; charset="UTF-8"',

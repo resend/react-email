@@ -2,57 +2,24 @@
 
 exports[`checkSpam() 1`] = `
 {
-  "baseSpamScore": 5,
-  "isSpam": true,
-  "matches": [
-    "NO_HEADERS_MESSAGE",
-    "NO_RECEIVED",
+  "checks": [
+    {
+      "description": "BODY: Money back guarantee",
+      "name": "MONEY_BACK",
+      "points": 2.5,
+    },
+    {
+      "description": "BODY: HTML and text parts are different",
+      "name": "MPART_ALT_DIFF",
+      "points": 0.7,
+    },
+    {
+      "description": "Refers to an erectile drug",
+      "name": "DRUGS_ERECTILE",
+      "points": 2.2,
+    },
   ],
-  "message": "Received: from localhost by gabriels-computer
-	with SpamAssassin (version 4.0.1);
-	Fri, 07 Feb 2025 13:48:21 -0300
-X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on gabriels-computer
-X-Spam-Flag: YES
-X-Spam-Level: *******
-X-Spam-Status: Yes, score=7.9 required=5.0 tests=EMPTY_MESSAGE,MISSING_DATE,
-	MISSING_FROM,MISSING_HEADERS,MISSING_MID,MISSING_SUBJECT,
-	NO_HEADERS_MESSAGE,NO_RECEIVED,NO_RELAYS autolearn=no
-	autolearn_force=no version=4.0.1
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="----------=_67A63955.94B14626"
-This is a multi-part message in MIME format.
-------------=_67A63955.94B14626
-Content-Type: text/plain; charset=UTF-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-Spam detection software, running on the system "gabriels-computer",
-has identified this incoming email as possible spam.  The original
-message has been attached to this so you can view it or label
-similar future email.  If you have any questions, see
-root@localhost for details.
-Content preview:  
-Content analysis details:   (7.9 points, 5.0 required)
- pts rule name              description
----- ---------------------- --------------------------------------------------
- 2.3 EMPTY_MESSAGE          Message appears to have no textual parts
--0.0 NO_RECEIVED            Informational: message has no Received headers
- 0.1 MISSING_MID            Missing Message-Id: header
- 1.4 MISSING_DATE           Missing Date: header
- 1.8 MISSING_SUBJECT        Missing Subject: header
- 1.0 MISSING_FROM           Missing From: header
- 1.2 MISSING_HEADERS        Missing To: header
--0.0 NO_RELAYS              Informational: message was not relayed via SMTP
- 0.0 NO_HEADERS_MESSAGE     Message appears to be missing most RFC-822 headers
-------------=_67A63955.94B14626
-Content-Type: message/rfc822; x-spam-type=original
-Content-Description: original message before SpamAssassin
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><!--$--><body>This email is spam. We sell rolexss for cheap. Get your viagra. We also sell weight loss pills today. Money back guaranteed. sEnd me $500 and I&#x27;ll send you back $700. don&#x27;t tell anyone. Send this email to ten friends<!--/$--></body></html>
-------------=_67A63955.94B14626--
-",
-  "responseCode": 0,
-  "responseMessage": "EX_OK",
-  "spamScore": 7.9,
+  "isSpam": true,
+  "points": 5.4,
 }
 `;
