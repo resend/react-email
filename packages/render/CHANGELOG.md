@@ -1,5 +1,13 @@
 # @react-email/render
 
+## 1.0.5
+
+### Patch Changes
+
+- caa49b3: Fix extra `<` characters being kept when rendering if mso comments under certain conditions
+- 337ac4e: Fix pretty option breaking button components
+- b44c937: Fix unstable rendering when prettifying with the Preview component
+
 ## 1.0.5-canary.1
 
 ### Patch Changes
