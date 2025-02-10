@@ -1,7 +1,6 @@
 import { render } from '@react-email/render';
 import { VercelInviteUserEmail } from '../../../../../apps/demo/emails/notifications/vercel-invite-user';
 import { checkSpam } from './check-spam';
-import * as React from 'react';
 
 test('checkSpam()', async () => {
   // const template = (
@@ -25,7 +24,7 @@ test('checkSpam()', async () => {
     friends
   </body>
 </html>`;
-  const plainText = 'Hello world!';
+  const plainText = 'Completely different content from the original';
 
   console.log(await checkSpam(html, plainText));
 
