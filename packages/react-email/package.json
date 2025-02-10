@@ -41,6 +41,7 @@
   "devDependencies": {
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
+    "@radix-ui/react-dropdown-menu": "2.1.4",
     "@radix-ui/react-popover": "1.1.1",
     "@radix-ui/react-slot": "1.1.0",
     "@radix-ui/react-tabs": "1.1.1",
@@ -80,6 +81,7 @@
     "tsup": "7.2.0",
     "tsx": "4.9.0",
     "typescript": "5.1.6",
+    "use-debounce": "10.0.4",
     "vitest": "1.1.3"
   }
 }

@@ -14,7 +14,11 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "allowJs": true,
     "declaration": false,
     "declarationMap": false,
@@ -31,5 +35,5 @@
     "outDir": "dist"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["tsconfig.export.json", ".next", "dist", "node_modules"]
+  "exclude": [".next", "dist", "node_modules", "**/*.spec.ts", "**/*.spec.tsx"]
 }
