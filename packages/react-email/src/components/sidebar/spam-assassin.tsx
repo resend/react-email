@@ -8,6 +8,7 @@ import {
   checkSpam,
   type SpamCheckingResult,
 } from '../../actions/email-validation/check-spam';
+import { cn } from '../../utils';
 
 interface SpamAssassinProps {
   emailSlug: string;
@@ -52,26 +53,49 @@ export const SpamAssassin = ({
           className="group flex flex-col gap-2"
           aria-label={result.isSpam ? 'spam' : 'ham'}
         >
-          <div className="border-slate-6 border-b border-solid">
-            <span className="pr-2 text-2xl group-aria-[label=ham]:text-green-600 group-aria-[label=spam]:text-red-600">
-              {result.points.toFixed(1)}
-            </span>
-            Score
-          </div>
-
           {result.checks.length > 0 ? (
-            <table>
-              <thead>
+            <table className="w-full text-sm text-left text-slate-10 border-collapse">
+              <caption className="text-left text-xl py-2">
+                <span className="pr-2 text-2xl group-aria-[label=ham]:text-green-600 group-aria-[label=spam]:text-red-500">
+                  {result.points.toFixed(1)}
+                </span>
+                Score
+              </caption>
+              <thead className="border border-slate-6 bg-slate-3 h-8 mb-4 text-xs">
                 <tr>
-                  <th>Description</th>
-                  <th align="right">Points</th>
+                  <th scope="col" className="px-3 py-1">
+                    Rule
+                  </th>
+                  <th scope="col" className="px-3 py-1">
+                    Score
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {result.checks.map((check) => (
-                  <tr>
-                    <td>{check.description}</td>
-                    <td align="right">{check.points}</td>
+                  <tr
+                    key={check.name}
+                    className="border-collapse border-b border-slate-6"
+                  >
+                    <td className="px-3 py-2">
+                      <div className="font-medium text-slate-12">
+                        {check.name}
+                      </div>
+                      <div className="text-xs text-slate-9 mt-1">
+                        {check.description}
+                      </div>
+                    </td>
+                    <td
+                      className={cn(
+                        'px-3 py-2 font-medium',
+                        check.points > 0 ? 'text-yellow-200' : null,
+                        check.points > 1 ? 'text-yellow-300' : null,
+                        check.points > 2 ? 'text-orange-400' : null,
+                        check.points > 3 ? 'text-red-400' : null,
+                      )}
+                    >
+                      {check.points.toFixed(1)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
