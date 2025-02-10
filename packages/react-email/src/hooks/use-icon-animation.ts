@@ -18,9 +18,7 @@ export const useIconAnimation = () => {
     }
 
     const total = Math.round(ref.current.totalFrames ?? 0);
-    const current = Math.round(
-      (ref.current.currentFrame ?? 0) + 1,
-    );
+    const current = Math.round((ref.current.currentFrame ?? 0) + 1);
 
     if (current === 1 || current >= total * THRESHOLD_ANIMATION) {
       timer.current = setTimeout(() => {

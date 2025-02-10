@@ -1,10 +1,10 @@
 'use client';
 
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type * as React from 'react';
 import animatedHelpIcon from '../../animated-icons-data/help.json';
