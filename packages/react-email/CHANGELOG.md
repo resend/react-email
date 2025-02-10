@@ -1,5 +1,16 @@
 # react-email
 
+## 4.0.0-alpha.1
+
+### Minor Changes
+
+- c77f635: Add image validation checking
+- Added image checker and preview view resizing
+
+### Patch Changes
+
+- 498e816: Fix padding on the file tree
+
 ## 4.0.0-alpha.0
 
 ### Major Changes
