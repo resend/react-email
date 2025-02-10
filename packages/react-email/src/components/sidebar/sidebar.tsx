@@ -147,7 +147,7 @@ const Panel = ({ title, active, children }: PanelProps) => (
         {title}
       </Heading>
     </div>
-    <div className="-mt-[.5px] relative h-[calc(100vh-4.375rem)] w-full border-slate-4 border-t px-4 pb-3">
+    <div className="-mt-[.5px] relative h-[calc(100dvh-4.375rem)] w-full border-slate-4 border-t px-4 pb-3">
       {children}
     </div>
   </>
