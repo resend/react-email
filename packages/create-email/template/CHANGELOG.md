@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 0.1.9
+
+### Patch Changes
+
+- @react-email/components@0.0.33
+
 ## 0.1.9-canary.2
 
 ### Patch Changes
