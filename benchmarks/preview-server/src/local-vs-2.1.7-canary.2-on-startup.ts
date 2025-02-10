@@ -2,7 +2,6 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { Bench } from 'tinybench';
 import { runServer } from './utils/run-server';
-import { runServerAndFetchPreviewPage } from './utils/run-server-and-fetch-preview-page';
 
 const pathToCanaryCliScript = path.resolve(
   __dirname,

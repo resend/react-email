@@ -1,7 +1,6 @@
 'use server';
 
 import type { IncomingMessage } from 'node:http';
-import { headers } from 'next/headers';
 import { parse } from 'node-html-parser';
 import { quickFetch } from './quick-fetch';
 

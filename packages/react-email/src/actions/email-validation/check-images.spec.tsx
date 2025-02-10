@@ -1,5 +1,4 @@
 import { render } from '@react-email/render';
-import * as React from 'react';
 import { type ImageCheckingResult, checkImages } from './check-images';
 
 test('checkImages()', async () => {
