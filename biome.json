@@ -22,7 +22,7 @@
         "noAutofocus": "off"
       },
       "nursery": {
-        "useSortedClasses": "warn"
+        "useSortedClasses": "off"
       },
       "suspicious": {
         "noArrayIndexKey": "off",
