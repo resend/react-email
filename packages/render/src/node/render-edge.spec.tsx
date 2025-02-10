@@ -1,8 +1,3 @@
-/**
- * @vitest-environment edge-runtime
- */
-
-import React from 'react';
 import { Preview } from '../shared/utils/preview';
 import { Template } from '../shared/utils/template';
 import { render } from './render';
