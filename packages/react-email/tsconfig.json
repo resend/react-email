@@ -24,33 +24,16 @@
     "declarationMap": false,
     "incremental": false,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true,
     "strict": false,
     "target": "es5",
     "module": "CommonJS",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "types": [
-      "vitest/globals"
-    ],
+    "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    ".next",
-    "dist",
-    "node_modules",
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": [".next", "dist", "node_modules", "**/*.spec.ts", "**/*.spec.tsx"]
 }
