@@ -55,8 +55,8 @@ export const SpamAssassin = ({
         >
           {result.checks.length > 0 ? (
             <table className="w-full text-sm text-left text-slate-10 border-collapse">
-              <caption className="text-left text-xl py-2">
-                <span className="pr-2 text-2xl group-aria-[label=ham]:text-green-600 group-aria-[label=spam]:text-red-500">
+              <caption className="text-left text-xl text-slate-11 py-2">
+                <span className="pr-2 font-medium">
                   {result.points.toFixed(1)}
                 </span>
                 Score
