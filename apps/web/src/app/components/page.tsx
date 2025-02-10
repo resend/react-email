@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import React from 'react';
 import { componentsStructure } from '../../../components/structure';
 import PageTransition from '../../components/page-transition';
 import { Spotlight } from '../../components/spotlight';
