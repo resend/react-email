@@ -5,7 +5,6 @@
 ### Minor Changes
 
 - c77f635: Add image validation checking
-- Added image checker and preview view resizing
 
 ### Patch Changes
 
