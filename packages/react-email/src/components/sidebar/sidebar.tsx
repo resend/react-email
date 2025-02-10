@@ -22,8 +22,13 @@ import { FileTree } from './file-tree';
 import { ImageChecker } from './image-checker';
 import { LinkChecker } from './link-checker';
 import { IconBug } from '../icons/icon-bug';
+import { SpamAssassin } from './spam-assassin';
 
-type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker' | 'spam-assassin';
+type SidebarPanelValue =
+  | 'file-tree'
+  | 'link-checker'
+  | 'image-checker'
+  | 'spam-assassin';
 
 interface SidebarProps {
   className?: string;
@@ -341,7 +346,10 @@ export const Sidebar = ({
                 active={activePanelValue === 'spam-assassin'}
               >
                 {currentEmailOpenSlug && emailMarkup ? (
-                  <></>
+                  <SpamAssassin
+                    emailMarkup={emailMarkup}
+                    emailSlug={currentEmailOpenSlug}
+                  />
                 ) : (
                   <EmptyState
                     title="Spam Assassin"
