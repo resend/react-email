@@ -26,10 +26,25 @@ export const checkSpam = async (
 
   const tableRows = parsePointingTableRows(response);
 
+  const filteredRows = tableRows.filter(
+    (row) =>
+      !row.description.toLowerCase().includes('header') &&
+      !row.ruleName.includes('HEADER') &&
+      row.pts !== 0,
+  );
+
+  const checks = filteredRows.map((row) => ({
+    name: row.ruleName,
+    description: row.description,
+    points: row.pts,
+  }));
+
+  const points = checks.reduce((acc, check) => acc + check.points, 0);
+
   const result: SpamCheckingResult = {
-    checks: [],
-    isSpam: false,
-    points: 0,
+    checks,
+    isSpam: points >= 5.0,
+    points,
   };
 
   return result;

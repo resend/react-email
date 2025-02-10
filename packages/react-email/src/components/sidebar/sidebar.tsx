@@ -1,11 +1,9 @@
 'use client';
-
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { clsx } from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type * as React from 'react';
 import animatedHelpIcon from '../../animated-icons-data/help.json';
@@ -16,12 +14,12 @@ import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
 import { Button } from '../button';
 import { Heading } from '../heading';
+import { IconBug } from '../icons/icon-bug';
 import { IconImage } from '../icons/icon-image';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
 import { ImageChecker } from './image-checker';
 import { LinkChecker } from './link-checker';
-import { IconBug } from '../icons/icon-bug';
 import { SpamAssassin } from './spam-assassin';
 
 type SidebarPanelValue =
