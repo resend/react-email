@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.2
+
+### Minor Changes
+
+- e4eeb18: Make the width and height for the preview of the email customizable
+
 ## 4.0.0-alpha.1
 
 ### Minor Changes
