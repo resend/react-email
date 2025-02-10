@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.3
+
+### Patch Changes
+
+- df0940a: Fix code view contrast
+
 ## 4.0.0-alpha.2
 
 ### Minor Changes

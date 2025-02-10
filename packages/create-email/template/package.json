@@ -1,6 +1,6 @@
 {
   "name": "react-email-starter",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "private": true,
   "scripts": {
     "build": "email build",
@@ -15,6 +15,6 @@
   "devDependencies": {
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "react-email": "workspace:4.0.0-alpha.2"
+    "react-email": "workspace:4.0.0-alpha.3"
   }
 }
