@@ -1,14 +1,14 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { CodeContainer } from '../../../components/code-container';
 import {
-  ResizableWarpper,
+  ResizableWrapper,
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
 import { Shell } from '../../../components/shell';
@@ -18,6 +18,7 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
+import { checkerContext, CheckProvider } from "../../../components/sidebar/link-checker"
 
 interface PreviewProps {
   slug: string;
@@ -106,6 +107,78 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   }, 300);
 
+  const context = React.useContext(checkerContext)
+
+  function addHighlither(iframe) {
+    if (!iframe) return
+
+    const cssRules = `
+      .devtools-highlight {
+        position: relative;
+        cursor: pointer;
+      }
+
+      .devtools-highlight::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border: 2px solid #6464ff;
+        background-color: rgba(111, 168, 220, 0.2);
+        pointer-events: none;
+        transition: opacity 0.15s ease-in-out;
+      }
+
+      .devtools-highlight::after {
+        content: attr(data-url);
+        position: absolute;
+        left: -2px;
+        top: -24px;
+        background-color: #6464ff;
+        color: white;
+        padding: 2px 6px;
+        font-size: 12px;
+        font-family: monospace;
+        border-radius: 2px;
+        transition: opacity 0.15s ease-in-out;
+      }`
+
+    const receiveMessage = `(function receiveMessage() {
+      function highlightNode(nodeId) {
+        const element = document.querySelector(\`[data-node-id="\${nodeId}"]\`);
+        element.classList.add("devtools-highlight")
+      }
+
+      function removeHighlight(nodeId) {
+        const element = document.querySelector(\`[data-node-id="\${nodeId}"]\`);
+        element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+        element.classList.remove("devtools-highlight")
+      }
+
+
+      setTimeout(() => {
+        const styleTag = document.createElement("style");
+        styleTag.innerHTML = \`${cssRules}\`;
+        document.head.appendChild(styleTag);
+
+        console.log(styleTag)
+      }, 1000)
+
+      window.addEventListener("message", (data) => {
+        const { type, nodeId } = data.data;
+        if (type === 'highlight') {
+          highlightNode(nodeId);
+        } else if (type === 'remove-highlight') {
+          removeHighlight(nodeId);
+        }
+      })
+    })();`
+
+    iframe.contentWindow.eval(receiveMessage);
+  }
+
   return (
     <Shell
       activeView={activeView}
@@ -156,7 +229,7 @@ const Preview = ({
         {hasNoErrors ? (
           <>
             {activeView === 'preview' && (
-              <ResizableWarpper
+              <ResizableWrapper
                 minHeight={minHeight}
                 minWidth={minWidth}
                 maxHeight={maxHeight}
@@ -179,18 +252,21 @@ const Preview = ({
                 <iframe
                   className="solid max-h-full rounded-lg bg-white"
                   ref={(iframe) => {
+                    addHighlither(iframe);
+
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);
                     }
                   }}
-                  srcDoc={renderedEmailMetadata.markup}
+                  srcDoc={context.codeWithNodeIds || renderedEmailMetadata.markup}
+                  key={context.codeWithNodeIds || renderedEmailMetadata.markup}
                   style={{
                     width: `${width}px`,
                     height: `${height}px`,
                   }}
                   title={slug}
                 />
-              </ResizableWarpper>
+              </ResizableWrapper>
             )}
 
             {activeView === 'source' && (

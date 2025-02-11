@@ -7,6 +7,7 @@ import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-abs
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import Home from '../../page';
 import Preview from './preview';
+import { CheckProvider } from '../../../components/sidebar/link-checker';
 
 export const dynamicParams = true;
 
@@ -64,12 +65,14 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     // on the build of the preview server de-opting into
     // client-side rendering on build
     <Suspense fallback={<Home />}>
-      <Preview
-        emailPath={emailPath}
-        pathSeparator={path.sep}
-        serverRenderingResult={serverEmailRenderingResult}
-        slug={slug}
-      />
+      <CheckProvider>
+        <Preview
+          emailPath={emailPath}
+          pathSeparator={path.sep}
+          serverRenderingResult={serverEmailRenderingResult}
+          slug={slug}
+        />
+      </CheckProvider>
     </Suspense>
   );
 };

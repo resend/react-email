@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import {
   type LinkCheckingResult,
@@ -14,6 +16,14 @@ interface LinkCheckerResultsProps {
   justLoadedIn: boolean;
 }
 
+export const checkerContext = React.createContext(null)
+
+export const CheckProvider = ({ children }) => {
+  const [codeWithNodeIds, setCodeWithNodeIds] = React.useState("")
+
+  return <checkerContext.Provider value={{ codeWithNodeIds, setCodeWithNodeIds }}>{children}</checkerContext.Provider>
+}
+
 const LinkCheckerResults = ({
   label,
   status,
@@ -21,6 +31,17 @@ const LinkCheckerResults = ({
 
   justLoadedIn,
 }: LinkCheckerResultsProps) => {
+  function highlightNode(nodeId: string) {
+    const iframe = document.querySelector('iframe')
+
+    iframe?.contentWindow.postMessage({ type: 'highlight', nodeId }, '*')
+  }
+
+  function removeHighlight(nodeId: string) {
+    const iframe = document.querySelector('iframe')
+    iframe?.contentWindow.postMessage({ type: 'remove-highlight', nodeId }, '*')
+  }
+
   return (
     <ResultList
       label={
@@ -33,13 +54,15 @@ const LinkCheckerResults = ({
       status={status}
       disabled={results.length === 0}
     >
-      {results.map(({ link, status, checks }) => (
+      {results.map(({ link, status, checks, nodeId }) => (
         <Result key={link} status={status}>
           <a
             href={link}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full"
+            onMouseEnter={() => highlightNode(nodeId)}
+            onMouseLeave={() => removeHighlight(nodeId)}
           >
             <Result.Title>
               <span className="block overflow-hidden truncate text-ellipsis whitespace-nowrap">
@@ -74,6 +97,7 @@ interface LinkCheckerProps {
 
 export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const cacheKey = `link-checking-results-${emailSlug.replaceAll('/', '-')}`;
+  const context = React.useContext(checkerContext)
 
   const [results, setResults] = React.useState<
     LinkCheckingResult[] | undefined
@@ -93,10 +117,11 @@ export const LinkChecker = ({ emailSlug, emailMarkup }: LinkCheckerProps) => {
   const handleRun = () => {
     setLoading(true);
     checkLinks(emailMarkup)
-      .then((newResults) => {
-        setResults(newResults);
+      .then(({ linkCheckingResults, mappedAst }) => {
+        setResults(linkCheckingResults);
         setJustLoadedIn(true);
-        localStorage.setItem(cacheKey, JSON.stringify(newResults));
+        context.setCodeWithNodeIds(mappedAst)
+        localStorage.setItem(cacheKey, JSON.stringify(linkCheckingResults));
       })
       .catch(console.error)
       .finally(() => setLoading(false));

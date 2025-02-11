@@ -5,22 +5,23 @@ import { quickFetch } from './quick-fetch';
 
 type Check = { passed: boolean } & (
   | {
-      type: 'fetch_attempt';
-      metadata: {
-        fetchStatusCode: number | undefined;
-      };
-    }
+    type: 'fetch_attempt';
+    metadata: {
+      fetchStatusCode: number | undefined;
+    };
+  }
   | {
-      type: 'syntax';
-    }
+    type: 'syntax';
+  }
   | {
-      type: 'security';
-    }
+    type: 'security';
+  }
 );
 
 export interface LinkCheckingResult {
   status: 'success' | 'warning' | 'error';
   link: string;
+  nodeId: string,
   checks: Check[];
 }
 
@@ -33,17 +34,22 @@ export const checkLinks = async (code: string) => {
   for await (const anchor of anchors) {
     const link = anchor.attributes.href;
     if (!link) continue;
-    if (linkCheckingResults.some((result) => result.link === link)) continue;
     if (link.startsWith('mailto:')) continue;
+
+    const nodeId = Math.random().toString(36).substring(7);
+    anchor.setAttribute("data-node-id", nodeId)
+    anchor.setAttribute("data-url", link)
 
     const result: LinkCheckingResult = {
       link,
+      nodeId,
       status: 'success',
       checks: [],
     };
 
     try {
       const url = new URL(link);
+      console.log(url)
       result.checks.push({
         passed: true,
         type: 'syntax',
@@ -87,5 +93,5 @@ export const checkLinks = async (code: string) => {
     linkCheckingResults.push(result);
   }
 
-  return linkCheckingResults;
+  return { linkCheckingResults, mappedAst: ast.toString() };
 };
