@@ -1,4 +1,4 @@
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import { checkSpam } from './check-spam';
 
 test('checkSpam()', async () => {

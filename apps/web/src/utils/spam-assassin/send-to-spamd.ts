@@ -1,15 +1,20 @@
 import crypto from 'node:crypto';
 import net from 'node:net';
 
-const host = '127.0.0.1';
-const port = 783;
+const host = process.env.SPAM_ASSASSIN_HOST;
+const port = process.env.SPAM_ASSASSIN_PORT;
 const timeout = 10_000;
 
 export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
+    if (!host || !port) {
+      reject(new Error('Supabase URL and key are required'));
+      return;
+    }
+
     const connection = net.createConnection({
       host,
-      port,
+      port: Number.parseInt(port),
     });
     connection.setTimeout(timeout, () => {
       reject(

@@ -1,24 +1,7 @@
-'use server';
+import { parsePointingTableRows } from '@/utils/spam-assassin/parse-pointing-table-rows';
+import { sendToSpamd } from '@/utils/spam-assassin/send-to-spamd';
 
-import { parsePointingTableRows } from './spam-assassin/parse-pointing-table-rows';
-import { sendToSpamd } from './spam-assassin/send-to-spamd';
-
-interface Check {
-  name: string;
-  points: number;
-  description: string;
-}
-
-export type SpamCheckingResult = {
-  isSpam: boolean;
-  points: number;
-  checks: Check[];
-};
-
-export const checkSpam = async (
-  html: string,
-  plainText: string,
-): Promise<SpamCheckingResult> => {
+export async function checkSpam(html: string, plainText: string) {
   const response = await sendToSpamd(html, plainText);
 
   const tableRows = parsePointingTableRows(response);
@@ -43,4 +26,4 @@ export const checkSpam = async (
     isSpam: points >= 5.0,
     points,
   };
-};
+}

@@ -1,15 +1,22 @@
 import * as React from 'react';
-import {
-  type SpamCheckingResult,
-  checkSpam,
-} from '../../actions/email-validation/check-spam';
 import { cn } from '../../utils';
 import { Button } from '../button';
+import { toast } from 'sonner';
 
 interface SpamAssassinProps {
   emailSlug: string;
   emailMarkup: string;
   emailPlainText: string;
+}
+
+interface SpamCheckingResult {
+  checks: {
+    name: string;
+    description: string;
+    points: number;
+  }[];
+  isSpam: boolean;
+  points: number;
 }
 
 export const SpamAssassin = ({
@@ -25,21 +32,43 @@ export const SpamAssassin = ({
     const cachedValue =
       'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
     if (cachedValue) {
-      setResult(JSON.parse(cachedValue));
+      try {
+        setResult(JSON.parse(cachedValue));
+      } catch (exception) {
+        setResult(undefined);
+      }
     }
   }, [cacheKey]);
 
   const [loading, setLoading] = React.useState(false);
 
-  const handleRun = () => {
+  const handleRun = async () => {
     setLoading(true);
-    checkSpam(emailMarkup, emailPlainText)
-      .then((result) => {
-        setResult(result);
+
+    try {
+      const response = await fetch('https://react.email/api/check-spam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          html: emailMarkup,
+          plainText: emailPlainText,
+        }),
+      });
+
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        toast.error(responseBody.error);
+      } else {
+        setResult(responseBody);
         localStorage.setItem(cacheKey, JSON.stringify(result));
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+      }
+    } catch (exception) {
+      toast.error(exception);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
