@@ -49,7 +49,15 @@ export const parsePointingTableRows = (response: string) => {
         ruleName: ruleName.trim(),
         description: description.trim(),
       });
-    } catch (_) {}
+    } catch (exception) {
+      throw new Error('could not parse points to insert into rows array', {
+        cause: {
+          exception,
+          line,
+          match,
+        },
+      });
+    }
   }
 
   return rows;
