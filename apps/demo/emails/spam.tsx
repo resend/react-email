@@ -1,12 +1,12 @@
 import {
-  Html,
-  Head,
-  Preview,
   Body,
+  Button,
   Container,
+  Head,
+  Html,
+  Preview,
   Section,
   Text,
-  Button,
 } from '@react-email/components';
 
 const SpamEmailTemplate = () => {
