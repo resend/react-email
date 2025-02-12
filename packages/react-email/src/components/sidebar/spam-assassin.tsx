@@ -1,14 +1,10 @@
 import * as React from 'react';
 import {
-  type ImageCheckingResult,
-  checkImages,
-} from '../../actions/email-validation/check-images';
-import { Button } from '../button';
-import {
-  checkSpam,
   type SpamCheckingResult,
+  checkSpam,
 } from '../../actions/email-validation/check-spam';
 import { cn } from '../../utils';
+import { Button } from '../button';
 
 interface SpamAssassinProps {
   emailSlug: string;
@@ -54,14 +50,14 @@ export const SpamAssassin = ({
           aria-label={result.isSpam ? 'spam' : 'ham'}
         >
           {result.checks.length > 0 ? (
-            <table className="w-full text-sm text-left text-slate-10 border-collapse">
-              <caption className="text-left text-xl text-slate-11 py-2">
+            <table className="w-full border-collapse text-left text-slate-10 text-sm">
+              <caption className="py-2 text-left text-slate-11 text-xl">
                 <span className="pr-2 font-medium">
                   {result.points.toFixed(1)}
                 </span>
                 Score
               </caption>
-              <thead className="border border-slate-6 bg-slate-3 h-8 mb-4 text-xs">
+              <thead className="mb-4 h-8 border border-slate-6 bg-slate-3 text-xs">
                 <tr>
                   <th scope="col" className="px-3 py-1">
                     Rule
@@ -75,13 +71,13 @@ export const SpamAssassin = ({
                 {result.checks.map((check) => (
                   <tr
                     key={check.name}
-                    className="border-collapse border-b border-slate-6"
+                    className="border-collapse border-slate-6 border-b"
                   >
                     <td className="px-3 py-2">
                       <div className="font-medium text-slate-12">
                         {check.name}
                       </div>
-                      <div className="text-xs text-slate-9 mt-1">
+                      <div className="mt-1 text-slate-9 text-xs">
                         {check.description}
                       </div>
                     </td>
