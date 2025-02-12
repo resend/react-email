@@ -175,20 +175,13 @@ split into a function
 
 ## Linting
 
-We use [eslint](https://eslint.org/) for linting, and we have a private unpublished package
-called <br/>`eslint-config-custom` that we share across packages and apps. This package is not meant to be
-used outside the repository and is not published to npm.
+We use [biomejs](https://biomejs.dev/) for linting and formatting, there isn't much of detail to go into with it
+as its configuration is quite simple over alternatives. 
 
-For each type of project we have a different configuration to extend and use from the shared configuration,
-they are all based on the [Vercel Engineering Style Guide](https://github.com/vercel/style-guide).
-If you want to run linting check on a specific package they all have a `lint` script that you can run
-with <br/>`pnpm lint`.
+If you want to lint or format the entire project, you can simply run `pnpm lint:fix` on the root of the workspace.
+If you just want to check if there are any linting issues, you can just run `pnpm lint` on the root as well.
 
-We also use [prettier](https://prettier.io/) for formatting, and we have just one configuration
-for all the projects on the root of the repo, if you want to use it you can just run `pnpm format`
-at the root of the repository, and it will do so throughout the project.
-
-Both the linting and formatting are ensured by our GitHub CI so make sure that you have your linting 
+Both linting and formatting are ensured by our GitHub CI, so make sure that you have your linting 
 and formatting right before you get to opening a PR or asking for a review on it.
 
 ## Building
