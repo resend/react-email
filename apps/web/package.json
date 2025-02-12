@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start:spam-assassin": "docker run -p 783:783 ghcr.io/tiredofit/docker-spamassassin",
     "build": "next build",
     "start": "next start",
     "test:watch": "vitest --bail 1",
