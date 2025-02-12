@@ -8,7 +8,16 @@ const timeout = 10_000;
 export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
     if (!host || !port) {
-      reject(new Error('Supabase URL and key are required'));
+      reject(
+        new Error('Host and port for spam assasin must be specified', {
+          cause: {
+            host,
+            port,
+            html,
+            plainText,
+          },
+        }),
+      );
       return;
     }
 

@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start:spam-assassin": "docker run -p 783:783 ghcr.io/tiredofit/docker-spamassassin",
     "build": "next build",
     "start": "next start",
-    "test:watch": "vitest --config ../../vitest.config.ts --bail 1",
-    "test": "vitest run --config ../../vitest.config.ts --bail 1",
+    "test:watch": "vitest --bail 1",
+    "test": "vitest run --bail 1",
     "pattern:dev": "email dev -d ./components",
     "pattern:build": "email build -d ./components"
   },
@@ -30,6 +31,7 @@
     "vaul": "1.1.1"
   },
   "devDependencies": {
+    "@next/env": "15.1.7",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-select": "2.1.2",
     "@radix-ui/react-slot": "1.1.0",
