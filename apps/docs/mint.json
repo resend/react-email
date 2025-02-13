@@ -49,13 +49,7 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": [
-        "introduction",
-        "changelog",
-        "roadmap",
-        "cli",
-        "deployment"
-      ]
+      "pages": ["introduction", "changelog", "roadmap", "cli", "deployment"]
     },
     {
       "group": "Getting Started",
@@ -73,25 +67,6 @@
           ]
         },
         "getting-started/migrating-to-react-email"
-      ]
-    },
-    {
-      "group": "Contributing",
-      "pages": [
-        "contributing/opening-issues",
-        "contributing/codebase-overview",
-        "contributing/opening-pull-requests",
-        {
-          "group": "Development workflow",
-          "icon": "arrow-progress",
-          "pages": [
-            "contributing/development-workflow/1-setup",
-            "contributing/development-workflow/2-running-tests",
-            "contributing/development-workflow/3-linting",
-            "contributing/development-workflow/4-building",
-            "contributing/development-workflow/5-writing-docs"
-          ]
-        }
       ]
     },
     {
@@ -119,9 +94,7 @@
     },
     {
       "group": "Utilities",
-      "pages": [
-        "utilities/render"
-      ]
+      "pages": ["utilities/render"]
     },
     {
       "group": "Integrations",
@@ -134,6 +107,26 @@
         "integrations/aws-ses",
         "integrations/mailersend",
         "integrations/plunk"
+      ]
+    },
+    {
+      "group": "Contributing",
+      "pages": [
+        "contributing/introduction",
+        "contributing/opening-issues",
+        "contributing/opening-pull-requests",
+        "contributing/codebase-overview",
+        {
+          "group": "Development workflow",
+          "icon": "arrow-progress",
+          "pages": [
+            "contributing/development-workflow/1-setup",
+            "contributing/development-workflow/2-running-tests",
+            "contributing/development-workflow/3-linting",
+            "contributing/development-workflow/4-building",
+            "contributing/development-workflow/5-writing-docs"
+          ]
+        }
       ]
     }
   ],

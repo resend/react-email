@@ -2,17 +2,15 @@
 title: 'Codebase overview'
 sidebarTitle: 'Codebase overview'
 'og:image': 'https://react.email/static/covers/react-email.png'
-description: 'A section to make the React Email codebase more approachable'
+description: 'An overview of the React Email codebase'
 icon: 'folder-tree'
 ---
 
-Try reading this section if you feel like the amount of directories or files are cumbersome
-or if you can't understand what is what.
+We've created this guide to help new contributors understand and navigate the React Email codebase.
 
 ## Top-level directories
 
-After cloning the [React Email repository](https://github.com/resend/react-email) you will
-be able to see a few directories at the root:
+After cloning the [React Email repository](https://github.com/resend/react-email) you will see a few root-level directories. Here's a brief overview of each:
 
 <table>
   <thead>
@@ -27,10 +25,10 @@ be able to see a few directories at the root:
 [apps](https://github.com/resend/react-email/tree/canary/apps)
       </td>
       <td>
-        Here you can find all of the apps related to our online presence, like: 
-        - this documentation (under [apps/docs](https://github.com/resend/react-email/tree/canary/apps/docs)), 
-        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx) 
-          (under [apps/demo](https://github.com/resend/react-email/tree/canary/apps/demo)) 
+        Here you can find all of the apps related to our online presence, like:
+        - this documentation (under [apps/docs](https://github.com/resend/react-email/tree/canary/apps/docs)),
+        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx)
+          (under [apps/demo](https://github.com/resend/react-email/tree/canary/apps/demo))
         - the Next app we have for our landing page on [react.email](https://react.email) (under [apps/web](https://github.com/resend/react-email/tree/canary/apps/web))
       </td>
     </tr>
@@ -39,10 +37,9 @@ be able to see a few directories at the root:
 [benchmarks](https://github.com/resend/react-email/tree/canary/benchmarks)
       </td>
       <td>
-        These are meant to be benchmarks we make from version-to-version to demonstrate with actual
-        data that performance gains are really true with metrics like *p99 and p75*.
+        We make benchmarks from version-to-version to demonstrate data-observable performance gains with metrics like *p99 and p75*.
 
-        One example of them is the one for the [Improved Performance for Tailwind Emails](https://resend.com/blog/improved-performance-for-tailwind-emails)
+        For example, see the [Improved Performance for Tailwind Emails](https://resend.com/blog/improved-performance-for-tailwind-emails) benchmark.
       </td>
     </tr>
     <tr>
@@ -50,30 +47,25 @@ be able to see a few directories at the root:
         [packages](https://github.com/resend/react-email/tree/canary/packages)
       </td>
       <td>
-        This is probably where you are going to spend the majority of your time if you are going to contribute.
-        
-        It contains all the [NPM](https://www.npmjs.com/) published packages that we currently have, 
-        each directory should be one of these, with the exception of [a few of them]() 
-        that are meant for shared configuration but you shouldn't have to worry about them in
-        the vast majority of cases.
+        Most contributions will be made to the packages in this directory.
+
+        This directory contains all our published [NPM](https://www.npmjs.com/) packages.
+        Each subdirectory is a single component published as its own package, with the exception of a few packages that serve as shared configuration.
       </td>
     </tr>
   </tbody>
 </table>
 
 <Note>
-  If you have an idea of a better way we could structure these packages so that they could
-  be more manageable and approachable we would really appreciate you 
-  [create a discussion](https://github.com/resend/react-email/discussions/new?category=ideas) with your thoughts 
-  on this.
+  Feel free to [open a discussion](https://github.com/resend/react-email/discussions/new?category=ideas) if you have suggestions on how to better structure these packages to make them more manageable and approachable.
 </Note>
 
 ## Multiple packages
 
-This repository is a [pnpm monorepo](https://pnpm.io/next/workspaces) which means it contains
-multiple packages that are maintained. We keep each component we make inside of a package for itself.
-This being a pnpm monorepo means you need to use [pnpm](https://pnpm.io/) to install the packages
-and we recommend you do so by using [corepack](https://github.com/nodejs/corepack) as follows:
+The react-email repository is a [pnpm monorepo](https://pnpm.io/next/workspaces), which means it contains
+multiple packages.
+
+Because we use pnpm, you will need to use [pnpm](https://pnpm.io/) to install and run each package. If you do not have pnpm installed, we recommend you install it using [corepack](https://github.com/nodejs/corepack) as follows:
 
 ```bash
 corepack enable
@@ -116,92 +108,62 @@ Currently we have the following packages:
   </div>
 </div>
 
-Don't be scared by the amount of packages as most of them are quite small, with <br/>[the largest
-component package](https://github.com/resend/react-email/tree/canary/packages/tailwind) being only 900 lines of code.
-And the largest one being the CLI itself which is actually two things in one, more [information on that later](#the-package-for-our-cli-i-e-packages-react-email).
-
+Most of the passages are very small and can be easily understood by reading the code, so feel free to explore.
 
 ### Turborepo
 
-For managing the tasks that you might want to run on all of the packages we use [turborepo](https://turbo.build/repo)
-it does so in parallel and won't re-run already ran code which makes it really fast after initial the run.
+We encourage using [turborepo](https://turbo.build/repo) to manage the packages.
 
-If you want to use `turborepo` on the projects you can just use the root scripts we have defined
-that directly calls into turborepo and you can see them on the `package.json` file. 
+It's often helpful to [install Turborepo globally](https://turbo.build/repo/docs/installing) to make it easier to run commands in any of the repositories. With a global installation, running `turbo build` in any of the packages will build both the package
+you are on as well as the dependent packages. The global installation handles [version mismatching as well](https://turbo.build/repo/docs/installing#install-per-repository).
 
-Even though you don't need it, we do recommend you have it [installed globally](https://turbo.build/repo/docs/installing) 
-as it allows you to go into one of the packages and run something like `turbo build` which will build both the package 
-you are on, as well as the packages it depends on. Very useful for testing to make sure things are working as expected.
+### The React Email CLI
 
-Also, don't worry about installing it globally and it version mismatching with the one we have in the repo, 
-as [turborepo also deals with that](https://turbo.build/repo/docs/installing#install-per-repository).
+The CLI (i.e. `packages/react-email`) is key to the best development experience with react.email, but it is complex. Here is a brief overview of the CLI.
 
+The CLI includes two components:
+- A Next app for the `email dev` and `email build` commands
+- A [commander.js](https://www.npmjs.com/package/commander) CLI
 
-### The package for our CLI (i.e. `packages/react-email`)
+In the NextJS app, we quietly include an `src/cli` directory that is not published but is compiled into a root `cli` directory. This structure provides a good developer experience as we can both share certain functions and communicate between the CLI components.
 
-The CLI is one of the most important pieces for the best development we can provide to users,
-it can both cause the biggest amount of pain, during development, as well as increase the user's
-speed by quite a lot. Besides that, it's also one of our most complicated packages so let's go over it a bit.
-
-The CLI is both a Next app, for the `email dev` and `email build` commands, 
-as well as a [commander.js]((https://www.npmjs.com/package/commander)) CLI.
-The way we are able to do this is by just having a common Next app file structure and then
-including a sneaky `src/cli` directory that is not published and is compiled into a root `cli` directory. 
-
-This allows for a really good developer experience as we can both share certain functions, as well
-as communicate between them without that much of an issue.
-
-For triggering rebuilds of email templates after they have been saved we use the 
+We trigger rebuilds of email templates after they have been saved using the
 [chokidar](https://www.npmjs.com/package/chokidar) package
-alongside the [socket.io](https://socket.io/) package to detect file changes and send 
-a message to the server that then triggers a rebuild respectively.
-
-
+alongside the [socket.io](https://socket.io/) package to detect file changes and send
+a message to the server to trigger a rebuild.
 
 ## Testing
 
-For testing we use [vitest](https://vitest.dev/) for its really awesome speed and simplicity,
-we prefer it with its globals defined and all the tests are ran under the `happy-dom` environment.
+For testing, we use [vitest](https://vitest.dev/). We prefer to define globals and run tests under the `happy-dom` environment.
 
-This of course, with the exception of the `@react-email/render` package's `renderAsync` that 
-does a fair bit of magic to simulate `edge` and other environments that are not supported by `happy-dom`. 
-For this we override the 
-[environment on a per-file basis](https://vitest.dev/guide/environment#environments-for-specific-files) for its tests
+We do not strictly enforce testing coverage, but encourage it.
 
-We don't have a very strict policy about testing coverage, but we do try to keep things tested to avoid
-both regressions and to make sure that the code is working as expected. A good rule of thumb is that
-if you need to simulate use cases to just test a specific portion of code, you should probably have that
-split into a function 
+For help testing, see our [Development workflow guide](/contributing/development-workflow/2-running-tests).
+
+<Note>
+The `@react-email/render` package's `renderAsync` does a fair bit of magic to simulate `edge` and other environments that are not supported by `happy-dom`. For this use case, we override the [environment on a per-file basis](https://vitest.dev/guide/environment#environments-for-specific-files) for its tests
+</Note>
 
 ## Linting
 
-We use [biomejs](https://biomejs.dev/) for linting and formatting, there isn't much of detail to go into with it
-as its configuration is quite simple over alternatives. 
+We use [biomejs](https://biomejs.dev/) for linting and formatting. Both the linting and formatting are ensured by our GitHub CI so make sure you lint and format your code (`pnpm lint:fix`) before opening a PR or asking for a review on it.
 
-If you want to lint or format the entire project, you can simply run `pnpm lint:fix` on the root of the workspace.
-If you just want to check if there are any linting issues, you can just run `pnpm lint` on the root as well.
-
-Both linting and formatting are ensured by our GitHub CI, so make sure that you have your linting 
-and formatting right before you get to opening a PR or asking for a review on it.
+For help linting and formatting, see our [Development workflow guide on linting](/contributing/development-workflow/3-linting).
 
 ## Building
 
-What we currently use, for the most part, is the awesome [tsup](https://github.com/egoist/tsup).
-The only exception for this is the `@react-email/tailwind` package which currently uses `vite`
-due to a few issues with `tsup` and `tailwindcss`'s bundling.
+We use [tsup](https://github.com/egoist/tsup) to build most packages. (The only exception for this is the `@react-email/tailwind` package which currently uses `vite` due to a few issues with `tsup` and `tailwindcss`'s bundling.) For help building packages, see our [Development workflow guide](/contributing/development-workflow/4-building).
 
-This will literally run `tsup` with a few settings we have for it. Generally
-they are just `src/index.ts --format esm,cjs --dts --external react` which
-generates both an ESM and CJS versions of the package and the type definitions
-that were exported from `src/index.ts`, which is the entry point. `--external
-react` here ensures that `react` is not bundled in which can cause many issues.
+<Note>
+Building in each package will run `tsup` with a few settings, typically `src/index.ts --format esm,cjs --dts --external react`.
+Tsup handles building both ESM and CJS versions along with the type definitions exported from the entry point, `src/index.ts`, without bundling `react`, which can cause issues.
+</Note>
 
 ### Why build before publishing?
 
-Currently, we do building for most of the packages. This is important for a few key reasons
-that improve the usability of each package:
+We build most of the packages before publishing for a few reasons:
 
 1. All the exported types can be imported from the same place the JavaScript is imported
-2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules) 
+2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules)
 and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
-3. Code that isn't exported is not published nor downloaded
+3. Code that isn't exported is not published or downloaded

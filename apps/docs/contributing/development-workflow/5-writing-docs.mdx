@@ -4,8 +4,9 @@ sidebarTitle: '5. Writing docs'
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
-For our documentation we use the amazing [Mintlify](https://mintlify.com/), so
-you will need to have their CLI installed globally to be able to preview the docs:
+We use [Mintlify](https://mintlify.com/) for our documentation.
+
+To preview the docs, you must install their CLI globally:
 
 <CodeGroup>
 
@@ -27,7 +28,7 @@ bun add mintlify -g
 
 </CodeGroup>
 
-With just that you can go ahead and run the following to get a preview of the docs
+Once you install Mintlify, navigate to the `apps/docs` directory and run the following to get a preview of the docs:
 
 ```sh apps/docs
 mintlify dev
@@ -41,7 +42,5 @@ for a few more interesting development tools.
 Mintlify uses `mdx` to allow us to write docs in a composable ways. Because of
 `mdx`, we can build [our own
 components](https://mintlify.com/docs/reusable-snippets#reusable-components)
-but it's always best to use the components Mintlify already provides us, so
-always check up on [this page](https://mintlify.com/docs/content/components) of
-their docs for documentation of their components.
+but it's always best to use the components Mintlify already provides us. Before suggesting a new component, check their [full list of components](https://mintlify.com/docs/content/components).
 

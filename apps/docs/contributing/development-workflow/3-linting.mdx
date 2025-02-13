@@ -2,28 +2,22 @@
 title: 'Linting'
 sidebarTitle: '3. Linting'
 'og:image': 'https://react.email/static/covers/react-email.png'
-description: 'How we do linting and how you should run it'
+description: 'Everything you need to know about linting and formatting'
 ---
 
-We use [eslint](https://eslint.org/) for linting, and we have a private unpublished package
-called <br/>`eslint-config-custom` that we share across packages and apps. This package is not meant to be
-used outside the repository and is not published to npm.
+We use [biomejs](https://biomejs.dev/) for linting and formatting. Both linting and formatting are ensured by our GitHub CI, so before opening a PR or asking for a review, please lint and format your code.
 
-For each type of project we have a different configuration to extend and use from the shared configuration,
-they are all based on the [Vercel Engineering Style Guide](https://github.com/vercel/style-guide).
-If you want to run linting check on a specific package they all have a `lint` script that you can run
-with
+## Check for linting issues
+To check if there are any linting issues, run `pnpm lint` on the root of the workspace.
 
-```bash inside of any package, or in the react-email project root
+```bash
 pnpm lint
 ```
 
-We also use [prettier](https://prettier.io/) for formatting, and we have just one configuration
-for all the projects on the root of the repo, if you want to use it you can just run:
+To lint or format the entire project, run `pnpm lint:fix` on the root of the workspace.
 
-```bash react-email project root
-pnpm format
+```bash
+pnpm lint:fix
 ```
 
-Both the linting and formatting are ensured by our GitHub CI so make sure that you have your linting 
-and formatting right before you get to opening a PR or asking for a review on it.
+Both the linting and formatting are ensured by our GitHub CI so make sure you lint and format your code before opening a PR or asking for a review on it.

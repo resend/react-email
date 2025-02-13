@@ -5,12 +5,11 @@ sidebarTitle: '1. Setup'
 description: 'Things you will need to do beforehand to setup the project'
 ---
 
-Before you can start actually developing you will have to understand
-a few things and get things setup so that you can get to what you need to do.
+Before you can start developing, you will need to get the project setup.
 
-First things first, make sure you are using the same Node version as we are, at least **Node 18**. 
-
-Then, after you do have the right Node version, let's go over the setup for development.
+<Info>
+To contribute to the project, you must use **Node 18** or higher.
+</Info>
 
 <Steps>
   <Step title="Clone the repository">
@@ -34,10 +33,12 @@ Then, after you do have the right Node version, let's go over the setup for deve
     pnpm build
     ```
 
-    It's important to run this because each package may depend on other packages,
-    so having them pre-built may save you a bit of headache.
+    <Note>
+    Building first is crucial because each package may depend on other packages, and pre-building them will ensure that you don't run into issues when developing.
+    </Note>
   </Step>
 </Steps>
 
-This should have you set up and running without any issues, If you do have any issues
-please [open up an issue on GitHub](https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml).
+If you plan to contribute to the docs, view our [Writing docs](/contributing/development-workflow/5-writing-docs) guide for additional setup.
+
+If you have have any trouble, please [reach out on Discord](https://discord.com/invite/n2pWEjjNnD) or consider [opening up an issue on GitHub](https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml) after reading the [issue guidelines](/contributing/opening-issues).

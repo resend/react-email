@@ -5,33 +5,23 @@ sidebarTitle: "4. Building"
 description: "How we build each package before publishing"
 ---
 
-What we currently use, for the most part, is the awesome
-[tsup](https://github.com/egoist/tsup). The only exception for this is the
-`@react-email/tailwind` package which currently uses
-[vite](https://vitejs.dev/) due to a few issues with `tsup` and `tailwindcss`'s
-bundling. If you want to build a package you can just run:
+We use [tsup](https://github.com/egoist/tsup) to build most packages. (The only exception for this is the `@react-email/tailwind` package which currently uses `vite` due to a few issues with `tsup` and `tailwindcss`'s bundling.)
+
+To build a package run:
 
 ```bash package/* (ex: package/render)
 pnpm build
 ```
 
-This will literally run `tsup` with a few settings we have for it. Generally
-they are just<br/> `src/index.ts --format esm,cjs --dts --external react` which
-generates both an [ESM](https://nodejs.org/api/esm.html) and
-[CJS](https://nodejs.org/docs/latest/api/modules.html) versions of the package
-and the type definitions that were exported from `src/index.ts`, which is the
-entry point. `--external react` here ensures that `react` is not bundled in
-which can cause many issues.
+Building in each package will run `tsup` with a few settings, typically `src/index.ts --format esm,cjs --dts --external react`.
+Tsup handles building both [ESM](https://nodejs.org/api/esm.html) and
+[CJS](https://nodejs.org/docs/latest/api/modules.html) versions along with the type definitions exported from the entry point, `src/index.ts`, without bundling `react`, which can cause issues.
 
 ### Why build before publishing?
 
-Currently, we do building for most of the packages. This is important for a few
-key reasons that improve the usability of each package:
+We build most of the packages before publishing for a few reasons:
 
-1. All the exported types can be imported from the same place the JavaScript is
-   imported
-2. We have proper
-   [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules)
-   and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules)
-   support
-3. Code that isn't exported is not published nor downloaded
+1. All the exported types can be imported from the same place the JavaScript is imported
+2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules)
+and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
+3. Code that isn't exported is not published or downloaded
