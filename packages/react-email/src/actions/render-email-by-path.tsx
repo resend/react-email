@@ -10,6 +10,8 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
+  element: React.ReactElement;
+
   markup: string;
   plainText: string;
   reactMarkup: string;
@@ -63,7 +65,8 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const element = createElement(EmailComponent, previewProps);
+    const markup = await render(element, {
       pretty: true,
     });
     const plainText = await render(
@@ -90,6 +93,10 @@ export const renderEmailByPath = async (
     });
 
     const renderingResult = {
+      // TODO: add some way to map between React 18 and 19 elements, as this currently is going to break
+      // with React 18
+      element,
+
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.

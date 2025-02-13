@@ -18,6 +18,7 @@ import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-resu
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
+import { PreviewRenderer } from './preview-renderer';
 
 interface PreviewProps {
   slug: string;
@@ -80,7 +81,7 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasMetadataToRender = typeof renderedEmailMetadata !== 'undefined';
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -153,7 +154,7 @@ const Preview = ({
           <RenderingError error={renderingResult.error} />
         ) : null}
 
-        {hasNoErrors ? (
+        {hasMetadataToRender ? (
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
@@ -176,20 +177,21 @@ const Preview = ({
                 }}
                 width={width}
               >
-                <iframe
-                  className="solid max-h-full rounded-lg bg-white"
+                <PreviewRenderer
+                  className="max-h-full overflow-y-auto rounded-lg bg-white text-black"
+                  style={{
+                    width: `${width}px`,
+                    height: `${height}px`,
+                  }}
                   ref={(iframe) => {
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);
                     }
                   }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
                   title={slug}
-                />
+                >
+                  {renderedEmailMetadata.element}
+                </PreviewRenderer>
               </ResizableWarpper>
             )}
 

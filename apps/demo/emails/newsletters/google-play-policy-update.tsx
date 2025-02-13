@@ -100,7 +100,9 @@ export const GooglePlayPolicyUpdateEmail = () => (
 
         <Section style={containerContact}>
           <Row>
-            <Text style={paragraph}>Connect with us</Text>
+            <Column>
+              <Text style={paragraph}>Connect with us</Text>
+            </Column>
           </Row>
           <Row
             align="left"
@@ -138,12 +140,14 @@ export const GooglePlayPolicyUpdateEmail = () => (
             </Column>
           </Row>
           <Row>
-            <Img
-              style={footer}
-              width="540"
-              height="48"
-              src={`${baseUrl}/static/google-play-footer.png`}
-            />
+            <Column>
+              <Img
+                style={footer}
+                width="540"
+                height="48"
+                src={`${baseUrl}/static/google-play-footer.png`}
+              />
+            </Column>
           </Row>
         </Section>
 
