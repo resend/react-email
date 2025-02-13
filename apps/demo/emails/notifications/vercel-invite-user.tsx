@@ -49,9 +49,9 @@ export const VercelInviteUserEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-sans px-2">
+          <Preview>{previewText}</Preview>
           <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
             <Section className="mt-[32px]">
               <Img

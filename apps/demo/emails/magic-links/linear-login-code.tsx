@@ -27,8 +27,8 @@ export const LinearLoginCodeEmail = ({
 }: LinearLoginCodeEmailProps) => (
   <Html>
     <Head />
-    <Preview>Your login code for Linear</Preview>
     <Body style={main}>
+      <Preview>Your login code for Linear</Preview>
       <Container style={container}>
         <Img
           src={`${baseUrl}/static/linear-logo.png`}

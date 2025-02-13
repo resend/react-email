@@ -21,9 +21,9 @@ const baseUrl = process.env.VERCEL_URL
 export const AppleReceiptEmail = () => (
   <Html>
     <Head />
-    <Preview>Apple Receipt</Preview>
 
     <Body style={main}>
+      <Preview>Apple Receipt</Preview>
       <Container style={container}>
         <Section>
           <Row>

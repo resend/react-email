@@ -22,8 +22,10 @@ const baseUrl = process.env.VERCEL_URL
 export const NikeReceiptEmail = () => (
   <Html>
     <Head />
-    <Preview>Get your order summary, estimated delivery date and more</Preview>
     <Body style={main}>
+      <Preview>
+        Get your order summary, estimated delivery date and more
+      </Preview>
       <Container style={container}>
         <Section style={track.container}>
           <Row>
