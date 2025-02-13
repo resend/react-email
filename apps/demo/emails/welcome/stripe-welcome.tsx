@@ -20,8 +20,8 @@ const baseUrl = process.env.VERCEL_URL
 export const StripeWelcomeEmail = () => (
   <Html>
     <Head />
-    <Preview>You're now ready to make live transactions with Stripe!</Preview>
     <Body style={main}>
+      <Preview>You're now ready to make live transactions with Stripe!</Preview>
       <Container style={container}>
         <Section style={box}>
           <Img
@@ -141,7 +141,6 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '100%',
   padding: '10px',
 };
 

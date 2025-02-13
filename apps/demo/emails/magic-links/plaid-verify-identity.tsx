@@ -115,7 +115,6 @@ const codeContainer = {
 
 const code = {
   color: '#000',
-  display: 'inline-block',
   fontFamily: 'HelveticaNeue-Bold',
   fontSize: '32px',
   fontWeight: 700,
@@ -124,7 +123,7 @@ const code = {
   paddingBottom: '8px',
   paddingTop: '8px',
   margin: '0 auto',
-  width: '100%',
+  display: 'block',
   textAlign: 'center' as const,
 };
 

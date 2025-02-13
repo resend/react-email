@@ -106,6 +106,7 @@
         "integrations/postmark",
         "integrations/aws-ses",
         "integrations/mailersend",
+        "integrations/scaleway",
         "integrations/plunk"
       ]
     },

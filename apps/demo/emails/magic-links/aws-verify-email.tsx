@@ -27,8 +27,8 @@ export default function AWSVerifyEmail({
   return (
     <Html>
       <Head />
-      <Preview>AWS Email Verification</Preview>
       <Body style={main}>
+        <Preview>AWS Email Verification</Preview>
         <Container style={container}>
           <Section style={coverSection}>
             <Section style={imageSection}>

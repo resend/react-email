@@ -25,10 +25,10 @@ export const KoalaWelcomeEmail = ({
 }: KoalaWelcomeEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      The sales intelligence platform that helps you uncover qualified leads.
-    </Preview>
     <Body style={main}>
+      <Preview>
+        The sales intelligence platform that helps you uncover qualified leads.
+      </Preview>
       <Container style={container}>
         <Img
           src={`${baseUrl}/static/koala-logo.png`}

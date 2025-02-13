@@ -38,9 +38,9 @@ export const AmazonReviewEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Amazon Review</Preview>
 
       <Body style={main}>
+        <Preview>Amazon Review</Preview>
         <Container style={container}>
           <Section>
             <Row>

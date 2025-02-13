@@ -28,8 +28,8 @@ export const DropboxResetPasswordEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Dropbox reset your password</Preview>
       <Body style={main}>
+        <Preview>Dropbox reset your password</Preview>
         <Container style={container}>
           <Img
             src={`${baseUrl}/static/dropbox-logo.png`}
