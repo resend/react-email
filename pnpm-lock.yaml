@@ -278,6 +278,28 @@ importers:
         specifier: 4.8.3
         version: 4.8.3
 
+  examples/indiepitcher:
+    dependencies:
+      '@react-email/components':
+        specifier: workspace:0.0.33
+        version: link:../../packages/components
+      indiepitcher:
+        specifier: 1.4.0
+        version: 1.4.0
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      tsup:
+        specifier: 6.2.3
+        version: 6.2.3(@swc/core@1.4.15(@swc/helpers@0.5.15))(postcss@8.5.1)(typescript@4.8.3)
+      typescript:
+        specifier: 4.8.3
+        version: 4.8.3
+
   examples/mailersend:
     dependencies:
       '@react-email/components':
@@ -5792,6 +5814,10 @@ packages:
   indent-string@4.0.0:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
+
+  indiepitcher@1.4.0:
+    resolution: {integrity: sha512-TSL8ft31EE/51DqNrVFkbG1W83yZt8KbuYAL3OIElbuinftzd5aNprz+kSmkUWTDUswoqqNPXs9tFXtyh0/zKA==}
+    engines: {node: '>=18'}
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
@@ -13099,6 +13125,8 @@ snapshots:
   imurmurhash@0.1.4: {}
 
   indent-string@4.0.0: {}
+
+  indiepitcher@1.4.0: {}
 
   inflight@1.0.6:
     dependencies:
