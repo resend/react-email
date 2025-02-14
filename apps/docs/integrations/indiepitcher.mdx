@@ -1,0 +1,79 @@
+---
+title: "Send email using IndiePitcher"
+sidebarTitle: "IndiePitcher"
+description: "Learn how to send an email using React Email and the IndiePitcher Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [IndiePitcher Node.js SDK](https://www.npmjs.com/package/indiepitcher).
+
+<CodeGroup>
+
+```sh npm
+npm install indiepitcher @react-email/components
+```
+
+```sh yarn
+yarn add indiepitcher @react-email/components
+```
+
+```sh pnpm
+pnpm add indiepitcher @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from "react";
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+
+export default Email;
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the IndiePitcher SDK to send it.
+
+```tsx
+import { IndiePitcher } from 'indiepitcher';
+import { render } from "@react-email/components";
+import { Email } from "./email";
+
+const indiePitcher = new IndiePitcher(process.env.INDIEPITCHER_API_KEY || '');
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await indiePitcher.sendEmail({
+  to: 'petr@indiepitcher.com',
+  subject: 'Hello world',
+  body: emailHtml,
+  bodyFormat: 'html',
+});
+```
+
+## Try it yourself
+
+<Card
+  title="IndiePitcher example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/indiepitcher"
+>
+  See the full source code.
+</Card>
