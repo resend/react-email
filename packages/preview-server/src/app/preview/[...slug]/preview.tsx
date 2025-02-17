@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -15,9 +15,11 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { ThemeToggleGroup } from '../../../components/topbar/theme-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
+import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { cn } from '../../../utils';
 import { ErrorOverlay } from './error-overlay';
 
@@ -32,8 +34,16 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const activeView = searchParams.get('view') ?? 'preview';
+  const activeTheme: 'dark' | 'light' =
+    searchParams.get('theme') === 'dark' ? 'dark' : 'light';
+  const activeView = searchParams.get('view') ?? 'desktop';
   const activeLang = searchParams.get('lang') ?? 'jsx';
+
+  const handleThemeChange = (theme: 'dark' | 'light') => {
+    const params = new URLSearchParams(searchParams);
+    params.set('theme', theme);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
@@ -50,6 +60,9 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       `${pathname}?${params.toString()}${isSameLang ? location.hash : ''}`,
     );
   };
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  useIframeColorScheme(iframeRef, activeTheme);
 
   const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
   const hasErrors = 'error' in renderingResult;
@@ -83,26 +96,32 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   return (
     <>
       <Topbar emailTitle={emailTitle}>
-        {activeView === 'preview' && (
-          <ViewSizeControls
-            setViewHeight={(height) => {
-              setHeight(height);
-              flushSync(() => {
-                handleSaveViewSize();
-              });
-            }}
-            setViewWidth={(width) => {
-              setWidth(width);
-              flushSync(() => {
-                handleSaveViewSize();
-              });
-            }}
-            viewHeight={height}
-            viewWidth={width}
-            minWidth={minWidth}
-            minHeight={minHeight}
-          />
-        )}
+        {activeView === 'preview' ? (
+          <>
+            <ViewSizeControls
+              setViewHeight={(height) => {
+                setHeight(height);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              setViewWidth={(width) => {
+                setWidth(width);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              viewHeight={height}
+              viewWidth={width}
+              minWidth={minWidth}
+              minHeight={minHeight}
+            />
+            <ThemeToggleGroup
+              active={activeTheme}
+              onChange={(theme) => handleThemeChange(theme)}
+            />
+          </>
+        ) : null}
         <ActiveViewToggleGroup
           activeView={activeView}
           setActiveView={handleViewChange}
@@ -168,6 +187,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                 <iframe
                   className="max-h-full rounded-lg bg-white [color-scheme:auto]"
                   ref={(iframe) => {
+                    iframeRef.current = iframe;
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);
                     }
