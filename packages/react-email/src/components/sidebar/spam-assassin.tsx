@@ -59,15 +59,15 @@ export const SpamAssassin = ({
       );
 
       if (response.ok) {
-      const responseBody = (await response.json()) as
-        | { error: string }
-        | SpamCheckingResult;
-      if ('error' in responseBody) {
-        toast.error(responseBody.error);
-      } else {
-        setResult(responseBody);
-        localStorage.setItem(cacheKey, JSON.stringify(result));
-      }
+        const responseBody = (await response.json()) as
+          | { error: string }
+          | SpamCheckingResult;
+        if ('error' in responseBody) {
+          toast.error(responseBody.error);
+        } else {
+          setResult(responseBody);
+          localStorage.setItem(cacheKey, JSON.stringify(result));
+        }
       } else {
         console.error(await response.text());
         toast.error('Something went wrong');
