@@ -46,15 +46,19 @@ export const SpamAssassin = ({
     setLoading(true);
 
     try {
-      const response = await fetch('https://react.email/api/check-spam', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          html: emailMarkup,
-          plainText: emailPlainText,
-        }),
-      });
+      const response = await fetch(
+        'https://react-email-git-feat-spam-assassin-resend.vercel.app/api/check-spam',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            html: emailMarkup,
+            plainText: emailPlainText,
+          }),
+        },
+      );
 
+      if (response.ok) {
       const responseBody = (await response.json()) as
         | { error: string }
         | SpamCheckingResult;
@@ -64,8 +68,13 @@ export const SpamAssassin = ({
         setResult(responseBody);
         localStorage.setItem(cacheKey, JSON.stringify(result));
       }
+      } else {
+        console.error(await response.text());
+        toast.error('Something went wrong');
+      }
     } catch (exception) {
-      toast.error(exception);
+      console.error(exception);
+      toast.error(JSON.stringify(exception));
     } finally {
       setLoading(false);
     }
