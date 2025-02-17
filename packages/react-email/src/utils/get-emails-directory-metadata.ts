@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import fs from 'node:fs';
 import path from 'node:path';
-import { cache } from 'react';
 
 const isFileAnEmail = (fullPath: string): boolean => {
   const stat = fs.statSync(fullPath);
