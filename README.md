@@ -91,6 +91,7 @@ Emails built with React Email can be converted into HTML and sent using any emai
 - [AWS SES](https://github.com/resend/react-email/tree/main/examples/aws-ses)
 - [Plunk](https://github.com/resend/react-email/tree/main/examples/plunk)
 - [Scaleway](https://github.com/resend/react-email/tree/main/examples/scaleway)
+- [IndiePitcher](https://github.com/resend/react-email/tree/main/examples/indiepitcher)
 
 ## Support
 

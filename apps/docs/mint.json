@@ -113,7 +113,8 @@
         "integrations/postmark",
         "integrations/aws-ses",
         "integrations/mailersend",
-        "integrations/plunk"
+        "integrations/plunk",
+        "integrations/indiepitcher"
       ]
     }
   ],
