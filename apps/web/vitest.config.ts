@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config';
-import { loadEnvConfig } from '@next/env';
 import path from 'node:path';
+import { loadEnvConfig } from '@next/env';
+import { defineConfig } from 'vitest/config';
 
 loadEnvConfig(__dirname, true);
 

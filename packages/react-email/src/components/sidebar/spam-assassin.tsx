@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { toast } from 'sonner';
 import { cn } from '../../utils';
 import { Button } from '../button';
-import { toast } from 'sonner';
 
 interface SpamAssassinProps {
   emailSlug: string;
