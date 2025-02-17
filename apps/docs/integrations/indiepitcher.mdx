@@ -60,7 +60,7 @@ const indiePitcher = new IndiePitcher(process.env.INDIEPITCHER_API_KEY || '');
 const emailHtml = await render(<Email url="https://example.com" />);
 
 await indiePitcher.sendEmail({
-  to: 'petr@indiepitcher.com',
+  to: 'hello@indiepitcher.com',
   subject: 'Hello world',
   body: emailHtml,
   bodyFormat: 'html',
