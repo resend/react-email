@@ -38,9 +38,7 @@ export const sendToSpamd = (html: string, plainText: string) => {
 
     connection.on('connect', () => {
       const boundary = `Part_${crypto.randomBytes(16).toString('hex')}`;
-      const command = [
-        'PROCESS SPAMC/1.5',
-        '',
+      const message = [
         'MIME-Version: 1.0',
         `Content-Type: multipart/alternative; boundary="${boundary}"`,
         '',
@@ -60,7 +58,14 @@ export const sendToSpamd = (html: string, plainText: string) => {
         '',
       ].join('\r\n');
 
-      connection.end(command);
+      const command = [
+        'PROCESS SPAMC/1.5',
+        `Content-length: ${Buffer.byteLength(message)}`,
+        '',
+        message,
+      ].join('\r\n');
+
+      connection.write(command);
     });
 
     connection.on('error', (error) => {
