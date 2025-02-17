@@ -178,7 +178,7 @@ const footerLogos = {
   marginBottom: '32px',
   paddingLeft: '8px',
   paddingRight: '8px',
-  width: '100%',
+  display: 'block'
 };
 
 const socialMediaIcon = {

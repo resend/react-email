@@ -112,7 +112,7 @@ export const YelpRecentLoginEmail = ({
               </Column>
             </Row>
             <Row style={{ ...boxInfos, paddingTop: '0' }}>
-              <Column style={containerButton} colSpan={2}>
+              <Column style={buttonContainer} colSpan={2}>
                 <Button style={button}>Learn More</Button>
               </Column>
             </Row>
@@ -166,10 +166,8 @@ const logo = {
   padding: '30px 20px',
 };
 
-const containerButton = {
+const buttonContainer = {
   display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
 };
 
 const button = {
@@ -179,6 +177,7 @@ const button = {
   fontWeight: 'bold',
   border: '1px solid rgb(0,0,0, 0.1)',
   cursor: 'pointer',
+  margin: '0 auto',
   padding: '12px 30px',
 };
 

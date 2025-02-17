@@ -166,12 +166,10 @@ const button = {
   borderRadius: '3px',
   color: '#fff',
   fontSize: '18px',
-  paddingTop: '19px',
-  paddingBottom: '19px',
+  padding: '19px 30px',
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '100%',
 };
 
 const link = {

@@ -141,7 +141,6 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
-  width: '100%',
   padding: '10px',
 };
 
