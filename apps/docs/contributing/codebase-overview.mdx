@@ -65,14 +65,14 @@ After cloning the [React Email repository](https://github.com/resend/react-email
 The react-email repository is a [pnpm monorepo](https://pnpm.io/next/workspaces), which means it contains
 multiple packages.
 
-Because we use pnpm, you will need to use [pnpm](https://pnpm.io/) to install and run each package. If you do not have pnpm installed, we recommend you install it using [corepack](https://github.com/nodejs/corepack) as follows:
+Because we use pnpm, you will need to use [pnpm](https://pnpm.io/) to install and run each package. If you do not have pnpm installed, we recommend you install it using [corepack](https://github.com/nodejs/corepack):
 
 ```bash
 corepack enable
 corepack prepare pnpm@latest --activate
 ```
 
-Currently we have the following packages:
+Currently, we have the following packages:
 
 <div className="grid gap-2" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
   <div>
@@ -108,7 +108,7 @@ Currently we have the following packages:
   </div>
 </div>
 
-Most of the passages are very small and can be easily understood by reading the code, so feel free to explore.
+Most of these packages are very small and can be easily understood by reading the code, so feel free to explore.
 
 ### Turborepo
 
@@ -125,7 +125,7 @@ The CLI includes two components:
 - A Next app for the `email dev` and `email build` commands
 - A [commander.js](https://www.npmjs.com/package/commander) CLI
 
-In the NextJS app, we quietly include an `src/cli` directory that is not published but is compiled into a root `cli` directory. This structure provides a good developer experience as we can both share certain functions and communicate between the CLI components.
+In the NextJS app, we include a `src/cli` directory that is not published but is compiled into a root `cli` directory. This structure provides a good developer experience as we can both share certain functions and communicate between the CLI components.
 
 We trigger rebuilds of email templates after they have been saved using the
 [chokidar](https://www.npmjs.com/package/chokidar) package
