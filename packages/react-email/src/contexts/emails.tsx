@@ -1,10 +1,10 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
-import { useHotreload } from '../hooks/use-hot-reload';
 import {
-  getEmailsDirectoryMetadata,
   type EmailsDirectory,
+  getEmailsDirectoryMetadata,
 } from '../actions/get-emails-directory-metadata';
+import { useHotreload } from '../hooks/use-hot-reload';
 
 const EmailsContext = createContext<
   | {

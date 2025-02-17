@@ -7,11 +7,10 @@ import type { EmailRenderingResult } from '../../../actions/render-email-by-path
 import { CodeContainer } from '../../../components/code-container';
 import { Shell } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
-import { useHotreload } from '../../../hooks/use-hot-reload';
-import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
+import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
+import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
