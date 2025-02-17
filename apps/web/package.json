@@ -30,7 +30,6 @@
     "vaul": "1.1.1"
   },
   "devDependencies": {
-    "@next/env": "15.1.7",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-select": "2.1.2",
     "@radix-ui/react-slot": "1.1.0",
