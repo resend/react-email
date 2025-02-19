@@ -11,6 +11,7 @@ import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
 import { Tailwind } from '.';
 import type { TailwindConfig } from '.';
+import { vi } from 'vitest';
 
 describe('Tailwind component', () => {
   it('should allow for complex children manipulation', async () => {
@@ -22,6 +23,41 @@ describe('Tailwind component', () => {
         </ResponsiveRow>
       </Tailwind>,
     );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should work with blocklist', async () => {
+    const actualOutput = await render(
+      <Tailwind config={{ blocklist: ['bg-blue-600'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should warn about safelist not being supported', async () => {
+    const spy = vi.spyOn(console, 'warn');
+
+    const actualOutput = await render(
+      <Tailwind config={{ safelist: ['bg-red-500'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(spy).toHaveBeenCalled();
     expect(actualOutput).toMatchSnapshot();
   });
 
