@@ -96,8 +96,7 @@
     "jsdom": "23.0.1",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
-    "typescript": "5.1.6",
-    "vitest": "1.1.2"
+    "typescript": "5.1.6"
   },
   "publishConfig": {
     "access": "public"
