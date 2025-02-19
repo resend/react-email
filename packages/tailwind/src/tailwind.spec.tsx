@@ -8,8 +8,8 @@ import { render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
 import { vi } from 'vitest';
-import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
+import type { TailwindConfig } from '.';
 
 describe('Tailwind component', () => {
   it('should allow for complex children manipulation', async () => {
