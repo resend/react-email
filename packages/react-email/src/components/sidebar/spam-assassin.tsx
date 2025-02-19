@@ -47,7 +47,7 @@ export const SpamAssassin = ({
 
     try {
       const response = await fetch(
-        'https://react-email-git-feat-spam-assassin-api-resend.vercel.app//api/check-spam',
+        'https://react-email-git-feat-spam-assassin-api-resend.vercel.app/api/check-spam',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
