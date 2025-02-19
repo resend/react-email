@@ -87,26 +87,20 @@ export const SpamAssassin = ({
           className="group flex flex-col gap-2"
           aria-label={result.isSpam ? 'spam' : 'ham'}
         >
-          {result.checks.length > 0 ? (
-            <table className="w-full border-collapse text-left text-slate-10 text-sm">
-              <caption className="py-2 text-left text-slate-11 text-xl">
-                <span className="pr-2 font-medium">
-                  {result.points.toFixed(1)}
-                </span>
-                Score
-              </caption>
-              <thead className="mb-4 h-8 border border-slate-6 bg-slate-3 text-xs">
-                <tr>
-                  <th scope="col" className="px-3 py-1">
-                    Rule
-                  </th>
-                  <th scope="col" className="px-3 py-1">
-                    Score
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.checks.map((check) => (
+          <table className="w-full border-collapse text-left text-slate-10 text-sm">
+            <thead className="mb-4 h-8 border border-t-0 border-slate-6 bg-slate-3 text-xs">
+              <tr>
+                <th scope="col" className="px-3 py-1">
+                  Rule
+                </th>
+                <th scope="col" className="px-3 py-1" align="right">
+                  Score
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.checks.length > 0 ? (
+                result.checks.map((check) => (
                   <tr
                     key={check.name}
                     className="border-collapse border-slate-6 border-b"
@@ -120,6 +114,7 @@ export const SpamAssassin = ({
                       </div>
                     </td>
                     <td
+                      align="right"
                       className={cn(
                         'px-3 py-2 font-medium',
                         check.points > 0 ? 'text-yellow-200' : null,
@@ -131,10 +126,27 @@ export const SpamAssassin = ({
                       {check.points.toFixed(1)}
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : null}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} className="py-10 font-medium text-center">
+                    Nothing from Spam Assassin
+                  </td>
+                </tr>
+              )}
+            </tbody>
+            <tfoot className="mb-4 h-8 border border-slate-6 bg-slate-3">
+              <tr className="border-collapse border-slate-6 border-b">
+                <td className="px-3 py-2">Considered </td>
+                <td
+                  className="text-green-300 py-2 px-3 group-aria-[label=spam]:text-red-300 bg-transparent"
+                  align="right"
+                >
+                  {result.isSpam ? 'spam' : 'safe'}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       ) : (
         <span className="text-xs leading-relaxed">
