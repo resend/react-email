@@ -16,7 +16,7 @@ export const Send = ({ markup }: { markup: string }) => {
       e.preventDefault();
       setIsSending(true);
 
-      const response = await fetch('https://react.email/api/send/test', {
+      const response = await fetch('https://react-email-git-feat-spam-assassin-api-resend.vercel.app/api/send/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
