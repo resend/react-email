@@ -97,7 +97,7 @@
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "typescript": "5.1.6",
-    "vitest": "1.1.2"
+    "vitest": "1.6.1"
   },
   "publishConfig": {
     "access": "public"
