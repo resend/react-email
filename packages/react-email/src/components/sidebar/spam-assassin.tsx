@@ -66,7 +66,7 @@ export const SpamAssassin = ({
           toast.error(responseBody.error);
         } else {
           setResult(responseBody);
-          localStorage.setItem(cacheKey, JSON.stringify(result));
+          localStorage.setItem(cacheKey, JSON.stringify(responseBody));
         }
       } else {
         console.error(await response.text());
