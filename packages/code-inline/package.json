@@ -38,7 +38,6 @@
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
-    "typescript": "5.1.6",
-    "vitest": "1.1.0"
+    "typescript": "5.1.6"
   }
 }
