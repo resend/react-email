@@ -150,7 +150,7 @@ export const SpamAssassin = ({
         </div>
       ) : (
         <span className="text-xs leading-relaxed">
-          Check if all links are valid and redirect to the correct pages.
+          Check how well your email goes on a batch of spam testing.
         </span>
       )}
       <Button loading={loading} onClick={handleRun}>
