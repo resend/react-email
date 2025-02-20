@@ -3,8 +3,7 @@ import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
-import { sanitizeMediaQueries } from '../css/media-queries/sanitize-media-queries';
-import { sanitizePseudoClasses } from '../css/pseudo-classes/sanitize-pseudo-classes';
+import { sanitizeNonInlinableClasses } from '../css/non-inlinable-classes/sanitize-non-inlinable-classes';
 import { sanitizeDeclarations } from '../css/sanitize-declarations';
 import { isComponent } from '../react/is-component';
 import type { setupTailwind } from './setup-tailwind';
@@ -24,15 +23,10 @@ export const cloneElementWithInlinedStyles = (
     );
     sanitizeDeclarations(rootForClasses);
 
-    const { sanitizedAtRules, mediaQueryClasses } =
-      sanitizeMediaQueries(rootForClasses);
-    nonInlinableClasses = mediaQueryClasses;
-    nonInlineStyleNodes = sanitizedAtRules;
-
-    const { sanitizedPseudoClassRules, pseudoClassClasses } =
-      sanitizePseudoClasses(rootForClasses);
-    nonInlinableClasses.push(...pseudoClassClasses);
-    nonInlineStyleNodes.push(...sanitizedPseudoClassRules);
+    const { sanitizedRules, nonInlinableClasses: classes } =
+      sanitizeNonInlinableClasses(rootForClasses);
+    nonInlineStyleNodes = sanitizedRules;
+    nonInlinableClasses = classes;
 
     const { styles, residualClassName } = makeInlineStylesFor(
       element.props.className,
@@ -53,10 +47,7 @@ export const cloneElementWithInlinedStyles = (
           a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of [
-          ...mediaQueryClasses,
-          ...pseudoClassClasses,
-        ]) {
+        for (const singleClass of classes) {
           propsToOverwrite.className = propsToOverwrite.className.replace(
             singleClass,
             sanitizeClassName(singleClass),
