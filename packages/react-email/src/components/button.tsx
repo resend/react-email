@@ -5,7 +5,6 @@ import type * as React from 'react';
 import animatedLoadIcon from '../animated-icons-data/load.json';
 import { cn } from '../utils/cn';
 import { unreachable } from '../utils/unreachable';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 type RootProps = React.ComponentProps<'button'>;
 
