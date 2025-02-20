@@ -118,7 +118,7 @@ export const startDevServer = async (
   const spinner = ora({
     text: 'Getting react-email preview server ready...\n',
     prefixText: ' ',
-  });
+  }).start();
 
   registerSpinnerAutostopping(spinner);
   const timeBeforeNextReady = performance.now();
