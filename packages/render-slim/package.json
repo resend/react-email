@@ -1,0 +1,109 @@
+{
+  "name": "@react-email/render",
+  "version": "1.0.5",
+  "description": "Transform React components into HTML email templates",
+  "sideEffects": false,
+  "main": "./dist/browser/index.js",
+  "module": "./dist/browser/index.mjs",
+  "types": "./dist/browser/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "node": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
+        }
+      },
+      "deno": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "worker": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "browser": {
+        "import": {
+          "types": "./dist/browser/index.d.mts",
+          "default": "./dist/browser/index.mjs"
+        },
+        "require": {
+          "types": "./dist/browser/index.d.ts",
+          "default": "./dist/browser/index.js"
+        }
+      },
+      "default": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
+        }
+      }
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup-node",
+    "clean": "rm -rf dist",
+    "dev": "tsup-node --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/render"
+  },
+  "keywords": [
+    "react",
+    "email"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "html-to-text": "9.0.5",
+    "react-promise-suspense": "0.3.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "3.1.8",
+    "@types/html-to-text": "9.0.4",
+    "@types/prettier": "3.0.0",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "jsdom": "23.0.1",
+    "tsconfig": "workspace:*",
+    "tsup": "7.2.0",
+    "typescript": "5.1.6",
+    "vitest": "1.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
