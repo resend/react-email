@@ -188,17 +188,17 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-    (_codeOrSignal: number | NodeJS.Signals) => {
-      if (typeof devServer !== 'undefined') {
-        console.log('\n    shutting down dev server');
-        devServer.close();
-        devServer = undefined;
-      }
+  (_codeOrSignal: number | NodeJS.Signals) => {
+    if (typeof devServer !== 'undefined') {
+      console.log('\n    shutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
 
-      if (options?.shouldKillProcess) {
-        process.exit(options.killWithErrorCode ? 1 : 0);
-      }
-    };
+    if (options?.shouldKillProcess) {
+      process.exit(options.killWithErrorCode ? 1 : 0);
+    }
+  };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
