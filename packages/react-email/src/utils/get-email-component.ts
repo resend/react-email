@@ -2,7 +2,12 @@
 import path from 'node:path';
 import vm from 'node:vm';
 import type { render } from '@react-email/render';
-import { type BuildFailure, type OutputFile, build } from 'esbuild';
+import {
+  type BuildFailure,
+  type OutputFile,
+  build,
+  type Plugin,
+} from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
@@ -13,24 +18,55 @@ import type { ErrorObject } from './types/error-object';
 
 export const getEmailComponent = async (
   emailPath: string,
+
+  options?:
+    | Record<string, never>
+    | {
+      overriddenDependenciesResolveDir: string;
+      overriddenDependencies: RegExp[];
+    },
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      render: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
   try {
+    const plugins: Plugin[] = [renderingUtilitiesExporter([emailPath])];
+    if (options?.overriddenDependencies) {
+      plugins.push({
+        name: 'override-dependencies',
+        setup(build) {
+          for (const dependency of options.overriddenDependencies) {
+            build.onResolve({ filter: dependency }, (args) => {
+              if (args.pluginData === 'already-overwritten-resolution') {
+                return;
+              }
+
+              return build.resolve(args.path, {
+                importer: args.importer,
+                kind: args.kind,
+                namespace: args.namespace,
+                pluginData: 'already-overwritten-resolution',
+                with: args.with,
+                resolveDir: options.overriddenDependenciesResolveDir,
+              });
+            });
+          }
+        },
+      });
+    }
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
+      plugins,
       platform: 'node',
       write: false,
 

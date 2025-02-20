@@ -126,6 +126,7 @@ export const startDevServer = async (
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
       process.cwd(),
+      cliPacakgeLocation,
     ),
   };
   const app = next({
