@@ -150,7 +150,7 @@ export const ImageChecker = ({ emailSlug, emailMarkup }: ImageCheckerProps) => {
         </>
       ) : (
         <span className="text-xs leading-relaxed">
-          Check if all links are valid and redirect to the correct pages.
+          Check if all images exist, have proper size, are accessible, and are secure.
         </span>
       )}
       <Button loading={loading} onClick={handleRun}>
