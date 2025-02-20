@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@changesets/cli": "2.27.11",
+    "@changesets/cli": "2.28.0",
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
@@ -27,8 +27,8 @@
     "tsconfig": "workspace:*",
     "tsup": "8.2.4",
     "turbo": "2.3.1",
-    "vite": "5.4.13",
-    "vitest": "2.0.5"
+    "vite": "5.4.14",
+    "vitest": "2.1.9"
   },
   "pnpm": {
     "overrides": {

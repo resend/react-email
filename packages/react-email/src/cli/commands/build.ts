@@ -8,7 +8,7 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
-import { cliPacakgeLocation } from '../utils';
+import { cliPackageLocation } from '../utils';
 
 interface Args {
   dir: string;
@@ -242,7 +242,7 @@ export const build = async ({
     }
 
     spinner.text = 'Copying preview app from CLI to `.react-email`';
-    await fs.promises.cp(cliPacakgeLocation, builtPreviewAppPath, {
+    await fs.promises.cp(cliPackageLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
         // do not copy the CLI files
