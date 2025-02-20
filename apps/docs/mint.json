@@ -49,14 +49,7 @@
   "navigation": [
     {
       "group": "Overview",
-      "pages": [
-        "introduction",
-        "contributing",
-        "changelog",
-        "roadmap",
-        "cli",
-        "deployment"
-      ]
+      "pages": ["introduction", "changelog", "roadmap", "cli", "deployment"]
     },
     {
       "group": "Getting Started",
@@ -77,7 +70,7 @@
       ]
     },
     {
-      "group": "Internal components",
+      "group": "Components",
       "pages": [
         "components/html",
         "components/head",
@@ -115,6 +108,26 @@
         "integrations/mailersend",
         "integrations/scaleway",
         "integrations/plunk"
+      ]
+    },
+    {
+      "group": "Contributing",
+      "pages": [
+        "contributing/introduction",
+        "contributing/opening-issues",
+        "contributing/opening-pull-requests",
+        "contributing/codebase-overview",
+        {
+          "group": "Development workflow",
+          "icon": "arrow-progress",
+          "pages": [
+            "contributing/development-workflow/1-setup",
+            "contributing/development-workflow/2-running-tests",
+            "contributing/development-workflow/3-linting",
+            "contributing/development-workflow/4-building",
+            "contributing/development-workflow/5-writing-docs"
+          ]
+        }
       ]
     }
   ],

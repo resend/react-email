@@ -1,0 +1,23 @@
+---
+title: 'Linting'
+sidebarTitle: '3. Linting'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'Everything you need to know about linting and formatting'
+---
+
+We use [biomejs](https://biomejs.dev/) for linting and formatting. Both linting and formatting are ensured by our GitHub CI, so before opening a PR or asking for a review, please lint and format your code.
+
+## Check for linting issues
+To check if there are any linting issues, run `pnpm lint` on the root of the workspace.
+
+```bash
+pnpm lint
+```
+
+To lint or format the entire project, run `pnpm lint:fix` on the root of the workspace.
+
+```bash
+pnpm lint:fix
+```
+
+Both the linting and formatting are ensured by our GitHub CI so make sure you lint and format your code before opening a PR or asking for a review on it.
