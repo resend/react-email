@@ -3,11 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
+import * as React from 'react';
 import ora from 'ora';
 import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { packageLocation } from '../utils/emails-directory-absolute-path';
 
 export interface RenderedEmailMetadata {
   element: React.ReactElement;
@@ -20,8 +22,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -45,7 +47,10 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const componentResult = await getEmailComponent(emailPath);
+  const componentResult = await getEmailComponent(emailPath, {
+    overriddenDependencies: [/^react/],
+    overriddenDependenciesResolveDir: packageLocation,
+  });
 
   if ('error' in componentResult) {
     spinner?.stopAndPersist({
@@ -70,7 +75,7 @@ export const renderEmailByPath = async (
       pretty: true,
     });
     const plainText = await render(
-      createElement(EmailComponent, previewProps),
+      React.createElement(EmailComponent, previewProps),
       {
         plainText: true,
       },

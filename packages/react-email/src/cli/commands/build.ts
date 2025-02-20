@@ -52,6 +52,7 @@ module.exports = {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
+    PACKAGE_LOCATION: process.cwd(),
     USER_PROJECT_LOCATION: userProjectLocation
   },
   // this is needed so that the code for building emails works properly
