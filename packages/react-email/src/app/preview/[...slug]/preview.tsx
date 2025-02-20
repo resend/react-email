@@ -17,8 +17,8 @@ import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
-import { RenderingError } from './rendering-error';
 import { PreviewRenderer } from './preview-renderer';
+import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
