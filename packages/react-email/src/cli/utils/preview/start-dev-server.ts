@@ -96,21 +96,23 @@ export const startDevServer = async (
   }
 
   devServer.on('close', async () => {
+    console.debug('close');
     await app.close();
   });
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
-    console.error(
-      ` ${logSymbols.error} preview server error: `,
-      JSON.stringify(e),
-    );
-    process.exit(1);
+    console.debug('error');
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: `Preview Server had an error: ${e}`,
+    });
+    // process.exit(1);
   });
 
   const spinner = ora({
     text: 'Getting react-email preview server ready...\n',
     prefixText: ' ',
-  }).start();
+  });
 
   registerSpinnerAutostopping(spinner);
   const timeBeforeNextReady = performance.now();
@@ -128,6 +130,7 @@ export const startDevServer = async (
       process.cwd(),
     ),
   };
+
   const app = next({
     // passing in env here does not get the environment variables there
     dev: isDev,
@@ -144,7 +147,15 @@ export const startDevServer = async (
 
   let isNextReady = false;
   const nextReadyPromise = app.prepare();
-  await nextReadyPromise;
+  try {
+    await nextReadyPromise;
+  } catch (exception) {
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: ` Preview Server had an error: ${exception}`,
+    });
+    process.exit(1);
+  }
   isNextReady = true;
 
   const nextHandleRequest:
@@ -171,17 +182,17 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (_codeOrSignal: number | NodeJS.Signals) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (_codeOrSignal: number | NodeJS.Signals) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\n    shutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
