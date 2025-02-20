@@ -39,6 +39,14 @@ export const startDevServer = async (
   staticBaseDirRelativePath: string,
   port: number,
 ): Promise<http.Server> => {
+  const [majorNodeVersion] = process.versions.node.split('.');
+  if (majorNodeVersion && Number.parseInt(majorNodeVersion) < 18) {
+    console.error(
+      ` ${logSymbols.error}  Node ${majorNodeVersion} is not supported. Please upgrade to Node 18 or higher.`,
+    );
+    process.exit(1);
+  }
+
   devServer = http.createServer((req, res) => {
     if (!req.url) {
       res.end(404);
