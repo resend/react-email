@@ -39,6 +39,14 @@ export const startDevServer = async (
   staticBaseDirRelativePath: string,
   port: number,
 ): Promise<http.Server> => {
+  const [majorNodeVersion] = process.versions.node.split('.');
+  if (majorNodeVersion && Number.parseInt(majorNodeVersion) < 18) {
+    console.error(
+      ` ${logSymbols.error}  Node ${majorNodeVersion} is not supported. Please upgrade to Node 18 or higher.`,
+    );
+    process.exit(1);
+  }
+
   devServer = http.createServer((req, res) => {
     if (!req.url) {
       res.end(404);
@@ -100,10 +108,10 @@ export const startDevServer = async (
   });
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
-    console.error(
-      ` ${logSymbols.error} preview server error: `,
-      JSON.stringify(e),
-    );
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: `Preview Server had an error: ${e}`,
+    });
     process.exit(1);
   });
 
@@ -128,6 +136,7 @@ export const startDevServer = async (
       process.cwd(),
     ),
   };
+
   const app = next({
     // passing in env here does not get the environment variables there
     dev: isDev,
@@ -144,7 +153,15 @@ export const startDevServer = async (
 
   let isNextReady = false;
   const nextReadyPromise = app.prepare();
-  await nextReadyPromise;
+  try {
+    await nextReadyPromise;
+  } catch (exception) {
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: ` Preview Server had an error: ${exception}`,
+    });
+    process.exit(1);
+  }
   isNextReady = true;
 
   const nextHandleRequest:
@@ -173,7 +190,7 @@ const makeExitHandler =
   ) =>
   (_codeOrSignal: number | NodeJS.Signals) => {
     if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
+      console.log('\n    shutting down dev server');
       devServer.close();
       devServer = undefined;
     }
