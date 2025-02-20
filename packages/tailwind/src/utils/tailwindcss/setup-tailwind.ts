@@ -21,6 +21,13 @@ const tailwindAtRulesRoot = parse(
 ).root();
 
 export function setupTailwind(config: TailwindConfig) {
+  // See https://github.com/resend/react-email/issues/1907#issuecomment-2668720428
+  if ('safelist' in config) {
+    console.warn(
+      'The `safelist` option is not supported in the `Tailwind` component, it will not change any behavior.',
+    );
+    delete config.safelist;
+  }
   const tailwindContext = setupTailwindContext(config);
   return {
     generateRootForClasses: (classes: string[]) => {
