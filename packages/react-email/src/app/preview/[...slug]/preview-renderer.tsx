@@ -2,14 +2,14 @@ import { type ComponentProps, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { mergeRefs } from '../../../utils/merge-refs';
 
-type ShadowRootRendererProps = {
+type PreviewRendererProps = {
   children: React.ReactElement;
 } & ComponentProps<'iframe'>;
 
 export const PreviewRenderer = ({
   children,
   ...rest
-}: ShadowRootRendererProps) => {
+}: PreviewRendererProps) => {
   const [iframeDocument, setIframeDocument] = useState<Document>();
 
   return (
