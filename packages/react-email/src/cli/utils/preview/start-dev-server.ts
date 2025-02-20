@@ -104,17 +104,15 @@ export const startDevServer = async (
   }
 
   devServer.on('close', async () => {
-    console.debug('close');
     await app.close();
   });
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
-    console.debug('error');
     spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Preview Server had an error: ${e}`,
     });
-    // process.exit(1);
+    process.exit(1);
   });
 
   const spinner = ora({
