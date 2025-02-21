@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`checkSpam() 1`] = `
+{
+  "checks": [
+    {
+      "description": "BODY: Money back guarantee",
+      "name": "MONEY_BACK",
+      "points": 2.5,
+    },
+    {
+      "description": "BODY: HTML and text parts are different",
+      "name": "MPART_ALT_DIFF",
+      "points": 0.7,
+    },
+    {
+      "description": "Refers to an erectile drug",
+      "name": "DRUGS_ERECTILE",
+      "points": 2.2,
+    },
+  ],
+  "isSpam": true,
+  "points": 5.4,
+}
+`;
