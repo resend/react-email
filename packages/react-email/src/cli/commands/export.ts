@@ -1,6 +1,6 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type { Options } from '@react-email/render';
+import { pretty, type Options } from '@react-email/render';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
@@ -39,6 +39,7 @@ type ExportTemplatesOptions = Options & {
 export const exportTemplates = async (
   pathToWhereEmailMarkupShouldBeDumped: string,
   emailsDirectoryPath: string,
+  shouldPretty: boolean,
   options: ExportTemplatesOptions,
 ) => {
   /* Delete the out directory if it already exists */
@@ -117,12 +118,14 @@ export const exportTemplates = async (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
+        pretty: Function;
         reactEmailCreateReactElement: typeof React.createElement;
       };
-      const rendered = await emailModule.render(
+      let rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
+      if (!options.plainText && shouldPretty) rendered = await emailModule.pretty(rendered);
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',
