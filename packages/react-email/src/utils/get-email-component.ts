@@ -1,5 +1,5 @@
 import path from 'node:path';
-import type { render } from '@react-email/components';
+import type { render, pretty } from '@react-email/components';
 import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
@@ -14,6 +14,7 @@ import type { ErrorObject } from './types/error-object';
 const EmailComponentModule = z.object({
   default: z.any(),
   render: z.function(),
+  pretty: z.function(),
   reactEmailCreateReactElement: z.function(),
 });
 
@@ -21,14 +22,16 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      render: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    pretty: typeof pretty;
+
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -126,6 +129,7 @@ export const getEmailComponent = async (
   return {
     emailComponent: componentModule.default as EmailComponent,
     render: componentModule.render as typeof render,
+    pretty: componentModule.pretty,
     createElement:
       componentModule.reactEmailCreateReactElement as typeof React.createElement,
 

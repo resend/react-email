@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import { render } from '@react-email/components';
+import { render, pretty } from '@react-email/components';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
@@ -84,9 +84,7 @@ export const getImportedComponent = async (
   if (variantFilenames.length === 1 && variantFilenames[0] === 'index.tsx') {
     const filePath = path.join(dirpath, 'index.tsx');
     const element = <Layout>{await getComponentElement(filePath)}</Layout>;
-    const html = await render(element, {
-      pretty: true,
-    });
+    const html = await pretty(await render(element));
     const fileContent = await fs.readFile(filePath, 'utf8');
     const code = getComponentCodeFrom(fileContent);
     return {
@@ -121,9 +119,7 @@ export const getImportedComponent = async (
 
   const element = <Layout>{elements[0]}</Layout>;
 
-  codePerVariant.html = await render(element, {
-    pretty: true,
-  });
+  codePerVariant.html = await pretty(await render(element));
 
   return {
     ...component,
