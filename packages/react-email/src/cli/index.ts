@@ -49,7 +49,7 @@ program
     false,
   )
   .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
-    exportTemplates(outDir, srcDir, { pretty, silent, plainText }),
+    exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
   );
 
 program.parse();
