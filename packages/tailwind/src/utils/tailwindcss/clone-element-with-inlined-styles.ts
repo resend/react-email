@@ -23,10 +23,10 @@ export const cloneElementWithInlinedStyles = (
     );
     sanitizeDeclarations(rootForClasses);
 
-    const { sanitizedRules, nonInlinableClasses: classes } =
-      sanitizeNonInlinableClasses(rootForClasses);
-    nonInlineStyleNodes = sanitizedRules;
-    nonInlinableClasses = classes;
+    ({
+      sanitizedRules: nonInlineStyleNodes,
+      nonInlinableClasses: nonInlinableClasses,
+    } = sanitizeNonInlinableClasses(rootForClasses));
 
     const { styles, residualClassName } = makeInlineStylesFor(
       element.props.className,
@@ -47,7 +47,7 @@ export const cloneElementWithInlinedStyles = (
           a user-defined class could end up also being sanitized which would lead to unexpected
           behavior and bugs that are hard to track.
         */
-        for (const singleClass of classes) {
+        for (const singleClass of nonInlinableClasses) {
           propsToOverwrite.className = propsToOverwrite.className.replace(
             singleClass,
             sanitizeClassName(singleClass),
