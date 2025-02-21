@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import CodeSnippet from '../components/code-snippet';
-import { Shell } from '../components/shell';
+import { Shell, ShellContent } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import logo from './logo.png';
 
@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <Shell>
-      <div className="relative mx-auto flex h-[inherit] max-w-lg items-center justify-center p-8">
+      <ShellContent className="mx-auto flex max-w-lg items-center justify-center p-8">
         <div className="-mt-10 relative flex flex-col items-center gap-3 text-center">
           <Image
             alt="React Email Icon"
@@ -38,7 +38,7 @@ const Home = () => {
             <Link href="https://react.email/docs">Check the docs</Link>
           </Button>
         </div>
-      </div>
+      </ShellContent>
     </Shell>
   );
 };
