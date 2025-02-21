@@ -115,6 +115,32 @@ Some title
 Click me [https://example.com]
 ```
 
+## 5. Customize template rendering further
+With `useRenderingOptions()` you can get the render options from inside your template.
+
+For example, if you want some part of your template to only render when rendering as plain text, you could create your template as:
+
+```jsx email.jsx
+import * as React from 'react';
+import { Html, Button, Hr, Text, useRenderingOptions } from "@react-email/components";
+
+export function MyTemplate() {
+  const options = useRenderingOptions();
+  return (
+    <Html lang="en">
+      {options.plainText && 
+        <Text>This is only visible when rendering as Plain Text.</Text>
+      }
+      <Text>Some title</Text>
+      <Hr />
+      <Button href="https://example.com">Click me</Button>
+    </Html>
+  );
+}
+
+export default MyTemplate;
+```
+
 ## Options
 
 <ResponseField name="pretty" type="boolean">
@@ -126,4 +152,3 @@ Click me [https://example.com]
 <ResponseField name="htmlToTextOptions" type="HtmlToTextOptions">
   `html-to-text` [options](https://github.com/html-to-text/node-html-to-text/tree/master/packages/html-to-text#options) used for rendering
 </ResponseField>
-
