@@ -8,8 +8,7 @@ test('email export', async () => {
     '../../../../../../apps/demo/emails',
   );
   const pathToDumpMarkup = path.resolve(__dirname, './out');
-  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
-    pretty: true,
+  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, true, {
     silent: true,
   });
 
