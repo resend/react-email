@@ -35,5 +35,5 @@
     "outDir": "dist"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": [".next", "dist", "node_modules", "**/*.spec.ts", "**/*.spec.tsx"]
+  "exclude": [".next", "dist", "node_modules"]
 }
