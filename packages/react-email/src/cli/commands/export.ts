@@ -140,7 +140,6 @@ export const exportTemplates = async (
         });
       }
       console.error(exception);
-      throw exception
       process.exit(1);
     }
   }
