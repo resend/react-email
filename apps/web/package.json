@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test:watch": "vitest --config ../../vitest.config.ts --bail 1",
-    "test": "vitest run --config ../../vitest.config.ts --bail 1",
+    "test:watch": "vitest --bail 1",
+    "test": "vitest run --bail 1",
     "pattern:dev": "email dev -d ./components",
     "pattern:build": "email build -d ./components"
   },
