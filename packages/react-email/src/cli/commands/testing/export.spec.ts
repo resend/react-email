@@ -8,8 +8,9 @@ test('email export', async () => {
     '../../../../../../apps/demo/emails',
   );
   const pathToDumpMarkup = path.resolve(__dirname, './out');
-  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, true, {
+  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
     silent: true,
+    pretty: true,
   });
 
   expect(fs.existsSync(pathToDumpMarkup)).toBe(true);

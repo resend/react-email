@@ -29,6 +29,7 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 
 type ExportTemplatesOptions = Options & {
   silent?: boolean;
+  pretty?: boolean;
 };
 
 /*
@@ -39,7 +40,6 @@ type ExportTemplatesOptions = Options & {
 export const exportTemplates = async (
   pathToWhereEmailMarkupShouldBeDumped: string,
   emailsDirectoryPath: string,
-  shouldPretty: boolean,
   options: ExportTemplatesOptions,
 ) => {
   /* Delete the out directory if it already exists */
@@ -118,14 +118,14 @@ export const exportTemplates = async (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
-        pretty: Function;
+        pretty: (str: string, options?: Options) => Promise<string>;
         reactEmailCreateReactElement: typeof React.createElement;
       };
       let rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      if (!options.plainText && shouldPretty) rendered = await emailModule.pretty(rendered);
+      if (!options.plainText && options.pretty) rendered = await emailModule.pretty(rendered);
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',
@@ -140,6 +140,7 @@ export const exportTemplates = async (
         });
       }
       console.error(exception);
+      throw exception
       process.exit(1);
     }
   }
