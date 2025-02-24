@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parsePointingTableRows() 1`] = `
+[
+  {
+    "description": "Missing Subject: header",
+    "pts": 1.8,
+    "ruleName": "MISSING_SUBJECT",
+  },
+  {
+    "description": "Missing Date: header",
+    "pts": 1.4,
+    "ruleName": "MISSING_DATE",
+  },
+  {
+    "description": "Missing Message-Id: header",
+    "pts": 0.1,
+    "ruleName": "MISSING_MID",
+  },
+  {
+    "description": "Missing From: header",
+    "pts": 1,
+    "ruleName": "MISSING_FROM",
+  },
+  {
+    "description": "Informational: message has no Received headers",
+    "pts": -0,
+    "ruleName": "NO_RECEIVED",
+  },
+  {
+    "description": "Missing To: header",
+    "pts": 1.2,
+    "ruleName": "MISSING_HEADERS",
+  },
+  {
+    "description": "Informational: message was not relayed via SMTP",
+    "pts": -0,
+    "ruleName": "NO_RELAYS",
+  },
+  {
+    "description": "BODY: Money back guarantee",
+    "pts": 2.5,
+    "ruleName": "MONEY_BACK",
+  },
+  {
+    "description": "BODY: HTML included in message",
+    "pts": 0,
+    "ruleName": "HTML_MESSAGE",
+  },
+  {
+    "description": "Message appears to be missing most RFC-822 headers",
+    "pts": 0,
+    "ruleName": "NO_HEADERS_MESSAGE",
+  },
+  {
+    "description": "Refers to an erectile drug",
+    "pts": 2.2,
+    "ruleName": "DRUGS_ERECTILE",
+  },
+]
+`;

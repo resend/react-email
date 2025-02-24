@@ -70,6 +70,9 @@ jobs:
 
       - name: Run Tests
         run: pnpm test
+        env:  
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
 
   build:
     runs-on: buildjet-4vcpu-ubuntu-2204
