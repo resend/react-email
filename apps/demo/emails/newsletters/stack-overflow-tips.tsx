@@ -48,8 +48,8 @@ export const StackOverflowTipsEmail = ({
 }: StackOverflowTipsEmailProps) => (
   <Html>
     <Head />
-    <Preview>Stack overflow tips for searching</Preview>
     <Body style={main}>
+      <Preview>Stack overflow tips for searching</Preview>
       <Container style={container}>
         <Section style={logo}>
           <Img width={146} src={`${baseUrl}/static/stack-overflow-logo.png`} />

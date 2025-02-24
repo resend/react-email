@@ -59,5 +59,29 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
         return result;
       },
     );
+
+    b.onResolve(
+      { filter: /^react-email-module-that-will-export-pretty$/ },
+      async (args) => {
+        const options: ResolveOptions = {
+          kind: 'import-statement',
+          importer: args.importer,
+          resolveDir: args.resolveDir,
+          namespace: args.namespace,
+        };
+        let result = await b.resolve('@react-email/render', options);
+        if (result.errors.length === 0) {
+          return result;
+        }
+
+        // If @react-email/render does not exist, resolve to @react-email/components
+        result = await b.resolve('@react-email/components', options);
+        if (result.errors.length > 0 && result.errors[0]) {
+          result.errors[0].text =
+            "Failed trying to import `pretty` from either `@react-email/render` or `@react-email/components` to be able to render your email template.\n Maybe you don't have either of them installed?";
+        }
+        return result;
+      },
+    );
   },
 });

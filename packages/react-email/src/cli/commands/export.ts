@@ -40,6 +40,7 @@ type ExportTemplatesOptions = Options & {
 export const exportTemplates = async (
   pathToWhereEmailMarkupShouldBeDumped: string,
   emailsDirectoryPath: string,
+  shouldPretty: boolean,
   options: ExportTemplatesOptions,
 ) => {
   /* Delete the out directory if it already exists */

@@ -22,8 +22,8 @@ const baseUrl = process.env.VERCEL_URL
 export const CodepenChallengersEmail = () => (
   <Html>
     <Head />
-    <Preview>#CodePenChallenge: Cubes</Preview>
     <Body style={main}>
+      <Preview>#CodePenChallenge: Cubes</Preview>
       <Section style={header}>
         <Img
           style={imgHeader}

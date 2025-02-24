@@ -24,8 +24,8 @@ export const NotionMagicLinkEmail = ({
 }: NotionMagicLinkEmailProps) => (
   <Html>
     <Head />
-    <Preview>Log in with this magic link</Preview>
     <Body style={main}>
+      <Preview>Log in with this magic link</Preview>
       <Container style={container}>
         <Heading style={h1}>Login</Heading>
         <Link

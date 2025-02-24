@@ -1,0 +1,44 @@
+---
+title: 'Setup'
+sidebarTitle: '1. Setup'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'Things you will need to do beforehand to setup the project'
+---
+
+Before you can start developing, you will need to get the project setup.
+
+<Info>
+To contribute to the project, you must use **Node 18** or higher.
+</Info>
+
+<Steps>
+  <Step title="Clone the repository">
+    ```bash
+    git clone https://github.com/resend/react-email
+    ```
+  </Step>
+  <Step title={<>Enable <a href="https://pnpm.io/">pnpm</a> through <a href="https://github.com/nodejs/corepack">corepack</a></>}>
+    ```bash inside of react-email
+    corepack enable
+    corepack prepare pnpm@latest --activate
+    ```
+  </Step>
+  <Step title="Install all the dependencies">
+    ```bash inside of react-email
+    pnpm install
+    ```
+  </Step>
+  <Step title="Build all the packages">
+    ```bash inside of react-email
+    pnpm build
+    ```
+
+    <Note>
+    Building first is crucial because each package may depend on other packages, and pre-building them will ensure that you don't run into issues when developing.
+    </Note>
+  </Step>
+</Steps>
+
+If you plan to contribute to the docs, view our [Writing docs](/contributing/development-workflow/5-writing-docs) guide for additional setup.
+
+If you have have any trouble, please [reach out on Discord](https://discord.com/invite/n2pWEjjNnD) or consider [opening up an issue on GitHub](https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml) after reading the [issue guidelines](/contributing/opening-issues).
