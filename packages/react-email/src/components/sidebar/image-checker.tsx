@@ -150,7 +150,8 @@ export const ImageChecker = ({ emailSlug, emailMarkup }: ImageCheckerProps) => {
         </>
       ) : (
         <span className="text-xs leading-relaxed">
-          Check if all images exist, have proper size, are accessible, and are secure.
+          Check if all images exist, have proper size, are accessible, and are
+          secure.
         </span>
       )}
       <Button loading={loading} onClick={handleRun}>
