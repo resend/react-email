@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
-import { invalidateEmailComponentCache } from '../actions/invalidate-email-component-cache';
 import {
   type EmailRenderingResult,
   invalidateComponentCache,
