@@ -20,6 +20,7 @@ export const TooltipContent = React.forwardRef<
       className={cn(
         'z-20 rounded-md border border-slate-6 bg-black px-3 py-2 text-white text-xs',
         `${inter.variable} font-sans`,
+        props.className,
       )}
       ref={forwardedRef}
       sideOffset={sideOffset}
