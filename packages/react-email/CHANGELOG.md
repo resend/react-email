@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.4
+
+### Minor Changes
+
+- 4d70ddd: add spam checker on the sidebar
+
 ## 4.0.0-alpha.3
 
 ### Patch Changes
