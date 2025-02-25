@@ -1,4 +1,5 @@
 'use client';
+
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { clsx } from 'clsx';
@@ -342,7 +343,7 @@ export const Sidebar = ({
             )}
             {activePanelValue === 'spam-assassin' && (
               <Panel
-                title="Image Checker"
+                title="Spam assassin"
                 active={activePanelValue === 'spam-assassin'}
               >
                 {currentEmailOpenSlug && emailMarkup && emailPlainText ? (

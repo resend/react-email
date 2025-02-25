@@ -47,6 +47,7 @@
 ### Patch Changes
 
 - @react-email/components@0.0.33-canary.0
+- react-email@4.0.0-alpha.0
 
 ## 0.1.8
 

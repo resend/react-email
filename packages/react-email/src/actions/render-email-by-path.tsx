@@ -1,10 +1,12 @@
 'use server';
-import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { getEmailComponent } from '../utils/get-email-component';
+import {
+  cachedGetEmailComponent,
+  componentCache,
+} from '../utils/cached-get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
@@ -21,32 +23,51 @@ export type EmailRenderingResult =
       error: ErrorObject;
     };
 
-const cache = new Map<string, EmailRenderingResult>();
+const renderingResultCache = new Map<string, EmailRenderingResult>();
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const invalidateRenderingCache = async (emailPath: string) => {
+  renderingResultCache.delete(emailPath);
+};
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const invalidateComponentCache = async (emailPath: string) => {
+  componentCache.delete(emailPath);
+};
 
 export const renderEmailByPath = async (
   emailPath: string,
-  invalidatingCache = false,
+  props: object,
+  {
+    invalidatingComponentCache = false,
+    invalidatingRenderingCache = false,
+  }: {
+    invalidatingRenderingCache?: boolean;
+    invalidatingComponentCache?: boolean;
+  } = {},
 ): Promise<EmailRenderingResult> => {
-  if (invalidatingCache) cache.delete(emailPath);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (cache.has(emailPath)) return cache.get(emailPath)!;
+  if (invalidatingRenderingCache) renderingResultCache.delete(emailPath);
 
+  if (renderingResultCache.has(emailPath))
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return renderingResultCache.get(emailPath)!;
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
-  let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    spinner = ora({
-      text: `Rendering email template ${emailFilename}\n`,
-      prefixText: ' ',
-    }).start();
-    registerSpinnerAutostopping(spinner);
-  }
 
-  const componentResult = await getEmailComponent(emailPath);
+  const spinner = ora({
+    text: `Rendering email template ${emailFilename}\n`,
+    prefixText: ' ',
+  }).start();
+  registerSpinnerAutostopping(spinner);
+
+  const componentResult = await cachedGetEmailComponent(
+    emailPath,
+    invalidatingComponentCache,
+  );
 
   if ('error' in componentResult) {
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
@@ -57,23 +78,18 @@ export const renderEmailByPath = async (
     emailComponent: Email,
     createElement,
     render,
+    fileContents: reactMarkup,
     sourceMapToOriginalFile,
   } = componentResult;
 
-  const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const markup = await render(createElement(EmailComponent, props), {
       pretty: true,
     });
-    const plainText = await render(
-      createElement(EmailComponent, previewProps),
-      {
-        plainText: true,
-      },
-    );
-
-    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
+    const plainText = await render(createElement(EmailComponent, props), {
+      plainText: true,
+    });
 
     const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
@@ -84,7 +100,7 @@ export const renderEmailByPath = async (
     } else {
       timeForConsole = chalk.red(timeForConsole);
     }
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
@@ -98,13 +114,13 @@ export const renderEmailByPath = async (
       reactMarkup,
     };
 
-    cache.set(emailPath, renderingResult);
+    renderingResultCache.set(emailPath, renderingResult);
 
     return renderingResult;
   } catch (exception) {
     const error = exception as Error;
 
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
