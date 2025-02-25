@@ -98,7 +98,7 @@ export const Shell = ({
             : '',
         }}
       >
-        <div className="relative h-full w-full">
+        <div className="flex h-full w-full flex-col">
           {currentEmailOpenSlug && pathSeparator ? (
             <Topbar
               activeView={activeView}
@@ -123,11 +123,24 @@ export const Shell = ({
               viewWidth={viewWidth}
             />
           ) : null}
-          <div className="relative mx-auto h-[calc(100dvh-3.3125rem)] grow md:h-full">
-            {children}
-          </div>
+          {children}
         </div>
       </main>
     </>
+  );
+};
+
+export const ShellContent = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<'div'>) => {
+  return (
+    <div
+      {...props}
+      className={cn('relative flex-grow grow', className)}
+    >
+      {children}
+    </div>
   );
 };

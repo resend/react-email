@@ -1,20 +1,30 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
 import type { Control } from '../actions/get-email-controls';
 import { IconCheck } from './icons/icon-check';
+import { ComponentProps } from 'react';
+import { cn } from '../utils';
 
-interface PreviewPropControls {
+type PreviewPropControls = {
   previewProps: Record<string, unknown>;
   onValueChange: (key: string, newValue: unknown) => void;
   controls: Control[];
-}
+} & Omit<ComponentProps<'div'>, 'children'>;
 
 export const PreviewPropControls = ({
   previewProps,
   onValueChange,
   controls,
+  className,
+  ...props
 }: PreviewPropControls) => {
   return (
-    <div className="fixed bottom-0 left-0 grid h-40 w-full grid-cols-1 gap-3 border-t border-t-slate-9 border-solid bg-black px-3 py-2 md:grid-cols-3 lg:grid-cols-4">
+    <div
+      {...props}
+      className={cn(
+        'grid h-40 w-full grid-cols-1 gap-3 border-t border-t-slate-9 border-solid bg-black px-3 py-2 md:grid-cols-3 lg:grid-cols-4',
+        className,
+      )}
+    >
       {controls.map((control) => {
         if (control) {
           const fieldId = `${control.key}-${control.type}`;
