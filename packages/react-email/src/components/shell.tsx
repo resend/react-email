@@ -10,6 +10,7 @@ type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
   markup?: string;
+  plainText?: string;
   currentEmailOpenSlug?: string;
   pathSeparator?: string;
 
@@ -27,6 +28,7 @@ export const Shell = ({
   children,
   pathSeparator,
   markup,
+  plainText,
   activeView,
   setActiveView,
   viewHeight,
@@ -76,6 +78,7 @@ export const Shell = ({
           })}
           currentEmailOpenSlug={currentEmailOpenSlug}
           markup={markup}
+          plainText={plainText}
           style={{
             transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
           }}
