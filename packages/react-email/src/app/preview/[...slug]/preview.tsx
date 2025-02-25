@@ -23,6 +23,7 @@ import { Topbar } from '../../../components';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { Send } from '../../../components/send';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { IconHelp } from '../../../components/icons/icon-help';
 
 interface PreviewProps {
   slug: string;
@@ -161,6 +162,8 @@ const Preview = ({
           };
         }}
       >
+        <PreviewingHelp />
+
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
@@ -238,6 +241,24 @@ const Preview = ({
         <Toaster />
       </ShellContent>
     </Shell>
+  );
+};
+
+const PreviewingHelp = () => {
+  return (
+    <Tooltip.Provider>
+      <Tooltip>
+        <Tooltip.Trigger asChild>
+          <div className="fixed right-20 bottom-10 rounded-full border border-slate-8 bg-black p-1 outline-none">
+            <IconHelp size={20} />
+          </div>
+        </Tooltip.Trigger>
+        <Tooltip.Content className="max-w-40 text-pretty text-center">
+          This email template was rendered with React 19. It may differ slightly
+          from your production email template if you are using React 18.
+        </Tooltip.Content>
+      </Tooltip>
+    </Tooltip.Provider>
   );
 };
 
