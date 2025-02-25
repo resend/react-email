@@ -24,6 +24,7 @@ export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
   return {
     generateRootForClasses: (classes: string[]) => {
+      tailwindContext.candidateRuleCache = new Map();
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
