@@ -42,8 +42,8 @@ export function setupTailwind(config: TailwindConfig) {
       evaluateTailwindFunctions(tailwindContext)(root);
       substituteScreenAtRules(tailwindContext)(root);
       resolveDefaultsAtRules(tailwindContext)(root);
-      collapseAdjacentRules(tailwindContext)(root);
-      collapseDuplicateDeclarations(tailwindContext)(root);
+      collapseAdjacentRules()(root);
+      collapseDuplicateDeclarations()(root);
 
       resolveAllCSSVariables(root);
 
