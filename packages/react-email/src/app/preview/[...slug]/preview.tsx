@@ -111,6 +111,7 @@ const Preview = ({
       activeView={activeView}
       currentEmailOpenSlug={slug}
       markup={renderedEmailMetadata?.markup}
+      plainText={renderedEmailMetadata?.plainText}
       pathSeparator={pathSeparator}
       setActiveView={handleViewChange}
       setViewHeight={(height) => {
