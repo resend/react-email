@@ -1,5 +1,4 @@
 'use client';
-
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { clsx } from 'clsx';
@@ -15,18 +14,25 @@ import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
 import { Button } from '../button';
 import { Heading } from '../heading';
+import { IconBug } from '../icons/icon-bug';
 import { IconImage } from '../icons/icon-image';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
 import { ImageChecker } from './image-checker';
 import { LinkChecker } from './link-checker';
+import { SpamAssassin } from './spam-assassin';
 
-type SidebarPanelValue = 'file-tree' | 'link-checker' | 'image-checker';
+type SidebarPanelValue =
+  | 'file-tree'
+  | 'link-checker'
+  | 'image-checker'
+  | 'spam-assassin';
 
 interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
   markup?: string;
+  plainText?: string;
   style?: React.CSSProperties;
 }
 
@@ -179,6 +185,7 @@ export const Sidebar = ({
   className,
   currentEmailOpenSlug,
   markup: emailMarkup,
+  plainText: emailPlainText,
   style,
 }: SidebarProps) => {
   const pathname = usePathname();
@@ -256,6 +263,14 @@ export const Sidebar = ({
           >
             <IconImage className="h-6 w-6" />
           </TabTrigger>
+          <TabTrigger
+            activeTabValue={activePanelValue}
+            className="relative"
+            tabValue="spam-assassin"
+            tooltipText="Spam Assassin"
+          >
+            <IconBug className="h-6 w-6" />
+          </TabTrigger>
           <div className="mt-auto flex flex-col">
             <NavigationButton
               className="flex items-center justify-center"
@@ -320,6 +335,25 @@ export const Sidebar = ({
                 ) : (
                   <EmptyState
                     title="Image Checker"
+                    onSelectTemplate={() => setActivePanelValue('file-tree')}
+                  />
+                )}
+              </Panel>
+            )}
+            {activePanelValue === 'spam-assassin' && (
+              <Panel
+                title="Image Checker"
+                active={activePanelValue === 'spam-assassin'}
+              >
+                {currentEmailOpenSlug && emailMarkup && emailPlainText ? (
+                  <SpamAssassin
+                    emailMarkup={emailMarkup}
+                    emailPlainText={emailPlainText}
+                    emailSlug={currentEmailOpenSlug}
+                  />
+                ) : (
+                  <EmptyState
+                    title="Spam Assassin"
                     onSelectTemplate={() => setActivePanelValue('file-tree')}
                   />
                 )}
