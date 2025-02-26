@@ -6,6 +6,7 @@ import React from 'react';
 import { Preview } from '../shared/utils/preview';
 import { Template, TemplateWithCustomPlainText } from '../shared/utils/template';
 import { renderAsync } from './render-async';
+import { randomUUID } from 'crypto';
 
 type Import = typeof import('react-dom/server') & {
   default: typeof import('react-dom/server');
@@ -110,8 +111,37 @@ describe('renderAsync on the edge', () => {
     expect(actualOutput).toMatchInlineSnapshot(`
       "HELLO, JIM!
 
-      Thanks for trying our product."
+      Thanks for trying our plaintext product."
     `);
+  });
+
+  it('successfully passes rendering options when using uniqueRenderId', async () => {
+    const uniqueRenderId = randomUUID();
+    const actualOutput = await renderAsync(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId} />, {
+      plainText: true,
+      uniqueRenderId: uniqueRenderId
+    });
+
+    expect(actualOutput).toMatchInlineSnapshot(`
+        "HELLO, JIM!
+
+        Thanks for trying our plaintext product."
+      `);
+  });
+
+  it('fails to pass rendering options when uniqueRenderId does not match', async () => {
+    const uniqueRenderId1 = randomUUID();
+    const uniqueRenderId2 = randomUUID();
+    const actualOutput = await renderAsync(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId1} />, {
+      plainText: true,
+      uniqueRenderId: uniqueRenderId2
+    });
+
+    expect(actualOutput).toMatchInlineSnapshot(`
+        "WELCOME, JIM!
+
+        Thanks for trying our product. We're thrilled to have you on board!"
+      `);
   });
 
   it('converts to plain text and removes reserved ID', async () => {

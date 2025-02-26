@@ -3,6 +3,7 @@ import { useRenderingOptions } from '../useRenderingOptions';
 
 interface TemplateProps {
   firstName: string;
+  uniqueRenderId?: string;
 }
 
 export const Template: React.FC<Readonly<TemplateProps>> = ({ firstName }) => (
@@ -13,15 +14,15 @@ export const Template: React.FC<Readonly<TemplateProps>> = ({ firstName }) => (
   </>
 );
 
-export const TemplateWithCustomPlainText: React.FC<Readonly<TemplateProps>> = ({ firstName }) => {
-  const options = useRenderingOptions();
+export const TemplateWithCustomPlainText: React.FC<Readonly<TemplateProps>> = ({ firstName, uniqueRenderId }) => {
+  const options = useRenderingOptions(uniqueRenderId);
 
-  if (options.plainText)
+  if (options?.plainText)
     return (
       <>
         <h1>Hello, {firstName}!</h1>
         <img alt="test" src="img/test.png" />
-        <p>Thanks for trying our product.</p>
+        <p>Thanks for trying our plaintext product.</p>
       </>
     )
 

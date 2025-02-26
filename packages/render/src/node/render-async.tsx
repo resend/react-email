@@ -4,7 +4,7 @@ import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
-import { OptionsContext } from '../shared/useRenderingOptions';
+import { setRenderingOptions } from '../shared/useRenderingOptions';
 
 /**
  * @deprecated use `render`
@@ -13,9 +13,8 @@ export const renderAsync = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
-  const suspendedElement = <Suspense>
-    <OptionsContext.Provider value={options ?? {}}>{element}</OptionsContext.Provider>
-  </Suspense>;
+  setRenderingOptions(options?.uniqueRenderId, options)
+  const suspendedElement = <Suspense>{element}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
   let html!: string;

@@ -7,7 +7,7 @@ import type {
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
-import { OptionsContext } from '../shared/useRenderingOptions';
+import { setRenderingOptions } from '../shared/useRenderingOptions';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -53,9 +53,8 @@ export const render = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
-  const suspendedElement = <Suspense>
-    <OptionsContext.Provider value={options ?? {}}>{element}</OptionsContext.Provider>
-  </Suspense>;
+  setRenderingOptions(options?.uniqueRenderId, options)
+  const suspendedElement = <Suspense>{element}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
   let html!: string;

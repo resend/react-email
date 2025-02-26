@@ -1,9 +1,11 @@
-import { createContext, useContext } from "react";
 import { Options } from "./options";
 
-export const OptionsContext = createContext<Options>({});
+const opts: Record<string, Options> = {}
 
-export function useRenderingOptions() {
-  const opts = useContext(OptionsContext);
-  return opts;
+export function setRenderingOptions(uniqueRenderId: string | undefined, options: Options | undefined) {
+  opts[uniqueRenderId ?? ""] = options ?? ({} as Options);
+}
+
+export function useRenderingOptions(uniqueRenderId?: string) {
+  return opts[uniqueRenderId ?? ""];
 }
