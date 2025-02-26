@@ -3,8 +3,8 @@ import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
-import { sanitizeNonInlinableClasses } from '../css/sanitize-non-inlinable-classes';
 import { sanitizeDeclarations } from '../css/sanitize-declarations';
+import { sanitizeNonInlinableClasses } from '../css/sanitize-non-inlinable-classes';
 import { isComponent } from '../react/is-component';
 import type { setupTailwind } from './setup-tailwind';
 
