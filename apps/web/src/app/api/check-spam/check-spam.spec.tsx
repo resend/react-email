@@ -22,8 +22,8 @@ describe('checkSpam()', () => {
   });
 
   test('with real email template', async () => {
-    const html = await render(<StripeWelcomeEmail/>);
-    const plainText = await render(<StripeWelcomeEmail/>, { plainText: true });
+    const html = await render(<StripeWelcomeEmail />);
+    const plainText = await render(<StripeWelcomeEmail />, { plainText: true });
 
     expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });
