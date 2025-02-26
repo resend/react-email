@@ -15,16 +15,18 @@ import { sanitizeClassName } from '../compatibility/sanitize-class-name';
  */
 export const sanitizeNonInlinableClasses = (root: Root) => {
   const sanitizedRules: (Rule | AtRule)[] = [];
-  let nonInlinableClasses: string[] = [];
+  const nonInlinableClasses: string[] = [];
 
   // Process rules within at-rules (like media queries)
   root.walkAtRules((atRule) => {
     const sanitizedAtRule = atRule.clone();
-    const processedRules: Rule[] = [];
 
     sanitizedAtRule.walkRules((rule) => {
       const processedSelector = selectorParser((selectorRoot) => {
-        nonInlinableClasses = [...nonInlinableClasses, ...processSelectorRoot(selectorRoot)];
+        selectorRoot.walkClasses((className) => {
+          sanitizeSelectorClassName(className);
+          nonInlinableClasses.push(className.value);
+        });
       }).processSync(rule.selector);
 
       const processedRule = rule.clone({ selector: processedSelector });
@@ -32,11 +34,8 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
         decl.important = true;
       });
 
-      processedRules.push(processedRule);
-      sanitizedAtRule.removeChild(rule);
+      sanitizedAtRule.append(processedRule);
     });
-
-    sanitizedAtRule.append(...processedRules);
 
     const equivalentRule = sanitizedRules.find(
       (r) => r instanceof AtRule && r.params === sanitizedAtRule.params,
@@ -62,7 +61,10 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
       if (!hasPseudoSelector) return;
 
-      nonInlinableClasses = [...nonInlinableClasses, ...processSelectorRoot(selectorRoot)];
+      selectorRoot.walkClasses((className) => {
+        sanitizeSelectorClassName(className);
+        nonInlinableClasses.push(className.value);
+      });
     }).processSync(rule.selector);
 
     if (hasPseudoSelector) {
@@ -81,17 +83,10 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
   };
 };
 
-const processSelectorRoot = (selectorRoot: selectorParser.Root) => {
-  const outputClasses: string[] = [];
-  selectorRoot.walkClasses((singleClass) => {
-    outputClasses.push(singleClass.value);
-
-    singleClass.replaceWith(
-      selectorParser.className({
-        ...singleClass,
-        value: sanitizeClassName(singleClass.value),
-      }),
-    );
-  });
-  return outputClasses;
+const sanitizeSelectorClassName = (className: selectorParser.ClassName) => {
+  className.replaceWith(
+    className.clone({
+      value: sanitizeClassName(className.value),
+    }),
+  );
 };
