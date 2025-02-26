@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`checkSpam() 1`] = `
+exports[`checkSpam() > with most spammy email 1`] = `
 {
   "checks": [
     {
@@ -21,5 +21,13 @@ exports[`checkSpam() 1`] = `
   ],
   "isSpam": true,
   "points": 5.4,
+}
+`;
+
+exports[`checkSpam() > with real email template 1`] = `
+{
+  "checks": [],
+  "isSpam": false,
+  "points": 0,
 }
 `;
