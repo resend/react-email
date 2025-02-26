@@ -24,6 +24,7 @@ export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
   return {
     generateRootForClasses: (classes: string[]) => {
+      tailwindContext.candidateRuleCache = new Map();
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
@@ -42,8 +43,8 @@ export function setupTailwind(config: TailwindConfig) {
       evaluateTailwindFunctions(tailwindContext)(root);
       substituteScreenAtRules(tailwindContext)(root);
       resolveDefaultsAtRules(tailwindContext)(root);
-      collapseAdjacentRules(tailwindContext)(root);
-      collapseDuplicateDeclarations(tailwindContext)(root);
+      collapseAdjacentRules()(root);
+      collapseDuplicateDeclarations()(root);
 
       resolveAllCSSVariables(root);
 

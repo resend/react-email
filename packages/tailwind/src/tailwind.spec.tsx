@@ -389,10 +389,13 @@ describe('Responsive styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="bg-white my-auto mx-auto font-sans md:px-[64px]">
-          <div className="md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();
