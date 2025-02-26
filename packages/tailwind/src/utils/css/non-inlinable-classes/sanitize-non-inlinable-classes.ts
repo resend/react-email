@@ -81,7 +81,10 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
   };
 };
 
-const sanitizeClasses = (selectorRoot: selectorParser.Root, outputClasses: string[]) => {
+const sanitizeClasses = (
+  selectorRoot: selectorParser.Root,
+  outputClasses: string[],
+) => {
   selectorRoot.walkClasses((singleClass) => {
     outputClasses.push(singleClass.value);
 
@@ -92,4 +95,4 @@ const sanitizeClasses = (selectorRoot: selectorParser.Root, outputClasses: strin
       }),
     );
   });
-}
+};
