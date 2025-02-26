@@ -1,12 +1,12 @@
-import { render } from './render';
 import type { Options } from '../shared/options';
+import { render } from './render';
 
 /**
-  * @deprecated use {@link render}
-  */
+ * @deprecated use {@link render}
+ */
 export const renderAsync = (element: React.ReactElement, options?: Options) => {
   return render(element, options);
-}
+};
 
 export * from './render';
 
