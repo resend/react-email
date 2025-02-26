@@ -15,7 +15,7 @@ import { sanitizeClassName } from '../compatibility/sanitize-class-name';
  */
 export const sanitizeNonInlinableClasses = (root: Root) => {
   const sanitizedRules: (Rule | AtRule)[] = [];
-  const nonInlinableClasses: string[] = [];
+  let nonInlinableClasses: string[] = [];
 
   // Process rules within at-rules (like media queries)
   root.walkAtRules((atRule) => {
@@ -24,7 +24,7 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
     sanitizedAtRule.walkRules((rule) => {
       const processedSelector = selectorParser((selectorRoot) => {
-        sanitizeClasses(selectorRoot, nonInlinableClasses);
+        nonInlinableClasses = [...nonInlinableClasses, ...processSelectorRoot(selectorRoot)];
       }).processSync(rule.selector);
 
       const processedRule = rule.clone({ selector: processedSelector });
@@ -62,7 +62,7 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
       if (!hasPseudoSelector) return;
 
-      sanitizeClasses(selectorRoot, nonInlinableClasses);
+      nonInlinableClasses = [...nonInlinableClasses, ...processSelectorRoot(selectorRoot)];
     }).processSync(rule.selector);
 
     if (hasPseudoSelector) {
@@ -81,10 +81,8 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
   };
 };
 
-const sanitizeClasses = (
-  selectorRoot: selectorParser.Root,
-  outputClasses: string[],
-) => {
+const processSelectorRoot = (selectorRoot: selectorParser.Root) => {
+  const outputClasses: string[] = [];
   selectorRoot.walkClasses((singleClass) => {
     outputClasses.push(singleClass.value);
 
@@ -95,4 +93,5 @@ const sanitizeClasses = (
       }),
     );
   });
+  return outputClasses;
 };
