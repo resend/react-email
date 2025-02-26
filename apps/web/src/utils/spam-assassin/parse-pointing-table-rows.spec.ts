@@ -1,6 +1,8 @@
 import { parsePointingTableRows } from './parse-pointing-table-rows';
 
-const spamdResponse = `Received: from localhost by gabriels-computer
+describe('parsePointingTableRows()', () => {
+  test('works with spammy emails', () => {
+    const spamdResponse = `Received: from localhost by gabriels-computer
         with SpamAssassin (version 4.0.1);
         Mon, 10 Feb 2025 09:21:23 -0300
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on gabriels-computer
@@ -83,7 +85,41 @@ Content-Type: text/html; charset="UTF-8"
 
 ------------=_67A9EF43.EC247F5D--
 `;
+    expect(parsePointingTableRows(spamdResponse)).toMatchSnapshot();
+  });
 
-test('parsePointingTableRows()', () => {
-  expect(parsePointingTableRows(spamdResponse)).toMatchSnapshot();
+  test('works with a multiline description', () => {
+    const partialSpamResponse = `â€Œâ [...]
+
+Content analysis details:   (9.4 points, 5.0 required)
+
+ pts rule name              description
+---- ---------------------- --------------------------------------------------
+-0.0 NO_RECEIVED            Informational: message has no Received headers
+ 0.1 MISSING_MID            Missing Message-Id: header
+ 1.4 MISSING_DATE           Missing Date: header
+ 1.0 MISSING_FROM           Missing From: header
+ 1.8 MISSING_SUBJECT        Missing Subject: header
+ 1.2 MISSING_HEADERS        Missing To: header
+-0.0 NO_RELAYS              Informational: message was not relayed via SMTP
+ 0.0 URIBL_BLOCKED          ADMINISTRATOR NOTICE: The query to URIBL was blocked.
+                            See
+                            http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
+                             for more information.
+                            [URI: stripe.com]
+ 0.0 HTML_MESSAGE           BODY: HTML included in message
+ 0.0 NO_HEADERS_MESSAGE     Message appears to be missing most RFC-822 headers
+ 3.9 DOS_BODY_HIGH_NO_MID   High bit body and no message ID header
+
+The original message was not completely plain text, and may be unsafe to
+open with some email clients; in particular, it may contain a virus,
+or confirm that your address can receive spam.  If you wish to view
+it, it may be safer to save it to a file and open it with an editor.
+
+
+------------=_67BF2F0C.CEF6CDE8
+Content-Type: message/rfc822; x-spam-type=original`;
+
+    expect(parsePointingTableRows(partialSpamResponse)).toMatchSnapshot();
+  });
 });
