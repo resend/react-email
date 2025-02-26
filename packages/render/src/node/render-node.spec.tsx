@@ -5,8 +5,9 @@
 import { Suspense } from 'react';
 import usePromise from 'react-promise-suspense';
 import { Preview } from '../shared/utils/preview';
-import { Template } from '../shared/utils/template';
+import { Template, TemplateWithCustomPlainText } from '../shared/utils/template';
 import { render } from './render';
+import { randomUUID } from 'crypto';
 
 type Import = typeof import('react-dom/server') & {
   default: typeof import('react-dom/server');
@@ -112,9 +113,66 @@ describe('render on node environments', () => {
     );
   });
 
+  it('converts a React component into HTML', async () => {
+    const actualOutput = await render(<Template firstName="Jim" />);
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
+    );
+  });
+
   it('converts a React component into PlainText', async () => {
     const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
+    });
+
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "WELCOME, JIM!
+
+      Thanks for trying our product. We're thrilled to have you on board!"
+    `);
+  });
+
+  it('converts a React component with custom PlainText into HTML', async () => {
+    const actualOutput = await render(<Template firstName="Jim" />);
+
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
+    );
+  });
+
+  it('converts a React component with custom PlainText into the custom PlainText', async () => {
+    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" />, {
+      plainText: true,
+    });
+
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "HELLO, JIM!
+
+      Thanks for trying our plaintext product."
+    `);
+  });
+
+  it('successfully passes rendering options when using uniqueRenderId', async () => {
+    const uniqueRenderId = randomUUID();
+    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId} />, {
+      plainText: true,
+      uniqueRenderId: uniqueRenderId
+    });
+
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "HELLO, JIM!
+
+      Thanks for trying our plaintext product."
+    `);
+  });
+
+  it('fails to pass rendering options when uniqueRenderId does not match', async () => {
+    const uniqueRenderId1 = randomUUID();
+    const uniqueRenderId2 = randomUUID();
+    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId1} />, {
+      plainText: true,
+      uniqueRenderId: uniqueRenderId2
     });
 
     expect(actualOutput).toMatchInlineSnapshot(`

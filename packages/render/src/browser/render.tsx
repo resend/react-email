@@ -7,6 +7,7 @@ import type {
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
+import { setRenderingOptions } from '../shared/useRenderingOptions';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -52,6 +53,7 @@ export const render = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
+  setRenderingOptions(options?.uniqueRenderId, options)
   const suspendedElement = <Suspense>{element}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
