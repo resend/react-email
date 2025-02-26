@@ -21,10 +21,10 @@ describe('checkSpam()', () => {
     expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });
 
-  test.only('with real email template', async () => {
+  test('with real email template', async () => {
     const html = await render(<StripeWelcomeEmail/>);
     const plainText = await render(<StripeWelcomeEmail/>, { plainText: true });
 
-    expect(await checkSpam(html, plainText)).toBe('');
+    expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });
 });
