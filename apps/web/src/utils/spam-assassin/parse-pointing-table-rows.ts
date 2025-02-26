@@ -37,10 +37,6 @@ export const parsePointingTableRows = (response: string) => {
     const match = line.match(columnsRegex);
 
     // This means the description column was done with multi columns.
-    if (line.startsWith('  ')) {
-      console.debug(currentRow);
-      console.log(line.slice(ptsWidth + ruleNameWidth + 2));
-    }
     if (
       currentRow &&
       line.startsWith(' '.repeat(ptsWidth + ruleNameWidth + 2))
