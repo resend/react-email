@@ -17,24 +17,25 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
   const sanitizedRules: (Rule | AtRule)[] = [];
   const nonInlinableClasses: string[] = [];
 
+  const selectorProcessor = selectorParser();
+
   // Process rules within at-rules (like media queries)
   root.walkAtRules((atRule) => {
     const sanitizedAtRule = atRule.clone();
 
     sanitizedAtRule.walkRules((rule) => {
-      const processedSelector = selectorParser((selectorRoot) => {
-        selectorRoot.walkClasses((className) => {
-          sanitizeSelectorClassName(className);
-          nonInlinableClasses.push(className.value);
-        });
-      }).processSync(rule.selector);
+      const selectorRoot = selectorProcessor.astSync(rule.selector);
+      selectorRoot.walkClasses((className) => {
+        nonInlinableClasses.push(className.value);
+        sanitizeSelectorClassName(className);
+      });
 
-      const processedRule = rule.clone({ selector: processedSelector });
+      const processedRule = rule.clone({ selector: selectorRoot.toString() });
       processedRule.walkDecls((decl) => {
         decl.important = true;
       });
 
-      sanitizedAtRule.append(processedRule);
+      rule.replaceWith(processedRule);
     });
 
     const equivalentRule = sanitizedRules.find(
@@ -52,23 +53,22 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
   root.walkRules((rule) => {
     if (rule.parent && rule.parent.type !== 'root') return;
 
+    const selectorRoot = selectorProcessor.astSync(rule.selector);
+
     let hasPseudoSelector = false as boolean;
+    selectorRoot.walkPseudos(() => {
+      hasPseudoSelector = true;
+    });
 
-    const processedSelector = selectorParser((selectorRoot) => {
-      selectorRoot.walkPseudos(() => {
-        hasPseudoSelector = true;
-      });
+    if (!hasPseudoSelector) return;
 
-      if (!hasPseudoSelector) return;
-
-      selectorRoot.walkClasses((className) => {
-        sanitizeSelectorClassName(className);
-        nonInlinableClasses.push(className.value);
-      });
-    }).processSync(rule.selector);
+    selectorRoot.walkClasses((className) => {
+      nonInlinableClasses.push(className.value);
+      sanitizeSelectorClassName(className);
+    });
 
     if (hasPseudoSelector) {
-      const processedRule = rule.clone({ selector: processedSelector });
+      const processedRule = rule.clone({ selector: selectorRoot.toString() });
       processedRule.walkDecls((decl) => {
         decl.important = true;
       });
