@@ -2,11 +2,15 @@ import path from 'node:path';
 import shell from 'shelljs';
 
 const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
+  console.info(`${cwd} $ ${command}`);
   const executionResult = shell.exec(command, {
     cwd,
     fatal: true,
   });
-  console.info(`${cwd} $ ${command}`);
+  if (executionResult.code !== 0) {
+    process.stdout.write(executionResult.stderr);
+    process.stderr.write(executionResult.stderr);
+  }
   expect(
     executionResult.code,
     `Expected command "${command}" to work properly but it returned a non-zero exit code`,
