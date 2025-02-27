@@ -119,9 +119,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: Run Build
-        run: pnpm build
-
       - name: Run Tests
         run: pnpm test
         env:
