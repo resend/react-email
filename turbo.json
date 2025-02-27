@@ -22,6 +22,14 @@
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
+    "react-email-with-resend#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "react-email-with-next-scaleway": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
     "demo#build": {
       "dependsOn": ["^build"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
@@ -34,12 +42,10 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "dependsOn": ["^build"]
     },
     "@react-email/tailwind#test": {
-      "dependsOn": ["build"],
-      "cache": false
+      "dependsOn": ["build"]
     },
     "test:watch": {
       "cache": false
