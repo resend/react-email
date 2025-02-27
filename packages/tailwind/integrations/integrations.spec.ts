@@ -26,13 +26,13 @@ describe('integrations', () => {
 
   const integrationsLocation = __dirname;
 
-  test("Tailwind works on the Next App's build process", () => {
+  test.sequential("Tailwind works on the Next App's build process", () => {
     const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
     $('npm install', nextAppLocation);
     $('npm run build', nextAppLocation);
   });
 
-  test("Tailwind works on the Vite App's build process", () => {
+  test.sequential("Tailwind works on the Vite App's build process", () => {
     const viteAppLocation = path.resolve(integrationsLocation, 'vite');
     $('npm install', viteAppLocation);
     $('npm run build', viteAppLocation);
