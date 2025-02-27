@@ -37,16 +37,17 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
 
-      - name: Run Build
-        run: pnpm build
-
-      - name: Cache build output
+      - name: turborepo Cache
         uses: buildjet/cache@v4
         with:
           path: |
             .turbo
-            */*/.turbo
-          key: build-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Run Build
+        run: pnpm build
 
   lint:
     runs-on: buildjet-4vcpu-ubuntu-2204
@@ -71,13 +72,14 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Restore build
+      - name: turborepo Cache
         uses: buildjet/cache@v4
         with:
           path: |
             .turbo
-            */*/.turbo
-          key: build-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
       - name: Run Build
         run: pnpm build
@@ -108,13 +110,14 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: Restore build
+      - name: turborepo Cache
         uses: buildjet/cache@v4
         with:
           path: |
             .turbo
-            */*/.turbo
-          key: build-${{ github.sha }}
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
       - name: Run Build
         run: pnpm build
