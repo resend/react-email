@@ -2,7 +2,6 @@ import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
-import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
 
 export const render = async (
@@ -42,10 +41,6 @@ export const render = async (
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
   const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
-
-  if (options?.pretty) {
-    return pretty(document);
-  }
 
   return document;
 };
