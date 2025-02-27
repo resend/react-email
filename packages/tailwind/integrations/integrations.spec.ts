@@ -1,18 +1,15 @@
 import path from 'node:path';
-import shell from 'shelljs';
+import { spawnSync } from 'node:child_process';
 
 const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
-  console.info(`${cwd} $ ${command}`);
-  const executionResult = shell.exec(command, {
+  process.stderr.write(`${cwd} $ ${command}`);
+  const returns = spawnSync(command, {
+    shell: true,
     cwd,
-    fatal: true,
+    stdio: 'inherit',
   });
-  if (executionResult.code !== 0) {
-    process.stdout.write(executionResult.stderr);
-    process.stderr.write(executionResult.stderr);
-  }
   expect(
-    executionResult.code,
+    returns.status,
     `Expected command "${command}" to work properly but it returned a non-zero exit code`,
   ).toBe(0);
 };
@@ -26,13 +23,13 @@ describe('integrations', () => {
 
   const integrationsLocation = __dirname;
 
-  test.sequential("Tailwind works on the Next App's build process", () => {
+  test("Tailwind works on the Next App's build process", () => {
     const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
     $('npm install', nextAppLocation);
     $('npm run build', nextAppLocation);
   });
 
-  test.sequential("Tailwind works on the Vite App's build process", () => {
+  test("Tailwind works on the Vite App's build process", () => {
     const viteAppLocation = path.resolve(integrationsLocation, 'vite');
     $('npm install', viteAppLocation);
     $('npm run build', viteAppLocation);
