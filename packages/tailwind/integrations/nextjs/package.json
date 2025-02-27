@@ -6,21 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preinstall:tailwind": "cd ../../ && turbo build && yalc installations clean @react-email/tailwind && yalc publish",
-    "preinstall": "npm run preinstall:tailwind && yalc add @react-email/tailwind",
+    "preinstall": "yalc add @react-email/tailwind",
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-email/components": "^0.0.15",
+    "@react-email/components": "0.0.33",
     "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
-    "next": "14.2.21",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "typescript": "^5",
     "yalc": "1.0.0-pre.53"
   }
