@@ -34,12 +34,10 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "dependsOn": ["^build"]
     },
     "@react-email/tailwind#test": {
-      "dependsOn": ["build"],
-      "cache": false
+      "dependsOn": ["build"]
     },
     "test:watch": {
       "cache": false
