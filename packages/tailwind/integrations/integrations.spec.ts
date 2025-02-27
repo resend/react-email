@@ -2,7 +2,11 @@ import path from 'node:path';
 import shell from 'shelljs';
 
 const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
-  const executionResult = shell.exec(command, { cwd, fatal: true });
+  const executionResult = shell.exec(command, {
+    cwd,
+    fatal: true,
+    silent: true,
+  });
   if (executionResult.code !== 0) {
     process.stdout.write(executionResult.stderr);
     process.stderr.write(executionResult.stderr);
@@ -22,13 +26,13 @@ describe('integrations', () => {
 
   const integrationsLocation = __dirname;
 
-  test.sequential("Tailwind works on the Next App's build process", () => {
+  test("Tailwind works on the Next App's build process", () => {
     const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
     $('npm install', nextAppLocation);
     $('npm run build', nextAppLocation);
   });
 
-  test.sequential("Tailwind works on the Vite App's build process", () => {
+  test("Tailwind works on the Vite App's build process", () => {
     const viteAppLocation = path.resolve(integrationsLocation, 'vite');
     $('npm install', viteAppLocation);
     $('npm run build', viteAppLocation);
