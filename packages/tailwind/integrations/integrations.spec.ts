@@ -5,12 +5,8 @@ const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
   const executionResult = shell.exec(command, {
     cwd,
     fatal: true,
-    silent: true,
   });
-  if (executionResult.code !== 0) {
-    process.stdout.write(executionResult.stderr);
-    process.stderr.write(executionResult.stderr);
-  }
+  console.info(`${cwd} $ ${command}`);
   expect(
     executionResult.code,
     `Expected command "${command}" to work properly but it returned a non-zero exit code`,
