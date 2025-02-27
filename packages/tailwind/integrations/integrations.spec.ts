@@ -2,7 +2,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
-  process.stderr.write(`${cwd} $ ${command}`);
+  process.stderr.write(`${cwd} $ ${command}\n`);
   const returns = spawnSync(command, {
     shell: true,
     cwd,
