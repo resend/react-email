@@ -5,8 +5,10 @@ on:
       - main
   pull_request:
 jobs:
-  lint:
+  build:
     runs-on: buildjet-4vcpu-ubuntu-2204
+    outputs:
+      cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
     container:
       image: node:22
     steps:
@@ -19,18 +21,65 @@ jobs:
           corepack enable
           corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - name: pnpm Cache
         uses: buildjet/cache@v4
         with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-
 
       - name: Install packages
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
+
+      - name: turborepo Cache
+        uses: buildjet/cache@v4
+        with:
+          path: |
+            .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Run Build
+        run: pnpm build
+
+  lint:
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    needs: [build]
+    container:
+      image: node:22
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.0 --activate
+
+      - name: Restore dependencies
+        uses: buildjet/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: turborepo Cache
+        uses: buildjet/cache@v4
+        with:
+          path: |
+            .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
       - name: Run Build
         run: pnpm build
@@ -40,74 +89,46 @@ jobs:
 
   test:
     runs-on: buildjet-4vcpu-ubuntu-2204
+    needs: [build]
     container:
       image: node:22
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Enable Corepack
-        id: pnpm-setup
+      - name: Setup pnpm
         run: |
           corepack enable
           corepack prepare pnpm@9.15.0 --activate
-          pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
-      - name: pnpm Cache
+      - name: Restore dependencies
         uses: buildjet/cache@v4
         with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: turborepo Cache
+        uses: buildjet/cache@v4
+        with:
+          path: |
+            .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install packages
-        run: pnpm install --frozen-lockfile
-
-      - name: Run Build
-        run: pnpm build
+            ${{ runner.os }}-turbo-
 
       - name: Run Tests
         run: pnpm test
-        env:  
+        env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-
-  build:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    container:
-      image: node:22
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-          pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - name: pnpm Cache
-        uses: buildjet/cache@v4
-        with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install packages
-        run: pnpm install --frozen-lockfile
-
-      - name: Run Build
-        run: pnpm build
 
   dependencies:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node:18
+      image: node:22
     steps:
       - name: Checkout
         uses: actions/checkout@v4

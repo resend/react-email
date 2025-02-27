@@ -916,9 +916,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.2
         version: 1.1.2(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@react-email/render':
+      '@react-email/components':
         specifier: workspace:*
-        version: link:../render
+        version: link:../components
       '@swc/core':
         specifier: 1.4.15
         version: 1.4.15(@swc/helpers@0.5.15)
