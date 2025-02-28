@@ -25,10 +25,10 @@ export const GithubAccessTokenEmail = ({
 }: GithubAccessTokenEmailProps) => (
   <Html>
     <Head />
-    <Preview>
-      A fine-grained personal access token has been added to your account
-    </Preview>
     <Body style={main}>
+      <Preview>
+        A fine-grained personal access token has been added to your account
+      </Preview>
       <Container style={container}>
         <Img
           src={`${baseUrl}/static/github.png`}

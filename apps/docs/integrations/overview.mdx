@@ -5,6 +5,8 @@ description: 'Leverage different email service providers to send emails using Re
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
+import Integrations from '/snippets/integrations.mdx'
+
 In order to use React Email with any email service provider, you'll need to convert the components made with React into a HTML string. This is done using the [render](/utilities/render) utility. Or you can integrate React Email into your NodeJS application by installing `@babel/preset-typescript` and adding a `.babelrc` config file:
 
 <CodeGroup>
@@ -29,23 +31,4 @@ pnpm add -D @babel/preset-typescript
 }
 ```
 
-<CardGroup>
-  <Card title="Resend" href="/integrations/resend">
-    Send email using Resend
-  </Card>
-  <Card title="Nodemailer" href="/integrations/nodemailer">
-    Send email using Nodemailer
-  </Card>
-  <Card title="SendGrid" href="/integrations/sendgrid">
-    Send email using SendGrid
-  </Card>
-  <Card title="Postmark" href="/integrations/postmark">
-    Send email using Postmark
-  </Card>
-  <Card title="AWS SES" href="/integrations/aws-ses">
-    Send email using AWS SES
-  </Card>
-  <Card title="Plunk" href="/integrations/plunk">
-    Send email using Plunk
-  </Card>
-</CardGroup>
+<Integrations/>

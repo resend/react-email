@@ -34,8 +34,8 @@ export const TwitchResetPasswordEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>You updated the password for your Twitch account</Preview>
       <Body style={main}>
+        <Preview>You updated the password for your Twitch account</Preview>
         <Container style={container}>
           <Section style={logo}>
             <Img width={114} src={`${baseUrl}/static/twitch-logo.png`} />

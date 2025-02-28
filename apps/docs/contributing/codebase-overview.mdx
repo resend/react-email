@@ -1,0 +1,169 @@
+---
+title: 'Codebase overview'
+sidebarTitle: 'Codebase overview'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'An overview of the React Email codebase'
+icon: 'folder-tree'
+---
+
+We've created this guide to help new contributors understand and navigate the React Email codebase.
+
+## Top-level directories
+
+After cloning the [React Email repository](https://github.com/resend/react-email) you will see a few root-level directories. Here's a brief overview of each:
+
+<table>
+  <thead>
+    <tr>
+      <th>Directory</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+[apps](https://github.com/resend/react-email/tree/canary/apps)
+      </td>
+      <td>
+        Here you can find all of the apps related to our online presence, like:
+        - this documentation (under [apps/docs](https://github.com/resend/react-email/tree/canary/apps/docs)),
+        - the demo emails we have on [demo.react.email](https://demo.react.email/preview/vercel-invite-user.tsx)
+          (under [apps/demo](https://github.com/resend/react-email/tree/canary/apps/demo))
+        - the Next app we have for our landing page on [react.email](https://react.email) (under [apps/web](https://github.com/resend/react-email/tree/canary/apps/web))
+      </td>
+    </tr>
+    <tr>
+      <td>
+[benchmarks](https://github.com/resend/react-email/tree/canary/benchmarks)
+      </td>
+      <td>
+        We make benchmarks from version-to-version to demonstrate data-observable performance gains with metrics like *p99 and p75*.
+
+        For example, see the [Improved Performance for Tailwind Emails](https://resend.com/blog/improved-performance-for-tailwind-emails) benchmark.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [packages](https://github.com/resend/react-email/tree/canary/packages)
+      </td>
+      <td>
+        Most contributions will be made to the packages in this directory.
+
+        This directory contains all our published [NPM](https://www.npmjs.com/) packages.
+        Each subdirectory is a single component published as its own package, with the exception of a few packages that serve as shared configuration.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<Note>
+  Feel free to [open a discussion](https://github.com/resend/react-email/discussions/new?category=ideas) if you have suggestions on how to better structure these packages to make them more manageable and approachable.
+</Note>
+
+## Multiple packages
+
+The react-email repository is a [pnpm monorepo](https://pnpm.io/next/workspaces), which means it contains
+multiple packages.
+
+Because we use pnpm, you will need to use [pnpm](https://pnpm.io/) to install and run each package. If you do not have pnpm installed, we recommend you install it using [corepack](https://github.com/nodejs/corepack):
+
+```bash
+corepack enable
+corepack prepare pnpm@latest --activate
+```
+
+Currently, we have the following packages:
+
+<div className="grid gap-2" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+  <div>
+    - [@react-email/body](https://github.com/resend/react-email/tree/canary/packages/body)
+    - [@react-email/button](https://github.com/resend/react-email/tree/canary/packages/button)
+    - [@react-email/code-block](https://github.com/resend/react-email/tree/canary/packages/code-block)
+    - [@react-email/code-inline](https://github.com/resend/react-email/tree/canary/packages/code-inline)
+    - [@react-email/column](https://github.com/resend/react-email/tree/canary/packages/column)
+    - [@react-email/components](https://github.com/resend/react-email/tree/canary/packages/components)
+    - [@react-email/container](https://github.com/resend/react-email/tree/canary/packages/container)
+    - [create-email](https://github.com/resend/react-email/tree/canary/packages/create-email)
+      - <span className="text-xs">Used for our [automatic setup](/getting-started/automatic-setup)</span>
+  </div>
+  <div>
+    - [@react-email/font](https://github.com/resend/react-email/tree/canary/packages/font)
+    - [@react-email/head](https://github.com/resend/react-email/tree/canary/packages/head)
+    - [@react-email/heading](https://github.com/resend/react-email/tree/canary/packages/heading)
+    - [@react-email/hr](https://github.com/resend/react-email/tree/canary/packages/hr)
+    - [@react-email/html](https://github.com/resend/react-email/tree/canary/packages/html)
+    - [@react-email/img](https://github.com/resend/react-email/tree/canary/packages/img)
+    - [@react-email/link](https://github.com/resend/react-email/tree/canary/packages/link)
+    - [@react-email/markdown](https://github.com/resend/react-email/tree/canary/packages/markdown)
+    - [@react-email/preview](https://github.com/resend/react-email/tree/canary/packages/preview)
+  </div>
+  <div>
+    - [react-email](https://github.com/resend/react-email/tree/canary/packages/react-email)
+      - <span className="text-xs">The package for our [email CLI](/cli)</span>
+    - [@react-email/render](https://github.com/resend/react-email/tree/canary/packages/render)
+    - [@react-email/row](https://github.com/resend/react-email/tree/canary/packages/row)
+    - [@react-email/section](https://github.com/resend/react-email/tree/canary/packages/section)
+    - [@react-email/tailwind](https://github.com/resend/react-email/tree/canary/packages/tailwind)
+    - [@react-email/text](https://github.com/resend/react-email/tree/canary/packages/text)
+  </div>
+</div>
+
+Most of these packages are very small and can be easily understood by reading the code, so feel free to explore.
+
+### Turborepo
+
+We encourage using [turborepo](https://turbo.build/repo) to manage the packages.
+
+It's often helpful to [install Turborepo globally](https://turbo.build/repo/docs/installing) to make it easier to run commands in any of the repositories. With a global installation, running `turbo build` in any of the packages will build both the package
+you are on as well as the dependent packages. The global installation handles [version mismatching as well](https://turbo.build/repo/docs/installing#install-per-repository).
+
+### The React Email CLI
+
+The CLI (i.e. `packages/react-email`) is key to the best development experience with react.email, but it is complex. Here is a brief overview of the CLI.
+
+The CLI includes two components:
+- A Next app for the `email dev` and `email build` commands
+- A [commander.js](https://www.npmjs.com/package/commander) CLI
+
+In the NextJS app, we include a `src/cli` directory that is not published but is compiled into a root `cli` directory. This structure provides a good developer experience as we can both share certain functions and communicate between the CLI components.
+
+We trigger rebuilds of email templates after they have been saved using the
+[chokidar](https://www.npmjs.com/package/chokidar) package
+alongside the [socket.io](https://socket.io/) package to detect file changes and send
+a message to the server to trigger a rebuild.
+
+## Testing
+
+For testing, we use [vitest](https://vitest.dev/). We prefer to define globals and run tests under the `happy-dom` environment.
+
+We do not strictly enforce testing coverage, but encourage it.
+
+For help testing, see our [Development workflow guide](/contributing/development-workflow/2-running-tests).
+
+<Note>
+The `@react-email/render` package's `renderAsync` does a fair bit of magic to simulate `edge` and other environments that are not supported by `happy-dom`. For this use case, we override the [environment on a per-file basis](https://vitest.dev/guide/environment#environments-for-specific-files) for its tests
+</Note>
+
+## Linting
+
+We use [biomejs](https://biomejs.dev/) for linting and formatting. Both the linting and formatting are ensured by our GitHub CI so make sure you lint and format your code (`pnpm lint:fix`) before opening a PR or asking for a review on it.
+
+For help linting and formatting, see our [Development workflow guide on linting](/contributing/development-workflow/3-linting).
+
+## Building
+
+We use [tsup](https://github.com/egoist/tsup) to build most packages. (The only exception for this is the `@react-email/tailwind` package which currently uses `vite` due to a few issues with `tsup` and `tailwindcss`'s bundling.) For help building packages, see our [Development workflow guide](/contributing/development-workflow/4-building).
+
+<Note>
+Building in each package will run `tsup` with a few settings, typically `src/index.ts --format esm,cjs --dts --external react`.
+Tsup handles building both ESM and CJS versions along with the type definitions exported from the entry point, `src/index.ts`, without bundling `react`, which can cause issues.
+</Note>
+
+### Why build before publishing?
+
+We build most of the packages before publishing for a few reasons:
+
+1. All the exported types can be imported from the same place the JavaScript is imported
+2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules)
+and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
+3. Code that isn't exported is not published or downloaded

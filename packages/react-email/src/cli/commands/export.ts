@@ -1,6 +1,6 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type { Options } from '@react-email/render';
+import type { Options } from '@react-email/components';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
-import type { render } from '@react-email/render';
+import type { render } from '@react-email/components';
 import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
