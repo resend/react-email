@@ -119,7 +119,7 @@ Click me [https://example.com]
 With `useRenderingOptions(uniqueRenderId?: string)` you can get the render options from inside your template.
 It is optional but recommended to include a `uniqueRenderId` to prevent conflicts between parallel calls to render.
 
-For example, if you want to only include a part of your template when rendering as plain text, you could create your template as:
+For example, if you want some part of your template to only render when rendering as plain text, you could create your template as:
 
 ```jsx email.jsx
 import * as React from 'react';
