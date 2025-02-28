@@ -115,6 +115,49 @@ Some title
 Click me [https://example.com]
 ```
 
+## 5. Customize template rendering further
+With `useRenderingOptions(uniqueRenderId?: string)` you can get the render options from inside your template.
+It is optional but recommended to include a `uniqueRenderId` to prevent conflicts between parallel calls to render.
+
+For example, if you want to only include a part of your template when rendering as plain text, you could create your template as:
+
+```jsx email.jsx
+import * as React from 'react';
+import { Html, Button, Hr, Text, useRenderingOptions } from "@react-email/components";
+
+export function MyTemplate({uniqueRenderId}) {
+  const options = useRenderingOptions(uniqueRenderId);
+  return (
+    <Html lang="en">
+      {options.plainText && 
+        <Text>This is only visible when rendering as Plain Text.</Text>
+      }
+      <Text>Some title</Text>
+      <Hr />
+      <Button href="https://example.com">Click me</Button>
+    </Html>
+  );
+}
+
+export default MyTemplate;
+```
+
+And then you would generate and pass the `uniqueRenderId` to the `render` function.
+In this example, we use the crypto library to generate a UUID.
+
+```jsx
+import { MyTemplate } from './email';
+import { render } from '@react-email/render';
+import { randomUUID } from 'crypto'; // 
+
+const text = await render(<MyTemplate />, {
+  plainText: true,
+  uniqueRenderId: randomUUID(),
+});
+
+console.log(text);
+```
+
 ## Options
 
 <ResponseField name="pretty" type="boolean">
@@ -123,7 +166,9 @@ Click me [https://example.com]
 <ResponseField name="plainText" type="boolean">
   Generate plain text version
 </ResponseField>
+<ResponseField name="uniqueRenderId" type="string">
+  Used to ensure that parallel calls to render do not conflict when using useRenderingOptions
+</ResponseField>
 <ResponseField name="htmlToTextOptions" type="HtmlToTextOptions">
   `html-to-text` [options](https://github.com/html-to-text/node-html-to-text/tree/master/packages/html-to-text#options) used for rendering
 </ResponseField>
-
