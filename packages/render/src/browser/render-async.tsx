@@ -4,50 +4,54 @@ import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
-import { setRenderingOptions } from '../shared/useRenderingOptions';
+import { setRenderingOptions, unsetRenderingOptions } from '../shared/useRenderingOptions';
 
 export const renderAsync = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
   setRenderingOptions(options?.uniqueRenderId, options)
-  const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import('react-dom/server');
+  try {
+    const suspendedElement = <Suspense>{element}</Suspense>;
+    const reactDOMServer = await import('react-dom/server');
 
-  let html!: string;
-  if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
-    html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement),
-    );
-  } else {
-    await new Promise<void>((resolve, reject) => {
-      const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
-        async onAllReady() {
-          html = await readStream(stream);
-          resolve();
-        },
-        onError(error) {
-          reject(error as Error);
-        },
+    let html!: string;
+    if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
+      html = await readStream(
+        await reactDOMServer.renderToReadableStream(suspendedElement),
+      );
+    } else {
+      await new Promise<void>((resolve, reject) => {
+        const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
+          async onAllReady() {
+            html = await readStream(stream);
+            resolve();
+          },
+          onError(error) {
+            reject(error as Error);
+          },
+        });
       });
-    });
+    }
+
+    if (options?.plainText) {
+      return convert(html, {
+        selectors: plainTextSelectors,
+        ...options.htmlToTextOptions,
+      });
+    }
+
+    const doctype =
+      '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+
+    const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+
+    if (options?.pretty) {
+      return pretty(document);
+    }
+
+    return document;
+  } finally {
+    unsetRenderingOptions(options?.uniqueRenderId);
   }
-
-  if (options?.plainText) {
-    return convert(html, {
-      selectors: plainTextSelectors,
-      ...options.htmlToTextOptions,
-    });
-  }
-
-  const doctype =
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
-
-  if (options?.pretty) {
-    return pretty(document);
-  }
-
-  return document;
 };
