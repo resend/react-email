@@ -53,7 +53,7 @@ export const render = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
-  setRenderingOptions(options?.uniqueRenderId, options);
+  setRenderingOptions(options?.uniqueRenderId, { ...options });
   try {
     const suspendedElement = <Suspense>{element}</Suspense>;
     const reactDOMServer = await import('react-dom/server');
