@@ -2,6 +2,7 @@ import type { HtmlToTextOptions } from 'html-to-text';
 
 export type Options = {
   pretty?: boolean;
+  uniqueRenderId?: string;
 } & (
   | {
       plainText?: false;
