@@ -1,5 +1,3 @@
-import { rule } from 'postcss';
-
 export const parsePointingTableRows = (response: string) => {
   const tableHeader =
     /pts\s+rule\s+name\s+description\s+(?<ptsWidth>-+) (?<ruleNameWidth>-+) (?<descriptionWidth>-+) *(?:\r\n|\n|\r)*/;

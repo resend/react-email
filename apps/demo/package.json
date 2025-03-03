@@ -12,12 +12,13 @@
     "@react-email/components": "workspace:*",
     "react": "^19",
     "react-dom": "^19",
-    "react-email": "workspace:*"
+    "react-email": "workspace:*",
+    "zod": "3.24.1"
   },
   "devDependencies": {
-    "next": "15.1.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "next": "15.1.2",
     "tsx": "4.9.0"
   }
 }

@@ -45,11 +45,14 @@ const setNextEnvironmentVariablesForBuild = async (
   const nextConfigContents = `
 const path = require('path');
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
+const prebuiltEmailsLocation = path.resolve(process.cwd(), './emails');
 const userProjectLocation = path.resolve(process.cwd(), '../');
 /** @type {import('next').NextConfig} */
 module.exports = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
+    PRE_BUILT_EMAILS_LOCATION: prebuiltEmailsLocation,
+
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     USER_PROJECT_LOCATION: userProjectLocation
@@ -119,13 +122,10 @@ const getEmailSlugsFromEmailDirectory = (
 const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
   builtPreviewAppPath: string,
+  emailsDirectoryMetadata: EmailsDirectory,
 ) => {
-  const emailDirectoryMetadata =
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    (await getEmailsDirectoryMetadata(emailsDirPath))!;
-
   const parameters = getEmailSlugsFromEmailDirectory(
-    emailDirectoryMetadata,
+    emailsDirectoryMetadata,
     emailsDirPath,
   ).map((slug) => ({ slug }));
 
@@ -215,6 +215,42 @@ const npmInstall = async (
   });
 };
 
+import esbuild from 'esbuild';
+import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
+
+const getEmailFilepaths = (directory: EmailsDirectory) => {
+  let emailFilepaths = directory.emailFilenames.map((filename) =>
+    path.resolve(directory.absolutePath, filename),
+  );
+
+  for (const subDirectory of directory.subDirectories) {
+    emailFilepaths = [...emailFilepaths, ...getEmailFilepaths(subDirectory)];
+  }
+
+  return emailFilepaths;
+};
+
+const generateOutputEmailTemplates = async (
+  outDir: string,
+  emailsDirectoryMetadata: EmailsDirectory,
+) => {
+  const emailFilepaths = getEmailFilepaths(emailsDirectoryMetadata);
+
+  await esbuild.build({
+    bundle: true,
+    entryPoints: emailFilepaths,
+    plugins: [renderingUtilitiesExporter(emailFilepaths)],
+    platform: 'node',
+    format: 'cjs',
+    loader: { '.js': 'jsx' },
+    outExtension: { '.js': '.cjs' },
+    jsx: 'transform',
+    sourcemap: 'external',
+    write: true,
+    outdir: outDir,
+  });
+};
+
 export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
@@ -267,6 +303,15 @@ export const build = async ({
       });
     }
 
+    const emailDirectoryMetadata =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      (await getEmailsDirectoryMetadata(emailsDirPath))!;
+
+    await generateOutputEmailTemplates(
+      path.resolve(builtPreviewAppPath, 'emails'),
+      emailDirectoryMetadata,
+    );
+
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
     await setNextEnvironmentVariablesForBuild(
@@ -275,7 +320,11 @@ export const build = async ({
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
-    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
+    await forceSSGForEmailPreviews(
+      emailsDirPath,
+      builtPreviewAppPath,
+      emailDirectoryMetadata,
+    );
 
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);

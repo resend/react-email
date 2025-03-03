@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
-  renderEmailByPath,
-} from '../actions/render-email-by-path';
+  invalidateComponentCache,
+  invalidateRenderingCache,
+  renderEmail,
+} from '../actions/render-email';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
   emailPath: string,
+  previewProps: Record<string, unknown>,
   serverEmailRenderedResult: EmailRenderingResult,
 ) => {
   const [renderingResult, setRenderingResult] = useState(
@@ -27,18 +30,22 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);
 
-        // We always render the email template here so that we can allow
-        const newRenderingResult = await renderEmailByPath(
-          pathForChangedEmail,
-          true,
-        );
+        await Promise.all([
+          invalidateComponentCache(pathForChangedEmail),
+          invalidateRenderingCache(pathForChangedEmail),
+        ]);
 
         if (pathForChangedEmail === emailPath) {
-          setRenderingResult(newRenderingResult);
+          setRenderingResult(
+            await renderEmail(pathForChangedEmail, previewProps, {
+              invalidatingComponentCache: true,
+              invalidatingRenderingCache: true,
+            }),
+          );
         }
       }
     });
   }
 
-  return renderingResult;
+  return [renderingResult, setRenderingResult] as const;
 };

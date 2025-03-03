@@ -6,6 +6,10 @@ import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getEmailPathFromSlug = cache(async (slug: string) => {
+  if (process.env.NEXT_PUBLIC_IS_BUILDING === 'true') {
+    return path.resolve(process.env.PRE_BUILT_EMAILS_LOCATION!, `${slug}.cjs`);
+  }
+
   if (['.tsx', '.jsx', '.ts', '.js'].includes(path.extname(slug)))
     return path.join(emailsDirectoryAbsolutePath, slug);
 
