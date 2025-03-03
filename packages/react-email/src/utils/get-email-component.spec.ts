@@ -30,7 +30,10 @@ describe('getEmailComponent()', () => {
       expect(result.sourceMapToOriginalFile).toBeTruthy();
 
       const emailHtml = await result.render(
-        result.createElement(result.emailComponent, {}),
+        result.createElement(
+          result.emailComponent,
+          result.emailComponent.PreviewProps,
+        ),
       );
       expect(emailHtml).toMatchSnapshot();
     }
