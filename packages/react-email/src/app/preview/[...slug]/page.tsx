@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { getEmailControls } from '../../../actions/get-email-controls';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { getPreviewProps } from '../../../actions/get-preview-props';
-import { renderEmailByPath } from '../../../actions/render-email-by-path';
+import { renderEmail } from '../../../actions/render-email';
 import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import Home from '../../page';
@@ -44,11 +44,8 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   try {
     emailPath = await getEmailPathFromSlug(slug);
   } catch (exception) {
-    if (exception instanceof Error) {
-      console.warn(exception.message);
-      redirect('/');
-    }
-    throw exception;
+    console.warn(exception.message);
+    redirect('/');
   }
 
   const controlsResult = await getEmailControls(emailPath);
@@ -67,7 +64,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const previewProps = await getPreviewProps(emailPath);
 
-  const serverEmailRenderingResult = await renderEmailByPath(
+  const serverEmailRenderingResult = await renderEmail(
     emailPath,
     previewProps,
   );

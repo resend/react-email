@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
-} from '../actions/render-email-by-path';
+} from '../actions/render-email';
 
 const lastRenderingMetadataPerEmailPath = {} as Record<
   string,

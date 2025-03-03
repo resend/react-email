@@ -4,7 +4,7 @@ import {
   type ControlsResult,
   getEmailControls,
 } from '../actions/get-email-controls';
-import type { EmailRenderingResult } from '../actions/render-email-by-path';
+import type { EmailRenderingResult } from '../actions/render-email';
 
 export const useEmailControls = (
   emailPath: string,

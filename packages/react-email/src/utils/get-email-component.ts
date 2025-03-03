@@ -25,41 +25,52 @@ export type GetEmailComponentResult =
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<GetEmailComponentResult> => {
-  let outputFiles: OutputFile[];
-  try {
-    const buildData = await build({
-      bundle: true,
-      entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
-      platform: 'node',
-      write: false,
+  let sourceMapText: string;
+  let sourceMapPath: string;
+  let builtEmailCode: string;
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+    let outputFiles: OutputFile[];
+    try {
+      const buildData = await build({
+        bundle: true,
+        entryPoints: [emailPath],
+        plugins: [renderingUtilitiesExporter([emailPath])],
+        platform: 'node',
+        write: false,
 
-      format: 'cjs',
-      jsx: 'automatic',
-      logLevel: 'silent',
-      // allows for using jsx on a .js file
-      loader: {
-        '.js': 'jsx',
-      },
-      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
-      sourcemap: 'external',
-    });
-    outputFiles = buildData.outputFiles;
-  } catch (exception) {
-    const buildFailure = exception as BuildFailure;
-    return {
-      error: {
-        message: buildFailure.message,
-        stack: buildFailure.stack,
-        name: buildFailure.name,
-        cause: buildFailure.cause,
-      },
-    };
+        format: 'cjs',
+        jsx: 'automatic',
+        logLevel: 'silent',
+        // allows for using jsx on a .js file
+        loader: {
+          '.js': 'jsx',
+        },
+        outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
+        sourcemap: 'external',
+      });
+      outputFiles = buildData.outputFiles;
+    } catch (exception) {
+      const buildFailure = exception as BuildFailure;
+      return {
+        error: {
+          message: buildFailure.message,
+          stack: buildFailure.stack,
+          name: buildFailure.name,
+          cause: buildFailure.cause,
+        },
+      };
+    }
+
+    const sourceMapFile = outputFiles[0]!;
+    const bundledEmailFile = outputFiles[1]!;
+    builtEmailCode = bundledEmailFile.text;
+    sourceMapText = sourceMapFile.text;
+    sourceMapPath = sourceMapFile.path;
+  } else {
+    sourceMapPath = `${emailPath}.map`;
+    sourceMapText = await fs.promises.readFile(sourceMapPath, 'utf8');
+    builtEmailCode = await fs.promises.readFile(emailPath, 'utf8');
   }
-
-  const sourceMapFile = outputFiles[0]!;
-  const bundledEmailFile = outputFiles[1]!;
-  const builtEmailCode = bundledEmailFile.text;
 
   const fakeContext = {
     ...global,
@@ -111,11 +122,11 @@ export const getEmailComponent = async (
     },
     process,
   };
-  const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
+  const sourceMapToEmail = JSON.parse(sourceMapText) as RawSourceMap;
   // because it will have a path like <tsconfigLocation>/stdout/email.js.map
-  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
+  sourceMapToEmail.sourceRoot = path.resolve(sourceMapPath, '../..');
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
-    path.resolve(sourceMapFile.path, '..', source),
+    path.resolve(sourceMapPath, '..', source),
   );
   try {
     vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });

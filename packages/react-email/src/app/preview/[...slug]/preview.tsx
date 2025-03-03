@@ -8,8 +8,8 @@ import { useDebouncedCallback } from 'use-debounce';
 import type { ControlsResult } from '../../../actions/get-email-controls';
 import {
   type EmailRenderingResult,
-  renderEmailByPath,
-} from '../../../actions/render-email-by-path';
+  renderEmail,
+} from '../../../actions/render-email';
 import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
 import { PreviewPropControls } from '../../../components/preview-prop-controls';
@@ -269,7 +269,7 @@ const Preview = ({
 
             debouncedUpdatePreviewProps(newPreviewProps);
 
-            renderEmailByPath(emailPath, newPreviewProps, {
+            renderEmail(emailPath, newPreviewProps, {
               invalidatingRenderingCache: true,
             })
               .then((newRenderingResult) => {

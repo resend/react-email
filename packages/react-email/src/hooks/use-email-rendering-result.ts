@@ -4,8 +4,8 @@ import {
   type EmailRenderingResult,
   invalidateComponentCache,
   invalidateRenderingCache,
-  renderEmailByPath,
-} from '../actions/render-email-by-path';
+  renderEmail,
+} from '../actions/render-email';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
@@ -37,7 +37,7 @@ export const useEmailRenderingResult = (
 
         if (pathForChangedEmail === emailPath) {
           setRenderingResult(
-            await renderEmailByPath(pathForChangedEmail, previewProps, {
+            await renderEmail(pathForChangedEmail, previewProps, {
               invalidatingComponentCache: true,
               invalidatingRenderingCache: true,
             }),

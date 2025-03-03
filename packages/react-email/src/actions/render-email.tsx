@@ -10,6 +10,7 @@ import {
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { getEmailPathFromSlug } from './get-email-path-from-slug';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -35,15 +36,15 @@ export const invalidateComponentCache = async (emailPath: string) => {
   componentCache.delete(emailPath);
 };
 
-export const renderEmailByPath = async (
+export const renderEmail = async (
   emailPath: string,
   props: object,
   {
     invalidatingComponentCache = false,
     invalidatingRenderingCache = false,
   }: {
-    invalidatingRenderingCache?: boolean;
     invalidatingComponentCache?: boolean;
+    invalidatingRenderingCache?: boolean;
   } = {},
 ): Promise<EmailRenderingResult> => {
   if (invalidatingRenderingCache) renderingResultCache.delete(emailPath);
