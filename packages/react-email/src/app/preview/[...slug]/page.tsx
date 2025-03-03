@@ -1,5 +1,4 @@
 import path from 'node:path';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getEmailControls } from '../../../actions/get-email-controls';
@@ -64,10 +63,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const previewProps = await getPreviewProps(emailPath);
 
-  const serverEmailRenderingResult = await renderEmail(
-    emailPath,
-    previewProps,
-  );
+  const serverEmailRenderingResult = await renderEmail(emailPath, previewProps);
 
   if (
     process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&

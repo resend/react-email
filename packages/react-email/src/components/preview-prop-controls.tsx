@@ -1,8 +1,8 @@
 import * as Checkbox from '@radix-ui/react-checkbox';
+import type { ComponentProps } from 'react';
 import type { Control } from '../actions/get-email-controls';
-import { IconCheck } from './icons/icon-check';
-import { ComponentProps } from 'react';
 import { cn } from '../utils';
+import { IconCheck } from './icons/icon-check';
 
 type PreviewPropControls = {
   previewProps: Record<string, unknown>;

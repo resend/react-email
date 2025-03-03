@@ -6,5 +6,5 @@ export default defineConfig([
     entry: ['./src/cli/index.ts'],
     format: ['esm', 'cjs'],
     outDir: 'dist/cli',
-  }
+  },
 ]);

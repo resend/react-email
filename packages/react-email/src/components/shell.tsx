@@ -136,10 +136,7 @@ export const ShellContent = ({
   ...props
 }: React.ComponentProps<'div'>) => {
   return (
-    <div
-      {...props}
-      className={cn('relative flex-grow grow', className)}
-    >
+    <div {...props} className={cn('relative flex-grow grow', className)}>
       {children}
     </div>
   );

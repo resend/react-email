@@ -10,7 +10,6 @@ import {
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
-import { getEmailPathFromSlug } from './get-email-path-from-slug';
 
 export interface RenderedEmailMetadata {
   markup: string;
