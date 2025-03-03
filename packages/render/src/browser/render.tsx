@@ -7,7 +7,7 @@ import type {
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
-import { setRenderingOptions, unsetRenderingOptions } from '../shared/useRenderingOptions';
+import { setRenderingOptions, unsetRenderingOptions } from '../shared/use-rendering-options';
 
 const decoder = new TextDecoder('utf-8');
 

@@ -2,11 +2,13 @@
  * @vitest-environment edge-runtime
  */
 
-import React from 'react';
+import { randomUUID } from 'node:crypto';
 import { Preview } from '../shared/utils/preview';
-import { Template, TemplateWithCustomPlainText } from '../shared/utils/template';
+import {
+  Template,
+  TemplateWithCustomPlainText,
+} from '../shared/utils/template';
 import { render } from './render';
-import { randomUUID } from 'crypto';
 
 type Import = typeof import('react-dom/server') & {
   default: typeof import('react-dom/server');
@@ -113,9 +115,12 @@ describe('render on the edge', () => {
   });
 
   it('converts a React component with custom PlainText into the custom PlainText', async () => {
-    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" />, {
-      plainText: true,
-    });
+    const actualOutput = await render(
+      <TemplateWithCustomPlainText firstName="Jim" />,
+      {
+        plainText: true,
+      },
+    );
 
     expect(actualOutput).toMatchInlineSnapshot(`
       "HELLO, JIM!
@@ -126,10 +131,16 @@ describe('render on the edge', () => {
 
   it('successfully passes rendering options when using uniqueRenderId', async () => {
     const uniqueRenderId = randomUUID();
-    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId} />, {
-      plainText: true,
-      uniqueRenderId: uniqueRenderId
-    });
+    const actualOutput = await render(
+      <TemplateWithCustomPlainText
+        firstName="Jim"
+        uniqueRenderId={uniqueRenderId}
+      />,
+      {
+        plainText: true,
+        uniqueRenderId: uniqueRenderId,
+      },
+    );
 
     expect(actualOutput).toMatchInlineSnapshot(`
         "HELLO, JIM!
@@ -141,10 +152,16 @@ describe('render on the edge', () => {
   it('fails to pass rendering options when uniqueRenderId does not match', async () => {
     const uniqueRenderId1 = randomUUID();
     const uniqueRenderId2 = randomUUID();
-    const actualOutput = await render(<TemplateWithCustomPlainText firstName="Jim" uniqueRenderId={uniqueRenderId1} />, {
-      plainText: true,
-      uniqueRenderId: uniqueRenderId2
-    });
+    const actualOutput = await render(
+      <TemplateWithCustomPlainText
+        firstName="Jim"
+        uniqueRenderId={uniqueRenderId1}
+      />,
+      {
+        plainText: true,
+        uniqueRenderId: uniqueRenderId2,
+      },
+    );
 
     expect(actualOutput).toMatchInlineSnapshot(`
         "WELCOME, JIM!

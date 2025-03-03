@@ -4,7 +4,7 @@ import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
-import { setRenderingOptions, unsetRenderingOptions } from '../shared/useRenderingOptions';
+import { setRenderingOptions, unsetRenderingOptions } from '../shared/use-rendering-options';
 
 export const render = async (
   element: React.ReactElement,
