@@ -56,12 +56,12 @@ exports[`email export 1`] = `
               Join <strong></strong> on <strong>Vercel</strong>
             </h1>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin:16px 0">
+              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
               Hello
               <!-- -->,
             </p>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin:16px 0">
+              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
               <strong></strong> (<a
                 href="mailto:undefined"
                 style="color:rgb(37,99,235);text-decoration-line:none"
@@ -143,7 +143,7 @@ exports[`email export 1`] = `
               </tbody>
             </table>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin:16px 0">
+              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
               or copy and paste this URL into your browser:<!-- -->
               <a
                 style="color:rgb(37,99,235);text-decoration-line:none"
@@ -152,7 +152,7 @@ exports[`email export 1`] = `
             <hr
               style="border-width:1px;border-style:solid;border-color:rgb(234,234,234);margin-top:26px;margin-bottom:26px;margin-left:0px;margin-right:0px;width:100%;border:none;border-top:1px solid #eaeaea" />
             <p
-              style="color:rgb(102,102,102);font-size:12px;line-height:24px;margin:16px 0">
+              style="color:rgb(102,102,102);font-size:12px;line-height:24px;margin-bottom:16px;margin-top:16px">
               This invitation was intended for<!-- -->
               <span style="color:rgb(0,0,0)"></span>. This invite was sent from
               <span style="color:rgb(0,0,0)"></span>
