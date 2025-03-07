@@ -1,35 +1,35 @@
 'use server';
 
 import { ZodFirstPartyTypeKind, type ZodString } from 'zod';
-import { cachedGetEmailComponent } from '../utils/cached-get-email-component';
-import type { ErrorObject } from '../utils/types/error-object';
+import { type Result, ok, err } from '../utils/result';
+import { getEmailComponent } from './build-email-component';
 
 export type Control =
   | {
-      key: string;
-      type: 'email' | 'text' | 'checkbox' | 'number';
-    }
+    key: string;
+    type: 'email' | 'text' | 'checkbox' | 'number';
+  }
   | {
-      key: string;
-      type: 'select';
-      options: { name: string; value: string }[];
-    };
+    key: string;
+    type: 'select';
+    options: { name: string; value: string }[];
+  };
 
-export type ControlsResult =
-  | { error: ErrorObject }
-  | { controls: Control[] | undefined };
+export type ControlsResult = Result<
+  Control[] | undefined,
+  'EMAIL_COMPONENT_NOT_BUILT'
+>;
 
 export const getEmailControls = async (
-  emailPath: string,
-  invalidatingCache = false,
+  emailSlug: string,
 ): Promise<ControlsResult> => {
-  const result = await cachedGetEmailComponent(emailPath, invalidatingCache);
-  if ('error' in result) {
-    return { error: result.error };
+  const emailComponentMetadata = await getEmailComponent(emailSlug);
+  if (emailComponentMetadata === undefined) {
+    return err('EMAIL_COMPONENT_NOT_BUILT');
   }
 
-  const { emailComponent: Email } = result;
-  if (!Email.PreviewSchema) return { controls: undefined };
+  const { emailComponent: Email } = emailComponentMetadata;
+  if (!Email.PreviewSchema) return ok(undefined);
 
   const controls: Control[] = [];
 
@@ -60,5 +60,5 @@ export const getEmailControls = async (
     }
   }
 
-  return { controls };
+  return ok(controls);
 };

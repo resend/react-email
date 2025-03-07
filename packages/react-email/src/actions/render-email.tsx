@@ -3,13 +3,11 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import {
-  cachedGetEmailComponent,
-  componentCache,
-} from '../utils/cached-get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { getEmailComponent } from './build-email-component';
+import { type Result, ok, err } from '../utils/result';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -17,43 +15,19 @@ export interface RenderedEmailMetadata {
   reactMarkup: string;
 }
 
-export type EmailRenderingResult =
-  | RenderedEmailMetadata
-  | {
-      error: ErrorObject;
-    };
-
-const renderingResultCache = new Map<string, EmailRenderingResult>();
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export const invalidateRenderingCache = async (emailPath: string) => {
-  renderingResultCache.delete(emailPath);
-};
-
-// eslint-disable-next-line @typescript-eslint/require-await
-export const invalidateComponentCache = async (emailPath: string) => {
-  componentCache.delete(emailPath);
-};
+export type EmailRenderingResult = Result<
+  RenderedEmailMetadata,
+  | { type: 'EMAIL_COMPONENT_NOT_BUILT' }
+  | { type: 'RENDERING_FAILURE'; exception: ErrorObject }
+>;
 
 export const renderEmail = async (
-  emailPath: string,
+  emailSlug: string,
   props: object,
-  {
-    invalidatingComponentCache = false,
-    invalidatingRenderingCache = false,
-  }: {
-    invalidatingComponentCache?: boolean;
-    invalidatingRenderingCache?: boolean;
-  } = {},
 ): Promise<EmailRenderingResult> => {
-  if (invalidatingRenderingCache) renderingResultCache.delete(emailPath);
-
-  if (renderingResultCache.has(emailPath))
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return renderingResultCache.get(emailPath)!;
   const timeBeforeEmailRendered = performance.now();
 
-  const emailFilename = path.basename(emailPath);
+  const emailFilename = path.basename(emailSlug);
 
   const spinner = ora({
     text: `Rendering email template ${emailFilename}\n`,
@@ -61,26 +35,24 @@ export const renderEmail = async (
   }).start();
   registerSpinnerAutostopping(spinner);
 
-  const componentResult = await cachedGetEmailComponent(
-    emailPath,
-    invalidatingComponentCache,
-  );
+  const emailComponent = await getEmailComponent(emailSlug);
 
-  if ('error' in componentResult) {
+  if (emailComponent === undefined) {
     spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    return { error: componentResult.error };
+    return err({ type: 'EMAIL_COMPONENT_NOT_BUILT' });
   }
 
   const {
-    emailComponent: Email,
     createElement,
-    render,
+    emailComponent: Email,
+    emailPath,
     fileContents: reactMarkup,
-    sourceMapToOriginalFile,
-  } = componentResult;
+    render,
+    sourceMap,
+  } = emailComponent;
 
   const EmailComponent = Email as React.FC;
   try {
@@ -105,18 +77,14 @@ export const renderEmail = async (
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
-    const renderingResult = {
+    return ok({
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
       markup: markup.replaceAll('\0', ''),
       plainText,
       reactMarkup,
-    };
-
-    renderingResultCache.set(emailPath, renderingResult);
-
-    return renderingResult;
+    });
   } catch (exception) {
     const error = exception as Error;
 
@@ -125,12 +93,13 @@ export const renderEmail = async (
       text: `Failed while rendering ${emailFilename}`,
     });
 
-    return {
-      error: improveErrorWithSourceMap(
+    return err({
+      type: 'RENDERING_FAILURE',
+      exception: improveErrorWithSourceMap(
         error,
         emailPath,
-        sourceMapToOriginalFile,
+        sourceMap,
       ),
-    };
+    });
   }
 };

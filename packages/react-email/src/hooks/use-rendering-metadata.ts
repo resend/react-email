@@ -1,36 +1,17 @@
-import { useEffect } from 'react';
-import type {
-  EmailRenderingResult,
-  RenderedEmailMetadata,
-} from '../actions/render-email';
-
-const lastRenderingMetadataPerEmailPath = {} as Record<
-  string,
-  RenderedEmailMetadata
->;
+import { useEffect, useRef } from 'react';
 
 /**
  * Returns the rendering metadata if the given `renderingResult`
  * does not error. If it does error it returns the last value it had for the hook.
  */
-export const useRenderingMetadata = (
-  emailPath: string,
-  renderingResult: EmailRenderingResult,
-  serverRenderingMetadata: EmailRenderingResult,
-): RenderedEmailMetadata | undefined => {
-  useEffect(() => {
-    if ('markup' in renderingResult) {
-      lastRenderingMetadataPerEmailPath[emailPath] = renderingResult;
-    } else if (
-      typeof serverRenderingMetadata !== 'undefined' &&
-      'markup' in serverRenderingMetadata &&
-      typeof lastRenderingMetadataPerEmailPath[emailPath] === 'undefined'
-    ) {
-      lastRenderingMetadataPerEmailPath[emailPath] = serverRenderingMetadata;
-    }
-  }, [renderingResult, emailPath, serverRenderingMetadata]);
+export const useLastDefinedValue = <T>(value: T | undefined): T | undefined => {
+  const lastValueRef = useRef<T | undefined>(value);
 
-  return 'error' in renderingResult
-    ? lastRenderingMetadataPerEmailPath[emailPath]
-    : renderingResult;
+  useEffect(() => {
+    if (value !== undefined) {
+      lastValueRef.current = value;
+    }
+  }, [value]);
+
+  return value ?? lastValueRef.current;
 };

@@ -1,13 +1,11 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { cachedGetEmailComponent } from '../utils/cached-get-email-component';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
+import { getEmailComponent } from './build-email-component';
 
-export const getPreviewProps = async (emailPath: string) => {
+export const getPreviewProps = async (emailSlug: string) => {
   const cookieStore = await cookies();
 
-  const emailSlug = emailPath.replace(`${emailsDirectoryAbsolutePath}/`, '');
   const previewPropsCoookieName = `preview-props-${emailSlug.replaceAll('/', '-')}`;
   const previewPropsCookie = cookieStore.get(previewPropsCoookieName);
 
@@ -17,11 +15,11 @@ export const getPreviewProps = async (emailPath: string) => {
       string,
       unknown
     >;
-  } catch (exception) {}
+  } catch (exception) { }
 
-  const componentResult = await cachedGetEmailComponent(emailPath);
-  if ('emailComponent' in componentResult) {
-    const { emailComponent: Email } = componentResult;
+  const emailComponentMetadata = await getEmailComponent(emailSlug);
+  if (emailComponentMetadata !== undefined) {
+    const { emailComponent: Email } = emailComponentMetadata;
 
     if (Email.PreviewProps) {
       previewProps = { ...Email.PreviewProps, ...previewProps };

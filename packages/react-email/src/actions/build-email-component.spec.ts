@@ -1,10 +1,10 @@
 import path from 'node:path';
-import { getEmailComponent } from './get-email-component';
+import { buildEmailComponent } from '../actions/build-email-component';
 
 describe('getEmailComponent()', () => {
   describe('Node internals support', () => {
     test('Request', async () => {
-      const result = await getEmailComponent(
+      const result = await buildEmailComponent(
         path.resolve(__dirname, './testing/request-response-email.tsx'),
       );
       if ('error' in result) {
@@ -15,7 +15,7 @@ describe('getEmailComponent()', () => {
   });
 
   test('with a demo email template', async () => {
-    const result = await getEmailComponent(
+    const result = await buildEmailComponent(
       path.resolve(
         __dirname,
         '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',

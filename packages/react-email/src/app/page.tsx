@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import CodeSnippet from '../components/code-snippet';
 import { Shell } from '../components/shell';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import logo from './logo.png';
+import { emailsDirectoryAbsolutePath } from './env';
 
 const Home = () => {
   const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);

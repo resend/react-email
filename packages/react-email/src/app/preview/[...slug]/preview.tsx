@@ -5,11 +5,10 @@ import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
-import type { ControlsResult } from '../../../actions/get-email-controls';
-import {
-  type EmailRenderingResult,
-  renderEmail,
-} from '../../../actions/render-email';
+import { buildEmailComponent } from '../../../actions/build-email-component';
+import { getEmailControls } from '../../../actions/get-email-controls';
+import { getPreviewProps } from '../../../actions/get-preview-props';
+import { renderEmail } from '../../../actions/render-email';
 import { updatePreviewProps } from '../../../actions/update-preview-props';
 import { CodeContainer } from '../../../components/code-container';
 import { PreviewPropControls } from '../../../components/preview-prop-controls';
@@ -20,32 +19,25 @@ import {
 import { Shell, ShellContent } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useClampedState } from '../../../hooks/use-clamped-state';
-import { useEmailControls } from '../../../hooks/use-email-controls';
-import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
-import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { useLastDefinedValue } from '../../../hooks/use-rendering-metadata';
+import { err, isErr, isOk, mapResult } from '../../../utils/result';
+import { isBuilding } from '../../env';
+import { type PreviewState, getPreviewState } from './preview-state';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
   slug: string;
-  emailPath: string;
   pathSeparator: string;
 
-  previewProps: Record<string, unknown>;
-
-  serverControlsResult: ControlsResult;
-  serverRenderingResult: EmailRenderingResult;
+  previewState: PreviewState;
 }
 
 const Preview = ({
   slug,
-  emailPath,
   pathSeparator,
 
-  previewProps: initialPreviewProps,
-
-  serverControlsResult,
-  serverRenderingResult,
+  previewState: serverPreviewState,
 }: PreviewProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -54,31 +46,35 @@ const Preview = ({
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
-  const [previewProps, setPreviewProps] =
-    useState<Record<string, unknown>>(initialPreviewProps);
+  const [previewState, setPreviewState] =
+    useState<PreviewState>(serverPreviewState);
 
-  const [renderingResult, setRenderingResult] = useEmailRenderingResult(
-    emailPath,
-    previewProps,
-    serverRenderingResult,
-  );
-  const previewPropsControls = useEmailControls(
-    emailPath,
-    serverControlsResult,
-    renderingResult,
-  );
+  if (!isBuilding) {
+    useHotreload(async (changes) => {
+      for await (const change of changes) {
+        const slugForChangedEmail =
+          // ex: apple-receipt.tsx
+          // it will be the path relative to the emails directory, so it is already
+          // going to be equivalent to the slug
+          change.filename.replace(/\.[^.]+$/, '');
 
-  const renderedEmailMetadata = useRenderingMetadata(
-    emailPath,
-    renderingResult,
-    serverRenderingResult,
-  );
+        if (slugForChangedEmail === slug) {
+          const previewProps = await getPreviewProps(slug);
+          const buildResult = await buildEmailComponent(slug);
+          const controlsResult = await getEmailControls(slug);
+          const renderingResult = await renderEmail(slug, previewProps);
 
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    // this will not change on runtime so it doesn't violate
-    // the rules of hooks
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload((changes) => {
+          setPreviewState(
+            getPreviewState(
+              buildResult,
+              controlsResult,
+              renderingResult,
+              previewProps,
+            ),
+          );
+        }
+      }
+
       const changeForThisEmail = changes.find((change) =>
         change.filename.includes(slug),
       );
@@ -90,6 +86,10 @@ const Preview = ({
       }
     });
   }
+
+  const renderedEmailMetadata = useLastDefinedValue(
+    isOk(previewState) ? previewState.value.renderingMetadata : undefined,
+  );
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
@@ -114,8 +114,6 @@ const Preview = ({
     },
     200,
   );
-
-  const hasErrors = 'error' in renderingResult;
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -185,7 +183,9 @@ const Preview = ({
           };
         }}
       >
-        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
+        {isErr(previewState) ? (
+          <RenderingError error={previewState.error} />
+        ) : null}
 
         {/* If this is undefined means that the initial server render of the email had errors */}
         {typeof renderedEmailMetadata !== 'undefined' ? (
@@ -260,31 +260,55 @@ const Preview = ({
         <Toaster />
       </ShellContent>
 
-      {previewPropsControls ? (
+      {isOk(previewState) ? (
         <PreviewPropControls
-          controls={previewPropsControls}
-          onValueChange={(key, newValue) => {
-            const newPreviewProps = { ...previewProps, [key]: newValue };
-            setPreviewProps(newPreviewProps);
+          controls={previewState.value.controls}
+          onValueChange={async (key, newValue) => {
+            const newPreviewProps = {
+              ...previewState.value.previewProps,
+              [key]: newValue,
+            };
+            setPreviewState((state) =>
+              mapResult(state, (value) => ({
+                ...value,
+                previewProps: newPreviewProps,
+              })),
+            );
 
             debouncedUpdatePreviewProps(newPreviewProps);
 
-            renderEmail(emailPath, newPreviewProps, {
-              invalidatingRenderingCache: true,
-            })
-              .then((newRenderingResult) => {
-                setRenderingResult(newRenderingResult);
-              })
-              .catch((exception) => {
+            setPreviewState((state) =>
+              mapResult(state, (value) => ({
+                ...value,
+                previewProps: newPreviewProps,
+              })),
+            );
+            const renderingResult = await renderEmail(slug, newPreviewProps);
+
+            if (isErr(renderingResult)) {
+              const error = renderingResult.error;
+              if (error.type === 'RENDERING_FAILURE') {
+                setPreviewState((state) => err(error.exception));
+              } else if (error.type === 'EMAIL_COMPONENT_NOT_BUILT') {
                 throw new Error(
-                  'Could not render the email after changing the props',
+                  'Email component was not built when updating props. This is a bug in React Email, please open an issue.',
                   {
-                    cause: exception,
+                    cause: {
+                      renderingResult,
+                    },
                   },
                 );
-              });
+              }
+            } else {
+              setPreviewState((state) =>
+                mapResult(state, (value) => ({
+                  ...value,
+                  renderingMetadata: renderingResult.value,
+                })),
+              );
+            }
           }}
-          previewProps={previewProps}
+          previewProps={previewState.value.previewProps}
         />
       ) : null}
     </Shell>

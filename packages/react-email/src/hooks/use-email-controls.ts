@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  type Control,
   type ControlsResult,
   getEmailControls,
 } from '../actions/get-email-controls';
@@ -29,7 +28,5 @@ export const useEmailControls = (
     }, [emailRenderingResult, emailPath]);
   }
 
-  return 'error' in emailRenderingResult
-    ? undefined
-    : (emailControlsResult as { controls: Control[] }).controls;
+  return emailControlsResult.isOk() ? emailControlsResult.value : undefined;
 };

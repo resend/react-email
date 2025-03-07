@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
-  invalidateComponentCache,
-  invalidateRenderingCache,
   renderEmail,
 } from '../actions/render-email';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
-  emailPath: string,
+  emailSlug: string,
   previewProps: Record<string, unknown>,
   serverEmailRenderedResult: EmailRenderingResult,
 ) => {
@@ -25,22 +22,11 @@ export const useEmailRenderingResult = (
           // ex: apple-receipt.tsx
           // it will be the path relative to the emails directory, so it is already
           // going to be equivalent to the slug
-          change.filename;
+          change.filename.replace(/\.[^.]+$/, '');
 
-        const pathForChangedEmail =
-          await getEmailPathFromSlug(slugForChangedEmail);
-
-        await Promise.all([
-          invalidateComponentCache(pathForChangedEmail),
-          invalidateRenderingCache(pathForChangedEmail),
-        ]);
-
-        if (pathForChangedEmail === emailPath) {
+        if (slugForChangedEmail === emailSlug) {
           setRenderingResult(
-            await renderEmail(pathForChangedEmail, previewProps, {
-              invalidatingComponentCache: true,
-              invalidatingRenderingCache: true,
-            }),
+            await renderEmail(emailSlug, previewProps),
           );
         }
       }
