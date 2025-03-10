@@ -22,6 +22,8 @@ import { Topbar } from '../../../components';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { Send } from '../../../components/send';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { Toolbar } from '../../../components/toolbar';
+import { render } from '@react-email/render';
 
 interface PreviewProps {
   slug: string;
@@ -84,7 +86,8 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
+  const hasErrors = 'error' in renderingResult;
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -141,7 +144,7 @@ const Preview = ({
       </Topbar>
 
       <ShellContent
-        className="relative flex h-full bg-gray-200"
+        className="relative flex bg-gray-200"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
@@ -160,11 +163,9 @@ const Preview = ({
           };
         }}
       >
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
-        ) : null}
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
 
-        {hasNoErrors ? (
+        {hasRenderingMetadata ? (
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
@@ -235,6 +236,14 @@ const Preview = ({
 
         <Toaster />
       </ShellContent>
+
+      {!hasErrors && hasRenderingMetadata ? (
+        <Toolbar
+          emailSlug={slug}
+          markup={renderedEmailMetadata.markup}
+          plainText={renderedEmailMetadata.plainText}
+        />
+      ) : undefined}
     </Shell>
   );
 };
