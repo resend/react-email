@@ -13,7 +13,7 @@ import {
 } from '@react-email/components';
 
 interface RaycastMagicLinkEmailProps {
-  magicLink?: string;
+  magicLink: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -71,7 +71,7 @@ export const RaycastMagicLinkEmail = ({
 
 RaycastMagicLinkEmail.PreviewProps = {
   magicLink: 'https://raycast.com',
-} as RaycastMagicLinkEmailProps;
+};
 
 export default RaycastMagicLinkEmail;
 

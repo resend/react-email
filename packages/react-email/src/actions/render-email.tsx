@@ -1,13 +1,13 @@
 'use server';
-import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import { type Result, err, ok } from '../utils/result';
 import type { ErrorObject } from '../utils/types/error-object';
+import { getEmailComponent } from './build-email-component';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -15,65 +15,53 @@ export interface RenderedEmailMetadata {
   reactMarkup: string;
 }
 
-export type EmailRenderingResult =
-  | RenderedEmailMetadata
-  | {
-      error: ErrorObject;
-    };
+export type EmailRenderingResult = Result<
+  RenderedEmailMetadata,
+  | { type: 'EMAIL_COMPONENT_NOT_BUILT' }
+  | { type: 'RENDERING_FAILURE'; exception: ErrorObject }
+>;
 
-const cache = new Map<string, EmailRenderingResult>();
-
-export const renderEmailByPath = async (
-  emailPath: string,
-  invalidatingCache = false,
+export const renderEmail = async (
+  emailSlug: string,
+  props: object,
 ): Promise<EmailRenderingResult> => {
-  if (invalidatingCache) cache.delete(emailPath);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (cache.has(emailPath)) return cache.get(emailPath)!;
-
   const timeBeforeEmailRendered = performance.now();
 
-  const emailFilename = path.basename(emailPath);
-  let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    spinner = ora({
-      text: `Rendering email template ${emailFilename}\n`,
-      prefixText: ' ',
-    }).start();
-    registerSpinnerAutostopping(spinner);
-  }
+  const emailFilename = path.basename(emailSlug);
 
-  const componentResult = await getEmailComponent(emailPath);
+  const spinner = ora({
+    text: `Rendering email template ${emailFilename}\n`,
+    prefixText: ' ',
+  }).start();
+  registerSpinnerAutostopping(spinner);
 
-  if ('error' in componentResult) {
-    spinner?.stopAndPersist({
+  const emailComponent = await getEmailComponent(emailSlug);
+
+  if (emailComponent === undefined) {
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    return { error: componentResult.error };
+    return err({ type: 'EMAIL_COMPONENT_NOT_BUILT' });
   }
 
   const {
-    emailComponent: Email,
     createElement,
+    emailComponent: Email,
+    emailPath,
+    fileContents: reactMarkup,
     render,
-    sourceMapToOriginalFile,
-  } = componentResult;
+    sourceMap,
+  } = emailComponent;
 
-  const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const markup = await render(createElement(EmailComponent, props), {
       pretty: true,
     });
-    const plainText = await render(
-      createElement(EmailComponent, previewProps),
-      {
-        plainText: true,
-      },
-    );
-
-    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
+    const plainText = await render(createElement(EmailComponent, props), {
+      plainText: true,
+    });
 
     const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
@@ -84,37 +72,30 @@ export const renderEmailByPath = async (
     } else {
       timeForConsole = chalk.red(timeForConsole);
     }
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
-    const renderingResult = {
+    return ok({
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
       markup: markup.replaceAll('\0', ''),
       plainText,
       reactMarkup,
-    };
-
-    cache.set(emailPath, renderingResult);
-
-    return renderingResult;
+    });
   } catch (exception) {
     const error = exception as Error;
 
-    spinner?.stopAndPersist({
+    spinner.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
 
-    return {
-      error: improveErrorWithSourceMap(
-        error,
-        emailPath,
-        sourceMapToOriginalFile,
-      ),
-    };
+    return err({
+      type: 'RENDERING_FAILURE',
+      exception: improveErrorWithSourceMap(error, emailPath, sourceMap),
+    });
   }
 };

@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
-  renderEmailByPath,
-} from '../actions/render-email-by-path';
+  renderEmail,
+} from '../actions/render-email';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
-  emailPath: string,
+  emailSlug: string,
+  previewProps: Record<string, unknown>,
   serverEmailRenderedResult: EmailRenderingResult,
 ) => {
   const [renderingResult, setRenderingResult] = useState(
@@ -22,23 +22,14 @@ export const useEmailRenderingResult = (
           // ex: apple-receipt.tsx
           // it will be the path relative to the emails directory, so it is already
           // going to be equivalent to the slug
-          change.filename;
+          change.filename.replace(/\.[^.]+$/, '');
 
-        const pathForChangedEmail =
-          await getEmailPathFromSlug(slugForChangedEmail);
-
-        // We always render the email template here so that we can allow
-        const newRenderingResult = await renderEmailByPath(
-          pathForChangedEmail,
-          true,
-        );
-
-        if (pathForChangedEmail === emailPath) {
-          setRenderingResult(newRenderingResult);
+        if (slugForChangedEmail === emailSlug) {
+          setRenderingResult(await renderEmail(emailSlug, previewProps));
         }
       }
     });
   }
 
-  return renderingResult;
+  return [renderingResult, setRenderingResult] as const;
 };

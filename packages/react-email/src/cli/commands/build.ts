@@ -3,11 +3,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
+import type { RawSourceMap } from 'source-map-js';
+import { buildEmailIntoRunnableCode } from '../../utils/build-email-into-runnable-code';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
+import { resolveFileFromImportPath } from '../../utils/resolve-file-from-import-path';
+import { isErr } from '../../utils/result';
 import { cliPacakgeLocation } from '../utils';
 
 interface Args {
@@ -45,11 +49,14 @@ const setNextEnvironmentVariablesForBuild = async (
   const nextConfigContents = `
 const path = require('path');
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
+const prebuiltEmailsLocation = path.resolve(process.cwd(), './emails');
 const userProjectLocation = path.resolve(process.cwd(), '../');
 /** @type {import('next').NextConfig} */
 module.exports = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
+    PRE_BUILT_EMAILS_LOCATION: prebuiltEmailsLocation,
+
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     USER_PROJECT_LOCATION: userProjectLocation
@@ -119,13 +126,10 @@ const getEmailSlugsFromEmailDirectory = (
 const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
   builtPreviewAppPath: string,
+  emailsDirectoryMetadata: EmailsDirectory,
 ) => {
-  const emailDirectoryMetadata =
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    (await getEmailsDirectoryMetadata(emailsDirPath))!;
-
   const parameters = getEmailSlugsFromEmailDirectory(
-    emailDirectoryMetadata,
+    emailsDirectoryMetadata,
     emailsDirPath,
   ).map((slug) => ({ slug }));
 
@@ -215,6 +219,83 @@ const npmInstall = async (
   });
 };
 
+const getEmailMetadata = (directory: EmailsDirectory) => {
+  let emailMetadatas = directory.emailFilenames.map((filename) => ({
+    slug: path.join(directory.relativePath, filename).replaceAll(path.sep, '/'),
+    path: path.resolve(directory.absolutePath, filename),
+  }));
+
+  for (const subDirectory of directory.subDirectories) {
+    emailMetadatas = [...emailMetadatas, ...getEmailMetadata(subDirectory)];
+  }
+
+  return emailMetadatas;
+};
+
+type BuildData = Record<
+  string,
+  {
+    emailPath: string;
+    fileContents: string;
+    sourceMap: RawSourceMap;
+    runnableCode: string;
+  }
+>;
+
+const generateBuildData = async (
+  emailsDirectoryMetadata: EmailsDirectory,
+  onStartBuildingTemplate?: (slug: string) => void,
+): Promise<BuildData> => {
+  const buildData: BuildData = {};
+
+  const emailMetadatas = getEmailMetadata(emailsDirectoryMetadata);
+
+  for await (const metadata of emailMetadatas) {
+    onStartBuildingTemplate?.(metadata.slug);
+    const buildResult = await buildEmailIntoRunnableCode(metadata.path);
+    if (isErr(buildResult)) {
+      console.error(buildResult.error);
+      throw new Error(`Failed during build of ${metadata.slug}`);
+    }
+
+    const emailPathResult = await resolveFileFromImportPath(metadata.path);
+    if (isErr(emailPathResult)) {
+      throw new Error(
+        `Could not resolve path for email template ${metadata.slug}`,
+      );
+    }
+    const { value: emailPath } = emailPathResult;
+
+    buildData[metadata.slug] = {
+      emailPath,
+      fileContents: await fs.promises.readFile(emailPath, 'utf8'),
+      runnableCode: buildResult.value.runnableCode,
+      sourceMap: buildResult.value.sourceMap,
+    };
+  }
+
+  return buildData;
+};
+
+const replacePredoneBuildData = async (
+  builtPreviewAppPath: string,
+  buildData: BuildData,
+): Promise<void> => {
+  const predoneBuildDataPath = path.resolve(
+    builtPreviewAppPath,
+    './src/actions/predone-build-data.ts',
+  );
+  const escapedJson = JSON.stringify(buildData, null, 2)
+    .replaceAll('\\', '\\\\')
+    .replaceAll('`', '\\`')
+    .replaceAll('${', '\\${');
+  await fs.promises.writeFile(
+    predoneBuildDataPath,
+    `export const predoneBuildDataJson = \`${escapedJson}\`\n`,
+    'utf8',
+  );
+};
+
 export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
@@ -250,7 +331,8 @@ export const build = async ({
           !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
           !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source) &&
+          !/\.spec.*$/.test(source)
         );
       },
     });
@@ -267,6 +349,21 @@ export const build = async ({
       });
     }
 
+    const emailDirectoryMetadata =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      (await getEmailsDirectoryMetadata(emailsDirPath))!;
+
+    spinner.text = 'Prebuilding email templates for rendering...';
+    const predoneBuildData = await generateBuildData(
+      emailDirectoryMetadata,
+      (slug) => {
+        spinner.text = `Prebuilding email templates for rendering... (${slug})`;
+      },
+    );
+
+    spinner.text = 'Injecting prebuilt email templates into preview app';
+    await replacePredoneBuildData(builtPreviewAppPath, predoneBuildData);
+
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
     await setNextEnvironmentVariablesForBuild(
@@ -275,7 +372,11 @@ export const build = async ({
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
-    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
+    await forceSSGForEmailPreviews(
+      emailsDirPath,
+      builtPreviewAppPath,
+      emailDirectoryMetadata,
+    );
 
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);

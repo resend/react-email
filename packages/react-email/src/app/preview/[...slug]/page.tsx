@@ -1,12 +1,16 @@
 import path from 'node:path';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
-import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import { buildEmailComponent } from '../../../actions/build-email-component';
+import { getEmailControls } from '../../../actions/get-email-controls';
+import { getPreviewProps } from '../../../actions/get-preview-props';
+import { renderEmail } from '../../../actions/render-email';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
+import { isErr } from '../../../utils/result';
+import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Home from '../../page';
 import Preview from './preview';
+import { getPreviewState } from './preview-state';
 
 export const dynamicParams = true;
 
@@ -37,25 +41,50 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     );
   }
 
-  let emailPath: string;
-  try {
-    emailPath = await getEmailPathFromSlug(slug);
-  } catch (exception) {
-    if (exception instanceof Error) {
-      console.warn(exception.message);
-      redirect('/');
-    }
-    throw exception;
+  const buildResult = await buildEmailComponent(slug);
+
+  if (
+    isErr(buildResult) &&
+    buildResult.error.type === 'FAILED_TO_RESOLVE_PATH'
+  ) {
+    console.warn(`Could not resolve email path for ${slug}, redirecting to /`);
+    redirect('/');
   }
 
-  const serverEmailRenderingResult = await renderEmailByPath(emailPath);
+  if (isErr(buildResult) && isBuilding) {
+    throw new Error('Failed getting controls for email template', {
+      cause: {
+        slug,
+        error: buildResult.error,
+      },
+    });
+  }
+
+  const controlsResult = await getEmailControls(slug);
+
+  if (isErr(controlsResult) && isBuilding) {
+    throw new Error('Failed getting controls for email template', {
+      cause: {
+        slug,
+        error: controlsResult.error,
+      },
+    });
+  }
+
+  const previewProps = await getPreviewProps(slug);
+
+  const renderingResult = await renderEmail(slug, previewProps);
 
   if (
     process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
-    'error' in serverEmailRenderingResult
+    isErr(renderingResult)
   ) {
-    throw new Error(serverEmailRenderingResult.error.message, {
-      cause: serverEmailRenderingResult.error,
+    throw new Error('Failed rendering email by path', {
+      cause: {
+        slug,
+        previewProps,
+        error: renderingResult.error,
+      },
     });
   }
 
@@ -65,9 +94,13 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     // client-side rendering on build
     <Suspense fallback={<Home />}>
       <Preview
-        emailPath={emailPath}
         pathSeparator={path.sep}
-        serverRenderingResult={serverEmailRenderingResult}
+        previewState={getPreviewState(
+          buildResult,
+          controlsResult,
+          renderingResult,
+          previewProps,
+        )}
         slug={slug}
       />
     </Suspense>
