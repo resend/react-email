@@ -21,7 +21,6 @@ type ResizableWarpperProps = {
 
 export const makeIframeDocumentBubbleEvents = (iframe: HTMLIFrameElement) => {
   const mouseMoveBubbler = (event: MouseEvent) => {
-    event.preventDefault();
     const bounds = iframe.getBoundingClientRect();
     document.dispatchEvent(
       new MouseEvent('mousemove', {
@@ -30,6 +29,7 @@ export const makeIframeDocumentBubbleEvents = (iframe: HTMLIFrameElement) => {
         clientY: event.clientY + bounds.y,
       }),
     );
+    event.preventDefault();
   };
   const mouseUpBubbler = (event: MouseEvent) => {
     document.dispatchEvent(new MouseEvent('mouseup', event));
