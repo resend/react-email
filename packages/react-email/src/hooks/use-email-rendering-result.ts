@@ -25,9 +25,7 @@ export const useEmailRenderingResult = (
           change.filename.replace(/\.[^.]+$/, '');
 
         if (slugForChangedEmail === emailSlug) {
-          setRenderingResult(
-            await renderEmail(emailSlug, previewProps),
-          );
+          setRenderingResult(await renderEmail(emailSlug, previewProps));
         }
       }
     });

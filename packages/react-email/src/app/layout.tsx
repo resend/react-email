@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { EmailsProvider } from '../contexts/emails';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
-import { inter } from './inter';
 import { emailsDirectoryAbsolutePath } from './env';
+import { inter } from './inter';
 
 export const metadata: Metadata = {
   title: 'React Email',

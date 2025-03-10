@@ -1,8 +1,8 @@
 'use server';
 import fs from 'node:fs';
 import path from 'node:path';
-import { ok, err, type Result } from '../utils/result';
 import { emailsDirectoryAbsolutePath } from '../app/env';
+import { type Result, err, ok } from '../utils/result';
 
 export const resolvePathFromSlug = async (
   slug: string,

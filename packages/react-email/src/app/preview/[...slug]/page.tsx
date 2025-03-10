@@ -1,16 +1,16 @@
 import path from 'node:path';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
+import { buildEmailComponent } from '../../../actions/build-email-component';
 import { getEmailControls } from '../../../actions/get-email-controls';
 import { getPreviewProps } from '../../../actions/get-preview-props';
 import { renderEmail } from '../../../actions/render-email';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
+import { isErr } from '../../../utils/result';
+import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Home from '../../page';
 import Preview from './preview';
 import { getPreviewState } from './preview-state';
-import { buildEmailComponent } from '../../../actions/build-email-component';
-import { isBuilding, emailsDirectoryAbsolutePath } from '../../env';
-import { isErr, serialize } from '../../../utils/result';
 
 export const dynamicParams = true;
 

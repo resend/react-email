@@ -1,19 +1,19 @@
 'use server';
 
 import { ZodFirstPartyTypeKind, type ZodString } from 'zod';
-import { type Result, ok, err } from '../utils/result';
+import { type Result, err, ok } from '../utils/result';
 import { getEmailComponent } from './build-email-component';
 
 export type Control =
   | {
-    key: string;
-    type: 'email' | 'text' | 'checkbox' | 'number';
-  }
+      key: string;
+      type: 'email' | 'text' | 'checkbox' | 'number';
+    }
   | {
-    key: string;
-    type: 'select';
-    options: { name: string; value: string }[];
-  };
+      key: string;
+      type: 'select';
+      options: { name: string; value: string }[];
+    };
 
 export type ControlsResult = Result<
   Control[] | undefined,

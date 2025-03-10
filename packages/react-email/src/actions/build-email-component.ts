@@ -5,15 +5,15 @@ import vm from 'node:vm';
 import type { render } from '@react-email/render';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
+import { isBuilding } from '../app/env';
+import { buildEmailIntoRunnableCode } from '../utils/build-email-into-runnable-code';
+import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
+import { type Result, err, isErr, ok } from '../utils/result';
 import { staticNodeModulesForVM } from '../utils/static-node-modules-for-vm';
 import type { EmailTemplate as EmailComponent } from '../utils/types/email-template';
-import { err, isErr, ok, type Result } from '../utils/result';
-import { resolvePathFromSlug } from './resolve-path-from-slug';
 import type { ErrorObject } from '../utils/types/error-object';
-import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
-import { isBuilding } from '../app/env';
 import { predoneBuildDataJson } from './predone-build-data';
-import { buildEmailIntoRunnableCode } from '../utils/build-email-into-runnable-code';
+import { resolvePathFromSlug } from './resolve-path-from-slug';
 
 export interface EmailComponentMetadata {
   fileContents: string;
@@ -78,7 +78,8 @@ export const buildEmailComponent = async (
     fileContents = await fs.promises.readFile(emailPath, 'utf-8');
   } else {
     if (predoneBuildData[emailSlug]) {
-      ({ emailPath, sourceMap, runnableCode, fileContents } = predoneBuildData[emailSlug]);
+      ({ emailPath, sourceMap, runnableCode, fileContents } =
+        predoneBuildData[emailSlug]);
     } else {
       return err({ type: 'FAILED_TO_RESOLVE_PATH' });
     }

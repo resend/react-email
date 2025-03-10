@@ -5,9 +5,9 @@ import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import { type Result, err, ok } from '../utils/result';
 import type { ErrorObject } from '../utils/types/error-object';
 import { getEmailComponent } from './build-email-component';
-import { type Result, ok, err } from '../utils/result';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -95,11 +95,7 @@ export const renderEmail = async (
 
     return err({
       type: 'RENDERING_FAILURE',
-      exception: improveErrorWithSourceMap(
-        error,
-        emailPath,
-        sourceMap,
-      ),
+      exception: improveErrorWithSourceMap(error, emailPath, sourceMap),
     });
   }
 };

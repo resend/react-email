@@ -1,9 +1,9 @@
 import path from 'node:path';
-import { type BuildFailure, type OutputFile, build } from "esbuild";
-import type { RawSourceMap } from "source-map-js";
-import { renderingUtilitiesExporter } from "./esbuild/renderring-utilities-exporter";
-import { type Result, err, ok } from "./result";
-import type { ErrorObject } from "./types/error-object";
+import { type BuildFailure, type OutputFile, build } from 'esbuild';
+import type { RawSourceMap } from 'source-map-js';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import { type Result, err, ok } from './result';
+import type { ErrorObject } from './types/error-object';
 
 export const buildEmailIntoRunnableCode = async (
   emailPath: string,

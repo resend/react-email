@@ -1,8 +1,14 @@
-import { err, isErr, ok, type Result } from "../../../utils/result";
-import type { BuildEmailComponentResult } from "../../../actions/build-email-component";
-import type { Control, ControlsResult } from "../../../actions/get-email-controls";
-import type { EmailRenderingResult, RenderedEmailMetadata } from "../../../actions/render-email";
-import type { ErrorObject } from "../../../utils/types/error-object";
+import type { BuildEmailComponentResult } from '../../../actions/build-email-component';
+import type {
+  Control,
+  ControlsResult,
+} from '../../../actions/get-email-controls';
+import type {
+  EmailRenderingResult,
+  RenderedEmailMetadata,
+} from '../../../actions/render-email';
+import { type Result, err, isErr, ok } from '../../../utils/result';
+import type { ErrorObject } from '../../../utils/types/error-object';
 
 export type PreviewState = Result<
   {

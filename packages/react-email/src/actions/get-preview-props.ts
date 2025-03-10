@@ -15,7 +15,7 @@ export const getPreviewProps = async (emailSlug: string) => {
       string,
       unknown
     >;
-  } catch (exception) { }
+  } catch (exception) {}
 
   const emailComponentMetadata = await getEmailComponent(emailSlug);
   if (emailComponentMetadata !== undefined) {

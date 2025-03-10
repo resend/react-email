@@ -3,15 +3,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
+import type { RawSourceMap } from 'source-map-js';
+import { buildEmailIntoRunnableCode } from '../../utils/build-email-into-runnable-code';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
-import { cliPacakgeLocation } from '../utils';
-import type { RawSourceMap } from 'source-map-js';
-import { buildEmailIntoRunnableCode } from '../../utils/build-email-into-runnable-code';
 import { isErr } from '../../utils/result';
+import { cliPacakgeLocation } from '../utils';
 
 interface Args {
   dir: string;
