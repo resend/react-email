@@ -88,33 +88,6 @@ export const Shell = ({
           <div className="relative flex h-full w-full flex-col">{children}</div>
         </main>
       </div>
-      {/*   <div className="relative flex h-full w-full flex-col"> */}
-      {/*     {currentEmailOpenSlug && pathSeparator ? ( */}
-      {/*       <Topbar */}
-      {/*         activeView={activeView} */}
-      {/*         currentEmailOpenSlug={currentEmailOpenSlug} */}
-      {/*         markup={markup} */}
-      {/*         onToggleSidebar={() => { */}
-      {/*           setTriggerTransition(true); */}
-      {/**/}
-      {/*           requestAnimationFrame(() => { */}
-      {/*             setSidebarToggled((v) => !v); */}
-      {/*           }); */}
-      {/**/}
-      {/*           setTimeout(() => { */}
-      {/*             setTriggerTransition(false); */}
-      {/*           }, 300); */}
-      {/*         }} */}
-      {/*         pathSeparator={pathSeparator} */}
-      {/*         setActiveView={setActiveView} */}
-      {/*         setViewHeight={setViewHeight} */}
-      {/*         setViewWidth={setViewWidth} */}
-      {/*         viewHeight={viewHeight} */}
-      {/*         viewWidth={viewWidth} */}
-      {/*       /> */}
-      {/*     ) : null} */}
-      {/*     {children} */}
-      {/*   </div > */}
     </ShellContext.Provider>
   );
 };
