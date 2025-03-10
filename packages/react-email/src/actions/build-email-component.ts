@@ -30,17 +30,17 @@ const emailComponents = new Map<string, EmailComponentMetadata>();
 type BuildEmailComponentError =
   | { type: 'FAILED_TO_RESOLVE_PATH' }
   | {
-    type: 'BUILD_FAILED';
-    failure: ErrorObject;
-  }
+      type: 'BUILD_FAILED';
+      failure: ErrorObject;
+    }
   | {
-    type: 'COMPONENT_EVALUATION_ERROR';
-    error: ErrorObject;
-  }
+      type: 'COMPONENT_EVALUATION_ERROR';
+      error: ErrorObject;
+    }
   | {
-    type: 'NO_DEFAULT_EXPORT';
-    error: ErrorObject;
-  };
+      type: 'NO_DEFAULT_EXPORT';
+      error: ErrorObject;
+    };
 
 export type BuildEmailComponentResult = Result<void, BuildEmailComponentError>;
 

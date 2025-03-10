@@ -6,8 +6,8 @@ import { getEmailComponent } from './build-email-component';
 export const getPreviewProps = async (emailSlug: string) => {
   const cookieStore = await cookies();
 
-  const previewPropsCoookieName = `preview-props-${emailSlug.replaceAll('/', '-')}`;
-  const previewPropsCookie = cookieStore.get(previewPropsCoookieName);
+  const previewPropsCookieName = `preview-props-${emailSlug.replaceAll('/', '-')}`;
+  const previewPropsCookie = cookieStore.get(previewPropsCookieName);
 
   let previewProps: Record<string, unknown> = {};
   try {

@@ -3,8 +3,8 @@ import {
   buildEmailComponent,
   getEmailComponent,
 } from '../actions/build-email-component';
-import { isErr, isOk } from '../utils/result';
 import * as EnvExports from '../app/env';
+import { isErr, isOk } from '../utils/result';
 
 function mockEnv(emailsDirectoryAbsolutePath: string) {
   vi.resetModules();
