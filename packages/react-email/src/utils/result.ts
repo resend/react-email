@@ -39,7 +39,7 @@ export function ok<T, E>(value: NoInfer<T>): Ok<T, E> {
   };
 }
 
-export function err<T, E>(error: NoInfer<T>): Error<T, E>;
+export function err<T, E>(error: NoInfer<E>): Error<T, E>;
 // biome-ignore lint/suspicious/noConfusingVoidType: This is required for void return types on functions that can still error
 export function err<T, E extends void = void>(error: void): Error<T, void>;
 export function err<T, E>(error: NoInfer<E>): Error<T, E> {
