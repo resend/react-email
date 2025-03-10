@@ -27,7 +27,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true,
     "strict": false,
-    "target": "es5",
+    "target": "ESNext",
     "module": "CommonJS",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
