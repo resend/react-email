@@ -12,6 +12,7 @@ import {
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import { isErr } from '../../utils/result';
 import { cliPacakgeLocation } from '../utils';
+import { resolveFileFromImportPath } from '../../utils/resolve-file-from-import-path';
 
 interface Args {
   dir: string;
@@ -218,11 +219,6 @@ const npmInstall = async (
   });
 };
 
-interface EmailMetadata {
-  slug: string;
-  path: string;
-}
-
 const getEmailMetadata = (directory: EmailsDirectory) => {
   let emailMetadatas = directory.emailFilenames.map((filename) => ({
     slug: path.join(directory.relativePath, filename).replaceAll(path.sep, '/'),
@@ -247,7 +243,6 @@ type BuildData = Record<
 >;
 
 const generateBuildData = async (
-  outDir: string,
   emailsDirectoryMetadata: EmailsDirectory,
   onStartBuildingTemplate?: (slug: string) => void,
 ): Promise<BuildData> => {
@@ -263,7 +258,14 @@ const generateBuildData = async (
       throw new Error(`Failed during build of ${metadata.slug}`);
     }
 
-    const emailPath = require.resolve(metadata.path);
+    const emailPathResult = await resolveFileFromImportPath(metadata.path);
+    if (isErr(emailPathResult)) {
+      throw new Error(
+        `Could not resolve path for email template ${metadata.slug}`,
+      );
+    }
+    const { value: emailPath } = emailPathResult;
+
     buildData[metadata.slug] = {
       emailPath,
       fileContents: await fs.promises.readFile(emailPath, 'utf8'),
@@ -353,7 +355,6 @@ export const build = async ({
 
     spinner.text = 'Prebuilding email templates for rendering...';
     const predoneBuildData = await generateBuildData(
-      path.resolve(builtPreviewAppPath, 'emails'),
       emailDirectoryMetadata,
       (slug) => {
         spinner.text = `Prebuilding email templates for rendering... (${slug})`;
