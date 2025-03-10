@@ -10,9 +10,9 @@ import {
   getEmailsDirectoryMetadata,
 } from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
+import { resolveFileFromImportPath } from '../../utils/resolve-file-from-import-path';
 import { isErr } from '../../utils/result';
 import { cliPacakgeLocation } from '../utils';
-import { resolveFileFromImportPath } from '../../utils/resolve-file-from-import-path';
 
 interface Args {
   dir: string;

@@ -8,12 +8,12 @@ import type { RawSourceMap } from 'source-map-js';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../app/env';
 import { buildEmailIntoRunnableCode } from '../utils/build-email-into-runnable-code';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
+import { resolveFileFromImportPath } from '../utils/resolve-file-from-import-path';
 import { type Result, err, isErr, ok } from '../utils/result';
 import { staticNodeModulesForVM } from '../utils/static-node-modules-for-vm';
 import type { EmailTemplate as EmailComponent } from '../utils/types/email-template';
 import type { ErrorObject } from '../utils/types/error-object';
 import { predoneBuildDataJson } from './predone-build-data';
-import { resolveFileFromImportPath } from '../utils/resolve-file-from-import-path';
 
 export interface EmailComponentMetadata {
   fileContents: string;
@@ -30,17 +30,17 @@ const emailComponents = new Map<string, EmailComponentMetadata>();
 type BuildEmailComponentError =
   | { type: 'FAILED_TO_RESOLVE_PATH' }
   | {
-    type: 'BUILD_FAILED';
-    failure: ErrorObject;
-  }
+      type: 'BUILD_FAILED';
+      failure: ErrorObject;
+    }
   | {
-    type: 'COMPONENT_EVALUATION_ERROR';
-    error: ErrorObject;
-  }
+      type: 'COMPONENT_EVALUATION_ERROR';
+      error: ErrorObject;
+    }
   | {
-    type: 'NO_DEFAULT_EXPORT';
-    error: ErrorObject;
-  };
+      type: 'NO_DEFAULT_EXPORT';
+      error: ErrorObject;
+    };
 
 export type BuildEmailComponentResult = Result<void, BuildEmailComponentError>;
 
