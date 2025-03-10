@@ -1,75 +1,19 @@
 'use server';
 import fs from 'node:fs';
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
 import vm from 'node:vm';
 import type { render } from '@react-email/render';
-import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
-import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter';
 import { staticNodeModulesForVM } from '../utils/static-node-modules-for-vm';
 import type { EmailTemplate as EmailComponent } from '../utils/types/email-template';
 import { err, isErr, ok, type Result } from '../utils/result';
 import { resolvePathFromSlug } from './resolve-path-from-slug';
 import type { ErrorObject } from '../utils/types/error-object';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
-
-const buildEmailIntoRunnableCode = async (
-  emailPath: string,
-): Promise<
-  Result<{ runnableCode: string; sourceMap: RawSourceMap }, ErrorObject>
-> => {
-  let outputFiles: OutputFile[];
-  try {
-    const buildData = await build({
-      bundle: true,
-      entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
-      platform: 'node',
-      write: false,
-
-      format: 'cjs',
-      jsx: 'automatic',
-      logLevel: 'silent',
-      // allows for using jsx on a .js file
-      loader: {
-        '.js': 'jsx',
-      },
-      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
-      sourcemap: 'external',
-    });
-    outputFiles = buildData.outputFiles;
-  } catch (exception) {
-    const buildFailure = exception as BuildFailure;
-    return err({
-      name: buildFailure.name,
-      message: buildFailure.message,
-      stack: buildFailure.stack,
-      cause: buildFailure.cause,
-    });
-  }
-
-  const sourceMapFile = outputFiles[0]!;
-  const bundledEmailFile = outputFiles[1]!;
-
-  const builtEmailCode = bundledEmailFile.text;
-
-  const sourceMapText = sourceMapFile.text;
-  const sourceMapPath = sourceMapFile.path;
-
-  const sourceMapToEmail = JSON.parse(sourceMapText) as RawSourceMap;
-  // because it will have a path like <tsconfigLocation>/stdout/email.js.map
-  sourceMapToEmail.sourceRoot = path.resolve(sourceMapPath, '../..');
-  sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
-    path.resolve(sourceMapPath, '..', source),
-  );
-
-  return ok({
-    runnableCode: builtEmailCode,
-    sourceMap: sourceMapToEmail,
-  });
-};
+import { isBuilding } from '../app/env';
+import { predoneBuildDataJson } from './predone-build-data';
+import { buildEmailIntoRunnableCode } from '../utils/build-email-into-runnable-code';
 
 export interface EmailComponentMetadata {
   fileContents: string;
@@ -86,37 +30,59 @@ const emailComponents = new Map<string, EmailComponentMetadata>();
 type BuildEmailComponentError =
   | { type: 'FAILED_TO_RESOLVE_PATH' }
   | {
-    type: 'BUILD_FAILED';
-    failure: ErrorObject;
-  }
+      type: 'BUILD_FAILED';
+      failure: ErrorObject;
+    }
   | {
-    type: 'COMPONENT_EVALUATION_ERROR';
-    error: ErrorObject;
-  }
+      type: 'COMPONENT_EVALUATION_ERROR';
+      error: ErrorObject;
+    }
   | {
-    type: 'NO_DEFAULT_EXPORT';
-    error: ErrorObject;
-  };
+      type: 'NO_DEFAULT_EXPORT';
+      error: ErrorObject;
+    };
 
 export type BuildEmailComponentResult = Result<void, BuildEmailComponentError>;
+
+const predoneBuildData: Record<
+  string,
+  {
+    emailPath: string;
+    sourceMap: RawSourceMap;
+    runnableCode: string;
+    fileContents: string;
+  }
+> = JSON.parse(predoneBuildDataJson);
 
 export const buildEmailComponent = async (
   emailSlug: string,
 ): Promise<BuildEmailComponentResult> => {
-  const resolutionResult = await resolvePathFromSlug(emailSlug);
+  let runnableCode: string;
+  let sourceMap: RawSourceMap;
+  let emailPath: string;
+  let fileContents: string;
+  if (!isBuilding) {
+    const resolutionResult = await resolvePathFromSlug(emailSlug);
 
-  if (isErr(resolutionResult)) {
-    return err({ type: 'FAILED_TO_RESOLVE_PATH' });
+    if (isErr(resolutionResult)) {
+      return err({ type: 'FAILED_TO_RESOLVE_PATH' });
+    }
+
+    emailPath = resolutionResult.value;
+
+    const buildResult = await buildEmailIntoRunnableCode(emailPath);
+    if (isErr(buildResult)) {
+      return err({ type: 'BUILD_FAILED', failure: buildResult.error });
+    }
+    ({ runnableCode, sourceMap } = buildResult.value);
+    fileContents = await fs.promises.readFile(emailPath, 'utf-8');
+  } else {
+    if (predoneBuildData[emailSlug]) {
+      ({ emailPath, sourceMap, runnableCode, fileContents } = predoneBuildData[emailSlug]);
+    } else {
+      return err({ type: 'FAILED_TO_RESOLVE_PATH' });
+    }
   }
-
-  const emailPath = resolutionResult.value;
-
-  const buildResult = await buildEmailIntoRunnableCode(emailPath);
-  if (isErr(buildResult)) {
-    return err({ type: 'BUILD_FAILED', failure: buildResult.error });
-  }
-
-  const { runnableCode, sourceMap } = buildResult.value;
 
   const fakeContext = {
     ...global,
@@ -191,8 +157,6 @@ export const buildEmailComponent = async (
       ),
     });
   }
-
-  const fileContents = await fs.promises.readFile(emailPath, 'utf-8');
 
   emailComponents.set(emailSlug, {
     emailPath,
