@@ -7,10 +7,11 @@
   },
   "scripts": {
     "build": "tsup-node && node build-preview-server.mjs",
+    "clean": "rm -rf dist",
     "dev": "tsup-node --watch",
+    "dev:preview": "cd ../../apps/demo && tsx ../../packages/react-email/src/cli/index.ts dev",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "clean": "rm -rf dist"
+    "test:watch": "vitest"
   },
   "license": "MIT",
   "repository": {
