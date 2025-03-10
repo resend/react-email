@@ -11,13 +11,19 @@ import {
   ResizableWarpper,
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
-import { Shell } from '../../../components/shell';
+import { Shell, ShellContent } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { PreviewRenderer } from './preview-renderer';
 import { RenderingError } from './rendering-error';
+import { Topbar } from '../../../components';
+import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
+import { Send } from '../../../components/send';
+import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { IconHelp } from '../../../components/icons/icon-help';
 
 interface PreviewProps {
   slug: string;
@@ -80,7 +86,7 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasMetadataToRender = typeof renderedEmailMetadata !== 'undefined';
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -107,31 +113,37 @@ const Preview = ({
   }, 300);
 
   return (
-    <Shell
-      activeView={activeView}
-      currentEmailOpenSlug={slug}
-      markup={renderedEmailMetadata?.markup}
-      plainText={renderedEmailMetadata?.plainText}
-      pathSeparator={pathSeparator}
-      setActiveView={handleViewChange}
-      setViewHeight={(height) => {
-        setHeight(height);
-        flushSync(() => {
-          handleSaveViewSize();
-        });
-      }}
-      setViewWidth={(width) => {
-        setWidth(width);
-        flushSync(() => {
-          handleSaveViewSize();
-        });
-      }}
-      viewHeight={height}
-      viewWidth={width}
-    >
-      {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div
-        className="relative flex h-full bg-gray-200 pb-8"
+    <Shell currentEmailOpenSlug={slug} markup={renderedEmailMetadata?.markup}>
+      <Topbar pathSeparator={pathSeparator} currentEmailOpenSlug={slug}>
+        <ViewSizeControls
+          setViewHeight={(height) => {
+            setHeight(height);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          setViewWidth={(width) => {
+            setWidth(width);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          viewHeight={height}
+          viewWidth={width}
+        />
+        <ActiveViewToggleGroup
+          activeView={activeView}
+          setActiveView={handleViewChange}
+        />
+        {hasMetadataToRender ? (
+          <div className="flex justify-end">
+            <Send markup={renderedEmailMetadata.markup} />
+          </div>
+        ) : null}
+      </Topbar>
+
+      <ShellContent
+        className="relative flex h-full bg-gray-200"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
@@ -150,11 +162,13 @@ const Preview = ({
           };
         }}
       >
+        <PreviewingHelp />
+
         {'error' in renderingResult ? (
           <RenderingError error={renderingResult.error} />
         ) : null}
 
-        {hasNoErrors ? (
+        {hasMetadataToRender ? (
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
@@ -177,20 +191,21 @@ const Preview = ({
                 }}
                 width={width}
               >
-                <iframe
-                  className="solid max-h-full rounded-lg bg-white"
+                <PreviewRenderer
+                  className="max-h-full overflow-y-auto rounded-lg bg-white text-black"
+                  style={{
+                    width: `${width}px`,
+                    height: `${height}px`,
+                  }}
                   ref={(iframe) => {
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);
                     }
                   }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
                   title={slug}
-                />
+                >
+                  {renderedEmailMetadata.element}
+                </PreviewRenderer>
               </ResizableWarpper>
             )}
 
@@ -224,8 +239,26 @@ const Preview = ({
         ) : null}
 
         <Toaster />
-      </div>
+      </ShellContent>
     </Shell>
+  );
+};
+
+const PreviewingHelp = () => {
+  return (
+    <Tooltip.Provider>
+      <Tooltip>
+        <Tooltip.Trigger asChild>
+          <div className="fixed right-20 bottom-10 rounded-full border border-slate-8 bg-black p-1 outline-none">
+            <IconHelp size={20} />
+          </div>
+        </Tooltip.Trigger>
+        <Tooltip.Content className="max-w-40 text-pretty text-center">
+          This email template was rendered with React 19. It may differ slightly
+          from your production email template if you are using React 18.
+        </Tooltip.Content>
+      </Tooltip>
+    </Tooltip.Provider>
   );
 };
 

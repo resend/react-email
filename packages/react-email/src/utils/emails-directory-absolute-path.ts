@@ -8,3 +8,6 @@ export const userProjectLocation = process.env.USER_PROJECT_LOCATION!;
 /** ONLY ACCESSIBLE ON THE SERVER */
 export const emailsDirectoryAbsolutePath =
   process.env.EMAILS_DIR_ABSOLUTE_PATH!;
+
+/** ONLY ACCESSIBLE ON THE SERVER */
+export const packageLocation = process.env.PACKAGE_LOCATION!;
