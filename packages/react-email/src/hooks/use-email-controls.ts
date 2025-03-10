@@ -4,6 +4,7 @@ import {
   getEmailControls,
 } from '../actions/get-email-controls';
 import type { EmailRenderingResult } from '../actions/render-email';
+import { isOk } from '../utils/result';
 
 export const useEmailControls = (
   emailPath: string,
@@ -28,5 +29,5 @@ export const useEmailControls = (
     }, [emailRenderingResult, emailPath]);
   }
 
-  return emailControlsResult.isOk() ? emailControlsResult.value : undefined;
+  return isOk(emailControlsResult) ? emailControlsResult.value : undefined;
 };
