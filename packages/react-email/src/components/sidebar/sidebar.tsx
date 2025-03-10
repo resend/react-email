@@ -10,30 +10,19 @@ import animatedHelpIcon from '../../animated-icons-data/help.json';
 import animatedLinkIcon from '../../animated-icons-data/link.json';
 import animatedMailIcon from '../../animated-icons-data/mail.json';
 import { useEmails } from '../../contexts/emails';
-import { useIconAnimation } from '../../hooks/use-icon-animation';
 import { cn } from '../../utils';
-import { Button } from '../button';
 import { Heading } from '../heading';
 import { IconBug } from '../icons/icon-bug';
 import { IconImage } from '../icons/icon-image';
 import { Tooltip } from '../tooltip';
 import { FileTree } from './file-tree';
-import { ImageChecker } from './image-checker';
-import { LinkChecker } from './link-checker';
-import { SpamAssassin } from './spam-assassin';
-
-type SidebarPanelValue =
-  | 'file-tree'
-  | 'link-checker'
-  | 'image-checker'
-  | 'spam-assassin';
+import { Logo } from '../logo';
 
 interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
   markup?: string;
   plainText?: string;
-  style?: React.CSSProperties;
 }
 
 interface NavigationButtonProps {
@@ -139,25 +128,7 @@ const TabTrigger = ({
   );
 };
 
-const Panel = ({ title, active, children }: PanelProps) => (
-  <>
-    <div
-      className={clsx(
-        'hidden min-h-[3.3125rem] flex-shrink items-center p-3 px-4 lg:flex',
-        {
-          'bg-slate-3': active,
-        },
-      )}
-    >
-      <Heading as="h2" className="truncate" size="2" weight="medium">
-        {title}
-      </Heading>
-    </div>
-    <div className="-mt-[.5px] relative h-[calc(100dvh-4.375rem)] w-full border-slate-4 border-t px-4 pb-3">
-      {children}
-    </div>
-  </>
-);
+const Panel = ({ title, active, children }: PanelProps) => <></>;
 
 const ReactIcon = () => (
   <svg
@@ -186,217 +157,36 @@ export const Sidebar = ({
   currentEmailOpenSlug,
   markup: emailMarkup,
   plainText: emailPlainText,
-  style,
 }: SidebarProps) => {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const activePanelValue = (searchParams.get('sidebar-panel') ??
-    'file-tree') as SidebarPanelValue;
   const { emailsDirectoryMetadata } = useEmails();
 
-  const mailAnimation = useIconAnimation();
-  const linkAnimation = useIconAnimation();
-  const helpAnimation = useIconAnimation();
-
-  const setActivePanelValue = (newValue: SidebarPanelValue) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('sidebar-panel', newValue);
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
   return (
-    <Tabs.Root
-      asChild
-      onValueChange={(v) => setActivePanelValue(v as SidebarPanelValue)}
-      orientation="vertical"
-      value={activePanelValue}
+    <aside
+      className={cn(
+        'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full w-screen max-w-ful overflow-hidden bg-black will-change-auto',
+        'lg:static lg:z-auto lg:max-h-screen lg:w-[16rem]',
+        className,
+      )}
     >
-      <aside
-        className={cn(
-          'fixed top-[4.375rem] left-0 z-[9999] grid h-full max-h-[calc(100dvh-4.375rem)] w-screen max-w-full grid-cols-[3.375rem,1fr] overflow-hidden bg-black will-change-auto',
-          'lg:static lg:z-auto lg:max-h-screen lg:w-[20rem]',
-          className,
-        )}
-        style={style}
-      >
-        <Tabs.List className="flex h-full flex-col border-slate-6 border-r">
-          <TabTrigger
-            activeTabValue={activePanelValue}
-            onMouseEnter={mailAnimation.onMouseEnter}
-            onMouseLeave={mailAnimation.onMouseLeave}
-            tabValue="file-tree"
-            tooltipText="File Explorer"
+      <div className="w-full h-full overflow-y-auto overflow-x-hidden">
+        <div className="flex w-full h-full flex-col border-slate-6 border-r">
+          <div
+            className={clsx(
+              'hidden min-h-[3.3125rem] flex-shrink items-center p-3 px-4 lg:flex',
+            )}
           >
-            <DotLottieReact
-              data={animatedMailIcon}
-              autoplay={false}
-              className="h-5 w-5"
-              loop={false}
-              dotLottieRefCallback={(instance) => {
-                mailAnimation.ref.current = instance;
-              }}
-            />
-          </TabTrigger>
-          <TabTrigger
-            activeTabValue={activePanelValue}
-            className="relative"
-            onMouseEnter={linkAnimation.onMouseEnter}
-            onMouseLeave={linkAnimation.onMouseLeave}
-            tabValue="link-checker"
-            tooltipText="Link Checker"
-          >
-            <DotLottieReact
-              data={animatedLinkIcon}
-              autoplay={false}
-              className="h-6 w-6"
-              loop={false}
-              dotLottieRefCallback={(instance) => {
-                linkAnimation.ref.current = instance;
-              }}
-            />
-          </TabTrigger>
-          <TabTrigger
-            activeTabValue={activePanelValue}
-            className="relative"
-            tabValue="image-checker"
-            tooltipText="Image Checker"
-          >
-            <IconImage className="h-6 w-6" />
-          </TabTrigger>
-          <TabTrigger
-            activeTabValue={activePanelValue}
-            className="relative"
-            tabValue="spam-assassin"
-            tooltipText="Spam Assassin"
-          >
-            <IconBug className="h-6 w-6" />
-          </TabTrigger>
-          <div className="mt-auto flex flex-col">
-            <NavigationButton
-              className="flex items-center justify-center"
-              href="https://react.email/docs"
-              onMouseEnter={helpAnimation.onMouseEnter}
-              onMouseLeave={helpAnimation.onMouseLeave}
-              side="right"
-              tooltip="Documentation"
-            >
-              <DotLottieReact
-                data={animatedHelpIcon}
-                autoplay={false}
-                className="h-5 w-5"
-                loop={false}
-                dotLottieRefCallback={(instance) => {
-                  helpAnimation.ref.current = instance;
-                }}
-              />
-            </NavigationButton>
-            <NavigationButton
-              className="flex items-center justify-center"
-              href="https://react.email"
-              side="right"
-              tooltip="Website"
-            >
-              <div className="flex h-7 w-7 items-center justify-center">
-                <ReactIcon />
-              </div>
-            </NavigationButton>
+            <Heading as="h2" className="truncate" size="2" weight="medium">
+              <Logo />
+            </Heading>
           </div>
-        </Tabs.List>
-        <div className="flex overflow-y-auto overflow-x-hidden">
-          <div className="flex w-full flex-col border-slate-6 border-r">
-            {activePanelValue === 'link-checker' && (
-              <Panel
-                title="Link Checker"
-                active={activePanelValue === 'link-checker'}
-              >
-                {currentEmailOpenSlug && emailMarkup ? (
-                  <LinkChecker
-                    emailMarkup={emailMarkup}
-                    emailSlug={currentEmailOpenSlug}
-                  />
-                ) : (
-                  <EmptyState
-                    title="Link Checker"
-                    onSelectTemplate={() => setActivePanelValue('file-tree')}
-                  />
-                )}
-              </Panel>
-            )}
-            {activePanelValue === 'image-checker' && (
-              <Panel
-                title="Image Checker"
-                active={activePanelValue === 'image-checker'}
-              >
-                {currentEmailOpenSlug && emailMarkup ? (
-                  <ImageChecker
-                    emailMarkup={emailMarkup}
-                    emailSlug={currentEmailOpenSlug}
-                  />
-                ) : (
-                  <EmptyState
-                    title="Image Checker"
-                    onSelectTemplate={() => setActivePanelValue('file-tree')}
-                  />
-                )}
-              </Panel>
-            )}
-            {activePanelValue === 'spam-assassin' && (
-              <Panel
-                title="Image Checker"
-                active={activePanelValue === 'spam-assassin'}
-              >
-                {currentEmailOpenSlug && emailMarkup && emailPlainText ? (
-                  <SpamAssassin
-                    emailMarkup={emailMarkup}
-                    emailPlainText={emailPlainText}
-                    emailSlug={currentEmailOpenSlug}
-                  />
-                ) : (
-                  <EmptyState
-                    title="Spam Assassin"
-                    onSelectTemplate={() => setActivePanelValue('file-tree')}
-                  />
-                )}
-              </Panel>
-            )}
-            {activePanelValue === 'file-tree' && (
-              <Panel
-                title="File Explorer"
-                active={activePanelValue === 'file-tree'}
-              >
-                <FileTree
-                  currentEmailOpenSlug={currentEmailOpenSlug}
-                  emailsDirectoryMetadata={emailsDirectoryMetadata}
-                />
-              </Panel>
-            )}
+          <div className="relative h-full w-full border-slate-4 border-t px-4 pb-3">
+            <FileTree
+              currentEmailOpenSlug={currentEmailOpenSlug}
+              emailsDirectoryMetadata={emailsDirectoryMetadata}
+            />
           </div>
         </div>
-      </aside>
-    </Tabs.Root>
-  );
-};
-
-interface EmptyStateProps {
-  onSelectTemplate: () => void;
-  title: string;
-}
-
-const EmptyState = ({ onSelectTemplate, title }: EmptyStateProps) => {
-  return (
-    <div className="mt-4 flex w-full flex-col gap-2 text-pretty text-xs leading-relaxed">
-      <div className="flex flex-col gap-1 rounded-lg border border-[#0BB9CD]/50 bg-[#0BB9CD]/20 text-white">
-        <span className="mx-2.5 mt-2">
-          To use the {title}, you need to select a template.
-        </span>
-        <Button
-          className="mx-2 my-2.5 transition-all disabled:border-transparent disabled:bg-slate-11"
-          onClick={() => onSelectTemplate()}
-        >
-          Select a template
-        </Button>
       </div>
-    </div>
+    </aside>
   );
 };
