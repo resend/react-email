@@ -51,6 +51,16 @@ const Preview = ({
 
   if (!isBuilding) {
     useHotreload(async (changes) => {
+      // const changeForThisEmail = changes.find((change) =>
+      //   change.filename.includes(slug),
+      // );
+      //
+      // if (typeof changeForThisEmail !== 'undefined') {
+      //   if (changeForThisEmail.event === 'unlink') {
+      //     router.push('/');
+      //   }
+      // }
+
       for await (const change of changes) {
         const slugForChangedEmail =
           // ex: apple-receipt.tsx
@@ -61,6 +71,18 @@ const Preview = ({
         if (slugForChangedEmail === slug) {
           const previewProps = await getPreviewProps(slug);
           const buildResult = await buildEmailComponent(slug);
+
+          if (
+            isErr(buildResult) &&
+            buildResult.error.type === 'FAILED_TO_RESOLVE_PATH'
+          ) {
+            console.warn(
+              `Seems like the email template at ${slug} is now not available`,
+            );
+            router.push('/');
+            break;
+          }
+
           const controlsResult = await getEmailControls(slug);
           const renderingResult = await renderEmail(slug, previewProps);
 
@@ -72,16 +94,6 @@ const Preview = ({
               previewProps,
             ),
           );
-        }
-      }
-
-      const changeForThisEmail = changes.find((change) =>
-        change.filename.includes(slug),
-      );
-
-      if (typeof changeForThisEmail !== 'undefined') {
-        if (changeForThisEmail.event === 'unlink') {
-          router.push('/');
         }
       }
     });
