@@ -1,38 +1,50 @@
 import path from 'node:path';
-import { buildEmailComponent } from '../actions/build-email-component';
+import {
+  buildEmailComponent,
+  getEmailComponent,
+} from '../actions/build-email-component';
+import { isErr, isOk } from '../utils/result';
+import * as EnvExports from '../app/env';
+
+function mockEnv(emailsDirectoryAbsolutePath: string) {
+  vi.resetModules();
+  vi.spyOn(EnvExports, 'emailsDirectoryAbsolutePath', 'get').mockReturnValue(
+    emailsDirectoryAbsolutePath,
+  );
+}
 
 describe('getEmailComponent()', () => {
   describe('Node internals support', () => {
+    const emailSlug = 'request-response-email';
+    beforeAll(() => {
+      mockEnv(path.resolve(__dirname, './testing'));
+    });
+
     test('Request', async () => {
-      const result = await buildEmailComponent(
-        path.resolve(__dirname, './testing/request-response-email.tsx'),
-      );
-      if ('error' in result) {
-        console.log(result.error);
-        expect('error' in result, 'there should be no errors').toBe(false);
-      }
+      const result = await buildEmailComponent(emailSlug);
+
+      expect(isOk(result), 'There should be no errors building').toBe(true);
     });
   });
 
   test('with a demo email template', async () => {
-    const result = await buildEmailComponent(
-      path.resolve(
-        __dirname,
-        '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',
-      ),
-    );
+    mockEnv(path.resolve(__dirname, '../../../../apps/demo/emails'));
 
-    if ('error' in result) {
+    const emailSlug = 'notifications/vercel-invite-user';
+    const result = await buildEmailComponent(emailSlug);
+
+    if (isErr(result)) {
       console.log(result.error);
       expect('error' in result).toBe(false);
     } else {
-      expect(result.emailComponent).toBeTruthy();
-      expect(result.sourceMapToOriginalFile).toBeTruthy();
+      const emailComponent = await getEmailComponent(emailSlug);
+      expect(emailComponent).toBeTruthy();
+      expect(emailComponent!.sourceMap).toBeTruthy();
 
-      const emailHtml = await result.render(
-        result.createElement(
-          result.emailComponent,
-          result.emailComponent.PreviewProps,
+      const emailHtml = await emailComponent!.render(
+        emailComponent!.createElement(
+          emailComponent!.emailComponent,
+          emailComponent!.emailComponent.PreviewProps,
         ),
       );
       expect(emailHtml).toMatchSnapshot();
