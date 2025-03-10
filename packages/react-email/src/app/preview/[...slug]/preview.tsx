@@ -286,15 +286,7 @@ const Preview = ({
                 previewProps: newPreviewProps,
               })),
             );
-
             debouncedUpdatePreviewProps(newPreviewProps);
-
-            setPreviewState((state) =>
-              mapResult(state, (value) => ({
-                ...value,
-                previewProps: newPreviewProps,
-              })),
-            );
             const renderingResult = await renderEmail(slug, newPreviewProps);
 
             if (isErr(renderingResult)) {
