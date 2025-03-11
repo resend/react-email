@@ -1,13 +1,10 @@
 import { toast } from 'sonner';
 import { cn } from '../../utils';
-import React, { useEffect, useState } from 'react';
-import { IconBase } from '../icons/icon-base';
+import { useEffect, useState } from 'react';
 import { IconWarning } from '../icons/icon-warning';
 
 interface SpamAssassinProps {
-  emailSlug: string;
-  emailMarkup: string;
-  emailPlainText: string;
+  result: SpamCheckingResult | undefined;
 }
 
 interface SpamCheckingResult {
@@ -26,12 +23,16 @@ function toSorted<T>(array: T[], sorter: (a: T, b: T) => number): T[] {
   return cloned;
 }
 
-export const SpamAssassin = ({
-  emailSlug,
-  emailMarkup,
-  emailPlainText,
-}: SpamAssassinProps) => {
-  const cacheKey = `spam-checking-results-${emailSlug.replaceAll('/', '-')}`;
+export const useSpamAssassin = ({
+  slug,
+  markup,
+  plainText,
+}: {
+  slug: string;
+  markup: string;
+  plainText: string;
+}) => {
+  const cacheKey = `spam-assassin-${slug.replaceAll('/', '-')}`;
 
   const [result, setResult] = useState<SpamCheckingResult | undefined>();
 
@@ -49,7 +50,7 @@ export const SpamAssassin = ({
 
   const [loading, setLoading] = useState(false);
 
-  const handleRun = async () => {
+  const load = async () => {
     setLoading(true);
 
     try {
@@ -57,8 +58,8 @@ export const SpamAssassin = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          html: emailMarkup,
-          plainText: emailPlainText,
+          html: markup,
+          plainText: plainText,
         }),
       });
 
@@ -84,10 +85,10 @@ export const SpamAssassin = ({
     }
   };
 
-  useEffect(() => {
-    handleRun();
-  }, []);
+  return [result, { loading, load }] as const;
+};
 
+export const SpamAssassin = ({ result }: SpamAssassinProps) => {
   return (
     <div className="flex w-full flex-col gap-2 text-pretty">
       {result ? (

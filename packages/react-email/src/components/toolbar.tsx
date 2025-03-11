@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 // import { ImageChecker } from './image-checker';
 // import { LinkChecker } from './link-checker';
-import { SpamAssassin } from './toolbar/spam-assassin';
+import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '../utils';
 import { IconReload } from './icons/icon-reload';
@@ -80,6 +80,12 @@ export const Toolbar = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
+  const [spamCheckingResult, { load: loadSpamChecking }] = useSpamAssassin({
+    slug: emailSlug,
+    markup,
+    plainText,
+  });
+
   return (
     <div
       {...rest}
@@ -115,7 +121,11 @@ export const Toolbar = ({
               </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-1 ml-auto">
-              <ToolbarButton>
+              <ToolbarButton
+                onClick={() => {
+                  void loadSpamChecking();
+                }}
+              >
                 <IconReload />
               </ToolbarButton>
               <ToolbarButton
@@ -132,11 +142,7 @@ export const Toolbar = ({
             <div className="flex-grow overflow-y-auto px-2">
               <Tabs.Content value="linter">Linter</Tabs.Content>
               <Tabs.Content value="spam-assassin">
-                <SpamAssassin
-                  emailMarkup={markup}
-                  emailPlainText={plainText}
-                  emailSlug={emailSlug}
-                />
+                <SpamAssassin result={spamCheckingResult} />
               </Tabs.Content>
             </div>
           ) : null}
