@@ -2,18 +2,28 @@ import { render } from '@react-email/render';
 import { type LinkCheckingResult, checkLinks } from './check-links';
 
 test('checkLinks()', async () => {
-  expect(
-    await checkLinks(
-      await render(
-        <div>
-          <a href="/">Root</a>
-          <a href="https://resend.com">Resend</a>
-          <a href="https://notion.so">Notion</a>
-          <a href="http://example.com">Example unsafe</a>
-        </div>,
-      ),
+  const results: LinkCheckingResult[] = [];
+  const stream = await checkLinks(
+    await render(
+      <div>
+        <a href="/">Root</a>
+        <a href="https://resend.com">Resend</a>
+        <a href="https://notion.so">Notion</a>
+        <a href="http://react.email">React Email unsafe</a>
+      </div>,
     ),
-  ).toEqual([
+  );
+  const reader = stream.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (value) {
+      results.push(value);
+    }
+    if (done) {
+      break;
+    }
+  }
+  expect(results).toEqual([
     {
       status: 'error',
       checks: [
@@ -22,7 +32,7 @@ test('checkLinks()', async () => {
           passed: false,
         },
       ],
-      intentedFor: '/',
+      intendedFor: '/',
     },
     {
       status: 'success',
@@ -43,7 +53,7 @@ test('checkLinks()', async () => {
           },
         },
       ],
-      intentedFor: 'https://resend.com',
+      intendedFor: 'https://resend.com',
     },
     {
       status: 'warning',
@@ -64,7 +74,7 @@ test('checkLinks()', async () => {
           passed: false,
         },
       ],
-      intentedFor: 'https://notion.so',
+      intendedFor: 'https://notion.so',
     },
     {
       status: 'warning',
@@ -80,12 +90,12 @@ test('checkLinks()', async () => {
         {
           type: 'fetch_attempt',
           metadata: {
-            fetchStatusCode: 200,
+            fetchStatusCode: 308,
           },
-          passed: true,
+          passed: false,
         },
       ],
-      intentedFor: 'http://example.com',
+      intendedFor: 'http://react.email',
     },
   ] satisfies LinkCheckingResult[]);
 });

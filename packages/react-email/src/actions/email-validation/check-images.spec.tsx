@@ -2,19 +2,28 @@ import { render } from '@react-email/render';
 import { type ImageCheckingResult, checkImages } from './check-images';
 
 test('checkImages()', async () => {
-  expect(
-    await checkImages(
-      await render(
-        <div>
-          {/* biome-ignore lint/a11y/useAltText: This is intentional to test the checking for accessibility */}
-          <img src="https://resend.com/static/brand/resend-icon-white.png" />,
-          <img src="/static/codepen-challengers.png" alt="codepen challenges" />
-          ,
-        </div>,
-      ),
-      'https://demo.react.email',
+  const results: ImageCheckingResult[] = [];
+  const stream = await checkImages(
+    await render(
+      <div>
+        {/* biome-ignore lint/a11y/useAltText: This is intentional to test the checking for accessibility */}
+        <img src="https://resend.com/static/brand/resend-icon-white.png" />,
+        <img src="/static/codepen-challengers.png" alt="codepen challenges" />,
+      </div>,
     ),
-  ).toEqual([
+    'https://demo.react.email',
+  );
+  const reader = stream.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (value) {
+      results.push(value);
+    }
+    if (done) {
+      break;
+    }
+  }
+  expect(results).toEqual([
     {
       intendedFor: 'https://resend.com/static/brand/resend-icon-white.png',
       checks: [
