@@ -26,7 +26,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
     <ShellContext.Provider
       value={{
         toggleSidebar: () => setSidebarToggled((v) => !v),
-        sidebarToggled: sidebarToggled,
+        sidebarToggled,
       }}
     >
       <div

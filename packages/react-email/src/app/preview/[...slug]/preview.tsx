@@ -135,7 +135,7 @@ const Preview = ({
           activeView={activeView}
           setActiveView={handleViewChange}
         />
-        {renderedEmailMetadata ? (
+        {hasRenderingMetadata ? (
           <div className="flex justify-end">
             <Send markup={renderedEmailMetadata.markup} />
           </div>
