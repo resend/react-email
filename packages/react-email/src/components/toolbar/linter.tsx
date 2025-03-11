@@ -109,7 +109,7 @@ export const Linter = ({ results }: LinterProps) => {
 
           const checkDescription = (() => {
             if (failingCheck.type === 'security') {
-              return 'Inscure URL, use HTTPS instead of HTTP';
+              return 'Insecure URL, use HTTPS instead of HTTP';
             }
             if (
               failingCheck.type === 'fetch_attempt' &&
