@@ -18,22 +18,24 @@ type ToolbarProps = React.ComponentProps<'div'> & {
 
 type ActivePanelValue = 'linter' | 'spam-assassin';
 
-interface ToolbarButton {
+interface ToolbarButton extends React.ComponentProps<'button'> {
   children: React.ReactNode;
 }
 
-const ToolbarButton = ({ children }: ToolbarButton) => {
+const ToolbarButton = ({ children, className, ...props }: ToolbarButton) => {
   return (
     <button
       type="button"
+      {...props}
       className={cn(
-        'h-full w-fit flex text-sm text-slate-10 items-center align-middle justify-center px-1 py-2 gap-1 relative',
+        'h-full w-fit font-medium flex text-sm text-slate-10 items-center align-middle justify-center px-1 py-2 gap-1 relative',
         'hover:text-slate-12 transition-colors',
         'data-[state=active]:text-cyan-11 group/toolbar-button',
+        className,
       )}
     >
       {children}
-      <span className="hidden group-data-[state=active]/toolbar-button:inline bottom-0 absolute left-0 w-full bg-cyan-11 h-px" />
+      <span className="hidden group-data-[state=active]/toolbar-button:inline -bottom-px absolute left-0 w-full bg-cyan-11 h-px" />
     </button>
   );
 };
@@ -51,15 +53,15 @@ export const Toolbar = ({
 
   const [toggled, setToggled] = useState(true);
 
-  // const activePanelValue = (searchParams.get('toolbar-panel') ??
-  //   'linter') as ActivePanelValue;
-  //
-  // const setActivePanelValue = (newValue: ActivePanelValue) => {
-  //   console.log(newValue);
-  //   const params = new URLSearchParams(searchParams);
-  //   params.set('sidebar-panel', newValue);
-  //   router.push(`${pathname}?${params.toString()}`);
-  // };
+  const activePanelValue = (searchParams.get('toolbar-panel') ??
+    'linter') as ActivePanelValue;
+
+  const setActivePanelValue = (newValue: ActivePanelValue) => {
+    console.log(newValue);
+    const params = new URLSearchParams(searchParams);
+    params.set('toolbar-panel', newValue);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <div
@@ -70,8 +72,14 @@ export const Toolbar = ({
         className,
       )}
     >
-      <Tabs.Root defaultValue="linter" asChild>
-        <div className="flex flex-col">
+      <Tabs.Root
+        value={activePanelValue}
+        onValueChange={(newValue) => {
+          setActivePanelValue(newValue as ActivePanelValue);
+        }}
+        asChild
+      >
+        <div className="flex flex-col h-full">
           <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-7 w-full">
             <Tabs.Trigger asChild value="spam-assassin">
               <ToolbarButton>
@@ -95,9 +103,15 @@ export const Toolbar = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow">
+          <div className="flex-grow overflow-y-auto px-2">
             <Tabs.Content value="linter">Linter</Tabs.Content>
-            <Tabs.Content value="spam-assassin">Spam Assassin</Tabs.Content>
+            <Tabs.Content value="spam-assassin">
+              <SpamAssassin
+                emailMarkup={markup}
+                emailPlainText={plainText}
+                emailSlug={emailSlug}
+              />
+            </Tabs.Content>
           </div>
         </div>
       </Tabs.Root>

@@ -8,7 +8,6 @@ import { Sidebar } from './sidebar';
 interface ShellProps {
   children: React.ReactNode;
   currentEmailOpenSlug?: string;
-  markup?: string;
 }
 
 interface ShellContextValue {
@@ -23,7 +22,6 @@ export const ShellContext = React.createContext<ShellContextValue | undefined>(
 export const Shell = ({
   children,
   currentEmailOpenSlug,
-  markup,
 }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(true);
 
@@ -75,7 +73,6 @@ export const Shell = ({
               'lg:w-0': !sidebarToggled,
             })}
             currentEmailOpenSlug={currentEmailOpenSlug}
-            markup={markup}
           />
         </React.Suspense>
         <main

@@ -1,7 +1,8 @@
-import * as React from 'react';
 import { toast } from 'sonner';
 import { cn } from '../../utils';
-import { Button } from '../button';
+import React, { useEffect, useState } from 'react';
+import { IconBase } from '../icons/icon-base';
+import { IconWarning } from '../icons/icon-warning';
 
 interface SpamAssassinProps {
   emailSlug: string;
@@ -26,9 +27,9 @@ export const SpamAssassin = ({
 }: SpamAssassinProps) => {
   const cacheKey = `spam-checking-results-${emailSlug.replaceAll('/', '-')}`;
 
-  const [result, setResult] = React.useState<SpamCheckingResult | undefined>();
+  const [result, setResult] = useState<SpamCheckingResult | undefined>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const cachedValue =
       'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
     if (cachedValue) {
@@ -40,7 +41,7 @@ export const SpamAssassin = ({
     }
   }, [cacheKey]);
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleRun = async () => {
     setLoading(true);
@@ -62,7 +63,12 @@ export const SpamAssassin = ({
         if ('error' in responseBody) {
           toast.error(responseBody.error);
         } else {
-          setResult(responseBody);
+          const sortedChecks = [...responseBody.checks];
+          sortedChecks.sort((a, b) => b.points - a.points);
+          setResult({
+            ...responseBody,
+            checks: sortedChecks,
+          });
           localStorage.setItem(cacheKey, JSON.stringify(responseBody));
         }
       } else {
@@ -77,82 +83,96 @@ export const SpamAssassin = ({
     }
   };
 
+  useEffect(() => {
+    handleRun();
+  }, []);
+
   return (
-    <div className="mt-4 flex w-full flex-col gap-2 text-pretty">
+    <div className="flex w-full flex-col gap-2 text-pretty">
       {result ? (
-        <div
-          className="group flex flex-col gap-2"
+        <table
+          className="group relative w-full border-collapse text-left text-slate-10 text-xs"
           aria-label={result.isSpam ? 'spam' : 'ham'}
         >
-          <table className="w-full border-collapse text-left text-slate-10 text-sm">
-            <thead className="mb-4 h-8 border border-t-0 border-slate-6 bg-slate-3 text-xs">
-              <tr>
-                <th scope="col" className="px-3 py-1">
-                  Rule
-                </th>
-                <th scope="col" className="px-3 py-1" align="right">
-                  Score
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.checks.length > 0 ? (
-                result.checks.map((check) => (
-                  <tr
-                    key={check.name}
-                    className="border-collapse border-slate-6 border-b"
-                  >
-                    <td className="px-3 py-2">
-                      <div className="font-medium text-slate-12">
-                        {check.name}
-                      </div>
-                      <div className="mt-1 text-slate-9 text-xs">
-                        {check.description}
-                      </div>
-                    </td>
-                    <td
-                      align="right"
-                      className={cn(
-                        'px-3 py-2 font-medium',
-                        check.points > 0 ? 'text-yellow-200' : null,
-                        check.points > 1 ? 'text-yellow-300' : null,
-                        check.points > 2 ? 'text-orange-400' : null,
-                        check.points > 3 ? 'text-red-400' : null,
-                      )}
-                    >
-                      {check.points.toFixed(1)}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={2} className="py-10 font-medium text-center">
-                    Nothing from Spam Assassin
-                  </td>
-                </tr>
+          <Row className="sticky border-b-2 top-0 bg-black">
+            <Column className="uppercase">
+              <span className="flex gap-1 items-center">
+                <IconWarning
+                  className={cn(
+                    result.points > 1.5 ? 'text-yellow-200' : null,
+                    result.points > 3 ? 'text-orange-300' : null,
+                    result.points >= 5 ? 'text-red-400' : null,
+                  )}
+                />
+                Score
+              </span>
+            </Column>
+            <Column>Lower scores are better</Column>
+            <Column
+              className={cn(
+                'text-right text-2xl tracking-tighter font-mono',
+                result.points > 1.5 ? 'text-yellow-200' : null,
+                result.points > 3 ? 'text-orange-300' : null,
+                result.points >= 5 ? 'text-red-400' : null,
               )}
-            </tbody>
-            <tfoot className="mb-4 h-8 border border-slate-6 bg-slate-3">
-              <tr className="border-collapse border-slate-6 border-b">
-                <td className="px-3 py-2">Considered </td>
-                <td
-                  className="text-green-300 py-2 px-3 group-aria-[label=spam]:text-red-300 bg-transparent"
-                  align="right"
-                >
-                  {result.isSpam ? 'spam' : 'safe'}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      ) : (
-        <span className="text-xs leading-relaxed">
-          Check how well your email goes on a batch of spam testing.
-        </span>
-      )}
-      <Button loading={loading} onClick={handleRun}>
-        {result ? 'Re-run' : 'Run'}
-      </Button>
+            >
+              {result.points.toFixed(1)}
+            </Column>
+          </Row>
+          {result.checks.map((check) => (
+            <Row key={check.name}>
+              <Column className="uppercase">
+                <span className="flex gap-1 items-center">
+                  <IconWarning
+                    className={cn(
+                      check.points > 1 ? 'text-yellow-200' : null,
+                      check.points > 2 ? 'text-orange-300' : null,
+                      check.points > 3 ? 'text-red-400' : null,
+                    )}
+                  />
+                  {check.name}
+                </span>
+              </Column>
+              <Column>{check.description}</Column>
+              <Column
+                className={cn(
+                  'text-right font-mono tracking-tighter',
+                  check.points > 1 ? 'text-yellow-200' : null,
+                  check.points > 2 ? 'text-orange-300' : null,
+                  check.points > 3 ? 'text-red-400' : null,
+                )}
+              >
+                {check.points.toFixed(1)}
+              </Column>
+            </Row>
+          ))}
+        </table>
+      ) : null}
     </div>
+  );
+};
+
+const Row = ({ children, className, ...props }: React.ComponentProps<'tr'>) => {
+  return (
+    <tr
+      className={cn(
+        'border-collapse align-bottom border-slate-6 border-b',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </tr>
+  );
+};
+const Column = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<'td'>) => {
+  return (
+    <td className={cn('py-1 align-bottom font-medium', className)} {...props}>
+      {children}
+    </td>
   );
 };

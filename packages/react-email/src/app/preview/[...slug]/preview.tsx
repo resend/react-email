@@ -113,7 +113,7 @@ const Preview = ({
   }, 300);
 
   return (
-    <Shell currentEmailOpenSlug={slug} markup={renderedEmailMetadata?.markup}>
+    <Shell currentEmailOpenSlug={slug}>
       <Topbar pathSeparator={pathSeparator} currentEmailOpenSlug={slug}>
         <ViewSizeControls
           setViewHeight={(height) => {
