@@ -69,7 +69,7 @@ export const Toolbar = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [toggled, setToggled] = useState(true);
+  const [toggled, setToggled] = useState(false);
 
   const activePanelValue = (searchParams.get('toolbar-panel') ??
     'linter') as ActivePanelValue;
