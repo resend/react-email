@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 // import { ImageChecker } from './image-checker';
 // import { LinkChecker } from './link-checker';
@@ -10,6 +10,7 @@ import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconScanner } from './icons/icon-scanner';
 import { IconScissors } from './icons/icon-scissors';
 import { LayoutGroup, motion } from 'framer-motion';
+import { Linter, useLinter } from './toolbar/linter';
 
 type ToolbarProps = React.ComponentProps<'div'> & {
   emailSlug: string;
@@ -86,6 +87,15 @@ export const Toolbar = ({
     plainText,
   });
 
+  const [lintingResults, { load: loadLinting }] = useLinter({
+    slug: emailSlug,
+    markup,
+  });
+
+  useEffect(() => {
+    loadLinting();
+  }, []);
+
   return (
     <div
       {...rest}
@@ -123,7 +133,11 @@ export const Toolbar = ({
             <div className="flex gap-1 ml-auto">
               <ToolbarButton
                 onClick={() => {
-                  void loadSpamChecking();
+                  if (activePanelValue === 'spam-assassin') {
+                    void loadSpamChecking();
+                  } else if (activePanelValue === 'linter') {
+                    void loadLinting();
+                  }
                 }}
               >
                 <IconReload />
@@ -140,7 +154,9 @@ export const Toolbar = ({
 
           {toggled ? (
             <div className="flex-grow overflow-y-auto px-2">
-              <Tabs.Content value="linter">Linter</Tabs.Content>
+              <Tabs.Content value="linter">
+                <Linter results={lintingResults} />
+              </Tabs.Content>
               <Tabs.Content value="spam-assassin">
                 <SpamAssassin result={spamCheckingResult} />
               </Tabs.Content>

@@ -22,7 +22,7 @@ test('checkLinks()', async () => {
           passed: false,
         },
       ],
-      link: '/',
+      intentedFor: '/',
     },
     {
       status: 'success',
@@ -43,7 +43,7 @@ test('checkLinks()', async () => {
           },
         },
       ],
-      link: 'https://resend.com',
+      intentedFor: 'https://resend.com',
     },
     {
       status: 'warning',
@@ -64,7 +64,7 @@ test('checkLinks()', async () => {
           passed: false,
         },
       ],
-      link: 'https://notion.so',
+      intentedFor: 'https://notion.so',
     },
     {
       status: 'warning',
@@ -85,7 +85,7 @@ test('checkLinks()', async () => {
           passed: true,
         },
       ],
-      link: 'http://example.com',
+      intentedFor: 'http://example.com',
     },
   ] satisfies LinkCheckingResult[]);
 });

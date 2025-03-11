@@ -16,7 +16,7 @@ test('checkImages()', async () => {
     ),
   ).toEqual([
     {
-      source: 'https://resend.com/static/brand/resend-icon-white.png',
+      intendedFor: 'https://resend.com/static/brand/resend-icon-white.png',
       checks: [
         {
           passed: false,
@@ -82,7 +82,7 @@ test('checkImages()', async () => {
           type: 'image_size',
         },
       ],
-      source: '/static/codepen-challengers.png',
+      intendedFor: '/static/codepen-challengers.png',
       status: 'success',
     },
   ] satisfies ImageCheckingResult[]);

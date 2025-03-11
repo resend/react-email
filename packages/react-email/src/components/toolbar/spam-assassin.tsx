@@ -2,6 +2,7 @@ import { toast } from 'sonner';
 import { cn } from '../../utils';
 import { useEffect, useState } from 'react';
 import { IconWarning } from '../icons/icon-warning';
+import { Results } from './results';
 
 interface SpamAssassinProps {
   result: SpamCheckingResult | undefined;
@@ -90,14 +91,11 @@ export const useSpamAssassin = ({
 
 export const SpamAssassin = ({ result }: SpamAssassinProps) => {
   return (
-    <div className="flex w-full flex-col gap-2 text-pretty">
+    <>
       {result ? (
-        <table
-          className="group relative w-full border-collapse text-left text-slate-10 text-xs"
-          aria-label={result.isSpam ? 'spam' : 'ham'}
-        >
-          <Row className="sticky border-b-2 top-0 bg-black">
-            <Column className="uppercase">
+        <Results>
+          <Results.Row className="sticky border-b-2 top-0 bg-black">
+            <Results.Column className="uppercase">
               <span className="flex gap-1 items-center">
                 <IconWarning
                   className={cn(
@@ -108,9 +106,9 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                 />
                 Score
               </span>
-            </Column>
-            <Column>Lower scores are better</Column>
-            <Column
+            </Results.Column>
+            <Results.Column>Lower scores are better</Results.Column>
+            <Results.Column
               className={cn(
                 'text-right text-2xl tracking-tighter font-mono',
                 result.points > 1.5 ? 'text-yellow-200' : null,
@@ -119,12 +117,12 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
               )}
             >
               {result.points.toFixed(1)}
-            </Column>
-          </Row>
+            </Results.Column>
+          </Results.Row>
           {toSorted(result.checks, (a, b) => b.points - a.points).map(
             (check) => (
-              <Row key={check.name}>
-                <Column className="uppercase">
+              <Results.Row key={check.name}>
+                <Results.Column className="uppercase">
                   <span className="flex gap-1 items-center">
                     <IconWarning
                       className={cn(
@@ -135,9 +133,9 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                     />
                     {check.name}
                   </span>
-                </Column>
-                <Column>{check.description}</Column>
-                <Column
+                </Results.Column>
+                <Results.Column>{check.description}</Results.Column>
+                <Results.Column
                   className={cn(
                     'text-right font-mono tracking-tighter',
                     check.points > 1 ? 'text-yellow-200' : null,
@@ -146,37 +144,12 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                   )}
                 >
                   {check.points.toFixed(1)}
-                </Column>
-              </Row>
+                </Results.Column>
+              </Results.Row>
             ),
           )}
-        </table>
+        </Results>
       ) : null}
-    </div>
-  );
-};
-
-const Row = ({ children, className, ...props }: React.ComponentProps<'tr'>) => {
-  return (
-    <tr
-      className={cn(
-        'border-collapse align-bottom border-slate-6 border-b',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </tr>
-  );
-};
-const Column = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<'td'>) => {
-  return (
-    <td className={cn('py-1 align-bottom font-medium', className)} {...props}>
-      {children}
-    </td>
+    </>
   );
 };
