@@ -85,7 +85,8 @@ export const Toolbar = ({
       {...rest}
       data-toggled={toggled}
       className={cn(
-        'bg-black group/toolbar text-xs text-slate-11 h-40',
+        'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
+        'data-[toggled=false]:h-8',
         className,
       )}
     >
@@ -93,6 +94,7 @@ export const Toolbar = ({
         value={activePanelValue}
         onValueChange={(newValue) => {
           setActivePanelValue(newValue as ActivePanelValue);
+          setToggled(true);
         }}
         asChild
       >
@@ -116,22 +118,28 @@ export const Toolbar = ({
               <ToolbarButton>
                 <IconReload />
               </ToolbarButton>
-              <ToolbarButton>
-                <IconArrowDown className="transition-transform group-data-[toggle=true]/toolbar:rotate-90" />
+              <ToolbarButton
+                onClick={() => {
+                  setToggled((v) => !v);
+                }}
+              >
+                <IconArrowDown className="transition-transform group-data-[toggled=false]/toolbar:rotate-180" />
               </ToolbarButton>
             </div>
           </Tabs.List>
 
-          <div className="flex-grow overflow-y-auto px-2">
-            <Tabs.Content value="linter">Linter</Tabs.Content>
-            <Tabs.Content value="spam-assassin">
-              <SpamAssassin
-                emailMarkup={markup}
-                emailPlainText={plainText}
-                emailSlug={emailSlug}
-              />
-            </Tabs.Content>
-          </div>
+          {toggled ? (
+            <div className="flex-grow overflow-y-auto px-2">
+              <Tabs.Content value="linter">Linter</Tabs.Content>
+              <Tabs.Content value="spam-assassin">
+                <SpamAssassin
+                  emailMarkup={markup}
+                  emailPlainText={plainText}
+                  emailSlug={emailSlug}
+                />
+              </Tabs.Content>
+            </div>
+          ) : null}
         </div>
       </Tabs.Root>
     </div>
