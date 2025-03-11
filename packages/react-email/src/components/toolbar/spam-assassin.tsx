@@ -20,6 +20,12 @@ interface SpamCheckingResult {
   points: number;
 }
 
+function toSorted<T>(array: T[], sorter: (a: T, b: T) => number): T[] {
+  const cloned = [...array];
+  cloned.sort(sorter);
+  return cloned;
+}
+
 export const SpamAssassin = ({
   emailSlug,
   emailMarkup,
@@ -63,12 +69,7 @@ export const SpamAssassin = ({
         if ('error' in responseBody) {
           toast.error(responseBody.error);
         } else {
-          const sortedChecks = [...responseBody.checks];
-          sortedChecks.sort((a, b) => b.points - a.points);
-          setResult({
-            ...responseBody,
-            checks: sortedChecks,
-          });
+          setResult(responseBody);
           localStorage.setItem(cacheKey, JSON.stringify(responseBody));
         }
       } else {
@@ -119,33 +120,35 @@ export const SpamAssassin = ({
               {result.points.toFixed(1)}
             </Column>
           </Row>
-          {result.checks.map((check) => (
-            <Row key={check.name}>
-              <Column className="uppercase">
-                <span className="flex gap-1 items-center">
-                  <IconWarning
-                    className={cn(
-                      check.points > 1 ? 'text-yellow-200' : null,
-                      check.points > 2 ? 'text-orange-300' : null,
-                      check.points > 3 ? 'text-red-400' : null,
-                    )}
-                  />
-                  {check.name}
-                </span>
-              </Column>
-              <Column>{check.description}</Column>
-              <Column
-                className={cn(
-                  'text-right font-mono tracking-tighter',
-                  check.points > 1 ? 'text-yellow-200' : null,
-                  check.points > 2 ? 'text-orange-300' : null,
-                  check.points > 3 ? 'text-red-400' : null,
-                )}
-              >
-                {check.points.toFixed(1)}
-              </Column>
-            </Row>
-          ))}
+          {toSorted(result.checks, (a, b) => b.points - a.points).map(
+            (check) => (
+              <Row key={check.name}>
+                <Column className="uppercase">
+                  <span className="flex gap-1 items-center">
+                    <IconWarning
+                      className={cn(
+                        check.points > 1 ? 'text-yellow-200' : null,
+                        check.points > 2 ? 'text-orange-300' : null,
+                        check.points > 3 ? 'text-red-400' : null,
+                      )}
+                    />
+                    {check.name}
+                  </span>
+                </Column>
+                <Column>{check.description}</Column>
+                <Column
+                  className={cn(
+                    'text-right font-mono tracking-tighter',
+                    check.points > 1 ? 'text-yellow-200' : null,
+                    check.points > 2 ? 'text-orange-300' : null,
+                    check.points > 3 ? 'text-red-400' : null,
+                  )}
+                >
+                  {check.points.toFixed(1)}
+                </Column>
+              </Row>
+            ),
+          )}
         </table>
       ) : null}
     </div>
