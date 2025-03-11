@@ -84,17 +84,17 @@ export const checkImages = async (code: string, base: string) => {
             type: 'syntax',
           });
 
-          if (source.startsWith('https://')) {
-            result.checks.push({
-              passed: true,
-              type: 'security',
-            });
-          } else {
+          if (rawSource.startsWith('http://')) {
             result.checks.push({
               passed: false,
               type: 'security',
             });
             result.status = 'warning';
+          } else {
+            result.checks.push({
+              passed: true,
+              type: 'security',
+            });
           }
 
           const res = await quickFetch(url);

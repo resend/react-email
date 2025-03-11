@@ -12,8 +12,6 @@ import {
 import { Results } from './results';
 import { IconWarning } from '../icons/icon-warning';
 import prettyBytes from 'pretty-bytes';
-import { Fascinate_Inline } from 'next/font/google';
-import { fail } from 'assert';
 
 type LintingResult = Omit<
   ImageCheckingResult | LinkCheckingResult,

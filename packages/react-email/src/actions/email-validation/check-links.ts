@@ -48,17 +48,17 @@ export const checkLinks = async (code: string) => {
             type: 'syntax',
           });
 
-          if (link.startsWith('https://')) {
-            result.checks.push({
-              passed: true,
-              type: 'security',
-            });
-          } else {
+          if (link.startsWith('http://')) {
             result.checks.push({
               passed: false,
               type: 'security',
             });
             result.status = 'warning';
+          } else {
+            result.checks.push({
+              passed: true,
+              type: 'security',
+            });
           }
 
           const res = await quickFetch(url);
