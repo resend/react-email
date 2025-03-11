@@ -86,10 +86,6 @@ export const useSpamAssassin = ({
     }
   };
 
-  useEffect(() => {
-    load();
-  }, []);
-
   return [result, { loading, load }] as const;
 };
 

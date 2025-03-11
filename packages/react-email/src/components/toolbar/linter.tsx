@@ -75,6 +75,10 @@ export const useLinter = ({
     }
   };
 
+  useEffect(() => {
+    load();
+  }, []);
+
   return [results, { loading, load }] as const;
 };
 

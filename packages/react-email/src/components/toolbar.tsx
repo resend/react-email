@@ -1,7 +1,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { act, useEffect, useState } from 'react';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';
@@ -77,15 +77,20 @@ export const Toolbar = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [toggled, setToggled] = useState(false);
+  const activePanelValue = (searchParams.get('toolbar-panel') ?? undefined) as
+    | ActivePanelValue
+    | undefined;
 
-  const activePanelValue = (searchParams.get('toolbar-panel') ??
-    'linter') as ActivePanelValue;
+  const toggled = activePanelValue !== undefined;
 
-  const setActivePanelValue = (newValue: ActivePanelValue) => {
+  const setActivePanelValue = (newValue: ActivePanelValue | undefined) => {
     console.log(newValue);
     const params = new URLSearchParams(searchParams);
-    params.set('toolbar-panel', newValue);
+    if (newValue === undefined) {
+      params.delete('toolbar-panel');
+    } else {
+      params.set('toolbar-panel', newValue);
+    }
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -102,6 +107,7 @@ export const Toolbar = ({
 
   useEffect(() => {
     loadLinting();
+    loadSpamChecking();
   }, []);
 
   return (
@@ -118,7 +124,6 @@ export const Toolbar = ({
         value={activePanelValue}
         onValueChange={(newValue) => {
           setActivePanelValue(newValue as ActivePanelValue);
-          setToggled(true);
         }}
         asChild
       >
@@ -146,6 +151,9 @@ export const Toolbar = ({
                     void loadSpamChecking();
                   } else if (activePanelValue === 'linter') {
                     void loadLinting();
+                  } else {
+                    setActivePanelValue('linter');
+                    void loadLinting();
                   }
                 }}
               >
@@ -154,7 +162,11 @@ export const Toolbar = ({
               <ToolbarButton
                 tooltip="Toggle toolbar"
                 onClick={() => {
-                  setToggled((v) => !v);
+                  if (activePanelValue === undefined) {
+                    setActivePanelValue('linter');
+                  } else {
+                    setActivePanelValue(undefined);
+                  }
                 }}
               >
                 <IconArrowDown className="transition-transform group-data-[toggled=false]/toolbar:rotate-180" />
@@ -162,16 +174,14 @@ export const Toolbar = ({
             </div>
           </Tabs.List>
 
-          {toggled ? (
-            <div className="flex-grow overflow-y-auto px-2">
-              <Tabs.Content value="linter">
-                <Linter results={lintingResults} />
-              </Tabs.Content>
-              <Tabs.Content value="spam-assassin">
-                <SpamAssassin result={spamCheckingResult} />
-              </Tabs.Content>
-            </div>
-          ) : null}
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
+            <Tabs.Content value="linter">
+              <Linter results={lintingResults} />
+            </Tabs.Content>
+            <Tabs.Content value="spam-assassin">
+              <SpamAssassin result={spamCheckingResult} />
+            </Tabs.Content>
+          </div>
         </div>
       </Tabs.Root>
     </div>
