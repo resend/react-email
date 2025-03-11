@@ -23,7 +23,6 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { Send } from '../../../components/send';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { Toolbar } from '../../../components/toolbar';
-import { render } from '@react-email/render';
 
 interface PreviewProps {
   slug: string;

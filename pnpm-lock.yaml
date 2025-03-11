@@ -894,12 +894,6 @@ importers:
       ora:
         specifier: 5.4.1
         version: 5.4.1
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
       socket.io:
         specifier: 4.8.1
         version: 4.8.1
@@ -994,6 +988,12 @@ importers:
       prism-react-renderer:
         specifier: 2.1.0
         version: 2.1.0(react@19.0.0)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
       sharp:
         specifier: 0.33.3
         version: 0.33.3
