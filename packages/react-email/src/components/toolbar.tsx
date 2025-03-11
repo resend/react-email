@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
+import { LayoutGroup, motion } from 'framer-motion';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { cn } from '../utils';
+import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconReload } from './icons/icon-reload';
+import { IconScanner } from './icons/icon-scanner';
+import { IconScissors } from './icons/icon-scissors';
+import { Linter, useLinter } from './toolbar/linter';
 // import { ImageChecker } from './image-checker';
 // import { LinkChecker } from './link-checker';
 import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { cn } from '../utils';
-import { IconReload } from './icons/icon-reload';
-import { IconArrowDown } from './icons/icon-arrow-down';
-import { IconScanner } from './icons/icon-scanner';
-import { IconScissors } from './icons/icon-scissors';
-import { LayoutGroup, motion } from 'framer-motion';
-import { Linter, useLinter } from './toolbar/linter';
 
 type ToolbarProps = React.ComponentProps<'div'> & {
   emailSlug: string;

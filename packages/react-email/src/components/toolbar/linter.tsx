@@ -1,17 +1,17 @@
+import prettyBytes from 'pretty-bytes';
 import { useEffect, useState } from 'react';
 import {
-  checkImages,
   type ImageCheck,
   type ImageCheckingResult,
+  checkImages,
 } from '../../actions/email-validation/check-images';
 import {
-  checkLinks,
   type LinkCheck,
   type LinkCheckingResult,
+  checkLinks,
 } from '../../actions/email-validation/check-links';
-import { Results } from './results';
 import { IconWarning } from '../icons/icon-warning';
-import prettyBytes from 'pretty-bytes';
+import { Results } from './results';
 
 type LintingResult = Omit<
   ImageCheckingResult | LinkCheckingResult,

@@ -3,8 +3,8 @@
 import { use } from 'react';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
-import { Tooltip } from './tooltip';
 import { ShellContext } from './shell';
+import { Tooltip } from './tooltip';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
@@ -16,7 +16,7 @@ interface TopbarProps {
 export const Topbar = ({
   currentEmailOpenSlug,
   pathSeparator,
-  children
+  children,
 }: TopbarProps) => {
   const { toggleSidebar } = use(ShellContext)!;
 
@@ -70,4 +70,3 @@ export const Topbar = ({
     </Tooltip.Provider>
   );
 };
-

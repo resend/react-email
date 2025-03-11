@@ -6,23 +6,23 @@ import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
+import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
 import {
   ResizableWarpper,
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
+import { Send } from '../../../components/send';
 import { Shell, ShellContent } from '../../../components/shell';
+import { Toolbar } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
+import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
-import { Topbar } from '../../../components';
-import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
-import { Send } from '../../../components/send';
-import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
-import { Toolbar } from '../../../components/toolbar';
 
 interface PreviewProps {
   slug: string;

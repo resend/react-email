@@ -19,10 +19,7 @@ export const ShellContext = React.createContext<ShellContextValue | undefined>(
   undefined,
 );
 
-export const Shell = ({
-  children,
-  currentEmailOpenSlug,
-}: ShellProps) => {
+export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(true);
 
   return (

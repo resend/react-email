@@ -6,7 +6,6 @@ export default function SpammyEmail() {
         sell weight loss pills today. Money back guaranteed. sEnd me $500 and
         I'll send you back $700. don't tell anyone. Send this email to ten
         friends
-
         <span>Buy this, yes, this is a fraud and we will rob your money.</span>
       </body>
     </html>

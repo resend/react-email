@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { cn } from '../../utils';
-import { useEffect, useState } from 'react';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
 

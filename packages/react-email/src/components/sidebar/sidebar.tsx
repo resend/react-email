@@ -3,18 +3,15 @@ import { clsx } from 'clsx';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Heading } from '../heading';
-import { FileTree } from './file-tree';
 import { Logo } from '../logo';
+import { FileTree } from './file-tree';
 
 interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
 }
 
-export const Sidebar = ({
-  className,
-  currentEmailOpenSlug,
-}: SidebarProps) => {
+export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
   const { emailsDirectoryMetadata } = useEmails();
 
   return (
