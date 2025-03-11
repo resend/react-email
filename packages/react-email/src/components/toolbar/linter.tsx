@@ -107,7 +107,16 @@ export const Linter = ({ results }: LinterProps) => {
             if (failingCheck.type === 'security') {
               return 'Inscure URL, use HTTPS instead of HTTP';
             }
-            if (failingCheck.type === 'fetch_attempt') {
+            if (
+              failingCheck.type === 'fetch_attempt' &&
+              failingCheck.metadata.fetchStatusCode !== undefined
+            ) {
+              if (
+                failingCheck.metadata.fetchStatusCode >= 300 &&
+                failingCheck.metadata.fetchStatusCode < 400
+              ) {
+                return `There was a redirect (${failingCheck.metadata.fetchStatusCode}), the content may have been moved`;
+              }
               return `The link is broken, returning ${failingCheck.metadata.fetchStatusCode}`;
             }
             if (failingCheck.type === 'accessibility') {

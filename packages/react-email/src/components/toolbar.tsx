@@ -8,8 +8,6 @@ import { IconReload } from './icons/icon-reload';
 import { IconScanner } from './icons/icon-scanner';
 import { IconScissors } from './icons/icon-scissors';
 import { Linter, useLinter } from './toolbar/linter';
-// import { ImageChecker } from './image-checker';
-// import { LinkChecker } from './link-checker';
 import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
 import { Tooltip } from './tooltip';
 
