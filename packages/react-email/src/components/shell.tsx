@@ -62,7 +62,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
           </svg>
         </button>
       </div>
-      <div className="flex w-[100dvw] flex-row">
+      <div className="flex w-[100dvw] h-[100dvh] flex-row">
         <React.Suspense>
           <Sidebar
             className={cn('shrink [transition:width_0.2s_ease-in-out]', {
@@ -74,7 +74,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
         </React.Suspense>
         <main
           className={cn(
-            'h-full max-h-full min-h-screen overflow-hidden will-change-width sm:mt-[4.375rem] lg:mt-0',
+            'h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0',
             'grow',
             '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
           )}
