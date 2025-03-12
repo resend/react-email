@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.5
+
+### Minor Changes
+
+- ed47e38: Use a bottom layout for the toolbar
+
 ## 4.0.0-alpha.4
 
 ### Minor Changes
