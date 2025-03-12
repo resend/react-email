@@ -43,7 +43,7 @@ importers:
         version: link:packages/tsconfig
       tsup:
         specifier: 8.2.4
-        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.10.2))(@swc/core@1.4.15(@swc/helpers@0.5.15))(jiti@1.21.7)(postcss@8.4.49)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.1)
+        version: 8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.10.2))(@swc/core@1.4.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.1)
       turbo:
         specifier: 2.3.1
         version: 2.3.1
@@ -970,6 +970,12 @@ importers:
       framer-motion:
         specifier: 12.0.0-alpha.2
         version: 12.0.0-alpha.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      jiti:
+        specifier: 2.4.2
+        version: 2.4.2
+      json5:
+        specifier: 2.2.3
+        version: 2.2.3
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
@@ -6871,6 +6877,10 @@ packages:
 
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
+    hasBin: true
+
+  jiti@2.4.2:
+    resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
   jju@1.4.0:
@@ -16223,6 +16233,8 @@ snapshots:
 
   jiti@1.21.7: {}
 
+  jiti@2.4.2: {}
+
   jju@1.4.0: {}
 
   joycon@3.1.1: {}
@@ -17548,11 +17560,11 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.49
 
-  postcss-load-config@6.0.1(jiti@1.21.7)(postcss@8.4.49)(tsx@4.9.0)(yaml@2.6.1):
+  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.4.49)(tsx@4.9.0)(yaml@2.6.1):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
-      jiti: 1.21.7
+      jiti: 2.4.2
       postcss: 8.4.49
       tsx: 4.9.0
       yaml: 2.6.1
@@ -19110,7 +19122,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.10.2))(@swc/core@1.4.15(@swc/helpers@0.5.15))(jiti@1.21.7)(postcss@8.4.49)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.1):
+  tsup@8.2.4(@microsoft/api-extractor@7.47.7(@types/node@22.10.2))(@swc/core@1.4.15(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.4.49)(tsx@4.9.0)(typescript@5.4.2)(yaml@2.6.1):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.0)
       cac: 6.7.14
@@ -19122,7 +19134,7 @@ snapshots:
       globby: 11.1.0
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(jiti@1.21.7)(postcss@8.4.49)(tsx@4.9.0)(yaml@2.6.1)
+      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.4.49)(tsx@4.9.0)(yaml@2.6.1)
       resolve-from: 5.0.0
       rollup: 4.28.1
       source-map: 0.8.0-beta.0
