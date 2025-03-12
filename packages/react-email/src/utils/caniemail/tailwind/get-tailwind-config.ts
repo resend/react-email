@@ -5,7 +5,7 @@ import type { Node } from '@babel/traverse';
 import { parse as parseJavascriptObject } from 'json5';
 import traverse from '@babel/traverse';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
-import type { AST } from '../../../actions/get-insights-for-email';
+import type { AST } from '../../../actions/email-validation/check-compatibility';
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
