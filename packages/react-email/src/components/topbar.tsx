@@ -1,37 +1,25 @@
 'use client';
 
+import { use } from 'react';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
-import { Send } from './send';
+import { ShellContext } from './shell';
 import { Tooltip } from './tooltip';
-import { ActiveViewToggleGroup } from './topbar/active-view-toggle-group';
-import { ViewSizeControls } from './topbar/view-size-controls';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
   pathSeparator: string;
-  markup?: string;
-  onToggleSidebar?: () => void;
-  activeView?: string;
-  setActiveView?: (view: string) => void;
-  viewWidth?: number;
-  setViewWidth?: (width: number) => void;
-  viewHeight?: number;
-  setViewHeight?: (height: number) => void;
+
+  children: React.ReactNode;
 }
 
 export const Topbar = ({
   currentEmailOpenSlug,
   pathSeparator,
-  markup,
-  activeView,
-  setActiveView,
-  viewWidth,
-  setViewWidth,
-  viewHeight,
-  setViewHeight,
-  onToggleSidebar,
+  children,
 }: TopbarProps) => {
+  const { toggleSidebar } = use(ShellContext)!;
+
   return (
     <Tooltip.Provider>
       <header className="relative flex h-[3.3125rem] items-center justify-between gap-3 border-slate-6 border-b px-3">
@@ -41,9 +29,7 @@ export const Topbar = ({
               <button
                 className="relative hidden rounded-lg px-2 py-2 text-slate-11 transition duration-200 ease-in-out hover:bg-slate-5 hover:text-slate-12 lg:flex"
                 onClick={() => {
-                  if (onToggleSidebar) {
-                    onToggleSidebar();
-                  }
+                  toggleSidebar();
                 }}
                 type="button"
               >
@@ -59,25 +45,26 @@ export const Topbar = ({
           </div>
         </div>
         <div className="flex w-full items-center justify-between gap-3 lg:w-fit lg:justify-start">
-          {setViewWidth && setViewHeight && viewWidth && viewHeight ? (
-            <ViewSizeControls
-              setViewHeight={setViewHeight}
-              setViewWidth={setViewWidth}
-              viewHeight={viewHeight}
-              viewWidth={viewWidth}
-            />
-          ) : null}
-          {activeView && setActiveView ? (
-            <ActiveViewToggleGroup
-              activeView={activeView}
-              setActiveView={setActiveView}
-            />
-          ) : null}
-          {markup ? (
-            <div className="flex justify-end">
-              <Send markup={markup} />
-            </div>
-          ) : null}
+          {children}
+          {/* {setViewWidth && setViewHeight && viewWidth && viewHeight ? ( */}
+          {/*   <ViewSizeControls */}
+          {/*     setViewHeight={setViewHeight} */}
+          {/*     setViewWidth={setViewWidth} */}
+          {/*     viewHeight={viewHeight} */}
+          {/*     viewWidth={viewWidth} */}
+          {/*   /> */}
+          {/* ) : null} */}
+          {/* {activeView && setActiveView ? ( */}
+          {/*   <ActiveViewToggleGroup */}
+          {/*     activeView={activeView} */}
+          {/*     setActiveView={setActiveView} */}
+          {/*   /> */}
+          {/* ) : null} */}
+          {/* {markup ? ( */}
+          {/*   <div className="flex justify-end"> */}
+          {/*     <Send markup={markup} /> */}
+          {/*   </div> */}
+          {/* ) : null} */}
         </div>
       </header>
     </Tooltip.Provider>
