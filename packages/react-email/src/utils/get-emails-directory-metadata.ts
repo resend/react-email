@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs';
+import path from 'node:path';
 
 const isFileAnEmail = (fullPath: string): boolean => {
   const stat = fs.statSync(fullPath);
@@ -9,7 +9,7 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   const { ext } = path.parse(fullPath);
 
-  if (![".js", ".tsx", ".jsx"].includes(ext)) return false;
+  if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
 
   // This is to avoid a possible race condition where the file doesn't exist anymore
   // once we are checking if it is an actual email, this couuld cause issues that
@@ -20,7 +20,7 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   // check with a heuristic to see if the file has at least
   // a default export (ES6) or module.exports (CommonJS) or named exports (MDX)
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
   // Check for ES6 export default syntax
   const hasES6DefaultExport = /\bexport\s+default\b/gm.test(fileContents);
@@ -30,7 +30,7 @@ const isFileAnEmail = (fullPath: string): boolean => {
 
   // Check for named exports (used in MDX files) and ensure at least one is marked as default
   const hasNamedExport = /\bexport\s+\{[^}]*\bdefault\b[^}]*\}/gm.test(
-    fileContents
+    fileContents,
   );
 
   return hasES6DefaultExport || hasCommonJSExport || hasNamedExport;
@@ -45,7 +45,7 @@ export interface EmailsDirectory {
 }
 
 const mergeDirectoriesWithSubDirectories = (
-  emailsDirectoryMetadata: EmailsDirectory
+  emailsDirectoryMetadata: EmailsDirectory,
 ): EmailsDirectory => {
   let currentResultingMergedDirectory: EmailsDirectory =
     emailsDirectoryMetadata;
@@ -59,7 +59,7 @@ const mergeDirectoriesWithSubDirectories = (
       ...onlySubDirectory,
       directoryName: path.join(
         currentResultingMergedDirectory.directoryName,
-        onlySubDirectory.directoryName
+        onlySubDirectory.directoryName,
       ),
     };
   }
@@ -72,7 +72,7 @@ export const getEmailsDirectoryMetadata = async (
   keepFileExtensions = false,
   isSubDirectory = false,
 
-  baseDirectoryPath = absolutePathToEmailsDirectory
+  baseDirectoryPath = absolutePathToEmailsDirectory,
 ): Promise<EmailsDirectory | undefined> => {
   if (!fs.existsSync(absolutePathToEmailsDirectory)) return;
 
@@ -82,12 +82,12 @@ export const getEmailsDirectoryMetadata = async (
 
   const emailFilenames = dirents
     .filter((dirent) =>
-      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name))
+      isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
     )
     .map((dirent) =>
       keepFileExtensions
         ? dirent.name
-        : dirent.name.replace(path.extname(dirent.name), "")
+        : dirent.name.replace(path.extname(dirent.name), ''),
     );
 
   const subDirectories = await Promise.all(
@@ -95,29 +95,29 @@ export const getEmailsDirectoryMetadata = async (
       .filter(
         (dirent) =>
           dirent.isDirectory() &&
-          !dirent.name.startsWith("_") &&
-          dirent.name !== "static"
+          !dirent.name.startsWith('_') &&
+          dirent.name !== 'static',
       )
       .map((dirent) => {
         const direntAbsolutePath = path.join(
           absolutePathToEmailsDirectory,
-          dirent.name
+          dirent.name,
         );
 
         return getEmailsDirectoryMetadata(
           direntAbsolutePath,
           keepFileExtensions,
           true,
-          baseDirectoryPath
+          baseDirectoryPath,
         ) as Promise<EmailsDirectory>;
-      })
+      }),
   );
 
   const emailsMetadata = {
     absolutePath: absolutePathToEmailsDirectory,
     relativePath: path.relative(
       baseDirectoryPath,
-      absolutePathToEmailsDirectory
+      absolutePathToEmailsDirectory,
     ),
     directoryName: absolutePathToEmailsDirectory.split(path.sep).pop()!,
     emailFilenames,
