@@ -6,13 +6,18 @@ import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
+import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
 import {
   ResizableWarpper,
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
-import { Shell } from '../../../components/shell';
+import { Send } from '../../../components/send';
+import { Shell, ShellContent } from '../../../components/shell';
+import { Toolbar } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
+import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
 import { useHotreload } from '../../../hooks/use-hot-reload';
@@ -80,7 +85,8 @@ const Preview = ({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
+  const hasErrors = 'error' in renderingResult;
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
@@ -107,31 +113,37 @@ const Preview = ({
   }, 300);
 
   return (
-    <Shell
-      activeView={activeView}
-      currentEmailOpenSlug={slug}
-      markup={renderedEmailMetadata?.markup}
-      plainText={renderedEmailMetadata?.plainText}
-      pathSeparator={pathSeparator}
-      setActiveView={handleViewChange}
-      setViewHeight={(height) => {
-        setHeight(height);
-        flushSync(() => {
-          handleSaveViewSize();
-        });
-      }}
-      setViewWidth={(width) => {
-        setWidth(width);
-        flushSync(() => {
-          handleSaveViewSize();
-        });
-      }}
-      viewHeight={height}
-      viewWidth={width}
-    >
-      {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div
-        className="relative flex h-full bg-gray-200 pb-8"
+    <Shell currentEmailOpenSlug={slug}>
+      <Topbar pathSeparator={pathSeparator} currentEmailOpenSlug={slug}>
+        <ViewSizeControls
+          setViewHeight={(height) => {
+            setHeight(height);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          setViewWidth={(width) => {
+            setWidth(width);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          viewHeight={height}
+          viewWidth={width}
+        />
+        <ActiveViewToggleGroup
+          activeView={activeView}
+          setActiveView={handleViewChange}
+        />
+        {hasRenderingMetadata ? (
+          <div className="flex justify-end">
+            <Send markup={renderedEmailMetadata.markup} />
+          </div>
+        ) : null}
+      </Topbar>
+
+      <ShellContent
+        className="relative flex bg-gray-200"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
@@ -150,11 +162,9 @@ const Preview = ({
           };
         }}
       >
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
-        ) : null}
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
 
-        {hasNoErrors ? (
+        {hasRenderingMetadata ? (
           <>
             {activeView === 'preview' && (
               <ResizableWarpper
@@ -224,7 +234,15 @@ const Preview = ({
         ) : null}
 
         <Toaster />
-      </div>
+      </ShellContent>
+
+      {!hasErrors && hasRenderingMetadata ? (
+        <Toolbar
+          emailSlug={slug}
+          markup={renderedEmailMetadata.markup}
+          plainText={renderedEmailMetadata.plainText}
+        />
+      ) : undefined}
     </Shell>
   );
 };
