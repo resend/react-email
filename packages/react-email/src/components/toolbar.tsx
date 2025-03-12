@@ -176,7 +176,7 @@ export const Toolbar = ({
 
           <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
             <Tabs.Content value="linter">
-              <Linter results={lintingResults} />
+              <Linter rows={lintingResults} />
             </Tabs.Content>
             <Tabs.Content value="spam-assassin">
               <SpamAssassin result={spamCheckingResult} />

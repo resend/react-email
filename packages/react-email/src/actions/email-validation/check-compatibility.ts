@@ -24,7 +24,7 @@ import {
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
 
-export interface Insight {
+export interface CompatibilityCheckingResult {
   location: SourceLocation;
   source: string;
   entry: SupportEntry;
@@ -121,8 +121,6 @@ export const getInsightsForEmail = async (
     plugins: ['jsx', 'typescript', 'decorators'],
   });
 
-  const insights: Insight[] = [];
-
   const getSourceCodeAt = (location: SourceLocation) => {
     const codeLines = reactCode.split(/\n|\r|\r\n/);
     const source = codeLines
@@ -141,157 +139,171 @@ export const getInsightsForEmail = async (
     emailPath,
     objectVariables,
   );
-  for (const entry of supportEntries) {
-    const stats = getInsightsStatsForEntry(entry, emailClient);
-    if (!stats) continue;
-    if (stats.worseStatus === 'working') continue;
+  const readableStream = new ReadableStream<CompatibilityCheckingResult>({
+    async start(controller) {
+      for (const entry of supportEntries) {
+        const stats = getInsightsStatsForEntry(entry, emailClient);
+        if (!stats) continue;
+        if (stats.worseStatus === 'working') continue;
 
-    if (entry.category === 'html') {
-      const entryElements = getElementNames(entry.title, entry.keywords);
-      const entryAttributes = getElementAttributes(entry.title);
-      const htmlEntryType = (() => {
-        if (entryElements.length > 0) {
-          return 'element';
-        }
-
-        if (entryAttributes.length > 0) {
-          return 'attribute';
-        }
-      })();
-
-      if (!htmlEntryType) continue;
-
-      let addedInsight = false;
-      if (htmlEntryType === 'element') {
-        traverse(ast, {
-          JSXOpeningElement(path) {
-            if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
-              const elementName = path.node.name.name;
-              if (entryElements.includes(elementName) && path.node.name.loc) {
-                addedInsight = true;
-                insights.push({
-                  entry,
-                  source: getSourceCodeAt(path.node.name.loc),
-                  location: convertLocationIntoObject(path.node.name.loc),
-                  ...stats,
-                });
-              }
+        if (entry.category === 'html') {
+          const entryElements = getElementNames(entry.title, entry.keywords);
+          const entryAttributes = getElementAttributes(entry.title);
+          const htmlEntryType = (() => {
+            if (entryElements.length > 0) {
+              return 'element';
             }
-          },
-        });
-      } else {
-        traverse(ast, {
-          JSXAttribute(path) {
-            if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
-              const attributeName = path.node.name.name;
-              if (
-                entryAttributes.includes(attributeName) &&
-                path.node.name.loc
-              ) {
-                addedInsight = true;
-                insights.push({
-                  entry,
-                  source: getSourceCodeAt(path.node.name.loc),
-                  location: convertLocationIntoObject(path.node.name.loc),
-                  ...stats,
-                });
-              }
+
+            if (entryAttributes.length > 0) {
+              return 'attribute';
             }
-          },
-        });
-      }
-    }
+          })();
 
-    if (entry.category === 'css') {
-      const entryFullProperty = getCssPropertyWithValue(entry.title);
-      const entryProperties = getCssPropertyNames(entry.title, entry.keywords);
-      const entryUnit = getCssUnit(entry.title);
-      const entryFunctions = getCssFunctions(entry.title);
+          if (!htmlEntryType) continue;
 
-      const cssEntryType = (() => {
-        if (entryFullProperty?.name && entryFullProperty.value) {
-          return 'full property';
-        }
-
-        if (entryFunctions.length > 0) {
-          return 'function';
-        }
-
-        if (entryUnit) {
-          return 'unit';
-        }
-
-        if (entryProperties.length > 0) {
-          return 'property name';
-        }
-      })();
-
-      if (!cssEntryType) continue;
-      const addToInsights = (
-        property: StylePropertyUsage & { location: SourceLocation },
-      ) => {
-        insights.push({
-          entry,
-          location: convertLocationIntoObject(property.location),
-          source: getSourceCodeAt(property.location),
-          ...stats,
-        });
-      };
-
-      for (const property of usedStyleProperties) {
-        if (!doesPropertyHaveLocation(property)) {
-          throw new Error(
-            "One of the properties' node did not contain the proper location for it on the source code. This must be an issue because we always need access to the source.",
-            {
-              cause: {
-                property,
-                entry,
-                emailClient,
-                reactCode,
-                ast,
+          let addedInsight = false;
+          if (htmlEntryType === 'element') {
+            traverse(ast, {
+              JSXOpeningElement(path) {
+                if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
+                  const elementName = path.node.name.name;
+                  if (
+                    entryElements.includes(elementName) &&
+                    path.node.name.loc
+                  ) {
+                    addedInsight = true;
+                    controller.enqueue({
+                      entry,
+                      source: getSourceCodeAt(path.node.name.loc),
+                      location: convertLocationIntoObject(path.node.name.loc),
+                      ...stats,
+                    });
+                  }
+                }
               },
-            },
-          );
+            });
+          } else {
+            traverse(ast, {
+              JSXAttribute(path) {
+                if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
+                  const attributeName = path.node.name.name;
+                  if (
+                    entryAttributes.includes(attributeName) &&
+                    path.node.name.loc
+                  ) {
+                    addedInsight = true;
+                    controller.enqueue({
+                      entry,
+                      source: getSourceCodeAt(path.node.name.loc),
+                      location: convertLocationIntoObject(path.node.name.loc),
+                      ...stats,
+                    });
+                  }
+                }
+              },
+            });
+          }
         }
 
-        if (cssEntryType === 'full property') {
-          if (
-            property.name === entryFullProperty?.name &&
-            property.value === entryFullProperty.value
-          ) {
-            addToInsights(property);
-            break;
-          }
-        } else if (cssEntryType === 'function') {
-          const functionRegex =
-            /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
-          const functionName = functionRegex.exec(property.value)?.groups
-            ?.functionName;
-          if (functionName !== undefined) {
-            if (entryFunctions.includes(functionName)) {
+        if (entry.category === 'css') {
+          const entryFullProperty = getCssPropertyWithValue(entry.title);
+          const entryProperties = getCssPropertyNames(
+            entry.title,
+            entry.keywords,
+          );
+          const entryUnit = getCssUnit(entry.title);
+          const entryFunctions = getCssFunctions(entry.title);
+
+          const cssEntryType = (() => {
+            if (entryFullProperty?.name && entryFullProperty.value) {
+              return 'full property';
+            }
+
+            if (entryFunctions.length > 0) {
+              return 'function';
+            }
+
+            if (entryUnit) {
+              return 'unit';
+            }
+
+            if (entryProperties.length > 0) {
+              return 'property name';
+            }
+          })();
+
+          if (!cssEntryType) continue;
+          const addToInsights = (
+            property: StylePropertyUsage & { location: SourceLocation },
+          ) => {
+            controller.enqueue({
+              entry,
+              location: convertLocationIntoObject(property.location),
+              source: getSourceCodeAt(property.location),
+              ...stats,
+            });
+          };
+
+          for (const property of usedStyleProperties) {
+            if (!doesPropertyHaveLocation(property)) {
+              throw new Error(
+                "One of the properties' node did not contain the proper location for it on the source code. This must be an issue because we always need access to the source.",
+                {
+                  cause: {
+                    property,
+                    entry,
+                    emailClient,
+                    reactCode,
+                    ast,
+                  },
+                },
+              );
+            }
+
+            if (cssEntryType === 'full property') {
+              if (
+                property.name === entryFullProperty?.name &&
+                property.value === entryFullProperty.value
+              ) {
+                addToInsights(property);
+                break;
+              }
+            } else if (cssEntryType === 'function') {
+              const functionRegex =
+                /(?<functionName>[a-zA-Z_][a-zA-Z0-9_-]*)\s*\(/g;
+              const functionName = functionRegex.exec(property.value)?.groups
+                ?.functionName;
+              if (functionName !== undefined) {
+                if (entryFunctions.includes(functionName)) {
+                  addToInsights(property);
+                  break;
+                }
+              }
+            } else if (cssEntryType === 'unit') {
+              const match = property.value.match(/[0-9](?<unit>[a-zA-Z%]+)$/g);
+              if (match) {
+                const unit = match.groups?.unit;
+                if (entryUnit && unit && entryUnit === unit) {
+                  addToInsights(property);
+                  break;
+                }
+              }
+            } else if (
+              entryProperties.some(
+                (propertyName) => property.name === propertyName,
+              )
+            ) {
               addToInsights(property);
               break;
             }
           }
-        } else if (cssEntryType === 'unit') {
-          const match = property.value.match(/[0-9](?<unit>[a-zA-Z%]+)$/g);
-          if (match) {
-            const unit = match.groups?.unit;
-            if (entryUnit && unit && entryUnit === unit) {
-              addToInsights(property);
-              break;
-            }
-          }
-        } else if (
-          entryProperties.some((propertyName) => property.name === propertyName)
-        ) {
-          addToInsights(property);
-          break;
         }
       }
-    }
-  }
-  return insights;
+      controller.close();
+    },
+  });
+
+  return readableStream;
 };
 
 export type AST = ReturnType<typeof parse>;
