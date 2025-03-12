@@ -13,7 +13,7 @@ export const FileTree = ({
   emailsDirectoryMetadata,
 }: FileTreeProps) => {
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden lg:w-full lg:min-w-[14.5rem] lg:max-w-[14.5rem]">
+    <div className="flex h-full w-full flex-col overflow-hidden lg:w-full lg:min-w-[14.5rem]">
       <nav className="flex w-full flex-grow flex-col overflow-y-auto p-4 pr-0 pl-0">
         <Collapsible.Root open>
           <React.Suspense>

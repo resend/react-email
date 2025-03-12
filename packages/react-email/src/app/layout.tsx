@@ -3,7 +3,7 @@ import './globals.css';
 import { EmailsProvider } from '../contexts/emails';
 import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
-import { inter } from './inter';
+import { inter, sfMono } from './fonts';
 
 export const metadata: Metadata = {
   title: 'React Email',
@@ -23,7 +23,10 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <html className={inter.className} lang="en">
+    <html
+      className={`${inter.variable} ${sfMono.variable} font-sans`}
+      lang="en"
+    >
       <body className="relative flex h-screen flex-col overflow-x-hidden bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
         <EmailsProvider
           initialEmailsDirectoryMetadata={emailsDirectoryMetadata}

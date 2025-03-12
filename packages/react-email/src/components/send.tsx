@@ -1,7 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 import { toast } from 'sonner';
-import { inter } from '../app/inter';
 import { Button } from './button';
 import { Text } from './text';
 
@@ -64,7 +63,7 @@ export const Send = ({ markup }: { markup: string }) => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className={`-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 font-sans text-slate-11 shadow-md backdrop-blur-lg ${inter.variable}`}
+          className="-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 font-sans text-slate-11 shadow-md backdrop-blur-lg font-sans"
           sideOffset={48}
         >
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
