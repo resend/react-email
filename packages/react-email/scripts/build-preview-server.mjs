@@ -22,7 +22,7 @@ nextBuildProcess.on('exit', (code) => {
     process.exit(code);
   }
 
-  const builtPreviewPath = path.resovle(__dirname, '../dist/preview');
+  const builtPreviewPath = path.resolve(__dirname, '../dist/preview');
 
   if (fs.existsSync(builtPreviewPath)) {
     fs.rmSync(builtPreviewPath, { recursive: true });

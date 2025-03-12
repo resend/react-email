@@ -3,8 +3,7 @@ import type { Platform } from 'esbuild';
 import type {
   EmailClient,
   SupportEntry,
-} from '../../components/email-insights';
-import { isInternalDev } from '../constants';
+} from '../../actions/email-validation/check-compatibility';
 
 export type InsightStatus = 'working' | 'working with caveats' | 'not working';
 
@@ -58,19 +57,20 @@ export const getInsightsStatsForEntry = (
         for (const match of statusString.matchAll(noteNumbersRegex)) {
           if (match.groups?.noteNumber) {
             const { noteNumber } = match.groups;
-            const note = entry.notes_by_num?.[parseInt(noteNumber)];
+            const note = entry.notes_by_num?.[Number.parseInt(noteNumber)];
             if (note) {
               notes.push(note);
-            } else if (isInternalDev) {
-              console.warn(
-                'Could not get note by the number for a support entry',
-                {
-                  platform,
-                  statusString,
-                  note,
-                },
-              );
             }
+            // else if (isInternalDev) {
+            //   console.warn(
+            //     'Could not get note by the number for a support entry',
+            //     {
+            //       platform,
+            //       statusString,
+            //       note,
+            //     },
+            //   );
+            // }
           }
         }
         if (worseStatus === 'working') worseStatus = 'working with caveats';

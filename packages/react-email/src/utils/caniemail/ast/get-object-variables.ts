@@ -1,6 +1,6 @@
 import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
-import type { AST } from '../../../actions/get-insights-for-email';
+import type { AST } from '../../../actions/email-validation/check-compatibility';
 
 export interface Position {
   line: number;
