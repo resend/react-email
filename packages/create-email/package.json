@@ -1,6 +1,6 @@
 {
   "name": "create-email",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
   "type": "module",
@@ -16,7 +16,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/create-email"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
