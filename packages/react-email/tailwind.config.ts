@@ -71,6 +71,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...fontFamily.sans],
+        mono: ['var(--font-sf-mono)', ...fontFamily.mono],
       },
       keyframes: {
         shine: {

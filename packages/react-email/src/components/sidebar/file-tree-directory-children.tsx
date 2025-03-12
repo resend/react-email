@@ -99,7 +99,7 @@ export const FileTreeDirectoryChildren = (props: {
                             >
                               {props.isRoot ? null : (
                                 <motion.div
-                                  className="absolute top-1 left-[.625rem] h-6 w-px rounded-sm bg-cyan-11"
+                                  className="absolute top-1 left-[0.4rem] inset-0 h-6 w-px rounded-sm bg-cyan-11"
                                   layoutId="active-file"
                                   transition={{
                                     type: 'spring',

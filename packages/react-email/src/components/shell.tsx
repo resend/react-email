@@ -4,44 +4,36 @@ import * as React from 'react';
 import { cn } from '../utils';
 import { Logo } from './logo';
 import { Sidebar } from './sidebar';
-import { Topbar } from './topbar';
 
-type RootProps = React.ComponentPropsWithoutRef<'div'>;
-
-interface ShellProps extends RootProps {
-  markup?: string;
-  plainText?: string;
+interface ShellProps {
+  children: React.ReactNode;
   currentEmailOpenSlug?: string;
-  pathSeparator?: string;
-
-  activeView?: string;
-  setActiveView?: (view: string) => void;
-
-  viewWidth?: number;
-  setViewWidth?: (width: number) => void;
-  viewHeight?: number;
-  setViewHeight?: (height: number) => void;
 }
 
-export const Shell = ({
-  currentEmailOpenSlug,
-  children,
-  pathSeparator,
-  markup,
-  plainText,
-  activeView,
-  setActiveView,
-  viewHeight,
-  viewWidth,
-  setViewHeight,
-  setViewWidth,
-}: ShellProps) => {
-  const [sidebarToggled, setSidebarToggled] = React.useState(false);
-  const [triggerTransition, setTriggerTransition] = React.useState(false);
+interface ShellContextValue {
+  sidebarToggled: boolean;
+  toggleSidebar: () => void;
+}
+
+export const ShellContext = React.createContext<ShellContextValue | undefined>(
+  undefined,
+);
+
+export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
+  const [sidebarToggled, setSidebarToggled] = React.useState(true);
 
   return (
-    <>
-      <div className="flex h-[4.375rem] items-center justify-between border-slate-6 border-b px-6 lg:hidden">
+    <ShellContext.Provider
+      value={{
+        toggleSidebar: () => setSidebarToggled((v) => !v),
+        sidebarToggled,
+      }}
+    >
+      <div
+        className={
+          'flex h-[4.375rem] items-center justify-between border-slate-6 border-b px-6 lg:hidden'
+        }
+      >
         <div className="flex h-[4.375rem] items-center">
           <Logo />
         </div>
@@ -70,64 +62,36 @@ export const Shell = ({
           </svg>
         </button>
       </div>
-      <React.Suspense>
-        <Sidebar
-          className={cn({
-            'lg:-translate-x-full translate-x-0': sidebarToggled,
-            '-translate-x-full lg:translate-x-0': !sidebarToggled,
-          })}
-          currentEmailOpenSlug={currentEmailOpenSlug}
-          markup={markup}
-          plainText={plainText}
-          style={{
-            transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
-          }}
-        />
-      </React.Suspense>
-      <main
-        className={cn(
-          'relative h-full max-h-full min-h-screen w-[100vw] overflow-hidden will-change-width sm:mt-[4.375rem] md:absolute md:right-0 lg:mt-0',
-          {
-            'lg:w-[calc(100dvw)] lg:translate-x-0': sidebarToggled,
-            'lg:w-[calc(100dvw-20rem)] lg:translate-x-0': !sidebarToggled,
-          },
-        )}
-        style={{
-          transition: triggerTransition
-            ? 'width 0.2s ease-in-out, transform 0.2s ease-in-out'
-            : '',
-        }}
-      >
-        <div className="relative h-full w-full">
-          {currentEmailOpenSlug && pathSeparator ? (
-            <Topbar
-              activeView={activeView}
-              currentEmailOpenSlug={currentEmailOpenSlug}
-              markup={markup}
-              onToggleSidebar={() => {
-                setTriggerTransition(true);
+      <div className="flex w-[100dvw] h-[100dvh] flex-row">
+        <React.Suspense>
+          <Sidebar
+            className={cn('shrink [transition:width_0.2s_ease-in-out]', {
+              '-translate-x-full lg:translate-x-0': sidebarToggled,
+              'lg:w-0': !sidebarToggled,
+            })}
+            currentEmailOpenSlug={currentEmailOpenSlug}
+          />
+        </React.Suspense>
+        <main
+          className={cn(
+            'h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0',
+            'grow',
+            '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
+          )}
+        >
+          <div className="relative flex h-full w-full flex-col">{children}</div>
+        </main>
+      </div>
+    </ShellContext.Provider>
+  );
+};
 
-                requestAnimationFrame(() => {
-                  setSidebarToggled((v) => !v);
-                });
+type ShellContentRootProps = React.ComponentProps<'div'>;
 
-                setTimeout(() => {
-                  setTriggerTransition(false);
-                }, 300);
-              }}
-              pathSeparator={pathSeparator}
-              setActiveView={setActiveView}
-              setViewHeight={setViewHeight}
-              setViewWidth={setViewWidth}
-              viewHeight={viewHeight}
-              viewWidth={viewWidth}
-            />
-          ) : null}
-          <div className="relative mx-auto h-[calc(100dvh-3.3125rem)] grow md:h-full">
-            {children}
-          </div>
-        </div>
-      </main>
-    </>
+export const ShellContent = ({ children, ...rest }: ShellContentRootProps) => {
+  return (
+    <div {...rest} className={cn('relative grow', rest.className)}>
+      {children}
+    </div>
   );
 };
