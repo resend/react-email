@@ -1,7 +1,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { act, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';

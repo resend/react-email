@@ -127,7 +127,7 @@ export const Linter = ({ results }: LinterProps) => {
               return 'Missing alt text';
             }
             if (failingCheck.type === 'syntax') {
-              return "The link is broken due to invalid syntax";
+              return 'The link is broken due to invalid syntax';
             }
             if (
               failingCheck.type === 'image_size' &&
