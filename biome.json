@@ -62,6 +62,7 @@
       "pnpm-lock.yaml",
       ".next",
       "public",
+      "./packages/react-email/src/actions/email-validation/caniemail-data.ts",
       "./**/.react-email/**/*",
       "./**/node_modules/**/*",
       "./**/*.d.ts",
