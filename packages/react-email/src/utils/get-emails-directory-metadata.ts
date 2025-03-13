@@ -19,10 +19,21 @@ const isFileAnEmail = (fullPath: string): boolean => {
   }
 
   // check with a heuristic to see if the file has at least
-  // a default export
+  // a default export (ES6) or module.exports (CommonJS) or named exports (MDX)
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-  return /\bexport\s+default\b/gm.test(fileContents);
+  // Check for ES6 export default syntax
+  const hasES6DefaultExport = /\bexport\s+default\b/gm.test(fileContents);
+
+  // Check for CommonJS module.exports syntax
+  const hasCommonJSExport = /\bmodule\.exports\s*=/gm.test(fileContents);
+
+  // Check for named exports (used in MDX files) and ensure at least one is marked as default
+  const hasNamedExport = /\bexport\s+\{[^}]*\bdefault\b[^}]*\}/gm.test(
+    fileContents,
+  );
+
+  return hasES6DefaultExport || hasCommonJSExport || hasNamedExport;
 };
 
 export interface EmailsDirectory {
