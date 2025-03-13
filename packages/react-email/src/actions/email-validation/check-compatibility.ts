@@ -4,10 +4,10 @@ import traverse from '@babel/traverse';
 import { supportEntries } from './caniemail-data';
 import { getCssPropertyNames } from '../../utils/caniemail/get-css-property-names';
 import type {
-  InsightStatsPerPlatform,
-  InsightStatus,
-} from '../../utils/caniemail/get-insights-stats-for-entry';
-import { getInsightsStatsForEntry } from '../../utils/caniemail/get-insights-stats-for-entry';
+  CompatibilityStats,
+  SupportStatus,
+} from '../../utils/caniemail/get-compatibility-stats-for-entry';
+import { getCompatibilityStatsForEntry } from '../../utils/caniemail/get-compatibility-stats-for-entry';
 import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getCssFunctions } from '../../utils/caniemail/get-css-functions';
 import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-with-value';
@@ -28,8 +28,8 @@ export interface CompatibilityCheckingResult {
   location: SourceLocation;
   source: string;
   entry: SupportEntry;
-  worseStatus: InsightStatus;
-  stats: InsightStatsPerPlatform;
+  status: SupportStatus;
+  statsPerEmailClient: CompatibilityStats['perEmailClient'];
 }
 
 export type EmailClient =
@@ -109,10 +109,17 @@ export interface SupportEntry {
   notes_by_num: Record<number, string> | null;
 }
 
-export const getInsightsForEmail = async (
+const relevantEmailClients: EmailClient[] = [
+  'gmail',
+  'apple-mail',
+  'hey',
+  'outlook',
+  'yahoo',
+];
+
+export const checkCompatibility = async (
   reactCode: string,
   emailPath: string,
-  emailClient: EmailClient,
 ) => {
   const ast = parse(reactCode, {
     strictMode: false,
@@ -142,9 +149,13 @@ export const getInsightsForEmail = async (
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
       for (const entry of supportEntries) {
-        const stats = getInsightsStatsForEntry(entry, emailClient);
-        if (!stats) continue;
-        if (stats.worseStatus === 'working') continue;
+        const compatibilityStats = getCompatibilityStatsForEntry(
+          entry,
+          relevantEmailClients,
+        );
+        if (Object.keys(compatibilityStats.perEmailClient).length === 0)
+          continue;
+        if (compatibilityStats.status === 'working') continue;
 
         if (entry.category === 'html') {
           const entryElements = getElementNames(entry.title, entry.keywords);
@@ -176,7 +187,8 @@ export const getInsightsForEmail = async (
                       entry,
                       source: getSourceCodeAt(path.node.name.loc),
                       location: convertLocationIntoObject(path.node.name.loc),
-                      ...stats,
+                      statsPerEmailClient: compatibilityStats.perEmailClient,
+                      status: compatibilityStats.status,
                     });
                   }
                 }
@@ -196,7 +208,8 @@ export const getInsightsForEmail = async (
                       entry,
                       source: getSourceCodeAt(path.node.name.loc),
                       location: convertLocationIntoObject(path.node.name.loc),
-                      ...stats,
+                      statsPerEmailClient: compatibilityStats.perEmailClient,
+                      status: compatibilityStats.status,
                     });
                   }
                 }
@@ -240,7 +253,8 @@ export const getInsightsForEmail = async (
               entry,
               location: convertLocationIntoObject(property.location),
               source: getSourceCodeAt(property.location),
-              ...stats,
+              statsPerEmailClient: compatibilityStats.perEmailClient,
+              status: compatibilityStats.status,
             });
           };
 
@@ -252,7 +266,6 @@ export const getInsightsForEmail = async (
                   cause: {
                     property,
                     entry,
-                    emailClient,
                     reactCode,
                     ast,
                   },

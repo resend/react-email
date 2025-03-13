@@ -13,6 +13,8 @@ import { Tooltip } from './tooltip';
 
 type ToolbarProps = React.ComponentProps<'div'> & {
   emailSlug: string;
+  emailPath: string;
+  reactMarkup: string;
   markup: string;
   plainText: string;
 };
@@ -68,6 +70,8 @@ const ToolbarButton = ({
 
 export const Toolbar = ({
   emailSlug,
+  emailPath,
+  reactMarkup,
   markup,
   plainText,
   className,
@@ -102,6 +106,8 @@ export const Toolbar = ({
 
   const [lintingResults, { load: loadLinting }] = useLinter({
     slug: emailSlug,
+    reactMarkup,
+    emailPath,
     markup,
   });
 

@@ -239,6 +239,8 @@ const Preview = ({
       {!hasErrors && hasRenderingMetadata ? (
         <Toolbar
           emailSlug={slug}
+          emailPath={emailPath}
+          reactMarkup={renderedEmailMetadata.reactMarkup}
           markup={renderedEmailMetadata.markup}
           plainText={renderedEmailMetadata.plainText}
         />

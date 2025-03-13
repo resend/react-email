@@ -1,7 +1,11 @@
 import { fail } from 'assert';
 import prettyBytes from 'pretty-bytes';
 import { useEffect, useState } from 'react';
-import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
+import {
+  checkCompatibility,
+  EmailClient,
+  type CompatibilityCheckingResult,
+} from '../../actions/email-validation/check-compatibility';
 import {
   type ImageCheckingResult,
   checkImages,
@@ -13,6 +17,7 @@ import {
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { nicenames } from '../../actions/email-validation/caniemail-data';
 
 type LintingRow =
   | {
@@ -34,9 +39,13 @@ interface LinterProps {
 
 export const useLinter = ({
   markup,
+  reactMarkup,
   slug,
+  emailPath,
 }: {
+  reactMarkup: string;
   markup: string;
+  emailPath: string;
   slug: string;
 }) => {
   const cacheKey = `linter-${slug.replaceAll('/', '-')}`;
@@ -52,71 +61,79 @@ export const useLinter = ({
 
   const [loading, setLoading] = useState(false);
 
+  interface LintingSource<T> {
+    getStream(): Promise<ReadableStream<T>>;
+    mapValue(value: T): LintingRow | undefined;
+  }
+
+  const sources = [
+    {
+      getStream() {
+        return checkImages(markup, `${location.protocol}//${location.host}`);
+      },
+      mapValue(result) {
+        if (result && result.status !== 'success') {
+          return {
+            result: result,
+            source: 'image',
+          };
+        }
+      },
+    } satisfies LintingSource<ImageCheckingResult>,
+    {
+      getStream() {
+        return checkLinks(markup);
+      },
+      mapValue(result) {
+        if (result && result.status !== 'success') {
+          return {
+            result: result,
+            source: 'link',
+          };
+        }
+      },
+    } satisfies LintingSource<LinkCheckingResult>,
+    {
+      getStream() {
+        return checkCompatibility(reactMarkup, emailPath);
+      },
+      mapValue(value) {
+        if (value && value.status !== 'working') {
+          return {
+            result: value,
+            source: 'compatibility',
+          };
+        }
+      },
+    } satisfies LintingSource<CompatibilityCheckingResult>,
+  ];
+
   const load = async () => {
     setLoading(true);
-    const imageResultsReader = (
-      await checkImages(markup, `${location.protocol}//${location.host}`)
-    ).getReader();
-    const linkResultsReader = (await checkLinks(markup)).getReader();
+
     setRows([]);
 
-    const insertRow = (row: LintingRow) => {
-      setRows((current) => {
-        if (!current) {
-          return [row];
-        }
-
-        if (
-          current.some((other) => {
-            if (
-              row.source === 'link' &&
-              other.source === 'link' &&
-              other.result.link === row.result.link
-            )
-              return true;
-
-            if (
-              row.source === 'image' &&
-              other.source === 'image' &&
-              other.result.source === row.result.source
-            )
-              return true;
-          })
-        ) {
-          return current;
-        }
-
-        return [...current, row];
-      });
-    };
+    const insertRow = (row: LintingRow) => { };
 
     try {
-      while (true) {
-        const { done: imageResultsReaderDone, value: imageLintingResult } =
-          await imageResultsReader.read();
-        if (imageLintingResult && imageLintingResult.status !== 'success') {
-          insertRow({
-            result: imageLintingResult,
-            source: 'image',
-          });
-        }
+      await Promise.all(
+        sources.map(async (source) => {
+          const stream = await source.getStream();
+          for await (const value of stream) {
+            const row = source.mapValue(value);
+            if (row) {
+              setRows((current) => {
+                if (!current) {
+                  return [row];
+                }
 
-        const { done: linkResultsReaderDone, value: linkLintingResult } =
-          await linkResultsReader.read();
-        if (linkLintingResult && linkLintingResult.status !== 'success') {
-          insertRow({
-            result: linkLintingResult,
-            source: 'link',
-          });
-        }
-
-        if (linkResultsReaderDone && imageResultsReaderDone) {
-          break;
-        }
-      }
+                return [...current, row];
+              });
+            }
+          }
+        }),
+      );
     } finally {
-      linkResultsReader.releaseLock();
-      imageResultsReader.releaseLock();
       setLoading(false);
     }
   };
@@ -168,6 +185,61 @@ export const Linter = ({ rows }: LinterProps) => {
                 {failingCheck.type === 'fetch_attempt'
                   ? failingCheck.metadata.fetchStatusCode
                   : ''}
+              </Result.Metadata>
+            </Result>
+          );
+        }
+
+        if (row.source === 'compatibility') {
+          const statsReportedNotWorking = Object.entries(
+            row.result.statsPerEmailClient,
+          ).filter(([k, stats]) => stats.status === 'not working');
+          const statsReportedPartiallyWorking = Object.entries(
+            row.result.statsPerEmailClient,
+          ).filter(([k, stats]) => stats.status === 'working with caveats');
+
+          const unsupportedClientsString = statsReportedNotWorking
+            .map(([emailClient, stats]) => nicenames.family[emailClient])
+            .join(', ');
+          const partiallySupportedClientsString = statsReportedPartiallyWorking
+            .map(([emailClient, stats]) => nicenames.family[emailClient])
+            .join(', ');
+
+          return (
+            <Result
+              status={
+                (
+                  {
+                    working: 'success',
+                    'working with caveats': 'warning',
+                    'not working': 'error',
+                  } as const
+                )[row.result.status]
+              }
+              key={i}
+            >
+              <Result.Name>{row.result.entry.title}</Result.Name>
+              <Result.Description>
+                {statsReportedNotWorking.length > 0
+                  ? `Not supported in ${unsupportedClientsString}`
+                  : null}
+                {statsReportedPartiallyWorking.length > 0 &&
+                  statsReportedNotWorking.length > 0
+                  ? '. '
+                  : null}
+                {statsReportedPartiallyWorking.length > 0
+                  ? `Partially supported in ${partiallySupportedClientsString}`
+                  : null}
+              </Result.Description>
+              <Result.Metadata>
+                <a
+                  href={row.result.entry.url}
+                  className="underline"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  See more info
+                </a>
               </Result.Metadata>
             </Result>
           );
