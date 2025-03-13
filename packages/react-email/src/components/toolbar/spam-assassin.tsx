@@ -55,7 +55,6 @@ export const useSpamAssassin = ({
 
   const load = async () => {
     if (isStreaming.current) return;
-    console.log('loading');
     isStreaming.current = true;
     setLoading(true);
 
