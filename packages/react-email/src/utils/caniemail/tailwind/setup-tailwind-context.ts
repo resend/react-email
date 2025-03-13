@@ -1,5 +1,5 @@
-import resolveConfig from 'tailwindcss/resolveConfig';
 import { createContext } from 'tailwindcss/lib/lib/setupContextUtils';
+import resolveConfig from 'tailwindcss/resolveConfig';
 import type { TailwindConfig } from './get-tailwind-config';
 
 export const setupTailwindContext = (config: TailwindConfig) => {

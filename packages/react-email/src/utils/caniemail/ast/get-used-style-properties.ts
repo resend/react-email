@@ -1,7 +1,7 @@
 import traverse from '@babel/traverse';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
+import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';
 
 export interface StylePropertyUsage {

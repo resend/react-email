@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { createJiti } from 'jiti';
 import type { Node } from '@babel/traverse';
-import { parse as parseJavascriptObject } from 'json5';
 import traverse from '@babel/traverse';
+import { createJiti } from 'jiti';
+import { parse as parseJavascriptObject } from 'json5';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 

@@ -1,28 +1,28 @@
 'use server';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import { supportEntries } from './caniemail-data';
-import { getCssPropertyNames } from '../../utils/caniemail/get-css-property-names';
-import type {
-  CompatibilityStats,
-  SupportStatus,
-} from '../../utils/caniemail/get-compatibility-stats-for-entry';
-import { getCompatibilityStatsForEntry } from '../../utils/caniemail/get-compatibility-stats-for-entry';
-import { getCssUnit } from '../../utils/caniemail/get-css-unit';
-import { getCssFunctions } from '../../utils/caniemail/get-css-functions';
-import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-with-value';
-import { getElementNames } from '../../utils/caniemail/get-element-names';
-import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import {
+  type SourceLocation,
   convertLocationIntoObject,
   getObjectVariables,
-  type SourceLocation,
 } from '../../utils/caniemail/ast/get-object-variables';
 import type { StylePropertyUsage } from '../../utils/caniemail/ast/get-used-style-properties';
 import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
+import type {
+  CompatibilityStats,
+  SupportStatus,
+} from '../../utils/caniemail/get-compatibility-stats-for-entry';
+import { getCompatibilityStatsForEntry } from '../../utils/caniemail/get-compatibility-stats-for-entry';
+import { getCssFunctions } from '../../utils/caniemail/get-css-functions';
+import { getCssPropertyNames } from '../../utils/caniemail/get-css-property-names';
+import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-with-value';
+import { getCssUnit } from '../../utils/caniemail/get-css-unit';
+import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
+import { getElementNames } from '../../utils/caniemail/get-element-names';
+import { supportEntries } from './caniemail-data';
 
 export interface CompatibilityCheckingResult {
   location: SourceLocation;

@@ -1,8 +1,8 @@
 import type { Root, Rule } from 'postcss';
-import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
 import postcss from 'postcss';
 import evaluateTailwindFunctions from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
 import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateRules';
+import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
 
 export const generateTailwindCssRules = (
   classNames: string[],
