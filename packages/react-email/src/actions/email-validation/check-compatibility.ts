@@ -155,7 +155,7 @@ export const checkCompatibility = async (
         );
         if (Object.keys(compatibilityStats.perEmailClient).length === 0)
           continue;
-        if (compatibilityStats.status === 'working') continue;
+        if (compatibilityStats.status === 'success') continue;
 
         if (entry.category === 'html') {
           const entryElements = getElementNames(entry.title, entry.keywords);

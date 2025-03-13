@@ -9,13 +9,13 @@ export type SupportStatus = DetailedSupportStatus['status'];
 
 export type DetailedSupportStatus =
   | {
-      status: 'working';
+      status: 'success';
     }
   | {
-      status: 'not working';
+      status: 'error';
     }
   | {
-      status: 'working with caveats';
+      status: 'warning';
       notes: string;
     };
 
@@ -36,14 +36,14 @@ export const getCompatibilityStatsForEntry = (
   emailClients: EmailClient[],
 ) => {
   const stats: CompatibilityStats = {
-    status: 'working',
+    status: 'success',
     perEmailClient: {},
   };
   for (const emailClient of emailClients) {
     const rawStats = entry.stats[emailClient];
     if (rawStats) {
       const emailClientStats: EmailClientStats = {
-        status: 'working',
+        status: 'success',
         perPlatform: {},
       };
 
@@ -86,11 +86,11 @@ export const getCompatibilityStatsForEntry = (
               // }
             }
           }
-          if (emailClientStats.status === 'working')
-            emailClientStats.status = 'working with caveats';
-          if (stats.status === 'working') stats.status = 'working with caveats';
+          if (emailClientStats.status === 'success')
+            emailClientStats.status = 'warning';
+          if (stats.status === 'success') stats.status = 'warning';
           emailClientStats.perPlatform[platform as Platform] = {
-            status: 'working with caveats',
+            status: 'warning',
             notes:
               notes.length === 1
                 ? notes[0]!
@@ -98,14 +98,14 @@ export const getCompatibilityStatsForEntry = (
           };
         } else if (statusString.startsWith('y')) {
           emailClientStats.perPlatform[platform as Platform] = {
-            status: 'working',
+            status: 'success',
           };
         } else if (statusString.startsWith('n')) {
-          if (emailClientStats.status !== 'not working')
-            emailClientStats.status = 'not working';
-          if (stats.status !== 'not working') stats.status = 'not working';
+          if (emailClientStats.status !== 'error')
+            emailClientStats.status = 'error';
+          if (stats.status !== 'error') stats.status = 'error';
           emailClientStats.perPlatform[platform as Platform] = {
-            status: 'not working',
+            status: 'error',
           };
         }
       }

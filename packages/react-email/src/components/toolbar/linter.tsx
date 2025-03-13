@@ -16,7 +16,6 @@ import {
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
-import { flushSync } from 'react-dom';
 
 type LintingRow =
   | {
@@ -95,7 +94,7 @@ export const useLinter = ({
         return checkCompatibility(reactMarkup, emailPath);
       },
       mapValue(value) {
-        if (value && value.status !== 'working') {
+        if (value && value.status !== 'success') {
           return {
             result: value,
             source: 'compatibility',
@@ -135,7 +134,26 @@ export const useLinter = ({
                     return [row];
                   }
 
-                  return [...current, row];
+                  const newArray = [...current, row];
+                  newArray.sort((a, b) => {
+                    if (
+                      a.result.status === 'error' &&
+                      b.result.status === 'warning'
+                    ) {
+                      return -1;
+                    }
+
+                    if (
+                      a.result.status === 'warning' &&
+                      b.result.status === 'error'
+                    ) {
+                      return 1;
+                    }
+
+                    return 0;
+                  });
+
+                  return newArray;
                 });
               }
             }
@@ -201,31 +219,20 @@ export const Linter = ({ rows }: LinterProps) => {
         if (row.source === 'compatibility') {
           const statsReportedNotWorking = Object.entries(
             row.result.statsPerEmailClient,
-          ).filter(([k, stats]) => stats.status === 'not working');
+          ).filter(([, stats]) => stats.status === 'error');
           const statsReportedPartiallyWorking = Object.entries(
             row.result.statsPerEmailClient,
-          ).filter(([k, stats]) => stats.status === 'working with caveats');
+          ).filter(([, stats]) => stats.status === 'warning');
 
           const unsupportedClientsString = statsReportedNotWorking
-            .map(([emailClient, stats]) => nicenames.family[emailClient])
+            .map(([emailClient]) => nicenames.family[emailClient])
             .join(', ');
           const partiallySupportedClientsString = statsReportedPartiallyWorking
-            .map(([emailClient, stats]) => nicenames.family[emailClient])
+            .map(([emailClient]) => nicenames.family[emailClient])
             .join(', ');
 
           return (
-            <Result
-              status={
-                (
-                  {
-                    working: 'success',
-                    'working with caveats': 'warning',
-                    'not working': 'error',
-                  } as const
-                )[row.result.status]
-              }
-              key={i}
-            >
+            <Result status={row.result.status} key={i}>
               <Result.Name>{row.result.entry.title}</Result.Name>
               <Result.Description>
                 {statsReportedNotWorking.length > 0
