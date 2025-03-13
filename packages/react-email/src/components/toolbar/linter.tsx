@@ -119,17 +119,27 @@ export const useLinter = ({
       await Promise.all(
         sources.map(async (source) => {
           const stream = await source.getStream();
-          for await (const value of stream) {
-            const row = source.mapValue(value);
-            if (row) {
-              setRows((current) => {
-                if (!current) {
-                  return [row];
-                }
+          const reader = stream.getReader();
+          try {
+            while (true) {
+              const {value, done} = await reader.read();
+              if (done) {
+                break;
+              }
 
-                return [...current, row];
-              });
+              const row = source.mapValue(value as never);
+              if (row) {
+                setRows((current) => {
+                  if (!current) {
+                    return [row];
+                  }
+
+                  return [...current, row];
+                });
+              }
             }
+          } finally {
+            reader.releaseLock();
           }
         }),
       );
