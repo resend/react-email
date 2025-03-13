@@ -1,5 +1,16 @@
 # react-email
 
+## 3.1.0-canary.0
+
+### Minor Changes
+
+- d2c1b54: Theme switcher for email template
+
+### Patch Changes
+
+- 049a808: update esbuild to 0.25.0
+- dda938d: Fix detection of files with various export patterns
+
 ## 3.0.7
 
 ### Patch Changes
