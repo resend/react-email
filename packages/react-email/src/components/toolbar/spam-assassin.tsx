@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { flushSync } from 'react-dom';
 
 interface SpamAssassinProps {
   result: SpamCheckingResult | undefined;
@@ -50,8 +51,12 @@ export const useSpamAssassin = ({
   }, [cacheKey]);
 
   const [loading, setLoading] = useState(false);
+  const isStreaming = useRef(false);
 
   const load = async () => {
+    if (isStreaming.current) return;
+    console.log('loading');
+    isStreaming.current = true;
     setLoading(true);
 
     try {
@@ -83,6 +88,7 @@ export const useSpamAssassin = ({
       toast.error(JSON.stringify(exception));
     } finally {
       setLoading(false);
+      isStreaming.current = false;
     }
   };
 

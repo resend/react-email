@@ -1,5 +1,5 @@
 import prettyBytes from 'pretty-bytes';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { nicenames } from '../../actions/email-validation/caniemail-data';
 import {
   type CompatibilityCheckingResult,
@@ -16,20 +16,21 @@ import {
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { flushSync } from 'react-dom';
 
 type LintingRow =
   | {
-      source: 'image';
-      result: ImageCheckingResult;
-    }
+    source: 'image';
+    result: ImageCheckingResult;
+  }
   | {
-      source: 'link';
-      result: LinkCheckingResult;
-    }
+    source: 'link';
+    result: LinkCheckingResult;
+  }
   | {
-      source: 'compatibility';
-      result: CompatibilityCheckingResult;
-    };
+    source: 'compatibility';
+    result: CompatibilityCheckingResult;
+  };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -56,8 +57,6 @@ export const useLinter = ({
       setRows(JSON.parse(cachedValue));
     }
   }, [cacheKey]);
-
-  const [loading, setLoading] = useState(false);
 
   interface LintingSource<T> {
     getStream(): Promise<ReadableStream<T>>;
@@ -106,13 +105,15 @@ export const useLinter = ({
     } satisfies LintingSource<CompatibilityCheckingResult>,
   ];
 
+  const [loading, setLoading] = useState(false);
+  const isStreaming = useRef(false);
+
   const load = async () => {
+    if (isStreaming.current) return;
+    isStreaming.current = true;
     setLoading(true);
 
     setRows([]);
-
-    const insertRow = (row: LintingRow) => {};
-
     try {
       await Promise.all(
         sources.map(async (source) => {
@@ -125,8 +126,10 @@ export const useLinter = ({
                 break;
               }
 
-              const row = source.mapValue(value as never);
+              // @ts-expect-error
+              const row = source.mapValue(value);
               if (row) {
+                console.log('inserting', row);
                 setRows((current) => {
                   if (!current) {
                     return [row];
@@ -143,12 +146,9 @@ export const useLinter = ({
       );
     } finally {
       setLoading(false);
+      isStreaming.current = false;
     }
   };
-
-  useEffect(() => {
-    load();
-  }, []);
 
   return [rows, { loading, load }] as const;
 };
@@ -171,14 +171,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the content may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The link is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -232,7 +232,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? `Not supported in ${unsupportedClientsString}`
                   : null}
                 {statsReportedPartiallyWorking.length > 0 &&
-                statsReportedNotWorking.length > 0
+                  statsReportedNotWorking.length > 0
                   ? '. '
                   : null}
                 {statsReportedPartiallyWorking.length > 0
@@ -240,9 +240,11 @@ export const Linter = ({ rows }: LinterProps) => {
                   : null}
               </Result.Description>
               <Result.Metadata>
+                {row.result.location.start.line.toString().padStart(2, '0')}:
+                {row.result.location.start.column.toString().padStart(2, '0')}
                 <a
                   href={row.result.entry.url}
-                  className="underline"
+                  className="underline ml-2"
                   rel="noreferrer"
                   target="_blank"
                 >
@@ -265,14 +267,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the image may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The image is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -284,7 +286,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   : null}
 
                 {failingCheck.type === 'image_size' &&
-                failingCheck.metadata.byteCount
+                  failingCheck.metadata.byteCount
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
