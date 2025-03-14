@@ -1,68 +1,34 @@
-'use client';
-import * as Tabs from '@radix-ui/react-tabs';
-import { LayoutGroup, motion } from 'framer-motion';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect } from 'react';
-import { PreviewContext } from '../contexts/preview';
-import { cn } from '../utils';
-import { IconArrowDown } from './icons/icon-arrow-down';
-import { IconReload } from './icons/icon-reload';
-import { IconScanner } from './icons/icon-scanner';
-import { IconScissors } from './icons/icon-scissors';
-import { Linter, useLinter } from './toolbar/linter';
-import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
-import { Tooltip } from './tooltip';
+"use client";
+import * as Tabs from "@radix-ui/react-tabs";
+import { use, useEffect } from "react";
+import { PreviewContext } from "../contexts/preview";
+import { Linter, type LintingRow, useLinter } from "./toolbar/linter";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { LayoutGroup } from "framer-motion";
+import { cn } from "../utils";
+import { IconArrowDown } from "./icons/icon-arrow-down";
+import { IconReload } from "./icons/icon-reload";
+import { IconScanner } from "./icons/icon-scanner";
+import { IconScissors } from "./icons/icon-scissors";
+import { ToolbarButton } from "./toolbar/toolbar-button";
+import {
+  SpamAssassin,
+  useSpamAssassin,
+  type SpamCheckingResult,
+} from "./toolbar/spam-assassin";
+import { isBuilding } from "../app/env";
 
-type ActivePanelValue = 'linter' | 'spam-assassin';
+export type ToolbarTabValue = "linter" | "spam-assassin";
 
-interface ToolbarButton extends React.ComponentProps<'button'> {
-  children: React.ReactNode;
-  active?: boolean;
-  tooltip?: React.ReactNode;
+interface ToolbarProps {
+  serverSpamCheckingResult: SpamCheckingResult | undefined;
+  serverLintingRows: LintingRow[] | undefined;
 }
 
-const ToolbarButton = ({
-  children,
-  className,
-  active,
-  tooltip,
-  ...props
-}: ToolbarButton) => {
-  return (
-    <Tooltip.Provider>
-      <Tooltip>
-        <Tooltip.Trigger asChild>
-          <button
-            type="button"
-            {...props}
-            className={cn(
-              'h-full w-fit font-medium flex text-sm text-slate-10 items-center align-middle justify-center px-1 py-2 gap-1 relative',
-              'hover:text-slate-12 transition-colors',
-              active && 'data-[state=active]:text-cyan-11',
-              className,
-            )}
-          >
-            {children}
-            {active ? (
-              <motion.span
-                className="-bottom-px absolute rounded-sm left-0 w-full bg-cyan-11 h-px"
-                layoutId="active-toolbar-button"
-                transition={{
-                  type: 'spring',
-                  bounce: 0.2,
-                  duration: 0.6,
-                }}
-              />
-            ) : null}
-          </button>
-        </Tooltip.Trigger>
-        {tooltip ? <Tooltip.Content>{tooltip}</Tooltip.Content> : null}
-      </Tooltip>
-    </Tooltip.Provider>
-  );
-};
-
-export const Toolbar = () => {
+export const Toolbar = ({
+  serverLintingRows,
+  serverSpamCheckingResult,
+}: ToolbarProps) => {
   const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
 
   if (!renderedEmailMetadata) return null;
@@ -72,19 +38,18 @@ export const Toolbar = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const activePanelValue = (searchParams.get('toolbar-panel') ?? undefined) as
-    | ActivePanelValue
+  const activeTab = (searchParams.get("toolbar-panel") ?? undefined) as
+    | ToolbarTabValue
     | undefined;
 
-  const toggled = activePanelValue !== undefined;
+  const toggled = activeTab !== undefined;
 
-  const setActivePanelValue = (newValue: ActivePanelValue | undefined) => {
-    console.log(newValue);
+  const setActivePanelValue = (newValue: ToolbarTabValue | undefined) => {
     const params = new URLSearchParams(searchParams);
     if (newValue === undefined) {
-      params.delete('toolbar-panel');
+      params.delete("toolbar-panel");
     } else {
-      params.set('toolbar-panel', newValue);
+      params.set("toolbar-panel", newValue);
     }
     router.push(`${pathname}?${params.toString()}`);
   };
@@ -93,6 +58,8 @@ export const Toolbar = () => {
     slug: emailSlug,
     markup,
     plainText,
+
+    initialResult: serverSpamCheckingResult,
   });
 
   const [lintingResults, { load: loadLinting }] = useLinter({
@@ -100,25 +67,29 @@ export const Toolbar = () => {
     reactMarkup,
     emailPath,
     markup,
+
+    initialRows: serverLintingRows,
   });
 
-  useEffect(() => {
-    loadLinting();
-    loadSpamChecking();
-  }, []);
+  if (!isBuilding) {
+    useEffect(() => {
+      loadLinting();
+      loadSpamChecking();
+    }, []);
+  }
 
   return (
     <div
       data-toggled={toggled}
       className={cn(
-        'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
-        'data-[toggled=false]:h-8',
+        "bg-black group/toolbar text-xs text-slate-11 h-48 transition-all",
+        "data-[toggled=false]:h-8",
       )}
     >
       <Tabs.Root
-        value={activePanelValue}
+        value={activeTab}
         onValueChange={(newValue) => {
-          setActivePanelValue(newValue as ActivePanelValue);
+          setActivePanelValue(newValue as ToolbarTabValue);
         }}
         asChild
       >
@@ -126,39 +97,41 @@ export const Toolbar = () => {
           <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-7 w-full">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activePanelValue === 'spam-assassin'}>
+                <ToolbarButton active={activeTab === "spam-assassin"}>
                   <IconScissors />
                   Spam Assassin
                 </ToolbarButton>
               </Tabs.Trigger>
               <Tabs.Trigger asChild value="linter">
-                <ToolbarButton active={activePanelValue === 'linter'}>
+                <ToolbarButton active={activeTab === "linter"}>
                   <IconScanner />
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-1 ml-auto">
-              <ToolbarButton
-                tooltip="Reload"
-                onClick={() => {
-                  if (activePanelValue === 'spam-assassin') {
-                    void loadSpamChecking();
-                  } else if (activePanelValue === 'linter') {
-                    void loadLinting();
-                  } else {
-                    setActivePanelValue('linter');
-                    void loadLinting();
-                  }
-                }}
-              >
-                <IconReload />
-              </ToolbarButton>
+              {isBuilding ? null : (
+                <ToolbarButton
+                  tooltip="Reload"
+                  onClick={async () => {
+                    if (activeTab === undefined) {
+                      setActivePanelValue("linter");
+                    }
+                    if (activeTab === "spam-assassin") {
+                      await loadSpamChecking();
+                    } else {
+                      await loadLinting();
+                    }
+                  }}
+                >
+                  <IconReload />
+                </ToolbarButton>
+              )}
               <ToolbarButton
                 tooltip="Toggle toolbar"
                 onClick={() => {
-                  if (activePanelValue === undefined) {
-                    setActivePanelValue('linter');
+                  if (activeTab === undefined) {
+                    setActivePanelValue("linter");
                   } else {
                     setActivePanelValue(undefined);
                   }
