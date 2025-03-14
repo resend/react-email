@@ -3,6 +3,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { use, useEffect } from 'react';
+import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';
@@ -11,7 +12,6 @@ import { IconScissors } from './icons/icon-scissors';
 import { Linter, useLinter } from './toolbar/linter';
 import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
 import { Tooltip } from './tooltip';
-import { PreviewContext } from '../contexts/preview';
 
 type ActivePanelValue = 'linter' | 'spam-assassin';
 

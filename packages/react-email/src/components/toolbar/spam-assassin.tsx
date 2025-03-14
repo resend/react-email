@@ -3,7 +3,6 @@ import { toast } from 'sonner';
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
-import { flushSync } from 'react-dom';
 
 interface SpamAssassinProps {
   result: SpamCheckingResult | undefined;

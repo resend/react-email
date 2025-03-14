@@ -11,10 +11,7 @@ interface TopbarProps {
   children: React.ReactNode;
 }
 
-export const Topbar = ({
-  emailTitle,
-  children,
-}: TopbarProps) => {
+export const Topbar = ({ emailTitle, children }: TopbarProps) => {
   const { toggleSidebar } = use(ShellContext)!;
 
   return (

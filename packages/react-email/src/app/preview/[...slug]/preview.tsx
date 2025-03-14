@@ -16,17 +16,16 @@ import { ShellContent } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
+import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { RenderingError } from './rendering-error';
-import { PreviewContext } from '../../../contexts/preview';
 
 interface PreviewProps {
   emailTitle: string;
 }
 
 const Preview = ({ emailTitle }: PreviewProps) => {
-  const { renderingResult, renderedEmailMetadata } =
-    use(PreviewContext)!;
+  const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
 
   const router = useRouter();
   const pathname = usePathname();

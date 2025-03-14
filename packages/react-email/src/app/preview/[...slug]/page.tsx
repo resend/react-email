@@ -3,13 +3,13 @@ import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
-import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
-import Home from '../../page';
-import Preview from './preview';
-import { PreviewProvider } from '../../../contexts/preview';
 import { Shell } from '../../../components/shell';
 import { Toolbar } from '../../../components/toolbar';
+import { PreviewProvider } from '../../../contexts/preview';
+import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
+import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
+import Home from '../../page';
+import Preview from './preview';
 
 export const dynamicParams = true;
 

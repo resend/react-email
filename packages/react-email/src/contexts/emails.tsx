@@ -1,9 +1,9 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
 import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
+import { isBuilding } from '../app/env';
 import { useHotreload } from '../hooks/use-hot-reload';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
-import { isBuilding } from '../app/env';
 
 const EmailsContext = createContext<
   | {

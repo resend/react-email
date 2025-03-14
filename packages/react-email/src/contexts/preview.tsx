@@ -1,6 +1,6 @@
 'use client';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { createContext, useContext, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createContext } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
@@ -12,12 +12,12 @@ import { useRenderingMetadata } from '../hooks/use-rendering-metadata';
 
 export const PreviewContext = createContext<
   | {
-    renderedEmailMetadata: RenderedEmailMetadata | undefined;
-    renderingResult: EmailRenderingResult;
+      renderedEmailMetadata: RenderedEmailMetadata | undefined;
+      renderingResult: EmailRenderingResult;
 
-    emailSlug: string;
-    emailPath: string;
-  }
+      emailSlug: string;
+      emailPath: string;
+    }
   | undefined
 >(undefined);
 
