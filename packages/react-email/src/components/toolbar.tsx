@@ -1,7 +1,8 @@
+'use client';
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';
@@ -10,14 +11,7 @@ import { IconScissors } from './icons/icon-scissors';
 import { Linter, useLinter } from './toolbar/linter';
 import { SpamAssassin, useSpamAssassin } from './toolbar/spam-assassin';
 import { Tooltip } from './tooltip';
-
-type ToolbarProps = React.ComponentProps<'div'> & {
-  emailSlug: string;
-  emailPath: string;
-  reactMarkup: string;
-  markup: string;
-  plainText: string;
-};
+import { PreviewContext } from '../contexts/preview';
 
 type ActivePanelValue = 'linter' | 'spam-assassin';
 
@@ -68,15 +62,12 @@ const ToolbarButton = ({
   );
 };
 
-export const Toolbar = ({
-  emailSlug,
-  emailPath,
-  reactMarkup,
-  markup,
-  plainText,
-  className,
-  ...rest
-}: ToolbarProps) => {
+export const Toolbar = () => {
+  const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
+
+  if (!renderedEmailMetadata) return null;
+  const { markup, plainText, reactMarkup } = renderedEmailMetadata;
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -118,12 +109,10 @@ export const Toolbar = ({
 
   return (
     <div
-      {...rest}
       data-toggled={toggled}
       className={cn(
         'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
         'data-[toggled=false]:h-8',
-        className,
       )}
     >
       <Tabs.Root

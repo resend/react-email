@@ -8,6 +8,7 @@ import {
 import {
   type ImageCheckingResult,
   checkImages,
+  ImageCheck,
 } from '../../actions/email-validation/check-images';
 import {
   type LinkCheckingResult,
@@ -16,6 +17,7 @@ import {
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { isBuilding } from '../../app/env';
 
 type LintingRow =
   | {
@@ -152,6 +154,11 @@ export const useLinter = ({
 
                     return 0;
                   });
+
+                  global.localStorage.setItem(
+                    cacheKey,
+                    JSON.stringify(newArray),
+                  );
 
                   return newArray;
                 });

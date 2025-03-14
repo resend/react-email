@@ -3,10 +3,13 @@ import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import Home from '../../page';
 import Preview from './preview';
+import { PreviewProvider } from '../../../contexts/preview';
+import { Shell } from '../../../components/shell';
+import { Toolbar } from '../../../components/toolbar';
 
 export const dynamicParams = true;
 
@@ -18,8 +21,10 @@ export interface PreviewParams {
 
 const Page = async ({
   params: paramsPromise,
+  searchParams: searchParamsPromise,
 }: {
   params: Promise<PreviewParams>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) => {
   const params = await paramsPromise;
   // will come in here as segments of a relative path to the email
@@ -50,27 +55,31 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-  if (
-    process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
-    'error' in serverEmailRenderingResult
-  ) {
+  if (isBuilding && 'error' in serverEmailRenderingResult) {
     throw new Error(serverEmailRenderingResult.error.message, {
       cause: serverEmailRenderingResult.error,
     });
   }
 
+  const searchParams = await searchParamsPromise;
+
   return (
-    // This suspense is so that this page doesn't throw warnings
-    // on the build of the preview server de-opting into
-    // client-side rendering on build
-    <Suspense fallback={<Home />}>
-      <Preview
-        emailPath={emailPath}
-        pathSeparator={path.sep}
-        serverRenderingResult={serverEmailRenderingResult}
-        slug={slug}
-      />
-    </Suspense>
+    <PreviewProvider
+      emailSlug={slug}
+      emailPath={emailPath}
+      serverRenderingResult={serverEmailRenderingResult}
+    >
+      <Shell currentEmailOpenSlug={slug}>
+        {/* This suspense is so that this page doesn't throw warnings */}
+        {/* on the build of the preview server de-opting into         */}
+        {/* client-side rendering on build                            */}
+        <Suspense fallback={<Home />}>
+          <Preview emailTitle={path.basename(emailPath)} />
+
+          <Toolbar />
+        </Suspense>
+      </Shell>
+    </PreviewProvider>
   );
 };
 

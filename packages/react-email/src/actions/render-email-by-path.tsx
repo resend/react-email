@@ -8,6 +8,7 @@ import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { isBuilding } from '../app/env';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -35,7 +36,7 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+  if (isBuilding) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { EmailsProvider } from '../contexts/emails';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
+import { emailsDirectoryAbsolutePath } from './env';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
 import { inter, sfMono } from './fonts';
 
