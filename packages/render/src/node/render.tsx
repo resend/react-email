@@ -41,11 +41,35 @@ export const render = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+    let document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
 
-  if (options?.pretty) {
-    return pretty(document);
-  }
-
-  return document;
-};
+    //Search returns -1 when substring is not found. Adjusting it to 0 gives us a false value. 
+    var search1 = html.search("&quot;") + 1;
+    var search2 = html.search("&#x27;") + 1;
+    var search3 = html.search("&amp;") + 1;
+    console.log(search1,search2,search3);
+    
+    //Checks to see if there are incorrect escape characters within the html string and uses regex to change them correct formatting to prevent errors. 
+    if(search1|| search2){
+      console.log('Quote or Single quote detected');
+  
+      const styleRegex = /style="([^"]*(&quot;|&#x27;)[^"]*)"/g;
+      document = document.replace(styleRegex, (match, p1) => {
+      return `style="${p1.replace(/&quot;|&#x27;/g, "'")}"`;
+  
+    });
+    }
+    else if(search3){
+      console.log('Ampbersand Detected.');
+      document = document.replace(/href="([^"]*&amp;[^"]*)"/g, (match, p1) => {
+      return `href="${p1.replace(/&amp;/g, "&")}"`;
+      });
+    }
+  
+  
+    if (options?.pretty) {
+      return pretty(document);
+    }
+  
+    return document;
+  };
