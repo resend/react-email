@@ -16,14 +16,14 @@ export const doesPropertyHaveLocation = (
   return prop.location !== undefined && prop.location !== null;
 };
 
-export const getUsedStyleProperties = (
+export const getUsedStyleProperties = async (
   ast: AST,
   sourceCode: string,
   sourcePath: string,
   objectVariables: ObjectVariables,
 ) => {
   const styleProperties: StylePropertyUsage[] = [];
-  const tailwindMetadata = getTailwindMetadata(ast, sourceCode, sourcePath);
+  const tailwindMetadata = await getTailwindMetadata(ast, sourceCode, sourcePath);
 
   if (tailwindMetadata.hasTailwind) {
     traverse(ast, {

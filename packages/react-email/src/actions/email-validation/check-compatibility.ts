@@ -140,7 +140,7 @@ export const checkCompatibility = async (
   };
 
   const objectVariables = getObjectVariables(ast);
-  const usedStyleProperties = getUsedStyleProperties(
+  const usedStyleProperties = await getUsedStyleProperties(
     ast,
     reactCode,
     emailPath,

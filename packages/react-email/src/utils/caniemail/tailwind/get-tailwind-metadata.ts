@@ -4,19 +4,19 @@ import type { AST } from '../../../actions/email-validation/check-compatibility'
 import { type TailwindConfig, getTailwindConfig } from './get-tailwind-config';
 import { setupTailwindContext } from './setup-tailwind-context';
 
-export const getTailwindMetadata = (
+export const getTailwindMetadata = async (
   ast: AST,
   sourceCode: string,
   sourcePath: string,
 ):
-  | {
+  Promise<| {
       hasTailwind: false;
     }
   | {
       hasTailwind: true;
       config: TailwindConfig;
       context: JitContext;
-    } => {
+    }> => {
   let hasTailwind = false as boolean;
   traverse(ast, {
     JSXOpeningElement(path) {
@@ -33,7 +33,7 @@ export const getTailwindMetadata = (
     return { hasTailwind: false };
   }
 
-  const config = getTailwindConfig(sourceCode, ast, sourcePath);
+  const config = await getTailwindConfig(sourceCode, ast, sourcePath);
   const context = setupTailwindContext(config);
 
   return {
