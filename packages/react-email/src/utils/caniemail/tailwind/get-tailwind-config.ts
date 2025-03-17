@@ -71,7 +71,8 @@ export const getTailwindConfig = (
       );
 
       try {
-        return parseJavascriptObject<TailwindConfig>(configObjectSourceCode);
+        const getConfig = new Function(`return ${configObjectSourceCode}`);
+        return getConfig() as TailwindConfig;
       } catch (exception) {
         console.warn(exception);
         console.warn(
