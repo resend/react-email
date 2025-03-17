@@ -1,5 +1,11 @@
 # react-email-with-resend
 
+## 1.0.9
+
+### Patch Changes
+
+- @react-email/components@0.0.34
+
 ## 1.0.8
 
 ### Patch Changes
