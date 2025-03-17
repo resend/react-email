@@ -1,5 +1,11 @@
 # @react-email/text
 
+## 0.1.0
+
+### Minor Changes
+
+- bfe1936: Change shorthand margin property to support tailwind overwrite
+
 ## 0.0.11
 
 ### Patch Changes
