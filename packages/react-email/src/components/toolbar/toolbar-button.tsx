@@ -1,4 +1,4 @@
-import motion from 'framer-motion/client';
+import { motion } from 'framer-motion';
 import { Tooltip } from '../tooltip';
 import { cn } from '../../utils';
 
