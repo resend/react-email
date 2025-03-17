@@ -1,117 +1,30 @@
-import prettyBytes from "pretty-bytes";
-import { useEffect, useRef, useState } from "react";
-import { nicenames } from "../../actions/email-validation/caniemail-data";
-import {
-  type CompatibilityCheckingResult,
-  checkCompatibility,
-} from "../../actions/email-validation/check-compatibility";
-import {
-  type ImageCheckingResult,
-  checkImages,
-} from "../../actions/email-validation/check-images";
-import {
-  type LinkCheckingResult,
-  checkLinks,
-} from "../../actions/email-validation/check-links";
-import { cn } from "../../utils";
-import { IconWarning } from "../icons/icon-warning";
-import { Results } from "./results";
+import prettyBytes from 'pretty-bytes';
+import { useEffect, useRef, useState } from 'react';
+import { nicenames } from '../../actions/email-validation/caniemail-data';
+import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
+import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
+import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
+import { cn } from '../../utils';
+import { IconWarning } from '../icons/icon-warning';
+import { Results } from './results';
+import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 
 export type LintingRow =
   | {
-      source: "image";
-      result: ImageCheckingResult;
-    }
+    source: 'image';
+    result: ImageCheckingResult;
+  }
   | {
-      source: "link";
-      result: LinkCheckingResult;
-    }
+    source: 'link';
+    result: LinkCheckingResult;
+  }
   | {
-      source: "compatibility";
-      result: CompatibilityCheckingResult;
-    };
+    source: 'compatibility';
+    result: CompatibilityCheckingResult;
+  };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
-}
-
-export interface LintingSource<T> {
-  getStream(): Promise<ReadableStream<T>>;
-  mapValue(value: NoInfer<T>): LintingRow | undefined;
-}
-
-export function getLintingSources(
-  markup: string,
-  reactMarkup: string,
-  emailPath: string,
-): LintingSource<unknown>[] {
-  return [
-    createSource({
-      getStream() {
-        return checkImages(markup, `${location.protocol}//${location.host}`);
-      },
-      mapValue(result) {
-        if (result && result.status !== "success") {
-          return {
-            result: result,
-            source: "image",
-          };
-        }
-      },
-    }),
-    createSource({
-      getStream() {
-        return checkLinks(markup);
-      },
-      mapValue(result) {
-        if (result && result.status !== "success") {
-          return {
-            result: result,
-            source: "link",
-          };
-        }
-      },
-    }),
-    createSource({
-      getStream() {
-        return checkCompatibility(reactMarkup, emailPath);
-      },
-      mapValue(value) {
-        if (value && value.status !== "success") {
-          return {
-            result: value,
-            source: "compatibility",
-          };
-        }
-      },
-    }),
-  ];
-}
-
-export function createSource<T>(source: LintingSource<T>): LintingSource<T> {
-  return source;
-}
-
-export async function* loadLintingRowsFrom(sources: LintingSource<unknown>[]) {
-  for await (const source of sources) {
-    const stream = await source.getStream();
-    const reader = stream.getReader();
-    try {
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) {
-          break;
-        }
-
-        const row = source.mapValue(value);
-        if (row) {
-          yield row;
-        }
-      }
-    } finally {
-      reader.releaseLock();
-    }
-  }
 }
 
 export const useLinter = ({
@@ -129,20 +42,27 @@ export const useLinter = ({
 
   initialRows?: LintingRow[];
 }) => {
-  const cacheKey = `linter-${slug.replaceAll("/", "-")}`;
+  const cacheKey = `linter-${slug.replaceAll('/', '-')}`;
   const [rows, setRows] = useState<LintingRow[] | undefined>(initialRows);
 
   useEffect(() => {
     if (initialRows === undefined) {
       const cachedValue =
-        "localStorage" in global ? global.localStorage.getItem(cacheKey) : null;
+        'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
       if (cachedValue) {
         setRows(JSON.parse(cachedValue));
       }
     }
   }, [cacheKey]);
 
-  const sources = getLintingSources(markup, reactMarkup, emailPath);
+  const sources = getLintingSources(
+    markup,
+    reactMarkup,
+    emailPath,
+    'location' in global
+      ? `${global.location.protocol}//${global.location.host}`
+      : '',
+  );
 
   const [loading, setLoading] = useState(false);
   const isStreaming = useRef(false);
@@ -162,11 +82,11 @@ export const useLinter = ({
 
           const newArray = [...current, row];
           newArray.sort((a, b) => {
-            if (a.result.status === "error" && b.result.status === "warning") {
+            if (a.result.status === 'error' && b.result.status === 'warning') {
               return -1;
             }
 
-            if (a.result.status === "warning" && b.result.status === "error") {
+            if (a.result.status === 'warning' && b.result.status === 'error') {
               return 1;
             }
 
@@ -193,7 +113,7 @@ export const Linter = ({ rows }: LinterProps) => {
   return (
     <Results>
       {rows.map((row, i) => {
-        if (row.source === "link") {
+        if (row.source === 'link') {
           const failingCheck = row.result.checks.find(
             (check) => check.passed === false,
           )!;
@@ -201,22 +121,22 @@ export const Linter = ({ rows }: LinterProps) => {
             <Result status={row.result.status} key={i}>
               <Result.Name>{failingCheck.type}</Result.Name>
               <Result.Description>
-                {failingCheck.type === "security"
-                  ? "Insecure URL, use HTTPS insted of HTTP"
+                {failingCheck.type === 'security'
+                  ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
-                {failingCheck.type === "fetch_attempt" &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
-                  ? "There was a redirect, the content may have been moved"
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
+                  ? 'There was a redirect, the content may have been moved'
                   : null}
-                {failingCheck.type === "fetch_attempt" &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
-                  ? "The link is broken"
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
+                  ? 'The link is broken'
                   : null}
-                {failingCheck.type === "syntax"
-                  ? "The link is broken due to invalid syntax"
+                {failingCheck.type === 'syntax'
+                  ? 'The link is broken due to invalid syntax'
                   : null}
 
                 <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
@@ -224,28 +144,28 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
-                {failingCheck.type === "fetch_attempt"
+                {failingCheck.type === 'fetch_attempt'
                   ? failingCheck.metadata.fetchStatusCode
-                  : ""}
+                  : ''}
               </Result.Metadata>
             </Result>
           );
         }
 
-        if (row.source === "compatibility") {
+        if (row.source === 'compatibility') {
           const statsReportedNotWorking = Object.entries(
             row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === "error");
+          ).filter(([, stats]) => stats.status === 'error');
           const statsReportedPartiallyWorking = Object.entries(
             row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === "warning");
+          ).filter(([, stats]) => stats.status === 'warning');
 
           const unsupportedClientsString = statsReportedNotWorking
             .map(([emailClient]) => nicenames.family[emailClient])
-            .join(", ");
+            .join(', ');
           const partiallySupportedClientsString = statsReportedPartiallyWorking
             .map(([emailClient]) => nicenames.family[emailClient])
-            .join(", ");
+            .join(', ');
 
           return (
             <Result status={row.result.status} key={i}>
@@ -255,16 +175,16 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? `Not supported in ${unsupportedClientsString}`
                   : null}
                 {statsReportedPartiallyWorking.length > 0 &&
-                statsReportedNotWorking.length > 0
-                  ? ". "
+                  statsReportedNotWorking.length > 0
+                  ? '. '
                   : null}
                 {statsReportedPartiallyWorking.length > 0
                   ? `Partially supported in ${partiallySupportedClientsString}`
                   : null}
               </Result.Description>
               <Result.Metadata>
-                {row.result.location.start.line.toString().padStart(2, "0")}:
-                {row.result.location.start.column.toString().padStart(2, "0")}
+                {row.result.location.start.line.toString().padStart(2, '0')}:
+                {row.result.location.start.column.toString().padStart(2, '0')}
                 <a
                   href={row.result.entry.url}
                   className="underline ml-2"
@@ -278,7 +198,7 @@ export const Linter = ({ rows }: LinterProps) => {
           );
         }
 
-        if (row.source === "image") {
+        if (row.source === 'image') {
           const failingCheck = row.result.checks.find(
             (check) => check.passed === false,
           )!;
@@ -286,31 +206,31 @@ export const Linter = ({ rows }: LinterProps) => {
             <Result status={row.result.status} key={i}>
               <Result.Name>{failingCheck.type}</Result.Name>
               <Result.Description>
-                {failingCheck.type === "security"
-                  ? "Insecure URL, use HTTPS insted of HTTP"
+                {failingCheck.type === 'security'
+                  ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
-                {failingCheck.type === "fetch_attempt" &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
-                  ? "There was a redirect, the image may have been moved"
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
+                  ? 'There was a redirect, the image may have been moved'
                   : null}
-                {failingCheck.type === "fetch_attempt" &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
-                  ? "The image is broken"
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
+                  ? 'The image is broken'
                   : null}
-                {failingCheck.type === "syntax"
-                  ? "The image is broken due to an invalid source"
-                  : null}
-
-                {failingCheck.type === "accessibility"
-                  ? "Missing alt text"
+                {failingCheck.type === 'syntax'
+                  ? 'The image is broken due to an invalid source'
                   : null}
 
-                {failingCheck.type === "image_size" &&
-                failingCheck.metadata.byteCount
-                  ? "This image is too large, keep it under 1mb"
+                {failingCheck.type === 'accessibility'
+                  ? 'Missing alt text'
+                  : null}
+
+                {failingCheck.type === 'image_size' &&
+                  failingCheck.metadata.byteCount
+                  ? 'This image is too large, keep it under 1mb'
                   : null}
 
                 <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
@@ -321,14 +241,14 @@ export const Linter = ({ rows }: LinterProps) => {
                 {row.result.checks
                   .map((check) => {
                     if (
-                      check.type === "fetch_attempt" &&
+                      check.type === 'fetch_attempt' &&
                       check.metadata.fetchStatusCode
                     ) {
                       return check.metadata.fetchStatusCode;
                     }
 
                     if (
-                      check.type === "image_size" &&
+                      check.type === 'image_size' &&
                       check.metadata.byteCount
                     ) {
                       return prettyBytes(check.metadata.byteCount);
@@ -337,7 +257,7 @@ export const Linter = ({ rows }: LinterProps) => {
                     return undefined;
                   })
                   .filter(Boolean)
-                  .join("—")}
+                  .join('—')}
               </Result.Metadata>
             </Result>
           );
@@ -350,7 +270,7 @@ export const Linter = ({ rows }: LinterProps) => {
 };
 
 interface ResultProps extends React.ComponentProps<typeof Results.Row> {
-  status: "error" | "warning" | "success";
+  status: 'error' | 'warning' | 'success';
 }
 
 const Result = ({ children, className, status, ...props }: ResultProps) => {
@@ -358,7 +278,7 @@ const Result = ({ children, className, status, ...props }: ResultProps) => {
     <Results.Row
       data-status={status}
       {...props}
-      className={cn("group/result", className)}
+      className={cn('group/result', className)}
     >
       {children}
     </Results.Row>
@@ -396,7 +316,7 @@ Result.Metadata = ({
     <Results.Column
       align="right"
       {...props}
-      className={cn("font-mono text-slate-11", className)}
+      className={cn('font-mono text-slate-11', className)}
     >
       {children}
     </Results.Column>
