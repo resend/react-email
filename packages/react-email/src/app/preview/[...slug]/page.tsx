@@ -108,9 +108,9 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
       spamCheckingResult = responseBody;
     } else {
-      throw new Error('Something went wrong during Spam Checking', {
-        cause: await response.text(),
-      });
+      throw new Error(
+        `Something went wrong during Spam Checking ${await response.text()}`,
+      );
     }
   }
 
