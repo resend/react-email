@@ -1,44 +1,47 @@
-"use client";
-import * as Tabs from "@radix-ui/react-tabs";
-import { use, useEffect } from "react";
-import { PreviewContext } from "../contexts/preview";
-import { Linter, type LintingRow, useLinter } from "./toolbar/linter";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { LayoutGroup } from "framer-motion";
-import { cn } from "../utils";
-import { IconArrowDown } from "./icons/icon-arrow-down";
-import { IconReload } from "./icons/icon-reload";
-import { IconScanner } from "./icons/icon-scanner";
-import { IconScissors } from "./icons/icon-scissors";
-import { ToolbarButton } from "./toolbar/toolbar-button";
+'use client';
+import * as Tabs from '@radix-ui/react-tabs';
+import { LayoutGroup } from 'framer-motion';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { use, useEffect } from 'react';
+import { isBuilding } from '../app/env';
+import { PreviewContext } from '../contexts/preview';
+import { cn } from '../utils';
+import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconReload } from './icons/icon-reload';
+import { IconScanner } from './icons/icon-scanner';
+import { IconScissors } from './icons/icon-scissors';
+import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import {
   SpamAssassin,
-  useSpamAssassin,
   type SpamCheckingResult,
-} from "./toolbar/spam-assassin";
-import { isBuilding } from "../app/env";
+  useSpamAssassin,
+} from './toolbar/spam-assassin';
+import { ToolbarButton } from './toolbar/toolbar-button';
+import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = "linter" | "spam-assassin";
+export type ToolbarTabValue = 'linter' | 'spam-assassin';
 
-interface ToolbarProps {
-  serverSpamCheckingResult: SpamCheckingResult | undefined;
-  serverLintingRows: LintingRow[] | undefined;
-}
-
-export const Toolbar = ({
+const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
-}: ToolbarProps) => {
-  const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
 
-  if (!renderedEmailMetadata) return null;
-  const { markup, plainText, reactMarkup } = renderedEmailMetadata;
-
+  markup,
+  reactMarkup,
+  plainText,
+  emailPath,
+  emailSlug,
+}: ToolbarProps & {
+  markup: string;
+  reactMarkup: string;
+  plainText: string;
+  emailSlug: string;
+  emailPath: string;
+}) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const activeTab = (searchParams.get("toolbar-panel") ?? undefined) as
+  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
     | ToolbarTabValue
     | undefined;
 
@@ -47,34 +50,46 @@ export const Toolbar = ({
   const setActivePanelValue = (newValue: ToolbarTabValue | undefined) => {
     const params = new URLSearchParams(searchParams);
     if (newValue === undefined) {
-      params.delete("toolbar-panel");
+      params.delete('toolbar-panel');
     } else {
-      params.set("toolbar-panel", newValue);
+      params.set('toolbar-panel', newValue);
     }
     router.push(`${pathname}?${params.toString()}`);
   };
 
+  const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
+    useCachedState<SpamCheckingResult>(
+      `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
+    );
   const [spamCheckingResult, { load: loadSpamChecking }] = useSpamAssassin({
     slug: emailSlug,
     markup,
     plainText,
 
-    initialResult: serverSpamCheckingResult,
+    initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
   });
 
-  const [lintingResults, { load: loadLinting }] = useLinter({
+  const [cachedLintingRows, setCachedLintingRows] = useCachedState<
+    LintingRow[]
+  >(`linter-${emailSlug.replaceAll('/', '-')}`);
+  const [lintingRows, { load: loadLinting }] = useLinter({
     slug: emailSlug,
     reactMarkup,
     emailPath,
     markup,
 
-    initialRows: serverLintingRows,
+    initialRows: serverLintingRows ?? cachedLintingRows,
   });
 
   if (!isBuilding) {
     useEffect(() => {
-      loadLinting();
-      loadSpamChecking();
+      (async () => {
+        const lintingRows = await loadLinting();
+        setCachedLintingRows(lintingRows);
+
+        const spamCheckingResult = await loadSpamChecking();
+        setCachedSpamCheckingResult(spamCheckingResult);
+      })();
     }, []);
   }
 
@@ -82,8 +97,8 @@ export const Toolbar = ({
     <div
       data-toggled={toggled}
       className={cn(
-        "bg-black group/toolbar text-xs text-slate-11 h-48 transition-all",
-        "data-[toggled=false]:h-8",
+        'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
+        'data-[toggled=false]:h-8',
       )}
     >
       <Tabs.Root
@@ -97,13 +112,13 @@ export const Toolbar = ({
           <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-7 w-full">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activeTab === "spam-assassin"}>
+                <ToolbarButton active={activeTab === 'spam-assassin'}>
                   <IconScissors />
                   Spam Assassin
                 </ToolbarButton>
               </Tabs.Trigger>
               <Tabs.Trigger asChild value="linter">
-                <ToolbarButton active={activeTab === "linter"}>
+                <ToolbarButton active={activeTab === 'linter'}>
                   <IconScanner />
                   Linter
                 </ToolbarButton>
@@ -115,9 +130,9 @@ export const Toolbar = ({
                   tooltip="Reload"
                   onClick={async () => {
                     if (activeTab === undefined) {
-                      setActivePanelValue("linter");
+                      setActivePanelValue('linter');
                     }
-                    if (activeTab === "spam-assassin") {
+                    if (activeTab === 'spam-assassin') {
                       await loadSpamChecking();
                     } else {
                       await loadLinting();
@@ -131,7 +146,7 @@ export const Toolbar = ({
                 tooltip="Toggle toolbar"
                 onClick={() => {
                   if (activeTab === undefined) {
-                    setActivePanelValue("linter");
+                    setActivePanelValue('linter');
                   } else {
                     setActivePanelValue(undefined);
                   }
@@ -144,7 +159,7 @@ export const Toolbar = ({
 
           <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
             <Tabs.Content value="linter">
-              <Linter rows={lintingResults} />
+              <Linter rows={lintingRows} />
             </Tabs.Content>
             <Tabs.Content value="spam-assassin">
               <SpamAssassin result={spamCheckingResult} />
@@ -153,5 +168,32 @@ export const Toolbar = ({
         </div>
       </Tabs.Root>
     </div>
+  );
+};
+
+interface ToolbarProps {
+  serverSpamCheckingResult: SpamCheckingResult | undefined;
+  serverLintingRows: LintingRow[] | undefined;
+}
+
+export const Toolbar = ({
+  serverLintingRows,
+  serverSpamCheckingResult,
+}: ToolbarProps) => {
+  const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
+
+  if (renderedEmailMetadata === undefined) return null;
+  const { markup, plainText, reactMarkup } = renderedEmailMetadata;
+
+  return (
+    <ToolbarInner
+      emailPath={emailPath}
+      emailSlug={emailSlug}
+      markup={markup}
+      reactMarkup={reactMarkup}
+      plainText={plainText}
+      serverLintingRows={serverLintingRows}
+      serverSpamCheckingResult={serverSpamCheckingResult}
+    />
   );
 };

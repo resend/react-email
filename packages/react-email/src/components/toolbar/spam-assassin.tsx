@@ -43,26 +43,12 @@ export const useSpamAssassin = ({
     initialResult,
   );
 
-  useEffect(() => {
-    if (initialResult === undefined) {
-      const cachedValue =
-        "localStorage" in global ? global.localStorage.getItem(cacheKey) : null;
-      if (cachedValue) {
-        try {
-          setResult(JSON.parse(cachedValue));
-        } catch (exception) {
-          setResult(undefined);
-        }
-      }
-    }
-  }, [cacheKey]);
-
   const [loading, setLoading] = useState(false);
-  const isStreaming = useRef(false);
+  const isLoadingRef = useRef(false);
 
   const load = async () => {
-    if (isStreaming.current) return;
-    isStreaming.current = true;
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
     setLoading(true);
 
     try {
@@ -83,7 +69,7 @@ export const useSpamAssassin = ({
           toast.error(responseBody.error);
         } else {
           setResult(responseBody);
-          localStorage.setItem(cacheKey, JSON.stringify(responseBody));
+          return responseBody;
         }
       } else {
         console.error(await response.text());
@@ -94,7 +80,7 @@ export const useSpamAssassin = ({
       toast.error(JSON.stringify(exception));
     } finally {
       setLoading(false);
-      isStreaming.current = false;
+      isLoadingRef.current = false;
     }
   };
 

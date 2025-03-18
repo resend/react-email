@@ -42,18 +42,7 @@ export const useLinter = ({
 
   initialRows?: LintingRow[];
 }) => {
-  const cacheKey = `linter-${slug.replaceAll('/', '-')}`;
   const [rows, setRows] = useState<LintingRow[] | undefined>(initialRows);
-
-  useEffect(() => {
-    if (initialRows === undefined) {
-      const cachedValue =
-        'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
-      if (cachedValue) {
-        setRows(JSON.parse(cachedValue));
-      }
-    }
-  }, [cacheKey]);
 
   const sources = getLintingSources(
     markup,
@@ -74,12 +63,12 @@ export const useLinter = ({
 
     setRows([]);
     try {
+      let rows: LintingRow[] = [];
       for await (const row of loadLintingRowsFrom(sources)) {
         setRows((current) => {
           if (!current) {
             return [row];
           }
-
           const newArray = [...current, row];
           newArray.sort((a, b) => {
             if (a.result.status === 'error' && b.result.status === 'warning') {
@@ -92,12 +81,11 @@ export const useLinter = ({
 
             return 0;
           });
-
-          global.localStorage.setItem(cacheKey, JSON.stringify(newArray));
-
+          rows = newArray;
           return newArray;
         });
       }
+      return rows;
     } finally {
       setLoading(false);
       isStreaming.current = false;
