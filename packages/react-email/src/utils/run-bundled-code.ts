@@ -1,9 +1,12 @@
-import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 import path from 'node:path';
 import vm from 'node:vm';
-import { type Result, ok, err } from './result';
+import { type Result, err, ok } from './result';
+import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export const runBundledCode = (code: string, filename: string): Result<unknown, unknown> => {
+export const runBundledCode = (
+  code: string,
+  filename: string,
+): Result<unknown, unknown> => {
   const fakeContext = {
     ...global,
     console,
@@ -52,7 +55,7 @@ export const runBundledCode = (code: string, filename: string): Result<unknown, 
   };
 
   try {
-    vm.runInNewContext(code, fakeContext, { filename });;
+    vm.runInNewContext(code, fakeContext, { filename });
   } catch (exception) {
     return err(exception);
   }

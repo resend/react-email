@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Tooltip } from '../tooltip';
 import { cn } from '../../utils';
+import { Tooltip } from '../tooltip';
 
 interface ToolbarButtonProps extends React.ComponentProps<'button'> {
   children: React.ReactNode;

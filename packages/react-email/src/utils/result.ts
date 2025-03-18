@@ -47,4 +47,3 @@ export function err<T, E>(error: NoInfer<E>): Error<T, E> {
     error,
   };
 }
-

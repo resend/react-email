@@ -20,7 +20,7 @@ export const useCachedState = <T>(key: string) => {
 
   return [
     useSyncExternalStore(
-      () => () => { },
+      () => () => {},
       () => value,
       () => undefined,
     ),

@@ -17,7 +17,7 @@ export function getLintingSources(
   reactMarkup: string,
   emailPath: string,
 
-  urlBase: string
+  urlBase: string,
 ): LintingSource<unknown>[] {
   return [
     createSource({

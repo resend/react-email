@@ -8,15 +8,16 @@ export const getTailwindMetadata = async (
   ast: AST,
   sourceCode: string,
   sourcePath: string,
-):
-  Promise<| {
+): Promise<
+  | {
       hasTailwind: false;
     }
   | {
       hasTailwind: true;
       config: TailwindConfig;
       context: JitContext;
-    }> => {
+    }
+> => {
   let hasTailwind = false as boolean;
   traverse(ast, {
     JSXOpeningElement(path) {

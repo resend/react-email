@@ -23,7 +23,11 @@ export const getUsedStyleProperties = async (
   objectVariables: ObjectVariables,
 ) => {
   const styleProperties: StylePropertyUsage[] = [];
-  const tailwindMetadata = await getTailwindMetadata(ast, sourceCode, sourcePath);
+  const tailwindMetadata = await getTailwindMetadata(
+    ast,
+    sourceCode,
+    sourcePath,
+  );
 
   if (tailwindMetadata.hasTailwind) {
     traverse(ast, {
