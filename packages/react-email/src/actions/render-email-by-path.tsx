@@ -36,7 +36,7 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: ora.Ora | undefined;
-  if (isBuilding) {
+  if (!isBuilding) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
