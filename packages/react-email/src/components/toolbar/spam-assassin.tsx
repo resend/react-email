@@ -57,19 +57,14 @@ export const useSpamAssassin = ({
         }),
       });
 
-      if (response.ok) {
-        const responseBody = (await response.json()) as
-          | { error: string }
-          | SpamCheckingResult;
-        if ('error' in responseBody) {
-          toast.error(responseBody.error);
-        } else {
-          setResult(responseBody);
-          return responseBody;
-        }
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        toast.error(responseBody.error);
       } else {
-        console.error(await response.text());
-        toast.error('Something went wrong');
+        setResult(responseBody);
+        return responseBody;
       }
     } catch (exception) {
       console.error(exception);

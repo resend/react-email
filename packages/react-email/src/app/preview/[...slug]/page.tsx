@@ -96,22 +96,16 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         plainText: serverEmailRenderingResult.plainText,
       }),
     });
-    if (response.ok) {
-      const responseBody = (await response.json()) as
-        | { error: string }
-        | SpamCheckingResult;
-      if ('error' in responseBody) {
-        throw new Error('Failed doing Spam Check', {
-          cause: responseBody.error,
-        });
-      }
-
-      spamCheckingResult = responseBody;
-    } else {
-      throw new Error(
-        `Something went wrong during Spam Checking ${await response.text()}`,
-      );
+    const responseBody = (await response.json()) as
+      | { error: string }
+      | SpamCheckingResult;
+    if ('error' in responseBody) {
+      throw new Error(`Failed doing Spam Check. ${responseBody.error}`, {
+        cause: responseBody,
+      });
     }
+
+    spamCheckingResult = responseBody;
   }
 
   return (
