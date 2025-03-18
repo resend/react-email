@@ -30,7 +30,6 @@ interface LinterProps {
 export const useLinter = ({
   markup,
   reactMarkup,
-  slug,
   emailPath,
 
   initialRows,
@@ -38,7 +37,6 @@ export const useLinter = ({
   reactMarkup: string;
   markup: string;
   emailPath: string;
-  slug: string;
 
   initialRows?: LintingRow[];
 }) => {

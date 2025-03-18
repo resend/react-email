@@ -25,20 +25,16 @@ function toSorted<T>(array: T[], sorter: (a: T, b: T) => number): T[] {
 }
 
 export const useSpamAssassin = ({
-  slug,
   markup,
   plainText,
 
   initialResult,
 }: {
-  slug: string;
   markup: string;
   plainText: string;
 
   initialResult?: SpamCheckingResult;
 }) => {
-  const cacheKey = `spam-assassin-${slug.replaceAll('/', '-')}`;
-
   const [result, setResult] = useState<SpamCheckingResult | undefined>(
     initialResult,
   );

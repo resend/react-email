@@ -62,7 +62,6 @@ const ToolbarInner = ({
       `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
     );
   const [spamCheckingResult, { load: loadSpamChecking }] = useSpamAssassin({
-    slug: emailSlug,
     markup,
     plainText,
 
@@ -73,7 +72,6 @@ const ToolbarInner = ({
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
   const [lintingRows, { load: loadLinting }] = useLinter({
-    slug: emailSlug,
     reactMarkup,
     emailPath,
     markup,
