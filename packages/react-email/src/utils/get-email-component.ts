@@ -1,4 +1,6 @@
 import path from 'node:path';
+import fs from 'node:fs/promises';
+import vm from 'node:vm';
 import type { render } from '@react-email/render';
 import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
@@ -17,18 +19,42 @@ const EmailComponentModule = z.object({
   reactEmailCreateReactElement: z.function(),
 });
 
+export const addSourceHintsToJSX = (code: string, path: string) => {
+  let linesToProcess = code.split(/\n|\r|\r\n/);
+  const totalLineCount = linesToProcess.length;
+  return code.replaceAll(/<([^\/].+?)\/?\s*>/gm, (match, tagStartContents) => {
+    const matchLines = match.split(/\n|\r|\r\n/);
+    const startLineIndex = linesToProcess.findIndex((line) =>
+      line.includes(matchLines[0]!),
+    );
+    const endLineIndex =
+      matchLines.length === 1
+        ? startLineIndex
+        : linesToProcess.findIndex((line) =>
+          line.includes(matchLines[matchLines.length - 1]!),
+        );
+
+    const startColumnIndex = linesToProcess[startLineIndex]!.indexOf(matchLines[0]!);
+    const startLine =
+      startLineIndex + 1 + totalLineCount - linesToProcess.length;
+
+    linesToProcess = linesToProcess.slice(endLineIndex + 1);
+    return `<${tagStartContents} data-preview-file="${path}" data-preview-line="${startLine}" data-preview-column="${startColumnIndex + 1}">`;
+  });
+};
+
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      render: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -36,7 +62,24 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
+      plugins: [
+        renderingUtilitiesExporter([emailPath]),
+        {
+          name: 'testing',
+          setup(b) {
+            b.onLoad(
+              { filter: /[^/]\.(tsx|jsx|js|cjs|mjs)$/ },
+              async ({ path }) => {
+                // console.log(path);
+                const file = await fs.readFile(path, 'utf8');
+                return {
+                  contents: addSourceHintsToJSX(file, path),
+                };
+              },
+            );
+          },
+        },
+      ],
       platform: 'node',
       write: false,
 

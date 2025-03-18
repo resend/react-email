@@ -1,5 +1,51 @@
 import path from 'node:path';
-import { getEmailComponent } from './get-email-component';
+import { addSourceHintsToJSX, getEmailComponent } from './get-email-component';
+
+describe.only('addSourceHintsToJSX()', () => {
+  it('should work with a single div in a component', () => {
+    expect(
+      addSourceHintsToJSX(
+        `export default function MyEmail() {
+  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div">
+    inside the div, should also stay unchanged
+  </div>;
+}`,
+        '/my/project/email.tsx',
+      ),
+    ).toBe(`export default function MyEmail() {
+  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div"  data-preview-file="/my/project/email.tsx" data-preview-line="2" data-preview-column="10">
+    inside the div, should also stay unchanged
+  </div>;
+}`);
+  });
+
+  it('should work with void elements', () => {
+    expect(
+      addSourceHintsToJSX(
+        `
+
+
+
+
+<div/>
+
+
+
+                     <span/>`,
+        '/my/project/email.tsx',
+      ),
+    ).toBe(`
+
+
+
+
+<div data-preview-file="/my/project/email.tsx" data-preview-line="6" data-preview-column="1"/>
+
+
+
+                     <span data-preview-file="/my/project/email.tsx" data-preview-line="10" data-preview-column="22"/>`);
+  });
+});
 
 describe('getEmailComponent()', () => {
   describe('Node internals support', () => {
