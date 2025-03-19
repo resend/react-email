@@ -78,7 +78,6 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   {line.map((token, key) => {
                     const tokenProps = getTokenProps({
                       token,
-                      key,
                     });
                     const isException =
                       token.content === 'from' &&

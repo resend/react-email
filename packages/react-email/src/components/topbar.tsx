@@ -7,17 +7,11 @@ import { ShellContext } from './shell';
 import { Tooltip } from './tooltip';
 
 interface TopbarProps {
-  currentEmailOpenSlug: string;
-  pathSeparator: string;
-
+  emailTitle: string;
   children: React.ReactNode;
 }
 
-export const Topbar = ({
-  currentEmailOpenSlug,
-  pathSeparator,
-  children,
-}: TopbarProps) => {
+export const Topbar = ({ emailTitle, children }: TopbarProps) => {
   const { toggleSidebar } = use(ShellContext)!;
 
   return (
@@ -40,7 +34,7 @@ export const Topbar = ({
           </Tooltip>
           <div className="hidden items-center overflow-hidden text-center lg:flex">
             <Heading as="h2" className="truncate" size="2" weight="medium">
-              {currentEmailOpenSlug.split(pathSeparator).pop()}
+              {emailTitle}
             </Heading>
           </div>
         </div>

@@ -1,11 +1,10 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
 import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
 import {
@@ -13,64 +12,27 @@ import {
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
 import { Send } from '../../../components/send';
-import { Shell, ShellContent } from '../../../components/shell';
-import { Toolbar } from '../../../components/toolbar';
+import { ShellContent } from '../../../components/shell';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
+import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
-import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
-import { useHotreload } from '../../../hooks/use-hot-reload';
-import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
 import { RenderingError } from './rendering-error';
 
 interface PreviewProps {
-  slug: string;
-  emailPath: string;
-  pathSeparator: string;
-  serverRenderingResult: EmailRenderingResult;
+  emailTitle: string;
 }
 
-const Preview = ({
-  slug,
-  emailPath,
-  pathSeparator,
-  serverRenderingResult,
-}: PreviewProps) => {
+const Preview = ({ emailTitle }: PreviewProps) => {
+  const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
-
-  const renderingResult = useEmailRenderingResult(
-    emailPath,
-    serverRenderingResult,
-  );
-
-  const renderedEmailMetadata = useRenderingMetadata(
-    emailPath,
-    renderingResult,
-    serverRenderingResult,
-  );
-
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    // this will not change on runtime so it doesn't violate
-    // the rules of hooks
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload((changes) => {
-      const changeForThisEmail = changes.find((change) =>
-        change.filename.includes(slug),
-      );
-
-      if (typeof changeForThisEmail !== 'undefined') {
-        if (changeForThisEmail.event === 'unlink') {
-          router.push('/');
-        }
-      }
-    });
-  }
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
@@ -113,8 +75,8 @@ const Preview = ({
   }, 300);
 
   return (
-    <Shell currentEmailOpenSlug={slug}>
-      <Topbar pathSeparator={pathSeparator} currentEmailOpenSlug={slug}>
+    <>
+      <Topbar emailTitle={emailTitle}>
         <ViewSizeControls
           setViewHeight={(height) => {
             setHeight(height);
@@ -199,7 +161,7 @@ const Preview = ({
                     width: `${width}px`,
                     height: `${height}px`,
                   }}
-                  title={slug}
+                  title={emailTitle}
                 />
               </ResizableWarpper>
             )}
@@ -235,15 +197,7 @@ const Preview = ({
 
         <Toaster />
       </ShellContent>
-
-      {!hasErrors && hasRenderingMetadata ? (
-        <Toolbar
-          emailSlug={slug}
-          markup={renderedEmailMetadata.markup}
-          plainText={renderedEmailMetadata.plainText}
-        />
-      ) : undefined}
-    </Shell>
+    </>
   );
 };
 

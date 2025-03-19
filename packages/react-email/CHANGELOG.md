@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.6
+
+### Minor Changes
+
+- 508d3c9: Add compatibility checker for the toolbar
+
 ## 4.0.0-alpha.5
 
 ### Minor Changes

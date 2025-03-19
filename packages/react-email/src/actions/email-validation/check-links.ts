@@ -20,7 +20,7 @@ export type LinkCheck = { passed: boolean } & (
 
 export interface LinkCheckingResult {
   status: 'success' | 'warning' | 'error';
-  intendedFor: string;
+  link: string;
   checks: LinkCheck[];
 }
 
@@ -36,7 +36,7 @@ export const checkLinks = async (code: string) => {
         if (link.startsWith('mailto:')) continue;
 
         const result: LinkCheckingResult = {
-          intendedFor: link,
+          link,
           status: 'success',
           checks: [],
         };

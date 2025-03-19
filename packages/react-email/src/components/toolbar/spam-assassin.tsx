@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { cn } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
@@ -8,7 +8,7 @@ interface SpamAssassinProps {
   result: SpamCheckingResult | undefined;
 }
 
-interface SpamCheckingResult {
+export interface SpamCheckingResult {
   checks: {
     name: string;
     description: string;
@@ -25,33 +25,26 @@ function toSorted<T>(array: T[], sorter: (a: T, b: T) => number): T[] {
 }
 
 export const useSpamAssassin = ({
-  slug,
   markup,
   plainText,
+
+  initialResult,
 }: {
-  slug: string;
   markup: string;
   plainText: string;
+
+  initialResult?: SpamCheckingResult;
 }) => {
-  const cacheKey = `spam-assassin-${slug.replaceAll('/', '-')}`;
-
-  const [result, setResult] = useState<SpamCheckingResult | undefined>();
-
-  useEffect(() => {
-    const cachedValue =
-      'localStorage' in global ? global.localStorage.getItem(cacheKey) : null;
-    if (cachedValue) {
-      try {
-        setResult(JSON.parse(cachedValue));
-      } catch (exception) {
-        setResult(undefined);
-      }
-    }
-  }, [cacheKey]);
+  const [result, setResult] = useState<SpamCheckingResult | undefined>(
+    initialResult,
+  );
 
   const [loading, setLoading] = useState(false);
+  const isLoadingRef = useRef(false);
 
   const load = async () => {
+    if (isLoadingRef.current) return;
+    isLoadingRef.current = true;
     setLoading(true);
 
     try {
@@ -64,25 +57,21 @@ export const useSpamAssassin = ({
         }),
       });
 
-      if (response.ok) {
-        const responseBody = (await response.json()) as
-          | { error: string }
-          | SpamCheckingResult;
-        if ('error' in responseBody) {
-          toast.error(responseBody.error);
-        } else {
-          setResult(responseBody);
-          localStorage.setItem(cacheKey, JSON.stringify(responseBody));
-        }
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        toast.error(responseBody.error);
       } else {
-        console.error(await response.text());
-        toast.error('Something went wrong');
+        setResult(responseBody);
+        return responseBody;
       }
     } catch (exception) {
       console.error(exception);
       toast.error(JSON.stringify(exception));
     } finally {
       setLoading(false);
+      isLoadingRef.current = false;
     }
   };
 
