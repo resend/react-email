@@ -4,7 +4,7 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { isBuilding } from '../app/env';
+import { isBuilding, isPreviewDevelopment } from '../app/env';
 import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
@@ -36,7 +36,7 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: ora.Ora | undefined;
-  if (!isBuilding) {
+  if (!isBuilding && !isPreviewDevelopment) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
