@@ -1,12 +1,13 @@
 {
   "name": "react-email",
-  "version": "4.0.0-alpha.5",
+  "version": "4.0.0-alpha.6",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.js"
   },
   "scripts": {
-    "build": "tsup-node && node build-preview-server.mjs",
+    "build": "tsup-node && node ./scripts/build-preview-server.mjs",
+    "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch",
     "dev:preview": "cd ../../apps/demo && tsx ../../packages/react-email/src/cli/index.ts dev",
@@ -19,10 +20,7 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/react-email"
   },
-  "keywords": [
-    "react",
-    "email"
-  ],
+  "keywords": ["react", "email"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -37,12 +35,13 @@
     "glob": "10.3.4",
     "log-symbols": "4.1.0",
     "mime-types": "2.1.35",
-    "next": "15.1.7",
+    "next": "15.2.2",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "socket.io": "4.8.1"
   },
   "devDependencies": {
+    "@babel/core": "7.26.10",
     "@lottiefiles/dotlottie-react": "0.12.3",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
@@ -60,21 +59,23 @@
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
     "@types/normalize-path": "3.0.2",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
     "@vercel/style-guide": "5.1.0",
     "autoprefixer": "10.4.20",
     "clsx": "2.1.0",
     "framer-motion": "12.0.0-alpha.2",
+    "jiti": "2.4.2",
+    "json5": "2.2.3",
+    "module-punycode": "npm:punycode@2.3.1",
     "node-html-parser": "6.1.13",
     "postcss": "8.4.40",
     "prettier-plugin-tailwindcss": "0.6.6",
     "pretty-bytes": "6.1.1",
     "prism-react-renderer": "2.1.0",
-    "module-punycode": "npm:punycode@2.3.1",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "sharp": "0.33.3",
     "socket.io-client": "4.8.0",
     "sonner": "1.7.1",
@@ -85,8 +86,9 @@
     "tailwindcss": "3.4.0",
     "tsup": "7.2.0",
     "tsx": "4.9.0",
-    "typescript": "5.1.6",
+    "typescript": "5.8.2",
     "use-debounce": "10.0.4",
-    "vitest": "1.1.3"
+    "vitest": "1.1.3",
+    "zod": "3.24.2"
   }
 }

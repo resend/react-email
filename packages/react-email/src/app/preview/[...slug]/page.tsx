@@ -3,8 +3,14 @@ import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
+import { Shell } from '../../../components/shell';
+import { Toolbar } from '../../../components/toolbar';
+import type { LintingRow } from '../../../components/toolbar/linter';
+import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
+import { PreviewProvider } from '../../../contexts/preview';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
+import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
+import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Home from '../../page';
 import Preview from './preview';
 
@@ -50,27 +56,78 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-  if (
-    process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
-    'error' in serverEmailRenderingResult
-  ) {
+  if (isBuilding && 'error' in serverEmailRenderingResult) {
     throw new Error(serverEmailRenderingResult.error.message, {
       cause: serverEmailRenderingResult.error,
     });
   }
 
+  let spamCheckingResult: SpamCheckingResult | undefined = undefined;
+  let lintingRows: LintingRow[] | undefined = undefined;
+
+  if (isBuilding && !('error' in serverEmailRenderingResult)) {
+    const lintingSources = getLintingSources(
+      serverEmailRenderingResult.markup,
+      serverEmailRenderingResult.reactMarkup,
+      emailPath,
+      '',
+    );
+    lintingRows = [];
+    for await (const row of loadLintingRowsFrom(lintingSources)) {
+      lintingRows.push(row);
+    }
+    lintingRows.sort((a, b) => {
+      if (a.result.status === 'error' && b.result.status === 'warning') {
+        return -1;
+      }
+
+      if (a.result.status === 'warning' && b.result.status === 'error') {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    const response = await fetch('https://react.email/api/check-spam', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        html: serverEmailRenderingResult.markup,
+        plainText: serverEmailRenderingResult.plainText,
+      }),
+    });
+    const responseBody = (await response.json()) as
+      | { error: string }
+      | SpamCheckingResult;
+    if ('error' in responseBody) {
+      throw new Error(`Failed doing Spam Check. ${responseBody.error}`, {
+        cause: responseBody,
+      });
+    }
+
+    spamCheckingResult = responseBody;
+  }
+
   return (
-    // This suspense is so that this page doesn't throw warnings
-    // on the build of the preview server de-opting into
-    // client-side rendering on build
-    <Suspense fallback={<Home />}>
-      <Preview
-        emailPath={emailPath}
-        pathSeparator={path.sep}
-        serverRenderingResult={serverEmailRenderingResult}
-        slug={slug}
-      />
-    </Suspense>
+    <PreviewProvider
+      emailSlug={slug}
+      emailPath={emailPath}
+      serverRenderingResult={serverEmailRenderingResult}
+    >
+      <Shell currentEmailOpenSlug={slug}>
+        {/* This suspense is so that this page doesn't throw warnings */}
+        {/* on the build of the preview server de-opting into         */}
+        {/* client-side rendering on build                            */}
+        <Suspense fallback={<Home />}>
+          <Preview emailTitle={path.basename(emailPath)} />
+
+          <Toolbar
+            serverLintingRows={lintingRows}
+            serverSpamCheckingResult={spamCheckingResult}
+          />
+        </Suspense>
+      </Shell>
+    </PreviewProvider>
   );
 };
 
