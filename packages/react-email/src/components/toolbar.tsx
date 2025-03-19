@@ -95,9 +95,9 @@ const ToolbarInner = ({
     <div
       data-toggled={toggled}
       className={cn(
-        'absolute -bottom-1 left-0 right-0',
-        'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
-        'data-[toggled=false]:h-8',
+        'absolute bottom-0 left-0 right-0',
+        'bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform',
+        'data-[toggled=false]:translate-y-[170px]',
       )}
     >
       <Tabs.Root
@@ -108,7 +108,7 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-7 w-full">
+          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="spam-assassin">
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
@@ -123,7 +123,7 @@ const ToolbarInner = ({
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
-            <div className="flex gap-1 ml-auto">
+            <div className="flex gap-0.5 ml-auto">
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
@@ -138,7 +138,7 @@ const ToolbarInner = ({
                     }
                   }}
                 >
-                  <IconReload />
+                  <IconReload size={24} />
                 </ToolbarButton>
               )}
               <ToolbarButton
@@ -151,12 +151,15 @@ const ToolbarInner = ({
                   }
                 }}
               >
-                <IconArrowDown className="transition-transform group-data-[toggled=false]/toolbar:rotate-180" />
+                <IconArrowDown
+                  size={24}
+                  className="transition-transform group-data-[toggled=false]/toolbar:rotate-180"
+                />
               </ToolbarButton>
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-2">
             <Tabs.Content value="linter">
               <Linter rows={lintingRows} />
             </Tabs.Content>

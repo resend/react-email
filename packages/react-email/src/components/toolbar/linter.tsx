@@ -125,7 +125,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'The link is broken due to invalid syntax'
                   : null}
 
-                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
                   {row.result.link}
                 </span>
               </Result.Description>
@@ -167,18 +167,19 @@ export const Linter = ({ rows }: LinterProps) => {
                 {statsReportedPartiallyWorking.length > 0
                   ? `Partially supported in ${partiallySupportedClientsString}`
                   : null}
+
+                <a
+                  href={row.result.entry.url}
+                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  More ↗
+                </a>
               </Result.Description>
               <Result.Metadata>
                 {row.result.location.start.line.toString().padStart(2, '0')}:
                 {row.result.location.start.column.toString().padStart(2, '0')}
-                <a
-                  href={row.result.entry.url}
-                  className="underline ml-2"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  See more info
-                </a>
               </Result.Metadata>
             </Result>
           );
@@ -219,7 +220,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
-                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
                   {row.result.source}
                 </span>
               </Result.Description>
@@ -243,7 +244,7 @@ export const Linter = ({ rows }: LinterProps) => {
                     return undefined;
                   })
                   .filter(Boolean)
-                  .join('—')}
+                  .join(' · ')}
               </Result.Metadata>
             </Result>
           );
