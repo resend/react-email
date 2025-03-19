@@ -29,9 +29,9 @@ export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
               'hidden min-h-[3.3125rem] flex-shrink items-center p-3 px-4 lg:flex',
             )}
           >
-            <Heading as="h2" className="truncate" size="2" weight="medium">
+            <h2>
               <Logo />
-            </Heading>
+            </h2>
           </div>
           <div className="relative h-full w-full border-slate-4 border-t px-4 pb-3">
             <FileTree

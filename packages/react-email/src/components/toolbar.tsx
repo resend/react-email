@@ -95,6 +95,7 @@ const ToolbarInner = ({
     <div
       data-toggled={toggled}
       className={cn(
+        'absolute -bottom-1 left-0 right-0',
         'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
         'data-[toggled=false]:h-8',
       )}
