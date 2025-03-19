@@ -1,7 +1,22 @@
 import path from 'node:path';
-import { addSourceHintsToJSX, getEmailComponent } from './get-email-component';
+import fs from 'node:fs/promises';
+import {
+  addSourceHintsToJSX,
+  getEmailComponent,
+  getLineAndColumnFromOffset,
+} from './get-email-component';
 
-describe.only('addSourceHintsToJSX()', () => {
+test('getLineAndColumnFromOffset()', () => {
+  const content = `export default function MyEmail() {
+  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div">
+    inside the div, should also stay unchanged
+  </div>;
+}`;
+  const offset = content.indexOf('className');
+  expect(getLineAndColumnFromOffset(offset, content)).toEqual([2, 15]);
+});
+
+describe('addSourceHintsToJSX()', () => {
   it('should work with a single div in a component', () => {
     expect(
       addSourceHintsToJSX(
@@ -13,7 +28,7 @@ describe.only('addSourceHintsToJSX()', () => {
         '/my/project/email.tsx',
       ),
     ).toBe(`export default function MyEmail() {
-  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div"  data-preview-file="/my/project/email.tsx" data-preview-line="2" data-preview-column="10">
+  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div" data-preview-file="/my/project/email.tsx" data-preview-line="2" data-preview-column="10">
     inside the div, should also stay unchanged
   </div>;
 }`);
@@ -44,6 +59,16 @@ describe.only('addSourceHintsToJSX()', () => {
 
 
                      <span data-preview-file="/my/project/email.tsx" data-preview-line="10" data-preview-column="22"/>`);
+  });
+
+  it('should work with real email template', async () => {
+    const emailPath = path.resolve(
+      __dirname,
+      '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',
+    );
+    expect(
+      addSourceHintsToJSX(await fs.readFile(emailPath, 'utf8'), emailPath),
+    ).toMatchSnapshot();
   });
 });
 
