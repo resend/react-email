@@ -61,3 +61,9 @@ export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
     );
   },
 });
+
+renderingUtilitiesExporter.prepare = (contents: string) => {
+  return `${contents};
+export { render } from 'react-email-module-that-will-export-render';
+export { createElement as reactEmailCreateReactElement } from 'react';`;
+};

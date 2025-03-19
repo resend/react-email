@@ -1,6 +1,10 @@
 'use server';
 
 import { parse } from 'node-html-parser';
+import {
+  type CodeLocation,
+  getCodeLocationFromAstElement,
+} from './get-code-location-from-ast-element';
 import { quickFetch } from './quick-fetch';
 
 export type LinkCheck = { passed: boolean } & (
@@ -21,6 +25,7 @@ export type LinkCheck = { passed: boolean } & (
 export interface LinkCheckingResult {
   status: 'success' | 'warning' | 'error';
   link: string;
+  codeLocation: CodeLocation | undefined;
   checks: LinkCheck[];
 }
 
@@ -37,6 +42,7 @@ export const checkLinks = async (code: string) => {
 
         const result: LinkCheckingResult = {
           link,
+          codeLocation: getCodeLocationFromAstElement(anchor),
           status: 'success',
           checks: [],
         };

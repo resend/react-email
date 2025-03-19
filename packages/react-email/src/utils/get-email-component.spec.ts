@@ -3,18 +3,7 @@ import fs from 'node:fs/promises';
 import {
   addSourceHintsToJSX,
   getEmailComponent,
-  getLineAndColumnFromOffset,
 } from './get-email-component';
-
-test('getLineAndColumnFromOffset()', () => {
-  const content = `export default function MyEmail() {
-  return <div className="testing classes to make sure this is not removed" id="my-div" aria-label="my beautiful div">
-    inside the div, should also stay unchanged
-  </div>;
-}`;
-  const offset = content.indexOf('className');
-  expect(getLineAndColumnFromOffset(offset, content)).toEqual([2, 15]);
-});
 
 describe('addSourceHintsToJSX()', () => {
   it('should work with a single div in a component', () => {

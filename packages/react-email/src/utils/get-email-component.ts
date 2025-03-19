@@ -11,24 +11,14 @@ import { isErr } from './result';
 import { runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
+import { getLineAndColumnFromOffset } from './get-line-and-column-from-offset';
+import { escapeStringForRegex } from './esbuild/escape-string-for-regex';
 
 const EmailComponentModule = z.object({
   default: z.any(),
   render: z.function(),
   reactEmailCreateReactElement: z.function(),
 });
-
-export const getLineAndColumnFromOffset = (
-  offset: number,
-  content: string,
-): [line: number, column: number] => {
-  const lineBreaks = [...content.slice(0, offset).matchAll(/\n|\r|\r\n/g)];
-
-  const line = lineBreaks.length + 1;
-  const column = offset - (lineBreaks[lineBreaks.length - 1]?.index ?? 0);
-
-  return [line, column];
-};
 
 export const addSourceHintsToJSX = (code: string, path: string) => {
   return code.replaceAll(
@@ -45,7 +35,7 @@ export const addSourceHintsToJSX = (code: string, path: string) => {
 
 export const getEmailComponent = async (
   emailPath: string,
-  includeSourceHints = false,
+  // includeSourceHints = false,
 ): Promise<
   | {
       emailComponent: EmailComponent;
@@ -64,23 +54,24 @@ export const getEmailComponent = async (
       bundle: true,
       entryPoints: [emailPath],
       plugins: [
-        renderingUtilitiesExporter([emailPath]),
         {
           name: 'testing',
-          setup(b) {
-            if (includeSourceHints) {
-              b.onLoad(
-                { filter: /[^/]\.(tsx|jsx|js|cjs|mjs)$/ },
-                async ({ path }) => {
-                  const file = await fs.readFile(path, 'utf8');
-                  return {
-                    contents: addSourceHintsToJSX(file, path),
-                  };
-                },
-              );
-            }
+          setup(build) {
+            build.onLoad(
+              { filter: /.+\.(js|jsx|tsx|cjs|mjs)/ },
+              async ({ path }) => {
+                const file = renderingUtilitiesExporter.prepare(
+                  await fs.readFile(path, 'utf8'),
+                );
+
+                return {
+                  contents: file,
+                };
+              },
+            );
           },
         },
+        renderingUtilitiesExporter([emailPath]),
       ],
       platform: 'node',
       write: false,

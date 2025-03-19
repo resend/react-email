@@ -138,6 +138,77 @@ export const Linter = ({ rows }: LinterProps) => {
           );
         }
 
+        if (row.source === 'image') {
+          const failingCheck = row.result.checks.find(
+            (check) => check.passed === false,
+          )!;
+          return (
+            <Result status={row.result.status} key={i}>
+              <Result.Name>{failingCheck.type}</Result.Name>
+              <Result.Description>
+                {failingCheck.type === 'security'
+                  ? 'Insecure URL, use HTTPS insted of HTTP'
+                  : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 300 &&
+                failingCheck.metadata.fetchStatusCode < 400
+                  ? 'There was a redirect, the image may have been moved'
+                  : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 400
+                  ? 'The image is broken'
+                  : null}
+                {failingCheck.type === 'syntax'
+                  ? 'The image is broken due to an invalid source'
+                  : null}
+
+                {failingCheck.type === 'accessibility'
+                  ? 'Missing alt text'
+                  : null}
+
+                {failingCheck.type === 'image_size' &&
+                failingCheck.metadata.byteCount
+                  ? 'This image is too large, keep it under 1mb'
+                  : null}
+
+                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                  {row.result.source}
+                </span>
+              </Result.Description>
+              <Result.Metadata>
+                {row.result.codeLocation ? (
+                  <>
+                    {row.result.codeLocation.line.toString().padStart(2, '0')}:
+                    {row.result.codeLocation.column.toString().padStart(2, '0')}
+                  </>
+                ) : null}
+                {row.result.checks
+                  .map((check) => {
+                    if (
+                      check.type === 'fetch_attempt' &&
+                      check.metadata.fetchStatusCode
+                    ) {
+                      return check.metadata.fetchStatusCode;
+                    }
+
+                    if (
+                      check.type === 'image_size' &&
+                      check.metadata.byteCount
+                    ) {
+                      return prettyBytes(check.metadata.byteCount);
+                    }
+
+                    return undefined;
+                  })
+                  .filter(Boolean)
+                  .join('—')}
+              </Result.Metadata>
+            </Result>
+          );
+        }
+
         if (row.source === 'compatibility') {
           const statsReportedNotWorking = Object.entries(
             row.result.statsPerEmailClient,
@@ -179,71 +250,6 @@ export const Linter = ({ rows }: LinterProps) => {
                 >
                   See more info
                 </a>
-              </Result.Metadata>
-            </Result>
-          );
-        }
-
-        if (row.source === 'image') {
-          const failingCheck = row.result.checks.find(
-            (check) => check.passed === false,
-          )!;
-          return (
-            <Result status={row.result.status} key={i}>
-              <Result.Name>{failingCheck.type}</Result.Name>
-              <Result.Description>
-                {failingCheck.type === 'security'
-                  ? 'Insecure URL, use HTTPS insted of HTTP'
-                  : null}
-                {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
-                  ? 'There was a redirect, the image may have been moved'
-                  : null}
-                {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
-                  ? 'The image is broken'
-                  : null}
-                {failingCheck.type === 'syntax'
-                  ? 'The image is broken due to an invalid source'
-                  : null}
-
-                {failingCheck.type === 'accessibility'
-                  ? 'Missing alt text'
-                  : null}
-
-                {failingCheck.type === 'image_size' &&
-                failingCheck.metadata.byteCount
-                  ? 'This image is too large, keep it under 1mb'
-                  : null}
-
-                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
-                  {row.result.source}
-                </span>
-              </Result.Description>
-              <Result.Metadata>
-                {row.result.checks
-                  .map((check) => {
-                    if (
-                      check.type === 'fetch_attempt' &&
-                      check.metadata.fetchStatusCode
-                    ) {
-                      return check.metadata.fetchStatusCode;
-                    }
-
-                    if (
-                      check.type === 'image_size' &&
-                      check.metadata.byteCount
-                    ) {
-                      return prettyBytes(check.metadata.byteCount);
-                    }
-
-                    return undefined;
-                  })
-                  .filter(Boolean)
-                  .join('—')}
               </Result.Metadata>
             </Result>
           );
