@@ -33,7 +33,7 @@ export type ImageCheck = { passed: boolean } & (
 
 export interface ImageCheckingResult {
   status: 'success' | 'warning' | 'error';
-  intendedFor: string;
+  source: string;
   checks: ImageCheck[];
 }
 
@@ -60,7 +60,7 @@ export const checkImages = async (code: string, base: string) => {
           : rawSource;
 
         const result: ImageCheckingResult = {
-          intendedFor: rawSource,
+          source: rawSource,
           status: 'success',
           checks: [],
         };
