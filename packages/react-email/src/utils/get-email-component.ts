@@ -12,7 +12,7 @@ import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
 const EmailComponentModule = z.object({
-  default: z.function(),
+  default: z.any(),
   render: z.function(),
   reactEmailCreateReactElement: z.function(),
 });
