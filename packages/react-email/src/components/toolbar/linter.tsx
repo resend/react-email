@@ -170,7 +170,7 @@ export const Linter = ({ rows }: LinterProps) => {
 
                 <a
                   href={row.result.entry.url}
-                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors"
+                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors  hover:text-slate-12"
                   rel="noreferrer"
                   target="_blank"
                 >
