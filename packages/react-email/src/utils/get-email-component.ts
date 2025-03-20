@@ -1,5 +1,4 @@
 import path from 'node:path';
-import fs from 'node:fs/promises';
 import type { render } from '@react-email/render';
 import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
@@ -11,8 +10,6 @@ import { isErr } from './result';
 import { runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
-import { getLineAndColumnFromOffset } from './get-line-and-column-from-offset';
-import { escapeStringForRegex } from './esbuild/escape-string-for-regex';
 
 const EmailComponentModule = z.object({
   default: z.any(),
@@ -20,22 +17,8 @@ const EmailComponentModule = z.object({
   reactEmailCreateReactElement: z.function(),
 });
 
-export const addSourceHintsToJSX = (code: string, path: string) => {
-  return code.replaceAll(
-    /<([^\/!][\s\S]+?)\/?\s*>/gm,
-    (match, tagStartContents: string, offset: number) => {
-      const [line, column] = getLineAndColumnFromOffset(offset, code);
-      return match.replace(
-        tagStartContents,
-        `${tagStartContents.trim()} data-preview-file="${path}" data-preview-line="${line}" data-preview-column="${column}"`,
-      );
-    },
-  );
-};
-
 export const getEmailComponent = async (
   emailPath: string,
-  // includeSourceHints = false,
 ): Promise<
   | {
       emailComponent: EmailComponent;
@@ -54,23 +37,6 @@ export const getEmailComponent = async (
       bundle: true,
       entryPoints: [emailPath],
       plugins: [
-        {
-          name: 'testing',
-          setup(build) {
-            build.onLoad(
-              { filter: /.+\.(js|jsx|tsx|cjs|mjs)/ },
-              async ({ path }) => {
-                const file = renderingUtilitiesExporter.prepare(
-                  await fs.readFile(path, 'utf8'),
-                );
-
-                return {
-                  contents: file,
-                };
-              },
-            );
-          },
-        },
         renderingUtilitiesExporter([emailPath]),
       ],
       platform: 'node',
