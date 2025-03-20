@@ -92,9 +92,6 @@ const ToolbarInner = ({
     }, []);
   }
 
-  console.log('activeTab', activeTab);
-  console.log('toggled', toggled);
-
   return (
     <div
       data-toggled={toggled}
