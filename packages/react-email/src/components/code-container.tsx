@@ -72,7 +72,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
   return (
     <div
-      className="relative w-full items-center whitespace-pre rounded-md border border-slate-6 text-sm backdrop-blur-md"
+      className="relative w-full items-center whitespace-pre rounded-md border border-slate-6 text-sm"
       style={{
         lineHeight: '130%',
         background:

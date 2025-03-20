@@ -100,10 +100,7 @@ export const ResizableWarpper = ({
   return (
     <div
       {...rest}
-      className={cn(
-        'relative mx-auto my-auto box-content px-4 py-2',
-        rest.className,
-      )}
+      className={cn('relative mx-auto my-auto box-content', rest.className)}
     >
       <div
         aria-label="resize-west"

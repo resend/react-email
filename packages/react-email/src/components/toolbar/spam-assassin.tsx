@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { cn } from '../../utils';
+import { cn, sanitize } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
 
@@ -83,25 +83,33 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
     <>
       {result ? (
         <Results>
-          <Results.Row className="sticky border-b-2 top-0 bg-black">
+          <Results.Row className="sticky border-b top-0 bg-black">
             <Results.Column className="uppercase">
-              <span className="flex gap-1 items-center">
+              <span className="flex gap-2 items-center">
                 <IconWarning
                   className={cn(
-                    result.points > 1.5 ? 'text-yellow-200' : null,
-                    result.points > 3 ? 'text-orange-300' : null,
+                    result.points === 0 ? 'text-green-400' : null,
+                    result.points > 0 && result.points <= 1.5 ? null : null,
+                    result.points > 1.5 ? 'text-yellow-100' : null,
+                    result.points > 3 ? 'text-orange-400' : null,
                     result.points >= 5 ? 'text-red-400' : null,
                   )}
                 />
                 Score
               </span>
             </Results.Column>
-            <Results.Column>Lower scores are better</Results.Column>
+            <Results.Column>
+              {result.points === 0
+                ? 'Congratulations! Your email is clean of abuse indicators.'
+                : 'Lower scores are better'}
+            </Results.Column>
             <Results.Column
               className={cn(
-                'text-right text-2xl tracking-tighter font-mono',
+                'text-right text-3xl tracking-tighter font-bold',
+                result.points === 0 ? 'text-green-400' : null,
+                result.points > 0 && result.points <= 1.5 ? null : null,
                 result.points > 1.5 ? 'text-yellow-200' : null,
-                result.points > 3 ? 'text-orange-300' : null,
+                result.points > 3 ? 'text-orange-400' : null,
                 result.points >= 5 ? 'text-red-400' : null,
               )}
             >
@@ -112,15 +120,15 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
             (check) => (
               <Results.Row key={check.name}>
                 <Results.Column className="uppercase">
-                  <span className="flex gap-1 items-center">
+                  <span className="flex gap-2 items-center">
                     <IconWarning
                       className={cn(
                         check.points > 1 ? 'text-yellow-200' : null,
-                        check.points > 2 ? 'text-orange-300' : null,
+                        check.points > 2 ? 'text-orange-400' : null,
                         check.points > 3 ? 'text-red-400' : null,
                       )}
                     />
-                    {check.name}
+                    {sanitize(check.name)}
                   </span>
                 </Results.Column>
                 <Results.Column>{check.description}</Results.Column>
@@ -128,7 +136,7 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                   className={cn(
                     'text-right font-mono tracking-tighter',
                     check.points > 1 ? 'text-yellow-200' : null,
-                    check.points > 2 ? 'text-orange-300' : null,
+                    check.points > 2 ? 'text-orange-400' : null,
                     check.points > 3 ? 'text-red-400' : null,
                   )}
                 >
