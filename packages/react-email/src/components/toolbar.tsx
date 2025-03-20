@@ -61,17 +61,18 @@ const ToolbarInner = ({
     useCachedState<SpamCheckingResult>(
       `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
     );
-  const [spamCheckingResult, { load: loadSpamChecking }] = useSpamAssassin({
-    markup,
-    plainText,
+  const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
+    useSpamAssassin({
+      markup,
+      plainText,
 
-    initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
-  });
+      initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
+    });
 
   const [cachedLintingRows, setCachedLintingRows] = useCachedState<
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
-  const [lintingRows, { load: loadLinting }] = useLinter({
+  const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     reactMarkup,
     emailPath,
     markup,
@@ -142,6 +143,7 @@ const ToolbarInner = ({
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
+                  disabled={lintLoading || spamLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -153,7 +155,13 @@ const ToolbarInner = ({
                     }
                   }}
                 >
-                  <IconReload size={24} />
+                  <IconReload
+                    size={24}
+                    className={cn({
+                      'animate-spin opacity-60 animate-spin-fast':
+                        lintLoading || spamLoading,
+                    })}
+                  />
                 </ToolbarButton>
               )}
               <ToolbarButton
@@ -176,10 +184,22 @@ const ToolbarInner = ({
 
           <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-3">
             <Tabs.Content value="linter">
-              <Linter rows={lintingRows} />
+              {lintLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running linting...
+                </div>
+              ) : (
+                <Linter rows={lintingRows} />
+              )}
             </Tabs.Content>
             <Tabs.Content value="spam-assassin">
-              <SpamAssassin result={spamCheckingResult} />
+              {spamLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running spam check...
+                </div>
+              ) : (
+                <SpamAssassin result={spamCheckingResult} />
+              )}
             </Tabs.Content>
           </div>
         </div>
