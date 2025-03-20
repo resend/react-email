@@ -36,9 +36,7 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [
-        renderingUtilitiesExporter([emailPath]),
-      ],
+      plugins: [renderingUtilitiesExporter([emailPath])],
       platform: 'node',
       write: false,
 

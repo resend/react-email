@@ -1,4 +1,4 @@
-import { getLineAndColumnFromOffset } from "./get-line-and-column-from-offset";
+import { getLineAndColumnFromOffset } from './get-line-and-column-from-offset';
 
 test('getLineAndColumnFromOffset()', () => {
   const content = `export default function MyEmail() {
@@ -9,4 +9,3 @@ test('getLineAndColumnFromOffset()', () => {
   const offset = content.indexOf('className');
   expect(getLineAndColumnFromOffset(offset, content)).toEqual([2, 15]);
 });
-

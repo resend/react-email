@@ -9,4 +9,3 @@ export const getLineAndColumnFromOffset = (
 
   return [line, column];
 };
-

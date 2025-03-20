@@ -8,12 +8,9 @@ export interface CodeLocation {
 
 export const getCodeLocationFromAstElement = (
   ast: HTMLElement,
-  html: string
+  html: string,
 ): CodeLocation => {
-  const [line, column] = getLineAndColumnFromOffset(
-    ast.range[0],
-    html,
-  );
+  const [line, column] = getLineAndColumnFromOffset(ast.range[0], html);
   return {
     line,
     column,
