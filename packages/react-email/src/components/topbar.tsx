@@ -16,7 +16,7 @@ export const Topbar = ({ emailTitle, children }: TopbarProps) => {
 
   return (
     <Tooltip.Provider>
-      <header className="relative flex h-[3.3125rem] items-center justify-between gap-3 border-slate-6 border-b px-3">
+      <header className="relative flex h-[3.3125rem] items-center justify-between gap-3 border-slate-6 border-b px-3 py-2">
         <div className="relative flex w-fit items-center gap-3">
           <Tooltip>
             <Tooltip.Trigger asChild>
@@ -40,25 +40,6 @@ export const Topbar = ({ emailTitle, children }: TopbarProps) => {
         </div>
         <div className="flex w-full items-center justify-between gap-3 lg:w-fit lg:justify-start">
           {children}
-          {/* {setViewWidth && setViewHeight && viewWidth && viewHeight ? ( */}
-          {/*   <ViewSizeControls */}
-          {/*     setViewHeight={setViewHeight} */}
-          {/*     setViewWidth={setViewWidth} */}
-          {/*     viewHeight={viewHeight} */}
-          {/*     viewWidth={viewWidth} */}
-          {/*   /> */}
-          {/* ) : null} */}
-          {/* {activeView && setActiveView ? ( */}
-          {/*   <ActiveViewToggleGroup */}
-          {/*     activeView={activeView} */}
-          {/*     setActiveView={setActiveView} */}
-          {/*   /> */}
-          {/* ) : null} */}
-          {/* {markup ? ( */}
-          {/*   <div className="flex justify-end"> */}
-          {/*     <Send markup={markup} /> */}
-          {/*   </div> */}
-          {/* ) : null} */}
         </div>
       </header>
     </Tooltip.Provider>

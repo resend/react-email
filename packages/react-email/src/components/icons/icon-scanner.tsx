@@ -1,8 +1,8 @@
 export const IconScanner = (props: React.ComponentProps<'svg'>) => {
   return (
     <svg
-      width="13"
-      height="12"
+      width="15"
+      height="13"
       viewBox="0 0 13 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -60,7 +60,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
-          <pre className="h-[650px] overflow-auto p-4">
+          <pre className="overflow-auto p-4 max-h-[calc(100vh-10rem)]">
             {tokens.map((line, i) => {
               const lineProps = getLineProps({
                 line,

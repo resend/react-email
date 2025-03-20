@@ -8,7 +8,7 @@ export const Results = ({
   return (
     <table
       className={cn(
-        'group relative w-full border-collapse text-left text-slate-10 text-xs',
+        'group relative w-full border-collapse text-left text-slate-10 text-sm',
         className,
       )}
     >
@@ -41,7 +41,10 @@ Results.Column = ({
   ...props
 }: React.ComponentProps<'td'>) => {
   return (
-    <td className={cn('py-1 align-bottom font-medium', className)} {...props}>
+    <td
+      className={cn('py-1.5 align-bottom font-regular', className)}
+      {...props}
+    >
       {children}
     </td>
   );

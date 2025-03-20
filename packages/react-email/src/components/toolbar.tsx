@@ -61,17 +61,18 @@ const ToolbarInner = ({
     useCachedState<SpamCheckingResult>(
       `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
     );
-  const [spamCheckingResult, { load: loadSpamChecking }] = useSpamAssassin({
-    markup,
-    plainText,
+  const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
+    useSpamAssassin({
+      markup,
+      plainText,
 
-    initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
-  });
+      initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
+    });
 
   const [cachedLintingRows, setCachedLintingRows] = useCachedState<
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
-  const [lintingRows, { load: loadLinting }] = useLinter({
+  const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     reactMarkup,
     emailPath,
     markup,
@@ -95,19 +96,20 @@ const ToolbarInner = ({
     <div
       data-toggled={toggled}
       className={cn(
-        'bg-black group/toolbar text-xs text-slate-11 h-48 transition-all',
-        'data-[toggled=false]:h-8',
+        'absolute bottom-0 left-0 right-0',
+        'bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform',
+        'data-[toggled=false]:translate-y-[170px]',
       )}
     >
       <Tabs.Root
-        value={activeTab}
+        value={activeTab ?? ''}
         onValueChange={(newValue) => {
           setActivePanelValue(newValue as ToolbarTabValue);
         }}
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-7 w-full">
+          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="spam-assassin">
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
@@ -122,10 +124,11 @@ const ToolbarInner = ({
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
-            <div className="flex gap-1 ml-auto">
+            <div className="flex gap-0.5 ml-auto">
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
+                  disabled={lintLoading || spamLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -137,7 +140,13 @@ const ToolbarInner = ({
                     }
                   }}
                 >
-                  <IconReload />
+                  <IconReload
+                    size={24}
+                    className={cn({
+                      'animate-spin opacity-60 animate-spin-fast':
+                        lintLoading || spamLoading,
+                    })}
+                  />
                 </ToolbarButton>
               )}
               <ToolbarButton
@@ -150,17 +159,32 @@ const ToolbarInner = ({
                   }
                 }}
               >
-                <IconArrowDown className="transition-transform group-data-[toggled=false]/toolbar:rotate-180" />
+                <IconArrowDown
+                  size={24}
+                  className="transition-transform group-data-[toggled=false]/toolbar:rotate-180"
+                />
               </ToolbarButton>
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-3">
             <Tabs.Content value="linter">
-              <Linter rows={lintingRows} />
+              {lintLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running linting...
+                </div>
+              ) : (
+                <Linter rows={lintingRows} />
+              )}
             </Tabs.Content>
             <Tabs.Content value="spam-assassin">
-              <SpamAssassin result={spamCheckingResult} />
+              {spamLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running spam check...
+                </div>
+              ) : (
+                <SpamAssassin result={spamCheckingResult} />
+              )}
             </Tabs.Content>
           </div>
         </div>
