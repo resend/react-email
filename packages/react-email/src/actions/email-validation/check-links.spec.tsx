@@ -1,4 +1,3 @@
-import { render } from '@react-email/render';
 import { type LinkCheckingResult, checkLinks } from './check-links';
 
 test('checkLinks()', async () => {

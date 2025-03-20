@@ -22,7 +22,7 @@ test('checkImages()', async () => {
       source: 'https://resend.com/static/brand/resend-icon-white.png',
       codeLocation: {
         line: 2,
-        column: 3
+        column: 3,
       },
       checks: [
         {
@@ -60,7 +60,7 @@ test('checkImages()', async () => {
     {
       codeLocation: {
         line: 3,
-        column: 3
+        column: 3,
       },
       checks: [
         {
