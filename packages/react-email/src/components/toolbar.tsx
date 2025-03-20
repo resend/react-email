@@ -103,7 +103,13 @@ const ToolbarInner = ({
       <Tabs.Root
         value={activeTab}
         onValueChange={(newValue) => {
-          setActivePanelValue(newValue as ToolbarTabValue);
+          if (!toggled) {
+            setActivePanelValue(newValue as ToolbarTabValue);
+          } else if (activeTab === newValue) {
+            return;
+          } else {
+            setActivePanelValue(newValue as ToolbarTabValue);
+          }
         }}
         asChild
       >
@@ -159,7 +165,7 @@ const ToolbarInner = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-2">
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
             <Tabs.Content value="linter">
               <Linter rows={lintingRows} />
             </Tabs.Content>
