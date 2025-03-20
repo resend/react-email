@@ -4,7 +4,7 @@ import { nicenames } from '../../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
 import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
-import { cn } from '../../utils';
+import { cn, sanitize } from '../../utils';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
@@ -105,7 +105,7 @@ export const Linter = ({ rows }: LinterProps) => {
           )!;
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{failingCheck.type}</Result.Name>
+              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
               <Result.Description>
                 {failingCheck.type === 'security'
                   ? 'Insecure URL, use HTTPS insted of HTTP'
@@ -155,7 +155,7 @@ export const Linter = ({ rows }: LinterProps) => {
 
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{row.result.entry.title}</Result.Name>
+              <Result.Name>{sanitize(row.result.entry.title)}</Result.Name>
               <Result.Description>
                 {statsReportedNotWorking.length > 0
                   ? `Not supported in ${unsupportedClientsString}`
@@ -191,7 +191,7 @@ export const Linter = ({ rows }: LinterProps) => {
           )!;
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{failingCheck.type}</Result.Name>
+              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
               <Result.Description>
                 {failingCheck.type === 'security'
                   ? 'Insecure URL, use HTTPS insted of HTTP'
@@ -278,9 +278,9 @@ Result.Name = ({
 }: React.ComponentProps<typeof Results.Column>) => {
   return (
     <Results.Column {...props}>
-      <span className="flex uppercase gap-1 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
+      <span className="flex uppercase gap-2 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
         <IconWarning />
-        {children}
+        {typeof children === 'string' ? sanitize(children) : children}
       </span>
     </Results.Column>
   );
