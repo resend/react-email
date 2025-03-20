@@ -38,7 +38,7 @@ export type ImageCheck = { passed: boolean } & (
 export interface ImageCheckingResult {
   status: 'success' | 'warning' | 'error';
   source: string;
-  codeLocation: CodeLocation | undefined;
+  codeLocation: CodeLocation;
   checks: ImageCheck[];
 }
 
@@ -66,7 +66,7 @@ export const checkImages = async (code: string, base: string) => {
 
         const result: ImageCheckingResult = {
           source: rawSource,
-          codeLocation: getCodeLocationFromAstElement(image),
+          codeLocation: getCodeLocationFromAstElement(image, code),
           status: 'success',
           checks: [],
         };

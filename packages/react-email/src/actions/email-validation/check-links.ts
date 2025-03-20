@@ -25,7 +25,7 @@ export type LinkCheck = { passed: boolean } & (
 export interface LinkCheckingResult {
   status: 'success' | 'warning' | 'error';
   link: string;
-  codeLocation: CodeLocation | undefined;
+  codeLocation: CodeLocation;
   checks: LinkCheck[];
 }
 
@@ -42,7 +42,7 @@ export const checkLinks = async (code: string) => {
 
         const result: LinkCheckingResult = {
           link,
-          codeLocation: getCodeLocationFromAstElement(anchor),
+          codeLocation: getCodeLocationFromAstElement(anchor, code),
           status: 'success',
           checks: [],
         };
