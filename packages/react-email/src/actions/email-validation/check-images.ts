@@ -2,6 +2,10 @@
 
 import type { IncomingMessage } from 'node:http';
 import { parse } from 'node-html-parser';
+import {
+  type CodeLocation,
+  getCodeLocationFromAstElement,
+} from './get-code-location-from-ast-element';
 import { quickFetch } from './quick-fetch';
 
 export type ImageCheck = { passed: boolean } & (
@@ -34,6 +38,7 @@ export type ImageCheck = { passed: boolean } & (
 export interface ImageCheckingResult {
   status: 'success' | 'warning' | 'error';
   source: string;
+  codeLocation: CodeLocation;
   checks: ImageCheck[];
 }
 
@@ -61,6 +66,7 @@ export const checkImages = async (code: string, base: string) => {
 
         const result: ImageCheckingResult = {
           source: rawSource,
+          codeLocation: getCodeLocationFromAstElement(image, code),
           status: 'success',
           checks: [],
         };
