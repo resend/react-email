@@ -2,7 +2,6 @@
 import { clsx } from 'clsx';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
-import { Heading } from '../heading';
 import { Logo } from '../logo';
 import { FileTree } from './file-tree';
 
