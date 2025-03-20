@@ -4,7 +4,7 @@ import { nicenames } from '../../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
 import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
-import { cn } from '../../utils';
+import { cn, sanitize } from '../../utils';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
@@ -105,7 +105,7 @@ export const Linter = ({ rows }: LinterProps) => {
           )!;
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{failingCheck.type}</Result.Name>
+              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
               <Result.Description>
                 {failingCheck.type === 'security'
                   ? 'Insecure URL, use HTTPS insted of HTTP'
@@ -125,7 +125,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'The link is broken due to invalid syntax'
                   : null}
 
-                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
                   {row.result.link}
                 </span>
               </Result.Description>
@@ -148,10 +148,10 @@ export const Linter = ({ rows }: LinterProps) => {
           )!;
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{failingCheck.type}</Result.Name>
+              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
               <Result.Description>
                 {failingCheck.type === 'security'
-                  ? 'Insecure URL, use HTTPS insted of HTTP'
+                  ? 'Insecure URL, use HTTPS instead of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
@@ -177,7 +177,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
-                <span className="font-mono float-right text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
                   {row.result.source}
                 </span>
               </Result.Description>
@@ -205,7 +205,7 @@ export const Linter = ({ rows }: LinterProps) => {
                     return undefined;
                   })
                   .filter(Boolean)
-                  .join('—')}
+                  .join(' · ')}
               </Result.Metadata>
             </Result>
           );
@@ -228,7 +228,7 @@ export const Linter = ({ rows }: LinterProps) => {
 
           return (
             <Result status={row.result.status} key={i}>
-              <Result.Name>{row.result.entry.title}</Result.Name>
+              <Result.Name>{sanitize(row.result.entry.title)}</Result.Name>
               <Result.Description>
                 {statsReportedNotWorking.length > 0
                   ? `Not supported in ${unsupportedClientsString}`
@@ -240,20 +240,19 @@ export const Linter = ({ rows }: LinterProps) => {
                 {statsReportedPartiallyWorking.length > 0
                   ? `Partially supported in ${partiallySupportedClientsString}`
                   : null}
-              </Result.Description>
-              <Result.Metadata>
-                <span className="mr-2">
-                  {row.result.location.start.line.toString().padStart(2, '0')}:
-                  {row.result.location.start.column.toString().padStart(2, '0')}
-                </span>
+
                 <a
                   href={row.result.entry.url}
-                  className="underline"
+                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors  hover:text-slate-12"
                   rel="noreferrer"
                   target="_blank"
                 >
-                  See more info
+                  More ↗
                 </a>
+              </Result.Description>
+              <Result.Metadata>
+                {row.result.location.start.line.toString().padStart(2, '0')}:
+                {row.result.location.start.column.toString().padStart(2, '0')}
               </Result.Metadata>
             </Result>
           );
@@ -287,9 +286,9 @@ Result.Name = ({
 }: React.ComponentProps<typeof Results.Column>) => {
   return (
     <Results.Column {...props}>
-      <span className="flex uppercase gap-1 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
+      <span className="flex uppercase gap-2 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
         <IconWarning />
-        {children}
+        {typeof children === 'string' ? sanitize(children) : children}
       </span>
     </Results.Column>
   );

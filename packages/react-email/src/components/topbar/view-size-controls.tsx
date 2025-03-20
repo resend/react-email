@@ -124,7 +124,7 @@ const PresetMenuItem = ({
     onClick={() => onSelect(dimensions)}
   >
     {name}
-    <span className="flex h-fit items-center rounded-full bg-slate-6 px-1.5 py-0.5 font-bold text-white text-xs">
+    <span className="flex h-fit items-center rounded-full bg-slate-6 px-2 py-1 font-medium text-slate-11 text-xs">
       {dimensions.width}x{dimensions.height}
     </span>
   </DropdownMenu.Item>
