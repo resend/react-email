@@ -8,20 +8,22 @@ import { cn, sanitize } from '../../utils';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export type LintingRow =
   | {
-      source: 'image';
-      result: ImageCheckingResult;
-    }
+    source: 'image';
+    result: ImageCheckingResult;
+  }
   | {
-      source: 'link';
-      result: LinkCheckingResult;
-    }
+    source: 'link';
+    result: LinkCheckingResult;
+  }
   | {
-      source: 'compatibility';
-      result: CompatibilityCheckingResult;
-    };
+    source: 'compatibility';
+    result: CompatibilityCheckingResult;
+  };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -111,14 +113,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the content may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The link is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -130,10 +132,11 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
-                <span className="mr-2">
-                  {row.result.codeLocation.line.toString().padStart(2, '0')}:
-                  {row.result.codeLocation.column.toString().padStart(2, '0')}
-                </span>
+                <CodePreviewLine
+                  line={row.result.codeLocation.line}
+                  column={row.result.codeLocation.column}
+                  type="html"
+                />
                 {failingCheck.type === 'fetch_attempt'
                   ? failingCheck.metadata.fetchStatusCode
                   : ''}
@@ -154,14 +157,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS instead of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the image may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The image is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -173,7 +176,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   : null}
 
                 {failingCheck.type === 'image_size' &&
-                failingCheck.metadata.byteCount
+                  failingCheck.metadata.byteCount
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
@@ -182,10 +185,11 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
-                <span className="mr-2">
-                  {row.result.codeLocation.line.toString().padStart(2, '0')}:
-                  {row.result.codeLocation.column.toString().padStart(2, '0')}
-                </span>
+                <CodePreviewLine
+                  line={row.result.codeLocation.line}
+                  column={row.result.codeLocation.column}
+                  type="html"
+                />
                 {row.result.checks
                   .map((check) => {
                     if (
@@ -234,7 +238,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? `Not supported in ${unsupportedClientsString}`
                   : null}
                 {statsReportedPartiallyWorking.length > 0 &&
-                statsReportedNotWorking.length > 0
+                  statsReportedNotWorking.length > 0
                   ? '. '
                   : null}
                 {statsReportedPartiallyWorking.length > 0
@@ -251,8 +255,11 @@ export const Linter = ({ rows }: LinterProps) => {
                 </a>
               </Result.Description>
               <Result.Metadata>
-                {row.result.location.start.line.toString().padStart(2, '0')}:
-                {row.result.location.start.column.toString().padStart(2, '0')}
+                <CodePreviewLine
+                  line={row.result.location.start.line}
+                  column={row.result.location.start.column}
+                  type="react"
+                />
               </Result.Metadata>
             </Result>
           );
@@ -261,6 +268,34 @@ export const Linter = ({ rows }: LinterProps) => {
         return undefined;
       })}
     </Results>
+  );
+};
+
+interface CodePreviewLineProps {
+  line: number;
+  column: number;
+
+  type: 'react' | 'html';
+}
+
+const CodePreviewLine = ({ line, column, type }: CodePreviewLineProps) => {
+  const searchParams = useSearchParams();
+
+  const newSearchParams = new URLSearchParams(searchParams);
+  newSearchParams.set('view', 'source');
+  if (type === 'html') {
+    newSearchParams.set('lang', 'markup');
+  } else if (type === 'react') {
+    newSearchParams.set('lang', 'jsx');
+  }
+
+  return (
+    <Link
+      href={`?${newSearchParams.toString()}#L${line}`}
+      className="appearance-none underline mr-2"
+    >
+      {line.toString().padStart(2, '0')}:{column.toString().padStart(2, '0')}
+    </Link>
   );
 };
 
