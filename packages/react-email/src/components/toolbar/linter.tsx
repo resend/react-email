@@ -130,56 +130,13 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
+                <span className="mr-2">
+                  {row.result.codeLocation.line.toString().padStart(2, '0')}:
+                  {row.result.codeLocation.column.toString().padStart(2, '0')}
+                </span>
                 {failingCheck.type === 'fetch_attempt'
                   ? failingCheck.metadata.fetchStatusCode
                   : ''}
-              </Result.Metadata>
-            </Result>
-          );
-        }
-
-        if (row.source === 'compatibility') {
-          const statsReportedNotWorking = Object.entries(
-            row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === 'error');
-          const statsReportedPartiallyWorking = Object.entries(
-            row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === 'warning');
-
-          const unsupportedClientsString = statsReportedNotWorking
-            .map(([emailClient]) => nicenames.family[emailClient])
-            .join(', ');
-          const partiallySupportedClientsString = statsReportedPartiallyWorking
-            .map(([emailClient]) => nicenames.family[emailClient])
-            .join(', ');
-
-          return (
-            <Result status={row.result.status} key={i}>
-              <Result.Name>{sanitize(row.result.entry.title)}</Result.Name>
-              <Result.Description>
-                {statsReportedNotWorking.length > 0
-                  ? `Not supported in ${unsupportedClientsString}`
-                  : null}
-                {statsReportedPartiallyWorking.length > 0 &&
-                statsReportedNotWorking.length > 0
-                  ? '. '
-                  : null}
-                {statsReportedPartiallyWorking.length > 0
-                  ? `Partially supported in ${partiallySupportedClientsString}`
-                  : null}
-
-                <a
-                  href={row.result.entry.url}
-                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors  hover:text-slate-12"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  More ↗
-                </a>
-              </Result.Description>
-              <Result.Metadata>
-                {row.result.location.start.line.toString().padStart(2, '0')}:
-                {row.result.location.start.column.toString().padStart(2, '0')}
               </Result.Metadata>
             </Result>
           );
@@ -225,6 +182,10 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
+                <span className="mr-2">
+                  {row.result.codeLocation.line.toString().padStart(2, '0')}:
+                  {row.result.codeLocation.column.toString().padStart(2, '0')}
+                </span>
                 {row.result.checks
                   .map((check) => {
                     if (
@@ -250,11 +211,52 @@ export const Linter = ({ rows }: LinterProps) => {
           );
         }
 
-        return undefined;
-      })}
-    </Results>
-  );
-};
+         if (row.source === 'compatibility') {
+          const statsReportedNotWorking = Object.entries(
+            row.result.statsPerEmailClient,
+          ).filter(([, stats]) => stats.status === 'error');
+          const statsReportedPartiallyWorking = Object.entries(
+            row.result.statsPerEmailClient,
+          ).filter(([, stats]) => stats.status === 'warning');
+
+          const unsupportedClientsString = statsReportedNotWorking
+            .map(([emailClient]) => nicenames.family[emailClient])
+            .join(', ');
+          const partiallySupportedClientsString = statsReportedPartiallyWorking
+            .map(([emailClient]) => nicenames.family[emailClient])
+            .join(', ');
+
+          return (
+            <Result status={row.result.status} key={i}>
+              <Result.Name>{sanitize(row.result.entry.title)}</Result.Name>
+              <Result.Description>
+                {statsReportedNotWorking.length > 0
+                  ? `Not supported in ${unsupportedClientsString}`
+                  : null}
+                {statsReportedPartiallyWorking.length > 0 &&
+                statsReportedNotWorking.length > 0
+                  ? '. '
+                  : null}
+                {statsReportedPartiallyWorking.length > 0
+                  ? `Partially supported in ${partiallySupportedClientsString}`
+                  : null}
+
+                <a
+                  href={row.result.entry.url}
+                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors  hover:text-slate-12"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  More ↗
+                </a>
+              </Result.Description>
+              <Result.Metadata>
+                {row.result.location.start.line.toString().padStart(2, '0')}:
+                {row.result.location.start.column.toString().padStart(2, '0')}
+              </Result.Metadata>
+            </Result>
+          );
+        }
 
 interface ResultProps extends React.ComponentProps<typeof Results.Row> {
   status: 'error' | 'warning' | 'success';
