@@ -88,6 +88,8 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
               <span className="flex gap-2 items-center">
                 <IconWarning
                   className={cn(
+                    result.points === 0 ? 'text-green-400' : null,
+                    result.points > 0 && result.points <= 1.5 ? null : null,
                     result.points > 1.5 ? 'text-yellow-100' : null,
                     result.points > 3 ? 'text-orange-400' : null,
                     result.points >= 5 ? 'text-red-400' : null,
@@ -96,10 +98,16 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                 Score
               </span>
             </Results.Column>
-            <Results.Column>Lower scores are better</Results.Column>
+            <Results.Column>
+              {result.points === 0
+                ? 'Congratulations! Your email is clean of abuse indicators.'
+                : 'Lower scores are better'}
+            </Results.Column>
             <Results.Column
               className={cn(
                 'text-right text-3xl tracking-tighter font-bold',
+                result.points === 0 ? 'text-green-400' : null,
+                result.points > 0 && result.points <= 1.5 ? null : null,
                 result.points > 1.5 ? 'text-yellow-200' : null,
                 result.points > 3 ? 'text-orange-400' : null,
                 result.points >= 5 ? 'text-red-400' : null,
