@@ -91,6 +91,9 @@ const ToolbarInner = ({
     }, []);
   }
 
+  console.log('activeTab', activeTab);
+  console.log('toggled', toggled);
+
   return (
     <div
       data-toggled={toggled}
@@ -103,26 +106,32 @@ const ToolbarInner = ({
       <Tabs.Root
         value={activeTab}
         onValueChange={(newValue) => {
-          if (!toggled) {
-            setActivePanelValue(newValue as ToolbarTabValue);
-          } else if (activeTab === newValue) {
-            return;
-          } else {
-            setActivePanelValue(newValue as ToolbarTabValue);
-          }
+          setActivePanelValue(newValue as ToolbarTabValue);
         }}
         asChild
       >
         <div className="flex flex-col h-full">
           <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
-              <Tabs.Trigger asChild value="spam-assassin">
+              <Tabs.Trigger
+                asChild
+                value="spam-assassin"
+                onClick={() => {
+                  setActivePanelValue('spam-assassin');
+                }}
+              >
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
                   <IconScissors />
                   Spam Assassin
                 </ToolbarButton>
               </Tabs.Trigger>
-              <Tabs.Trigger asChild value="linter">
+              <Tabs.Trigger
+                asChild
+                value="linter"
+                onClick={() => {
+                  setActivePanelValue('linter');
+                }}
+              >
                 <ToolbarButton active={activeTab === 'linter'}>
                   <IconScanner />
                   Linter
@@ -165,7 +174,7 @@ const ToolbarInner = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2">
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-3">
             <Tabs.Content value="linter">
               <Linter rows={lintingRows} />
             </Tabs.Content>
