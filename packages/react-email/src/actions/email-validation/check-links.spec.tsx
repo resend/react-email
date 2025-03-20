@@ -3,16 +3,13 @@ import { type LinkCheckingResult, checkLinks } from './check-links';
 
 test('checkLinks()', async () => {
   const results: LinkCheckingResult[] = [];
-  const stream = await checkLinks(
-    await render(
-      <div>
-        <a href="/">Root</a>
-        <a href="https://resend.com">Resend</a>
-        <a href="https://notion.so">Notion</a>
-        <a href="http://react.email">React Email unsafe</a>
-      </div>,
-    ),
-  );
+  const html = `<div>
+  <a href="/">Root</a>
+  <a href="https://resend.com">Resend</a>
+  <a href="https://notion.so">Notion</a>
+  <a href="http://react.email">React Email unsafe</a>
+</div>`;
+  const stream = await checkLinks(html);
   const reader = stream.getReader();
   while (true) {
     const { done, value } = await reader.read();
@@ -26,6 +23,10 @@ test('checkLinks()', async () => {
   expect(results).toEqual([
     {
       status: 'error',
+      codeLocation: {
+        line: 2,
+        column: 3,
+      },
       checks: [
         {
           type: 'syntax',
@@ -36,6 +37,10 @@ test('checkLinks()', async () => {
     },
     {
       status: 'success',
+      codeLocation: {
+        line: 3,
+        column: 3,
+      },
       checks: [
         {
           type: 'syntax',
@@ -57,6 +62,10 @@ test('checkLinks()', async () => {
     },
     {
       status: 'warning',
+      codeLocation: {
+        line: 4,
+        column: 3,
+      },
       checks: [
         {
           type: 'syntax',
@@ -78,6 +87,10 @@ test('checkLinks()', async () => {
     },
     {
       status: 'warning',
+      codeLocation: {
+        line: 5,
+        column: 3,
+      },
       checks: [
         {
           type: 'syntax',
