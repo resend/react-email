@@ -3,7 +3,7 @@ import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
 import { cn } from '../utils';
-import { useLocationHash } from '../hooks/use-location-hash';
+import { useFragmentIdentifier } from '../contexts/fragment-identifier';
 
 interface CodeProps {
   children: string;
@@ -51,7 +51,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   children,
   language = 'html',
 }) => {
-  const locationHash = useLocationHash();
+  const locationHash = useFragmentIdentifier();
   const highlight = (() => {
     if (locationHash) {
       const match = locationHash.match(lineHashRegex);

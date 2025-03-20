@@ -13,6 +13,7 @@ import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Home from '../../page';
 import Preview from './preview';
+import { FragmentIdentifierProvider } from '../../../contexts/fragment-identifier';
 
 export const dynamicParams = true;
 
@@ -119,12 +120,14 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         {/* on the build of the preview server de-opting into         */}
         {/* client-side rendering on build                            */}
         <Suspense fallback={<Home />}>
-          <Preview emailTitle={path.basename(emailPath)} />
+          <FragmentIdentifierProvider>
+            <Preview emailTitle={path.basename(emailPath)} />
 
-          <Toolbar
-            serverLintingRows={lintingRows}
-            serverSpamCheckingResult={spamCheckingResult}
-          />
+            <Toolbar
+              serverLintingRows={lintingRows}
+              serverSpamCheckingResult={spamCheckingResult}
+            />
+          </FragmentIdentifierProvider>
         </Suspense>
       </Shell>
     </PreviewProvider>
