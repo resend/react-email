@@ -1,25 +1,25 @@
-"use client";
-import * as Tabs from "@radix-ui/react-tabs";
-import { LayoutGroup } from "framer-motion";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { use, useEffect } from "react";
-import { isBuilding } from "../app/env";
-import { PreviewContext } from "../contexts/preview";
-import { cn } from "../utils";
-import { IconArrowDown } from "./icons/icon-arrow-down";
-import { IconReload } from "./icons/icon-reload";
-import { IconScanner } from "./icons/icon-scanner";
-import { IconScissors } from "./icons/icon-scissors";
-import { Linter, type LintingRow, useLinter } from "./toolbar/linter";
+'use client';
+import * as Tabs from '@radix-ui/react-tabs';
+import { LayoutGroup } from 'framer-motion';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { use, useEffect } from 'react';
+import { isBuilding } from '../app/env';
+import { PreviewContext } from '../contexts/preview';
+import { cn } from '../utils';
+import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconReload } from './icons/icon-reload';
+import { IconScanner } from './icons/icon-scanner';
+import { IconScissors } from './icons/icon-scissors';
+import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import {
   SpamAssassin,
   type SpamCheckingResult,
   useSpamAssassin,
-} from "./toolbar/spam-assassin";
-import { ToolbarButton } from "./toolbar/toolbar-button";
-import { useCachedState } from "./toolbar/use-cached-state";
+} from './toolbar/spam-assassin';
+import { ToolbarButton } from './toolbar/toolbar-button';
+import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = "linter" | "spam-assassin";
+export type ToolbarTabValue = 'linter' | 'spam-assassin';
 
 const ToolbarInner = ({
   serverLintingRows,
@@ -41,7 +41,7 @@ const ToolbarInner = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const activeTab = (searchParams.get("toolbar-panel") ?? undefined) as
+  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
     | ToolbarTabValue
     | undefined;
 
@@ -50,16 +50,16 @@ const ToolbarInner = ({
   const setActivePanelValue = (newValue: ToolbarTabValue | undefined) => {
     const params = new URLSearchParams(searchParams);
     if (newValue === undefined) {
-      params.delete("toolbar-panel");
+      params.delete('toolbar-panel');
     } else {
-      params.set("toolbar-panel", newValue);
+      params.set('toolbar-panel', newValue);
     }
     router.push(`${pathname}?${params.toString()}`);
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
     useCachedState<SpamCheckingResult>(
-      `spam-assassin-${emailSlug.replaceAll("/", "-")}`
+      `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
     );
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
@@ -71,7 +71,7 @@ const ToolbarInner = ({
 
   const [cachedLintingRows, setCachedLintingRows] = useCachedState<
     LintingRow[]
-  >(`linter-${emailSlug.replaceAll("/", "-")}`);
+  >(`linter-${emailSlug.replaceAll('/', '-')}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     reactMarkup,
     emailPath,
@@ -96,13 +96,13 @@ const ToolbarInner = ({
     <div
       data-toggled={toggled}
       className={cn(
-        "absolute bottom-0 left-0 right-0",
-        "bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform",
-        "data-[toggled=false]:translate-y-[170px]"
+        'absolute bottom-0 left-0 right-0',
+        'bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform',
+        'data-[toggled=false]:translate-y-[170px]',
       )}
     >
       <Tabs.Root
-        value={activeTab ?? ""}
+        value={activeTab ?? ''}
         onValueChange={(newValue) => {
           setActivePanelValue(newValue as ToolbarTabValue);
         }}
@@ -112,13 +112,13 @@ const ToolbarInner = ({
           <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activeTab === "spam-assassin"}>
+                <ToolbarButton active={activeTab === 'spam-assassin'}>
                   <IconScissors />
                   Spam Assassin
                 </ToolbarButton>
               </Tabs.Trigger>
               <Tabs.Trigger asChild value="linter">
-                <ToolbarButton active={activeTab === "linter"}>
+                <ToolbarButton active={activeTab === 'linter'}>
                   <IconScanner />
                   Linter
                 </ToolbarButton>
@@ -131,9 +131,9 @@ const ToolbarInner = ({
                   disabled={lintLoading || spamLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
-                      setActivePanelValue("linter");
+                      setActivePanelValue('linter');
                     }
-                    if (activeTab === "spam-assassin") {
+                    if (activeTab === 'spam-assassin') {
                       await loadSpamChecking();
                     } else {
                       await loadLinting();
@@ -143,7 +143,7 @@ const ToolbarInner = ({
                   <IconReload
                     size={24}
                     className={cn({
-                      "animate-spin opacity-60 animate-spin-fast":
+                      'animate-spin opacity-60 animate-spin-fast':
                         lintLoading || spamLoading,
                     })}
                   />
@@ -153,7 +153,7 @@ const ToolbarInner = ({
                 tooltip="Toggle toolbar"
                 onClick={() => {
                   if (activeTab === undefined) {
-                    setActivePanelValue("linter");
+                    setActivePanelValue('linter');
                   } else {
                     setActivePanelValue(undefined);
                   }

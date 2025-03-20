@@ -211,7 +211,7 @@ export const Linter = ({ rows }: LinterProps) => {
           );
         }
 
-         if (row.source === 'compatibility') {
+        if (row.source === 'compatibility') {
           const statsReportedNotWorking = Object.entries(
             row.result.statsPerEmailClient,
           ).filter(([, stats]) => stats.status === 'error');
@@ -257,6 +257,12 @@ export const Linter = ({ rows }: LinterProps) => {
             </Result>
           );
         }
+
+        return undefined;
+      })}
+    </Results>
+  );
+};
 
 interface ResultProps extends React.ComponentProps<typeof Results.Row> {
   status: 'error' | 'warning' | 'success';
