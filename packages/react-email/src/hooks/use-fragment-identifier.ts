@@ -1,5 +1,5 @@
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react"
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export const useFragmentIdentifier = () => {
   const pathname = usePathname();
@@ -10,5 +10,5 @@ export const useFragmentIdentifier = () => {
     setFragmentIdentifier(global.location?.hash);
   }, [pathname, searchParams]);
 
-  return fragmentIdentifier
-}
+  return fragmentIdentifier;
+};
