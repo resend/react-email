@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { StripeWelcomeEmail } from '../../../../../demo/emails/welcome/stripe-welcome';
 import PapermarkYearInReviewEmail from '../../../../../demo/emails/notifications/papermark-year-in-review';
+import { StripeWelcomeEmail } from '../../../../../demo/emails/welcome/stripe-welcome';
 import { checkSpam } from './check-spam';
 
 describe('checkSpam()', () => {
