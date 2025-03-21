@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "15.0.4",
+    "next": "15.2.3",
     "@react-email/components": "workspace:0.0.34",
     "react": "^19",
     "react-dom": "^19",
