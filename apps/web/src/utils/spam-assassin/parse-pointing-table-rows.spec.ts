@@ -88,6 +88,31 @@ Content-Type: text/html; charset="UTF-8"
     expect(parsePointingTableRows(spamdResponse)).toMatchSnapshot();
   });
 
+  test('works with names that exceed the column length', () => {
+    const partialSpamResponse = `
+ pts rule name              description
+---- ---------------------- --------------------------------------------------
+ 1.4 MISSING_DATE           Missing Date: header
+ 1.0 MISSING_FROM           Missing From: header
+ 0.1 MISSING_MID            Missing Message-Id: header
+-0.0 NO_RECEIVED            Informational: message has no Received headers
+ 1.8 MISSING_SUBJECT        Missing Subject: header
+ 0.0 URIBL_DBL_BLOCKED_OPENDNS ADMINISTRATOR NOTICE: The query to
+                            dbl.spamhaus.org was blocked due to usage of an
+                             open resolver. See
+                            https://www.spamhaus.org/returnc/pub/
+                            [URI: app.papermark.io]
+ 1.2 MISSING_HEADERS        Missing To: header
+-0.0 NO_RELAYS              Informational: message was not relayed via SMTP
+ 0.0 HTML_MESSAGE           BODY: HTML included in message
+ 0.0 NO_HEADERS_MESSAGE     Message appears to be missing most RFC-822 headers
+ 3.7 DOS_BODY_HIGH_NO_MID   High bit body and no message ID header
+ 2.1 FONT_INVIS_LONG_LINE   Invisible text + long lines
+ 0.8 HTML_TEXT_INVISIBLE_FONT HTML hidden text - word obfuscation?`;
+
+    expect(parsePointingTableRows(partialSpamResponse)).toMatchSnapshot();
+  });
+
   test('works with a multiline description', () => {
     const partialSpamResponse = `â€Œâ [...]
 
