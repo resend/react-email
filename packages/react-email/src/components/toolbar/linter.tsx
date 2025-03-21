@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import prettyBytes from 'pretty-bytes';
 import { use, useRef, useState } from 'react';
 import { nicenames } from '../../actions/email-validation/caniemail-data';
@@ -5,12 +7,10 @@ import type { CompatibilityCheckingResult } from '../../actions/email-validation
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
 import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
 import { cn, sanitize } from '../../utils';
+import { FragmentIdentifierContext } from '../../contexts/fragment-identifier';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { FragmentIdentifierContext } from '../../contexts/fragment-identifier';
 
 export type LintingRow =
   | {
