@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,

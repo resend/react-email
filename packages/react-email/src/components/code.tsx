@@ -2,8 +2,8 @@
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
-import { cn } from '../utils';
 import { useFragmentIdentifier } from '../contexts/fragment-identifier';
+import { cn } from '../utils';
 
 interface CodeProps {
   children: string;
@@ -69,7 +69,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     if (!highlight) return false;
 
     return highlight[0] <= line && highlight[1] >= line;
-  }
+  };
 
   const value = children.trim();
 
