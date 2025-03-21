@@ -1,9 +1,10 @@
 'use client';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
-import * as React from 'react';
-import { useFragmentIdentifier } from '../contexts/fragment-identifier';
+import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect, Fragment } from 'react';
 
 interface CodeProps {
   children: string;
@@ -136,9 +137,9 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                       token.types = newTypes;
 
                       return (
-                        <React.Fragment key={key}>
+                        <Fragment key={key}>
                           <span {...tokenProps} />
-                        </React.Fragment>
+                        </Fragment>
                       );
                     })}
                   </div>

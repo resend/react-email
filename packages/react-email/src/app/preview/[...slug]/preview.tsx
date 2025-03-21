@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useState } from 'react';
+import { use, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -37,21 +37,21 @@ const Preview = ({ emailTitle }: PreviewProps) => {
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', view);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
   const handleLangChange = (lang: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
     params.set('lang', lang);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
   const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
   const hasErrors = 'error' in renderingResult;
 
-  const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
-  const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
+  const maxWidthRef = useRef(Number.POSITIVE_INFINITY);
+  const maxHeightRef = useRef(Number.POSITIVE_INFINITY);
   const minWidth = 350;
   const minHeight = 600;
   const storedWidth = searchParams.get('width');
@@ -59,19 +59,19 @@ const Preview = ({ emailTitle }: PreviewProps) => {
   const [width, setWidth] = useClampedState(
     storedWidth ? Number.parseInt(storedWidth) : 600,
     350,
-    maxWidth,
+    maxWidthRef.current,
   );
   const [height, setHeight] = useClampedState(
     storedHeight ? Number.parseInt(storedHeight) : 1024,
     600,
-    maxHeight,
+    maxHeightRef.current,
   );
 
   const handleSaveViewSize = useDebouncedCallback(() => {
     const params = new URLSearchParams(searchParams);
     params.set('width', width.toString());
     params.set('height', height.toString());
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   }, 300);
 
   return (
@@ -110,8 +110,8 @@ const Preview = ({ emailTitle }: PreviewProps) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
             if (elementEntry) {
-              setMaxWidth(elementEntry.contentRect.width - 80);
-              setMaxHeight(elementEntry.contentRect.height - 80);
+              maxWidthRef.current = elementEntry.contentRect.width - 80;
+              maxHeightRef.current = elementEntry.contentRect.height - 80;
             }
           });
 
@@ -132,8 +132,8 @@ const Preview = ({ emailTitle }: PreviewProps) => {
               <ResizableWarpper
                 minHeight={minHeight}
                 minWidth={minWidth}
-                maxHeight={maxHeight}
-                maxWidth={maxWidth}
+                maxHeight={maxHeightRef.current}
+                maxWidth={maxWidthRef.current}
                 height={height}
                 onResizeEnd={() => {
                   handleSaveViewSize();
