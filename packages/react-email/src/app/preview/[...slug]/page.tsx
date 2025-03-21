@@ -119,15 +119,13 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         {/* This suspense is so that this page doesn't throw warnings */}
         {/* on the build of the preview server de-opting into         */}
         {/* client-side rendering on build                            */}
-        <Suspense fallback={<Home />}>
-          <FragmentIdentifierProvider>
-            <Preview emailTitle={path.basename(emailPath)} />
+        <Suspense>
+          <Preview emailTitle={path.basename(emailPath)} />
 
-            <Toolbar
-              serverLintingRows={lintingRows}
-              serverSpamCheckingResult={spamCheckingResult}
-            />
-          </FragmentIdentifierProvider>
+          <Toolbar
+            serverLintingRows={lintingRows}
+            serverSpamCheckingResult={spamCheckingResult}
+          />
         </Suspense>
       </Shell>
     </PreviewProvider>
