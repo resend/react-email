@@ -1,8 +1,11 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { spec } from 'node:test/reporters';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
+import * as allReactEmailComponents from '@react-email/components';
 import { render } from '@react-email/components';
+import * as allReactResponsiveComponents from '@responsive-email/react-email';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
@@ -26,7 +29,10 @@ const ComponentModule = z.object({
   component: z.record(z.string(), z.any()),
 });
 
-const getComponentCodeFrom = (fileContent: string): string => {
+const getComponentCodeFrom = (
+  componentName: string,
+  fileContent: string,
+): string => {
   const parsedContents = parse(fileContent, {
     sourceType: 'unambiguous',
     strictMode: false,
@@ -35,6 +41,12 @@ const getComponentCodeFrom = (fileContent: string): string => {
   });
 
   let componentCode: string | undefined;
+
+  const nativeComponents = Object.keys(allReactEmailComponents);
+  const usedNativeComponents = new Set<string>();
+  const responsiveEmailComponents = Object.keys(allReactResponsiveComponents);
+  const usedResponsiveEmailComponents = new Set<string>();
+
   traverse(parsedContents, {
     VariableDeclarator({ node }) {
       if (
@@ -48,16 +60,57 @@ const getComponentCodeFrom = (fileContent: string): string => {
         }
       }
     },
+    ImportSpecifier({ node }) {
+      const specifier =
+        node.imported.type === 'Identifier'
+          ? node.imported.name
+          : node.imported.value;
+      if (nativeComponents.includes(specifier)) {
+        usedNativeComponents.add(specifier);
+      }
+      if (responsiveEmailComponents.includes(specifier)) {
+        usedResponsiveEmailComponents.add(specifier);
+      }
+    },
   });
 
   if (!componentCode) {
     throw new Error('Could not find the source code for the component');
   }
 
-  return componentCode
-    .split(/\r\n|\r|\n/)
-    .map((line) => line.replace(/^\s{2}/, ''))
-    .join('\n');
+  componentCode = `export default function ${componentName}() {
+  return ${componentCode}
+}`;
+
+  let importStatements = 'import * as React from "react";\n';
+
+  function generateImportStatement(specifiers: string[], source: string) {
+    let statement = `import { ${specifiers.join(', ')} } from "${source}";\n`;
+
+    if (statement.length > 80) {
+      statement = `import {${specifiers.map((specifier) => `\n  ${specifier}`).join(',')}\n} from "${source}";\n`;
+    }
+
+    return statement;
+  }
+
+  if (usedNativeComponents.size > 0) {
+    importStatements += generateImportStatement(
+      Array.from(usedNativeComponents),
+      '@react-email/components',
+    );
+  }
+
+  if (usedResponsiveEmailComponents.size > 0) {
+    importStatements += generateImportStatement(
+      Array.from(responsiveEmailComponents),
+      '@responsive-email/react-email',
+    );
+  }
+
+  componentCode = `${importStatements}\n${componentCode}`;
+
+  return componentCode;
 };
 
 export const getComponentElement = async (
@@ -81,6 +134,11 @@ export const getImportedComponent = async (
   const dirpath = getComponentPathFromSlug(component.slug);
   const variantFilenames = await fs.readdir(dirpath);
 
+  const componentName = component.slug.replaceAll(
+    /(?:^|-)([a-z])/g,
+    (_match, letter: string) => letter.toUpperCase(),
+  );
+
   if (variantFilenames.length === 1 && variantFilenames[0] === 'index.tsx') {
     const filePath = path.join(dirpath, 'index.tsx');
     const element = <Layout>{await getComponentElement(filePath)}</Layout>;
@@ -88,7 +146,7 @@ export const getImportedComponent = async (
       pretty: true,
     });
     const fileContent = await fs.readFile(filePath, 'utf8');
-    const code = getComponentCodeFrom(fileContent);
+    const code = getComponentCodeFrom(componentName, fileContent);
     return {
       ...component,
       code: {
@@ -116,7 +174,10 @@ export const getImportedComponent = async (
 
   variantFilenames.forEach((variantFilename, index) => {
     const variantKey = variantFilename.replace('.tsx', '') as CodeVariant;
-    codePerVariant[variantKey] = getComponentCodeFrom(fileContents[index]);
+    codePerVariant[variantKey] = getComponentCodeFrom(
+      componentName,
+      fileContents[index],
+    );
   });
 
   const element = <Layout>{elements[0]}</Layout>;
