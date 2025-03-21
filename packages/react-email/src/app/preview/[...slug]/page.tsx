@@ -11,7 +11,6 @@ import { PreviewProvider } from '../../../contexts/preview';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
-import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -118,7 +117,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         {/* This suspense is so that this page doesn't throw warnings */}
         {/* on the build of the preview server de-opting into         */}
         {/* client-side rendering on build                            */}
-        <Suspense fallback={<Home />}>
+        <Suspense>
           <Preview emailTitle={path.basename(emailPath)} />
 
           <Toolbar

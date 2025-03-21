@@ -71,6 +71,7 @@ export const FileTreeDirectoryChildren = (props: {
                           pathname: `/preview/${emailSlug}`,
                           search: searchParams.toString(),
                         }}
+                        prefetch
                         key={emailSlug}
                       >
                         <motion.span
