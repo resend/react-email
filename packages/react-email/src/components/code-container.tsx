@@ -54,9 +54,8 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative px-4 py-[8px] font-sans text-sm font-medium transition duration-200 ease-in-out hover:text-slate-12 ${
-                    activeLang !== language ? 'text-slate-11' : 'text-slate-12'
-                  }`}
+                  className={`relative px-4 py-[8px] font-sans text-sm font-medium transition duration-200 ease-in-out hover:text-slate-12 ${activeLang !== language ? 'text-slate-11' : 'text-slate-12'
+                    }`}
                   key={language}
                   onClick={() => {
                     setActiveLang(language);
@@ -84,16 +83,9 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           filename={`email.${activeMarkup.language}`}
         />
       </div>
-      {markups.map(({ language, content }) => {
-        return (
-          <div
-            className={`${activeLang !== language && 'hidden'}`}
-            key={language}
-          >
-            <Code language={language}>{content}</Code>
-          </div>
-        );
-      })}
+      <div>
+        <Code language={activeLang}>{activeMarkup.content}</Code>
+      </div>
     </div>
   );
 };
@@ -146,7 +138,7 @@ const DownloadButton = ({ content, filename }: DownloadButtonProps) => {
     return URL.createObjectURL(file);
   }, [content, filename]);
   const url = React.useSyncExternalStore(
-    () => () => {},
+    () => () => { },
     () => generatedUrl,
     () => undefined,
   );

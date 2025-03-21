@@ -44,7 +44,10 @@ const Preview = ({ emailTitle }: PreviewProps) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
     params.set('lang', lang);
-    router.push(`${pathname}?${params.toString()}${location.hash}`);
+    const isSameLang = searchParams.get('lang') === lang;
+    router.push(
+      `${pathname}?${params.toString()}${isSameLang ? location.hash : ''}`,
+    );
   };
 
   const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
