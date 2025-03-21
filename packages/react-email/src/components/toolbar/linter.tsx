@@ -1,30 +1,29 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import prettyBytes from 'pretty-bytes';
-import { use, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { nicenames } from '../../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
 import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
 import { cn, sanitize } from '../../utils';
-import { FragmentIdentifierContext } from '../../contexts/fragment-identifier';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
 
 export type LintingRow =
   | {
-    source: 'image';
-    result: ImageCheckingResult;
-  }
+      source: 'image';
+      result: ImageCheckingResult;
+    }
   | {
-    source: 'link';
-    result: LinkCheckingResult;
-  }
+      source: 'link';
+      result: LinkCheckingResult;
+    }
   | {
-    source: 'compatibility';
-    result: CompatibilityCheckingResult;
-  };
+      source: 'compatibility';
+      result: CompatibilityCheckingResult;
+    };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -114,14 +113,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS insted of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                  failingCheck.metadata.fetchStatusCode &&
-                  failingCheck.metadata.fetchStatusCode >= 300 &&
-                  failingCheck.metadata.fetchStatusCode < 400
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 300 &&
+                failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the content may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                  failingCheck.metadata.fetchStatusCode &&
-                  failingCheck.metadata.fetchStatusCode >= 400
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The link is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -158,14 +157,14 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS instead of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                  failingCheck.metadata.fetchStatusCode &&
-                  failingCheck.metadata.fetchStatusCode >= 300 &&
-                  failingCheck.metadata.fetchStatusCode < 400
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 300 &&
+                failingCheck.metadata.fetchStatusCode < 400
                   ? 'There was a redirect, the image may have been moved'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                  failingCheck.metadata.fetchStatusCode &&
-                  failingCheck.metadata.fetchStatusCode >= 400
+                failingCheck.metadata.fetchStatusCode &&
+                failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The image is broken'
                   : null}
                 {failingCheck.type === 'syntax'
@@ -177,7 +176,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   : null}
 
                 {failingCheck.type === 'image_size' &&
-                  failingCheck.metadata.byteCount
+                failingCheck.metadata.byteCount
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
@@ -239,7 +238,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? `Not supported in ${unsupportedClientsString}`
                   : null}
                 {statsReportedPartiallyWorking.length > 0 &&
-                  statsReportedNotWorking.length > 0
+                statsReportedNotWorking.length > 0
                   ? '. '
                   : null}
                 {statsReportedPartiallyWorking.length > 0

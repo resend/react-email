@@ -7,12 +7,10 @@ import { Shell } from '../../../components/shell';
 import { Toolbar } from '../../../components/toolbar';
 import type { LintingRow } from '../../../components/toolbar/linter';
 import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
-import { FragmentIdentifierProvider } from '../../../contexts/fragment-identifier';
 import { PreviewProvider } from '../../../contexts/preview';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
-import Home from '../../page';
 import Preview from './preview';
 
 export const dynamicParams = true;

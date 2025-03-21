@@ -1,10 +1,9 @@
 'use client';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
+import { Fragment } from 'react';
 import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, Fragment } from 'react';
 
 interface CodeProps {
   children: string;
