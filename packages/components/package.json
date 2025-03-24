@@ -1,15 +1,13 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.32",
+  "version": "0.0.34",
   "private": true,
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
     ".": {
       "import": {
@@ -26,18 +24,14 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "lint": "eslint ."
+    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/components"
   },
-  "keywords": [
-    "react",
-    "email"
-  ],
+  "keywords": ["react", "email"],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -57,17 +51,16 @@
     "@react-email/link": "workspace:0.0.12",
     "@react-email/markdown": "workspace:0.0.14",
     "@react-email/preview": "workspace:0.0.12",
-    "@react-email/render": "workspace:1.0.4",
+    "@react-email/render": "workspace:1.0.5",
     "@react-email/row": "workspace:0.0.12",
     "@react-email/section": "workspace:0.0.16",
     "@react-email/tailwind": "workspace:1.0.4",
-    "@react-email/text": "workspace:0.0.11"
+    "@react-email/text": "workspace:0.1.0"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
   },

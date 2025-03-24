@@ -16,6 +16,13 @@ export default defineConfig({
       ignored: [
         path.resolve(__dirname, './src/package/tailwind/integrations/**/*'),
       ],
+    }
+  },
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: 'react-jsx',
+      },
     },
   },
 });

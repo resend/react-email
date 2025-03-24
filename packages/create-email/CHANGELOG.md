@@ -1,5 +1,41 @@
 # create-email
 
+## 1.0.0-alpha.5
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.6
+
+## 1.0.0-alpha.4
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.5
+
+## 1.0.0-alpha.3
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.4
+
+## 1.0.0-alpha.2
+
+## 1.0.0-alpha.1
+
+## 1.0.0-alpha.0
+
+## 0.1.10
+
+## 0.1.9
+
+## 0.1.9-canary.2
+
+## 0.1.9-canary.1
+
+## 0.1.9-canary.0
+
+## 0.1.8
+
 ## 0.1.7
 
 ## 0.1.6

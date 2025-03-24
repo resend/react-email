@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "3.0.5",
+  "version": "4.0.0-alpha.6",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.js"
@@ -73,8 +73,9 @@
     "dev": "pnpm build:tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
+    "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
     "clean": "rm -rf dist",
-    "lint": "eslint . && tsc"
+    "dev:preview": "cd ../../apps/demo && tsx ../../packages/react-email/src/cli/index.ts dev"
   },
   "license": "MIT",
   "repository": {
@@ -82,16 +83,13 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/react-email"
   },
-  "keywords": [
-    "react",
-    "email"
-  ],
+  "keywords": ["react", "email"],
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@babel/core": "7.24.5",
     "@babel/parser": "7.24.5",
+    "@babel/traverse": "7.25.6",
     "chalk": "4.1.2",
     "chokidar": "4.0.3",
     "commander": "11.1.0",
@@ -102,27 +100,32 @@
     "log-symbols": "4.1.0",
     "md-to-react-email": "5.0.5",
     "mime-types": "2.1.35",
-    "next": "15.1.2",
+    "next": "15.2.2",
     "normalize-path": "3.0.0",
     "ora": "5.4.1",
     "prettier": "3.4.2",
     "prismjs": "1.29.0",
-    "socket.io": "4.8.0"
+    "socket.io": "4.8.1"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
+    "@babel/core": "7.26.10",
     "@edge-runtime/vm": "3.1.8",
+    "@lottiefiles/dotlottie-react": "0.12.3",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
+    "@radix-ui/react-dropdown-menu": "2.1.4",
     "@radix-ui/react-popover": "1.1.1",
     "@radix-ui/react-slot": "1.1.0",
+    "@radix-ui/react-tabs": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@responsive-email/react-email": "0.0.3",
     "@swc/core": "1.4.15",
     "@types/babel__core": "7.20.5",
+    "@types/babel__traverse": "*",
     "@types/fs-extra": "11.0.1",
     "@types/html-to-text": "9.0.4",
     "@types/mime-types": "2.1.4",
@@ -130,40 +133,43 @@
     "@types/normalize-path": "3.0.2",
     "@types/prettier": "3.0.0",
     "@types/prismjs": "1.26.5",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@types/shelljs": "0.8.15",
     "@types/webpack": "5.28.5",
     "@vercel/style-guide": "5.1.0",
     "autoprefixer": "10.4.20",
     "clsx": "2.1.0",
-    "eslint": "8.50.0",
-    "eslint-config-custom": "workspace:*",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-config-turbo": "2.1.0",
-    "eslint-plugin-regex": "1.10.0",
     "framer-motion": "12.0.0-alpha.2",
+    "jiti": "2.4.2",
     "jsdom": "23.0.1",
+    "json5": "2.2.3",
+    "module-punycode": "npm:punycode@2.3.1",
+    "node-html-parser": "6.1.13",
     "patched-postcss": "workspace:8.4.40",
     "patched-postcss-selector-parser": "workspace:6.0.16",
     "patched-tailwindcss": "workspace:3.4.10",
     "postcss": "8.4.40",
+    "pretty-bytes": "6.1.1",
     "prism-react-renderer": "2.4.0",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "sharp": "0.33.3",
     "shelljs": "0.8.5",
     "socket.io-client": "4.8.0",
     "sonner": "1.7.1",
     "source-map-js": "1.0.2",
+    "spamc": "0.0.5",
     "stacktrace-parser": "0.1.10",
     "tailwind-merge": "2.2.0",
     "tailwindcss": "3.4.0",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "tsx": "4.9.0",
-    "typescript": "5.1.6",
+    "typescript": "5.8.2",
+    "use-debounce": "10.0.4",
     "vitest": "2.1.8",
-    "yalc": "1.0.0-pre.53"
+    "yalc": "1.0.0-pre.53",
+    "zod": "3.24.2"
   }
 }

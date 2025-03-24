@@ -1,15 +1,21 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import path from 'node:path';
-import vm from 'node:vm';
-import type React from 'react';
-import { type RawSourceMap } from 'source-map-js';
+import type { render } from '@react-email/render';
 import * as esbuild from 'esbuild';
-import type { render } from '../package/render/node';
+import type React from 'react';
+import type { RawSourceMap } from 'source-map-js';
+import { z } from 'zod';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
+import { isErr } from './result';
+import { runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
-import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
-import { staticNodeModulesForVM } from './static-node-modules-for-vm';
-import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+
+const EmailComponentModule = z.object({
+  default: z.any(),
+  render: z.function(),
+  reactEmailCreateReactElement: z.function(),
+});
 
 const buildContexts = new Map<string, esbuild.BuildContext<{ write: false }>>();
 
@@ -72,79 +78,38 @@ export const getEmailComponent = async (
   const bundledEmailFile = outputFiles[1]!;
   const builtEmailCode = bundledEmailFile.text;
 
-  const fakeContext = {
-    ...global,
-    console,
-    Buffer,
-    AbortSignal,
-    Event,
-    EventTarget,
-    TextDecoder,
-    Request,
-    Response,
-    TextDecoderStream,
-    TextEncoder,
-    TextEncoderStream,
-    ReadableStream,
-    URL,
-    URLSearchParams,
-    Headers,
-    module: {
-      exports: {
-        default: undefined as unknown,
-        render: undefined as unknown,
-        reactEmailCreateReactElement: undefined as unknown,
-      },
-    },
-    __filename: emailPath,
-    __dirname: path.dirname(emailPath),
-    require: (specifiedModule: string) => {
-      let m = specifiedModule;
-      if (specifiedModule.startsWith('node:')) {
-        m = m.split(':')[1]!;
-      }
-
-      if (m in staticNodeModulesForVM) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        return staticNodeModulesForVM[m];
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
-      return require(`${specifiedModule}`) as unknown;
-      // this stupid string templating was necessary to not have
-      // webpack warnings like:
-      //
-      // Import trace for requested module:
-      // ./src/utils/get-email-component.tsx
-      // ./src/app/page.tsx
-      //  ⚠ ./src/utils/get-email-component.tsx
-      // Critical dependency: the request of a dependency is an expression
-    },
-    process,
-  };
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
   // because it will have a path like <tsconfigLocation>/stdout/email.js.map
   sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
     path.resolve(sourceMapFile.path, '..', source),
   );
-  try {
-    vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
-  } catch (exception) {
-    const error = exception as Error;
 
-    error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
+  const runningResult = runBundledCode(builtEmailCode, emailPath);
 
-    return {
-      error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
-    };
+  if (isErr(runningResult)) {
+    const { error } = runningResult;
+    if (error instanceof Error) {
+      error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
+
+      return {
+        error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
+      };
+    }
+
+    throw error;
   }
 
-  if (fakeContext.module.exports.default === undefined) {
+  const parseResult = EmailComponentModule.safeParse(runningResult.value);
+
+  if (parseResult.error) {
     return {
       error: improveErrorWithSourceMap(
         new Error(
-          `The email component at ${emailPath} does not contain a default export`,
+          `The email component at ${emailPath} does not contain the expected exports`,
+          {
+            cause: parseResult.error,
+          },
         ),
         emailPath,
         sourceMapToEmail,
@@ -152,11 +117,13 @@ export const getEmailComponent = async (
     };
   }
 
+  const { data: componentModule } = parseResult;
+
   return {
-    emailComponent: fakeContext.module.exports.default as EmailComponent,
-    render: fakeContext.module.exports.render as typeof render,
-    createElement: fakeContext.module.exports
-      .reactEmailCreateReactElement as typeof React.createElement,
+    emailComponent: componentModule.default as EmailComponent,
+    render: componentModule.render as typeof render,
+    createElement:
+      componentModule.reactEmailCreateReactElement as typeof React.createElement,
 
     sourceMapToOriginalFile: sourceMapToEmail,
   };

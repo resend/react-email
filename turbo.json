@@ -1,7 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_TABLE_NAME"],
+  "globalEnv": [
+    "SUPABASE_URL",
+    "SUPABASE_ANON_KEY",
+    "SUPABASE_TABLE_NAME",
+    "SPAM_ASSASSIN_HOST",
+    "SPAM_ASSASSIN_PORT"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -14,6 +20,14 @@
         "NEXT_PUBLIC_SUPABASE_URL",
         "NEXT_PUBLIC_SUPABASE_ANON_KEY"
       ],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "react-email-with-resend#build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "react-email-with-next-scaleway#build": {
+      "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "demo#build": {
@@ -34,7 +48,8 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "cache": false
     },
     "test:watch": {
       "cache": false

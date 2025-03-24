@@ -1,22 +1,22 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import traverse from "@babel/traverse";
-import { parse } from "@babel/parser";
-import { z } from "zod";
-import { render } from "@react-email/components";
-import type { Category, Component } from "../../../components/structure";
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
+import { render } from '@react-email/components';
+import { z } from 'zod';
+import { Layout } from '../../../components/_components/layout';
+import type { Category, Component } from '../../../components/structure';
 import {
   getComponentPathFromSlug,
   pathToComponents,
-} from "../../../components/structure";
-import { Layout } from "../../../components/_components/layout";
+} from '../../../components/structure';
 
 /**
  * Tailwind and Inline Styles are both with React, but the React
  * option is meant for where Tailwind nor Inline Styles are used
  * at all in the markup.
  */
-export type CodeVariant = "tailwind" | "inline-styles" | "react" | "html";
+export type CodeVariant = 'tailwind' | 'inline-styles' | 'react' | 'html';
 
 export interface ImportedComponent extends Component {
   code: Partial<Record<CodeVariant, string>> & { html: string };
@@ -28,19 +28,19 @@ const ComponentModule = z.object({
 
 const getComponentCodeFrom = (fileContent: string): string => {
   const parsedContents = parse(fileContent, {
-    sourceType: "unambiguous",
+    sourceType: 'unambiguous',
     strictMode: false,
     errorRecovery: true,
-    plugins: ["jsx", "typescript", "decorators"],
+    plugins: ['jsx', 'typescript', 'decorators'],
   });
 
   let componentCode: string | undefined;
   traverse(parsedContents, {
     VariableDeclarator({ node }) {
       if (
-        node.id.type === "Identifier" &&
-        node.id.name === "component" &&
-        (node.init?.type === "JSXElement" || node.init?.type === "JSXFragment")
+        node.id.type === 'Identifier' &&
+        node.id.name === 'component' &&
+        (node.init?.type === 'JSXElement' || node.init?.type === 'JSXFragment')
       ) {
         const expression = node.init;
         if (expression.start !== null && expression.end !== null) {
@@ -51,13 +51,13 @@ const getComponentCodeFrom = (fileContent: string): string => {
   });
 
   if (!componentCode) {
-    throw new Error("Could not find the source code for the component");
+    throw new Error('Could not find the source code for the component');
   }
 
   return componentCode
     .split(/\r\n|\r|\n/)
-    .map((line) => line.replace(/^\s{2}/, ""))
-    .join("\n");
+    .map((line) => line.replace(/^\s{2}/, ''))
+    .join('\n');
 };
 
 export const getComponentElement = async (
@@ -68,7 +68,7 @@ export const getComponentElement = async (
     await import(
       `../../../components/${relativeFilepath.replace(
         path.extname(relativeFilepath),
-        "",
+        '',
       )}`
     ),
   );
@@ -81,13 +81,13 @@ export const getImportedComponent = async (
   const dirpath = getComponentPathFromSlug(component.slug);
   const variantFilenames = await fs.readdir(dirpath);
 
-  if (variantFilenames.length === 1 && variantFilenames[0] === "index.tsx") {
-    const filePath = path.join(dirpath, "index.tsx");
+  if (variantFilenames.length === 1 && variantFilenames[0] === 'index.tsx') {
+    const filePath = path.join(dirpath, 'index.tsx');
     const element = <Layout>{await getComponentElement(filePath)}</Layout>;
     const html = await render(element, {
       pretty: true,
     });
-    const fileContent = await fs.readFile(filePath, "utf8");
+    const fileContent = await fs.readFile(filePath, 'utf8');
     const code = getComponentCodeFrom(fileContent);
     return {
       ...component,
@@ -98,7 +98,7 @@ export const getImportedComponent = async (
     };
   }
 
-  const codePerVariant: ImportedComponent["code"] = { html: "" };
+  const codePerVariant: ImportedComponent['code'] = { html: '' };
 
   const elements = await Promise.all(
     variantFilenames.map(async (variantFilename) => {
@@ -110,12 +110,12 @@ export const getImportedComponent = async (
   const fileContents = await Promise.all(
     variantFilenames.map(async (variantFilename) => {
       const filePath = path.join(dirpath, variantFilename);
-      return fs.readFile(filePath, "utf8");
+      return fs.readFile(filePath, 'utf8');
     }),
   );
 
   variantFilenames.forEach((variantFilename, index) => {
-    const variantKey = variantFilename.replace(".tsx", "") as CodeVariant;
+    const variantKey = variantFilename.replace('.tsx', '') as CodeVariant;
     codePerVariant[variantKey] = getComponentCodeFrom(fileContents[index]);
   });
 

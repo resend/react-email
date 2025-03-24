@@ -1,5 +1,79 @@
 # react-email
 
+## 4.0.0-alpha.6
+
+### Minor Changes
+
+- 508d3c9: Add compatibility checker for the toolbar
+
+## 4.0.0-alpha.5
+
+### Minor Changes
+
+- ed47e38: Use a bottom layout for the toolbar
+
+## 4.0.0-alpha.4
+
+### Minor Changes
+
+- 4d70ddd: add spam checker on the sidebar
+
+## 4.0.0-alpha.3
+
+### Patch Changes
+
+- df0940a: Fix code view contrast
+
+## 4.0.0-alpha.2
+
+### Minor Changes
+
+- e4eeb18: Make the width and height for the preview of the email customizable
+
+## 4.0.0-alpha.1
+
+### Minor Changes
+
+- c77f635: Add image validation checking
+
+### Patch Changes
+
+- 498e816: Fix padding on the file tree
+
+## 4.0.0-alpha.0
+
+### Major Changes
+
+- f7d352e: Added toolbar with a link checker
+
+## 3.0.7
+
+### Patch Changes
+
+- c61760e: use the `punycode` package for the static modules
+- 382c305: Fixes active state for root email templats on file tree
+- 519f0c6: Respect user's NODE_ENV when previewing templates
+- e149816: Upgrade socket.io to 4.8.1
+
+## 3.0.7-canary.1
+
+### Patch Changes
+
+- 57db6f7: Upgrade socket.io to 4.8.1
+
+## 3.0.7-canary.0
+
+### Patch Changes
+
+- 98b434c: Fixes active state for root email templats on file tree
+- 1c5c986: Respect user's NODE_ENV when previewing templates
+
+## 3.0.6
+
+### Patch Changes
+
+- c6fcd94: Fix preview server crashing without React 19
+
 ## 3.0.5
 
 ### Patch Changes

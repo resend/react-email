@@ -1,5 +1,5 @@
-import { Column, Row } from "@react-email/components";
-import { Layout } from "../_components/layout";
+import { Column, Row } from '@react-email/components';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <>

@@ -1,5 +1,5 @@
-export * from "./render";
-export * from "./render-async";
+export * from './render';
+export * from './render-async';
 
-export * from "../shared/options";
-export * from "../shared/plain-text-selectors";
+export * from '../shared/options';
+export * from '../shared/plain-text-selectors';

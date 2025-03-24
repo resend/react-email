@@ -1,14 +1,14 @@
+import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { spawn } from 'node:child_process';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
-} from '../../actions/get-emails-directory-metadata';
-import { cliPacakgeLocation } from '../utils';
+} from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
-import logSymbols from 'log-symbols';
+import { cliPacakgeLocation } from '../utils';
 
 interface Args {
   dir: string;

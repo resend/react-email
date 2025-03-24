@@ -1,5 +1,69 @@
 # react-email-starter
 
+## 1.0.0-alpha.5
+
+## 1.0.0-alpha.4
+
+## 1.0.0-alpha.3
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.4
+
+## 1.0.0-alpha.2
+
+### Patch Changes
+
+- df0940a: react-email@4.0.0-alpha.3
+
+## 1.0.0-alpha.1
+
+### Patch Changes
+
+- react-email@4.0.0-alpha.2
+
+## 1.0.0-alpha.0
+
+### Major Changes
+
+- react-eamil@4.0.0-alpha.1
+
+## 0.1.10
+
+### Patch Changes
+
+- @react-email/components@0.0.34
+
+## 0.1.9
+
+### Patch Changes
+
+- @react-email/components@0.0.33
+
+## 0.1.9-canary.2
+
+### Patch Changes
+
+- react-email@3.0.7-canary.1
+
+## 0.1.9-canary.1
+
+### Patch Changes
+
+- @react-email/components@0.0.33-canary.1
+
+## 0.1.9-canary.0
+
+### Patch Changes
+
+- @react-email/components@0.0.33-canary.0
+
+## 0.1.8
+
+### Patch Changes
+
+- react-email@3.0.6
+
 ## 0.1.7
 
 ### Patch Changes

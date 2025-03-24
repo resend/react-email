@@ -8,7 +8,7 @@ export interface IconProps extends RootProps {
 }
 
 export const IconBase = React.forwardRef<IconElement, Readonly<IconProps>>(
-  ({ size = 20, ...props }, forwardedRef) => (
+  ({ size = 20, children, ...props }, forwardedRef) => (
     <svg
       fill="none"
       height={size}
@@ -17,7 +17,9 @@ export const IconBase = React.forwardRef<IconElement, Readonly<IconProps>>(
       width={size}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
-    />
+    >
+      {children}
+    </svg>
   ),
 );
 

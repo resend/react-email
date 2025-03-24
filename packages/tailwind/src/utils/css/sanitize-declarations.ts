@@ -1,4 +1,4 @@
-import type { AtRule, Root, Rule } from "postcss";
+import type { AtRule, Root, Rule } from 'postcss';
 
 /**
  * Meant to do all the things necessary, in a per-declaration basis, to have the best email client
@@ -17,7 +17,7 @@ export const sanitizeDeclarations = (
     declaration.value = declaration.value.replaceAll(
       rgbParserRegex,
       (_match, r, g, b, a) => {
-        const alpha = a === "1" || typeof a === "undefined" ? "" : `,${a}`;
+        const alpha = a === '1' || typeof a === 'undefined' ? '' : `,${a}`;
         return `rgb(${r},${g},${b}${alpha})`;
       },
     );

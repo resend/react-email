@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import * as React from "react";
-import * as Tabs from "@radix-ui/react-tabs";
-import classNames from "classnames";
+import * as Tabs from '@radix-ui/react-tabs';
+import classNames from 'classnames';
+import { motion } from 'framer-motion';
+import * as React from 'react';
 
 interface TabTriggerProps {
   value: string;
@@ -14,14 +14,14 @@ export const TabTrigger = React.forwardRef<HTMLButtonElement, TabTriggerProps>(
   ({ value, activeView, children, layoutId }: TabTriggerProps, ref) => (
     <Tabs.Trigger
       className={classNames(
-        "group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none",
+        'group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none',
         {
-          "text-slate-11": activeView !== value,
-          "text-slate-12": activeView === value,
+          'text-slate-11': activeView !== value,
+          'text-slate-12': activeView === value,
         },
       )}
       ref={ref}
-      style={{ WebkitTapHighlightColor: "transparent" }}
+      style={{ WebkitTapHighlightColor: 'transparent' }}
       tabIndex={0}
       value={value}
     >
@@ -31,7 +31,7 @@ export const TabTrigger = React.forwardRef<HTMLButtonElement, TabTriggerProps>(
           initial={false}
           layoutId={layoutId}
           transition={{
-            type: "spring",
+            type: 'spring',
             bounce: 0.18,
             duration: 0.6,
           }}

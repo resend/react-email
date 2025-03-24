@@ -1,45 +1,45 @@
 'use client';
-
-import * as React from 'react';
-import * as Collapsible from '@radix-ui/react-collapsible';
+import { clsx } from 'clsx';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Logo } from '../logo';
-import { SidebarDirectoryChildren } from './sidebar-directory-children';
+import { FileTree } from './file-tree';
 
 interface SidebarProps {
   className?: string;
   currentEmailOpenSlug?: string;
-  style?: React.CSSProperties;
 }
 
-export const Sidebar = ({
-  className,
-  currentEmailOpenSlug,
-  style,
-}: SidebarProps) => {
+export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
   const { emailsDirectoryMetadata } = useEmails();
 
   return (
     <aside
-      className={cn('border-r flex flex-col border-slate-6', className)}
-      style={{ ...style }}
+      className={cn(
+        'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full w-screen max-w-ful overflow-hidden bg-black will-change-auto',
+        'lg:static lg:z-auto lg:max-h-screen lg:w-[16rem]',
+        className,
+      )}
     >
-      <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
-        <Logo />
-      </div>
-      <nav className="p-4 flex-grow lg:pt-0 pl-0 w-screen h-[calc(100vh_-_70px)] lg:w-full lg:min-w-[275px] lg:max-w-[275px] flex flex-col overflow-y-auto">
-        <Collapsible.Root>
-          <React.Suspense>
-            <SidebarDirectoryChildren
+      <div className="w-full h-full overflow-y-auto overflow-x-hidden">
+        <div className="flex w-full h-full flex-col border-slate-6 border-r">
+          <div
+            className={clsx(
+              'hidden min-h-[3.3125rem] flex-shrink items-center p-3 px-4 lg:flex',
+            )}
+          >
+            <h2>
+              <Logo />
+            </h2>
+          </div>
+          <div className="relative h-full w-full border-slate-4 border-t px-4 pb-3">
+            <FileTree
               currentEmailOpenSlug={currentEmailOpenSlug}
               emailsDirectoryMetadata={emailsDirectoryMetadata}
-              isRoot
-              open
             />
-          </React.Suspense>
-        </Collapsible.Root>
-      </nav>
+          </div>
+        </div>
+      </div>
     </aside>
   );
 };

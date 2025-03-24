@@ -1,5 +1,5 @@
-import { traverse } from '@babel/core';
 import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];

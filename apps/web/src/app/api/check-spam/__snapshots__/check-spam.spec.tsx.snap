@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`checkSpam() > with most spammy email 1`] = `
+{
+  "checks": [
+    {
+      "description": "BODY: Money back guarantee",
+      "name": "MONEY_BACK",
+      "points": 2.5,
+    },
+    {
+      "description": "BODY: HTML and text parts are different",
+      "name": "MPART_ALT_DIFF",
+      "points": 0.7,
+    },
+    {
+      "description": "Refers to an erectile drug",
+      "name": "DRUGS_ERECTILE",
+      "points": 2.2,
+    },
+  ],
+  "isSpam": true,
+  "points": 5.4,
+}
+`;
+
+exports[`checkSpam() > with papermark email template 1`] = `
+{
+  "checks": [
+    {
+      "description": "Invisible text + long lines",
+      "name": "FONT_INVIS_LONG_LINE",
+      "points": 2.1,
+    },
+    {
+      "description": "HTML hidden text - word obfuscation?",
+      "name": "HTML_TEXT_INVISIBLE_FONT",
+      "points": 0.8,
+    },
+  ],
+  "isSpam": false,
+  "points": 2.9000000000000004,
+}
+`;
+
+exports[`checkSpam() > with real email template 1`] = `
+{
+  "checks": [],
+  "isSpam": false,
+  "points": 0,
+}
+`;

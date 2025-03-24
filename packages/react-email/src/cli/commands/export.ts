@@ -1,19 +1,19 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type React from 'react';
+import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
-import { BuildFailure, build } from 'esbuild';
-import ora from 'ora';
 import logSymbols from 'log-symbols';
-import type { Options } from '../../package/render/node';
 import normalize from 'normalize-path';
+import ora from 'ora';
+import type { createElement } from 'react';
+import type { Options } from '../../package/render/node';
+import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
+import {
+  type EmailsDirectory,
+  getEmailsDirectoryMetadata,
+} from '../../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
 import { tree } from '../utils';
-import {
-  EmailsDirectory,
-  getEmailsDirectoryMetadata,
-} from '../../actions/get-emails-directory-metadata';
-import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
@@ -117,7 +117,7 @@ export const exportTemplates = async (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
-        reactEmailCreateReactElement: typeof React.createElement;
+        reactEmailCreateReactElement: typeof createElement;
       };
       const rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),

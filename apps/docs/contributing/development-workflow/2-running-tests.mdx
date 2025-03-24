@@ -1,0 +1,26 @@
+---
+title: 'Running tests'
+sidebarTitle: '2. Running tests'
+'og:image': 'https://react.email/static/covers/react-email.png'
+description: 'Everything you need to know about our testing setup and strategy'
+---
+
+For testing, we use [vitest](https://vitest.dev/). We prefer to define globals and run tests under the `happy-dom` environment.
+
+<Note>
+The `@react-email/render` package's `renderAsync` does a fair bit of magic to simulate `edge` and other environments that are not supported by `happy-dom`. For this use case, we override the [environment on a per-file basis](https://vitest.dev/guide/environment#environments-for-specific-files) for its tests
+</Note>
+
+We do not strictly enforce testing coverage, but encourage it. A good rule of thumb is that if you need to simulate use
+cases to check whether a specific portion of code works, you should split it into a function with a matching unit test.
+
+After you have gone through the [setup](/contributing/development-workflow/1-setup) run
+`pnpm test` inside any package. This will run the tests only once. We have two
+scripts defined on our packages for testing:
+
+- `pnpm test`: Runs all the tests once. If you run it on the root, it will run the
+  tests for all packages using
+  [turborepo](/contributing/codebase-overview#turborepo)
+- `pnpm test:watch`: Runs all the tests and watches for changes. Vitest
+  automatically only runs the tests that are affected by the code you've
+  changed.

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import classNames from "classnames";
-import { Highlight } from "prism-react-renderer";
-import * as React from "react";
-import { CheckIcon, ClipboardIcon } from "lucide-react";
-import { IconButton } from "./icon-button";
+import classNames from 'classnames';
+import { CheckIcon, ClipboardIcon } from 'lucide-react';
+import { Highlight } from 'prism-react-renderer';
+import * as React from 'react';
+import { IconButton } from './icon-button';
 
 interface CodeProps {
   children: string;
@@ -14,33 +14,33 @@ interface CodeProps {
 
 const theme = {
   plain: {
-    color: "#EDEDEF",
+    color: '#EDEDEF',
     fontSize: 13,
-    fontFamily: "CommitMono, monospace",
+    fontFamily: 'CommitMono, monospace',
   },
   styles: [
     {
-      types: ["comment"],
+      types: ['comment'],
       style: {
-        color: "#706F78",
+        color: '#706F78',
       },
     },
     {
-      types: ["atrule", "keyword", "attr-name", "selector"],
+      types: ['atrule', 'keyword', 'attr-name', 'selector'],
       style: {
-        color: "#7E7D86",
+        color: '#7E7D86',
       },
     },
     {
-      types: ["punctuation", "operator"],
+      types: ['punctuation', 'operator'],
       style: {
-        color: "#706F78",
+        color: '#706F78',
       },
     },
     {
-      types: ["class-name", "function", "tag", "key-white"],
+      types: ['class-name', 'function', 'tag', 'key-white'],
       style: {
-        color: "#EDEDEF",
+        color: '#EDEDEF',
       },
     },
   ],
@@ -49,7 +49,7 @@ const theme = {
 export const Code: React.FC<Readonly<CodeProps>> = ({
   children,
   className,
-  language = "html",
+  language = 'html',
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
@@ -59,14 +59,14 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            "relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-11 font-mono text-sm backdrop-blur-md",
+            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-11 font-mono text-sm backdrop-blur-md',
             className,
           )}
           style={{
-            lineHeight: "130%",
+            lineHeight: '130%',
             background:
-              "linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)",
-            boxShadow: "rgb(0 0 0 / 10%) 0rem .3125rem 1.875rem -0.3125rem",
+              'linear-gradient(145.37deg, rgba(255, 255, 255, 0.09) -8.75%, rgba(255, 255, 255, 0.027) 83.95%)',
+            boxShadow: 'rgb(0 0 0 / 10%) 0rem .3125rem 1.875rem -0.3125rem',
           }}
         >
           <IconButton
@@ -89,24 +89,24 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             className="absolute right-0 top-0 h-px w-[12.5rem]"
             style={{
               background:
-                "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",
+                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
           {tokens.map((line, i) => {
             return (
               <div
                 {...getLineProps({ line, key: i })}
-                className={classNames("whitespace-pre", {
+                className={classNames('whitespace-pre', {
                   "before:mr-2 before:text-slate-11 before:content-['$']":
-                    language === "bash" && tokens.length === 1,
+                    language === 'bash' && tokens.length === 1,
                 })}
                 key={i}
               >
                 {line.map((token, key) => {
                   const isException =
-                    token.content === "from" && line[key + 1]?.content === ":";
+                    token.content === 'from' && line[key + 1]?.content === ':';
                   const newTypes = isException
-                    ? [...token.types, "key-white"]
+                    ? [...token.types, 'key-white']
                     : token.types;
                   token.types = newTypes;
 
@@ -123,7 +123,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             className="absolute bottom-0 left-0 h-px w-[12.5rem]"
             style={{
               background:
-                "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",
+                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
         </pre>
