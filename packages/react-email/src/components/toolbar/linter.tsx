@@ -299,7 +299,7 @@ const CodePreviewLine = ({ line, column, type }: CodePreviewLineProps) => {
       }}
       className="appearance-none underline mr-2"
     >
-      {line.toString().padStart(2, '0')}:{column.toString().padStart(2, '0')}
+      {line.toString().padStart(2, '0')}
     </Link>
   );
 };
