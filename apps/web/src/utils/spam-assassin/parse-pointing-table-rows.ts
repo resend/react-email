@@ -16,7 +16,7 @@ export const parsePointingTableRows = (response: string) => {
   const ptsWidth = tableStartMatch.groups.ptsWidth!.length;
   const ruleNameWidth = tableStartMatch.groups.ruleNameWidth!.length;
   const columnsRegex = new RegExp(
-    `^(?<pts>.{${ptsWidth}}) (?<ruleName>.{${ruleNameWidth}}) (?<description>.+}|.+$)`,
+    `^(?<pts>.{${ptsWidth}}) (?<ruleName>.+?) (?<description>.+}|.+$)`,
   );
 
   interface Row {
@@ -46,6 +46,7 @@ export const parsePointingTableRows = (response: string) => {
     }
 
     if (match?.groups === undefined) {
+      console.log(line);
       throw new Error('Could not match the columns in the row', {
         cause: {
           line,
@@ -54,7 +55,7 @@ export const parsePointingTableRows = (response: string) => {
       });
     }
     const pts = match.groups.pts!;
-    const ruleName = match.groups.ruleName!;
+    const ruleName = match.groups.ruleName!.trim();
     const description = match.groups.description!;
 
     try {
