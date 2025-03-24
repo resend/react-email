@@ -1,10 +1,10 @@
-import React from 'react';
 import type { Node } from 'patched-postcss';
+import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
-import { sanitizeDeclarations } from '../css/sanitize-declarations';
-import { sanitizeMediaQueries } from '../css/media-queries/sanitize-media-queries';
-import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
+import { makeInlineStylesFor } from '../css/make-inline-styles-for';
+import { sanitizeMediaQueries } from '../css/media-queries/sanitize-media-queries';
+import { sanitizeDeclarations } from '../css/sanitize-declarations';
 import { isComponent } from '../react/is-component';
 import type { setupTailwind } from './setup-tailwind';
 

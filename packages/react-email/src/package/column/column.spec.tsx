@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Column } from '.';
+import { render } from '../render/node';
 
 describe('<Column> component', () => {
   it('renders children correctly', async () => {

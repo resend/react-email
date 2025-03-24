@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Img } from '.';
+import { render } from '../render/node';
 
 describe('<Img> component', () => {
   it('passes style and other props correctly', async () => {

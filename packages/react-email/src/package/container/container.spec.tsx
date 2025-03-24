@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Container } from '.';
+import { render } from '../render/node';
 
 describe('<Container> component', () => {
   it('renders children correctly', async () => {

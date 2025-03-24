@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Hr } from '.';
+import { render } from '../render/node';
 
 describe('<Hr> component', () => {
   it('passes styles and other props correctly', async () => {

@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Markdown } from '.';
+import { render } from '../render/node';
 
 describe('<Markdown> component renders correctly', () => {
   it('renders the markdown in the correct format for browsers', async () => {

@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Link } from '.';
+import { render } from '../render/node';
 
 describe('<Link> component', () => {
   it('renders children correctly', async () => {

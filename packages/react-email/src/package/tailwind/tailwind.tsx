@@ -1,11 +1,11 @@
-import * as React from 'react';
-import type { Config as TailwindOriginalConfig } from 'patched-tailwindcss';
 import Root from 'patched-postcss/lib/root';
+import type { Config as TailwindOriginalConfig } from 'patched-tailwindcss';
+import * as React from 'react';
 import { minifyCss } from './utils/css/minify-css';
-import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
+import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
+import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,

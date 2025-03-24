@@ -56,7 +56,7 @@ export default defineConfig([
       'camelcase-css',
     ],
     format: ['cjs', 'esm'],
-    outDir: `dist`,
+    outDir: 'dist',
   },
   {
     dts: true,

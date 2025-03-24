@@ -65,8 +65,9 @@ describe('resolveAllCSSVariables', () => {
 .box {
   width: var(--width);
 }`);
-    expect(resolveAllCSSVariables(root).toString())
-      .toBe(`@media (max-width: 1000px) {
+    expect(
+      resolveAllCSSVariables(root).toString(),
+    ).toBe(`@media (max-width: 1000px) {
   .box {
     width: 200px;
   }

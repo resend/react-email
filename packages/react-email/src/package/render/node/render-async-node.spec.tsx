@@ -3,8 +3,8 @@
  */
 
 import { Suspense, use } from 'react';
-import { Template } from '../shared/utils/template';
 import { Preview } from '../shared/utils/preview';
+import { Template } from '../shared/utils/template';
 import { renderAsync } from './render-async';
 
 type Import = typeof import('react-dom/server') & {

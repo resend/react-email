@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Heading } from '.';
+import { render } from '../render/node';
 
 describe('render', () => {
   it('renders children correctly', async () => {

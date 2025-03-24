@@ -1,4 +1,4 @@
-import {
+import type {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from 'react-dom/server.browser';

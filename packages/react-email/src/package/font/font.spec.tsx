@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Font } from '.';
+import { render } from '../render/node';
 
 describe('<Font> component', () => {
   it('renders with default props', async () => {

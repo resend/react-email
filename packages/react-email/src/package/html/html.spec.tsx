@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Html } from '.';
+import { render } from '../render/node';
 
 describe('<Html> component', () => {
   it('renders children correctly', async () => {

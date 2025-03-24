@@ -1,6 +1,6 @@
+import { Row } from '.';
 /* eslint-disable react/no-children-prop */
 import { render } from '../render/node';
-import { Row } from '.';
 
 describe('<Row> component', () => {
   it('renders children correctly', async () => {

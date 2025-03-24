@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Head } from '.';
+import { render } from '../render/node';
 
 describe('<Head> component', () => {
   it('renders children correctly', async () => {

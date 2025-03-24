@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Body } from '.';
+import { render } from '../render/node';
 
 describe('<Body> component', () => {
   it('renders children correctly', async () => {

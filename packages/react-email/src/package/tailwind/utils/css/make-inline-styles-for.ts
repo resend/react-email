@@ -1,7 +1,7 @@
-import selectorParser from 'patched-postcss-selector-parser';
 import type { Root, Rule } from 'patched-postcss';
-import { unescapeClass } from '../compatibility/unescape-class';
+import selectorParser from 'patched-postcss-selector-parser';
 import { convertCssPropertyToReactProperty } from '../compatibility/convert-css-property-to-react-property';
+import { unescapeClass } from '../compatibility/unescape-class';
 
 const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
   root.walkRules((rule) => {

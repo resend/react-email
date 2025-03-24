@@ -1,8 +1,8 @@
 import {
   Body,
   Button,
-  Container,
   Column,
+  Container,
   Head,
   Heading,
   Hr,
@@ -12,10 +12,9 @@ import {
   Preview,
   Row,
   Section,
-  Text,
   Tailwind,
+  Text,
 } from 'react-email';
-import * as React from 'react';
 
 interface VercelInviteUserEmailProps {
   username?: string;

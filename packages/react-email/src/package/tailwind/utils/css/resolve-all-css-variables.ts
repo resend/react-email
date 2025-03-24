@@ -1,7 +1,7 @@
 import type { Node, Root } from 'patched-postcss';
+import type AtRule from 'patched-postcss/lib/at-rule';
 import Declaration from 'patched-postcss/lib/declaration';
 import Rule from 'patched-postcss/lib/rule';
-import type AtRule from 'patched-postcss/lib/at-rule';
 import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 const isRule = (node: Node | undefined): node is Rule => {
@@ -92,15 +92,15 @@ export const resolveAllCSSVariables = (root: Root) => {
                 );
               }
               break;
-            } else {
-              valueReplacingInformation.add({
-                declaration,
-                newValue: declaration.value.replaceAll(
-                  variableUsed,
-                  variableDeclaration.value,
-                ),
-              });
             }
+
+            valueReplacingInformation.add({
+              declaration,
+              newValue: declaration.value.replaceAll(
+                variableUsed,
+                variableDeclaration.value,
+              ),
+            });
           }
         }
       }

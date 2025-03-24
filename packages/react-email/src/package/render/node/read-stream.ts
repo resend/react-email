@@ -1,5 +1,5 @@
 import { Writable } from 'node:stream';
-import {
+import type {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from 'react-dom/server.browser';

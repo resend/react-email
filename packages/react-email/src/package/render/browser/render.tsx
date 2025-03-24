@@ -1,12 +1,12 @@
 import { convert } from 'html-to-text';
+import { Suspense } from 'react';
 import type {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from 'react-dom/server';
-import { Suspense } from 'react';
-import { pretty } from '../shared/utils/pretty';
-import { plainTextSelectors } from '../shared/plain-text-selectors';
 import type { Options } from '../shared/options';
+import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { pretty } from '../shared/utils/pretty';
 
 const decoder = new TextDecoder('utf-8');
 

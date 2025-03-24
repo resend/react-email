@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Button } from '.';
+import { render } from '../render/node';
 
 describe('<Button> component', () => {
   it('renders children correctly', async () => {

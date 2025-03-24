@@ -1,14 +1,14 @@
+import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
+import React from 'react';
+import { Button } from '../button';
+import { Head } from '../head';
+import { Heading } from '../heading';
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Hr } from '../hr';
-import { render } from '../render/node';
 import { Html } from '../html';
 import { Link } from '../link';
-import { Heading } from '../heading';
-import { Head } from '../head';
-import { Button } from '../button';
-import React from 'react';
-import { ResponsiveRow, ResponsiveColumn } from '@responsive-email/react-email';
+import { render } from '../render/node';
 import { Tailwind } from './tailwind';
 import type { TailwindConfig } from './tailwind';
 
@@ -303,10 +303,10 @@ describe('Tailwind component', () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
-          'sm': { min: '640px' },
-          'md': { min: '768px' },
-          'lg': { min: '1024px' },
-          'xl': { min: '1280px' },
+          sm: { min: '640px' },
+          md: { min: '768px' },
+          lg: { min: '1024px' },
+          xl: { min: '1280px' },
           '2xl': { min: '1536px' },
         },
       },

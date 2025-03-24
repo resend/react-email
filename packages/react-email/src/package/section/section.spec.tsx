@@ -1,5 +1,5 @@
-import { render } from '../render/node';
 import { Section } from '.';
+import { render } from '../render/node';
 
 describe('<Section> component', () => {
   it('renders correctly', async () => {

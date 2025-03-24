@@ -7,7 +7,7 @@ export type Theme = Record<
 >;
 
 export const xonokai = {
-  'base': {
+  base: {
     MozTabSize: '2',
     OTabSize: '2',
     tabSize: '2',
@@ -27,91 +27,91 @@ export const xonokai = {
     overflow: 'auto',
     position: 'relative',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'comment': {
+  comment: {
     color: '#6f705e',
   },
-  'prolog': {
+  prolog: {
     color: '#6f705e',
   },
-  'doctype': {
+  doctype: {
     color: '#6f705e',
   },
-  'cdata': {
+  cdata: {
     color: '#6f705e',
   },
-  'operator': {
+  operator: {
     color: '#a77afe',
   },
-  'boolean': {
+  boolean: {
     color: '#a77afe',
   },
-  'number': {
+  number: {
     color: '#a77afe',
   },
   'attr-name': {
     color: '#e6d06c',
   },
-  'string': {
+  string: {
     color: '#e6d06c',
   },
-  'entity': {
+  entity: {
     color: '#e6d06c',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#e6d06c',
   },
-  'selector': {
+  selector: {
     color: '#a6e22d',
   },
-  'inserted': {
+  inserted: {
     color: '#a6e22d',
   },
-  'atrule': {
+  atrule: {
     color: '#ef3b7d',
   },
   'attr-value': {
     color: '#ef3b7d',
   },
-  'keyword': {
+  keyword: {
     color: '#ef3b7d',
   },
-  'important': {
+  important: {
     color: '#ef3b7d',
     fontWeight: 'bold',
   },
-  'deleted': {
+  deleted: {
     color: '#ef3b7d',
   },
-  'regex': {
+  regex: {
     color: '#76d9e6',
   },
-  'statement': {
+  statement: {
     color: '#76d9e6',
     fontWeight: 'bold',
   },
-  'placeholder': {
+  placeholder: {
     color: '#fff',
   },
-  'variable': {
+  variable: {
     color: '#fff',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'punctuation': {
+  punctuation: {
     color: '#bebec5',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 
 export const vscDarkPlus = {
-  'base': {
+  base: {
     color: '#d4d4d4',
     fontSize: '13px',
     textShadow: 'none',
@@ -140,67 +140,67 @@ export const vscDarkPlus = {
   'doctype .token.name': {
     color: '#9cdcfe',
   },
-  'comment': {
+  comment: {
     color: '#6a9955',
   },
-  'prolog': {
+  prolog: {
     color: '#6a9955',
   },
-  'punctuation': {
+  punctuation: {
     color: '#d4d4d4',
   },
-  'property': {
+  property: {
     color: '#9cdcfe',
   },
-  'tag': {
+  tag: {
     color: '#569cd6',
   },
-  'boolean': {
+  boolean: {
     color: '#569cd6',
   },
-  'number': {
+  number: {
     color: '#b5cea8',
   },
-  'constant': {
+  constant: {
     color: '#9cdcfe',
   },
-  'symbol': {
+  symbol: {
     color: '#b5cea8',
   },
-  'inserted': {
+  inserted: {
     color: '#b5cea8',
   },
-  'unit': {
+  unit: {
     color: '#b5cea8',
   },
-  'selector': {
+  selector: {
     color: '#d7ba7d',
   },
   'attr-name': {
     color: '#9cdcfe',
   },
-  'string': {
+  string: {
     color: '#ce9178',
   },
-  'char': {
+  char: {
     color: '#ce9178',
   },
-  'builtin': {
+  builtin: {
     color: '#ce9178',
   },
-  'deleted': {
+  deleted: {
     color: '#ce9178',
   },
-  'operator': {
+  operator: {
     color: '#d4d4d4',
   },
-  'entity': {
+  entity: {
     color: '#569cd6',
   },
   'operator.arrow': {
     color: '#569CD6',
   },
-  'atrule': {
+  atrule: {
     color: '#ce9178',
   },
   'atrule .token.rule': {
@@ -215,7 +215,7 @@ export const vscDarkPlus = {
   'atrule .token.url .token.punctuation': {
     color: '#d4d4d4',
   },
-  'keyword': {
+  keyword: {
     color: '#569CD6',
   },
   'keyword.module': {
@@ -224,19 +224,19 @@ export const vscDarkPlus = {
   'keyword.control-flow': {
     color: '#c586c0',
   },
-  'function': {
+  function: {
     color: '#dcdcaa',
   },
   'function .token.maybe-class-name': {
     color: '#dcdcaa',
   },
-  'regex': {
+  regex: {
     color: '#d16969',
   },
-  'important': {
+  important: {
     color: '#569cd6',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
   'class-name': {
@@ -245,19 +245,19 @@ export const vscDarkPlus = {
   'maybe-class-name': {
     color: '#4ec9b0',
   },
-  'console': {
+  console: {
     color: '#9cdcfe',
   },
-  'parameter': {
+  parameter: {
     color: '#9cdcfe',
   },
-  'interpolation': {
+  interpolation: {
     color: '#9cdcfe',
   },
   'punctuation.interpolation-punctuation': {
     color: '#569cd6',
   },
-  'variable': {
+  variable: {
     color: '#9cdcfe',
   },
   'imports .token.maybe-class-name': {
@@ -266,13 +266,13 @@ export const vscDarkPlus = {
   'exports .token.maybe-class-name': {
     color: '#9cdcfe',
   },
-  'escape': {
+  escape: {
     color: '#d7ba7d',
   },
   'tag .token.punctuation': {
     color: '#808080',
   },
-  'cdata': {
+  cdata: {
     color: '#808080',
   },
   'attr-value': {
@@ -284,12 +284,12 @@ export const vscDarkPlus = {
   'attr-value .token.punctuation.attr-equals': {
     color: '#d4d4d4',
   },
-  'namespace': {
+  namespace: {
     color: '#4ec9b0',
   },
 } as const;
 export const duotoneForest = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -311,43 +311,43 @@ export const duotoneForest = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#535f53',
   },
-  'prolog': {
+  prolog: {
     color: '#535f53',
   },
-  'doctype': {
+  doctype: {
     color: '#535f53',
   },
-  'cdata': {
+  cdata: {
     color: '#535f53',
   },
-  'punctuation': {
+  punctuation: {
     color: '#535f53',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#a2b34d',
   },
-  'operator': {
+  operator: {
     color: '#a2b34d',
   },
-  'number': {
+  number: {
     color: '#a2b34d',
   },
-  'property': {
+  property: {
     color: '#687d68',
   },
-  'function': {
+  function: {
     color: '#687d68',
   },
   'tag-id': {
     color: '#f0fff0',
   },
-  'selector': {
+  selector: {
     color: '#f0fff0',
   },
   'atrule-id': {
@@ -356,162 +356,162 @@ export const duotoneForest = {
   'attr-name': {
     color: '#b3d6b3',
   },
-  'boolean': {
+  boolean: {
     color: '#e5fb79',
   },
-  'string': {
+  string: {
     color: '#e5fb79',
   },
-  'entity': {
+  entity: {
     color: '#e5fb79',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#e5fb79',
   },
   'attr-value': {
     color: '#e5fb79',
   },
-  'keyword': {
+  keyword: {
     color: '#e5fb79',
   },
-  'control': {
+  control: {
     color: '#e5fb79',
   },
-  'directive': {
+  directive: {
     color: '#e5fb79',
   },
-  'unit': {
+  unit: {
     color: '#e5fb79',
   },
-  'statement': {
+  statement: {
     color: '#e5fb79',
   },
-  'regex': {
+  regex: {
     color: '#e5fb79',
   },
-  'atrule': {
+  atrule: {
     color: '#e5fb79',
   },
-  'placeholder': {
+  placeholder: {
     color: '#e5fb79',
   },
-  'variable': {
+  variable: {
     color: '#e5fb79',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #f0fff0',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#b3d6b3',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const holiTheme = {
-  'base': {},
-  'comment': {
+  base: {},
+  comment: {
     color: '#446e69',
   },
-  'prolog': {
+  prolog: {
     color: '#446e69',
   },
-  'doctype': {
+  doctype: {
     color: '#446e69',
   },
-  'cdata': {
+  cdata: {
     color: '#446e69',
   },
-  'punctuation': {
+  punctuation: {
     color: '#d6b007',
   },
-  'property': {
+  property: {
     color: '#d6e7ff',
   },
-  'tag': {
+  tag: {
     color: '#d6e7ff',
   },
-  'boolean': {
+  boolean: {
     color: '#d6e7ff',
   },
-  'number': {
+  number: {
     color: '#d6e7ff',
   },
-  'constant': {
+  constant: {
     color: '#d6e7ff',
   },
-  'symbol': {
+  symbol: {
     color: '#d6e7ff',
   },
-  'deleted': {
+  deleted: {
     color: '#d6e7ff',
   },
-  'selector': {
+  selector: {
     color: '#e60067',
   },
   'attr-name': {
     color: '#e60067',
   },
-  'builtin': {
+  builtin: {
     color: '#e60067',
   },
-  'inserted': {
+  inserted: {
     color: '#e60067',
   },
-  'string': {
+  string: {
     color: '#49c6ec',
   },
-  'char': {
+  char: {
     color: '#49c6ec',
   },
-  'operator': {
+  operator: {
     color: '#ec8e01',
     background: 'transparent',
   },
-  'entity': {
+  entity: {
     color: '#ec8e01',
     background: 'transparent',
   },
-  'url': {
+  url: {
     color: '#ec8e01',
     background: 'transparent',
   },
-  'atrule': {
+  atrule: {
     color: '#0fe468',
   },
   'attr-value': {
     color: '#0fe468',
   },
-  'keyword': {
+  keyword: {
     color: '#0fe468',
   },
-  'function': {
+  function: {
     color: '#78f3e9',
   },
   'class-name': {
     color: '#78f3e9',
   },
-  'regex': {
+  regex: {
     color: '#d6e7ff',
   },
-  'important': {
+  important: {
     color: '#d6e7ff',
   },
-  'variable': {
+  variable: {
     color: '#d6e7ff',
   },
 } as const;
 export const cb = {
-  'base': {
+  base: {
     color: '#fff',
     textShadow: '0 1px 1px #000',
     fontFamily: 'Menlo, Monaco, "Courier New", monospace',
@@ -536,88 +536,88 @@ export const cb = {
     WebkitBorderRadius: '8px',
     borderRadius: '8px',
   },
-  'comment': {
+  comment: {
     color: '#797979',
   },
-  'prolog': {
+  prolog: {
     color: '#797979',
   },
-  'doctype': {
+  doctype: {
     color: '#797979',
   },
-  'cdata': {
+  cdata: {
     color: '#797979',
   },
-  'selector': {
+  selector: {
     color: '#fff',
   },
-  'operator': {
+  operator: {
     color: '#fff',
   },
-  'punctuation': {
+  punctuation: {
     color: '#fff',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#ffd893',
   },
-  'boolean': {
+  boolean: {
     color: '#ffd893',
   },
-  'atrule': {
+  atrule: {
     color: '#B0C975',
   },
   'attr-value': {
     color: '#B0C975',
   },
-  'hex': {
+  hex: {
     color: '#B0C975',
   },
-  'string': {
+  string: {
     color: '#B0C975',
   },
-  'property': {
+  property: {
     color: '#c27628',
   },
-  'entity': {
+  entity: {
     color: '#c27628',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#c27628',
   },
   'attr-name': {
     color: '#c27628',
   },
-  'keyword': {
+  keyword: {
     color: '#c27628',
   },
-  'regex': {
+  regex: {
     color: '#9B71C6',
   },
-  'function': {
+  function: {
     color: '#e5a638',
   },
-  'constant': {
+  constant: {
     color: '#e5a638',
   },
-  'variable': {
+  variable: {
     color: '#fdfba8',
   },
-  'number': {
+  number: {
     color: '#8799B0',
   },
-  'important': {
+  important: {
     color: '#E45734',
   },
-  'deliminator': {
+  deliminator: {
     color: '#E45734',
   },
 } as const;
 export const vs = {
-  'base': {
+  base: {
     color: '#393A34',
     fontFamily:
       '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace',
@@ -640,99 +640,99 @@ export const vs = {
     border: '1px solid #dddddd',
     backgroundColor: 'white',
   },
-  'comment': {
+  comment: {
     color: '#008000',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: '#008000',
     fontStyle: 'italic',
   },
-  'doctype': {
+  doctype: {
     color: '#008000',
     fontStyle: 'italic',
   },
-  'cdata': {
+  cdata: {
     color: '#008000',
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'string': {
+  string: {
     color: '#A31515',
   },
-  'punctuation': {
+  punctuation: {
     color: '#393A34',
   },
-  'operator': {
+  operator: {
     color: '#393A34',
   },
-  'url': {
+  url: {
     color: '#36acaa',
   },
-  'symbol': {
+  symbol: {
     color: '#36acaa',
   },
-  'number': {
+  number: {
     color: '#36acaa',
   },
-  'boolean': {
+  boolean: {
     color: '#36acaa',
   },
-  'variable': {
+  variable: {
     color: '#36acaa',
   },
-  'constant': {
+  constant: {
     color: '#36acaa',
   },
-  'inserted': {
+  inserted: {
     color: '#36acaa',
   },
-  'atrule': {
+  atrule: {
     color: '#0000ff',
   },
-  'keyword': {
+  keyword: {
     color: '#0000ff',
   },
   'attr-value': {
     color: '#0000ff',
   },
-  'function': {
+  function: {
     color: '#393A34',
   },
-  'deleted': {
+  deleted: {
     color: '#9a050f',
   },
-  'selector': {
+  selector: {
     color: '#800000',
   },
-  'important': {
+  important: {
     color: '#e90',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
   'class-name': {
     color: '#2B91AF',
   },
-  'tag': {
+  tag: {
     color: '#800000',
   },
   'attr-name': {
     color: '#ff0000',
   },
-  'property': {
+  property: {
     color: '#ff0000',
   },
-  'regex': {
+  regex: {
     color: '#ff0000',
   },
-  'entity': {
+  entity: {
     color: '#ff0000',
   },
   'directive.tag .tag': {
@@ -741,7 +741,7 @@ export const vs = {
   },
 } as const;
 export const materialDark = {
-  'base': {
+  base: {
     textAlign: 'left',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
@@ -763,7 +763,7 @@ export const materialDark = {
     margin: '0.5em 0',
     padding: '1.25em 1em',
   },
-  'atrule': {
+  atrule: {
     color: '#c792ea',
   },
   'attr-name': {
@@ -772,72 +772,72 @@ export const materialDark = {
   'attr-value': {
     color: '#a5e844',
   },
-  'attribute': {
+  attribute: {
     color: '#a5e844',
   },
-  'boolean': {
+  boolean: {
     color: '#c792ea',
   },
-  'builtin': {
+  builtin: {
     color: '#ffcb6b',
   },
-  'cdata': {
+  cdata: {
     color: '#80cbc4',
   },
-  'char': {
+  char: {
     color: '#80cbc4',
   },
-  'class': {
+  class: {
     color: '#ffcb6b',
   },
   'class-name': {
     color: '#f2ff00',
   },
-  'comment': {
+  comment: {
     color: '#616161',
   },
-  'constant': {
+  constant: {
     color: '#c792ea',
   },
-  'deleted': {
+  deleted: {
     color: '#ff6666',
   },
-  'doctype': {
+  doctype: {
     color: '#616161',
   },
-  'entity': {
+  entity: {
     color: '#ff6666',
   },
-  'function': {
+  function: {
     color: '#c792ea',
   },
-  'hexcode': {
+  hexcode: {
     color: '#f2ff00',
   },
-  'id': {
+  id: {
     color: '#c792ea',
     fontWeight: 'bold',
   },
-  'important': {
+  important: {
     color: '#c792ea',
     fontWeight: 'bold',
   },
-  'inserted': {
+  inserted: {
     color: '#80cbc4',
   },
-  'keyword': {
+  keyword: {
     color: '#c792ea',
   },
-  'number': {
+  number: {
     color: '#fd9170',
   },
-  'operator': {
+  operator: {
     color: '#89ddff',
   },
-  'prolog': {
+  prolog: {
     color: '#616161',
   },
-  'property': {
+  property: {
     color: '#80cbc4',
   },
   'pseudo-class': {
@@ -846,36 +846,36 @@ export const materialDark = {
   'pseudo-element': {
     color: '#a5e844',
   },
-  'punctuation': {
+  punctuation: {
     color: '#89ddff',
   },
-  'regex': {
+  regex: {
     color: '#f2ff00',
   },
-  'selector': {
+  selector: {
     color: '#ff6666',
   },
-  'string': {
+  string: {
     color: '#a5e844',
   },
-  'symbol': {
+  symbol: {
     color: '#c792ea',
   },
-  'tag': {
+  tag: {
     color: '#ff6666',
   },
-  'unit': {
+  unit: {
     color: '#fd9170',
   },
-  'url': {
+  url: {
     color: '#ff6666',
   },
-  'variable': {
+  variable: {
     color: '#ff6666',
   },
 } as const;
 export const dracula = {
-  'base': {
+  base: {
     color: '#f8f8f2',
     background: '#282a36',
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
@@ -897,179 +897,179 @@ export const dracula = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: '#6272a4',
   },
-  'prolog': {
+  prolog: {
     color: '#6272a4',
   },
-  'doctype': {
+  doctype: {
     color: '#6272a4',
   },
-  'cdata': {
+  cdata: {
     color: '#6272a4',
   },
-  'punctuation': {
+  punctuation: {
     color: '#f8f8f2',
   },
-  'property': {
+  property: {
     color: '#ff79c6',
   },
-  'tag': {
+  tag: {
     color: '#ff79c6',
   },
-  'constant': {
+  constant: {
     color: '#ff79c6',
   },
-  'symbol': {
+  symbol: {
     color: '#ff79c6',
   },
-  'deleted': {
+  deleted: {
     color: '#ff79c6',
   },
-  'boolean': {
+  boolean: {
     color: '#bd93f9',
   },
-  'number': {
+  number: {
     color: '#bd93f9',
   },
-  'selector': {
+  selector: {
     color: '#50fa7b',
   },
   'attr-name': {
     color: '#50fa7b',
   },
-  'string': {
+  string: {
     color: '#50fa7b',
   },
-  'char': {
+  char: {
     color: '#50fa7b',
   },
-  'builtin': {
+  builtin: {
     color: '#50fa7b',
   },
-  'inserted': {
+  inserted: {
     color: '#50fa7b',
   },
-  'operator': {
+  operator: {
     color: '#f8f8f2',
   },
-  'entity': {
+  entity: {
     color: '#f8f8f2',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#f8f8f2',
   },
-  'variable': {
+  variable: {
     color: '#f8f8f2',
   },
-  'atrule': {
+  atrule: {
     color: '#f1fa8c',
   },
   'attr-value': {
     color: '#f1fa8c',
   },
-  'function': {
+  function: {
     color: '#f1fa8c',
   },
   'class-name': {
     color: '#f1fa8c',
   },
-  'keyword': {
+  keyword: {
     color: '#8be9fd',
   },
-  'regex': {
+  regex: {
     color: '#ffb86c',
   },
-  'important': {
+  important: {
     color: '#ffb86c',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const shadesOfPurple = {
-  'base': {},
+  base: {},
   '': {
     fontWeight: '400',
   },
-  'comment': {
+  comment: {
     color: '#b362ff',
   },
-  'prolog': {
+  prolog: {
     color: '#b362ff',
   },
-  'cdata': {
+  cdata: {
     color: '#b362ff',
   },
-  'delimiter': {
+  delimiter: {
     color: '#ff9d00',
   },
-  'keyword': {
+  keyword: {
     color: '#ff9d00',
   },
-  'selector': {
+  selector: {
     color: '#ff9d00',
   },
-  'important': {
+  important: {
     color: '#ff9d00',
   },
-  'atrule': {
+  atrule: {
     color: '#ff9d00',
   },
-  'operator': {
+  operator: {
     color: 'rgb(255, 180, 84)',
     background: 'none',
   },
   'attr-name': {
     color: 'rgb(255, 180, 84)',
   },
-  'punctuation': {
+  punctuation: {
     color: '#ffffff',
   },
-  'boolean': {
+  boolean: {
     color: 'rgb(255, 98, 140)',
   },
-  'tag': {
+  tag: {
     color: 'rgb(255, 157, 0)',
   },
   'tag .punctuation': {
     color: 'rgb(255, 157, 0)',
   },
-  'doctype': {
+  doctype: {
     color: 'rgb(255, 157, 0)',
   },
-  'builtin': {
+  builtin: {
     color: 'rgb(255, 157, 0)',
   },
-  'entity': {
+  entity: {
     color: '#6897bb',
     background: 'none',
   },
-  'symbol': {
+  symbol: {
     color: '#6897bb',
   },
-  'number': {
+  number: {
     color: '#ff628c',
   },
-  'property': {
+  property: {
     color: '#ff628c',
   },
-  'constant': {
+  constant: {
     color: '#ff628c',
   },
-  'variable': {
+  variable: {
     color: '#ff628c',
   },
-  'string': {
+  string: {
     color: '#a5ff90',
   },
-  'char': {
+  char: {
     color: '#a5ff90',
   },
   'attr-value': {
@@ -1081,27 +1081,27 @@ export const shadesOfPurple = {
   'attr-value .punctuation:first-child': {
     color: '#a9b7c6',
   },
-  'url': {
+  url: {
     color: '#287bde',
     textDecoration: 'underline',
     background: 'none',
   },
-  'function': {
+  function: {
     color: 'rgb(250, 208, 0)',
   },
-  'regex': {
+  regex: {
     background: '#364135',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     background: '#00ff00',
   },
-  'deleted': {
+  deleted: {
     background: '#ff000d',
   },
   'class-name': {
@@ -1109,7 +1109,7 @@ export const shadesOfPurple = {
   },
 } as const;
 export const gruvboxDark = {
-  'base': {
+  base: {
     color: '#ebdbb2',
     fontFamily: 'Consolas, Monaco, "Andale Mono", monospace',
     direction: 'ltr',
@@ -1129,76 +1129,76 @@ export const gruvboxDark = {
     overflow: 'auto',
     background: '#1d2021',
   },
-  'comment': {
+  comment: {
     color: '#a89984',
   },
-  'prolog': {
+  prolog: {
     color: '#a89984',
   },
-  'cdata': {
+  cdata: {
     color: '#a89984',
   },
-  'delimiter': {
+  delimiter: {
     color: '#fb4934',
   },
-  'boolean': {
+  boolean: {
     color: '#fb4934',
   },
-  'keyword': {
+  keyword: {
     color: '#fb4934',
   },
-  'selector': {
+  selector: {
     color: '#fb4934',
   },
-  'important': {
+  important: {
     color: '#fb4934',
   },
-  'atrule': {
+  atrule: {
     color: '#fb4934',
   },
-  'operator': {
+  operator: {
     color: '#a89984',
   },
-  'punctuation': {
+  punctuation: {
     color: '#a89984',
   },
   'attr-name': {
     color: '#a89984',
   },
-  'tag': {
+  tag: {
     color: '#fabd2f',
   },
   'tag .punctuation': {
     color: '#fabd2f',
   },
-  'doctype': {
+  doctype: {
     color: '#fabd2f',
   },
-  'builtin': {
+  builtin: {
     color: '#fabd2f',
   },
-  'entity': {
+  entity: {
     color: '#d3869b',
   },
-  'number': {
+  number: {
     color: '#d3869b',
   },
-  'symbol': {
+  symbol: {
     color: '#d3869b',
   },
-  'property': {
+  property: {
     color: '#fb4934',
   },
-  'constant': {
+  constant: {
     color: '#fb4934',
   },
-  'variable': {
+  variable: {
     color: '#fb4934',
   },
-  'string': {
+  string: {
     color: '#b8bb26',
   },
-  'char': {
+  char: {
     color: '#b8bb26',
   },
   'attr-value': {
@@ -1207,31 +1207,31 @@ export const gruvboxDark = {
   'attr-value .punctuation': {
     color: '#a89984',
   },
-  'url': {
+  url: {
     color: '#b8bb26',
     textDecoration: 'underline',
   },
-  'function': {
+  function: {
     color: '#fabd2f',
   },
-  'regex': {
+  regex: {
     background: '#b8bb26',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     background: '#a89984',
   },
-  'deleted': {
+  deleted: {
     background: '#fb4934',
   },
 } as const;
 export const baseAteliersulphurpoolLight = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -1254,105 +1254,105 @@ export const baseAteliersulphurpoolLight = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#898ea4',
   },
-  'prolog': {
+  prolog: {
     color: '#898ea4',
   },
-  'doctype': {
+  doctype: {
     color: '#898ea4',
   },
-  'cdata': {
+  cdata: {
     color: '#898ea4',
   },
-  'punctuation': {
+  punctuation: {
     color: '#5e6687',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'operator': {
+  operator: {
     color: '#c76b29',
   },
-  'boolean': {
+  boolean: {
     color: '#c76b29',
   },
-  'number': {
+  number: {
     color: '#c76b29',
   },
-  'property': {
+  property: {
     color: '#c08b30',
   },
-  'tag': {
+  tag: {
     color: '#3d8fd1',
   },
-  'string': {
+  string: {
     color: '#22a2c9',
   },
-  'selector': {
+  selector: {
     color: '#6679cc',
   },
   'attr-name': {
     color: '#c76b29',
   },
-  'entity': {
+  entity: {
     color: '#22a2c9',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#22a2c9',
   },
   'attr-value': {
     color: '#ac9739',
   },
-  'keyword': {
+  keyword: {
     color: '#ac9739',
   },
-  'control': {
+  control: {
     color: '#ac9739',
   },
-  'directive': {
+  directive: {
     color: '#ac9739',
   },
-  'unit': {
+  unit: {
     color: '#ac9739',
   },
-  'statement': {
+  statement: {
     color: '#22a2c9',
   },
-  'regex': {
+  regex: {
     color: '#22a2c9',
   },
-  'atrule': {
+  atrule: {
     color: '#22a2c9',
   },
-  'placeholder': {
+  placeholder: {
     color: '#3d8fd1',
   },
-  'variable': {
+  variable: {
     color: '#3d8fd1',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #202746',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#c94922',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const coldarkCold = {
-  'base': {
+  base: {
     color: '#111b27',
     background: '#e3eaf2',
     fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
@@ -1373,19 +1373,19 @@ export const coldarkCold = {
     margin: '0.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#3c526d',
   },
-  'prolog': {
+  prolog: {
     color: '#3c526d',
   },
-  'doctype': {
+  doctype: {
     color: '#3c526d',
   },
-  'cdata': {
+  cdata: {
     color: '#3c526d',
   },
-  'punctuation': {
+  punctuation: {
     color: '#111b27',
   },
   'delimiter.important': {
@@ -1395,7 +1395,7 @@ export const coldarkCold = {
   'selector .parent': {
     color: '#006d6d',
   },
-  'tag': {
+  tag: {
     color: '#006d6d',
   },
   'tag .token.punctuation': {
@@ -1404,16 +1404,16 @@ export const coldarkCold = {
   'attr-name': {
     color: '#755f00',
   },
-  'boolean': {
+  boolean: {
     color: '#755f00',
   },
   'boolean.important': {
     color: '#755f00',
   },
-  'number': {
+  number: {
     color: '#755f00',
   },
-  'constant': {
+  constant: {
     color: '#755f00',
   },
   'selector .token.attribute': {
@@ -1422,52 +1422,52 @@ export const coldarkCold = {
   'class-name': {
     color: '#005a8e',
   },
-  'key': {
+  key: {
     color: '#005a8e',
   },
-  'parameter': {
+  parameter: {
     color: '#005a8e',
   },
-  'property': {
+  property: {
     color: '#005a8e',
   },
   'property-access': {
     color: '#005a8e',
   },
-  'variable': {
+  variable: {
     color: '#005a8e',
   },
   'attr-value': {
     color: '#116b00',
   },
-  'inserted': {
+  inserted: {
     color: '#116b00',
   },
-  'color': {
+  color: {
     color: '#116b00',
   },
   'selector .token.value': {
     color: '#116b00',
   },
-  'string': {
+  string: {
     color: '#116b00',
   },
   'string .token.url-link': {
     color: '#116b00',
   },
-  'builtin': {
+  builtin: {
     color: '#af00af',
   },
   'keyword-array': {
     color: '#af00af',
   },
-  'package': {
+  package: {
     color: '#af00af',
   },
-  'regex': {
+  regex: {
     color: '#af00af',
   },
-  'function': {
+  function: {
     color: '#7c00aa',
   },
   'selector .token.class': {
@@ -1479,13 +1479,13 @@ export const coldarkCold = {
   'atrule .token.rule': {
     color: '#a04900',
   },
-  'combinator': {
+  combinator: {
     color: '#a04900',
   },
-  'keyword': {
+  keyword: {
     color: '#a04900',
   },
-  'operator': {
+  operator: {
     color: '#a04900',
   },
   'pseudo-class': {
@@ -1494,16 +1494,16 @@ export const coldarkCold = {
   'pseudo-element': {
     color: '#a04900',
   },
-  'selector': {
+  selector: {
     color: '#a04900',
   },
-  'unit': {
+  unit: {
     color: '#a04900',
   },
-  'deleted': {
+  deleted: {
     color: '#c22f2e',
   },
-  'important': {
+  important: {
     color: '#c22f2e',
     fontWeight: 'bold',
   },
@@ -1511,17 +1511,17 @@ export const coldarkCold = {
     color: '#005a8e',
     fontWeight: 'bold',
   },
-  'this': {
+  this: {
     color: '#005a8e',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'entity': {
+  entity: {
     cursor: 'help',
   },
   'token.tab:not(:empty):before': {
@@ -1538,7 +1538,7 @@ export const coldarkCold = {
   },
 } as const;
 export const solarizedDarkAtom = {
-  'base': {
+  base: {
     color: '#839496',
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
     fontFamily:
@@ -1562,97 +1562,97 @@ export const solarizedDarkAtom = {
     borderRadius: '0.3em',
     background: '#002b36',
   },
-  'comment': {
+  comment: {
     color: '#586e75',
   },
-  'prolog': {
+  prolog: {
     color: '#586e75',
   },
-  'doctype': {
+  doctype: {
     color: '#586e75',
   },
-  'cdata': {
+  cdata: {
     color: '#586e75',
   },
-  'punctuation': {
+  punctuation: {
     color: '#93a1a1',
   },
-  'property': {
+  property: {
     color: '#268bd2',
   },
-  'keyword': {
+  keyword: {
     color: '#268bd2',
   },
-  'tag': {
+  tag: {
     color: '#268bd2',
   },
   'class-name': {
     color: '#FFFFB6',
     textDecoration: 'underline',
   },
-  'boolean': {
+  boolean: {
     color: '#b58900',
   },
-  'constant': {
+  constant: {
     color: '#b58900',
   },
-  'symbol': {
+  symbol: {
     color: '#dc322f',
   },
-  'deleted': {
+  deleted: {
     color: '#dc322f',
   },
-  'number': {
+  number: {
     color: '#859900',
   },
-  'selector': {
+  selector: {
     color: '#859900',
   },
   'attr-name': {
     color: '#859900',
   },
-  'string': {
+  string: {
     color: '#859900',
   },
-  'char': {
+  char: {
     color: '#859900',
   },
-  'builtin': {
+  builtin: {
     color: '#859900',
   },
-  'inserted': {
+  inserted: {
     color: '#859900',
   },
-  'variable': {
+  variable: {
     color: '#268bd2',
   },
-  'operator': {
+  operator: {
     color: '#EDEDED',
   },
-  'function': {
+  function: {
     color: '#268bd2',
   },
-  'regex': {
+  regex: {
     color: '#E9C062',
   },
-  'important': {
+  important: {
     color: '#fd971f',
     fontWeight: 'bold',
   },
-  'entity': {
+  entity: {
     color: '#FFFFB6',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#96CBFE',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'atrule': {
+  atrule: {
     color: '#F9EE98',
   },
   'attr-value': {
@@ -1660,7 +1660,7 @@ export const solarizedDarkAtom = {
   },
 } as const;
 export const synthwave84 = {
-  'base': {
+  base: {
     color: '#f92aad',
     textShadow: '0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3',
     background: 'none',
@@ -1685,57 +1685,57 @@ export const synthwave84 = {
     backgroundColor: 'transparent !important',
     backgroundImage: 'linear-gradient(to bottom, #2a2139 75%, #34294f)',
   },
-  'comment': {
+  comment: {
     color: '#8e8e8e',
   },
   'block-comment': {
     color: '#8e8e8e',
   },
-  'prolog': {
+  prolog: {
     color: '#8e8e8e',
   },
-  'doctype': {
+  doctype: {
     color: '#8e8e8e',
   },
-  'cdata': {
+  cdata: {
     color: '#8e8e8e',
   },
-  'punctuation': {
+  punctuation: {
     color: '#ccc',
   },
-  'tag': {
+  tag: {
     color: '#e2777a',
   },
   'attr-name': {
     color: '#e2777a',
   },
-  'namespace': {
+  namespace: {
     color: '#e2777a',
   },
-  'number': {
+  number: {
     color: '#e2777a',
   },
-  'unit': {
+  unit: {
     color: '#e2777a',
   },
-  'hexcode': {
+  hexcode: {
     color: '#e2777a',
   },
-  'deleted': {
+  deleted: {
     color: '#e2777a',
   },
-  'property': {
+  property: {
     color: '#72f1b8',
     textShadow: '0 0 2px #100c0f, 0 0 10px #257c5575, 0 0 35px #21272475',
   },
-  'selector': {
+  selector: {
     color: '#72f1b8',
     textShadow: '0 0 2px #100c0f, 0 0 10px #257c5575, 0 0 35px #21272475',
   },
   'function-name': {
     color: '#6196cc',
   },
-  'boolean': {
+  boolean: {
     color: '#fdfdfd',
     textShadow:
       '0 0 2px #001716, 0 0 3px #03edf975, 0 0 5px #03edf975, 0 0 8px #03edf975',
@@ -1745,7 +1745,7 @@ export const synthwave84 = {
     textShadow:
       '0 0 2px #001716, 0 0 3px #03edf975, 0 0 5px #03edf975, 0 0 8px #03edf975',
   },
-  'function': {
+  function: {
     color: '#fdfdfd',
     textShadow:
       '0 0 2px #001716, 0 0 3px #03edf975, 0 0 5px #03edf975, 0 0 8px #03edf975',
@@ -1755,24 +1755,24 @@ export const synthwave84 = {
     textShadow:
       '0 0 2px #000, 0 0 10px #fc1f2c75, 0 0 5px #fc1f2c75, 0 0 25px #fc1f2c75',
   },
-  'constant': {
+  constant: {
     color: '#f92aad',
     textShadow: '0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3',
   },
-  'symbol': {
+  symbol: {
     color: '#f92aad',
     textShadow: '0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3',
   },
-  'important': {
+  important: {
     color: '#f4eee4',
     textShadow: '0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575',
     fontWeight: 'bold',
   },
-  'atrule': {
+  atrule: {
     color: '#f4eee4',
     textShadow: '0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575',
   },
-  'keyword': {
+  keyword: {
     color: '#f4eee4',
     textShadow: '0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575',
   },
@@ -1780,47 +1780,47 @@ export const synthwave84 = {
     color: '#f4eee4',
     textShadow: '0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575',
   },
-  'builtin': {
+  builtin: {
     color: '#f4eee4',
     textShadow: '0 0 2px #393a33, 0 0 8px #f39f0575, 0 0 2px #f39f0575',
   },
-  'string': {
+  string: {
     color: '#f87c32',
   },
-  'char': {
+  char: {
     color: '#f87c32',
   },
   'attr-value': {
     color: '#f87c32',
   },
-  'regex': {
+  regex: {
     color: '#f87c32',
   },
-  'variable': {
+  variable: {
     color: '#f87c32',
   },
-  'operator': {
+  operator: {
     color: '#67cdcc',
   },
-  'entity': {
+  entity: {
     color: '#67cdcc',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#67cdcc',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     color: 'green',
   },
 } as const;
 export const materialOceanic = {
-  'base': {
+  base: {
     textAlign: 'left',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
@@ -1843,7 +1843,7 @@ export const materialOceanic = {
     margin: '0.5em 0',
     padding: '1.25em 1em',
   },
-  'atrule': {
+  atrule: {
     color: '#c792ea',
   },
   'attr-name': {
@@ -1852,76 +1852,76 @@ export const materialOceanic = {
   'attr-value': {
     color: '#c3e88d',
   },
-  'attribute': {
+  attribute: {
     color: '#c3e88d',
   },
-  'boolean': {
+  boolean: {
     color: '#c792ea',
   },
-  'builtin': {
+  builtin: {
     color: '#ffcb6b',
   },
-  'cdata': {
+  cdata: {
     color: '#80cbc4',
   },
-  'char': {
+  char: {
     color: '#80cbc4',
   },
-  'class': {
+  class: {
     color: '#ffcb6b',
   },
   'class-name': {
     color: '#f2ff00',
   },
-  'color': {
+  color: {
     color: '#f2ff00',
   },
-  'comment': {
+  comment: {
     color: '#546e7a',
   },
-  'constant': {
+  constant: {
     color: '#c792ea',
   },
-  'deleted': {
+  deleted: {
     color: '#f07178',
   },
-  'doctype': {
+  doctype: {
     color: '#546e7a',
   },
-  'entity': {
+  entity: {
     color: '#f07178',
   },
-  'function': {
+  function: {
     color: '#c792ea',
   },
-  'hexcode': {
+  hexcode: {
     color: '#f2ff00',
   },
-  'id': {
+  id: {
     color: '#c792ea',
     fontWeight: 'bold',
   },
-  'important': {
+  important: {
     color: '#c792ea',
     fontWeight: 'bold',
   },
-  'inserted': {
+  inserted: {
     color: '#80cbc4',
   },
-  'keyword': {
+  keyword: {
     color: '#c792ea',
     fontStyle: 'italic',
   },
-  'number': {
+  number: {
     color: '#fd9170',
   },
-  'operator': {
+  operator: {
     color: '#89ddff',
   },
-  'prolog': {
+  prolog: {
     color: '#546e7a',
   },
-  'property': {
+  property: {
     color: '#80cbc4',
   },
   'pseudo-class': {
@@ -1930,36 +1930,36 @@ export const materialOceanic = {
   'pseudo-element': {
     color: '#c3e88d',
   },
-  'punctuation': {
+  punctuation: {
     color: '#89ddff',
   },
-  'regex': {
+  regex: {
     color: '#f2ff00',
   },
-  'selector': {
+  selector: {
     color: '#f07178',
   },
-  'string': {
+  string: {
     color: '#c3e88d',
   },
-  'symbol': {
+  symbol: {
     color: '#c792ea',
   },
-  'tag': {
+  tag: {
     color: '#f07178',
   },
-  'unit': {
+  unit: {
     color: '#f07178',
   },
-  'url': {
+  url: {
     color: '#fd9170',
   },
-  'variable': {
+  variable: {
     color: '#f07178',
   },
 } as const;
 export const duotoneSpace = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -1982,43 +1982,43 @@ export const duotoneSpace = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#5b5b76',
   },
-  'prolog': {
+  prolog: {
     color: '#5b5b76',
   },
-  'doctype': {
+  doctype: {
     color: '#5b5b76',
   },
-  'cdata': {
+  cdata: {
     color: '#5b5b76',
   },
-  'punctuation': {
+  punctuation: {
     color: '#5b5b76',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#dd672c',
   },
-  'operator': {
+  operator: {
     color: '#dd672c',
   },
-  'number': {
+  number: {
     color: '#dd672c',
   },
-  'property': {
+  property: {
     color: '#767693',
   },
-  'function': {
+  function: {
     color: '#767693',
   },
   'tag-id': {
     color: '#ebebff',
   },
-  'selector': {
+  selector: {
     color: '#ebebff',
   },
   'atrule-id': {
@@ -2027,69 +2027,69 @@ export const duotoneSpace = {
   'attr-name': {
     color: '#aaaaca',
   },
-  'boolean': {
+  boolean: {
     color: '#fe8c52',
   },
-  'string': {
+  string: {
     color: '#fe8c52',
   },
-  'entity': {
+  entity: {
     color: '#fe8c52',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#fe8c52',
   },
   'attr-value': {
     color: '#fe8c52',
   },
-  'keyword': {
+  keyword: {
     color: '#fe8c52',
   },
-  'control': {
+  control: {
     color: '#fe8c52',
   },
-  'directive': {
+  directive: {
     color: '#fe8c52',
   },
-  'unit': {
+  unit: {
     color: '#fe8c52',
   },
-  'statement': {
+  statement: {
     color: '#fe8c52',
   },
-  'regex': {
+  regex: {
     color: '#fe8c52',
   },
-  'atrule': {
+  atrule: {
     color: '#fe8c52',
   },
-  'placeholder': {
+  placeholder: {
     color: '#fe8c52',
   },
-  'variable': {
+  variable: {
     color: '#fe8c52',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #ebebff',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#aaaaca',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const materialLight = {
-  'base': {
+  base: {
     textAlign: 'left',
     whiteSpace: 'pre',
     wordSpacing: 'normal',
@@ -2112,7 +2112,7 @@ export const materialLight = {
     margin: '0.5em 0',
     padding: '1.25em 1em',
   },
-  'atrule': {
+  atrule: {
     color: '#7c4dff',
   },
   'attr-name': {
@@ -2121,72 +2121,72 @@ export const materialLight = {
   'attr-value': {
     color: '#f6a434',
   },
-  'attribute': {
+  attribute: {
     color: '#f6a434',
   },
-  'boolean': {
+  boolean: {
     color: '#7c4dff',
   },
-  'builtin': {
+  builtin: {
     color: '#39adb5',
   },
-  'cdata': {
+  cdata: {
     color: '#39adb5',
   },
-  'char': {
+  char: {
     color: '#39adb5',
   },
-  'class': {
+  class: {
     color: '#39adb5',
   },
   'class-name': {
     color: '#6182b8',
   },
-  'comment': {
+  comment: {
     color: '#aabfc9',
   },
-  'constant': {
+  constant: {
     color: '#7c4dff',
   },
-  'deleted': {
+  deleted: {
     color: '#e53935',
   },
-  'doctype': {
+  doctype: {
     color: '#aabfc9',
   },
-  'entity': {
+  entity: {
     color: '#e53935',
   },
-  'function': {
+  function: {
     color: '#7c4dff',
   },
-  'hexcode': {
+  hexcode: {
     color: '#f76d47',
   },
-  'id': {
+  id: {
     color: '#7c4dff',
     fontWeight: 'bold',
   },
-  'important': {
+  important: {
     color: '#7c4dff',
     fontWeight: 'bold',
   },
-  'inserted': {
+  inserted: {
     color: '#39adb5',
   },
-  'keyword': {
+  keyword: {
     color: '#7c4dff',
   },
-  'number': {
+  number: {
     color: '#f76d47',
   },
-  'operator': {
+  operator: {
     color: '#39adb5',
   },
-  'prolog': {
+  prolog: {
     color: '#aabfc9',
   },
-  'property': {
+  property: {
     color: '#39adb5',
   },
   'pseudo-class': {
@@ -2195,36 +2195,36 @@ export const materialLight = {
   'pseudo-element': {
     color: '#f6a434',
   },
-  'punctuation': {
+  punctuation: {
     color: '#39adb5',
   },
-  'regex': {
+  regex: {
     color: '#6182b8',
   },
-  'selector': {
+  selector: {
     color: '#e53935',
   },
-  'string': {
+  string: {
     color: '#f6a434',
   },
-  'symbol': {
+  symbol: {
     color: '#7c4dff',
   },
-  'tag': {
+  tag: {
     color: '#e53935',
   },
-  'unit': {
+  unit: {
     color: '#f76d47',
   },
-  'url': {
+  url: {
     color: '#e53935',
   },
-  'variable': {
+  variable: {
     color: '#e53935',
   },
 } as const;
 export const duotoneSea = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -2247,43 +2247,43 @@ export const duotoneSea = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#4a5f78',
   },
-  'prolog': {
+  prolog: {
     color: '#4a5f78',
   },
-  'doctype': {
+  doctype: {
     color: '#4a5f78',
   },
-  'cdata': {
+  cdata: {
     color: '#4a5f78',
   },
-  'punctuation': {
+  punctuation: {
     color: '#4a5f78',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#0aa370',
   },
-  'operator': {
+  operator: {
     color: '#0aa370',
   },
-  'number': {
+  number: {
     color: '#0aa370',
   },
-  'property': {
+  property: {
     color: '#57718e',
   },
-  'function': {
+  function: {
     color: '#57718e',
   },
   'tag-id': {
     color: '#ebf4ff',
   },
-  'selector': {
+  selector: {
     color: '#ebf4ff',
   },
   'atrule-id': {
@@ -2292,69 +2292,69 @@ export const duotoneSea = {
   'attr-name': {
     color: '#7eb6f6',
   },
-  'boolean': {
+  boolean: {
     color: '#47ebb4',
   },
-  'string': {
+  string: {
     color: '#47ebb4',
   },
-  'entity': {
+  entity: {
     color: '#47ebb4',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#47ebb4',
   },
   'attr-value': {
     color: '#47ebb4',
   },
-  'keyword': {
+  keyword: {
     color: '#47ebb4',
   },
-  'control': {
+  control: {
     color: '#47ebb4',
   },
-  'directive': {
+  directive: {
     color: '#47ebb4',
   },
-  'unit': {
+  unit: {
     color: '#47ebb4',
   },
-  'statement': {
+  statement: {
     color: '#47ebb4',
   },
-  'regex': {
+  regex: {
     color: '#47ebb4',
   },
-  'atrule': {
+  atrule: {
     color: '#47ebb4',
   },
-  'placeholder': {
+  placeholder: {
     color: '#47ebb4',
   },
-  'variable': {
+  variable: {
     color: '#47ebb4',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #ebf4ff',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#7eb6f6',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const a11yDark = {
-  'base': {
+  base: {
     color: '#f8f8f2',
     background: '#2b2b2b',
     fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
@@ -2376,101 +2376,101 @@ export const a11yDark = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: '#d4d0ab',
   },
-  'prolog': {
+  prolog: {
     color: '#d4d0ab',
   },
-  'doctype': {
+  doctype: {
     color: '#d4d0ab',
   },
-  'cdata': {
+  cdata: {
     color: '#d4d0ab',
   },
-  'punctuation': {
+  punctuation: {
     color: '#fefefe',
   },
-  'property': {
+  property: {
     color: '#ffa07a',
   },
-  'tag': {
+  tag: {
     color: '#ffa07a',
   },
-  'constant': {
+  constant: {
     color: '#ffa07a',
   },
-  'symbol': {
+  symbol: {
     color: '#ffa07a',
   },
-  'deleted': {
+  deleted: {
     color: '#ffa07a',
   },
-  'boolean': {
+  boolean: {
     color: '#00e0e0',
   },
-  'number': {
+  number: {
     color: '#00e0e0',
   },
-  'selector': {
+  selector: {
     color: '#abe338',
   },
   'attr-name': {
     color: '#abe338',
   },
-  'string': {
+  string: {
     color: '#abe338',
   },
-  'char': {
+  char: {
     color: '#abe338',
   },
-  'builtin': {
+  builtin: {
     color: '#abe338',
   },
-  'inserted': {
+  inserted: {
     color: '#abe338',
   },
-  'operator': {
+  operator: {
     color: '#00e0e0',
   },
-  'entity': {
+  entity: {
     color: '#00e0e0',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#00e0e0',
   },
-  'variable': {
+  variable: {
     color: '#00e0e0',
   },
-  'atrule': {
+  atrule: {
     color: '#ffd700',
   },
   'attr-value': {
     color: '#ffd700',
   },
-  'function': {
+  function: {
     color: '#ffd700',
   },
-  'keyword': {
+  keyword: {
     color: '#00e0e0',
   },
-  'regex': {
+  regex: {
     color: '#ffd700',
   },
-  'important': {
+  important: {
     color: '#ffd700',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const darcula = {
-  'base': {
+  base: {
     color: '#a9b7c6',
     fontFamily: "Consolas, Monaco, 'Andale Mono', monospace",
     direction: 'ltr',
@@ -2491,76 +2491,76 @@ export const darcula = {
     overflow: 'auto',
     background: '#2b2b2b',
   },
-  'comment': {
+  comment: {
     color: '#808080',
   },
-  'prolog': {
+  prolog: {
     color: '#808080',
   },
-  'cdata': {
+  cdata: {
     color: '#808080',
   },
-  'delimiter': {
+  delimiter: {
     color: '#cc7832',
   },
-  'boolean': {
+  boolean: {
     color: '#cc7832',
   },
-  'keyword': {
+  keyword: {
     color: '#cc7832',
   },
-  'selector': {
+  selector: {
     color: '#cc7832',
   },
-  'important': {
+  important: {
     color: '#cc7832',
   },
-  'atrule': {
+  atrule: {
     color: '#cc7832',
   },
-  'operator': {
+  operator: {
     color: '#a9b7c6',
   },
-  'punctuation': {
+  punctuation: {
     color: '#a9b7c6',
   },
   'attr-name': {
     color: '#a9b7c6',
   },
-  'tag': {
+  tag: {
     color: '#e8bf6a',
   },
   'tag .punctuation': {
     color: '#e8bf6a',
   },
-  'doctype': {
+  doctype: {
     color: '#e8bf6a',
   },
-  'builtin': {
+  builtin: {
     color: '#e8bf6a',
   },
-  'entity': {
+  entity: {
     color: '#6897bb',
   },
-  'number': {
+  number: {
     color: '#6897bb',
   },
-  'symbol': {
+  symbol: {
     color: '#6897bb',
   },
-  'property': {
+  property: {
     color: '#9876aa',
   },
-  'constant': {
+  constant: {
     color: '#9876aa',
   },
-  'variable': {
+  variable: {
     color: '#9876aa',
   },
-  'string': {
+  string: {
     color: '#6a8759',
   },
-  'char': {
+  char: {
     color: '#6a8759',
   },
   'attr-value': {
@@ -2572,31 +2572,31 @@ export const darcula = {
   'attr-value .punctuation:first-child': {
     color: '#a9b7c6',
   },
-  'url': {
+  url: {
     color: '#287bde',
     textDecoration: 'underline',
   },
-  'function': {
+  function: {
     color: '#ffc66d',
   },
-  'regex': {
+  regex: {
     background: '#364135',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     background: '#294436',
   },
-  'deleted': {
+  deleted: {
     background: '#484a4a',
   },
 } as const;
 export const zTouch = {
-  'base': {
+  base: {
     color: 'white',
     fontFamily: 'monospace',
     textAlign: 'left',
@@ -2618,63 +2618,63 @@ export const zTouch = {
     padding: '1em',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'cdata': {
+  cdata: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'punctuation': {
+  punctuation: {
     color: 'rgb(199, 146, 234)',
   },
-  'deleted': {
+  deleted: {
     color: 'rgba(239, 83, 80, 0.56)',
     fontStyle: 'italic',
   },
-  'symbol': {
+  symbol: {
     color: 'rgb(128, 203, 196)',
   },
-  'property': {
+  property: {
     color: 'rgb(128, 203, 196)',
   },
-  'tag': {
+  tag: {
     color: 'rgb(127, 219, 202)',
   },
-  'operator': {
+  operator: {
     color: 'rgb(127, 219, 202)',
   },
-  'keyword': {
+  keyword: {
     color: 'rgb(127, 219, 202)',
   },
-  'boolean': {
+  boolean: {
     color: 'rgb(255, 88, 116)',
   },
-  'number': {
+  number: {
     color: 'rgb(247, 140, 108)',
   },
-  'constant': {
+  constant: {
     color: 'rgb(34 183 199)',
   },
-  'function': {
+  function: {
     color: 'rgb(34 183 199)',
   },
-  'builtin': {
+  builtin: {
     color: 'rgb(34 183 199)',
   },
-  'char': {
+  char: {
     color: 'rgb(34 183 199)',
   },
-  'selector': {
+  selector: {
     color: 'rgb(199, 146, 234)',
     fontStyle: 'italic',
   },
-  'doctype': {
+  doctype: {
     color: 'rgb(199, 146, 234)',
     fontStyle: 'italic',
   },
@@ -2682,47 +2682,47 @@ export const zTouch = {
     color: 'rgb(173, 219, 103)',
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     color: 'rgb(173, 219, 103)',
     fontStyle: 'italic',
   },
-  'string': {
+  string: {
     color: 'rgb(173, 219, 103)',
   },
-  'url': {
+  url: {
     color: 'rgb(173, 219, 103)',
   },
-  'entity': {
+  entity: {
     color: 'rgb(173, 219, 103)',
   },
   'class-name': {
     color: 'rgb(255, 203, 139)',
   },
-  'atrule': {
+  atrule: {
     color: 'rgb(255, 203, 139)',
   },
   'attr-value': {
     color: 'rgb(255, 203, 139)',
   },
-  'regex': {
+  regex: {
     color: 'rgb(214, 222, 235)',
   },
-  'important': {
+  important: {
     color: 'rgb(214, 222, 235)',
     fontWeight: 'bold',
   },
-  'variable': {
+  variable: {
     color: 'rgb(214, 222, 235)',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const duotoneEarth = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -2745,43 +2745,43 @@ export const duotoneEarth = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#6a5f58',
   },
-  'prolog': {
+  prolog: {
     color: '#6a5f58',
   },
-  'doctype': {
+  doctype: {
     color: '#6a5f58',
   },
-  'cdata': {
+  cdata: {
     color: '#6a5f58',
   },
-  'punctuation': {
+  punctuation: {
     color: '#6a5f58',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#bfa05a',
   },
-  'operator': {
+  operator: {
     color: '#bfa05a',
   },
-  'number': {
+  number: {
     color: '#bfa05a',
   },
-  'property': {
+  property: {
     color: '#88786d',
   },
-  'function': {
+  function: {
     color: '#88786d',
   },
   'tag-id': {
     color: '#fff3eb',
   },
-  'selector': {
+  selector: {
     color: '#fff3eb',
   },
   'atrule-id': {
@@ -2790,69 +2790,69 @@ export const duotoneEarth = {
   'attr-name': {
     color: '#a48774',
   },
-  'boolean': {
+  boolean: {
     color: '#fcc440',
   },
-  'string': {
+  string: {
     color: '#fcc440',
   },
-  'entity': {
+  entity: {
     color: '#fcc440',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#fcc440',
   },
   'attr-value': {
     color: '#fcc440',
   },
-  'keyword': {
+  keyword: {
     color: '#fcc440',
   },
-  'control': {
+  control: {
     color: '#fcc440',
   },
-  'directive': {
+  directive: {
     color: '#fcc440',
   },
-  'unit': {
+  unit: {
     color: '#fcc440',
   },
-  'statement': {
+  statement: {
     color: '#fcc440',
   },
-  'regex': {
+  regex: {
     color: '#fcc440',
   },
-  'atrule': {
+  atrule: {
     color: '#fcc440',
   },
-  'placeholder': {
+  placeholder: {
     color: '#fcc440',
   },
-  'variable': {
+  variable: {
     color: '#fcc440',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #fff3eb',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#a48774',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const gruvboxLight = {
-  'base': {
+  base: {
     color: '#3c3836',
     fontFamily: 'Consolas, Monaco, "Andale Mono", monospace',
     direction: 'ltr',
@@ -2873,76 +2873,76 @@ export const gruvboxLight = {
     overflow: 'auto',
     background: '#f9f5d7',
   },
-  'comment': {
+  comment: {
     color: '#7c6f64',
   },
-  'prolog': {
+  prolog: {
     color: '#7c6f64',
   },
-  'cdata': {
+  cdata: {
     color: '#7c6f64',
   },
-  'delimiter': {
+  delimiter: {
     color: '#9d0006',
   },
-  'boolean': {
+  boolean: {
     color: '#9d0006',
   },
-  'keyword': {
+  keyword: {
     color: '#9d0006',
   },
-  'selector': {
+  selector: {
     color: '#9d0006',
   },
-  'important': {
+  important: {
     color: '#9d0006',
   },
-  'atrule': {
+  atrule: {
     color: '#9d0006',
   },
-  'operator': {
+  operator: {
     color: '#7c6f64',
   },
-  'punctuation': {
+  punctuation: {
     color: '#7c6f64',
   },
   'attr-name': {
     color: '#7c6f64',
   },
-  'tag': {
+  tag: {
     color: '#b57614',
   },
   'tag .punctuation': {
     color: '#b57614',
   },
-  'doctype': {
+  doctype: {
     color: '#b57614',
   },
-  'builtin': {
+  builtin: {
     color: '#b57614',
   },
-  'entity': {
+  entity: {
     color: '#8f3f71',
   },
-  'number': {
+  number: {
     color: '#8f3f71',
   },
-  'symbol': {
+  symbol: {
     color: '#8f3f71',
   },
-  'property': {
+  property: {
     color: '#9d0006',
   },
-  'constant': {
+  constant: {
     color: '#9d0006',
   },
-  'variable': {
+  variable: {
     color: '#9d0006',
   },
-  'string': {
+  string: {
     color: '#797403',
   },
-  'char': {
+  char: {
     color: '#797403',
   },
   'attr-value': {
@@ -2951,31 +2951,31 @@ export const gruvboxLight = {
   'attr-value .punctuation': {
     color: '#7c6f64',
   },
-  'url': {
+  url: {
     color: '#797403',
     textDecoration: 'underline',
   },
-  'function': {
+  function: {
     color: '#b57614',
   },
-  'regex': {
+  regex: {
     background: '#797403',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     background: '#7c6f64',
   },
-  'deleted': {
+  deleted: {
     background: '#9d0006',
   },
 } as const;
 export const oneDark = {
-  'base': {
+  base: {
     background: 'hsl(220, 13%, 18%)',
     color: 'hsl(220, 14%, 71%)',
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
@@ -2999,23 +2999,23 @@ export const oneDark = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: 'hsl(220, 10%, 40%)',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: 'hsl(220, 10%, 40%)',
   },
-  'cdata': {
+  cdata: {
     color: 'hsl(220, 10%, 40%)',
   },
-  'doctype': {
+  doctype: {
     color: 'hsl(220, 14%, 71%)',
   },
-  'punctuation': {
+  punctuation: {
     color: 'hsl(220, 14%, 71%)',
   },
-  'entity': {
+  entity: {
     color: 'hsl(220, 14%, 71%)',
     cursor: 'help',
   },
@@ -3025,52 +3025,52 @@ export const oneDark = {
   'class-name': {
     color: 'hsl(29, 54%, 61%)',
   },
-  'boolean': {
+  boolean: {
     color: 'hsl(29, 54%, 61%)',
   },
-  'constant': {
+  constant: {
     color: 'hsl(29, 54%, 61%)',
   },
-  'number': {
+  number: {
     color: 'hsl(29, 54%, 61%)',
   },
-  'atrule': {
+  atrule: {
     color: 'hsl(29, 54%, 61%)',
   },
-  'keyword': {
+  keyword: {
     color: 'hsl(286, 60%, 67%)',
   },
-  'property': {
+  property: {
     color: 'hsl(355, 65%, 65%)',
   },
-  'tag': {
+  tag: {
     color: 'hsl(355, 65%, 65%)',
   },
-  'symbol': {
+  symbol: {
     color: 'hsl(355, 65%, 65%)',
   },
-  'deleted': {
+  deleted: {
     color: 'hsl(355, 65%, 65%)',
   },
-  'important': {
+  important: {
     color: 'hsl(355, 65%, 65%)',
   },
-  'selector': {
+  selector: {
     color: 'hsl(95, 38%, 62%)',
   },
-  'string': {
+  string: {
     color: 'hsl(95, 38%, 62%)',
   },
-  'char': {
+  char: {
     color: 'hsl(95, 38%, 62%)',
   },
-  'builtin': {
+  builtin: {
     color: 'hsl(95, 38%, 62%)',
   },
-  'inserted': {
+  inserted: {
     color: 'hsl(95, 38%, 62%)',
   },
-  'regex': {
+  regex: {
     color: 'hsl(95, 38%, 62%)',
   },
   'attr-value': {
@@ -3079,16 +3079,16 @@ export const oneDark = {
   'attr-value > .token.punctuation': {
     color: 'hsl(95, 38%, 62%)',
   },
-  'variable': {
+  variable: {
     color: 'hsl(207, 82%, 66%)',
   },
-  'operator': {
+  operator: {
     color: 'hsl(207, 82%, 66%)',
   },
-  'function': {
+  function: {
     color: 'hsl(207, 82%, 66%)',
   },
-  'url': {
+  url: {
     color: 'hsl(187, 47%, 55%)',
   },
   'attr-value > .token.punctuation.attr-equals': {
@@ -3097,13 +3097,13 @@ export const oneDark = {
   'special-attr > .token.attr-value > .token.value.css': {
     color: 'hsl(220, 14%, 71%)',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '0.8',
   },
   'token.tab:not(:empty):before': {
@@ -3124,7 +3124,7 @@ export const oneDark = {
   },
 } as const;
 export const duotoneDark = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -3147,43 +3147,43 @@ export const duotoneDark = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#6c6783',
   },
-  'prolog': {
+  prolog: {
     color: '#6c6783',
   },
-  'doctype': {
+  doctype: {
     color: '#6c6783',
   },
-  'cdata': {
+  cdata: {
     color: '#6c6783',
   },
-  'punctuation': {
+  punctuation: {
     color: '#6c6783',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#e09142',
   },
-  'operator': {
+  operator: {
     color: '#e09142',
   },
-  'number': {
+  number: {
     color: '#e09142',
   },
-  'property': {
+  property: {
     color: '#9a86fd',
   },
-  'function': {
+  function: {
     color: '#9a86fd',
   },
   'tag-id': {
     color: '#eeebff',
   },
-  'selector': {
+  selector: {
     color: '#eeebff',
   },
   'atrule-id': {
@@ -3192,69 +3192,69 @@ export const duotoneDark = {
   'attr-name': {
     color: '#c4b9fe',
   },
-  'boolean': {
+  boolean: {
     color: '#ffcc99',
   },
-  'string': {
+  string: {
     color: '#ffcc99',
   },
-  'entity': {
+  entity: {
     color: '#ffcc99',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#ffcc99',
   },
   'attr-value': {
     color: '#ffcc99',
   },
-  'keyword': {
+  keyword: {
     color: '#ffcc99',
   },
-  'control': {
+  control: {
     color: '#ffcc99',
   },
-  'directive': {
+  directive: {
     color: '#ffcc99',
   },
-  'unit': {
+  unit: {
     color: '#ffcc99',
   },
-  'statement': {
+  statement: {
     color: '#ffcc99',
   },
-  'regex': {
+  regex: {
     color: '#ffcc99',
   },
-  'atrule': {
+  atrule: {
     color: '#ffcc99',
   },
-  'placeholder': {
+  placeholder: {
     color: '#ffcc99',
   },
-  'variable': {
+  variable: {
     color: '#ffcc99',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #eeebff',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#c4b9fe',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const lucario = {
-  'base': {
+  base: {
     color: '#f8f8f2',
     background: '#263E52',
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
@@ -3277,104 +3277,104 @@ export const lucario = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: '#5c98cd',
   },
-  'prolog': {
+  prolog: {
     color: '#5c98cd',
   },
-  'doctype': {
+  doctype: {
     color: '#5c98cd',
   },
-  'cdata': {
+  cdata: {
     color: '#5c98cd',
   },
-  'punctuation': {
+  punctuation: {
     color: '#f8f8f2',
   },
-  'property': {
+  property: {
     color: '#F05E5D',
   },
-  'tag': {
+  tag: {
     color: '#F05E5D',
   },
-  'constant': {
+  constant: {
     color: '#F05E5D',
   },
-  'symbol': {
+  symbol: {
     color: '#F05E5D',
   },
-  'deleted': {
+  deleted: {
     color: '#F05E5D',
   },
-  'boolean': {
+  boolean: {
     color: '#BC94F9',
   },
-  'number': {
+  number: {
     color: '#BC94F9',
   },
-  'selector': {
+  selector: {
     color: '#FCFCD6',
   },
   'attr-name': {
     color: '#FCFCD6',
   },
-  'string': {
+  string: {
     color: '#FCFCD6',
   },
-  'char': {
+  char: {
     color: '#FCFCD6',
   },
-  'builtin': {
+  builtin: {
     color: '#FCFCD6',
   },
-  'inserted': {
+  inserted: {
     color: '#FCFCD6',
   },
-  'operator': {
+  operator: {
     color: '#f8f8f2',
   },
-  'entity': {
+  entity: {
     color: '#f8f8f2',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#f8f8f2',
   },
-  'variable': {
+  variable: {
     color: '#f8f8f2',
   },
-  'atrule': {
+  atrule: {
     color: '#66D8EF',
   },
   'attr-value': {
     color: '#66D8EF',
   },
-  'function': {
+  function: {
     color: '#66D8EF',
   },
   'class-name': {
     color: '#66D8EF',
   },
-  'keyword': {
+  keyword: {
     color: '#6EB26E',
   },
-  'regex': {
+  regex: {
     color: '#F05E5D',
   },
-  'important': {
+  important: {
     color: '#F05E5D',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const coldarkDark = {
-  'base': {
+  base: {
     color: '#e3eaf2',
     background: '#111b27',
     fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
@@ -3395,19 +3395,19 @@ export const coldarkDark = {
     margin: '0.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#8da1b9',
   },
-  'prolog': {
+  prolog: {
     color: '#8da1b9',
   },
-  'doctype': {
+  doctype: {
     color: '#8da1b9',
   },
-  'cdata': {
+  cdata: {
     color: '#8da1b9',
   },
-  'punctuation': {
+  punctuation: {
     color: '#e3eaf2',
   },
   'delimiter.important': {
@@ -3417,7 +3417,7 @@ export const coldarkDark = {
   'selector .parent': {
     color: '#66cccc',
   },
-  'tag': {
+  tag: {
     color: '#66cccc',
   },
   'tag .token.punctuation': {
@@ -3426,16 +3426,16 @@ export const coldarkDark = {
   'attr-name': {
     color: '#e6d37a',
   },
-  'boolean': {
+  boolean: {
     color: '#e6d37a',
   },
   'boolean.important': {
     color: '#e6d37a',
   },
-  'number': {
+  number: {
     color: '#e6d37a',
   },
-  'constant': {
+  constant: {
     color: '#e6d37a',
   },
   'selector .token.attribute': {
@@ -3444,52 +3444,52 @@ export const coldarkDark = {
   'class-name': {
     color: '#6cb8e6',
   },
-  'key': {
+  key: {
     color: '#6cb8e6',
   },
-  'parameter': {
+  parameter: {
     color: '#6cb8e6',
   },
-  'property': {
+  property: {
     color: '#6cb8e6',
   },
   'property-access': {
     color: '#6cb8e6',
   },
-  'variable': {
+  variable: {
     color: '#6cb8e6',
   },
   'attr-value': {
     color: '#91d076',
   },
-  'inserted': {
+  inserted: {
     color: '#91d076',
   },
-  'color': {
+  color: {
     color: '#91d076',
   },
   'selector .token.value': {
     color: '#91d076',
   },
-  'string': {
+  string: {
     color: '#91d076',
   },
   'string .token.url-link': {
     color: '#91d076',
   },
-  'builtin': {
+  builtin: {
     color: '#f4adf4',
   },
   'keyword-array': {
     color: '#f4adf4',
   },
-  'package': {
+  package: {
     color: '#f4adf4',
   },
-  'regex': {
+  regex: {
     color: '#f4adf4',
   },
-  'function': {
+  function: {
     color: '#c699e3',
   },
   'selector .token.class': {
@@ -3501,13 +3501,13 @@ export const coldarkDark = {
   'atrule .token.rule': {
     color: '#e9ae7e',
   },
-  'combinator': {
+  combinator: {
     color: '#e9ae7e',
   },
-  'keyword': {
+  keyword: {
     color: '#e9ae7e',
   },
-  'operator': {
+  operator: {
     color: '#e9ae7e',
   },
   'pseudo-class': {
@@ -3516,16 +3516,16 @@ export const coldarkDark = {
   'pseudo-element': {
     color: '#e9ae7e',
   },
-  'selector': {
+  selector: {
     color: '#e9ae7e',
   },
-  'unit': {
+  unit: {
     color: '#e9ae7e',
   },
-  'deleted': {
+  deleted: {
     color: '#cd6660',
   },
-  'important': {
+  important: {
     color: '#cd6660',
     fontWeight: 'bold',
   },
@@ -3533,17 +3533,17 @@ export const coldarkDark = {
     color: '#6cb8e6',
     fontWeight: 'bold',
   },
-  'this': {
+  this: {
     color: '#6cb8e6',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'entity': {
+  entity: {
     cursor: 'help',
   },
   'token.tab:not(:empty):before': {
@@ -3560,7 +3560,7 @@ export const coldarkDark = {
   },
 } as const;
 export const atomDark = {
-  'base': {
+  base: {
     color: '#c5c8c6',
     textShadow: '0 1px rgba(0, 0, 0, 0.3)',
     fontFamily:
@@ -3584,105 +3584,105 @@ export const atomDark = {
     borderRadius: '0.3em',
     background: '#1d1f21',
   },
-  'comment': {
+  comment: {
     color: '#7C7C7C',
   },
-  'prolog': {
+  prolog: {
     color: '#7C7C7C',
   },
-  'doctype': {
+  doctype: {
     color: '#7C7C7C',
   },
-  'cdata': {
+  cdata: {
     color: '#7C7C7C',
   },
-  'punctuation': {
+  punctuation: {
     color: '#c5c8c6',
   },
-  'property': {
+  property: {
     color: '#96CBFE',
   },
-  'keyword': {
+  keyword: {
     color: '#96CBFE',
   },
-  'tag': {
+  tag: {
     color: '#96CBFE',
   },
   'class-name': {
     color: '#FFFFB6',
     textDecoration: 'underline',
   },
-  'boolean': {
+  boolean: {
     color: '#99CC99',
   },
-  'constant': {
+  constant: {
     color: '#99CC99',
   },
-  'symbol': {
+  symbol: {
     color: '#f92672',
   },
-  'deleted': {
+  deleted: {
     color: '#f92672',
   },
-  'number': {
+  number: {
     color: '#FF73FD',
   },
-  'selector': {
+  selector: {
     color: '#A8FF60',
   },
   'attr-name': {
     color: '#A8FF60',
   },
-  'string': {
+  string: {
     color: '#A8FF60',
   },
-  'char': {
+  char: {
     color: '#A8FF60',
   },
-  'builtin': {
+  builtin: {
     color: '#A8FF60',
   },
-  'inserted': {
+  inserted: {
     color: '#A8FF60',
   },
-  'variable': {
+  variable: {
     color: '#C6C5FE',
   },
-  'operator': {
+  operator: {
     color: '#EDEDED',
   },
-  'entity': {
+  entity: {
     color: '#FFFFB6',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#96CBFE',
   },
-  'atrule': {
+  atrule: {
     color: '#F9EE98',
   },
   'attr-value': {
     color: '#F9EE98',
   },
-  'function': {
+  function: {
     color: '#DAD085',
   },
-  'regex': {
+  regex: {
     color: '#E9C062',
   },
-  'important': {
+  important: {
     color: '#fd971f',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const pojoaque = {
-  'base': {
+  base: {
     MozTabSize: '4',
     OTabSize: '4',
     tabSize: '4',
@@ -3705,113 +3705,113 @@ export const pojoaque = {
     padding: '12px',
     overflow: 'auto',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'comment': {
+  comment: {
     color: '#586e75',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: '#586e75',
     fontStyle: 'italic',
   },
-  'doctype': {
+  doctype: {
     color: '#586e75',
     fontStyle: 'italic',
   },
-  'cdata': {
+  cdata: {
     color: '#586e75',
     fontStyle: 'italic',
   },
-  'number': {
+  number: {
     color: '#b89859',
   },
-  'string': {
+  string: {
     color: '#468966',
   },
-  'char': {
+  char: {
     color: '#468966',
   },
-  'builtin': {
+  builtin: {
     color: '#468966',
   },
-  'inserted': {
+  inserted: {
     color: '#468966',
   },
   'attr-name': {
     color: '#b89859',
   },
-  'operator': {
+  operator: {
     color: '#dccf8f',
   },
-  'entity': {
+  entity: {
     color: '#dccf8f',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#dccf8f',
   },
-  'selector': {
+  selector: {
     color: '#859900',
   },
-  'regex': {
+  regex: {
     color: '#859900',
   },
-  'atrule': {
+  atrule: {
     color: '#cb4b16',
   },
-  'keyword': {
+  keyword: {
     color: '#cb4b16',
   },
   'attr-value': {
     color: '#468966',
   },
-  'function': {
+  function: {
     color: '#b58900',
   },
-  'variable': {
+  variable: {
     color: '#b58900',
   },
-  'placeholder': {
+  placeholder: {
     color: '#b58900',
   },
-  'property': {
+  property: {
     color: '#b89859',
   },
-  'tag': {
+  tag: {
     color: '#ffb03b',
   },
-  'boolean': {
+  boolean: {
     color: '#b89859',
   },
-  'constant': {
+  constant: {
     color: '#b89859',
   },
-  'symbol': {
+  symbol: {
     color: '#b89859',
   },
-  'important': {
+  important: {
     color: '#dc322f',
   },
-  'statement': {
+  statement: {
     color: '#dc322f',
   },
-  'deleted': {
+  deleted: {
     color: '#dc322f',
   },
-  'punctuation': {
+  punctuation: {
     color: '#dccf8f',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const duotoneLight = {
-  'base': {
+  base: {
     fontFamily:
       'Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace',
     fontSize: '14px',
@@ -3834,43 +3834,43 @@ export const duotoneLight = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#b6ad9a',
   },
-  'prolog': {
+  prolog: {
     color: '#b6ad9a',
   },
-  'doctype': {
+  doctype: {
     color: '#b6ad9a',
   },
-  'cdata': {
+  cdata: {
     color: '#b6ad9a',
   },
-  'punctuation': {
+  punctuation: {
     color: '#b6ad9a',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'tag': {
+  tag: {
     color: '#063289',
   },
-  'operator': {
+  operator: {
     color: '#063289',
   },
-  'number': {
+  number: {
     color: '#063289',
   },
-  'property': {
+  property: {
     color: '#b29762',
   },
-  'function': {
+  function: {
     color: '#b29762',
   },
   'tag-id': {
     color: '#2d2006',
   },
-  'selector': {
+  selector: {
     color: '#2d2006',
   },
   'atrule-id': {
@@ -3879,69 +3879,69 @@ export const duotoneLight = {
   'attr-name': {
     color: '#896724',
   },
-  'boolean': {
+  boolean: {
     color: '#728fcb',
   },
-  'string': {
+  string: {
     color: '#728fcb',
   },
-  'entity': {
+  entity: {
     color: '#728fcb',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#728fcb',
   },
   'attr-value': {
     color: '#728fcb',
   },
-  'keyword': {
+  keyword: {
     color: '#728fcb',
   },
-  'control': {
+  control: {
     color: '#728fcb',
   },
-  'directive': {
+  directive: {
     color: '#728fcb',
   },
-  'unit': {
+  unit: {
     color: '#728fcb',
   },
-  'statement': {
+  statement: {
     color: '#728fcb',
   },
-  'regex': {
+  regex: {
     color: '#728fcb',
   },
-  'atrule': {
+  atrule: {
     color: '#728fcb',
   },
-  'placeholder': {
+  placeholder: {
     color: '#93abdc',
   },
-  'variable': {
+  variable: {
     color: '#93abdc',
   },
-  'deleted': {
+  deleted: {
     textDecoration: 'line-through',
   },
-  'inserted': {
+  inserted: {
     borderBottom: '1px dotted #2d2006',
     textDecoration: 'none',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
     color: '#896724',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
 } as const;
 export const nightOwl = {
-  'base': {
+  base: {
     color: 'white',
     fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
     textAlign: 'left',
@@ -3963,63 +3963,63 @@ export const nightOwl = {
     overflow: 'auto',
     background: '#011627',
   },
-  'comment': {
+  comment: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'cdata': {
+  cdata: {
     color: 'rgb(99, 119, 119)',
     fontStyle: 'italic',
   },
-  'punctuation': {
+  punctuation: {
     color: 'rgb(199, 146, 234)',
   },
-  'deleted': {
+  deleted: {
     color: 'rgba(239, 83, 80, 0.56)',
     fontStyle: 'italic',
   },
-  'symbol': {
+  symbol: {
     color: 'rgb(128, 203, 196)',
   },
-  'property': {
+  property: {
     color: 'rgb(128, 203, 196)',
   },
-  'tag': {
+  tag: {
     color: 'rgb(127, 219, 202)',
   },
-  'operator': {
+  operator: {
     color: 'rgb(127, 219, 202)',
   },
-  'keyword': {
+  keyword: {
     color: 'rgb(127, 219, 202)',
   },
-  'boolean': {
+  boolean: {
     color: 'rgb(255, 88, 116)',
   },
-  'number': {
+  number: {
     color: 'rgb(247, 140, 108)',
   },
-  'constant': {
+  constant: {
     color: 'rgb(130, 170, 255)',
   },
-  'function': {
+  function: {
     color: 'rgb(130, 170, 255)',
   },
-  'builtin': {
+  builtin: {
     color: 'rgb(130, 170, 255)',
   },
-  'char': {
+  char: {
     color: 'rgb(130, 170, 255)',
   },
-  'selector': {
+  selector: {
     color: 'rgb(199, 146, 234)',
     fontStyle: 'italic',
   },
-  'doctype': {
+  doctype: {
     color: 'rgb(199, 146, 234)',
     fontStyle: 'italic',
   },
@@ -4027,47 +4027,47 @@ export const nightOwl = {
     color: 'rgb(173, 219, 103)',
     fontStyle: 'italic',
   },
-  'inserted': {
+  inserted: {
     color: 'rgb(173, 219, 103)',
     fontStyle: 'italic',
   },
-  'string': {
+  string: {
     color: 'rgb(173, 219, 103)',
   },
-  'url': {
+  url: {
     color: 'rgb(173, 219, 103)',
   },
-  'entity': {
+  entity: {
     color: 'rgb(173, 219, 103)',
   },
   'class-name': {
     color: 'rgb(255, 203, 139)',
   },
-  'atrule': {
+  atrule: {
     color: 'rgb(255, 203, 139)',
   },
   'attr-value': {
     color: 'rgb(255, 203, 139)',
   },
-  'regex': {
+  regex: {
     color: 'rgb(214, 222, 235)',
   },
-  'important': {
+  important: {
     color: 'rgb(214, 222, 235)',
     fontWeight: 'bold',
   },
-  'variable': {
+  variable: {
     color: 'rgb(214, 222, 235)',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const laserwave = {
-  'base': {
+  base: {
     background: '#27212e',
     color: '#ffffff',
     fontFamily: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace',
@@ -4090,106 +4090,106 @@ export const laserwave = {
     overflow: 'auto',
     borderRadius: '0.5em',
   },
-  'comment': {
+  comment: {
     color: '#91889b',
   },
-  'prolog': {
+  prolog: {
     color: '#91889b',
   },
-  'cdata': {
+  cdata: {
     color: '#91889b',
   },
-  'punctuation': {
+  punctuation: {
     color: '#7b6995',
   },
-  'builtin': {
+  builtin: {
     color: '#ffe261',
   },
-  'constant': {
+  constant: {
     color: '#ffe261',
   },
-  'boolean': {
+  boolean: {
     color: '#ffe261',
   },
-  'number': {
+  number: {
     color: '#b381c5',
   },
-  'important': {
+  important: {
     color: '#40b4c4',
   },
-  'atrule': {
+  atrule: {
     color: '#40b4c4',
   },
-  'property': {
+  property: {
     color: '#40b4c4',
   },
-  'keyword': {
+  keyword: {
     color: '#40b4c4',
   },
-  'doctype': {
+  doctype: {
     color: '#74dfc4',
   },
-  'operator': {
+  operator: {
     color: '#74dfc4',
   },
-  'inserted': {
+  inserted: {
     color: '#74dfc4',
   },
-  'tag': {
+  tag: {
     color: '#74dfc4',
   },
   'class-name': {
     color: '#74dfc4',
   },
-  'symbol': {
+  symbol: {
     color: '#74dfc4',
   },
   'attr-name': {
     color: '#eb64b9',
   },
-  'function': {
+  function: {
     color: '#eb64b9',
   },
-  'deleted': {
+  deleted: {
     color: '#eb64b9',
   },
-  'selector': {
+  selector: {
     color: '#eb64b9',
   },
   'attr-value': {
     color: '#b4dce7',
   },
-  'regex': {
+  regex: {
     color: '#b4dce7',
   },
-  'char': {
+  char: {
     color: '#b4dce7',
   },
-  'string': {
+  string: {
     color: '#b4dce7',
   },
-  'entity': {
+  entity: {
     color: '#ffffff',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#ffffff',
   },
-  'variable': {
+  variable: {
     color: '#ffffff',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '0.7',
   },
 } as const;
 export const coyWithoutShadows = {
-  'base': {
+  base: {
     color: 'black',
     background: 'none',
     fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
@@ -4219,117 +4219,117 @@ export const coyWithoutShadows = {
     margin: '.5em 0',
     padding: '0 1em',
   },
-  'comment': {
+  comment: {
     color: '#7D8B99',
   },
   'block-comment': {
     color: '#7D8B99',
   },
-  'prolog': {
+  prolog: {
     color: '#7D8B99',
   },
-  'doctype': {
+  doctype: {
     color: '#7D8B99',
   },
-  'cdata': {
+  cdata: {
     color: '#7D8B99',
   },
-  'punctuation': {
+  punctuation: {
     color: '#5F6364',
   },
-  'property': {
+  property: {
     color: '#c92c2c',
   },
-  'tag': {
+  tag: {
     color: '#c92c2c',
   },
-  'boolean': {
+  boolean: {
     color: '#c92c2c',
   },
-  'number': {
+  number: {
     color: '#c92c2c',
   },
   'function-name': {
     color: '#c92c2c',
   },
-  'constant': {
+  constant: {
     color: '#c92c2c',
   },
-  'symbol': {
+  symbol: {
     color: '#c92c2c',
   },
-  'deleted': {
+  deleted: {
     color: '#c92c2c',
   },
-  'selector': {
+  selector: {
     color: '#2f9c0a',
   },
   'attr-name': {
     color: '#2f9c0a',
   },
-  'string': {
+  string: {
     color: '#2f9c0a',
   },
-  'char': {
+  char: {
     color: '#2f9c0a',
   },
-  'function': {
+  function: {
     color: '#2f9c0a',
   },
-  'builtin': {
+  builtin: {
     color: '#2f9c0a',
   },
-  'inserted': {
+  inserted: {
     color: '#2f9c0a',
   },
-  'operator': {
+  operator: {
     color: '#a67f59',
     background: 'rgba(255, 255, 255, 0.5)',
   },
-  'entity': {
+  entity: {
     color: '#a67f59',
     background: 'rgba(255, 255, 255, 0.5)',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#a67f59',
     background: 'rgba(255, 255, 255, 0.5)',
   },
-  'variable': {
+  variable: {
     color: '#a67f59',
     background: 'rgba(255, 255, 255, 0.5)',
   },
-  'atrule': {
+  atrule: {
     color: '#1990b8',
   },
   'attr-value': {
     color: '#1990b8',
   },
-  'keyword': {
+  keyword: {
     color: '#1990b8',
   },
   'class-name': {
     color: '#1990b8',
   },
-  'regex': {
+  regex: {
     color: '#e90',
   },
-  'important': {
+  important: {
     color: '#e90',
     fontWeight: 'normal',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
 } as const;
 export const hopscotch = {
-  'base': {
+  base: {
     fontFamily:
       '"Fira Mono", Menlo, Monaco, "Lucida Console", "Courier New", Courier, monospace',
     fontSize: '16px',
@@ -4353,92 +4353,92 @@ export const hopscotch = {
     margin: '.5em 0',
     overflow: 'auto',
   },
-  'comment': {
+  comment: {
     color: '#797379',
   },
-  'prolog': {
+  prolog: {
     color: '#797379',
   },
-  'doctype': {
+  doctype: {
     color: '#797379',
   },
-  'cdata': {
+  cdata: {
     color: '#797379',
   },
-  'punctuation': {
+  punctuation: {
     color: '#b9b5b8',
   },
-  'null': {
+  null: {
     color: '#fd8b19',
   },
-  'operator': {
+  operator: {
     color: '#fd8b19',
   },
-  'boolean': {
+  boolean: {
     color: '#fd8b19',
   },
-  'number': {
+  number: {
     color: '#fd8b19',
   },
-  'property': {
+  property: {
     color: '#fdcc59',
   },
-  'tag': {
+  tag: {
     color: '#1290bf',
   },
-  'string': {
+  string: {
     color: '#149b93',
   },
-  'selector': {
+  selector: {
     color: '#c85e7c',
   },
   'attr-name': {
     color: '#fd8b19',
   },
-  'entity': {
+  entity: {
     color: '#149b93',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#149b93',
   },
   'attr-value': {
     color: '#8fc13e',
   },
-  'keyword': {
+  keyword: {
     color: '#8fc13e',
   },
-  'control': {
+  control: {
     color: '#8fc13e',
   },
-  'directive': {
+  directive: {
     color: '#8fc13e',
   },
-  'unit': {
+  unit: {
     color: '#8fc13e',
   },
-  'statement': {
+  statement: {
     color: '#149b93',
   },
-  'regex': {
+  regex: {
     color: '#149b93',
   },
-  'atrule': {
+  atrule: {
     color: '#149b93',
   },
-  'placeholder': {
+  placeholder: {
     color: '#1290bf',
   },
-  'variable': {
+  variable: {
     color: '#1290bf',
   },
-  'important': {
+  important: {
     color: '#dd464c',
     fontWeight: 'bold',
   },
 } as const;
 export const oneLight = {
-  'base': {
+  base: {
     background: 'hsl(230, 1%, 98%)',
     color: 'hsl(230, 8%, 24%)',
     fontFamily:
@@ -4461,23 +4461,23 @@ export const oneLight = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: 'hsl(230, 4%, 64%)',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: 'hsl(230, 4%, 64%)',
   },
-  'cdata': {
+  cdata: {
     color: 'hsl(230, 4%, 64%)',
   },
-  'doctype': {
+  doctype: {
     color: 'hsl(230, 8%, 24%)',
   },
-  'punctuation': {
+  punctuation: {
     color: 'hsl(230, 8%, 24%)',
   },
-  'entity': {
+  entity: {
     color: 'hsl(230, 8%, 24%)',
     cursor: 'help',
   },
@@ -4487,52 +4487,52 @@ export const oneLight = {
   'class-name': {
     color: 'hsl(35, 99%, 36%)',
   },
-  'boolean': {
+  boolean: {
     color: 'hsl(35, 99%, 36%)',
   },
-  'constant': {
+  constant: {
     color: 'hsl(35, 99%, 36%)',
   },
-  'number': {
+  number: {
     color: 'hsl(35, 99%, 36%)',
   },
-  'atrule': {
+  atrule: {
     color: 'hsl(35, 99%, 36%)',
   },
-  'keyword': {
+  keyword: {
     color: 'hsl(301, 63%, 40%)',
   },
-  'property': {
+  property: {
     color: 'hsl(5, 74%, 59%)',
   },
-  'tag': {
+  tag: {
     color: 'hsl(5, 74%, 59%)',
   },
-  'symbol': {
+  symbol: {
     color: 'hsl(5, 74%, 59%)',
   },
-  'deleted': {
+  deleted: {
     color: 'hsl(5, 74%, 59%)',
   },
-  'important': {
+  important: {
     color: 'hsl(5, 74%, 59%)',
   },
-  'selector': {
+  selector: {
     color: 'hsl(119, 34%, 47%)',
   },
-  'string': {
+  string: {
     color: 'hsl(119, 34%, 47%)',
   },
-  'char': {
+  char: {
     color: 'hsl(119, 34%, 47%)',
   },
-  'builtin': {
+  builtin: {
     color: 'hsl(119, 34%, 47%)',
   },
-  'inserted': {
+  inserted: {
     color: 'hsl(119, 34%, 47%)',
   },
-  'regex': {
+  regex: {
     color: 'hsl(119, 34%, 47%)',
   },
   'attr-value': {
@@ -4541,16 +4541,16 @@ export const oneLight = {
   'attr-value > .token.punctuation': {
     color: 'hsl(119, 34%, 47%)',
   },
-  'variable': {
+  variable: {
     color: 'hsl(221, 87%, 60%)',
   },
-  'operator': {
+  operator: {
     color: 'hsl(221, 87%, 60%)',
   },
-  'function': {
+  function: {
     color: 'hsl(221, 87%, 60%)',
   },
-  'url': {
+  url: {
     color: 'hsl(198, 99%, 37%)',
   },
   'attr-value > .token.punctuation.attr-equals': {
@@ -4559,13 +4559,13 @@ export const oneLight = {
   'special-attr > .token.attr-value > .token.value.css': {
     color: 'hsl(230, 8%, 24%)',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '0.8',
   },
   'token.tab:not(:empty):before': {
@@ -4582,7 +4582,7 @@ export const oneLight = {
   },
 } as const;
 export const nord = {
-  'base': {
+  base: {
     color: '#f8f8f2',
     background: '#2E3440',
     fontFamily:
@@ -4605,104 +4605,104 @@ export const nord = {
     overflow: 'auto',
     borderRadius: '0.3em',
   },
-  'comment': {
+  comment: {
     color: '#636f88',
   },
-  'prolog': {
+  prolog: {
     color: '#636f88',
   },
-  'doctype': {
+  doctype: {
     color: '#636f88',
   },
-  'cdata': {
+  cdata: {
     color: '#636f88',
   },
-  'punctuation': {
+  punctuation: {
     color: '#81A1C1',
   },
-  'property': {
+  property: {
     color: '#81A1C1',
   },
-  'tag': {
+  tag: {
     color: '#81A1C1',
   },
-  'constant': {
+  constant: {
     color: '#81A1C1',
   },
-  'symbol': {
+  symbol: {
     color: '#81A1C1',
   },
-  'deleted': {
+  deleted: {
     color: '#81A1C1',
   },
-  'number': {
+  number: {
     color: '#B48EAD',
   },
-  'boolean': {
+  boolean: {
     color: '#81A1C1',
   },
-  'selector': {
+  selector: {
     color: '#A3BE8C',
   },
   'attr-name': {
     color: '#A3BE8C',
   },
-  'string': {
+  string: {
     color: '#A3BE8C',
   },
-  'char': {
+  char: {
     color: '#A3BE8C',
   },
-  'builtin': {
+  builtin: {
     color: '#A3BE8C',
   },
-  'inserted': {
+  inserted: {
     color: '#A3BE8C',
   },
-  'operator': {
+  operator: {
     color: '#81A1C1',
   },
-  'entity': {
+  entity: {
     color: '#81A1C1',
     cursor: 'help',
   },
-  'url': {
+  url: {
     color: '#81A1C1',
   },
-  'variable': {
+  variable: {
     color: '#81A1C1',
   },
-  'atrule': {
+  atrule: {
     color: '#88C0D0',
   },
   'attr-value': {
     color: '#88C0D0',
   },
-  'function': {
+  function: {
     color: '#88C0D0',
   },
   'class-name': {
     color: '#88C0D0',
   },
-  'keyword': {
+  keyword: {
     color: '#81A1C1',
   },
-  'regex': {
+  regex: {
     color: '#EBCB8B',
   },
-  'important': {
+  important: {
     color: '#EBCB8B',
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 export const ghcolors = {
-  'base': {
+  base: {
     color: '#393A34',
     fontFamily:
       '"Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace',
@@ -4726,102 +4726,102 @@ export const ghcolors = {
     border: '1px solid #dddddd',
     backgroundColor: 'white',
   },
-  'comment': {
+  comment: {
     color: '#999988',
     fontStyle: 'italic',
   },
-  'prolog': {
+  prolog: {
     color: '#999988',
     fontStyle: 'italic',
   },
-  'doctype': {
+  doctype: {
     color: '#999988',
     fontStyle: 'italic',
   },
-  'cdata': {
+  cdata: {
     color: '#999988',
     fontStyle: 'italic',
   },
-  'namespace': {
+  namespace: {
     opacity: '.7',
   },
-  'string': {
+  string: {
     color: '#e3116c',
   },
   'attr-value': {
     color: '#e3116c',
   },
-  'punctuation': {
+  punctuation: {
     color: '#393A34',
   },
-  'operator': {
+  operator: {
     color: '#393A34',
   },
-  'entity': {
+  entity: {
     color: '#36acaa',
   },
-  'url': {
+  url: {
     color: '#36acaa',
   },
-  'symbol': {
+  symbol: {
     color: '#36acaa',
   },
-  'number': {
+  number: {
     color: '#36acaa',
   },
-  'boolean': {
+  boolean: {
     color: '#36acaa',
   },
-  'variable': {
+  variable: {
     color: '#36acaa',
   },
-  'constant': {
+  constant: {
     color: '#36acaa',
   },
-  'property': {
+  property: {
     color: '#36acaa',
   },
-  'regex': {
+  regex: {
     color: '#36acaa',
   },
-  'inserted': {
+  inserted: {
     color: '#36acaa',
   },
-  'atrule': {
+  atrule: {
     color: '#00a4db',
   },
-  'keyword': {
+  keyword: {
     color: '#00a4db',
   },
   'attr-name': {
     color: '#00a4db',
   },
-  'function': {
+  function: {
     color: '#9a050f',
     fontWeight: 'bold',
   },
-  'deleted': {
+  deleted: {
     color: '#9a050f',
   },
-  'tag': {
+  tag: {
     color: '#00009f',
   },
-  'selector': {
+  selector: {
     color: '#00009f',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;
 
 export const vesper = {
-  'base': {
+  base: {
     color: '#a0a0a0',
     fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
     textAlign: 'left',
@@ -4840,90 +4840,90 @@ export const vesper = {
     overflowX: 'auto',
     backgroundColor: '#1E1E1E',
   },
-  'selection': {
+  selection: {
     textShadow: 'none',
     background: '#ffffff25',
   },
-  'print': {
+  print: {
     textShadow: 'none',
   },
-  'pre': {
+  pre: {
     color: '#a0a0a0',
     background: '#101010',
   },
-  'comment': {
+  comment: {
     color: '#8b8b8b94',
   },
-  'punctuation': {
+  punctuation: {
     color: '#8b8b8b94',
   },
-  'variable': {
+  variable: {
     color: '#a0a0a0',
   },
-  'tag': {
+  tag: {
     color: '#a0a0a0',
   },
-  'hexcode': {
+  hexcode: {
     color: '#a0a0a0',
   },
-  'string': {
+  string: {
     color: 'rgb(161, 252, 234)',
   },
-  'url': {
+  url: {
     color: '#a0a0a0',
   },
-  'keyword': {
+  keyword: {
     color: '#fff',
   },
-  'deleted': {
+  deleted: {
     color: '#fff',
   },
-  'function': {
+  function: {
     color: '#ffc799',
   },
-  'builtin': {
+  builtin: {
     color: '#fff',
   },
-  'number': {
+  number: {
     color: '#fff',
   },
-  'char': {
+  char: {
     color: '#fff',
   },
-  'constant': {
+  constant: {
     color: '#fff',
   },
-  'boolean': {
+  boolean: {
     color: '#fff',
   },
-  'changed': {
+  changed: {
     color: '#fff',
   },
-  'symbol': {
+  symbol: {
     color: '#99ffe4',
   },
-  'inserted': {
+  inserted: {
     color: '#ffc799',
   },
   'attr-name': {
     color: '#a0a0a0',
   },
-  'selector': {
+  selector: {
     color: '#a0a0a0',
   },
-  'property': {
+  property: {
     color: '#a0a0a0',
   },
-  'regex': {
+  regex: {
     color: '#a0a0a0',
   },
-  'important': {
+  important: {
     fontWeight: 'bold',
   },
-  'bold': {
+  bold: {
     fontWeight: 'bold',
   },
-  'italic': {
+  italic: {
     fontStyle: 'italic',
   },
 } as const;

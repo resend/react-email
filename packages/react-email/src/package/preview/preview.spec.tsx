@@ -1,6 +1,6 @@
+import { Preview, renderWhiteSpace } from '.';
 /* eslint-disable no-irregular-whitespace */
 import { render } from '../render/node';
-import { Preview, renderWhiteSpace } from '.';
 
 describe('<Preview> component', () => {
   it('renders correctly', async () => {
