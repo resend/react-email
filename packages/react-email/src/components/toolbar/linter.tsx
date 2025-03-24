@@ -297,6 +297,7 @@ const CodePreviewLine = ({ line, column, type }: CodePreviewLineProps) => {
         search: newSearchParams.toString(),
         hash: fragmentIdentifier,
       }}
+      scroll={false}
       className="appearance-none underline mx-2"
     >
       {line.toString().padStart(2, '0')}
