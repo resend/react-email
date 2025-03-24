@@ -1,7 +1,7 @@
 'use client';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
 
@@ -70,6 +70,15 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
 
     return highlight[0] <= line && highlight[1] >= line;
   };
+
+  useEffect(() => {
+    if (highlight) {
+      document.getElementById(`L${highlight[0]}`)?.scrollIntoView({
+        block: 'center',
+        behavior: 'smooth',
+      });
+    }
+  }, [highlight]);
 
   const value = children.trim();
 
