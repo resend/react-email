@@ -44,7 +44,10 @@ export const YelpRecentLoginEmail = ({
         <Preview>Yelp recent login</Preview>
         <Container>
           <Section style={logo}>
-            <Img src={`${baseUrl}/static/yelp-logo.png`} />
+            <Img
+              src={`${baseUrl}/static/yelp-logo.png`}
+              alt="Yelp logo"
+            />
           </Section>
 
           <Section style={content}>
@@ -53,6 +56,7 @@ export const YelpRecentLoginEmail = ({
                 style={image}
                 width={620}
                 src={`${baseUrl}/static/yelp-header.png`}
+                alt="Yelp header illustration"
               />
             </Row>
 
@@ -122,6 +126,7 @@ export const YelpRecentLoginEmail = ({
               style={image}
               width={620}
               src={`${baseUrl}/static/yelp-footer.png`}
+              alt="Yelp footer decoration"
             />
           </Section>
 
@@ -166,7 +171,7 @@ const logo = {
 };
 
 const buttonContainer = {
-  display: 'flex',
+  textAlign: 'center' as const,
 };
 
 const button = {
@@ -176,8 +181,9 @@ const button = {
   fontWeight: 'bold',
   border: '1px solid rgb(0,0,0, 0.1)',
   cursor: 'pointer',
-  margin: '0 auto',
+  display: 'inline-block',
   padding: '12px 30px',
+  textDecoration: 'none',
 };
 
 const content = {

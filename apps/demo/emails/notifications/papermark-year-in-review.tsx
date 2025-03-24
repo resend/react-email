@@ -63,7 +63,7 @@ export default function PapermarkYearInReviewEmail({
                 you&apos;ve used Papermark to share your important documents.
               </Text>
               <Link
-                href="#"
+                href="https://www.papermark.com"
                 className="inline-flex items-center rounded-full bg-gray-900 px-12 py-4 text-center text-sm font-bold text-white no-underline"
               >
                 Share your stats
@@ -197,13 +197,13 @@ export default function PapermarkYearInReviewEmail({
                 Happy Holidays from the Papermark team :)
               </Text>
               <Link
-                href="#"
+                href="https://www.papermark.com"
                 className="mt-4 inline-flex items-center rounded-full bg-gray-900 px-12 py-4 text-center text-sm font-bold text-white no-underline"
               >
                 Share your stats
               </Link>
               <Link
-                href="https://app.papermark.io/documents"
+                href="https://www.papermark.com"
                 className="mt-4 block items-center text-center text-sm font-bold text-gray-900 no-underline"
               >
                 Go to your dashboard
