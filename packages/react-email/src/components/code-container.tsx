@@ -27,48 +27,15 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   activeLang,
   setActiveLang,
 }) => {
-  const [isCopied, setIsCopied] = React.useState(false);
-
-  const renderDownloadIcon = () => {
-    const value = markups.filter((markup) => markup.language === activeLang);
-    if (typeof value[0] === 'undefined') return;
-    const file = new File([value[0].content], `email.${value[0].language}`);
-    const url = URL.createObjectURL(file);
-
-    return (
-      <a
-        className="text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
-        download={file.name}
-        href={url}
-      >
-        <IconDownload />
-      </a>
-    );
-  };
-
-  const renderClipboardIcon = () => {
-    const handleClipboard = async () => {
-      const activeContent = markups.filter(({ language }) => {
-        return activeLang === language;
-      });
-      setIsCopied(true);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      await copyTextToClipboard(activeContent[0]!.content);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 3000);
-    };
-
-    return (
-      <IconButton onClick={() => void handleClipboard()}>
-        {isCopied ? <IconCheck /> : <IconClipboard />}
-      </IconButton>
-    );
-  };
-
-  React.useEffect(() => {
-    setIsCopied(false);
-  }, [activeLang]);
+  const activeMarkup = markups.find(({ language }) => activeLang === language);
+  if (!activeMarkup) {
+    throw new Error('No markup found for the active language!', {
+      cause: {
+        activeLang,
+        markups,
+      },
+    });
+  }
 
   return (
     <div
@@ -111,35 +78,87 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
             })}
           </LayoutGroup>
         </div>
-        <Tooltip>
-          <Tooltip.Trigger
-            asChild
-            className="absolute right-2 top-2 hidden md:block"
-          >
-            {renderClipboardIcon()}
-          </Tooltip.Trigger>
-          <Tooltip.Content>Copy to Clipboard</Tooltip.Content>
-        </Tooltip>
-        <Tooltip>
-          <Tooltip.Trigger
-            asChild
-            className="text-gray-11 absolute right-8 top-2 hidden md:block"
-          >
-            {renderDownloadIcon()}
-          </Tooltip.Trigger>
-          <Tooltip.Content>Download</Tooltip.Content>
-        </Tooltip>
+        <CopyToClipboardButton content={activeMarkup.content} />
+        <DownloadButton
+          content={activeMarkup.content}
+          filename={`email.${activeMarkup.language}`}
+        />
       </div>
-      {markups.map(({ language, content }) => {
-        return (
-          <div
-            className={`${activeLang !== language && 'hidden'}`}
-            key={language}
-          >
-            <Code language={language}>{content}</Code>
-          </div>
-        );
-      })}
+      <div>
+        <Code language={activeLang}>{activeMarkup.content}</Code>
+      </div>
     </div>
+  );
+};
+
+interface CopyToClipboardButtonProps {
+  content: string;
+}
+
+const CopyToClipboardButton = ({ content }: CopyToClipboardButtonProps) => {
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  const unsetIsCopiedTimeout = React.useRef<NodeJS.Timeout>(undefined);
+  React.useEffect(() => {
+    setIsCopied(false);
+    clearTimeout(unsetIsCopiedTimeout.current);
+    unsetIsCopiedTimeout.current = undefined;
+  }, [content]);
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger
+        asChild
+        className="absolute right-2 top-2 hidden md:block"
+      >
+        <IconButton
+          onClick={async () => {
+            setIsCopied(true);
+            await copyTextToClipboard(content);
+            unsetIsCopiedTimeout.current = setTimeout(() => {
+              setIsCopied(false);
+            }, 3000);
+          }}
+        >
+          {isCopied ? <IconCheck /> : <IconClipboard />}
+        </IconButton>
+      </Tooltip.Trigger>
+      <Tooltip.Content>Copy to Clipboard</Tooltip.Content>
+    </Tooltip>
+  );
+};
+
+interface DownloadButtonProps {
+  content: string;
+  filename: string;
+}
+
+const DownloadButton = ({ content, filename }: DownloadButtonProps) => {
+  const generatedUrl = React.useMemo(() => {
+    const file = new File([content], filename);
+    return URL.createObjectURL(file);
+  }, [content, filename]);
+  const url = React.useSyncExternalStore(
+    () => () => {},
+    () => generatedUrl,
+    () => undefined,
+  );
+
+  return (
+    <Tooltip>
+      <Tooltip.Trigger
+        asChild
+        className="text-gray-11 absolute right-8 top-2 hidden md:block"
+      >
+        <a
+          className="text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
+          download={filename}
+          href={url}
+        >
+          <IconDownload />
+        </a>
+      </Tooltip.Trigger>
+      <Tooltip.Content>Download</Tooltip.Content>
+    </Tooltip>
   );
 };

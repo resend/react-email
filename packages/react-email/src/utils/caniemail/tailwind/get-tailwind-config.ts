@@ -133,8 +133,6 @@ const getConfigFromImport = async (
     });
   }
 
-  console.log(configModule);
-
   if (
     typeof configModule.value === 'object' &&
     configModule.value !== null &&

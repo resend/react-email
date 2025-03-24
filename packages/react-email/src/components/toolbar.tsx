@@ -54,7 +54,7 @@ const ToolbarInner = ({
     } else {
       params.set('toolbar-panel', newValue);
     }
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
