@@ -1,5 +1,5 @@
 import { render } from '../render/node';
-import { Text } from '.';
+import { Text } from './index';
 
 describe('<Text> component', () => {
   it('renders children correctly', async () => {

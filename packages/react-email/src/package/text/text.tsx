@@ -10,7 +10,8 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
       style={{
         fontSize: '14px',
         lineHeight: '24px',
-        margin: '16px 0',
+        marginBottom: '16px',
+        marginTop: '16px',
         ...style,
       }}
     />
