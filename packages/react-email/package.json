@@ -131,7 +131,6 @@
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
     "@types/normalize-path": "3.0.2",
-    "@types/prettier": "3.0.0",
     "@types/prismjs": "1.26.5",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",

@@ -970,9 +970,6 @@ importers:
       '@types/normalize-path':
         specifier: 3.0.2
         version: 3.0.2
-      '@types/prettier':
-        specifier: 3.0.0
-        version: 3.0.0
       '@types/prismjs':
         specifier: 1.26.5
         version: 1.26.5
