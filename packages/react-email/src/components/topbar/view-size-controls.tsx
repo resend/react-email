@@ -1,4 +1,3 @@
-'use client';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { motion } from 'framer-motion';
 import * as React from 'react';
