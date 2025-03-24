@@ -61,8 +61,7 @@ function recursivelyMapDoc(
 }
 
 const modifiedHtml = { ...html } as Plugin;
-if (modifiedHtml.printers) {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
+if (modifiedHtml.printers && 'html' in modifiedHtml.printers) {
   const previousPrint = modifiedHtml.printers.html.print;
   modifiedHtml.printers.html.print = (path, options, print, args) => {
     const node = path.getNode() as HtmlNode;

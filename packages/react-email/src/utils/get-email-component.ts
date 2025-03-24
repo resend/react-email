@@ -1,5 +1,5 @@
 import path from 'node:path';
-import type { render } from '@react-email/render';
+import type { render } from '../package/render/node';
 import * as esbuild from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
