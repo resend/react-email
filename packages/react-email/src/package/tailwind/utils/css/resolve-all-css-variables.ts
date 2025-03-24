@@ -1,7 +1,5 @@
-import type { Node, Root } from 'patched-postcss';
-import type AtRule from 'patched-postcss/lib/at-rule';
-import Declaration from 'patched-postcss/lib/declaration';
-import Rule from 'patched-postcss/lib/rule';
+import type { Node, Root } from 'postcss';
+import { type AtRule, Declaration, Rule } from 'postcss';
 import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 const isRule = (node: Node | undefined): node is Rule => {

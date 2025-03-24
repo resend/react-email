@@ -1,5 +1,5 @@
-import Root from 'patched-postcss/lib/root';
-import type { Config as TailwindOriginalConfig } from 'patched-tailwindcss';
+import { Root } from 'postcss';
+import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import * as React from 'react';
 import { minifyCss } from './utils/css/minify-css';
 import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';

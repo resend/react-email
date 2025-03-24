@@ -1,4 +1,4 @@
-import type { AtRule, Root, Rule } from 'patched-postcss';
+import type { AtRule, Root, Rule } from 'postcss';
 
 /**
  * Meant to do all the things necessary, in a per-declaration basis, to have the best email client

@@ -1,5 +1,5 @@
-import type { AtRule, Root } from 'patched-postcss';
-import selectorParser from 'patched-postcss-selector-parser';
+import type { AtRule, Root } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
 import { sanitizeClassName } from '../../compatibility/sanitize-class-name';
 
 /**

@@ -1,5 +1,5 @@
-import type { Root, Rule } from 'patched-postcss';
-import selectorParser from 'patched-postcss-selector-parser';
+import type { Root, Rule } from 'postcss';
+import selectorParser from 'postcss-selector-parser';
 import { convertCssPropertyToReactProperty } from '../compatibility/convert-css-property-to-react-property';
 import { unescapeClass } from '../compatibility/unescape-class';
 

@@ -1,4 +1,4 @@
-import postcss, { Root } from 'patched-postcss';
+import postcss, { Root } from 'postcss';
 import { sanitizeMediaQueries } from './sanitize-media-queries';
 
 test('sanitizeMediaQueries()', async () => {

@@ -1,6 +1,8 @@
 import path from 'node:path';
 import * as esbuild from 'esbuild';
 import type React from 'react';
+import os from 'node:os';
+import fs from 'node:fs/promises';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
 import type { render } from '../package/render/node';
@@ -10,6 +12,7 @@ import { isErr } from './result';
 import { runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
+import { isPreviewDevelopment } from '../app/env';
 
 const EmailComponentModule = z.object({
   default: z.any(),
@@ -77,6 +80,17 @@ export const getEmailComponent = async (
   const sourceMapFile = outputFiles[0]!;
   const bundledEmailFile = outputFiles[1]!;
   const builtEmailCode = bundledEmailFile.text;
+
+  if (isPreviewDevelopment) {
+    await fs.writeFile(
+      path.resolve(
+        os.tmpdir(),
+        `${path.basename(emailPath).replace(/\.[^.]+$/, '')}.cjs`,
+      ),
+      builtEmailCode,
+      'utf8',
+    );
+  }
 
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
   // because it will have a path like <tsconfigLocation>/stdout/email.js.map

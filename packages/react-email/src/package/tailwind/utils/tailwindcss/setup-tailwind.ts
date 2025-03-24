@@ -1,17 +1,26 @@
-import type { Rule } from 'patched-postcss';
-import parse from 'patched-postcss/lib/parse';
-import collapseAdjacentRules from 'patched-tailwindcss/lib/lib/collapseAdjacentRules';
-import collapseDuplicateDeclarations from 'patched-tailwindcss/lib/lib/collapseDuplicateDeclarations';
-import evaluateTailwindFunctions from 'patched-tailwindcss/lib/lib/evaluateTailwindFunctions';
-import expandApplyAtRules from 'patched-tailwindcss/lib/lib/expandApplyAtRules';
-import expandTailwindAtRules from 'patched-tailwindcss/lib/lib/expandTailwindAtRules';
-import { generateRules as rawGenerateRules } from 'patched-tailwindcss/lib/lib/generateRules';
-import partitionApplyAtRules from 'patched-tailwindcss/lib/lib/partitionApplyAtRules';
-import resolveDefaultsAtRules from 'patched-tailwindcss/lib/lib/resolveDefaultsAtRules';
-import substituteScreenAtRules from 'patched-tailwindcss/lib/lib/substituteScreenAtRules';
+import { parse, type Rule } from 'postcss';
+import collapseAdjacentRulesImport from 'tailwindcss/lib/lib/collapseAdjacentRules';
+import collapseDuplicateDeclarationsImport from 'tailwindcss/lib/lib/collapseDuplicateDeclarations';
+import evaluateTailwindFunctionsImport from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
+import expandApplyAtRulesImport from 'tailwindcss/lib/lib/expandApplyAtRules';
+import expandTailwindAtRulesImport from 'tailwindcss/lib/lib/expandTailwindAtRules';
+import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateRules';
+import partitionApplyAtRulesImport from 'tailwindcss/lib/lib/partitionApplyAtRules';
+import resolveDefaultsAtRulesImport from 'tailwindcss/lib/lib/resolveDefaultsAtRules';
+import substituteScreenAtRulesImport from 'tailwindcss/lib/lib/substituteScreenAtRules';
 import type { TailwindConfig } from '../../tailwind';
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
 import { setupTailwindContext } from './setup-tailwind-context';
+
+const substituteScreenAtRules = substituteScreenAtRulesImport.default;
+const resolveDefaultsAtRules = resolveDefaultsAtRulesImport.default;
+const partitionApplyAtRules = partitionApplyAtRulesImport.default;
+const expandTailwindAtRules = expandTailwindAtRulesImport.default;
+const expandApplyAtRules = expandApplyAtRulesImport.default;
+const evaluateTailwindFunctions = evaluateTailwindFunctionsImport.default;
+const collapseDuplicateDeclarations =
+  collapseDuplicateDeclarationsImport.default;
+const collapseAdjacentRules = collapseAdjacentRulesImport.default;
 
 const tailwindAtRulesRoot = parse(
   `

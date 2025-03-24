@@ -1,4 +1,4 @@
-import type { Root } from 'patched-postcss';
+import type { Root } from 'postcss';
 import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 export const removeRuleDuplicatesFromRoot = (root: Root) => {

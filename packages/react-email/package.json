@@ -103,6 +103,9 @@
     "ora": "5.4.1",
     "prettier": "3.4.2",
     "prismjs": "1.29.0",
+    "postcss": "8.4.40",
+    "postcss-selector-parser": "6.0.16",
+    "tailwindcss": "3.4.10",
     "socket.io": "4.8.1"
   },
   "peerDependencies": {
@@ -143,10 +146,6 @@
     "json5": "2.2.3",
     "module-punycode": "npm:punycode@2.3.1",
     "node-html-parser": "6.1.13",
-    "patched-postcss": "workspace:8.4.40",
-    "patched-postcss-selector-parser": "workspace:6.0.16",
-    "patched-tailwindcss": "workspace:3.4.10",
-    "postcss": "8.4.40",
     "pretty-bytes": "6.1.1",
     "prism-react-renderer": "2.4.0",
     "react": "19.0.0",
@@ -159,7 +158,6 @@
     "spamc": "0.0.5",
     "stacktrace-parser": "0.1.10",
     "tailwind-merge": "2.2.0",
-    "tailwindcss": "3.4.0",
     "tsconfig": "workspace:*",
     "tsup": "7.2.0",
     "tsx": "4.9.0",

@@ -1,4 +1,4 @@
-import type { Node } from 'patched-postcss';
+import type { Node } from 'postcss';
 import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
