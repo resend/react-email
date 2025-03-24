@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import prettyBytes from 'pretty-bytes';
-import { useRef, useState } from 'react';
+import { Children, useRef, useState } from 'react';
 import { nicenames } from '../../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
@@ -115,14 +115,20 @@ export const Linter = ({ rows }: LinterProps) => {
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
                 failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
-                  ? 'There was a redirect, the content may have been moved'
-                  : null}
+                failingCheck.metadata.fetchStatusCode < 400 ? (
+                  <>
+                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
+                    There was a redirect, the content may have been moved
+                  </>
+                ) : null}
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
-                  ? 'The link is broken'
-                  : null}
+                failingCheck.metadata.fetchStatusCode >= 400 ? (
+                  <>
+                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
+                    The link is broken
+                  </>
+                ) : null}
                 {failingCheck.type === 'syntax'
                   ? 'The link is broken due to invalid syntax'
                   : null}
@@ -132,14 +138,13 @@ export const Linter = ({ rows }: LinterProps) => {
                 </span>
               </Result.Description>
               <Result.Metadata>
-                <CodePreviewLine
-                  line={row.result.codeLocation.line}
-                  column={row.result.codeLocation.column}
-                  type="html"
-                />
-                {failingCheck.type === 'fetch_attempt'
-                  ? failingCheck.metadata.fetchStatusCode
-                  : ''}
+                {[
+                  <CodePreviewLine
+                    line={row.result.codeLocation.line}
+                    column={row.result.codeLocation.column}
+                    type="html"
+                  />,
+                ]}
               </Result.Metadata>
             </Result>
           );
@@ -149,6 +154,19 @@ export const Linter = ({ rows }: LinterProps) => {
           const failingCheck = row.result.checks.find(
             (check) => check.passed === false,
           )!;
+          const metadata: React.ReactNode[] = [];
+          for (const check of row.result.checks) {
+            if (check.type === 'image_size' && check.metadata.byteCount) {
+              return prettyBytes(check.metadata.byteCount);
+            }
+          }
+          metadata.push(
+            <CodePreviewLine
+              line={row.result.codeLocation.line}
+              column={row.result.codeLocation.column}
+              type="html"
+            />,
+          );
           return (
             <Result status={row.result.status} key={i}>
               <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
@@ -159,14 +177,20 @@ export const Linter = ({ rows }: LinterProps) => {
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
                 failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400
-                  ? 'There was a redirect, the image may have been moved'
-                  : null}
+                failingCheck.metadata.fetchStatusCode < 400 ? (
+                  <>
+                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
+                    There was a redirect, the image may have been moved
+                  </>
+                ) : null}
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400
-                  ? 'The image is broken'
-                  : null}
+                failingCheck.metadata.fetchStatusCode >= 400 ? (
+                  <>
+                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
+                    The image is broken
+                  </>
+                ) : null}
                 {failingCheck.type === 'syntax'
                   ? 'The image is broken due to an invalid source'
                   : null}
@@ -184,33 +208,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   {row.result.source}
                 </span>
               </Result.Description>
-              <Result.Metadata>
-                <CodePreviewLine
-                  line={row.result.codeLocation.line}
-                  column={row.result.codeLocation.column}
-                  type="html"
-                />
-                {row.result.checks
-                  .map((check) => {
-                    if (
-                      check.type === 'fetch_attempt' &&
-                      check.metadata.fetchStatusCode
-                    ) {
-                      return check.metadata.fetchStatusCode;
-                    }
-
-                    if (
-                      check.type === 'image_size' &&
-                      check.metadata.byteCount
-                    ) {
-                      return prettyBytes(check.metadata.byteCount);
-                    }
-
-                    return undefined;
-                  })
-                  .filter(Boolean)
-                  .join(' · ')}
-              </Result.Metadata>
+              <Result.Metadata>{metadata}</Result.Metadata>
             </Result>
           );
         }
@@ -255,11 +253,13 @@ export const Linter = ({ rows }: LinterProps) => {
                 </a>
               </Result.Description>
               <Result.Metadata>
-                <CodePreviewLine
-                  line={row.result.location.start.line}
-                  column={row.result.location.start.column}
-                  type="react"
-                />
+                {[
+                  <CodePreviewLine
+                    line={row.result.location.start.line}
+                    column={row.result.location.start.column}
+                    type="react"
+                  />,
+                ]}
               </Result.Metadata>
             </Result>
           );
@@ -297,7 +297,7 @@ const CodePreviewLine = ({ line, column, type }: CodePreviewLineProps) => {
         search: newSearchParams.toString(),
         hash: fragmentIdentifier,
       }}
-      className="appearance-none underline mr-2"
+      className="appearance-none underline mx-2"
     >
       {line.toString().padStart(2, '0')}
     </Link>
@@ -342,18 +342,25 @@ Result.Description = ({
   return <Results.Column {...props}>{children}</Results.Column>;
 };
 
-Result.Metadata = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<typeof Results.Column>) => {
+interface MetadatProps extends React.ComponentProps<typeof Results.Column> {
+  children: React.ReactNode[];
+}
+
+Result.Metadata = ({ children, className, ...props }: MetadatProps) => {
   return (
     <Results.Column
       align="right"
       {...props}
       className={cn('font-mono text-slate-11', className)}
     >
-      {children}
+      {Children.map(children, (child, index) => {
+        return (
+          <>
+            {index > 0 ? ' · ' : null}
+            {child}
+          </>
+        );
+      })}
     </Results.Column>
   );
 };
