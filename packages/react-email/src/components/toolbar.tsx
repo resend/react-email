@@ -8,6 +8,7 @@ import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
@@ -143,6 +144,9 @@ const ToolbarInner = ({
               </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
+              <ToolbarButton tooltip="Toggle toolbar">
+                <IconInfo size={24} />
+              </ToolbarButton>
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
