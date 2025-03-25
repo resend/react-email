@@ -4,6 +4,8 @@ import { Highlight } from 'prism-react-renderer';
 import { Fragment, useEffect } from 'react';
 import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 interface CodeProps {
   children: string;
@@ -80,6 +82,8 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     }
   }, [highlight]);
 
+  const searchParams = useSearchParams();
+
   const value = children.trim();
 
   return (
@@ -96,16 +100,22 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           <div className="flex h-[650px] p-4 max-h-[calc(100vh-10rem)] after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto">
             <div className="text-[#49494f] text-[13px] font-light font-[MonoLisa,_Menlo,_monospace]">
               {tokens.map((_, i) => (
-                <div
+                <Link
                   id={`L${i + 1}`}
                   key={i}
+                  href={{
+                    hash: `#L${i + 1}`,
+                    search: searchParams.toString()
+                  }}
+                  scroll={false}
                   className={cn(
-                    'align-middle scroll-mt-[325px] rounded-l-sm select-none pr-3',
+                    'align-middle block scroll-mt-[325px] rounded-l-sm select-none pr-3 cursor-pointer',
                     isHighlighting(i + 1) && 'text-cyan-11 bg-cyan-5',
                   )}
+                  type="button"
                 >
                   {i + 1}
-                </div>
+                </Link>
               ))}
             </div>
             <pre>
