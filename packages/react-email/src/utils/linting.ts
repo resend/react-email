@@ -51,7 +51,7 @@ export function getLintingSources(
         return checkCompatibility(reactMarkup, emailPath);
       },
       mapValue(value) {
-        if (value && value.status !== 'success') {
+        if (value && value.status === 'error') {
           return {
             result: value,
             source: 'compatibility',
