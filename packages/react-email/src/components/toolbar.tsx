@@ -2,7 +2,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect } from 'react';
+import { act, use, useEffect } from 'react';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
@@ -18,12 +18,15 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
+import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
+import { Compatibility, useCompatibility } from './toolbar/compatibility';
 
-export type ToolbarTabValue = 'linter' | 'spam-assassin';
+export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
 
 const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
+  serverCompatibilityResults,
 
   markup,
   reactMarkup,
@@ -73,21 +76,34 @@ const ToolbarInner = ({
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
-    reactMarkup,
-    emailPath,
     markup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
+  });
+  const [cachedCompatibilityResults, setCachedCompatibilityResults] = useCachedState<
+    CompatibilityCheckingResult[]
+  >(`compatibility-${emailSlug.replaceAll('/', '-')}`);
+  const [compatibilityCheckingResults, { load: loadCompatibility, loading: compatibilityLoading }] = useCompatibility({
+    emailPath,
+    reactMarkup,
+
+    initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
 
   if (!isBuilding) {
     useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
+        console.log(lintingRows);
         setCachedLintingRows(lintingRows);
 
         const spamCheckingResult = await loadSpamChecking();
+        console.log(spamCheckingResult);
         setCachedSpamCheckingResult(spamCheckingResult);
+        
+        const compatiblityCheckingResults = await loadCompatibility();
+        console.log(compatiblityCheckingResults);
+        setCachedCompatibilityResults(compatiblityCheckingResults);
       })();
     }, []);
   }
@@ -123,6 +139,12 @@ const ToolbarInner = ({
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
+              <Tabs.Trigger asChild value="compatibility">
+                <ToolbarButton active={activeTab === 'compatibility'}>
+                  <IconScanner />
+                  Compatibiltiy
+                </ToolbarButton>
+              </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               {isBuilding ? null : (
@@ -135,8 +157,10 @@ const ToolbarInner = ({
                     }
                     if (activeTab === 'spam-assassin') {
                       await loadSpamChecking();
-                    } else {
+                    } else if (activeTab === 'linter') {
                       await loadLinting();
+                    } else if (activeTab === 'compatibility') {
+                      await loadCompatibility();
                     }
                   }}
                 >
@@ -186,6 +210,15 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
+            <Tabs.Content value="compatibility">
+              {compatibilityLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running compatiblity check...
+                </div>
+              ) : (
+                <Compatibility results={compatibilityCheckingResults} />
+              )}
+            </Tabs.Content>
           </div>
         </div>
       </Tabs.Root>
@@ -196,11 +229,13 @@ const ToolbarInner = ({
 interface ToolbarProps {
   serverSpamCheckingResult: SpamCheckingResult | undefined;
   serverLintingRows: LintingRow[] | undefined;
+  serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
 }
 
 export const Toolbar = ({
   serverLintingRows,
   serverSpamCheckingResult,
+  serverCompatibilityResults
 }: ToolbarProps) => {
   const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
 
@@ -216,6 +251,7 @@ export const Toolbar = ({
       plainText={plainText}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
+      serverCompatibilityResults={serverCompatibilityResults}
     />
   );
 };

@@ -2,6 +2,10 @@ import path from 'node:path';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
+import {
+  checkCompatibility,
+  type CompatibilityCheckingResult,
+} from '../../../actions/email-validation/check-compatibility';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { Shell } from '../../../components/shell';
 import { Toolbar } from '../../../components/toolbar';
@@ -12,6 +16,7 @@ import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Preview from './preview';
+import { loadStream } from '../../../utils/load-stream';
 
 export const dynamicParams = true;
 
@@ -55,20 +60,18 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-  if (isBuilding && 'error' in serverEmailRenderingResult) {
-    throw new Error(serverEmailRenderingResult.error.message, {
-      cause: serverEmailRenderingResult.error,
-    });
-  }
-
   let spamCheckingResult: SpamCheckingResult | undefined = undefined;
   let lintingRows: LintingRow[] | undefined = undefined;
+  let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined = undefined;
 
-  if (isBuilding && !('error' in serverEmailRenderingResult)) {
+  if (isBuilding) {
+    if ('error' in serverEmailRenderingResult) {
+      throw new Error(serverEmailRenderingResult.error.message, {
+        cause: serverEmailRenderingResult.error,
+      });
+    }
     const lintingSources = getLintingSources(
       serverEmailRenderingResult.markup,
-      serverEmailRenderingResult.reactMarkup,
-      emailPath,
       '',
     );
     lintingRows = [];
@@ -86,6 +89,15 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
       return 0;
     });
+    compatibilityCheckingResults = [];
+    for await (const result of loadStream(
+      await checkCompatibility(
+        serverEmailRenderingResult.reactMarkup,
+        emailPath,
+      ),
+    )) {
+      compatibilityCheckingResults.push(result);
+    }
 
     const response = await fetch('https://react.email/api/check-spam', {
       method: 'POST',
@@ -123,6 +135,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
           <Toolbar
             serverLintingRows={lintingRows}
             serverSpamCheckingResult={spamCheckingResult}
+            serverCompatibilityResults={compatibilityCheckingResults}
           />
         </Suspense>
       </Shell>

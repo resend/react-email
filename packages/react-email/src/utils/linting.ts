@@ -2,6 +2,7 @@ import { checkCompatibility } from '../actions/email-validation/check-compatibil
 import { checkImages } from '../actions/email-validation/check-images';
 import { checkLinks } from '../actions/email-validation/check-links';
 import type { LintingRow } from '../components/toolbar/linter';
+import { loadStream } from './load-stream';
 
 export interface LintingSource<T> {
   getStream(): Promise<ReadableStream<T>>;
@@ -14,8 +15,6 @@ function createSource<T>(source: LintingSource<T>): LintingSource<T> {
 
 export function getLintingSources(
   markup: string,
-  reactMarkup: string,
-  emailPath: string,
 
   urlBase: string,
 ): LintingSource<unknown>[] {
@@ -46,40 +45,17 @@ export function getLintingSources(
         }
       },
     }),
-    createSource({
-      getStream() {
-        return checkCompatibility(reactMarkup, emailPath);
-      },
-      mapValue(value) {
-        if (value && value.status === 'error') {
-          return {
-            result: value,
-            source: 'compatibility',
-          };
-        }
-      },
-    }),
   ];
 }
 
 export async function* loadLintingRowsFrom(sources: LintingSource<unknown>[]) {
   for await (const source of sources) {
     const stream = await source.getStream();
-    const reader = stream.getReader();
-    try {
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) {
-          break;
-        }
-
-        const row = source.mapValue(value);
-        if (row) {
-          yield row;
-        }
+    for await (const value of loadStream(stream)) {
+      const row = source.mapValue(value);
+      if (row) {
+        yield row;
       }
-    } finally {
-      reader.releaseLock();
     }
   }
 }

@@ -1,15 +1,12 @@
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import prettyBytes from 'pretty-bytes';
 import { Children, useRef, useState } from 'react';
-import { nicenames } from '../../actions/email-validation/caniemail-data';
-import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import type { ImageCheckingResult } from '../../actions/email-validation/check-images';
 import type { LinkCheckingResult } from '../../actions/email-validation/check-links';
 import { cn, sanitize } from '../../utils';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
+import { CodePreviewLineLink } from './code-preview-line-link';
 
 export type LintingRow =
   | {
@@ -20,10 +17,6 @@ export type LintingRow =
       source: 'link';
       result: LinkCheckingResult;
     }
-  | {
-      source: 'compatibility';
-      result: CompatibilityCheckingResult;
-    };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -31,14 +24,10 @@ interface LinterProps {
 
 export const useLinter = ({
   markup,
-  reactMarkup,
-  emailPath,
 
   initialRows,
 }: {
-  reactMarkup: string;
   markup: string;
-  emailPath: string;
 
   initialRows?: LintingRow[];
 }) => {
@@ -46,8 +35,6 @@ export const useLinter = ({
 
   const sources = getLintingSources(
     markup,
-    reactMarkup,
-    emailPath,
     'location' in global
       ? `${global.location.protocol}//${global.location.host}`
       : '',
@@ -139,7 +126,7 @@ export const Linter = ({ rows }: LinterProps) => {
               </Result.Description>
               <Result.Metadata>
                 {[
-                  <CodePreviewLine
+                  <CodePreviewLineLink
                     line={row.result.codeLocation.line}
                     column={row.result.codeLocation.column}
                     type="html"
@@ -161,7 +148,7 @@ export const Linter = ({ rows }: LinterProps) => {
             }
           }
           metadata.push(
-            <CodePreviewLine
+            <CodePreviewLineLink
               line={row.result.codeLocation.line}
               column={row.result.codeLocation.column}
               type="html"
@@ -213,94 +200,12 @@ export const Linter = ({ rows }: LinterProps) => {
           );
         }
 
-        if (row.source === 'compatibility') {
-          const statsReportedNotWorking = Object.entries(
-            row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === 'error');
-          const statsReportedPartiallyWorking = Object.entries(
-            row.result.statsPerEmailClient,
-          ).filter(([, stats]) => stats.status === 'warning');
-
-          const unsupportedClientsString = statsReportedNotWorking
-            .map(([emailClient]) => nicenames.family[emailClient])
-            .join(', ');
-          const partiallySupportedClientsString = statsReportedPartiallyWorking
-            .map(([emailClient]) => nicenames.family[emailClient])
-            .join(', ');
-
-          return (
-            <Result status={row.result.status} key={i}>
-              <Result.Name>{sanitize(row.result.entry.title)}</Result.Name>
-              <Result.Description>
-                {statsReportedNotWorking.length > 0
-                  ? `Not supported in ${unsupportedClientsString}`
-                  : null}
-                {statsReportedPartiallyWorking.length > 0 &&
-                statsReportedNotWorking.length > 0
-                  ? '. '
-                  : null}
-
-                <a
-                  href={row.result.entry.url}
-                  className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors  hover:text-slate-12"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  More ↗
-                </a>
-              </Result.Description>
-              <Result.Metadata>
-                {[
-                  <CodePreviewLine
-                    line={row.result.location.start.line}
-                    column={row.result.location.start.column}
-                    type="react"
-                  />,
-                ]}
-              </Result.Metadata>
-            </Result>
-          );
-        }
-
         return undefined;
       })}
     </Results>
   );
 };
 
-interface CodePreviewLineProps {
-  line: number;
-  column: number;
-
-  type: 'react' | 'html';
-}
-
-const CodePreviewLine = ({ line, column, type }: CodePreviewLineProps) => {
-  const searchParams = useSearchParams();
-
-  const newSearchParams = new URLSearchParams(searchParams);
-  newSearchParams.set('view', 'source');
-  if (type === 'html') {
-    newSearchParams.set('lang', 'markup');
-  } else if (type === 'react') {
-    newSearchParams.set('lang', 'jsx');
-  }
-
-  const fragmentIdentifier = `#L${line}`;
-
-  return (
-    <Link
-      href={{
-        search: newSearchParams.toString(),
-        hash: fragmentIdentifier,
-      }}
-      scroll={false}
-      className="appearance-none underline mx-2"
-    >
-      {line.toString().padStart(2, '0')}
-    </Link>
-  );
-};
 
 interface ResultProps extends React.ComponentProps<typeof Results.Row> {
   status: 'error' | 'warning' | 'success';
