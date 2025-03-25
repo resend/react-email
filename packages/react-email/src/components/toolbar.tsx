@@ -8,6 +8,7 @@ import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
@@ -143,6 +144,27 @@ const ToolbarInner = ({
               </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
+              <ToolbarButton
+                delayDuration={0}
+                tooltip={
+                  (activeTab === 'linter' &&
+                    'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
+                  (activeTab === 'spam-assassin' &&
+                    'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
+                  (activeTab === 'compatibility' &&
+                    'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  'Info'
+                }
+                onClick={() => {
+                  if (activeTab === undefined) {
+                    setActivePanelValue('linter');
+                  } else {
+                    setActivePanelValue(undefined);
+                  }
+                }}
+              >
+                <IconInfo size={24} />
+              </ToolbarButton>
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
