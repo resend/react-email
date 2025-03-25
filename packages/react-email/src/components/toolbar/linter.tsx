@@ -239,9 +239,6 @@ export const Linter = ({ rows }: LinterProps) => {
                 statsReportedNotWorking.length > 0
                   ? '. '
                   : null}
-                {statsReportedPartiallyWorking.length > 0
-                  ? `Partially supported in ${partiallySupportedClientsString}`
-                  : null}
 
                 <a
                   href={row.result.entry.url}
