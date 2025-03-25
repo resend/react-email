@@ -109,8 +109,9 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   }}
                   scroll={false}
                   className={cn(
-                    'align-middle block scroll-mt-[325px] rounded-l-sm select-none pr-3 cursor-pointer',
-                    isHighlighting(i + 1) && 'text-cyan-11 bg-cyan-5',
+                    'align-middle block scroll-mt-[325px] rounded-l-sm select-none pr-3 cursor-pointer hover:text-slate-12',
+                    isHighlighting(i + 1) &&
+                      'text-cyan-11 hover:text-cyan-11 bg-cyan-5',
                   )}
                   type="button"
                 >
