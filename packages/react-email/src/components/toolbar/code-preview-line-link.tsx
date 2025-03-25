@@ -34,7 +34,7 @@ export const CodePreviewLineLink = ({
       scroll={false}
       className="appearance-none underline mx-2"
     >
-      {line.toString().padStart(2, '0')}
+      L{line.toString().padStart(2, '0')}
     </Link>
   );
 };

@@ -97,7 +97,7 @@ export const Linter = ({ rows }: LinterProps) => {
               <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
               <Result.Description>
                 {failingCheck.type === 'security'
-                  ? 'Insecure URL, use HTTPS insted of HTTP'
+                  ? 'Insecure URL, use HTTPS instead of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
                 failingCheck.metadata.fetchStatusCode &&
