@@ -74,7 +74,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   useEffect(() => {
     if (highlight) {
       document.getElementById(`L${highlight[0]}`)?.scrollIntoView({
-        block: 'center',
+        block: 'start',
         behavior: 'smooth',
       });
     }
@@ -100,7 +100,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   id={`L${i + 1}`}
                   key={i}
                   className={cn(
-                    'align-middle rounded-l-sm select-none pr-3',
+                    'align-middle scroll-mt-[325px] rounded-l-sm select-none pr-3',
                     isHighlighting(i + 1) && 'text-cyan-11 bg-cyan-5',
                   )}
                 >
@@ -117,11 +117,6 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 return (
                   <div
                     {...lineProps}
-                    data-hightlight={
-                      highlight
-                        ? highlight[0] <= i + 1 && highlight[1] >= i + 1
-                        : false
-                    }
                     className={cn(
                       'whitespace-pre flex transition-colors rounded-r-sm',
                       isHighlighting(i + 1) && 'bg-cyan-5',
