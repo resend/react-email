@@ -2,7 +2,8 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { act, use, useEffect } from 'react';
+import { use, useEffect } from 'react';
+import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
@@ -10,6 +11,7 @@ import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';
 import { IconScanner } from './icons/icon-scanner';
 import { IconScissors } from './icons/icon-scissors';
+import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import {
   SpamAssassin,
@@ -18,8 +20,6 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
-import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
-import { Compatibility, useCompatibility } from './toolbar/compatibility';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
 
@@ -80,10 +80,14 @@ const ToolbarInner = ({
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
-  const [cachedCompatibilityResults, setCachedCompatibilityResults] = useCachedState<
-    CompatibilityCheckingResult[]
-  >(`compatibility-${emailSlug.replaceAll('/', '-')}`);
-  const [compatibilityCheckingResults, { load: loadCompatibility, loading: compatibilityLoading }] = useCompatibility({
+  const [cachedCompatibilityResults, setCachedCompatibilityResults] =
+    useCachedState<CompatibilityCheckingResult[]>(
+      `compatibility-${emailSlug.replaceAll('/', '-')}`,
+    );
+  const [
+    compatibilityCheckingResults,
+    { load: loadCompatibility, loading: compatibilityLoading },
+  ] = useCompatibility({
     emailPath,
     reactMarkup,
 
@@ -232,7 +236,7 @@ interface ToolbarProps {
 export const Toolbar = ({
   serverLintingRows,
   serverSpamCheckingResult,
-  serverCompatibilityResults
+  serverCompatibilityResults,
 }: ToolbarProps) => {
   const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
 

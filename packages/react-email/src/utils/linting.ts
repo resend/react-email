@@ -1,4 +1,3 @@
-import { checkCompatibility } from '../actions/email-validation/check-compatibility';
 import { checkImages } from '../actions/email-validation/check-images';
 import { checkLinks } from '../actions/email-validation/check-links';
 import type { LintingRow } from '../components/toolbar/linter';

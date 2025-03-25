@@ -1,11 +1,11 @@
 import path from 'node:path';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
-import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import {
-  checkCompatibility,
   type CompatibilityCheckingResult,
+  checkCompatibility,
 } from '../../../actions/email-validation/check-compatibility';
+import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
 import { Shell } from '../../../components/shell';
 import { Toolbar } from '../../../components/toolbar';
@@ -14,9 +14,9 @@ import type { SpamCheckingResult } from '../../../components/toolbar/spam-assass
 import { PreviewProvider } from '../../../contexts/preview';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
+import { loadStream } from '../../../utils/load-stream';
 import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
 import Preview from './preview';
-import { loadStream } from '../../../utils/load-stream';
 
 export const dynamicParams = true;
 
@@ -62,7 +62,8 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   let spamCheckingResult: SpamCheckingResult | undefined = undefined;
   let lintingRows: LintingRow[] | undefined = undefined;
-  let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined = undefined;
+  let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined =
+    undefined;
 
   if (isBuilding) {
     if ('error' in serverEmailRenderingResult) {

@@ -5,8 +5,8 @@ import type { LinkCheckingResult } from '../../actions/email-validation/check-li
 import { cn, sanitize } from '../../utils';
 import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
-import { Results } from './results';
 import { CodePreviewLineLink } from './code-preview-line-link';
+import { Results } from './results';
 
 export type LintingRow =
   | {
@@ -16,7 +16,7 @@ export type LintingRow =
   | {
       source: 'link';
       result: LinkCheckingResult;
-    }
+    };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -205,7 +205,6 @@ export const Linter = ({ rows }: LinterProps) => {
     </Results>
   );
 };
-
 
 interface ResultProps extends React.ComponentProps<typeof Results.Row> {
   status: 'error' | 'warning' | 'success';

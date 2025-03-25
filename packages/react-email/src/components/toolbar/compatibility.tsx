@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
+import { toast } from 'sonner';
+import { nicenames } from '../../actions/email-validation/caniemail-data';
 import {
   type CompatibilityCheckingResult,
   checkCompatibility,
 } from '../../actions/email-validation/check-compatibility';
-import { toast } from 'sonner';
-import { loadStream } from '../../utils/load-stream';
-import { Results } from './results';
-import { nicenames } from '../../actions/email-validation/caniemail-data';
 import { sanitize } from '../../utils';
-import { CodePreviewLineLink } from './code-preview-line-link';
+import { loadStream } from '../../utils/load-stream';
 import { IconWarning } from '../icons/icon-warning';
+import { CodePreviewLineLink } from './code-preview-line-link';
+import { Results } from './results';
 
 export const useCompatibility = ({
   reactMarkup,
