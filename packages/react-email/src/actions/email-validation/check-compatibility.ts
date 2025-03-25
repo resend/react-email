@@ -112,7 +112,7 @@ export interface SupportEntry {
 const relevantEmailClients: EmailClient[] = [
   'gmail',
   'apple-mail',
-  'hey',
+  // 'hey',
   'outlook',
   'yahoo',
 ];
