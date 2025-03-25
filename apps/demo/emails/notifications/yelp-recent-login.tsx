@@ -44,10 +44,7 @@ export const YelpRecentLoginEmail = ({
         <Preview>Yelp recent login</Preview>
         <Container>
           <Section style={logo}>
-            <Img
-              src={`${baseUrl}/static/yelp-logo.png`}
-              alt="Yelp logo"
-            />
+            <Img src={`${baseUrl}/static/yelp-logo.png`} alt="Yelp logo" />
           </Section>
 
           <Section style={content}>
