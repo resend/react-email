@@ -98,7 +98,7 @@ export const Compatibility = ({ results }: CompatibilityProps) => {
                 More ↗
               </a>
             </Results.Column>
-            <Results.Column className="font-mono text-slate-11">
+            <Results.Column className="font-mono text-slate-11 text-right">
               <CodePreviewLineLink
                 line={result.location.start.line}
                 column={result.location.start.column}
