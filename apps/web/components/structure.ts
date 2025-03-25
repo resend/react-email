@@ -251,4 +251,10 @@ export const componentsStructure: Category[] = [
       { slug: 'text-with-styling', title: 'Text with styling' },
     ],
   },
+  {
+    name: 'List',
+    description:
+      'List components for displaying ordered and unordered lists with different styles.',
+    components: [{ slug: 'simple-list', title: 'Simple List' }],
+  },
 ];
