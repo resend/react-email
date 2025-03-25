@@ -9,8 +9,6 @@ import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconReload } from './icons/icon-reload';
-import { IconScanner } from './icons/icon-scanner';
-import { IconScissors } from './icons/icon-scissors';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import {
@@ -126,24 +124,21 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
+          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
-              <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activeTab === 'spam-assassin'}>
-                  <IconScissors />
-                  Spam Assassin
-                </ToolbarButton>
-              </Tabs.Trigger>
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
-                  <IconScanner />
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
               <Tabs.Trigger asChild value="compatibility">
                 <ToolbarButton active={activeTab === 'compatibility'}>
-                  <IconScanner />
                   Compatibility
+                </ToolbarButton>
+              </Tabs.Trigger>
+              <Tabs.Trigger asChild value="spam-assassin">
+                <ToolbarButton active={activeTab === 'spam-assassin'}>
+                  Spam
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
