@@ -52,7 +52,7 @@ export const DropboxResetPasswordEmail = ({
             <Text style={text}>
               To keep your account secure, please don&apos;t forward this email
               to anyone. See our Help Center for{' '}
-              <Link style={anchor} href="https://www.dropbox.com">
+              <Link style={anchor} href={resetPasswordLink}>
                 more security tips.
               </Link>
             </Text>
