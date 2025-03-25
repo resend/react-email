@@ -98,9 +98,9 @@ const ToolbarInner = ({
 
         const spamCheckingResult = await loadSpamChecking();
         setCachedSpamCheckingResult(spamCheckingResult);
-        
-        const compatiblityCheckingResults = await loadCompatibility();
-        setCachedCompatibilityResults(compatiblityCheckingResults);
+
+        const compatibilityCheckingResults = await loadCompatibility();
+        setCachedCompatibilityResults(compatibilityCheckingResults);
       })();
     }, []);
   }
