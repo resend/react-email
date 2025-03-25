@@ -6,6 +6,7 @@ interface ToolbarButtonProps extends React.ComponentProps<'button'> {
   children: React.ReactNode;
   active?: boolean;
   tooltip?: React.ReactNode;
+  delayDuration?: number;
 }
 
 export const ToolbarButton = ({
@@ -13,11 +14,12 @@ export const ToolbarButton = ({
   className,
   active,
   tooltip,
+  delayDuration = 500,
   ...props
 }: ToolbarButtonProps) => {
   return (
     <Tooltip.Provider>
-      <Tooltip>
+      <Tooltip delayDuration={delayDuration}>
         <Tooltip.Trigger asChild>
           <button
             type="button"

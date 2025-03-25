@@ -145,6 +145,7 @@ const ToolbarInner = ({
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               <ToolbarButton
+                delayDuration={0}
                 tooltip={
                   (activeTab === 'linter' &&
                     'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
