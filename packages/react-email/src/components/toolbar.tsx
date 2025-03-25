@@ -94,15 +94,12 @@ const ToolbarInner = ({
     useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
-        console.log(lintingRows);
         setCachedLintingRows(lintingRows);
 
         const spamCheckingResult = await loadSpamChecking();
-        console.log(spamCheckingResult);
         setCachedSpamCheckingResult(spamCheckingResult);
         
         const compatiblityCheckingResults = await loadCompatibility();
-        console.log(compatiblityCheckingResults);
         setCachedCompatibilityResults(compatiblityCheckingResults);
       })();
     }, []);
