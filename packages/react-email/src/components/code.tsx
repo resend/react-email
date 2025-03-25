@@ -1,4 +1,6 @@
 'use client';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
 import { Fragment, useEffect } from 'react';
@@ -80,6 +82,8 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     }
   }, [highlight]);
 
+  const searchParams = useSearchParams();
+
   const value = children.trim();
 
   return (
@@ -96,16 +100,23 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           <div className="flex h-[650px] p-4 max-h-[calc(100vh-10rem)] after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto">
             <div className="text-[#49494f] text-[13px] font-light font-[MonoLisa,_Menlo,_monospace]">
               {tokens.map((_, i) => (
-                <div
+                <Link
                   id={`L${i + 1}`}
                   key={i}
+                  href={{
+                    hash: `#L${i + 1}`,
+                    search: searchParams.toString(),
+                  }}
+                  scroll={false}
                   className={cn(
-                    'align-middle scroll-mt-[325px] rounded-l-sm select-none pr-3',
-                    isHighlighting(i + 1) && 'text-cyan-11 bg-cyan-5',
+                    'align-middle block scroll-mt-[325px] rounded-l-sm select-none pr-3 cursor-pointer hover:text-slate-12',
+                    isHighlighting(i + 1) &&
+                      'text-cyan-11 hover:text-cyan-11 bg-cyan-5',
                   )}
+                  type="button"
                 >
                   {i + 1}
-                </div>
+                </Link>
               ))}
             </div>
             <pre>
