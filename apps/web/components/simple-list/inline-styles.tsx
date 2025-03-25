@@ -60,14 +60,16 @@ const FeatureSection = ({ number, title, description }) => (
       <div
         style={{
           alignItems: 'center',
-          backgroundColor: '#007BFF',
+          backgroundColor: '#4F46E5',
           borderRadius: '100%',
-          color: '#ffffff',
+          color: '#FFFFFF',
           display: 'flex',
+          flexShrink: '0',
           fontSize: '12px',
           fontWeight: '600',
           height: '24px',
           justifyContent: 'center',
+          lineHeight: '1',
           marginRight: '18px',
           width: '24px',
         }}
@@ -78,6 +80,7 @@ const FeatureSection = ({ number, title, description }) => (
         <Heading
           as="h2"
           style={{
+            color: '#111827',
             fontSize: '18px',
             marginBottom: '8px',
             marginTop: '0',
@@ -87,8 +90,9 @@ const FeatureSection = ({ number, title, description }) => (
         </Heading>
         <Text
           style={{
+            color: '#6B7280',
             fontSize: '14px',
-            lineHeight: '20px',
+            lineHeight: '24px',
             margin: '0',
           }}
         >
@@ -105,14 +109,14 @@ export const component = (
     <Preview>Top 5 Features of Our Service</Preview>
     <Body
       style={{
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#FFFFFF',
         margin: '0',
         padding: '24px',
       }}
     >
       <Container
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: '#FFFFFF',
           borderRadius: '8px',
           margin: '0 auto',
           maxWidth: '600px',
@@ -122,6 +126,7 @@ export const component = (
         <Heading
           style={{
             fontSize: '24px',
+            lineHeight: '32px',
             marginBottom: '42px',
             textAlign: 'center',
           }}
