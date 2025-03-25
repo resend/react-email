@@ -124,7 +124,7 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-2 border-b border-solid border-slate-6 h-9 w-full flex-shrink-0">
+          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full flex-shrink-0">
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
