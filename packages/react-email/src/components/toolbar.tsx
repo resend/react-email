@@ -128,7 +128,7 @@ const ToolbarInner = ({
             <LayoutGroup id="toolbar">
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
-                  Lint
+                  Linter
                 </ToolbarButton>
               </Tabs.Trigger>
               <Tabs.Trigger asChild value="compatibility">
