@@ -210,7 +210,7 @@ const ToolbarInner = ({
             <Tabs.Content value="compatibility">
               {compatibilityLoading ? (
                 <div className="animate-pulse text-slate-11 text-sm pt-1">
-                  Running compatiblity check...
+                  Running compatibility check...
                 </div>
               ) : (
                 <Compatibility results={compatibilityCheckingResults} />
