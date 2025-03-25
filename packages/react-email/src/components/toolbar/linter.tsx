@@ -144,7 +144,7 @@ export const Linter = ({ rows }: LinterProps) => {
           const metadata: React.ReactNode[] = [];
           for (const check of row.result.checks) {
             if (check.type === 'image_size' && check.metadata.byteCount) {
-              return prettyBytes(check.metadata.byteCount);
+              metadata.push(prettyBytes(check.metadata.byteCount));
             }
           }
           metadata.push(
