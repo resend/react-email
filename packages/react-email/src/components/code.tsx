@@ -1,11 +1,11 @@
 'use client';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
 import { Fragment, useEffect } from 'react';
 import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 
 interface CodeProps {
   children: string;
@@ -105,7 +105,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                   key={i}
                   href={{
                     hash: `#L${i + 1}`,
-                    search: searchParams.toString()
+                    search: searchParams.toString(),
                   }}
                   scroll={false}
                   className={cn(
