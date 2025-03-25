@@ -139,7 +139,7 @@ const ToolbarInner = ({
               <Tabs.Trigger asChild value="compatibility">
                 <ToolbarButton active={activeTab === 'compatibility'}>
                   <IconScanner />
-                  Compatibiltiy
+                  Compatibility
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
