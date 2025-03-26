@@ -278,7 +278,8 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                snakeToCamel(property.name) === snakeToCamel(entryFullProperty!.name) &&
+                snakeToCamel(property.name) ===
+                  snakeToCamel(entryFullProperty!.name) &&
                 property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
@@ -306,7 +307,8 @@ export const checkCompatibility = async (
               }
             } else if (
               entryProperties.some(
-                (propertyName) => snakeToCamel(property.name) === snakeToCamel(propertyName),
+                (propertyName) =>
+                  snakeToCamel(property.name) === snakeToCamel(propertyName),
               )
             ) {
               addToInsights(property);

@@ -1,5 +1,5 @@
-import { parse } from "@babel/parser";
-import { getObjectVariables } from "./get-object-variables";
+import { parse } from '@babel/parser';
+import { getObjectVariables } from './get-object-variables';
 
 test('getObjectVariables()', () => {
   const reactCode = `

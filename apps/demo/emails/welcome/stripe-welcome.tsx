@@ -44,7 +44,10 @@ export const StripeWelcomeEmail = () => (
           <Hr style={hr} />
           <Text style={paragraph}>
             If you haven't finished your integration, you might find our{' '}
-            <Link style={anchor} href="https://docs.stripe.com/dashboard/basics">
+            <Link
+              style={anchor}
+              href="https://docs.stripe.com/dashboard/basics"
+            >
               docs
             </Link>{' '}
             handy.
@@ -61,7 +64,10 @@ export const StripeWelcomeEmail = () => (
             instead of your test API keys. Your account can simultaneously be
             used for both test and live requests, so you can continue testing
             while accepting live payments. Check out our{' '}
-            <Link style={anchor} href="https://docs.stripe.com/dashboard/basics">
+            <Link
+              style={anchor}
+              href="https://docs.stripe.com/dashboard/basics"
+            >
               tutorial about account basics
             </Link>
             .
