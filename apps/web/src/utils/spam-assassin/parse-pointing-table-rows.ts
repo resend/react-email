@@ -14,7 +14,6 @@ export const parsePointingTableRows = (response: string) => {
   }
 
   const ptsWidth = tableStartMatch.groups.ptsWidth!.length;
-  const ruleNameWidth = tableStartMatch.groups.ruleNameWidth!.length;
   const columnsRegex = new RegExp(
     `^(?<pts>.{${ptsWidth}}) (?<ruleName>.+?) (?<description>.+}|.+$)`,
   );
@@ -37,10 +36,7 @@ export const parsePointingTableRows = (response: string) => {
     const match = line.match(columnsRegex);
 
     // This means the description column was done with multi columns.
-    if (
-      currentRow &&
-      line.startsWith(' '.repeat(ptsWidth + ruleNameWidth + 2))
-    ) {
+    if (currentRow && line.startsWith('  ')) {
       currentRow.description += ` ${line.trimStart()}`;
       continue;
     }
@@ -58,24 +54,24 @@ export const parsePointingTableRows = (response: string) => {
     const ruleName = match.groups.ruleName!.trim();
     const description = match.groups.description!;
 
-    try {
-      if (currentRow) {
-        rows.push(currentRow);
-      }
-      currentRow = {
-        pts: Number.parseFloat(pts),
-        ruleName: ruleName.trim(),
-        description: description.trim(),
-      };
-    } catch (exception) {
+    if (currentRow) {
+      rows.push(currentRow);
+    }
+    const parsedPoints = Number.parseFloat(pts);
+    if (Number.isNaN(parsedPoints)) {
+      console.log(line);
       throw new Error('could not parse points to insert into rows array', {
         cause: {
-          exception,
           line,
           match,
         },
       });
     }
+    currentRow = {
+      pts: parsedPoints,
+      ruleName: ruleName.trim(),
+      description: description.trim(),
+    };
   }
   if (currentRow) {
     rows.push(currentRow);
