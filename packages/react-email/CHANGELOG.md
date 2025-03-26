@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0-alpha.7
+
+### Minor Changes
+
+- Many design improvements
+
 ## 4.0.0-alpha.6
 
 ### Minor Changes

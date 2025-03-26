@@ -1,5 +1,7 @@
 # react-email-starter
 
+## 1.0.0-alpha.6
+
 ## 1.0.0-alpha.5
 
 ## 1.0.0-alpha.4
