@@ -100,7 +100,7 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
             </Results.Column>
             <Results.Column>
               {result.points === 0
-                ? 'Congratulations! Younr email is clean of abuse indicators.'
+                ? 'Congratulations! Your email is clean of abuse indicators.'
                 : 'Higher scores are better'}
             </Results.Column>
             <Results.Column className="text-right tracking-tighter font-bold">
