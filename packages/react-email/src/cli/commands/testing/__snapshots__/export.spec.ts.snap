@@ -42,7 +42,7 @@ exports[`email export 1`] = `
                 <tr>
                   <td>
                     <img
-                      alt="Vercel"
+                      alt="Vercel Logo"
                       height="37"
                       src="/static/vercel-logo.png"
                       style="margin-top:0px;margin-bottom:0px;margin-left:auto;margin-right:auto;display:block;outline:none;border:none;text-decoration:none"
@@ -90,13 +90,14 @@ exports[`email export 1`] = `
                         <tr style="width:100%">
                           <td align="right" data-id="__react-email-column">
                             <img
+                              alt="undefined&#x27;s profile picture"
                               height="64"
                               style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
                               width="64" />
                           </td>
                           <td align="center" data-id="__react-email-column">
                             <img
-                              alt="invited you to"
+                              alt="Arrow indicating invitation"
                               height="9"
                               src="/static/vercel-arrow.png"
                               style="display:block;outline:none;border:none;text-decoration:none"
@@ -104,6 +105,7 @@ exports[`email export 1`] = `
                           </td>
                           <td align="left" data-id="__react-email-column">
                             <img
+                              alt="undefined team logo"
                               height="64"
                               style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
                               width="64" />
