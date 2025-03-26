@@ -16,14 +16,15 @@ export const serveStaticFile = async (
 
   const fileAbsolutePath = path.join(staticBaseDir, pathname);
 
-  const fileHandle = await fs.open(fileAbsolutePath, 'r');
-
   try {
+    const fileHandle = await fs.open(fileAbsolutePath, 'r');
     const fileData = await fs.readFile(fileHandle);
 
     // if the file is found, set Content-type and send data
     res.setHeader('Content-type', lookup(ext) || 'text/plain');
     res.end(fileData);
+
+    fileHandle.close();
   } catch (exception) {
     console.error(
       `Could not read file at ${fileAbsolutePath} to be served, here's the exception:`,
@@ -34,7 +35,5 @@ export const serveStaticFile = async (
     res.end(
       'Could not read file to be served! Check your terminal for more information.',
     );
-  } finally {
-    fileHandle.close();
   }
 };
