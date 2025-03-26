@@ -107,13 +107,7 @@ export const component = (
   <Html>
     <Head />
     <Preview>Top 5 Features of Our Service</Preview>
-    <Body
-      style={{
-        backgroundColor: '#FFFFFF',
-        margin: '0',
-        padding: '24px',
-      }}
-    >
+    <Body>
       <Container
         style={{
           backgroundColor: '#FFFFFF',

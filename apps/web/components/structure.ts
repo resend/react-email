@@ -255,6 +255,9 @@ export const componentsStructure: Category[] = [
     name: 'List',
     description:
       'List components for displaying ordered and unordered lists with different styles.',
-    components: [{ slug: 'simple-list', title: 'Simple List' }],
+    components: [
+      { slug: 'simple-list', title: 'Simple List' },
+      { slug: 'list-with-image-on-left', title: 'List with image on left' },
+    ],
   },
 ];

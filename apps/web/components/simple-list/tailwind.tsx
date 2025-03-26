@@ -65,7 +65,7 @@ export const component = (
   <Html>
     <Head />
     <Preview>Top 5 Features of Our Service</Preview>
-    <Body className="m-0 bg-white p-6">
+    <Body>
       <Container className="mx-auto max-w-[600px] rounded-lg bg-white p-6">
         <Heading className="mb-[42px] text-center text-2xl leading-8">
           Top 5 Features of Our Service
