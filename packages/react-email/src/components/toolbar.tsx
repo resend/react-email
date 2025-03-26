@@ -239,7 +239,7 @@ const ToolbarInner = ({
                   <SuccessTitle>Fully Compatible!</SuccessTitle>
                   <SuccessDescription>
                     Your email is compatible with all major email clients. It
-                    will render properly everywhere.
+                    should render properly everywhere.
                   </SuccessDescription>
                 </div>
               ) : (
