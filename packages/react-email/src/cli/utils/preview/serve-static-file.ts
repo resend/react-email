@@ -1,4 +1,4 @@
-import { promises as fs } from 'node:fs';
+import { promises as fs, existsSync } from 'node:fs';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type http from 'node:http';
 import path from 'node:path';
@@ -26,14 +26,19 @@ export const serveStaticFile = async (
 
     fileHandle.close();
   } catch (exception) {
-    console.error(
-      `Could not read file at ${fileAbsolutePath} to be served, here's the exception:`,
-      exception,
-    );
+    if (!existsSync(fileAbsolutePath)) {
+      res.statusCode = 404;
+      res.end(null);
+    } else {
+      console.error(
+        `Could not read file at ${fileAbsolutePath} to be served, here's the exception:`,
+        exception,
+      );
 
-    res.statusCode = 500;
-    res.end(
-      'Could not read file to be served! Check your terminal for more information.',
-    );
+      res.statusCode = 500;
+      res.end(
+        'Could not read file to be served! Check your terminal for more information.',
+      );
+    }
   }
 };
