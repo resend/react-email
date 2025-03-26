@@ -236,10 +236,9 @@ const ToolbarInner = ({
               ) : compatibilityCheckingResults?.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-8 px-4 my-4">
                   <SuccessIcon />
-                  <SuccessTitle>Fully Compatible!</SuccessTitle>
+                  <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
-                    Your email is compatible with all major email clients. It
-                    should render properly everywhere.
+                    It should render properly everywhere.
                   </SuccessDescription>
                 </div>
               ) : (
