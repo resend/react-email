@@ -34,7 +34,7 @@ exports[`checkSpam() > with papermark email template 1`] = `
     },
   ],
   "isSpam": false,
-  "points": 2.1
+  "points": 2.1,
 }
 `;
 
