@@ -28,7 +28,7 @@ export const serveStaticFile = async (
   } catch (exception) {
     if (!existsSync(fileAbsolutePath)) {
       res.statusCode = 404;
-      res.end(null);
+      res.end();
     } else {
       console.error(
         `Could not read file at ${fileAbsolutePath} to be served, here's the exception:`,
