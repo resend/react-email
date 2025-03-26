@@ -17,7 +17,7 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Customer Reviews</Preview>
+    <Preview>Coffee Storage</Preview>
     <Body>
       <Container
         style={{

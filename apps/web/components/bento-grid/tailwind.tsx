@@ -17,7 +17,7 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Customer Reviews</Preview>
+    <Preview>Coffee Storage</Preview>
     <Body>
       <Container className="bg-white rounded-lg mx-auto max-w-[900px] overflow-hidden p-0">
         <Section>
