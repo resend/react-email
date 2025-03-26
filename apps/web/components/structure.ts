@@ -228,7 +228,7 @@ export const componentsStructure: Category[] = [
     name: 'Marketing',
     description:
       'Marketing components for creating surveys and checkout forms.',
-    components: [{ slug: 'survey', title: 'Survey' }],
+    components: [{ slug: 'bento-grid', title: 'Bento Grid' }],
   },
   {
     name: 'Section',
@@ -249,6 +249,25 @@ export const componentsStructure: Category[] = [
     components: [
       { slug: 'simple-text', title: 'Simple text' },
       { slug: 'text-with-styling', title: 'Text with styling' },
+    ],
+  },
+  {
+    name: 'List',
+    description:
+      'List components for displaying ordered and unordered lists with different styles.',
+    components: [
+      { slug: 'simple-list', title: 'Simple List' },
+      { slug: 'list-with-image-on-left', title: 'List with image on left' },
+    ],
+  },
+  {
+    name: 'Feedback',
+    description:
+      'Feedback components for collecting user feedback with forms and ratings.',
+    components: [
+      { slug: 'simple-rating-survey', title: 'Simple rating survey' },
+      { slug: 'survey-section', title: 'Survey section' },
+      { slug: 'customer-reviews', title: 'Customer reviews' },
     ],
   },
 ];
