@@ -3,7 +3,6 @@ import { sendToSpamd } from '@/utils/spam-assassin/send-to-spamd';
 
 export async function checkSpam(html: string, plainText: string) {
   const response = await sendToSpamd(html, plainText);
-
   const tableRows = parsePointingTableRows(response);
 
   const filteredRows = tableRows.filter(

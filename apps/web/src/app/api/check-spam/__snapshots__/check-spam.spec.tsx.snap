@@ -43,7 +43,7 @@ exports[`checkSpam() > with papermark email template 1`] = `
 }
 `;
 
-exports[`checkSpam() > with real email template 1`] = `
+exports[`checkSpam() > with stripe email template using true base url 1`] = `
 {
   "checks": [],
   "isSpam": false,
