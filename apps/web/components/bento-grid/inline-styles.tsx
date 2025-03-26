@@ -124,6 +124,7 @@ export const component = (
               },
             ].map((product) => (
               <Column
+                key={product.title}
                 style={{
                   margin: '0 auto',
                   maxWidth: '180px',
