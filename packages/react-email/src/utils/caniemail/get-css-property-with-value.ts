@@ -6,8 +6,8 @@ export const getCssPropertyWithValue = (title: string) => {
   if (match) {
     const [_full, propertyName, propertyValue] = match;
     return {
-      name: propertyName,
-      value: propertyValue,
+      name: propertyName!,
+      value: propertyValue!,
     };
   }
   return undefined;
