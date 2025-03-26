@@ -57,7 +57,7 @@ export const VercelInviteUserEmail = ({
                 src={`${baseUrl}/static/vercel-logo.png`}
                 width="40"
                 height="37"
-                alt="Vercel"
+                alt="Vercel Logo"
                 className="my-0 mx-auto"
               />
             </Section>
@@ -86,6 +86,7 @@ export const VercelInviteUserEmail = ({
                     src={userImage}
                     width="64"
                     height="64"
+                    alt={`${username}'s profile picture`}
                   />
                 </Column>
                 <Column align="center">
@@ -93,7 +94,7 @@ export const VercelInviteUserEmail = ({
                     src={`${baseUrl}/static/vercel-arrow.png`}
                     width="12"
                     height="9"
-                    alt="invited you to"
+                    alt="Arrow indicating invitation"
                   />
                 </Column>
                 <Column align="left">
@@ -102,6 +103,7 @@ export const VercelInviteUserEmail = ({
                     src={teamImage}
                     width="64"
                     height="64"
+                    alt={`${teamName} team logo`}
                   />
                 </Column>
               </Row>
@@ -145,7 +147,7 @@ VercelInviteUserEmail.PreviewProps = {
   invitedByEmail: 'alan.turing@example.com',
   teamName: 'Enigma',
   teamImage: `${baseUrl}/static/vercel-team.png`,
-  inviteLink: 'https://vercel.com/teams/invite/foo',
+  inviteLink: 'https://vercel.com',
   inviteFromIp: '204.13.186.218',
   inviteFromLocation: 'São Paulo, Brazil',
 } as VercelInviteUserEmailProps;
