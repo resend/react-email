@@ -103,7 +103,9 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
                 ? 'Congratulations! Younr email is clean of abuse indicators.'
                 : 'Higher scores are better'}
             </Results.Column>
-            <Results.Column className="text-right tracking-tighter font-bold">
+            <Results.Column
+              className="text-right tracking-tighter font-bold"
+            >
               <span
                 className={cn(
                   "text-3xl",
