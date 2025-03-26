@@ -260,4 +260,13 @@ export const componentsStructure: Category[] = [
       { slug: 'list-with-image-on-left', title: 'List with image on left' },
     ],
   },
+  {
+    name: 'Feedback',
+    description:
+      'Feedback components for collecting user feedback with forms and ratings.',
+    components: [
+      { slug: 'simple-rating-survey', title: 'Simple rating survey' },
+      { slug: 'customer-reviews', title: 'Customer reviews' },
+    ],
+  },
 ];
