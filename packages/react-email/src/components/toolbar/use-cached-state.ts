@@ -4,7 +4,7 @@ export const useCachedState = <T>(key: string) => {
   let value: T | undefined = undefined;
   if ('localStorage' in global) {
     const storedValue = global.localStorage.getItem(key);
-    if (storedValue !== null) {
+    if (storedValue !== null && storedValue !== 'undefined') {
       try {
         value = JSON.parse(storedValue) as T;
       } catch (exception) {
@@ -12,7 +12,7 @@ export const useCachedState = <T>(key: string) => {
           'Failed to load stored value for',
           key,
           'with value',
-          value,
+          storedValue,
         );
       }
     }
