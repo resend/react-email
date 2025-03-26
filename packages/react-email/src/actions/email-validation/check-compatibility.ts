@@ -154,7 +154,11 @@ export const checkCompatibility = async (
         );
         if (Object.keys(compatibilityStats.perEmailClient).length === 0)
           continue;
-        if (compatibilityStats.status === 'success') continue;
+        if (
+          compatibilityStats.status === 'success' ||
+          compatibilityStats.status === 'warning'
+        )
+          continue;
 
         if (entry.category === 'html') {
           const entryElements = getElementNames(entry.title, entry.keywords);
@@ -274,8 +278,9 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                property.name === entryFullProperty?.name &&
-                property.value === entryFullProperty.value
+                snakeToCamel(property.name) ===
+                  snakeToCamel(entryFullProperty!.name) &&
+                property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
                 break;
@@ -302,7 +307,8 @@ export const checkCompatibility = async (
               }
             } else if (
               entryProperties.some(
-                (propertyName) => property.name === propertyName,
+                (propertyName) =>
+                  snakeToCamel(property.name) === snakeToCamel(propertyName),
               )
             ) {
               addToInsights(property);
@@ -316,6 +322,12 @@ export const checkCompatibility = async (
   });
 
   return readableStream;
+};
+
+const snakeToCamel = (snakeStr: string) => {
+  return snakeStr
+    .toLowerCase()
+    .replace(/-+([a-z])/g, (_match, letter) => letter.toUpperCase());
 };
 
 export type AST = ReturnType<typeof parse>;
