@@ -12,18 +12,6 @@ import {
 } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
-const reviews = {
-  average: 4,
-  totalCount: 1624,
-  counts: [
-    { rating: 5, count: 1019 },
-    { rating: 4, count: 162 },
-    { rating: 3, count: 97 },
-    { rating: 2, count: 199 },
-    { rating: 1, count: 147 },
-  ],
-};
-
 export const component = (
   <Html>
     <Head />
@@ -35,14 +23,20 @@ export const component = (
             Customer Reviews
           </Heading>
           <div className="mt-3 flex flex-col">
-            <Text className="hidden">{reviews.average} out of 5 stars</Text>
+            <Text className="hidden">4 out of 5 stars</Text>
           </div>
           <Section className="my-6">
             <Heading as="h2" className="hidden">
               Review data
             </Heading>
             <dl className="m-0">
-              {reviews.counts.map((count) => (
+              {[
+                { rating: 5, count: 1019 },
+                { rating: 4, count: 162 },
+                { rating: 3, count: 97 },
+                { rating: 2, count: 199 },
+                { rating: 1, count: 147 },
+              ].map((count) => (
                 <div
                   key={count.rating}
                   className="flex items-center text-sm leading-5"
@@ -62,7 +56,7 @@ export const component = (
                           <div
                             className="absolute top-0 bottom-0 rounded-md bg-indigo-600"
                             style={{
-                              width: `calc(${count.count} / ${reviews.totalCount} * 100%)`,
+                              width: `calc(${count.count} / ${1624} * 100%)`,
                             }}
                           />
                         )}
@@ -70,15 +64,13 @@ export const component = (
                     </div>
                   </dt>
                   <dd className="ml-3 text-right font-medium text-gray-500 text-xs tabular-nums leading-none">
-                    {Math.round((count.count / reviews.totalCount) * 100)}%
+                    {Math.round((count.count / 1624) * 100)}%
                   </dd>
                 </div>
               ))}
             </dl>
             <Text className="mt-[14px] text-center text-gray-500 text-xs leading-6">
-              Based on{' '}
-              <span className="font-semibold">{reviews.totalCount}</span>{' '}
-              Reviews
+              Based on <span className="font-semibold">1624</span> Reviews
             </Text>
           </Section>
           <Hr />

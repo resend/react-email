@@ -12,18 +12,6 @@ import {
 } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
-const reviews = {
-  average: 4,
-  totalCount: 1624,
-  counts: [
-    { rating: 5, count: 1019 },
-    { rating: 4, count: 162 },
-    { rating: 3, count: 97 },
-    { rating: 2, count: 199 },
-    { rating: 1, count: 147 },
-  ],
-};
-
 export const component = (
   <Html>
     <Head />
@@ -49,16 +37,20 @@ export const component = (
               margin: '12px 0 0 0',
             }}
           >
-            <Text style={{ display: 'none' }}>
-              {reviews.average} out of 5 stars
-            </Text>
+            <Text style={{ display: 'none' }}>4 out of 5 stars</Text>
           </div>
           <Section style={{ margin: '24px 0' }}>
             <Heading as="h2" style={{ display: 'none' }}>
               Review data
             </Heading>
             <dl style={{ margin: '0' }}>
-              {reviews.counts.map((count) => (
+              {[
+                { rating: 5, count: 1019 },
+                { rating: 4, count: 162 },
+                { rating: 3, count: 97 },
+                { rating: 2, count: 199 },
+                { rating: 1, count: 147 },
+              ].map((count) => (
                 <div
                   key={count.rating}
                   style={{
@@ -117,7 +109,7 @@ export const component = (
                               bottom: '0',
                               position: 'absolute',
                               top: '0',
-                              width: `calc(${count.count} / ${reviews.totalCount} * 100%)`,
+                              width: `calc(${count.count} / ${1624} * 100%)`,
                             }}
                           />
                         ) : null}
@@ -135,7 +127,7 @@ export const component = (
                       textAlign: 'right',
                     }}
                   >
-                    {Math.round((count.count / reviews.totalCount) * 100)}%
+                    {Math.round((count.count / 1624) * 100)}%
                   </dd>
                 </div>
               ))}
@@ -149,9 +141,7 @@ export const component = (
                 textAlign: 'center',
               }}
             >
-              Based on{' '}
-              <span style={{ fontWeight: '600' }}>{reviews.totalCount}</span>{' '}
-              Reviews
+              Based on <span style={{ fontWeight: '600' }}>1624</span> Reviews
             </Text>
           </Section>
           <Hr />
