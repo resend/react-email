@@ -1,7 +1,7 @@
 import { render } from '@react-email/components';
 import PapermarkYearInReviewEmail from '../../../../../demo/emails/notifications/papermark-year-in-review';
-import { StripeWelcomeEmail } from '../../../../../demo/emails/welcome/stripe-welcome';
 import { checkSpam } from './check-spam';
+import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
 describe('checkSpam()', () => {
   test('with most spammy email', async () => {
@@ -22,9 +22,11 @@ describe('checkSpam()', () => {
     expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });
 
-  test('with real email template', async () => {
+  test('with stripe email template using true base url', async () => {
     const html = await render(<StripeWelcomeEmail />);
-    const plainText = await render(<StripeWelcomeEmail />, { plainText: true });
+    const plainText = await render(<StripeWelcomeEmail />, {
+      plainText: true,
+    });
 
     expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });

@@ -32,18 +32,13 @@ exports[`checkSpam() > with papermark email template 1`] = `
       "name": "FONT_INVIS_LONG_LINE",
       "points": 2.1,
     },
-    {
-      "description": "HTML hidden text - word obfuscation?",
-      "name": "HTML_TEXT_INVISIBLE_FONT",
-      "points": 0.8,
-    },
   ],
   "isSpam": false,
-  "points": 2.9000000000000004,
+  "points": 2.1,
 }
 `;
 
-exports[`checkSpam() > with real email template 1`] = `
+exports[`checkSpam() > with stripe email template using true base url 1`] = `
 {
   "checks": [],
   "isSpam": false,
