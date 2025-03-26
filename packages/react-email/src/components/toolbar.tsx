@@ -8,9 +8,9 @@ import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
-import { IconCheck } from './icons/icon-check';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import {
