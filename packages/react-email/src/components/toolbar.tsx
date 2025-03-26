@@ -8,6 +8,7 @@ import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
+import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
@@ -215,17 +216,16 @@ const ToolbarInner = ({
                 <div className="animate-pulse text-slate-11 text-sm pt-1">
                   Running linting...
                 </div>
-              ) : (
-                <Linter rows={lintingRows} />
-              )}
-            </Tabs.Content>
-            <Tabs.Content value="spam-assassin">
-              {spamLoading ? (
-                <div className="animate-pulse text-slate-11 text-sm pt-1">
-                  Running spam check...
+              ) : lintingRows?.length === 0 ? (
+                <div className="flex flex-col items-center justify-center pt-8">
+                  <SuccessIcon />
+                  <SuccessTitle>All good</SuccessTitle>
+                  <SuccessDescription>
+                    No linting issues found.
+                  </SuccessDescription>
                 </div>
               ) : (
-                <SpamAssassin result={spamCheckingResult} />
+                <Linter rows={lintingRows ?? []} />
               )}
             </Tabs.Content>
             <Tabs.Content value="compatibility">
@@ -233,14 +233,65 @@ const ToolbarInner = ({
                 <div className="animate-pulse text-slate-11 text-sm pt-1">
                   Running compatibility check...
                 </div>
+              ) : compatibilityCheckingResults?.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-8 px-4 my-4">
+                  <SuccessIcon />
+                  <SuccessTitle>Great compatibility</SuccessTitle>
+                  <SuccessDescription>
+                    It should render properly everywhere.
+                  </SuccessDescription>
+                </div>
               ) : (
-                <Compatibility results={compatibilityCheckingResults} />
+                <Compatibility results={compatibilityCheckingResults ?? []} />
+              )}
+            </Tabs.Content>
+            <Tabs.Content value="spam-assassin">
+              {spamLoading ? (
+                <div className="animate-pulse text-slate-11 text-sm pt-1">
+                  Running spam check...
+                </div>
+              ) : spamCheckingResult?.isSpam === false ? (
+                <div className="flex flex-col items-center justify-center py-4 px-4 my-4">
+                  <SuccessIcon />
+                  <SuccessTitle>10/10</SuccessTitle>
+                  <SuccessDescription>
+                    Your email is clean of abuse indicators.
+                  </SuccessDescription>
+                </div>
+              ) : (
+                <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
           </div>
         </div>
       </Tabs.Root>
     </div>
+  );
+};
+
+const SuccessIcon = () => {
+  return (
+    <div className="relative mb-8 flex items-center justify-center">
+      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
+      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+        <IconCheck size={24} className="text-white drop-shadow-sm" />
+      </div>
+    </div>
+  );
+};
+
+const SuccessTitle = ({ children }) => {
+  return (
+    <h3 className="text-slate-12 font-medium text-base mb-1">{children}</h3>
+  );
+};
+
+const SuccessDescription = ({ children }) => {
+  return (
+    <p className="text-slate-11 text-sm text-center max-w-[300px]">
+      {children}
+    </p>
   );
 };
 
