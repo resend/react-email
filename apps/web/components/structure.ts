@@ -228,7 +228,7 @@ export const componentsStructure: Category[] = [
     name: 'Marketing',
     description:
       'Marketing components for creating surveys and checkout forms.',
-    components: [{ slug: 'survey', title: 'Survey' }],
+    components: [{ slug: 'bento-grid', title: 'Bento Grid' }],
   },
   {
     name: 'Section',
@@ -266,6 +266,7 @@ export const componentsStructure: Category[] = [
       'Feedback components for collecting user feedback with forms and ratings.',
     components: [
       { slug: 'simple-rating-survey', title: 'Simple rating survey' },
+      { slug: 'survey-section', title: 'Survey section' },
       { slug: 'customer-reviews', title: 'Customer reviews' },
     ],
   },
