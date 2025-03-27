@@ -7,7 +7,6 @@ import { Heading } from '../heading';
 import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
-import { Tooltip } from '../tooltip';
 import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface SidebarDirectoryProps {
@@ -63,22 +62,15 @@ export const FileTreeDirectory = ({
         ) : (
           <IconFolder height="20" width="20" />
         )}
-        <Tooltip.Provider>
-          <Tooltip>
-            <Tooltip.Trigger asChild>
-              <Heading
-                as="h3"
-                className="transition grow w-[calc(100%-40px)] truncate duration-200 ease-in-out hover:text-slate-12"
-                color="gray"
-                size="2"
-                weight="medium"
-              >
-                {directoryMetadata.directoryName}
-              </Heading>
-            </Tooltip.Trigger>
-            <Tooltip.Content>{directoryMetadata.directoryName}</Tooltip.Content>
-          </Tooltip>
-        </Tooltip.Provider>
+        <Heading
+          as="h3"
+          className="transition grow w-[calc(100%-40px)] truncate duration-200 ease-in-out hover:text-slate-12"
+          color="gray"
+          size="2"
+          weight="medium"
+        >
+          {directoryMetadata.directoryName}
+        </Heading>
         {!isEmpty ? (
           <IconArrowDown
             width="20"
