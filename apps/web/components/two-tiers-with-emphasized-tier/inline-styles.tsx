@@ -148,7 +148,7 @@ export const component = (
                 }}
               >
                 {plan.features.map((feature) => (
-                  <li style={{ marginBottom: '8px' }}>{feature}</li>
+                  <li key={feature} style={{ marginBottom: '8px' }}>{feature}</li>
                 ))}
               </ul>
               <Button
