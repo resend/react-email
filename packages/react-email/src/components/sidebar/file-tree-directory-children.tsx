@@ -5,8 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
-import { FileTreeDirectory } from './file-tree-directory';
 import { Tooltip } from '../tooltip';
+import { FileTreeDirectory } from './file-tree-directory';
 
 export const FileTreeDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
