@@ -1,5 +1,12 @@
 # react-email
 
+## 4.0.1
+
+### Patch Changes
+
+- 8fd7409: Fix static files regression
+- 8448a0b: Improved classes, better borders on table, improved scollbar colors
+
 ## 4.0.0
 
 ### Major Changes
