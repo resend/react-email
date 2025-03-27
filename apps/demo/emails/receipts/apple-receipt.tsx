@@ -44,7 +44,7 @@ export const AppleReceiptEmail = () => (
           <Text style={cupomText}>
             Save 3% on all your Apple purchases with Apple Card.
             <sup style={supStyle}>1</sup>{' '}
-            <Link href="https://www.apple.com/apple-card">
+            <Link href="https://www.apple.com/apple-card/">
               Apply and use in minutes
             </Link>
             <sup style={supStyle}>2</sup>
@@ -126,19 +126,11 @@ export const AppleReceiptEmail = () => (
               <Text style={productTitle}>HBO Max: Stream TV &amp; Movies</Text>
               <Text style={productDescription}>HBO Max Ad-Free (Monthly)</Text>
               <Text style={productDescription}>Renews Aug 20, 2023</Text>
-              <Link
-                href="https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc=us&amp;id=1497977514&amp;o=i&amp;type=Subscription%20Renewal"
-                style={productLink}
-                data-saferedirecturl="https://www.google.com/url?q=https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?cc%3Dus%26id%3D1497977514%26o%3Di%26type%3DSubscription%2520Renewal&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw2DFCLKMo1snS-Swk5H26Z1"
-              >
+              <Link href="https://www.apple.com/" style={productLink}>
                 Write a Review
               </Link>
               <span style={divisor}>|</span>
-              <Link
-                href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a=1497977514&amp;cc=us&amp;d=683263808&amp;o=i&amp;p=29065684906671&amp;pli=29092219632071&amp;s=1"
-                style={productLink}
-                data-saferedirecturl="https://www.google.com/url?q=https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/reportAProblem?a%3D1497977514%26cc%3Dus%26d%3D683263808%26o%3Di%26p%3D29065684906671%26pli%3D29092219632071%26s%3D1&amp;source=gmail&amp;ust=1673963081204000&amp;usg=AOvVaw3y47L06B2LTrL6qsmaW2Hq"
-              >
+              <Link href="https://www.apple.com/" style={productLink}>
                 Report a Problem
               </Link>
             </Column>
@@ -183,10 +175,7 @@ export const AppleReceiptEmail = () => (
         <Section>
           <Row>
             <Column align="center" style={walletWrapper}>
-              <Link
-                href="https://wallet.apple.com/apple-card/setup/feature/ccs?referrer=cid%3Dapy-120-100003"
-                style={walletLink}
-              >
+              <Link href="https://www.apple.com/" style={walletLink}>
                 <Img
                   src={`${baseUrl}/static/apple-wallet.png`}
                   width="28"
@@ -227,7 +216,7 @@ export const AppleReceiptEmail = () => (
         </Text>
         <Text style={footerTextCenter}>
           Privacy: We use a
-          <Link href="http://support.apple.com/kb/HT207233" style={footerLink}>
+          <Link href="https://www.apple.com/" style={footerLink}>
             {' '}
             Subscriber ID{' '}
           </Link>
@@ -235,16 +224,13 @@ export const AppleReceiptEmail = () => (
         </Text>
         <Text style={footerTextCenter}>
           Get help with subscriptions and purchases.
-          <Link
-            href="https://support.apple.com/billing?cid=email_receipt"
-            style={footerLink}
-          >
+          <Link href="https://www.apple.com/" style={footerLink}>
             Visit Apple Support.
           </Link>
         </Text>
         <Text style={footerTextCenter}>
           Learn how to{' '}
-          <Link href="https://support.apple.com/kb/HT204030?cid=email_receipt_itunes_article_HT204030">
+          <Link href="https://www.apple.com/">
             manage your password preferences
           </Link>{' '}
           for iTunes, Apple Books, and App Store purchases.
@@ -256,9 +242,7 @@ export const AppleReceiptEmail = () => (
           subscription renewals. If you have opted out, you can still view your
           receipts in your account under Purchase History. To manage receipts or
           to opt in again, go to{' '}
-          <Link href="https://finance-app.itunes.apple.com/account/subscriptions?unsupportedRedirectUrl=https://apps.apple.com/US/invoice">
-            Account Settings.
-          </Link>
+          <Link href="https://www.apple.com/">Account Settings.</Link>
         </Text>
         <Section>
           <Row>
@@ -273,14 +257,8 @@ export const AppleReceiptEmail = () => (
           </Row>
         </Section>
         <Text style={footerLinksWrapper}>
-          <Link href="https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/accountSummary?mt=8">
-            Account Settings
-          </Link>{' '}
-          •{' '}
-          <Link href="https://www.apple.com/legal/itunes/us/sales.html">
-            Terms of Sale
-          </Link>{' '}
-          •{' '}
+          <Link href="https://www.apple.com/">Account Settings</Link> •{' '}
+          <Link href="https://www.apple.com/">Terms of Sale</Link> •{' '}
           <Link href="https://www.apple.com/legal/privacy/">
             Privacy Policy{' '}
           </Link>
@@ -344,7 +322,7 @@ const informationTable = {
 };
 
 const informationTableRow = {
-  height: '46px',
+  minHeight: '46px',
 };
 
 const informationTableColumn = {
@@ -352,7 +330,7 @@ const informationTableColumn = {
   borderStyle: 'solid',
   borderColor: 'white',
   borderWidth: '0px 1px 1px 0px',
-  height: '44px',
+  minHeight: '44px',
 };
 
 const informationTableLabel = {
@@ -371,7 +349,7 @@ const informationTableValue = {
 const productTitleTable = {
   ...informationTable,
   margin: '30px 0 15px 0',
-  height: '24px',
+  minHeight: '24px',
 };
 
 const productsTitle = {
@@ -385,7 +363,7 @@ const productsTitle = {
 const productIcon = {
   margin: '0 0 0 20px',
   borderRadius: '14px',
-  border: '1px solid rgba(128,128,128,0.2)',
+  border: '1px solid rgb(242,242,242)',
 };
 
 const productTitle = { fontSize: '12px', fontWeight: '600', ...resetText };
@@ -442,7 +420,8 @@ const productPriceWrapper = {
 const productPriceLine = { margin: '30px 0 0 0' };
 
 const productPriceVerticalLine = {
-  height: '48px',
+  minHeight: '48px',
+  paddingTop: '48px',
   borderLeft: '1px solid',
   borderColor: 'rgb(238,238,238)',
 };
