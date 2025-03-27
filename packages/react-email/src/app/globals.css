@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  color-scheme: dark;
+}
+
 .popup-open iframe {
   pointer-events: none;
 }
