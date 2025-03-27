@@ -1,27 +1,39 @@
 'use client';
 
 import { use } from 'react';
+import { cn } from '../utils';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
 import { ShellContext } from './shell';
 import { Tooltip } from './tooltip';
 
-interface TopbarProps {
+interface TopbarProps extends React.ComponentProps<'header'> {
   emailTitle: string;
   children: React.ReactNode;
 }
 
-export const Topbar = ({ emailTitle, children }: TopbarProps) => {
+export const Topbar = ({
+  emailTitle,
+  children,
+  className,
+  ...props
+}: TopbarProps) => {
   const { toggleSidebar } = use(ShellContext)!;
 
   return (
     <Tooltip.Provider>
-      <header className="relative flex h-[3.3125rem] items-center justify-between gap-3 border-slate-6 border-b px-3 py-2">
-        <div className="relative flex w-fit items-center gap-3">
+      <header
+        {...props}
+        className={cn(
+          'flex h-14 items-center justify-between gap-3 border-slate-6 border-b px-3 py-2',
+          className,
+        )}
+      >
+        <div className="flex w-fit items-center gap-3">
           <Tooltip>
             <Tooltip.Trigger asChild>
               <button
-                className="relative hidden rounded-lg px-2 py-2 text-slate-11 transition duration-200 ease-in-out hover:bg-slate-5 hover:text-slate-12 lg:flex"
+                className="hidden rounded-lg px-2 py-2 text-slate-11 transition duration-200 ease-in-out hover:bg-slate-5 hover:text-slate-12 lg:flex"
                 onClick={() => {
                   toggleSidebar();
                 }}

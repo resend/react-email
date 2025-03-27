@@ -1,30 +1,31 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useRef } from 'react';
+import { use, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
 import {
-  ResizableWarpper,
+  ResizableWrapper,
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
 import { Send } from '../../../components/send';
-import { ShellContent } from '../../../components/shell';
+import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
+import { cn } from '../../../utils';
 import { RenderingError } from './rendering-error';
 
-interface PreviewProps {
+interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
 }
 
-const Preview = ({ emailTitle }: PreviewProps) => {
+const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
 
   const router = useRouter();
@@ -53,21 +54,21 @@ const Preview = ({ emailTitle }: PreviewProps) => {
   const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
   const hasErrors = 'error' in renderingResult;
 
-  const maxWidthRef = useRef(Number.POSITIVE_INFINITY);
-  const maxHeightRef = useRef(Number.POSITIVE_INFINITY);
-  const minWidth = 350;
-  const minHeight = 600;
+  const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
+  const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
+  const minWidth = 100;
+  const minHeight = 100;
   const storedWidth = searchParams.get('width');
   const storedHeight = searchParams.get('height');
   const [width, setWidth] = useClampedState(
     storedWidth ? Number.parseInt(storedWidth) : 600,
-    350,
-    maxWidthRef.current,
+    minWidth,
+    maxWidth,
   );
   const [height, setHeight] = useClampedState(
     storedHeight ? Number.parseInt(storedHeight) : 1024,
-    600,
-    maxHeightRef.current,
+    minHeight,
+    maxHeight,
   );
 
   const handleSaveViewSize = useDebouncedCallback(() => {
@@ -76,6 +77,8 @@ const Preview = ({ emailTitle }: PreviewProps) => {
     params.set('height', height.toString());
     router.push(`${pathname}?${params.toString()}${location.hash}`);
   }, 300);
+
+  const { toggled: toolbarToggled } = useToolbarState();
 
   return (
     <>
@@ -107,14 +110,20 @@ const Preview = ({ emailTitle }: PreviewProps) => {
         ) : null}
       </Topbar>
 
-      <ShellContent
-        className="relative flex bg-gray-200 p-4"
+      <div
+        {...props}
+        className={cn(
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-height flex p-4 transition-all duration-300',
+          activeView === 'preview' && 'bg-gray-200',
+          toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
+          className,
+        )}
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
             if (elementEntry) {
-              maxWidthRef.current = elementEntry.contentRect.width;
-              maxHeightRef.current = elementEntry.contentRect.height;
+              setMaxWidth(elementEntry.contentRect.width);
+              setMaxHeight(elementEntry.contentRect.height);
             }
           });
 
@@ -132,11 +141,11 @@ const Preview = ({ emailTitle }: PreviewProps) => {
         {hasRenderingMetadata ? (
           <>
             {activeView === 'preview' && (
-              <ResizableWarpper
+              <ResizableWrapper
                 minHeight={minHeight}
                 minWidth={minWidth}
-                maxHeight={maxHeightRef.current}
-                maxWidth={maxWidthRef.current}
+                maxHeight={maxHeight}
+                maxWidth={maxWidth}
                 height={height}
                 onResizeEnd={() => {
                   handleSaveViewSize();
@@ -166,12 +175,12 @@ const Preview = ({ emailTitle }: PreviewProps) => {
                   }}
                   title={emailTitle}
                 />
-              </ResizableWarpper>
+              </ResizableWrapper>
             )}
 
             {activeView === 'source' && (
-              <div className="h-full w-full bg-black">
-                <div className="m-auto flex max-w-3xl p-6">
+              <div className="h-full w-full">
+                <div className="m-auto h-full flex max-w-3xl p-6">
                   <Tooltip.Provider>
                     <CodeContainer
                       activeLang={activeLang}
@@ -199,7 +208,7 @@ const Preview = ({ emailTitle }: PreviewProps) => {
         ) : null}
 
         <Toaster />
-      </ShellContent>
+      </div>
     </>
   );
 };
