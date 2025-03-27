@@ -238,7 +238,7 @@ const ToolbarInner = ({
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
-                    It should render properly everywhere.
+                    Template should render properly everywhere.
                   </SuccessDescription>
                 </div>
               ) : (
@@ -289,7 +289,7 @@ const SuccessTitle = ({ children }) => {
 
 const SuccessDescription = ({ children }) => {
   return (
-    <p className="text-slate-11 text-sm text-center max-w-[300px]">
+    <p className="text-slate-11 text-sm text-center max-w-[320px]">
       {children}
     </p>
   );
