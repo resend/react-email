@@ -3,6 +3,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import * as React from 'react';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import { Tooltip } from '../tooltip';
 import { Heading } from '../heading';
 import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
@@ -51,30 +52,33 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'mt-1 mb-1.5 flex w-full items-center justify-between gap-2 font-medium text-[14px]',
+          'mt-1 mb-1.5 flex w-full items-center text-start justify-between gap-2 font-medium text-[14px]',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center text-start gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
-          {open ? (
-            <IconFolderOpen className="w-[20px]" height="20" width="20" />
-          ) : (
-            <IconFolder height="20" width="20" />
-          )}
-          <Heading
-            as="h3"
-            className="transition grow w-min overflow-hidden text-ellipsis text-nowrap duration-200 ease-in-out hover:text-slate-12"
-            color="gray"
-            size="2"
-            weight="medium"
-          >
-            <span className="w-full max-w-full">
-              {directoryMetadata.directoryName}
-            </span>
-          </Heading>
-        </div>
+        {open ? (
+          <IconFolderOpen className="w-[20px]" height="20" width="20" />
+        ) : (
+          <IconFolder height="20" width="20" />
+        )}
+        <Tooltip.Provider>
+          <Tooltip>
+            <Tooltip.Trigger asChild>
+              <Heading
+                as="h3"
+                className="transition grow w-[calc(100%-40px)] overflow-hidden text-ellipsis text-nowrap duration-200 ease-in-out hover:text-slate-12"
+                color="gray"
+                size="2"
+                weight="medium"
+              >
+                {directoryMetadata.directoryName}
+              </Heading>
+            </Tooltip.Trigger>
+            <Tooltip.Content>{directoryMetadata.directoryName}</Tooltip.Content>
+          </Tooltip>
+        </Tooltip.Provider>
         {!isEmpty ? (
           <IconArrowDown
             width="20"
