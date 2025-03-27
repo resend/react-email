@@ -203,7 +203,7 @@ const ToolbarInner = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-3">
+          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
             <Tabs.Content value="linter">
               {lintLoading ? (
                 <LoadingState message="Analyzing your code for linting issues..." />
