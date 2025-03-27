@@ -25,7 +25,7 @@ Results.Row = ({
   return (
     <tr
       className={cn(
-        'border-collapse align-bottom border-slate-6 border-b',
+        'border-collapse align-bottom border-slate-6 border-b last:border-b-0',
         className,
       )}
       {...props}
