@@ -27,7 +27,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       className={`${inter.variable} ${sfMono.variable} font-sans`}
       lang="en"
     >
-      <body className="relative flex h-screen flex-col overflow-x-hidden bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
+      <body className="relative flex h-screen flex-col overflow-hidden bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
         <EmailsProvider
           initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
         >

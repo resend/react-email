@@ -16,7 +16,7 @@ export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
   return (
     <aside
       className={cn(
-        'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full w-screen max-w-full bg-black will-change-auto',
+        'overflow-hidden bg-black',
         'lg:static lg:z-auto lg:max-h-screen lg:w-[16rem]',
         className,
       )}

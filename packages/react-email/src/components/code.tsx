@@ -97,7 +97,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
-          <div className="flex h-[650px] p-4 max-h-[calc(100vh-10rem)] after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto">
+          <div className="flex max-h-[650px] h-full p-4 after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto">
             <div className="text-[#49494f] text-[13px] font-light font-[MonoLisa,_Menlo,_monospace]">
               {tokens.map((_, i) => (
                 <Link
