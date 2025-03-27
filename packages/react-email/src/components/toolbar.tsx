@@ -210,13 +210,13 @@ const ToolbarInner = ({
                   Running linting...
                 </div>
               ) : lintingRows?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>All good</SuccessTitle>
                   <SuccessDescription>
                     No linting issues found.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <Linter rows={lintingRows ?? []} />
               )}
@@ -227,13 +227,13 @@ const ToolbarInner = ({
                   Running compatibility check...
                 </div>
               ) : compatibilityCheckingResults?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
                     Template should render properly everywhere.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <Compatibility results={compatibilityCheckingResults ?? []} />
               )}
@@ -244,13 +244,13 @@ const ToolbarInner = ({
                   Running spam check...
                 </div>
               ) : spamCheckingResult?.isSpam === false ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>10/10</SuccessTitle>
                   <SuccessDescription>
                     Your email is clean of abuse indicators.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <SpamAssassin result={spamCheckingResult} />
               )}
@@ -258,6 +258,14 @@ const ToolbarInner = ({
           </div>
         </div>
       </Tabs.Root>
+    </div>
+  );
+};
+
+const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col items-center justify-center pt-8">
+      {children}
     </div>
   );
 };
