@@ -4,7 +4,7 @@ import { cn } from '../utils';
 
 type Direction = 'north' | 'south' | 'east' | 'west';
 
-type ResizableWarpperProps = {
+type ResizableWrapperProps = {
   width: number;
   height: number;
 
@@ -41,7 +41,7 @@ export const makeIframeDocumentBubbleEvents = (iframe: HTMLIFrameElement) => {
   };
 };
 
-export const ResizableWarpper = ({
+export const ResizableWrapper = ({
   width,
   height,
   onResize,
@@ -54,7 +54,7 @@ export const ResizableWarpper = ({
   minWidth,
 
   ...rest
-}: ResizableWarpperProps) => {
+}: ResizableWrapperProps) => {
   const resizableRef = useRef<HTMLElement>(null);
 
   const mouseMoveListener = useRef<(event: MouseEvent) => void>(null);

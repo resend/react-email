@@ -39,7 +39,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
   return (
     <div
-      className="relative w-full items-center whitespace-pre rounded-md border border-slate-6 text-sm"
+      className="relative max-h-[650px] w-full h-full whitespace-pre rounded-md border border-slate-6 text-sm"
       style={{
         lineHeight: '130%',
         background:
@@ -84,7 +84,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
           filename={`email.${activeMarkup.language}`}
         />
       </div>
-      <div>
+      <div className="h-[calc(100%-2.25rem)]">
         <Code language={activeLang}>{activeMarkup.content}</Code>
       </div>
     </div>
