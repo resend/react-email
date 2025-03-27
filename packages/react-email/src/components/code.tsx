@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { Language } from 'prism-react-renderer';
 import { Highlight } from 'prism-react-renderer';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { useFragmentIdentifier } from '../hooks/use-fragment-identifier';
 import { cn } from '../utils';
 
@@ -73,12 +73,18 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     return highlight[0] <= line && highlight[1] >= line;
   };
 
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (highlight) {
-      document.getElementById(`L${highlight[0]}`)?.scrollIntoView({
-        block: 'start',
-        behavior: 'smooth',
-      });
+      const scroller = scrollerRef.current
+    if (highlight && scroller) {
+      const lineElement = scroller.querySelector(`#L${highlight[0]}`);
+      if (lineElement instanceof HTMLAnchorElement) {
+        scroller.scrollTo({
+          top: lineElement.offsetTop,
+          behavior: 'smooth',
+        });
+      }
     }
   }, [highlight]);
 
@@ -97,7 +103,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
             }}
           />
-          <div className="flex max-h-[650px] h-full p-4 after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto">
+          <div
+            ref={scrollerRef}
+            className="flex max-h-[650px] h-full p-4 after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto"
+          >
             <div className="text-[#49494f] text-[13px] font-light font-[MonoLisa,_Menlo,_monospace]">
               {tokens.map((_, i) => (
                 <Link
