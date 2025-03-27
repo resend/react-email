@@ -1,0 +1,79 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Custom plugins config > should be able to use custom plugins 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="border:2px solid"></div><!--/$-->"`;
+
+exports[`Custom plugins config > should be able to use custom plugins with responsive styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_border-custom{border:2px solid !important}}</style></head><body><div class="sm_border-custom" style="border:2px solid"></div><!--/$--></body></html>"`;
+
+exports[`Custom theme config > should be able to use custom border radius 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="border-radius:2rem"></div><!--/$-->"`;
+
+exports[`Custom theme config > should be able to use custom colors 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="color:rgb(31,182,255);background-color:rgb(31,182,255)"></div><!--/$-->"`;
+
+exports[`Custom theme config > should be able to use custom fonts 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-family:Graphik, sans-serif"></div><div style="font-family:Merriweather, serif"></div><!--/$-->"`;
+
+exports[`Custom theme config > should be able to use custom spacing 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin:96rem"></div><!--/$-->"`;
+
+exports[`Custom theme config > should be able to use custom text alignment 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="text-align:justify"></div><!--/$-->"`;
+
+exports[`Responsive styles > should add css to <head/> and keep responsive class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Responsive styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}</style></head><body class="md_px-64px" style="background-color:rgb(255,255,255);margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="md_px-64px"></div><!--/$--></body>"`;
+
+exports[`Responsive styles > should persist existing <head/> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Responsive styles > should throw an error when used without a <head/> 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:bg-red-500.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Responsive styles > should throw error when used without the head and with media query class names only very deeply nested 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:h-10 sm:w-10.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Responsive styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Responsive styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+
+exports[`Responsive styles > should work with relatively complex media query utilities 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media not all and(min-width:640px){.max-sm_text-red-600{color:rgb(220,38,38) !important}}</style></head><p class="max-sm_text-red-600" style="color:rgb(29,78,216)">I am some text</p><!--/$-->"`;
+
+exports[`Tailwind component > <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md"> 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="padding-left:0.75rem;padding-right:0.75rem;padding-top:0.5rem;padding-bottom:0.5rem;margin-top:2rem;font-size:0.875rem;line-height:1.25rem;color:rgb(229,231,235);background-color:rgb(37,99,235);border-radius:0.375rem;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:8px 12px 8px 12px" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`;
+
+exports[`Tailwind component > it should not generate styles from text 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`;
+
+exports[`Tailwind component > should allow for complex children manipulation 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`;
+
+exports[`Tailwind component > should be able to use background image 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-image:url(https://example.com/image.png)"></div><!--/$-->"`;
+
+exports[`Tailwind component > should not override inline styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`;
+
+exports[`Tailwind component > should preserve mso styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242) !important}.sm_text-sm{font-size:0.875rem !important;line-height:1.25rem !important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem !important;line-height:1.75rem !important}}</style></head><span><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span><div class="sm_bg-red-50 sm_text-sm md_text-lg custom-class" style="background-color:rgb(255,255,255)"></div><!--/$--></html>"`;
+
+exports[`Tailwind component > should recognize custom responsive screen 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class="xl_bg-green-500" style="background-color:rgb(254,226,226)">Test</div><div class="twoxl_bg-blue-500">Test</div><!--/$--></html>"`;
+
+exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="color:rgb(0,0,0);font-size:14px;line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="color:rgb(0,0,0);font-size:14px;line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
+
+exports[`Tailwind component > should work with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
+
+exports[`Tailwind component > should work with calc() with + sign 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><!--$--><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem) !important}}</style></head><div class="lg_max-h-calc50pxplus5rem" style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px">something tall</div></div><!--/$-->"`;
+
+exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="color:rgb(96,165,250);padding:4px;background-color:rgb(239,68,68)"></div><!--/$-->"`;
+
+exports[`Tailwind component > should work with components that return children 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`Tailwind component > should work with components that use React.forwardRef 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`Tailwind component > should work with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="font-size:50px;line-height:1;margin-top:100px">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;

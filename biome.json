@@ -59,6 +59,7 @@
   "files": {
     "ignore": [
       "dist",
+      "patched",
       "pnpm-lock.yaml",
       ".next",
       "public",
