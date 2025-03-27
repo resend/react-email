@@ -113,7 +113,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <div
         {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-auto flex bg-gray-200 p-4',
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-auto flex p-4',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
@@ -140,41 +140,43 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         {hasRenderingMetadata ? (
           <>
             {activeView === 'preview' && (
-              <ResizableWrapper
-                minHeight={minHeight}
-                minWidth={minWidth}
-                maxHeight={maxHeight}
-                maxWidth={maxWidth}
-                height={height}
-                onResizeEnd={() => {
-                  handleSaveViewSize();
-                }}
-                onResize={(value, direction) => {
-                  const isHorizontal =
-                    direction === 'east' || direction === 'west';
-                  if (isHorizontal) {
-                    setWidth(value);
-                  } else {
-                    setHeight(value);
-                  }
-                }}
-                width={width}
-              >
-                <iframe
-                  className="solid max-h-full rounded-lg bg-white"
-                  ref={(iframe) => {
-                    if (iframe) {
-                      return makeIframeDocumentBubbleEvents(iframe);
+              <div className="w-full h-full bg-gray-200 flex">
+                <ResizableWrapper
+                  minHeight={minHeight}
+                  minWidth={minWidth}
+                  maxHeight={maxHeight}
+                  maxWidth={maxWidth}
+                  height={height}
+                  onResizeEnd={() => {
+                    handleSaveViewSize();
+                  }}
+                  onResize={(value, direction) => {
+                    const isHorizontal =
+                      direction === 'east' || direction === 'west';
+                    if (isHorizontal) {
+                      setWidth(value);
+                    } else {
+                      setHeight(value);
                     }
                   }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
-                  title={emailTitle}
-                />
-              </ResizableWrapper>
+                  width={width}
+                >
+                  <iframe
+                    className="solid max-h-full rounded-lg bg-white"
+                    ref={(iframe) => {
+                      if (iframe) {
+                        return makeIframeDocumentBubbleEvents(iframe);
+                      }
+                    }}
+                    srcDoc={renderedEmailMetadata.markup}
+                    style={{
+                      width: `${width}px`,
+                      height: `${height}px`,
+                    }}
+                    title={emailTitle}
+                  />
+                </ResizableWrapper>
+              </div>
             )}
 
             {activeView === 'source' && (
