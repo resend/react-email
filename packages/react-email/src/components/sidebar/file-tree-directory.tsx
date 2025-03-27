@@ -68,7 +68,7 @@ export const FileTreeDirectory = ({
             <Tooltip.Trigger asChild>
               <Heading
                 as="h3"
-                className="transition grow w-[calc(100%-40px)] overflow-hidden text-ellipsis text-nowrap duration-200 ease-in-out hover:text-slate-12"
+                className="transition grow w-[calc(100%-40px)] truncate duration-200 ease-in-out hover:text-slate-12"
                 color="gray"
                 size="2"
                 weight="medium"
