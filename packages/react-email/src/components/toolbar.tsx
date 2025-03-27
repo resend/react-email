@@ -156,13 +156,6 @@ const ToolbarInner = ({
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
                   'Info'
                 }
-                onClick={() => {
-                  if (activeTab === undefined) {
-                    setActivePanelValue('linter');
-                  } else {
-                    setActivePanelValue(undefined);
-                  }
-                }}
               >
                 <IconInfo size={24} />
               </ToolbarButton>
