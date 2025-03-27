@@ -1,5 +1,12 @@
 # react-email
 
+## 4.0.0-alpha.8
+
+### Patch Changes
+
+- edb331b: fix linting hanging because of missing images
+- Fixes linting hanging due to missing images, overflowing problems, design issues and typos
+
 ## 4.0.0-alpha.7
 
 ### Minor Changes
