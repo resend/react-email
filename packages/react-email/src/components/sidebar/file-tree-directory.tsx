@@ -57,25 +57,29 @@ export const FileTreeDirectory = ({
           },
         )}
       >
-        <div className="flex items-center gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
+        <div className="flex items-center text-start gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
           {open ? (
-            <IconFolderOpen height="20" width="20" />
+            <IconFolderOpen className="w-[20px]" height="20" width="20" />
           ) : (
             <IconFolder height="20" width="20" />
           )}
           <Heading
             as="h3"
-            className="transition duration-200 ease-in-out hover:text-slate-12"
+            className="transition grow w-min overflow-hidden text-ellipsis text-nowrap duration-200 ease-in-out hover:text-slate-12"
             color="gray"
             size="2"
             weight="medium"
           >
-            {directoryMetadata.directoryName}
+            <span className="w-full max-w-full">
+              {directoryMetadata.directoryName}
+            </span>
           </Heading>
         </div>
         {!isEmpty ? (
           <IconArrowDown
-            className="justify-self-end opacity-60 transition-transform data-[open=true]:rotate-180"
+            width="20"
+            height="20"
+            className="ml-auto opacity-60 transition-transform data-[open=true]:rotate-180"
             data-open={open}
           />
         ) : null}
