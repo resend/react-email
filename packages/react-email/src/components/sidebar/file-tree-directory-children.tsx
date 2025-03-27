@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
+import { Tooltip } from '../tooltip';
 import { FileTreeDirectory } from './file-tree-directory';
 
 export const FileTreeDirectoryChildren = (props: {
@@ -77,7 +78,7 @@ export const FileTreeDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'relative flex h-8 max-w-full items-center gap-2 rounded-md align-middle text-slate-11 text-sm transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
+                            'relative flex h-8 w-full items-center text-start gap-2 rounded-md align-middle text-slate-11 text-sm transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
                             props.isRoot ? undefined : 'pl-3',
                             {
                               'text-cyan-11': isCurrentPage,
@@ -116,7 +117,16 @@ export const FileTreeDirectoryChildren = (props: {
                             height="20"
                             width="20"
                           />
-                          <span className="truncate">{emailFilename}</span>
+                          <Tooltip.Provider>
+                            <Tooltip>
+                              <Tooltip.Trigger asChild>
+                                <span className="truncate w-[calc(100%-1.25rem)]">
+                                  {emailFilename}
+                                </span>
+                              </Tooltip.Trigger>
+                              <Tooltip.Content>{emailFilename}</Tooltip.Content>
+                            </Tooltip>
+                          </Tooltip.Provider>
                         </motion.span>
                       </Link>
                     );

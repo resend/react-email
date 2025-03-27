@@ -7,6 +7,7 @@ import { Heading } from '../heading';
 import { IconArrowDown } from '../icons/icon-arrow-down';
 import { IconFolder } from '../icons/icon-folder';
 import { IconFolderOpen } from '../icons/icon-folder-open';
+import { Tooltip } from '../tooltip';
 import { FileTreeDirectoryChildren } from './file-tree-directory-children';
 
 interface SidebarDirectoryProps {
@@ -51,31 +52,38 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'mt-1 mb-1.5 flex w-full items-center justify-between gap-2 font-medium text-[14px]',
+          'mt-1 mb-1.5 flex w-full items-center text-start justify-between gap-2 font-medium text-[14px]',
           {
             'cursor-pointer': !isEmpty,
           },
         )}
       >
-        <div className="flex items-center gap-2 text-slate-11 transition duration-200 ease-in-out hover:text-slate-12">
-          {open ? (
-            <IconFolderOpen height="20" width="20" />
-          ) : (
-            <IconFolder height="20" width="20" />
-          )}
-          <Heading
-            as="h3"
-            className="transition duration-200 ease-in-out hover:text-slate-12"
-            color="gray"
-            size="2"
-            weight="medium"
-          >
-            {directoryMetadata.directoryName}
-          </Heading>
-        </div>
+        {open ? (
+          <IconFolderOpen className="w-[20px]" height="20" width="20" />
+        ) : (
+          <IconFolder height="20" width="20" />
+        )}
+        <Tooltip.Provider>
+          <Tooltip>
+            <Tooltip.Trigger asChild>
+              <Heading
+                as="h3"
+                className="transition grow w-[calc(100%-40px)] truncate duration-200 ease-in-out hover:text-slate-12"
+                color="gray"
+                size="2"
+                weight="medium"
+              >
+                {directoryMetadata.directoryName}
+              </Heading>
+            </Tooltip.Trigger>
+            <Tooltip.Content>{directoryMetadata.directoryName}</Tooltip.Content>
+          </Tooltip>
+        </Tooltip.Provider>
         {!isEmpty ? (
           <IconArrowDown
-            className="justify-self-end opacity-60 transition-transform data-[open=true]:rotate-180"
+            width="20"
+            height="20"
+            className="ml-auto opacity-60 transition-transform data-[open=true]:rotate-180"
             data-open={open}
           />
         ) : null}
