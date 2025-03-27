@@ -1,11 +1,11 @@
 'use client';
 
 import { use } from 'react';
+import { cn } from '../utils';
 import { Heading } from './heading';
 import { IconHideSidebar } from './icons/icon-hide-sidebar';
 import { ShellContext } from './shell';
 import { Tooltip } from './tooltip';
-import { cn } from '../utils';
 
 interface TopbarProps extends React.ComponentProps<'header'> {
   emailTitle: string;

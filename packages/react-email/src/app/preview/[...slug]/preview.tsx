@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useRef, useState } from 'react';
+import { use, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -12,14 +12,14 @@ import {
   makeIframeDocumentBubbleEvents,
 } from '../../../components/resizable-wrapper';
 import { Send } from '../../../components/send';
+import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
-import { RenderingError } from './rendering-error';
 import { cn } from '../../../utils';
-import { useToolbarState } from '../../../components/toolbar';
+import { RenderingError } from './rendering-error';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
