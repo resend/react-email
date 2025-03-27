@@ -81,7 +81,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       const lineElement = scroller.querySelector(`#L${highlight[0]}`);
       if (lineElement instanceof HTMLAnchorElement) {
         scroller.scrollTo({
-          top: lineElement.offsetTop,
+          top: Math.max(lineElement.offsetTop - 325, 0),
           behavior: 'smooth',
         });
       }
