@@ -14,10 +14,17 @@ export const serveStaticFile = async (
   const pathname = parsedUrl.pathname!;
   const ext = path.parse(pathname).ext;
 
-  const fileAbsolutePath = path.join(staticBaseDir, pathname);
+  const fileAbsolutePath = path.resolve(staticBaseDir, pathname);
+
+  if (!fileAbsolutePath.startsWith(staticBaseDir)) {
+    res.statusCode = 403;
+    res.end();
+    return;
+  }
 
   try {
     const fileHandle = await fs.open(fileAbsolutePath, 'r');
+
     const fileData = await fs.readFile(fileHandle);
 
     // if the file is found, set Content-type and send data
