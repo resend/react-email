@@ -14,7 +14,7 @@ export const serveStaticFile = async (
   const pathname = parsedUrl.pathname!;
   const ext = path.parse(pathname).ext;
 
-  const fileAbsolutePath = path.resolve(staticBaseDir, pathname);
+  const fileAbsolutePath = path.join(staticBaseDir, pathname);
 
   if (!fileAbsolutePath.startsWith(staticBaseDir)) {
     res.statusCode = 403;
