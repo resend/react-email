@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.0
+
+### Major Changes
+
+- 56ab5ab: Add toolbar with image/link validation, compatibility checking and a spam scoring system
+
 ## 3.0.7
 
 ### Patch Changes
