@@ -12,8 +12,8 @@ const Home = () => {
 
   return (
     <Shell>
-      <div className="mx-auto flex max-w-lg items-center justify-center p-8">
-        <div className="-mt-10 relative flex flex-col items-center gap-3 text-center">
+      <div className="w-full h-full flex items-center justify-center p-8">
+        <div className="-mt-10 relative max-w-lg flex flex-col items-center gap-3 text-center">
           <Image
             alt="React Email Icon"
             className="mb-8"
