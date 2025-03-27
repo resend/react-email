@@ -108,13 +108,13 @@ const Preview = ({ emailTitle }: PreviewProps) => {
       </Topbar>
 
       <ShellContent
-        className="relative flex bg-gray-200"
+        className="relative flex bg-gray-200 p-4"
         ref={(element) => {
           const observer = new ResizeObserver((entry) => {
             const [elementEntry] = entry;
             if (elementEntry) {
-              maxWidthRef.current = elementEntry.contentRect.width - 80;
-              maxHeightRef.current = elementEntry.contentRect.height - 80;
+              maxWidthRef.current = elementEntry.contentRect.width;
+              maxHeightRef.current = elementEntry.contentRect.height;
             }
           });
 
