@@ -30,8 +30,9 @@ export const serveStaticFile = async (
       res.statusCode = 404;
       res.end();
     } else {
+      const sanitizedFilePath = fileAbsolutePath.replace(/\n|\r/g, '');
       console.error(
-        `Could not read file at ${fileAbsolutePath} to be served, here's the exception:`,
+        `Could not read file at ${sanitizedFilePath} to be served, here's the exception:`,
         exception,
       );
 
