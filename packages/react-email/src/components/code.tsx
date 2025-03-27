@@ -76,7 +76,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-      const scroller = scrollerRef.current
+    const scroller = scrollerRef.current;
     if (highlight && scroller) {
       const lineElement = scroller.querySelector(`#L${highlight[0]}`);
       if (lineElement instanceof HTMLAnchorElement) {
