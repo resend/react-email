@@ -10,13 +10,13 @@ import { Results } from './results';
 
 export type LintingRow =
   | {
-      source: 'image';
-      result: ImageCheckingResult;
-    }
+    source: 'image';
+    result: ImageCheckingResult;
+  }
   | {
-      source: 'link';
-      result: LinkCheckingResult;
-    };
+    source: 'link';
+    result: LinkCheckingResult;
+  };
 
 interface LinterProps {
   rows: LintingRow[] | undefined;
@@ -92,59 +92,13 @@ export const Linter = ({ rows }: LinterProps) => {
           const failingCheck = row.result.checks.find(
             (check) => check.passed === false,
           )!;
-          return (
-            <Result status={row.result.status} key={i}>
-              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
-              <Result.Description>
-                {failingCheck.type === 'security'
-                  ? 'Insecure URL, use HTTPS instead of HTTP'
-                  : null}
-                {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400 ? (
-                  <>
-                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
-                    There was a redirect, the content may have been moved
-                  </>
-                ) : null}
-                {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400 ? (
-                  <>
-                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
-                    The link is broken
-                  </>
-                ) : null}
-                {failingCheck.type === 'syntax'
-                  ? 'The link is broken due to invalid syntax'
-                  : null}
-
-                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
-                  {row.result.link}
-                </span>
-              </Result.Description>
-              <Result.Metadata>
-                {[
-                  <CodePreviewLineLink
-                    line={row.result.codeLocation.line}
-                    column={row.result.codeLocation.column}
-                    type="html"
-                  />,
-                ]}
-              </Result.Metadata>
-            </Result>
-          );
-        }
-
-        if (row.source === 'image') {
-          const failingCheck = row.result.checks.find(
-            (check) => check.passed === false,
-          )!;
           const metadata: React.ReactNode[] = [];
           for (const check of row.result.checks) {
-            if (check.type === 'image_size' && check.metadata.byteCount) {
-              metadata.push(prettyBytes(check.metadata.byteCount));
+            if (
+              check.type === 'fetch_attempt' &&
+              check.metadata.fetchStatusCode
+            ) {
+              metadata.push(<>HTTP {check.metadata.fetchStatusCode}</>);
             }
           }
           metadata.push(
@@ -162,22 +116,70 @@ export const Linter = ({ rows }: LinterProps) => {
                   ? 'Insecure URL, use HTTPS instead of HTTP'
                   : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 300 &&
-                failingCheck.metadata.fetchStatusCode < 400 ? (
-                  <>
-                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
-                    There was a redirect, the image may have been moved
-                  </>
-                ) : null}
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
+                  ? 'There was a redirect, the content may have been moved'
+                  : null}
                 {failingCheck.type === 'fetch_attempt' &&
-                failingCheck.metadata.fetchStatusCode &&
-                failingCheck.metadata.fetchStatusCode >= 400 ? (
-                  <>
-                    <strong>{failingCheck.metadata.fetchStatusCode}</strong>:
-                    The image is broken
-                  </>
-                ) : null}
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
+                  ? 'The link is broken'
+                  : null}
+                {failingCheck.type === 'syntax'
+                  ? 'The link is broken due to invalid syntax'
+                  : null}
+
+                <span className="ml-2 text-ellipsis overflow-hidden text-nowrap max-w-[30ch]">
+                  {row.result.link}
+                </span>
+              </Result.Description>
+              <Result.Metadata>{metadata}</Result.Metadata>
+            </Result>
+          );
+        }
+
+        if (row.source === 'image') {
+          const failingCheck = row.result.checks.find(
+            (check) => check.passed === false,
+          )!;
+          const metadata: React.ReactNode[] = [];
+          for (const check of row.result.checks) {
+            if (check.type === 'image_size' && check.metadata.byteCount) {
+              metadata.push(prettyBytes(check.metadata.byteCount));
+            }
+            if (
+              check.type === 'fetch_attempt' &&
+              check.metadata.fetchStatusCode
+            ) {
+              metadata.push(<>HTTP {check.metadata.fetchStatusCode}</>);
+            }
+          }
+          metadata.push(
+            <CodePreviewLineLink
+              line={row.result.codeLocation.line}
+              column={row.result.codeLocation.column}
+              type="html"
+            />,
+          );
+          return (
+            <Result status={row.result.status} key={i}>
+              <Result.Name>{sanitize(failingCheck.type)}</Result.Name>
+              <Result.Description>
+                {failingCheck.type === 'security'
+                  ? 'Insecure URL, use HTTPS instead of HTTP'
+                  : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 300 &&
+                  failingCheck.metadata.fetchStatusCode < 400
+                  ? 'There was a redirect, the image may have been moved'
+                  : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                  failingCheck.metadata.fetchStatusCode &&
+                  failingCheck.metadata.fetchStatusCode >= 400
+                  ? 'The image is broken'
+                  : null}
                 {failingCheck.type === 'syntax'
                   ? 'The image is broken due to an invalid source'
                   : null}
@@ -187,7 +189,7 @@ export const Linter = ({ rows }: LinterProps) => {
                   : null}
 
                 {failingCheck.type === 'image_size' &&
-                failingCheck.metadata.byteCount
+                  failingCheck.metadata.byteCount
                   ? 'This image is too large, keep it under 1mb'
                   : null}
 
