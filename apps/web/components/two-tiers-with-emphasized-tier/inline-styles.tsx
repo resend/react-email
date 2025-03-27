@@ -65,7 +65,7 @@ export const component = (
               title: 'Hobby',
               price: 29,
               highlighted: false,
-              description: 'The perfect plan to getting started.',
+              description: 'The perfect plan for getting started.',
               features: [
                 '25 products',
                 'Up to 10,000 subscribers',
