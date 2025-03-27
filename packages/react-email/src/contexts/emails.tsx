@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
 import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
+import { isBuilding } from '../app/env';
 import { useHotreload } from '../hooks/use-hot-reload';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 
@@ -30,7 +31,7 @@ export const EmailsProvider = (props: {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+  if (!isBuilding) {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks

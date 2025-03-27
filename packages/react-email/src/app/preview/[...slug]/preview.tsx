@@ -1,134 +1,207 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
+import { use, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
-import type { EmailRenderingResult } from '../../../actions/render-email-by-path';
+import { useDebouncedCallback } from 'use-debounce';
+import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
-import { Shell } from '../../../components/shell';
+import {
+  ResizableWrapper,
+  makeIframeDocumentBubbleEvents,
+} from '../../../components/resizable-wrapper';
+import { Send } from '../../../components/send';
+import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
-import { useEmailRenderingResult } from '../../../hooks/use-email-rendering-result';
-import { useHotreload } from '../../../hooks/use-hot-reload';
-import { useRenderingMetadata } from '../../../hooks/use-rendering-metadata';
+import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
+import { PreviewContext } from '../../../contexts/preview';
+import { useClampedState } from '../../../hooks/use-clamped-state';
+import { cn } from '../../../utils';
 import { RenderingError } from './rendering-error';
 
-interface PreviewProps {
-  slug: string;
-  emailPath: string;
-  pathSeparator: string;
-  serverRenderingResult: EmailRenderingResult;
+interface PreviewProps extends React.ComponentProps<'div'> {
+  emailTitle: string;
 }
 
-const Preview = ({
-  slug,
-  emailPath,
-  pathSeparator,
-  serverRenderingResult,
-}: PreviewProps) => {
+const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
+  const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const activeView = searchParams.get('view') ?? 'desktop';
+  const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
-
-  const renderingResult = useEmailRenderingResult(
-    emailPath,
-    serverRenderingResult,
-  );
-
-  const renderedEmailMetadata = useRenderingMetadata(
-    emailPath,
-    renderingResult,
-    serverRenderingResult,
-  );
-
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
-    // this will not change on runtime so it doesn't violate
-    // the rules of hooks
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHotreload((changes) => {
-      const changeForThisEmail = changes.find((change) =>
-        change.filename.includes(slug),
-      );
-
-      if (typeof changeForThisEmail !== 'undefined') {
-        if (changeForThisEmail.event === 'unlink') {
-          router.push('/');
-        }
-      }
-    });
-  }
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', view);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
   const handleLangChange = (lang: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('view', 'source');
     params.set('lang', lang);
-    router.push(`${pathname}?${params.toString()}`);
+    const isSameLang = searchParams.get('lang') === lang;
+    router.push(
+      `${pathname}?${params.toString()}${isSameLang ? location.hash : ''}`,
+    );
   };
 
-  const hasNoErrors = typeof renderedEmailMetadata !== 'undefined';
+  const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
+  const hasErrors = 'error' in renderingResult;
+
+  const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
+  const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
+  const minWidth = 100;
+  const minHeight = 100;
+  const storedWidth = searchParams.get('width');
+  const storedHeight = searchParams.get('height');
+  const [width, setWidth] = useClampedState(
+    storedWidth ? Number.parseInt(storedWidth) : 600,
+    minWidth,
+    maxWidth,
+  );
+  const [height, setHeight] = useClampedState(
+    storedHeight ? Number.parseInt(storedHeight) : 1024,
+    minHeight,
+    maxHeight,
+  );
+
+  const handleSaveViewSize = useDebouncedCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set('width', width.toString());
+    params.set('height', height.toString());
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
+  }, 300);
+
+  const { toggled: toolbarToggled } = useToolbarState();
 
   return (
-    <Shell
-      activeView={hasNoErrors ? activeView : undefined}
-      currentEmailOpenSlug={slug}
-      markup={renderedEmailMetadata?.markup}
-      pathSeparator={pathSeparator}
-      setActiveView={hasNoErrors ? handleViewChange : undefined}
-    >
-      {/* This relative is so that when there is any error the user can still switch between emails */}
-      <div className="relative h-full">
-        {'error' in renderingResult ? (
-          <RenderingError error={renderingResult.error} />
+    <>
+      <Topbar emailTitle={emailTitle}>
+        <ViewSizeControls
+          setViewHeight={(height) => {
+            setHeight(height);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          setViewWidth={(width) => {
+            setWidth(width);
+            flushSync(() => {
+              handleSaveViewSize();
+            });
+          }}
+          viewHeight={height}
+          viewWidth={width}
+        />
+        <ActiveViewToggleGroup
+          activeView={activeView}
+          setActiveView={handleViewChange}
+        />
+        {hasRenderingMetadata ? (
+          <div className="flex justify-end">
+            <Send markup={renderedEmailMetadata.markup} />
+          </div>
         ) : null}
+      </Topbar>
 
-        {hasNoErrors ? (
+      <div
+        {...props}
+        className={cn(
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-height flex p-4 transition-all duration-300',
+          activeView === 'preview' && 'bg-gray-200',
+          toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
+          className,
+        )}
+        ref={(element) => {
+          const observer = new ResizeObserver((entry) => {
+            const [elementEntry] = entry;
+            if (elementEntry) {
+              setMaxWidth(elementEntry.contentRect.width);
+              setMaxHeight(elementEntry.contentRect.height);
+            }
+          });
+
+          if (element) {
+            observer.observe(element);
+          }
+
+          return () => {
+            observer.disconnect();
+          };
+        }}
+      >
+        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
+
+        {hasRenderingMetadata ? (
           <>
-            {activeView === 'desktop' && (
-              <iframe
-                className="w-full bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)]"
-                srcDoc={renderedEmailMetadata.markup}
-                title={slug}
-              />
-            )}
-
-            {activeView === 'mobile' && (
-              <iframe
-                className="w-[360px] bg-white h-[calc(100vh_-_140px)] lg:h-[calc(100vh_-_70px)] mx-auto"
-                srcDoc={renderedEmailMetadata.markup}
-                title={slug}
-              />
+            {activeView === 'preview' && (
+              <ResizableWrapper
+                minHeight={minHeight}
+                minWidth={minWidth}
+                maxHeight={maxHeight}
+                maxWidth={maxWidth}
+                height={height}
+                onResizeEnd={() => {
+                  handleSaveViewSize();
+                }}
+                onResize={(value, direction) => {
+                  const isHorizontal =
+                    direction === 'east' || direction === 'west';
+                  if (isHorizontal) {
+                    setWidth(Math.round(value));
+                  } else {
+                    setHeight(Math.round(value));
+                  }
+                }}
+                width={width}
+              >
+                <iframe
+                  className="solid max-h-full rounded-lg bg-white"
+                  ref={(iframe) => {
+                    if (iframe) {
+                      return makeIframeDocumentBubbleEvents(iframe);
+                    }
+                  }}
+                  srcDoc={renderedEmailMetadata.markup}
+                  style={{
+                    width: `${width}px`,
+                    height: `${height}px`,
+                  }}
+                  title={emailTitle}
+                />
+              </ResizableWrapper>
             )}
 
             {activeView === 'source' && (
-              <div className="flex gap-6 mx-auto p-6 max-w-3xl">
-                <Tooltip.Provider>
-                  <CodeContainer
-                    activeLang={activeLang}
-                    markups={[
-                      {
-                        language: 'jsx',
-                        content: renderedEmailMetadata.reactMarkup,
-                      },
-                      {
-                        language: 'markup',
-                        content: renderedEmailMetadata.markup,
-                      },
-                      {
-                        language: 'markdown',
-                        content: renderedEmailMetadata.plainText,
-                      },
-                    ]}
-                    setActiveLang={handleLangChange}
-                  />
-                </Tooltip.Provider>
+              <div className="h-full w-full">
+                <div className="m-auto h-full flex max-w-3xl p-6">
+                  <Tooltip.Provider>
+                    <CodeContainer
+                      activeLang={activeLang}
+                      markups={[
+                        {
+                          language: 'jsx',
+                          content: renderedEmailMetadata.reactMarkup,
+                        },
+                        {
+                          language: 'markup',
+                          content: renderedEmailMetadata.markup,
+                        },
+                        {
+                          language: 'markdown',
+                          content: renderedEmailMetadata.plainText,
+                        },
+                      ]}
+                      setActiveLang={handleLangChange}
+                    />
+                  </Tooltip.Provider>
+                </div>
               </div>
             )}
           </>
@@ -136,7 +209,7 @@ const Preview = ({
 
         <Toaster />
       </div>
-    </Shell>
+    </>
   );
 };
 

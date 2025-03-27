@@ -12,7 +12,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 interface AirbnbReviewEmailProps {
   authorName?: string;
@@ -68,7 +67,7 @@ export const AirbnbReviewEmail = ({
                 your feedback to {authorName} using your Airbnb message thread.
               </Text>
 
-              <Button style={button} href="https://airbnb.com/">
+              <Button style={button} href="https://www.airbnb.com">
                 Send My Feedback
               </Button>
             </Row>
@@ -82,17 +81,17 @@ export const AirbnbReviewEmail = ({
                 Common questions
               </Text>
               <Text>
-                <Link href="https://airbnb.com/help/article/13" style={link}>
+                <Link href="https://www.airbnb.com" style={link}>
                   How do reviews work?
                 </Link>
               </Text>
               <Text>
-                <Link href="https://airbnb.com/help/article/1257" style={link}>
+                <Link href="https://www.airbnb.com" style={link}>
                   How do star ratings work?
                 </Link>
               </Text>
               <Text>
-                <Link href="https://airbnb.com/help/article/995" style={link}>
+                <Link href="https://www.airbnb.com" style={link}>
                   Can I leave a review after 14 days?
                 </Link>
               </Text>
@@ -100,7 +99,7 @@ export const AirbnbReviewEmail = ({
               <Text style={footer}>
                 Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
               </Text>
-              <Link href="https://airbnb.com" style={reportLink}>
+              <Link href="https://www.airbnb.com" style={reportLink}>
                 Report unsafe behavior
               </Link>
             </Row>

@@ -11,7 +11,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -45,7 +44,10 @@ export const StripeWelcomeEmail = () => (
           <Hr style={hr} />
           <Text style={paragraph}>
             If you haven't finished your integration, you might find our{' '}
-            <Link style={anchor} href="https://stripe.com/docs">
+            <Link
+              style={anchor}
+              href="https://docs.stripe.com/dashboard/basics"
+            >
               docs
             </Link>{' '}
             handy.
@@ -62,7 +64,10 @@ export const StripeWelcomeEmail = () => (
             instead of your test API keys. Your account can simultaneously be
             used for both test and live requests, so you can continue testing
             while accepting live payments. Check out our{' '}
-            <Link style={anchor} href="https://stripe.com/docs/dashboard">
+            <Link
+              style={anchor}
+              href="https://docs.stripe.com/dashboard/basics"
+            >
               tutorial about account basics
             </Link>
             .
@@ -71,7 +76,7 @@ export const StripeWelcomeEmail = () => (
             Finally, we've put together a{' '}
             <Link
               style={anchor}
-              href="https://stripe.com/docs/checklist/website"
+              href="https://docs.stripe.com/get-started/checklist/website"
             >
               quick checklist
             </Link>{' '}
@@ -80,7 +85,7 @@ export const StripeWelcomeEmail = () => (
           <Text style={paragraph}>
             We'll be here to help you with any step along the way. You can find
             answers to most questions and get in touch with us on our{' '}
-            <Link style={anchor} href="https://support.stripe.com/">
+            <Link style={anchor} href="https://support.stripe.com">
               support site
             </Link>
             .

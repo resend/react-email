@@ -87,6 +87,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html
       className={`${inter.variable} ${commitMono.variable} antialiased`}
       lang="en"
+      color-scheme="dark"
     >
       <body className="overflow-x-hidden bg-black font-sans text-sm text-slate-11 h-screen-ios selection:bg-cyan-5 selection:text-cyan-12">
         <div
