@@ -154,9 +154,9 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                   const isHorizontal =
                     direction === 'east' || direction === 'west';
                   if (isHorizontal) {
-                    setWidth(value);
+                    setWidth(Math.round(value));
                   } else {
-                    setHeight(value);
+                    setHeight(Math.round(value));
                   }
                 }}
                 width={width}
