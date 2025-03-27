@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
-import { Tooltip } from '../tooltip';
 import { FileTreeDirectory } from './file-tree-directory';
 
 export const FileTreeDirectoryChildren = (props: {
@@ -117,16 +116,9 @@ export const FileTreeDirectoryChildren = (props: {
                             height="20"
                             width="20"
                           />
-                          <Tooltip.Provider>
-                            <Tooltip>
-                              <Tooltip.Trigger asChild>
-                                <span className="truncate w-[calc(100%-1.25rem)]">
-                                  {emailFilename}
-                                </span>
-                              </Tooltip.Trigger>
-                              <Tooltip.Content>{emailFilename}</Tooltip.Content>
-                            </Tooltip>
-                          </Tooltip.Provider>
+                          <span className="truncate w-[calc(100%-1.25rem)]">
+                            {emailFilename}
+                          </span>
                         </motion.span>
                       </Link>
                     );
