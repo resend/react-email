@@ -114,6 +114,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         {...props}
         className={cn(
           'h-[calc(100%-3.5rem-2.375rem)] will-change-auto flex p-4',
+          activeView === 'preview' && 'bg-gray-200',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
@@ -140,47 +141,45 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         {hasRenderingMetadata ? (
           <>
             {activeView === 'preview' && (
-              <div className="w-full h-full bg-gray-200 flex">
-                <ResizableWrapper
-                  minHeight={minHeight}
-                  minWidth={minWidth}
-                  maxHeight={maxHeight}
-                  maxWidth={maxWidth}
-                  height={height}
-                  onResizeEnd={() => {
-                    handleSaveViewSize();
-                  }}
-                  onResize={(value, direction) => {
-                    const isHorizontal =
-                      direction === 'east' || direction === 'west';
-                    if (isHorizontal) {
-                      setWidth(value);
-                    } else {
-                      setHeight(value);
+              <ResizableWrapper
+                minHeight={minHeight}
+                minWidth={minWidth}
+                maxHeight={maxHeight}
+                maxWidth={maxWidth}
+                height={height}
+                onResizeEnd={() => {
+                  handleSaveViewSize();
+                }}
+                onResize={(value, direction) => {
+                  const isHorizontal =
+                    direction === 'east' || direction === 'west';
+                  if (isHorizontal) {
+                    setWidth(value);
+                  } else {
+                    setHeight(value);
+                  }
+                }}
+                width={width}
+              >
+                <iframe
+                  className="solid max-h-full rounded-lg bg-white"
+                  ref={(iframe) => {
+                    if (iframe) {
+                      return makeIframeDocumentBubbleEvents(iframe);
                     }
                   }}
-                  width={width}
-                >
-                  <iframe
-                    className="solid max-h-full rounded-lg bg-white"
-                    ref={(iframe) => {
-                      if (iframe) {
-                        return makeIframeDocumentBubbleEvents(iframe);
-                      }
-                    }}
-                    srcDoc={renderedEmailMetadata.markup}
-                    style={{
-                      width: `${width}px`,
-                      height: `${height}px`,
-                    }}
-                    title={emailTitle}
-                  />
-                </ResizableWrapper>
-              </div>
+                  srcDoc={renderedEmailMetadata.markup}
+                  style={{
+                    width: `${width}px`,
+                    height: `${height}px`,
+                  }}
+                  title={emailTitle}
+                />
+              </ResizableWrapper>
             )}
 
             {activeView === 'source' && (
-              <div className="h-full w-full bg-black">
+              <div className="h-full w-full">
                 <div className="m-auto h-full flex max-w-3xl p-6">
                   <Tooltip.Provider>
                     <CodeContainer

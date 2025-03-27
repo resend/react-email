@@ -62,7 +62,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
           </svg>
         </button>
       </div>
-      <div className="w-[100dvw] h-[calc(100dvh-4.375rem)] lg:h-[100dvh]">
+      <div className="w-[100dvw] flex h-[calc(100dvh-4.375rem)] lg:h-[100dvh]">
         <React.Suspense>
           <Sidebar
             className={cn(
@@ -78,9 +78,9 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
         </React.Suspense>
         <main
           className={cn(
-            'inline-block relative h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0 w-full',
-            '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
+            'inline-block relative overflow-hidden will-change-width',
             'w-full h-full',
+            '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
             sidebarToggled && 'lg:w-[calc(100%-16rem)]',
           )}
         >
