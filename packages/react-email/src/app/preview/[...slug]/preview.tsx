@@ -56,18 +56,18 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
-  const minWidth = 350;
-  const minHeight = 600;
+  const minWidth = 100;
+  const minHeight = 100;
   const storedWidth = searchParams.get('width');
   const storedHeight = searchParams.get('height');
   const [width, setWidth] = useClampedState(
     storedWidth ? Number.parseInt(storedWidth) : 600,
-    350,
+    minWidth,
     maxWidth,
   );
   const [height, setHeight] = useClampedState(
     storedHeight ? Number.parseInt(storedHeight) : 1024,
-    600,
+    minHeight,
     maxHeight,
   );
 
