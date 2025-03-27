@@ -16,12 +16,6 @@ export const serveStaticFile = async (
 
   const fileAbsolutePath = path.join(staticBaseDir, pathname);
 
-  if (!fileAbsolutePath.startsWith(staticBaseDir)) {
-    res.statusCode = 403;
-    res.end();
-    return;
-  }
-
   try {
     const fileHandle = await fs.open(fileAbsolutePath, 'r');
 
