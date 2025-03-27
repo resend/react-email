@@ -113,7 +113,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <div
         {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-height flex p-4 transition-all duration-300',
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300',
           activeView === 'preview' && 'bg-gray-200',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,

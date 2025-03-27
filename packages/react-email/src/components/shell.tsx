@@ -78,7 +78,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
         </React.Suspense>
         <main
           className={cn(
-            'inline-block relative overflow-hidden will-change-width',
+            'inline-block relative overflow-hidden will-change-[width]',
             'w-full h-full',
             '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
             sidebarToggled && 'lg:w-[calc(100%-16rem)]',
