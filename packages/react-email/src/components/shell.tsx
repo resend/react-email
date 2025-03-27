@@ -74,8 +74,7 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
         </React.Suspense>
         <main
           className={cn(
-            'h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0',
-            'grow',
+            'h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0 w-full',
             '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
           )}
         >
