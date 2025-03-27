@@ -1,41 +1,5 @@
 # create-email
 
-## 1.0.0-alpha.7
-
-### Patch Changes
-
-- react-email@4.0.0-alpha.8
-
-## 1.0.0-alpha.6
-
-### Patch Changes
-
-- react-email@4.0.0-alpha.7
-
-## 1.0.0-alpha.5
-
-### Patch Changes
-
-- react-email@4.0.0-alpha.6
-
-## 1.0.0-alpha.4
-
-### Patch Changes
-
-- react-email@4.0.0-alpha.5
-
-## 1.0.0-alpha.3
-
-### Patch Changes
-
-- react-email@4.0.0-alpha.4
-
-## 1.0.0-alpha.2
-
-## 1.0.0-alpha.1
-
-## 1.0.0-alpha.0
-
 ## 0.1.10
 
 ## 0.1.9
