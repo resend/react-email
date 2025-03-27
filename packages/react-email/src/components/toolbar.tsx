@@ -23,6 +23,19 @@ import { useCachedState } from './toolbar/use-cached-state';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
 
+export const useToolbarState = () => {
+  const searchParams = useSearchParams();
+  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
+    | ToolbarTabValue
+    | undefined;
+
+  return {
+    activeTab,
+
+    toggled: activeTab !== undefined,
+  };
+};
+
 const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
@@ -44,11 +57,7 @@ const ToolbarInner = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
-    | ToolbarTabValue
-    | undefined;
-
-  const toggled = activeTab !== undefined;
+  const { activeTab, toggled } = useToolbarState();
 
   const setActivePanelValue = (newValue: ToolbarTabValue | undefined) => {
     const params = new URLSearchParams(searchParams);
@@ -115,7 +124,7 @@ const ToolbarInner = ({
       className={cn(
         'absolute bottom-0 left-0 right-0',
         'bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform',
-        'data-[toggled=false]:translate-y-[170px]',
+        'data-[toggled=false]:translate-y-[10.625rem]',
       )}
     >
       <Tabs.Root

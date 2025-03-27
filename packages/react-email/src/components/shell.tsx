@@ -62,35 +62,31 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
           </svg>
         </button>
       </div>
-      <div className="flex w-[100dvw] h-[100dvh] flex-row">
+      <div className="w-[100dvw] flex h-[calc(100dvh-4.375rem)] lg:h-[100dvh]">
         <React.Suspense>
           <Sidebar
-            className={cn('shrink [transition:width_0.2s_ease-in-out]', {
-              '-translate-x-full lg:translate-x-0': sidebarToggled,
-              'lg:w-0': !sidebarToggled,
-            })}
+            className={cn(
+              'fixed top-[4.375rem] left-0 z-[9999] h-full max-h-full w-full max-w-full will-change-auto [transition:width_0.2s_ease-in-out]',
+              'lg:static lg:inline-block lg:z-auto lg:max-h-full lg:w-[16rem]',
+              {
+                '-translate-x-full lg:translate-x-0': sidebarToggled,
+                'lg:w-0': !sidebarToggled,
+              },
+            )}
             currentEmailOpenSlug={currentEmailOpenSlug}
           />
         </React.Suspense>
         <main
           className={cn(
-            'h-full max-h-full min-h-full overflow-hidden will-change-width lg:mt-0 w-full',
+            'inline-block relative overflow-hidden will-change-width',
+            'w-full h-full',
             '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
+            sidebarToggled && 'lg:w-[calc(100%-16rem)]',
           )}
         >
-          <div className="relative flex h-full w-full flex-col">{children}</div>
+          {children}
         </main>
       </div>
     </ShellContext.Provider>
-  );
-};
-
-type ShellContentRootProps = React.ComponentProps<'div'>;
-
-export const ShellContent = ({ children, ...rest }: ShellContentRootProps) => {
-  return (
-    <div {...rest} className={cn('relative grow', rest.className)}>
-      {children}
-    </div>
   );
 };
