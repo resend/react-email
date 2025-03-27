@@ -231,6 +231,18 @@ export const componentsStructure: Category[] = [
     components: [{ slug: 'bento-grid', title: 'Bento Grid' }],
   },
   {
+    name: 'Pricing',
+    description:
+      'Pricing components for displaying pricing tables and comparison charts.',
+    components: [
+      {
+        slug: 'two-tiers-with-emphasized-tier',
+        title: 'Two tiers with emphasized tier',
+      },
+      { slug: 'simple-pricing-table', title: 'Simple pricing table' },
+    ],
+  },
+  {
     name: 'Section',
     description:
       'Section components for dividing content into distinct sections with rows and columns.',
