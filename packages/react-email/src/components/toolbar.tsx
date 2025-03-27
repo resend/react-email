@@ -234,7 +234,7 @@ const ToolbarInner = ({
                   Running compatibility check...
                 </div>
               ) : compatibilityCheckingResults?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-8 px-4 my-4">
+                <div className="flex flex-col items-center justify-center pt-8">
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
@@ -251,7 +251,7 @@ const ToolbarInner = ({
                   Running spam check...
                 </div>
               ) : spamCheckingResult?.isSpam === false ? (
-                <div className="flex flex-col items-center justify-center py-4 px-4 my-4">
+                <div className="flex flex-col items-center justify-center pt-8">
                   <SuccessIcon />
                   <SuccessTitle>10/10</SuccessTitle>
                   <SuccessDescription>
