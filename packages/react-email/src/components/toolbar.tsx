@@ -123,7 +123,7 @@ const ToolbarInner = ({
       data-toggled={toggled}
       className={cn(
         'absolute bottom-0 left-0 right-0',
-        'bg-black group/toolbar text-xs text-slate-11 h-52 transition-transform',
+        'bg-black border-t border-slate-6 group/toolbar text-xs text-slate-11 h-52 transition-transform',
         'data-[toggled=false]:translate-y-[10.625rem]',
       )}
     >
