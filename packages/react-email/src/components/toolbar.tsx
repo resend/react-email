@@ -206,51 +206,45 @@ const ToolbarInner = ({
           <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto px-2 pt-3">
             <Tabs.Content value="linter">
               {lintLoading ? (
-                <div className="animate-pulse text-slate-11 text-sm pt-1">
-                  Running linting...
-                </div>
+                <LoadingState message="Analyzing your code for linting issues..." />
               ) : lintingRows?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>All good</SuccessTitle>
                   <SuccessDescription>
                     No linting issues found.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <Linter rows={lintingRows ?? []} />
               )}
             </Tabs.Content>
             <Tabs.Content value="compatibility">
               {compatibilityLoading ? (
-                <div className="animate-pulse text-slate-11 text-sm pt-1">
-                  Running compatibility check...
-                </div>
+                <LoadingState message="Checking email compatibility..." />
               ) : compatibilityCheckingResults?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
                     Template should render properly everywhere.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <Compatibility results={compatibilityCheckingResults ?? []} />
               )}
             </Tabs.Content>
             <Tabs.Content value="spam-assassin">
               {spamLoading ? (
-                <div className="animate-pulse text-slate-11 text-sm pt-1">
-                  Running spam check...
-                </div>
+                <LoadingState message="Evaluating your email for spam indicators..." />
               ) : spamCheckingResult?.isSpam === false ? (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>10/10</SuccessTitle>
                   <SuccessDescription>
                     Your email is clean of abuse indicators.
                   </SuccessDescription>
-                </div>
+                </SuccessWrapper>
               ) : (
                 <SpamAssassin result={spamCheckingResult} />
               )}
@@ -258,6 +252,32 @@ const ToolbarInner = ({
           </div>
         </div>
       </Tabs.Root>
+    </div>
+  );
+};
+
+const LoadingState = ({ message }: { message: string }) => {
+  return (
+    <div className="flex flex-col items-center justify-center pt-8">
+      <div className="relative mb-8 flex items-center justify-center">
+        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-400/80 to-cyan-600/80 opacity-10 blur-xl absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+        <div className="h-12 w-12 rounded-full border border-slate-4 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <div className="h-10 w-10 rounded-full flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="h-5 w-5 rounded-full border-2 border-white/50 border-t-transparent animate-spin-fast" />
+        </div>
+      </div>
+      <h3 className="text-slate-12 font-medium text-base mb-1">Processing</h3>
+      <p className="text-slate-11 text-sm text-center max-w-[320px]">
+        {message}
+      </p>
+    </div>
+  );
+};
+
+const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col items-center justify-center pt-8">
+      {children}
     </div>
   );
 };
