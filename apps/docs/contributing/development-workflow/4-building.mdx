@@ -1,0 +1,27 @@
+---
+title: "Building"
+sidebarTitle: "4. Building"
+"og:image": "https://react.email/static/covers/react-email.png"
+description: "How we build each package before publishing"
+---
+
+We use [tsup](https://github.com/egoist/tsup) to build most packages. (The only exception for this is the `@react-email/tailwind` package which currently uses `vite` due to a few issues with `tsup` and `tailwindcss`'s bundling.)
+
+To build a package run:
+
+```bash package/* (ex: package/render)
+pnpm build
+```
+
+Building in each package will run `tsup` with a few settings, typically `src/index.ts --format esm,cjs --dts --external react`.
+Tsup handles building both [ESM](https://nodejs.org/api/esm.html) and
+[CJS](https://nodejs.org/docs/latest/api/modules.html) versions along with the type definitions exported from the entry point, `src/index.ts`, without bundling `react`, which can cause issues.
+
+### Why build before publishing?
+
+We build most of the packages before publishing for a few reasons:
+
+1. All the exported types can be imported from the same place the JavaScript is imported
+2. We have proper [CommonJS](https://nodejs.org/docs/latest/api/modules.html#modules-commonjs-modules)
+and [ES Modules](https://nodejs.org/api/esm.html#modules-ecmascript-modules) support
+3. Code that isn't exported is not published or downloaded

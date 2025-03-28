@@ -18,7 +18,6 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         relativePath: 'magic-links',
         emailFilenames: [
           'aws-verify-email',
-          'jobaccepted-magic-link',
           'linear-login-code',
           'notion-magic-link',
           'plaid-verify-identity',

@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-type RootProps = React.ComponentPropsWithoutRef<"code"> &
-  React.ComponentPropsWithoutRef<"span">;
+type RootProps = React.ComponentPropsWithoutRef<'code'> &
+  React.ComponentPropsWithoutRef<'span'>;
 
 export type CodeInlineProps = Readonly<RootProps>;
 
@@ -36,7 +36,7 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
         {/* Does not render on Orange.fr */}
         <code
           {...props}
-          className={`${props.className ? props.className : ""} cino`}
+          className={`${props.className ? props.className : ''} cino`}
         >
           {children}
         </code>
@@ -44,9 +44,9 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
         {/* Renders only on Orange.fr */}
         <span
           {...props}
-          className={`${props.className ? props.className : ""} cio`}
+          className={`${props.className ? props.className : ''} cio`}
           ref={ref}
-          style={{ display: "none", ...props.style }}
+          style={{ display: 'none', ...props.style }}
         >
           {children}
         </span>
@@ -55,4 +55,4 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
   },
 );
 
-CodeInline.displayName = "CodeInline";
+CodeInline.displayName = 'CodeInline';

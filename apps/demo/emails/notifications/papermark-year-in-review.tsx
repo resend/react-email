@@ -12,7 +12,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
+} from '@react-email/components';
 
 interface PapermarkYearInReviewEmailProps {
   year?: number;
@@ -63,7 +63,7 @@ export default function PapermarkYearInReviewEmail({
                 you&apos;ve used Papermark to share your important documents.
               </Text>
               <Link
-                href="#"
+                href="https://www.papermark.com"
                 className="inline-flex items-center rounded-full bg-gray-900 px-12 py-4 text-center text-sm font-bold text-white no-underline"
               >
                 Share your stats
@@ -85,7 +85,7 @@ export default function PapermarkYearInReviewEmail({
                 with your visitors.
               </Text>
 
-              <Hr className="mt-6" style={{ borderColor: "#fb7a00" }} />
+              <Hr className="mt-6" style={{ borderColor: '#fb7a00' }} />
               <Heading className="pt-5 text-xs font-medium uppercase tracking-wider text-gray-900">
                 Your activity
               </Heading>
@@ -150,7 +150,7 @@ export default function PapermarkYearInReviewEmail({
                 that got so much attention?
               </Text>
 
-              <Hr className="mt-6" style={{ borderColor: "#e4c5a0" }} />
+              <Hr className="mt-6" style={{ borderColor: '#e4c5a0' }} />
               <Heading className="pt-5 text-xs font-medium uppercase tracking-wider text-gray-900">
                 You&apos;re in the top
               </Heading>
@@ -177,8 +177,8 @@ export default function PapermarkYearInReviewEmail({
                       key={index}
                       className="rounded-full bg-[#10b981] px-3 py-1 text-sm font-medium text-white"
                       style={{
-                        margin: "4px 4px",
-                        display: "inline-block",
+                        margin: '4px 4px',
+                        display: 'inline-block',
                       }}
                     >
                       {location}
@@ -197,13 +197,13 @@ export default function PapermarkYearInReviewEmail({
                 Happy Holidays from the Papermark team :)
               </Text>
               <Link
-                href="#"
+                href="https://www.papermark.com"
                 className="mt-4 inline-flex items-center rounded-full bg-gray-900 px-12 py-4 text-center text-sm font-bold text-white no-underline"
               >
                 Share your stats
               </Link>
               <Link
-                href="https://app.papermark.io/documents"
+                href="https://www.papermark.com"
                 className="mt-4 block items-center text-center text-sm font-bold text-gray-900 no-underline"
               >
                 Go to your dashboard
@@ -222,10 +222,10 @@ PapermarkYearInReviewEmail.PreviewProps = {
   uploadedDocuments: 25,
   sharedLinks: 50,
   receivedViews: 500,
-  topDocumentName: "Q4 Financial Report",
+  topDocumentName: 'Q4 Financial Report',
   topDocumentViews: 150,
-  mostActiveMonth: "September",
+  mostActiveMonth: 'September',
   mostActiveMonthViews: 200,
   sharerPercentile: 95,
-  viewingLocations: ["United States", "United Kingdom", "Germany", "Japan"],
+  viewingLocations: ['United States', 'United Kingdom', 'Germany', 'Japan'],
 } satisfies PapermarkYearInReviewEmailProps;

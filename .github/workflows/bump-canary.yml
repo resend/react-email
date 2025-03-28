@@ -15,16 +15,16 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Enable Corepack
         id: pnpm-setup
         run: |
           corepack enable
-          corepack prepare pnpm@latest --activate
+          corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
           echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 

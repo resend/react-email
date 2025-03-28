@@ -1,20 +1,20 @@
 import {
-  type Root,
-  type Node,
-  type Declaration,
-  Rule,
-  rule as createRule,
-  decl as createDeclaration,
   AtRule,
-} from "postcss";
-import { removeIfEmptyRecursively } from "./remove-if-empty-recursively";
+  type Declaration,
+  type Node,
+  type Root,
+  Rule,
+  decl as createDeclaration,
+  rule as createRule,
+} from 'postcss';
+import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
   if (first instanceof Rule && second instanceof Rule) {
     return (
       first.selector === second.selector ||
-      second.selector.includes("*") ||
-      second.selector.includes(":root")
+      second.selector.includes('*') ||
+      second.selector.includes(':root')
     );
   }
 
@@ -39,8 +39,7 @@ export const resolveAllCSSVariables = (root: Root) => {
           if (/--[^\s]+/.test(otherDecl.prop)) {
             const variable = `var(${otherDecl.prop})`;
             if (
-              variablesUsed &&
-              variablesUsed.includes(variable) &&
+              variablesUsed?.includes(variable) &&
               doNodesMatch(decl.parent, otherDecl.parent)
             ) {
               if (

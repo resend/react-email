@@ -1,13 +1,14 @@
 'use server';
 import fs from 'node:fs';
 import path from 'node:path';
-import ora from 'ora';
-import logSymbols from 'log-symbols';
 import chalk from 'chalk';
+import logSymbols from 'log-symbols';
+import ora from 'ora';
+import { isBuilding, isPreviewDevelopment } from '../app/env';
 import { getEmailComponent } from '../utils/get-email-component';
-import type { ErrorObject } from '../utils/types/error-object';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -35,7 +36,7 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+  if (!isBuilding && !isPreviewDevelopment) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',

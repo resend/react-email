@@ -23,7 +23,6 @@ import os from 'node:os';
 import path from 'node:path';
 import perfHooks from 'node:perf_hooks';
 import process from 'node:process';
-import punycode from 'node:punycode';
 import querystring from 'node:querystring';
 import readline from 'node:readline';
 import repl from 'node:repl';
@@ -40,6 +39,8 @@ import v8 from 'node:v8';
 import vm from 'node:vm';
 import workerThreads from 'node:worker_threads';
 import zlib from 'node:zlib';
+// See https://github.com/resend/react-email/issues/1841#issuecomment-2589985562
+import punycode from 'module-punycode';
 
 /**
  * A map of the name of the modules (including `node:` prefixed ones)
@@ -48,15 +49,15 @@ import zlib from 'node:zlib';
  */
 export const staticNodeModulesForVM = {
   assert,
-  'async_hooks': asyncHooks,
+  async_hooks: asyncHooks,
   buffer,
-  'child_process': childProcess,
+  child_process: childProcess,
   cluster,
   console,
   constants,
   crypto,
   dgram,
-  'diagnostics_channel': diagnosticsChannel,
+  diagnostics_channel: diagnosticsChannel,
   dns,
   domain,
   events,
@@ -70,14 +71,14 @@ export const staticNodeModulesForVM = {
   net,
   os,
   path,
-  'perf_hooks': perfHooks,
+  perf_hooks: perfHooks,
   process,
   punycode,
   querystring,
   readline,
   repl,
   stream,
-  'string_decoder': stringDecoder,
+  string_decoder: stringDecoder,
   timers,
   'timers/promises': timersPromises,
   tls,
@@ -87,6 +88,6 @@ export const staticNodeModulesForVM = {
   'util/types': utilTypes,
   v8,
   vm,
-  'worker_threads': workerThreads,
+  worker_threads: workerThreads,
   zlib,
 };

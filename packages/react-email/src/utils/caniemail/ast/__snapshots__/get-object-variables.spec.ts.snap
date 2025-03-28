@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getObjectVariables() 1`] = `
+{
+  "buttonStyle": [
+    Node {
+      "computed": false,
+      "end": 91,
+      "key": Node {
+        "end": 84,
+        "loc": SourceLocation {
+          "end": Position {
+            "column": 14,
+            "index": 84,
+            "line": 5,
+          },
+          "filename": undefined,
+          "identifierName": "borderRadius",
+          "start": Position {
+            "column": 2,
+            "index": 72,
+            "line": 5,
+          },
+        },
+        "name": "borderRadius",
+        "start": 72,
+        "type": "Identifier",
+      },
+      "loc": SourceLocation {
+        "end": Position {
+          "column": 21,
+          "index": 91,
+          "line": 5,
+        },
+        "filename": undefined,
+        "identifierName": undefined,
+        "start": Position {
+          "column": 2,
+          "index": 72,
+          "line": 5,
+        },
+      },
+      "method": false,
+      "shorthand": false,
+      "start": 72,
+      "type": "ObjectProperty",
+      "value": Node {
+        "end": 91,
+        "extra": {
+          "raw": "'5px'",
+          "rawValue": "5px",
+        },
+        "loc": SourceLocation {
+          "end": Position {
+            "column": 21,
+            "index": 91,
+            "line": 5,
+          },
+          "filename": undefined,
+          "identifierName": undefined,
+          "start": Position {
+            "column": 16,
+            "index": 86,
+            "line": 5,
+          },
+        },
+        "start": 86,
+        "type": "StringLiteral",
+        "value": "5px",
+      },
+    },
+  ],
+}
+`;

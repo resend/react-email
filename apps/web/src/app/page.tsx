@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
-import { Button } from "../components/button";
-import { Heading } from "../components/heading";
-import { Text } from "../components/text";
-import { Code } from "../components/code";
+import { ArrowRightIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '../components/button';
+import { Code } from '../components/code';
+import { Heading } from '../components/heading';
+import { Text } from '../components/text';
 
 const Home = () => (
   <>

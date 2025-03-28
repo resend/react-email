@@ -11,94 +11,51 @@ import {
   Preview,
   Row,
   Section,
-  Text,
   Tailwind,
-} from "@react-email/components";
-import * as React from "react";
+  Text,
+} from '@react-email/components';
+import type * as React from 'react';
 
 interface NetlifyWelcomeEmailProps {
-  steps?: {
+  steps: {
     id: number;
     Description: React.ReactNode;
   }[];
-  links?: string[];
+  links: {
+    title: string;
+    href: string;
+  }[];
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
-
-const PropDefaults: NetlifyWelcomeEmailProps = {
-  steps: [
-    {
-      id: 1,
-      Description: (
-        <li className="mb-20" key={1}>
-          <strong>Deploy your first project.</strong>{" "}
-          <Link>Connect to Git, choose a template</Link>, or manually deploy a
-          project you've been working on locally.
-        </li>
-      ),
-    },
-    {
-      id: 2,
-      Description: (
-        <li className="mb-20" key={2}>
-          <strong>Check your deploy logs.</strong> Find out what's included in
-          your build and watch for errors or failed deploys.{" "}
-          <Link>Learn how to read your deploy logs</Link>.
-        </li>
-      ),
-    },
-    {
-      id: 3,
-      Description: (
-        <li className="mb-20" key={3}>
-          <strong>Choose an integration.</strong> Quickly discover, connect, and
-          configure the right tools for your project with 150+ integrations to
-          choose from. <Link>Explore the Integrations Hub</Link>.
-        </li>
-      ),
-    },
-    {
-      id: 4,
-      Description: (
-        <li className="mb-20" key={4}>
-          <strong>Set up a custom domain.</strong> You can register a new domain
-          and buy it through Netlify or assign a domain you already own to your
-          site. <Link>Add a custom domain</Link>.
-        </li>
-      ),
-    },
-  ],
-  links: ["Visit the forums", "Read the docs", "Contact an expert"],
-};
+  : '';
 
 export const NetlifyWelcomeEmail = ({
-  steps = PropDefaults.steps,
-  links = PropDefaults.links,
+  steps,
+  links,
 }: NetlifyWelcomeEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Netlify Welcome</Preview>
       <Tailwind
         config={{
           theme: {
             extend: {
               colors: {
-                brand: "#2250f4",
-                offwhite: "#fafbfb",
+                brand: '#2250f4',
+                offwhite: '#fafbfb',
               },
               spacing: {
-                0: "0px",
-                20: "20px",
-                45: "45px",
+                0: '0px',
+                20: '20px',
+                45: '45px',
               },
             },
           },
         }}
       >
+        <Preview>Netlify Welcome</Preview>
         <Body className="bg-offwhite text-base font-sans">
           <Img
             src={`${baseUrl}/static/netlify-logo.png`}
@@ -135,10 +92,13 @@ export const NetlifyWelcomeEmail = ({
             <Section className="mt-45">
               <Row>
                 {links?.map((link) => (
-                  <Column key={link}>
-                    <Link className="text-black underline font-bold">
-                      {link}
-                    </Link>{" "}
+                  <Column key={link.title}>
+                    <Link
+                      className="text-black underline font-bold"
+                      href={link.href}
+                    >
+                      {link.title}
+                    </Link>{' '}
                     <span className="text-green-500">→</span>
                   </Column>
                 ))}
@@ -166,5 +126,58 @@ export const NetlifyWelcomeEmail = ({
     </Html>
   );
 };
+
+NetlifyWelcomeEmail.PreviewProps = {
+  steps: [
+    {
+      id: 1,
+      Description: (
+        <li className="mb-20" key={1}>
+          <strong>Deploy your first project.</strong>{' '}
+          <Link>Connect to Git, choose a template</Link>, or manually deploy a
+          project you've been working on locally.
+        </li>
+      ),
+    },
+    {
+      id: 2,
+      Description: (
+        <li className="mb-20" key={2}>
+          <strong>Check your deploy logs.</strong> Find out what's included in
+          your build and watch for errors or failed deploys.{' '}
+          <Link>Learn how to read your deploy logs</Link>.
+        </li>
+      ),
+    },
+    {
+      id: 3,
+      Description: (
+        <li className="mb-20" key={3}>
+          <strong>Choose an integration.</strong> Quickly discover, connect, and
+          configure the right tools for your project with 150+ integrations to
+          choose from. <Link>Explore the Integrations Hub</Link>.
+        </li>
+      ),
+    },
+    {
+      id: 4,
+      Description: (
+        <li className="mb-20" key={4}>
+          <strong>Set up a custom domain.</strong> You can register a new domain
+          and buy it through Netlify or assign a domain you already own to your
+          site. <Link>Add a custom domain</Link>.
+        </li>
+      ),
+    },
+  ],
+  links: [
+    {
+      title: 'Visit the forums',
+      href: 'https://www.netlify.com',
+    },
+    { title: 'Read the docs', href: 'https://www.netlify.com' },
+    { title: 'Contact an expert', href: 'https://www.netlify.com' },
+  ],
+} satisfies NetlifyWelcomeEmailProps;
 
 export default NetlifyWelcomeEmail;

@@ -5,30 +5,37 @@
   "scripts": {
     "build": "turbo run build --filter=!react-email-starter",
     "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile",
-    "lint": "turbo run lint",
+    "lint": "biome check",
+    "lint:fix": "biome check --write .",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@changesets/cli": "2.27.11",
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "eslint": "8.50.0",
     "happy-dom": "15.10.2",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.6",
     "tsconfig": "workspace:*",
     "tsup": "8.2.4",
     "turbo": "2.3.1",
-    "vite": "5.4.6",
+    "vite": "5.4.13",
     "vitest": "2.0.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.0.0",
+      "react-dom": "19.0.0",
+      "@types/react": "19.0.1",
+      "@types/react-dom": "19.0.1"
+    }
   },
   "packageManager": "pnpm@9.15.0+sha512.76e2379760a4328ec4415815bcd6628dee727af3779aaa4c914e3944156c4299921a89f976381ee107d41f12cfa4b66681ca9c718f0668fa0831ed4c6d8ba56c"
 }
