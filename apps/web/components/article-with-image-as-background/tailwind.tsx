@@ -30,13 +30,13 @@ export const component = (
           <Heading as="h1" className="m-0 mt-[4px] font-bold text-white">
             Artful Accents
           </Heading>
-          <Text className="m-0 mt-[8px] text-[16px] leading-[24px] text-white">
+          <Text className="m-0 mt-[8px] text-[16px] text-white leading-[24px]">
             Uncover the power of accent furniture in transforming your space
             with subtle touches of style, personality, and functionality, as we
             explore the art of curating captivating accents.
           </Text>
           <Button
-            className="mt-[24px] rounded-[8px] border border-solid border-gray-200 bg-white px-[40px] py-[12px] font-semibold text-gray-900"
+            className="mt-[24px] rounded-[8px] border border-gray-200 border-solid bg-white px-[40px] py-[12px] font-semibold text-gray-900"
             href="https://react.email"
           >
             Read more

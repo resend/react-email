@@ -1,6 +1,6 @@
 const IllustrationMarkdown: React.FC = () => (
   <div className="relative flex aspect-square w-[40%] flex-col gap-2 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/20 p-6 pr-3 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:skew-x-2">
-    <div className="absolute left-2 top-0 h-full w-1 bg-slate-2" />
+    <div className="absolute top-0 left-2 h-full w-1 bg-slate-2" />
     <div className="h-2 w-[90%] rounded-sm bg-slate-5" />
     <div className="h-2 w-[66%] rounded-sm bg-slate-5" />
     <div className="h-2 w-[84%] rounded-sm bg-slate-3" />

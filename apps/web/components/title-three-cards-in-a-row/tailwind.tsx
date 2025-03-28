@@ -5,10 +5,10 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Section className="my-[16px]">
     <Row>
-      <Text className="m-0 text-[20px] font-semibold leading-[28px] text-gray-900">
+      <Text className="m-0 font-semibold text-[20px] text-gray-900 leading-[28px]">
         Timing Products
       </Text>
-      <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
+      <Text className="mt-[8px] text-[16px] text-gray-500 leading-[24px]">
         Dieter Rams consistently implemented his design principles over the
         course of over three decades as the Braun design leader.
       </Text>
@@ -21,13 +21,13 @@ export const component = (
           height={180}
           src="/static/braun-analogue-clock.jpg"
         />
-        <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
+        <Text className="m-0 mt-[24px] font-semibold text-[20px] text-gray-900 leading-[28px]">
           Analogue Clock
         </Text>
-        <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
+        <Text className="m-0 mt-[16px] text-[16px] text-gray-500 leading-[24px]">
           Thoughtful and simply designed.
         </Text>
-        <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
+        <Text className="m-0 mt-[8px] font-semibold text-[16px] text-gray-900 leading-[24px]">
           $40.00
         </Text>
         <Button
@@ -44,13 +44,13 @@ export const component = (
           height={180}
           src="/static/braun-wall-clock.jpg"
         />
-        <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
+        <Text className="m-0 mt-[24px] font-semibold text-[20px] text-gray-900 leading-[28px]">
           Wall Clock
         </Text>
-        <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
+        <Text className="m-0 mt-[16px] text-[16px] text-gray-500 leading-[24px]">
           The original easy to read dial layout.
         </Text>
-        <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
+        <Text className="m-0 mt-[8px] font-semibold text-[16px] text-gray-900 leading-[24px]">
           $45.00
         </Text>
         <Button
@@ -67,13 +67,13 @@ export const component = (
           height={180}
           src="/static/braun-classic-watch.jpg"
         />
-        <Text className="m-0 mt-[24px] text-[20px] font-semibold leading-[28px] text-gray-900">
+        <Text className="m-0 mt-[24px] font-semibold text-[20px] text-gray-900 leading-[28px]">
           Classic Watch
         </Text>
-        <Text className="m-0 mt-[16px] text-[16px] leading-[24px] text-gray-500">
+        <Text className="m-0 mt-[16px] text-[16px] text-gray-500 leading-[24px]">
           Functional, classic, and built to last.
         </Text>
-        <Text className="m-0 mt-[8px] text-[16px] font-semibold leading-[24px] text-gray-900">
+        <Text className="m-0 mt-[8px] font-semibold text-[16px] text-gray-900 leading-[24px]">
           $210.00
         </Text>
         <Button

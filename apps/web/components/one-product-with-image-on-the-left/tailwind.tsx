@@ -15,14 +15,14 @@ export const component = (
             />
           </td>
           <td className="w-1/2 align-baseline">
-            <Text className="m-0 mt-[8px] text-[20px] font-semibold leading-[28px] text-gray-900">
+            <Text className="m-0 mt-[8px] font-semibold text-[20px] text-gray-900 leading-[28px]">
               Great Timepiece
             </Text>
-            <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
+            <Text className="mt-[8px] text-[16px] text-gray-500 leading-[24px]">
               Renowned for their minimalist design and high functionality,
               celebrating the principles of simplicity and clarity.
             </Text>
-            <Text className="mt-[8px] text-[18px] font-semibold leading-[28px] text-gray-900">
+            <Text className="mt-[8px] font-semibold text-[18px] text-gray-900 leading-[28px]">
               $120.00
             </Text>
             <Button

@@ -35,7 +35,7 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
     >
       {children}
       <motion.div
-        className="pointer-events-none absolute -inset-px opacity-0 mix-blend-color-dodge transition duration-300 group-hover:opacity-100"
+        className="-inset-px pointer-events-none absolute opacity-0 mix-blend-color-dodge transition duration-300 group-hover:opacity-100"
         style={{ background }}
       />
     </div>

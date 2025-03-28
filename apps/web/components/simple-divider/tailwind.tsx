@@ -4,7 +4,7 @@ import { Layout } from '../_components/layout';
 export const component = (
   <>
     <Text>Before divider</Text>
-    <Hr className="my-[16px] border-t-2 border-gray-300" />
+    <Hr className="my-[16px] border-gray-300 border-t-2" />
     <Text>After divider</Text>
   </>
 );

@@ -59,7 +59,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pl-4 pr-11 font-mono text-sm backdrop-blur-md',
+            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pr-11 pl-4 font-mono text-sm backdrop-blur-md',
             className,
           )}
           style={{
@@ -86,7 +86,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             )}
           </IconButton>
           <div
-            className="absolute right-0 top-0 h-px w-[12.5rem]"
+            className="absolute top-0 right-0 h-px w-[12.5rem]"
             style={{
               background:
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',

@@ -5,7 +5,7 @@ export const component = (
   <Row>
     <Column align="center">
       <Row>
-        <Text className="text-[18px] font-bold leading-[28px] text-indigo-500">
+        <Text className="font-bold text-[18px] text-indigo-500 leading-[28px]">
           Try now
         </Text>
         <Text className="text-gray-900">
