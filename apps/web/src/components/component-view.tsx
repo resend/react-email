@@ -82,7 +82,7 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
             className,
           )}
         >
-          <h2 className="shrink grow basis-0 text-pretty text-lg font-semibold text-slate-12 md:text-xl">
+          <h2 className="shrink grow basis-0 text-pretty font-semibold text-lg text-slate-12 md:text-xl">
             {component.title}
           </h2>
           <Tabs.List className="relative flex w-fit items-center space-x-1 overflow-hidden p-1 text-xs">
@@ -111,15 +111,15 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
               <IconSource />
             </TabTriggetWithTooltip>
           </Tabs.List>
-          <div className="absolute bottom-0 right-0 h-px w-[100dvw] bg-slate-4" />
+          <div className="absolute right-0 bottom-0 h-px w-[100dvw] bg-slate-4" />
         </div>
         <div className="relative h-fit w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [transition-behavior:allow-discrete]">
           <TabContent value="desktop">
-            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
+            <div className="absolute inset-0 bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] bg-transparent opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
             <ComponentPreview activeView="desktop" html={component.code.html} />
           </TabContent>
           <TabContent value="mobile">
-            <div className="absolute inset-0 bg-transparent bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
+            <div className="absolute inset-0 bg-[radial-gradient(#091A21_.0313rem,transparent_.0313rem),_radial-gradient(#091A21_.0313rem,transparent_.0313rem)] bg-transparent opacity-30 transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem] [height:calc-size(auto)] [transition-behavior:allow-discrete]" />
             <ComponentPreview activeView="mobile" html={component.code.html} />
           </TabContent>
           <TabContent value="code">

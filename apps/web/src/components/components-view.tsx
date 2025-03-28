@@ -12,7 +12,7 @@ export const ComponentsView: React.FC<ComponentsViewProps> = ({
     <>
       {components.map((component, index) => (
         <ComponentView
-          className={index !== 0 ? 'border-t border-slate-4 pt-4' : ''}
+          className={index !== 0 ? 'border-slate-4 border-t pt-4' : ''}
           component={component}
           key={component.slug}
         />

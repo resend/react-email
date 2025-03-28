@@ -5,13 +5,13 @@ export const component = (
   <Section className="my-[16px]">
     <Section className="mt-[42px]">
       <Row>
-        <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
+        <Text className="m-0 font-semibold text-[16px] text-indigo-600 leading-[24px]">
           Our products
         </Text>
-        <Text className="m-0 mt-[8px] text-[24px] font-semibold leading-[32px] text-gray-900">
+        <Text className="m-0 mt-[8px] font-semibold text-[24px] text-gray-900 leading-[32px]">
           Elegant Style
         </Text>
-        <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
+        <Text className="mt-[8px] text-[16px] text-gray-500 leading-[24px]">
           We spent two years in development to bring you the next generation of
           our award-winning home brew grinder. From the finest pour-overs to the
           coarsest cold brews, your coffee will never be the same again.
