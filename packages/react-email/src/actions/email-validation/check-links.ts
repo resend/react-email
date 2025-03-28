@@ -6,6 +6,7 @@ import {
   getCodeLocationFromAstElement,
 } from './get-code-location-from-ast-element';
 import { quickFetch } from './quick-fetch';
+import { IncomingMessage } from 'node:http';
 
 export type LinkCheck = { passed: boolean } & (
   | {
@@ -67,20 +68,32 @@ export const checkLinks = async (code: string) => {
             });
           }
 
-          const res = await quickFetch(url);
-          const hasSucceeded =
-            res.statusCode?.toString().startsWith('2') ?? false;
-          result.checks.push({
-            type: 'fetch_attempt',
-            passed: hasSucceeded,
-            metadata: {
-              fetchStatusCode: res.statusCode,
-            },
-          });
-          if (!hasSucceeded) {
-            result.status = res.statusCode?.toString().startsWith('3')
-              ? 'warning'
-              : 'error';
+          let res: IncomingMessage | undefined = undefined;
+          try {
+            res = await quickFetch(url);
+            const hasSucceeded =
+              res.statusCode?.toString().startsWith('2') ?? false;
+            result.checks.push({
+              type: 'fetch_attempt',
+              passed: hasSucceeded,
+              metadata: {
+                fetchStatusCode: res.statusCode,
+              },
+            });
+            if (!hasSucceeded) {
+              result.status = res.statusCode?.toString().startsWith('3')
+                ? 'warning'
+                : 'error';
+            }
+          } catch (exception) {
+            result.checks.push({
+              type: 'fetch_attempt',
+              passed: false,
+              metadata: {
+                fetchStatusCode: undefined,
+              },
+            });
+            result.status = 'error';
           }
         } catch (exception) {
           result.checks.push({
