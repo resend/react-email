@@ -75,7 +75,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
         <div className="flex w-full justify-between gap-3 lg:w-fit lg:justify-start">
           <ToggleGroup.Root
             aria-label="Color Scheme"
-            className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
+            className="inline-block h-[36px] items-center overflow-hidden rounded-md border border-slate-6 bg-slate-2"
             id="theme-toggle"
             onValueChange={(value) => {
               if (value) setTheme(value);
@@ -143,7 +143,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
 
           <ToggleGroup.Root
             aria-label="View mode"
-            className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
+            className="inline-block h-[36px] items-center overflow-hidden rounded-md border border-slate-6 bg-slate-2"
             id="view-toggle"
             onValueChange={(value) => {
               if (value) setActiveView(value);
@@ -156,7 +156,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'relative px-3 py-2 transition duration-200 ease-in-out hover:text-slate-12',
                       {
                         'text-slate-11': activeView !== 'desktop',
                         'text-slate-12': activeView === 'desktop',
@@ -166,7 +166,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                     {activeView === 'desktop' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-view-tabs"
@@ -184,7 +184,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'relative px-3 py-2 transition duration-200 ease-in-out hover:text-slate-12',
                       {
                         'text-slate-11': activeView !== 'mobile',
                         'text-slate-12': activeView === 'mobile',
@@ -194,7 +194,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                     {activeView === 'mobile' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-view-tabs"
@@ -212,7 +212,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                      'relative px-3 py-2 transition duration-200 ease-in-out hover:text-slate-12',
                       {
                         'text-slate-11': activeView !== 'source',
                         'text-slate-12': activeView === 'source',
@@ -222,7 +222,7 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                     {activeView === 'source' && (
                       <motion.span
                         animate={{ opacity: 1 }}
-                        className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                        className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                         exit={{ opacity: 0 }}
                         initial={{ opacity: 0 }}
                         layoutId="topbar-view-tabs"

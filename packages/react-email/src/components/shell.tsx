@@ -23,14 +23,14 @@ export const Shell = ({
   const [triggerTransition, setTriggerTransition] = React.useState(false);
 
   return (
-    <div className="flex bg-black text-white flex-col h-screen overflow-x-hidden">
-      <div className="flex lg:hidden items-center px-6 justify-between h-[70px] border-b border-slate-6">
-        <div className="h-[70px] flex items-center">
+    <div className="flex h-screen flex-col overflow-x-hidden bg-black text-white">
+      <div className="flex h-[70px] items-center justify-between border-slate-6 border-b px-6 lg:hidden">
+        <div className="flex h-[70px] items-center">
           <Logo />
         </div>
 
         <button
-          className="h-6 w-6 rounded flex items-center justify-center text-white"
+          className="flex h-6 w-6 items-center justify-center rounded text-white"
           onClick={() => {
             setSidebarToggled((v) => !v);
           }}
@@ -57,9 +57,9 @@ export const Shell = ({
       <div className="flex bg-slate-2">
         <Sidebar
           className={cn(
-            'w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:z-auto lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0',
+            'fixed top-[70px] left-0 z-50 h-screen w-screen max-w-full bg-black lg:top-0 lg:z-auto lg:h-auto lg:max-w-[275px]',
             {
-              'translate-x-0 lg:-translate-x-full': sidebarToggled,
+              'lg:-translate-x-full translate-x-0': sidebarToggled,
               '-translate-x-full lg:translate-x-0': !sidebarToggled,
             },
           )}
@@ -71,10 +71,10 @@ export const Shell = ({
 
         <main
           className={cn(
-            'absolute will-change-width h-screen w-[100vw] right-0',
+            'absolute right-0 h-screen w-[100vw] will-change-width',
             {
-              'lg:translate-x-0 lg:w-[calc(100vw)]': sidebarToggled,
-              'lg:translate-x-0 lg:w-[calc(100vw-275px)]': !sidebarToggled,
+              'lg:w-[calc(100vw)] lg:translate-x-0': sidebarToggled,
+              'lg:w-[calc(100vw-275px)] lg:translate-x-0': !sidebarToggled,
             },
           )}
           style={{
@@ -102,7 +102,7 @@ export const Shell = ({
             />
           ) : null}
 
-          <div className="h-[calc(100vh_-_70px)] overflow-auto mx-auto ">
+          <div className="mx-auto h-[calc(100vh_-_70px)] overflow-auto ">
             {children}
           </div>
         </main>
