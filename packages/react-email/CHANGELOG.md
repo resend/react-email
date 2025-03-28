@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.2
+
+### Patch Changes
+
+- ddf9652: Fix crashing when the link or image does not exist
+
 ## 4.0.1
 
 ### Patch Changes
