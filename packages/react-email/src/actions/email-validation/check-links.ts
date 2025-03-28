@@ -1,12 +1,12 @@
 'use server';
 
+import type { IncomingMessage } from 'node:http';
 import { parse } from 'node-html-parser';
 import {
   type CodeLocation,
   getCodeLocationFromAstElement,
 } from './get-code-location-from-ast-element';
 import { quickFetch } from './quick-fetch';
-import { IncomingMessage } from 'node:http';
 
 export type LinkCheck = { passed: boolean } & (
   | {
