@@ -11,37 +11,37 @@ import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="py-[16px] text-center">
-    <Heading as="h1" className="mb-0 text-[30px] font-semibold leading-[36px]">
+    <Heading as="h1" className="mb-0 font-semibold text-[30px] leading-[36px]">
       You left something in your cart
     </Heading>
-    <Section className="my-[16px] rounded-[8px] border border-solid border-gray-200 p-[16px] pt-0">
+    <Section className="my-[16px] rounded-[8px] border border-gray-200 border-solid p-[16px] pt-0">
       <table className="mb-[16px]" width="100%">
         <tr>
-          <th className="border-0 border-b border-solid border-gray-200 py-[8px]">
+          <th className="border-0 border-gray-200 border-b border-solid py-[8px]">
             &nbsp;
           </th>
           <th
             align="left"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
+            className="border-0 border-gray-200 border-b border-solid py-[8px] text-gray-500"
             colSpan={6}
           >
             <Text className="font-semibold">Product</Text>
           </th>
           <th
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
+            className="border-0 border-gray-200 border-b border-solid py-[8px] text-gray-500"
           >
             <Text className="font-semibold">Quantity</Text>
           </th>
           <th
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px] text-gray-500"
+            className="border-0 border-gray-200 border-b border-solid py-[8px] text-gray-500"
           >
             <Text className="font-semibold">Price</Text>
           </th>
         </tr>
         <tr>
-          <td className="border-0 border-b border-solid border-gray-200 py-[8px]">
+          <td className="border-0 border-gray-200 border-b border-solid py-[8px]">
             <Img
               alt="Braun Classic Watch"
               className="rounded-[8px] object-cover"
@@ -51,26 +51,26 @@ export const component = (
           </td>
           <td
             align="left"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
             colSpan={6}
           >
             <Text>Classic Watch</Text>
           </td>
           <td
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
           >
             <Text>1</Text>
           </td>
           <td
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
           >
             <Text>$210.00</Text>
           </td>
         </tr>
         <tr>
-          <td className="border-0 border-b border-solid border-gray-200 py-[8px]">
+          <td className="border-0 border-gray-200 border-b border-solid py-[8px]">
             <Img
               alt="Braun Analogue Clock"
               className="rounded-[8px] object-cover"
@@ -80,20 +80,20 @@ export const component = (
           </td>
           <td
             align="left"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
             colSpan={6}
           >
             <Text>Analogue Clock</Text>
           </td>
           <td
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
           >
             <Text>1</Text>
           </td>
           <td
             align="center"
-            className="border-0 border-b border-solid border-gray-200 py-[8px]"
+            className="border-0 border-gray-200 border-b border-solid py-[8px]"
           >
             <Text>$40.00</Text>
           </td>

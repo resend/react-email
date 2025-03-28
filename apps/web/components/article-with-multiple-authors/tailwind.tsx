@@ -11,7 +11,7 @@ import { Layout } from '../_components/layout';
 
 export const component = (
   <Row>
-    <Hr className="mb-[0px] mt-[16px] !border-gray-300" />
+    <Hr className="!border-gray-300 mt-[16px] mb-[0px]" />
     <Section>
       {[
         {
@@ -41,11 +41,11 @@ export const component = (
             <Section className="ml-[18px] inline-block max-w-[120px] text-left align-top">
               <Heading
                 as="h3"
-                className="m-0 text-[14px] font-medium leading-[20px] text-gray-900"
+                className="m-0 font-medium text-[14px] text-gray-900 leading-[20px]"
               >
                 {author.name}
               </Heading>
-              <Text className="m-0 text-[12px] font-medium leading-[14px] text-gray-500">
+              <Text className="m-0 font-medium text-[12px] text-gray-500 leading-[14px]">
                 {author.title}
               </Text>
               <Section className="mt-[4px]">

@@ -26,7 +26,7 @@ const Home = () => (
           />
         </div>
         <Heading
-          className="relative mb-8 !text-white/80 before:absolute before:left-0 before:top-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-shine before:bg-[length:200%] before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails']"
+          className='!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails']'
           size="10"
         >
           The next generation of writing emails
@@ -45,7 +45,7 @@ const Home = () => (
             <ArrowRightIcon size={16} />
           </Link>
         </Button>
-        <Code className="hidden max-w-max md:!inline-flex">
+        <Code className='md:!inline-flex hidden max-w-max'>
           npx create-email@latest
         </Code>
       </div>

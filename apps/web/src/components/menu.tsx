@@ -25,7 +25,7 @@ const MenuItem: React.FC<Readonly<MenuItemProps>> = ({
   <li className="inline-flex w-full items-center justify-center md:w-fit">
     <Link
       className={classnames(
-        'inline-flex h-8 scroll-m-2 items-center rounded-md text-sm text-slate-11 transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
+        'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
         className,
       )}
       href={href}
@@ -126,7 +126,7 @@ export const Menu: React.FC = () => {
         </ul>
         <span
           aria-hidden="true"
-          className="mx-2 hidden h-5 w-px bg-slate-6 sm:!inline-block"
+          className="sm:!inline-block mx-2 hidden h-5 w-px bg-slate-6"
         />
         <ul className="flex gap-2">
           <SocialIcons onItemClick={handleItemClick} />
@@ -143,8 +143,8 @@ export const Menu: React.FC = () => {
               <MenuIcon />
             </Drawer.Trigger>
             <Drawer.Portal>
-              <Drawer.Overlay className="fixed left-1/2 top-1/2 z-[2] h-[200dvh] w-[200dvw] -translate-x-1/2 -translate-y-1/2 bg-slate-800/50" />
-              <Drawer.Content className="fixed bottom-0 left-0 right-0 z-[3] flex h-fit flex-col gap-8 rounded-t-xl bg-black p-8 pt-10">
+              <Drawer.Overlay className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-[2] h-[200dvh] w-[200dvw] bg-slate-800/50" />
+              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-[3] flex h-fit flex-col gap-8 rounded-t-xl bg-black p-8 pt-10">
                 <ul className="flex w-full flex-col items-start gap-4">
                   <MenuItems onItemClick={handleItemClick} />
                 </ul>
