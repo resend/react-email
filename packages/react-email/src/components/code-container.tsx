@@ -37,7 +37,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
     return (
       <a
-        className="text-slate-11 transition ease-in-out duration-200 hover:text-slate-12"
+        className="text-slate-11 transition duration-200 ease-in-out hover:text-slate-12"
         download={file.name}
         href={url}
       >
@@ -72,7 +72,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
 
   return (
     <div
-      className="border-slate-6 relative w-full items-center whitespace-pre rounded-md border text-sm backdrop-blur-md"
+      className="relative w-full items-center whitespace-pre rounded-md border border-slate-6 text-sm backdrop-blur-md"
       style={{
         lineHeight: '130%',
         background:
@@ -80,14 +80,14 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         boxShadow: 'rgb(0 0 0 / 10%) 0px 5px 30px -5px',
       }}
     >
-      <div className="h-9 border-b border-slate-6">
+      <div className="h-9 border-slate-6 border-b">
         <div className="flex">
           <LayoutGroup id="code">
             {markups.map(({ language }) => {
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative py-[8px] px-4 text-sm font-medium font-sans transition ease-in-out duration-200 hover:text-slate-12 ${
+                  className={`relative px-4 py-[8px] font-medium font-sans text-sm transition duration-200 ease-in-out hover:text-slate-12 ${
                     activeLang !== language ? 'text-slate-11' : 'text-slate-12'
                   }`}
                   key={language}
@@ -98,7 +98,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
                   {isCurrentLang ? (
                     <motion.span
                       animate={{ opacity: 1 }}
-                      className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
+                      className="absolute top-0 right-0 bottom-0 left-0 bg-slate-4"
                       exit={{ opacity: 0 }}
                       initial={{ opacity: 0 }}
                       layoutId="code"
@@ -123,7 +123,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         <Tooltip>
           <Tooltip.Trigger
             asChild
-            className="text-gray-11 absolute top-2 right-8 hidden md:block"
+            className="absolute top-2 right-8 hidden text-gray-11 md:block"
           >
             {renderDownloadIcon()}
           </Tooltip.Trigger>

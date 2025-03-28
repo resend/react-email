@@ -22,13 +22,13 @@ export const Sidebar = ({
 
   return (
     <aside
-      className={cn('border-r flex flex-col border-slate-6', className)}
+      className={cn('flex flex-col border-slate-6 border-r', className)}
       style={{ ...style }}
     >
-      <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
+      <div className="hidden h-[70px] flex-shrink items-center p-4 lg:flex">
         <Logo />
       </div>
-      <nav className="p-4 flex-grow lg:pt-0 pl-0 w-screen h-[calc(100vh_-_70px)] lg:w-full lg:min-w-[275px] lg:max-w-[275px] flex flex-col overflow-y-auto">
+      <nav className="flex h-[calc(100vh_-_70px)] w-screen flex-grow flex-col overflow-y-auto p-4 pl-0 lg:w-full lg:min-w-[275px] lg:max-w-[275px] lg:pt-0">
         <Collapsible.Root open>
           <React.Suspense>
             <SidebarDirectoryChildren
