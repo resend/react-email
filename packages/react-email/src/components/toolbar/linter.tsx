@@ -126,6 +126,10 @@ export const Linter = ({ rows }: LinterProps) => {
                 failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The link is broken'
                   : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                failingCheck.metadata.fetchStatusCode === undefined
+                  ? 'The link could not be reached'
+                  : null}
                 {failingCheck.type === 'syntax'
                   ? 'The link is broken due to invalid syntax'
                   : null}
@@ -179,6 +183,10 @@ export const Linter = ({ rows }: LinterProps) => {
                 failingCheck.metadata.fetchStatusCode &&
                 failingCheck.metadata.fetchStatusCode >= 400
                   ? 'The image is broken'
+                  : null}
+                {failingCheck.type === 'fetch_attempt' &&
+                failingCheck.metadata.fetchStatusCode === undefined
+                  ? 'The image could not be reached'
                   : null}
                 {failingCheck.type === 'syntax'
                   ? 'The image is broken due to an invalid source'
