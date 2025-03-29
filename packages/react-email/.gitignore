@@ -1,8 +1,10 @@
 node_modules
 .next
 cli
+yalc.lock
 !src/cli
 
 # for testing
+package-lock.json
 .for-dependency-graph.ts
 static

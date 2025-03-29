@@ -1,0 +1,25 @@
+{
+  "name": "nextjs-with-tailwind",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "preinstall": "yalc add react-email",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react-email": "file:.yalc/react-email",
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5",
+    "yalc": "1.0.0-pre.53"
+  }
+}

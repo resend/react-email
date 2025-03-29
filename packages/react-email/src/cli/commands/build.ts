@@ -165,6 +165,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   ) as {
     name: string;
     scripts: Record<string, string>;
+    peerDependencies?: Record<string, string>;
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
@@ -172,13 +173,21 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   packageJson.scripts.start = 'next start';
 
   packageJson.name = 'preview-server';
-  // We remove this one to avoid having resolve issues on our demo build process.
-  // This is only used in the `export` command so it's irrelevant to have it here.
-  //
-  // See `src/actions/render-email-by-path` for more info on how we render the
-  // email templates without `@react-email/render` being installed.
-  delete packageJson.devDependencies['@react-email/render'];
-  delete packageJson.devDependencies['@react-email/components'];
+  for (const [key, value] of Object.entries(packageJson.dependencies)) {
+    if (value.startsWith('workspace:')) {
+      delete packageJson.dependencies[key];
+    }
+  }
+  for (const [key, value] of Object.entries(packageJson.devDependencies)) {
+    if (value.startsWith('workspace:')) {
+      delete packageJson.devDependencies[key];
+    }
+  }
+
+  // This is meant to avoid issues with peer dependencies while the package doesn't upgrade
+  delete packageJson.devDependencies['@responsive-email/react-email'];
+
+  delete packageJson.peerDependencies;
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),

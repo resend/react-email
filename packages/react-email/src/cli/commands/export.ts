@@ -1,12 +1,12 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import type { Options } from '@react-email/render';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora from 'ora';
-import type React from 'react';
+import type { createElement } from 'react';
+import type { Options } from '../../package/render/node';
 import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
 import {
   type EmailsDirectory,
@@ -117,7 +117,7 @@ export const exportTemplates = async (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
-        reactEmailCreateReactElement: typeof React.createElement;
+        reactEmailCreateReactElement: typeof createElement;
       };
       const rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
