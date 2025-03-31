@@ -28,5 +28,6 @@ nextBuildProcess.on('exit', (code) => {
     fs.rmSync(builtPreviewPath, { recursive: true });
   }
   fs.mkdirSync(builtPreviewPath, { recursive: true });
+  fs.rmSync('.next/cache', { recursive: true });
   fs.renameSync('.next', path.join(builtPreviewPath, '/.next'));
 });
