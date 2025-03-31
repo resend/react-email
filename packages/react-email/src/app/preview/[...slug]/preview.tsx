@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useState, useRef } from 'react';
+import { use, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -15,13 +15,13 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { ThemeToggleGroup } from '../../../components/topbar/theme-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
-import { cn } from '../../../utils';
 import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
+import { cn } from '../../../utils';
 import { RenderingError } from './rendering-error';
-import { ThemeToggleGroup } from '../../../components/topbar/theme-toggle-group';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
@@ -36,7 +36,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const activeTheme: 'dark' | 'light' =
     searchParams.get('theme') === 'dark' ? 'dark' : 'light';
-  const activeView = searchParams.get('view') ?? 'desktop';
+  const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
   const handleThemeChange = (theme: 'dark' | 'light') => {
