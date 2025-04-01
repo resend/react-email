@@ -28,7 +28,9 @@ const init = async (name) => {
     process.exit(1);
   }
 
-  const spinner = ora('Preparing files...\n').start();
+  const spinner = ora({
+    text: 'Preparing files...\n',
+  }).start();
 
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,

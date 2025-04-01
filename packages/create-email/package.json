@@ -5,6 +5,9 @@
   "main": "src/index.js",
   "type": "module",
   "license": "MIT",
+  "scripts": {
+    "test": "vitest run"
+  },
   "dependencies": {
     "commander": "9.4.1",
     "fs-extra": "11.1.1",
@@ -24,6 +27,7 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "typescript": "5.8.2"
   }
 }
