@@ -1,6 +1,5 @@
 // A JavaScript email component with ES6 export default
 import { Button, Html } from '@react-email/components';
-import React from 'react';
 
 function Email() {
   return (

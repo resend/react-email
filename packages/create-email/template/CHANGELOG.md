@@ -1,5 +1,12 @@
 # react-email-starter
 
+## 1.0.3
+
+### Patch Changes
+
+- d5f5ba9: add tsconfig for starter to work without importing React
+  - @react-email/components@0.0.35
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # react-email
 
+## 4.0.3
+
+### Patch Changes
+
+- 962f768: update esbuild to 0.25.0
+- 2225fe6: Fix detection of files with various export patterns
+
 ## 4.0.2
 
 ### Patch Changes
