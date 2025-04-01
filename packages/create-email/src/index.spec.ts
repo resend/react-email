@@ -33,7 +33,7 @@ describe('automatic setup', () => {
   });
 
   test.sequential('type checking', () => {
-    const typecheckingProcess = spawnSync('npx', ['tsc'], {
+    const typecheckingProcess = spawnSync('npx', ['tsc', '.'], {
       shell: true,
       cwd: starterPath,
       stdio: 'inherit',
