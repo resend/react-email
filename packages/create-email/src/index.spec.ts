@@ -16,7 +16,9 @@ describe('automatic setup', () => {
         stdio: 'pipe',
       },
     );
-    console.log(createEmailProcess.stderr?.toString());
+    if (createEmailProcess.stderr) {
+      console.log(createEmailProcess.stderr.toString());
+    }
     expect(createEmailProcess.status, 'starter creation should return 0').toBe(
       0,
     );
@@ -28,17 +30,24 @@ describe('automatic setup', () => {
       cwd: starterPath,
       stdio: 'pipe',
     });
-    console.log(exportProcess.stderr?.toString());
+    if (exportProcess.stderr) {
+      console.log(exportProcess.stderr.toString());
+    }
     expect(exportProcess.status, 'export should return status code 0').toBe(0);
   });
 
   test.sequential('type checking', () => {
-    const typecheckingProcess = spawnSync('npx', ['tsc', '.'], {
+    const typecheckingProcess = spawnSync('npx', ['tsc'], {
       shell: true,
       cwd: starterPath,
       stdio: 'inherit',
     });
-    console.log(typecheckingProcess.stderr?.toString());
+    if (typecheckingProcess.stderr) {
+      console.log(typecheckingProcess.stderr.toString());
+    }
+    if (typecheckingProcess.stdout) {
+      console.log(typecheckingProcess.stdout.toString());
+    }
     expect(
       typecheckingProcess.status,
       'type checking should return status code 0',
