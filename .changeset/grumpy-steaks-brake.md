@@ -2,4 +2,4 @@
 "@react-email/text": patch
 ---
 
-properly parse margin values
+Merge all coming margin style properties into a single `margin`

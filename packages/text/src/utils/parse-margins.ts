@@ -9,44 +9,6 @@ interface MarginProperties {
 }
 
 /**
- * converts margin value to `px` equivalent.
- * @example "1em" =\> 16
- */
-function convertToPx(value: MarginType) {
-  let px = 0;
-
-  if (!value) {
-    return px;
-  }
-
-  if (typeof value === 'number') {
-    return value;
-  }
-
-  const matches = /^([\d.]+)(px|em|rem|%)$/.exec(value);
-
-  if (matches && matches.length === 3) {
-    const numValue = Number.parseFloat(matches[1]);
-    const unit = matches[2];
-
-    switch (unit) {
-      case 'px':
-        return numValue;
-      case 'em':
-      case 'rem':
-        px = numValue * 16;
-        return px;
-      case '%':
-        px = (numValue / 100) * 600;
-        return px;
-      default:
-        return numValue;
-    }
-  }
-  return 0;
-}
-
-/**
  * Parses all the values out of a margin string to get the value for all margin props in `px`
  * @example e.g. "10px" =\> mt: 10, mr: 10, mb: 10, ml: 10
  */
@@ -72,28 +34,28 @@ export function parseMargin({
 
     switch (values.length) {
       case 1:
-        mt = convertToPx(values[0]);
-        mr = convertToPx(values[0]);
-        mb = convertToPx(values[0]);
-        ml = convertToPx(values[0]);
+        mt = values[0];
+        mr = values[0];
+        mb = values[0];
+        ml = values[0];
         break;
       case 2:
-        mt = convertToPx(values[0]);
-        mb = convertToPx(values[0]);
-        mr = convertToPx(values[1]);
-        ml = convertToPx(values[1]);
+        mt = values[0];
+        mb = values[0];
+        mr = values[1];
+        ml = values[1];
         break;
       case 3:
-        mt = convertToPx(values[0]);
-        mr = convertToPx(values[1]);
-        mb = convertToPx(values[2]);
-        ml = convertToPx(values[1]);
+        mt = values[0];
+        mr = values[1];
+        mb = values[2];
+        ml = values[1];
         break;
       case 4:
-        mt = convertToPx(values[0]);
-        mr = convertToPx(values[1]);
-        mb = convertToPx(values[2]);
-        ml = convertToPx(values[3]);
+        mt = values[0];
+        mr = values[1];
+        mb = values[2];
+        ml = values[3];
         break;
       default:
         break;

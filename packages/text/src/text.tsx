@@ -20,11 +20,11 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
         style={{
           fontSize: '14px',
           lineHeight: '24px',
+          ...style,
           marginBottom: margins.mb,
           marginTop: margins.mt,
           marginLeft: margins.ml,
           marginRight: margins.mr,
-          ...style,
         }}
       />
     );
