@@ -65,7 +65,13 @@ const init = async (name) => {
   });
 
   // eslint-disable-next-line no-console
-  console.log(await tree('./react-email-starter', 4));
+  console.info(
+    await tree(resolvedProjectPath, 4, (dirent) => {
+      return !path
+        .join(dirent.parentPath, dirent.name)
+        .includes('node_modules');
+    }),
+  );
 };
 
 new Command()
