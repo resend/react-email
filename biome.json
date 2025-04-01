@@ -67,6 +67,7 @@
       "./**/node_modules/**/*",
       "./**/*.d.ts",
       "./**/**/prism.ts",
+      "out",
       ".turbo"
     ]
   }
