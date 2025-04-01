@@ -1,5 +1,11 @@
 # react-email-with-mailersend
 
+## 1.0.10
+
+### Patch Changes
+
+- @react-email/components@0.0.35
+
 ## 1.0.9
 
 ### Patch Changes

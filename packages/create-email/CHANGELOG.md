@@ -1,5 +1,11 @@
 # create-email
 
+## 1.0.3
+
+### Patch Changes
+
+- 0c4d4dd: fix undefined behavior when template has already been created, fix error on tree when using custom project name
+
 ## 1.0.2
 
 ### Patch Changes
