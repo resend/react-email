@@ -40,7 +40,7 @@ describe('automatic setup', () => {
     const typecheckingProcess = spawnSync('npx', ['tsc'], {
       shell: true,
       cwd: starterPath,
-      stdio: 'inherit',
+      stdio: 'pipe',
     });
     if (typecheckingProcess.stderr) {
       console.log(typecheckingProcess.stderr.toString());
