@@ -300,7 +300,7 @@ importers:
   packages/code-block:
     dependencies:
       prismjs:
-        specifier: 1.30.0
+        specifier: ^1.30.0
         version: 1.30.0
       react:
         specifier: 19.0.0
@@ -446,16 +446,16 @@ importers:
   packages/create-email:
     dependencies:
       commander:
-        specifier: 9.4.1
+        specifier: ^9.4.1
         version: 9.4.1
       fs-extra:
-        specifier: 11.1.1
-        version: 11.1.1
+        specifier: ^11.1.1
+        version: 11.3.0
       log-symbols:
-        specifier: 5.1.0
+        specifier: ^5.1.0
         version: 5.1.0
       ora:
-        specifier: 6.1.2
+        specifier: ^6.1.2
         version: 6.1.2
     devDependencies:
       react:
@@ -583,7 +583,7 @@ importers:
   packages/markdown:
     dependencies:
       md-to-react-email:
-        specifier: 5.0.5
+        specifier: ^5.0.5
         version: 5.0.5(react@19.0.0)
       react:
         specifier: 19.0.0
@@ -618,46 +618,46 @@ importers:
   packages/react-email:
     dependencies:
       '@babel/parser':
-        specifier: 7.24.5
+        specifier: ^7.24.5
         version: 7.24.5
       '@babel/traverse':
-        specifier: 7.25.6
+        specifier: ^7.25.6
         version: 7.25.6
       chalk:
-        specifier: 4.1.2
+        specifier: ^4.1.2
         version: 4.1.2
       chokidar:
-        specifier: 4.0.3
+        specifier: ^4.0.3
         version: 4.0.3
       commander:
-        specifier: 11.1.0
+        specifier: ^11.1.0
         version: 11.1.0
       debounce:
-        specifier: 2.0.0
+        specifier: ^2.0.0
         version: 2.0.0
       esbuild:
-        specifier: 0.25.0
+        specifier: ^0.25.0
         version: 0.25.0
       glob:
-        specifier: 10.3.4
-        version: 10.3.4
+        specifier: ^10.3.4
+        version: 10.4.5
       log-symbols:
-        specifier: 4.1.0
+        specifier: ^4.1.0
         version: 4.1.0
       mime-types:
-        specifier: 2.1.35
+        specifier: ^2.1.35
         version: 2.1.35
       next:
-        specifier: 15.2.4
+        specifier: ^15.2.4
         version: 15.2.4(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       normalize-path:
-        specifier: 3.0.0
+        specifier: ^3.0.0
         version: 3.0.0
       ora:
-        specifier: 5.4.1
+        specifier: ^5.4.1
         version: 5.4.1
       socket.io:
-        specifier: 4.8.1
+        specifier: ^4.8.1
         version: 4.8.1
     devDependencies:
       '@babel/core':
@@ -808,10 +808,10 @@ importers:
   packages/render:
     dependencies:
       html-to-text:
-        specifier: 9.0.5
+        specifier: ^9.0.5
         version: 9.0.5
       prettier:
-        specifier: 3.5.3
+        specifier: ^3.5.3
         version: 3.5.3
       react:
         specifier: 19.0.0
@@ -820,7 +820,7 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
       react-promise-suspense:
-        specifier: 0.3.4
+        specifier: ^0.3.4
         version: 0.3.4
     devDependencies:
       '@edge-runtime/vm':
@@ -1161,10 +1161,6 @@ packages:
 
   '@babel/traverse@7.26.10':
     resolution: {integrity: sha512-k8NuDrxr0WrPH5Aupqb2LCVURP/S0vBEn5mK6iH+GIYob66U5EtoZvcdudR2jQ4cmTwhEwW1DLB+Yyas9zjF6A==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/traverse@7.26.4':
-    resolution: {integrity: sha512-fH+b7Y4p3yqvApJALCPJcwb0/XaOSgtK4pzV6WVjPR5GLFQBRI7pfoX2V2iM48NXvX07NUxxm1Vw98YjqTcU5w==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.26.10':
@@ -5623,10 +5619,6 @@ packages:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
-  fs-extra@11.1.1:
-    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
-    engines: {node: '>=14.14'}
-
   fs-extra@11.3.0:
     resolution: {integrity: sha512-Z4XaCL6dUDHfP/jT25jJKMmtxvuwbkrD1vNSMFlo9lNLY2c5FHYSQgHPRZUjAB26TpDEoW9HCOgplrdbaPV/ew==}
     engines: {node: '>=14.14'}
@@ -8924,7 +8916,7 @@ snapshots:
 
   '@babel/generator@7.26.3':
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.26.10
       '@babel/types': 7.26.3
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
@@ -8958,14 +8950,14 @@ snapshots:
       '@babel/helper-optimise-call-expression': 7.25.9
       '@babel/helper-replace-supers': 7.25.9(@babel/core@7.26.10)
       '@babel/helper-skip-transparent-expression-wrappers': 7.25.9
-      '@babel/traverse': 7.26.4
+      '@babel/traverse': 7.26.10
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-member-expression-to-functions@7.25.9':
     dependencies:
-      '@babel/traverse': 7.26.4
+      '@babel/traverse': 7.26.10
       '@babel/types': 7.26.3
     transitivePeerDependencies:
       - supports-color
@@ -9006,13 +8998,13 @@ snapshots:
       '@babel/core': 7.26.10
       '@babel/helper-member-expression-to-functions': 7.25.9
       '@babel/helper-optimise-call-expression': 7.25.9
-      '@babel/traverse': 7.26.4
+      '@babel/traverse': 7.26.10
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-skip-transparent-expression-wrappers@7.25.9':
     dependencies:
-      '@babel/traverse': 7.26.4
+      '@babel/traverse': 7.26.10
       '@babel/types': 7.26.3
     transitivePeerDependencies:
       - supports-color
@@ -9102,7 +9094,7 @@ snapshots:
   '@babel/template@7.25.9':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.26.10
       '@babel/types': 7.26.3
 
   '@babel/template@7.26.9':
@@ -9130,18 +9122,6 @@ snapshots:
       '@babel/parser': 7.26.10
       '@babel/template': 7.26.9
       '@babel/types': 7.26.10
-      debug: 4.4.0
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/traverse@7.26.4':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/generator': 7.26.3
-      '@babel/parser': 7.26.3
-      '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
       debug: 4.4.0
       globals: 11.12.0
     transitivePeerDependencies:
@@ -10325,7 +10305,7 @@ snapshots:
     dependencies:
       '@mintlify/common': 1.0.279(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@mintlify/prebuild': 1.0.374(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.8.2)
-      fs-extra: 11.1.1
+      fs-extra: 11.3.0
       is-absolute-url: 4.0.1
       unist-util-visit: 4.1.2
     transitivePeerDependencies:
@@ -10384,7 +10364,7 @@ snapshots:
       axios: 1.7.9
       chalk: 5.4.0
       favicons: 7.2.0
-      fs-extra: 11.1.1
+      fs-extra: 11.3.0
       gray-matter: 4.0.3
       is-absolute-url: 4.0.1
       js-yaml: 4.1.0
@@ -10410,7 +10390,7 @@ snapshots:
       chalk: 5.4.0
       chokidar: 3.6.0
       express: 4.21.2
-      fs-extra: 11.1.1
+      fs-extra: 11.3.0
       got: 13.0.0
       gray-matter: 4.0.3
       is-absolute-url: 4.0.1
@@ -10437,7 +10417,7 @@ snapshots:
     dependencies:
       '@mintlify/common': 1.0.279(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@mintlify/openapi-parser': 0.0.7
-      fs-extra: 11.1.1
+      fs-extra: 11.3.0
       hast-util-to-mdast: 10.1.2
       js-yaml: 4.1.0
       mdast-util-mdx-jsx: 3.2.0
@@ -11981,7 +11961,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.13':
     dependencies:
-      '@babel/parser': 7.26.3
+      '@babel/parser': 7.26.10
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -13843,7 +13823,6 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
-    optional: true
 
   form-data-encoder@2.1.4: {}
 
@@ -13874,12 +13853,6 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
 
   fresh@0.5.2: {}
-
-  fs-extra@11.1.1:
-    dependencies:
-      graceful-fs: 4.2.11
-      jsonfile: 6.1.0
-      universalify: 2.0.1
 
   fs-extra@11.3.0:
     dependencies:
@@ -14025,7 +13998,7 @@ snapshots:
 
   glob@10.4.5:
     dependencies:
-      foreground-child: 3.3.0
+      foreground-child: 3.3.1
       jackspeak: 3.4.3
       minimatch: 9.0.5
       minipass: 7.1.2
@@ -14662,7 +14635,7 @@ snapshots:
     dependencies:
       config-chain: 1.1.13
       editorconfig: 1.0.4
-      glob: 10.3.4
+      glob: 10.4.5
       js-cookie: 3.0.5
       nopt: 7.2.1
 
