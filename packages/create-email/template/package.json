@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@react-email/components": "workspace:0.0.35",
-    "react-dom": "19.0.0",
-    "react": "19.0.0"
+    "react-dom": "^19.0.0",
+    "react": "^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
     "react-email": "workspace:4.0.3"
   }
 }
