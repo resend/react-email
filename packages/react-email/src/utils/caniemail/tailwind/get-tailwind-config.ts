@@ -97,7 +97,7 @@ const getConfigFromImport = async (
       contents: `import tailwindConfig from "${configRelativePath}"; 
 export { tailwindConfig };`,
       loader: 'tsx',
-      resolveDir: path.dirname(sourcePath)
+      resolveDir: path.dirname(sourcePath),
     },
     platform: 'node',
     write: false,
@@ -112,7 +112,9 @@ export { tailwindConfig };`,
   }
   const configModule = runBundledCode(configFile.text, configFilepath);
   if (isErr(configModule)) {
-    throw new Error(`Error when trying to run the config file: ${configModule.error}`);
+    throw new Error(
+      `Error when trying to run the config file: ${configModule.error}`,
+    );
   }
 
   if (
