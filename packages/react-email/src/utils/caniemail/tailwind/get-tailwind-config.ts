@@ -113,7 +113,7 @@ const getConfigFromImport = async (
   }
 
   const configBuildResult = await esbuild.build({
-    bundle: false,
+    bundle: true,
     entryPoints: [configFilepath],
     platform: 'node',
     write: false,
