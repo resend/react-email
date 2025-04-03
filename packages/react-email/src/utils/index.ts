@@ -3,3 +3,4 @@ export * from './cn';
 export * from './copy-text-to-clipboard';
 export * from './language-map';
 export * from './unreachable';
+export * from './sanitize';

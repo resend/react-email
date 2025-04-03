@@ -4,6 +4,7 @@ import {
   type EmailRenderingResult,
   renderEmailByPath,
 } from '../actions/render-email-by-path';
+import { isBuilding } from '../app/env';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
@@ -14,7 +15,7 @@ export const useEmailRenderingResult = (
     serverEmailRenderedResult,
   );
 
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+  if (!isBuilding) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
       for await (const change of changes) {

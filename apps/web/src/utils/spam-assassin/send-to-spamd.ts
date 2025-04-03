@@ -9,7 +9,7 @@ export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
     if (!host || !port) {
       reject(
-        new Error('Host and port for spam assasin must be specified', {
+        new Error('Host and port for spam assassin must be specified', {
           cause: {
             host,
             port,

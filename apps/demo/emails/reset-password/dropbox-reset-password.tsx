@@ -10,7 +10,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 interface DropboxResetPasswordEmailProps {
   userFirstname?: string;
@@ -53,7 +52,7 @@ export const DropboxResetPasswordEmail = ({
             <Text style={text}>
               To keep your account secure, please don&apos;t forward this email
               to anyone. See our Help Center for{' '}
-              <Link style={anchor} href="https://dropbox.com">
+              <Link style={anchor} href={resetPasswordLink}>
                 more security tips.
               </Link>
             </Text>
@@ -67,7 +66,7 @@ export const DropboxResetPasswordEmail = ({
 
 DropboxResetPasswordEmail.PreviewProps = {
   userFirstname: 'Alan',
-  resetPasswordLink: 'https://dropbox.com',
+  resetPasswordLink: 'https://www.dropbox.com',
 } as DropboxResetPasswordEmailProps;
 
 export default DropboxResetPasswordEmail;

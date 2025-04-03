@@ -1,5 +1,31 @@
 # react-email
 
+## 4.0.3
+
+### Patch Changes
+
+- 962f768: update esbuild to 0.25.0
+- 2225fe6: Fix detection of files with various export patterns
+
+## 4.0.2
+
+### Patch Changes
+
+- ddf9652: Fix crashing when the link or image does not exist
+
+## 4.0.1
+
+### Patch Changes
+
+- 8fd7409: Fix static files regression
+- 8448a0b: Improved classes, better borders on table, improved scollbar colors
+
+## 4.0.0
+
+### Major Changes
+
+- 56ab5ab: Add toolbar with image/link validation, compatibility checking and a spam scoring system
+
 ## 3.0.7
 
 ### Patch Changes

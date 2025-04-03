@@ -1,12 +1,11 @@
-import * as React from 'react';
-
 export const Logo = () => (
   <svg
     fill="none"
-    height="32"
+    height="30"
     viewBox="0 0 119 32"
-    width="119"
+    width="113"
     xmlns="http://www.w3.org/2000/svg"
+    style={{ opacity: 0.9 }}
   >
     <g clipPath="url(#clip0_27_291)">
       <path

@@ -1,15 +1,18 @@
-import { spawnSync } from 'node:child_process';
 import path from 'node:path';
+import shell from 'shelljs';
 
 const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
-  process.stderr.write(`${cwd} $ ${command}\n`);
-  const returns = spawnSync(command, {
-    shell: true,
+  const executionResult = shell.exec(command, {
     cwd,
-    stdio: 'inherit',
+    fatal: true,
+    silent: true,
   });
+  if (executionResult.code !== 0) {
+    process.stdout.write(executionResult.stderr);
+    process.stderr.write(executionResult.stderr);
+  }
   expect(
-    returns.status,
+    executionResult.code,
     `Expected command "${command}" to work properly but it returned a non-zero exit code`,
   ).toBe(0);
 };

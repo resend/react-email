@@ -26,7 +26,7 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "react-email-with-next-scaleway": {
+    "react-email-with-next-scaleway#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
@@ -45,7 +45,8 @@
       "dependsOn": ["^build"]
     },
     "@react-email/tailwind#test": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "cache": false
     },
     "test:watch": {
       "cache": false

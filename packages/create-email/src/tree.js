@@ -12,7 +12,7 @@ const SYMBOLS = {
   VERTICAL: '│   ',
 };
 
-const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
+const getTreeLines = async (dirPath, depth, filter, currentDepth = 0) => {
   const base = process.cwd();
   const dirFullpath = path.resolve(base, dirPath);
   const dirname = path.basename(dirFullpath);
@@ -44,6 +44,10 @@ const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
       const branchingSymbol = isLast ? SYMBOLS.LAST_BRANCH : SYMBOLS.BRANCH;
       const verticalSymbol = isLast ? SYMBOLS.INDENT : SYMBOLS.VERTICAL;
 
+      if (filter?.(dirent) === false) {
+        continue;
+      }
+
       if (dirent.isFile()) {
         lines.push(`${branchingSymbol}${dirent.name}`);
       } else {
@@ -51,6 +55,7 @@ const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
         const treeLinesForSubDirectory = await getTreeLines(
           pathToDirectory,
           depth,
+          filter,
           currentDepth + 1,
         );
         lines = lines.concat(
@@ -67,7 +72,7 @@ const getTreeLines = async (dirPath, depth, currentDepth = 0) => {
   return lines;
 };
 
-export const tree = async (dirPath, depth) => {
-  const lines = await getTreeLines(dirPath, depth);
+export const tree = async (dirPath, depth, filter) => {
+  const lines = await getTreeLines(dirPath, depth, filter);
   return lines.join(os.EOL);
 };

@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
+import { emailsDirectoryAbsolutePath } from '../app/env';
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getEmailPathFromSlug = cache(async (slug: string) => {

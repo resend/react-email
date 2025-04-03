@@ -1,5 +1,11 @@
 # @react-email/text
 
+## 0.1.1
+
+### Patch Changes
+
+- c31b73e: Merge all coming margin style properties into a single `margin`
+
 ## 0.1.0
 
 ### Minor Changes

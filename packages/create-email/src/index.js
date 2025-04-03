@@ -9,8 +9,6 @@ import ora from 'ora';
 import { tree } from './tree.js';
 
 const init = async (name) => {
-  const spinner = ora('Preparing files...\n').start();
-
   let projectPath = name;
 
   if (!projectPath) {
@@ -24,6 +22,15 @@ const init = async (name) => {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const templatePath = path.resolve(__dirname, '../template');
   const resolvedProjectPath = path.resolve(projectPath);
+
+  if (fse.existsSync(resolvedProjectPath)) {
+    console.error(`Project called ${projectPath} already exists!`);
+    process.exit(1);
+  }
+
+  const spinner = ora({
+    text: 'Preparing files...\n',
+  }).start();
 
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,
@@ -60,7 +67,13 @@ const init = async (name) => {
   });
 
   // eslint-disable-next-line no-console
-  console.log(await tree('./react-email-starter', 4));
+  console.info(
+    await tree(resolvedProjectPath, 4, (dirent) => {
+      return !path
+        .join(dirent.parentPath, dirent.name)
+        .includes('node_modules');
+    }),
+  );
 };
 
 new Command()

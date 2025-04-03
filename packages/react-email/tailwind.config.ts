@@ -3,25 +3,20 @@ import colors = require('@radix-ui/colors');
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
-const iOsHeight = plugin(({ addUtilities }) => {
-  const supportsTouchRule = '@supports (-webkit-touch-callout: none)';
-  const webkitFillAvailable = '-webkit-fill-available';
-
-  const utilities = {
-    '.min-h-screen-ios': {
-      [supportsTouchRule]: {
-        minHeight: webkitFillAvailable,
+const numberInputArrowHide = plugin(({ addUtilities }) => {
+  addUtilities({
+    '.arrow-hide': {
+      appearance: 'textfield',
+      '&::-webkit-inner-spin-button': {
+        appearance: 'none',
+        margin: '0px',
+      },
+      '&::-webkit-outer-spin-button': {
+        appearance: 'none',
+        margin: '0px',
       },
     },
-    '.h-screen-ios': {
-      [supportsTouchRule]: {
-        height: webkitFillAvailable,
-      },
-    },
-  };
-
-  // @ts-expect-error This works normally, not sure what this error is
-  addUtilities(utilities, ['responsive']);
+  });
 });
 
 const config: Config = {
@@ -76,6 +71,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...fontFamily.sans],
+        mono: ['var(--font-sf-mono)', ...fontFamily.mono],
       },
       keyframes: {
         shine: {
@@ -86,9 +82,17 @@ const config: Config = {
           '0%': { strokeDashoffset: '1000' },
           '100%': { strokeDashoffset: '0' },
         },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+        'spin-fast': 'spin 1.5s linear infinite',
       },
     },
   },
-  plugins: [iOsHeight],
+  plugins: [numberInputArrowHide],
 };
 export default config;

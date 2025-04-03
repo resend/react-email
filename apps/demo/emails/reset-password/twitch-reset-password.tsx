@@ -11,7 +11,6 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import * as React from 'react';
 
 interface TwitchResetPasswordEmailProps {
   username?: string;
@@ -38,7 +37,12 @@ export const TwitchResetPasswordEmail = ({
         <Preview>You updated the password for your Twitch account</Preview>
         <Container style={container}>
           <Section style={logo}>
-            <Img width={114} src={`${baseUrl}/static/twitch-logo.png`} />
+            <Img
+              width={114}
+              src={`${baseUrl}/static/twitch-logo.png`}
+              alt="Twitch"
+              style={logoImg}
+            />
           </Section>
           <Section style={sectionsBorders}>
             <Row>
@@ -56,7 +60,7 @@ export const TwitchResetPasswordEmail = ({
             </Text>
             <Text style={paragraph}>
               However if you did NOT perform this password change, please{' '}
-              <Link href="#" style={link}>
+              <Link href="https://www.twitch.tv" style={link}>
                 reset your account password
               </Link>{' '}
               immediately.
@@ -65,13 +69,13 @@ export const TwitchResetPasswordEmail = ({
               Remember to use a password that is both strong and unique to your
               Twitch account. To learn more about how to create a strong and
               unique password,{' '}
-              <Link href="#" style={link}>
+              <Link href="https://www.twitch.tv" style={link}>
                 click here.
               </Link>
             </Text>
             <Text style={paragraph}>
               Still have questions? Please contact{' '}
-              <Link href="#" style={link}>
+              <Link href="https://www.twitch.tv" style={link}>
                 Twitch Support
               </Link>
             </Text>
@@ -86,10 +90,16 @@ export const TwitchResetPasswordEmail = ({
         <Section style={footer}>
           <Row>
             <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-              <Img src={`${baseUrl}/static/twitch-icon-twitter.png`} />
+              <Img
+                src={`${baseUrl}/static/twitch-icon-twitter.png`}
+                alt="Twitter"
+              />
             </Column>
             <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-              <Img src={`${baseUrl}/static/twitch-icon-facebook.png`} />
+              <Img
+                src={`${baseUrl}/static/twitch-icon-facebook.png`}
+                alt="Facebook"
+              />
             </Column>
           </Row>
           <Row>
@@ -139,15 +149,15 @@ const content = {
 };
 
 const logo = {
-  display: 'flex',
-  justifyContent: 'center',
-  alingItems: 'center',
   padding: 30,
+};
+
+const logoImg = {
+  margin: '0 auto',
 };
 
 const sectionsBorders = {
   width: '100%',
-  display: 'flex',
 };
 
 const sectionBorder = {

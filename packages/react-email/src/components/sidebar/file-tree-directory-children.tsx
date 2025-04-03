@@ -5,9 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
-import { SidebarDirectory } from './sidebar-directory';
+import { FileTreeDirectory } from './file-tree-directory';
 
-export const SidebarDirectoryChildren = (props: {
+export const FileTreeDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
   currentEmailOpenSlug?: string;
   open: boolean;
@@ -29,22 +29,20 @@ export const SidebarDirectoryChildren = (props: {
             initial={{ opacity: 0, height: 0 }}
           >
             {props.isRoot ? null : (
-              <div className="line absolute left-2.5 w-px h-full bg-slate-6" />
+              <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
-
             <div className="flex flex-col truncate">
               <LayoutGroup id="sidebar">
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
-                    <SidebarDirectory
-                      className="pl-4 py-0"
+                    <FileTreeDirectory
+                      className="p-0 data-[state=open]:mb-2"
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
                       key={subDirectory.absolutePath}
                     />
                   ),
                 )}
-
                 {props.emailsDirectoryMetadata.emailFilenames.map(
                   (emailFilename, index) => {
                     const emailSlug = props.isRoot
@@ -73,12 +71,14 @@ export const SidebarDirectoryChildren = (props: {
                           pathname: `/preview/${emailSlug}`,
                           search: searchParams.toString(),
                         }}
+                        prefetch
                         key={emailSlug}
                       >
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition-colors',
+                            'relative flex h-8 w-full items-center text-start gap-2 rounded-md align-middle text-slate-11 text-sm transition-colors duration-100 ease-[cubic-bezier(.6,.12,.34,.96)]',
+                            props.isRoot ? undefined : 'pl-3',
                             {
                               'text-cyan-11': isCurrentPage,
                               'hover:text-slate-12':
@@ -94,21 +94,31 @@ export const SidebarDirectoryChildren = (props: {
                           {isCurrentPage ? (
                             <motion.span
                               animate={{ opacity: 1 }}
-                              className="absolute left-0 right-0 top-0 bottom-0 rounded-md bg-cyan-5 opacity-0"
+                              className="absolute inset-0 rounded-md bg-cyan-5 opacity-0 transition-all duration-200 ease-[cubic-bezier(.6,.12,.34,.96)]"
                               exit={{ opacity: 0 }}
                               initial={{ opacity: 0 }}
                             >
-                              {!props.isRoot && (
-                                <div className="bg-cyan-11 w-px absolute top-1 left-1.5 h-6" />
+                              {props.isRoot ? null : (
+                                <motion.div
+                                  className="absolute top-1 left-[0.4rem] inset-0 h-6 w-px rounded-sm bg-cyan-11"
+                                  layoutId="active-file"
+                                  transition={{
+                                    type: 'spring',
+                                    bounce: 0.2,
+                                    duration: 0.6,
+                                  }}
+                                />
                               )}
                             </motion.span>
                           ) : null}
                           <IconFile
-                            className="absolute left-4 w-[24px] h-[24px]"
-                            height="24"
-                            width="24"
+                            className="h-5 w-5"
+                            height="20"
+                            width="20"
                           />
-                          <span className="truncate pl-8">{emailFilename}</span>
+                          <span className="truncate w-[calc(100%-1.25rem)]">
+                            {emailFilename}
+                          </span>
                         </motion.span>
                       </Link>
                     );

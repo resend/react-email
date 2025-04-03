@@ -1,6 +1,6 @@
 {
   "name": "react-email-with-resend",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "next": "15.0.4",
-    "@react-email/components": "workspace:0.0.34",
+    "@react-email/components": "workspace:0.0.35",
     "react": "^19",
     "react-dom": "^19",
     "resend": "4.0.1"

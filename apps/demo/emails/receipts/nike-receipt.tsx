@@ -170,29 +170,29 @@ export const NikeReceiptEmail = () => (
           </Row>
           <Row style={menu.content}>
             <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="/" style={menu.text}>
+              <Link href="https://www.nike.com/" style={menu.text}>
                 Shipping Status
               </Link>
             </Column>
             <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="/" style={menu.text}>
+              <Link href="https://www.nike.com/" style={menu.text}>
                 Shipping & Delivery
               </Link>
             </Column>
             <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="/" style={menu.text}>
+              <Link href="https://www.nike.com/" style={menu.text}>
                 Returns & Exchanges
               </Link>
             </Column>
           </Row>
           <Row style={{ ...menu.content, paddingTop: '0' }}>
             <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="/" style={menu.text}>
+              <Link href="https://www.nike.com/" style={menu.text}>
                 How to Return
               </Link>
             </Column>
             <Column style={{ width: '66%' }} colSpan={2}>
-              <Link href="/" style={menu.text}>
+              <Link href="https://www.nike.com/" style={menu.text}>
                 Contact Options
               </Link>
             </Column>
@@ -204,6 +204,7 @@ export const NikeReceiptEmail = () => (
                 <Column style={{ width: '16px' }}>
                   <Img
                     src={`${baseUrl}/static/nike-phone.png`}
+                    alt="Nike Phone"
                     width="16px"
                     height="26px"
                     style={{ paddingRight: '14px' }}
@@ -235,22 +236,22 @@ export const NikeReceiptEmail = () => (
           </Row>
           <Row style={categories.container}>
             <Column align="center">
-              <Link href="/" style={categories.text}>
+              <Link href="https://www.nike.com/" style={categories.text}>
                 Men
               </Link>
             </Column>
             <Column align="center">
-              <Link href="/" style={categories.text}>
+              <Link href="https://www.nike.com/" style={categories.text}>
                 Women
               </Link>
             </Column>
             <Column align="center">
-              <Link href="/" style={categories.text}>
+              <Link href="https://www.nike.com/" style={categories.text}>
                 Kids
               </Link>
             </Column>
             <Column align="center">
-              <Link href="/" style={categories.text}>
+              <Link href="https://www.nike.com/" style={categories.text}>
                 Customize
               </Link>
             </Column>
