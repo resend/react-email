@@ -74,7 +74,7 @@ export const getTailwindConfig = async (
       } catch (exception) {
         console.warn(exception);
         console.warn(
-          `Tried reading the config defined directly in the Tailwind component but was unable to, probably because it isn't a valid javascript object by itself.`,
+          `Tried reading the config defined directly in the Tailwind component but was unable to, probably because it can't run by itself.`,
         );
       }
     }
@@ -123,7 +123,7 @@ const getConfigFromImport = async (
   const configFile = configBuildResult.outputFiles[0];
   if (configFile === undefined) {
     throw new Error(
-      'Could not build config file as it was found as undefined, this is a bug please open an issue.',
+      'Could not build config file as it was found as undefined, this is most likely a bug, please open an issue.',
     );
   }
   const configModule = runBundledCode(configFile.text, configFilepath);
