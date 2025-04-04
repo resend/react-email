@@ -19,22 +19,22 @@ export const component = (
     <Head />
     <Preview>Coffee Storage</Preview>
     <Body>
-      <Container className="bg-white rounded-lg mx-auto max-w-[900px] overflow-hidden p-0">
+      <Container className="bg-white rounded-[8px] mx-auto max-w-[900px] overflow-hidden p-0">
         <Section>
-          <Row className="bg-[#292524] border-separate border-spacing-[24px] m-0 table-fixed w-full">
-            <Column className="pl-3">
+          <Row className="bg-[rgb(41,37,36)] border-separate [border-spacing:24px] m-0 table-fixed w-full">
+            <Column className="pl-[12px]">
               <Heading
                 as="h1"
                 className="text-white text-[28px] font-bold mb-[10px]"
               >
                 Coffee Storage
               </Heading>
-              <Text className="text-white/60 text-sm leading-[20px] m-0">
+              <Text className="text-white/60 text-[14px] leading-[20px] m-0">
                 Keep your coffee fresher for longer with innovative technology.
               </Text>
               <Link
                 href="#"
-                className="text-white/80 block text-sm font-semibold mt-3 no-underline"
+                className="text-white/80 block text-[14px] leading-[20px] font-semibold mt-[12px] no-underline"
               >
                 Shop now →
               </Link>
@@ -43,13 +43,13 @@ export const component = (
               <Img
                 src="/static/coffee-bean-storage.jpg"
                 alt="Coffee Bean Storage"
-                className="rounded h-full -mr-[6px] object-cover object-center w-full"
+                className="rounded-[4px] h-full -mr-[6px] object-cover object-center w-full"
               />
             </Column>
           </Row>
         </Section>
-        <Section className="mb-6">
-          <Row className="border-separate border-spacing-[12px] table-fixed w-full">
+        <Section className="mb-[24px]">
+          <Row className="border-separate [border-spacing:12px] table-fixed w-full">
             {[
               {
                 imageUrl: '/static/atmos-vacuum-canister.jpg',
@@ -72,13 +72,13 @@ export const component = (
                 <Img
                   src={product.imageUrl}
                   alt={product.altText}
-                  className="rounded mb-[18px] w-full"
+                  className="rounded-[4px] mb-[18px] w-full"
                 />
                 <div>
-                  <Heading as="h2" className="text-sm font-bold mb-[8px]">
+                  <Heading as="h2" className="text-[14px] leading-[20px] font-bold mb-[8px]">
                     {product.title}
                   </Heading>
-                  <Text className="text-gray-500 text-xs leading-[20px] m-0 pr-3">
+                  <Text className="text-gray-500 text-[12px] leading-[20px] m-0 pr-[12px]">
                     {product.description}
                   </Text>
                 </div>
