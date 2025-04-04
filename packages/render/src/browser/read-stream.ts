@@ -12,7 +12,10 @@ export const readStream = async (
 
   if ('pipeTo' in stream) {
     // means it's a readable stream
-    const writableStream = new WritableStream({
+    const writableStream = new (
+      window.WritableStream ??
+      (await import('web-streams-polyfill').then((m) => m.WritableStream))
+    )({
       write(chunk: Uint8Array) {
         chunks.push(chunk);
       },
