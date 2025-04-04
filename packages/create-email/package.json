@@ -1,6 +1,6 @@
 {
   "name": "create-email",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
   "type": "module",
@@ -27,7 +27,7 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "@react-email/components": "workspace:0.0.35",
+    "@react-email/components": "workspace:0.0.36",
     "react": "19.0.0",
     "react-email": "workspace:4.0.3",
     "tsconfig": "workspace:*",
