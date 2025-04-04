@@ -22,7 +22,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "postinstall": "turbo run build",
+    "prepare": "turbo run build",
     "clean": "rm -rf dist",
     "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
   },
