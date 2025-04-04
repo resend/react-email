@@ -678,7 +678,7 @@ importers:
         version: 6.1.2
     devDependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../components
       react:
         specifier: 19.0.0

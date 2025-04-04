@@ -27,7 +27,7 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "@react-email/components": "workspace:0.0.35",
+    "@react-email/components": "workspace:0.0.36",
     "react": "19.0.0",
     "react-email": "workspace:4.0.3",
     "tsconfig": "workspace:*",
