@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.0.12
+
+### Patch Changes
+
+- f4c5456: Update dependencies: `prismjs@1.30.0`
+
 ## 0.0.11
 
 ### Patch Changes

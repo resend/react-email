@@ -271,7 +271,7 @@ importers:
         specifier: 3.341.0
         version: 3.341.0
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       react:
         specifier: 19.0.0
@@ -290,7 +290,7 @@ importers:
   examples/mailersend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       mailersend:
         specifier: ^2.0.0
@@ -312,7 +312,7 @@ importers:
   examples/nodemailer:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       nodemailer:
         specifier: 6.9.9
@@ -340,7 +340,7 @@ importers:
         specifier: 3.0.2
         version: 3.0.2
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       react:
         specifier: 19.0.0
@@ -359,7 +359,7 @@ importers:
   examples/postmark:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       postmark:
         specifier: 3.0.14
@@ -381,7 +381,7 @@ importers:
   examples/resend:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       next:
         specifier: 15.0.4
@@ -412,7 +412,7 @@ importers:
   examples/scaleway/next:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.5.0
@@ -443,7 +443,7 @@ importers:
   examples/scaleway/node:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../../packages/components
       '@scaleway/sdk':
         specifier: 1.4.0
@@ -465,7 +465,7 @@ importers:
   examples/sendgrid:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../packages/components
       '@sendgrid/mail':
         specifier: 7.7.0
@@ -582,7 +582,7 @@ importers:
         specifier: workspace:0.0.19
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:0.0.11
+        specifier: workspace:0.0.12
         version: link:../code-block
       '@react-email/code-inline':
         specifier: workspace:0.0.5
@@ -621,7 +621,7 @@ importers:
         specifier: workspace:0.0.12
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.0.5
+        specifier: workspace:1.0.6
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12
@@ -696,7 +696,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.35
+        specifier: workspace:0.0.36
         version: link:../../components
       react:
         specifier: 19.0.0
