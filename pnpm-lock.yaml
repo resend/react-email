@@ -164,8 +164,8 @@ importers:
         specifier: 7.20.5
         version: 7.20.5
       '@types/babel__traverse':
-        specifier: 7.20.6
-        version: 7.20.6
+        specifier: 7.20.7
+        version: 7.20.7
       '@types/node':
         specifier: ^20
         version: 20.17.22
@@ -4458,6 +4458,9 @@ packages:
 
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
+
+  '@types/babel__traverse@7.20.7':
+    resolution: {integrity: sha512-dkO5fhS7+/oos4ciWxyEyjWe48zmG6wbCheo/G2ZnHx4fs3EU6YC6UM8rk56gAjNJ9P3MTH2jo5jb92/K6wbng==}
 
   '@types/cookie@0.4.1':
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
@@ -10293,7 +10296,7 @@ snapshots:
 
   '@babel/helper-annotate-as-pure@7.25.9':
     dependencies:
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
 
   '@babel/helper-compilation-targets@7.25.9':
     dependencies:
@@ -10327,7 +10330,7 @@ snapshots:
   '@babel/helper-member-expression-to-functions@7.25.9':
     dependencies:
       '@babel/traverse': 7.26.4
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
     transitivePeerDependencies:
       - supports-color
 
@@ -10358,7 +10361,7 @@ snapshots:
 
   '@babel/helper-optimise-call-expression@7.25.9':
     dependencies:
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
 
   '@babel/helper-plugin-utils@7.25.9': {}
 
@@ -10374,7 +10377,7 @@ snapshots:
   '@babel/helper-skip-transparent-expression-wrappers@7.25.9':
     dependencies:
       '@babel/traverse': 7.26.4
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
     transitivePeerDependencies:
       - supports-color
 
@@ -10387,7 +10390,7 @@ snapshots:
   '@babel/helpers@7.26.0':
     dependencies:
       '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
 
   '@babel/helpers@7.26.10':
     dependencies:
@@ -10502,7 +10505,7 @@ snapshots:
       '@babel/generator': 7.26.3
       '@babel/parser': 7.26.3
       '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
+      '@babel/types': 7.26.10
       debug: 4.4.0
       globals: 11.12.0
     transitivePeerDependencies:
@@ -13019,7 +13022,7 @@ snapshots:
       '@babel/types': 7.26.3
       '@types/babel__generator': 7.6.8
       '@types/babel__template': 7.4.4
-      '@types/babel__traverse': 7.20.6
+      '@types/babel__traverse': 7.20.7
 
   '@types/babel__generator@7.6.8':
     dependencies:
@@ -13033,6 +13036,10 @@ snapshots:
   '@types/babel__traverse@7.20.6':
     dependencies:
       '@babel/types': 7.26.3
+
+  '@types/babel__traverse@7.20.7':
+    dependencies:
+      '@babel/types': 7.26.10
 
   '@types/cookie@0.4.1': {}
 
