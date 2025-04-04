@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm install --frozen-lockfile && email build",
+    "build": "email build",
     "dev": "email dev",
     "start": "email start",
     "export": "email export"

@@ -677,6 +677,9 @@ importers:
         specifier: 6.1.2
         version: 6.1.2
     devDependencies:
+      react-email-starter:
+        specifier: workspace:*
+        version: link:template
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
