@@ -4,6 +4,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
-    exclude: ['.test/**/*', '**/node_modules'],
+    exclude: ['.test/**/*', 'template/**/*', '**/node_modules'],
   },
 });

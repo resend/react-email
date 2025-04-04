@@ -1,11 +1,13 @@
 import { spawnSync } from 'node:child_process';
-import { promises as fs } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 
 describe('automatic setup', () => {
   const starterPath = path.resolve(__dirname, '../.test');
   test.sequential('creation', async () => {
-    await fs.rm(starterPath, { recursive: true });
+    if (existsSync(starterPath)) {
+      await fs.rm(starterPath, { recursive: true });
+    }
 
     const createEmailProcess = spawnSync(
       'node',
