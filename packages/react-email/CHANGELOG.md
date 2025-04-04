@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.4
+
+### Patch Changes
+
+- 1a7f9e6: Update dependencies: `next@15.2.3`
+
 ## 4.0.3
 
 ### Patch Changes
