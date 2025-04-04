@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build": "tsup-node && node ./scripts/build-preview-server.mjs",
+    "prepare": "turbo run build",
     "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch",

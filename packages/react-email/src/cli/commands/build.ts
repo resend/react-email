@@ -179,6 +179,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   // email templates without `@react-email/render` being installed.
   delete packageJson.devDependencies['@react-email/render'];
   delete packageJson.devDependencies['@react-email/components'];
+  delete packageJson.scripts.prepare;
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
