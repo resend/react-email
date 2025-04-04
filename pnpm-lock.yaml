@@ -680,6 +680,9 @@ importers:
       '@react-email/components':
         specifier: workspace:0.0.35
         version: link:../components
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
       react-email:
         specifier: workspace:4.0.3
         version: link:../react-email
