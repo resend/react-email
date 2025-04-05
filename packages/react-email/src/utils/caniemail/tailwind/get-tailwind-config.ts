@@ -88,33 +88,17 @@ const getConfigFromImport = async (
   sourcePath: string,
 ): Promise<TailwindConfig> => {
   const configRelativePath = tailwindConfigImport.source.value;
-  const configImportPath = path.resolve(
-    path.dirname(sourcePath),
-    configRelativePath,
-  );
-  const configFilepath = getFirstExistingFilepath([
-    configImportPath,
-    `${configImportPath}.ts`,
-    `${configImportPath}.js`,
-    `${configImportPath}.mjs`,
-    `${configImportPath}.cjs`,
-  ]);
-
-  if (configFilepath === undefined) {
-    throw new Error(
-      `Could not find Tailwind config by inferring it's extension type (tried .ts, .js, .mjs and .cjs).`,
-      {
-        cause: {
-          configPath: configImportPath,
-          sourcePath,
-        },
-      },
-    );
-  }
+  const sourceDirpath = path.dirname(sourcePath);
+  const configFilepath = path.join(sourceDirpath, configRelativePath);
 
   const configBuildResult = await esbuild.build({
     bundle: true,
-    entryPoints: [configFilepath],
+    stdin: {
+      contents: `import tailwindConfig from "${configRelativePath}"; 
+export { tailwindConfig };`,
+      loader: 'tsx',
+      resolveDir: path.dirname(sourcePath),
+    },
     platform: 'node',
     write: false,
     format: 'cjs',
@@ -128,17 +112,17 @@ const getConfigFromImport = async (
   }
   const configModule = runBundledCode(configFile.text, configFilepath);
   if (isErr(configModule)) {
-    throw new Error('Error when trying to run the config file', {
-      cause: configModule.error,
-    });
+    throw new Error(
+      `Error when trying to run the config file: ${configModule.error}`,
+    );
   }
 
   if (
     typeof configModule.value === 'object' &&
     configModule.value !== null &&
-    'default' in configModule.value
+    'tailwindConfig' in configModule.value
   ) {
-    return configModule.value.default as TailwindConfig;
+    return configModule.value.tailwindConfig as TailwindConfig;
   }
 
   throw new Error(
