@@ -411,7 +411,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:1.0.4
+        specifier: workspace:1.1.0-canary.0
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.1
@@ -459,13 +459,13 @@ importers:
         version: 6.1.2
     devDependencies:
       '@react-email/components':
-        specifier: workspace:0.0.36
+        specifier: workspace:0.0.37-canary.0
         version: link:../components
       react:
         specifier: 19.0.0
         version: 19.0.0
       react-email:
-        specifier: workspace:4.0.6
+        specifier: workspace:4.1.0-canary.0
         version: link:../react-email
       tsconfig:
         specifier: workspace:*
@@ -477,7 +477,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.36
+        specifier: workspace:0.0.37-canary.0
         version: link:../../components
       react:
         specifier: 19.0.0
@@ -493,7 +493,7 @@ importers:
         specifier: 19.0.1
         version: 19.0.1
       react-email:
-        specifier: workspace:4.0.6
+        specifier: workspace:4.1.0-canary.0
         version: link:../../react-email
 
   packages/font:
