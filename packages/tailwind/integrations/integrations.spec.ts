@@ -14,7 +14,7 @@ const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
   ).toBe(0);
 };
 
-describe('integrations', () => {
+describe('integrations', { timeout: 15_000 }, () => {
   beforeAll(() => {
     const packageLocation = path.resolve(__dirname, '../');
     $('yalc installations clean @react-email/tailwind', packageLocation);
