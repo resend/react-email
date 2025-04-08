@@ -33,5 +33,5 @@
     "@react-email/text": "0.1.1",
     "tsconfig": "0.0.0"
   },
-  "changesets": []
+  "changesets": ["dirty-needles-chew", "great-parrots-yell"]
 }
