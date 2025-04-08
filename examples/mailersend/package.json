@@ -1,6 +1,5 @@
 {
   "name": "react-email-with-mailersend",
-  "version": "1.0.11",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -13,13 +12,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "0.0.36",
-    "mailersend": "^2.0.0",
+    "@react-email/components": "^0.0.36",
+    "mailersend": "^2",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "6.2.3",
-    "typescript": "4.8.3"
+    "tsup": "^6",
+    "typescript": "^4"
   }
 }

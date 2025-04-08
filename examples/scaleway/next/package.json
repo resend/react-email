@@ -1,6 +1,5 @@
 {
   "name": "react-email-with-next-scaleway",
-  "version": "1.0.11",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -10,16 +9,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@scaleway/sdk": "1.5.0",
-    "next": "15.0.4",
-    "@react-email/components": "0.0.36",
+    "@scaleway/sdk": "^1",
+    "next": "^15",
+    "@react-email/components": "^0.0.36",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
-    "@types/node": "18.14.6",
+    "@types/node": "^18",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "4.9.5"
+    "typescript": "^4"
   }
 }

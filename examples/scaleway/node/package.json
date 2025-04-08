@@ -1,6 +1,5 @@
 {
   "name": "react-email-with-node-scaleway",
-  "version": "1.0.11",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -12,13 +11,13 @@
     "dev": "tsup-node src/index.tsx --format esm --target node20 --watch"
   },
   "dependencies": {
-    "@scaleway/sdk": "1.4.0",
-    "@react-email/components": "0.0.36",
+    "@scaleway/sdk": "^1",
+    "@react-email/components": "^0.0.36",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "6.2.3",
-    "typescript": "4.8.3"
+    "tsup": "^6",
+    "typescript": "^4"
   }
 }
