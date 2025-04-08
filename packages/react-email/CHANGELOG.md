@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.0
+
+### Minor Changes
+
+- 4a0d4e3: Theme switcher for email template
+
 ## 4.0.17
 
 ### Patch Changes
