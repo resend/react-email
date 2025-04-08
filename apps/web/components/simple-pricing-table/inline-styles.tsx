@@ -20,22 +20,23 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '12px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '500px',
           padding: '24px',
         }}
       >
         <Section
           style={{
-            backgroundColor: '#FFFFFF',
-            borderColor: '#D1D5DB',
+            backgroundColor: 'rgb(255,255,255)',
+            borderColor: 'rgb(209,213,219)',
             borderRadius: '12px',
             borderStyle: 'solid',
             borderWidth: '1px',
-            color: '#4a5565',
-            marginBottom: '0',
+            color: 'rgb(75,85,99)',
+            marginBottom: '0px',
             padding: '28px',
             textAlign: 'left',
             width: '100%',
@@ -43,12 +44,12 @@ export const component = (
         >
           <Text
             style={{
-              color: '#4f46e5',
+              color: 'rgb(79,70,229)',
               fontSize: '12px',
               fontWeight: '600',
-              letterSpacing: '0.05em',
+              letterSpacing: '0.025em',
               lineHeight: '20px',
-              margin: '0 0 16px 0',
+              marginBottom: '16px',
               textTransform: 'uppercase',
             }}
           >
@@ -57,13 +58,13 @@ export const component = (
           <Text
             style={{
               fontSize: '30px',
-              fontWeight: 'bold',
+              fontWeight: '700',
               lineHeight: '36px',
               marginBottom: '12px',
-              marginTop: 0,
+              marginTop: '0px',
             }}
           >
-            <span style={{ color: '#101828' }}>$12</span>{' '}
+            <span style={{ color: 'rgb(16,24,40)' }}>$12</span>{' '}
             <span
               style={{
                 fontSize: '16px',
@@ -76,10 +77,11 @@ export const component = (
           </Text>
           <Text
             style={{
-              color: '#374151',
+              color: 'rgb(55,65,81)',
               fontSize: '14px',
               lineHeight: '20px',
-              margin: '16px 0 24px 0',
+              marginTop: '16px',
+              marginBottom: '24px',
             }}
           >
             We've handcrafted the perfect plan tailored specifically for your
@@ -87,7 +89,7 @@ export const component = (
           </Text>
           <ul
             style={{
-              color: '#6B7280',
+              color: 'rgb(107,114,128)',
               fontSize: '14px',
               lineHeight: '24px',
               marginBottom: '32px',
@@ -109,15 +111,16 @@ export const component = (
           <Button
             href="#"
             style={{
-              backgroundColor: '#4f46e5',
+              backgroundColor: 'rgb(79,70,229)',
               borderRadius: '8px',
               boxSizing: 'border-box',
-              color: '#fff',
+              color: 'rgb(255,255,255)',
               display: 'inline-block',
               fontSize: '16px',
+              lineHeight: '24px',
               fontWeight: '700',
               letterSpacing: '0.025em',
-              margin: '0 0 24px 0',
+              marginBottom: '24px',
               maxWidth: '100%',
               padding: '14px',
               textAlign: 'center',
@@ -129,10 +132,12 @@ export const component = (
           <Hr />
           <Text
             style={{
-              color: '#6B7280',
+              color: 'rgb(107,114,128)',
               fontSize: '12px',
+              lineHeight: '16px',
               fontStyle: 'italic',
-              margin: '24px 0 6px 0',
+              marginTop: '24px', 
+              marginBottom: '6px',
               textAlign: 'center',
             }}
           >
@@ -140,9 +145,10 @@ export const component = (
           </Text>
           <Text
             style={{
-              color: '#6B7280',
+              color: 'rgb(107,114,128)',
               fontSize: '12px',
-              margin: '0',
+              lineHeight: '16px',
+              margin: '0px',
               textAlign: 'center',
             }}
           >
