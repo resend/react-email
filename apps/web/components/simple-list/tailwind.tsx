@@ -57,7 +57,10 @@ export const component = (
                 {feature.number}
               </div>
               <div>
-                <Heading as="h2" className="mt-[0px] mb-[8px] text-gray-900 text-[18px] leading-[28px]">
+                <Heading
+                  as="h2"
+                  className="mt-[0px] mb-[8px] text-gray-900 text-[18px] leading-[28px]"
+                >
                   {feature.title}
                 </Heading>
                 <Text className="m-0 text-gray-500 text-[14px] leading-[24px]">

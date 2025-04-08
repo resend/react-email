@@ -70,7 +70,9 @@ export const component = (
             >
               <Text
                 className={`${
-                  plan.highlighted ? 'text-[rgb(124,134,255)]' : 'text-[rgb(79,70,229)]'
+                  plan.highlighted
+                    ? 'text-[rgb(124,134,255)]'
+                    : 'text-[rgb(79,70,229)]'
                 } text-[14px] leading-[20px] font-semibold mb-[16px]`}
               >
                 {plan.title}

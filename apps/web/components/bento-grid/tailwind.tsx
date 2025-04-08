@@ -75,7 +75,10 @@ export const component = (
                   className="rounded-[4px] mb-[18px] w-full"
                 />
                 <div>
-                  <Heading as="h2" className="text-[14px] leading-[20px] font-bold mb-[8px]">
+                  <Heading
+                    as="h2"
+                    className="text-[14px] leading-[20px] font-bold mb-[8px]"
+                  >
                     {product.title}
                   </Heading>
                   <Text className="text-gray-500 text-[12px] leading-[20px] m-0 pr-[12px]">

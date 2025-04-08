@@ -96,8 +96,12 @@ export const component = (
           ].map((plan) => (
             <Section
               style={{
-                backgroundColor: plan.highlighted ? 'rgb(16,24,40)' : 'rgb(255,255,255)',
-                borderColor: plan.highlighted ? 'rgb(16,24,40)' : 'rgb(209,213,219)',
+                backgroundColor: plan.highlighted
+                  ? 'rgb(16,24,40)'
+                  : 'rgb(255,255,255)',
+                borderColor: plan.highlighted
+                  ? 'rgb(16,24,40)'
+                  : 'rgb(209,213,219)',
                 borderRadius: '8px',
                 borderStyle: 'solid',
                 borderWidth: '1px',
@@ -110,7 +114,9 @@ export const component = (
             >
               <Text
                 style={{
-                  color: plan.highlighted ? 'rgb(124,134,255)' : 'rgb(79,70,229)',
+                  color: plan.highlighted
+                    ? 'rgb(124,134,255)'
+                    : 'rgb(79,70,229)',
                   fontSize: '14px',
                   fontWeight: '600',
                   lineHeight: '20px',
@@ -127,7 +133,13 @@ export const component = (
                   marginTop: '0px',
                 }}
               >
-                <span style={{ color: plan.highlighted ? 'rgb(255,255,255)' : 'rgb(16,24,40)' }}>
+                <span
+                  style={{
+                    color: plan.highlighted
+                      ? 'rgb(255,255,255)'
+                      : 'rgb(16,24,40)',
+                  }}
+                >
                   ${plan.price}
                 </span>{' '}
                 <span style={{ fontSize: '14px', lineHeight: '20px' }}>

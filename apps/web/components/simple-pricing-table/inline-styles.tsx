@@ -136,7 +136,7 @@ export const component = (
               fontSize: '12px',
               lineHeight: '16px',
               fontStyle: 'italic',
-              marginTop: '24px', 
+              marginTop: '24px',
               marginBottom: '6px',
               textAlign: 'center',
             }}

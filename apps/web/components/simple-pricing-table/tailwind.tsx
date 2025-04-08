@@ -25,7 +25,9 @@ export const component = (
           </Text>
           <Text className="text-[30px] font-bold leading-[36px] mb-[12px] mt-0">
             <span className="text-[rgb(16,24,40)]">$12</span>{' '}
-            <span className="text-[16px] font-medium leading-[20px]">/ month</span>
+            <span className="text-[16px] font-medium leading-[20px]">
+              / month
+            </span>
           </Text>
           <Text className="text-gray-700 text-[14px] leading-[20px] mt-[16px] mb-[24px]">
             We've handcrafted the perfect plan tailored specifically for your
