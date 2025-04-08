@@ -12,7 +12,7 @@
   "dependencies": {
     "@scaleway/sdk": "1.5.0",
     "next": "15.0.4",
-    "@react-email/components": "workspace:0.0.36",
+    "@react-email/components": "0.0.36",
     "react": "^19",
     "react-dom": "^19"
   },
