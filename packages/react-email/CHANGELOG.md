@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.6
+
+### Patch Changes
+
+- 809130e: `next@15.2.4`
+
 ## 4.0.5
 
 ### Patch Changes
