@@ -6,7 +6,8 @@
     "email": "./dist/cli/index.js"
   },
   "scripts": {
-    "build": "tsup-node && node ./scripts/build-preview-server.mjs && pnpm install --frozen-lockfile",
+    "build": "tsup-node && node ./scripts/build-preview-server.mjs",
+    "prepack": "pnpm build",
     "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch",
