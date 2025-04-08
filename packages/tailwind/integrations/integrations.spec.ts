@@ -33,9 +33,13 @@ describe('integrations', () => {
     },
   );
 
-  test("Tailwind works on the Vite App's build process", { timeout: 15_000 }, () => {
-    const viteAppLocation = path.resolve(integrationsLocation, 'vite');
-    $('npm install', viteAppLocation);
-    $('npm run build', viteAppLocation);
-  });
+  test(
+    "Tailwind works on the Vite App's build process",
+    { timeout: 15_000 },
+    () => {
+      const viteAppLocation = path.resolve(integrationsLocation, 'vite');
+      $('npm install', viteAppLocation);
+      $('npm run build', viteAppLocation);
+    },
+  );
 });
