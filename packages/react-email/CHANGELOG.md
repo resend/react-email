@@ -5,6 +5,7 @@
 ### Patch Changes
 
 - 1a7f9e6: Update dependencies: `next@15.2.3`
+- 9832b5e: Fixed support for importing modules when linter loads Tailwind config
 
 ## 4.0.3
 
