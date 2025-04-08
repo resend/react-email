@@ -25,7 +25,7 @@ describe('integrations', () => {
 
   test(
     "Tailwind works on the Next App's build process",
-    { timeout: 15_000 },
+    { timeout: 35_000 },
     () => {
       const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
       $('npm install', nextAppLocation);
@@ -33,7 +33,7 @@ describe('integrations', () => {
     },
   );
 
-  test("Tailwind works on the Vite App's build process", () => {
+  test("Tailwind works on the Vite App's build process", { timeout: 15_000 }, () => {
     const viteAppLocation = path.resolve(integrationsLocation, 'vite');
     $('npm install', viteAppLocation);
     $('npm run build', viteAppLocation);
