@@ -8,7 +8,7 @@
     "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
-    "version": "changeset version && pnpm install --no-frozen-lockfile",
+    "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix",
     "lint": "biome check",
     "lint:fix": "biome check --write .",
     "test": "turbo run test",

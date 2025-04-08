@@ -1,24 +1,25 @@
-name: Bump canary
+name: rsnd
 
 on:
   push:
     branches:
+      - main
       - canary
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: Bump for canary
-    runs-on: ubuntu-latest
+    name: version
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    permissions: 
+      contents: write
+      pull-requests: write
+    container:
+      image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-
-      - name: Setup Node.js 22
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
 
       - name: Enable Corepack
         id: pnpm-setup
@@ -26,27 +27,26 @@ jobs:
           corepack enable
           corepack prepare pnpm@9.15.0 --activate
           pnpm config set script-shell "/usr/bin/bash"
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - name: pnpm Cache
         uses: buildjet/cache@v4
         with:
-          path: ${{ steps.pnpm-setup.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            ${{ runner.os }}-pnpm-
 
       - name: Install packages
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
-
-      - name: Enter prerelease mode
-        continue-on-error: true
-        run: pnpm canary:enter
 
       - name: Create Release Pull Request
         uses: changesets/action@v1
         with:
           version: pnpm run version
-          title: "chore: Bump for release"
+          title: "chore(root): Version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
