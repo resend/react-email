@@ -1,5 +1,11 @@
 # react-email-starter
 
+## 1.0.8
+
+### Patch Changes
+
+- @react-email/components@0.0.37
+
 ## 1.0.7
 
 ## 1.0.6
