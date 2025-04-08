@@ -1,6 +1,5 @@
 {
   "name": "react-email-with-resend",
-  "version": "1.0.11",
   "license": "MIT",
   "private": true,
   "sideEffects": false,
@@ -10,16 +9,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "15.0.4",
-    "@react-email/components": "0.0.36",
+    "next": "^15",
+    "@react-email/components": "^0.0.36",
     "react": "^19",
     "react-dom": "^19",
-    "resend": "4.0.1"
+    "resend": "^4"
   },
   "devDependencies": {
-    "@types/node": "^20.2.5",
+    "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5.1.3"
+    "typescript": "^5"
   }
 }
