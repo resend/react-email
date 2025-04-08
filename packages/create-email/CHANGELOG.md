@@ -16,6 +16,8 @@
 
 - 31fd7cc: use caret for dependency on react-email and @react-email/components
 
+## 1.0.8-canary.0
+
 ## 1.0.7
 
 ### Patch Changes
