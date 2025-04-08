@@ -14,7 +14,7 @@ const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
   ).toBe(0);
 };
 
-describe('integrations', { timeout: 15_000 }, () => {
+describe('integrations', () => {
   beforeAll(() => {
     const packageLocation = path.resolve(__dirname, '../');
     $('yalc installations clean @react-email/tailwind', packageLocation);
@@ -23,7 +23,7 @@ describe('integrations', { timeout: 15_000 }, () => {
 
   const integrationsLocation = __dirname;
 
-  test("Tailwind works on the Next App's build process", () => {
+  test("Tailwind works on the Next App's build process", { timeout: 15_000 }, () => {
     const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
     $('npm install', nextAppLocation);
     $('npm run build', nextAppLocation);
