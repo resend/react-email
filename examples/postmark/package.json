@@ -1,6 +1,5 @@
 {
   "name": "react-email-with-postmark",
-  "version": "1.0.11",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -13,13 +12,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "postmark": "3.0.14",
-    "@react-email/components": "0.0.36",
+    "postmark": "^3",
+    "@react-email/components": "^0.0.36",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "6.2.3",
-    "typescript": "4.8.3"
+    "tsup": "^6",
+    "typescript": "^4"
   }
 }
