@@ -52,6 +52,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm run version
-          title: "chore(root): Version packages ${GITHUB_REF##*/}"
+          title: "chore(root): Version packages (${{ github.ref_name }})"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
