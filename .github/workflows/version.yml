@@ -15,11 +15,16 @@ jobs:
     permissions: 
       contents: write
       pull-requests: write
-    container:
-      image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Enable Corepack
         id: pnpm-setup
@@ -47,6 +52,6 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm run version
-          title: "chore(root): Version packages"
+          title: "chore(root): Version packages ${GITHUB_REF##*/}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
