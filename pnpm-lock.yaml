@@ -465,7 +465,7 @@ importers:
         specifier: 19.0.0
         version: 19.0.0
       react-email:
-        specifier: workspace:4.0.6
+        specifier: workspace:4.0.7
         version: link:../react-email
       tsconfig:
         specifier: workspace:*
@@ -493,7 +493,7 @@ importers:
         specifier: 19.0.1
         version: 19.0.1
       react-email:
-        specifier: workspace:4.0.6
+        specifier: workspace:4.0.7
         version: link:../../react-email
 
   packages/font:

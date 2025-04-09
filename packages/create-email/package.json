@@ -29,7 +29,7 @@
   "devDependencies": {
     "@react-email/components": "workspace:0.0.36",
     "react": "19.0.0",
-    "react-email": "workspace:4.0.6",
+    "react-email": "workspace:4.0.7",
     "tsconfig": "workspace:*",
     "typescript": "5.8.2"
   }

@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.7
+
+### Patch Changes
+
+- 403e415: Fix `deno` not working as an option for `email build`
+
 ## 4.0.6
 
 ### Patch Changes
