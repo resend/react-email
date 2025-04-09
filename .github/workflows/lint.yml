@@ -9,21 +9,24 @@ jobs:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
       image: node:22
-      credentials:
-        username: ${{ vars.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
         uses: pnpm/action-setup@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: pnpm Cache
+        uses: buildjet/cache@v4
         with:
-          node-version: 20
-          cache: "pnpm"
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
       - name: Install packages
-        run: pnpm install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
       - name: Run Lint
         run: pnpm lint
         env:
