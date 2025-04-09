@@ -477,7 +477,7 @@ importers:
   packages/create-email/template:
     dependencies:
       '@react-email/components':
-        specifier: workspace:0.0.36
+        specifier: workspace:^0.0.36
         version: link:../../components
       react:
         specifier: 19.0.0
@@ -493,7 +493,7 @@ importers:
         specifier: 19.0.1
         version: 19.0.1
       react-email:
-        specifier: workspace:4.0.7
+        specifier: workspace:^4.0.7
         version: link:../../react-email
 
   packages/font:
