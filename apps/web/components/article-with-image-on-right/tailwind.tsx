@@ -5,13 +5,13 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Section className="my-[16px] text-center">
     <Section className="inline-block w-full max-w-[250px] text-left align-top">
-      <Text className="m-0 text-[16px] font-semibold leading-[24px] text-indigo-600">
+      <Text className="m-0 font-semibold text-[16px] text-indigo-600 leading-[24px]">
         What's new
       </Text>
-      <Text className="m-0 mt-[8px] text-[20px] font-semibold leading-[28px] text-gray-900">
+      <Text className="m-0 mt-[8px] font-semibold text-[20px] text-gray-900 leading-[28px]">
         Versatile Comfort
       </Text>
-      <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
+      <Text className="mt-[8px] text-[16px] text-gray-500 leading-[24px]">
         Experience ultimate comfort and versatility with our furniture
         collection, designed to adapt to your ever-changing needs.
       </Text>

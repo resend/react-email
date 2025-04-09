@@ -1,7 +1,7 @@
 import { CircleDollarSign } from 'lucide-react';
 
 const IllustrationMarketing: React.FC = () => (
-  <div className="relative flex aspect-square w-[40%] flex-col items-center gap-2 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/20 p-3 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:-skew-x-3">
+  <div className="group-hover:-skew-x-3 relative flex aspect-square w-[40%] flex-col items-center gap-2 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/20 p-3 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)]">
     <div className="mt-1 h-1 w-[24%] rounded-sm bg-slate-5" />
     <div className="h-1 w-[66%] rounded-sm bg-slate-5" />
     <div className="-mt-1 h-3 w-[66%] rounded-sm bg-slate-5" />
