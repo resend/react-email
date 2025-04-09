@@ -56,7 +56,7 @@ export const NetlifyWelcomeEmail = ({
         }}
       >
         <Preview>Netlify Welcome</Preview>
-        <Body className="bg-offwhite text-base font-sans">
+        <Body className="bg-offwhite font-sans text-base">
           <Img
             src={`${baseUrl}/static/netlify-logo.png`}
             width="184"
@@ -65,7 +65,7 @@ export const NetlifyWelcomeEmail = ({
             className="mx-auto my-20"
           />
           <Container className="bg-white p-45">
-            <Heading className="text-center my-0 leading-8">
+            <Heading className="my-0 text-center leading-8">
               Welcome to Netlify
             </Heading>
 
@@ -84,7 +84,7 @@ export const NetlifyWelcomeEmail = ({
             <ul>{steps?.map(({ Description }) => Description)}</ul>
 
             <Section className="text-center">
-              <Button className="bg-brand text-white rounded-lg py-3 px-[18px]">
+              <Button className="rounded-lg bg-brand px-[18px] py-3 text-white">
                 Go to your dashboard
               </Button>
             </Section>
@@ -94,7 +94,7 @@ export const NetlifyWelcomeEmail = ({
                 {links?.map((link) => (
                   <Column key={link.title}>
                     <Link
-                      className="text-black underline font-bold"
+                      className="font-bold text-black underline"
                       href={link.href}
                     >
                       {link.title}
@@ -109,7 +109,7 @@ export const NetlifyWelcomeEmail = ({
           <Container className="mt-20">
             <Section>
               <Row>
-                <Column className="text-right px-20">
+                <Column className="px-20 text-right">
                   <Link>Unsubscribe</Link>
                 </Column>
                 <Column className="text-left">
@@ -117,7 +117,7 @@ export const NetlifyWelcomeEmail = ({
                 </Column>
               </Row>
             </Section>
-            <Text className="text-center text-gray-400 mb-45">
+            <Text className="mb-45 text-center text-gray-400">
               Netlify, 44 Montgomery Street, Suite 300 San Francisco, CA
             </Text>
           </Container>
