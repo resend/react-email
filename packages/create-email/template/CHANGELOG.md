@@ -1,5 +1,7 @@
 # react-email-starter
 
+## 1.1.0
+
 ## 1.0.7
 
 ## 1.0.6
