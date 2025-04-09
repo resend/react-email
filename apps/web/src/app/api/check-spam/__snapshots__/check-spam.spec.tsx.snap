@@ -30,11 +30,11 @@ exports[`checkSpam() > with papermark email template 1`] = `
     {
       "description": "Invisible text + long lines",
       "name": "FONT_INVIS_LONG_LINE",
-      "points": 2.1,
+      "points": 0.4,
     },
   ],
   "isSpam": false,
-  "points": 2.1,
+  "points": 0.4,
 }
 `;
 
