@@ -196,8 +196,8 @@ const npmInstall = async (
       packageManager,
       [
         'install',
+        packageManager === 'deno' ? '' : '--include=dev',
         packageManager === 'deno' ? '--quiet' : '--silent',
-        '--include=dev',
       ],
       {
         cwd: builtPreviewAppPath,
