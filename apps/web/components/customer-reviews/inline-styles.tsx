@@ -19,11 +19,15 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '400px',
-          padding: '24px 42px',
+          paddingLeft: '42px',
+          paddingRight: '42px',
+          paddingTop: '24px',
+          paddingBottom: '24px',
         }}
       >
         <Section>
@@ -34,16 +38,16 @@ export const component = (
             style={{
               display: 'flex',
               flexDirection: 'column',
-              margin: '12px 0 0 0',
+              marginTop: '12px',
             }}
           >
             <Text style={{ display: 'none' }}>4 out of 5 stars</Text>
           </div>
-          <Section style={{ margin: '24px 0' }}>
+          <Section style={{ marginTop: '24px', marginBottom: '24px' }}>
             <Heading as="h2" style={{ display: 'none' }}>
               Review data
             </Heading>
-            <dl style={{ margin: '0' }}>
+            <dl style={{ margin: '0px' }}>
               {[
                 { rating: 5, count: 1019 },
                 { rating: 4, count: 162 },
@@ -69,7 +73,7 @@ export const component = (
                   >
                     <Text
                       style={{
-                        color: '#6B7280',
+                        color: 'rgb(107,114,128)',
                         fontWeight: '500',
                         width: '12px',
                       }}
@@ -82,6 +86,7 @@ export const component = (
                       style={{
                         alignItems: 'center',
                         flex: '1 1 0%',
+                        display: 'flex',
                         marginLeft: '4px',
                       }}
                     >
@@ -94,8 +99,8 @@ export const component = (
                       >
                         <div
                           style={{
-                            backgroundColor: '#f3f4f6',
-                            borderColor: '#e5e7eb',
+                            backgroundColor: 'rgb(243,244,246)',
+                            borderColor: 'rgb(229,231,235)',
                             borderRadius: '6px',
                             borderWidth: '1px',
                             height: '12px',
@@ -104,11 +109,11 @@ export const component = (
                         {count.count > 0 ? (
                           <div
                             style={{
-                              backgroundColor: '#4f46e5',
+                              backgroundColor: 'rgb(79,70,229)',
                               borderRadius: '6px',
-                              bottom: '0',
+                              bottom: '0px',
                               position: 'absolute',
-                              top: '0',
+                              top: '0px',
                               width: `calc(${count.count} / ${1624} * 100%)`,
                             }}
                           />
@@ -118,7 +123,7 @@ export const component = (
                   </dt>
                   <dd
                     style={{
-                      color: '#6B7280',
+                      color: 'rgb(107,114,128)',
                       fontSize: '12px',
                       fontVariantNumeric: 'tabular-nums',
                       fontWeight: '500',
@@ -134,10 +139,10 @@ export const component = (
             </dl>
             <Text
               style={{
-                color: '#6B7280',
+                color: 'rgb(107,114,128)',
                 fontSize: '12px',
                 lineHeight: '24px',
-                margin: '14px 0 0 0',
+                marginTop: '14px',
                 textAlign: 'center',
               }}
             >
@@ -149,7 +154,7 @@ export const component = (
             <Heading
               as="h3"
               style={{
-                color: '#111827',
+                color: 'rgb(17,24,39)',
                 fontSize: '18px',
                 fontWeight: '500',
                 lineHeight: '24px',
@@ -160,10 +165,10 @@ export const component = (
             </Heading>
             <Text
               style={{
-                color: '#6B7280',
+                color: 'rgb(107,114,128)',
                 fontSize: '14px',
                 lineHeight: '20px',
-                margin: '0',
+                margin: '0px',
               }}
             >
               If you’ve used this product, share your thoughts with other
@@ -172,13 +177,14 @@ export const component = (
             <Button
               href="#"
               style={{
-                backgroundColor: '#4f46e5',
+                backgroundColor: 'rgb(79,70,229)',
                 borderRadius: '8px',
                 boxSizing: 'border-box',
-                color: '#fff',
+                color: 'rgb(255,255,255)',
                 display: 'inline-block',
                 fontWeight: '600',
-                margin: '26px 0 24px 0',
+                marginTop: '26px',
+                marginBottom: '24px',
                 maxWidth: '100%',
                 padding: '12px',
                 textAlign: 'center',

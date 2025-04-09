@@ -20,16 +20,20 @@ export const component = (
     <Preview>How Our Service Works: 5 Simple Steps</Preview>
     <Body
       style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'rgb(255,255,255)',
       }}
     >
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '600px',
-          padding: '24px 24px 0 24px',
+          paddingLeft: '24px',
+          paddingRight: '24px',
+          paddingTop: '24px',
+          paddingBottom: '0px',
         }}
       >
         <Heading
@@ -102,9 +106,9 @@ export const component = (
                 <div
                   style={{
                     alignItems: 'center',
-                    backgroundColor: '#4F46E5',
-                    borderRadius: '100%',
-                    color: '#FFFFFF',
+                    backgroundColor: 'rgb(79,70,229)',
+                    borderRadius: '9999px',
+                    color: 'rgb(255,255,255)',
                     display: 'flex',
                     fontSize: '12px',
                     fontWeight: '600',
@@ -121,20 +125,20 @@ export const component = (
                   as="h2"
                   style={{
                     fontSize: '20px',
-                    fontWeight: 'bold',
+                    fontWeight: '700',
                     lineHeight: '1',
                     marginBottom: '8px',
-                    marginTop: '0',
+                    marginTop: '0px',
                   }}
                 >
                   {step.title}
                 </Heading>
                 <Text
                   style={{
-                    color: '#6B7280',
+                    color: 'rgb(107,114,128)',
                     fontSize: '14px',
                     lineHeight: '24px',
-                    margin: '0',
+                    margin: '0px',
                   }}
                 >
                   {step.description}
@@ -142,12 +146,12 @@ export const component = (
                 <Link
                   href={step.learnMoreLink}
                   style={{
-                    color: '#4F46E5',
+                    color: 'rgb(79,70,229)',
                     display: 'block',
                     fontSize: '14px',
                     fontWeight: '600',
                     marginTop: '12px',
-                    textDecoration: 'none',
+                    textDecorationLine: 'none',
                   }}
                 >
                   Learn more →

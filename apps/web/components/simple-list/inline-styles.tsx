@@ -17,9 +17,10 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '600px',
           padding: '24px',
         }}
@@ -76,15 +77,15 @@ export const component = (
                 alignItems: 'flex-start',
                 display: 'inline-flex',
                 marginLeft: '12px',
-                marginRight: '30px',
+                marginRight: '32px',
               }}
             >
               <div
                 style={{
                   alignItems: 'center',
-                  backgroundColor: '#4F46E5',
-                  borderRadius: '100%',
-                  color: '#FFFFFF',
+                  backgroundColor: 'rgb(79,70,229)',
+                  borderRadius: '9999px',
+                  color: 'rgb(255,255,255)',
                   display: 'flex',
                   flexShrink: '0',
                   fontSize: '12px',
@@ -102,20 +103,21 @@ export const component = (
                 <Heading
                   as="h2"
                   style={{
-                    color: '#111827',
+                    color: 'rgb(17,24,39)',
                     fontSize: '18px',
+                    lineHeight: '28px',
                     marginBottom: '8px',
-                    marginTop: '0',
+                    marginTop: '0px',
                   }}
                 >
                   {feature.title}
                 </Heading>
                 <Text
                   style={{
-                    color: '#6B7280',
+                    color: 'rgb(107,114,128)',
                     fontSize: '14px',
                     lineHeight: '24px',
-                    margin: '0',
+                    margin: '0px',
                   }}
                 >
                   {feature.description}
