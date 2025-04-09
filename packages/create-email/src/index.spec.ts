@@ -38,7 +38,7 @@ describe('automatic setup', () => {
     expect(exportProcess.status, 'export should return status code 0').toBe(0);
   });
 
-  test.sequential('type checking', () => {
+  test.sequential('type checking', { timeout: 10_000 }, () => {
     const typecheckingProcess = spawnSync('npx', ['tsc'], {
       shell: true,
       cwd: starterPath,
