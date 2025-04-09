@@ -15,7 +15,7 @@ export const component = (
         </td>
         <td align="center" className="w-1/2 pl-[16px]" colSpan={1}>
           <Button
-            className="box-border w-full rounded-[8px] border border-solid border-gray-200 bg-white px-[20px] py-[12px] text-center font-semibold text-gray-900"
+            className="box-border w-full rounded-[8px] border border-gray-200 border-solid bg-white px-[20px] py-[12px] text-center font-semibold text-gray-900"
             href="https://react.email"
           >
             Sign up
