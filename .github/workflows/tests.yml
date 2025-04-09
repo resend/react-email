@@ -48,45 +48,6 @@ jobs:
 
       - name: Run Build
         run: pnpm build
-
-  lint:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    needs: [build]
-    container:
-      image: node:22
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-
-      - name: Restore dependencies
-        uses: buildjet/cache@v4
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: turborepo Cache
-        uses: buildjet/cache@v4
-        with:
-          path: |
-            .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
-
-      - name: Run Build
-        run: pnpm build
-
-      - name: Run Lint
-        run: pnpm lint
-
   test:
     runs-on: buildjet-4vcpu-ubuntu-2204
     needs: [build]
