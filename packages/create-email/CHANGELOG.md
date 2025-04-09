@@ -1,5 +1,11 @@
 # create-email
 
+## 1.1.0
+
+### Minor Changes
+
+- 31fd7cc: use caret for dependency on react-email and @react-email/components
+
 ## 1.0.7
 
 ### Patch Changes
