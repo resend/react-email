@@ -89,7 +89,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       lang="en"
       color-scheme="dark"
     >
-      <body className="overflow-x-hidden bg-black font-sans text-sm text-slate-11 h-screen-ios selection:bg-cyan-5 selection:text-cyan-12">
+      <body className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12">
         <div
           className="relative mx-auto flex min-h-[100dvh] flex-col justify-between px-2 md:max-w-7xl md:px-4"
           // eslint-disable-next-line react/no-unknown-property
