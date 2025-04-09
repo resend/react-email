@@ -11,7 +11,7 @@ exports[`email export 1`] = `
     <!--$-->
   </head>
   <body
-    style='background-color:rgb(255,255,255);margin-top:auto;margin-bottom:auto;margin-left:auto;margin-right:auto;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";padding-left:0.5rem;padding-right:0.5rem'>
+    style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:0.5rem;padding-right:0.5rem;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
     <div
       style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0">
       Join undefined on Vercel
@@ -26,7 +26,7 @@ exports[`email export 1`] = `
       cellpadding="0"
       cellspacing="0"
       role="presentation"
-      style="border-width:1px;border-style:solid;border-color:rgb(234,234,234);border-radius:0.25rem;margin-top:40px;margin-bottom:40px;margin-left:auto;margin-right:auto;padding:20px;max-width:465px">
+      style="margin-left:auto;margin-right:auto;margin-top:40px;margin-bottom:40px;max-width:465px;border-radius:0.25rem;border-width:1px;border-color:rgb(234,234,234);border-style:solid;padding:20px">
       <tbody>
         <tr style="width:100%">
           <td>
@@ -45,23 +45,23 @@ exports[`email export 1`] = `
                       alt="Vercel Logo"
                       height="37"
                       src="/static/vercel-logo.png"
-                      style="margin-top:0px;margin-bottom:0px;margin-left:auto;margin-right:auto;display:block;outline:none;border:none;text-decoration:none"
+                      style="margin-left:auto;margin-right:auto;margin-top:0px;margin-bottom:0px;display:block;outline:none;border:none;text-decoration:none"
                       width="40" />
                   </td>
                 </tr>
               </tbody>
             </table>
             <h1
-              style="color:rgb(0,0,0);font-size:24px;font-weight:400;text-align:center;padding:0px;margin-top:30px;margin-bottom:30px;margin-left:0px;margin-right:0px">
+              style="margin-left:0px;margin-right:0px;margin-top:30px;margin-bottom:30px;padding:0px;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
               Join <strong></strong> on <strong>Vercel</strong>
             </h1>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
+              style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-bottom:16px;margin-top:16px">
               Hello
               <!-- -->,
             </p>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
+              style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-bottom:16px;margin-top:16px">
               <strong></strong> (<a
                 href="mailto:undefined"
                 style="color:rgb(37,99,235);text-decoration-line:none"
@@ -124,12 +124,12 @@ exports[`email export 1`] = `
               cellpadding="0"
               cellspacing="0"
               role="presentation"
-              style="text-align:center;margin-top:32px;margin-bottom:32px">
+              style="margin-top:32px;margin-bottom:32px;text-align:center">
               <tbody>
                 <tr>
                   <td>
                     <a
-                      style="background-color:rgb(0,0,0);border-radius:0.25rem;color:rgb(255,255,255);font-size:12px;font-weight:600;text-decoration-line:none;text-align:center;padding-left:1.25rem;padding-right:1.25rem;padding-top:0.75rem;padding-bottom:0.75rem;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:12px 20px 12px 20px"
+                      style="border-radius:0.25rem;background-color:rgb(0,0,0);padding-left:1.25rem;padding-right:1.25rem;padding-top:0.75rem;padding-bottom:0.75rem;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;padding:12px 20px 12px 20px"
                       target="_blank"
                       ><span
                         ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
@@ -145,14 +145,14 @@ exports[`email export 1`] = `
               </tbody>
             </table>
             <p
-              style="color:rgb(0,0,0);font-size:14px;line-height:24px;margin-bottom:16px;margin-top:16px">
+              style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-bottom:16px;margin-top:16px">
               or copy and paste this URL into your browser:<!-- -->
               <a
                 style="color:rgb(37,99,235);text-decoration-line:none"
                 target="_blank"></a>
             </p>
             <hr
-              style="border-width:1px;border-style:solid;border-color:rgb(234,234,234);margin-top:26px;margin-bottom:26px;margin-left:0px;margin-right:0px;width:100%;border:none;border-top:1px solid #eaeaea" />
+              style="margin-left:0px;margin-right:0px;margin-top:26px;margin-bottom:26px;width:100%;border-width:1px;border-color:rgb(234,234,234);border-style:solid;border:none;border-top:1px solid #eaeaea" />
             <p
               style="color:rgb(102,102,102);font-size:12px;line-height:24px;margin-bottom:16px;margin-top:16px">
               This invitation was intended for<!-- -->
