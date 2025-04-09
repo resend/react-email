@@ -389,8 +389,8 @@ describe('non-inlinable styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="bg-white my-auto mx-auto font-sans md:px-[64px] hover:underline">
-          <div className="md:px-[64px] hover:underline" />
+        <Body className="mx-auto my-auto bg-white font-sans hover:underline md:px-[64px]">
+          <div className="hover:underline md:px-[64px]" />
         </Body>
       </Tailwind>,
     );
@@ -404,7 +404,7 @@ describe('non-inlinable styles', () => {
         <Tailwind>
           <head />
           <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500 hover:bg-red-600 focus:bg-red-700 sm:hover:bg-red-200" />
+            <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
           </body>
         </Tailwind>
       </html>,
