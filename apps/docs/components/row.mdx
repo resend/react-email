@@ -6,7 +6,8 @@ description: "Display a row that separates content areas horizontally in your em
 icon: "table-rows"
 ---
 
-import Support from '/snippets/support.mdx'
+import Support from "/snippets/support.mdx";
+import { ComponentPreview } from "/snippets/component-preview.mdx";
 
 ## Install
 
@@ -44,24 +45,94 @@ pnpm add @react-email/row -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Row, Column, Section } from "@react-email/components";
+
+const Email = () => {
+return (
+<Section>
+<Row
+style={{
+          height: "33.333vh"
+        }} >
+<Column
+style={{
+            textAlign: "center",
+            backgroundColor: "#ff7b6b",
+          }} >
+A
+</Column>
+</Row>
+<Row
+style={{
+          height: "33.333vh"
+        }} >
+<Column
+style={{
+            textAlign: "center",
+            backgroundColor: "#78ff69",
+          }} >
+B
+</Column>
+</Row>
+<Row
+style={{
+          height: "33.333vh"
+        }} >
+<Column
+style={{
+            textAlign: "center",
+            backgroundColor: "#6482fa",
+          }} >
+C
+</Column>
+</Row>
+</Section>
+);
+};
+'>
+
 ```jsx
 import { Row, Column, Section } from "@react-email/components";
 
 const Email = () => {
   return (
     <Section>
-      <Row>
-        <Column>A</Column>
+      <Row style={{ height: "33.333vh" }}>
+        <Column
+          style={{
+            textAlign: "center",
+            backgroundColor: "#ff7b6b",
+          }}
+        >
+          A
+        </Column>
       </Row>
-      <Row>
-        <Column>B</Column>
+      <Row style={{ height: "33.333vh" }}>
+        <Column
+          style={{
+            textAlign: "center",
+            backgroundColor: "#78ff69",
+          }}
+        >
+          B
+        </Column>
       </Row>
-      <Row>
-        <Column>C</Column>
+      <Row style={{ height: "33.333vh" }}>
+        <Column
+          style={{
+            textAlign: "center",
+            backgroundColor: "#6482fa",
+          }}
+        >
+          C
+        </Column>
       </Row>
     </Section>
   );
 };
 ```
 
-<Support/>
+</ComponentPreview>
+
+<Support />

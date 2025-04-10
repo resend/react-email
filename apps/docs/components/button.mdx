@@ -6,7 +6,8 @@ description: "A link that is styled to look like a button."
 icon: "b"
 ---
 
-import Support from '/snippets/support.mdx'
+import Support from "/snippets/support.mdx";
+import { ComponentPreview } from "/snippets/component-preview.mdx";
 
 <Info>
   Semantics: Quite often in the email world we talk about buttons, when actually
@@ -49,20 +50,45 @@ pnpm add @react-email/button -E
 
 Add the component to your email template. Include styles where needed.
 
-```jsx
+<ComponentPreview code='
+  import { Button } from "@react-email/components";
+
+  const Email = () => {
+    return (
+      <Button
+        href="https://example.com"
+        style={{ 
+          color: "#101010", 
+          backgroundColor: "#eee", 
+          borderRadius: 6, 
+          padding: "10px 20px" 
+        }}
+      >
+        Click me
+      </Button>
+    );
+  };
+'>
+```tsx
 import { Button } from "@react-email/components";
 
 const Email = () => {
   return (
     <Button
       href="https://example.com"
-      style={{ color: "#61dafb", padding: "10px 20px" }}
+      style={{ 
+        color: "#101010", 
+        backgroundColor: "#eee", 
+        borderRadius: 6, 
+        padding: "10px 20px" 
+      }}
     >
       Click me
     </Button>
   );
 };
 ```
+</ComponentPreview>
 
 ## Props
 
@@ -74,4 +100,4 @@ const Email = () => {
   Specify the target attribute for the button link
 </ResponseField>
 
-<Support/>
+<Support />
