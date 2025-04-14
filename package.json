@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "turbo run build --filter=!react-email-starter",
-    "dev": "turbo run dev --filter=!react-email-starter --parallel --concurrency 25",
-    "release": "turbo run build --filter=./packages/* --filter=!react-email-starter && pnpm changeset publish",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel --concurrency 25",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix",

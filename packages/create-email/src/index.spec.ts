@@ -26,6 +26,20 @@ describe('automatic setup', () => {
     );
   });
 
+  test.sequential('install', { timeout: 40_000 }, () => {
+    const installProcess = spawnSync('npm', ['install'], {
+      shell: true,
+      cwd: path.resolve(starterPath),
+      stdio: 'pipe',
+    });
+    if (installProcess.stderr) {
+      console.log(installProcess.stderr.toString());
+    }
+    expect(installProcess.status, 'starter npm install should return 0').toBe(
+      0,
+    );
+  });
+
   test.sequential('export', () => {
     const exportProcess = spawnSync('npm', ['run export'], {
       shell: true,
