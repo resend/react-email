@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.0-canary.0
+
+### Minor Changes
+
+- 237d115: Fetch react-email package versions at runtime from `--tag` option
+
 ## 1.1.0
 
 ### Minor Changes
