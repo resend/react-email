@@ -30,7 +30,7 @@ describe('automatic setup', () => {
     const installProcess = spawnSync('npm', ['install'], {
       shell: true,
       cwd: path.resolve(starterPath),
-      stdio: 'pipe'
+      stdio: 'pipe',
     });
     if (installProcess.stderr) {
       console.log(installProcess.stderr.toString());
