@@ -106,6 +106,21 @@ export const getEmailComponent = async (
     };
   }
 
+  if (typeof parseResult.data.default !== 'function') {
+    return {
+      error: improveErrorWithSourceMap(
+        new Error(
+          `The email component at ${emailPath} does not contain a default exported function`,
+          {
+            cause: parseResult.error,
+          },
+        ),
+        emailPath,
+        sourceMapToEmail,
+      ),
+    };
+  }
+
   const { data: componentModule } = parseResult;
 
   return {
