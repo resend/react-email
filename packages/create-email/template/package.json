@@ -8,13 +8,13 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "^0.0.36",
+    "@react-email/components": "INSERT_COMPONENTS_VERSION",
     "react-dom": "19.0.0",
     "react": "19.0.0"
   },
   "devDependencies": {
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "react-email": "^4.0.7"
+    "react-email": "INSERT_REACT_EMAIL_VERSION"
   }
 }

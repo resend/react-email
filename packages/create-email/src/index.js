@@ -8,7 +8,27 @@ import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { tree } from './tree.js';
 
-const init = async (name) => {
+const getLatestVersionOfTag = async (packageName, tag) => {
+  const response = await fetch(
+    `https://registry.npmjs.org/${packageName}/${tag}`,
+  );
+  const data = await response.json();
+
+  if (typeof data === 'string' && data.startsWith('version not found')) {
+    console.error(`Tag ${tag} does not exist for ${packageName}.`);
+    process.exit(1);
+  }
+
+  const { version } = data;
+
+  if (!/^\d+\.\d+\.\d+.*$/.test(version)) {
+    console.error('Invalid version received, something has gone very wrong.');
+  }
+
+  return version;
+};
+
+const init = async (name, { tag }) => {
   let projectPath = name;
 
   if (!projectPath) {
@@ -39,25 +59,18 @@ const init = async (name) => {
     resolvedProjectPath,
     './package.json',
   );
-  const templatePackageJson = JSON.parse(
-    fse.readFileSync(templatePackageJsonPath, 'utf8'),
-  );
-  for (const key in templatePackageJson.dependencies) {
-    // We remove any workspace prefix that might have been added for the purposes
-    // of being used locally
-    templatePackageJson.dependencies[key] = templatePackageJson.dependencies[
-      key
-    ].replace('workspace:', '');
-  }
-  for (const key in templatePackageJson.devDependencies) {
-    // We remove any workspace prefix that might have been added for the purposes
-    // of being used locally
-    templatePackageJson.devDependencies[key] =
-      templatePackageJson.devDependencies[key].replace('workspace:', '');
-  }
+  const templatePackageJson = fse.readFileSync(templatePackageJsonPath, 'utf8');
   fse.writeFileSync(
     templatePackageJsonPath,
-    JSON.stringify(templatePackageJson, null, 2),
+    templatePackageJson
+      .replace(
+        'INSERT_COMPONENTS_VERSION',
+        await getLatestVersionOfTag('@react-email/components', tag),
+      )
+      .replace(
+        'INSERT_REACT_EMAIL_VERSION',
+        await getLatestVersionOfTag('react-email', tag),
+      ),
     'utf8',
   );
 
@@ -80,6 +93,7 @@ new Command()
   .name('create-email')
   .version('0.0.30-canary.0')
   .description('The easiest way to get started with React Email')
-  .arguments('[dir]', 'path to initialize the project')
+  .arguments('[dir]', 'Path to initialize the project')
+  .option('-t, --tag <tag>', 'Tag of React Email versions to use', 'latest')
   .action(init)
   .parse(process.argv);
