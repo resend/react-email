@@ -6,6 +6,8 @@ import {
 } from '../actions/render-email-by-path';
 import { isBuilding } from '../app/env';
 import { useHotreload } from './use-hot-reload';
+import { useEmails } from '../contexts/emails';
+import { containsEmailTemplate } from '../utils/contains-email-template';
 
 export const useEmailRenderingResult = (
   emailPath: string,
@@ -14,6 +16,8 @@ export const useEmailRenderingResult = (
   const [renderingResult, setRenderingResult] = useState(
     serverEmailRenderedResult,
   );
+
+  const { emailsDirectoryMetadata } = useEmails();
 
   if (!isBuilding) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -25,10 +29,13 @@ export const useEmailRenderingResult = (
           // going to be equivalent to the slug
           change.filename;
 
+        if (containsEmailTemplate(slugForChangedEmail, emailsDirectoryMetadata)) {
+          continue;
+        }
+
         const pathForChangedEmail =
           await getEmailPathFromSlug(slugForChangedEmail);
 
-        // We always render the email template here so that we can allow
         const newRenderingResult = await renderEmailByPath(
           pathForChangedEmail,
           true,
