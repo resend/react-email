@@ -12,7 +12,7 @@ import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
 const EmailComponentModule = z.object({
-  default: z.function(),
+  default: z.any(),
   render: z.function(),
   reactEmailCreateReactElement: z.function(),
 });
@@ -96,6 +96,21 @@ export const getEmailComponent = async (
       error: improveErrorWithSourceMap(
         new Error(
           `The email component at ${emailPath} does not contain the expected exports`,
+          {
+            cause: parseResult.error,
+          },
+        ),
+        emailPath,
+        sourceMapToEmail,
+      ),
+    };
+  }
+
+  if (typeof parseResult.data.default !== 'function') {
+    return {
+      error: improveErrorWithSourceMap(
+        new Error(
+          `The email component at ${emailPath} does not contain a default exported function`,
           {
             cause: parseResult.error,
           },
