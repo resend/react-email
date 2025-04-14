@@ -12,7 +12,7 @@ const isFileAnEmail = (fullPath: string): boolean => {
   if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
 
   // This is to avoid a possible race condition where the file doesn't exist anymore
-  // once we are checking if it is an actual email, this couuld cause issues that
+  // once we are checking if it is an actual email, this could cause issues that
   // would be very hard to debug and find out the why of it happening.
   if (!fs.existsSync(fullPath)) {
     return false;
