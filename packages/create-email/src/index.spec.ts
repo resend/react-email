@@ -26,7 +26,7 @@ describe('automatic setup', () => {
     );
   });
 
-  test.sequential('install', () => {
+  test.sequential('install', { timeout: 40_000 }, () => {
     const installProcess = spawnSync('npm', ['install'], {
       shell: true,
       cwd: path.resolve(starterPath),
