@@ -78,7 +78,7 @@ export const setupHotreloading = async (
 
     const newFilesOutsideEmailsDirectory = getFilesOutsideEmailsDirectory();
     // updates the files outside of the user's emails directory by unwatching
-    // the inexistant ones and watching the new ones
+    // the inexistent ones and watching the new ones
     //
     // this is necessary to avoid the issue mentioned here https://github.com/resend/react-email/issues/1433#issuecomment-2177515290
     for (const p of filesOutsideEmailsDirectory) {
