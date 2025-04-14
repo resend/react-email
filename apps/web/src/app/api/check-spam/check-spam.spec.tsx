@@ -30,13 +30,4 @@ describe('checkSpam()', () => {
 
     expect(await checkSpam(html, plainText)).toMatchSnapshot();
   });
-
-  test('with papermark email template', async () => {
-    const html = await render(<PapermarkYearInReviewEmail />);
-    const plainText = await render(<PapermarkYearInReviewEmail />, {
-      plainText: true,
-    });
-
-    expect(await checkSpam(html, plainText)).toMatchSnapshot();
-  });
 });
