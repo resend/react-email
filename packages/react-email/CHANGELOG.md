@@ -1,5 +1,12 @@
 # react-email
 
+## 4.1.0-canary.1
+
+### Patch Changes
+
+- a587e17: Fix dependent of dependents not causing hot reloads
+- dbf3a64: Add error message for when an email template does not have a default export
+
 ## 4.1.0-canary.0
 
 ### Minor Changes
