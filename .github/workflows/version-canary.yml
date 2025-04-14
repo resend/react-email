@@ -3,8 +3,7 @@ name: rsnd
 on:
   push:
     branches:
-      - main
-
+      - canary
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -26,12 +25,15 @@ jobs:
         with:
           node-version: 22
 
-      - name: pnpm setup
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+      - name: Enable Corepack
+        id: pnpm-setup
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.0 --activate
+          pnpm config set script-shell "/usr/bin/bash"
 
       - name: pnpm Cache
-        id: pnpm-cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
+        uses: buildjet/cache@v4
         with:
           path: |
             ~/.pnpm-store
@@ -45,13 +47,13 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
 
-      - name: Exit prerelease mode
-        # This step errors if it is not in prerelease mode
+      - name: Enter prerelease mode
+        # This step errors if it is already in prerelease mode
         continue-on-error: true
-        run: pnpm canary:exit
+        run: pnpm canary:enter
 
       - name: Create Release Pull Request
-        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
+        uses: changesets/action@v1
         with:
           version: pnpm run version
           title: "chore(root): Version packages"
