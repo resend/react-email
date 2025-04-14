@@ -1,5 +1,4 @@
 import { render } from '@react-email/components';
-import PapermarkYearInReviewEmail from '../../../../../demo/emails/notifications/papermark-year-in-review';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
