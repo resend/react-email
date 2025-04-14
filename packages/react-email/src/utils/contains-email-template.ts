@@ -1,4 +1,4 @@
-import type { EmailsDirectory } from "./get-emails-directory-metadata";
+import type { EmailsDirectory } from './get-emails-directory-metadata';
 
 export const containsEmailTemplate = (
   relativeEmailPath: string,

@@ -44,7 +44,6 @@ export interface EmailsDirectory {
   subDirectories: EmailsDirectory[];
 }
 
-
 const mergeDirectoriesWithSubDirectories = (
   emailsDirectoryMetadata: EmailsDirectory,
 ): EmailsDirectory => {

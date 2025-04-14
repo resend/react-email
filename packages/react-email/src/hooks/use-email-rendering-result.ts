@@ -5,9 +5,9 @@ import {
   renderEmailByPath,
 } from '../actions/render-email-by-path';
 import { isBuilding } from '../app/env';
-import { useHotreload } from './use-hot-reload';
 import { useEmails } from '../contexts/emails';
 import { containsEmailTemplate } from '../utils/contains-email-template';
+import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
   emailPath: string,
@@ -29,7 +29,9 @@ export const useEmailRenderingResult = (
           // going to be equivalent to the slug
           change.filename;
 
-        if (containsEmailTemplate(slugForChangedEmail, emailsDirectoryMetadata)) {
+        if (
+          containsEmailTemplate(slugForChangedEmail, emailsDirectoryMetadata)
+        ) {
           continue;
         }
 
