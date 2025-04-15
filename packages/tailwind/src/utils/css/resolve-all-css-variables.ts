@@ -26,35 +26,39 @@ export const resolveAllCSSVariables = (root: Root) => {
     const declarationsForAtRules = new Map<AtRule, Set<Declaration>>();
     const valueReplacingInformation = new Set<{
       declaration: Declaration;
-      newValue: string;
+      replacing: string;
+      replacement: string;
     }>();
 
-    rule.walkDecls((decl) => {
-      if (/var\(--[^\s)]+\)/.test(decl.value)) {
+    rule.walkDecls((declaration) => {
+      if (/var\(--[^\s)]+\)/.test(declaration.value)) {
         /**
          * @example ['var(--width)', 'var(--length)']
          */
-        const variablesUsed = /var\(--[^\s)]+\)/gm.exec(decl.value);
+        const variablesUsed = [
+          ...declaration.value.matchAll(/var\(--[^\s)]+\)/gm),
+        ].map((match) => match.toString());
+
         root.walkDecls((otherDecl) => {
           if (/--[^\s]+/.test(otherDecl.prop)) {
             const variable = `var(${otherDecl.prop})`;
             if (
               variablesUsed?.includes(variable) &&
-              doNodesMatch(decl.parent, otherDecl.parent)
+              doNodesMatch(declaration.parent, otherDecl.parent)
             ) {
               if (
                 otherDecl.parent?.parent instanceof AtRule &&
-                otherDecl.parent !== decl.parent
+                otherDecl.parent !== declaration.parent
               ) {
                 const atRule = otherDecl.parent.parent;
 
                 const clonedDeclaration = createDeclaration();
-                clonedDeclaration.prop = decl.prop;
-                clonedDeclaration.value = decl.value.replaceAll(
+                clonedDeclaration.prop = declaration.prop;
+                clonedDeclaration.value = declaration.value.replaceAll(
                   variable,
                   otherDecl.value,
                 );
-                clonedDeclaration.important = decl.important;
+                clonedDeclaration.important = declaration.important;
 
                 const declarationForAtRule = declarationsForAtRules.get(atRule);
                 if (declarationForAtRule) {
@@ -69,8 +73,9 @@ export const resolveAllCSSVariables = (root: Root) => {
               }
 
               valueReplacingInformation.add({
-                declaration: decl,
-                newValue: decl.value.replaceAll(variable, otherDecl.value),
+                declaration,
+                replacing: variable,
+                replacement: otherDecl.value,
               });
             }
           }
@@ -78,8 +83,8 @@ export const resolveAllCSSVariables = (root: Root) => {
       }
     });
 
-    for (const { declaration, newValue } of valueReplacingInformation) {
-      declaration.value = newValue;
+    for (const { declaration, replacing, replacement } of valueReplacingInformation) {
+      declaration.value = declaration.value.replaceAll(replacing, replacement);
     }
 
     for (const [atRule, declarations] of declarationsForAtRules.entries()) {

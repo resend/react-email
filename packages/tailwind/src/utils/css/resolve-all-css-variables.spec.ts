@@ -18,16 +18,18 @@ describe('resolveAllCSSVariables', () => {
 
   it('should work with multiple environment variables in the same declaration', () => {
     const root = parse(`:root {
-      --top: 100px;
-      --right: 150px;
+      --top: 101px;
+      --bottom: 102px;
+      --right: 103px;
+      --left: 104px;
     }
 
     .box {
-      margin: var(--top) var(--right);
+      margin: var(--top) var(--right) var(--bottom) var(--left);
     }`);
 
     expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
-      margin: 100px 150px;
+      margin: 101px 103px 102px 104px;
     }`);
   });
 
