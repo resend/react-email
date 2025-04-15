@@ -6,6 +6,12 @@
 
 - 9aa033c: Use range of versions for dependencies
 
+## 0.0.15-canary.0
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
 ## 0.0.14
 
 ### Patch Changes
