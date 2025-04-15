@@ -30,6 +30,12 @@
 
 - 9aa033c: Use range of versions for dependencies
 
+## 1.1.0-canary.1
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
 ## 1.1.0-canary.0
 
 ### Minor Changes
