@@ -58,16 +58,15 @@ export const renderEmailByPath = async (
     emailComponent: Email,
     createElement,
     render,
-    pretty,
     sourceMapToOriginalFile,
   } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await pretty(
-      await render(createElement(EmailComponent, previewProps)),
-    );
+    const markup = await render(createElement(EmailComponent, previewProps), {
+      pretty: true,
+    });
     const plainText = await render(
       createElement(EmailComponent, previewProps),
       {
@@ -77,11 +76,11 @@ export const renderEmailByPath = async (
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
-    const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
-    let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
-    if (milisecondsToRendered <= 450) {
+    const millisecondsToRendered = performance.now() - timeBeforeEmailRendered;
+    let timeForConsole = `${millisecondsToRendered.toFixed(0)}ms`;
+    if (millisecondsToRendered <= 450) {
       timeForConsole = chalk.green(timeForConsole);
-    } else if (milisecondsToRendered <= 1000) {
+    } else if (millisecondsToRendered <= 1000) {
       timeForConsole = chalk.yellow(timeForConsole);
     } else {
       timeForConsole = chalk.red(timeForConsole);
