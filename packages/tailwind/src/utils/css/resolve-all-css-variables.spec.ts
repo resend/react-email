@@ -16,7 +16,7 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
-  it('should work with multiple environment variables in the same declaration', () => {
+  it('should work with multiple variables in the same declaration', () => {
     const root = parse(`:root {
       --top: 101px;
       --bottom: 102px;
