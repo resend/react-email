@@ -23,20 +23,20 @@ export const useEmailRenderingResult = (
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
       for await (const change of changes) {
-        const slugForChangedEmail =
+        const slugForChangedFile =
           // ex: apple-receipt.tsx
           // it will be the path relative to the emails directory, so it is already
           // going to be equivalent to the slug
           change.filename;
 
         if (
-          containsEmailTemplate(slugForChangedEmail, emailsDirectoryMetadata)
+          containsEmailTemplate(slugForChangedFile, emailsDirectoryMetadata)
         ) {
           continue;
         }
 
         const pathForChangedEmail =
-          await getEmailPathFromSlug(slugForChangedEmail);
+          await getEmailPathFromSlug(slugForChangedFile);
 
         const newRenderingResult = await renderEmailByPath(
           pathForChangedEmail,

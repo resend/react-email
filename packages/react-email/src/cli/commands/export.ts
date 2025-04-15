@@ -122,15 +122,12 @@ export const exportTemplates = async (
           element: React.ReactElement,
           options: Record<string, unknown>,
         ) => Promise<string>;
-        pretty: (str: string, options?: Options) => Promise<string>;
         reactEmailCreateReactElement: typeof React.createElement;
       };
-      let rendered = await emailModule.render(
+      const rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      if (!options.plainText && options.pretty)
-        rendered = await emailModule.pretty(rendered);
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',
