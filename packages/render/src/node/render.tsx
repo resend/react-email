@@ -41,10 +41,10 @@ export const render = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  let document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
 
   if (options?.pretty) {
-    document = await pretty(document);
+    return pretty(document);
   }
 
   return document;
