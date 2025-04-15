@@ -35,9 +35,6 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MIT",
   "dependencies": {
     "md-to-react-email": "^5.0.5"
