@@ -54,7 +54,7 @@ Import an existing React component and convert into a HTML string.
 
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { render, pretty } from '@react-email/render';
 
 const html = await pretty(await render(<MyTemplate />));
 
