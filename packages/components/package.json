@@ -62,8 +62,5 @@
   "devDependencies": {
     "tsconfig": "workspace:*",
     "typescript": "5.1.6"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
