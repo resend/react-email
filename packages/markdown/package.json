@@ -40,7 +40,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "md-to-react-email": "5.0.5"
+    "md-to-react-email": "^5.0.5"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
