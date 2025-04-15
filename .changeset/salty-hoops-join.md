@@ -1,5 +1,4 @@
 ---
-"react-email-starter": patch
 "react-email": patch
 "@react-email/code-block": patch
 "@react-email/markdown": patch
