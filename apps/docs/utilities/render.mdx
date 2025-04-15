@@ -50,7 +50,7 @@ export default MyTemplate;
 
 Import an existing React component and convert into a HTML string.
 
-<Info>You can use the `pretty` option to beautify the output.</Info>
+<Info>You can use the `pretty` function to beautify the output.</Info>
 
 ```jsx
 import { MyTemplate } from './email';
@@ -115,6 +115,9 @@ Click me [https://example.com]
 
 ## Options
 
+<ResponseField name="pretty" type="boolean" deprecated>
+  Beautify HTML output
+</ResponseField>
 <ResponseField name="plainText" type="boolean">
   Generate plain text version
 </ResponseField>
