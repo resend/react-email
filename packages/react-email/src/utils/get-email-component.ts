@@ -129,7 +129,7 @@ export const getEmailComponent = async (
   return {
     emailComponent: componentModule.default as EmailComponent,
     render: componentModule.render as typeof render,
-    pretty: componentModule.pretty,
+    pretty: componentModule.pretty as typeof pretty,
     createElement:
       componentModule.reactEmailCreateReactElement as typeof React.createElement,
 
