@@ -83,7 +83,11 @@ export const resolveAllCSSVariables = (root: Root) => {
       }
     });
 
-    for (const { declaration, replacing, replacement } of valueReplacingInformation) {
+    for (const {
+      declaration,
+      replacing,
+      replacement,
+    } of valueReplacingInformation) {
       declaration.value = declaration.value.replaceAll(replacing, replacement);
     }
 
