@@ -1,6 +1,6 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { pretty, type Options } from '@react-email/components';
+import type { Options } from '@react-email/components';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
@@ -125,7 +125,8 @@ export const exportTemplates = async (
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      if (!options.plainText && options.pretty) rendered = await emailModule.pretty(rendered);
+      if (!options.plainText && options.pretty)
+        rendered = await emailModule.pretty(rendered);
       const htmlPath = template.replace(
         '.cjs',
         options.plainText ? '.txt' : '.html',

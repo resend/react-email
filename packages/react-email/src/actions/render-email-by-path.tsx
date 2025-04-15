@@ -19,8 +19,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -66,7 +66,7 @@ export const renderEmailByPath = async (
   const EmailComponent = Email as React.FC;
   try {
     const markup = await pretty(
-      await render(createElement(EmailComponent, previewProps))
+      await render(createElement(EmailComponent, previewProps)),
     );
     const plainText = await render(
       createElement(EmailComponent, previewProps),

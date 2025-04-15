@@ -2,8 +2,8 @@ import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
-import { readStream } from './read-stream';
 import { pretty } from '../shared/utils/pretty';
+import { readStream } from './read-stream';
 
 export const render = async (
   element: React.ReactElement,

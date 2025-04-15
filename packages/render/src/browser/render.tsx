@@ -4,9 +4,9 @@ import type {
   PipeableStream,
   ReactDOMServerReadableStream,
 } from 'react-dom/server';
+import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
-import { pretty } from '../node';
 
 const decoder = new TextDecoder('utf-8');
 

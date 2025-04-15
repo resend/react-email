@@ -1,5 +1,5 @@
 import path from 'node:path';
-import type { render, pretty } from '@react-email/components';
+import type { pretty, render } from '@react-email/components';
 import { type BuildFailure, type OutputFile, build } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
@@ -22,16 +22,16 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    createElement: typeof React.createElement;
+      createElement: typeof React.createElement;
 
-    render: typeof render;
+      render: typeof render;
 
-    pretty: typeof pretty;
+      pretty: typeof pretty;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];

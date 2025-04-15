@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import { render, pretty } from '@react-email/components';
+import { pretty, render } from '@react-email/components';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
