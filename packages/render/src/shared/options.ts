@@ -8,10 +8,10 @@ export type Options = {
    */
   pretty?: boolean;
 } & (
-    | {
+  | {
       plainText?: false;
     }
-    | {
+  | {
       plainText?: true;
       /**
        * These are options you can pass down directly to the library we use for
@@ -21,4 +21,4 @@ export type Options = {
        */
       htmlToTextOptions?: HtmlToTextOptions;
     }
-  );
+);
