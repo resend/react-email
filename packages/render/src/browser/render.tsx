@@ -6,6 +6,7 @@ import type {
 } from 'react-dom/server';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { pretty } from '../node';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -83,7 +84,11 @@ export const render = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+  let document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+
+  if (options?.pretty) {
+    document = await pretty(document);
+  }
 
   return document;
 };
