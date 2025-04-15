@@ -12,3 +12,4 @@ export * from './render';
 
 export * from '../shared/options';
 export * from '../shared/plain-text-selectors';
+export * from '../shared/utils/pretty';
