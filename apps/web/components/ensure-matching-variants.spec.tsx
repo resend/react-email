@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { render } from '@react-email/components';
+import { pretty, render } from '@react-email/components';
 import { parse, stringify } from 'html-to-ast';
 import type { Attr, IDoc as Doc } from 'html-to-ast/dist/types';
 import postcss from 'postcss';
@@ -81,12 +81,13 @@ describe('copy-paste components', () => {
           inlineStylesVariantPath,
         );
         const tailwindHtml = getComparableHtml(
-          await render(<Layout>{tailwindElement}</Layout>, { pretty: true }),
+          await pretty(await render(<Layout>{tailwindElement}</Layout>)),
         );
         const inlineStylesHtml = getComparableHtml(
-          await render(
-            <Layout withTailwind={false}>{inlineStylesElement}</Layout>,
-            { pretty: true },
+          await pretty(
+            await render(
+              <Layout withTailwind={false}>{inlineStylesElement}</Layout>,
+            ),
           ),
         );
         expect(tailwindHtml).toBe(inlineStylesHtml);

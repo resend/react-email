@@ -58,15 +58,16 @@ export const renderEmailByPath = async (
     emailComponent: Email,
     createElement,
     render,
+    pretty,
     sourceMapToOriginalFile,
   } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
-      pretty: true,
-    });
+    const markup = await pretty(
+      await render(createElement(EmailComponent, previewProps)),
+    );
     const plainText = await render(
       createElement(EmailComponent, previewProps),
       {
