@@ -61,8 +61,5 @@
     "vite": "5.4.17",
     "vite-plugin-dts": "4.2.4",
     "yalc": "1.0.0-pre.53"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
