@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.1.0-canary.0
+
+### Minor Changes
+
+- 32372da: Deprecate the `pretty` option for `render` in favor of standalone `pretty` function
+
 ## 1.0.6
 
 ### Patch Changes
