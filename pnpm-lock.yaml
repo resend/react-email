@@ -363,7 +363,7 @@ importers:
         specifier: workspace:0.0.19
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:0.0.12
+        specifier: workspace:0.0.13-canary.0
         version: link:../code-block
       '@react-email/code-inline':
         specifier: workspace:0.0.5
@@ -396,13 +396,13 @@ importers:
         specifier: workspace:0.0.12
         version: link:../link
       '@react-email/markdown':
-        specifier: workspace:0.0.14
+        specifier: workspace:0.0.15-canary.0
         version: link:../markdown
       '@react-email/preview':
         specifier: workspace:0.0.12
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.1.0-canary.0
+        specifier: workspace:1.1.0-canary.1
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12
