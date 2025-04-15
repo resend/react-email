@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.2
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
 ## 4.1.0-canary.1
 
 ### Patch Changes
