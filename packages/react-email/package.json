@@ -25,8 +25,8 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@babel/parser": "^7.24.5",
-    "@babel/traverse": "^7.25.6",
+    "@babel/parser": "^7.27.0",
+    "@babel/traverse": "^7.27.0",
     "chalk": "^4.1.2",
     "chokidar": "^4.0.3",
     "commander": "^11.1.0",
@@ -54,7 +54,7 @@
     "@react-email/components": "workspace:*",
     "@swc/core": "1.4.15",
     "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "*",
+    "@types/babel__traverse": "7.20.7",
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
