@@ -16,6 +16,23 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
+  it('should work with multiple variables in the same declaration', () => {
+    const root = parse(`:root {
+      --top: 101px;
+      --bottom: 102px;
+      --right: 103px;
+      --left: 104px;
+    }
+
+    .box {
+      margin: var(--top) var(--right) var(--bottom) var(--left);
+    }`);
+
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
+      margin: 101px 103px 102px 104px;
+    }`);
+  });
+
   it('should keep variable usages if it cant find their declaration', () => {
     const root = parse(`.box {
   width: var(--width);
