@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.1.0-canary.1
+
+### Patch Changes
+
+- 8179dc6: Fix multiple variables in the same declaration not being replaced properly
+
 ## 1.1.0-canary.0
 
 ### Minor Changes
