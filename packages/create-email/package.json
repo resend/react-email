@@ -1,6 +1,6 @@
 {
   "name": "create-email",
-  "version": "1.2.0-canary.0",
+  "version": "1.2.0-canary.1",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
   "type": "module",
