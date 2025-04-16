@@ -184,20 +184,22 @@ export const createDependencyGraph = async (directory: string) => {
   };
 
   const updateModuleDependenciesInGraph = async (moduleFilePath: string) => {
-    const module = graph[moduleFilePath] ?? {
-      path: moduleFilePath,
-      dependencyPaths: [],
-      dependentPaths: [],
-      moduleDependencies: [],
-    };
+    if (graph[moduleFilePath] === undefined) {
+      graph[moduleFilePath] = {
+        path: moduleFilePath,
+        dependencyPaths: [],
+        dependentPaths: [],
+        moduleDependencies: [],
+      };
+    }
 
     const { moduleDependencies, dependencyPaths: newDependencyPaths } =
       await getDependencyPaths(moduleFilePath);
 
-    module.moduleDependencies = moduleDependencies;
+    graph[moduleFilePath].moduleDependencies = moduleDependencies;
 
     // we go through these to remove the ones that don't exist anymore
-    for (const dependencyPath of module.dependencyPaths) {
+    for (const dependencyPath of graph[moduleFilePath].dependencyPaths) {
       // Looping through only the ones that were on the dependencyPaths but are not
       // in the newDependencyPaths
       if (newDependencyPaths.includes(dependencyPath)) continue;
@@ -211,30 +213,29 @@ export const createDependencyGraph = async (directory: string) => {
       }
     }
 
-    module.dependencyPaths = newDependencyPaths;
+    graph[moduleFilePath].dependencyPaths = newDependencyPaths;
 
-    for (const dependencyPath of newDependencyPaths) {
-      const dependencyModule = graph[dependencyPath];
-      if (
-        dependencyModule !== undefined &&
-        !dependencyModule.dependentPaths.includes(moduleFilePath)
-      ) {
-        dependencyModule.dependentPaths.push(moduleFilePath);
-      } else {
+    for await (const dependencyPath of newDependencyPaths) {
+      if (graph[dependencyPath] === undefined) {
         /*
           This import path might have not been initialized as it can be outside
           of the original directory we looked into.
         */
-        graph[dependencyPath] = {
-          path: dependencyPath,
-          moduleDependencies: [],
-          dependencyPaths: [],
-          dependentPaths: [moduleFilePath],
-        };
+        await updateModuleDependenciesInGraph(dependencyPath);
+      }
+
+      const dependencyModule = graph[dependencyPath];
+
+      if (dependencyModule === undefined) {
+        throw new Error(
+          `Loading the dependency path ${dependencyPath} did not initialize it at all. This is a bug in React Email.`,
+        );
+      }
+
+      if (!dependencyModule.dependentPaths.includes(moduleFilePath)) {
+        dependencyModule.dependentPaths.push(moduleFilePath);
       }
     }
-
-    graph[moduleFilePath] = module;
   };
 
   for (const filePath of modulePaths) {
