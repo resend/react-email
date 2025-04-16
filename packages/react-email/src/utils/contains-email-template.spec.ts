@@ -1,5 +1,26 @@
 import path from 'node:path';
-import { containsEmailTemplate } from './contains-email-template';
+import {
+  containsEmailTemplate,
+  removeFilenameExtension,
+} from './contains-email-template';
+
+describe('removeFilenameExtension()', async () => {
+  it('should work with a single .', () => {
+    expect(removeFilenameExtension('email-template.tsx')).toBe(
+      'email-template',
+    );
+  });
+
+  it('should work with an example test file', () => {
+    expect(removeFilenameExtension('email-template.spec.tsx')).toBe(
+      'email-template.spec',
+    );
+  });
+
+  it('should do nothing when there is no extension', () => {
+    expect(removeFilenameExtension('email-template')).toBe('email-template');
+  });
+});
 
 test('containsEmailTemplate()', async () => {
   const emailsDirectoryPath = path.resolve(

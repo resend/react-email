@@ -28,7 +28,15 @@ export const setupHotreloading = async (
   const reload = debounce(() => {
     // we detect these using the useHotreload hook on the Next app
     clients.forEach((client) => {
-      client.emit('reload', changes);
+      client.emit(
+        'reload',
+        changes.filter((change) =>
+          // Ensures only changes inside the emails directory are emitted
+          path
+            .resolve(absolutePathToEmailsDirectory, change.filename)
+            .startsWith(absolutePathToEmailsDirectory),
+        ),
+      );
     });
 
     changes = [];
