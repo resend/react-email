@@ -21,8 +21,6 @@
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
     "happy-dom": "15.10.2",
-    "prettier": "3.5.3",
-    "prettier-plugin-tailwindcss": "0.6.6",
     "tsconfig": "workspace:*",
     "tsup": "8.2.4",
     "turbo": "2.3.1",
