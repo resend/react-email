@@ -213,7 +213,7 @@ export const createDependencyGraph = async (directory: string) => {
 
     module.dependencyPaths = newDependencyPaths;
 
-    for (const dependencyPath of newDependencyPaths) {
+    for await (const dependencyPath of newDependencyPaths) {
       const dependencyModule = graph[dependencyPath];
       if (
         dependencyModule !== undefined &&
@@ -225,12 +225,8 @@ export const createDependencyGraph = async (directory: string) => {
           This import path might have not been initialized as it can be outside
           of the original directory we looked into.
         */
-        graph[dependencyPath] = {
-          path: dependencyPath,
-          moduleDependencies: [],
-          dependencyPaths: [],
-          dependentPaths: [moduleFilePath],
-        };
+        await updateModuleDependenciesInGraph(dependencyPath);
+        graph[dependencyPath]!.dependentPaths.push(moduleFilePath);
       }
     }
 
