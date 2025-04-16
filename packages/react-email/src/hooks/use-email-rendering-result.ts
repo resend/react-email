@@ -30,13 +30,17 @@ export const useEmailRenderingResult = (
           change.filename;
 
         if (
-          !containsEmailTemplate(relativePathForChangedFile, emailsDirectoryMetadata)
+          !containsEmailTemplate(
+            relativePathForChangedFile,
+            emailsDirectoryMetadata,
+          )
         ) {
           continue;
         }
 
-        const pathForChangedEmail =
-          await getEmailPathFromSlug(relativePathForChangedFile);
+        const pathForChangedEmail = await getEmailPathFromSlug(
+          relativePathForChangedFile,
+        );
 
         const newRenderingResult = await renderEmailByPath(
           pathForChangedEmail,
