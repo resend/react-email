@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.3
+
+### Patch Changes
+
+- 681d4ed: fix backwards compatibility with `render` versions
+
 ## 4.1.0-canary.2
 
 ### Patch Changes
