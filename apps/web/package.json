@@ -37,7 +37,7 @@
     "@radix-ui/react-tabs": "^1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "7.20.6",
+    "@types/babel__traverse": "7.20.7",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
