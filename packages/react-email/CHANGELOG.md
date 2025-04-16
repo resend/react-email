@@ -1,5 +1,13 @@
 # react-email
 
+## 4.1.0-canary.4
+
+### Patch Changes
+
+- 5c6150d: Add .json import support for hot reloading
+- aae2f59: Ensure dependencies outside emails directory are completely resolved
+- b4b2373: Fix non-email files being rendered during hot reloading
+
 ## 4.1.0-canary.3
 
 ### Patch Changes
