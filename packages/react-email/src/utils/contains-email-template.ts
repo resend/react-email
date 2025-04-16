@@ -1,5 +1,15 @@
 import type { EmailsDirectory } from './get-emails-directory-metadata';
 
+export const removeFilenameExtension = (filename: string): string => {
+  const parts = filename.split('.');
+
+  if (parts.length > 1) {
+    return parts.slice(0, -1).join('.');
+  }
+
+  return filename;
+};
+
 export const containsEmailTemplate = (
   relativeEmailPath: string,
   directory: EmailsDirectory,
@@ -9,7 +19,7 @@ export const containsEmailTemplate = (
     .split('/')
     .filter(Boolean);
   if (remainingSegments.length === 1) {
-    const emailFilename = remainingSegments[0]!;
+    const emailFilename = removeFilenameExtension(remainingSegments[0]!);
     return directory.emailFilenames.includes(emailFilename);
   }
   const subDirectory = directory.subDirectories.find(
