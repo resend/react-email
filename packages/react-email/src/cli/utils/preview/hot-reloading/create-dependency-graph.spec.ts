@@ -39,6 +39,12 @@ test('createDependencyGraph()', async () => {
   };
 
   const initialDependencyGraph = convertPathsToAbsolute({
+    '../../../../../package.json': {
+      dependencyPaths: [],
+      dependentPaths: ['../start-dev-server.ts'],
+      moduleDependencies: [],
+      path: '../../../../../package.json',
+    },
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
       dependencyPaths: ['../start-dev-server.ts', 'get-imported-modules.ts'],
@@ -53,6 +59,12 @@ test('createDependencyGraph()', async () => {
       dependencyPaths: ['create-dependency-graph.ts'],
       dependentPaths: [],
       moduleDependencies: ['node:fs', 'node:path'],
+    },
+    '../../../utils/preview/get-env-variables-for-preview-app.ts': {
+      dependencyPaths: ['../../../utils/preview/start-dev-server.ts'],
+      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+      moduleDependencies: ['node:path'],
+      path: '../../../utils/preview/get-env-variables-for-preview-app.ts',
     },
     'get-imported-modules.ts': {
       path: 'get-imported-modules',
@@ -85,14 +97,54 @@ test('createDependencyGraph()', async () => {
       ],
     },
     '../start-dev-server.ts': {
+      dependencyPaths: [
+        '../../../../../package.json',
+        '../../../../utils/register-spinner-autostopping.ts',
+        '../../../utils/preview/get-env-variables-for-preview-app.ts',
+        '../../../utils/preview/serve-static-file.ts',
+      ],
       path: '../start-dev-server.ts',
+      dependentPaths: [
+        '../../../utils/preview/get-env-variables-for-preview-app.ts',
+        'create-dependency-graph.ts',
+      ],
+      moduleDependencies: [
+        'node:http',
+        'node:path',
+        'node:url',
+        'chalk',
+        'log-symbols',
+        'next',
+        'ora',
+      ],
+    },
+    '../../../utils/preview/serve-static-file.ts': {
       dependencyPaths: [],
-      dependentPaths: ['create-dependency-graph.ts'],
-      moduleDependencies: [],
+      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+      moduleDependencies: [
+        'node:fs',
+        'node:http',
+        'node:path',
+        'node:url',
+        'mime-types',
+      ],
+      path: '../../../utils/preview/serve-static-file.ts',
+    },
+    '../../../../utils/register-spinner-autostopping.ts': {
+      dependencyPaths: [],
+      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+      moduleDependencies: ['log-symbols', 'ora'],
+      path: '../../../../utils/register-spinner-autostopping.ts',
+    },
+    '../../../../utils/types/hot-reload-event.ts': {
+      dependencyPaths: [],
+      dependentPaths: ['../../../../utils/types/hot-reload-change.ts'],
+      moduleDependencies: ['chokidar/handler'],
+      path: '../../../../utils/types/hot-reload-event.ts',
     },
     '../../../../utils/types/hot-reload-change.ts': {
       path: '../../../../utils/types/hot-reload-change.ts',
-      dependencyPaths: [],
+      dependencyPaths: ['../../../../utils/types/hot-reload-event.ts'],
       dependentPaths: ['setup-hot-reloading.ts'],
       moduleDependencies: [],
     },
