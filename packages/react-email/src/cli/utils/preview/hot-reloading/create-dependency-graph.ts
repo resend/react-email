@@ -94,7 +94,9 @@ export const createDependencyGraph = async (directory: string) => {
   const getDependencyPaths = async (filePath: string) => {
     const contents = await fs.readFile(filePath, 'utf8');
 
-    const importedPaths = getImportedModules(contents);
+    const importedPaths = isJavascriptModule(filePath)
+      ? getImportedModules(contents)
+      : [];
     const importedPathsRelativeToDirectory = importedPaths.map(
       (dependencyPath) => {
         const isModulePath = !dependencyPath.startsWith('.');
@@ -112,7 +114,7 @@ export const createDependencyGraph = async (directory: string) => {
           /*
             path.resolve resolves paths differently from what imports on javascript do.
 
-            So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependecy path of "./other-email" 
+            So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependency path of "./other-email" 
             would end up going into /path/to/email.tsx/other-email instead of /path/to/other-email which is the
             one the import is meant to go to
           */
@@ -122,7 +124,7 @@ export const createDependencyGraph = async (directory: string) => {
 
         let isDirectory = false;
         try {
-          // will throw if the the file is not existant
+          // will throw if the the file is not existent
           isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
         } catch (_) {}
         if (isDirectory) {
@@ -145,9 +147,10 @@ export const createDependencyGraph = async (directory: string) => {
           for it being a javascript module fails, then we can assume it has the same as the `filePath`
         */
         if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-          const pathWithExtension = checkFileExtensionsUntilItExists(
-            pathToDependencyFromDirectory,
-          );
+          const pathWithExtension =
+            path.extname(pathToDependencyFromDirectory).length > 0
+              ? pathToDependencyFromDirectory
+              : checkFileExtensionsUntilItExists(pathToDependencyFromDirectory);
 
           if (pathWithExtension) {
             pathToDependencyFromDirectory = pathWithExtension;
