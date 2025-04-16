@@ -20,6 +20,7 @@ export const containsEmailTemplate = (
     .filter(Boolean);
   if (remainingSegments.length === 1) {
     const emailFilename = removeFilenameExtension(remainingSegments[0]!);
+
     return directory.emailFilenames.includes(emailFilename);
   }
   const subDirectory = directory.subDirectories.find(
