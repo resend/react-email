@@ -8,6 +8,13 @@ import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { tree } from './tree.js';
 
+const packageJson = JSON.parse(
+  fse.readFileSync(
+    path.resolve(import.meta.dirname, '../package.json'),
+    'utf8',
+  ),
+);
+
 const getLatestVersionOfTag = async (packageName, tag) => {
   const response = await fetch(
     `https://registry.npmjs.org/${packageName}/${tag}`,
@@ -90,8 +97,8 @@ const init = async (name, { tag }) => {
 };
 
 new Command()
-  .name('create-email')
-  .version('0.0.30-canary.0')
+  .name(packageJson.name)
+  .version(packageJson.version)
   .description('The easiest way to get started with React Email')
   .arguments('[dir]', 'Path to initialize the project')
   .option('-t, --tag <tag>', 'Tag of React Email versions to use', 'latest')
