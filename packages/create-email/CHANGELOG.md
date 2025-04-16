@@ -16,6 +16,12 @@
 
 - d689346: Show package.json's version on --version for create-email
 
+## 1.2.0-canary.1
+
+### Patch Changes
+
+- 0c3aaa3: Show package.json's version on --version for create-email
+
 ## 1.2.0-canary.0
 
 ### Minor Changes
