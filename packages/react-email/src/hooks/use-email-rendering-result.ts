@@ -29,7 +29,6 @@ export const useEmailRenderingResult = (
           // going to be equivalent to the slug
           change.filename;
 
-        // This is meant to not trigger wrong renders for ignored files inside the emails directory
         if (
           !containsEmailTemplate(
             relativePathForChangedFile,
