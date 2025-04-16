@@ -12,9 +12,9 @@
     "pattern:build": "email build -d ./components"
   },
   "dependencies": {
-    "@babel/parser": "7.24.5",
+    "@babel/parser": "7.27.0",
     "@babel/preset-typescript": "7.24.7",
-    "@babel/traverse": "7.25.6",
+    "@babel/traverse": "7.27.0",
     "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
     "@supabase/supabase-js": "2.45.1",
