@@ -3,11 +3,11 @@ import traverse from '@babel/traverse';
 
 export const getImportedModules = (contents: string) => {
   const parsedContents = parse(contents, {
-      sourceType: 'unambiguous',
-      strictMode: false,
-      errorRecovery: true,
-      plugins: ['jsx', 'typescript', 'decorators'],
-    });
+    sourceType: 'unambiguous',
+    strictMode: false,
+    errorRecovery: true,
+    plugins: ['jsx', 'typescript', 'decorators'],
+  });
 
   const importedPaths: string[] = [];
 
