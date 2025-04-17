@@ -32,9 +32,7 @@ export const EmailsProvider = (props: {
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
   if (!isBuilding) {
-    // this will not change on runtime so it doesn't violate
-    // the rules of hooks
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // biome-ignore lint/correctness/useHookAtTopLevel: this will not change on runtime so it doesn't violate the rules of hooks
     useHotreload(async () => {
       const metadata = await getEmailsDirectoryMetadataAction(
         props.initialEmailsDirectoryMetadata.absolutePath,

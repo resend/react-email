@@ -1,8 +1,8 @@
 'use client';
 
 import classNames from 'classnames';
-import type { ImageLoader } from 'next/image';
 import Image from 'next/image';
+import type { ImageLoader } from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { Heading } from './heading';
@@ -67,7 +67,7 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
           {name}
         </Heading>
         <div className="mt-2 flex flex-row gap-2">
-          <img
+          <Image
             alt={author}
             className="rounded-full"
             height="24"

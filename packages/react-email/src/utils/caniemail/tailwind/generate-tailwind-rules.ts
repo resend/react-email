@@ -1,5 +1,5 @@
-import type { Root, Rule } from 'postcss';
 import postcss from 'postcss';
+import type { Root, Rule } from 'postcss';
 import evaluateTailwindFunctions from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
 import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateRules';
 import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';

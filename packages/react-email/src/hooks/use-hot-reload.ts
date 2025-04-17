@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { type Socket, io } from 'socket.io-client';
+import { io, type Socket } from 'socket.io-client';
 import type { HotReloadChange } from '../utils/types/hot-reload-change';
 
 /**

@@ -8,8 +8,8 @@ import { useDebouncedCallback } from 'use-debounce';
 import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
 import {
-  ResizableWrapper,
   makeIframeDocumentBubbleEvents,
+  ResizableWrapper,
 } from '../../../components/resizable-wrapper';
 import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
