@@ -1,7 +1,7 @@
 import traverse from '@babel/traverse';
 import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { type TailwindConfig, getTailwindConfig } from './get-tailwind-config';
+import { getTailwindConfig, type TailwindConfig } from './get-tailwind-config';
 import { setupTailwindContext } from './setup-tailwind-context';
 
 export const getTailwindMetadata = async (
