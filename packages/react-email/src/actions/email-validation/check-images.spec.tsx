@@ -1,4 +1,4 @@
-import { type ImageCheckingResult, checkImages } from './check-images';
+import { checkImages, type ImageCheckingResult } from './check-images';
 
 test('checkImages()', async () => {
   const results: ImageCheckingResult[] = [];
