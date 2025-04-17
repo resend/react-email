@@ -1,6 +1,6 @@
 import path from 'node:path';
 import type { render } from '@react-email/components';
-import { type BuildFailure, type OutputFile, build } from 'esbuild';
+import { type BuildFailure, build, type OutputFile } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';

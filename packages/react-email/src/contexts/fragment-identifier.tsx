@@ -18,7 +18,9 @@ export const useFragmentIdentifier = () => {
 
 export const FragmentIdentifierProvider = ({
   children,
-}: { children: React.ReactNode }) => {
+}: {
+  children: React.ReactNode;
+}) => {
   const [fragmentIdentifier, setFragmentIdentifier] = useState<string>();
   const pathname = usePathname();
   const searchParams = useSearchParams();

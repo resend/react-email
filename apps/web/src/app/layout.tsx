@@ -1,9 +1,9 @@
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
+import localFont from 'next/font/local';
 import { Footer } from '@/components/footer';
 import { Topbar } from '@/components/topbar';
-import localFont from 'next/font/local';
 
 const inter = localFont({
   display: 'swap',
