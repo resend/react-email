@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
+import type { Node } from '@babel/traverse';
 import * as esbuild from 'esbuild';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';

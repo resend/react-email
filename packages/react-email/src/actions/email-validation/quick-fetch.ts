@@ -1,5 +1,5 @@
-import type { IncomingMessage } from 'node:http';
 import http from 'node:http';
+import type { IncomingMessage } from 'node:http';
 import https from 'node:https';
 
 export const quickFetch = (url: URL) => {

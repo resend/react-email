@@ -1,4 +1,4 @@
-import { promises as fs, existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type http from 'node:http';
 import path from 'node:path';
