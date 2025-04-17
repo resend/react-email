@@ -1,11 +1,11 @@
 import {
   AtRule,
+  decl as createDeclaration,
+  rule as createRule,
   type Declaration,
   type Node,
   type Root,
   Rule,
-  decl as createDeclaration,
-  rule as createRule,
 } from 'postcss';
 import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 

@@ -1,4 +1,4 @@
-import { promises as fs, existsSync, statSync } from 'node:fs';
+import { existsSync, promises as fs, statSync } from 'node:fs';
 import path from 'node:path';
 import type { EventName } from 'chokidar/handler';
 import { isDev } from '../start-dev-server';
