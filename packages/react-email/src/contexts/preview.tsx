@@ -50,9 +50,7 @@ export const PreviewProvider = ({
   );
 
   if (!isBuilding) {
-    // this will not change on runtime so it doesn't violate
-    // the rules of hooks
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+    // biome-ignore lint/correctness/useHookAtTopLevel: this will not change on runtime so it doesn't violate the rules of hooks
     useHotreload((changes) => {
       const changeForThisEmail = changes.find((change) =>
         change.filename.includes(emailSlug),

@@ -1,6 +1,6 @@
 import path from 'node:path';
 import vm from 'node:vm';
-import { type Result, err, ok } from './result';
+import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
 export const runBundledCode = (

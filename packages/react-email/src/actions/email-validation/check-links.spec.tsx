@@ -1,4 +1,4 @@
-import { type LinkCheckingResult, checkLinks } from './check-links';
+import { checkLinks, type LinkCheckingResult } from './check-links';
 
 test('checkLinks()', async () => {
   const results: LinkCheckingResult[] = [];
