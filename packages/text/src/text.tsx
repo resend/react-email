@@ -19,7 +19,7 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
           fontSize: '14px',
           lineHeight: '24px',
           ...style,
-          ...margins
+          ...margins,
         }}
       />
     );
