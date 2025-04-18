@@ -237,8 +237,8 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       tailwind-0.0.12:
-        specifier: npm:@react-email/tailwind@0.1.0
-        version: '@react-email/tailwind@0.1.0(react@19.0.0)'
+        specifier: npm:@react-email/tailwind@0.0.12
+        version: '@react-email/tailwind@0.0.12(react@19.0.0)'
       tailwind-0.0.17:
         specifier: npm:@react-email/tailwind@0.0.17
         version: '@react-email/tailwind@0.0.17(react@19.0.0)'
@@ -3560,14 +3560,14 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  '@react-email/tailwind@0.0.17':
-    resolution: {integrity: sha512-SVl0YO9b9/8EiNtvYnXTlimehwv6rz5v6JRb60IYqwWRRF6ZDHiLkAq/94o5SMrhLtPZWErcr4VleGumB+pFUg==}
+  '@react-email/tailwind@0.0.12':
+    resolution: {integrity: sha512-s8Ch7GL30qRKScn9NWwItMqxjtzbyUtCnXfC6sL2YTVtulbfvZZ06W+aA0S6f7fdrVlOOlQzZuK/sVaQCHhcSw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
 
-  '@react-email/tailwind@0.1.0':
-    resolution: {integrity: sha512-qysVUEY+M3SKUvu35XDpzn7yokhqFOT3tPU6Mj/pgc62TL5tQFj6msEbBtwoKs2qO3WZvai0DIHdLhaOxBQSow==}
+  '@react-email/tailwind@0.0.17':
+    resolution: {integrity: sha512-SVl0YO9b9/8EiNtvYnXTlimehwv6rz5v6JRb60IYqwWRRF6ZDHiLkAq/94o5SMrhLtPZWErcr4VleGumB+pFUg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -7278,6 +7278,11 @@ packages:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
 
+  postcss-css-variables@0.18.0:
+    resolution: {integrity: sha512-lYS802gHbzn1GI+lXvy9MYIYDuGnl1WB4FTKoqMQqJ3Mab09A7a/1wZvGTkCEZJTM8mSbIyb1mJYn8f0aPye0Q==}
+    peerDependencies:
+      postcss: ^8.2.6
+
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
@@ -8171,6 +8176,11 @@ packages:
   tailwind-merge@2.2.0:
     resolution: {integrity: sha512-SqqhhaL0T06SW59+JVNfAqKdqLs0497esifRrZ7jOaefP3o64fdFNDMrAQWZFMxTLJPiHVjRLUywT8uFz1xNWQ==}
 
+  tailwindcss@3.3.2:
+    resolution: {integrity: sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+
   tailwindcss@3.4.0:
     resolution: {integrity: sha512-VigzymniH77knD1dryXbyxR+ePHihHociZbXnLZHUyzf2MMs2ZVqlUrZ3FvpXP8pno9JzmILt1sZPD19M3IxtA==}
     engines: {node: '>=14.0.0'}
@@ -8412,6 +8422,10 @@ packages:
   turbo@2.5.0:
     resolution: {integrity: sha512-PvSRruOsitjy6qdqwIIyolv99+fEn57gP6gn4zhsHTEcCYgXPhv6BAxzAjleS8XKpo+Y582vTTA9nuqYDmbRuA==}
     hasBin: true
+
+  tw-to-css@0.0.12:
+    resolution: {integrity: sha512-rQAsQvOtV1lBkyCw+iypMygNHrShYAItES5r8fMsrhhaj5qrV2LkZyXc8ccEH+u5bFjHjQ9iuxe90I7Kykf6pw==}
+    engines: {node: '>=16.0.0'}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -11375,11 +11389,15 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@react-email/tailwind@0.0.17(react@19.0.0)':
+  '@react-email/tailwind@0.0.12(react@19.0.0)':
     dependencies:
       react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      tw-to-css: 0.0.12
+    transitivePeerDependencies:
+      - ts-node
 
-  '@react-email/tailwind@0.1.0(react@19.0.0)':
+  '@react-email/tailwind@0.0.17(react@19.0.0)':
     dependencies:
       react: 19.0.0
 
@@ -16002,6 +16020,13 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
+  postcss-css-variables@0.18.0(postcss@8.4.31):
+    dependencies:
+      balanced-match: 1.0.2
+      escape-string-regexp: 1.0.5
+      extend: 3.0.2
+      postcss: 8.4.31
+
   postcss-import@15.1.0(postcss@8.4.40):
     dependencies:
       postcss: 8.4.40
@@ -17280,6 +17305,34 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
 
+  tailwindcss@3.3.2:
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      arg: 5.0.2
+      chokidar: 3.6.0
+      didyoumean: 1.2.2
+      dlv: 1.1.3
+      fast-glob: 3.3.2
+      glob-parent: 6.0.2
+      is-glob: 4.0.3
+      jiti: 1.21.7
+      lilconfig: 2.1.0
+      micromatch: 4.0.8
+      normalize-path: 3.0.0
+      object-hash: 3.0.0
+      picocolors: 1.1.1
+      postcss: 8.4.40
+      postcss-import: 15.1.0(postcss@8.4.40)
+      postcss-js: 4.0.1(postcss@8.4.40)
+      postcss-load-config: 4.0.2(postcss@8.4.40)
+      postcss-nested: 6.2.0(postcss@8.4.40)
+      postcss-selector-parser: 6.0.16
+      postcss-value-parser: 4.2.0
+      resolve: 1.22.9
+      sucrase: 3.35.0
+    transitivePeerDependencies:
+      - ts-node
+
   tailwindcss@3.4.0:
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -17646,6 +17699,14 @@ snapshots:
       turbo-linux-arm64: 2.5.0
       turbo-windows-64: 2.5.0
       turbo-windows-arm64: 2.5.0
+
+  tw-to-css@0.0.12:
+    dependencies:
+      postcss: 8.4.31
+      postcss-css-variables: 0.18.0(postcss@8.4.31)
+      tailwindcss: 3.3.2
+    transitivePeerDependencies:
+      - ts-node
 
   type-check@0.4.0:
     dependencies:
