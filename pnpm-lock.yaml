@@ -30,8 +30,8 @@ importers:
         specifier: ^19.0.1
         version: 19.0.1
       happy-dom:
-        specifier: 15.10.2
-        version: 15.10.2
+        specifier: 15.11.7
+        version: 15.11.7
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
@@ -46,7 +46,7 @@ importers:
         version: 5.4.18(@types/node@22.10.2)(terser@5.37.0)
       vitest:
         specifier: 3.1.1
-        version: 3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.10.2)(jsdom@23.0.1)(terser@5.37.0)
+        version: 3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.11.7)(jsdom@23.0.1)(terser@5.37.0)
 
   apps/demo:
     dependencies:
@@ -5928,8 +5928,8 @@ packages:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
 
-  happy-dom@15.10.2:
-    resolution: {integrity: sha512-NbA5XrSovenJIIcfixCREX3ZnV7yHP4phhbfuxxf4CPn+LZpz/jIM9EqJ2DrPwgVDSMoAKH3pZwQvkbsSiCrUw==}
+  happy-dom@15.11.7:
+    resolution: {integrity: sha512-KyrFvnl+J9US63TEzwoiJOQzZBJY7KgBushJA8X61DMbNsH+2ONkDuLDnCnwUiPTF42tLoEmrPyoqbenVA5zrg==}
     engines: {node: '>=18.0.0'}
 
   has-bigints@1.1.0:
@@ -14284,7 +14284,7 @@ snapshots:
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
 
-  happy-dom@15.10.2:
+  happy-dom@15.11.7:
     dependencies:
       entities: 4.5.0
       webidl-conversions: 7.0.0
@@ -18031,7 +18031,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.37.0
 
-  vitest@3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.10.2)(jsdom@23.0.1)(terser@5.37.0):
+  vitest@3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.11.7)(jsdom@23.0.1)(terser@5.37.0):
     dependencies:
       '@vitest/expect': 3.1.1
       '@vitest/mocker': 3.1.1(vite@5.4.18(@types/node@22.10.2)(terser@5.37.0))
@@ -18057,7 +18057,7 @@ snapshots:
       '@edge-runtime/vm': 3.2.0
       '@types/debug': 4.1.12
       '@types/node': 22.10.2
-      happy-dom: 15.10.2
+      happy-dom: 15.11.7
       jsdom: 23.0.1
     transitivePeerDependencies:
       - less
