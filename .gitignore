@@ -7,8 +7,9 @@ node_modules
 
 # testing
 coverage
-**/*/package-lock.json
-**/*/yalc.lock
+package-lock.json
+.yalc*
+yalc.lock
 
 # next.js
 .next/
