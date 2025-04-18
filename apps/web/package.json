@@ -21,7 +21,7 @@
     "@vercel/analytics": "1.0.1",
     "framer-motion": "12.0.0-alpha.2",
     "lucide-react": "^0.428.0",
-    "next": "15.2.4",
+    "next": "15.3.1",
     "prism-react-renderer": "2.3.1",
     "react": "^19",
     "react-dom": "^19",
@@ -30,7 +30,7 @@
     "vaul": "1.1.1"
   },
   "devDependencies": {
-    "@next/env": "15.1.7",
+    "@next/env": "15.3.1",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-select": "2.1.2",
     "@radix-ui/react-slot": "1.1.0",
