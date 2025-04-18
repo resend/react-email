@@ -26,7 +26,7 @@
     "react": "^19",
     "react-dom": "^19",
     "react-email": "workspace:*",
-    "resend": "4.0.1",
+    "resend": "4.3.0",
     "vaul": "1.1.1"
   },
   "devDependencies": {
