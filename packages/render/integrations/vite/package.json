@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "yalc add @react-email/render",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

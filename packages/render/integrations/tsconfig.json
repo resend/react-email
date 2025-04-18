@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types": ["@vitest/browser/providers/playwright"]
+    "types": ["@vitest/browser/providers/playwright", "vitest/globals"]
   },
   "include": ["integrations.spec.ts"]
 }

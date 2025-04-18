@@ -38,7 +38,7 @@ describe('integrations', () => {
 
   describe('vite', () => {
     let devServer: child_process.ChildProcess;
-    beforeAll(() => {
+    beforeAll(async () => {
       const viteLocation = path.resolve(import.meta.dirname, './vite/');
       $('npm install', viteLocation);
       devServer = child_process.spawn('npm', ['run', 'dev'], {
@@ -46,12 +46,20 @@ describe('integrations', () => {
         cwd: viteLocation,
         stdio: 'pipe',
       });
-      return new Promise<void>((resolve) => {
-        devServer.on('spawn', async () => {
-          await page.goto('http://127.0.0.1:5173');
-          resolve();
-        });
-      });
+      const waitForServer = async (url: string, timeout: number) => {
+        const start = Date.now();
+        while (Date.now() - start < timeout) {
+          try {
+            await page.goto(url, { timeout: 1000 });
+            return;
+          } catch (e) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+          }
+        }
+        throw new Error(`Server at ${url} did not respond within ${timeout}ms`);
+      };
+
+      await waitForServer('http://localhost:5173', 1000);
     });
 
     afterAll(() => {
@@ -59,8 +67,13 @@ describe('integrations', () => {
     });
 
     it('should not error when rendering', async () => {
+      await expect(() =>
+        page.waitForSelector('[data-testid="rendered-error"]', {
+          timeout: 500,
+        }),
+      ).rejects.toThrow();
       await page.waitForSelector('[data-testid="rendered-html"]', {
-        timeout: 500
+        timeout: 500,
       });
     });
   });
