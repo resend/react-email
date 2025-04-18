@@ -25,7 +25,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "tailwind-0.0.12": "npm:@react-email/tailwind@0.1.0",
-    "tailwind-0.0.17": "npm:@react-email/tailwind@0.1.0",
+    "tailwind-0.0.17": "npm:@react-email/tailwind@0.0.17",
     "tinybench": "3.1.0"
   },
   "devDependencies": {
