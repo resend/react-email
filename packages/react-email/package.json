@@ -55,7 +55,7 @@
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "@react-email/components": "workspace:*",
-    "@swc/core": "1.4.15",
+    "@swc/core": "1.11.21",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
     "@types/fs-extra": "11.0.1",
