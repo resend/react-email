@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
-    "@lottiefiles/dotlottie-react": "0.12.3",
+    "@lottiefiles/dotlottie-react": "0.13.3",
     "@radix-ui/colors": "1.0.1",
     "@radix-ui/react-collapsible": "1.1.0",
     "@radix-ui/react-dropdown-menu": "2.1.4",
