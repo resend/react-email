@@ -49,6 +49,6 @@
     "tsconfig": "workspace:*",
     "typescript": "5.1.6",
     "webpack": "5.95.0",
-    "zod": "3.23.8"
+    "zod": "3.24.3"
   }
 }
