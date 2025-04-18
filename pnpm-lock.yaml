@@ -914,8 +914,8 @@ importers:
         specifier: 8.4.40
         version: 8.4.40
       postcss-selector-parser:
-        specifier: 6.0.16
-        version: 6.0.16
+        specifier: 6.1.2
+        version: 6.1.2
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
@@ -16920,7 +16920,7 @@ snapshots:
       postcss-js: 4.0.1(postcss@8.4.40)
       postcss-load-config: 4.0.2(postcss@8.4.40)
       postcss-nested: 6.2.0(postcss@8.4.40)
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.2
       postcss-value-parser: 4.2.0
       resolve: 1.22.9
       sucrase: 3.35.0
@@ -16975,7 +16975,7 @@ snapshots:
       postcss-js: 4.0.1(postcss@8.4.40)
       postcss-load-config: 4.0.2(postcss@8.4.40)
       postcss-nested: 6.2.0(postcss@8.4.40)
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.2
       resolve: 1.22.9
       sucrase: 3.35.0
     transitivePeerDependencies:
