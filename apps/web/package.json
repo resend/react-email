@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/parser": "7.27.0",
-    "@babel/preset-typescript": "7.24.7",
+    "@babel/preset-typescript": "7.27.0",
     "@babel/traverse": "7.27.0",
     "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
