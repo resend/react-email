@@ -240,8 +240,8 @@ importers:
         specifier: npm:@react-email/tailwind@0.1.0
         version: '@react-email/tailwind@0.1.0(react@19.0.0)'
       tailwind-0.0.17:
-        specifier: npm:@react-email/tailwind@0.0.17
-        version: '@react-email/tailwind@0.0.17(react@19.0.0)'
+        specifier: npm:@react-email/tailwind@0.1.0
+        version: '@react-email/tailwind@0.1.0(react@19.0.0)'
       tinybench:
         specifier: 3.1.0
         version: 3.1.0
@@ -3556,12 +3556,6 @@ packages:
 
   '@react-email/section@0.0.14':
     resolution: {integrity: sha512-+fYWLb4tPU1A/+GE5J1+SEMA7/wR3V30lQ+OR9t2kAJqNrARDbMx0bLnYnR1QL5TiFRz0pCF05SQUobk6gHEDQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/tailwind@0.0.17':
-    resolution: {integrity: sha512-SVl0YO9b9/8EiNtvYnXTlimehwv6rz5v6JRb60IYqwWRRF6ZDHiLkAq/94o5SMrhLtPZWErcr4VleGumB+pFUg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -11372,10 +11366,6 @@ snapshots:
       react-promise-suspense: 0.3.4
 
   '@react-email/section@0.0.14(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-
-  '@react-email/tailwind@0.0.17(react@19.0.0)':
     dependencies:
       react: 19.0.0
 
