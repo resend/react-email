@@ -118,8 +118,8 @@ importers:
         specifier: 15.3.1
         version: 15.3.1(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       prism-react-renderer:
-        specifier: 2.3.1
-        version: 2.3.1(react@19.0.0)
+        specifier: 2.4.1
+        version: 2.4.1(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -748,8 +748,8 @@ importers:
         specifier: 6.1.1
         version: 6.1.1
       prism-react-renderer:
-        specifier: 2.1.0
-        version: 2.1.0(react@19.0.0)
+        specifier: 2.4.1
+        version: 2.4.1(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -7393,8 +7393,8 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  prism-react-renderer@2.3.1:
-    resolution: {integrity: sha512-Rdf+HzBLR7KYjzpJ1rSoxT9ioO85nZngQEoFIhL07XhtJHlCU3SOz0GJ6+qvMyQe0Se+BV3qpe6Yd/NmQF5Juw==}
+  prism-react-renderer@2.4.1:
+    resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
     peerDependencies:
       react: ^19.0.0
 
@@ -16108,10 +16108,10 @@ snapshots:
       clsx: 1.2.1
       react: 19.0.0
 
-  prism-react-renderer@2.3.1(react@19.0.0):
+  prism-react-renderer@2.4.1(react@19.0.0):
     dependencies:
       '@types/prismjs': 1.26.5
-      clsx: 2.1.0
+      clsx: 2.1.1
       react: 19.0.0
 
   prismjs@1.30.0: {}
