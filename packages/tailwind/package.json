@@ -55,7 +55,7 @@
     "@react-email/render": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
     "@types/shelljs": "0.8.15",
-    "@vitejs/plugin-react": "4.2.1",
+    "@vitejs/plugin-react": "4.4.0",
     "postcss": "8.4.40",
     "postcss-selector-parser": "6.0.16",
     "react-dom": "^19",
