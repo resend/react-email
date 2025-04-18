@@ -37,13 +37,21 @@ describe('integrations', () => {
   });
 
   describe('vite', () => {
-    let devServer: child_process.ChildProcess;
-    beforeAll(async () => {
-      const viteLocation = path.resolve(import.meta.dirname, './vite/');
+    const viteLocation = path.resolve(import.meta.dirname, './vite/');
+
+    beforeAll(() => {
       $('npm install', viteLocation);
-      devServer = child_process.spawn('npm', ['run', 'dev'], {
+    });
+
+    const startWebServer = async (
+      command: string,
+      url: string,
+      cwd: string,
+    ) => {
+      const argsv = command.split(' ');
+      const devServer = child_process.spawn(argsv[0], argsv.slice(1), {
         shell: true,
-        cwd: viteLocation,
+        cwd,
         stdio: 'pipe',
       });
       const waitForServer = async (url: string, timeout: number) => {
@@ -59,14 +67,19 @@ describe('integrations', () => {
         throw new Error(`Server at ${url} did not respond within ${timeout}ms`);
       };
 
-      await waitForServer('http://localhost:5173', 1000);
-    });
+      await waitForServer(url, 1000);
+      return devServer;
+    };
 
-    afterAll(() => {
-      devServer.kill();
-    });
+    // The code being run after build has been modified by Vite and might run differently
+    it('should not error when rendering in vite preview', async () => {
+      $('npm run build', viteLocation);
+      const devServer = await startWebServer(
+        'npm run preview',
+        'http://localhost:4173',
+        viteLocation,
+      );
 
-    it('should not error when rendering', async () => {
       await expect(() =>
         page.waitForSelector('[data-testid="rendered-error"]', {
           timeout: 500,
@@ -75,6 +88,27 @@ describe('integrations', () => {
       await page.waitForSelector('[data-testid="rendered-html"]', {
         timeout: 500,
       });
+
+      devServer.kill();
+    });
+
+    it('should not error when rendering in vite dev', async () => {
+      const devServer = await startWebServer(
+        'npm run dev',
+        'http://localhost:5173',
+        viteLocation,
+      );
+
+      await expect(() =>
+        page.waitForSelector('[data-testid="rendered-error"]', {
+          timeout: 500,
+        }),
+      ).rejects.toThrow();
+      await page.waitForSelector('[data-testid="rendered-html"]', {
+        timeout: 500,
+      });
+
+      devServer.kill();
     });
   });
 });
