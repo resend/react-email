@@ -775,8 +775,8 @@ importers:
         specifier: 0.1.11
         version: 0.1.11
       tailwind-merge:
-        specifier: 2.2.0
-        version: 2.2.0
+        specifier: 2.6.0
+        version: 2.6.0
       tailwindcss:
         specifier: 3.4.0
         version: 3.4.0
@@ -7965,6 +7965,9 @@ packages:
 
   tailwind-merge@2.2.0:
     resolution: {integrity: sha512-SqqhhaL0T06SW59+JVNfAqKdqLs0497esifRrZ7jOaefP3o64fdFNDMrAQWZFMxTLJPiHVjRLUywT8uFz1xNWQ==}
+
+  tailwind-merge@2.6.0:
+    resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
   tailwindcss@3.3.2:
     resolution: {integrity: sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==}
@@ -16893,6 +16896,8 @@ snapshots:
   tailwind-merge@2.2.0:
     dependencies:
       '@babel/runtime': 7.26.0
+
+  tailwind-merge@2.6.0: {}
 
   tailwindcss@3.3.2:
     dependencies:
