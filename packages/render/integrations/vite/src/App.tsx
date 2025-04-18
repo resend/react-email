@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { render } from '@react-email/render';
-import './App.css';
 
 function App() {
   const [html, setHtml] = useState('');
