@@ -81,7 +81,7 @@
     "sharp": "0.34.1",
     "socket.io-client": "4.8.0",
     "sonner": "1.7.4",
-    "source-map-js": "1.0.2",
+    "source-map-js": "1.2.1",
     "spamc": "0.0.5",
     "stacktrace-parser": "0.1.11",
     "tailwind-merge": "2.6.0",

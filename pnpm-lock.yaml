@@ -766,8 +766,8 @@ importers:
         specifier: 1.7.4
         version: 1.7.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       source-map-js:
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.2.1
+        version: 1.2.1
       spamc:
         specifier: 0.0.5
         version: 0.0.5
@@ -12609,7 +12609,7 @@ snapshots:
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.0.2
+      source-map-js: 1.2.1
 
   css-what@6.1.0: {}
 
@@ -15692,7 +15692,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
-      source-map-js: 1.0.2
+      source-map-js: 1.2.1
 
   postcss@8.4.39:
     dependencies:
