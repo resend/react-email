@@ -40,7 +40,7 @@
     "mime-types": "^2.1.35",
     "next": "^15.2.4",
     "normalize-path": "^3.0.0",
-    "ora": "^5.4.1",
+    "ora": "^8.0.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
