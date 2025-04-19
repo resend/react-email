@@ -48,7 +48,7 @@
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3",
-    "webpack": "5.95.0",
+    "webpack": "5.99.6",
     "zod": "3.24.3"
   }
 }
