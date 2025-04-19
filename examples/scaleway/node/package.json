@@ -19,7 +19,7 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "^6",
+    "tsup": "^8.0.0",
     "typescript": "^4"
   }
 }
