@@ -16,7 +16,7 @@
     "resend": "^4"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5"
