@@ -65,7 +65,7 @@
     "tsup": "7.2.0",
     "typescript": "5.8.3",
     "vite": "5.4.18",
-    "vite-plugin-dts": "4.2.4",
+    "vite-plugin-dts": "4.5.3",
     "yalc": "1.0.0-pre.53"
   },
   "publishConfig": {
