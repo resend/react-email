@@ -18,7 +18,7 @@
     "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
     "@supabase/supabase-js": "2.49.4",
-    "@vercel/analytics": "1.0.1",
+    "@vercel/analytics": "1.5.0",
     "framer-motion": "12.7.4",
     "lucide-react": "^0.492.0",
     "next": "15.3.1",
