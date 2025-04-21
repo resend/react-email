@@ -98,7 +98,6 @@
     "build": "tsdown",
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
-    "pretest": "pnpm exec playwright install",
     "test": "vitest run",
     "test:watch": "vitest"
   },
