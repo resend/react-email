@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.0.37-canary.3",
+  "version": "0.0.37-canary.4",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -59,7 +59,7 @@
     "@react-email/row": "workspace:0.0.12",
     "@react-email/section": "workspace:0.0.16",
     "@react-email/tailwind": "workspace:1.1.0-canary.1",
-    "@react-email/text": "workspace:0.1.1"
+    "@react-email/text": "workspace:0.1.2-canary.0"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
