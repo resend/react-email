@@ -911,6 +911,9 @@ importers:
       typescript:
         specifier: 5.8.3
         version: 5.8.3
+      yalc:
+        specifier: 1.0.0-pre.53
+        version: 1.0.0-pre.53
 
   packages/row:
     dependencies:
