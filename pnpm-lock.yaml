@@ -35,6 +35,9 @@ importers:
       pkg-pr-new:
         specifier: 0.0.43
         version: 0.0.43
+      playwright:
+        specifier: 1.52.0
+        version: 1.52.0
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
