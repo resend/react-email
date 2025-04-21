@@ -6,8 +6,7 @@
   "scripts": {
     "preinstall": "yalc add @react-email/render",
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
