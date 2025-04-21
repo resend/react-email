@@ -18,6 +18,12 @@
 
 - 7918a4b: Fix priority of margin styles not being kept
 
+## 0.1.2-canary.0
+
+### Patch Changes
+
+- bd58fa9: Fix priority of margin styles not being kept
+
 ## 0.1.1
 
 ### Patch Changes
