@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from "react";
 import { render } from '@react-email/render';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [html, setHtml] = useState('');
