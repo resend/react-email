@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { render } from '@react-email/render';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [html, setHtml] = useState('');
@@ -17,7 +17,11 @@ function App() {
   }, []);
 
   if (error) {
-    return <pre data-testid="rendering-error" style={{ color: 'red' }}>{error}</pre>;
+    return (
+      <pre data-testid="rendering-error" style={{ color: 'red' }}>
+        {error}
+      </pre>
+    );
   }
 
   return <pre data-testid="rendered-html">{html}</pre>;
