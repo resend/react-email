@@ -40,6 +40,8 @@ jobs:
         with:
           cache-prefix: ${{ runner.os }}-turbo-
           provider: github
+      - name: setup playwright
+        run: pnpm exec playwright install-deps
       - name: Run Build
         run: pnpm build
         # We include the environment variables here so that the cache for turborepo
