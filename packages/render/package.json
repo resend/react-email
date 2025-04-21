@@ -68,6 +68,7 @@
     "build": "tsup-node",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch",
+    "pretest": "pnpm exec playwright install",
     "test": "vitest run",
     "test:watch": "vitest"
   },
