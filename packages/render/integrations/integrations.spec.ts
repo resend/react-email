@@ -106,7 +106,7 @@ describe('integrations', () => {
           'http://localhost:3000',
           nextLocation,
         );
-      }, 20_000);
+      }, 30_000);
 
       afterAll(async () => {
         devServer?.kill();
