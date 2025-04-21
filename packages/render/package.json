@@ -133,7 +133,8 @@
     "playwright": "1.59.1",
     "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   },
   "publishConfig": {
     "access": "public"

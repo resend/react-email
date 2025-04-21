@@ -811,6 +811,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+      yalc:
+        specifier: 'catalog:'
+        version: 1.0.0-pre.53
 
   packages/tsconfig: {}
 
