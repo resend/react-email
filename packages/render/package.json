@@ -105,7 +105,8 @@
     "shelljs": "0.8.5",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "yalc": "1.0.0-pre.53"
   },
   "publishConfig": {
     "access": "public"
