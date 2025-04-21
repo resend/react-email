@@ -90,7 +90,7 @@ describe('integrations', () => {
     browser.close();
   });
 
-  describe.only('nextjs', () => {
+  describe('nextjs', () => {
     const nextLocation = path.resolve(import.meta.dirname, './nextjs/');
 
     beforeAll(() => {
