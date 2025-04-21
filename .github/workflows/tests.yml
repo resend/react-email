@@ -42,6 +42,8 @@ jobs:
           provider: github
       - name: setup playwright
         run: pnpm exec playwright install-deps
+      - name: setu playwright
+        run: pnpm exec playwright install
       - name: Run Build
         run: pnpm build
         # We include the environment variables here so that the cache for turborepo
