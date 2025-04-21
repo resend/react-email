@@ -6,8 +6,7 @@
     "preinstall": "yalc add @react-email/render",
     "dev": "next dev --turbopack --port 3000",
     "build": "next build",
-    "start": "next start --port 3001",
-    "lint": "next lint"
+    "start": "next start --port 3001"
   },
   "dependencies": {
     "@react-email/render": "file:.yalc/@react-email/render",
