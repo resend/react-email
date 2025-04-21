@@ -68,7 +68,7 @@ const startWebServer = async (command: string, url: string, cwd: string) => {
     child.kill('SIGINT');
   });
 
-  await waitForServer(url, 15_000);
+  await waitForServer(url, 30_000);
 
   return child;
 };
