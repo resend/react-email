@@ -95,7 +95,7 @@ describe('integrations', () => {
 
     beforeAll(() => {
       $('npm install', nextLocation);
-    });
+    }, 30_000);
 
     describe('dev', () => {
       let devServer: child_process.ChildProcess | undefined;
@@ -198,7 +198,7 @@ describe('integrations', () => {
 
     beforeAll(() => {
       $('npm install', viteLocation);
-    });
+    }, 30_000);
 
     // The code being run after build has been modified by Vite and might run differently
     it('should not error when rendering in vite preview', async () => {
