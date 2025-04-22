@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
-import ora from 'ora';
+import ora, { type Ora } from 'ora';
 import { isBuilding, isPreviewDevelopment } from '../app/env';
 import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
@@ -35,7 +35,7 @@ export const renderEmailByPath = async (
   const timeBeforeEmailRendered = performance.now();
 
   const emailFilename = path.basename(emailPath);
-  let spinner: ora.Ora | undefined;
+  let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
