@@ -1,5 +1,5 @@
 import { promises as fs } from 'node:fs';
-import { getImportedModules } from './get-imported-modules';
+import { getImportedModules } from './get-imported-modules.js';
 
 vi.mock('@babel/traverse', async () => {
   const traverse = await vi.importActual('@babel/traverse');

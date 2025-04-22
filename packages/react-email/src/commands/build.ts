@@ -6,8 +6,8 @@ import ora from 'ora';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
-} from '../../utils/get-emails-directory-metadata';
-import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping';
+} from '../utils/get-emails-directory-metadata';
+import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import { cliPackageLocation } from '../utils';
 
 interface Args {
