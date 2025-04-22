@@ -4,6 +4,9 @@ on:
     branches:
       - main
   pull_request:
+permissions: 
+  contents: read
+  pull-requests: read
 jobs:
   lint:
     runs-on: buildjet-4vcpu-ubuntu-2204
@@ -13,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
       - name: pnpm Cache
         uses: buildjet/cache@v4
         with:
