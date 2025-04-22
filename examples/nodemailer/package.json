@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/nodemailer": "^6",
-    "tsup": "^6",
+    "tsup": "^8.0.0",
     "typescript": "^4"
   }
 }
