@@ -171,7 +171,7 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (_codeOrSignal: number | NodeJS.Signals) => {
+  () => {
     if (typeof devServer !== 'undefined') {
       console.log('\nshutting down dev server');
       devServer.close();
@@ -205,5 +205,8 @@ process.on(
 // catches uncaught exceptions
 process.on(
   'uncaughtException',
-  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: true }),
+  (error) => {
+    console.error(error);
+    makeExitHandler({ shouldKillProcess: true, killWithErrorCode: true })
+  },
 );
