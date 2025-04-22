@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { isDev } from './start-dev-server';
+import { isDev } from './start-dev-server.js';
 
 export const getEnvVariablesForPreviewApp = (
   relativePathToEmailsDirectory: string,
