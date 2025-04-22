@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import packageJson from '../../package.json';
-import { build } from './commands/build';
-import { dev } from './commands/dev';
-import { exportTemplates } from './commands/export';
-import { start } from './commands/start';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { build } from './commands/build.js';
+import { dev } from './commands/dev.js';
+import { exportTemplates } from './commands/export.js';
+import { start } from './commands/start.js';
+
+export const packageJson = JSON.parse(
+  await fs.readFile(
+    path.resolve(import.meta.dirname, '../package.json'),
+    'utf8',
+  ),
+);
 
 const PACKAGE_NAME = 'react-email';
 

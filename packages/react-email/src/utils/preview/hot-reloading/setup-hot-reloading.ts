@@ -3,8 +3,8 @@ import path from 'node:path';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
 import { type Socket, Server as SocketServer } from 'socket.io';
-import type { HotReloadChange } from '../../../../utils/types/hot-reload-change';
-import { createDependencyGraph } from './create-dependency-graph';
+import type { HotReloadChange } from '../../types/hot-reload-change.js';
+import { createDependencyGraph } from './create-dependency-graph.js';
 
 export const setupHotreloading = async (
   devServer: http.Server,

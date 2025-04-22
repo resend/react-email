@@ -3,7 +3,7 @@ import path from 'node:path';
 import {
   createDependencyGraph,
   type DependencyGraph,
-} from './create-dependency-graph';
+} from './create-dependency-graph.js';
 
 const pathToFileForTestingDependencyGraph = path.join(
   __dirname,

@@ -2,13 +2,13 @@ import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
 import chalk from 'chalk';
+import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
-import next from 'next';
 import ora from 'ora';
-import packageJson from '../../../../package.json';
-import { registerSpinnerAutostopping } from '../../../utils/register-spinner-autostopping';
-import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app';
-import { serveStaticFile } from './serve-static-file';
+import { packageJson } from '../../index.js';
+import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
+import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
+import { serveStaticFile } from './serve-static-file.js';
 
 let devServer: http.Server | undefined;
 
@@ -26,16 +26,18 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
+const usersProject = createJiti(process.cwd());
+
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-export const isDev = !filename.endsWith(path.join('cli', 'index.mjs'));
-export const cliPackageLocation = isDev
-  ? path.resolve(dirname, '../../../..')
-  : path.resolve(dirname, '../..');
-export const previewServerLocation = isDev
-  ? path.resolve(dirname, '../../../..')
-  : path.resolve(dirname, '../preview');
+export const isDev = !dirname.includes('dist');
+export const cliPackageLocation = path.resolve(dirname, '../..');
+export const previewServerLocation = path.dirname(
+  url.parse(usersProject.esmResolve('@react-email/preview-server'), true).path!,
+);
+
+const previewServer = createJiti(previewServerLocation);
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
@@ -49,6 +51,9 @@ export const startDevServer = async (
     );
     process.exit(1);
   }
+
+  const { default: next } =
+    await previewServer.import<typeof import('next')>('next');
 
   devServer = http.createServer((req, res) => {
     if (!req.url) {
@@ -191,17 +196,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (_codeOrSignal: number | NodeJS.Signals) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\n    shutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
+
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
