@@ -23,7 +23,7 @@ jobs:
           pnpm config set script-shell "/usr/bin/bash"
 
       - name: pnpm Cache
-        uses: buildjet/cache@v4
+        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
             ~/.pnpm-store
@@ -38,7 +38,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: turborepo Cache
-        uses: buildjet/cache@v4
+        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
             .turbo
@@ -63,7 +63,7 @@ jobs:
           corepack prepare pnpm@9.15.0 --activate
 
       - name: Restore dependencies
-        uses: buildjet/cache@v4
+        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
             ~/.pnpm-store
@@ -72,7 +72,7 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: turborepo Cache
-        uses: buildjet/cache@v4
+        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
             .turbo
