@@ -817,6 +817,12 @@ importers:
       '@react-email/components':
         specifier: workspace:*
         version: link:../components
+      '@types/babel__core':
+        specifier: 7.20.5
+        version: 7.20.5
+      '@types/babel__traverse':
+        specifier: 7.20.7
+        version: 7.20.7
       '@types/mime-types':
         specifier: 2.1.4
         version: 2.1.4
