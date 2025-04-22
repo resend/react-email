@@ -13,8 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@v4
-      - name: pnpm Cache
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+      - name: pnpm Cachen
         uses: buildjet/cache@v4
         with:
           path: |
