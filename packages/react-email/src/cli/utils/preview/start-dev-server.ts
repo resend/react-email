@@ -203,10 +203,7 @@ process.on(
 );
 
 // catches uncaught exceptions
-process.on(
-  'uncaughtException',
-  (error) => {
-    console.error(error);
-    makeExitHandler({ shouldKillProcess: true, killWithErrorCode: true })
-  },
-);
+process.on('uncaughtException', (error) => {
+  console.error(error);
+  makeExitHandler({ shouldKillProcess: true, killWithErrorCode: true })();
+});
