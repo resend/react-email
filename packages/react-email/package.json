@@ -36,7 +36,7 @@
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
     "glob": "^10.3.4",
-    "log-symbols": "^4.1.0",
+    "log-symbols": "^7.0.0",
     "mime-types": "^3.0.0",
     "next": "^15.2.4",
     "normalize-path": "^3.0.0",
