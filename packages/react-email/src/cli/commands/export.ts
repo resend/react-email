@@ -5,7 +5,7 @@ import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
-import ora from 'ora';
+import ora, { type Ora } from 'ora';
 import type React from 'react';
 import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
 import {
@@ -47,7 +47,7 @@ export const exportTemplates = async (
     fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
 
-  let spinner: ora.Ora | undefined;
+  let spinner: Ora | undefined;
   if (!options.silent) {
     spinner = ora('Preparing files...\n').start();
     registerSpinnerAutostopping(spinner);
