@@ -30,7 +30,7 @@
   "dependencies": {
     "@babel/parser": "^7.27.0",
     "@babel/traverse": "^7.27.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "debounce": "^2.0.0",
