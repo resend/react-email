@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "react-email": "workspace:*",
-    "react-email-2.1.7-canary.2": "npm:react-email@4.0.7",
+    "react-email-2.1.7-canary.2": "npm:react-email@2.1.7-canary.2",
     "tinybench": "3.1.0"
   },
   "devDependencies": {
