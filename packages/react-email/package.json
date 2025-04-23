@@ -65,7 +65,7 @@
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
-    "@vercel/style-guide": "5.2.0",
+    "@vercel/style-guide": "6.0.0",
     "autoprefixer": "10.4.21",
     "clsx": "2.1.1",
     "framer-motion": "12.7.5",
