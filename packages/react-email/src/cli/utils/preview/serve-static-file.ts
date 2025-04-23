@@ -10,11 +10,16 @@ export const serveStaticFile = async (
   parsedUrl: url.UrlWithParsedQuery,
   staticDirRelativePath: string,
 ) => {
-  const staticBaseDir = path.join(process.cwd(), staticDirRelativePath);
-  const pathname = parsedUrl.pathname!;
+  const pathname = parsedUrl.pathname!.replace('/static', './static');
   const ext = path.parse(pathname).ext;
 
-  const fileAbsolutePath = path.join(staticBaseDir, pathname);
+  const staticBaseDir = path.resolve(process.cwd(), staticDirRelativePath);
+  const fileAbsolutePath = path.resolve(staticBaseDir, pathname);
+  if (!fileAbsolutePath.startsWith(staticBaseDir)) {
+    res.statusCode = 403;
+    res.end();
+    return;
+  }
 
   try {
     const fileHandle = await fs.open(fileAbsolutePath, 'r');
