@@ -32,7 +32,7 @@
     "@babel/traverse": "^7.27.0",
     "chalk": "^4.1.2",
     "chokidar": "^4.0.3",
-    "commander": "^11.1.0",
+    "commander": "^13.0.0",
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
     "glob": "^11.0.0",
