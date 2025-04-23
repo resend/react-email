@@ -98,7 +98,7 @@
     "@types/prettier": "3.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
-    "jsdom": "23.2.0",
+    "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
     "typescript": "5.8.3"
