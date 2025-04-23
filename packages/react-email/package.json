@@ -35,7 +35,7 @@
     "commander": "^11.1.0",
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
-    "glob": "^10.3.4",
+    "glob": "^11.0.0",
     "log-symbols": "^7.0.0",
     "mime-types": "^3.0.0",
     "next": "^15.2.4",
