@@ -33,7 +33,7 @@ jobs:
           pnpm config set script-shell "/usr/bin/bash"
 
       - name: pnpm Cache
-        uses: buildjet/cache@v4
+        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
             ~/.pnpm-store
