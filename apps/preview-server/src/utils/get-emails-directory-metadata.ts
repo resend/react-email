@@ -2,25 +2,33 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const isFileAnEmail = (fullPath: string): boolean => {
-  const stat = fs.statSync(fullPath);
+const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
+  let fileHandle: fs.promises.FileHandle;
+  try {
+    fileHandle = await fs.promises.open(fullPath, 'r');
+  } catch (exception) {
+    console.warn(exception);
+    return false;
+  }
+  const stat = await fileHandle.stat();
 
-  if (stat.isDirectory()) return false;
+  if (stat.isDirectory()) {
+    await fileHandle.close();
+    return false;
+  }
 
   const { ext } = path.parse(fullPath);
 
-  if (!['.js', '.tsx', '.jsx'].includes(ext)) return false;
-
-  // This is to avoid a possible race condition where the file doesn't exist anymore
-  // once we are checking if it is an actual email, this could cause issues that
-  // would be very hard to debug and find out the why of it happening.
-  if (!fs.existsSync(fullPath)) {
+  if (!['.js', '.tsx', '.jsx'].includes(ext)) {
+    await fileHandle.close();
     return false;
   }
 
   // check with a heuristic to see if the file has at least
   // a default export (ES6) or module.exports (CommonJS) or named exports (MDX)
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = await fileHandle.readFile('utf8');
+
+  await fileHandle.close();
 
   // Check for ES6 export default syntax
   const hasES6DefaultExport = /\bexport\s+default\b/gm.test(fileContents);
@@ -80,10 +88,13 @@ export const getEmailsDirectoryMetadata = async (
     withFileTypes: true,
   });
 
-  const emailFilenames = dirents
-    .filter((dirent) =>
+  const isEmailPredicates = await Promise.all(
+    dirents.map((dirent) =>
       isFileAnEmail(path.join(absolutePathToEmailsDirectory, dirent.name)),
-    )
+    ),
+  );
+  const emailFilenames = dirents
+    .filter((_, i) => isEmailPredicates[i])
     .map((dirent) =>
       keepFileExtensions
         ? dirent.name
