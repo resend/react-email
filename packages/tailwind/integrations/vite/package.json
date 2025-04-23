@@ -20,7 +20,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0",
+    "vite": "^6.0.0",
     "yalc": "1.0.0-pre.53"
   }
 }
