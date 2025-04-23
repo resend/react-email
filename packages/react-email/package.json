@@ -72,7 +72,7 @@
     "jiti": "2.4.2",
     "json5": "2.2.3",
     "module-punycode": "npm:punycode@2.3.1",
-    "node-html-parser": "6.1.13",
+    "node-html-parser": "7.0.1",
     "postcss": "8.5.3",
     "pretty-bytes": "6.1.1",
     "prism-react-renderer": "2.4.1",
