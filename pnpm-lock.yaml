@@ -140,8 +140,8 @@ importers:
         specifier: 15.3.1
         version: 15.3.1
       '@radix-ui/colors':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 3.0.0
+        version: 3.0.0
       '@radix-ui/react-select':
         specifier: 2.2.2
         version: 2.2.2(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -661,8 +661,8 @@ importers:
         specifier: 0.13.3
         version: 0.13.3(react@19.0.0)
       '@radix-ui/colors':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 3.0.0
+        version: 3.0.0
       '@radix-ui/react-collapsible':
         specifier: 1.1.7
         version: 1.1.7(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -2289,6 +2289,9 @@ packages:
 
   '@radix-ui/colors@1.0.1':
     resolution: {integrity: sha512-xySw8f0ZVsAEP+e7iLl3EvcBXX7gsIlC1Zso/sPBW9gIWerBTgz6axrjU+MZ39wD+WFi5h5zdWpsg3+hwt2Qsg==}
+
+  '@radix-ui/colors@3.0.0':
+    resolution: {integrity: sha512-FUOsGBkHrYJwCSEtWRCIfQbZG7q1e6DgxCIOe1SUQzDe/7rXXeA47s8yCn6fuTNQAj1Zq4oTFi9Yjp3wzElcxg==}
 
   '@radix-ui/number@1.1.1':
     resolution: {integrity: sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g==}
@@ -9666,6 +9669,8 @@ snapshots:
       - supports-color
 
   '@radix-ui/colors@1.0.1': {}
+
+  '@radix-ui/colors@3.0.0': {}
 
   '@radix-ui/number@1.1.1': {}
 
