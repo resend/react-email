@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - canary
   pull_request:
 permissions: 
   contents: read
