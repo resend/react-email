@@ -30,8 +30,8 @@ importers:
         specifier: ^19.0.1
         version: 19.0.1
       happy-dom:
-        specifier: 15.11.7
-        version: 15.11.7
+        specifier: 17.4.4
+        version: 17.4.4
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
@@ -46,7 +46,7 @@ importers:
         version: 6.3.2(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1)
       vitest:
         specifier: 3.1.1
-        version: 3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.11.7)(jiti@2.4.2)(jsdom@26.1.0)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1)
+        version: 3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@17.4.4)(jiti@2.4.2)(jsdom@26.1.0)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1)
 
   apps/demo:
     dependencies:
@@ -5574,8 +5574,8 @@ packages:
     resolution: {integrity: sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==}
     engines: {node: '>=6.0'}
 
-  happy-dom@15.11.7:
-    resolution: {integrity: sha512-KyrFvnl+J9US63TEzwoiJOQzZBJY7KgBushJA8X61DMbNsH+2ONkDuLDnCnwUiPTF42tLoEmrPyoqbenVA5zrg==}
+  happy-dom@17.4.4:
+    resolution: {integrity: sha512-/Pb0ctk3HTZ5xEL3BZ0hK1AqDSAUuRQitOmROPHhfUYEWpmTImwfD8vFDGADmMAX0JYgbcgxWoLFKtsWhcpuVA==}
     engines: {node: '>=18.0.0'}
 
   has-bigints@1.1.0:
@@ -13956,9 +13956,8 @@ snapshots:
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
 
-  happy-dom@15.11.7:
+  happy-dom@17.4.4:
     dependencies:
-      entities: 4.5.0
       webidl-conversions: 7.0.0
       whatwg-mimetype: 3.0.0
 
@@ -17742,7 +17741,7 @@ snapshots:
       tsx: 4.19.3
       yaml: 2.6.1
 
-  vitest@3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@15.11.7)(jiti@2.4.2)(jsdom@26.1.0)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1):
+  vitest@3.1.1(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.10.2)(happy-dom@17.4.4)(jiti@2.4.2)(jsdom@26.1.0)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1):
     dependencies:
       '@vitest/expect': 3.1.1
       '@vitest/mocker': 3.1.1(vite@6.3.2(@types/node@22.10.2)(jiti@2.4.2)(terser@5.37.0)(tsx@4.19.3)(yaml@2.6.1))
@@ -17768,7 +17767,7 @@ snapshots:
       '@edge-runtime/vm': 3.2.0
       '@types/debug': 4.1.12
       '@types/node': 22.10.2
-      happy-dom: 15.11.7
+      happy-dom: 17.4.4
       jsdom: 26.1.0
     transitivePeerDependencies:
       - jiti
