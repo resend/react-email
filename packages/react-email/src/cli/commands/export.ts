@@ -83,7 +83,7 @@ export const exportTemplates = async (
       outdir: pathToWhereEmailMarkupShouldBeDumped,
     });
   } catch (exception) {
-    console.error(exception)
+    console.error(exception);
     const buildFailure = exception as BuildFailure;
     if (spinner) {
       spinner.stopAndPersist({
