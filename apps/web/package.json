@@ -38,7 +38,7 @@
     "@radix-ui/react-tooltip": "1.2.3",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
-    "@types/node": "^20",
+    "@types/node": "^22.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "10.4.21",
