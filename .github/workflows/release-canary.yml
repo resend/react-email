@@ -52,7 +52,7 @@ jobs:
         continue-on-error: true
         run: pnpm canary:enter
 
-      - name: Create Release Pull Request
+      - name: Create "Version packages" PR or publish release
         uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
         with:
           version: pnpm run version
