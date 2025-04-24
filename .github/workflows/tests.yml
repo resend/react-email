@@ -8,7 +8,8 @@ permissions:
   contents: read
   pull-requests: read
 jobs:
-  build:
+  build-and-test:
+    name: build and test
     runs-on: buildjet-4vcpu-ubuntu-2204
     outputs:
       cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
@@ -17,15 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-          pnpm config set script-shell "/usr/bin/bash"
-
+      - name: pnpm setup
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
       - name: pnpm Cache
+        id: pnpm-cache
         uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
           path: |
@@ -35,11 +31,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
-
       - name: Install packages
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
-
       - name: turborepo Cache
         uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
         with:
@@ -48,47 +42,18 @@ jobs:
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
-
       - name: Run Build
         run: pnpm build
-  test:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    needs: [build]
-    container:
-      image: node:22
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-
-      - name: Restore dependencies
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-
-      - name: turborepo Cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
-        with:
-          path: |
-            .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
-
+        # We include the environment variables here so that the cache for turborepo
+        # is not invalidated and builds are re-ran
+        env:
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
       - name: Run Tests
         run: pnpm test
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-
   dependencies:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
@@ -96,6 +61,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Check for pinned dependencies
         run: npx tsx ./scripts/check-dependency-versions.ts

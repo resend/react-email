@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.*local", "pnpm-lock.yaml"],
   "globalEnv": [
     "SUPABASE_URL",
     "SUPABASE_ANON_KEY",
@@ -35,10 +35,6 @@
     "//#format:check": {},
     "test": {
       "dependsOn": ["^build"]
-    },
-    "@react-email/tailwind#test": {
-      "dependsOn": ["build"],
-      "cache": false
     },
     "test:watch": {
       "cache": false
