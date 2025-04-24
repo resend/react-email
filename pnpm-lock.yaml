@@ -48,7 +48,7 @@ importers:
         specifier: 2.3.1
         version: 2.3.1
       vite:
-        specifier: 5.4.14
+        specifier: ^5.4.14
         version: 5.4.14(@types/node@22.10.2)(terser@5.37.0)
       vitest:
         specifier: 3.1.1
@@ -676,7 +676,7 @@ importers:
         specifier: 2.1.35
         version: 2.1.35
       next:
-        specifier: 15.2.4
+        specifier: ^15.2.4
         version: 15.2.4(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       normalize-path:
         specifier: 3.0.0
