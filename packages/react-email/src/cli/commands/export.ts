@@ -73,23 +73,27 @@ export const exportTemplates = async (
     await build({
       bundle: true,
       entryPoints: allTemplates,
-      plugins: [renderingUtilitiesExporter(allTemplates)],
-      platform: 'node',
       format: 'cjs',
-      loader: { '.js': 'jsx' },
-      outExtension: { '.js': '.cjs' },
       jsx: 'transform',
-      write: true,
+      loader: { '.js': 'jsx' },
+      logLevel: 'silent',
+      outExtension: { '.js': '.cjs' },
       outdir: pathToWhereEmailMarkupShouldBeDumped,
+      platform: 'node',
+      plugins: [renderingUtilitiesExporter(allTemplates)],
+      write: true,
     });
   } catch (exception) {
-    const buildFailure = exception as BuildFailure;
     if (spinner) {
       spinner.stopAndPersist({
         symbol: logSymbols.error,
         text: 'Failed to build emails',
       });
     }
+
+    const buildFailure = exception as BuildFailure;
+    console.error(`\n${buildFailure.message}`);
+
     process.exit(1);
   }
 
