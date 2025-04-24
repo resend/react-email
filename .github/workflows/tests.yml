@@ -49,6 +49,11 @@ jobs:
 
       - name: Run Build
         run: pnpm build
+        # We include the environment variables here so that the cache for turborepo
+        # is not invalidated and builds are re-ran
+        env:
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
 
       - name: Run Tests
         run: pnpm test
