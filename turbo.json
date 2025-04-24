@@ -36,10 +36,6 @@
     "test": {
       "dependsOn": ["^build"]
     },
-    "@react-email/tailwind#test": {
-      "dependsOn": ["build"],
-      "cache": false
-    },
     "test:watch": {
       "cache": false
     },
