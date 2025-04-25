@@ -60,13 +60,6 @@ const startWebServer = async (command: string, url: string, cwd: string) => {
     stdio: 'pipe',
   });
 
-  child.stdout.on('data', (data) => {
-    console.log(data.toString());
-  });
-  child.stderr.on('data', (data) => {
-    console.error(data.toString());
-  });
-
   process.on('exit', () => {
     child.kill();
   });
