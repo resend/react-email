@@ -33,14 +33,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
       - name: Install packages
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        # if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: turborepo Cache
         uses: rharkor/caching-for-turbo@a1c4079258ae08389be75b57d4d7a70f23c1c66d
         with:
           cache-prefix: ${{ runner.os }}-turbo-
           provider: github
-
       - name: setup playwright
         run: pnpm exec playwright install --with-deps
       - name: Run Build
