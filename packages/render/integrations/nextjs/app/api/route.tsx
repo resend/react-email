@@ -5,7 +5,11 @@ export async function GET() {
     const html = await render(<div>testing element</div>, { pretty: true });
     return new Response(html);
   } catch (exception) {
-    return new Response(JSON.stringify(exception), {
+    let message = 'Some error ocurred';
+    if (exception instanceof Error) {
+      message = exception.toString();
+    }
+    return new Response(message, {
       status: 500,
     });
   }
