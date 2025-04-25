@@ -60,6 +60,13 @@ const startWebServer = async (command: string, url: string, cwd: string) => {
     stdio: 'pipe',
   });
 
+  child.stdout.on('data', (data) => {
+    console.log(data);
+  });
+  child.stderr.on('data', (data) => {
+    console.error(data);
+  });
+
   process.on('exit', () => {
     child.kill();
   });
@@ -68,7 +75,7 @@ const startWebServer = async (command: string, url: string, cwd: string) => {
     child.kill('SIGINT');
   });
 
-  await waitForServer(url, 60_000);
+  await waitForServer(url, 30_000);
 
   return child;
 };
@@ -106,7 +113,7 @@ describe('integrations', () => {
           'http://localhost:3000',
           nextLocation,
         );
-      }, 60_000);
+      }, 30_000);
 
       afterAll(async () => {
         devServer?.kill();
