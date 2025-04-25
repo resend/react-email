@@ -112,7 +112,7 @@ describe('integrations', () => {
         devServer?.kill();
       });
 
-      it('should not error when rendering in node api route', async () => {
+      it('should work when rendering in node api route', async () => {
         const response = await fetch('http://localhost:3000/api');
 
         if (response.status !== 200) {
@@ -121,7 +121,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should not error when rendering in edge api route', async () => {
+      it('should work when rendering in edge api route', async () => {
         const response = await fetch('http://localhost:3000/edge');
 
         if (response.status !== 200) {
@@ -130,7 +130,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should not error when rendering in the browser', async () => {
+      it('should work when rendering in the browser', async () => {
         await page.goto('http://localhost:3000');
 
         await expect(() =>
@@ -160,7 +160,7 @@ describe('integrations', () => {
         server?.kill();
       });
 
-      it('should not error when rendering in node api route', async () => {
+      it('should work when rendering in node api route', async () => {
         const response = await fetch('http://localhost:3001/api');
 
         if (response.status !== 200) {
@@ -169,7 +169,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should not error when rendering in edge api route', async () => {
+      it('should work when rendering in edge api route', async () => {
         const response = await fetch('http://localhost:3001/edge');
 
         if (response.status !== 200) {
@@ -178,7 +178,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should not error when rendering in the browser', async () => {
+      it('should work when rendering in the browser', async () => {
         await page.goto('http://localhost:3001');
 
         await expect(() =>
@@ -201,7 +201,7 @@ describe('integrations', () => {
     }, 30_000);
 
     // The code being run after build has been modified by Vite and might run differently
-    it('should not error when rendering in vite preview', async () => {
+    it('should work when rendering in vite preview', async () => {
       $('npm run build', viteLocation);
       const previewServer = await startWebServer(
         'npm run preview',
@@ -222,7 +222,7 @@ describe('integrations', () => {
       previewServer.kill();
     });
 
-    it('should not error when rendering in vite dev', async () => {
+    it('should work when rendering in vite dev', async () => {
       const devServer = await startWebServer(
         'npm run dev',
         'http://localhost:5173',
