@@ -465,7 +465,7 @@ importers:
         specifier: 19.0.0
         version: 19.0.0
       react-email:
-        specifier: workspace:4.0.7
+        specifier: workspace:4.0.8
         version: link:../react-email
       tsconfig:
         specifier: workspace:*
