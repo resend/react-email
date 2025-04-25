@@ -35,13 +35,10 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: turborepo Cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
+        uses: rharkor/caching-for-turbo@a1c4079258ae08389be75b57d4d7a70f23c1c66d
         with:
-          path: |
-            .turbo
-          key: ${{ runner.os }}-turbo-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-turbo-
+          cache-prefix: ${{ runner.os }}-turbo-
+          provider: github
       - name: Run Build
         run: pnpm build
         # We include the environment variables here so that the cache for turborepo
