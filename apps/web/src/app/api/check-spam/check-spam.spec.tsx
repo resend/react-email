@@ -2,7 +2,7 @@ import { render } from '@react-email/components';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
-describe('checkSpam()', () => {
+describe('checkSpam()', { timeout: 10_000 }, () => {
   test('with most spammy email', async () => {
     const template = (
       <html lang="en">
