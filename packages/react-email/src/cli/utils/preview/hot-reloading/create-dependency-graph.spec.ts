@@ -10,6 +10,11 @@ const pathToFileForTestingDependencyGraph = path.join(
   '.for-dependency-graph.ts',
 );
 
+vi.mock('@babel/traverse', async () => {
+  const traverse = await vi.importActual('@babel/traverse');
+  return { default: traverse };
+});
+
 test('createDependencyGraph()', async () => {
   if (existsSync(pathToFileForTestingDependencyGraph)) {
     await fs.rm(pathToFileForTestingDependencyGraph);

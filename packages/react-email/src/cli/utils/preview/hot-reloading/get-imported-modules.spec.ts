@@ -1,6 +1,11 @@
 import { promises as fs } from 'node:fs';
 import { getImportedModules } from './get-imported-modules';
 
+vi.mock('@babel/traverse', async () => {
+  const traverse = await vi.importActual('@babel/traverse');
+  return { default: traverse };
+});
+
 describe('getImportedModules()', () => {
   it('should work with this test file', async () => {
     const contents = await fs.readFile(import.meta.filename, 'utf8');
