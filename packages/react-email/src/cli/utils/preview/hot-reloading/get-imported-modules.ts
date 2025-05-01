@@ -1,5 +1,10 @@
 import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
+// Babel traverse is meant to be used as a CommonJS module but the CLI
+// runs in ESM, so we need to handle it very differently from normal modules.
+import traverseModule from '@babel/traverse';
+const traverse = (
+  traverseModule as unknown as { default: typeof traverseModule }
+).default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
