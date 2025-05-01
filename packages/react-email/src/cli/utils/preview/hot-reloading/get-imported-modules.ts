@@ -22,6 +22,9 @@ export const getImportedModules = (contents: string) => {
         importedPaths.push(node.source.value);
       }
     },
+    TSExternalModuleReference({ node }) {
+      importedPaths.push(node.expression.value);
+    },
     CallExpression({ node }) {
       if ('name' in node.callee && node.callee.name === 'require') {
         if (node.arguments.length === 1) {
