@@ -1,5 +1,12 @@
 # react-email
 
+## 4.0.11
+
+### Patch Changes
+
+- 1a17219: fix improper `require` in `email export`
+- 45ab698: update next to 15.3.1
+
 ## 4.0.10
 
 ### Patch Changes
