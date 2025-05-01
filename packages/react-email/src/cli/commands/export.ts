@@ -5,6 +5,8 @@ import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
+import url from 'node:url';
+import { createRequire } from 'node:module';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
 import { renderingUtilitiesExporter } from '../../utils/esbuild/renderring-utilities-exporter';
@@ -31,6 +33,10 @@ type ExportTemplatesOptions = Options & {
   silent?: boolean;
   pretty?: boolean;
 };
+
+const filename = url.fileURLToPath(import.meta.url);
+
+const require = createRequire(filename);
 
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
