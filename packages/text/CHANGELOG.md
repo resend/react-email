@@ -1,5 +1,11 @@
 # @react-email/text
 
+## 0.1.2
+
+### Patch Changes
+
+- 7918a4b: Fix priority of margin styles not being kept
+
 ## 0.1.1
 
 ### Patch Changes

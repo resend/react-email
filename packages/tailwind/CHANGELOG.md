@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.0.5
+
+### Patch Changes
+
+- 297541e: Fix multiple variables in the same declaration not being replaced properly
+
 ## 1.0.4
 
 ### Patch Changes

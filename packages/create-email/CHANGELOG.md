@@ -1,5 +1,15 @@
 # create-email
 
+## 1.2.0
+
+### Minor Changes
+
+- d72818a: Fetch react-email package versions at runtime from `--tag` option
+
+### Patch Changes
+
+- d689346: Show package.json's version on --version for create-email
+
 ## 1.1.0
 
 ### Minor Changes
