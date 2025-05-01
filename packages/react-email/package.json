@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "4.0.9",
+  "version": "4.0.10",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"

@@ -1,5 +1,12 @@
 # react-email
 
+## 4.0.10
+
+### Patch Changes
+
+- 5ef9fe8: fix support for `import ... = require(...)` syntax
+- 4c7f597: fix `email dev` not working with `traversal` error
+
 ## 4.0.9
 
 ### Patch Changes
