@@ -130,6 +130,7 @@ export const exportTemplates = async (
         ) => Promise<string>;
         reactEmailCreateReactElement: typeof React.createElement;
       };
+      console.log(emailModule);
       const rendered = await emailModule.render(
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
