@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.8
+
+### Patch Changes
+
+- ea579b5: Log out errors that happen when `export`'s esbuild fails
+
 ## 4.0.7
 
 ### Patch Changes
