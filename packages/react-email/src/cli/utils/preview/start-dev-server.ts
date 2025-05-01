@@ -26,13 +26,16 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-export const isDev = !__filename.endsWith(path.join('cli', 'index.js'));
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+export const isDev = !filename.endsWith(path.join('cli', 'index.mjs'));
 export const cliPackageLocation = isDev
-  ? path.resolve(__dirname, '../../../..')
-  : path.resolve(__dirname, '../..');
+  ? path.resolve(dirname, '../../../..')
+  : path.resolve(dirname, '../..');
 export const previewServerLocation = isDev
-  ? path.resolve(__dirname, '../../../..')
-  : path.resolve(__dirname, '../preview');
+  ? path.resolve(dirname, '../../../..')
+  : path.resolve(dirname, '../preview');
 
 export const startDevServer = async (
   emailsDirRelativePath: string,

@@ -3,7 +3,7 @@
   "version": "4.0.8",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/cli/index.js"
+    "email": "./dist/cli/index.mjs"
   },
   "scripts": {
     "build": "tsup-node && node ./scripts/build-preview-server.mjs && pnpm install --frozen-lockfile",

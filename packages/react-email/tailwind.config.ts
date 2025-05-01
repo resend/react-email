@@ -1,6 +1,5 @@
+import * as colors from '@radix-ui/colors';
 import type { Config } from 'tailwindcss';
-
-import colors = require('@radix-ui/colors');
 
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
