@@ -1,5 +1,7 @@
 import fs, { unlinkSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
+import url from 'node:url';
 import type { Options } from '@react-email/components';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
@@ -31,6 +33,10 @@ type ExportTemplatesOptions = Options & {
   silent?: boolean;
   pretty?: boolean;
 };
+
+const filename = url.fileURLToPath(import.meta.url);
+
+const require = createRequire(filename);
 
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
