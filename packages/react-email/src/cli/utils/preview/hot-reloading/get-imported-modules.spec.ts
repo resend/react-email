@@ -3,7 +3,7 @@ import { getImportedModules } from './get-imported-modules';
 
 describe('getImportedModules()', () => {
   it('should work with this test file', async () => {
-    const contents = await fs.readFile(__filename, 'utf8');
+    const contents = await fs.readFile(import.meta.filename, 'utf8');
 
     expect(getImportedModules(contents)).toEqual([
       'node:fs',
