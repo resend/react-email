@@ -1,5 +1,19 @@
 # react-email
 
+## 4.0.9
+
+### Patch Changes
+
+- 643d841: Add .json import support for hot reloading
+- f21a983: fix Node 18 support
+- cd02449: Ensure dependencies outside emails directory are completely resolved
+- 73a31ed: Fix dependent of dependents not causing hot reloads
+- bdffd8c: fix backwards compatibility with `render` versions
+- e7fa043: Fix access to files outside `static` directory
+- 9aa033c: Use range of versions for dependencies
+- ab70556: Fix non-email files being rendered during hot reloading
+- 9c9aa5d: Add error message for when an email template does not have a default export
+
 ## 4.0.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.0.13
+
+### Patch Changes
+
+- 9aa033c: Use range of versions for dependencies
+
 ## 0.0.12
 
 ### Patch Changes

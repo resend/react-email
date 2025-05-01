@@ -1,5 +1,15 @@
 # @react-email/render
 
+## 1.1.0
+
+### Minor Changes
+
+- 5d153a3: Deprecate the `pretty` option for `render` in favor of standalone `pretty` function
+
+### Patch Changes
+
+- 9aa033c: Use range of versions for dependencies
+
 ## 1.0.6
 
 ### Patch Changes
