@@ -14,7 +14,7 @@ export const getImportedModules = (contents: string) => {
     plugins: ['jsx', 'typescript', 'decorators'],
   });
 
-  traverse.default(parsedContents, {
+  traverse(parsedContents, {
     ImportDeclaration({ node }) {
       importedPaths.push(node.source.value);
     },
