@@ -1,10 +1,7 @@
 import { parse } from '@babel/parser';
-// Babel traverse is meant to be used as a CommonJS module but the CLI
-// runs in ESM, so we need to handle it very differently from normal modules.
-import traverseModule from '@babel/traverse';
-const traverse = (
-  traverseModule as unknown as { default: typeof traverseModule }
-).default;
+
+// @ts-expect-error This is fine since we are not compiling with `tsc`.
+import traverse = require('@babel/traverse');
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
@@ -15,7 +12,7 @@ export const getImportedModules = (contents: string) => {
     plugins: ['jsx', 'typescript', 'decorators'],
   });
 
-  traverse(parsedContents, {
+  traverse.default(parsedContents, {
     ImportDeclaration({ node }) {
       importedPaths.push(node.source.value);
     },
