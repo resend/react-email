@@ -8,11 +8,9 @@ describe('<Text> component', () => {
     expect(html).toContain(testMessage);
   });
 
-  it('gives priority to the user\'s style', async () => {
+  it("gives priority to the user's style", async () => {
     const style = { marginTop: '0px' };
-    const html = await render(
-      <Text style={style} />
-    );
+    const html = await render(<Text style={style} />);
     expect(html).toContain('margin-top:0px');
   });
 
