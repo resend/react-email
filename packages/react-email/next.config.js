@@ -1,3 +1,6 @@
+
+
+
 /** @type {import('next').NextConfig} */
 module.exports = {
   // this is needed so that the code for building emails works properly
