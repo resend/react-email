@@ -1,5 +1,10 @@
 name: Preview Release
-on: [push, pull_request]
+on: 
+  pull_request:
+  push:
+    branches:
+      - main
+      - canary
 permissions:
   contents: read
   pull-requests: write
