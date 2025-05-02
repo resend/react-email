@@ -1,5 +1,11 @@
 # @react-email/text
 
+## 0.1.3
+
+### Patch Changes
+
+- 6cd353b: give priority to the user's style
+
 ## 0.1.2
 
 ### Patch Changes
