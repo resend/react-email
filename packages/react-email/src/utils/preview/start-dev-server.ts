@@ -2,6 +2,8 @@ import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
 import chalk from 'chalk';
+import prompts from 'prompts';
+import { addDevDependency } from 'nypm';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
@@ -26,24 +28,39 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-const usersProject = createJiti(process.cwd());
-
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export const isDev = !dirname.includes('dist');
-export const cliPackageLocation = path.resolve(dirname, '../..');
-export const previewServerLocation = path.dirname(
-  url.parse(usersProject.esmResolve('@react-email/preview-server'), true).path!,
-);
-
-const previewServer = createJiti(previewServerLocation);
 
 export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
   port: number,
 ): Promise<http.Server> => {
+  const usersProject = createJiti(process.cwd());
+  let previewServerLocation!: string;
+  try {
+    previewServerLocation = path.dirname(
+      url.parse(usersProject.esmResolve('@react-email/preview-server'), true)
+        .path!,
+    );
+  } catch (exception) {
+    const response = await prompts({
+      type: "confirm",
+      name: "installPreviewServer",
+      message: 'To run the preview server, the pacakge "@react-email/preview-server" must be installed. Would you like to install it?',
+      initial: true,
+    });
+    if (response.installPreviewServer) {
+      console.log('Installing "@react-email/preview-server"');
+      await addDevDependency('@react-email/preview-server');
+    } else {
+      process.exit(0);
+    }
+  }
+  const previewServer = createJiti(previewServerLocation);
+
   const { default: next } =
     await previewServer.import<typeof import('next')>('next');
 
@@ -179,21 +196,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (codeSignalOrError: number | NodeJS.Signals | Error) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (codeSignalOrError instanceof Error) {
-      console.error(codeSignalOrError);
-    }
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
