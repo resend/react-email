@@ -33,6 +33,13 @@
 - Updated dependencies [0a7b555]
   - @react-email/text@0.1.4
 
+## 0.0.39-canary.0
+
+### Patch Changes
+
+- Updated dependencies [934bc53]
+  - @react-email/tailwind@1.1.0-canary.0
+
 ## 0.0.38
 
 ### Patch Changes
