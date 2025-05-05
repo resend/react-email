@@ -1,6 +1,8 @@
 import { parse } from '@babel/parser';
 
-import traverse = require('@babel/traverse');
+import traverseModule from '@babel/traverse';
+
+const traverse = traverseModule.default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
@@ -11,7 +13,7 @@ export const getImportedModules = (contents: string) => {
     plugins: ['jsx', 'typescript', 'decorators'],
   });
 
-  traverse.default(parsedContents, {
+  traverse(parsedContents, {
     ImportDeclaration({ node }) {
       importedPaths.push(node.source.value);
     },
