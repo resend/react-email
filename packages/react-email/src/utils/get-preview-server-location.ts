@@ -1,8 +1,8 @@
-import path from "node:path";
-import url from "node:url";
-import { createJiti } from "jiti";
-import { addDevDependency } from "nypm";
-import prompts from "prompts";
+import path from 'node:path';
+import url from 'node:url';
+import { createJiti } from 'jiti';
+import { addDevDependency } from 'nypm';
+import prompts from 'prompts';
 
 export const getPreviewServerLocation = async () => {
   const usersProject = createJiti(process.cwd());
