@@ -1,9 +1,9 @@
 import path from 'node:path';
-import { resolveImports } from './resolve-imports';
+import { resolvePathAliases } from './resolve-path-aliases';
 
 test('resolveImports()', async () => {
   expect(
-    resolveImports(
+    resolvePathAliases(
       ['@/some-file'],
       path.resolve(import.meta.dirname, './test'),
     ),
