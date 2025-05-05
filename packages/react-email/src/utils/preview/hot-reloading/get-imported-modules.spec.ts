@@ -12,7 +12,7 @@ describe('getImportedModules()', () => {
 
     expect(getImportedModules(contents)).toEqual([
       'node:fs',
-      './get-imported-modules',
+      './get-imported-modules.js',
     ]);
   });
 

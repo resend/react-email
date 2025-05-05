@@ -1,18 +1,10 @@
 #!/usr/bin/env node
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
 import { start } from './commands/start.js';
-
-export const packageJson = JSON.parse(
-  await fs.readFile(
-    path.resolve(import.meta.dirname, '../package.json'),
-    'utf8',
-  ),
-);
+import { packageJson } from './utils/packageJson.js';
 
 const PACKAGE_NAME = 'react-email';
 
@@ -34,7 +26,7 @@ program
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option(
     '-p --packageManager <name>',
-    'Package name to use on installation on `.react-email` (depreacted)',
+    'Package name to use on installation on `.react-email` (deprecated)',
   )
   .action(build);
 
