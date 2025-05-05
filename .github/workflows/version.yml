@@ -31,7 +31,7 @@ jobs:
 
       - name: pnpm Cache
         id: pnpm-cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
+        uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
         with:
           path: |
             ~/.pnpm-store
