@@ -73,7 +73,6 @@ export const FileTreeDirectoryChildren = (props: {
                           search: searchParams.toString(),
                         }}
                         onMouseOver={() => {
-                          console.log(searchParams.toString());
                           router.prefetch(
                             `/preview/${emailSlug}?${searchParams.toString()}`,
                           );
