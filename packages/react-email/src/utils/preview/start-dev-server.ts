@@ -64,6 +64,7 @@ export const startDevServer = async (
     if (response.installPreviewServer) {
       console.log('Installing "@react-email/preview-server"');
       await addDevDependency('@react-email/preview-server');
+      process.exit(0);
     } else {
       process.exit(0);
     }
