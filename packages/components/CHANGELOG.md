@@ -1,5 +1,12 @@
 # @react-email/components
 
+## 0.0.39-canary.0
+
+### Patch Changes
+
+- Updated dependencies [934bc53]
+  - @react-email/tailwind@1.1.0-canary.0
+
 ## 0.0.38
 
 ### Patch Changes
