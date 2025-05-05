@@ -196,21 +196,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-    (codeSignalOrError: number | NodeJS.Signals | Error) => {
-      if (typeof devServer !== 'undefined') {
-        console.log('\nshutting down dev server');
-        devServer.close();
-        devServer = undefined;
-      }
+  (codeSignalOrError: number | NodeJS.Signals | Error) => {
+    if (typeof devServer !== 'undefined') {
+      console.log('\nshutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
 
-      if (codeSignalOrError instanceof Error) {
-        console.error(codeSignalOrError);
-      }
+    if (codeSignalOrError instanceof Error) {
+      console.error(codeSignalOrError);
+    }
 
-      if (options?.shouldKillProcess) {
-        process.exit(options.killWithErrorCode ? 1 : 0);
-      }
-    };
+    if (options?.shouldKillProcess) {
+      process.exit(options.killWithErrorCode ? 1 : 0);
+    }
+  };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());

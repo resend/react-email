@@ -3,12 +3,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
+import { cliPackageLocation } from '../utils';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
-import { cliPackageLocation } from '../utils';
 
 interface Args {
   dir: string;

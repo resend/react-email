@@ -9,13 +9,13 @@ import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
+import { tree } from '../utils';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
-import { tree } from '../utils';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];

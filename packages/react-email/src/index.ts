@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { program } from 'commander';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
