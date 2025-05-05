@@ -34,8 +34,7 @@ program
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option(
     '-p --packageManager <name>',
-    'Package name to use on installation on `.react-email`',
-    'npm',
+    'Package name to use on installation on `.react-email` (depreacted)',
   )
   .action(build);
 
