@@ -19,5 +19,7 @@ nextBuildProcess.on('exit', (code) => {
     process.exit(code);
   }
 
-  fs.rmSync(path.resolve(import.meta.dirname, '../.next/cache'), { recursive: true });
+  fs.rmSync(path.resolve(import.meta.dirname, '../.next/cache'), {
+    recursive: true,
+  });
 });
