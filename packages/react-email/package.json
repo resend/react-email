@@ -40,6 +40,7 @@
     "normalize-path": "^3.0.0",
     "nypm": "0.6.0",
     "ora": "^8.0.0",
+    "prompts": "2.4.2",
     "socket.io": "^4.8.1",
     "tsconfig-paths": "4.2.0"
   },
@@ -48,6 +49,7 @@
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
     "@types/mime-types": "2.1.4",
+    "@types/prompts": "2.4.9",
     "jiti": "2.4.2",
     "next": "^15.3.1",
     "react": "19.0.0",
