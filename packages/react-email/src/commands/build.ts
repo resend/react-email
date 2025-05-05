@@ -1,14 +1,19 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import url from 'node:url';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { cliPackageLocation } from '../utils';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
-} from '../utils/get-emails-directory-metadata';
-import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+} from '../utils/get-emails-directory-metadata.js';
+import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+const cliPackageLocation = path.resolve(dirname, '..');
 
 interface Args {
   dir: string;
