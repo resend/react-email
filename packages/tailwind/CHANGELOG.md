@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.1.0-canary.0
+
+### Minor Changes
+
+- 934bc53: Extract tailwind pseudo classes to stylesheet
+
 ## 1.0.5
 
 ### Patch Changes
