@@ -7,7 +7,7 @@ import logSymbols from 'log-symbols';
 import { addDevDependency } from 'nypm';
 import ora from 'ora';
 import prompts from 'prompts';
-import { packageJson } from '../../index.js';
+import { packageJson } from '../../utils/packageJson.js';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
 import { serveStaticFile } from './serve-static-file.js';
