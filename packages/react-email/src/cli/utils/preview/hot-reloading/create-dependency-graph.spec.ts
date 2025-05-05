@@ -52,7 +52,11 @@ test('createDependencyGraph()', async () => {
     },
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
-      dependencyPaths: ['../start-dev-server.ts', 'get-imported-modules.ts', 'resolve-path-aliases.ts'],
+      dependencyPaths: [
+        '../start-dev-server.ts',
+        'get-imported-modules.ts',
+        'resolve-path-aliases.ts',
+      ],
       dependentPaths: [
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
@@ -71,11 +75,11 @@ test('createDependencyGraph()', async () => {
       moduleDependencies: ['node:path'],
       path: '../../../utils/preview/get-env-variables-for-preview-app.ts',
     },
-    "./test/some-file.ts": {
-      "dependencyPaths": [],
-      "dependentPaths": [],
-      "moduleDependencies": [],
-      "path": "/home/gabriel/Projects/Resend/react-email/packages/react-email/src/cli/utils/preview/hot-reloading/test/some-file.ts",
+    './test/some-file.ts': {
+      dependencyPaths: [],
+      dependentPaths: [],
+      moduleDependencies: [],
+      path: '/home/gabriel/Projects/Resend/react-email/packages/react-email/src/cli/utils/preview/hot-reloading/test/some-file.ts',
     },
     'resolve-path-aliases.ts': {
       path: 'resolve-path-aliases.ts',
@@ -84,20 +88,13 @@ test('createDependencyGraph()', async () => {
         'resolve-path-aliases.spec.ts',
       ],
       dependencyPaths: [],
-      moduleDependencies: [
-        'node:path',
-        'tsconfig-paths',
-      ],
+      moduleDependencies: ['node:path', 'tsconfig-paths'],
     },
     'resolve-path-aliases.spec.ts': {
       path: 'resolve-path-aliases.spec.ts',
-      dependencyPaths: [
-        'resolve-path-aliases.ts',
-      ],
+      dependencyPaths: ['resolve-path-aliases.ts'],
       dependentPaths: [],
-      moduleDependencies: [
-        'node:path',
-      ],
+      moduleDependencies: ['node:path'],
     },
     'get-imported-modules.ts': {
       path: 'get-imported-modules',

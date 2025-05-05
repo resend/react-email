@@ -1,7 +1,10 @@
 import path from 'node:path';
 import { createMatchPath, loadConfig } from 'tsconfig-paths';
 
-export const resolvePathAliases = (importPaths: string[], projectPath: string) => {
+export const resolvePathAliases = (
+  importPaths: string[],
+  projectPath: string,
+) => {
   const configLoadResult = loadConfig(projectPath);
 
   if (configLoadResult.resultType === 'success') {
