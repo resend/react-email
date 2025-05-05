@@ -1,9 +1,6 @@
 import { parse } from '@babel/parser';
 
-import traverseModule from '@babel/traverse';
-
-// @ts-expect-error This is fine since the default export is wrapped in a default function. The problem is that babel/traverse is not ESM.
-const traverse = traverseModule.default;
+import traverse = require('@babel/traverse');
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
