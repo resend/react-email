@@ -1,7 +1,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
@@ -14,6 +14,7 @@ export const FileTreeDirectoryChildren = (props: {
   isRoot?: boolean;
 }) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   return (
     <AnimatePresence initial={false}>
@@ -71,7 +72,11 @@ export const FileTreeDirectoryChildren = (props: {
                           pathname: `/preview/${emailSlug}`,
                           search: searchParams.toString(),
                         }}
-                        prefetch
+                        onMouseOver={() => {
+                          router.prefetch(
+                            `/preview/${emailSlug}?${searchParams.toString()}`,
+                          );
+                        }}
                         key={emailSlug}
                       >
                         <motion.span
