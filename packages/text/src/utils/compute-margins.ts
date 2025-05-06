@@ -17,7 +17,12 @@ interface MarginResult {
 
 function parseMarginValue(value: MarginType): MarginResult {
   if (typeof value === 'number')
-    return { marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0 };
+    return {
+      marginTop: value,
+      marginBottom: value,
+      marginLeft: value,
+      marginRight: value,
+    };
 
   if (typeof value === 'string') {
     const values = value.toString().trim().split(/\s+/);
