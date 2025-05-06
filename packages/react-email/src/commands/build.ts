@@ -229,12 +229,9 @@ export const build = async ({
     await fs.promises.cp(previewServerLocation, modifiedPreviewServerPath, {
       recursive: true,
       filter: (source: string) => {
-        // do not copy the CLI files
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source)
         );
       },
     });
