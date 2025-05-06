@@ -792,6 +792,9 @@ importers:
       glob:
         specifier: ^11.0.0
         version: 11.0.1
+      jiti:
+        specifier: 2.4.2
+        version: 2.4.2
       log-symbols:
         specifier: ^7.0.0
         version: 7.0.0
@@ -832,9 +835,6 @@ importers:
       '@types/prompts':
         specifier: 2.4.9
         version: 2.4.9
-      jiti:
-        specifier: 2.4.2
-        version: 2.4.2
       next:
         specifier: ^15.3.1
         version: 15.3.1(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
