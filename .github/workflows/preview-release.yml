@@ -15,15 +15,11 @@ jobs:
     permissions: 
       contents: write
       pull-requests: write
+    container:
+      image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: pnpm setup
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
       - name: pnpm Cache
