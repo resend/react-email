@@ -44,11 +44,11 @@ test('createDependencyGraph()', async () => {
   };
 
   const initialDependencyGraph = convertPathsToAbsolute({
-    '../../../../../package.json': {
+    '../../../../package.json': {
       dependencyPaths: [],
-      dependentPaths: ['../start-dev-server.ts'],
+      dependentPaths: ['../../packageJson.ts'],
       moduleDependencies: [],
-      path: '../../../../../package.json',
+      path: '../../../../package.json',
     },
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
@@ -61,19 +61,45 @@ test('createDependencyGraph()', async () => {
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
       ],
-      moduleDependencies: ['node:fs', 'node:path', 'chokidar/handler'],
+      moduleDependencies: ['node:fs', 'node:path', 'chokidar/handler.js'],
     },
+    '../../get-preview-server-location.ts':
+      {
+        dependencyPaths: [],
+        dependentPaths: [
+          '../../preview/start-dev-server.ts',
+        ],
+        moduleDependencies: [
+          'node:path',
+          'node:url',
+          'jiti',
+          'nypm',
+          'prompts',
+        ],
+        path: '../../get-preview-server-location.ts',
+      },
+    '../../packageJson.ts':
+      {
+        dependencyPaths: [
+          '../../../../package.json',
+        ],
+        dependentPaths: [
+          '../../preview/start-dev-server.ts',
+        ],
+        moduleDependencies: [],
+        path: '../../packageJson.ts',
+      },
     'create-dependency-graph.spec.ts': {
       path: 'create-dependency-graph.spec.ts',
       dependencyPaths: ['create-dependency-graph.ts'],
       dependentPaths: [],
       moduleDependencies: ['node:fs', 'node:path'],
     },
-    '../../../utils/preview/get-env-variables-for-preview-app.ts': {
-      dependencyPaths: ['../../../utils/preview/start-dev-server.ts'],
-      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+    '../get-env-variables-for-preview-app.ts': {
+      dependencyPaths: ['../../preview/start-dev-server.ts'],
+      dependentPaths: ['../../preview/start-dev-server.ts'],
       moduleDependencies: ['node:path'],
-      path: '../../../utils/preview/get-env-variables-for-preview-app.ts',
+      path: '../../preview/get-env-variables-for-preview-app.ts',
     },
     './test/some-file.ts': {
       dependencyPaths: [],
@@ -114,7 +140,7 @@ test('createDependencyGraph()', async () => {
     'setup-hot-reloading.ts': {
       path: 'setup-hot-reloading.ts',
       dependencyPaths: [
-        '../../../../utils/types/hot-reload-change.ts',
+        '../../types/hot-reload-change.ts',
         'create-dependency-graph.ts',
       ],
       dependentPaths: [],
@@ -128,14 +154,15 @@ test('createDependencyGraph()', async () => {
     },
     '../start-dev-server.ts': {
       dependencyPaths: [
-        '../../../../../package.json',
-        '../../../../utils/register-spinner-autostopping.ts',
-        '../../../utils/preview/get-env-variables-for-preview-app.ts',
-        '../../../utils/preview/serve-static-file.ts',
+        '../../register-spinner-autostopping.ts',
+        '../../get-preview-server-location.ts',
+        '../../packageJson.ts',
+        '../../preview/get-env-variables-for-preview-app.ts',
+        '../../preview/serve-static-file.ts',
       ],
       path: '../start-dev-server.ts',
       dependentPaths: [
-        '../../../utils/preview/get-env-variables-for-preview-app.ts',
+        '../../preview/get-env-variables-for-preview-app.ts',
         'create-dependency-graph.ts',
       ],
       moduleDependencies: [
@@ -143,14 +170,14 @@ test('createDependencyGraph()', async () => {
         'node:path',
         'node:url',
         'chalk',
+        'jiti',
         'log-symbols',
-        'next',
         'ora',
       ],
     },
-    '../../../utils/preview/serve-static-file.ts': {
+    '../../preview/serve-static-file.ts': {
       dependencyPaths: [],
-      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+      dependentPaths: ['../../preview/start-dev-server.ts'],
       moduleDependencies: [
         'node:fs',
         'node:http',
@@ -158,23 +185,23 @@ test('createDependencyGraph()', async () => {
         'node:url',
         'mime-types',
       ],
-      path: '../../../utils/preview/serve-static-file.ts',
+      path: '../../preview/serve-static-file.ts',
     },
-    '../../../../utils/register-spinner-autostopping.ts': {
+    '../../register-spinner-autostopping.ts': {
       dependencyPaths: [],
-      dependentPaths: ['../../../utils/preview/start-dev-server.ts'],
+      dependentPaths: ['../../preview/start-dev-server.ts'],
       moduleDependencies: ['log-symbols', 'ora'],
-      path: '../../../../utils/register-spinner-autostopping.ts',
+      path: '../../register-spinner-autostopping.ts',
     },
-    '../../../../utils/types/hot-reload-event.ts': {
+    '../../types/hot-reload-event.ts': {
       dependencyPaths: [],
-      dependentPaths: ['../../../../utils/types/hot-reload-change.ts'],
-      moduleDependencies: ['chokidar/handler'],
-      path: '../../../../utils/types/hot-reload-event.ts',
+      dependentPaths: ['../../types/hot-reload-change.ts'],
+      moduleDependencies: ['chokidar/handler.js'],
+      path: '../../types/hot-reload-event.ts',
     },
-    '../../../../utils/types/hot-reload-change.ts': {
-      path: '../../../../utils/types/hot-reload-change.ts',
-      dependencyPaths: ['../../../../utils/types/hot-reload-event.ts'],
+    '../../types/hot-reload-change.ts': {
+      path: '../../types/hot-reload-change.ts',
+      dependencyPaths: ['../../types/hot-reload-event.ts'],
       dependentPaths: ['setup-hot-reloading.ts'],
       moduleDependencies: [],
     },
