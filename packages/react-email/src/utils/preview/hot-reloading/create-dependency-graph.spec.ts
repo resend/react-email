@@ -63,32 +63,18 @@ test('createDependencyGraph()', async () => {
       ],
       moduleDependencies: ['node:fs', 'node:path', 'chokidar/handler.js'],
     },
-    '../../get-preview-server-location.ts':
-      {
-        dependencyPaths: [],
-        dependentPaths: [
-          '../../preview/start-dev-server.ts',
-        ],
-        moduleDependencies: [
-          'node:path',
-          'node:url',
-          'jiti',
-          'nypm',
-          'prompts',
-        ],
-        path: '../../get-preview-server-location.ts',
-      },
-    '../../packageJson.ts':
-      {
-        dependencyPaths: [
-          '../../../../package.json',
-        ],
-        dependentPaths: [
-          '../../preview/start-dev-server.ts',
-        ],
-        moduleDependencies: [],
-        path: '../../packageJson.ts',
-      },
+    '../../get-preview-server-location.ts': {
+      dependencyPaths: [],
+      dependentPaths: ['../../preview/start-dev-server.ts'],
+      moduleDependencies: ['node:path', 'node:url', 'jiti', 'nypm', 'prompts'],
+      path: '../../get-preview-server-location.ts',
+    },
+    '../../packageJson.ts': {
+      dependencyPaths: ['../../../../package.json'],
+      dependentPaths: ['../../preview/start-dev-server.ts'],
+      moduleDependencies: [],
+      path: '../../packageJson.ts',
+    },
     'create-dependency-graph.spec.ts': {
       path: 'create-dependency-graph.spec.ts',
       dependencyPaths: ['create-dependency-graph.ts'],
