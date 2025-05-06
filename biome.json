@@ -87,7 +87,7 @@
       "!**/pnpm-lock.yaml",
       "!**/.next",
       "!**/public",
-      "!apps/preview-server/src/actions/email-validation/caniemail-data.ts",
+      "!packages/preview-server/src/actions/email-validation/caniemail-data.ts",
       "!**/.react-email/**/*",
       "!**/node_modules/**/*",
       "!**/*.d.ts",
