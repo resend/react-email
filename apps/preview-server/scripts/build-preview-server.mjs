@@ -1,12 +1,16 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import url from 'node:url';
+
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const nextBuildProcess = spawn('pnpm', ['next', 'build'], {
   detached: true,
   shell: true,
   stdio: 'inherit',
-  cwd: path.resolve(import.meta.dirname, '../'),
+  cwd: path.resolve(dirname, '../'),
 });
 
 process.on('SIGINT', () => {
@@ -19,7 +23,7 @@ nextBuildProcess.on('exit', (code) => {
     process.exit(code);
   }
 
-  fs.rmSync(path.resolve(import.meta.dirname, '../.next/cache'), {
+  fs.rmSync(path.resolve(dirname, '../.next/cache'), {
     recursive: true,
   });
 });
