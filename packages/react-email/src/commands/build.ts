@@ -278,7 +278,7 @@ export const build = async ({
       },
     );
 
-    await fs.promises.rmdir(modifiedPreviewServerPath, { recursive: true });
+    await fs.promises.rm(modifiedPreviewServerPath, { recursive: true });
   } catch (error) {
     console.log(error);
     process.exit(1);
