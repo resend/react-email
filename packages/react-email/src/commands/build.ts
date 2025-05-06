@@ -218,12 +218,6 @@ export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
 }: Args) => {
-  if (packageManager !== undefined) {
-    console.warn(
-      'The packageManager option is deprecated and will be removed in the next major version, in this version it does not have any effect.',
-    );
-  }
-
   try {
     const previewServerLocation = await getPreviewServerLocation();
 
