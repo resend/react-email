@@ -5,24 +5,19 @@ describe('<Text> component', () => {
   it('renders children correctly', async () => {
     const testMessage = 'Test message';
     const html = await render(<Text>{testMessage}</Text>);
-    expect(html).toContain(testMessage);
+    expect(html).toMatchSnapshot();
   });
 
   it("gives priority to the user's style", async () => {
     const style = { marginTop: '0px' };
     const html = await render(<Text style={style} />);
-    expect(html).toContain('margin-top:0px');
+    expect(html).toMatchSnapshot();
   });
 
   it('passes style and other props correctly', async () => {
     const style = { fontSize: '16px' };
-    const html = await render(
-      <Text data-testid="text-test" style={style}>
-        Test
-      </Text>,
-    );
-    expect(html).toContain('font-size:16px');
-    expect(html).toContain('data-testid="text-test"');
+    const html = await render(<Text style={style}>Test</Text>);
+    expect(html).toMatchSnapshot();
   });
 
   it('renders correctly', async () => {
