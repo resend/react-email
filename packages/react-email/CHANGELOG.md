@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.12
+
+### Patch Changes
+
+- aa518a3: Add an explicit error when running Node <= 17
+
 ## 4.0.11
 
 ### Patch Changes
