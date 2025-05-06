@@ -5,9 +5,9 @@ import chalk from 'chalk';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
-import { packageJson } from '../../utils/packageJson.js';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
 import { getPreviewServerLocation } from '../get-preview-server-location.js';
+import { packageJson } from '../packageJson.js';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
 import { serveStaticFile } from './serve-static-file.js';
 

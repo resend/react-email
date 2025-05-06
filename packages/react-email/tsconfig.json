@@ -34,12 +34,6 @@
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": [
-    "next-env.d.ts",
-    "tailwind-internals.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [".next", "dist", "node_modules"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
 }
