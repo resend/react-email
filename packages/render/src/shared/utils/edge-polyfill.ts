@@ -7,7 +7,7 @@
  * We can remove this once MessageChannel is supported on all runtimes.
  */
 
-if (typeof MessageChannel === "undefined") {
+if (typeof MessageChannel === 'undefined') {
   class MockMessagePort {
     onmessage: ((ev: MessageEvent) => void) | undefined;
     onmessageerror: ((ev: MessageEvent) => void) | undefined;
