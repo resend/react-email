@@ -170,6 +170,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
+  delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
   // We remove this one to avoid having resolve issues on our demo build process.
