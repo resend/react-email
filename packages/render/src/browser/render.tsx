@@ -54,6 +54,7 @@ export const render = async (
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
   const reactDOMServer = await import('react-dom/server').then(
+    // This is beacuse react-dom/server is CJS
     (m) => m.default,
   );
 
