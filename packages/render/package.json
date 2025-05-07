@@ -98,10 +98,15 @@
     "@types/prettier": "3.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@types/shelljs": "0.8.15",
+    "@vitest/browser": "3.1.1",
     "jsdom": "26.1.0",
+    "playwright": "1.52.0",
+    "shelljs": "0.8.5",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "yalc": "1.0.0-pre.53"
   },
   "publishConfig": {
     "access": "public"
