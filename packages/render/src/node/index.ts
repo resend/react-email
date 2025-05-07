@@ -1,5 +1,10 @@
+import { applyMessageChannelPolyfill } from '../shared/utils/edge-polyfill';
+
+if (typeof MessageChannel === 'undefined') {
+  applyMessageChannelPolyfill();
+}
+
 import type { Options } from '../shared/options';
-import '../shared/utils/edge-polyfill';
 import { render } from './render';
 
 /**

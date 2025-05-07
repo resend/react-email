@@ -13,4 +13,10 @@ export default defineConfig([
     outDir: './dist/browser',
     format: ['cjs', 'esm'],
   },
+  {
+    dts: true,
+    entry: ['./src/edge-light/index.ts'],
+    outDir: './dist/edge-light',
+    format: ['cjs', 'esm'],
+  },
 ]);
