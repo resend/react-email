@@ -1,3 +1,7 @@
+/**
+ * @vitest-environment jsdom
+ */
+
 import { Preview } from '../shared/utils/preview';
 import { Template } from '../shared/utils/template';
 import { render } from './render';
@@ -8,25 +12,29 @@ type Import = typeof import('react-dom/server') & {
 
 describe('render on the edge', () => {
   beforeAll(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extraneous-class
     global.MessageChannel = class {
       constructor() {
         throw new Error('MessageChannel is not supported');
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
   });
 
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
   it('converts a React component into HTML with Next 14 error stubs', async () => {
-    vi.mock('react-dom/server', async () => {
-      const ReactDOMServer = await vi.importActual<Import>('react-dom/server');
+    vi.mock('react-dom/server', async (_importOriginal) => {
+      const ReactDOMServerBrowser = await vi.importActual<Import>(
+        'react-dom/server.browser',
+      );
       const ERROR_MESSAGE =
         'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
 
       return {
-        ...ReactDOMServer,
+        ...ReactDOMServerBrowser,
         default: {
-          ...ReactDOMServer.default,
+          ...ReactDOMServerBrowser,
           renderToString() {
             throw new Error(ERROR_MESSAGE);
           },
@@ -48,12 +56,10 @@ describe('render on the edge', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
     );
-
-    vi.resetAllMocks();
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('should handle characters with a higher byte count gracefully in React 18', async () => {
+  it('should handle characters with a higher byte count gracefully', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
