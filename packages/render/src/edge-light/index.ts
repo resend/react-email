@@ -1,9 +1,9 @@
 /**
-  * This is the export type for NextJS's edge runtime. We always apply the polyfill here
-  * since NextJS patches `MessageChannel` to be a function that throws an error when called.
-  *
-  * @see https://github.com/resend/react-email/pull/2222#issuecomment-2858463529
-  */
+ * This is the export type for NextJS's edge runtime. We always apply the polyfill here
+ * since NextJS patches `MessageChannel` to be a function that throws an error when called.
+ *
+ * @see https://github.com/resend/react-email/pull/2222#issuecomment-2858463529
+ */
 import { applyMessageChannelPolyfill } from '../shared/utils/edge-polyfill';
 
 applyMessageChannelPolyfill();

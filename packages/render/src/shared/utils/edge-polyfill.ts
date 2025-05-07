@@ -10,11 +10,11 @@ class MockMessagePort {
   onmessage: ((ev: MessageEvent) => void) | undefined;
   onmessageerror: ((ev: MessageEvent) => void) | undefined;
 
-  close() { }
-  postMessage(_message: unknown, _transfer: Transferable[] = []) { }
-  start() { }
-  addEventListener() { }
-  removeEventListener() { }
+  close() {}
+  postMessage(_message: unknown, _transfer: Transferable[] = []) {}
+  start() {}
+  addEventListener() {}
+  removeEventListener() {}
   dispatchEvent(_event: Event): boolean {
     return false;
   }
