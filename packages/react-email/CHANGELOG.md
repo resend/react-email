@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.5
+
+### Patch Changes
+
+- b947f98: Pre-render email templates on hover
+
 ## 4.1.0-canary.4
 
 ### Patch Changes
