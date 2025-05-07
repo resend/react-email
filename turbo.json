@@ -14,7 +14,7 @@
       "outputs": ["dist/**"]
     },
     "postbuild": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "cache": false
     },
     "web#build": {
