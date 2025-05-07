@@ -60,12 +60,15 @@ const startWebServer = async (command: string, url: string, cwd: string) => {
     stdio: 'pipe',
   });
 
-  process.on('exit', () => {
-    child.kill();
-  });
+  process.on('exit', () => child.kill());
 
-  process.on('SIGINT', () => {
-    child.kill('SIGINT');
+  process.on('SIGINT', () => child.kill('SIGINT'));
+
+  process.on('SIGUSR1', () => child.kill('SIGUSR1'));
+  process.on('SIGUSR2', () => child.kill('SIGUSR1'));
+  process.on('uncaughtException', (error) => {
+    console.error(error);
+    child.kill();
   });
 
   await waitForServer(url, 30_000);
