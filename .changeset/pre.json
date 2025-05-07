@@ -32,5 +32,10 @@
     "tsconfig": "0.0.0",
     "web": "0.0.0"
   },
-  "changesets": ["dirty-needles-chew", "great-parrots-yell"]
+  "changesets": [
+    "crazy-seas-eat",
+    "dirty-needles-chew",
+    "great-parrots-yell",
+    "tidy-geese-cross"
+  ]
 }
