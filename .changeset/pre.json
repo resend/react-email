@@ -33,5 +33,11 @@
     "@react-email/text": "0.1.2",
     "tsconfig": "0.0.0"
   },
-  "changesets": ["dirty-needles-chew", "great-parrots-yell"]
+  "changesets": [
+    "crazy-seas-eat",
+    "dirty-needles-chew",
+    "free-sides-grin",
+    "great-parrots-yell",
+    "tidy-geese-cross"
+  ]
 }
