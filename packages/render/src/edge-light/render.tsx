@@ -10,9 +10,7 @@ export const render = async (
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import('react-dom/server.edge');
-  await import('react-dom/server').then(
-    // This is beacuse react-dom/server is CJS
+  const reactDOMServer = await import('react-dom/server.edge').then(
     (m) => m.default,
   );
 
