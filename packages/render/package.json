@@ -41,6 +41,16 @@
           "default": "./dist/browser/index.js"
         }
       },
+      "edge-light": {
+        "import": {
+          "types": "./dist/edge-light/index.d.mts",
+          "default": "./dist/edge-light/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge-light/index.d.ts",
+          "default": "./dist/edge-light/index.js"
+        }
+      },
       "browser": {
         "import": {
           "types": "./dist/browser/index.d.mts",
