@@ -15,6 +15,36 @@
   - @react-email/button@0.1.0
   - @react-email/tailwind@1.0.5
 
+## 0.1.0-canary.1
+
+### Minor Changes
+
+- b6a1941: Update `@react-email/tailwind@1.1.0-canary.0`
+
+### Patch Changes
+
+- Updated dependencies [57ddfd9]
+  - @react-email/render@1.1.1-canary.0
+  - @react-email/body@0.0.11
+  - @react-email/button@0.0.19
+  - @react-email/code-block@0.0.13
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.0.5
+  - @react-email/text@0.1.4
+
 ## 0.0.42
 
 ### Patch Changes
@@ -55,7 +85,6 @@
 ### Patch Changes
 
 - Updated dependencies [a77ef6f]
-  - @react-email/preview@0.0.13
   - @react-email/render@1.1.1
   - @react-email/body@0.0.11
   - @react-email/button@0.0.19
@@ -71,6 +100,7 @@
   - @react-email/img@0.0.11
   - @react-email/link@0.0.12
   - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
   - @react-email/row@0.0.12
   - @react-email/section@0.0.16
   - @react-email/tailwind@1.0.5
