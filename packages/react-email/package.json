@@ -42,7 +42,8 @@
     "next": "^15.3.1",
     "normalize-path": "^3.0.0",
     "ora": "^8.0.0",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
