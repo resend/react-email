@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.13
+
+### Patch Changes
+
+- 8e4afce: fix hot reloading support for users with `NodeNext`-style imports
+
 ## 4.0.12
 
 ### Patch Changes
