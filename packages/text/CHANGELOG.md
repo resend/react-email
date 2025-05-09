@@ -1,5 +1,11 @@
 # @react-email/text
 
+## 0.1.4
+
+### Patch Changes
+
+- 0a7b555: fix numerical margin values being overwritten by 0
+
 ## 0.1.3
 
 ### Patch Changes
