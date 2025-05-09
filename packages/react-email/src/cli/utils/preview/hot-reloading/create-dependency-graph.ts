@@ -142,24 +142,26 @@ export const createDependencyGraph = async (directory: string) => {
           }
         }
 
-        /*
-          If the path to the dependency does not include a file extension, such that our check
-          for it being a javascript module fails, then we can assume it has the same as the `filePath`
-        */
-        if (!isJavascriptModule(pathToDependencyFromDirectory)) {
-          const pathWithExtension =
-            path.extname(pathToDependencyFromDirectory).length > 0
-              ? pathToDependencyFromDirectory
-              : checkFileExtensionsUntilItExists(pathToDependencyFromDirectory);
-
-          if (pathWithExtension) {
-            pathToDependencyFromDirectory = pathWithExtension;
-          } else if (isDev) {
-            // only warn about this on development as it is probably going to be irrelevant otherwise
-            console.warn(
-              `Could not determine the file extension for the file at ${pathToDependencyFromDirectory}`,
-            );
+        const extension = path.extname(pathToDependencyFromDirectory);
+        const pathWithEnsuredExtension = (() => {
+          if (
+            extension.length > 0 &&
+            existsSync(pathToDependencyFromDirectory)
+          ) {
+            return pathToDependencyFromDirectory;
           }
+          return checkFileExtensionsUntilItExists(
+            pathToDependencyFromDirectory.replace(extension, ''),
+          );
+        })();
+
+        if (pathWithEnsuredExtension) {
+          pathToDependencyFromDirectory = pathWithEnsuredExtension;
+        } else if (isDev) {
+          // only warn about this on development as it is probably going to be irrelevant otherwise
+          console.warn(
+            `Could not find file at ${pathToDependencyFromDirectory}`,
+          );
         }
 
         return pathToDependencyFromDirectory;
