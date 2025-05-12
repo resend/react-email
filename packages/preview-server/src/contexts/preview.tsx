@@ -5,7 +5,7 @@ import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
 } from '../actions/render-email-by-path';
-import { isBuilding } from '../app/env';
+import { isBuilding, isPreviewDevelopment } from '../app/env';
 import { useEmailRenderingResult } from '../hooks/use-email-rendering-result';
 import { useHotreload } from '../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../hooks/use-rendering-metadata';
@@ -49,7 +49,7 @@ export const PreviewProvider = ({
     serverRenderingResult,
   );
 
-  if (!isBuilding) {
+  if (!isBuilding && !isPreviewDevelopment) {
     // biome-ignore lint/correctness/useHookAtTopLevel: this will not change on runtime so it doesn't violate the rules of hooks
     useHotreload((changes) => {
       const changeForThisEmail = changes.find((change) =>
