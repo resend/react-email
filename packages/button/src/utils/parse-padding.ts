@@ -119,11 +119,11 @@ export function parsePadding(properties: PaddingProperties) {
         parsePaddingValue(value));
     } else if (key === 'paddingTop') {
       paddingTop = value;
-    } else if (key === 'marginRight') {
+    } else if (key === 'paddingRight') {
       paddingRight = value;
-    } else if (key === 'marginBottom') {
+    } else if (key === 'paddingBottom') {
       paddingBottom = value;
-    } else if (key === 'marginLeft') {
+    } else if (key === 'paddingLeft') {
       paddingLeft = value;
     }
   }
