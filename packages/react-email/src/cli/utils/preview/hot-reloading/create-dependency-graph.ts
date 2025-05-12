@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { EventName } from 'chokidar/handler';
 import { isDev } from '../start-dev-server';
 import { getImportedModules } from './get-imported-modules';
+import { resolvePathAliases } from './resolve-path-aliases';
 
 interface Module {
   path: string;
@@ -93,9 +94,8 @@ export const createDependencyGraph = async (directory: string) => {
 
   const getDependencyPaths = async (filePath: string) => {
     const contents = await fs.readFile(filePath, 'utf8');
-
     const importedPaths = isJavascriptModule(filePath)
-      ? getImportedModules(contents)
+      ? resolvePathAliases(getImportedModules(contents), path.dirname(filePath))
       : [];
     const importedPathsRelativeToDirectory = importedPaths.map(
       (dependencyPath) => {
