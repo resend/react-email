@@ -6,6 +6,12 @@
 
 - 4c4c5ef: respect the order in which padding properties are defined
 
+## 0.1.0-canary.0
+
+### Minor Changes
+
+- 11c4600: respect the order in which padding properties are defined
+
 ## 0.0.19
 
 ### Patch Changes
