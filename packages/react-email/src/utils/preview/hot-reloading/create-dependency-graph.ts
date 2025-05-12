@@ -161,7 +161,7 @@ export const createDependencyGraph = async (directory: string) => {
           // only warn about this on development as it is probably going to be irrelevant otherwise
           console.warn(
             `Could not find file at ${pathToDependencyFromDirectory}`,
-         );
+          );
         }
 
         return pathToDependencyFromDirectory;
