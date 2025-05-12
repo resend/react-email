@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.6
+
+### Patch Changes
+
+- 11c4600: Add support for hot reloading with tsconfig path aliases
+
 ## 4.1.0-canary.5
 
 ### Patch Changes
