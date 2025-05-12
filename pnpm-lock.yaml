@@ -408,7 +408,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:1.0.5
+        specifier: workspace:1.1.0-canary.0
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.5
