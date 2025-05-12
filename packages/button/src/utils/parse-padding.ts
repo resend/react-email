@@ -1,7 +1,7 @@
 type PaddingType = string | number | undefined;
 
 interface PaddingProperties {
-  padding: PaddingType;
+  padding?: PaddingType;
   paddingTop?: PaddingType;
   paddingRight?: PaddingType;
   paddingBottom?: PaddingType;
@@ -46,64 +46,92 @@ export function convertToPx(value: PaddingType) {
   return 0;
 }
 
-/**
- * Parses all the values out of a padding string to get the value for all padding props in `px`
- * @example e.g. "10px" =\> pt: 10, pr: 10, pb: 10, pl: 10
- */
-export function parsePadding({
-  padding = '',
-  paddingTop,
-  paddingRight,
-  paddingBottom,
-  paddingLeft,
-}: PaddingProperties) {
-  let pt = 0;
-  let pr = 0;
-  let pb = 0;
-  let pl = 0;
+function parsePaddingValue(value: PaddingType) {
+  if (typeof value === 'number')
+    return {
+      paddingTop: value,
+      paddingBottom: value,
+      paddingLeft: value,
+      paddingRight: value,
+    };
 
-  if (typeof padding === 'number') {
-    pt = padding;
-    pr = padding;
-    pb = padding;
-    pl = padding;
-  } else {
-    const values = padding.split(/\s+/);
+  if (typeof value === 'string') {
+    const values = value.toString().trim().split(/\s+/);
 
-    switch (values.length) {
-      case 1:
-        pt = convertToPx(values[0]);
-        pr = convertToPx(values[0]);
-        pb = convertToPx(values[0]);
-        pl = convertToPx(values[0]);
-        break;
-      case 2:
-        pt = convertToPx(values[0]);
-        pb = convertToPx(values[0]);
-        pr = convertToPx(values[1]);
-        pl = convertToPx(values[1]);
-        break;
-      case 3:
-        pt = convertToPx(values[0]);
-        pr = convertToPx(values[1]);
-        pl = convertToPx(values[1]);
-        pb = convertToPx(values[2]);
-        break;
-      case 4:
-        pt = convertToPx(values[0]);
-        pr = convertToPx(values[1]);
-        pb = convertToPx(values[2]);
-        pl = convertToPx(values[3]);
-        break;
-      default:
-        break;
+    if (values.length === 1) {
+      return {
+        paddingTop: values[0],
+        paddingBottom: values[0],
+        paddingLeft: values[0],
+        paddingRight: values[0],
+      };
+    }
+
+    if (values.length === 2) {
+      return {
+        paddingTop: values[0],
+        paddingRight: values[1],
+        paddingBottom: values[0],
+        paddingLeft: values[1],
+      };
+    }
+
+    if (values.length === 3) {
+      return {
+        paddingTop: values[0],
+        paddingRight: values[1],
+        paddingBottom: values[2],
+        paddingLeft: values[1],
+      };
+    }
+
+    if (values.length === 4) {
+      return {
+        paddingTop: values[0],
+        paddingRight: values[1],
+        paddingBottom: values[2],
+        paddingLeft: values[3],
+      };
     }
   }
 
   return {
-    pt: paddingTop ? convertToPx(paddingTop) : pt,
-    pr: paddingRight ? convertToPx(paddingRight) : pr,
-    pb: paddingBottom ? convertToPx(paddingBottom) : pb,
-    pl: paddingLeft ? convertToPx(paddingLeft) : pl,
+    paddingTop: undefined,
+    paddingBottom: undefined,
+    paddingLeft: undefined,
+    paddingRight: undefined,
+  };
+}
+
+/**
+ * Parses all the values out of a padding string to get the value for all padding props in `px`
+ * @example e.g. "10px" =\> pt: 10, pr: 10, pb: 10, pl: 10
+ */
+export function parsePadding(properties: PaddingProperties) {
+  let paddingTop: string | number | undefined;
+  let paddingRight: string | number | undefined;
+  let paddingBottom: string | number | undefined;
+  let paddingLeft: string | number | undefined;
+
+  for (const [key, value] of Object.entries(properties)) {
+    if (key === 'padding') {
+      ({ paddingTop, paddingBottom, paddingLeft, paddingRight } =
+        parsePaddingValue(value));
+    } else if (key === 'paddingTop') {
+      paddingTop = value;
+    } else if (key === 'paddingRight') {
+      paddingRight = value;
+    } else if (key === 'paddingBottom') {
+      paddingBottom = value;
+    } else if (key === 'paddingLeft') {
+      paddingLeft = value;
+    }
+  }
+
+  return {
+    paddingTop: paddingTop ? convertToPx(paddingTop) : undefined,
+    paddingRight: paddingRight ? convertToPx(paddingRight) : undefined,
+    paddingBottom: paddingBottom ? convertToPx(paddingBottom) : undefined,
+    paddingLeft: paddingLeft ? convertToPx(paddingLeft) : undefined,
   };
 }
