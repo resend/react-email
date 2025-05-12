@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.1.2-canary.0
+
+### Patch Changes
+
+- 0405e2b: fix react-dom/server import for the browser and some bundlers
+
 ## 1.1.1
 
 ### Patch Changes
