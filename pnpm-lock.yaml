@@ -357,7 +357,7 @@ importers:
         specifier: workspace:0.0.11
         version: link:../body
       '@react-email/button':
-        specifier: workspace:0.0.19
+        specifier: workspace:0.1.0-canary.0
         version: link:../button
       '@react-email/code-block':
         specifier: workspace:0.0.13

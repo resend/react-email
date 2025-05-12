@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "0.1.0-canary.2",
+  "version": "0.1.0-canary.3",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@react-email/body": "workspace:0.0.11",
-    "@react-email/button": "workspace:0.0.19",
+    "@react-email/button": "workspace:0.1.0-canary.0",
     "@react-email/code-block": "workspace:0.0.13",
     "@react-email/code-inline": "workspace:0.0.5",
     "@react-email/column": "workspace:0.0.13",
