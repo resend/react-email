@@ -69,7 +69,7 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
         <div className="mt-2 flex flex-row gap-2">
           <Image
             alt={author}
-            className="rounded-full"
+            className="rounded-full text-ellipsis overflow-hidden"
             height="24"
             src={`https://github.com/${author}.png`}
             width="24"
