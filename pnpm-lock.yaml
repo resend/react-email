@@ -396,10 +396,10 @@ importers:
         specifier: workspace:0.0.15
         version: link:../markdown
       '@react-email/preview':
-        specifier: workspace:0.0.12
+        specifier: workspace:0.0.13
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.1.0
+        specifier: workspace:1.1.1
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12

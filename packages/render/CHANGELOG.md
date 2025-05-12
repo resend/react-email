@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.1.1
+
+### Patch Changes
+
+- a77ef6f: fix preview being rendered in plain-text
+
 ## 1.1.0
 
 ### Minor Changes
