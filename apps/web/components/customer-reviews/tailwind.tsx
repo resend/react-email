@@ -87,7 +87,7 @@ export const component = (
             </Text>
             <Button
               href="#"
-              className="mt-[26px] mb-[24px] inline-block w-full rounded-[8px] bg-indigo-600 p-3 text-center box-border font-semibold text-white"
+              className="mt-[26px] mb-[24px] inline-block w-full rounded-[8px] bg-indigo-600 p-[12px] text-center box-border font-semibold text-white"
             >
               Write a review
             </Button>
