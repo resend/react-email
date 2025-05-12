@@ -15,6 +15,18 @@
   - @react-email/button@0.1.0
   - @react-email/tailwind@1.0.5
 
+## 0.1.0-canary.3
+
+### Minor Changes
+
+- 11c4600: Updated @react-email/button@0.1.0-canary.0
+
+### Patch Changes
+
+- Updated dependencies [11c4600]
+  - @react-email/button@0.1.0-canary.0
+  - @react-email/tailwind@1.1.0-canary.0
+
 ## 0.1.0-canary.2
 
 ### Patch Changes
