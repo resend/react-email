@@ -71,7 +71,7 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
             alt={author}
             className="rounded-full text-ellipsis overflow-hidden"
             height="24"
-            src={`https://github.com/${author}.png`}
+            src={`/examples/authors/${author}.png`}
             width="24"
           />
           <Text>{author}</Text>
