@@ -32,7 +32,7 @@ describe('convertToPx', () => {
     expect(result).toBe(0);
   });
 
-  it('converts empty input to 0', () => {
+  it('converts empaddingTopy input to 0', () => {
     const result = convertToPx('');
     expect(result).toBe(0);
   });
@@ -41,42 +41,82 @@ describe('convertToPx', () => {
 describe('parsePadding', () => {
   it('parses number input as all paddings', () => {
     const result = parsePadding({ padding: 10 });
-    expect(result).toEqual({ pt: 10, pr: 10, pb: 10, pl: 10 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+    });
   });
 
   it('parses "10px" as all paddings', () => {
     const result = parsePadding({ padding: '10px' });
-    expect(result).toEqual({ pt: 10, pr: 10, pb: 10, pl: 10 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+    });
   });
 
-  it('parses "10px 20px" as pt, pr, pl, pb', () => {
+  it('parses "10px 20px" as paddingTop, paddingRight, paddingLeft, paddingBottom', () => {
     const result = parsePadding({ padding: '10px 2em' });
-    expect(result).toEqual({ pt: 10, pr: 32, pb: 10, pl: 32 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 32,
+      paddingBottom: 10,
+      paddingLeft: 32,
+    });
   });
 
-  it('parses "10px 20px 30px" as pt, pr, pb, pl', () => {
+  it('parses "10px 20px 30px" as paddingTop, paddingRight, paddingBottom, paddingLeft', () => {
     const result = parsePadding({ padding: '10px 20px 30px' });
-    expect(result).toEqual({ pt: 10, pr: 20, pb: 30, pl: 20 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 20,
+      paddingBottom: 30,
+      paddingLeft: 20,
+    });
   });
 
-  it('parses "10px 20px 30px 40px" as pt, pr, pb, pl', () => {
+  it('parses "10px 20px 30px 40px" as paddingTop, paddingRight, paddingBottom, paddingLeft', () => {
     const result = parsePadding({ padding: '10px 20px 30px 40px' });
-    expect(result).toEqual({ pt: 10, pr: 20, pb: 30, pl: 40 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 20,
+      paddingBottom: 30,
+      paddingLeft: 40,
+    });
   });
 
   it('handles undefined input as zeros', () => {
     const result = parsePadding({ padding: undefined });
-    expect(result).toEqual({ pt: 0, pr: 0, pb: 0, pl: 0 });
+    expect(result).toEqual({
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+    });
   });
 
-  it('handles empty string input as zeros', () => {
+  it('handles empaddingTopy string input as zeros', () => {
     const result = parsePadding({ padding: '' });
-    expect(result).toEqual({ pt: 0, pr: 0, pb: 0, pl: 0 });
+    expect(result).toEqual({
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+    });
   });
 
   it('overrides general padding value with specific padding value if specified', () => {
     const result = parsePadding({ padding: 10, paddingRight: '1em' });
-    expect(result).toEqual({ pt: 10, pr: 16, pb: 10, pl: 10 });
+    expect(result).toEqual({
+      paddingTop: 10,
+      paddingRight: 16,
+      paddingBottom: 10,
+      paddingLeft: 10,
+    });
   });
 });
 
@@ -98,16 +138,16 @@ describe('pxToPt', () => {
 
   it('returns null for invalid input "invalid"', () => {
     const result = pxToPt('invalid' as unknown as number);
-    expect(result).toBeNull();
+    expect(result).toBeUndefined();
   });
 
-  it('returns null for empty input', () => {
+  it('returns null for empaddingTopy input', () => {
     const result = pxToPt('' as unknown as number);
-    expect(result).toBeNull();
+    expect(result).toBeUndefined();
   });
 
   it('returns null for undefined input', () => {
     const result = pxToPt(undefined as unknown as number);
-    expect(result).toBeNull();
+    expect(result).toBeUndefined();
   });
 });
