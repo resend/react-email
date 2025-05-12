@@ -89,23 +89,23 @@ describe('parsePadding', () => {
     });
   });
 
-  it('handles undefined input as zeros', () => {
+  it('handles undefined input as undefined', () => {
     const result = parsePadding({ padding: undefined });
     expect(result).toEqual({
-      paddingTop: 0,
-      paddingRight: 0,
-      paddingBottom: 0,
-      paddingLeft: 0,
+      paddingTop: undefined,
+      paddingRight: undefined,
+      paddingBottom: undefined,
+      paddingLeft: undefined,
     });
   });
 
-  it('handles empaddingTopy string input as zeros', () => {
+  it('handles empty string input as undefined', () => {
     const result = parsePadding({ padding: '' });
     expect(result).toEqual({
-      paddingTop: 0,
-      paddingRight: 0,
-      paddingBottom: 0,
-      paddingLeft: 0,
+      paddingTop: undefined,
+      paddingRight: undefined,
+      paddingBottom: undefined,
+      paddingLeft: undefined,
     });
   });
 
