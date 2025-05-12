@@ -4,9 +4,7 @@ import url from 'node:url';
 import chalk from 'chalk';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
-import { addDevDependency } from 'nypm';
 import ora from 'ora';
-import prompts from 'prompts';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
 import { getPreviewServerLocation } from '../get-preview-server-location.js';
 import { packageJson } from '../packageJson.js';
@@ -47,29 +45,7 @@ export const startDevServer = async (
     process.exit(1);
   }
 
-  const usersProject = createJiti(process.cwd());
-  let previewServerLocation!: string;
-  try {
-    previewServerLocation = path.dirname(
-      url.parse(usersProject.esmResolve('@react-email/preview-server'), true)
-        .path!,
-    );
-  } catch (exception) {
-    const response = await prompts({
-      type: 'confirm',
-      name: 'installPreviewServer',
-      message:
-        'To run the preview server, the pacakge "@react-email/preview-server" must be installed. Would you like to install it?',
-      initial: true,
-    });
-    if (response.installPreviewServer) {
-      console.log('Installing "@react-email/preview-server"');
-      await addDevDependency('@react-email/preview-server');
-      process.exit(0);
-    } else {
-      process.exit(0);
-    }
-  }
+  const previewServerLocation = await getPreviewServerLocation();
   const previewServer = createJiti(previewServerLocation);
 
   const { default: next } =
