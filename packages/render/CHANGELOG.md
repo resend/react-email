@@ -1,5 +1,13 @@
 # @react-email/render
 
+## 1.1.2
+
+### Patch Changes
+
+- c6c03a4: fix react-dom/server import for the browser and some bundlers
+- e4598ab: Fixes `pretty` option breaking CJS projects
+- faa6944: accept React.ReactNode instead of React.ReactElement
+
 ## 1.1.1
 
 ### Patch Changes
