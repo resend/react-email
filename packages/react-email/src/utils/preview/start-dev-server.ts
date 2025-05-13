@@ -27,11 +27,6 @@ const safeAsyncServerListen = (server: http.Server, port: number) => {
   });
 };
 
-const filename = url.fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
-
-export const isDev = !dirname.includes('dist');
-
 export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
@@ -143,7 +138,7 @@ export const startDevServer = async (
 
   const app = next({
     // passing in env here does not get the environment variables there
-    dev: isDev,
+    dev: false,
     conf: {
       images: {
         // This is to avoid the warning with sharp
