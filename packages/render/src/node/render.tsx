@@ -5,11 +5,8 @@ import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
 
-export const render = async (
-  element: React.ReactElement,
-  options?: Options,
-) => {
-  const suspendedElement = <Suspense>{element}</Suspense>;
+export const render = async (node: React.ReactNode, options?: Options) => {
+  const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
   let html!: string;

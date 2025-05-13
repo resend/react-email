@@ -48,11 +48,8 @@ const readStream = async (
   return decoder.decode(mergedChunks);
 };
 
-export const render = async (
-  element: React.ReactElement,
-  options?: Options,
-) => {
-  const suspendedElement = <Suspense>{element}</Suspense>;
+export const render = async (node: React.ReactNode, options?: Options) => {
+  const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
   let html!: string;
