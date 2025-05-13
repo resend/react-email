@@ -21,6 +21,7 @@ export const start = async () => {
 
     const nextStart = spawn('npx', ['next', 'start', builtPreviewPath], {
       cwd: previewServerLocation,
+      shell: true,
       stdio: 'inherit',
     });
 
