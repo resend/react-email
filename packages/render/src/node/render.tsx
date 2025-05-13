@@ -6,10 +6,10 @@ import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
 
 export const render = async (
-  element: React.ReactElement,
+  node: React.ReactNode,
   options?: Options,
 ) => {
-  const suspendedElement = <Suspense>{element}</Suspense>;
+  const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server');
 
   let html!: string;
