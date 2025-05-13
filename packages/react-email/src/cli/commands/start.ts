@@ -16,8 +16,9 @@ export const start = async () => {
       process.exit(1);
     }
 
-    const nextStart = spawn('npm', ['start'], {
+    const nextStart = spawn('npx', ['next', 'start'], {
       cwd: builtPreviewPath,
+      shell: true,
       stdio: 'inherit',
     });
 
