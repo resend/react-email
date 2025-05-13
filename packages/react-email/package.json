@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsup-node && pnpm install --frozen-lockfile",
     "clean": "rm -rf dist",
-    "dev": "tsup-node --watch",
+    "dev": "tsup-node --watch src",
     "test": "vitest run",
     "test:watch": "vitest"
   },
