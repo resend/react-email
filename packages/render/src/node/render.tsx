@@ -5,10 +5,7 @@ import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
 
-export const render = async (
-  node: React.ReactNode,
-  options?: Options,
-) => {
+export const render = async (node: React.ReactNode, options?: Options) => {
   const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server').then(
     // This is beacuse react-dom/server is CJS
