@@ -216,11 +216,6 @@ export const build = async ({
       spinner.text = 'Deleting pre-existing modified preview app folder';
       await fs.promises.rm(modifiedPreviewAppPath, { recursive: true });
     }
-    const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
-    if (fs.existsSync(builtPreviewAppPath)) {
-      spinner.text = 'Deleting pre-existing .react-email folder';
-      await fs.promises.rm(builtPreviewAppPath, { recursive: true });
-    }
 
     spinner.text = 'Copying preview app from CLI to modify it';
     await fs.promises.cp(previewServerLocation, modifiedPreviewAppPath, {
@@ -264,25 +259,24 @@ export const build = async ({
     });
     await buildPreviewApp(modifiedPreviewAppPath);
 
-    await fs.promises.mkdir(builtPreviewAppPath);
     await fs.promises.cp(
       path.join(modifiedPreviewAppPath, '.next'),
-      path.join(builtPreviewAppPath, '.next'),
+      path.join(process.cwd(), '.next'),
       {
         recursive: true,
       },
     );
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, 'public'),
-      path.join(builtPreviewAppPath, 'public'),
-      {
-        recursive: true,
-      },
-    );
+    // await fs.promises.cp(
+    //   path.join(modifiedPreviewAppPath, 'public'),
+    //   path.join(builtPreviewAppPath, 'public'),
+    //   {
+    //     recursive: true,
+    //   },
+    // );
 
-    await fs.promises.rm(modifiedPreviewAppPath, {
-      recursive: true,
-    });
+    // await fs.promises.rm(modifiedPreviewAppPath, {
+    //   recursive: true,
+    // });
   } catch (error) {
     console.log(error);
     process.exit(1);
