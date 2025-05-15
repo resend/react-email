@@ -1,4 +1,4 @@
-import { parse } from '@babel/parser';
+import { Parser } from '../../parser';
 import { getObjectVariables } from './get-object-variables';
 
 test('getObjectVariables()', () => {
@@ -9,11 +9,9 @@ const buttonStyle = {
   borderRadius: '5px',
 };
 `;
-  const ast = parse(reactCode, {
-    strictMode: false,
-    errorRecovery: true,
-    sourceType: 'unambiguous',
-    plugins: ['jsx', 'typescript', 'decorators'],
+  const ast = Parser.parse(reactCode, {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   });
   expect(getObjectVariables(ast)).toMatchSnapshot();
 });
