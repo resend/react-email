@@ -71,14 +71,20 @@ test('createDependencyGraph()', async () => {
       moduleDependencies: ['node:path'],
       path: '../../../utils/preview/get-env-variables-for-preview-app.ts',
     },
+    '../../parser.ts': {
+      dependencyPaths: [],
+      dependentPaths: ['get-imported-modules.ts'],
+      moduleDependencies: ['acorn', 'acorn-typescript'],
+      path: '../../parser.ts',
+    },
     'get-imported-modules.ts': {
       path: 'get-imported-modules',
       dependentPaths: [
         'create-dependency-graph.ts',
         'get-imported-modules.spec.ts',
       ],
-      dependencyPaths: [],
-      moduleDependencies: ['@babel/parser', '@babel/traverse'],
+      dependencyPaths: ['../../parser.ts'],
+      moduleDependencies: ['acorn-walk'],
     },
     'get-imported-modules.spec.ts': {
       path: 'get-imported-modules.spec.ts',

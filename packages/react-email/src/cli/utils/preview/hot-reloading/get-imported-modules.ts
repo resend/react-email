@@ -1,40 +1,36 @@
-import { parse } from '@babel/parser';
-
-import traverseModule from '@babel/traverse';
-
-// @ts-expect-error This is fine since the default export is wrapped in a default function. The problem is that babel/traverse is not ESM.
-const traverse = traverseModule.default;
+import * as walk from 'acorn-walk';
+import { Parser } from '../../../../utils/parser';
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
-  const parsedContents = parse(contents, {
-    sourceType: 'unambiguous',
-    strictMode: false,
-    errorRecovery: true,
-    plugins: ['jsx', 'typescript', 'decorators'],
+  const parsedContents = Parser.parse(contents, {
+    locations: true,
+    sourceType: 'module',
+    ecmaVersion: 'latest',
   });
 
-  traverse(parsedContents, {
-    ImportDeclaration({ node }) {
-      importedPaths.push(node.source.value);
-    },
-    ExportAllDeclaration({ node }) {
-      importedPaths.push(node.source.value);
-    },
-    ExportNamedDeclaration({ node }) {
-      if (node.source) {
-        importedPaths.push(node.source.value);
+  walk.simple(parsedContents, {
+    ImportDeclaration(node) {
+      if (node.source.value) {
+        importedPaths.push(node.source.value.toString());
       }
     },
-    TSExternalModuleReference({ node }) {
-      importedPaths.push(node.expression.value);
+    ExportAllDeclaration(node) {
+      if (node.source.value) {
+        importedPaths.push(node.source.value.toString());
+      }
     },
-    CallExpression({ node }) {
+    ExportNamedDeclaration(node) {
+      if (node.source?.value) {
+        importedPaths.push(node.source.value.toString());
+      }
+    },
+    CallExpression(node) {
       if ('name' in node.callee && node.callee.name === 'require') {
         if (node.arguments.length === 1) {
           const importPathNode = node.arguments[0]!;
-          if (importPathNode!.type === 'StringLiteral') {
-            importedPaths.push(importPathNode.value);
+          if (importPathNode!.type === 'Literal' && importPathNode.value) {
+            importedPaths.push(importPathNode.value.toString());
           }
         }
       }
