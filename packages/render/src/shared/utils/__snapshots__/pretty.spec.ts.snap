@@ -1,5 +1,66 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`lenientParse() > should parse base doucment correctly 1`] = `
+[
+  {
+    "content": "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">",
+    "type": "declaration",
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "name": "head",
+        "properties": [],
+        "type": "tag",
+        "void": false,
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "whatever",
+                "type": "text",
+              },
+            ],
+            "name": "h1",
+            "properties": [],
+            "type": "tag",
+            "void": false,
+          },
+          {
+            "children": [],
+            "name": "input",
+            "properties": [
+              {
+                "name": "placeholder",
+                "value": ""hello world"",
+              },
+            ],
+            "type": "tag",
+            "void": true,
+          },
+        ],
+        "name": "body",
+        "properties": [
+          {
+            "name": "style",
+            "value": ""background-color:#fff;"",
+          },
+        ],
+        "type": "tag",
+        "void": false,
+      },
+    ],
+    "name": "html",
+    "properties": [],
+    "type": "tag",
+    "void": false,
+  },
+]
+`;
+
 exports[`pretty > if mso syntax does not wrap 1`] = `
 "<span
   ><!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span
@@ -160,4 +221,25 @@ exports[`pretty > should prettify Preview component's complex characters correct
 </html>
 <!--/$-->
 "
+`;
+
+exports[`wrapText() 1`] = `
+"Lorem
+ipsum
+dolor sit
+amet,
+consectetur
+adipiscing
+elit.
+Vestibulum
+tristique."
+`;
+
+exports[`wrapText() 2`] = `
+"  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet
+  tortor in orci ultricies, at fermentum nisl aliquam. Mauris ornare ut eros
+  non vulputate. Aliquam quam massa, sagittis et nunc at, tincidunt vestibulum
+  justo. Sed semper lectus a urna finibus congue. Aliquam erat volutpat. Lorem
+  ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie enim sed
+  mauris ultrices interdum."
 `;
