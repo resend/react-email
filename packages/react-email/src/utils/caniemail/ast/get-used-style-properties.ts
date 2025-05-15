@@ -1,8 +1,10 @@
-import traverse from '@babel/traverse';
-import type { AST } from '../../../actions/email-validation/check-compatibility';
+import type { SourceLocation } from 'acorn';
+import * as walk from 'acorn-walk';
+import type { JSXAttribute } from '../../acorn-typescript';
+import type { AST } from '../../parser';
 import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
-import type { ObjectVariables, SourceLocation } from './get-object-variables';
+import type { ObjectVariables } from './get-object-variables';
 
 export interface StylePropertyUsage {
   location: SourceLocation | undefined | null;
@@ -30,61 +32,67 @@ export const getUsedStyleProperties = async (
   );
 
   if (tailwindMetadata.hasTailwind) {
-    traverse(ast, {
-      JSXAttribute(path) {
-        if (path.node.name.name === 'className') {
-          path.traverse({
-            StringLiteral(stringPath) {
-              const className = stringPath.node.value;
-              const { rules } = generateTailwindCssRules(
-                className.split(' '),
-                tailwindMetadata.context,
-              );
-              for (const rule of rules) {
-                rule.walkDecls((decl) => {
-                  styleProperties.push({
-                    location: stringPath.node.loc,
-                    name: decl.prop,
-                    value: decl.value,
+    walk.full(ast, (node, _) => {
+      if (node.type === 'JSXAttribute') {
+        const attribute = node as JSXAttribute;
+        if (attribute.name.name === 'className') {
+          walk.simple(attribute, {
+            Literal(node) {
+              if (node.value) {
+                const className = node.value.toString();
+                const { rules } = generateTailwindCssRules(
+                  className.split(' '),
+                  tailwindMetadata.context,
+                );
+                for (const rule of rules) {
+                  rule.walkDecls((decl) => {
+                    styleProperties.push({
+                      location: node.loc,
+                      name: decl.prop,
+                      value: decl.value,
+                    });
                   });
-                });
+                }
               }
             },
           });
         }
-      },
+      }
     });
   }
 
-  traverse(ast, {
-    JSXAttribute(path) {
+  walk.full(ast, (node) => {
+    if (node.type === 'JSXAttribute') {
+      const attribute = node as JSXAttribute;
       if (
-        path.node.value?.type === 'JSXExpressionContainer' &&
-        path.node.value.expression.type === 'Identifier' &&
-        path.node.name.name === 'style'
+        attribute.value?.type === 'JSXExpressionContainer' &&
+        attribute.value.expression.type === 'Identifier' &&
+        attribute.name.name === 'style'
       ) {
-        const styleVariable = objectVariables[path.node.value.expression.name];
+        const styleVariable = objectVariables[attribute.value.expression.name];
         if (styleVariable) {
           for (const property of styleVariable) {
             if (
-              (property.key.type === 'StringLiteral' ||
+              (property.key.type === 'Literal' ||
                 property.key.type === 'Identifier') &&
-              property.value.type === 'StringLiteral'
+              property.value.type === 'Literal'
             ) {
               const propertyName =
-                property.key.type === 'StringLiteral'
+                property.key.type === 'Literal'
                   ? property.key.value
                   : property.key.name;
-              styleProperties.push({
-                name: propertyName,
-                value: property.value.value,
-                location: property.loc,
-              });
+              if (propertyName && property.value.value) {
+                styleProperties.push({
+                  name: propertyName.toString(),
+                  value: property.value.value.toString(),
+                  location: property.loc,
+                });
+              }
             }
           }
         }
       }
-    },
+    }
   });
 
   return styleProperties;
