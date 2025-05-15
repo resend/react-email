@@ -1,12 +1,10 @@
 'use server';
-import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
+import type { SourceLocation } from 'acorn';
+import * as walk from 'acorn-walk';
 import {
-  convertLocationIntoObject,
   getObjectVariables,
-  type SourceLocation,
 } from '../../utils/caniemail/ast/get-object-variables';
-import type { StylePropertyUsage } from '../../utils/caniemail/ast/get-used-style-properties';
+import type { JSXOpeningElement, StylePropertyUsage } from '../../utils/caniemail/ast/get-used-style-properties';
 import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
@@ -22,6 +20,7 @@ import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-
 import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import { getElementNames } from '../../utils/caniemail/get-element-names';
+import { Parser } from '../../utils/parser';
 import { supportEntries } from './caniemail-data';
 
 export interface CompatibilityCheckingResult {
@@ -120,11 +119,9 @@ export const checkCompatibility = async (
   reactCode: string,
   emailPath: string,
 ) => {
-  const ast = parse(reactCode, {
-    strictMode: false,
-    errorRecovery: true,
-    sourceType: 'unambiguous',
-    plugins: ['jsx', 'typescript', 'decorators'],
+  const ast = Parser.parse(reactCode, {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   });
 
   const getSourceCodeAt = (location: SourceLocation) => {
@@ -177,8 +174,9 @@ export const checkCompatibility = async (
 
           let addedInsight = false;
           if (htmlEntryType === 'element') {
-            traverse(ast, {
-              JSXOpeningElement(path) {
+            walk.full(ast, (node) => {
+              if (node.type === 'JSXOpeningElement') {
+                const openingElement = node as JSXOpeningElement;
                 if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
                   const elementName = path.node.name.name;
                   if (
@@ -195,7 +193,7 @@ export const checkCompatibility = async (
                     });
                   }
                 }
-              },
+              }
             });
           } else {
             traverse(ast, {
