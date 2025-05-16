@@ -16,19 +16,21 @@ describe('lenientParse()', () => {
 
 describe('pretty', () => {
   it('should prettify base doucment correctly', () => {
-    const document = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body style="background-color:#fff;"><h1>whatever</h1><input placeholder="hello world"/></body></html>`;
+    const document =
+      '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body style="background-color:#fff;"><h1>whatever</h1><input placeholder="hello world"/></body></html>';
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  // it("should prettify Preview component's complex characters correctly", async () => {
-  //   const stripeHTML = await fs.readFile(
-  //     path.resolve(__dirname, './stripe-email.html'),
-  //     'utf8',
-  //   );
-  //
-  //   expect(await pretty(stripeHTML)).toMatchSnapshot();
-  // });
-  //
+  it('should print properties per-line once they get too wide', () => {
+    const document =
+      '<div style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"></div>';
+    expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
+  });
+
+  it("should prettify Preview component's complex characters correctly", () => {
+    expect(pretty(stripeHTML, { lineBreak: '\n' })).toMatchSnapshot();
+  });
+
   // test('if mso syntax does not wrap', async () => {
   //   expect(
   //     await pretty(
