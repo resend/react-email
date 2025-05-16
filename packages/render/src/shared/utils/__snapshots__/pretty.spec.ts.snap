@@ -236,6 +236,28 @@ exports[`pretty > should prettify base doucment correctly 1`] = `
 </html>
 "
 `;
+
+exports[`wrapText() > should work with longer lines imitating what would come from pretty printing 1`] = `
+"  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet
+  tortor in orci ultricies, at fermentum nisl aliquam. Mauris ornare ut eros
+  non vulputate. Aliquam quam massa, sagittis et nunc at, tincidunt vestibulum
+  justo. Sed semper lectus a urna finibus congue. Aliquam erat volutpat. Lorem
+  ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie enim sed
+  mauris ultrices interdum."
+`;
+
+exports[`wrapText() > should work with short lines 1`] = `
+"Lorem
+ipsum
+dolor sit
+amet,
+consectetur
+adipiscing
+elit.
+Vestibulum
+tristique."
+`;
+
 exports[`wrapText() 1`] = `
 "Lorem
 ipsum
