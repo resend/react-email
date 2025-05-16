@@ -235,12 +235,7 @@ const prettyNodes = (
         formatted += node.content;
       } else {
         const rawText = node.content.replaceAll(/(\r|\n|\r\n)\s*/g, '');
-        formatted += wrapText(
-          rawText,
-          indentation,
-          maxLineLength - currentIndentationSize,
-          lineBreak,
-        );
+        formatted += wrapText(rawText, indentation, maxLineLength, lineBreak);
       }
       formatted += lineBreak;
     } else if (node.type === 'tag') {
@@ -249,7 +244,7 @@ const prettyNodes = (
         .join('');
 
       const rawTagStart = `${indentation}<${node.name}${propertiesRawString}${node.void ? '/' : ''}>`;
-      if (rawTagStart.length > maxLineLength) {
+      if (rawTagStart.length - currentIndentationSize > maxLineLength) {
         let tagStart = `${indentation}<${node.name}${lineBreak}`;
         for (const property of node.properties) {
           tagStart += `${indentation}  ${property.name}=${property.value}${lineBreak}`;
