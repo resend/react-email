@@ -1,4 +1,3 @@
-import child_process from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
@@ -8,15 +7,6 @@ const dirname = path.dirname(filename);
 
 const previewServerRoot = path.resolve(dirname, '..');
 const emailsDirectoryPath = path.join(previewServerRoot, 'emails');
-
-await fs.writeFile(
-  path.join(previewServerRoot, '.env.local'),
-  `EMAILS_DIR_RELATIVE_PATH=./emails
-EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
-USER_PROJECT_LOCATION=${previewServerRoot}
-NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
-  'utf8',
-);
 
 const emptyEmail = `import {
   Body,
@@ -68,6 +58,7 @@ for (let i = 0; i < directoryCount; i++) {
   const directoryPath = path.join(emailsDirectoryPath, `directory-${i}`);
   await fs.mkdir(directoryPath);
   for (let j = 0; j < emailsPerDirectoryCount; j++) {
+    console.info(`written directory-${i}/file-${i}-${j}.tsx`);
     await fs.writeFile(
       path.join(directoryPath, `file-${i}-${j}.tsx`),
       emptyEmail,
@@ -75,29 +66,3 @@ for (let i = 0; i < directoryCount; i++) {
     );
   }
 }
-
-const webServerProcess = child_process.spawn('next', ['dev'], {
-  cwd: previewServerRoot,
-  shell: true,
-  stdio: 'inherit',
-});
-
-webServerProcess.on('exit', async () => {
-  await fs.rm(path.join(previewServerRoot, '.env.local'));
-});
-
-process.on('SIGINT', () => {
-  webServerProcess.kill('SIGINT');
-});
-process.on('SIGUSR1', () => {
-  webServerProcess.kill('SIGUSR1');
-});
-process.on('SIGUSR2', () => {
-  webServerProcess.kill('SIGUSR2');
-});
-process.on('uncaughtExceptionMonitor', () => {
-  webServerProcess.kill();
-});
-process.on('exit', () => {
-  webServerProcess.kill();
-});
