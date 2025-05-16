@@ -17,8 +17,13 @@ interface HtmlTag {
 /**
  * Something like the DOCTYPE for the document, or comments.
  */
-interface HtmlDeclaration {
-  type: 'declaration';
+interface HtmlDoctype {
+  type: 'doctype';
+  content: string;
+}
+
+interface HtmlComment {
+  type: 'comment';
   content: string;
 }
 
@@ -27,7 +32,7 @@ interface HtmlText {
   content: string;
 }
 
-type HtmlNode = HtmlTag | HtmlDeclaration | HtmlText;
+type HtmlNode = HtmlTag | HtmlDoctype | HtmlComment | HtmlText;
 
 export const lenientParse = (html: string): HtmlNode[] => {
   const result: HtmlNode[] = [];
@@ -59,19 +64,33 @@ export const lenientParse = (html: string): HtmlNode[] => {
       index = htmlObjectStart;
     }
 
-    if (html.startsWith('<!', index)) {
-      // an HTML declaration, i.e. a comment or a DOCTYPE
-      const declEnd = html.indexOf('>', index + 2);
-      if (declEnd === -1) {
-        // Assumes the rest of the document is part of this declaration
-        const content = html.slice(index);
-        addToTree({ type: 'declaration', content });
+    if (html.startsWith('<!--', index)) {
+      const commentEnd = html.indexOf('-->', index + '<!--'.length);
+      if (commentEnd === -1) {
+        // Assumes the rest of the document is part of this comment
+        const content = html.slice(index + '<!--'.length);
+        addToTree({ type: 'comment', content });
         break;
       }
 
-      const content = html.substring(index, declEnd + 1);
-      addToTree({ type: 'declaration', content });
-      index = declEnd + 1;
+      const content = html.substring(index + '<!--'.length, commentEnd);
+      addToTree({ type: 'comment', content });
+      index = commentEnd + '-->'.length;
+      continue;
+    }
+
+    if (html.startsWith('<!DOCTYPE', index)) {
+      const declEnd = html.indexOf('>', index + '<!DOCTYPE'.length);
+      if (declEnd === -1) {
+        // Assumes the rest of the document is part of this doctype
+        const content = html.slice(index + '<!DOCTYPE'.length);
+        addToTree({ type: 'doctype', content });
+        break;
+      }
+
+      const content = html.substring(index + '<!DOCTYPE'.length, declEnd);
+      addToTree({ type: 'doctype', content });
+      index = declEnd + '>'.length;
       continue;
     }
 
@@ -270,8 +289,10 @@ const prettyNodes = (
 
         formatted += `</${node.name}>${lineBreak}`;
       }
-    } else if (node.type === 'declaration') {
-      formatted += `${indentation}${node.content}${lineBreak}`;
+    } else if (node.type === 'comment') {
+      formatted += `${indentation}<!--${node.content}-->${lineBreak}`;
+    } else if (node.type === 'doctype') {
+      formatted += `${indentation}<!DOCTYPE${node.content}>${lineBreak}`;
     }
   }
   return formatted;
