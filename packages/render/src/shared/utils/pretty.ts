@@ -185,12 +185,15 @@ export const wrapText = (
     return `${linePrefix}${text}`;
   }
   let wrappedText = linePrefix + text;
-  let currentLineStartIndex = 0;
+  let currentLineStartIndex = linePrefix.length;
   while (wrappedText.length - currentLineStartIndex > maxLineLength) {
     const overflowingCharacterIndex = Math.min(
       currentLineStartIndex + maxLineLength - 1,
       wrappedText.length,
     );
+    if (!wrappedText.includes(' ', currentLineStartIndex)) {
+      return wrappedText;
+    }
     for (let i = overflowingCharacterIndex; i >= currentLineStartIndex; i--) {
       const char = wrappedText[i];
       if (char === ' ') {
