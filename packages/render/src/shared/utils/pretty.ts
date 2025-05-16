@@ -181,14 +181,17 @@ export const wrapText = (
   maxLineLength: number,
   lineBreak: string,
 ): string => {
+  if (!text.includes(' ')) {
+    return `${linePrefix}${text}`;
+  }
   let wrappedText = linePrefix + text;
-  let nextLineStartIndex = 0;
-  while (wrappedText.length - nextLineStartIndex > maxLineLength) {
+  let currentLineStartIndex = 0;
+  while (wrappedText.length - currentLineStartIndex > maxLineLength) {
     const overflowingCharacterIndex = Math.min(
-      nextLineStartIndex + maxLineLength - 1,
+      currentLineStartIndex + maxLineLength - 1,
       wrappedText.length,
     );
-    for (let i = overflowingCharacterIndex; i >= nextLineStartIndex; i--) {
+    for (let i = overflowingCharacterIndex; i >= currentLineStartIndex; i--) {
       const char = wrappedText[i];
       if (char === ' ') {
         wrappedText =
@@ -196,17 +199,17 @@ export const wrapText = (
           lineBreak +
           linePrefix +
           wrappedText.slice(i + 1);
-        nextLineStartIndex = lineBreak.length + linePrefix.length + i;
+        currentLineStartIndex = lineBreak.length + linePrefix.length + i;
         break;
       }
-      if (i === nextLineStartIndex) {
-        const nextSpaceIndex = wrappedText.indexOf(' ', nextLineStartIndex);
+      if (i === currentLineStartIndex) {
+        const nextSpaceIndex = wrappedText.indexOf(' ', currentLineStartIndex);
         wrappedText =
           wrappedText.slice(0, nextSpaceIndex) +
           lineBreak +
           linePrefix +
           wrappedText.slice(nextSpaceIndex + 1);
-        nextLineStartIndex =
+        currentLineStartIndex =
           lineBreak.length + linePrefix.length + nextSpaceIndex;
       }
     }
