@@ -2,8 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { lenientParse, pretty, wrapText } from './pretty';
 
-const stripeHTML = fs.readFileSync(
-  path.resolve(__dirname, './stripe-email.html'),
+const stripeHtml = fs.readFileSync(
+  path.resolve(__dirname, './tests/stripe-email.html'),
+  'utf8',
+);
+const codepenHtml = fs.readFileSync(
+  path.resolve(__dirname, './tests/codepen-challengers.html'),
   'utf8',
 );
 
@@ -27,17 +31,24 @@ describe('pretty', () => {
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  it("should prettify Preview component's complex characters correctly", () => {
-    expect(pretty(stripeHTML, { lineBreak: '\n' })).toMatchSnapshot();
+  it("should prettify Stripe's template correctly", () => {
+    expect(pretty(stripeHtml, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  // test('if mso syntax does not wrap', async () => {
-  //   expect(
-  //     await pretty(
-  //       `<span><!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span>`,
-  //     ),
-  //   ).toMatchSnapshot();
-  // });
+  it.only("should prettify Code Pen's template correctly", () => {
+    expect(pretty(codepenHtml, { lineBreak: '\n' })).toMatchSnapshot();
+  });
+
+  it('should not wrap [if mso] syntax', () => {
+    expect(
+      pretty(
+        `<span><!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span>`,
+        {
+          lineBreak: '\n',
+        },
+      ),
+    ).toMatchSnapshot();
+  });
 });
 
 describe('wrapText()', () => {
