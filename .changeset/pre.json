@@ -25,7 +25,7 @@
     "@react-email/link": "0.0.12",
     "@react-email/markdown": "0.0.15",
     "@react-email/preview": "0.0.13",
-    "react-email": "4.0.13",
+    "react-email": "4.0.14",
     "@react-email/render": "1.1.2",
     "@react-email/row": "0.0.12",
     "@react-email/section": "0.0.16",
