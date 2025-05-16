@@ -17,7 +17,7 @@ describe('lenientParse()', () => {
 describe('pretty', () => {
   it('should prettify base doucment correctly', () => {
     const document = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body style="background-color:#fff;"><h1>whatever</h1><input placeholder="hello world"/></body></html>`;
-    expect(pretty(document, { lineBreak: '\n' })).toBe('');
+    expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
   // it("should prettify Preview component's complex characters correctly", async () => {
