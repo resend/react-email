@@ -23,7 +23,7 @@ export const containsEmailTemplate = (
     return directory.emailFilenames.includes(emailFilename);
   }
   const subDirectory = directory.subDirectories.find(
-    (sub) => sub.relativePath === remainingSegments[0],
+    (sub) => sub.directoryName === remainingSegments[0],
   );
   if (subDirectory === undefined) {
     return false;

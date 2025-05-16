@@ -1,10 +1,10 @@
-import path from 'node:path';
 import {
   containsEmailTemplate,
   removeFilenameExtension,
 } from './contains-email-template';
+import type { EmailsDirectory } from './get-emails-directory-metadata';
 
-describe('removeFilenameExtension()', async () => {
+describe('removeFilenameExtension()', () => {
   it('should work with a single .', () => {
     expect(removeFilenameExtension('email-template.tsx')).toBe(
       'email-template',
@@ -22,19 +22,15 @@ describe('removeFilenameExtension()', async () => {
   });
 });
 
-test('containsEmailTemplate()', async () => {
-  const emailsDirectoryPath = path.resolve(
-    __dirname,
-    '../../../../apps/demo/emails',
-  );
-  const directory = {
-    absolutePath: emailsDirectoryPath,
+describe('containsEmailTemplate()', () => {
+  const directory: EmailsDirectory = {
+    absolutePath: '/fake/path/emails',
     directoryName: 'emails',
     relativePath: '',
     emailFilenames: [],
     subDirectories: [
       {
-        absolutePath: `${emailsDirectoryPath}/magic-links`,
+        absolutePath: '/fake/path/emails/magic-links',
         directoryName: 'magic-links',
         relativePath: 'magic-links',
         emailFilenames: [
@@ -45,10 +41,18 @@ test('containsEmailTemplate()', async () => {
           'raycast-magic-link',
           'slack-confirm',
         ],
-        subDirectories: [],
+        subDirectories: [
+          {
+            absolutePath: '/fake/path/emails/magic-links/resend',
+            directoryName: 'resend',
+            emailFilenames: ['verify-email'],
+            relativePath: 'magic-links/resend',
+            subDirectories: [],
+          },
+        ],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/newsletters`,
+        absolutePath: '/fake/path/emails/newsletters',
         directoryName: 'newsletters',
         relativePath: 'newsletters',
         emailFilenames: [
@@ -59,7 +63,7 @@ test('containsEmailTemplate()', async () => {
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/notifications`,
+        absolutePath: '/fake/path/emails/notifications',
         directoryName: 'notifications',
         relativePath: 'notifications',
         emailFilenames: [
@@ -71,28 +75,28 @@ test('containsEmailTemplate()', async () => {
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/receipts`,
+        absolutePath: '/fake/path/emails/receipts',
         directoryName: 'receipts',
         relativePath: 'receipts',
         emailFilenames: ['apple-receipt', 'nike-receipt'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/reset-password`,
+        absolutePath: '/fake/path/emails/reset-password',
         directoryName: 'reset-password',
         relativePath: 'reset-password',
         emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/reviews`,
+        absolutePath: '/fake/path/emails/reviews',
         directoryName: 'reviews',
         relativePath: 'reviews',
         emailFilenames: ['airbnb-review', 'amazon-review'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/welcome`,
+        absolutePath: '/fake/path/emails/welcome',
         directoryName: 'welcome',
         relativePath: 'welcome',
         emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
@@ -100,8 +104,21 @@ test('containsEmailTemplate()', async () => {
       },
     ],
   };
-  expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(true);
-  expect(containsEmailTemplate('welcome/missing-template', directory)).toBe(
-    false,
-  );
+  it('should work with email inside a single sub directory', () => {
+    expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(
+      true,
+    );
+    expect(containsEmailTemplate('welcome/missing-template', directory)).toBe(
+      false,
+    );
+  });
+
+  it('should work with email inside a second sub directory', () => {
+    expect(
+      containsEmailTemplate('magic-links/resend/verify-email', directory),
+    ).toBe(true);
+    expect(
+      containsEmailTemplate('magic-links/resend/missing-template', directory),
+    ).toBe(false);
+  });
 });
