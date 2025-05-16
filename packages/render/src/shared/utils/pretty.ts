@@ -247,9 +247,9 @@ const prettyNodes = (
 
       const rawTagStart = `${indentation}<${node.name}${propertiesRawString}${node.void ? '/' : ''}>`;
       if (rawTagStart.length > maxLineLength) {
-        let tagStart = `${indentation}<${node.name}`;
+        let tagStart = `${indentation}<${node.name}${lineBreak}`;
         for (const property of node.properties) {
-          tagStart += `${indentation} ${property.name}=${property.value}${lineBreak}`;
+          tagStart += `${indentation}  ${property.name}=${property.value}${lineBreak}`;
         }
         tagStart += `${indentation}${node.void ? '/' : ''}>`;
         formatted += tagStart;
