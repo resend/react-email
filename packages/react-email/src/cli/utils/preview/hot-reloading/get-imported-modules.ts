@@ -2,8 +2,14 @@ import { parse } from '@babel/parser';
 
 import traverseModule from '@babel/traverse';
 
-// @ts-expect-error This is fine since the default export is wrapped in a default function. The problem is that babel/traverse is not ESM.
-const traverse = traverseModule.default;
+const traverse =
+  // we keep this check here so that this still works with the dev:preview
+  // script's use of tsx
+  typeof traverseModule === 'function'
+    ? traverseModule
+    : // @ts-expect-error This is fine since the default export is wrapped in a
+      // default function. The problem is that babel/traverse is not ESM.
+      traverseModule.default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
