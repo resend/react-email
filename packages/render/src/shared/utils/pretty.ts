@@ -239,6 +239,7 @@ const prettyNodes = (
           lineBreak,
         );
       }
+      formatted += lineBreak;
     } else if (node.type === 'tag') {
       const propertiesRawString = node.properties
         .map((property) => ` ${property.name}=${property.value}`)
@@ -248,12 +249,15 @@ const prettyNodes = (
       if (rawTagStart.length > maxLineLength) {
         let tagStart = `${indentation}<${node.name}`;
         for (const property of node.properties) {
-          tagStart += `${indentation}  ${property.name}=${property.value}${lineBreak}`;
+          tagStart += `${indentation} ${property.name}=${property.value}${lineBreak}`;
         }
         tagStart += `${indentation}${node.void ? '/' : ''}>`;
         formatted += tagStart;
       } else {
         formatted += `${rawTagStart}`;
+      }
+      if (node.void) {
+        formatted += lineBreak;
       }
 
       if (!node.void) {
@@ -263,13 +267,13 @@ const prettyNodes = (
             options,
             currentIndentationSize + 2,
           )}`;
-          formatted += `${lineBreak}${indentation}`;
+          formatted += `${indentation}`;
         }
 
         formatted += `</${node.name}>${lineBreak}`;
       }
     } else if (node.type === 'declaration') {
-      formatted = `${indentation}${node.content}${lineBreak}`;
+      formatted += `${indentation}${node.content}${lineBreak}`;
     }
   }
   return formatted;
