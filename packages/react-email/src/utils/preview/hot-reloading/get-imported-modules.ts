@@ -7,9 +7,7 @@ const traverse =
   // script's use of tsx
   typeof traverseModule === 'function'
     ? traverseModule
-    : // @ts-expect-error This is fine since the default export is wrapped in a
-      // default function. The problem is that babel/traverse is not ESM.
-      traverseModule.default;
+    : traverseModule.default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
