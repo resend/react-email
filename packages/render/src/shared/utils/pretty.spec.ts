@@ -35,7 +35,7 @@ describe('pretty', () => {
     expect(pretty(stripeHtml, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  it.only("should prettify Code Pen's template correctly", () => {
+  it("should prettify Code Pen's template correctly", () => {
     expect(pretty(codepenHtml, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
