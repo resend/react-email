@@ -38,21 +38,33 @@ describe('pretty', () => {
   // });
 });
 
-test('wrapText()', () => {
-  expect(
-    wrapText(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique.',
-      '',
-      10,
-      '\n',
-    ),
-  ).toMatchSnapshot();
-  expect(
-    wrapText(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet tortor in orci ultricies, at fermentum nisl aliquam. Mauris ornare ut eros non vulputate. Aliquam quam massa, sagittis et nunc at, tincidunt vestibulum justo. Sed semper lectus a urna finibus congue. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie enim sed mauris ultrices interdum.',
-      '  ',
-      78,
-      '\n',
-    ),
-  ).toMatchSnapshot();
+describe('wrapText()', () => {
+  it('should work with short lines', () => {
+    expect(
+      wrapText(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique.',
+        '',
+        10,
+        '\n',
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('should work with longer lines imitating what would come from pretty printing', () => {
+    expect(
+      wrapText(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet tortor in orci ultricies, at fermentum nisl aliquam. Mauris ornare ut eros non vulputate. Aliquam quam massa, sagittis et nunc at, tincidunt vestibulum justo. Sed semper lectus a urna finibus congue. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie enim sed mauris ultrices interdum.',
+        '  ',
+        78,
+        '\n',
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('should work with space characters from Preview component', () => {
+    const spaceCharacters = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF'.repeat(
+      150 - 50,
+    );
+    expect(wrapText(spaceCharacters, '', 80, '\n')).toBe(spaceCharacters);
+  });
 });
