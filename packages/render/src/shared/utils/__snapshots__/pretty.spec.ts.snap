@@ -61,6 +61,13 @@ exports[`lenientParse() > should parse base doucment correctly 1`] = `
 ]
 `;
 
+exports[`pretty > should not wrap [if mso] syntax 1`] = `
+"<span>
+  <!--[if mso]><i style="mso-font-width:100%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]-->
+</span>
+"
+`;
+
 exports[`pretty > should prettify Code Pen's template correctly 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
