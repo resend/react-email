@@ -69,4 +69,15 @@ describe('wrapText()', () => {
     );
     expect(wrapText(spaceCharacters, '', 80, '\n')).toBe(spaceCharacters);
   });
+
+  it('should work with ending words that are larger than the max line size', () => {
+    expect(
+      wrapText(
+        'Want to go beyond the square cube? Draw inspiration from EntropyReversed&#x27;s',
+        '',
+        16,
+        '\n',
+      ),
+    ).toMatchSnapshot();
+  });
 });
