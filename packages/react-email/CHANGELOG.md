@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.14
+
+### Patch Changes
+
+- b57f866: fix hot reloading with directories at least two levels deep
+
 ## 4.0.13
 
 ### Patch Changes
