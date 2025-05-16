@@ -1,7 +1,7 @@
+import child_process from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
-import child_process from 'node:child_process';
 
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
