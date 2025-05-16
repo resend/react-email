@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.7
+
+### Patch Changes
+
+- f00aff6: Fix prettier errors causing NextJS serialization error
+
 ## 4.1.0-canary.6
 
 ### Patch Changes
