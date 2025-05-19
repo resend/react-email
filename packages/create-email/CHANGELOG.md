@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.1
+
+### Patch Changes
+
+- ff118ea: fix broken node 18 support
+
 ## 1.2.0
 
 ### Minor Changes
