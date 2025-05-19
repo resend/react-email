@@ -83,7 +83,7 @@ export const SpamAssassin = ({ result }: SpamAssassinProps) => {
     <>
       {result ? (
         <Results>
-          <Results.Row className="sticky border-b top-0 bg-black">
+          <Results.Row className="sticky border-b top-0">
             <Results.Column className="uppercase">
               <span className="flex gap-2 items-center">
                 <IconWarning
