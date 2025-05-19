@@ -8,11 +8,11 @@ import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { tree } from './tree.js';
 
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
 const packageJson = JSON.parse(
-  fse.readFileSync(
-    path.resolve(import.meta.dirname, '../package.json'),
-    'utf8',
-  ),
+  fse.readFileSync(path.resolve(dirname, '../package.json'), 'utf8'),
 );
 
 const getLatestVersionOfTag = async (packageName, tag) => {
@@ -46,8 +46,7 @@ const init = async (name, { tag }) => {
     projectPath = projectPath.trim();
   }
 
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const templatePath = path.resolve(__dirname, '../template');
+  const templatePath = path.resolve(dirname, '../template');
   const resolvedProjectPath = path.resolve(projectPath);
 
   if (fse.existsSync(resolvedProjectPath)) {
