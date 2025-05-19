@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.15
+
+### Patch Changes
+
+- 812c551: fix preview server's background gradient interferring with the user's colors
+
 ## 4.0.14
 
 ### Patch Changes
