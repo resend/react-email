@@ -31,12 +31,14 @@
     "@react-email/section": "0.0.16",
     "@react-email/tailwind": "1.0.5",
     "@react-email/text": "0.1.4",
-    "tsconfig": "0.0.0"
+    "tsconfig": "0.0.0",
+    "@react-email/preview-server": "1.0.0-canary.0"
   },
   "changesets": [
     "crazy-seas-eat",
     "great-parrots-yell",
     "mighty-pigs-add",
+    "puny-chicken-argue",
     "stupid-ghosts-decide",
     "tasty-swans-taste",
     "tidy-geese-cross",
