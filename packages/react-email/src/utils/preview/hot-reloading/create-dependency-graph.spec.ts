@@ -64,9 +64,7 @@ test("createDependencyGraph()", async () => {
       moduleDependencies: ["node:fs", "node:path", "chokidar/handler.js"],
     },
     "../../get-preview-server-location.ts": {
-      dependencyPaths: [
-        "../../packageJson.ts",
-      ],
+      dependencyPaths: ["../../packageJson.ts"],
       dependentPaths: ["../../preview/start-dev-server.ts"],
       moduleDependencies: ["node:path", "node:url", "jiti", "nypm", "prompts"],
       path: "../../get-preview-server-location.ts",
