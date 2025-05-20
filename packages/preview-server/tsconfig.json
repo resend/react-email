@@ -8,7 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
@@ -28,12 +28,18 @@
     "noEmit": true,
     "strict": false,
     "target": "ESNext",
-    "module": "NodeNext",
+    "module": "CommonJS",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "tailwind-internals.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [".next", "dist", "node_modules"]
 }
