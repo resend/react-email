@@ -6,7 +6,6 @@
     "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
     "clean": "rm -rf dist",
     "build": "node ./scripts/build-preview-server.mjs",
-    "dev": "",
     "test": "vitest run",
     "test:watch": "vitest"
   },
