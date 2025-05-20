@@ -36,7 +36,7 @@
     "json5": "2.2.3",
     "log-symbols": "^4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
-    "next": "^15.2.4",
+    "next": "^15.3.2",
     "node-html-parser": "7.0.1",
     "ora": "^5.4.1",
     "pretty-bytes": "6.1.1",
