@@ -46,10 +46,7 @@ test('createDependencyGraph()', async () => {
   const initialDependencyGraph = convertPathsToAbsolute({
     'create-dependency-graph.ts': {
       path: 'create-dependency-graph.ts',
-      dependencyPaths: [
-        'get-imported-modules.ts',
-        'resolve-path-aliases.ts',
-      ],
+      dependencyPaths: ['get-imported-modules.ts', 'resolve-path-aliases.ts'],
       dependentPaths: [
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
