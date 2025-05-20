@@ -3,7 +3,25 @@ import * as React from 'react';
 export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
-  ({ children, style, ...props }, ref) => {
+  ({ children, style = {}, ...props }, ref) => {
+    // Destructure padding to improve compatibility with Klavyio and Outlook.
+    const {
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+      ...tableStyle
+    } = style;
+
+    const tdStyle = {
+      padding,
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+    };
+
     return (
       <table
         align="center"
@@ -14,11 +32,11 @@ export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
         cellSpacing="0"
         ref={ref}
         role="presentation"
-        style={{ maxWidth: '37.5em', ...style }}
+        style={{ maxWidth: '37.5em', ...tableStyle }}
       >
         <tbody>
           <tr style={{ width: '100%' }}>
-            <td>{children}</td>
+            <td style={tdStyle}>{children}</td>
           </tr>
         </tbody>
       </table>
