@@ -76,7 +76,7 @@ importers:
         specifier: ^19.0.1
         version: 19.0.1
       next:
-        specifier: 15.3.1
+        specifier: ^15.2.4
         version: 15.3.1(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tsx:
         specifier: 4.19.3

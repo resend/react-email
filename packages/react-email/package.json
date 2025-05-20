@@ -7,7 +7,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsup-node && pnpm install --frozen-lockfile",
+    "build": "tsup-node",
     "clean": "rm -rf dist",
     "dev": "tsup-node --watch src",
     "test": "vitest run",
