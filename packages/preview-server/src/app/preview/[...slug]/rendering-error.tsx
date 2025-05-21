@@ -26,10 +26,10 @@ export const RenderingError = (props: { error: ErrorObject }) => {
             </svg>
             {props.error.name}: {props.error.message}
           </h2>
-          {props.error.stack ? (
+          {props.error.description ? (
             <div className="flex-grow scroll-px-4 overflow-x-auto rounded-lg bg-red-500 p-2 text-sm text-gray-100">
               <pre className="w-full min-w-0 font-mono leading-7">
-                {props.error.stack}
+                {props.error.description}
               </pre>
             </div>
           ) : undefined}

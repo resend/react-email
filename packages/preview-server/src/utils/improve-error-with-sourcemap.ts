@@ -80,6 +80,6 @@ export const improveErrorWithSourceMap = (
   return {
     name: error.name,
     message: error.message,
-    stack,
+    description: stack,
   };
 };
