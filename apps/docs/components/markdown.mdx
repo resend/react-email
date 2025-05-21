@@ -7,6 +7,7 @@ icon: "file-code"
 ---
 
 import Support from '/snippets/support.mdx'
+import { ComponentPreview } from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -44,6 +45,35 @@ pnpm add @react-email/markdown -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Markdown, Html } from "@react-email/components";
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Markdown
+        markdownCustomStyles={{
+          h1: { color: "cyan" },
+          h2: { color: "blue" },
+          codeInline: { background: "grey" },
+        }}
+        markdownContainerStyles={{
+          padding: "12px",
+          border: "solid 1px #eee",
+        }}
+      >{`# Hello, World!`}</Markdown>
+
+      {/* OR */}
+
+      <Markdown markdownCustomStyles={{
+        h1: {
+          color: "#eee"
+        }
+      }} children={`# This is a ~~strikethrough~~`} />
+    </Html>
+  );
+};
+'>
 ```jsx
 import { Markdown, Html } from "@react-email/components";
 
@@ -52,23 +82,28 @@ const Email = () => {
     <Html lang="en" dir="ltr">
       <Markdown
         markdownCustomStyles={{
-          h1: { color: "red" },
+          h1: { color: "cyan" },
           h2: { color: "blue" },
           codeInline: { background: "grey" },
         }}
         markdownContainerStyles={{
           padding: "12px",
-          border: "solid 1px black",
+          border: "solid 1px #eee",
         }}
       >{`# Hello, World!`}</Markdown>
 
       {/* OR */}
 
-      <Markdown children={`# This is a ~~strikethrough~~`} />
+      <Markdown markdownCustomStyles={{
+        h1: {
+          color: "#eee"
+        }
+      }} children={`# This is a ~~strikethrough~~`} />
     </Html>
   );
 };
 ```
+</ComponentPreview>
 
 ## Props
 
