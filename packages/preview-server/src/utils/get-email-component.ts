@@ -56,7 +56,7 @@ export const getEmailComponent = async (
     return {
       error: {
         message: buildFailure.message,
-        stack: buildFailure.stack,
+        description: buildFailure.stack,
         name: buildFailure.name,
         cause: buildFailure.cause,
       },

@@ -9,6 +9,7 @@ import { getEmailComponent } from '../utils/get-email-component';
 import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { Span } from 'next/dist/trace';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -19,8 +20,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -103,19 +104,48 @@ export const renderEmailByPath = async (
 
     return renderingResult;
   } catch (exception) {
-    const error = exception as Error;
+    const error = improveErrorWithSourceMap(
+      exception as Error,
+      emailPath,
+      sourceMapToOriginalFile,
+    );
 
     spinner?.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
 
+    if (exception instanceof SyntaxError) {
+      interface SpanPosition {
+        file: {
+          content: string;
+        };
+        offset: number;
+        line: number;
+        col: number;
+      }
+      // means the email's HTML was invalid and prettier threw this error
+      // TODO: always throw when the HTML is invalid during `render`
+      const cause = exception.cause as {
+        msg: string;
+        span: {
+          start: SpanPosition;
+          end: SpanPosition;
+        };
+      };
+      const errorPortion = cause.span.start.file.content.slice();
+
+      return {
+        error: {
+          name: exception.name,
+          message: cause.msg,
+          description: `${error.description}`,
+        },
+      };
+    }
+
     return {
-      error: improveErrorWithSourceMap(
-        error,
-        emailPath,
-        sourceMapToOriginalFile,
-      ),
+      error,
     };
   }
 };
