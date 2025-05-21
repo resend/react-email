@@ -20,7 +20,7 @@ export const readStream = async (
     await stream.pipeTo(writableStream);
   } else {
     throw new Error(
-      'For some reason, the Node version of `react-dom/server` has been imported instead of the browser one.',
+      'For some reason, the Node version of `react-dom/server` has been imported and was read by a browser stream reading function.',
       {
         cause: {
           stream,
