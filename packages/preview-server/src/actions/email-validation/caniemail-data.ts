@@ -79458,7 +79458,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/html-svg/",
     "category": "html",
     "tags": [],
-    "keywords": "image, SVG",
+    "keywords": "image, svg",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
