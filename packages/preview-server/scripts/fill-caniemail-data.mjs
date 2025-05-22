@@ -26,11 +26,19 @@ const response = await responseFromCaniemail.json();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const normalizedData = response.data.map((entry) => ({
+  ...entry,
+  keywords:
+    typeof entry.keywords === 'string'
+      ? entry.keywords.toLowerCase()
+      : entry.keywords,
+}));
+
 await fs.writeFile(
   path.resolve(__dirname, '../src/actions/email-validation/caniemail-data.ts'),
   `import type { SupportEntry } from "./check-compatibility";
 
 export const nicenames = ${JSON.stringify(response.nicenames, null, 2)};
 
-export const supportEntries: SupportEntry[] = ${JSON.stringify(response.data, null, 2)}`,
+export const supportEntries: SupportEntry[] = ${JSON.stringify(normalizedData, null, 2)}`,
 );

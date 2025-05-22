@@ -3135,6 +3135,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "15": "y"
+          },
+          {
+            "18.3.2": "a #2"
           }
         ]
       },
@@ -3147,6 +3150,9 @@ export const supportEntries: SupportEntry[] = [
         "ios": [
           {
             "2019-08": "y"
+          },
+          {
+            "2025-04": "n"
           }
         ],
         "android": [
@@ -3407,7 +3413,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Buggy. The first rule inside a media query is not prefixed."
+      "1": "Buggy. The first rule inside a media query is not prefixed.",
+      "2": "Partial. `orientation:portrait` is not supported."
     }
   },
   {
@@ -9415,7 +9422,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Support for border radius logical properties",
     "url": "https://www.caniemail.com/features/css-border-radius-logical/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "border-start-start-radius, border-start-end-radius, border-end-start-radius, border-end-end-radius",
     "last_test_date": "2022-08-16",
     "test_url": "https://www.caniemail.com/tests/css-border-logical-properties.html",
@@ -16314,6 +16323,13 @@ export const supportEntries: SupportEntry[] = [
             "2024-03": "u"
           }
         ]
+      },
+      "thunderbird": {
+        "macos": [
+          {
+            "128.9.0": "y"
+          }
+        ]
       }
     },
     "notes": null,
@@ -19223,17 +19239,17 @@ export const supportEntries: SupportEntry[] = [
       "aol": {
         "desktop-webmail": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ],
         "ios": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ],
         "android": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ]
       },
@@ -20710,8 +20726,10 @@ export const supportEntries: SupportEntry[] = [
     "description": "Shorthand that corresponds to the `top`, `right`, `bottom`, and/or `left` properties",
     "url": "https://www.caniemail.com/features/css-inset/",
     "category": "css",
-    "tags": [],
-    "keywords": null,
+    "tags": [
+      "i18n"
+    ],
+    "keywords": "inset-block, inset-inline, inset-inline-start, inset-inline-end, inset-block-start, inset-block-end",
     "last_test_date": "2024-05-29",
     "test_url": "https://www.caniemail.com/tests/css-inset.html",
     "test_results_url": "https://testi.at/proj/rlpdia3k18jytjx8c2",
@@ -21625,6 +21643,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "6.0": "y"
+          },
+          {
+            "6.2.01.1": "a #2"
           }
         ]
       },
@@ -21780,7 +21801,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Partial. `left` and `top` are not supported."
+      "1": "Partial. `left` and `top` are not supported.",
+      "2": "Partial. Percentages values are not supported."
     }
   },
   {
@@ -22379,6 +22401,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-04": "a #3"
           }
         ],
         "mobile-webmail": [
@@ -22634,7 +22659,8 @@ export const supportEntries: SupportEntry[] = [
     "notes": null,
     "notes_by_num": {
       "1": "Gradients can be created in VML using `type=\"gradient\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill).",
-      "2": "Partial. Not supported with Hotmail/Outlook accounts."
+      "2": "Partial. Not supported with Hotmail/Outlook accounts.",
+      "3": "Buggy. Does not work inline in the `background-image` property. (See [email-bugs#135](https://github.com/hteumeuleu/email-bugs/issues/135))"
     }
   },
   {
@@ -24146,17 +24172,20 @@ export const supportEntries: SupportEntry[] = [
       "orange": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
+          },
+          {
+            "2021-03": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24220,24 +24249,24 @@ export const supportEntries: SupportEntry[] = [
       "sfr": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "thunderbird": {
         "macos": [
           {
-            "60.3": "u"
+            "60.3": "y"
           }
         ]
       },
@@ -24278,24 +24307,24 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "hey": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24309,14 +24338,14 @@ export const supportEntries: SupportEntry[] = [
       "fastmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "laposte": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24613,300 +24642,6 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-07": "u"
-          }
-        ]
-      },
-      "gmx": {
-        "desktop-webmail": [
-          {
-            "2022-09": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      },
-      "web-de": {
-        "desktop-webmail": [
-          {
-            "2022-09": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      },
-      "ionos-1and1": {
-        "desktop-webmail": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      }
-    },
-    "notes": null,
-    "notes_by_num": null
-  },
-  {
-    "slug": "css-margin-inline",
-    "title": "margin-inline & margin-block",
-    "description": "Support for the `margin-inline` and `margin-block` shorthand properties.",
-    "url": "https://www.caniemail.com/features/css-margin-inline/",
-    "category": "css",
-    "tags": [],
-    "keywords": "margin-inline, margin-block",
-    "last_test_date": "2022-07-01",
-    "test_url": "https://www.caniemail.com/tests/css-margin-logical-properties.html",
-    "test_results_url": "https://testi.at/proj/qAmuL03Fg51cE6hkbNSVrXik",
-    "stats": {
-      "apple-mail": {
-        "macos": [
-          {
-            "10.12.6": "n"
-          },
-          {
-            "10.13.6": "n"
-          },
-          {
-            "10.15.7": "n"
-          },
-          {
-            "12.4": "y"
-          }
-        ],
-        "ios": [
-          {
-            "11.4": "n"
-          },
-          {
-            "12": "n"
-          },
-          {
-            "13": "n"
-          },
-          {
-            "14": "n"
-          },
-          {
-            "15": "y"
-          }
-        ]
-      },
-      "gmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "mobile-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "orange": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          },
-          {
-            "2021-03": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "outlook": {
-        "windows": [
-          {
-            "2013": "n"
-          },
-          {
-            "2016": "n"
-          },
-          {
-            "2019": "n"
-          },
-          {
-            "2021": "n"
-          }
-        ],
-        "windows-mail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "macos": [
-          {
-            "2011": "n"
-          },
-          {
-            "2016": "n"
-          },
-          {
-            "16.80": "n"
-          }
-        ],
-        "outlook-com": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "samsung-email": {
-        "android": [
-          {
-            "10": "n"
-          }
-        ]
-      },
-      "sfr": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "thunderbird": {
-        "macos": [
-          {
-            "60.3": "y"
-          }
-        ]
-      },
-      "aol": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "yahoo": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "protonmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "hey": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "mail-ru": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "fastmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "laposte": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
           }
         ]
       },
@@ -25567,7 +25302,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "",
     "url": "https://www.caniemail.com/features/css-max-block-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "max, block, size",
     "last_test_date": "2022-09-01",
     "test_url": "https://www.caniemail.com/tests/css-max-block-size.html",
@@ -26069,7 +25806,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Defines the horizontal or vertical maximum size of an element's block, depending on its writing mode",
     "url": "https://www.caniemail.com/features/css-max-inline-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "max, inline, size",
     "last_test_date": "2024-05-31",
     "test_url": "https://www.caniemail.com/tests/css-max-inline-size.html",
@@ -26620,7 +26359,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Defines the minimum horizontal or vertical size of an element's block, depending on its writing mode",
     "url": "https://www.caniemail.com/features/css-min-block-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "min, block, size",
     "last_test_date": "2024-05-31",
     "test_url": "https://www.caniemail.com/tests/css-min-block-size.html",
@@ -27153,7 +26894,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "",
     "url": "https://www.caniemail.com/features/css-min-inline-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "min, inline, size",
     "last_test_date": "2022-08-30",
     "test_url": "https://www.caniemail.com/tests/css-min-inline-size.html",
@@ -28345,6 +28088,9 @@ export const supportEntries: SupportEntry[] = [
         "macos": [
           {
             "102.15": "n"
+          },
+          {
+            "137.0b3": "y"
           }
         ]
       },
@@ -30167,39 +29913,12 @@ export const supportEntries: SupportEntry[] = [
       "apple-mail": {
         "macos": [
           {
-            "16": "n"
-          },
-          {
-            "17": "n"
-          },
-          {
-            "18": "n"
-          },
-          {
-            "19": "n"
-          },
-          {
-            "20": "n"
-          },
-          {
-            "21": "n"
+            "16.0": "a #1"
           }
         ],
         "ios": [
           {
-            "11": "n"
-          },
-          {
-            "12": "n"
-          },
-          {
-            "13": "n"
-          },
-          {
-            "14": "n"
-          },
-          {
-            "15": "n"
+            "18.3.2": "a #1"
           }
         ]
       },
@@ -30393,7 +30112,9 @@ export const supportEntries: SupportEntry[] = [
       }
     },
     "notes": null,
-    "notes_by_num": null
+    "notes_by_num": {
+      "1": "Buggy. Requires `word-break:normal` to reset Apple Mail default style (See [issue#394](https://github.com/hteumeuleu/caniemail/issues/394).)"
+    }
   },
   {
     "slug": "css-overflow",
@@ -30402,7 +30123,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/css-overflow/",
     "category": "css",
     "tags": [],
-    "keywords": null,
+    "keywords": "overflow-block, overflow-inline",
     "last_test_date": "2024-10-02",
     "test_url": "https://www.caniemail.com/tests/css-box-model.html",
     "test_results_url": "https://testi.at/proj/p4rru3ez069p15p6ij",
@@ -39642,6 +39363,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-04": "a #2"
           }
         ],
         "mobile-webmail": [
@@ -39893,7 +39617,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Gradients can be created in VML using `type=\"gradientRadial\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill)."
+      "1": "Gradients can be created in VML using `type=\"gradientRadial\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill).",
+      "2": "Buggy. Does not work inline in the `background-image` property. (See [email-bugs#135](https://github.com/hteumeuleu/email-bugs/issues/135))"
     }
   },
   {
@@ -48736,7 +48461,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Sets the orientation of the text characters in vertical mode.",
     "url": "https://www.caniemail.com/features/css-text-orientation/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "vertical orientation",
     "last_test_date": "2023-12-08",
     "test_url": "https://www.caniemail.com/tests/css-text-orientation.html",
@@ -59635,7 +59362,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Represents an abbreviation or acronym.",
     "url": "https://www.caniemail.com/features/html-abbr/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-09-13",
     "test_url": "https://www.caniemail.com/tests/html-abbr.html",
@@ -60717,7 +60446,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/html-anchor-links/",
     "category": "html",
     "tags": [],
-    "keywords": "hash, fragment identifiers, URLs, URIs, document fragments, local, named, anchor, anchors, links",
+    "keywords": "hash, fragment identifiers, urls, uris, document fragments, local, named, anchor, anchors, links",
     "last_test_date": "2019-08-08",
     "test_url": "https://www.caniemail.com/tests/html-anchor-links.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/lvP3Vdg0qtue1RAuGTjzEXl19nfCJu3TVV4lLdzwdqQk5/list",
@@ -63007,7 +62736,7 @@ export const supportEntries: SupportEntry[] = [
       "mail-ru": {
         "desktop-webmail": [
           {
-            "2020-10": "y"
+            "2020-09": "y"
           }
         ]
       },
@@ -64058,11 +63787,17 @@ export const supportEntries: SupportEntry[] = [
         "ios": [
           {
             "2021-11": "n"
+          },
+          {
+            "2025-04": "a #1"
           }
         ],
         "android": [
           {
             "2021-11": "n"
+          },
+          {
+            "2025-04": "a #1"
           }
         ]
       },
@@ -65381,7 +65116,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "A short fragment of computer code.",
     "url": "https://www.caniemail.com/features/html-code/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-04-25",
     "test_url": "https://www.caniemail.com/tests/html-code.html",
@@ -66723,7 +66460,8 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/html-dir/",
     "category": "html",
     "tags": [
-      "i18n"
+      "i18n",
+      "accessibility"
     ],
     "keywords": "direction, ltr, rtl",
     "last_test_date": "2021-11-01",
@@ -68771,7 +68509,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "HTML horizontal rule",
     "url": "https://www.caniemail.com/features/html-hr/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-09-08",
     "test_url": "https://www.caniemail.com/tests/html-hr.html",
@@ -69299,7 +69039,10 @@ export const supportEntries: SupportEntry[] = [
     "description": "Displays an image into the document",
     "url": "https://www.caniemail.com/features/html-img/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "performance",
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-12-16",
     "test_url": "https://www.caniemail.com/tests/html-img.html",
@@ -79057,7 +78800,7 @@ export const supportEntries: SupportEntry[] = [
     "keywords": null,
     "last_test_date": "2023-07-27",
     "test_url": "https://www.caniemail.com/tests/html-style.html",
-    "test_results_url": "https://app.emailonacid.com/app/acidtest/od5IYQtx8yIbIUbeRyQXnP0yzFKEm2E9CKa3FU4BcEXFv/list",
+    "test_results_url": "https://app.emailonacid.com/app/acidtest/CAMb612bxbVwRWPhM4wZKNhhdcdkNxj0Rj6dtRRw6LQUO/list",
     "stats": {
       "apple-mail": {
         "macos": [
@@ -79402,6 +79145,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-11": "y"
+          },
+          {
+            "2025-04": "n"
           }
         ],
         "ios": [
@@ -82083,7 +81829,7 @@ export const supportEntries: SupportEntry[] = [
     "tags": [
       "performance"
     ],
-    "keywords": "image,img,AVIF",
+    "keywords": "image,img,avif",
     "last_test_date": "2023-01-14",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/d69Dg0BGvV5zAiHI1fjKX6BDulsODM8eYdKO9QVxlNuUL/list",
@@ -82447,7 +82193,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-base64/",
     "category": "image",
     "tags": [],
-    "keywords": "image, Base 64",
+    "keywords": "image, base 64",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -82744,7 +82490,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-bmp/",
     "category": "image",
     "tags": [],
-    "keywords": "image, BMP",
+    "keywords": "image, bmp",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -83027,7 +82773,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-gif/",
     "category": "image",
     "tags": [],
-    "keywords": "image, GIF",
+    "keywords": "image, gif",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -83311,7 +83057,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-hdr/",
     "category": "image",
     "tags": [],
-    "keywords": "image, HDR",
+    "keywords": "image, hdr",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -83595,7 +83341,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-heif/",
     "category": "image",
     "tags": [],
-    "keywords": "image, HEIF",
+    "keywords": "image, heif",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -83943,7 +83689,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-ico/",
     "category": "image",
     "tags": [],
-    "keywords": "image, ICO",
+    "keywords": "image, ico",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -84224,7 +83970,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-jpg/",
     "category": "image",
     "tags": [],
-    "keywords": "image, JPG, jpeg",
+    "keywords": "image, jpg, jpeg",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -84796,7 +84542,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-png/",
     "category": "image",
     "tags": [],
-    "keywords": "image, PNG",
+    "keywords": "image, png",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -85080,7 +84826,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-svg/",
     "category": "image",
     "tags": [],
-    "keywords": "image, SVG",
+    "keywords": "image, svg",
     "last_test_date": "2023-01-15",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -85396,7 +85142,7 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/image-tiff/",
     "category": "image",
     "tags": [],
-    "keywords": "image, TIFF",
+    "keywords": "image, tiff",
     "last_test_date": "2020-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/xm1T5nQ1MKtHpVSJidhagmt3Z53CjqbkMhorlvuM0Gz57/list",
@@ -85682,7 +85428,7 @@ export const supportEntries: SupportEntry[] = [
     "tags": [
       "performance"
     ],
-    "keywords": "image, webP",
+    "keywords": "image, webp",
     "last_test_date": "2021-02-06",
     "test_url": "https://www.caniemail.com/tests/images.html",
     "test_results_url": "https://app.emailonacid.com/app/acidtest/Fykm4EjEiDat8FSTWcKYdh26kFWklJuyERBKIsasMB2VH/list",
