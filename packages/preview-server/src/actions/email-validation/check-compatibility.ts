@@ -68,14 +68,14 @@ export type Platform =
   | 'windows-mail'
   | 'outlook-com';
 
-export type SupportEntryCategroy = 'html' | 'css' | 'image' | 'others';
+export type SupportEntryCategory = 'html' | 'css' | 'image' | 'others';
 
 export interface SupportEntry {
   slug: string;
   title: string;
   description: string | null;
   url: string;
-  category: SupportEntryCategroy;
+  category: SupportEntryCategory;
   tags: string[];
   keywords: string | null;
   last_test_date: string;
