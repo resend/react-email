@@ -1,8 +1,8 @@
 'use client';
 
 import classNames from 'classnames';
-import Image from 'next/image';
 import type { ImageLoader } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { Heading } from './heading';
