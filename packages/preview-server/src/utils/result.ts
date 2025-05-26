@@ -32,7 +32,7 @@ export function mapResult<T, E, B>(
 
 export function ok<T, E>(value: NoInfer<T>): Ok<T, E>;
 // biome-ignore lint/suspicious/noConfusingVoidType: This is required for void return types on functions that can still error
-export function ok<T extends void = void, E = never>(value: void): Ok<void, E>;
+export function ok<_T extends void = void, E = never>(value: void): Ok<void, E>;
 export function ok<T, E>(value: NoInfer<T>): Ok<T, E> {
   return {
     value,
@@ -41,7 +41,7 @@ export function ok<T, E>(value: NoInfer<T>): Ok<T, E> {
 
 export function err<T, E>(error: NoInfer<E>): Error<T, E>;
 // biome-ignore lint/suspicious/noConfusingVoidType: This is required for void return types on functions that can still error
-export function err<T, E extends void = void>(error: void): Error<T, void>;
+export function err<T, _E extends void = void>(error: void): Error<T, void>;
 export function err<T, E>(error: NoInfer<E>): Error<T, E> {
   return {
     error,

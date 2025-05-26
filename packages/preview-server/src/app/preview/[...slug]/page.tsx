@@ -60,10 +60,9 @@ This is most likely not an issue with the preview server. Maybe there was a typo
 
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
-  let spamCheckingResult: SpamCheckingResult | undefined = undefined;
-  let lintingRows: LintingRow[] | undefined = undefined;
-  let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined =
-    undefined;
+  let spamCheckingResult: SpamCheckingResult | undefined;
+  let lintingRows: LintingRow[] | undefined;
+  let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined;
 
   if (isBuilding) {
     if ('error' in serverEmailRenderingResult) {

@@ -31,7 +31,7 @@ export const Send = ({ markup }: { markup: string }) => {
       }
 
       toast.success('Email sent! Check your inbox.');
-    } catch (exception) {
+    } catch (_exception) {
       toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSending(false);

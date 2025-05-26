@@ -1,5 +1,4 @@
 import type { HtmlToTextOptions } from 'html-to-text';
-// biome-ignore lint/correctness/noUnusedImports: this is used in the deprecated doc
 import type { pretty } from './utils/pretty';
 
 export type Options = {

@@ -7,6 +7,7 @@ export const Results = ({
 }: React.ComponentProps<'table'>) => {
   return (
     <table
+      {...props}
       className={cn(
         'group relative w-full border-collapse text-left text-slate-10 text-sm',
         className,

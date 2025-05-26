@@ -12,7 +12,7 @@ export const getPreviewServerLocation = async () => {
       url.parse(usersProject.esmResolve('@react-email/preview-server'), true)
         .path!,
     );
-  } catch (exception) {
+  } catch (_exception) {
     const response = await prompts({
       type: 'confirm',
       name: 'installPreviewServer',

@@ -27,7 +27,7 @@ export const parsePointingTableRows = (response: string) => {
   const responseFromTableStart = response.slice(
     tableStartMatch.index + tableStartMatch[0].length,
   );
-  let currentRow: Row | undefined = undefined;
+  let currentRow: Row | undefined;
   for (const line of responseFromTableStart.split(/\r\n|\n|\r/)) {
     if (line.trim().length === 0) break;
 

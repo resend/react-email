@@ -1,7 +1,6 @@
-import fs from 'node:fs';
 import path from 'node:path';
-import traverse from '@babel/traverse';
 import type { Node } from '@babel/traverse';
+import traverse from '@babel/traverse';
 import * as esbuild from 'esbuild';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
@@ -23,14 +22,6 @@ export type TailwindConfig = Pick<
   | 'corePlugins'
   | 'plugins'
 >;
-
-const getFirstExistingFilepath = (filePaths: string[]) => {
-  for (const filePath of filePaths) {
-    if (fs.existsSync(filePath)) {
-      return filePath;
-    }
-  }
-};
 
 type ImportDeclaration = Node & { type: 'ImportDeclaration' };
 
