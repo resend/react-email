@@ -1,15 +1,14 @@
-"use server";
-import fs from "node:fs";
-import path from "node:path";
-import chalk from "chalk";
-import logSymbols from "log-symbols";
-import ora, { type Ora } from "ora";
-import { isBuilding, isPreviewDevelopment } from "../app/env";
-import { getEmailComponent } from "../utils/get-email-component";
-import { convertStackWithSourceMap } from "../utils/convert-stack-with-sourcemap";
-import { registerSpinnerAutostopping } from "../utils/register-spinner-autostopping";
-import type { ErrorObject } from "../utils/types/error-object";
-import { Span } from "next/dist/trace";
+'use server';
+import fs from 'node:fs';
+import path from 'node:path';
+import chalk from 'chalk';
+import logSymbols from 'log-symbols';
+import ora, { type Ora } from 'ora';
+import { isBuilding, isPreviewDevelopment } from '../app/env';
+import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
+import { getEmailComponent } from '../utils/get-email-component';
+import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -20,8 +19,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -40,14 +39,14 @@ export const renderEmailByPath = async (
   if (!isBuilding && !isPreviewDevelopment) {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
-      prefixText: " ",
+      prefixText: ' ',
     }).start();
     registerSpinnerAutostopping(spinner);
   }
 
   const componentResult = await getEmailComponent(emailPath);
 
-  if ("error" in componentResult) {
+  if ('error' in componentResult) {
     spinner?.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
@@ -75,7 +74,7 @@ export const renderEmailByPath = async (
       },
     );
 
-    const reactMarkup = await fs.promises.readFile(emailPath, "utf-8");
+    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
     const millisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${millisecondsToRendered.toFixed(0)}ms`;
@@ -95,7 +94,7 @@ export const renderEmailByPath = async (
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
-      markup: markup.replaceAll("\0", ""),
+      markup: markup.replaceAll('\0', ''),
       plainText,
       reactMarkup,
     };
