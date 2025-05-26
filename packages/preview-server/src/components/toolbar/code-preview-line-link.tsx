@@ -10,7 +10,6 @@ interface CodePreviewLineLinkProps {
 
 export const CodePreviewLineLink = ({
   line,
-  column,
   type,
 }: CodePreviewLineLinkProps) => {
   const searchParams = useSearchParams();
