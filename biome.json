@@ -53,6 +53,7 @@
         "noDelete": "off"
       },
       "a11y": {
+        "noStaticElementInteractions": "off",
         "noSvgWithoutTitle": "off",
         "noAutofocus": "off"
       },
