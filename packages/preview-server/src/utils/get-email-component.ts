@@ -18,8 +18,6 @@ const EmailComponentModule = z.object({
   reactEmailCreateReactElement: z.function(),
 });
 
-const jsxRuntimePath = path.resolve(previewServerLocation, 'jsx-runtime');
-
 export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
@@ -34,6 +32,8 @@ export const getEmailComponent = async (
     }
   | { error: ErrorObject }
 > => {
+  const jsxRuntimePath = path.resolve(previewServerLocation, 'jsx-runtime');
+
   let outputFiles: OutputFile[];
   try {
     const buildData = await build({
