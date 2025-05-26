@@ -1,15 +1,16 @@
-import path from 'node:path';
-import type { render } from '@react-email/components';
-import { type BuildFailure, build, type OutputFile } from 'esbuild';
-import type React from 'react';
-import type { RawSourceMap } from 'source-map-js';
-import { z } from 'zod';
-import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
-import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
-import { isErr } from './result';
-import { runBundledCode } from './run-bundled-code';
-import type { EmailTemplate as EmailComponent } from './types/email-template';
-import type { ErrorObject } from './types/error-object';
+import path from "node:path";
+import type { render } from "@react-email/components";
+import { type BuildFailure, build, type OutputFile } from "esbuild";
+import type React from "react";
+import type { RawSourceMap } from "source-map-js";
+import fs from "node:fs";
+import { z } from "zod";
+import { renderingUtilitiesExporter } from "./esbuild/renderring-utilities-exporter";
+import { isErr } from "./result";
+import { runBundledCode } from "./run-bundled-code";
+import type { EmailTemplate as EmailComponent } from "./types/email-template";
+import type { ErrorObject } from "./types/error-object";
+import { convertStackWithSourceMap } from "./convert-stack-with-sourcemap";
 
 const EmailComponentModule = z.object({
   default: z.any(),
@@ -21,14 +22,14 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      render: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -37,18 +38,19 @@ export const getEmailComponent = async (
       bundle: true,
       entryPoints: [emailPath],
       plugins: [renderingUtilitiesExporter([emailPath])],
-      platform: 'node',
+      platform: "node",
       write: false,
 
-      format: 'cjs',
-      jsx: 'automatic',
-      logLevel: 'silent',
+
+      format: "cjs",
+      jsx: "automatic",
+      logLevel: "silent",
       // allows for using jsx on a .js file
       loader: {
-        '.js': 'jsx',
+        ".js": "jsx",
       },
-      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
-      sourcemap: 'external',
+      outdir: "stdout", // just a stub for esbuild, it won't actually write to this folder
+      sourcemap: "external",
     });
     outputFiles = buildData.outputFiles;
   } catch (exception) {
@@ -56,7 +58,7 @@ export const getEmailComponent = async (
     return {
       error: {
         message: buildFailure.message,
-        description: buildFailure.stack,
+        stack: buildFailure.stack,
         name: buildFailure.name,
         cause: buildFailure.cause,
       },
@@ -69,9 +71,9 @@ export const getEmailComponent = async (
 
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
   // because it will have a path like <tsconfigLocation>/stdout/email.js.map
-  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
+  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, "../..");
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
-    path.resolve(sourceMapFile.path, '..', source),
+    path.resolve(sourceMapFile.path, "..", source),
   );
 
   const runningResult = runBundledCode(builtEmailCode, emailPath);
@@ -79,10 +81,19 @@ export const getEmailComponent = async (
   if (isErr(runningResult)) {
     const { error } = runningResult;
     if (error instanceof Error) {
-      error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
+      error.stack &&= error.stack.split("at Script.runInContext (node:vm")[0];
 
       return {
-        error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: convertStackWithSourceMap(
+            error.stack,
+            emailPath,
+            sourceMapToEmail,
+          ),
+          cause: error.cause,
+        },
       };
     }
 
@@ -93,31 +104,23 @@ export const getEmailComponent = async (
 
   if (parseResult.error) {
     return {
-      error: improveErrorWithSourceMap(
-        new Error(
-          `The email component at ${emailPath} does not contain the expected exports`,
-          {
-            cause: parseResult.error,
-          },
-        ),
-        emailPath,
-        sourceMapToEmail,
-      ),
+      error: {
+        name: "Error",
+        message: `The email component at ${emailPath} does not contain the expected exports`,
+        stack: new Error().stack,
+        cause: parseResult.error,
+      },
     };
   }
 
-  if (typeof parseResult.data.default !== 'function') {
+  if (typeof parseResult.data.default !== "function") {
     return {
-      error: improveErrorWithSourceMap(
-        new Error(
-          `The email component at ${emailPath} does not contain a default exported function`,
-          {
-            cause: parseResult.error,
-          },
-        ),
-        emailPath,
-        sourceMapToEmail,
-      ),
+      error: {
+        name: "Error",
+        message: `The email component at ${emailPath} does not contain a default exported function`,
+        stack: new Error().stack,
+        cause: parseResult.error,
+      },
     };
   }
 
