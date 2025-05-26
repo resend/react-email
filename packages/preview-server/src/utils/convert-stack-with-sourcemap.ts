@@ -1,14 +1,13 @@
-import path from 'node:path';
-import { type RawSourceMap, SourceMapConsumer } from 'source-map-js';
-import * as stackTraceParser from 'stacktrace-parser';
-import type { ErrorObject } from './types/error-object';
+import path from "node:path";
+import { type RawSourceMap, SourceMapConsumer } from "source-map-js";
+import * as stackTraceParser from "stacktrace-parser";
 
-export const improveErrorWithSourceMap = (
-  error: Error,
+export const convertStackWithSourceMap = (
+  rawStack: string | undefined,
 
   originalFilePath: string,
   sourceMapToOriginalFile: RawSourceMap,
-): ErrorObject => {
+): string | undefined => {
   let stack: string | undefined;
 
   const sourceRoot =
@@ -22,18 +21,17 @@ export const improveErrorWithSourceMap = (
   ) => {
     const columnAndLine =
       column || line
-        ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
+        ? `${line ?? ""}${line && column ? ":" : ""}${column ?? ""}`
         : undefined;
     const sourceToDisplay = path.relative(sourceRoot, source);
-    return methodName === '<unknown>'
-      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
-      : ` at ${methodName} (${sourceToDisplay}${
-          columnAndLine ? `:${columnAndLine}` : ''
-        })`;
+    return methodName === "<unknown>"
+      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ""}`
+      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ""
+      })`;
   };
 
-  if (typeof error.stack !== 'undefined') {
-    const parsedStack = stackTraceParser.parse(error.stack);
+  if (rawStack) {
+    const parsedStack = stackTraceParser.parse(rawStack);
     const sourceMapConsumer = new SourceMapConsumer(sourceMapToOriginalFile);
     const newStackLines = [] as string[];
     for (const stackFrame of parsedStack) {
@@ -74,12 +72,8 @@ export const improveErrorWithSourceMap = (
         newStackLines.push(stackLine);
       }
     }
-    stack = newStackLines.join('\n');
+    stack = newStackLines.join("\n");
   }
 
-  return {
-    name: error.name,
-    message: error.message,
-    description: stack,
-  };
+  return stack;
 };

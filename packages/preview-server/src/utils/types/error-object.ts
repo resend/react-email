@@ -5,7 +5,7 @@
  */
 export interface ErrorObject {
   name: string;
-  description: string | undefined;
+  stack: string | undefined;
   cause?: unknown;
   message: string;
 }
