@@ -60,7 +60,6 @@ export const renderEmailByPath = async (
   );
   if (!fs.existsSync(jsxRuntimePath)) {
     // Copy the jsx-runtime from the preview server to the user's project
-    await fs.promises.mkdir(path.dirname(jsxRuntimePath), { recursive: true });
     await fs.promises.cp(originalJsxRuntimePath, jsxRuntimePath, {
       recursive: true,
     });
