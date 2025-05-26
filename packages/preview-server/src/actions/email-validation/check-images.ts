@@ -103,7 +103,7 @@ export const checkImages = async (code: string, base: string) => {
             });
           }
 
-          let res: IncomingMessage | undefined = undefined;
+          let res: IncomingMessage | undefined;
           try {
             res = await quickFetch(url);
             const hasSucceeded =
@@ -132,7 +132,7 @@ export const checkImages = async (code: string, base: string) => {
             if (responseSizeBytes > 1_048_576 && result.status !== 'error') {
               result.status = 'warning';
             }
-          } catch (exception) {
+          } catch (_exception) {
             result.checks.push({
               type: 'fetch_attempt',
               passed: false,
@@ -142,7 +142,7 @@ export const checkImages = async (code: string, base: string) => {
             });
             result.status = 'error';
           }
-        } catch (exception) {
+        } catch (_exception) {
           result.checks.push({
             passed: false,
             type: 'syntax',
