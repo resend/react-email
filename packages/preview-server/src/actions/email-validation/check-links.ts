@@ -68,7 +68,7 @@ export const checkLinks = async (code: string) => {
             });
           }
 
-          let res: IncomingMessage | undefined = undefined;
+          let res: IncomingMessage | undefined;
           try {
             res = await quickFetch(url);
             const hasSucceeded =
@@ -85,7 +85,7 @@ export const checkLinks = async (code: string) => {
                 ? 'warning'
                 : 'error';
             }
-          } catch (exception) {
+          } catch (_exception) {
             result.checks.push({
               type: 'fetch_attempt',
               passed: false,
@@ -95,7 +95,7 @@ export const checkLinks = async (code: string) => {
             });
             result.status = 'error';
           }
-        } catch (exception) {
+        } catch (_exception) {
           result.checks.push({
             passed: false,
             type: 'syntax',

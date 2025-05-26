@@ -15,7 +15,7 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0-beta.1",
+    "@biomejs/biome": "2.0.0-beta.5",
     "@changesets/cli": "2.29.4",
     "@types/node": "22.14.1",
     "@types/react": "19.0.1",
