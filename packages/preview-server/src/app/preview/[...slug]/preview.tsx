@@ -19,7 +19,7 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
-import { ErrorOverlay } from './error-overlay'
+import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;

@@ -1,6 +1,6 @@
-import path from "node:path";
-import { type RawSourceMap, SourceMapConsumer } from "source-map-js";
-import * as stackTraceParser from "stacktrace-parser";
+import path from 'node:path';
+import { type RawSourceMap, SourceMapConsumer } from 'source-map-js';
+import * as stackTraceParser from 'stacktrace-parser';
 
 export const convertStackWithSourceMap = (
   rawStack: string | undefined,
@@ -21,13 +21,14 @@ export const convertStackWithSourceMap = (
   ) => {
     const columnAndLine =
       column || line
-        ? `${line ?? ""}${line && column ? ":" : ""}${column ?? ""}`
+        ? `${line ?? ''}${line && column ? ':' : ''}${column ?? ''}`
         : undefined;
     const sourceToDisplay = path.relative(sourceRoot, source);
-    return methodName === "<unknown>"
-      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ""}`
-      : ` at ${methodName} (${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ""
-      })`;
+    return methodName === '<unknown>'
+      ? ` at ${sourceToDisplay}${columnAndLine ? `:${columnAndLine}` : ''}`
+      : ` at ${methodName} (${sourceToDisplay}${
+          columnAndLine ? `:${columnAndLine}` : ''
+        })`;
   };
 
   if (rawStack) {
@@ -72,7 +73,7 @@ export const convertStackWithSourceMap = (
         newStackLines.push(stackLine);
       }
     }
-    stack = newStackLines.join("\n");
+    stack = newStackLines.join('\n');
   }
 
   return stack;
