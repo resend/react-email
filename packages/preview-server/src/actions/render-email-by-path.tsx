@@ -8,6 +8,7 @@ import {
   isBuilding,
   isPreviewDevelopment,
   previewServerLocation,
+  userProjectLocation,
 } from '../app/env';
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { getEmailComponent } from '../utils/get-email-component';
@@ -48,7 +49,22 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const jsxRuntimePath = path.resolve(previewServerLocation, 'jsx-runtime');
+  const originalJsxRuntimePath = path.resolve(
+    previewServerLocation,
+    'jsx-runtime',
+  );
+  const jsxRuntimePath = path.resolve(
+    userProjectLocation,
+    'node_modules',
+    '.react-email-jsx-runtime',
+  );
+  if (!fs.existsSync(jsxRuntimePath)) {
+    // Copy the jsx-runtime from the preview server to the user's project
+    await fs.promises.mkdir(path.dirname(jsxRuntimePath), { recursive: true });
+    await fs.promises.cp(originalJsxRuntimePath, jsxRuntimePath, {
+      recursive: true,
+    });
+  }
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
 
   if ('error' in componentResult) {
