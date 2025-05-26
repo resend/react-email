@@ -108,7 +108,13 @@ All components were tested using the most popular email clients.
 pnpm install
 ```
 
-#### Build and run packages
+#### Build
+
+```sh
+pnpm build
+```
+
+#### Run packages
 
 ```sh
 pnpm dev
