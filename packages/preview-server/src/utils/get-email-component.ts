@@ -20,6 +20,7 @@ const EmailComponentModule = z.object({
 
 export const getEmailComponent = async (
   emailPath: string,
+  jsxRuntimePath: string,
 ): Promise<
   | {
       emailComponent: EmailComponent;
@@ -32,8 +33,6 @@ export const getEmailComponent = async (
     }
   | { error: ErrorObject }
 > => {
-  const jsxRuntimePath = path.resolve(previewServerLocation, 'jsx-runtime');
-
   let outputFiles: OutputFile[];
   try {
     const buildData = await build({

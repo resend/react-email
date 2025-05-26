@@ -4,7 +4,11 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import {
+  isBuilding,
+  isPreviewDevelopment,
+  previewServerLocation,
+} from '../app/env';
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
@@ -19,8 +23,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -44,7 +48,8 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const componentResult = await getEmailComponent(emailPath);
+  const jsxRuntimePath = path.resolve(previewServerLocation, 'jsx-runtime');
+  const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
 
   if ('error' in componentResult) {
     spinner?.stopAndPersist({
