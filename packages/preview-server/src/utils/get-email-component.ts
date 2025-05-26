@@ -11,12 +11,18 @@ import { runBundledCode } from "./run-bundled-code";
 import type { EmailTemplate as EmailComponent } from "./types/email-template";
 import type { ErrorObject } from "./types/error-object";
 import { convertStackWithSourceMap } from "./convert-stack-with-sourcemap";
+import { previewServerLocation } from "../app/env";
 
 const EmailComponentModule = z.object({
   default: z.any(),
   render: z.function(),
   reactEmailCreateReactElement: z.function(),
 });
+
+const jsxRuntimePath = path.resolve(
+  previewServerLocation,
+  "jsx-runtime",
+);
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -41,6 +47,8 @@ export const getEmailComponent = async (
       platform: "node",
       write: false,
 
+      jsxDev: true,
+      jsxImportSource: jsxRuntimePath,
 
       format: "cjs",
       jsx: "automatic",
