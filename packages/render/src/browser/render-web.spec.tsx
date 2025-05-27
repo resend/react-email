@@ -2,6 +2,8 @@
  * @vitest-environment jsdom
  */
 
+import { createElement } from 'react';
+import usePromise from 'react-promise-suspense';
 import { Preview } from '../shared/utils/preview';
 import { Template } from '../shared/utils/template';
 import { render } from './render';
@@ -122,4 +124,20 @@ describe('render on the browser environment', () => {
       `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
   });
+
+  it('should properly wait for Suepsense boundaries to ending before resolving', async () => {
+    const EmailTemplate = () => {
+      const html = usePromise(
+        () => fetch('https://example.com').then((res) => res.text()),
+        [],
+      );
+
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await render(<EmailTemplate />);
+
+    expect(renderedTemplate).toMatchSnapshot();
+  });
+
 });
