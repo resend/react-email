@@ -15,9 +15,9 @@ export const ErrorOverlay = (props: { error: ErrorObject }) => {
       >
         <div className="bg-red-500 h-3" />
         <div className="flex flex-grow p-6 min-w-0 max-w-full flex-col space-y-1.5">
-          <h2 className="flex-shrink pb-2 text-xl tracking-tight">
+          <div className="flex-shrink pb-2 text-xl tracking-tight">
             <b>{props.error.name}</b>: {props.error.message}
-          </h2>
+          </div>
           {props.error.stack ? (
             <div className="flex-grow scroll-px-4 overflow-x-auto rounded-lg bg-black p-2 text-gray-100">
               <pre className="w-full min-w-0 font-mono leading-6 selection:!text-cyan-12 text-xs">
