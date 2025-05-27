@@ -159,21 +159,26 @@ export const renderEmailByPath = async (
         }
       }
 
-      const sourceLineAttributeMatches = cause.span.start.file.content.matchAll(
-        /data-source-line="(?<line>[^"]*)"/g,
-      );
-      let closestSourceLineAttribute: RegExpExecArray | undefined;
-      for (const sourceLineAttributeMatch of sourceLineAttributeMatches) {
-        if (closestSourceLineAttribute === undefined) {
-          closestSourceLineAttribute = sourceLineAttributeMatch;
+      const findClosestAttributeValue = (
+        attributeName: string,
+      ): string | undefined => {
+        const attributeMatches = cause.span.start.file.content.matchAll(
+          new RegExp(`${attributeName}="(?<value>[^"]*)"`, 'g'),
+        );
+        let closestAttribute: RegExpExecArray | undefined;
+        for (const attributeMatch of attributeMatches) {
+          if (closestAttribute === undefined) {
+            closestAttribute = attributeMatch;
+          }
+          if (
+            Math.abs(attributeMatch.index - cause.span.start.offset) <
+            Math.abs(closestAttribute.index - cause.span.start.offset)
+          ) {
+            closestAttribute = attributeMatch;
+          }
         }
-        if (
-          Math.abs(sourceLineAttributeMatch.index - cause.span.start.offset) <
-          Math.abs(closestSourceLineAttribute.index - cause.span.start.offset)
-        ) {
-          closestSourceLineAttribute = sourceLineAttributeMatch;
-        }
-      }
+        return closestAttribute?.groups?.value;
+      };
 
       let stack = convertStackWithSourceMap(
         error.stack,
@@ -181,16 +186,10 @@ export const renderEmailByPath = async (
         sourceMapToOriginalFile,
       );
 
-      if (closestSourceFileAttribute && closestSourceLineAttribute) {
-        if (
-          closestSourceFileAttribute.groups?.file &&
-          closestSourceLineAttribute.groups?.line
-        ) {
-          const sourceFile = closestSourceFileAttribute.groups.file;
-          const sourceLine = closestSourceLineAttribute.groups.line;
-
-          stack = ` at ${sourceFile}:${sourceLine}\n${stack}`;
-        }
+      const sourceFile = findClosestAttributeValue('data-source-file');
+      const sourceLine = findClosestAttributeValue('data-source-line');
+      if (sourceFile && sourceLine) {
+        stack = ` at ${sourceFile}:${sourceLine}\n${stack}`;
       }
 
       return {
