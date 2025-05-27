@@ -11,10 +11,10 @@ import {
   userProjectLocation,
 } from '../app/env';
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
+import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
-import { createJsxRuntime } from '../utils/create-jsx-runtime';
 
 export interface RenderedEmailMetadata {
   markup: string;
