@@ -9,18 +9,18 @@ export const ErrorOverlay = (props: { error: ErrorObject }) => {
         className="
         min-h-[50vh] w-full max-w-lg sm:rounded-lg md:max-w-[568px] lg:max-w-[920px]
         absolute left-[50%] top-[50%] z-50  translate-x-[-50%] translate-y-[-50%] 
-        rounded-t-sm overflow-hidden bg-white selection:text-black text-black shadow-lg duration-200
-        flex flex-col
+        rounded-t-sm overflow-hidden bg-white text-black shadow-lg duration-200
+        flex flex-col selection:!text-black
       "
       >
         <div className="bg-red-500 h-3" />
         <div className="flex flex-grow p-6 min-w-0 max-w-full flex-col space-y-1.5">
-          <h2 className="flex-shrink pb-2 text-xl leading-none tracking-tight">
+          <h2 className="flex-shrink pb-2 text-xl tracking-tight">
             <b>{props.error.name}</b>: {props.error.message}
           </h2>
           {props.error.stack ? (
             <div className="flex-grow scroll-px-4 overflow-x-auto rounded-lg bg-black p-2 text-gray-100">
-              <pre className="w-full min-w-0 font-mono leading-6 selection:text-white text-xs">
+              <pre className="w-full min-w-0 font-mono leading-6 selection:!text-cyan-12 text-xs">
                 {props.error.stack}
               </pre>
             </div>
