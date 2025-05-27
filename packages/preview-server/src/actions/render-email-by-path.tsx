@@ -143,15 +143,61 @@ export const renderEmailByPath = async (
         };
       };
 
+      const sourceFileAttributeMatches = cause.span.start.file.content.matchAll(
+        /data-source-file="(?<file>[^"]*)"/g,
+      );
+      let closestSourceFileAttribute: RegExpExecArray | undefined;
+      for (const sourceFileAttributeMatch of sourceFileAttributeMatches) {
+        if (closestSourceFileAttribute === undefined) {
+          closestSourceFileAttribute = sourceFileAttributeMatch;
+        }
+        if (
+          Math.abs(sourceFileAttributeMatch.index - cause.span.start.offset) <
+          Math.abs(closestSourceFileAttribute.index - cause.span.start.offset)
+        ) {
+          closestSourceFileAttribute = sourceFileAttributeMatch;
+        }
+      }
+
+      const sourceLineAttributeMatches = cause.span.start.file.content.matchAll(
+        /data-source-line="(?<line>[^"]*)"/g,
+      );
+      let closestSourceLineAttribute: RegExpExecArray | undefined;
+      for (const sourceLineAttributeMatch of sourceLineAttributeMatches) {
+        if (closestSourceLineAttribute === undefined) {
+          closestSourceLineAttribute = sourceLineAttributeMatch;
+        }
+        if (
+          Math.abs(sourceLineAttributeMatch.index - cause.span.start.offset) <
+          Math.abs(closestSourceLineAttribute.index - cause.span.start.offset)
+        ) {
+          closestSourceLineAttribute = sourceLineAttributeMatch;
+        }
+      }
+
+      let stack = convertStackWithSourceMap(
+        error.stack,
+        emailPath,
+        sourceMapToOriginalFile,
+      );
+
+      if (closestSourceFileAttribute && closestSourceLineAttribute) {
+        if (
+          closestSourceFileAttribute.groups?.file &&
+          closestSourceLineAttribute.groups?.line
+        ) {
+          const sourceFile = closestSourceFileAttribute.groups.file;
+          const sourceLine = closestSourceLineAttribute.groups.line;
+
+          stack = ` at ${sourceFile}:${sourceLine}\n${stack}`;
+        }
+      }
+
       return {
         error: {
           name: exception.name,
           message: cause.msg,
-          stack: convertStackWithSourceMap(
-            error.stack,
-            emailPath,
-            sourceMapToOriginalFile,
-          ),
+          stack,
           cause: error.cause ? JSON.parse(JSON.stringify(cause)) : undefined,
         },
       };
