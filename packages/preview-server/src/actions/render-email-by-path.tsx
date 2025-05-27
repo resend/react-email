@@ -192,35 +192,14 @@ export const renderEmailByPath = async (
         stack = ` at ${sourceFile}:${sourceLine}\n${stack}`;
       }
 
-      const match = cause.msg.match(
-        /(Unexpected closing tag "[^"]+". It may happen when the tag has already been closed by another tag). (For more info see) (.+)/,
-      );
-      if (match) {
-        const [_, errorMessage, moreInfo, link] = match;
-        return {
-          error: {
-            name: exception.name,
-            message: (
-              <>
-                {errorMessage}.
-                <p className="text-lg">
-                  {moreInfo}{' '}
-                  <a
-                    className="underline"
-                    rel="noreferrer"
-                    target="_blank"
-                    href={link}
-                  >
-                    {link}
-                  </a>
-                </p>
-              </>
-            ),
-            stack,
-            cause: error.cause ? JSON.parse(JSON.stringify(cause)) : undefined,
-          },
-        };
-      }
+      return {
+        error: {
+          name: exception.name,
+          message: cause.msg,
+          stack,
+          cause: error.cause ? JSON.parse(JSON.stringify(cause)) : undefined,
+        },
+      };
     }
 
     return {
