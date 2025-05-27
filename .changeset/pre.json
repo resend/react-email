@@ -35,6 +35,7 @@
     "@react-email/preview-server": "1.0.0-canary.0"
   },
   "changesets": [
+    "afraid-sides-agree",
     "crazy-seas-eat",
     "great-parrots-yell",
     "mighty-pigs-add",
