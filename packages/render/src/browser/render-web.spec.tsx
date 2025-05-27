@@ -140,4 +140,10 @@ describe('render on the browser environment', () => {
     expect(renderedTemplate).toMatchSnapshot();
   });
 
+  // See https://github.com/resend/react-email/issues/2263
+  it('should throw error of rendering an invalid element instead of writing them into a template tag', async () => {
+    // @ts-ignore we know this is not correct, and we want to test the error handling for it
+    const element = createElement(undefined);
+    await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
+  });
 });
