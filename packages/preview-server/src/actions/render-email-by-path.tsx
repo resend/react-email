@@ -14,6 +14,7 @@ import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { createJsxRuntime } from '../utils/create-jsx-runtime';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -53,17 +54,10 @@ export const renderEmailByPath = async (
     previewServerLocation,
     'jsx-runtime',
   );
-  const jsxRuntimePath = path.resolve(
+  const jsxRuntimePath = await createJsxRuntime(
     userProjectLocation,
-    'node_modules',
-    '.react-email-jsx-runtime',
+    originalJsxRuntimePath,
   );
-  if (!fs.existsSync(jsxRuntimePath)) {
-    // Copy the jsx-runtime from the preview server to the user's project
-    await fs.promises.cp(originalJsxRuntimePath, jsxRuntimePath, {
-      recursive: true,
-    });
-  }
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
 
   if ('error' in componentResult) {
