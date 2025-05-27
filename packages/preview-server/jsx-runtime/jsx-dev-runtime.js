@@ -2,9 +2,7 @@ const actualNodeEnv = process.env.NODE_ENV;
 // This hack is necessary because React forces the use of the non-dev JSX runtime
 // when NODE_ENV is set to 'production', which would break the data-source references
 // we need for stack traces in the preview server.
-process.env.NODE_ENV = 'development';
 const ReactJSXDevRuntime = require('react/jsx-dev-runtime');
-process.env.NODE_ENV = actualNodeEnv;
 
 export function jsxDEV(type, props, key, isStaticChildren, source, self) {
   const newProps = { ...props };
