@@ -33,6 +33,7 @@
     "web": "0.0.0"
   },
   "changesets": [
+    "afraid-sides-agree",
     "crazy-seas-eat",
     "great-parrots-yell",
     "mighty-pigs-add",
