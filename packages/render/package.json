@@ -51,6 +51,16 @@
           "default": "./dist/browser/index.js"
         }
       },
+      "react-server": {
+        "import": {
+          "types": "./dist/react-server/index.d.mts",
+          "default": "./dist/react-server/index.mjs"
+        },
+        "require": {
+          "types": "./dist/react-server/index.d.ts",
+          "default": "./dist/react-server/index.js"
+        }
+      },
       "default": {
         "import": {
           "types": "./dist/node/index.d.mts",
@@ -86,6 +96,7 @@
   "dependencies": {
     "html-to-text": "^9.0.5",
     "prettier": "^3.5.3",
+    "react-markup": "0.0.0-experimental-f9ae0a4c-20250527",
     "react-promise-suspense": "^0.3.4"
   },
   "peerDependencies": {

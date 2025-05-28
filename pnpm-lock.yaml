@@ -868,6 +868,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-markup:
+        specifier: 0.0.0-experimental-f9ae0a4c-20250527
+        version: 0.0.0-experimental-f9ae0a4c-20250527(react@19.0.0)
       react-promise-suspense:
         specifier: ^0.3.4
         version: 0.3.4
@@ -6889,6 +6892,11 @@ packages:
     resolution: {integrity: sha512-Ry5AMBzQ4itpnuCPrR1mDVdLh/G4u0Svs2ZJfW6ssKUFccYwdRxlaq8uHGRde/tdsirhxup+n/aFcXPW1Cq60A==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+
+  react-markup@0.0.0-experimental-f9ae0a4c-20250527:
+    resolution: {integrity: sha512-kNhEs8c0tr5nkquRfC6IdvD5qbnr00tKk6gYsG/pkGmoy08xnUv1NbLOX/ZgFw7KEtoxFpgPnR4mgCRFayS5ww==}
+    peerDependencies:
+      react: ^19.0.0
 
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
@@ -15086,6 +15094,10 @@ snapshots:
       - uglify-js
       - utf-8-validate
       - webpack-cli
+
+  react-markup@0.0.0-experimental-f9ae0a4c-20250527(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react-promise-suspense@0.3.4:
     dependencies:
