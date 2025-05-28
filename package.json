@@ -22,6 +22,7 @@
     "@types/react-dom": "19.0.1",
     "happy-dom": "17.4.4",
     "pkg-pr-new": "0.0.43",
+    "playwright": "1.52.0",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
     "turbo": "2.5.0",
