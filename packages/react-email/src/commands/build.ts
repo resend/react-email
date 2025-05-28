@@ -222,12 +222,11 @@ export const build = async ({
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to modify it';
+    spinner.text = 'Copying preview app to modify it';
     await fs.promises.cp(previewServerLocation, modifiedPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
           !/(\/|\\)\.turbo(\/|\\)?/.test(source)
         );
@@ -265,24 +264,11 @@ export const build = async ({
     await buildPreviewApp(modifiedPreviewAppPath);
 
     await fs.promises.mkdir(builtPreviewAppPath);
-    await fs.promises.cp(
+    await fs.promises.symlink(
       path.join(modifiedPreviewAppPath, '.next'),
       path.join(builtPreviewAppPath, '.next'),
-      {
-        recursive: true,
-      },
+      'dir',
     );
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, 'public'),
-      path.join(builtPreviewAppPath, 'public'),
-      {
-        recursive: true,
-      },
-    );
-
-    await fs.promises.rm(modifiedPreviewAppPath, {
-      recursive: true,
-    });
   } catch (error) {
     console.log(error);
     process.exit(1);
