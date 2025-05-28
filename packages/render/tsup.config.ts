@@ -9,6 +9,12 @@ export default defineConfig([
   },
   {
     dts: true,
+    entry: ['./src/react-server/index.ts'],
+    outDir: './dist/react-server',
+    format: ['cjs', 'esm'],
+  },
+  {
+    dts: true,
     entry: ['./src/browser/index.ts'],
     outDir: './dist/browser',
     format: ['cjs', 'esm'],
