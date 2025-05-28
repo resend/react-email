@@ -6,6 +6,12 @@
 
 - 19cc59c: fix browser version including errors in the output instead of throwing them
 
+## 1.1.3-canary.0
+
+### Patch Changes
+
+- e22cc83: fix browser version including errors in the output instead of throwing them
+
 ## 1.1.2
 
 ### Patch Changes
