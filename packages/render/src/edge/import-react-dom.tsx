@@ -4,4 +4,4 @@ export const importReactDOM = async () => {
   } catch (_exception) {
     return await import('react-dom/server');
   }
-}
+};
