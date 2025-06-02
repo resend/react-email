@@ -15,8 +15,8 @@ export default defineConfig([
   },
   {
     dts: true,
-    entry: ['./src/edge-light/index.ts'],
-    outDir: './dist/edge-light',
+    entry: ['./src/edge/index.ts'],
+    outDir: './dist/edge',
     format: ['cjs', 'esm'],
   },
 ]);
