@@ -4,13 +4,14 @@ import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { readStream } from '../shared/read-stream.browser';
+import { importReactDOM } from './import-react-dom';
 
 export const render = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import('react-dom/server.edge').then(
+  const reactDOMServer = await importReactDOM().then(
     // This is beacuse react-dom/server is CJS
     (m) => m.default,
   );
