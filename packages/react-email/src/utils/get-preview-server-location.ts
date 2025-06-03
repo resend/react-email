@@ -1,16 +1,16 @@
-import path from "node:path";
-import url from "node:url";
-import { createJiti } from "jiti";
-import { addDevDependency } from "nypm";
-import prompts from "prompts";
-import { packageJson } from "./packageJson.js";
+import path from 'node:path';
+import url from 'node:url';
+import { createJiti } from 'jiti';
+import { addDevDependency } from 'nypm';
+import prompts from 'prompts';
+import { packageJson } from './packageJson.js';
 
 const ensurePreviewServerInstalled = async (
   message: string,
 ): Promise<never> => {
   const response = await prompts({
-    type: "confirm",
-    name: "installPreviewServer",
+    type: 'confirm',
+    name: 'installPreviewServer',
     message,
     initial: true,
   });
@@ -30,7 +30,7 @@ export const getPreviewServerLocation = async () => {
   let previewServerLocation!: string;
   try {
     previewServerLocation = path.dirname(
-      url.parse(usersProject.esmResolve("@react-email/preview-server"), true)
+      url.parse(usersProject.esmResolve('@react-email/preview-server'), true)
         .path!,
     );
   } catch (_exception) {
@@ -40,7 +40,7 @@ export const getPreviewServerLocation = async () => {
   }
   const { version } = await usersProject.import<{
     version: string;
-  }>("@react-email/preview-server");
+  }>('@react-email/preview-server');
   console.log(version);
   if (version !== packageJson.version) {
     await ensurePreviewServerInstalled(
