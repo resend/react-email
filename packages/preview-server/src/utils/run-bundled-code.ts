@@ -18,6 +18,8 @@ export const runBundledCode = (
     Request,
     Response,
     TextDecoderStream,
+    SyntaxError,
+    Error,
     TextEncoder,
     TextEncoderStream,
     ReadableStream,
