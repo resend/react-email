@@ -38,9 +38,10 @@ export const getPreviewServerLocation = async () => {
       'To run the preview server, the package "@react-email/preview-server" must be installed. Would you like to install it?',
     );
   }
-  const { version } = (await import(previewServerLocation)) as {
+  const { version } = await usersProject.import<{
     version: string;
-  };
+  }>("@react-email/preview-server");
+  console.log(version);
   if (version !== packageJson.version) {
     await ensurePreviewServerInstalled(
       `To run the preview server, the version of "@react-email/preview-server" must match the version of "react-email" (${packageJson.version}). Would you like to install it?`,
