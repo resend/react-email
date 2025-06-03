@@ -5,12 +5,14 @@ import url from 'node:url';
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const root = path.resolve(dirname, '../src/index.ts');
+
 const tsx = child_process.spawn(
   'tsx',
-  ['../src/index.ts', ...process.argv.slice(2)],
+  [root, ...process.argv.slice(2)],
   {
     shell: true,
-    cwd: dirname,
+    cwd: process.cwd(),
     stdio: 'inherit',
   },
 );
