@@ -81,7 +81,10 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
             'inline-block relative overflow-hidden will-change-[width]',
             'w-full h-full',
             '[transition:width_0.2s_ease-in-out,_transform_0.2s_ease-in-out]',
-            sidebarToggled && 'lg:w-[calc(100%-16rem)]',
+            {
+              'lg:w-[calc(100%-16rem)]': sidebarToggled,
+              'opacity-0 lg:opacity-100': !sidebarToggled,
+            },
           )}
         >
           {children}
