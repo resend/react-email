@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.9
+
+### Patch Changes
+
+- 40fb596: Use the same version for the preview-server and react-email
+
 ## 4.1.0-canary.8
 
 ### Minor Changes
