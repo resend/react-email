@@ -9,7 +9,7 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "main": "./_index.js",
+  "main": "./index.mjs",
   "dependencies": {
     "@babel/core": "7.26.10",
     "@babel/parser": "^7.27.0",
