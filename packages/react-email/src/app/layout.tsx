@@ -27,8 +27,8 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       className={`${inter.variable} ${sfMono.variable} font-sans`}
       lang="en"
     >
-      <body className="relative flex h-screen flex-col bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
-        <div className="bg-gradient-to-t from-slate-3 flex">
+      <body className="relative h-screen bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
+        <div className="bg-gradient-to-t from-slate-3 flex flex-col">
           <EmailsProvider
             initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
           >
