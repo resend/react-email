@@ -1,5 +1,11 @@
 # react-email
 
+## 4.0.16
+
+### Patch Changes
+
+- 1340a0a: fix mobile's sidebar broken in the preview server
+
 ## 4.0.15
 
 ### Patch Changes
