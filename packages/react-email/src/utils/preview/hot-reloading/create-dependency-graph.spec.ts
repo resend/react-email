@@ -44,25 +44,22 @@ test('createDependencyGraph()', async () => {
   };
 
   const initialDependencyGraph = convertPathsToAbsolute({
-    "create-dependency-graph.ts": {
-      path: "create-dependency-graph.ts",
-      dependencyPaths: [
-        "get-imported-modules.ts",
-        "resolve-path-aliases.ts",
-      ],
+    'create-dependency-graph.ts': {
+      path: 'create-dependency-graph.ts',
+      dependencyPaths: ['get-imported-modules.ts', 'resolve-path-aliases.ts'],
       dependentPaths: [
         'create-dependency-graph.spec.ts',
         'setup-hot-reloading.ts',
       ],
       moduleDependencies: ['node:fs', 'node:path', 'chokidar/handler.js'],
     },
-    "create-dependency-graph.spec.ts": {
-      path: "create-dependency-graph.spec.ts",
-      dependencyPaths: ["create-dependency-graph.ts"],
+    'create-dependency-graph.spec.ts': {
+      path: 'create-dependency-graph.spec.ts',
+      dependencyPaths: ['create-dependency-graph.ts'],
       dependentPaths: [],
       moduleDependencies: ['node:fs', 'node:path'],
     },
-    "./test/some-file.ts": {
+    './test/some-file.ts': {
       dependencyPaths: [],
       dependentPaths: [],
       moduleDependencies: [],
@@ -113,7 +110,7 @@ test('createDependencyGraph()', async () => {
         'socket.io',
       ],
     },
-    "../../types/hot-reload-event.ts": {
+    '../../types/hot-reload-event.ts': {
       dependencyPaths: [],
       dependentPaths: ['../../types/hot-reload-change.ts'],
       moduleDependencies: ['chokidar/handler.js'],
