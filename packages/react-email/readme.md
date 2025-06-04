@@ -44,11 +44,11 @@ npx react-email export
 Running it for development can be done, after you have built all packages, with:
 
 1. ```sh
-pnpm link ./dev -g
-```
+   pnpm link ./dev -g
+   ```
 2. ```sh
-email-dev ...
-```
+   email-dev ...
+   ```
 
 This is a script that runs the CLI using `tsx` directly from source so there is no need to rebuild it before running again.
 
