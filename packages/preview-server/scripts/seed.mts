@@ -19,4 +19,3 @@ console.info('Copying over the defalt seed to the emails directory');
 await fs.cp(seedPath, emailsDirectoryPath, {
   recursive: true,
 });
-

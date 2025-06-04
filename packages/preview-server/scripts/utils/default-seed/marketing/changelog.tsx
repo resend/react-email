@@ -1,19 +1,19 @@
 import {
-  Html,
-  Head,
   Body,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Preview,
+  Section,
   Tailwind,
   Text,
-  Heading,
-  Container,
-  Preview,
-  Hr,
-  Section,
-} from "@react-email/components";
+} from '@react-email/components';
 
 interface ChangelogProps {
   receiver: string;
-  changes: Partial<Record<"features" | "fixes" | "improvements", string[]>>;
+  changes: Partial<Record<'features' | 'fixes' | 'improvements', string[]>>;
   date: string;
 }
 
@@ -54,7 +54,7 @@ export default function Changelog({ receiver, date, changes }: ChangelogProps) {
             </Heading>
             <Text>
               We've been hard at work making improvements to our service, and we
-              wanted to share the latest changes as of{" "}
+              wanted to share the latest changes as of{' '}
               <span className="font-bold">{date}</span> with you.
             </Text>
             {changes.features && changes.features.length > 0 ? (
@@ -67,7 +67,7 @@ export default function Changelog({ receiver, date, changes }: ChangelogProps) {
               <Changes title="Fixes" content={changes.fixes} />
             ) : null}
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -79,20 +79,20 @@ export default function Changelog({ receiver, date, changes }: ChangelogProps) {
 }
 
 Changelog.PreviewProps = {
-  receiver: "user",
+  receiver: 'user',
   changes: {
     features: [
-      "Added a new feature to enhance user experience",
-      "Introduced a dark mode option for better accessibility",
+      'Added a new feature to enhance user experience',
+      'Introduced a dark mode option for better accessibility',
     ],
     fixes: [
-      "Fixed a bug that caused the app to crash on startup",
-      "Resolved an issue with email notifications not being sent",
+      'Fixed a bug that caused the app to crash on startup',
+      'Resolved an issue with email notifications not being sent',
     ],
     improvements: [
-      "Improved performance of the application by optimizing database queries",
-      "Enhanced security measures to protect user data",
+      'Improved performance of the application by optimizing database queries',
+      'Enhanced security measures to protect user data',
     ],
   },
-  date: "June 4th, 2025",
+  date: 'June 4th, 2025',
 } satisfies ChangelogProps;

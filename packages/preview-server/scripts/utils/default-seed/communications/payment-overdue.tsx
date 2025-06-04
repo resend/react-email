@@ -1,17 +1,17 @@
 import {
-  Html,
-  Head,
   Body,
-  Tailwind,
   Button,
-  Text,
-  Heading,
+  Column,
   Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
   Preview,
   Row,
-  Column,
-  Hr,
-} from "@react-email/components";
+  Tailwind,
+  Text,
+} from '@react-email/components';
 
 interface PaymentOverdueProps {
   customerName: string;
@@ -31,9 +31,7 @@ export default function PaymentOverdue({
       <Head />
       <Tailwind>
         <Body className="bg-black text-white">
-          <Preview>
-            Payment of {amount} is overdue - Action required
-          </Preview>
+          <Preview>Payment of {amount} is overdue - Action required</Preview>
           <Container className="mx-auto">
             <Heading className="font-bold text-center my-[48px] text-[32px]">
               Payment Overdue
@@ -65,7 +63,7 @@ export default function PaymentOverdue({
               message.
             </Text>
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -77,8 +75,8 @@ export default function PaymentOverdue({
 }
 
 PaymentOverdue.PreviewProps = {
-  customerName: "Jane Smith",
-  amount: "$99.00",
-  dueDate: "June 1st, 2024",
-  invoiceLink: "https://react.email/invoice/123",
+  customerName: 'Jane Smith',
+  amount: '$99.00',
+  dueDate: 'June 1st, 2024',
+  invoiceLink: 'https://react.email/invoice/123',
 } satisfies PaymentOverdueProps;

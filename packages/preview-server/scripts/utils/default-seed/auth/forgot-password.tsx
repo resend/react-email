@@ -1,17 +1,17 @@
 import {
-  Html,
-  Head,
   Body,
-  Tailwind,
   Button,
-  Text,
-  Heading,
+  Column,
   Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
   Preview,
   Row,
-  Column,
-  Hr,
-} from "@react-email/components";
+  Tailwind,
+  Text,
+} from '@react-email/components';
 
 interface ForgotPasswordProps {
   resetLink: string;
@@ -54,7 +54,7 @@ export default function ForgotPassword({
               </Column>
             </Row>
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -66,6 +66,6 @@ export default function ForgotPassword({
 }
 
 ForgotPassword.PreviewProps = {
-  resetLink: "https://react.email/reset-password/123",
-  expiryTime: "1 hour",
+  resetLink: 'https://react.email/reset-password/123',
+  expiryTime: '1 hour',
 } satisfies ForgotPasswordProps;

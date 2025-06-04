@@ -1,17 +1,17 @@
 import {
-  Html,
-  Head,
   Body,
-  Tailwind,
   Button,
-  Text,
-  Heading,
+  Column,
   Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
   Preview,
   Row,
-  Column,
-  Hr,
-} from "@react-email/components";
+  Tailwind,
+  Text,
+} from '@react-email/components';
 
 interface TeamInviteProps {
   inviterName: string;
@@ -59,7 +59,7 @@ export default function TeamInvite({
               </Column>
             </Row>
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -71,8 +71,8 @@ export default function TeamInvite({
 }
 
 TeamInvite.PreviewProps = {
-  inviterName: "John Doe",
-  teamName: "Marketing Team",
-  inviteLink: "https://react.email/join/team/123",
-  role: "Editor",
+  inviterName: 'John Doe',
+  teamName: 'Marketing Team',
+  inviteLink: 'https://react.email/join/team/123',
+  role: 'Editor',
 } satisfies TeamInviteProps;
