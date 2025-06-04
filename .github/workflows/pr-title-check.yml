@@ -1,0 +1,15 @@
+name: PR Title Check
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+jobs:
+  pr-title-check:
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    container:
+      image: node:22
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run PR title check
+        run: |
+          npx tsx ./scripts/pr-title-check.ts
