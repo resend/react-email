@@ -1,4 +1,4 @@
-name: rsnd
+name: Build and test
 on:
   push:
     branches:
@@ -10,7 +10,6 @@ permissions:
   pull-requests: read
 jobs:
   build-and-test:
-    name: build and test
     runs-on: buildjet-4vcpu-ubuntu-2204
     outputs:
       cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
