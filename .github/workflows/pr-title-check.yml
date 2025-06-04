@@ -1,9 +1,9 @@
-name: PR Title Check
+name: Pull Request Title Check
 on:
   pull_request:
     types: [opened, edited, synchronize]
 jobs:
-  pr-title-check:
+  pull-request-title-check:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
       image: node:22
