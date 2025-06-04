@@ -1,4 +1,4 @@
-name: Release canary
+name: Release Canary
 on:
   push:
     branches:
