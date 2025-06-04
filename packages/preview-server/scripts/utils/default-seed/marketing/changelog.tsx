@@ -10,40 +10,70 @@ import {
   Preview,
   Row,
   Column,
+  Hr,
+  Section,
 } from "@react-email/components";
 
-interface FeedbackRequestProps {
-  name: string;
+interface ChangelogProps {
+  receiver: string;
+  changes: Partial<Record<"features" | "fixes" | "improvements", string[]>>;
+  date: string;
 }
 
-export default function FeedbackRequest({ name }: FeedbackRequestProps) {
+interface ChangesProps {
+  title: React.ReactNode;
+  content: string[];
+}
+
+function Changes({ title, content }: ChangesProps) {
+  return (
+    <Section>
+      <Heading as="h2" className="my-[12px]">
+        {title}
+      </Heading>
+      <ul className="list-disc pl-6">
+        {content.map((feature, index) => (
+          <li key={index} className="mb-2">
+            {feature}
+          </li>
+        ))}
+      </ul>
+    </Section>
+  );
+}
+
+export default function Changelog({ receiver, date, changes }: ChangelogProps) {
   return (
     <Html>
       <Head />
       <Tailwind>
-        <Body className="bg-gray-100">
+        <Body className="bg-black text-white">
           <Preview>
-            Thank you for using our service. We would love to hear your
-            feedback.
+            The changes as of {date} particularly tailored to you
           </Preview>
-          <Container>
-            <Heading className="text-[24px] leading-[32px] font-bold mb-4">
-              We Value Your Feedback {name}!
+          <Container className="mx-auto">
+            <Heading className="font-bold text-center my-[48px] text-[32px]">
+              Hello {receiver},
             </Heading>
             <Text>
-              Thank you for using our service. We would love to hear your
-              thoughts and suggestions.
+              We've been hard at work making improvements to our service, and we
+              wanted to share the latest changes as of{" "}
+              <span className="font-bold">{date}</span> with you.
             </Text>
-            <Row>
-              <Column align="center">
-                <Button
-                  href="https://react.email"
-                  className="bg-blue-500 text-white w-fit border border-solid border-gray-100 px-[16px] py-[8px] rounded-[4px]"
-                >
-                  Give Feedback
-                </Button>
-              </Column>
-            </Row>
+            {changes.features && changes.features.length > 0 ? (
+              <Changes title="Features" content={changes.features} />
+            ) : null}
+            {changes.improvements && changes.improvements.length > 0 ? (
+              <Changes title="Improvements" content={changes.improvements} />
+            ) : null}
+            {changes.fixes && changes.fixes.length > 0 ? (
+              <Changes title="Fixes" content={changes.fixes} />
+            ) : null}
+            <Text className="mt-6">- React Email team</Text>
+            <Hr style={{ borderTopColor: "#404040" }} />
+            <Text className="text-[#606060] font-bold">
+              React Email, 999 React St, Email City, EC 12345
+            </Text>
           </Container>
         </Body>
       </Tailwind>
@@ -51,6 +81,21 @@ export default function FeedbackRequest({ name }: FeedbackRequestProps) {
   );
 }
 
-FeedbackRequest.PreviewProps = {
-  name: "React Emailer",
-} satisfies FeedbackRequestProps;
+Changelog.PreviewProps = {
+  receiver: "user",
+  changes: {
+    features: [
+      "Added a new feature to enhance user experience",
+      "Introduced a dark mode option for better accessibility",
+    ],
+    fixes: [
+      "Fixed a bug that caused the app to crash on startup",
+      "Resolved an issue with email notifications not being sent",
+    ],
+    improvements: [
+      "Improved performance of the application by optimizing database queries",
+      "Enhanced security measures to protect user data",
+    ],
+  },
+  date: "June 4th, 2025",
+} satisfies ChangelogProps;
