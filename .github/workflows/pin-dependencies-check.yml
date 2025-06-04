@@ -1,0 +1,20 @@
+name: Pin Dependencies Check
+on:
+  push:
+    branches:
+      - main
+      - canary
+  pull_request:
+permissions: 
+  contents: read
+  pull-requests: read
+jobs:
+  pin-dependencies-check:
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    container:
+      image: node:22
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check for pinned dependencies
+        run: npx tsx ./scripts/check-dependency-versions.ts
