@@ -9,15 +9,11 @@ const root = path.resolve(dirname, '../src/index.ts');
 
 const tsxPath = path.resolve(dirname, './node_modules/.bin/tsx');
 
-const tsx = child_process.spawn(
-  tsxPath,
-  [root, ...process.argv.slice(2)],
-  {
-    shell: true,
-    cwd: process.cwd(),
-    stdio: 'inherit',
-  },
-);
+const tsx = child_process.spawn(tsxPath, [root, ...process.argv.slice(2)], {
+  shell: true,
+  cwd: process.cwd(),
+  stdio: 'inherit',
+});
 
 process.on('uncaughtExceptionMonitor', () => {
   tsx.kill();
