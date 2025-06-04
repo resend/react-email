@@ -1,17 +1,17 @@
 import {
-  Html,
-  Head,
   Body,
-  Tailwind,
   Button,
-  Text,
-  Heading,
+  Column,
   Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
   Preview,
   Row,
-  Column,
-  Hr,
-} from "@react-email/components";
+  Tailwind,
+  Text,
+} from '@react-email/components';
 
 interface FeedbackRequestProps {
   name: string;
@@ -42,7 +42,7 @@ export default function FeedbackRequest({ name }: FeedbackRequestProps) {
             </Text>
             <Text className="mb-6">
               If you have any questions about the service or need assistance,
-              please feel free to reach out to us at{" "}
+              please feel free to reach out to us at{' '}
               <a
                 href="mailto:support@react.email"
                 className="text-cyan-300 underline"
@@ -63,7 +63,9 @@ export default function FeedbackRequest({ name }: FeedbackRequestProps) {
             </Row>
             <Text className="mt-6">- React Email team</Text>
             <Hr style={{ borderTopColor: '#404040' }} />
-            <Text className="text-[#606060] font-bold">React Email, 999 React St, Email City, EC 12345</Text>
+            <Text className="text-[#606060] font-bold">
+              React Email, 999 React St, Email City, EC 12345
+            </Text>
           </Container>
         </Body>
       </Tailwind>
@@ -72,5 +74,5 @@ export default function FeedbackRequest({ name }: FeedbackRequestProps) {
 }
 
 FeedbackRequest.PreviewProps = {
-  name: "user",
+  name: 'user',
 } satisfies FeedbackRequestProps;

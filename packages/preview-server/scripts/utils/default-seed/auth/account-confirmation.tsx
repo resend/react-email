@@ -1,17 +1,17 @@
 import {
-  Html,
-  Head,
   Body,
-  Tailwind,
   Button,
-  Text,
-  Heading,
+  Column,
   Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
   Preview,
   Row,
-  Column,
-  Hr,
-} from "@react-email/components";
+  Tailwind,
+  Text,
+} from '@react-email/components';
 
 interface AccountConfirmationProps {
   confirmLink: string;
@@ -51,7 +51,7 @@ export default function AccountConfirmation({
               </Column>
             </Row>
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -63,6 +63,6 @@ export default function AccountConfirmation({
 }
 
 AccountConfirmation.PreviewProps = {
-  confirmLink: "https://react.email/confirm/123",
-  expiryTime: "24 hours",
+  confirmLink: 'https://react.email/confirm/123',
+  expiryTime: '24 hours',
 } satisfies AccountConfirmationProps;
