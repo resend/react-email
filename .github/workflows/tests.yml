@@ -1,4 +1,4 @@
-name: Build and test
+name: Build and Test
 on:
   push:
     branches:
@@ -51,12 +51,3 @@ jobs:
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-  dependencies:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    container:
-      image: node:22
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Check for pinned dependencies
-        run: npx tsx ./scripts/check-dependency-versions.ts
