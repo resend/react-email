@@ -41,7 +41,7 @@ npx react-email export
 
 ## Development setup
 
-Running it for deveopment can be done, after you have built all packages, with:
+Running it for development can be done, after you have built all packages, with:
 
 1. ```sh
    pnpm link ./dev -g
