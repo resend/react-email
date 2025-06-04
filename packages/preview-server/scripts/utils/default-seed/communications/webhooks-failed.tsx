@@ -1,16 +1,16 @@
 import {
-  Html,
-  Head,
   Body,
+  CodeBlock,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Preview,
   Tailwind,
   Text,
-  Heading,
-  Container,
-  Preview,
-  Hr,
-  CodeBlock,
   vesper,
-} from "@react-email/components";
+} from '@react-email/components';
 
 interface WebhooksFailedProps {
   date: string;
@@ -46,14 +46,14 @@ export default function WebhooksFailed({ date, error }: WebhooksFailedProps) {
               language="json"
               theme={vesper}
               style={{
-                padding: "16px",
-                borderRadius: "8px",
+                padding: '16px',
+                borderRadius: '8px',
               }}
               lineNumbers
             />
             <Text className="mb-6">
               If you have any questions or need assistance, please reach out to
-              us at{" "}
+              us at{' '}
               <a
                 href="mailto:support@react.email"
                 className="text-cyan-300 underline"
@@ -63,7 +63,7 @@ export default function WebhooksFailed({ date, error }: WebhooksFailedProps) {
               .
             </Text>
             <Text className="mt-6">- React Email team</Text>
-            <Hr style={{ borderTopColor: "#404040" }} />
+            <Hr style={{ borderTopColor: '#404040' }} />
             <Text className="text-[#606060] font-bold">
               React Email, 999 React St, Email City, EC 12345
             </Text>
@@ -75,15 +75,15 @@ export default function WebhooksFailed({ date, error }: WebhooksFailedProps) {
 }
 
 WebhooksFailed.PreviewProps = {
-  date: "June 4th, 202",
+  date: 'June 4th, 202',
   error: {
-    error: "Webhook delivery failed",
-    timestamp: "2023-10-01T12:00:00Z",
-    webhookId: "wh_1234567890",
+    error: 'Webhook delivery failed',
+    timestamp: '2023-10-01T12:00:00Z',
+    webhookId: 'wh_1234567890',
     details: {
-      reason: "Network error",
+      reason: 'Network error',
       retryCount: 3,
-      lastAttempt: "2023-10-01T12:05:00Z",
+      lastAttempt: '2023-10-01T12:05:00Z',
     },
   },
 } satisfies WebhooksFailedProps;
