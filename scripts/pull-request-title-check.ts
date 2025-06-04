@@ -1,13 +1,13 @@
-import fs from "node:fs";
+import fs from 'node:fs';
 
 const eventPath = process.env.GITHUB_EVENT_PATH;
 if (!eventPath) {
   throw new Error(
-    "GITHUB_EVENT_PATH environment variable is not set. This script is only meant to run in during a Github workflow.",
+    'GITHUB_EVENT_PATH environment variable is not set. This script is only meant to run in during a Github workflow.',
   );
 }
 
-const eventJson = JSON.parse(fs.readFileSync(eventPath, "utf8"));
+const eventJson = JSON.parse(fs.readFileSync(eventPath, 'utf8'));
 const { title } = eventJson.pull_request;
 
 const validTypeRegex =
@@ -24,4 +24,4 @@ example: "type: description of the change"
   process.exit(1);
 }
 
-console.info("pull request title is valid");
+console.info('pull request title is valid');

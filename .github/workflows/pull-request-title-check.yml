@@ -12,6 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Run PR title check
+      - name: Check pull request title
         run: |
-          npx tsx ./scripts/pr-title-check.ts
+          npx tsx ./scripts/pull-request-title-check.ts
