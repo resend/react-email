@@ -3,13 +3,10 @@ import {
   Head,
   Body,
   Tailwind,
-  Button,
   Text,
   Heading,
   Container,
   Preview,
-  Row,
-  Column,
   Hr,
   Section,
 } from "@react-email/components";
