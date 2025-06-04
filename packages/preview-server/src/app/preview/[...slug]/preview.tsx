@@ -20,6 +20,7 @@ import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
 import { RenderingError } from './rendering-error';
+import { Canvas } from './canvas';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
@@ -114,7 +115,6 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         {...props}
         className={cn(
           'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300',
-          activeView === 'preview' && 'bg-gray-200',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
@@ -140,43 +140,19 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
         {hasRenderingMetadata ? (
           <>
-            {activeView === 'preview' && (
-              <ResizableWrapper
-                minHeight={minHeight}
-                minWidth={minWidth}
-                maxHeight={maxHeight}
-                maxWidth={maxWidth}
-                height={height}
-                onResizeEnd={() => {
-                  handleSaveViewSize();
-                }}
-                onResize={(value, direction) => {
-                  const isHorizontal =
-                    direction === 'east' || direction === 'west';
-                  if (isHorizontal) {
-                    setWidth(Math.round(value));
-                  } else {
-                    setHeight(Math.round(value));
-                  }
-                }}
-                width={width}
-              >
-                <iframe
-                  className="solid max-h-full rounded-lg bg-white"
-                  ref={(iframe) => {
-                    if (iframe) {
-                      return makeIframeDocumentBubbleEvents(iframe);
-                    }
-                  }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
-                  title={emailTitle}
-                />
-              </ResizableWrapper>
-            )}
+            <Canvas
+              title={emailTitle}
+              srcDoc={renderedEmailMetadata.markup}
+              minWidth={minWidth}
+              minHeight={minHeight}
+              maxWidth={maxWidth}
+              maxHeight={maxHeight}
+              width={width}
+              height={height}
+              onWidthChange={setWidth}
+              onHeightChange={setHeight}
+              handleSaveViewSize={handleSaveViewSize}
+            />
 
             {activeView === 'source' && (
               <div className="h-full w-full">
