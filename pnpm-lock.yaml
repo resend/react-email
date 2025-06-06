@@ -198,7 +198,7 @@ importers:
         version: 5.8.3
       webpack:
         specifier: 5.99.6
-        version: 5.99.6(@swc/core@1.11.21)
+        version: 5.99.6(@swc/core@1.11.21)(esbuild@0.25.0)
       zod:
         specifier: 3.24.3
         version: 3.24.3
@@ -853,6 +853,12 @@ importers:
       typescript:
         specifier: 5.8.3
         version: 5.8.3
+
+  packages/react-email/dev:
+    dependencies:
+      tsx:
+        specifier: 4.19.3
+        version: 4.19.3
 
   packages/render:
     dependencies:
@@ -16357,17 +16363,6 @@ snapshots:
       '@swc/core': 1.11.21
       esbuild: 0.25.0
 
-  terser-webpack-plugin@5.3.11(@swc/core@1.11.21)(webpack@5.99.6(@swc/core@1.11.21)):
-    dependencies:
-      '@jridgewell/trace-mapping': 0.3.25
-      jest-worker: 27.5.1
-      schema-utils: 4.3.0
-      serialize-javascript: 6.0.2
-      terser: 5.37.0
-      webpack: 5.99.6(@swc/core@1.11.21)
-    optionalDependencies:
-      '@swc/core': 1.11.21
-
   terser-webpack-plugin@5.3.11(@swc/core@1.3.101(@swc/helpers@0.5.15))(esbuild@0.19.11)(webpack@5.99.6(@swc/core@1.3.101(@swc/helpers@0.5.15))(esbuild@0.19.11)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
@@ -16949,36 +16944,6 @@ snapshots:
   webidl-conversions@7.0.0: {}
 
   webpack-sources@3.2.3: {}
-
-  webpack@5.99.6(@swc/core@1.11.21):
-    dependencies:
-      '@types/eslint-scope': 3.7.7
-      '@types/estree': 1.0.7
-      '@webassemblyjs/ast': 1.14.1
-      '@webassemblyjs/wasm-edit': 1.14.1
-      '@webassemblyjs/wasm-parser': 1.14.1
-      acorn: 8.14.1
-      browserslist: 4.24.4
-      chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.17.1
-      es-module-lexer: 1.6.0
-      eslint-scope: 5.1.1
-      events: 3.3.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.11
-      json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.0
-      mime-types: 2.1.35
-      neo-async: 2.6.2
-      schema-utils: 4.3.0
-      tapable: 2.2.1
-      terser-webpack-plugin: 5.3.11(@swc/core@1.11.21)(webpack@5.99.6(@swc/core@1.11.21))
-      watchpack: 2.4.2
-      webpack-sources: 3.2.3
-    transitivePeerDependencies:
-      - '@swc/core'
-      - esbuild
-      - uglify-js
 
   webpack@5.99.6(@swc/core@1.11.21)(esbuild@0.25.0):
     dependencies:
