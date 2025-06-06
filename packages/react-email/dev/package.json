@@ -1,0 +1,13 @@
+{
+  "name": "email-dev",
+  "version": "0.0.0",
+  "bin": "index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "tsx": "4.19.3"
+  }
+}
