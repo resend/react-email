@@ -43,7 +43,7 @@ npx react-email export
 
 When working in the CLI, a lot of friction can get introduced with installing it and rebuilding for every change. To avoid that, we have a script that can be linked globally to directly run the source code of the CLI. You can use it the same as you would the standard CLI.
 
-### 1. Link `email-dev` globally
+### 1. Link `react-email` globally
 
 ```sh
 pnpm link ./dev -g
