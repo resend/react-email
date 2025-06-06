@@ -113,9 +113,7 @@ describe('containsEmailTemplate()', () => {
   };
 
   it('should work with collapsed email directory', () => {
-    expect(
-      containsEmailTemplate('first/second/email', directory),
-    ).toBe(true);
+    expect(containsEmailTemplate('first/second/email', directory)).toBe(true);
   });
 
   it('should work with email inside a single sub directory', () => {
