@@ -114,45 +114,47 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <div
         {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300',
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex transition-[height] duration-300',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
-        ref={(element) => {
-          const observer = new ResizeObserver((entry) => {
-            const [elementEntry] = entry;
-            if (elementEntry) {
-              setMaxWidth(elementEntry.contentRect.width);
-              setMaxHeight(elementEntry.contentRect.height);
-            }
-          });
-
-          if (element) {
-            observer.observe(element);
-          }
-
-          return () => {
-            observer.disconnect();
-          };
-        }}
       >
         {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
 
         {hasRenderingMetadata ? (
           <>
-            <Canvas
-              title={emailTitle}
-              srcDoc={renderedEmailMetadata.markup}
-              minWidth={minWidth}
-              minHeight={minHeight}
-              maxWidth={maxWidth}
-              maxHeight={maxHeight}
-              width={width}
-              height={height}
-              onWidthChange={setWidth}
-              onHeightChange={setHeight}
-              handleSaveViewSize={handleSaveViewSize}
-            />
+            {activeView === 'preview' && (
+              <Canvas
+                ref={(element) => {
+                  const observer = new ResizeObserver((entry) => {
+                    const [elementEntry] = entry;
+                    if (elementEntry) {
+                      setMaxWidth(elementEntry.contentRect.width);
+                      setMaxHeight(elementEntry.contentRect.height);
+                    }
+                  });
+
+                  if (element) {
+                    observer.observe(element);
+                  }
+
+                  return () => {
+                    observer.disconnect();
+                  };
+                }}
+                title={emailTitle}
+                srcDoc={renderedEmailMetadata.markup}
+                minWidth={minWidth}
+                minHeight={minHeight}
+                maxWidth={maxWidth}
+                maxHeight={maxHeight}
+                width={width}
+                height={height}
+                onWidthChange={setWidth}
+                onHeightChange={setHeight}
+                handleSaveViewSize={handleSaveViewSize}
+              />
+            )}
 
             {activeView === 'source' && (
               <div className="h-full w-full">

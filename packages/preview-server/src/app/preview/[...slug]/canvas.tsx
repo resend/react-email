@@ -1,14 +1,15 @@
+import { extractColors } from 'extract-colors';
+import type { FinalColor } from 'extract-colors/lib/types/Color';
+import html2canvas from 'html2canvas';
 import { useEffect, useRef, useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import {
   makeIframeDocumentBubbleEvents,
   ResizableWrapper,
 } from '../../../components/resizable-wrapper';
-import { extractColors } from 'extract-colors';
-import html2canvas from 'html2canvas';
-import type { FinalColor } from 'extract-colors/lib/types/Color';
-import { useDebouncedCallback } from 'use-debounce';
+import { cn } from '../../../utils';
 
-interface CanvasProps {
+interface CanvasProps extends React.ComponentProps<'div'> {
   title: string;
   srcDoc: string;
 
@@ -69,6 +70,8 @@ export const Canvas = ({
 
   onWidthChange,
   onHeightChange,
+
+  ...rest
 }: CanvasProps) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -76,7 +79,10 @@ export const Canvas = ({
   console.log('extracted colors', colors);
 
   return (
-    <div className="h-full w-full flex bg-gray-100">
+    <div
+      {...rest}
+      className={cn('h-full w-full flex bg-gray-100 p-4', rest.className)}
+    >
       <ResizableWrapper
         minHeight={minHeight}
         minWidth={minWidth}
