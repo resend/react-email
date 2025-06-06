@@ -7,10 +7,6 @@ import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
-import {
-  makeIframeDocumentBubbleEvents,
-  ResizableWrapper,
-} from '../../../components/resizable-wrapper';
 import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
@@ -19,8 +15,8 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
-import { RenderingError } from './rendering-error';
 import { Canvas } from './canvas';
+import { RenderingError } from './rendering-error';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;

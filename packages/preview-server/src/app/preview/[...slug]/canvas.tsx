@@ -1,5 +1,6 @@
 import { extractColors } from 'extract-colors';
 import type { FinalColor } from 'extract-colors/lib/types/Color';
+import type { BrowserOptions } from 'extract-colors/lib/types/Options';
 import html2canvas from 'html2canvas';
 import { useEffect, useRef, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
@@ -26,7 +27,10 @@ interface CanvasProps extends React.ComponentProps<'div'> {
   onHeightChange?: (height: number) => void;
 }
 
-const useColors = (iframe: HTMLIFrameElement | null) => {
+const useColors = (
+  iframe: HTMLIFrameElement | null,
+  options?: BrowserOptions,
+) => {
   const [colors, setColors] = useState<FinalColor[]>([]);
 
   const updateColors = useDebouncedCallback(async () => {
@@ -41,7 +45,7 @@ const useColors = (iframe: HTMLIFrameElement | null) => {
       }
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
-      const extractedColors = await extractColors(imageData);
+      const extractedColors = await extractColors(imageData, options);
 
       setColors(extractedColors);
     }
@@ -76,12 +80,15 @@ export const Canvas = ({
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const colors = useColors(iframeRef.current);
-  console.log('extracted colors', colors);
 
   return (
     <div
       {...rest}
-      className={cn('h-full w-full flex bg-gray-100 p-4', rest.className)}
+      style={{
+        background: canvasColor,
+        ...rest.style,
+      }}
+      className={cn('h-full w-full flex p-4', rest.className)}
     >
       <ResizableWrapper
         minHeight={minHeight}
