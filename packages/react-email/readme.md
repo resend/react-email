@@ -39,18 +39,21 @@ Generates the plain HTML files of your emails into a `out` directory.
 npx react-email export
 ```
 
-## Development setup
+## Setting Up the Environment
 
-Running it for development can be done, after you have built all packages, with:
+When working in the CLI, a lot of friction can get introduced with installing it and rebuilding for every change. To avoid that, we have a script that can be linked globally to directly run the source code of the CLI. You can use it the same as you would the standard CLI.
 
-1. ```sh
-   pnpm link ./dev -g
-   ```
-2. ```sh
-   email-dev ...
-   ```
+### 1. Link `email-dev` globally
 
-This is a script that runs the CLI using `tsx` directly from source so there is no need to rebuild it before running again.
+```sh
+pnpm link ./dev -g
+```
+
+### 2. Run the CLI
+
+```sh
+email-dev [command] [flags]
+```
 
 ## License
 
