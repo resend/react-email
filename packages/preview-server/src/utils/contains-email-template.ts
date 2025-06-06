@@ -14,20 +14,37 @@ export const containsEmailTemplate = (
   relativeEmailPath: string,
   directory: EmailsDirectory,
 ) => {
-  const remainingSegments = relativeEmailPath
+  const emailPathSegments = relativeEmailPath
     .replace(directory.relativePath, '')
     .split('/')
     .filter(Boolean);
-  if (remainingSegments.length === 1) {
-    const emailFilename = removeFilenameExtension(remainingSegments[0]!);
+
+  return containsEmailPathSegments(emailPathSegments, directory);
+};
+
+const containsEmailPathSegments = (
+  relativeEmailSegments: string[],
+  directory: EmailsDirectory,
+) => {
+  if (relativeEmailSegments.length === 1) {
+    const emailFilename = removeFilenameExtension(relativeEmailSegments[0]!);
     return directory.emailFilenames.includes(emailFilename);
   }
-  const subDirectory = directory.subDirectories.find(
-    (sub) => sub.directoryName === remainingSegments[0],
-  );
-  if (subDirectory === undefined) {
-    return false;
+
+  const remainingPath = relativeEmailSegments.join('/');
+
+  for (const subDirectory of directory.subDirectories) {
+    if (remainingPath.startsWith(subDirectory.directoryName)) {
+      const matchedSegments = subDirectory.directoryName
+        .split('/')
+        .filter(Boolean).length;
+
+      return containsEmailPathSegments(
+        relativeEmailSegments.slice(matchedSegments),
+        subDirectory,
+      );
+    }
   }
 
-  return containsEmailTemplate(relativeEmailPath, subDirectory);
+  return false;
 };

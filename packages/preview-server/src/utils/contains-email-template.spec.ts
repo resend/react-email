@@ -52,6 +52,13 @@ describe('containsEmailTemplate()', () => {
         ],
       },
       {
+        absolutePath: '/fake/path/emails/first/second',
+        directoryName: 'first/second',
+        relativePath: 'first/second',
+        emailFilenames: ['email'],
+        subDirectories: [],
+      },
+      {
         absolutePath: '/fake/path/emails/newsletters',
         directoryName: 'newsletters',
         relativePath: 'newsletters',
@@ -104,6 +111,11 @@ describe('containsEmailTemplate()', () => {
       },
     ],
   };
+
+  it('should work with collapsed email directory', () => {
+    expect(containsEmailTemplate('first/second/email', directory)).toBe(true);
+  });
+
   it('should work with email inside a single sub directory', () => {
     expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(
       true,
