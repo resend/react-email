@@ -1,5 +1,7 @@
 # react-email
 
+## 4.1.0-canary.10
+
 ## 4.1.0-canary.9
 
 ### Patch Changes
