@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.1.0-canary.10
+
+### Patch Changes
+
+- caa4a31: fix hot reloading with collapsed directories
+
 ## 4.1.0-canary.9
 
 ### Patch Changes

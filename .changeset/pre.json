@@ -32,7 +32,8 @@
     "@react-email/tailwind": "1.0.5",
     "@react-email/text": "0.1.4",
     "tsconfig": "0.0.0",
-    "@react-email/preview-server": "1.0.0-canary.0"
+    "@react-email/preview-server": "1.0.0-canary.0",
+    "email-dev": "0.0.0"
   },
   "changesets": [
     "afraid-sides-agree",
@@ -41,6 +42,7 @@
     "deep-clowns-bet",
     "great-parrots-yell",
     "mighty-pigs-add",
+    "petite-boxes-find",
     "puny-chicken-argue",
     "stupid-ghosts-decide",
     "tasty-swans-taste",
