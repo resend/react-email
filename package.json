@@ -24,7 +24,7 @@
     "pkg-pr-new": "0.0.51",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
-    "turbo": "2.5.0",
+    "turbo": "2.5.4",
     "vite": "6.3.2",
     "vitest": "3.2.3"
   },
