@@ -26,7 +26,7 @@
     "tsup": "8.4.0",
     "turbo": "2.5.0",
     "vite": "6.3.2",
-    "vitest": "3.1.1"
+    "vitest": "3.2.3"
   },
   "pnpm": {
     "overrides": {
