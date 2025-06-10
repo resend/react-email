@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "4.1.0-canary.10",
+  "version": "4.1.0-canary.11",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "caniemail:fetch": "node ./scripts/fill-caniemail-data.mjs",
