@@ -56,15 +56,15 @@ importers:
       '@react-email/components':
         specifier: workspace:*
         version: link:../../packages/components
+      email-dev:
+        specifier: workspace:*
+        version: link:../../packages/react-email/dev
       react:
         specifier: ^19.0.0
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
-      react-email:
-        specifier: workspace:*
-        version: link:../../packages/react-email
     devDependencies:
       '@react-email/preview-server':
         specifier: workspace:*
