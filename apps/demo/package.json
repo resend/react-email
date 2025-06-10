@@ -3,16 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm install --frozen-lockfile && email build",
-    "dev": "email dev",
-    "start": "email start",
-    "export": "email export"
+    "build": "email-dev build",
+    "dev": "email-dev dev",
+    "start": "email-dev start",
+    "export": "email-dev export"
   },
   "dependencies": {
     "@react-email/components": "workspace:*",
     "react": "^19",
     "react-dom": "^19",
-    "react-email": "workspace:*"
+    "email-dev": "workspace:*"
   },
   "devDependencies": {
     "@react-email/preview-server": "workspace:*",
