@@ -30,14 +30,18 @@
     "docs": "0.0.0",
     "react-email": "4.0.17",
     "tsconfig": "0.0.0",
-    "web": "0.0.0"
+    "web": "0.0.0",
+    "@react-email/preview-server": "4.1.0-canary.10",
+    "email-dev": "0.0.0"
   },
   "changesets": [
     "afraid-sides-agree",
+    "better-insects-like",
     "common-goats-find",
     "crazy-seas-eat",
     "deep-clowns-bet",
     "great-parrots-yell",
+    "kind-showers-exist",
     "mighty-pigs-add",
     "petite-boxes-find",
     "puny-chicken-argue",
