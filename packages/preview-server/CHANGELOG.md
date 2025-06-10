@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.1.0-canary.11
+
+### Patch Changes
+
+- 272b21e: fix the forced `color-scheme: dark` for the preview
+
 ## 4.1.0-canary.10
 
 ### Patch Changes
