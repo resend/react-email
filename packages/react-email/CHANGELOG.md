@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.0-canary.11
+
+### Patch Changes
+
+- 19d4b45: fix static file serving security issue with logging
+
 ## 4.1.0-canary.10
 
 ## 4.1.0-canary.9
