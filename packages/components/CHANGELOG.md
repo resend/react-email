@@ -1,5 +1,12 @@
 # @react-email/components
 
+## 0.0.42
+
+### Patch Changes
+
+- Updated dependencies [72138ae]
+  - @react-email/text@0.1.5
+
 ## 0.0.41
 
 ### Patch Changes
