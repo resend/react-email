@@ -162,7 +162,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                 width={width}
               >
                 <iframe
-                  className="solid max-h-full rounded-lg bg-white"
+                  className="max-h-full rounded-lg bg-white [color-scheme:auto]"
                   ref={(iframe) => {
                     if (iframe) {
                       return makeIframeDocumentBubbleEvents(iframe);
