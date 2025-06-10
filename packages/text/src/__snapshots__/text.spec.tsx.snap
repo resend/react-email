@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Text> component > gives priority to the user's style 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><p style="font-size:14px;line-height:24px;margin-top:0px;margin-bottom:16px"></p><!--/$-->"`;
+exports[`<Text> component > gives priority to the user's style 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><p style="font-size:14px;line-height:24px;margin:12px;margin-top:0px;margin-bottom:12px;margin-left:12px;margin-right:12px"></p><!--/$-->"`;
 
 exports[`<Text> component > passes style and other props correctly 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><p style="font-size:16px;line-height:24px;margin-top:16px;margin-bottom:16px">Test</p><!--/$-->"`;
 
