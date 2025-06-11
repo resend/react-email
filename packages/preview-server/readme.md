@@ -13,19 +13,27 @@
 
 This package is used to store the preview server, it is also published and versioned so that it can be installed when the [CLI](../react-email) is being used.
 
-## Development setup
+## Development workflow
 
-Running it for deveopment can be done with:
+### 1. Seed email templates
 
-1. ```sh
-   pnpm dev:seed
-   ```
-2. ```sh
-   pnpm dev
-   ```
-3. Opening http://localhost:3000
+```sh
+pnpm dev:seed
+```
 
-The `pnpm dev` is separate from the CLI, and is meant just for working on the UI at a faster pace by using `next dev`. It lets you to work on the preview server of the email templates in `./emails` without hot reloading or other features that require the CLI.
+This generates a boilerplate emails directory for you to work with. These files can also be modified as you see fit since they are not included in git.
 
-The `pnpm dev:seed` command generates a boilerplate emails directory for you to work with. These files can also be modified as you see fit since they are not included in git.
+### 2. Run development server
+
+```sh
+pnpm dev
+```
+
+This is somewhat equivalent to `next dev` and does not support hot reloading for email templates like the CLI does. It lets you work on the UI for the preview server mainly.
+
+### 3. Open in your browser
+
+Go to http://localhost:3000
+
+
 
