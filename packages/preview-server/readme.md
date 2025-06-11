@@ -1,5 +1,3 @@
-![React Email preview cover](https://react.email/static/covers/preview.png)
-
 <div align="center"><strong>@react-email/preview-server</strong></div>
 <div align="center">A live preview of your emails right in your browser.</div>
 <br />
