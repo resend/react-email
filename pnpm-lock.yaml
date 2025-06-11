@@ -1053,6 +1053,9 @@ importers:
       react-email:
         specifier: workspace:*
         version: link:../packages/react-email
+      tsconfig:
+        specifier: workspace:*
+        version: link:../packages/tsconfig
       tsx:
         specifier: 4.19.3
         version: 4.19.3
