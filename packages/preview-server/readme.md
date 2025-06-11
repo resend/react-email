@@ -35,5 +35,3 @@ This is somewhat equivalent to `next dev` and does not support hot reloading for
 
 Go to http://localhost:3000
 
-
-
