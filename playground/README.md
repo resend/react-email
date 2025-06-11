@@ -32,7 +32,7 @@ export default function Testing() {
 email dev
 ```
 
-### 3. Open playground server
+### 3. Open in your browser
 
 Go to http://localhost:3000
 
