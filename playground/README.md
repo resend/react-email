@@ -12,17 +12,17 @@ It includes all components directly from source with a path alias import of `@re
 import { Html, Head, Body, Tailwind, Text } from '@react-email/components';
 
 export default function Testing() {
-    return <Tailwind>
-        <Html>
-            <Head/>
+  return <Tailwind>
+    <Html>
+      <Head/>
 
-            <Body className="bg-black text-white">
-                <Text className="m-0 my-4 bg-cyan-200 text-slate-800">
-                    This is a testing email template.
-                </Text>
-            </Body>
-        </Html>
-    </Tailwind>;
+      <Body className="bg-black text-white">
+        <Text className="m-0 my-4 bg-cyan-200 text-slate-800">
+          This is a testing email template.
+        </Text>
+      </Body>
+    </Html>
+  </Tailwind>;
 }
 ```
 
