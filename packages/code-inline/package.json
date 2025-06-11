@@ -23,9 +23,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm build --watch",
-    "clean": "rm -rf dist",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "clean": "rm -rf dist"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -24,10 +24,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
-    "dev": "vite build --watch",
+    "build:watch": "vite build --watch",
     "clean": "rm -rf dist",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
