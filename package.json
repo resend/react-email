@@ -4,15 +4,14 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel --concurrency 25",
-    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
-    "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix",
     "lint": "biome check",
     "lint:fix": "biome check --write .",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test:watch": "turbo run test:watch",
+    "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.5",
