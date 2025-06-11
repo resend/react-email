@@ -1,5 +1,6 @@
 packages:
   - "apps/*"
+  - "benchmarks/*"
   - "packages/*"
   - "packages/react-email/dev"
-  - "benchmarks/*"
+  - "playground"
