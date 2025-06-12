@@ -1,5 +1,5 @@
+export * from '../packages/body/src';
 export * from '../packages/button/src';
-export * from '../packages/button/src/index';
 export * from '../packages/code-block/src';
 export * from '../packages/code-inline/src';
 export * from '../packages/column/src';
