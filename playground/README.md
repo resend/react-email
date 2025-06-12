@@ -31,7 +31,7 @@ export default function Testing() {
 ### 2. Run playground server
 
 ```sh
-email dev
+pnpm dev
 ```
 
 ### 3. Open in your browser
