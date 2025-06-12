@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "paths": {
+      "@react-email/components": ["./components.ts"]
+    }
+  },
+  "include": ["."]
+}
