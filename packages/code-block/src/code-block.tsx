@@ -1,12 +1,10 @@
-/* eslint-disable react/no-array-index-key */
 import * as React from 'react';
 import type { PrismLanguage } from './languages-available';
 import { Prism } from './prism';
 import type { Theme } from './themes';
 
-export type CodeBlockProps = Readonly<{
+export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   lineNumbers?: boolean;
-  style?: React.CSSProperties;
 
   /**
    * This applies a certain font family on all elements render in this component,
@@ -18,7 +16,7 @@ export type CodeBlockProps = Readonly<{
   theme: Theme;
   language: PrismLanguage;
   code: string;
-}>;
+}
 
 const stylesForToken = (token: Prism.Token, theme: Theme) => {
   let styles = { ...theme[token.type] };
@@ -75,33 +73,34 @@ const CodeBlockLine = ({
 };
 
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
-  (props, ref) => {
-    const languageGrammar = Prism.languages[props.language];
+  ({ code, fontFamily, lineNumbers, theme, language, ...rest }, ref) => {
+    const languageGrammar = Prism.languages[language];
     if (typeof languageGrammar === 'undefined') {
       throw new Error(
-        `CodeBlock: There is no language defined on Prism called ${props.language}`,
+        `CodeBlock: There is no language defined on Prism called ${language}`,
       );
     }
 
-    const lines = props.code.split(/\r\n|\r|\n/gm);
+    const lines = code.split(/\r\n|\r|\n/gm);
     const tokensPerLine = lines.map((line) =>
       Prism.tokenize(line, languageGrammar),
     );
 
     return (
       <pre
+        {...rest}
         ref={ref}
-        style={{ ...props.theme.base, width: '100%', ...props.style }}
+        style={{ ...theme.base, width: '100%', ...rest.style }}
       >
         <code>
           {tokensPerLine.map((tokensForLine, lineIndex) => (
             <p key={lineIndex} style={{ margin: 0, minHeight: '1em' }}>
-              {props.lineNumbers ? (
+              {lineNumbers ? (
                 <span
                   style={{
                     width: '2em',
                     display: 'inline-block',
-                    fontFamily: props.fontFamily,
+                    fontFamily: fontFamily,
                   }}
                 >
                   {lineIndex + 1}
@@ -110,9 +109,9 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
 
               {tokensForLine.map((token, i) => (
                 <CodeBlockLine
-                  inheritedStyles={{ fontFamily: props.fontFamily }}
+                  inheritedStyles={{ fontFamily: fontFamily }}
                   key={i}
-                  theme={props.theme}
+                  theme={theme}
                   token={token}
                 />
               ))}
