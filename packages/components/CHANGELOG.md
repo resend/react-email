@@ -1,5 +1,20 @@
 # @react-email/components
 
+## 0.1.0
+
+### Minor Changes
+
+- 18198e1: code-block: fix access to all `pre` properties
+- 4c4c5ef: button: respect the order in which padding properties are defined
+
+### Patch Changes
+
+- Updated dependencies [18198e1]
+- Updated dependencies [4c4c5ef]
+  - @react-email/code-block@0.1.0
+  - @react-email/button@0.1.0
+  - @react-email/tailwind@1.0.5
+
 ## 0.0.42
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.1.0
+
+### Minor Changes
+
+- 18198e1: fix access to all `pre` properties
+
 ## 0.0.13
 
 ### Patch Changes
