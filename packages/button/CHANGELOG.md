@@ -1,5 +1,11 @@
 # @react-email/button
 
+## 0.1.0
+
+### Minor Changes
+
+- 4c4c5ef: respect the order in which padding properties are defined
+
 ## 0.0.19
 
 ### Patch Changes
