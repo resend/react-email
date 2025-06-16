@@ -14,11 +14,6 @@ This could be happneing for the following reasons:
 - You don't have internet connectivity
 - Caniemail is down
 - Caniemail changed from where to fetch their data from, which means we need to fix this. If this is the case, please open up an issue.`,
-    {
-      cause: {
-        responseFromCaniemail,
-      },
-    },
   );
 }
 
