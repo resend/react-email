@@ -1,8 +1,6 @@
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Link } from '@react-email/link';
