@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup-node",
+    "build:watch": "tsup-node --watch src",
     "clean": "rm -rf dist",
-    "dev": "tsup-node --watch src",
     "test": "vitest run",
     "test:watch": "vitest"
   },
