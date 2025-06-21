@@ -34,12 +34,7 @@ export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
       };
 
       return (
-        <td
-          {...props}
-          ref={ref}
-          data-id="__react-email-column"
-          style={tdStyle}
-        >
+        <td {...props} ref={ref} data-id="__react-email-column" style={tdStyle}>
           <table
             style={containerStyle}
             align="center"
@@ -75,7 +70,12 @@ export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
       );
     }
     return (
-      <td {...props} data-id="__react-email-column" ref={ref} style={columnStyle}>
+      <td
+        {...props}
+        data-id="__react-email-column"
+        ref={ref}
+        style={columnStyle}
+      >
         {children}
       </td>
     );

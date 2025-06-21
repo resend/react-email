@@ -5,4 +5,4 @@ export const borderParser = (border: string) => {
     borderStyle,
     borderColor: borderColor.join(' '),
   };
-}; 
+};

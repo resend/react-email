@@ -1,6 +1,11 @@
 import { render } from '@react-email/components';
+import { vi } from 'vitest';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
+
+vi.mock('../../../utils/spam-assassin/send-to-spamd', () => ({
+  sendToSpamd: async () => 'Everything is awesome!',
+}));
 
 describe('checkSpam()', { timeout: 10_000 }, () => {
   test('with most spammy email', async () => {
