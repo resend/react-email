@@ -1,6 +1,23 @@
 import { render } from '@react-email/components';
+import { vi } from 'vitest';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
+
+const mockChecks = [
+  { description: 'Test rule 1', name: 'TEST_RULE_1', points: 2.5 },
+  { description: 'Test rule 2', name: 'TEST_RULE_2', points: 3.0 },
+];
+
+// Mock the parser to return a stable result, making the test more robust.
+vi.mock('../../../utils/spam-assassin/parse-pointing-table-rows', () => ({
+  parsePointingTableRows: () => mockChecks,
+}));
+
+// Mock sendToSpamd just to prevent it from trying to make a real network connection.
+// The actual return value doesn't matter because we mocked the parser.
+vi.mock('../../../utils/spam-assassin/send-to-spamd', () => ({
+  sendToSpamd: async () => 'mocked response',
+}));
 
 describe('checkSpam()', { timeout: 10_000 }, () => {
   test('with most spammy email', async () => {
