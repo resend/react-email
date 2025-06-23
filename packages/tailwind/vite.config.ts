@@ -21,6 +21,7 @@ export default defineConfig({
       // - tailwindcss
       // - postcss
       // - postcss-selector-parser
+      // - postcss-value-parser
       external: ['react', /^react\/.*/, 'react-dom', /react-dom\/.*/],
     },
     lib: {
