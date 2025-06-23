@@ -1,5 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.5/schema.json",
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -28,7 +29,6 @@
       "style": {
         "noNonNullAssertion": "off",
         "useLiteralEnumMembers": "error",
-        "noCommaOperator": "error",
         "useNodejsImportProtocol": "error",
         "useAsConstAssertion": "error",
         "useEnumInitializers": "error",
@@ -42,7 +42,6 @@
         "useTemplate": "error",
         "noParameterAssign": "error",
         "useDefaultParameterLast": "error",
-        "noArguments": "error",
         "useImportType": "error",
         "useExportType": "error",
         "noUselessElse": "error",
@@ -69,7 +68,9 @@
       "complexity": {
         "useNumericLiterals": "error",
         "noUselessFragments": "off",
-        "noForEach": "off"
+        "noForEach": "off",
+        "noCommaOperator": "error",
+        "noArguments": "error"
       },
       "suspicious": {
         "noArrayIndexKey": "off",
