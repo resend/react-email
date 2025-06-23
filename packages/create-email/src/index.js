@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
@@ -16,10 +17,27 @@ const packageJson = JSON.parse(
 );
 
 const getLatestVersionOfTag = async (packageName, tag) => {
-  const response = await fetch(
-    `https://registry.npmjs.org/${packageName}/${tag}`,
+  const cachePath = path.resolve(
+    os.tmpdir(),
+    `${packageName.replaceAll('/', '-')}-${tag}.json`,
   );
-  const data = await response.json();
+  let data;
+  try {
+    const response = await fetch(
+      `https://registry.npmjs.org/${packageName}/${tag}`,
+    );
+    data = await response.json();
+    await fse.writeFile(cachePath, JSON.stringify(data));
+  } catch (exception) {
+    if (fse.existsSync(cachePath)) {
+      console.warn(
+        `${logSymbols.warning} Failed to fetch the latest version from npm, using a cache`,
+      );
+      data = await fse.readJson(cachePath);
+    } else {
+      throw exception;
+    }
+  }
 
   if (typeof data === 'string' && data.startsWith('version not found')) {
     console.error(`Tag ${tag} does not exist for ${packageName}.`);
@@ -61,38 +79,46 @@ const init = async (name, { tag }) => {
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,
   });
-  const templatePackageJsonPath = path.resolve(
-    resolvedProjectPath,
-    './package.json',
-  );
-  const templatePackageJson = fse.readFileSync(templatePackageJsonPath, 'utf8');
-  fse.writeFileSync(
-    templatePackageJsonPath,
-    templatePackageJson
-      .replace(
-        'INSERT_COMPONENTS_VERSION',
-        await getLatestVersionOfTag('@react-email/components', tag),
-      )
-      .replace(
-        'INSERT_REACT_EMAIL_VERSION',
-        await getLatestVersionOfTag('react-email', tag),
-      ),
-    'utf8',
-  );
+  try {
+    const templatePackageJsonPath = path.resolve(
+      resolvedProjectPath,
+      './package.json',
+    );
+    const templatePackageJson = fse.readFileSync(
+      templatePackageJsonPath,
+      'utf8',
+    );
+    fse.writeFileSync(
+      templatePackageJsonPath,
+      templatePackageJson
+        .replace(
+          'INSERT_COMPONENTS_VERSION',
+          await getLatestVersionOfTag('@react-email/components', tag),
+        )
+        .replace(
+          'INSERT_REACT_EMAIL_VERSION',
+          await getLatestVersionOfTag('react-email', tag),
+        ),
+      'utf8',
+    );
 
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'React Email Starter files ready',
-  });
+    spinner.stopAndPersist({
+      symbol: logSymbols.success,
+      text: 'React Email Starter files ready',
+    });
 
-  // eslint-disable-next-line no-console
-  console.info(
-    await tree(resolvedProjectPath, 4, (dirent) => {
-      return !path
-        .join(dirent.parentPath, dirent.name)
-        .includes('node_modules');
-    }),
-  );
+    // eslint-disable-next-line no-console
+    console.info(
+      await tree(resolvedProjectPath, 4, (dirent) => {
+        return !path
+          .join(dirent.parentPath, dirent.name)
+          .includes('node_modules');
+      }),
+    );
+  } catch (exception) {
+    fse.removeSync(resolvedProjectPath);
+    throw exception;
+  }
 };
 
 new Command()
