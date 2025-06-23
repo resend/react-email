@@ -79,46 +79,38 @@ const init = async (name, { tag }) => {
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,
   });
-  try {
-    const templatePackageJsonPath = path.resolve(
-      resolvedProjectPath,
-      './package.json',
-    );
-    const templatePackageJson = fse.readFileSync(
-      templatePackageJsonPath,
-      'utf8',
-    );
-    fse.writeFileSync(
-      templatePackageJsonPath,
-      templatePackageJson
-        .replace(
-          'INSERT_COMPONENTS_VERSION',
-          await getLatestVersionOfTag('@react-email/components', tag),
-        )
-        .replace(
-          'INSERT_REACT_EMAIL_VERSION',
-          await getLatestVersionOfTag('react-email', tag),
-        ),
-      'utf8',
-    );
+  const templatePackageJsonPath = path.resolve(
+    resolvedProjectPath,
+    './package.json',
+  );
+  const templatePackageJson = fse.readFileSync(templatePackageJsonPath, 'utf8');
+  fse.writeFileSync(
+    templatePackageJsonPath,
+    templatePackageJson
+      .replace(
+        'INSERT_COMPONENTS_VERSION',
+        await getLatestVersionOfTag('@react-email/components', tag),
+      )
+      .replace(
+        'INSERT_REACT_EMAIL_VERSION',
+        await getLatestVersionOfTag('react-email', tag),
+      ),
+    'utf8',
+  );
 
-    spinner.stopAndPersist({
-      symbol: logSymbols.success,
-      text: 'React Email Starter files ready',
-    });
+  spinner.stopAndPersist({
+    symbol: logSymbols.success,
+    text: 'React Email Starter files ready',
+  });
 
-    // eslint-disable-next-line no-console
-    console.info(
-      await tree(resolvedProjectPath, 4, (dirent) => {
-        return !path
-          .join(dirent.parentPath, dirent.name)
-          .includes('node_modules');
-      }),
-    );
-  } catch (exception) {
-    fse.removeSync(resolvedProjectPath);
-    throw exception;
-  }
+  // eslint-disable-next-line no-console
+  console.info(
+    await tree(resolvedProjectPath, 4, (dirent) => {
+      return !path
+        .join(dirent.parentPath, dirent.name)
+        .includes('node_modules');
+    }),
+  );
 };
 
 new Command()
