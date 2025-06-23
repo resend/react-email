@@ -38,6 +38,9 @@ export const Send = ({ markup }: { markup: string }) => {
     }
   };
 
+  const toId = React.useId();
+  const subjectId = React.useId();
+
   return (
     <Popover.Root
       onOpenChange={() => {
@@ -63,13 +66,13 @@ export const Send = ({ markup }: { markup: string }) => {
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className="-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 font-sans text-slate-11 shadow-md backdrop-blur-lg font-sans"
+          className="-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 text-slate-11 shadow-md backdrop-blur-lg font-sans"
           sideOffset={48}
         >
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
             <label
               className="mb-2 block text-xs uppercase text-slate-10"
-              htmlFor="to"
+              htmlFor={toId}
             >
               Recipient
             </label>
@@ -77,7 +80,7 @@ export const Send = ({ markup }: { markup: string }) => {
               autoFocus
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={to}
-              id="to"
+              id={toId}
               onChange={(e) => {
                 setTo(e.target.value);
               }}
@@ -87,14 +90,14 @@ export const Send = ({ markup }: { markup: string }) => {
             />
             <label
               className="mb-2 mt-1 block text-xs uppercase text-slate-10"
-              htmlFor="subject"
+              htmlFor={subjectId}
             >
               Subject
             </label>
             <input
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={subject}
-              id="subject"
+              id={subjectId}
               onChange={(e) => {
                 setSubject(e.target.value);
               }}

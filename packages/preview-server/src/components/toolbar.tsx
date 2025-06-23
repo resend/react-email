@@ -2,7 +2,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect } from 'react';
+import { use, useEffect, useId } from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
@@ -105,6 +105,7 @@ const ToolbarInner = ({
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
     useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
@@ -116,8 +117,10 @@ const ToolbarInner = ({
         const compatibilityCheckingResults = await loadCompatibility();
         setCachedCompatibilityResults(compatibilityCheckingResults);
       })();
-    }, []);
+    }, [loadCompatibility, loadSpamChecking, loadLinting]);
   }
+
+  const id = useId();
 
   return (
     <div
@@ -137,7 +140,7 @@ const ToolbarInner = ({
       >
         <div className="flex flex-col h-full">
           <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full flex-shrink-0">
-            <LayoutGroup id="toolbar">
+            <LayoutGroup id={`toolbar-${id}`}>
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
                   Linter
@@ -189,7 +192,7 @@ const ToolbarInner = ({
                   <IconReload
                     size={24}
                     className={cn({
-                      'animate-spin opacity-60 animate-spin-fast':
+                      'opacity-60 animate-spin-fast':
                         lintLoading || spamLoading,
                     })}
                   />

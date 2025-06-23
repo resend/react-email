@@ -2,6 +2,7 @@ import * as Collapsible from '@radix-ui/react-collapsible';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useId } from 'react';
 import { cn } from '../../utils';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { IconFile } from '../icons/icon-file';
@@ -15,6 +16,8 @@ export const FileTreeDirectoryChildren = (props: {
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const id = useId();
 
   return (
     <AnimatePresence initial={false}>
@@ -33,7 +36,7 @@ export const FileTreeDirectoryChildren = (props: {
               <div className="line absolute left-2.5 h-full w-px bg-slate-6" />
             )}
             <div className="flex flex-col truncate">
-              <LayoutGroup id="sidebar">
+              <LayoutGroup id={`sidebar-${id}`}>
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
                     <FileTreeDirectory
