@@ -66,19 +66,24 @@ const init = async (name, { tag }) => {
     './package.json',
   );
   const templatePackageJson = fse.readFileSync(templatePackageJsonPath, 'utf8');
-  fse.writeFileSync(
-    templatePackageJsonPath,
-    templatePackageJson
-      .replace(
-        'INSERT_COMPONENTS_VERSION',
-        await getLatestVersionOfTag('@react-email/components', tag),
-      )
-      .replace(
-        'INSERT_REACT_EMAIL_VERSION',
-        await getLatestVersionOfTag('react-email', tag),
-      ),
-    'utf8',
-  );
+  try {
+    fse.writeFileSync(
+      templatePackageJsonPath,
+      templatePackageJson
+        .replace(
+          'INSERT_COMPONENTS_VERSION',
+          await getLatestVersionOfTag('@react-email/components', tag),
+        )
+        .replace(
+          'INSERT_REACT_EMAIL_VERSION',
+          await getLatestVersionOfTag('react-email', tag),
+        ),
+      'utf8',
+    );
+  } catch (exception) {
+    fse.removeSync(resolvedProjectPath);
+    throw exception;
+  }
 
   spinner.stopAndPersist({
     symbol: logSymbols.success,
