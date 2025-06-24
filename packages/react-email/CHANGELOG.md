@@ -1,5 +1,17 @@
 # react-email
 
+## 4.0.17
+
+### Patch Changes
+
+- e352a67: fix `<svg>` not being flagged as incompatible
+- 8f64ebd: fix the forced `color-scheme: dark` for the preview
+- 6de4e9f: fix static file serving security issue with logging
+- b2e96d5: Add support for hot reloading with tsconfig path aliases
+- 6b0cfd6: fix hot reloading with collapsed directories
+- 8c93330: Fix prettier errors causing NextJS serialization error
+- a07eebf: Pre-render email templates on hover
+
 ## 4.0.16
 
 ### Patch Changes

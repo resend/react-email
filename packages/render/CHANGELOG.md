@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.1.3
+
+### Patch Changes
+
+- 19cc59c: fix browser version including errors in the output instead of throwing them
+
 ## 1.1.2
 
 ### Patch Changes
