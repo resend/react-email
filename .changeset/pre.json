@@ -35,19 +35,11 @@
     "email-dev": "0.0.0"
   },
   "changesets": [
-    "afraid-sides-agree",
-    "better-insects-like",
     "common-goats-find",
     "crazy-seas-eat",
-    "deep-clowns-bet",
     "great-parrots-yell",
-    "kind-showers-exist",
-    "mighty-pigs-add",
-    "petite-boxes-find",
     "puny-chicken-argue",
-    "stupid-ghosts-decide",
     "tasty-swans-taste",
-    "tidy-geese-cross",
     "tiny-rice-give"
   ]
 }
