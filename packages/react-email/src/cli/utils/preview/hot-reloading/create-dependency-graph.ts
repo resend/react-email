@@ -126,7 +126,7 @@ export const createDependencyGraph = async (directory: string) => {
         try {
           // will throw if the the file is not existent
           isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-        } catch (_) { }
+        } catch (_) {}
         if (isDirectory) {
           const pathToSubDirectory = pathToDependencyFromDirectory;
           const pathWithExtension = checkFileExtensionsUntilItExists(
@@ -260,7 +260,11 @@ export const createDependencyGraph = async (directory: string) => {
     }
   };
 
-  const recursivelyResolveDependentsTo = (pathToModule: string, dependentPaths: string[], exclude: string[] = [pathToModule]) => {
+  const recursivelyResolveDependentsTo = (
+    pathToModule: string,
+    dependentPaths: string[],
+    exclude: string[] = [pathToModule],
+  ) => {
     const moduleEntry = graph[pathToModule];
 
     if (moduleEntry) {
@@ -274,8 +278,7 @@ export const createDependencyGraph = async (directory: string) => {
         recursivelyResolveDependentsTo(dependentPath, dependentPaths, exclude);
       }
     }
-  }
-
+  };
 
   return [
     graph,
@@ -319,7 +322,9 @@ export const createDependencyGraph = async (directory: string) => {
       }
     },
     {
-      resolveDependentsOf: function resolveDependentsOf(pathToModule: string): string[] {
+      resolveDependentsOf: function resolveDependentsOf(
+        pathToModule: string,
+      ): string[] {
         const dependentPaths: string[] = [];
         recursivelyResolveDependentsTo(pathToModule, dependentPaths);
 

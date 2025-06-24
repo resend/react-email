@@ -7,7 +7,7 @@ import {
 
 const pathToTemporaryFile = path.join(
   __dirname,
-  './create-dependency-graph-test/inner/.temporary-file.ts',
+  './test/dependency-graph/inner/.temporary-file.ts',
 );
 
 vi.mock('@babel/traverse', async () => {
@@ -24,19 +24,29 @@ describe('createDependencyGraph()', async () => {
     await createDependencyGraph(__dirname);
 
   const toAbsolute = (relativePath: string) => {
-    return path.resolve(__dirname, './create-dependency-graph-test/inner', relativePath);
+    return path.resolve(
+      __dirname,
+      './test/dependency-graph/inner',
+      relativePath,
+    );
   };
 
-  it.sequential('should resolve dependents when there are circular dependencies', async () => {
-    expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
-      toAbsolute('file-b.ts'),
-      toAbsolute('general-importing-file.ts'),
-    ]);
-  });
+  it.sequential(
+    'should resolve dependents when there are circular dependencies',
+    async () => {
+      expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
+        toAbsolute('file-b.ts'),
+        toAbsolute('general-importing-file.ts'),
+      ]);
+    },
+  );
 
-  it.sequential('should have the right initial value for the dependency graph', () => {
-    expect(dependencyGraph).toMatchSnapshot();
-  });
+  it.sequential(
+    'should have the right initial value for the dependency graph',
+    () => {
+      expect(dependencyGraph).toMatchSnapshot();
+    },
+  );
 
   it.sequential('should work when adding a new file', async () => {
     await fs.writeFile(
@@ -59,12 +69,12 @@ import {} from './general-importing-file';
       ],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
-    expect(
-      dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths,
-    ).toContain(pathToTemporaryFile);
-    expect(
-      dependencyGraph[toAbsolute('file-b.ts')]?.dependentPaths,
-    ).toContain(pathToTemporaryFile);
+    expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
+      pathToTemporaryFile,
+    );
+    expect(dependencyGraph[toAbsolute('file-b.ts')]?.dependentPaths).toContain(
+      pathToTemporaryFile,
+    );
     expect(
       dependencyGraph[toAbsolute('general-importing-file.ts')]?.dependentPaths,
     ).toContain(pathToTemporaryFile);
@@ -86,18 +96,15 @@ import {} from './file-b';
     ).toEqual({
       path: pathToTemporaryFile,
       dependentPaths: [],
-      dependencyPaths: [
-        toAbsolute('file-a.ts'),
-        toAbsolute('file-b.ts'),
-      ],
+      dependencyPaths: [toAbsolute('file-a.ts'), toAbsolute('file-b.ts')],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
-    expect(
-      dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths,
-    ).toContain(pathToTemporaryFile);
-    expect(
-      dependencyGraph[toAbsolute('file-b.ts')]?.dependentPaths,
-    ).toContain(pathToTemporaryFile);
+    expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
+      pathToTemporaryFile,
+    );
+    expect(dependencyGraph[toAbsolute('file-b.ts')]?.dependentPaths).toContain(
+      pathToTemporaryFile,
+    );
     expect(
       dependencyGraph[toAbsolute('general-importing-file.ts')]?.dependentPaths,
       'when removing dependency on a file, the dependency should have its dependents updated to not have the testing file again',
