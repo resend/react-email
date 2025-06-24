@@ -126,7 +126,7 @@ export const createDependencyGraph = async (directory: string) => {
         try {
           // will throw if the the file is not existent
           isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-        } catch (_) {}
+        } catch (_) { }
         if (isDirectory) {
           const pathToSubDirectory = pathToDependencyFromDirectory;
           const pathWithExtension = checkFileExtensionsUntilItExists(
@@ -260,24 +260,18 @@ export const createDependencyGraph = async (directory: string) => {
     }
   };
 
-  const recursivelyResolveDependentsTo = (
+  /**
+   * Iteratively resolves all dependents of a module and adds them to the provided array.
+   * Uses a stack-based approach to avoid recursion stack overflow for deeply nested dependencies.
+   * 
+   * @param pathToModule - The path to the module whose dependents we want to find
+   * @param dependentPaths - Array to collect the dependent paths
+   * @param visited - Set of already visited modules to prevent infinite loops in circular dependencies
+   */
+  const resolveDependentsToIteratively = (
     pathToModule: string,
     dependentPaths: string[],
-    exclude: string[] = [pathToModule],
   ) => {
-    const moduleEntry = graph[pathToModule];
-
-    if (moduleEntry) {
-      for (const dependentPath of moduleEntry.dependentPaths) {
-        if (exclude.includes(dependentPath)) {
-          continue;
-        }
-        exclude.push(dependentPath);
-        dependentPaths.push(dependentPath);
-
-        recursivelyResolveDependentsTo(dependentPath, dependentPaths, exclude);
-      }
-    }
   };
 
   return [
@@ -322,13 +316,33 @@ export const createDependencyGraph = async (directory: string) => {
       }
     },
     {
+      /**
+       * Resolves all modules that depend on the specified module, directly or indirectly.
+       * 
+       * @param pathToModule - The path to the module whose dependents we want to find
+       * @returns An array of paths to all modules that depend on the specified module
+       */
       resolveDependentsOf: function resolveDependentsOf(
         pathToModule: string,
       ): string[] {
-        const dependentPaths: string[] = [];
-        recursivelyResolveDependentsTo(pathToModule, dependentPaths);
+        const dependentPaths = new Set<string>();
+        const stack: string[] = [pathToModule];
 
-        return dependentPaths;
+        while (stack.length > 0) {
+          const currentPath = stack.pop()!;
+          const moduleEntry = graph[currentPath];
+
+          if (!moduleEntry) continue;
+
+          for (const dependentPath of moduleEntry.dependentPaths) {
+            if (dependentPaths.has(dependentPath) || dependentPath === pathToModule) continue;
+
+            dependentPaths.add(dependentPath);
+            stack.push(dependentPath);
+          }
+        }
+
+        return [...dependentPaths.values()];
       },
     },
   ] as const;
