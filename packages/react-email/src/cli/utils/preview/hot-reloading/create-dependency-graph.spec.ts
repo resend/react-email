@@ -5,9 +5,14 @@ import {
   type DependencyGraph,
 } from './create-dependency-graph';
 
-const pathToTemporaryFile = path.join(
+const testingDiretctory = path.join(
   __dirname,
-  './test/dependency-graph/inner/.temporary-file.ts',
+  './test/dependency-graph/inner',
+);
+
+const pathToTemporaryFile = path.join(
+  testingDiretctory,
+  './.temporary-file.ts',
 );
 
 vi.mock('@babel/traverse', async () => {
@@ -21,12 +26,11 @@ describe('createDependencyGraph()', async () => {
   }
 
   const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
-    await createDependencyGraph(__dirname);
+    await createDependencyGraph(testingDiretctory);
 
   const toAbsolute = (relativePath: string) => {
     return path.resolve(
-      __dirname,
-      './test/dependency-graph/inner',
+      testingDiretctory,
       relativePath,
     );
   };
