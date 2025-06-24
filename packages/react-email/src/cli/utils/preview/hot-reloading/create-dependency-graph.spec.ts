@@ -21,12 +21,19 @@ describe('createDependencyGraph()', async () => {
       await fs.rm(pathToTemporaryFile);
     }
 
-    const [dependencyGraph, updateDependencyGraph] =
+    const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
       await createDependencyGraph(__dirname);
 
     const toAbsolute = (relativePath: string) => {
       return path.resolve(__dirname, './create-dependency-graph-test/inner', relativePath);
     };
+
+    it('should resolve dependents when there are circular dependencies', async () => {
+      expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
+        toAbsolute('file-b.ts'),
+        toAbsolute('general-importing-file.ts'),
+      ]);
+    });
 
     it.sequential('should have the right initial value for the dependency graph', () => {
       expect(dependencyGraph).toMatchSnapshot();
