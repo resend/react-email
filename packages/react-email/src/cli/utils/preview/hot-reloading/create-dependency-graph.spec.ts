@@ -5,10 +5,7 @@ import {
   type DependencyGraph,
 } from './create-dependency-graph';
 
-const testingDiretctory = path.join(
-  __dirname,
-  './test/dependency-graph/inner',
-);
+const testingDiretctory = path.join(__dirname, './test/dependency-graph/inner');
 
 const pathToTemporaryFile = path.join(
   testingDiretctory,
@@ -29,10 +26,7 @@ describe('createDependencyGraph()', async () => {
     await createDependencyGraph(testingDiretctory);
 
   const toAbsolute = (relativePath: string) => {
-    return path.resolve(
-      testingDiretctory,
-      relativePath,
-    );
+    return path.resolve(testingDiretctory, relativePath);
   };
 
   it.sequential(
