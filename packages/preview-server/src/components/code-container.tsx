@@ -37,6 +37,8 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
     });
   }
 
+  const codeId = React.useId();
+
   return (
     <div
       className="relative max-h-[650px] w-full h-full whitespace-pre rounded-md border border-slate-6 text-sm"
@@ -49,7 +51,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
     >
       <div className="h-9 border-b border-slate-6">
         <div className="flex">
-          <LayoutGroup id="code">
+          <LayoutGroup id={codeId}>
             {markups.map(({ language }) => {
               const isCurrentLang = activeLang === language;
               return (
