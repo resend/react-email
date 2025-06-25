@@ -35,10 +35,12 @@ const readAllFilesInsideDirectory = async (directory: string) => {
   return allFilePaths;
 };
 
+const javascriptExtensions = ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'];
+
 const isJavascriptModule = (filePath: string) => {
   const extensionName = path.extname(filePath);
 
-  return ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'].includes(extensionName);
+  return javascriptExtensions.includes(extensionName);
 };
 
 const checkFileExtensionsUntilItExists = (
@@ -126,7 +128,7 @@ export const createDependencyGraph = async (directory: string) => {
         try {
           // will throw if the the file is not existent
           isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-        } catch (_) {}
+        } catch (_) { }
         if (isDirectory) {
           const pathToSubDirectory = pathToDependencyFromDirectory;
           const pathWithExtension = checkFileExtensionsUntilItExists(
@@ -146,12 +148,17 @@ export const createDependencyGraph = async (directory: string) => {
         const pathWithEnsuredExtension = (() => {
           if (
             extension.length > 0 &&
-            existsSync(pathToDependencyFromDirectory)
+            javascriptExtensions.includes(extension)
           ) {
-            return pathToDependencyFromDirectory;
+            if (existsSync(pathToDependencyFromDirectory)) {
+              return pathToDependencyFromDirectory;
+            }
+            return checkFileExtensionsUntilItExists(
+              pathToDependencyFromDirectory.replace(extension, ''),
+            );
           }
           return checkFileExtensionsUntilItExists(
-            pathToDependencyFromDirectory.replace(extension, ''),
+            pathToDependencyFromDirectory,
           );
         })();
 
