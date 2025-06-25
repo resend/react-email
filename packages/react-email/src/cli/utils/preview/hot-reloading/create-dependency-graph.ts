@@ -128,7 +128,7 @@ export const createDependencyGraph = async (directory: string) => {
         try {
           // will throw if the the file is not existent
           isDirectory = statSync(pathToDependencyFromDirectory).isDirectory();
-        } catch (_) { }
+        } catch (_) {}
         if (isDirectory) {
           const pathToSubDirectory = pathToDependencyFromDirectory;
           const pathWithExtension = checkFileExtensionsUntilItExists(
