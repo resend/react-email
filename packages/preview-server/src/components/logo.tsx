@@ -1,7 +1,7 @@
-import { useId } from 'react';
+import * as React from 'react';
 
 export const Logo = () => {
-  const id = useId();
+  const id = React.useId();
   return (
     <svg
       fill="none"

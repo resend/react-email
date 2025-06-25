@@ -2,7 +2,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useEffect, useId } from 'react';
+import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
@@ -106,7 +106,7 @@ const ToolbarInner = ({
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
-    useEffect(() => {
+    React.useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
         setCachedLintingRows(lintingRows);
@@ -120,7 +120,7 @@ const ToolbarInner = ({
     }, [loadCompatibility, loadSpamChecking, loadLinting]);
   }
 
-  const id = useId();
+  const id = React.useId();
 
   return (
     <div
@@ -332,7 +332,7 @@ export const Toolbar = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 }: ToolbarProps) => {
-  const { emailPath, emailSlug, renderedEmailMetadata } = use(PreviewContext)!;
+  const { emailPath, emailSlug, renderedEmailMetadata } = React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
   const { markup, plainText, reactMarkup } = renderedEmailMetadata;
