@@ -332,7 +332,8 @@ export const Toolbar = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 }: ToolbarProps) => {
-  const { emailPath, emailSlug, renderedEmailMetadata } = React.use(PreviewContext)!;
+  const { emailPath, emailSlug, renderedEmailMetadata } =
+    React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
   const { markup, plainText, reactMarkup } = renderedEmailMetadata;
