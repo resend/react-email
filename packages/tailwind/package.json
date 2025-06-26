@@ -10,14 +10,24 @@
     "dist/**"
   ],
   "exports": {
-    ".": {
+    "babel": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/babel.d.mts",
+        "default": "./dist/babel.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/babel.d.ts",
+        "default": "./dist/babel.js"
+      }
+    },
+    "nextjs": {
+      "import": {
+        "types": "./dist/nextjs.d.mts",
+        "default": "./dist/nextjs.mjs"
+      },
+      "require": {
+        "types": "./dist/nextjs.d.ts",
+        "default": "./dist/nextjs.js"
       }
     }
   },
