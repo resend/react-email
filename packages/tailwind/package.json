@@ -3,41 +3,38 @@
   "version": "1.1.0-canary.0",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "exports": {
-    "babel": {
+    "./babel": {
       "import": {
-        "types": "./dist/babel.d.mts",
-        "default": "./dist/babel.mjs"
+        "types": "./babel/index.d.mts",
+        "default": "./babel/index.mjs"
       },
       "require": {
-        "types": "./dist/babel.d.ts",
-        "default": "./dist/babel.js"
+        "types": "./babel/index.d.ts",
+        "default": "./babel/index.js"
       }
     },
-    "nextjs": {
+    "./nextjs": {
       "import": {
-        "types": "./dist/nextjs.d.mts",
-        "default": "./dist/nextjs.mjs"
+        "types": "./nextjs/index.d.mts",
+        "default": "./nextjs/index.mjs"
       },
       "require": {
-        "types": "./dist/nextjs.d.ts",
-        "default": "./dist/nextjs.js"
+        "types": "./nextjs/index.d.ts",
+        "default": "./nextjs/index.js"
       }
     },
-    "esbuild": {
+    "./esbuild": {
       "import": {
-        "types": "./dist/esbuild.d.mts",
-        "default": "./dist/esbuild.mjs"
+        "types": "./esbuild/index.d.mts",
+        "default": "./esbuild/index.mjs"
       },
       "require": {
-        "types": "./dist/esbuild.d.ts",
-        "default": "./dist/esbuild.js"
+        "types": "./esbuild/index.d.ts",
+        "default": "./esbuild/index.js"
       }
     }
   },

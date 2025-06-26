@@ -3,20 +3,20 @@ import { defineConfig } from 'tsup';
 export default defineConfig([
   {
     dts: true,
-    entry: ['./src/babel.ts'],
-    outDir: './dist',
+    entry: { index: './src/babel.ts' },
+    outDir: './babel',
     format: ['cjs', 'esm'],
   },
   {
     dts: true,
-    entry: ['./src/nextjs.ts'],
-    outDir: './dist',
+    entry: { index: './src/nextjs.ts' },
+    outDir: './nextjs',
     format: ['cjs', 'esm'],
   },
   {
     dts: true,
-    entry: ['./src/esbuild.ts'],
-    outDir: './dist',
+    entry: { index: './src/esbuild.ts' },
+    outDir: './esbuild',
     format: ['cjs', 'esm'],
   },
 ]);
