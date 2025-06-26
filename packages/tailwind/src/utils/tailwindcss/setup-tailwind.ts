@@ -1,5 +1,4 @@
-import type { Rule } from 'postcss';
-import { parse } from 'postcss';
+import postcss from 'postcss';
 import collapseAdjacentRules from 'tailwindcss/lib/lib/collapseAdjacentRules';
 import collapseDuplicateDeclarations from 'tailwindcss/lib/lib/collapseDuplicateDeclarations';
 import evaluateTailwindFunctions from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
@@ -9,33 +8,33 @@ import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateR
 import partitionApplyAtRules from 'tailwindcss/lib/lib/partitionApplyAtRules';
 import resolveDefaultsAtRules from 'tailwindcss/lib/lib/resolveDefaultsAtRules';
 import substituteScreenAtRules from 'tailwindcss/lib/lib/substituteScreenAtRules';
-import type { TailwindConfig } from '../../tailwind';
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
-import { setupTailwindContext } from './setup-tailwind-context';
-
-const tailwindAtRulesRoot = parse(
-  `
-  @tailwind base;
-  @tailwind components;
-`,
-).root();
+import {
+  setupTailwindContext,
+  type TailwindConfig,
+} from './setup-tailwind-context';
 
 export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
   return {
-    generateRootForClasses: (classes: string[]) => {
-      const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
+    createDefaultRoot(): postcss.Root {
+      return postcss.parse('@tailwind base; @tailwind components;').root();
+    },
+    /**
+     * This shuld also be fine to be called multiple times with
+     */
+    generateRules(classes: Set<string>): postcss.Rule[] {
+      const bigIntRuleTuples: [bigint, postcss.Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
       );
 
-      const root = tailwindAtRulesRoot
-        .clone()
-        .append(...bigIntRuleTuples.map(([, rule]) => rule));
+      return bigIntRuleTuples.map(([, rule]) => rule);
+    },
+    processTailwindFeatures: (root: postcss.Root) => {
       partitionApplyAtRules()(root);
-      // This is fine because the internal await is never actually called out
+      // This is a promise, but we don't need to await it because the internal await is never actually called out
       // because of there not being any `changedContent` files on the context
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       expandTailwindAtRules(tailwindContext)(root);
       partitionApplyAtRules()(root);
       expandApplyAtRules(tailwindContext)(root);

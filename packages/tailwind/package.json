@@ -23,11 +23,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
-    "dev": "vite build --watch",
+    "build": "tsup-node",
     "clean": "rm -rf dist",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "dev": "tsup-node --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -46,29 +46,27 @@
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
-    "@react-email/button": "workspace:^",
-    "@react-email/head": "workspace:*",
-    "@react-email/heading": "workspace:*",
-    "@react-email/hr": "workspace:*",
-    "@react-email/html": "workspace:*",
-    "@react-email/link": "workspace:*",
-    "@react-email/render": "workspace:*",
+    "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
-    "@types/shelljs": "0.8.15",
-    "@vitejs/plugin-react": "4.4.1",
-    "postcss": "8.5.3",
-    "postcss-selector-parser": "7.1.0",
+    "@types/babel__core": "7.20.5",
+    "next": "^15.0.0",
     "react-dom": "^19",
-    "shelljs": "0.9.2",
-    "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
     "typescript": "5.8.3",
-    "vite": "6.3.4",
-    "vite-plugin-dts": "4.5.3",
-    "yalc": "1.0.0-pre.53"
+    "webpack": "5.99.6"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@babel/core": "7.26.10",
+    "@babel/preset-react": "7.27.1",
+    "@babel/preset-typescript": "7.27.0",
+    "@babel/types": "7.27.6",
+    "babel-loader": "10.0.0",
+    "postcss": "8.5.3",
+    "postcss-selector-parser": "7.1.0",
+    "tailwindcss": "3.4.10"
   }
 }
