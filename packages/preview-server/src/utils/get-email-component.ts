@@ -1,12 +1,10 @@
 import path from 'node:path';
 import type { render } from '@react-email/components';
-import tailwindEsbuildPlugin from '@react-email/tailwind/esbuild';
 import { type BuildFailure, build, type OutputFile } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
-import { emailsDirRelativePath } from '../app/env';
-import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import { previewRenderingPlugin } from './esbuild/preview-rendering-plugin';
 import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { isErr } from './result';
 import { runBundledCode } from './run-bundled-code';
@@ -23,14 +21,14 @@ export const getEmailComponent = async (
   emailPath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    createElement: typeof React.createElement;
+      createElement: typeof React.createElement;
 
-    render: typeof render;
+      render: typeof render;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -38,10 +36,7 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [
-        renderingUtilitiesExporter([emailPath]),
-        tailwindEsbuildPlugin(emailsDirRelativePath),
-      ],
+      plugins: [previewRenderingPlugin([emailPath])],
       platform: 'node',
       write: false,
 
