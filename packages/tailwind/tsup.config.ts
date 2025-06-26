@@ -13,10 +13,4 @@ export default defineConfig([
     outDir: './nextjs',
     format: ['cjs', 'esm'],
   },
-  {
-    dts: true,
-    entry: { index: './src/esbuild.ts' },
-    outDir: './esbuild',
-    format: ['cjs', 'esm'],
-  },
 ]);

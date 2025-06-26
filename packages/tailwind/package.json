@@ -26,23 +26,13 @@
         "types": "./nextjs/index.d.ts",
         "default": "./nextjs/index.js"
       }
-    },
-    "./esbuild": {
-      "import": {
-        "types": "./esbuild/index.d.mts",
-        "default": "./esbuild/index.mjs"
-      },
-      "require": {
-        "types": "./esbuild/index.d.ts",
-        "default": "./esbuild/index.js"
-      }
     }
   },
   "license": "MIT",
   "scripts": {
     "build": "tsup-node",
     "clean": "rm -rf dist",
-    "dev": "tsup-node --watch",
+    "dev": "tsup-node --watch src",
     "test": "vitest run",
     "test:watch": "vitest"
   },
