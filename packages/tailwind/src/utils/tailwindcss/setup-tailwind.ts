@@ -36,16 +36,6 @@ import {
 import { removeRuleDuplicatesFromRoot } from '../css/remove-rule-duplicates-from-root';
 import { sanitizeDeclarations } from '../css/sanitize-declarations';
 
-console.log({
-  partitionApplyAtRules,
-  expandTailwindAtRules,
-  expandApplyAtRules,
-  evaluateTailwindFunctions,
-  substituteScreenAtRules,
-  resolveDefaultsAtRules,
-  collapseAdjacentRules,
-});
-
 export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
   return {
