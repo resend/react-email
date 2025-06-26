@@ -29,6 +29,16 @@
         "types": "./dist/nextjs.d.ts",
         "default": "./dist/nextjs.js"
       }
+    },
+    "esbuild": {
+      "import": {
+        "types": "./dist/esbuild.d.mts",
+        "default": "./dist/esbuild.mjs"
+      },
+      "require": {
+        "types": "./dist/esbuild.d.ts",
+        "default": "./dist/esbuild.js"
+      }
     }
   },
   "license": "MIT",
@@ -59,6 +69,7 @@
     "@react-email/components": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
     "@types/babel__core": "7.20.5",
+    "esbuild": "^0.25.0",
     "next": "^15.0.0",
     "react-dom": "^19",
     "tsconfig": "workspace:*",

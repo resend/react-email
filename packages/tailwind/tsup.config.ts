@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup';
 
 export default defineConfig([
   {
@@ -10,6 +10,12 @@ export default defineConfig([
   {
     dts: true,
     entry: ['./src/nextjs.ts'],
+    outDir: './dist',
+    format: ['cjs', 'esm'],
+  },
+  {
+    dts: true,
+    entry: ['./src/esbuild.ts'],
     outDir: './dist',
     format: ['cjs', 'esm'],
   },
