@@ -1,18 +1,50 @@
 import postcss from 'postcss';
-import collapseAdjacentRules from 'tailwindcss/lib/lib/collapseAdjacentRules';
-import collapseDuplicateDeclarations from 'tailwindcss/lib/lib/collapseDuplicateDeclarations';
-import evaluateTailwindFunctions from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
-import expandApplyAtRules from 'tailwindcss/lib/lib/expandApplyAtRules';
-import expandTailwindAtRules from 'tailwindcss/lib/lib/expandTailwindAtRules';
+
+const {
+  default: collapseAdjacentRules,
+} = require('tailwindcss/lib/lib/collapseAdjacentRules');
+const {
+  default: collapseDuplicateDeclarations,
+} = require('tailwindcss/lib/lib/collapseDuplicateDeclarations');
+const {
+  default: evaluateTailwindFunctions,
+} = require('tailwindcss/lib/lib/evaluateTailwindFunctions');
+const {
+  default: expandApplyAtRules,
+} = require('tailwindcss/lib/lib/expandApplyAtRules');
+const {
+  default: expandTailwindAtRules,
+} = require('tailwindcss/lib/lib/expandTailwindAtRules');
+
 import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateRules';
-import partitionApplyAtRules from 'tailwindcss/lib/lib/partitionApplyAtRules';
-import resolveDefaultsAtRules from 'tailwindcss/lib/lib/resolveDefaultsAtRules';
-import substituteScreenAtRules from 'tailwindcss/lib/lib/substituteScreenAtRules';
+
+const {
+  default: partitionApplyAtRules,
+} = require('tailwindcss/lib/lib/partitionApplyAtRules');
+const {
+  default: resolveDefaultsAtRules,
+} = require('tailwindcss/lib/lib/resolveDefaultsAtRules');
+const {
+  default: substituteScreenAtRules,
+} = require('tailwindcss/lib/lib/substituteScreenAtRules');
+
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
 import {
   setupTailwindContext,
   type TailwindConfig,
 } from './setup-tailwind-context';
+import { removeRuleDuplicatesFromRoot } from '../css/remove-rule-duplicates-from-root';
+import { sanitizeDeclarations } from '../css/sanitize-declarations';
+
+console.log({
+  partitionApplyAtRules,
+  expandTailwindAtRules,
+  expandApplyAtRules,
+  evaluateTailwindFunctions,
+  substituteScreenAtRules,
+  resolveDefaultsAtRules,
+  collapseAdjacentRules,
+});
 
 export function setupTailwind(config: TailwindConfig) {
   const tailwindContext = setupTailwindContext(config);
@@ -45,6 +77,8 @@ export function setupTailwind(config: TailwindConfig) {
       collapseDuplicateDeclarations(tailwindContext)(root);
 
       resolveAllCSSVariables(root);
+      removeRuleDuplicatesFromRoot(root);
+      sanitizeDeclarations(root);
 
       return root;
     },
