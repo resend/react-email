@@ -4,6 +4,8 @@ import type { WebpackConfigContext } from 'next/dist/server/config-shared';
 import type { Configuration } from 'webpack';
 import babelPlugin from './babel';
 
+export type { TailwindConfig } from './utils/tailwindcss/setup-tailwind-context';
+
 export default function withTailwindcss(
   config: NextConfig,
   emailsDirectory = 'emails',

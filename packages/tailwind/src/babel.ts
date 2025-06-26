@@ -52,6 +52,8 @@ const getName = (
   return ''; // should never happen
 };
 
+export type { TailwindConfig };
+
 export default function tailwindcss(config: TailwindConfig): PluginObj {
   const tailwind = setupTailwind(config);
   const root = tailwind.createDefaultRoot();
