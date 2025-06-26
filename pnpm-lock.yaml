@@ -656,6 +656,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.2.3
         version: 1.2.3(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/tailwind':
+        specifier: workspace:*
+        version: link:../tailwind
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
