@@ -7,8 +7,13 @@ import { readStream } from './read-stream';
 export const render = async (node: React.ReactNode, options?: Options) => {
   const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server').then(
-    // This is beacuse react-dom/server is CJS
-    (m) => m.default,
+    m => {
+      if (Object.hasOwn(m, 'default')) {
+        //react-dom/server export is CJS
+        return m.default
+      } 
+      return m
+    }
   );
 
   let html!: string;
