@@ -18,7 +18,6 @@ export type TailwindConfig = Pick<
   | 'plugins'
 >;
 
-
 export const setupTailwindContext = (config: TailwindConfig) => {
   return createContext(
     resolveConfig({
