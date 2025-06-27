@@ -7,6 +7,7 @@ icon: "text-size"
 ---
 
 import Support from '/snippets/support.mdx'
+import { ComponentPreview } from '/snippets/component-preview.mdx'
 
 ## Install
 
@@ -44,12 +45,20 @@ pnpm add @react-email/text -E
 
 Add the component to your email template. Include styles where needed.
 
+<ComponentPreview code='
+import { Text } from "@react-email/components";
+
+const Email = () => {
+  return <Text style={{ color: "#eee" }}>Lorem ipsum</Text>;
+};
+'>
 ```jsx
 import { Text } from "@react-email/components";
 
 const Email = () => {
-  return <Text>Lorem ipsum</Text>;
+  return <Text style={{ color: "#eee" }}>Lorem ipsum</Text>;
 };
 ```
+</ComponentPreview>
 
 <Support/>
