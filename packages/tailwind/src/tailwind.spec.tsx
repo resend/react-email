@@ -380,6 +380,18 @@ describe('Responsive styles', () => {
     ).toMatchSnapshot();
   });
 
+  // https://github.com/resend/react-email/issues/2297
+  it('should work with max-* breakpoints', async () => {
+    const actualOutput = await render(
+      <Tailwind config={{}}>
+        <head />
+        <div className="bg-red-100 max-sm:bg-green-500">Test</div>
+      </Tailwind>,
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
   it('should not have duplicate media queries', async () => {
     const Body = (props: { className: string; children: React.ReactNode }) => {
       return <body className={props.className}>{props.children}</body>;
