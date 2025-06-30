@@ -15,6 +15,10 @@ const tsx = child_process.spawn(tsxPath, [root, ...process.argv.slice(2)], {
   stdio: 'inherit',
 });
 
+tsx.on('close', (code) => {
+  process.exit(code);
+});
+
 process.on('uncaughtExceptionMonitor', () => {
   tsx.kill();
 });
