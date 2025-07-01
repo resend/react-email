@@ -264,10 +264,16 @@ export const build = async ({
     await buildPreviewApp(modifiedPreviewAppPath);
 
     await fs.promises.mkdir(builtPreviewAppPath);
-    await fs.promises.symlink(
-      path.join(modifiedPreviewAppPath, '.next'),
-      path.join(builtPreviewAppPath, '.next'),
-      'dir',
+    await fs.promises.cp(
+      modifiedPreviewAppPath,
+      builtPreviewAppPath,
+      // path.join(modifiedPreviewAppPath/*, '.next'),
+      // path.join(builtPreviewAppPath, '.next'),
+      {
+        force: true,
+        dereference: true,
+        recursive: true,
+      },
     );
   } catch (error) {
     console.log(error);
