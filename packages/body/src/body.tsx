@@ -1,10 +1,12 @@
 import * as React from 'react';
 
-export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
+export type BodyProps = Readonly<
+  React.HtmlHTMLAttributes<HTMLTableCellElement>
+>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
-  ({ children, style, ...props }, ref) => (
-    <body {...props} ref={ref}>
+  ({ children, ...props }, ref) => (
+    <body ref={ref}>
       <table
         style={{ width: '100%', height: '100%' }}
         border={0}
@@ -21,7 +23,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 
               See https://github.com/resend/react-email/issues/662.
             */}
-            <td style={style}>{children}</td>
+            <td {...props}>{children}</td>
           </tr>
         </tbody>
       </table>
