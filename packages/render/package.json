@@ -66,8 +66,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup-node",
+    "build:watch": "tsup-node --watch",
     "clean": "rm -rf dist",
-    "dev": "tsup-node --watch",
     "test": "vitest run",
     "test:watch": "vitest"
   },
