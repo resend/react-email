@@ -117,7 +117,7 @@ const ToolbarInner = ({
         const compatibilityCheckingResults = await loadCompatibility();
         setCachedCompatibilityResults(compatibilityCheckingResults);
       })();
-    }, [loadCompatibility, loadSpamChecking, loadLinting]);
+    }, []);
   }
 
   const id = React.useId();
