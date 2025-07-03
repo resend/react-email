@@ -8,6 +8,7 @@ import {
   Html,
   Img,
   Link,
+  pixelBasedPreset,
   Preview,
   Row,
   Section,
@@ -40,6 +41,7 @@ export const NetlifyWelcomeEmail = ({
       <Head />
       <Tailwind
         config={{
+          presets: [pixelBasedPreset],
           theme: {
             extend: {
               colors: {

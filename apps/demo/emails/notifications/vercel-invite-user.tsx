@@ -4,6 +4,7 @@ import {
   Column,
   Container,
   Head,
+  pixelBasedPreset,
   Heading,
   Hr,
   Html,
@@ -48,7 +49,11 @@ export const VercelInviteUserEmail = ({
   return (
     <Html>
       <Head />
-      <Tailwind>
+      <Tailwind
+        config={{
+          presets: [pixelBasedPreset],
+        }}
+      >
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Preview>{previewText}</Preview>
           <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-[#eaeaea] border-solid p-[20px]">
