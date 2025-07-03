@@ -142,13 +142,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                     {/* Code content cell */}
                     <div
                       {...lineProps}
-                      className={cn(
-                        'whitespace-pre transition-colors',
-                        {
-                          "before:mr-2 before:text-slate-11 before:content-['$']":
-                            language === 'bash' && tokens.length === 1,
-                        },
-                      )}
+                      className={cn('whitespace-pre transition-colors', {
+                        "before:mr-2 before:text-slate-11 before:content-['$']":
+                          language === 'bash' && tokens.length === 1,
+                      })}
                     >
                       {line.map((token, key) => {
                         const tokenProps = getTokenProps({
