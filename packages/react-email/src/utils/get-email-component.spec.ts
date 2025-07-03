@@ -36,7 +36,7 @@ describe('getEmailComponent()', () => {
         ),
         {
           pretty: true,
-        }
+        },
       );
       expect(emailHtml).toMatchSnapshot();
     }
