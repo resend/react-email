@@ -32,13 +32,16 @@
     "tsconfig": "0.0.0",
     "web": "0.0.0",
     "@react-email/preview-server": "4.1.0-canary.10",
-    "email-dev": "0.0.0"
+    "email-dev": "0.0.0",
+    "playground": "0.0.0"
   },
   "changesets": [
     "common-goats-find",
     "crazy-seas-eat",
+    "free-boxes-open",
     "great-parrots-yell",
     "puny-chicken-argue",
+    "rich-chicken-remain",
     "tasty-swans-taste",
     "tiny-rice-give"
   ]
