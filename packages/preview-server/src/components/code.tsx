@@ -105,78 +105,79 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
           />
           <div
             ref={scrollerRef}
-            className="flex max-h-[650px] h-full p-4 after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto"
+            className="max-h-[650px] h-full p-4 after:w-full after:static after:block after:h-4 after:content-[''] overflow-auto"
           >
-            <div className="text-[#49494f] text-[13px] font-light font-[MonoLisa,_Menlo,_monospace]">
-              {tokens.map((_, i) => (
-                <Link
-                  id={`L${i + 1}`}
-                  key={i}
-                  href={{
-                    hash: `#L${i + 1}`,
-                    search: searchParams.toString(),
-                  }}
-                  scroll={false}
-                  className={cn(
-                    'align-middle block scroll-mt-[325px] rounded-l-sm select-none pr-3 cursor-pointer hover:text-slate-12',
-                    isHighlighting(i + 1) &&
-                      'text-cyan-11 hover:text-cyan-11 bg-cyan-5',
-                  )}
-                  type="button"
-                >
-                  {i + 1}
-                </Link>
-              ))}
-            </div>
-            <pre>
+            <div className="grid grid-cols-[auto_1fr] w-full">
               {tokens.map((line, i) => {
                 const lineProps = getLineProps({
                   line,
                   key: i,
                 });
+                const isHighlighted = isHighlighting(i + 1);
+                const isHighlightStart = highlight && highlight[0] === i + 1;
+                const isHighlightEnd = highlight && highlight[1] === i + 1;
+
                 return (
-                  <div
-                    {...lineProps}
-                    className={cn(
-                      'whitespace-pre flex transition-colors rounded-r-sm',
-                      isHighlighting(i + 1) && 'bg-cyan-5',
-                      {
+                  <Fragment key={i}>
+                    {/* Line number cell */}
+                    <Link
+                      id={`L${i + 1}`}
+                      href={{
+                        hash: `#L${i + 1}`,
+                        search: searchParams.toString(),
+                      }}
+                      scroll={false}
+                      aria-selected={isHighlighted}
+                      className={cn(
+                        'text-[#49494f] relative text-[13px] font-light font-[MonoLisa,_Menlo,_monospace] align-middle scroll-mt-[325px] select-none pr-3 cursor-pointer hover:text-slate-12 transition-colors',
+                        'aria-selected:text-cyan-11 aria-selected:hover:text-cyan-11 aria-selected:bg-cyan-5 [&+*]:aria-selected:bg-cyan-5',
+                        isHighlightStart && 'rounded-tl-sm',
+                        isHighlightEnd && 'rounded-bl-sm',
+                      )}
+                      type="button"
+                    >
+                      {i + 1}
+                    </Link>
+
+                    {/* Code content cell */}
+                    <div
+                      {...lineProps}
+                      className={cn('whitespace-pre transition-colors', {
                         "before:mr-2 before:text-slate-11 before:content-['$']":
                           language === 'bash' && tokens.length === 1,
-                      },
-                    )}
-                    key={i}
-                  >
-                    {line.map((token, key) => {
-                      const tokenProps = getTokenProps({
-                        token,
-                      });
-                      const isException =
-                        token.content === 'from' &&
-                        line[key + 1]?.content === ':';
-                      const newTypes = isException
-                        ? [...token.types, 'key-white']
-                        : token.types;
-                      token.types = newTypes;
+                      })}
+                    >
+                      {line.map((token, key) => {
+                        const tokenProps = getTokenProps({
+                          token,
+                        });
+                        const isException =
+                          token.content === 'from' &&
+                          line[key + 1]?.content === ':';
+                        const newTypes = isException
+                          ? [...token.types, 'key-white']
+                          : token.types;
+                        token.types = newTypes;
 
-                      return (
-                        <Fragment key={key}>
-                          <span {...tokenProps} />
-                        </Fragment>
-                      );
-                    })}
-                  </div>
+                        return (
+                          <Fragment key={key}>
+                            <span {...tokenProps} />
+                          </Fragment>
+                        );
+                      })}
+                    </div>
+                  </Fragment>
                 );
               })}
-            </pre>
-            <div
-              className="absolute bottom-0 left-0 h-px w-[200px]"
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
-              }}
-            />
+            </div>
           </div>
+          <div
+            className="absolute bottom-0 left-0 h-px w-[200px]"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
+            }}
+          />
         </>
       )}
     </Highlight>
