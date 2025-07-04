@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 4.1.0-canary.12
+
+### Patch Changes
+
+- e33be94: fix range rounded borders, tearing when selecting different lines
+- 87b9601: infinte fetches due to improper effect dependency
+
 ## 4.1.0-canary.11
 
 ### Patch Changes
