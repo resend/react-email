@@ -41,6 +41,9 @@ importers:
       tsup:
         specifier: 8.4.0
         version: 8.4.0(@microsoft/api-extractor@7.52.4(@types/node@22.14.1))(@swc/core@1.11.21)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.6.1)
+      tsx:
+        specifier: 4.19.3
+        version: 4.19.3
       turbo:
         specifier: 2.5.4
         version: 2.5.4
@@ -17006,7 +17009,7 @@ snapshots:
       picomatch: 4.0.2
       postcss: 8.5.3
       rollup: 4.39.0
-      tinyglobby: 0.2.13
+      tinyglobby: 0.2.14
     optionalDependencies:
       '@types/node': 22.14.1
       fsevents: 2.3.3
