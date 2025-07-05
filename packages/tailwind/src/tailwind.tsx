@@ -79,9 +79,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
 
           /*                   only minify here since it is the only place that is going to be in the DOM */
           const styleElement = (
-            <style>
-              {minifyCss(nonInlineStylesRootToApply.toString().trim())}
-            </style>
+            <style>{minifyCss(nonInlineStylesRootToApply)}</style>
           );
 
           return React.cloneElement(
