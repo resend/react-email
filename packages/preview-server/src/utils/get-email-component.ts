@@ -4,8 +4,8 @@ import { type BuildFailure, build, type OutputFile } from 'esbuild';
 import type React from 'react';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
+import { convertStackWithSourceMap } from './convert-stack-with-sourcemap';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
-import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
 import { isErr } from './result';
 import { runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
@@ -19,6 +19,7 @@ const EmailComponentModule = z.object({
 
 export const getEmailComponent = async (
   emailPath: string,
+  jsxRuntimePath: string,
 ): Promise<
   | {
       emailComponent: EmailComponent;
@@ -39,6 +40,9 @@ export const getEmailComponent = async (
       plugins: [renderingUtilitiesExporter([emailPath])],
       platform: 'node',
       write: false,
+
+      jsxDev: true,
+      jsxImportSource: jsxRuntimePath,
 
       format: 'cjs',
       jsx: 'automatic',
@@ -82,7 +86,16 @@ export const getEmailComponent = async (
       error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
 
       return {
-        error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),
+        error: {
+          name: error.name,
+          message: error.message,
+          stack: convertStackWithSourceMap(
+            error.stack,
+            emailPath,
+            sourceMapToEmail,
+          ),
+          cause: error.cause,
+        },
       };
     }
 
@@ -93,31 +106,23 @@ export const getEmailComponent = async (
 
   if (parseResult.error) {
     return {
-      error: improveErrorWithSourceMap(
-        new Error(
-          `The email component at ${emailPath} does not contain the expected exports`,
-          {
-            cause: parseResult.error,
-          },
-        ),
-        emailPath,
-        sourceMapToEmail,
-      ),
+      error: {
+        name: 'Error',
+        message: `The email component at ${emailPath} does not contain the expected exports`,
+        stack: new Error().stack,
+        cause: parseResult.error,
+      },
     };
   }
 
   if (typeof parseResult.data.default !== 'function') {
     return {
-      error: improveErrorWithSourceMap(
-        new Error(
-          `The email component at ${emailPath} does not contain a default exported function`,
-          {
-            cause: parseResult.error,
-          },
-        ),
-        emailPath,
-        sourceMapToEmail,
-      ),
+      error: {
+        name: 'Error',
+        message: `The email component at ${emailPath} does not contain a default exported function`,
+        stack: new Error().stack,
+        cause: parseResult.error,
+      },
     };
   }
 

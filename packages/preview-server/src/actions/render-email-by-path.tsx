@@ -4,9 +4,15 @@ import path from 'node:path';
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import {
+  isBuilding,
+  isPreviewDevelopment,
+  previewServerLocation,
+  userProjectLocation,
+} from '../app/env';
+import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
+import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
-import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
 
@@ -44,7 +50,15 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const componentResult = await getEmailComponent(emailPath);
+  const originalJsxRuntimePath = path.resolve(
+    previewServerLocation,
+    'jsx-runtime',
+  );
+  const jsxRuntimePath = await createJsxRuntime(
+    userProjectLocation,
+    originalJsxRuntimePath,
+  );
+  const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
 
   if ('error' in componentResult) {
     spinner?.stopAndPersist({
@@ -110,12 +124,97 @@ export const renderEmailByPath = async (
       text: `Failed while rendering ${emailFilename}`,
     });
 
-    return {
-      error: improveErrorWithSourceMap(
-        error,
+    if (exception instanceof SyntaxError) {
+      interface SpanPosition {
+        file: {
+          content: string;
+        };
+        offset: number;
+        line: number;
+        col: number;
+      }
+      // means the email's HTML was invalid and prettier threw this error
+      // TODO: always throw when the HTML is invalid during `render`
+      const cause = exception.cause as {
+        msg: string;
+        span: {
+          start: SpanPosition;
+          end: SpanPosition;
+        };
+      };
+
+      const sourceFileAttributeMatches = cause.span.start.file.content.matchAll(
+        /data-source-file="(?<file>[^"]*)"/g,
+      );
+      let closestSourceFileAttribute: RegExpExecArray | undefined;
+      for (const sourceFileAttributeMatch of sourceFileAttributeMatches) {
+        if (closestSourceFileAttribute === undefined) {
+          closestSourceFileAttribute = sourceFileAttributeMatch;
+        }
+        if (
+          Math.abs(sourceFileAttributeMatch.index - cause.span.start.offset) <
+          Math.abs(closestSourceFileAttribute.index - cause.span.start.offset)
+        ) {
+          closestSourceFileAttribute = sourceFileAttributeMatch;
+        }
+      }
+
+      const findClosestAttributeValue = (
+        attributeName: string,
+      ): string | undefined => {
+        const attributeMatches = cause.span.start.file.content.matchAll(
+          new RegExp(`${attributeName}="(?<value>[^"]*)"`, 'g'),
+        );
+        let closestAttribute: RegExpExecArray | undefined;
+        for (const attributeMatch of attributeMatches) {
+          if (closestAttribute === undefined) {
+            closestAttribute = attributeMatch;
+          }
+          if (
+            Math.abs(attributeMatch.index - cause.span.start.offset) <
+            Math.abs(closestAttribute.index - cause.span.start.offset)
+          ) {
+            closestAttribute = attributeMatch;
+          }
+        }
+        return closestAttribute?.groups?.value;
+      };
+
+      let stack = convertStackWithSourceMap(
+        error.stack,
         emailPath,
         sourceMapToOriginalFile,
-      ),
+      );
+
+      const sourceFile = findClosestAttributeValue('data-source-file');
+      const sourceLine = findClosestAttributeValue('data-source-line');
+      if (sourceFile && sourceLine) {
+        stack = ` at ${sourceFile}:${sourceLine}\n${stack}`;
+      }
+
+      return {
+        error: {
+          name: exception.name,
+          message: cause.msg,
+          stack,
+          cause: error.cause ? JSON.parse(JSON.stringify(cause)) : undefined,
+        },
+      };
+    }
+
+    return {
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: convertStackWithSourceMap(
+          error.stack,
+          emailPath,
+          sourceMapToOriginalFile,
+        ),
+        cause: error.cause
+          ? JSON.parse(JSON.stringify(error.cause))
+          : undefined,
+      },
     };
   }
 };
