@@ -1,0 +1,45 @@
+---
+title: 'Using the playground'
+sidebarTitle: '6. Using the playground'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+When making changes to the components, there can be a lot of added friction because of having to rebuild each component every time you want to see the results of your changes at runtime. For that reason we have a [playground](https://github.com/resend/react-email/tree/canary/playground).
+
+## 1. Create an email template
+
+Create a new file at `playground/emails/testing.tsx` 
+
+```tsx emails/testing.tsx
+import { Html, Head, Body, Tailwind, Text } from '@react-email/components';
+
+export default function Testing() {
+  return <Tailwind>
+    <Html>
+      <Head/>
+
+      <Body className="bg-black text-white">
+        <Text className="m-0 my-4 bg-cyan-200 text-slate-800">
+          This is a testing email template.
+        </Text>
+      </Body>
+    </Html>
+  </Tailwind>;
+}
+```
+
+<Tip>
+You can use [playground/emails](https://github.com/resend/react-email/tree/canary/playground/emails) as a canvas for you to experiment with component changes, or various user use cases, and git will ignore all email templates there.
+</Tip>
+
+## 2. Run playground server
+
+```sh
+pnpm dev
+```
+
+## 3. Open in your browser
+
+Go to http://localhost:3000
+
+
