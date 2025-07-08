@@ -1,5 +1,19 @@
 # @react-email/components
 
+## 0.2.0
+
+### Minor Changes
+
+- d4ba2cc: Update `@react-email/tailwind@1.1.0-canary.0`
+- e2fa065: Updated @react-email/button@0.1.0-canary.0
+
+### Patch Changes
+
+- Updated dependencies [6d5f36f]
+- Updated dependencies [e2fa065]
+  - @react-email/tailwind@1.1.0
+  - @react-email/button@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
