@@ -38,14 +38,7 @@ jobs:
       - name: Exit prerelease mode
         # This step errors if it is not in prerelease mode
         continue-on-error: true
-        run: |
-          pnpm canary:exit
-          if [ $? -eq 0 ]; then
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git add .changeset/pre.json || true
-            git commit -m "chore: exit prerelease mode" || echo "No changes to commit"
-          fi
+        run: pnpm canary:exit
       - name: Create Release Pull Request
         uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
         with:
