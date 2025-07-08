@@ -1,5 +1,15 @@
 # react-email
 
+## 4.1.0
+
+### Minor Changes
+
+- abf8599: use a separate package for storing the preview server (@react-email/preview-server)
+
+### Patch Changes
+
+- e173b44: Use the same version for the preview-server and react-email
+
 ## 4.1.0-canary.12
 
 ## 4.1.0-canary.11
