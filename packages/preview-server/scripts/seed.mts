@@ -11,7 +11,9 @@ const emailsDirectoryPath = path.join(previewServerRoot, 'emails');
 const seedPath = path.join(dirname, './utils/default-seed/');
 
 if (existsSync(emailsDirectoryPath)) {
-  console.info('Deleting all files inside the emails directory (except for .gitkeep)');
+  console.info(
+    'Deleting all files inside the emails directory (except for .gitkeep)',
+  );
   const files = await fs.readdir(emailsDirectoryPath);
   for await (const file of files) {
     if (file === '.gitkeep') {
