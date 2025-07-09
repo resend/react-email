@@ -28,13 +28,12 @@ To contribute to the project, you must use **Node 18** or higher.
     pnpm install
     ```
   </Step>
-  <Step title="Build all the packages">
+  <Step title="Link email-dev CLI globally">
     ```bash inside of react-email
-    pnpm build
+    pnpm link ./packages/react-email/dev -g
     ```
-
     <Note>
-    Building first is crucial because each package may depend on other packages, and pre-building them will ensure that you don't run into issues when developing.
+    This lets you run the CLI without having a need to rebuild the CLI.
     </Note>
   </Step>
 </Steps>
