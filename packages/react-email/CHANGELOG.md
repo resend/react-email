@@ -1,5 +1,11 @@
 # react-email
 
+## 4.1.1
+
+### Patch Changes
+
+- ef77691: fix path resolution done wrong breaking `email dev` on Windows
+
 ## 4.1.0
 
 ### Minor Changes
