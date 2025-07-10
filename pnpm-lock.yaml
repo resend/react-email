@@ -81,9 +81,6 @@ importers:
       next:
         specifier: ^15.3.2
         version: 15.3.3(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
 
   apps/docs:
     dependencies:
@@ -221,9 +218,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -264,9 +258,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -853,18 +844,11 @@ importers:
       tsup:
         specifier: 8.4.0
         version: 8.4.0(@microsoft/api-extractor@7.52.4(@types/node@22.14.1))(@swc/core@1.11.21)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.3)(typescript@5.8.3)(yaml@2.6.1)
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3
 
-  packages/react-email/dev:
-    dependencies:
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
+  packages/react-email/dev: {}
 
   packages/render:
     dependencies:
@@ -1059,9 +1043,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../packages/tsconfig
-      tsx:
-        specifier: 4.19.3
-        version: 4.19.3
 
 packages:
 
