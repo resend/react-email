@@ -32,7 +32,6 @@
     "@biomejs/biome": "2.0.0",
     "flamebearer": "1.1.3",
     "tsconfig": "workspace:*",
-    "tsx": "4.19.3",
     "typescript": "5.8.3"
   }
 }
