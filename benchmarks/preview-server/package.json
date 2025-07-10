@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "tsx": "4.19.3",
     "typescript": "5.8.3"
   }
 }

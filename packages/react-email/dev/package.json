@@ -6,8 +6,5 @@
   "type": "module",
   "scripts": {
     "start": "node ."
-  },
-  "dependencies": {
-    "tsx": "4.19.3"
   }
 }
