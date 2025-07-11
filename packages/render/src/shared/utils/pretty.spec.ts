@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { lenientParse, pretty, wrapText } from './pretty';
+import { pretty, wrapText } from './pretty';
 
 const stripeHtml = fs.readFileSync(
   path.resolve(__dirname, './tests/stripe-email.html'),
@@ -10,13 +10,6 @@ const codepenHtml = fs.readFileSync(
   path.resolve(__dirname, './tests/codepen-challengers.html'),
   'utf8',
 );
-
-describe('lenientParse()', () => {
-  it('should parse base doucment correctly', () => {
-    const document = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body style="background-color:#fff;"><h1>whatever</h1><input placeholder="hello world"/></body></html>`;
-    expect(lenientParse(document)).toMatchSnapshot();
-  });
-});
 
 describe('pretty', () => {
   it('should prettify base doucment correctly', () => {
