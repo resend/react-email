@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.2.1
+
+### Patch Changes
+
+- 86e66d8: Fix color-scheme media queries sometimes not getting sanitized at the className
+
 ## 1.2.0
 
 ### Minor Changes
