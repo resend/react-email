@@ -23,7 +23,10 @@ export const getIndentationOfLine = (line: string) => {
   return match[0];
 };
 
-export const pretty = (html: string, options: Options) => {
+export const pretty = (
+  html: string,
+  options: Options = { lineBreak: '\n' },
+) => {
   const nodes = lenientParse(html);
 
   return prettyNodes(nodes, options);
