@@ -33,35 +33,23 @@ export const getTailwindConfig = async (
   const configAttribute = getTailwindConfigNode(ast);
 
   if (configAttribute) {
-    const configIdentifierName =
-      configAttribute.value?.type === 'JSXExpressionContainer' &&
-      configAttribute.value.expression.type === 'Identifier'
-        ? configAttribute.value.expression.name
-        : undefined;
-    if (configIdentifierName) {
-      const tailwindConfigImport = getImportWithGivenDefaultSpecifier(
-        ast,
-        configIdentifierName,
-      );
-      if (tailwindConfigImport) {
-        return getConfigFromImport(tailwindConfigImport, sourcePath);
-      }
-    }
-
     const configObjectExpression =
-      configAttribute.value?.type === 'JSXExpressionContainer' &&
-      configAttribute.value.expression.type === 'ObjectExpression'
+      configAttribute.value?.type === 'JSXExpressionContainer'
         ? configAttribute.value.expression
         : undefined;
     if (configObjectExpression?.start && configObjectExpression.end) {
-      const configObjectSourceCode = sourceCode.slice(
+      const configSourceValue = sourceCode.slice(
         configObjectExpression.start,
         configObjectExpression.end,
       );
 
       try {
-        const getConfig = new Function(`return ${configObjectSourceCode}`);
-        return getConfig() as TailwindConfig;
+        return getConfigFromCode(
+          `${sourceCode}
+
+const reactEmailTailwindConfigInternal = ${configSourceValue};`,
+          sourcePath,
+        );
       } catch (exception) {
         console.warn(exception);
         console.warn(
@@ -74,21 +62,19 @@ export const getTailwindConfig = async (
   return {};
 };
 
-const getConfigFromImport = async (
-  tailwindConfigImport: ImportDeclaration,
-  sourcePath: string,
+const getConfigFromCode = async (
+  code: string,
+  filepath: string,
 ): Promise<TailwindConfig> => {
-  const configRelativePath = tailwindConfigImport.source.value;
-  const sourceDirpath = path.dirname(sourcePath);
-  const configFilepath = path.join(sourceDirpath, configRelativePath);
+  const configDirpath = path.dirname(filepath);
 
   const configBuildResult = await esbuild.build({
     bundle: true,
     stdin: {
-      contents: `import tailwindConfig from "${configRelativePath}"; 
-export { tailwindConfig };`,
+      contents: `${code} 
+export { reactEmailTailwindConfigInternal };`,
       loader: 'tsx',
-      resolveDir: path.dirname(sourcePath),
+      resolveDir: configDirpath,
     },
     platform: 'node',
     write: false,
@@ -101,7 +87,8 @@ export { tailwindConfig };`,
       'Could not build config file as it was found as undefined, this is most likely a bug, please open an issue.',
     );
   }
-  const configModule = runBundledCode(configFile.text, configFilepath);
+
+  const configModule = runBundledCode(configFile.text, filepath);
   if (isErr(configModule)) {
     throw new Error(
       `Error when trying to run the config file: ${configModule.error}`,
@@ -111,17 +98,17 @@ export { tailwindConfig };`,
   if (
     typeof configModule.value === 'object' &&
     configModule.value !== null &&
-    'tailwindConfig' in configModule.value
+    'reactEmailTailwindConfigInternal' in configModule.value
   ) {
-    return configModule.value.tailwindConfig as TailwindConfig;
+    return configModule.value.reactEmailTailwindConfigInternal as TailwindConfig;
   }
 
   throw new Error(
-    `Could not read Tailwind config at ${configFilepath} because it doesn't have a default export in it.`,
+    `Could not read Tailwind config at ${filepath} because it doesn't have a default export in it.`,
     {
       cause: {
         configModule,
-        configFilepath,
+        configFilepath: filepath,
       },
     },
   );
