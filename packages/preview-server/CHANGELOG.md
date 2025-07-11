@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.1.2
+
+### Patch Changes
+
+- a8f4796: fix rendering utilities exporter plugin not running for symlinks
+
 ## 4.1.1
 
 ## 4.1.0
