@@ -3,5 +3,6 @@ node_modules
 
 # for testing
 static
+!emails/.gitkeep
 emails
 .env*
