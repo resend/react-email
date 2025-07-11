@@ -31,14 +31,14 @@ export const getTailwindConfig = async (
   const configAttribute = getTailwindConfigNode(ast);
 
   if (configAttribute) {
-    const configObjectExpression =
+    const configExpressionValue =
       configAttribute.value?.type === 'JSXExpressionContainer'
         ? configAttribute.value.expression
         : undefined;
-    if (configObjectExpression?.start && configObjectExpression.end) {
+    if (configExpressionValue?.start && configExpressionValue.end) {
       const configSourceValue = sourceCode.slice(
-        configObjectExpression.start,
-        configObjectExpression.end,
+        configExpressionValue.start,
+        configExpressionValue.end,
       );
 
       try {
