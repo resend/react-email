@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.1.3
+
+### Patch Changes
+
+- 09d7d9d: improved method of resolving tailwind configs when checking compatibility
+
 ## 4.1.2
 
 ### Patch Changes
