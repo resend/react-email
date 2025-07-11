@@ -123,7 +123,7 @@ export { reactEmailTailwindConfigInternal };`,
   }
 
   throw new Error(
-    `Could not read Tailwind config at ${filepath} because it doesn't have a default export in it.`,
+    'Could not get the Tailwind config, this is likely a bug, please file an issue.',
     {
       cause: {
         configModule,
