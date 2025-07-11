@@ -23,8 +23,6 @@ export type TailwindConfig = Pick<
   | 'plugins'
 >;
 
-type ImportDeclaration = Node & { type: 'ImportDeclaration' };
-
 export const getTailwindConfig = async (
   sourceCode: string,
   ast: AST,
@@ -100,7 +98,8 @@ export { reactEmailTailwindConfigInternal };`,
     configModule.value !== null &&
     'reactEmailTailwindConfigInternal' in configModule.value
   ) {
-    return configModule.value.reactEmailTailwindConfigInternal as TailwindConfig;
+    return configModule.value
+      .reactEmailTailwindConfigInternal as TailwindConfig;
   }
 
   throw new Error(
@@ -112,27 +111,6 @@ export { reactEmailTailwindConfigInternal };`,
       },
     },
   );
-};
-
-const getImportWithGivenDefaultSpecifier = (
-  ast: AST,
-  specifierName: string,
-) => {
-  let importNode: ImportDeclaration | undefined;
-  traverse(ast, {
-    ImportDeclaration(nodePath) {
-      if (
-        nodePath.node.specifiers.some(
-          (specifier) =>
-            specifier.type === 'ImportDefaultSpecifier' &&
-            specifier.local.name === specifierName,
-        )
-      ) {
-        importNode = nodePath.node;
-      }
-    },
-  });
-  return importNode;
 };
 
 type JSXAttribute = Node & { type: 'JSXAttribute' };
