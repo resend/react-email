@@ -2,12 +2,12 @@ import path from 'node:path';
 import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
 import * as esbuild from 'esbuild';
+import type { RawSourceMap } from 'source-map-js';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
+import { improveErrorWithSourceMap } from '../../improve-error-with-sourcemap';
 import { isErr } from '../../result';
 import { runBundledCode } from '../../run-bundled-code';
-import type { RawSourceMap } from 'source-map-js';
-import { improveErrorWithSourceMap } from '../../improve-error-with-sourcemap';
 
 export type TailwindConfig = Pick<
   TailwindOriginalConfig,
