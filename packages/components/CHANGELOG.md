@@ -1,5 +1,16 @@
 # @react-email/components
 
+## 0.3.0
+
+### Minor Changes
+
+- ce78a04: tailwind: add pixelBasedPreset export directly
+
+### Patch Changes
+
+- Updated dependencies [ce78a04]
+  - @react-email/tailwind@1.2.0
+
 ## 0.2.0
 
 ### Minor Changes
