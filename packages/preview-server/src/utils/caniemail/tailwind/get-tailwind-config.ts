@@ -101,8 +101,6 @@ export { reactEmailTailwindConfigInternal };`,
     sourceMap.sources = sourceMap.sources.map((source) =>
       path.resolve(sourceMapFile.path, '..', source),
     );
-    console.log(sourceMap.sourceRoot);
-    console.log(sourceMap.sources);
     const errorObject = improveErrorWithSourceMap(
       configModule.error as Error,
       filepath,
