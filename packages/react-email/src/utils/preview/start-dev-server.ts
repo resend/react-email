@@ -43,8 +43,9 @@ export const startDevServer = async (
   const previewServerLocation = await getPreviewServerLocation();
   const previewServer = createJiti(previewServerLocation);
 
-  const { default: next } =
-    await previewServer.import<typeof import('next')>('next');
+  const next = await previewServer.import<typeof import('next')>('next', {
+    default: true,
+  });
 
   devServer = http.createServer((req, res) => {
     if (!req.url) {
