@@ -794,7 +794,13 @@ exports[`pretty > should prettify base doucment correctly 1`] = `
 
 exports[`pretty > should print properties per-line once they get too wide 1`] = `
 "<div
-  style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"
+  style="
+    width:100%;
+    border:none;
+    border-top:1px solid #eaeaea;
+    border-color:#e6ebf1;
+    margin:20px 0
+  "
 ></div>
 "
 `;
