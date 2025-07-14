@@ -19,7 +19,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
           <tr>
             {/* 
               Yahoo and AOL simply do not keep the styles applied to the `body`, 
-              so we need to apply it to the body and to a table cell inside. 
+              so we need to apply it to a table cell inside. 
 
               See https://github.com/resend/react-email/issues/662.
             */}
