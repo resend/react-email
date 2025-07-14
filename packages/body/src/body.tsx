@@ -6,10 +6,14 @@ export type BodyProps = Readonly<
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, ...props }, ref) => (
-    <body ref={ref}>
+    <body ref={ref} style={{ margin: 0, padding: 0 }}>
       <table
-        style={{ width: '100%', height: '100%' }}
         border={0}
+        width="100%"
+        style={{
+          width: '100vw',
+          height: '100vh',
+        }}
         cellPadding="0"
         cellSpacing="0"
         role="presentation"
@@ -17,13 +21,15 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
       >
         <tbody>
           <tr>
-            {/* 
-              Yahoo and AOL simply do not keep the styles applied to the `body`, 
-              so we need to apply it to a table cell inside. 
+            {/*
+              Yahoo and AOL simply do not keep the styles applied to the `body`,
+              so we need to apply it to a table cell inside.
 
               See https://github.com/resend/react-email/issues/662.
             */}
-            <td {...props}>{children}</td>
+            <td {...props} style={{ textAlign: 'left', verticalAlign: 'top' }}>
+              {children}
+            </td>
           </tr>
         </tbody>
       </table>
