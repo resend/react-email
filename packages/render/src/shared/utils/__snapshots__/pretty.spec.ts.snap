@@ -20,9 +20,7 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
   </head>
   <body
     style="
-      font-family:&quot;
-      Google Sans&quot;
-      ,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+      font-family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
       background-color:#505050;
       margin:0
     "
@@ -862,11 +860,7 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
   <body
     style="
       background-color:#f6f9fc;
-      font-family:-apple-system,BlinkMacSystemFont,&quot;
-      Segoe UI&quot;
-      ,Roboto,&quot;
-      Helvetica Neue&quot;
-      ,Ubuntu,sans-serif
+      font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif
     "
   >
     <table
@@ -1138,19 +1132,6 @@ exports[`pretty > should prettify base doucment correctly 1`] = `
     <input placeholder="hello world"/>
   </body>
 </html>
-"
-`;
-
-exports[`pretty > should print properties per-line once they get too wide 1`] = `
-"<div
-  style="
-    width:100%;
-    border:none;
-    border-top:1px solid #eaeaea;
-    border-color:#e6ebf1;
-    margin:20px 0
-  "
-></div>
 "
 `;
 
