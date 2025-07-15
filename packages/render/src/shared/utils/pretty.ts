@@ -1,4 +1,9 @@
-import { type HtmlNode, lenientParse } from './lenient-parse';
+import {
+  type HtmlNode,
+  type HtmlTag,
+  type HtmlTagProperty,
+  lenientParse,
+} from './lenient-parse';
 
 interface Options {
   /**
@@ -85,6 +90,45 @@ const prettyNodes = (
   const { preserveLinebreaks = false, maxLineLength = 80, lineBreak } = options;
   const indentation = ' '.repeat(currentIndentationSize);
 
+  const printProperty = (property: HtmlTagProperty) => {
+    const singleLineProperty = `${property.name}=${property.value}`;
+    if (
+      property.name === 'style' &&
+      singleLineProperty.length > maxLineLength
+    ) {
+      const styles = property.value.slice(1, -1).split(/;/);
+      const wrappedStyles = styles
+        .map((style) => `    ${style}`)
+        .join(`;${lineBreak}`);
+
+      let multiLineProperty = `${property.name}="${lineBreak}`;
+      multiLineProperty += `${wrappedStyles}${lineBreak}`;
+      multiLineProperty += `  "`;
+
+      return multiLineProperty;
+    }
+    return singleLineProperty;
+  };
+
+  const printTagStart = (node: HtmlTag) => {
+    const singleLineProperties = node.properties
+      .map((property) => ` ${property.name}=${property.value}`)
+      .join('');
+    const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? '/' : ''}>`;
+
+    if (singleLineTagStart.length <= maxLineLength) {
+      return singleLineTagStart;
+    }
+
+    let multilineTagStart = `<${node.name}${lineBreak}`;
+    for (const property of node.properties) {
+      const printedProperty = printProperty(property);
+      multilineTagStart += `  ${printedProperty}${lineBreak}`;
+    }
+    multilineTagStart += `${node.void ? '/' : ''}>`;
+    return multilineTagStart;
+  };
+
   let formatted = '';
   for (const node of nodes) {
     if (node.type === 'text') {
@@ -96,26 +140,15 @@ const prettyNodes = (
       }
       formatted += lineBreak;
     } else if (node.type === 'tag') {
-      const propertiesRawString = node.properties
-        .map((property) => ` ${property.name}=${property.value}`)
-        .join('');
+      formatted += `${indentation}`;
+      formatted += printTagStart(node).replaceAll(
+        lineBreak,
+        `${lineBreak}${indentation}`,
+      );
 
-      const rawTagStart = `${indentation}<${node.name}${propertiesRawString}${node.void ? '/' : ''}>`;
-      if (rawTagStart.length - currentIndentationSize > maxLineLength) {
-        let tagStart = `${indentation}<${node.name}${lineBreak}`;
-        for (const property of node.properties) {
-          tagStart += `${indentation}  ${property.name}=${property.value}${lineBreak}`;
-        }
-        tagStart += `${indentation}${node.void ? '/' : ''}>`;
-        formatted += tagStart;
-      } else {
-        formatted += `${rawTagStart}`;
-      }
       if (node.void) {
         formatted += lineBreak;
-      }
-
-      if (!node.void) {
+      } else {
         if (node.children.length > 0) {
           formatted += `${lineBreak}${prettyNodes(
             node.children,

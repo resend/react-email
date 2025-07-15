@@ -18,9 +18,9 @@ describe('pretty', () => {
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  it('should print properties per-line once they get too wide', () => {
+  it('should print style properties per-line once they get too wide', () => {
     const document =
-      '<div style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"></div>';
+      '<div style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0;font-family:&quot;Google Sans&quot;"></div>';
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 

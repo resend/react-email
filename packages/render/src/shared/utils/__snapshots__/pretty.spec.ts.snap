@@ -19,10 +19,23 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
     <!--$-->
   </head>
   <body
-    style="font-family:&quot;Google Sans&quot;,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;background-color:#505050;margin:0"
+    style="
+      font-family:&quot;
+      Google Sans&quot;
+      ,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+      background-color:#505050;
+      margin:0
+    "
   >
     <div
-      style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
+      style="
+        display:none;
+        overflow:hidden;
+        line-height:1px;
+        opacity:0;
+        max-height:0;
+        max-width:0
+      "
       data-skip-in-text="true"
     >
       #CodePenChallenge: Cubes
@@ -37,7 +50,13 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
       cellPadding="0"
       cellSpacing="0"
       role="presentation"
-      style="width:100%;background-color:#191919;margin:0 auto;padding-bottom:30px;z-index:999"
+      style="
+        width:100%;
+        background-color:#191919;
+        margin:0 auto;
+        padding-bottom:30px;
+        z-index:999
+      "
     >
       <tbody>
         <tr>
@@ -45,7 +64,14 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
             <img
               alt="codepen"
               src="/static/codepen-challengers.png"
-              style="display:block;outline:none;border:none;text-decoration:none;margin:auto;max-width:100%"
+              style="
+                display:block;
+                outline:none;
+                border:none;
+                text-decoration:none;
+                margin:auto;
+                max-width:100%
+              "
               width="600"
             />
           </td>
@@ -65,14 +91,35 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
         <tr style="width:100%">
           <td>
             <p
-              style="font-size:13px;line-height:24px;background-color:#505050;text-align:center;padding:10px 0;position:absolute;width:648px;max-width:100%;top:-28px;margin:0 0 16px 0;margin-top:0;margin-right:0;margin-bottom:16px;margin-left:0"
+              style="
+                font-size:13px;
+                line-height:24px;
+                background-color:#505050;
+                text-align:center;
+                padding:10px 0;
+                position:absolute;
+                width:648px;
+                max-width:100%;
+                top:-28px;
+                margin:0 0 16px 0;
+                margin-top:0;
+                margin-right:0;
+                margin-bottom:16px;
+                margin-left:0
+              "
             >
               <a style="color:#fff;text-decoration-line:none;cursor:pointer" target="_blank">
                 View this Challenge on CodePen
               </a>
             </p>
             <h1
-              style="background:#f0d361;padding:30px;color:#191919;font-weight:400;margin-bottom:0"
+              style="
+                background:#f0d361;
+                padding:30px;
+                color:#191919;
+                font-weight:400;
+                margin-bottom:0
+              "
             >
               <strong>
                 This week:
@@ -81,7 +128,15 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
               <!-- -->
                
               <p
-                style="font-size:32px;line-height:24px;margin:4px 0 0 0;margin-top:4px;margin-right:0;margin-bottom:0;margin-left:0"
+                style="
+                  font-size:32px;
+                  line-height:24px;
+                  margin:4px 0 0 0;
+                  margin-top:4px;
+                  margin-right:0;
+                  margin-bottom:0;
+                  margin-left:0
+                "
               >
                 Cubes
               </p>
@@ -129,7 +184,17 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       or freeze it out completely and start over from scratch!
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;border:6px solid #ebd473;padding:20px;margin:0 0 40px 0;margin-top:0;margin-right:0;margin-bottom:40px;margin-left:0"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        border:6px solid #ebd473;
+                        padding:20px;
+                        margin:0 0 40px 0;
+                        margin-top:0;
+                        margin-right:0;
+                        margin-bottom:40px;
+                        margin-left:0
+                      "
                     >
                       💪 
                       <strong>
@@ -143,7 +208,13 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                     <img
                       alt="codepen"
                       src="/static/codepen-cube.png"
-                      style="display:block;outline:none;border:none;text-decoration:none;max-width:100%"
+                      style="
+                        display:block;
+                        outline:none;
+                        border:none;
+                        text-decoration:none;
+                        max-width:100%
+                      "
                       width="600"
                     />
                     <table
@@ -153,7 +224,15 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       cellPadding="0"
                       cellSpacing="0"
                       role="presentation"
-                      style="margin-top:40px;margin-bottom:24px;text-align:center;background:#0b112a;color:#fff;padding:35px 20px 30px 20px;border:6px solid #2138c6"
+                      style="
+                        margin-top:40px;
+                        margin-bottom:24px;
+                        text-align:center;
+                        background:#0b112a;
+                        color:#fff;
+                        padding:35px 20px 30px 20px;
+                        border:6px solid #2138c6
+                      "
                     >
                       <tbody>
                         <tr>
@@ -161,7 +240,13 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                             <img
                               alt="codepen"
                               src="/static/codepen-pro.png"
-                              style="display:block;outline:none;border:none;text-decoration:none;margin:0 auto 30px auto"
+                              style="
+                                display:block;
+                                outline:none;
+                                border:none;
+                                text-decoration:none;
+                                margin:0 auto 30px auto
+                              "
                               width="250"
                             />
                             <p style="font-size:14px;line-height:24px;margin-top:16px;margin-bottom:16px">
@@ -169,14 +254,37 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               or developer at any experience level.
                             </p>
                             <a
-                              style="line-height:18px;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;background:#2138c6;color:#fff;border:0;font-size:15px;cursor:pointer;border-radius:4px;padding:12px;padding-top:12px;padding-right:12px;padding-bottom:12px;padding-left:12px"
+                              style="
+                                line-height:18px;
+                                text-decoration:none;
+                                display:inline-block;
+                                max-width:100%;
+                                mso-padding-alt:0px;
+                                background:#2138c6;
+                                color:#fff;
+                                border:0;
+                                font-size:15px;
+                                cursor:pointer;
+                                border-radius:4px;
+                                padding:12px;
+                                padding-top:12px;
+                                padding-right:12px;
+                                padding-bottom:12px;
+                                padding-left:12px
+                              "
                               target="_blank"
                             >
                               <span>
                                 <!--[if mso]><i style="mso-font-width:300%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]-->
                               </span>
                               <span
-                                style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
+                                style="
+                                  max-width:100%;
+                                  display:inline-block;
+                                  line-height:120%;
+                                  mso-padding-alt:0px;
+                                  mso-text-raise:9px
+                                "
                               >
                                 <strong>
                                   Learn More
@@ -195,7 +303,14 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
               </tbody>
             </table>
             <p
-              style="font-size:18px;line-height:1.5;background:#f5d247;padding:30px;margin-top:16px;margin-bottom:16px"
+              style="
+                font-size:18px;
+                line-height:1.5;
+                background:#f5d247;
+                padding:30px;
+                margin-top:16px;
+                margin-bottom:16px
+              "
             >
               <strong>
                 To participate:
@@ -258,7 +373,13 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                         <tr style="width:100%">
                           <td data-id="__react-email-column" style="width:50%;padding-right:10px">
                             <p
-                              style="font-size:18px;line-height:1.1;font-weight:900;margin-top:16px;margin-bottom:16px"
+                              style="
+                                font-size:18px;
+                                line-height:1.1;
+                                font-weight:900;
+                                margin-top:16px;
+                                margin-bottom:16px
+                              "
                             >
                               IDEAS!
                             </p>
@@ -269,14 +390,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#fff4c8;border:1px solid #f4d247"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#fff4c8;
+                                border:1px solid #f4d247
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     🌟
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       This week we move from 2 dimensions to three! Maybe you could exercise your 
                                       <a style="color:#15c;text-decoration-line:none;cursor:pointer" target="_blank">
@@ -304,14 +439,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#fff4c8;border:1px solid #f4d247"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#fff4c8;
+                                border:1px solid #f4d247
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     🌟
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       There&#x27;s more to cubes than just six square sides. There are variations on
                                       the cube that could be fun to play with this week: 
@@ -335,14 +484,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#fff4c8;border:1px solid #f4d247"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#fff4c8;
+                                border:1px solid #f4d247
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     🌟
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       Here&#x27;s a mind-bending idea that can combine the round shapes from week one
                                       with this week&#x27;s cube theme:
@@ -362,7 +525,13 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                           </td>
                           <td data-id="__react-email-column" style="width:50%;padding-left:10px">
                             <p
-                              style="font-size:18px;line-height:1.1;font-weight:900;margin-top:-40px;margin-bottom:16px"
+                              style="
+                                font-size:18px;
+                                line-height:1.1;
+                                font-weight:900;
+                                margin-top:-40px;
+                                margin-bottom:16px
+                              "
                             >
                               RESOURCES!
                             </p>
@@ -373,14 +542,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#d9f6ff;border:1px solid #92bfd0"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#d9f6ff;
+                                border:1px solid #92bfd0
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     📖
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       Learn all about
                                       <!-- -->
@@ -415,14 +598,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#d9f6ff;border:1px solid #92bfd0"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#d9f6ff;
+                                border:1px solid #92bfd0
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     📖
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       Want to go beyond the square cube? Draw inspiration from EntropyReversed&#x27;s
                                       <!-- -->
@@ -455,14 +652,28 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               cellPadding="0"
                               cellSpacing="0"
                               role="presentation"
-                              style="padding:20px;margin:0 0 20px 0;border-radius:10px;font-size:36px;text-align:center;background:#d9f6ff;border:1px solid #92bfd0"
+                              style="
+                                padding:20px;
+                                margin:0 0 20px 0;
+                                border-radius:10px;
+                                font-size:36px;
+                                text-align:center;
+                                background:#d9f6ff;
+                                border:1px solid #92bfd0
+                              "
                             >
                               <tbody>
                                 <tr>
                                   <td>
                                     📖
                                     <p
-                                      style="font-size:13px;line-height:24px;text-align:left;margin-top:16px;margin-bottom:16px"
+                                      style="
+                                        font-size:13px;
+                                        line-height:24px;
+                                        text-align:left;
+                                        margin-top:16px;
+                                        margin-bottom:16px
+                                      "
                                     >
                                       Did that spherical cubes concept pique your interest? Explore Ryan
                                       Mulligan&#x27;s 
@@ -511,14 +722,37 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                 <tr>
                   <td>
                     <a
-                      style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;font-size:26px;color:#15c;background:#222;border-radius:4px;font-weight:bold;cursor:pointer;padding:15px 30px;padding-top:15px;padding-right:30px;padding-bottom:15px;padding-left:30px"
+                      style="
+                        line-height:100%;
+                        text-decoration:none;
+                        display:inline-block;
+                        max-width:100%;
+                        mso-padding-alt:0px;
+                        font-size:26px;
+                        color:#15c;
+                        background:#222;
+                        border-radius:4px;
+                        font-weight:bold;
+                        cursor:pointer;
+                        padding:15px 30px;
+                        padding-top:15px;
+                        padding-right:30px;
+                        padding-bottom:15px;
+                        padding-left:30px
+                      "
                       target="_blank"
                     >
                       <span>
                         <!--[if mso]><i style="mso-font-width:500%;mso-text-raise:22.5" hidden>&#8202;&#8202;&#8202;</i><![endif]-->
                       </span>
                       <span
-                        style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:11.25px"
+                        style="
+                          max-width:100%;
+                          display:inline-block;
+                          line-height:120%;
+                          mso-padding-alt:0px;
+                          mso-text-raise:11.25px
+                        "
                       >
                         Go to Challenge Page
                       </span>
@@ -547,7 +781,12 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       <!-- -->
                        
                       <a
-                        style="color:#505050;text-decoration-line:none;text-decoration:underline;cursor:pointer"
+                        style="
+                          color:#505050;
+                          text-decoration-line:none;
+                          text-decoration:underline;
+                          cursor:pointer
+                        "
                         target="_blank"
                       >
                         email preferences
@@ -556,7 +795,12 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       <!-- -->
                        
                       <a
-                        style="color:#505050;text-decoration-line:none;text-decoration:underline;cursor:pointer"
+                        style="
+                          color:#505050;
+                          text-decoration-line:none;
+                          text-decoration:underline;
+                          cursor:pointer
+                        "
                         target="_blank"
                       >
                         instantly opt out
@@ -565,7 +809,12 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       <!-- -->
                        
                       <a
-                        style="color:#505050;text-decoration-line:none;text-decoration:underline;cursor:pointer"
+                        style="
+                          color:#505050;
+                          text-decoration-line:none;
+                          text-decoration:underline;
+                          cursor:pointer
+                        "
                         target="_blank"
                       >
                         support
@@ -596,7 +845,14 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
     <meta name="x-apple-disable-message-reformatting"/>
   </head>
   <div
-    style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
+    style="
+      display:none;
+      overflow:hidden;
+      line-height:1px;
+      opacity:0;
+      max-height:0;
+      max-width:0
+    "
   >
     You&#x27;re now ready to make live transactions with Stripe!
     <div>
@@ -604,7 +860,14 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
     </div>
   </div>
   <body
-    style="background-color:#f6f9fc;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Ubuntu,sans-serif"
+    style="
+      background-color:#f6f9fc;
+      font-family:-apple-system,BlinkMacSystemFont,&quot;
+      Segoe UI&quot;
+      ,Roboto,&quot;
+      Helvetica Neue&quot;
+      ,Ubuntu,sans-serif
+    "
   >
     <table
       align="center"
@@ -613,7 +876,13 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
       cellPadding="0"
       cellSpacing="0"
       role="presentation"
-      style="max-width:37.5em;background-color:#ffffff;margin:0 auto;padding:20px 0 48px;margin-bottom:64px"
+      style="
+        max-width:37.5em;
+        background-color:#ffffff;
+        margin:0 auto;
+        padding:20px 0 48px;
+        margin-bottom:64px
+      "
     >
       <tbody>
         <tr style="width:100%">
@@ -638,30 +907,68 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       width="49"
                     />
                     <hr
-                      style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"
+                      style="
+                        width:100%;
+                        border:none;
+                        border-top:1px solid #eaeaea;
+                        border-color:#e6ebf1;
+                        margin:20px 0
+                      "
                     />
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       Thanks for submitting your account information. You&#x27;re now ready to make
                       live transactions with Stripe!
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       You can view your payments and a variety of other information about your
                       account right from your dashboard.
                     </p>
                     <a
                       href="https://dashboard.stripe.com/login"
-                      style="line-height:100%;text-decoration:none;display:block;max-width:100%;mso-padding-alt:0px;background-color:#656ee8;border-radius:5px;color:#fff;font-size:16px;font-weight:bold;text-align:center;width:100%;padding:10px 10px 10px 10px"
+                      style="
+                        line-height:100%;
+                        text-decoration:none;
+                        display:block;
+                        max-width:100%;
+                        mso-padding-alt:0px;
+                        background-color:#656ee8;
+                        border-radius:5px;
+                        color:#fff;
+                        font-size:16px;
+                        font-weight:bold;
+                        text-align:center;
+                        width:100%;
+                        padding:10px 10px 10px 10px
+                      "
                       target="_blank"
                     >
                       <span>
                         <!--[if mso]><i style="mso-font-width:500%;mso-text-raise:15" hidden>&#8202;</i><![endif]-->
                       </span>
                       <span
-                        style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:7.5px"
+                        style="
+                          max-width:100%;
+                          display:inline-block;
+                          line-height:120%;
+                          mso-padding-alt:0px;
+                          mso-text-raise:7.5px
+                        "
                       >
                         View your Stripe Dashboard
                       </span>
@@ -670,10 +977,22 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       </span>
                     </a>
                     <hr
-                      style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"
+                      style="
+                        width:100%;
+                        border:none;
+                        border-top:1px solid #eaeaea;
+                        border-color:#e6ebf1;
+                        margin:20px 0
+                      "
                     />
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       If you haven&#x27;t finished your integration, you might find our
                       <!-- -->
@@ -690,7 +1009,13 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       handy.
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       Once you&#x27;re ready to start accepting payments, you&#x27;ll just need to
                       use your live
@@ -720,7 +1045,13 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       .
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       Finally, we&#x27;ve put together a
                       <!-- -->
@@ -737,7 +1068,13 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       to ensure your website conforms to card network standards.
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       We&#x27;ll be here to help you with any step along the way. You can find
                       answers to most questions and get in touch with us on our
@@ -753,12 +1090,24 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                       .
                     </p>
                     <p
-                      style="font-size:16px;line-height:24px;margin:16px 0;color:#525f7f;text-align:left"
+                      style="
+                        font-size:16px;
+                        line-height:24px;
+                        margin:16px 0;
+                        color:#525f7f;
+                        text-align:left
+                      "
                     >
                       — The Stripe team
                     </p>
                     <hr
-                      style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0"
+                      style="
+                        width:100%;
+                        border:none;
+                        border-top:1px solid #eaeaea;
+                        border-color:#e6ebf1;
+                        margin:20px 0
+                      "
                     />
                     <p style="font-size:12px;line-height:16px;margin:16px 0;color:#8898aa">
                       Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080
@@ -800,6 +1149,20 @@ exports[`pretty > should print properties per-line once they get too wide 1`] = 
     border-top:1px solid #eaeaea;
     border-color:#e6ebf1;
     margin:20px 0
+  "
+></div>
+"
+`;
+
+exports[`pretty > should print style properties per-line once they get too wide 1`] = `
+"<div
+  style="
+    width:100%;
+    border:none;
+    border-top:1px solid #eaeaea;
+    border-color:#e6ebf1;
+    margin:20px 0;
+    font-family:&quot;Google Sans&quot;
   "
 ></div>
 "
