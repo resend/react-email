@@ -1,6 +1,6 @@
 ---
-"@react-email/preview-server": patch
-"react-email": patch
+"@react-email/preview-server": minor
+"react-email": minor
 ---
 
-Add custom error handling for prettier's syntax errors
+add custom error handling for prettier's syntax errors
