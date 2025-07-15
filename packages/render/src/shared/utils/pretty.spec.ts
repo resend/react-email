@@ -18,10 +18,18 @@ describe('pretty', () => {
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
-  it('should print style properties per-line once they get too wide', () => {
-    const document =
-      '<div style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0;font-family:&quot;Google Sans&quot;"></div>';
-    expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
+  describe('style attribute formatting', () => {
+    it('should print properties per-line once they get too wide', () => {
+      const document =
+        '<div style="width:100%;border:none;border-top:1px solid #eaeaea;border-color:#e6ebf1;margin:20px 0;font-family:&quot;Google Sans&quot;"></div>';
+      expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
+    });
+
+    it.only('should work with an img element', () => {
+      const document =
+        '<img alt="Stagg Electric Kettle" style="border-radius:12px;border:none;display:block;object-fit:cover;outline:none;text-decoration:none;width:100%;" height="288 src="/static/stagg-eletric-kettle.jpg" />';
+      expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
+    });
   });
 
   it("should prettify Stripe's template correctly", () => {
