@@ -130,6 +130,11 @@ export const lenientParse = (html: string): HtmlNode[] => {
       }
 
       if (character !== ' ') {
+        if (html.indexOf('=', index) === -1) {
+          index =
+            html.indexOf('/>') === -1 ? html.indexOf('>') : html.indexOf('/>');
+          break;
+        }
         const propertyName = html.slice(index, html.indexOf('=', index));
         index = html.indexOf('=', index) + 1;
 
