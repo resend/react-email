@@ -1149,6 +1149,25 @@ exports[`pretty > should print style properties per-line once they get too wide 
 "
 `;
 
+exports[`pretty > style attribute formatting > should work with an img element 1`] = `
+"<img
+  alt="Stagg Electric Kettle"
+  style="
+    border-radius:12px;
+    border:none;
+    display:block;
+    object-fit:cover;
+    outline:none;
+    text-decoration:none;
+    width:100%;
+    
+  "
+  height="288"
+  src="/static/stagg-eletric-kettle.jpg"
+/>
+"
+`;
+
 exports[`wrapText() > should work with ending words that are larger than the max line size 1`] = `
 "Want to go
 beyond the
