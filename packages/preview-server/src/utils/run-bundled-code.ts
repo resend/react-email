@@ -3,11 +3,8 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export const runBundledCode = (
-  code: string,
-  filename: string,
-): Result<unknown, unknown> => {
-  const fakeContext = {
+export const createContext = (filename: string): vm.Context => {
+  return {
     ...global,
     console,
     Buffer,
@@ -55,7 +52,13 @@ export const runBundledCode = (
     },
     process,
   };
+};
 
+export const runBundledCode = (
+  code: string,
+  filename: string,
+  fakeContext: vm.Context = createContext(filename),
+): Result<unknown, unknown> => {
   try {
     vm.runInNewContext(code, fakeContext, { filename });
   } catch (exception) {

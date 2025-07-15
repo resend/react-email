@@ -15,9 +15,15 @@ import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
+import { RenderResultMetadata } from 'next/dist/server/render-result';
 
 export interface RenderedEmailMetadata {
   markup: string;
+  /**
+   * HTML markup with `data-source-file` and `data-source-line` attributes pointing to the original
+   * .jsx/.tsx files corresponding to the rendered tag
+   */
+  markupWithReferences?: string;
   plainText: string;
   reactMarkup: string;
 }
@@ -25,8 +31,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -72,21 +78,24 @@ export const renderEmailByPath = async (
     emailComponent: Email,
     createElement,
     render,
+    renderWithReferences,
     sourceMapToOriginalFile,
   } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
-    const markup = await render(createElement(EmailComponent, previewProps), {
+    const element = createElement(EmailComponent, previewProps);
+    const markupWithReferences = await renderWithReferences(element, {
       pretty: true,
     });
-    const plainText = await render(
-      createElement(EmailComponent, previewProps),
-      {
-        plainText: true,
-      },
-    );
+    console.log('markup with references', markupWithReferences);
+    const markup = await render(element, {
+      pretty: true,
+    });
+    const plainText = await render(element, {
+      plainText: true,
+    });
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
@@ -104,11 +113,12 @@ export const renderEmailByPath = async (
       text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
     });
 
-    const renderingResult = {
+    const renderingResult: RenderedEmailMetadata = {
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
       markup: markup.replaceAll('\0', ''),
+      markupWithReferences: markupWithReferences.replaceAll('\0', ''),
       plainText,
       reactMarkup,
     };
@@ -142,6 +152,8 @@ export const renderEmailByPath = async (
           end: SpanPosition;
         };
       };
+
+      console.log('markup that failed to pretify', cause.span.start.file.content);
 
       const sourceFileAttributeMatches = cause.span.start.file.content.matchAll(
         /data-source-file="(?<file>[^"]*)"/g,

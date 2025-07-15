@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { convertStackWithSourceMap } from './convert-stack-with-sourcemap';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 import { isErr } from './result';
-import { runBundledCode } from './run-bundled-code';
+import { createContext, runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
@@ -22,14 +22,19 @@ export const getEmailComponent = async (
   jsxRuntimePath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      render: typeof render;
+    /**
+     * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
+     * used internally in the preview server and never shown to the user.
+     */
+    renderWithReferences: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -78,7 +83,9 @@ export const getEmailComponent = async (
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const runningResult = runBundledCode(builtEmailCode, emailPath);
+  const context = createContext(emailPath);
+  context.shouldIncludeSourceReference = false;
+  const runningResult = runBundledCode(builtEmailCode, emailPath, context);
 
   if (isErr(runningResult)) {
     const { error } = runningResult;
@@ -130,6 +137,12 @@ export const getEmailComponent = async (
 
   return {
     emailComponent: componentModule.default as EmailComponent,
+    renderWithReferences: (async (...args) => {
+      context.shouldIncludeSourceReference = true;
+      const renderingResult = await componentModule.render(...args);
+      context.shouldIncludeSourceReference = false;
+      return renderingResult;
+    }) as typeof render,
     render: componentModule.render as typeof render,
     createElement:
       componentModule.reactEmailCreateReactElement as typeof React.createElement,
