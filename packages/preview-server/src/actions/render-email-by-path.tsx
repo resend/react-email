@@ -89,7 +89,6 @@ export const renderEmailByPath = async (
     const markupWithReferences = await renderWithReferences(element, {
       pretty: true,
     });
-    console.log('markup with references', markupWithReferences);
     const markup = await render(element, {
       pretty: true,
     });
@@ -152,8 +151,6 @@ export const renderEmailByPath = async (
           end: SpanPosition;
         };
       };
-
-      console.log('markup that failed to pretify', cause.span.start.file.content);
 
       const sourceFileAttributeMatches = cause.span.start.file.content.matchAll(
         /data-source-file="(?<file>[^"]*)"/g,
