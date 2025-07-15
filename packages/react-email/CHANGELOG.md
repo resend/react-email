@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.0
+
+### Minor Changes
+
+- e52818c: add custom error handling for prettier's syntax errors
+
 ## 4.1.3
 
 ## 4.1.2

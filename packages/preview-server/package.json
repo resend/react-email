@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "4.1.3",
+  "version": "4.2.0",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "tsx ./scripts/build-preview-server.mts",
