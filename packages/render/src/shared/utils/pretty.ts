@@ -96,7 +96,12 @@ const prettyNodes = (
       property.name === 'style' &&
       singleLineProperty.length > maxLineLength
     ) {
-      const styles = property.value.slice(1, -1).split(/;/);
+      // This uses a negative lookbehing to ensure that the semicolon is not
+      // part of an HTML entity (e.g., `&amp;`, `&quot;`, `&nbsp;`, etc.).
+      const nonHtmlEntitySemicolonRegex = /(?<!&[^;]+);/;
+      const styles = property.value
+        .slice(1, -1)
+        .split(nonHtmlEntitySemicolonRegex);
       const wrappedStyles = styles
         .map((style) => `    ${style}`)
         .join(`;${lineBreak}`);
