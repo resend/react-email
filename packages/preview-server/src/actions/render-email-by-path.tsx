@@ -15,7 +15,6 @@ import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import type { ErrorObject } from '../utils/types/error-object';
-import { RenderResultMetadata } from 'next/dist/server/render-result';
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -31,8 +30,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const cache = new Map<string, EmailRenderingResult>();
 
