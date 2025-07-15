@@ -16,6 +16,7 @@ await fs.writeFile(
   `EMAILS_DIR_RELATIVE_PATH=./emails
 EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
 USER_PROJECT_LOCATION=${previewServerRoot}
+PREVIEW_SERVER_LOCATION=${previewServerRoot}
 NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );
