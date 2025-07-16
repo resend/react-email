@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.1
+
+### Patch Changes
+
+- c273405: pin all dependencies to avoid compatibility issues of the built preview server
+
 ## 4.2.0
 
 ### Minor Changes
