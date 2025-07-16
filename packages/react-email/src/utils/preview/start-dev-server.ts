@@ -43,9 +43,6 @@ export const startDevServer = async (
   const previewServerLocation = await getPreviewServerLocation();
   const previewServer = createJiti(previewServerLocation);
 
-  const { default: next } =
-    await previewServer.import<typeof import('next')>('next');
-
   devServer = http.createServer((req, res) => {
     if (!req.url) {
       res.end(404);
@@ -136,6 +133,13 @@ export const startDevServer = async (
       process.cwd(),
     ),
   };
+
+  const next = await previewServer.import<typeof import('next')['default']>(
+    'next',
+    {
+      default: true,
+    },
+  );
 
   const app = next({
     // passing in env here does not get the environment variables there
