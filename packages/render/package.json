@@ -85,7 +85,6 @@
   },
   "dependencies": {
     "html-to-text": "^9.0.5",
-    "prettier": "^3.5.3",
     "react-promise-suspense": "^0.3.4"
   },
   "peerDependencies": {
@@ -99,6 +98,7 @@
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
+    "prettier": "^3.5.3",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
     "typescript": "5.8.3"
