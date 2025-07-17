@@ -13,7 +13,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
     <!--$-->
   </head>
   <body
-    style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:0.5rem;padding-right:0.5rem;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
+    style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:8px;padding-right:8px;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
     <div
       style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
       data-skip-in-text="true">
@@ -48,14 +48,14 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                       alt="Vercel Logo"
                       height="37"
                       src="/static/vercel-logo.png"
-                      style="margin-left:auto;margin-right:auto;margin-top:0px;margin-bottom:0px;display:block;outline:none;border:none;text-decoration:none"
+                      style="margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;display:block;outline:none;border:none;text-decoration:none"
                       width="40" />
                   </td>
                 </tr>
               </tbody>
             </table>
             <h1
-              style="margin-left:0px;margin-right:0px;margin-top:30px;margin-bottom:30px;padding:0px;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
+              style="margin-left:0;margin-right:0;margin-top:30px;margin-bottom:30px;padding:0;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
               Join <strong>Enigma</strong> on <strong>Vercel</strong>
             </h1>
             <p
@@ -162,7 +162,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
               >
             </p>
             <hr
-              style="margin-left:0px;margin-right:0px;margin-top:26px;margin-bottom:26px;width:100%;border-width:1px;border-color:rgb(234,234,234);border-style:solid;border:none;border-top:1px solid #eaeaea" />
+              style="margin-left:0;margin-right:0;margin-top:26px;margin-bottom:26px;width:100%;border-width:1px;border-color:rgb(234,234,234);border-style:solid;border:none;border-top:1px solid #eaeaea" />
             <p
               style="color:rgb(102,102,102);font-size:12px;line-height:24px;margin-top:16px;margin-bottom:16px">
               This invitation was intended for<!-- -->

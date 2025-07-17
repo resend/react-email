@@ -16,14 +16,15 @@ import { escapeStringForRegex } from './escape-string-for-regex';
  */
 export const renderingUtilitiesExporter = (emailTemplates: string[]) => ({
   name: 'rendering-utilities-exporter',
-  setup: (b: PluginBuild) => {
+  setup: async (b: PluginBuild) => {
+    const filterOptions = await Promise.all(
+      emailTemplates.map(async (emailPath) =>
+        escapeStringForRegex(await fs.realpath(emailPath)),
+      ),
+    );
     b.onLoad(
       {
-        filter: new RegExp(
-          emailTemplates
-            .map((emailPath) => escapeStringForRegex(emailPath))
-            .join('|'),
-        ),
+        filter: new RegExp(filterOptions.join('|')),
       },
       async ({ path: pathToFile }) => {
         return {
