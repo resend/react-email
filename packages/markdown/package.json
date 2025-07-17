@@ -23,10 +23,10 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "react",

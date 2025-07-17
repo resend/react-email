@@ -1,0 +1,21 @@
+{
+  "name": "playground",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "email dev",
+    "export": "email export"
+  },
+  "dependencies": {
+    "@react-email/render": "workspace:*",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@react-email/preview-server": "workspace:*",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "react-email": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}

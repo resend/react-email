@@ -1,5 +1,112 @@
 # react-email
 
+## 4.2.2
+
+### Patch Changes
+
+- eb7f0ac: dev server erroring when trying to startup with port already being used
+
+## 4.2.1
+
+## 4.2.0
+
+### Minor Changes
+
+- e52818c: add custom error handling for prettier's syntax errors
+
+## 4.1.3
+
+## 4.1.2
+
+## 4.1.1
+
+### Patch Changes
+
+- ef77691: fix path resolution done wrong breaking `email dev` on Windows
+
+## 4.1.0
+
+### Minor Changes
+
+- abf8599: use a separate package for storing the preview server (@react-email/preview-server)
+
+### Patch Changes
+
+- e173b44: Use the same version for the preview-server and react-email
+
+## 4.1.0-canary.12
+
+## 4.1.0-canary.11
+
+### Patch Changes
+
+- 19d4b45: fix static file serving security issue with logging
+
+## 4.1.0-canary.10
+
+## 4.1.0-canary.9
+
+### Patch Changes
+
+- 40fb596: Use the same version for the preview-server and react-email
+
+## 4.1.0-canary.8
+
+### Minor Changes
+
+- ed2f46a: use a separate package for storing the preview server (@react-email/preview-server)
+
+## 4.1.0-canary.7
+
+### Patch Changes
+
+- f00aff6: Fix prettier errors causing NextJS serialization error
+
+## 4.1.0-canary.6
+
+### Patch Changes
+
+- 11c4600: Add support for hot reloading with tsconfig path aliases
+
+## 4.1.0-canary.5
+
+### Patch Changes
+
+- b947f98: Pre-render email templates on hover
+
+## 4.1.0-canary.4
+
+### Patch Changes
+
+- 5c6150d: Add .json import support for hot reloading
+- aae2f59: Ensure dependencies outside emails directory are completely resolved
+- b4b2373: Fix non-email files being rendered during hot reloading
+
+## 4.1.0-canary.3
+
+### Patch Changes
+
+- 681d4ed: fix backwards compatibility with `render` versions
+
+## 4.1.0-canary.2
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
+## 4.1.0-canary.1
+
+### Patch Changes
+
+- a587e17: Fix dependent of dependents not causing hot reloads
+- dbf3a64: Add error message for when an email template does not have a default export
+
+## 4.1.0-canary.0
+
+### Minor Changes
+
+- 4a0d4e3: Theme switcher for email template
+
 ## 4.0.17
 
 ### Patch Changes

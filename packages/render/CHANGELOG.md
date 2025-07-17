@@ -6,6 +6,12 @@
 
 - 19cc59c: fix browser version including errors in the output instead of throwing them
 
+## 1.1.3-canary.0
+
+### Patch Changes
+
+- e22cc83: fix browser version including errors in the output instead of throwing them
+
 ## 1.1.2
 
 ### Patch Changes
@@ -14,11 +20,23 @@
 - e4598ab: Fixes `pretty` option breaking CJS projects
 - faa6944: accept React.ReactNode instead of React.ReactElement
 
+## 1.1.2-canary.0
+
+### Patch Changes
+
+- 0405e2b: fix react-dom/server import for the browser and some bundlers
+
 ## 1.1.1
 
 ### Patch Changes
 
 - a77ef6f: fix preview being rendered in plain-text
+
+## 1.1.1-canary.0
+
+### Patch Changes
+
+- 57ddfd9: fix react-dom/server import for the browser and some bundlers
 
 ## 1.1.0
 
@@ -29,6 +47,18 @@
 ### Patch Changes
 
 - 9aa033c: Use range of versions for dependencies
+
+## 1.1.0-canary.1
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
+## 1.1.0-canary.0
+
+### Minor Changes
+
+- 32372da: Deprecate the `pretty` option for `render` in favor of standalone `pretty` function
 
 ## 1.0.6
 

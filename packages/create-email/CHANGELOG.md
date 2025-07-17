@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.2
+
+### Patch Changes
+
+- 6edd76d: add @react-email/preview-server to template dependencies
+
 ## 1.2.1
 
 ### Patch Changes
@@ -16,11 +22,25 @@
 
 - d689346: Show package.json's version on --version for create-email
 
+## 1.2.0-canary.1
+
+### Patch Changes
+
+- 0c3aaa3: Show package.json's version on --version for create-email
+
+## 1.2.0-canary.0
+
+### Minor Changes
+
+- 237d115: Fetch react-email package versions at runtime from `--tag` option
+
 ## 1.1.0
 
 ### Minor Changes
 
 - 31fd7cc: use caret for dependency on react-email and @react-email/components
+
+## 1.0.8-canary.0
 
 ## 1.0.7
 

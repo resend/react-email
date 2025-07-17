@@ -336,7 +336,7 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
+describe('non-inlinable styles', () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
@@ -387,22 +387,25 @@ describe('Responsive styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="my-auto mx-auto bg-white font-sans md:px-[64px]">
-          <div className="md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();
   });
 
-  it('should add css to <head/> and keep responsive class names', async () => {
+  it('should add css to <head/> and keep class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
           <head />
           <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
           </body>
         </Tailwind>
       </html>,
