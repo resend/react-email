@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { render } from '../../node';
 import { pretty, wrapText } from './pretty';
+import { component } from '../../../../../apps/web/components/four-images-in-a-grid/inline-styles';
+import { Layout } from '../../../../../apps/web/components/_components/layout';
 
 const stripeHtml = fs.readFileSync(
   path.resolve(__dirname, './tests/stripe-email.html'),
@@ -18,6 +21,17 @@ describe('pretty', () => {
     expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
+  test.only('testing', async () => {
+    const html = await render(<Layout>{component}</Layout>);
+    await fs.promises.writeFile(
+      'tailwind copy-paste component.html',
+      html,
+      'utf8',
+    );
+
+    console.log(pretty(html));
+  });
+
   describe('style attribute formatting', () => {
     it('should print properties per-line once they get too wide', () => {
       const document =
@@ -25,7 +39,7 @@ describe('pretty', () => {
       expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
     });
 
-    it.only('should work with an img element', () => {
+    it('should work with an img element', () => {
       const document =
         '<img alt="Stagg Electric Kettle" style="border-radius:12px;border:none;display:block;object-fit:cover;outline:none;text-decoration:none;width:100%;" height="288" src="/static/stagg-eletric-kettle.jpg" />';
       expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();

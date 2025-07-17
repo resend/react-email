@@ -1,9 +1,10 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "target": "ES2018",
-    "plugins": [{ "name": "next" }],
+    "esModuleInterop": true,
     "paths": { "@/*": ["./src/*"] },
+    "plugins": [{ "name": "next" }],
+    "target": "ES2018",
     "types": ["vitest/globals"]
   },
   "include": [
