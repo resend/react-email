@@ -116,7 +116,7 @@ const printTagStart = (
   const singleLineProperties = node.properties
     .map((property) => ` ${property.name}=${property.value}`)
     .join('');
-  const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? '/' : ''}>`;
+  const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? ' /' : ''}>`;
 
   if (singleLineTagStart.length <= maxLineLength) {
     return singleLineTagStart;
