@@ -1135,7 +1135,7 @@ exports[`pretty > should prettify base doucment correctly 1`] = `
 "
 `;
 
-exports[`pretty > style attribute formatting > should print properties per-line once they get too wide 1`] = `
+exports[`pretty > should print style properties per-line once they get too wide 1`] = `
 "<div
   style="
     width:100%;

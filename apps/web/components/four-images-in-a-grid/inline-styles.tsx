@@ -7,9 +7,9 @@ export const component = (
       <Row>
         <Text
           style={{
+            margin: '0px',
             fontSize: 16,
             lineHeight: '24px',
-            margin: '0px',
             fontWeight: 600,
             color: 'rgb(79,70,229)',
           }}
