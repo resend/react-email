@@ -82,6 +82,55 @@ export const wrapText = (
   return wrappedText;
 };
 
+const printProperty = (
+  property: HtmlTagProperty,
+  maxLineLength: number,
+  lineBreak: string,
+) => {
+  const singleLineProperty = `${property.name}=${property.value}`;
+  if (property.name === 'style' && singleLineProperty.length > maxLineLength) {
+    // This uses a negative lookbehing to ensure that the semicolon is not
+    // part of an HTML entity (e.g., `&amp;`, `&quot;`, `&nbsp;`, etc.).
+    const nonHtmlEntitySemicolonRegex = /(?<!&[^;]+);/;
+    const styles = property.value
+      .slice(1, -1)
+      .split(nonHtmlEntitySemicolonRegex);
+    const wrappedStyles = styles
+      .map((style) => `    ${style}`)
+      .join(`;${lineBreak}`);
+
+    let multiLineProperty = `${property.name}="${lineBreak}`;
+    multiLineProperty += `${wrappedStyles}${lineBreak}`;
+    multiLineProperty += `  "`;
+
+    return multiLineProperty;
+  }
+  return singleLineProperty;
+};
+
+const printTagStart = (
+  node: HtmlTag,
+  maxLineLength: number,
+  lineBreak: string,
+) => {
+  const singleLineProperties = node.properties
+    .map((property) => ` ${property.name}=${property.value}`)
+    .join('');
+  const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? '/' : ''}>`;
+
+  if (singleLineTagStart.length <= maxLineLength) {
+    return singleLineTagStart;
+  }
+
+  let multilineTagStart = `<${node.name}${lineBreak}`;
+  for (const property of node.properties) {
+    const printedProperty = printProperty(property, maxLineLength, lineBreak);
+    multilineTagStart += `  ${printedProperty}${lineBreak}`;
+  }
+  multilineTagStart += `${node.void ? '/' : ''}>`;
+  return multilineTagStart;
+};
+
 const prettyNodes = (
   nodes: HtmlNode[],
   options: Options,
@@ -90,50 +139,6 @@ const prettyNodes = (
 ) => {
   const { preserveLinebreaks = false, maxLineLength = 80, lineBreak } = options;
   const indentation = ' '.repeat(currentIndentationSize);
-
-  const printProperty = (property: HtmlTagProperty) => {
-    const singleLineProperty = `${property.name}=${property.value}`;
-    if (
-      property.name === 'style' &&
-      singleLineProperty.length > maxLineLength
-    ) {
-      // This uses a negative lookbehing to ensure that the semicolon is not
-      // part of an HTML entity (e.g., `&amp;`, `&quot;`, `&nbsp;`, etc.).
-      const nonHtmlEntitySemicolonRegex = /(?<!&[^;]+);/;
-      const styles = property.value
-        .slice(1, -1)
-        .split(nonHtmlEntitySemicolonRegex);
-      const wrappedStyles = styles
-        .map((style) => `    ${style}`)
-        .join(`;${lineBreak}`);
-
-      let multiLineProperty = `${property.name}="${lineBreak}`;
-      multiLineProperty += `${wrappedStyles}${lineBreak}`;
-      multiLineProperty += `  "`;
-
-      return multiLineProperty;
-    }
-    return singleLineProperty;
-  };
-
-  const printTagStart = (node: HtmlTag) => {
-    const singleLineProperties = node.properties
-      .map((property) => ` ${property.name}=${property.value}`)
-      .join('');
-    const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? '/' : ''}>`;
-
-    if (singleLineTagStart.length <= maxLineLength) {
-      return singleLineTagStart;
-    }
-
-    let multilineTagStart = `<${node.name}${lineBreak}`;
-    for (const property of node.properties) {
-      const printedProperty = printProperty(property);
-      multilineTagStart += `  ${printedProperty}${lineBreak}`;
-    }
-    multilineTagStart += `${node.void ? '/' : ''}>`;
-    return multilineTagStart;
-  };
 
   let formatted = '';
   for (const node of nodes) {
@@ -152,7 +157,7 @@ const prettyNodes = (
       formatted += lineBreak;
     } else if (node.type === 'tag') {
       formatted += `${indentation}`;
-      formatted += printTagStart(node).replaceAll(
+      formatted += printTagStart(node, maxLineLength, lineBreak).replaceAll(
         lineBreak,
         `${lineBreak}${indentation}`,
       );
