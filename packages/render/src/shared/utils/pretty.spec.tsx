@@ -30,6 +30,9 @@ describe('pretty', () => {
     );
 
     console.log(pretty(html));
+  it('should not wrap text inside of <style> and <script> tags', () => {
+    const document = `<!DOCTYPE html><html><head><style>body { color: red; }</style></head><body><script>console.log('Hello, world!');</script></body></html>`;
+    expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
   });
 
   describe('style attribute formatting', () => {

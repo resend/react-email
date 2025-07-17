@@ -85,6 +85,7 @@ export const wrapText = (
 const prettyNodes = (
   nodes: HtmlNode[],
   options: Options,
+  stack: HtmlNode[] = [],
   currentIndentationSize = 0,
 ) => {
   const { preserveLinebreaks = false, maxLineLength = 80, lineBreak } = options;
@@ -137,8 +138,13 @@ const prettyNodes = (
   let formatted = '';
   for (const node of nodes) {
     if (node.type === 'text') {
-      if (preserveLinebreaks) {
-        formatted += node.content;
+      if (
+        preserveLinebreaks ||
+        (stack.length > 0 &&
+          stack[0].type === 'tag' &&
+          ['script', 'style'].includes(stack[0].name))
+      ) {
+        formatted += `${indentation}${node.content}`;
       } else {
         const rawText = node.content.replaceAll(/(\r|\n|\r\n)\s*/g, '');
         formatted += wrapText(rawText, indentation, maxLineLength, lineBreak);
@@ -158,6 +164,7 @@ const prettyNodes = (
           formatted += `${lineBreak}${prettyNodes(
             node.children,
             options,
+            [node, ...stack],
             currentIndentationSize + 2,
           )}`;
           formatted += `${indentation}`;
