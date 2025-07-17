@@ -30,7 +30,7 @@ describe('pretty', () => {
       expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
     });
 
-    it.only('should work with an img element', () => {
+    it('should work with an img element', () => {
       const document =
         '<img alt="Stagg Electric Kettle" style="border-radius:12px;border:none;display:block;object-fit:cover;outline:none;text-decoration:none;width:100%;" height="288" src="/static/stagg-eletric-kettle.jpg" />';
       expect(pretty(document, { lineBreak: '\n' })).toMatchSnapshot();
