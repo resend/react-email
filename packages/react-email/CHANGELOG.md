@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.2
+
+### Patch Changes
+
+- eb7f0ac: dev server erroring when trying to startup with port already being used
+
 ## 4.2.1
 
 ## 4.2.0
