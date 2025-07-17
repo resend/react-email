@@ -7,15 +7,32 @@ exports[`pretty > should not wrap [if mso] syntax 1`] = `
 "
 `;
 
+exports[`pretty > should not wrap text inside of <style> and <script> tags 1`] = `
+"<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body { color: red; }
+    </style>
+  </head>
+  <body>
+    <script>
+      console.log('Hello, world!');
+    </script>
+  </body>
+</html>
+"
+`;
+
 exports[`pretty > should prettify Code Pen's template correctly 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>
-    <link rel="preload" as="image" href="/static/codepen-challengers.png"/>
-    <link rel="preload" as="image" href="/static/codepen-cube.png"/>
-    <link rel="preload" as="image" href="/static/codepen-pro.png"/>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta name="x-apple-disable-message-reformatting"/>
+    <link rel="preload" as="image" href="/static/codepen-challengers.png" />
+    <link rel="preload" as="image" href="/static/codepen-cube.png" />
+    <link rel="preload" as="image" href="/static/codepen-pro.png" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
   </head>
   <body
@@ -839,8 +856,8 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
 <!--$-->
 <html dir="ltr" lang="en">
   <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta name="x-apple-disable-message-reformatting"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
   </head>
   <div
     style="
@@ -1129,13 +1146,13 @@ exports[`pretty > should prettify base doucment correctly 1`] = `
     <h1>
       whatever
     </h1>
-    <input placeholder="hello world"/>
+    <input placeholder="hello world" />
   </body>
 </html>
 "
 `;
 
-exports[`pretty > should print style properties per-line once they get too wide 1`] = `
+exports[`pretty > style attribute formatting > should print properties per-line once they get too wide 1`] = `
 "<div
   style="
     width:100%;
