@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.3
+
+### Patch Changes
+
+- 8259eeb: fix files with extension-like suffixes (i.e. config, .spec) breaking dependency graph
+
 ## 4.2.2
 
 ### Patch Changes
