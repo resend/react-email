@@ -16,7 +16,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "react-email": "workspace:*",
-    "tsconfig": "workspace:*",
-    "tsx": "4.19.3"
+    "tsconfig": "workspace:*"
   }
 }

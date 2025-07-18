@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.2
+
+### Patch Changes
+
+- 6edd76d: add @react-email/preview-server to template dependencies
+
 ## 1.2.1
 
 ### Patch Changes

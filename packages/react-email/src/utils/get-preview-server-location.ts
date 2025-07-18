@@ -30,8 +30,7 @@ export const getPreviewServerLocation = async () => {
   let previewServerLocation!: string;
   try {
     previewServerLocation = path.dirname(
-      url.parse(usersProject.esmResolve('@react-email/preview-server'), true)
-        .path!,
+      url.fileURLToPath(usersProject.esmResolve('@react-email/preview-server')),
     );
   } catch (_exception) {
     await ensurePreviewServerInstalled(

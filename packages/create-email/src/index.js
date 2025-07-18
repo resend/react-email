@@ -73,7 +73,7 @@ const init = async (name, { tag }) => {
         'INSERT_COMPONENTS_VERSION',
         await getLatestVersionOfTag('@react-email/components', tag),
       )
-      .replace(
+      .replaceAll(
         'INSERT_REACT_EMAIL_VERSION',
         await getLatestVersionOfTag('react-email', tag),
       ),
