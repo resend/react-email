@@ -28,9 +28,44 @@ exports[`Tailwind component > should preserve mso styles 1`] = `"<!DOCTYPE html 
 
 exports[`Tailwind component > should recognize custom responsive screen 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class="xl_bg-green-500" style="background-color:rgb(254,226,226)">Test</div><div class="twoxl_bg-blue-500">Test</div><!--/$--></html>"`;
 
+exports[`Tailwind component > should warn about safelist not being supported 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_p-4{padding:1rem !important}}
+  </style>
+</head>
+<body>
+  <button type="button" class="md_p-4" style="background-color:rgb(37,99,235)">
+    Click me</button
+  ><!--/$-->
+</body>
+"
+`;
+
 exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
 
 exports[`Tailwind component > should work with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
+
+exports[`Tailwind component > should work with blocklist 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_p-4{padding:1rem !important}}
+  </style>
+</head>
+<body>
+  <button type="button" class="bg-blue-600 md_p-4">Click me</button
+  ><!--/$-->
+</body>
+"
+`;
 
 exports[`Tailwind component > should work with calc() with + sign 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><!--$--><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem) !important}}</style></head><div class="lg_max-h-calc50pxplus5rem" style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px">something tall</div></div><!--/$-->"`;
 
