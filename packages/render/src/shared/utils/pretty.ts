@@ -1,101 +1,187 @@
-import type { Options, Plugin } from 'prettier';
-import type { builders } from 'prettier/doc';
-import * as html from 'prettier/plugins/html';
-import { format } from 'prettier/standalone';
+import {
+  type HtmlNode,
+  type HtmlTag,
+  type HtmlTagProperty,
+  lenientParse,
+} from './lenient-parse';
 
-interface HtmlNode {
-  type: 'element' | 'text' | 'ieConditionalComment';
-  name?: string;
-  sourceSpan: {
-    start: { file: unknown[]; offset: number; line: number; col: number };
-    end: { file: unknown[]; offset: number; line: number; col: number };
-    details: null;
-  };
-  parent?: HtmlNode;
+interface Options {
+  /**
+   * Disables the word wrapping we do to ensure the maximum line length is kept.
+   *
+   * @default false
+   */
+  preserveLinebreaks?: boolean;
+  /**
+   * The maximum line length before wrapping some piece of the document.
+   *
+   * @default 80
+   */
+  maxLineLength?: number;
+
+  lineBreak: '\n' | '\r\n';
 }
 
-function recursivelyMapDoc(
-  doc: builders.Doc,
-  callback: (innerDoc: string | builders.DocCommand) => builders.Doc,
-): builders.Doc {
-  if (Array.isArray(doc)) {
-    return doc.map((innerDoc) => recursivelyMapDoc(innerDoc, callback));
-  }
-
-  if (typeof doc === 'object') {
-    if (doc.type === 'group') {
-      return {
-        ...doc,
-        contents: recursivelyMapDoc(doc.contents, callback),
-        expandedStates: recursivelyMapDoc(
-          doc.expandedStates,
-          callback,
-        ) as builders.Doc[],
-      };
-    }
-
-    if ('contents' in doc) {
-      return {
-        ...doc,
-        contents: recursivelyMapDoc(doc.contents, callback),
-      };
-    }
-
-    if ('parts' in doc) {
-      return {
-        ...doc,
-        parts: recursivelyMapDoc(doc.parts, callback) as builders.Doc[],
-      };
-    }
-
-    if (doc.type === 'if-break') {
-      return {
-        ...doc,
-        breakContents: recursivelyMapDoc(doc.breakContents, callback),
-        flatContents: recursivelyMapDoc(doc.flatContents, callback),
-      };
-    }
-  }
-
-  return callback(doc);
-}
-
-const modifiedHtml = { ...html } as Plugin;
-if (modifiedHtml.printers) {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const previousPrint = modifiedHtml.printers.html.print;
-  modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = path.getNode() as HtmlNode;
-
-    const rawPrintingResult = previousPrint(path, options, print, args);
-
-    if (node.type === 'ieConditionalComment') {
-      const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
-        if (typeof doc === 'object' && doc.type === 'line') {
-          return doc.soft ? '' : ' ';
-        }
-
-        return doc;
-      });
-
-      return printingResult;
-    }
-
-    return rawPrintingResult;
-  };
-}
-
-const defaults: Options = {
-  endOfLine: 'lf',
-  tabWidth: 2,
-  plugins: [modifiedHtml],
-  bracketSameLine: true,
-  parser: 'html',
+export const getIndentationOfLine = (line: string) => {
+  const match = line.match(/^\s+/);
+  if (match === null) return '';
+  return match[0];
 };
 
-export const pretty = (str: string, options: Options = {}) => {
-  return format(str.replaceAll('\0', ''), {
-    ...defaults,
-    ...options,
-  });
+export const pretty = (
+  html: string,
+  options: Options = { lineBreak: '\n' },
+) => {
+  const nodes = lenientParse(html);
+
+  return prettyNodes(nodes, options);
+};
+
+export const wrapText = (
+  text: string,
+  linePrefix: string,
+  maxLineLength: number,
+  lineBreak: string,
+): string => {
+  if (!text.includes(' ')) {
+    return `${linePrefix}${text}`;
+  }
+  let wrappedText = linePrefix + text;
+  let currentLineStartIndex = linePrefix.length;
+  while (wrappedText.length - currentLineStartIndex > maxLineLength) {
+    const overflowingCharacterIndex = Math.min(
+      currentLineStartIndex + maxLineLength - 1,
+      wrappedText.length,
+    );
+    if (!wrappedText.includes(' ', currentLineStartIndex)) {
+      return wrappedText;
+    }
+    for (let i = overflowingCharacterIndex; i >= currentLineStartIndex; i--) {
+      const char = wrappedText[i];
+      if (char === ' ') {
+        wrappedText =
+          wrappedText.slice(0, i) +
+          lineBreak +
+          linePrefix +
+          wrappedText.slice(i + 1);
+        currentLineStartIndex = lineBreak.length + linePrefix.length + i;
+        break;
+      }
+      if (i === currentLineStartIndex) {
+        const nextSpaceIndex = wrappedText.indexOf(' ', currentLineStartIndex);
+        wrappedText =
+          wrappedText.slice(0, nextSpaceIndex) +
+          lineBreak +
+          linePrefix +
+          wrappedText.slice(nextSpaceIndex + 1);
+        currentLineStartIndex =
+          lineBreak.length + linePrefix.length + nextSpaceIndex;
+      }
+    }
+  }
+  return wrappedText;
+};
+
+const printProperty = (
+  property: HtmlTagProperty,
+  maxLineLength: number,
+  lineBreak: string,
+) => {
+  const singleLineProperty = `${property.name}=${property.value}`;
+  if (property.name === 'style' && singleLineProperty.length > maxLineLength) {
+    // This uses a negative lookbehing to ensure that the semicolon is not
+    // part of an HTML entity (e.g., `&amp;`, `&quot;`, `&nbsp;`, etc.).
+    const nonHtmlEntitySemicolonRegex = /(?<!&[^;]+);/;
+    const styles = property.value
+      .slice(1, -1)
+      .split(nonHtmlEntitySemicolonRegex);
+    const wrappedStyles = styles
+      .map((style) => `    ${style}`)
+      .join(`;${lineBreak}`);
+
+    let multiLineProperty = `${property.name}="${lineBreak}`;
+    multiLineProperty += `${wrappedStyles}${lineBreak}`;
+    multiLineProperty += `  "`;
+
+    return multiLineProperty;
+  }
+  return singleLineProperty;
+};
+
+const printTagStart = (
+  node: HtmlTag,
+  maxLineLength: number,
+  lineBreak: string,
+) => {
+  const singleLineProperties = node.properties
+    .map((property) => ` ${property.name}=${property.value}`)
+    .join('');
+  const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? ' /' : ''}>`;
+
+  if (singleLineTagStart.length <= maxLineLength) {
+    return singleLineTagStart;
+  }
+
+  let multilineTagStart = `<${node.name}${lineBreak}`;
+  for (const property of node.properties) {
+    const printedProperty = printProperty(property, maxLineLength, lineBreak);
+    multilineTagStart += `  ${printedProperty}${lineBreak}`;
+  }
+  multilineTagStart += `${node.void ? '/' : ''}>`;
+  return multilineTagStart;
+};
+
+const prettyNodes = (
+  nodes: HtmlNode[],
+  options: Options,
+  stack: HtmlNode[] = [],
+  currentIndentationSize = 0,
+) => {
+  const { preserveLinebreaks = false, maxLineLength = 80, lineBreak } = options;
+  const indentation = ' '.repeat(currentIndentationSize);
+
+  let formatted = '';
+  for (const node of nodes) {
+    if (node.type === 'text') {
+      if (
+        preserveLinebreaks ||
+        (stack.length > 0 &&
+          stack[0].type === 'tag' &&
+          ['script', 'style'].includes(stack[0].name))
+      ) {
+        formatted += `${indentation}${node.content}`;
+      } else {
+        const rawText = node.content.replaceAll(/(\r|\n|\r\n)\s*/g, '');
+        formatted += wrapText(rawText, indentation, maxLineLength, lineBreak);
+      }
+      formatted += lineBreak;
+    } else if (node.type === 'tag') {
+      formatted += `${indentation}`;
+      formatted += printTagStart(node, maxLineLength, lineBreak).replaceAll(
+        lineBreak,
+        `${lineBreak}${indentation}`,
+      );
+
+      if (node.void) {
+        formatted += lineBreak;
+      } else {
+        if (node.children.length > 0) {
+          formatted += `${lineBreak}${prettyNodes(
+            node.children,
+            options,
+            [node, ...stack],
+            currentIndentationSize + 2,
+          )}`;
+          formatted += `${indentation}`;
+        }
+
+        formatted += `</${node.name}>${lineBreak}`;
+      }
+    } else if (node.type === 'comment') {
+      formatted += `${indentation}<!--${node.content}-->${lineBreak}`;
+    } else if (node.type === 'doctype') {
+      formatted += `${indentation}<!DOCTYPE${node.content}>${lineBreak}`;
+    }
+  }
+  return formatted;
 };

@@ -84,18 +84,16 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "html-to-text": "^9.0.5",
-    "prettier": "^3.5.3",
-    "react-promise-suspense": "^0.3.4"
+    "html-to-text": "^9.0.5"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
     "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
+    "react-promise-suspense": "^0.3.4",
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
-    "@types/prettier": "3.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
