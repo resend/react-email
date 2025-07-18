@@ -40,8 +40,9 @@ exports[`Tailwind component > should warn about safelist not being supported 1`]
 </head>
 <body>
   <button type="button" class="md_p-4" style="background-color:rgb(37,99,235)">
-    Click me</button
-  ><!--/$-->
+    Click me
+  </button>
+  <!--/$-->
 </body>
 "
 `;
@@ -61,8 +62,10 @@ exports[`Tailwind component > should work with blocklist 1`] = `
   </style>
 </head>
 <body>
-  <button type="button" class="bg-blue-600 md_p-4">Click me</button
-  ><!--/$-->
+  <button type="button" class="bg-blue-600 md_p-4">
+    Click me
+  </button>
+  <!--/$-->
 </body>
 "
 `;
