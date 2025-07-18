@@ -4,12 +4,12 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>
-    <link rel="preload" as="image" href="/static/vercel-logo.png"/>
-    <link rel="preload" as="image" href="/static/vercel-user.png"/>
-    <link rel="preload" as="image" href="/static/vercel-arrow.png"/>
-    <link rel="preload" as="image" href="/static/vercel-team.png"/>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <meta name="x-apple-disable-message-reformatting"/>
+    <link rel="preload" as="image" href="/static/vercel-logo.png" />
+    <link rel="preload" as="image" href="/static/vercel-user.png" />
+    <link rel="preload" as="image" href="/static/vercel-arrow.png" />
+    <link rel="preload" as="image" href="/static/vercel-team.png" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
   </head>
   <body
