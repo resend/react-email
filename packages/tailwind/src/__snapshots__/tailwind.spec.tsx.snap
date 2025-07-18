@@ -79,7 +79,22 @@ exports[`Tailwind component > should work with custom components with fragment a
 
 exports[`non-inlinable styles > should add css to <head/> and keep class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}.sm_hover_bg-red-200:hover{background-color:rgb(254,202,202) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
 
-exports[`non-inlinable styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}.hover_underline:hover{text-decoration-line:underline !important}</style></head><body class="hover_underline md_px-64px" style="margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="hover_underline md_px-64px"></div><!--/$--></body>"`;
+exports[`non-inlinable styles > should not have duplicate media queries 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}@media(prefers-color-scheme:dark){.dark_bg-black{background-color:rgb(0,0,0) !important}.dark_text-green-500{color:rgb(34,197,94) !important}}
+  </style>
+</head>
+<body class="md_px-64px dark_bg-black dark_text-green-500">
+  <div class="md_px-64px dark_text-green-500"></div>
+  <!--/$-->
+</body>
+"
+`;
 
 exports[`non-inlinable styles > should persist existing <head/> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
 

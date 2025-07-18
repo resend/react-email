@@ -423,10 +423,13 @@ describe('non-inlinable styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="mx-auto my-auto bg-white font-sans hover:underline md:px-[64px]">
-          <div className="hover:underline md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();

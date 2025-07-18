@@ -1,7 +1,16 @@
 import child_process from 'node:child_process';
 import { promises as fs } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import url from 'node:url';
+import logSymbols from 'log-symbols';
+
+console.info(
+  '  ',
+  logSymbols.warning,
+  'This is only running the development server for the UI, this does not run the CLI part of the preview server.',
+  os.EOL,
+);
 
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -16,6 +25,7 @@ await fs.writeFile(
   `EMAILS_DIR_RELATIVE_PATH=./emails
 EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
 USER_PROJECT_LOCATION=${previewServerRoot}
+PREVIEW_SERVER_LOCATION=${previewServerRoot}
 NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );
