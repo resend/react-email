@@ -100,6 +100,7 @@ Currently, we have the following packages:
   <div>
     - [react-email](https://github.com/resend/react-email/tree/canary/packages/react-email)
       - <span className="text-xs">The package for our [email CLI](/cli)</span>
+    - [@react-email/preview-server](https://github.com/resend/react-email/tree/canary/packages/preview-server)
     - [@react-email/render](https://github.com/resend/react-email/tree/canary/packages/render)
     - [@react-email/row](https://github.com/resend/react-email/tree/canary/packages/row)
     - [@react-email/section](https://github.com/resend/react-email/tree/canary/packages/section)
@@ -119,18 +120,30 @@ you are on as well as the dependent packages. The global installation handles [v
 
 ### The React Email CLI
 
-The CLI (i.e. `packages/react-email`) is key to the best development experience with react.email, but it is complex. Here is a brief overview of the CLI.
+The CLI is built using the awesome [commander](https://www.npmjs.com/package/commander). It handles
+parsing of command line arguments and ensuring that the syntax for the command is as expected.
 
-The CLI includes two components:
-- A Next app for the `email dev` and `email build` commands
-- A [commander.js](https://www.npmjs.com/package/commander) CLI
+The `build`, `dev` and `start` commands all depend on the user having `@react-email/preview-server`
+installed on their side. This allows for including required dependencies like `next` as a dev
+dependency of the user and not from us.
 
-In the NextJS app, we include a `src/cli` directory that is not published but is compiled into a root `cli` directory. This structure provides a good developer experience as we can both share certain functions and communicate between the CLI components.
+To actually ensure that `@react-email/preview-server` is installed and to import it into the CLI, we
+use [nypm](https://www.npmjs.com/package/nypm) and [jiti](https://www.npmjs.com/package/jiti)
+respectively.
 
-We trigger rebuilds of email templates after they have been saved using the
-[chokidar](https://www.npmjs.com/package/chokidar) package
-alongside the [socket.io](https://socket.io/) package to detect file changes and send
-a message to the server to trigger a rebuild.
+Both the Preview Server and the CLI are very closely intertwined — the CLI detects changes to files
+in the user's dependency graph with [chokidar](https://www.npmjs.com/package/chokidar), and send
+that over to the Preview Server using [socket.io](https://socket.io/). Other communication of data
+like the path to the user's emails directory, are done through environment variables for when the
+Preview Server is actually started.
+
+### The Preview Server
+
+The Preview Server is a Next.js app like any other, that uses `esbuild` at runtime to bundle the
+user's email templates and then renders them using [render](/utilities/render).
+
+The Preview Server itself does not detect the changes that the user makes to their emails directory,
+rather it receives that information from the CLI with [socket.io](https://socket.io/).
 
 ## Testing
 
