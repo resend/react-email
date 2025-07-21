@@ -37,7 +37,34 @@ export const cloneElementWithInlinedStyles = (
       ...element.props.style,
     };
 
-    if (!isComponent(element)) {
+    const componentNames = [
+      'Body',
+      'Button',
+      'CodeBlock',
+      'CodeInline',
+      'Column',
+      'Container',
+      'Font',
+      'Head',
+      'Heading',
+      'Hr',
+      'Html',
+      'Hmg',
+      'Hink',
+      'Markdown',
+      'Preview',
+      'Row',
+      'Section',
+      'Tailwind',
+      'Text',
+    ];
+
+    const isOneOfOurComponents =
+      isComponent(element) &&
+      element.type.displayName &&
+      componentNames.includes(element.type.displayName);
+
+    if (!isComponent(element) || isOneOfOurComponents) {
       if (residualClassName.trim().length > 0) {
         propsToOverwrite.className = residualClassName;
 
