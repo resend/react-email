@@ -91,7 +91,7 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
+export const Tailwind = ({ children, config }: TailwindProps) => {
   const tailwind = setupTailwind(config ?? {});
 
   const nonInlineStylesRootToApply = new Root();
@@ -172,3 +172,5 @@ please file a bug https://github.com/resend/react-email/issues/new?assignees=&la
 
   return mappedChildren;
 };
+
+Tailwind.displayName = 'Tailwind';
