@@ -49,36 +49,38 @@ export const wrapText = (
   let wrappedText = linePrefix + text;
   let currentLineStartIndex = linePrefix.length;
   while (wrappedText.length - currentLineStartIndex > maxLineLength) {
+    console.log('current wrapped text', wrappedText);
     const overflowingCharacterIndex = Math.min(
       currentLineStartIndex + maxLineLength - 1,
       wrappedText.length,
     );
-    if (!wrappedText.includes(' ', currentLineStartIndex)) {
-      return wrappedText;
-    }
-    for (let i = overflowingCharacterIndex; i >= currentLineStartIndex; i--) {
-      const char = wrappedText[i];
-      if (char === ' ') {
-        wrappedText =
-          wrappedText.slice(0, i) +
-          lineBreak +
-          linePrefix +
-          wrappedText.slice(i + 1);
-        currentLineStartIndex = lineBreak.length + linePrefix.length + i;
-        break;
-      }
-      if (i === currentLineStartIndex) {
-        const nextSpaceIndex = wrappedText.indexOf(' ', currentLineStartIndex);
-        wrappedText =
-          wrappedText.slice(0, nextSpaceIndex) +
-          lineBreak +
-          linePrefix +
-          wrappedText.slice(nextSpaceIndex + 1);
-        currentLineStartIndex =
-          lineBreak.length + linePrefix.length + nextSpaceIndex;
+    let lineBreakIndex = wrappedText.lastIndexOf(
+      ' ',
+      overflowingCharacterIndex + 1,
+    );
+    console.log('overflowingCharacterIndex', overflowingCharacterIndex);
+    // YOU ARE HERE: there was an issue happening when falling back to lines larger than the maxLineLength,
+    // and you were debugging why it was happening to fix it
+    if (lineBreakIndex === -1) {
+      lineBreakIndex = wrappedText.indexOf(' ', overflowingCharacterIndex);
+      console.log(
+        'text after overflow:',
+        wrappedText.slice(overflowingCharacterIndex),
+      );
+      if (lineBreakIndex === -1) {
+        return wrappedText;
       }
     }
+    console.log('lineBreakIndex', lineBreakIndex);
+    wrappedText =
+      wrappedText.slice(0, lineBreakIndex) +
+      lineBreak +
+      linePrefix +
+      wrappedText.slice(lineBreakIndex + 1);
+    currentLineStartIndex =
+      lineBreak.length + linePrefix.length + lineBreakIndex;
   }
+  console.log(wrappedText);
   return wrappedText;
 };
 

@@ -61,7 +61,7 @@ export const lenientParse = (html: string): HtmlNode[] => {
     if (htmlObjectStart > index) {
       const content = html.slice(index, htmlObjectStart);
       addToTree({ type: 'text', content });
-      index = htmlObjectStart;
+      index = htmlObjectStart
     }
 
     if (html.startsWith('<!--', index)) {
