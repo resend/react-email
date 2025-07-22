@@ -21,7 +21,6 @@ export const createJsxRuntime = async (
   await esbuild.build({
     bundle: true,
     outfile: path.join(jsxRuntimePath, 'jsx-dev-runtime.js'),
-    format: 'cjs',
     logLevel: 'silent',
     stdin: {
       resolveDir: cwd,
