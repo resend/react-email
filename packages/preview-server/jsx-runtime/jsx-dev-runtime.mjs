@@ -4,10 +4,6 @@
 import ReactJSXDevRuntime from 'react/jsx-dev-runtime';
 
 export function jsxDEV(type, props, key, isStaticChildren, source, self) {
-  console.log('ReactJSXDevRuntime', ReactJSXDevRuntime);
-  console.log('type', type);
-  console.log('props', props);
-  console.log('key', key);
   const newProps = { ...props };
 
   if (source && shouldIncludeSourceReference) {
