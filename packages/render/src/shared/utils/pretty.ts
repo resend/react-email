@@ -39,17 +39,15 @@ export const pretty = (
 
 export const wrapText = (
   text: string,
-  linePrefix: string,
   maxLineLength: number,
   lineBreak: string,
 ): string => {
   if (!text.includes(' ')) {
-    return `${linePrefix}${text}`;
+    return `${text}`;
   }
-  let wrappedText = linePrefix + text;
-  let currentLineStartIndex = linePrefix.length;
+  let wrappedText = text;
+  let currentLineStartIndex = 0;
   while (wrappedText.length - currentLineStartIndex > maxLineLength) {
-    console.log('current wrapped text', wrappedText);
     const overflowingCharacterIndex = Math.min(
       currentLineStartIndex + maxLineLength - 1,
       wrappedText.length,
@@ -58,29 +56,18 @@ export const wrapText = (
       ' ',
       overflowingCharacterIndex + 1,
     );
-    console.log('overflowingCharacterIndex', overflowingCharacterIndex);
-    // YOU ARE HERE: there was an issue happening when falling back to lines larger than the maxLineLength,
-    // and you were debugging why it was happening to fix it
-    if (lineBreakIndex === -1) {
+    if (lineBreakIndex === -1 || lineBreakIndex < currentLineStartIndex) {
       lineBreakIndex = wrappedText.indexOf(' ', overflowingCharacterIndex);
-      console.log(
-        'text after overflow:',
-        wrappedText.slice(overflowingCharacterIndex),
-      );
       if (lineBreakIndex === -1) {
         return wrappedText;
       }
     }
-    console.log('lineBreakIndex', lineBreakIndex);
     wrappedText =
       wrappedText.slice(0, lineBreakIndex) +
       lineBreak +
-      linePrefix +
       wrappedText.slice(lineBreakIndex + 1);
-    currentLineStartIndex =
-      lineBreak.length + linePrefix.length + lineBreakIndex;
+    currentLineStartIndex = lineBreak.length + lineBreakIndex;
   }
-  console.log(wrappedText);
   return wrappedText;
 };
 
@@ -100,7 +87,6 @@ const printProperty = (
     const wrappedStyles = styles
       .map((style) => `    ${style}`)
       .join(`;${lineBreak}`);
-
     let multiLineProperty = `${property.name}="${lineBreak}`;
     multiLineProperty += `${wrappedStyles}${lineBreak}`;
     multiLineProperty += `  "`;
@@ -154,7 +140,10 @@ const prettyNodes = (
         formatted += `${indentation}${node.content}`;
       } else {
         const rawText = node.content.replaceAll(/(\r|\n|\r\n)\s*/g, '');
-        formatted += wrapText(rawText, indentation, maxLineLength, lineBreak);
+        formatted += wrapText(rawText, maxLineLength, lineBreak)
+          .split(lineBreak)
+          .map((line) => `${indentation}${line}`)
+          .join(lineBreak);
       }
       formatted += lineBreak;
     } else if (node.type === 'tag') {

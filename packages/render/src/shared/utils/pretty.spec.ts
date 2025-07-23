@@ -62,7 +62,6 @@ describe('wrapText()', () => {
     expect(
       wrapText(
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique.',
-        '',
         10,
         '\n',
       ),
@@ -73,7 +72,6 @@ describe('wrapText()', () => {
     expect(
       wrapText(
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis laoreet tortor in orci ultricies, at fermentum nisl aliquam. Mauris ornare ut eros non vulputate. Aliquam quam massa, sagittis et nunc at, tincidunt vestibulum justo. Sed semper lectus a urna finibus congue. Aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie enim sed mauris ultrices interdum.',
-        '  ',
         78,
         '\n',
       ),
@@ -84,14 +82,13 @@ describe('wrapText()', () => {
     const spaceCharacters = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF'.repeat(
       150 - 50,
     );
-    expect(wrapText(spaceCharacters, '', 80, '\n')).toBe(spaceCharacters);
+    expect(wrapText(spaceCharacters, 80, '\n')).toBe(spaceCharacters);
   });
 
   it('should work with ending words that are larger than the max line size', () => {
     expect(
       wrapText(
         'Want to go beyond the square cube? Draw inspiration from EntropyReversed&#x27;s',
-        '',
         16,
         '\n',
       ),
