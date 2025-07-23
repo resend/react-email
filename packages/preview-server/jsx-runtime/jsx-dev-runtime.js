@@ -1,7 +1,7 @@
 // This hack is necessary because React forces the use of the non-dev JSX runtime
 // when NODE_ENV is set to 'production', which would break the data-source references
 // we need for stack traces in the preview server.
-const ReactJSXDevRuntime = require('react/jsx-dev-runtime');
+import ReactJSXDevRuntime from 'react/jsx-dev-runtime';
 
 export function jsxDEV(type, props, key, isStaticChildren, source, self) {
   const newProps = { ...props };
