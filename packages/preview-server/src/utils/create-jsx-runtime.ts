@@ -35,10 +35,10 @@ export const createJsxRuntime = async (
     logLevel: 'silent',
     stdin: {
       resolveDir: cwd,
-      sourcefile: 'jsx-dev-runtime.mjs',
+      sourcefile: 'jsx-dev-runtime.js',
       loader: 'js',
       contents: await fs.promises.readFile(
-        path.join(originalJsxRuntimePath, 'jsx-dev-runtime.mjs'),
+        path.join(originalJsxRuntimePath, 'jsx-dev-runtime.js'),
       ),
     },
   });
