@@ -1,6 +1,6 @@
 import { CommentNode, HTMLElement, NodeType, parse } from 'node-html-parser';
 
-export interface Options {
+interface Options {
   /**
    * Disables the word wrapping we do to ensure the maximum line length is kept.
    *
