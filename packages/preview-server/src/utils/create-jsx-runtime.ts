@@ -18,20 +18,18 @@ export const createJsxRuntime = async (
     'node_modules',
     '.react-email-jsx-runtime',
   );
-  if (fs.existsSync(jsxRuntimePath)) {
-    await fs.promises.rm(jsxRuntimePath, {
+  if (!fs.existsSync(jsxRuntimePath)) {
+    await fs.promises.mkdir(jsxRuntimePath, {
       recursive: true,
     });
+    await fs.promises.writeFile(
+      path.join(jsxRuntimePath, 'package.json'),
+      '{"type": "commonjs"}',
+      'utf8',
+    );
   }
-  await fs.promises.mkdir(jsxRuntimePath, {
-    recursive: true,
-  });
-  await fs.promises.writeFile(
-    path.join(jsxRuntimePath, 'package.json'),
-    '{"type": "commonjs"}',
-  );
   await esbuild.build({
-    bundle: false,
+    bundle: true,
     outfile: path.join(jsxRuntimePath, 'jsx-dev-runtime.js'),
     format: 'cjs',
     logLevel: 'silent',
