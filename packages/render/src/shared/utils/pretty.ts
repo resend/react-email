@@ -1,11 +1,6 @@
-import {
-  type HtmlNode,
-  type HtmlTag,
-  type HtmlTagProperty,
-  lenientParse,
-} from './lenient-parse';
+import { HTMLElement, CommentNode, NodeType, parse } from 'node-html-parser';
 
-interface Options {
+export interface Options {
   /**
    * Disables the word wrapping we do to ensure the maximum line length is kept.
    *
@@ -19,22 +14,13 @@ interface Options {
    */
   maxLineLength?: number;
 
-  lineBreak: '\n' | '\r\n';
+  lineBreak?: '\n' | '\r\n';
 }
 
 export const getIndentationOfLine = (line: string) => {
   const match = line.match(/^\s+/);
   if (match === null) return '';
   return match[0];
-};
-
-export const pretty = (
-  html: string,
-  options: Options = { lineBreak: '\n' },
-) => {
-  const nodes = lenientParse(html);
-
-  return prettyNodes(nodes, options);
 };
 
 export const wrapText = (
@@ -72,22 +58,21 @@ export const wrapText = (
 };
 
 const printProperty = (
-  property: HtmlTagProperty,
+  propertyName: string,
+  propertyValue: string,
   maxLineLength: number,
   lineBreak: string,
 ) => {
-  const singleLineProperty = `${property.name}=${property.value}`;
-  if (property.name === 'style' && singleLineProperty.length > maxLineLength) {
+  const singleLineProperty = `${propertyName}="${propertyValue}"`;
+  if (propertyName === 'style' && singleLineProperty.length > maxLineLength) {
     // This uses a negative lookbehing to ensure that the semicolon is not
     // part of an HTML entity (e.g., `&amp;`, `&quot;`, `&nbsp;`, etc.).
     const nonHtmlEntitySemicolonRegex = /(?<!&[^;]+);/;
-    const styles = property.value
-      .slice(1, -1)
-      .split(nonHtmlEntitySemicolonRegex);
+    const styles = propertyValue.split(nonHtmlEntitySemicolonRegex);
     const wrappedStyles = styles
       .map((style) => `    ${style}`)
       .join(`;${lineBreak}`);
-    let multiLineProperty = `${property.name}="${lineBreak}`;
+    let multiLineProperty = `${propertyName}="${lineBreak}`;
     multiLineProperty += `${wrappedStyles}${lineBreak}`;
     multiLineProperty += `  "`;
 
@@ -97,81 +82,94 @@ const printProperty = (
 };
 
 const printTagStart = (
-  node: HtmlTag,
+  element: HTMLElement,
   maxLineLength: number,
   lineBreak: string,
 ) => {
-  const singleLineProperties = node.properties
-    .map((property) => ` ${property.name}=${property.value}`)
+  const singleLineProperties = Object.entries(element.rawAttributes)
+    .map(([name, value]) => ` ${name}="${value}"`)
     .join('');
-  const singleLineTagStart = `<${node.name}${singleLineProperties}${node.void ? ' /' : ''}>`;
+  const singleLineTagStart = `<${element.tagName.toLowerCase()}${singleLineProperties}${element.isVoidElement ? ' /' : ''}>`;
 
   if (singleLineTagStart.length <= maxLineLength) {
     return singleLineTagStart;
   }
 
-  let multilineTagStart = `<${node.name}${lineBreak}`;
-  for (const property of node.properties) {
-    const printedProperty = printProperty(property, maxLineLength, lineBreak);
+  let multilineTagStart = `<${element.tagName.toLowerCase()}${lineBreak}`;
+  for (const [name, value] of Object.entries(element.rawAttributes)) {
+    const printedProperty = printProperty(
+      name,
+      value,
+      maxLineLength,
+      lineBreak,
+    );
     multilineTagStart += `  ${printedProperty}${lineBreak}`;
   }
-  multilineTagStart += `${node.void ? '/' : ''}>`;
+  multilineTagStart += `${element.isVoidElement ? '/' : ''}>`;
   return multilineTagStart;
 };
 
-const prettyNodes = (
-  nodes: HtmlNode[],
-  options: Options,
-  stack: HtmlNode[] = [],
+export const pretty = (html: string, options: Options = {}) => {
+  const root = parse(html, { comment: true });
+
+  return printChildrenOf(root, {
+    preserveLinebreaks: false,
+    maxLineLength: 80,
+    lineBreak: '\n',
+    ...options,
+  });
+};
+
+const printChildrenOf = (
+  element: HTMLElement,
+  options: Required<Options>,
   currentIndentationSize = 0,
 ) => {
-  const { preserveLinebreaks = false, maxLineLength = 80, lineBreak } = options;
+  const { preserveLinebreaks, lineBreak, maxLineLength } = options;
   const indentation = ' '.repeat(currentIndentationSize);
 
   let formatted = '';
-  for (const node of nodes) {
-    if (node.type === 'text') {
+  for (const node of element.childNodes) {
+    if (node.nodeType === NodeType.TEXT_NODE) {
       if (
         preserveLinebreaks ||
-        (stack.length > 0 &&
-          stack[0].type === 'tag' &&
-          ['script', 'style'].includes(stack[0].name))
+        ['script', 'style'].includes(
+          (node.parentNode.tagName ?? '').toLowerCase(),
+        ) ||
+        node.rawText.startsWith('<!DOCTYPE')
       ) {
-        formatted += `${indentation}${node.content}`;
+        formatted += `${indentation}${node.rawText}`;
       } else {
-        const rawText = node.content.replaceAll(/(\r|\n|\r\n)\s*/g, '');
-        formatted += wrapText(rawText, maxLineLength, lineBreak)
+        const inlinedText = node.rawText.replaceAll(/(\r|\n|\r\n)\s*/g, '');
+        formatted += wrapText(inlinedText, maxLineLength, lineBreak)
           .split(lineBreak)
           .map((line) => `${indentation}${line}`)
           .join(lineBreak);
       }
       formatted += lineBreak;
-    } else if (node.type === 'tag') {
+    } else if (node instanceof HTMLElement) {
       formatted += `${indentation}`;
       formatted += printTagStart(node, maxLineLength, lineBreak).replaceAll(
         lineBreak,
         `${lineBreak}${indentation}`,
       );
 
-      if (node.void) {
+      if (node.isVoidElement) {
         formatted += lineBreak;
       } else {
-        if (node.children.length > 0) {
-          formatted += `${lineBreak}${prettyNodes(
-            node.children,
+        if (node.childNodes.length > 0) {
+          formatted += `${lineBreak}${printChildrenOf(
+            node,
             options,
-            [node, ...stack],
             currentIndentationSize + 2,
           )}`;
           formatted += `${indentation}`;
         }
 
-        formatted += `</${node.name}>${lineBreak}`;
+        formatted += `</${node.tagName.toLowerCase()}>${lineBreak}`;
       }
-    } else if (node.type === 'comment') {
-      formatted += `${indentation}<!--${node.content}-->${lineBreak}`;
-    } else if (node.type === 'doctype') {
-      formatted += `${indentation}<!DOCTYPE${node.content}>${lineBreak}`;
+    } else if (node instanceof CommentNode) {
+      formatted += `${indentation}<!--${node.rawText}-->${lineBreak}`;
     }
   }
   return formatted;
