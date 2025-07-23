@@ -4,9 +4,41 @@ export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
+    const innerCellStyle: Record<string, string | number | undefined> = {};
+    if (style) {
+      for (const key of Object.keys(style)) {
+        if (
+          key === 'backgroundColor' ||
+          key === 'background' ||
+          key === 'color' ||
+          key === 'fontFamily'
+        ) {
+          innerCellStyle[key] = style[key];
+        }
+      }
+    }
     return (
-      <body {...props} ref={ref} style={style}>
-        {children}
+      <body {...props} style={style} ref={ref}>
+        <table
+          border={0}
+          width="100%"
+          cellPadding="0"
+          cellSpacing="0"
+          role="presentation"
+          align="center"
+        >
+          <tbody>
+            <tr>
+              {/*
+                Yahoo and AOL don't keep the background color of the body, 
+                so we need to apply it to an inner cell.
+
+                See https://github.com/resend/react-email/issues/662.
+              */}
+              <td style={innerCellStyle}>{children}</td>
+            </tr>
+          </tbody>
+        </table>
       </body>
     );
   },
