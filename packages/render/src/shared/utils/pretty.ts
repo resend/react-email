@@ -1,4 +1,4 @@
-import { HTMLElement, CommentNode, NodeType, parse } from 'node-html-parser';
+import { CommentNode, HTMLElement, NodeType, parse } from 'node-html-parser';
 
 export interface Options {
   /**
