@@ -1189,8 +1189,7 @@ exports[`wrapText() > should work with ending words that are larger than the max
 "Want to go
 beyond the
 square cube?
-Draw
-inspiration
+Draw inspiration
 from
 EntropyReversed&#x27;s"
 `;
