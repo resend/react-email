@@ -855,18 +855,15 @@ importers:
       html-to-text:
         specifier: ^9.0.5
         version: 9.0.5
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
+      node-html-parser:
+        specifier: ^7.0.1
+        version: 7.0.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
-      react-promise-suspense:
-        specifier: ^0.3.4
-        version: 0.3.4
     devDependencies:
       '@edge-runtime/vm':
         specifier: 5.0.0
@@ -874,9 +871,6 @@ importers:
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
-      '@types/prettier':
-        specifier: 3.0.0
-        version: 3.0.0
       '@types/react':
         specifier: ^19.0.1
         version: 19.0.1
@@ -886,6 +880,9 @@ importers:
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
+      react-promise-suspense:
+        specifier: ^0.3.4
+        version: 0.3.4
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -4199,10 +4196,6 @@ packages:
 
   '@types/phoenix@1.6.6':
     resolution: {integrity: sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==}
-
-  '@types/prettier@3.0.0':
-    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
-    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
 
   '@types/prismjs@1.26.5':
     resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
@@ -12099,10 +12092,6 @@ snapshots:
   '@types/normalize-path@3.0.2': {}
 
   '@types/phoenix@1.6.6': {}
-
-  '@types/prettier@3.0.0':
-    dependencies:
-      prettier: 3.5.3
 
   '@types/prismjs@1.26.5': {}
 
