@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.4
+
+### Patch Changes
+
+- 57b8bb8: fix custom JSX runtime trying to be run as ESM on ESM projects
+
 ## 4.2.3
 
 ## 4.2.2
