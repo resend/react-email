@@ -12,10 +12,11 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
   </head>
-  <body>
+  <body
+    style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:8px;padding-right:8px;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
     <table
-      style="width:100%;height:100%"
       border="0"
+      width="100%"
       cellpadding="0"
       cellspacing="0"
       role="presentation"
@@ -23,7 +24,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
       <tbody>
         <tr>
           <td
-            style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:8px;padding-right:8px;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
+            style='background-color:rgb(255,255,255);font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
             <div
               style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
               data-skip-in-text="true">
