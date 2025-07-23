@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Body> component > renders correctly 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><body><table style="width:100%;height:100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table><!--/$--></body>"`;
+exports[`<Body> component > renders correctly 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><body><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table><!--/$--></body>"`;
