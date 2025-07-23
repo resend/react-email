@@ -172,8 +172,8 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       The Shape challenge continues!
                     </p>
                     <p style="font-size:16px;line-height:24px;margin-top:16px;margin-bottom:16px">
-                      Last week, we kicked things off with round shapes. We &quot;rounded&quot; up
-                      the Pens from week one in our
+                      Last week, we kicked things off with round shapes. We &quot;rounded&quot; up the
+                      Pens from week one in our
                       <!-- -->
                        
                       <a style="color:#15c;text-decoration-line:none;cursor:pointer" target="_blank">
@@ -189,8 +189,8 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                       perspective and shadows and you can make the magic of 3D on a flat screen 🧙
                     </p>
                     <p style="font-size:16px;line-height:24px;margin-top:16px;margin-bottom:16px">
-                      This week is a fun chance to work on your CSS shape-building skills, or dig
-                      into a 3D JavaScript library like Three.js.
+                      This week is a fun chance to work on your CSS shape-building skills, or dig into
+                      a 3D JavaScript library like Three.js.
                     </p>
                     <p style="font-size:16px;line-height:24px;margin-top:16px;margin-bottom:16px">
                       This week&#x27;s starter template features an ice cube emoji to help inspire a
@@ -265,8 +265,8 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                               width="250"
                             />
                             <p style="font-size:14px;line-height:24px;margin-top:16px;margin-bottom:16px">
-                              CodePen PRO combines a bunch of features that can help any front-end designer
-                              or developer at any experience level.
+                              CodePen PRO combines a bunch of features that can help any front-end designer or
+                              developer at any experience level.
                             </p>
                             <a
                               style="
@@ -529,8 +529,8 @@ exports[`pretty > should prettify Code Pen's template correctly 1`] = `
                                       <a style="color:#15c;text-decoration-line:none;cursor:pointer" target="_blank">
                                         Spherical Cubes
                                       </a>
-                                       😳 Solving longstanding mathematical mysteries is probably outside the scope
-                                      of a CodePen challenge, but you could use front-end tools to explore fitting
+                                       😳 Solving longstanding mathematical mysteries is probably outside the scope of
+                                      a CodePen challenge, but you could use front-end tools to explore fitting
                                       spheres into cubes, or vice-versa.
                                     </p>
                                   </td>
@@ -947,8 +947,8 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                         text-align:left
                       "
                     >
-                      You can view your payments and a variety of other information about your
-                      account right from your dashboard.
+                      You can view your payments and a variety of other information about your account
+                      right from your dashboard.
                     </p>
                     <a
                       href="https://dashboard.stripe.com/login"
@@ -1028,8 +1028,8 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                         text-align:left
                       "
                     >
-                      Once you&#x27;re ready to start accepting payments, you&#x27;ll just need to
-                      use your live
+                      Once you&#x27;re ready to start accepting payments, you&#x27;ll just need to use
+                      your live
                       <!-- -->
                        
                       <a
@@ -1087,8 +1087,8 @@ exports[`pretty > should prettify Stripe's template correctly 1`] = `
                         text-align:left
                       "
                     >
-                      We&#x27;ll be here to help you with any step along the way. You can find
-                      answers to most questions and get in touch with us on our
+                      We&#x27;ll be here to help you with any step along the way. You can find answers
+                      to most questions and get in touch with us on our
                       <!-- -->
                        
                       <a

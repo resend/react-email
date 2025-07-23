@@ -58,7 +58,7 @@ describe('pretty', () => {
 });
 
 describe('wrapText()', () => {
-  it.only('should work with short lines', () => {
+  it('should work with short lines', () => {
     expect(
       wrapText(
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique.',
@@ -77,7 +77,7 @@ describe('wrapText()', () => {
       ),
     ).toMatchSnapshot();
   });
-;;
+
   it('should work with space characters from Preview component', () => {
     const spaceCharacters = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF'.repeat(
       150 - 50,
