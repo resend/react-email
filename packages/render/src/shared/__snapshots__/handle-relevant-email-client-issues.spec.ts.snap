@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`handleRelevantEmailClientIssues > should decode href attributes with single quotes 1`] = `"<a href='https://example.com/?utm_source=mailchimp&utm_medium=email&utm_campaign=example'>Click here</a><a href="https://example.com/?utm_source=mailchimp&utm_medium=email&utm_campaign=example">Click here</a>"`;

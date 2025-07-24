@@ -1,5 +1,6 @@
 import { convert } from 'html-to-text';
 import { Suspense } from 'react';
+import { handleRelevantEmailClientIssues } from '../shared/handle-relevant-email-client-issues';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
@@ -47,5 +48,5 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     return pretty(document);
   }
 
-  return document;
+  return handleRelevantEmailClientIssues(document);
 };

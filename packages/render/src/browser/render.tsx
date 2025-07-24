@@ -4,6 +4,7 @@ import type { ReactDOMServerReadableStream } from 'react-dom/server';
 import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { handleRelevantEmailClientIssues } from '../shared/handle-relevant-email-client-issues';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -73,5 +74,5 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     return pretty(document);
   }
 
-  return document;
+  return handleRelevantEmailClientIssues(document);
 };
