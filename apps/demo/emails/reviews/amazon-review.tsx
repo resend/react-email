@@ -172,7 +172,7 @@ export const AmazonReviewEmail = ({
 export default AmazonReviewEmail;
 
 const main = {
-  fontFamily: 'Ember,Helvetica,Arial,sans-seri',
+  fontFamily: 'Ember,Helvetica,Arial,sans-serif',
   backgroundColor: '#ffffff',
 };
 
