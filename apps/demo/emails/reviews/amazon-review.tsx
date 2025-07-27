@@ -36,7 +36,24 @@ export const AmazonReviewEmail = ({
 }: AmazonReviewEmailProps) => {
   return (
     <Html>
-      <Head />
+      <Head>
+        <style>
+          {`
+            @media only screen and (max-width: 600px) {
+              .stack-column {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+              }
+            
+              .rating-content {
+                padding-left: 0px !important;
+                text-align: center !important;
+              }
+            }
+          `}
+        </style>
+      </Head>
 
       <Body style={main}>
         <Preview>Amazon Review</Preview>
@@ -67,16 +84,25 @@ export const AmazonReviewEmail = ({
 
           <Section>
             <Row>
-              <Column>
+              <Column
+                className="stack-column"
+                style={{
+                  width: '50%',
+                }}
+              >
                 <Img
                   src={`${baseUrl}/static/amazon-book.jpg`}
                   alt="Amazon Book"
                   width="274"
                   height="350"
+                  style={{ display: 'block', margin: '0 auto' }}
                 />
               </Column>
 
-              <Column style={ratingContent}>
+              <Column
+                className="stack-column rating-content"
+                style={ratingContent}
+              >
                 <Text>
                   14 Habits of Highly Productive Developers (English Edition)
                 </Text>
@@ -92,7 +118,7 @@ export const AmazonReviewEmail = ({
                 ))}
 
                 <Text>
-                  Your reviews will be posted on Amazon using your public name.
+                  Your reviews will be posted on Amazon using your public name.{' '}
                   <Link>Check your public name.</Link>
                 </Text>
               </Column>
@@ -181,6 +207,7 @@ const container = {
   margin: '0 auto',
   padding: '20px',
   width: '640px',
+  maxWidth: '100%',
 };
 
 const title = {
@@ -193,6 +220,7 @@ const title = {
 
 const ratingContent = {
   paddingLeft: '30px',
+  width: '50%',
 };
 
 const rating = {
