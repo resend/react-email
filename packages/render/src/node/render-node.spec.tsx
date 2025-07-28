@@ -162,7 +162,7 @@ describe('render on node environments', () => {
     };
 
     const actualOutput = await render(<LargeEmailTemplate />);
-    
+
     expect(actualOutput).toMatchSnapshot();
   });
 });

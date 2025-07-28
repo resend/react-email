@@ -136,7 +136,7 @@ describe('render on the edge', () => {
     };
 
     const actualOutput = await render(<LargeEmailTemplate />);
-    
+
     expect(actualOutput).toMatchSnapshot();
   });
 });
