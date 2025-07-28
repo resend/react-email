@@ -81,7 +81,7 @@ export const exportTemplates = async (
       bundle: true,
       entryPoints: allTemplates,
       format: 'cjs',
-      jsx: 'transform',
+      jsx: 'automatic',
       loader: { '.js': 'jsx' },
       logLevel: 'silent',
       outExtension: { '.js': '.cjs' },
