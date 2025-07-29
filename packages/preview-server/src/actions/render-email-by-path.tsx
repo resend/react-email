@@ -31,8 +31,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const cache = new Map<string, EmailRenderingResult>();
 
