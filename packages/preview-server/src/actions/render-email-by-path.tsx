@@ -17,6 +17,7 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
+  prettyMarkup: string;
   markup: string;
   /**
    * HTML markup with `data-source-file` and `data-source-line` attributes pointing to the original
@@ -88,8 +89,11 @@ export const renderEmailByPath = async (
     const markupWithReferences = await renderWithReferences(element, {
       pretty: true,
     });
-    const markup = await render(element, {
+    const prettyMarkup = await render(element, {
       pretty: true,
+    });
+    const markup = await render(element, {
+      pretty: false,
     });
     const plainText = await render(element, {
       plainText: true,
@@ -112,6 +116,7 @@ export const renderEmailByPath = async (
     });
 
     const renderingResult: RenderedEmailMetadata = {
+      prettyMarkup,
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.

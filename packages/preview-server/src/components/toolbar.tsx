@@ -41,13 +41,13 @@ const ToolbarInner = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 
-  markup,
+  prettyMarkup,
   reactMarkup,
   plainText,
   emailPath,
   emailSlug,
 }: ToolbarProps & {
-  markup: string;
+  prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
@@ -75,7 +75,7 @@ const ToolbarInner = ({
     );
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
-      markup,
+      markup: prettyMarkup,
       plainText,
 
       initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
@@ -85,7 +85,7 @@ const ToolbarInner = ({
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
-    markup,
+    markup: prettyMarkup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
@@ -336,13 +336,13 @@ export const Toolbar = ({
     React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
-  const { markup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
       emailPath={emailPath}
       emailSlug={emailSlug}
-      markup={markup}
+      prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
       serverLintingRows={serverLintingRows}
