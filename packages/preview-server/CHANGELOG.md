@@ -1,5 +1,29 @@
 # @react-email/preview-server
 
+## 4.2.5
+
+## 4.2.4
+
+### Patch Changes
+
+- 57b8bb8: fix custom JSX runtime trying to be run as ESM on ESM projects
+
+## 4.2.3
+
+## 4.2.2
+
+## 4.2.1
+
+### Patch Changes
+
+- c273405: pin all dependencies to avoid compatibility issues of the built preview server
+
+## 4.2.0
+
+### Minor Changes
+
+- e52818c: add custom error handling for prettier's syntax errors
+
 ## 4.1.3
 
 ### Patch Changes

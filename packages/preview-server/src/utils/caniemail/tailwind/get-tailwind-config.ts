@@ -5,7 +5,7 @@ import * as esbuild from 'esbuild';
 import type { RawSourceMap } from 'source-map-js';
 import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { improveErrorWithSourceMap } from '../../improve-error-with-sourcemap';
+import { convertStackWithSourceMap } from '../../convert-stack-with-sourcemap';
 import { isErr } from '../../result';
 import { runBundledCode } from '../../run-bundled-code';
 
@@ -101,15 +101,9 @@ export { reactEmailTailwindConfigInternal };`,
     sourceMap.sources = sourceMap.sources.map((source) =>
       path.resolve(sourceMapFile.path, '..', source),
     );
-    const errorObject = improveErrorWithSourceMap(
-      configModule.error as Error,
-      filepath,
-      sourceMap,
-    );
-    const error = new Error();
-    error.name = errorObject.name;
-    error.message = errorObject.message;
-    error.stack = errorObject.stack;
+
+    const error = configModule.error as Error;
+    error.stack = convertStackWithSourceMap(error.stack, filepath, sourceMap);
     throw error;
   }
 

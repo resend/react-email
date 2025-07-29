@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 1.2.2
+
+### Patch Changes
+
+- 7fa430d: Add a warning when using `safelist` and force it to change no behavior
+
 ## 1.2.1
 
 ### Patch Changes
