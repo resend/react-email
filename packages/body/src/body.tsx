@@ -24,8 +24,8 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
           <tbody>
             <tr>
               {/*
-                Yahoo and AOL don't keep the background color of the body, 
-                so we need to apply it to an inner cell.
+                Yahoo and AOL remove all styles of the body element while converting it to a div,
+                so we need to apply them to to an inner cell.
 
                 See https://github.com/resend/react-email/issues/662.
               */}
