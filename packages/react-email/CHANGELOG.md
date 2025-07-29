@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.5
+
+### Patch Changes
+
+- 8719082: fix errors in `export` when without manual React import
+
 ## 4.2.4
 
 ## 4.2.3
