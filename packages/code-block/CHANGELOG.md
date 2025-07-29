@@ -1,5 +1,29 @@
 # @react-email/code-block
 
+## 0.1.0
+
+### Minor Changes
+
+- 18198e1: fix access to all `pre` properties
+
+## 0.0.13
+
+### Patch Changes
+
+- 9aa033c: Use range of versions for dependencies
+
+## 0.0.13-canary.0
+
+### Patch Changes
+
+- 9b1adb0: Use range of versions for dependencies
+
+## 0.0.12
+
+### Patch Changes
+
+- f4c5456: Update dependencies: `prismjs@1.30.0`
+
 ## 0.0.11
 
 ### Patch Changes

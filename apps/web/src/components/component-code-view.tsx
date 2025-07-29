@@ -1,9 +1,3 @@
-import type {
-  CodeVariant,
-  ImportedComponent,
-} from '@/app/components/get-imported-components-for';
-import { useStoredState } from '@/hooks/use-stored-state';
-import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import * as Select from '@radix-ui/react-select';
 import * as Tabs from '@radix-ui/react-tabs';
 import * as allReactEmailComponents from '@react-email/components';
@@ -15,6 +9,12 @@ import {
   ClipboardIcon,
 } from 'lucide-react';
 import * as React from 'react';
+import type {
+  CodeVariant,
+  ImportedComponent,
+} from '@/app/components/get-imported-components-for';
+import { useStoredState } from '@/hooks/use-stored-state';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import { CodeBlock } from './code-block';
 import { TabTrigger } from './tab-trigger';
 
@@ -92,7 +92,7 @@ export const ComponentCodeView = ({
 
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
-      <div className="relative flex w-full justify-between gap-4 border-b border-solid border-slate-4 p-4 text-xs">
+      <div className="relative flex w-full justify-between gap-4 border-slate-4 border-b border-solid p-4 text-xs">
         <Tabs.Root
           defaultValue={selectedLanguage}
           onValueChange={(v) => {
@@ -187,7 +187,7 @@ const ReactVariantSelect = ({
           <Select.Viewport className="p-1">
             {['tailwind', 'inline-styles'].map((variant) => (
               <Select.Item
-                className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-xs leading-none text-slate-11 transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
+                className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-slate-11 text-xs leading-none transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
                 key={variant}
                 value={variant}
               >

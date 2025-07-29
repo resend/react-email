@@ -24,11 +24,15 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '600px',
-          padding: '24px 42px',
+          paddingLeft: '42px',
+          paddingRight: '42px',
+          paddingTop: '24px',
+          paddingBottom: '24px',
         }}
       >
         <Heading
@@ -43,10 +47,10 @@ export const component = (
         </Heading>
         <Text
           style={{
-            color: '#6B7280',
+            color: 'rgb(107,114,128)',
             fontSize: '14px',
             lineHeight: '24px',
-            margin: '0 0 42px 0',
+            marginBottom: '42px',
           }}
         >
           Your feedback is important to us and it will be used to better serve
@@ -57,10 +61,10 @@ export const component = (
             <Column style={{ width: '100px', textAlign: 'center' }}>
               <Text
                 style={{
-                  color: '#444444',
+                  color: 'rgb(68,68,68)',
                   fontSize: '12px',
                   lineHeight: '1',
-                  margin: '0 0 0 12px',
+                  marginLeft: '12px',
                   textAlign: 'left',
                 }}
               >
@@ -70,10 +74,10 @@ export const component = (
             <Column style={{ width: '100px', textAlign: 'center' }}>
               <Text
                 style={{
-                  color: '#444444',
+                  color: 'rgb(68,68,68)',
                   fontSize: '12px',
                   lineHeight: '1',
-                  margin: '0 12px 0 0',
+                  marginRight: '12px',
                   textAlign: 'right',
                 }}
               >
@@ -82,7 +86,7 @@ export const component = (
             </Column>
           </Row>
         </Section>
-        <Section style={{ margin: '12px 0 24px 0' }}>
+        <Section style={{ marginTop: '12px', marginBottom: '24px' }}>
           <Row
             style={{
               borderCollapse: 'separate',
@@ -96,7 +100,7 @@ export const component = (
               <Column
                 key={i}
                 style={{
-                  backgroundColor: '#4f46e5',
+                  backgroundColor: 'rgb(79,70,229)',
                   borderRadius: '6px',
                 }}
               >
@@ -105,13 +109,13 @@ export const component = (
                   style={{
                     alignItems: 'center',
                     boxSizing: 'border-box',
-                    color: '#FFFFFF',
+                    color: 'rgb(255,255,255)',
                     display: 'flex',
                     fontSize: '16px',
                     fontWeight: '600',
                     justifyContent: 'center',
                     lineHeight: '1',
-                    margin: '0',
+                    margin: '0px',
                     padding: '12px',
                     textAlign: 'center',
                     width: '100%',
@@ -127,10 +131,11 @@ export const component = (
           <Hr />
           <Text
             style={{
-              color: '#6b7280',
+              color: 'rgb(107,114,128)',
               fontSize: '12px',
+              lineHeight: '16px',
               fontWeight: '500',
-              margin: '30px 0 0 0',
+              marginTop: '30px',
               textAlign: 'center',
             }}
           >

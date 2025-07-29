@@ -21,21 +21,22 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '900px',
           overflow: 'hidden',
-          padding: '0',
+          padding: '0px',
         }}
       >
         <Section>
           <Row
             style={{
-              backgroundColor: '#292524',
+              backgroundColor: 'rgb(41,37,36)',
               borderCollapse: 'separate',
               borderSpacing: '24px',
-              margin: '0',
+              margin: '0px',
               tableLayout: 'fixed',
               width: '100%',
             }}
@@ -44,20 +45,20 @@ export const component = (
               <Heading
                 as="h1"
                 style={{
-                  color: '#FFFFFF',
+                  color: 'rgb(255,255,255)',
                   fontSize: '28px',
-                  fontWeight: 'bold',
-                  margin: '0 0 10px 0',
+                  fontWeight: '700',
+                  marginBottom: '10px',
                 }}
               >
                 Coffee Storage
               </Heading>
               <Text
                 style={{
-                  color: '#ffffff99',
+                  color: 'rgb(255,255,255,0.6)',
                   fontSize: '14px',
                   lineHeight: '20px',
-                  margin: 0,
+                  margin: '0px',
                 }}
               >
                 Keep your coffee fresher for longer with innovative technology.
@@ -65,12 +66,13 @@ export const component = (
               <Link
                 href="#"
                 style={{
-                  color: '#ffffffcc',
+                  color: 'rgb(255,255,255,0.8)',
                   display: 'block',
                   fontSize: '14px',
+                  lineHeight: '20px',
                   fontWeight: '600',
                   marginTop: '12px',
-                  textDecoration: 'none',
+                  textDecorationLine: 'none',
                 }}
               >
                 Shop now →
@@ -83,7 +85,7 @@ export const component = (
                 style={{
                   borderRadius: '4px',
                   height: '100%',
-                  margin: '0 -6px 0 0',
+                  marginRight: '-6px',
                   objectFit: 'cover',
                   objectPosition: 'center',
                   width: '100%',
@@ -94,7 +96,7 @@ export const component = (
         </Section>
         <Section
           style={{
-            margin: '0 0 12px 0',
+            marginBottom: '24px',
           }}
         >
           <Row
@@ -126,7 +128,8 @@ export const component = (
               <Column
                 key={product.title}
                 style={{
-                  margin: '0 auto',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
                   maxWidth: '180px',
                 }}
               >
@@ -144,18 +147,19 @@ export const component = (
                     as="h2"
                     style={{
                       fontSize: '14px',
-                      fontWeight: 'bold',
-                      margin: '0 0 8px 0',
+                      lineHeight: '20px',
+                      fontWeight: '700',
+                      marginBottom: '8px',
                     }}
                   >
                     {product.title}
                   </Heading>
                   <Text
                     style={{
-                      color: '#6b7280',
+                      color: 'rgb(107,114,128)',
                       fontSize: '12px',
                       lineHeight: '20px',
-                      margin: '0',
+                      margin: '0px',
                       paddingRight: '12px',
                     }}
                   >

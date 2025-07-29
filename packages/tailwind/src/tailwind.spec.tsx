@@ -1,16 +1,15 @@
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Link } from '@react-email/link';
 import { render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
-import { Tailwind } from '.';
+import { vi } from 'vitest';
 import type { TailwindConfig } from '.';
+import { Tailwind } from '.';
 
 describe('Tailwind component', () => {
   it('should allow for complex children manipulation', async () => {
@@ -22,6 +21,41 @@ describe('Tailwind component', () => {
         </ResponsiveRow>
       </Tailwind>,
     );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should work with blocklist', async () => {
+    const actualOutput = await render(
+      <Tailwind config={{ blocklist: ['bg-blue-600'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should warn about safelist not being supported', async () => {
+    const spy = vi.spyOn(console, 'warn');
+
+    const actualOutput = await render(
+      <Tailwind config={{ safelist: ['bg-red-500'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(spy).toHaveBeenCalled();
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -48,7 +82,7 @@ describe('Tailwind component', () => {
     expect(
       await render(
         <Tailwind>
-          <MyComponnt className="text-blue-400 p-4" />
+          <MyComponnt className="p-4 text-blue-400" />
         </Tailwind>,
       ),
     ).toMatchSnapshot();
@@ -59,16 +93,16 @@ describe('Tailwind component', () => {
       <Html>
         <body>
           <Tailwind>
-            <p className="text-black text-[14px] leading-[24px]">
+            <p className="text-[14px] text-black leading-[24px]">
               or copy and paste this URL into your browser:{' '}
               <Link
-                className="text-blue-600 no-underline other"
+                className="other text-blue-600 no-underline"
                 href="https://react.email"
               >
                 https://react.email
               </Link>
             </p>
-            <p className="text-black text-[14px] leading-[24px]">
+            <p className="text-[14px] text-black leading-[24px]">
               or copy and paste this URL into your browser:{' '}
               <Link
                 className="text-blue-600 no-underline"
@@ -127,7 +161,7 @@ describe('Tailwind component', () => {
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
     const actualOutput = await render(
       <Tailwind>
-        <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">
+        <Button className="mt-8 rounded-md bg-blue-600 px-3 py-2 text-gray-200 text-sm">
           Testing button
         </Button>
         Testing
@@ -158,7 +192,7 @@ describe('Tailwind component', () => {
     const EmailTemplate = () => {
       return (
         <Wrapper>
-          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <div className="mt-[100px] text-[50px] leading-[1]">Hello world</div>
           <Brand />
         </Wrapper>
       );
@@ -191,7 +225,7 @@ describe('Tailwind component', () => {
     const EmailTemplate = () => {
       return (
         <Wrapper>
-          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <div className="mt-[100px] text-[50px] leading-[1]">Hello world</div>
           <Brand />
         </Wrapper>
       );
@@ -237,7 +271,7 @@ describe('Tailwind component', () => {
     const EmailTemplate = () => {
       return (
         <Wrapper>
-          <div className="text-[50px] leading-[1] mt-[100px]">Hello world</div>
+          <div className="mt-[100px] text-[50px] leading-[1]">Hello world</div>
           <Brand />
         </Wrapper>
       );
@@ -291,7 +325,7 @@ describe('Tailwind component', () => {
               __html: `<!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]-->`,
             }}
           />
-          <div className="bg-white sm:bg-red-50 sm:text-sm md:text-lg custom-class" />
+          <div className="custom-class bg-white sm:bg-red-50 sm:text-sm md:text-lg" />
         </Tailwind>
       </Html>,
     );
@@ -328,7 +362,7 @@ describe('Tailwind component', () => {
     const actualOutput = await render(
       <Tailwind>
         <head />
-        <div className="max-h-[calc(50px+3rem)] lg:max-h-[calc(50px+5rem)] bg-red-100">
+        <div className="max-h-[calc(50px+3rem)] bg-red-100 lg:max-h-[calc(50px+5rem)]">
           <div className="h-[200px]">something tall</div>
         </div>
       </Tailwind>,
@@ -338,7 +372,7 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
+describe('non-inlinable styles', () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
@@ -389,22 +423,25 @@ describe('Responsive styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="bg-white my-auto mx-auto font-sans md:px-[64px]">
-          <div className="md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();
   });
 
-  it('should add css to <head/> and keep responsive class names', async () => {
+  it('should add css to <head/> and keep class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
           <head />
           <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
           </body>
         </Tailwind>
       </html>,
@@ -416,7 +453,7 @@ describe('Responsive styles', () => {
   it('should throw error when used without the head and with media query class names only very deeply nested', async () => {
     const Component1 = (props: Record<string, any>) => {
       return (
-        <div {...props} className="w-40 h-30 sm:h-10 sm:w-10">
+        <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
           {props.children}
         </div>
       );
@@ -513,7 +550,7 @@ describe('Custom theme config', () => {
 
     const actualOutput = await render(
       <Tailwind config={config}>
-        <div className="text-custom bg-custom" />
+        <div className="bg-custom text-custom" />
       </Tailwind>,
     );
 

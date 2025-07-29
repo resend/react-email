@@ -1,7 +1,6 @@
 packages:
   - "apps/*"
-  - "examples/*"
-  - "examples/*/*"
-  - "packages/*"
-  - "packages/create-email/template"
   - "benchmarks/*"
+  - "packages/*"
+  - "packages/react-email/dev"
+  - "playground"

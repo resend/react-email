@@ -19,9 +19,10 @@ export const component = (
     <Body>
       <Container
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgb(255,255,255)',
           borderRadius: '8px',
-          margin: '0 auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: '600px',
           padding: '24px',
         }}
@@ -39,10 +40,11 @@ export const component = (
           </Heading>
           <Text
             style={{
-              color: '#6B7280',
+              color: 'rgb(107,114,128)',
               fontSize: '14px',
               lineHeight: '20px',
-              margin: '0 auto',
+              marginLeft: 'auto',
+              marginRight: 'auto',
               maxWidth: '500px',
               textAlign: 'center',
             }}
@@ -94,12 +96,16 @@ export const component = (
           ].map((plan) => (
             <Section
               style={{
-                backgroundColor: plan.highlighted ? '#101828' : '#FFFFFF',
-                borderColor: plan.highlighted ? '#101828' : '#D1D5DB',
+                backgroundColor: plan.highlighted
+                  ? 'rgb(16,24,40)'
+                  : 'rgb(255,255,255)',
+                borderColor: plan.highlighted
+                  ? 'rgb(16,24,40)'
+                  : 'rgb(209,213,219)',
                 borderRadius: '8px',
                 borderStyle: 'solid',
                 borderWidth: '1px',
-                color: plan.highlighted ? '#d1d5dc' : '#4a5565',
+                color: plan.highlighted ? 'rgb(209,213,219)' : 'rgb(75,85,99)',
                 marginBottom: plan.highlighted ? '12px' : '24px',
                 padding: '24px',
                 textAlign: 'left',
@@ -108,11 +114,13 @@ export const component = (
             >
               <Text
                 style={{
-                  color: plan.highlighted ? '#7c86ff' : '#4f46e5',
+                  color: plan.highlighted
+                    ? 'rgb(124,134,255)'
+                    : 'rgb(79,70,229)',
                   fontSize: '14px',
                   fontWeight: '600',
                   lineHeight: '20px',
-                  margin: '0 0 16px 0',
+                  marginBottom: '16px',
                 }}
               >
                 {plan.title}
@@ -120,12 +128,18 @@ export const component = (
               <Text
                 style={{
                   fontSize: '28px',
-                  fontWeight: 'bold',
+                  fontWeight: '700',
                   marginBottom: '8px',
-                  marginTop: 0,
+                  marginTop: '0px',
                 }}
               >
-                <span style={{ color: plan.highlighted ? '#ffff' : '#101828' }}>
+                <span
+                  style={{
+                    color: plan.highlighted
+                      ? 'rgb(255,255,255)'
+                      : 'rgb(16,24,40)',
+                  }}
+                >
                   ${plan.price}
                 </span>{' '}
                 <span style={{ fontSize: '14px', lineHeight: '20px' }}>
@@ -134,7 +148,8 @@ export const component = (
               </Text>
               <Text
                 style={{
-                  margin: '12px 0 24px 0',
+                  marginTop: '12px',
+                  marginBottom: '24px',
                 }}
               >
                 {plan.description}
@@ -156,13 +171,13 @@ export const component = (
               <Button
                 href={plan.buttonUrl}
                 style={{
-                  backgroundColor: '#4f46e5',
+                  backgroundColor: 'rgb(79,70,229)',
                   borderRadius: '8px',
                   boxSizing: 'border-box',
-                  color: '#fff',
+                  color: 'rgb(255,255,255)',
                   display: 'inline-block',
                   fontWeight: '600',
-                  margin: '0',
+                  margin: '0px',
                   maxWidth: '100%',
                   padding: '12px',
                   textAlign: 'center',
@@ -174,13 +189,14 @@ export const component = (
             </Section>
           ))}
         </Section>
-        <Hr style={{ marginTop: '0' }} />
+        <Hr style={{ marginTop: '0px' }} />
         <Text
           style={{
-            color: '#6b7280',
+            color: 'rgb(107,114,128)',
             fontSize: '12px',
+            lineHeight: '16px',
             fontWeight: '500',
-            margin: '30px 0 0 0',
+            marginTop: '30px',
             textAlign: 'center',
           }}
         >

@@ -1,6 +1,6 @@
 {
   "name": "react-email-starter",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "build": "email build",
@@ -8,13 +8,14 @@
     "export": "email export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:0.0.34",
-    "react-dom": "19.0.0",
-    "react": "19.0.0"
+    "@react-email/components": "INSERT_COMPONENTS_VERSION",
+    "react-dom": "^19.0.0",
+    "react": "^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.1",
-    "react-email": "workspace:4.0.1"
+    "@react-email/preview-server": "INSERT_REACT_EMAIL_VERSION",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "react-email": "INSERT_REACT_EMAIL_VERSION"
   }
 }

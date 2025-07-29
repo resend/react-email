@@ -50,15 +50,13 @@ export default MyTemplate;
 
 Import an existing React component and convert into a HTML string.
 
-<Info>You can use the `pretty` option to beautify the output.</Info>
+<Info>You can use the `pretty` function to beautify the output.</Info>
 
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { render, pretty } from '@react-email/render';
 
-const html = await render(<MyTemplate />, {
-  pretty: true,
-});
+const html = await pretty(await render(<MyTemplate />));
 
 console.log(html);
 ```
@@ -85,6 +83,18 @@ This will generate the following output:
   </a>
 </html>
 ```
+
+<Danger>
+    When running on the browser, to properly support Safari and browsers running on iOS, you will
+    need to polyfill the [ReadableByteStreamController API](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController#browser_compatibility).
+
+    We recommend [npm i web-streams-polyfill](https://www.npmjs.com/package/web-streams-polyfill),
+    and it can be applied as follows in some sort of root file for your website:
+
+    ```jsx
+    import "web-streams-polyfill/polyfill";
+    ```
+</Danger>
 
 ## 4. Convert to Plain Text
 
@@ -117,7 +127,7 @@ Click me [https://example.com]
 
 ## Options
 
-<ResponseField name="pretty" type="boolean">
+<ResponseField name="pretty" type="boolean" deprecated>
   Beautify HTML output
 </ResponseField>
 <ResponseField name="plainText" type="boolean">
@@ -126,4 +136,3 @@ Click me [https://example.com]
 <ResponseField name="htmlToTextOptions" type="HtmlToTextOptions">
   `html-to-text` [options](https://github.com/html-to-text/node-html-to-text/tree/master/packages/html-to-text#options) used for rendering
 </ResponseField>
-

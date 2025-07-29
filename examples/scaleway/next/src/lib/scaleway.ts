@@ -1,4 +1,4 @@
-import { TransactionalEmail, createClient } from '@scaleway/sdk';
+import { createClient, TransactionalEmail } from '@scaleway/sdk';
 
 const client = createClient({
   accessKey: process.env.ACCESS_KEY,

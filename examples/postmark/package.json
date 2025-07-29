@@ -1,25 +1,26 @@
 {
   "name": "react-email-with-postmark",
-  "version": "1.0.9",
   "license": "MIT",
   "private": true,
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "build": "tsup-node src/index.tsx --format esm --target node20",
     "dev": "tsup-node src/index.tsx --format esm --target node20 --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "postmark": "3.0.14",
-    "@react-email/components": "workspace:0.0.34",
+    "postmark": "^3",
+    "@react-email/components": "^0.0.36",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "6.2.3",
-    "typescript": "4.8.3"
+    "tsup": "^8.0.0",
+    "typescript": "^4"
   }
 }

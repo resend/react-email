@@ -6,7 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -21,9 +23,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "pnpm build --watch",
-    "clean": "rm -rf dist",
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react"
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "clean": "rm -rf dist"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -37,8 +39,7 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsup": "7.2.0",
-    "typescript": "5.1.6",
-    "vitest": "1.1.0"
+    "tsup": "8.4.0",
+    "typescript": "5.8.3"
   }
 }

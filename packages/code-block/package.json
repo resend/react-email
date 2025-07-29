@@ -1,12 +1,14 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -22,15 +24,18 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/code-block"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -41,12 +46,12 @@
     "@react-email/render": "workspace:*",
     "@types/prismjs": "1.26.5",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.6"
+    "typescript": "5.8.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "prismjs": "1.29.0"
+    "prismjs": "^1.30.0"
   }
 }

@@ -1,5 +1,41 @@
 # @react-email/text
 
+## 0.1.5
+
+### Patch Changes
+
+- 72138ae: fix marginTop, marginBottom losing their priority defined by order in styles
+
+## 0.1.4
+
+### Patch Changes
+
+- 0a7b555: fix numerical margin values being overwritten by 0
+
+## 0.1.3
+
+### Patch Changes
+
+- 6cd353b: give priority to the user's style
+
+## 0.1.2
+
+### Patch Changes
+
+- 7918a4b: Fix priority of margin styles not being kept
+
+## 0.1.2-canary.0
+
+### Patch Changes
+
+- bd58fa9: Fix priority of margin styles not being kept
+
+## 0.1.1
+
+### Patch Changes
+
+- c31b73e: Merge all coming margin style properties into a single `margin`
+
 ## 0.1.0
 
 ### Minor Changes

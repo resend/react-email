@@ -1,5 +1,38 @@
 # react-email-starter
 
+## 1.1.0
+
+## 1.0.8-canary.0
+
+### Patch Changes
+
+- @react-email/components@0.0.37-canary.0
+
+## 1.0.7
+
+## 1.0.6
+
+## 1.0.5
+
+## 1.0.4
+
+### Patch Changes
+
+- @react-email/components@0.0.36
+
+## 1.0.3
+
+### Patch Changes
+
+- d5f5ba9: add tsconfig for starter to work without importing React
+  - @react-email/components@0.0.35
+
+## 1.0.2
+
+### Patch Changes
+
+- react-email@4.0.2
+
 ## 1.0.1
 
 ### Patch Changes

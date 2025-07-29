@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.*local", "pnpm-lock.yaml"],
   "globalEnv": [
     "SUPABASE_URL",
     "SUPABASE_ANON_KEY",
@@ -10,11 +10,15 @@
   ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^postbuild"],
       "outputs": ["dist/**"]
     },
+    "postbuild": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "web#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^postbuild"],
       "env": [
         "RESEND_API_KEY",
         "NEXT_PUBLIC_SUPABASE_URL",
@@ -22,16 +26,12 @@
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "react-email-with-resend#build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
-    },
-    "react-email-with-next-scaleway#build": {
+    "@react-email/preview-server#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "demo#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^postbuild"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
     },
     "react-email#build": {
@@ -42,8 +42,7 @@
     "//#format": {},
     "//#format:check": {},
     "test": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "dependsOn": ["^build"]
     },
     "test:watch": {
       "cache": false

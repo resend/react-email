@@ -5,12 +5,12 @@ import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
 import { readStream } from './read-stream';
 
-export const render = async (
-  element: React.ReactElement,
-  options?: Options,
-) => {
-  const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await import('react-dom/server');
+export const render = async (node: React.ReactNode, options?: Options) => {
+  const suspendedElement = <Suspense>{node}</Suspense>;
+  const reactDOMServer = await import('react-dom/server').then(
+    // This is beacuse react-dom/server is CJS
+    (m) => m.default,
+  );
 
   let html!: string;
   if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {

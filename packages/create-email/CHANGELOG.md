@@ -1,5 +1,79 @@
 # create-email
 
+## 1.2.2
+
+### Patch Changes
+
+- 6edd76d: add @react-email/preview-server to template dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- ff118ea: fix broken node 18 support
+
+## 1.2.0
+
+### Minor Changes
+
+- d72818a: Fetch react-email package versions at runtime from `--tag` option
+
+### Patch Changes
+
+- d689346: Show package.json's version on --version for create-email
+
+## 1.2.0-canary.1
+
+### Patch Changes
+
+- 0c3aaa3: Show package.json's version on --version for create-email
+
+## 1.2.0-canary.0
+
+### Minor Changes
+
+- 237d115: Fetch react-email package versions at runtime from `--tag` option
+
+## 1.1.0
+
+### Minor Changes
+
+- 31fd7cc: use caret for dependency on react-email and @react-email/components
+
+## 1.0.8-canary.0
+
+## 1.0.7
+
+### Patch Changes
+
+- `react-email@4.0.6`
+
+## 1.0.6
+
+### Patch Changes
+
+- `react-email@4.0.5`
+
+## 1.0.5
+
+### Patch Changes
+
+- react-email@4.0.4
+
+## 1.0.4
+
+## 1.0.3
+
+### Patch Changes
+
+- 0c4d4dd: fix undefined behavior when template has already been created, fix error on tree when using custom project name
+
+## 1.0.2
+
+### Patch Changes
+
+- react-email@4.0.2
+
 ## 1.0.1
 
 ## 1.0.0

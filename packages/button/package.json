@@ -1,12 +1,14 @@
 {
   "name": "@react-email/button",
-  "version": "0.0.19",
+  "version": "0.2.0",
   "description": "A link that is styled to look like a button",
   "sideEffects": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -22,17 +24,20 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/button"
   },
-  "keywords": ["react", "email"],
+  "keywords": [
+    "react",
+    "email"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
@@ -42,7 +47,7 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.1.6"
+    "typescript": "5.8.3"
   },
   "publishConfig": {
     "access": "public"

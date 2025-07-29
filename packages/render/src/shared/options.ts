@@ -1,6 +1,10 @@
 import type { HtmlToTextOptions } from 'html-to-text';
+import type { pretty } from './utils/pretty';
 
 export type Options = {
+  /**
+   * @deprecated use {@link pretty} instead
+   */
   pretty?: boolean;
 } & (
   | {

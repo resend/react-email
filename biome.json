@@ -1,12 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.7.1/schema.json",
-  "organizeImports": {
-    "enabled": true
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
-    "useIgnoreFile": true
+    "useIgnoreFile": false
   },
   "formatter": {
     "indentStyle": "space",
@@ -21,18 +25,35 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off",
+        "useLiteralEnumMembers": "error",
+        "useNodejsImportProtocol": "error",
+        "useAsConstAssertion": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useConst": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "useExponentiationOperator": "error",
+        "useTemplate": "error",
+        "noParameterAssign": "error",
+        "useDefaultParameterLast": "error",
+        "useImportType": "error",
+        "useExportType": "error",
+        "noUselessElse": "error",
+        "useShorthandFunctionType": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
+      },
       "a11y": {
+        "noStaticElementInteractions": "off",
         "noSvgWithoutTitle": "off",
         "noAutofocus": "off"
-      },
-      "nursery": {
-        "useSortedClasses": "off"
-      },
-      "suspicious": {
-        "noArrayIndexKey": "off",
-        "noExplicitAny": "off",
-        "noAssignInExpressions": "off"
       },
       "correctness": {
         "noUnusedImports": "warn",
@@ -40,34 +61,40 @@
         "useJsxKeyInIterable": "off",
         "noChildrenProp": "off"
       },
-      "complexity": {
-        "noUselessFragments": "off",
-        "noForEach": "off"
+      "nursery": {
+        "useSortedClasses": "off"
       },
-      "style": {
-        "noNonNullAssertion": "off"
+      "complexity": {
+        "useNumericLiterals": "error",
+        "noUselessFragments": "off",
+        "noForEach": "off",
+        "noCommaOperator": "error",
+        "noArguments": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
-      },
-      "performance": {
-        "noAccumulatingSpread": "off",
-        "noDelete": "off"
       }
     }
   },
   "files": {
-    "ignore": [
-      "dist",
-      "pnpm-lock.yaml",
-      ".next",
-      "public",
-      "./packages/react-email/src/actions/email-validation/caniemail-data.ts",
-      "./**/.react-email/**/*",
-      "./**/node_modules/**/*",
-      "./**/*.d.ts",
-      "./**/**/prism.ts",
-      ".turbo"
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/pnpm-lock.yaml",
+      "!**/.next",
+      "!**/public",
+      "!packages/preview-server/src/actions/email-validation/caniemail-data.ts",
+      "!**/.react-email/**/*",
+      "!**/node_modules/**/*",
+      "!**/*.d.ts",
+      "!**/out",
+      "!**/.turbo",
+      "!**/prism.ts"
     ]
   }
 }

@@ -24,6 +24,7 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
           maxHeight: 0,
           maxWidth: 0,
         }}
+        data-skip-in-text={true}
         {...props}
         ref={ref}
       >

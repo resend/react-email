@@ -15,8 +15,8 @@ export const component = (
     <Head />
     <Preview>Top 5 Features of Our Service</Preview>
     <Body>
-      <Container className="mx-auto max-w-[600px] rounded-lg bg-white p-6">
-        <Heading className="mb-[42px] text-center text-2xl leading-8">
+      <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white p-[24px]">
+        <Heading className="mb-[42px] text-center text-[24px] leading-[32px]">
           Top 5 Features of Our Service
         </Heading>
         {[
@@ -51,16 +51,19 @@ export const component = (
               'We develop customized strategies for sustainable and scalable growth.',
           },
         ].map((feature) => (
-          <Section className="mb-9">
-            <div className="mr-8 ml-3 inline-flex items-start">
-              <div className="mr-[18px] flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white text-xs leading-none">
+          <Section className="mb-[36px]">
+            <div className="mr-[32px] ml-[12px] inline-flex items-start">
+              <div className="mr-[18px] flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white text-[12px] leading-none">
                 {feature.number}
               </div>
               <div>
-                <Heading as="h2" className="mt-0 mb-2 text-gray-900 text-lg">
+                <Heading
+                  as="h2"
+                  className="mt-[0px] mb-[8px] text-gray-900 text-[18px] leading-[28px]"
+                >
                   {feature.title}
                 </Heading>
-                <Text className="m-0 text-gray-500 text-sm leading-5">
+                <Text className="m-0 text-gray-500 text-[14px] leading-[24px]">
                   {feature.description}
                 </Text>
               </div>
