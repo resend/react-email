@@ -4,14 +4,10 @@ export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
-    const backgroundStyles: Record<string, string | number | undefined> = {};
-    if (style) {
-      for (const key of Object.keys(style)) {
-        if (key === 'backgroundColor' || key === 'background') {
-          backgroundStyles[key] = style[key];
-        }
-      }
-    }
+    const backgroundStyles = {
+      background: style.background,
+      backgroundColor: style.backgroundColor,
+    };
     return (
       <body {...props} style={backgroundStyles} ref={ref}>
         <table
