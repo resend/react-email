@@ -31,8 +31,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -86,18 +86,21 @@ export const renderEmailByPath = async (
   const EmailComponent = Email as React.FC;
   try {
     const element = createElement(EmailComponent, previewProps);
-    const markupWithReferences = await renderWithReferences(element, {
-      pretty: true,
-    });
-    const prettyMarkup = await render(element, {
-      pretty: true,
-    });
-    const markup = await render(element, {
-      pretty: false,
-    });
-    const plainText = await render(element, {
-      plainText: true,
-    });
+    const [markupWithReferences, prettyMarkup, markup, plainText] =
+      await Promise.all([
+        renderWithReferences(element, {
+          pretty: true,
+        }),
+        render(element, {
+          pretty: true,
+        }),
+        render(element, {
+          pretty: false,
+        }),
+        render(element, {
+          plainText: true,
+        }),
+      ]);
 
     const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
 
