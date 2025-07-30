@@ -399,7 +399,7 @@ importers:
         specifier: workspace:0.0.13
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.1.3
+        specifier: workspace:1.1.4
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12

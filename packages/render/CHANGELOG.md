@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.1.4
+
+### Patch Changes
+
+- f5f35f1: fix hydration markers on React canary/Next.js latest when rendering large email templates
+
 ## 1.1.3
 
 ### Patch Changes
