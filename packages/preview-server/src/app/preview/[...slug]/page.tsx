@@ -71,7 +71,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       });
     }
     const lintingSources = getLintingSources(
-      serverEmailRenderingResult.markup,
+      serverEmailRenderingResult.prettyMarkup,
       '',
     );
     lintingRows = [];
@@ -103,7 +103,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        html: serverEmailRenderingResult.markup,
+        html: serverEmailRenderingResult.prettyMarkup,
         plainText: serverEmailRenderingResult.plainText,
       }),
     });

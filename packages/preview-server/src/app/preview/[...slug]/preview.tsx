@@ -191,7 +191,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                         },
                         {
                           language: 'markup',
-                          content: renderedEmailMetadata.markup,
+                          content: renderedEmailMetadata.prettyMarkup,
                         },
                         {
                           language: 'markdown',
