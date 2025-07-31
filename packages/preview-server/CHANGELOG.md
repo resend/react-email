@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.6
+
+### Patch Changes
+
+- d3cc64d: use unformmated markup to send emails, and to render into the iframe
+
 ## 4.2.5
 
 ## 4.2.4
