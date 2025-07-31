@@ -71,7 +71,9 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
 
   if (options?.pretty) {
-    return pretty(document);
+    return pretty(document, {
+      lineBreak: '\n',
+    });
   }
 
   return document;
