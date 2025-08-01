@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: pnpm Cache
         id: pnpm-cache
         uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
