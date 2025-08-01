@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.7
+
+### Patch Changes
+
+- 6997a9e: fix broken file tree animation on built preview server
+
 ## 4.2.6
 
 ### Patch Changes
