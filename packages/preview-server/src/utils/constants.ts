@@ -1,4 +1,4 @@
-import type { Transition } from "framer-motion";
+import type { Transition } from 'framer-motion';
 
 export const tabTransition: Transition = {
   type: 'spring',
