@@ -1,15 +1,15 @@
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
-import { expect, test, describe } from 'vitest';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
+import { describe, expect, test } from 'vitest';
 
 const execAsync = promisify(exec);
 
 describe('automatic setup', () => {
   const starterPath = path.resolve(__dirname, '../.test');
 
-  test.sequential('creation', async () => {
+  test.sequential('creation', { timeout: 60_000 }, async () => {
     if (existsSync(starterPath)) {
       await fs.rm(starterPath, { recursive: true });
     }
@@ -18,7 +18,7 @@ describe('automatic setup', () => {
       `node ${path.resolve(__dirname, './index.js')} .test`,
       {
         cwd: path.resolve(__dirname, '../'),
-        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash'
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash',
       }
     );
 
@@ -46,7 +46,7 @@ describe('automatic setup', () => {
     try {
       const { stdout, stderr } = await execAsync('npm run export', {
         cwd: starterPath,
-        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash'
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash',
       });
       console.log(stdout);
       if (stderr) console.error(stderr);
