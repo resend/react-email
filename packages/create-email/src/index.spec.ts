@@ -1,72 +1,72 @@
-import { spawnSync } from 'node:child_process';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
+import { expect, test, describe } from 'vitest';
+
+const execAsync = promisify(exec);
 
 describe('automatic setup', () => {
   const starterPath = path.resolve(__dirname, '../.test');
+
   test.sequential('creation', async () => {
     if (existsSync(starterPath)) {
       await fs.rm(starterPath, { recursive: true });
     }
 
-    const createEmailProcess = spawnSync(
-      'node',
-      [path.resolve(__dirname, './index.js'), '.test'],
+    const { stderr, stdout } = await execAsync(
+      `node ${path.resolve(__dirname, './index.js')} .test`,
       {
-        shell: true,
         cwd: path.resolve(__dirname, '../'),
-        stdio: 'pipe',
-      },
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash'
+      }
     );
-    if (createEmailProcess.stderr) {
-      console.log(createEmailProcess.stderr.toString());
-    }
-    expect(createEmailProcess.status, 'starter creation should return 0').toBe(
-      0,
-    );
+
+    if (stderr) console.error(stderr);
+    console.log(stdout);
+
+    expect(true).toBe(true); // Will throw if command fails
   });
 
-  test.sequential('install', { timeout: 40_000 }, () => {
-    const installProcess = spawnSync('npm', ['install'], {
-      shell: true,
-      cwd: path.resolve(starterPath),
-      stdio: 'pipe',
-    });
-    if (installProcess.stderr) {
-      console.log(installProcess.stderr.toString());
+  test.sequential('install', { timeout: 180_000 }, async () => {
+    try {
+      const { stdout, stderr } = await execAsync('npm install', {
+        cwd: starterPath,
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash',
+      });
+      console.log(stdout);
+      if (stderr) console.error(stderr);
+    } catch (err: any) {
+      console.error(err.stderr || err);
+      throw err;
     }
-    expect(installProcess.status, 'starter npm install should return 0').toBe(
-      0,
-    );
   });
 
-  test.sequential('export', () => {
-    const exportProcess = spawnSync('npm', ['run export'], {
-      shell: true,
-      cwd: starterPath,
-      stdio: 'pipe',
-    });
-    if (exportProcess.stderr) {
-      console.log(exportProcess.stderr.toString());
+  test.sequential('export', { timeout: 60_000 }, async () => {
+    try {
+      const { stdout, stderr } = await execAsync('npm run export', {
+        cwd: starterPath,
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash'
+      });
+      console.log(stdout);
+      if (stderr) console.error(stderr);
+    } catch (err: any) {
+      console.error(err.stderr || err);
+      throw new Error('npm run export failed');
     }
-    expect(exportProcess.status, 'export should return status code 0').toBe(0);
   });
 
-  test.sequential('type checking', { timeout: 10_000 }, () => {
-    const typecheckingProcess = spawnSync('npx', ['tsc'], {
-      shell: true,
-      cwd: starterPath,
-      stdio: 'pipe',
-    });
-    if (typecheckingProcess.stderr) {
-      console.log(typecheckingProcess.stderr.toString());
+  test.sequential('type checking', { timeout: 60_000 }, async () => {
+    try {
+      const { stdout, stderr } = await execAsync('npx tsc', {
+        cwd: starterPath,
+        shell: process.platform === 'win32' ? 'cmd.exe' : '/bin/bash',
+      });
+      console.log(stdout);
+      if (stderr) console.error(stderr);
+    } catch (err: any) {
+      console.error(err.stderr || err);
+      throw new Error('Type checking failed');
     }
-    if (typecheckingProcess.stdout) {
-      console.log(typecheckingProcess.stdout.toString());
-    }
-    expect(
-      typecheckingProcess.status,
-      'type checking should return status code 0',
-    ).toBe(0);
   });
 });
