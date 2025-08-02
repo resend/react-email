@@ -1,5 +1,41 @@
 # react-email
 
+## 4.2.7
+
+## 4.2.6
+
+## 4.2.5
+
+### Patch Changes
+
+- 8719082: fix errors in `export` when without manual React import
+
+## 4.2.4
+
+## 4.2.3
+
+### Patch Changes
+
+- 8259eeb: fix files with extension-like suffixes (i.e. config, .spec) breaking dependency graph
+
+## 4.2.2
+
+### Patch Changes
+
+- eb7f0ac: dev server erroring when trying to startup with port already being used
+
+## 4.2.1
+
+## 4.2.0
+
+### Minor Changes
+
+- e52818c: add custom error handling for prettier's syntax errors
+
+## 4.1.3
+
+## 4.1.2
+
 ## 4.1.1
 
 ### Patch Changes

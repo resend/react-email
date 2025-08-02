@@ -15,7 +15,9 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   let html!: string;
   if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
     html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement),
+      await reactDOMServer.renderToReadableStream(suspendedElement, {
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
+      }),
     );
   } else {
     await new Promise<void>((resolve, reject) => {
@@ -27,6 +29,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         onError(error) {
           reject(error as Error);
         },
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
       });
     });
   }

@@ -43,9 +43,6 @@ export const startDevServer = async (
   const previewServerLocation = await getPreviewServerLocation();
   const previewServer = createJiti(previewServerLocation);
 
-  const { default: next } =
-    await previewServer.import<typeof import('next')>('next');
-
   devServer = http.createServer((req, res) => {
     if (!req.url) {
       res.end(404);
@@ -132,9 +129,17 @@ export const startDevServer = async (
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
+      previewServerLocation,
       process.cwd(),
     ),
   };
+
+  const next = await previewServer.import<typeof import('next')['default']>(
+    'next',
+    {
+      default: true,
+    },
+  );
 
   const app = next({
     // passing in env here does not get the environment variables there

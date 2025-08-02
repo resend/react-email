@@ -1,5 +1,5 @@
 import * as Collapsible from '@radix-ui/react-collapsible';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import type { ComponentProps } from 'react';
 import { cn } from '../../utils';
 
@@ -80,7 +80,7 @@ type ResultProps = {
   status: ResultStatus;
 } & ComponentProps<typeof motion.li>;
 
-const resultAnimation = {
+const resultAnimation: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
@@ -110,7 +110,7 @@ export const Result = ({ children, status, ...rest }: ResultProps) => {
   );
 };
 
-const titleStatusAnimation = {
+const titleStatusAnimation: Variants = {
   hidden: { opacity: 0, y: 5 },
   visible: {
     opacity: 1,

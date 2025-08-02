@@ -19,7 +19,7 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { PreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
-import { RenderingError } from './rendering-error';
+import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
@@ -136,7 +136,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
           };
         }}
       >
-        {hasErrors ? <RenderingError error={renderingResult.error} /> : null}
+        {hasErrors ? <ErrorOverlay error={renderingResult.error} /> : null}
 
         {hasRenderingMetadata ? (
           <>
@@ -191,7 +191,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                         },
                         {
                           language: 'markup',
-                          content: renderedEmailMetadata.markup,
+                          content: renderedEmailMetadata.prettyMarkup,
                         },
                         {
                           language: 'markdown',
