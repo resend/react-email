@@ -42,7 +42,24 @@ describe('createDependencyGraph()', async () => {
   it.sequential(
     'should have the right initial value for the dependency graph',
     () => {
-      expect(dependencyGraph).toMatchSnapshot();
+      const relativePathDependencyGraph = Object.fromEntries(
+        Object.entries(dependencyGraph).map(([key, value]) => {
+          return [
+            path.relative(testingDiretctory, key),
+            {
+              path: path.relative(testingDiretctory, value.path),
+              dependentPaths: value.dependentPaths.map((p) =>
+                path.relative(testingDiretctory, p),
+              ),
+              dependencyPaths: value.dependencyPaths.map((p) =>
+                path.relative(testingDiretctory, p),
+              ),
+              moduleDependencies: value.moduleDependencies,
+            },
+          ];
+        }),
+      );
+      expect(relativePathDependencyGraph).toMatchSnapshot();
     },
   );
 
