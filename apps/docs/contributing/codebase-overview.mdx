@@ -124,7 +124,7 @@ The CLI is built using [commander](https://www.npmjs.com/package/commander), a C
 parsing of command line arguments and ensuring that the syntax for the command is as expected.
 
 The `build`, `dev`, and `start` commands all depend on the user first installing `@react-email/preview-server`.
-installed on their side. This allows for including required dependencies like `next` as a dev
+Locally installing the preview server also includes all the required dependencies so you can run the necessary commands.
 dependency of the user and not from us.
 
 To actually ensure that `@react-email/preview-server` is installed and to import it into the CLI, we
