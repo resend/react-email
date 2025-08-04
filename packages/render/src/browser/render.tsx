@@ -51,6 +51,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         onError(error: unknown) {
           reject(error);
         },
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
       })
       .then(readStream)
       .then(resolve)

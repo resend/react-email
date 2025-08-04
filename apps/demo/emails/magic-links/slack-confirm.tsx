@@ -62,44 +62,34 @@ export const SlackConfirmEmail = ({
                 alt="Slack"
               />
             </Column>
-            <Column>
-              <Section>
-                <Row>
-                  <Column>
-                    <Link href="/">
-                      <Img
-                        src={`${baseUrl}/static/slack-twitter.png`}
-                        width="32"
-                        height="32"
-                        alt="Slack"
-                        style={socialMediaIcon}
-                      />
-                    </Link>
-                  </Column>
-                  <Column>
-                    <Link href="/">
-                      <Img
-                        src={`${baseUrl}/static/slack-facebook.png`}
-                        width="32"
-                        height="32"
-                        alt="Slack"
-                        style={socialMediaIcon}
-                      />
-                    </Link>
-                  </Column>
-                  <Column>
-                    <Link href="/">
-                      <Img
-                        src={`${baseUrl}/static/slack-linkedin.png`}
-                        width="32"
-                        height="32"
-                        alt="Slack"
-                        style={socialMediaIcon}
-                      />
-                    </Link>
-                  </Column>
-                </Row>
-              </Section>
+            <Column align="right">
+              <Link href="/">
+                <Img
+                  src={`${baseUrl}/static/slack-twitter.png`}
+                  width="32"
+                  height="32"
+                  alt="Slack"
+                  style={socialMediaIcon}
+                />
+              </Link>
+              <Link href="/">
+                <Img
+                  src={`${baseUrl}/static/slack-facebook.png`}
+                  width="32"
+                  height="32"
+                  alt="Slack"
+                  style={socialMediaIcon}
+                />
+              </Link>
+              <Link href="/">
+                <Img
+                  src={`${baseUrl}/static/slack-linkedin.png`}
+                  width="32"
+                  height="32"
+                  alt="Slack"
+                  style={socialMediaIcon}
+                />
+              </Link>
             </Column>
           </Row>
         </Section>
@@ -177,12 +167,11 @@ const footerLogos = {
   marginBottom: '32px',
   paddingLeft: '8px',
   paddingRight: '8px',
-  display: 'block',
 };
 
 const socialMediaIcon = {
   display: 'inline',
-  marginLeft: '32px',
+  marginLeft: '8px',
 };
 
 const main = {

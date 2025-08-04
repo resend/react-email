@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "1.0.5",
+  "version": "1.2.2",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -24,10 +24,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
-    "dev": "vite build --watch",
+    "build:watch": "vite build --watch",
     "clean": "rm -rf dist",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -64,7 +64,7 @@
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
     "typescript": "5.8.3",
-    "vite": "6.3.2",
+    "vite": "6.3.4",
     "vite-plugin-dts": "4.5.3",
     "yalc": "1.0.0-pre.53"
   },

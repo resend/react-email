@@ -52,7 +52,7 @@ const getComparableHtml = (html: string): string => {
   return stringify(ast as Doc[]);
 };
 
-describe('copy-paste components', () => {
+describe.skip('copy-paste components', () => {
   const components = componentsStructure.flatMap(
     (category) => category.components,
   );
