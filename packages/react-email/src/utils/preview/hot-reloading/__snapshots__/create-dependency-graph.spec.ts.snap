@@ -1,0 +1,68 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createDependencyGraph() > should have the right initial value for the dependency graph 1`] = `
+{
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/data-to-import.json": {
+    "dependencyPaths": [],
+    "dependentPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts",
+    ],
+    "moduleDependencies": [],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/data-to-import.json",
+  },
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-a.ts": {
+    "dependencyPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-b.ts",
+    ],
+    "dependentPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-b.ts",
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts",
+    ],
+    "moduleDependencies": [],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-a.ts",
+  },
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-b.ts": {
+    "dependencyPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-a.ts",
+    ],
+    "dependentPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-a.ts",
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts",
+    ],
+    "moduleDependencies": [],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-b.ts",
+  },
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts": {
+    "dependencyPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/outer.ts",
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/data-to-import.json",
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-a.ts",
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/file-b.ts",
+    ],
+    "dependentPaths": [],
+    "moduleDependencies": [
+      "node:os",
+      "node:path",
+    ],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts",
+  },
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/outer-dependency.ts": {
+    "dependencyPaths": [],
+    "dependentPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/outer.ts",
+    ],
+    "moduleDependencies": [],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/outer-dependency.ts",
+  },
+  "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/outer.ts": {
+    "dependencyPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/outer-dependency.ts",
+    ],
+    "dependentPaths": [
+      "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/inner/general-importing-file.ts",
+    ],
+    "moduleDependencies": [],
+    "path": "/Users/gabrielmfern/Programming/job/react-email/packages/react-email/src/utils/preview/hot-reloading/test/dependency-graph/outer.ts",
+  },
+}
+`;
