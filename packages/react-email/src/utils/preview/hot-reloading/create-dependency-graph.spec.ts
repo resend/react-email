@@ -95,7 +95,7 @@ import {} from './general-importing-file';
     ).toContain(pathToTemporaryFile);
   });
 
-  it.sequential('should working when updating a file', async () => {
+  it.sequential('should work when updating a file', async () => {
     await fs.writeFile(
       pathToTemporaryFile,
       `
