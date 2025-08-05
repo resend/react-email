@@ -1,0 +1,44 @@
+---
+title: 'Editing the components'
+sidebarTitle: '6. Editing the components'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+To facilitate developing components, use the built-in [playground](https://github.com/resend/react-email/tree/canary/playground), which automatically hot reloads when you make changes to the components during development.
+
+## 1. Create an email template
+
+Create a new file at `playground/emails/testing.tsx`
+
+```tsx playground/emails/testing.tsx
+import { Html, Head, Body, Tailwind, Text } from '@react-email/components';
+
+export default function Testing() {
+  return <Tailwind>
+    <Html>
+      <Head/>
+
+      <Body className="bg-black text-white">
+        <Text className="m-0 my-4 bg-cyan-200 text-slate-800">
+          This is a testing email template.
+        </Text>
+      </Body>
+    </Html>
+  </Tailwind>;
+}
+```
+
+<Tip>
+The `.gitignore` file will ignore all changes in [playground/emails](https://github.com/resend/react-email/tree/canary/playground/emails) so you can test component changes and use cases in example templates without committing them to the repository.
+</Tip>
+
+## 2. Run playground server
+
+```sh
+pnpm dev
+```
+
+## 3. Open in your browser
+
+Go to http://localhost:3000
+
