@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.8
+
+### Patch Changes
+
+- 64cd6ec: fix hot reloading with circular dependencies
+
 ## 4.2.7
 
 ## 4.2.6
