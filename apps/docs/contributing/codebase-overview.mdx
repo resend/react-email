@@ -128,19 +128,16 @@ Locally installing the preview server also includes all the required dependencie
 
 [nypm](https://www.npmjs.com/package/nypm) and [jiti](https://www.npmjs.com/package/jiti) work together to first ensure `@react-email/preview-server` is installed and then to import it into the CLI.
 
-Both the Preview Server and the CLI are very closely intertwined — the CLI detects changes to files
-in the user's dependency graph with [chokidar](https://www.npmjs.com/package/chokidar), and send
-that over to the Preview Server using [socket.io](https://socket.io/). Other communication of data
-like the path to the user's emails directory, are done through environment variables for when the
-Preview Server is actually started.
+The Preview Server and the CLI work together. The CLI detects changes to files
+in the user's dependency graph with [chokidar](https://www.npmjs.com/package/chokidar) and then sends
+the updated files to the Preview Server using [socket.io](https://socket.io/). Other details, like the path to the user's emails directory, are handled through environment variables.
 
 ### The Preview Server
 
-The Preview Server is a Next.js app like any other, that uses `esbuild` at runtime to bundle the
-user's email templates and then renders them using [render](/utilities/render).
+The Preview Server is a Next.js app that uses `esbuild` at runtime to bundle the
+user's email templates and then renders them using the [render](/utilities/render) utility.
 
-The Preview Server itself does not detect the changes that the user makes to their emails directory,
-rather it receives that information from the CLI with [socket.io](https://socket.io/).
+As changes from the CLI are passed through [socket.io](https://socket.io/) to the Preview Server, the preview updates automatically.
 
 ## Testing
 
