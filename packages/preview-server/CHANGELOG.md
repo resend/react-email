@@ -1,5 +1,7 @@
 # @react-email/preview-server
 
+## 4.2.8
+
 ## 4.2.7
 
 ### Patch Changes
