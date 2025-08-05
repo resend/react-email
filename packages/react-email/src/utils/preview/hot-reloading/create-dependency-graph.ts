@@ -264,19 +264,6 @@ export const createDependencyGraph = async (directory: string) => {
     }
   };
 
-  /**
-   * Iteratively resolves all dependents of a module and adds them to the provided array.
-   * Uses a stack-based approach to avoid recursion stack overflow for deeply nested dependencies.
-   *
-   * @param pathToModule - The path to the module whose dependents we want to find
-   * @param dependentPaths - Array to collect the dependent paths
-   * @param visited - Set of already visited modules to prevent infinite loops in circular dependencies
-   */
-  const resolveDependentsToIteratively = (
-    pathToModule: string,
-    dependentPaths: string[],
-  ) => {};
-
   return [
     graph,
     async (event: EventName, pathToModified: string) => {
