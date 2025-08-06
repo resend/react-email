@@ -1,8 +1,7 @@
-import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import type { Options } from '../shared/options';
-import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
+import { toPlainText } from '../shared/utils/to-plain-text';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
@@ -35,10 +34,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   }
 
   if (options?.plainText) {
-    return convert(html, {
-      selectors: plainTextSelectors,
-      ...options.htmlToTextOptions,
-    });
+    return toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =

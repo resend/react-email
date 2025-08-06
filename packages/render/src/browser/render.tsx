@@ -1,9 +1,7 @@
-import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import type { ReactDOMServerReadableStream } from 'react-dom/server';
-import { pretty } from '../node';
+import { pretty, toPlainText } from '../node';
 import type { Options } from '../shared/options';
-import { plainTextSelectors } from '../shared/plain-text-selectors';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -59,10 +57,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   });
 
   if (options?.plainText) {
-    return convert(html, {
-      selectors: plainTextSelectors,
-      ...options.htmlToTextOptions,
-    });
+    return toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =
