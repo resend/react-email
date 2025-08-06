@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.2.0
+
+### Minor Changes
+
+- fc2f407: add toPlainText utility and deprecate plainText option on `render`
+
 ## 1.1.4
 
 ### Patch Changes
