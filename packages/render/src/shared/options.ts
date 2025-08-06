@@ -1,6 +1,6 @@
 import type { HtmlToTextOptions } from 'html-to-text';
 import type { pretty } from './utils/pretty';
-import type { toPlainText } from './utils/toPlainText';
+import type { toPlainText } from './utils/to-plain-text';
 
 export type Options = {
   /**
