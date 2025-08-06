@@ -1,5 +1,6 @@
 import type { HtmlToTextOptions } from 'html-to-text';
 import type { pretty } from './utils/pretty';
+import type { toPlainText } from './utils/toPlainText';
 
 export type Options = {
   /**
@@ -8,9 +9,15 @@ export type Options = {
   pretty?: boolean;
 } & (
   | {
+      /**
+        * @derecated use {@link toPlainText} instead
+        */
       plainText?: false;
     }
   | {
+      /**
+        * @derecated use {@link toPlainText} instead
+        */
       plainText?: true;
       /**
        * These are options you can pass down directly to the library we use for
