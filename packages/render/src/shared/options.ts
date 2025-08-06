@@ -10,13 +10,13 @@ export type Options = {
 } & (
   | {
       /**
-       * @derecated use {@link toPlainText} instead
+       * @deprecated use {@link toPlainText} instead
        */
       plainText?: false;
     }
   | {
       /**
-       * @derecated use {@link toPlainText} instead
+       * @deprecated use {@link toPlainText} instead
        */
       plainText?: true;
       /**
