@@ -10,14 +10,14 @@ export type Options = {
 } & (
   | {
       /**
-        * @derecated use {@link toPlainText} instead
-        */
+       * @derecated use {@link toPlainText} instead
+       */
       plainText?: false;
     }
   | {
       /**
-        * @derecated use {@link toPlainText} instead
-        */
+       * @derecated use {@link toPlainText} instead
+       */
       plainText?: true;
       /**
        * These are options you can pass down directly to the library we use for
