@@ -11,4 +11,5 @@ export const renderAsync = (element: React.ReactElement, options?: Options) => {
 export * from '../shared/options';
 export * from '../shared/plain-text-selectors';
 export * from '../shared/utils/pretty';
+export { type PropsWithRenderOptions, withRenderOptions } from '../shared/with-render-options';
 export * from './render';

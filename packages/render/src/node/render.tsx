@@ -3,10 +3,12 @@ import { Suspense } from 'react';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
+import { injectRenderOptions } from '../shared/with-render-options';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
-  const suspendedElement = <Suspense>{node}</Suspense>;
+  const nodeWithRenderOptionsProps = injectRenderOptions(node, options);
+  const suspendedElement = <Suspense>{nodeWithRenderOptionsProps}</Suspense>;
   const reactDOMServer = await import('react-dom/server').then(
     // This is beacuse react-dom/server is CJS
     (m) => m.default,

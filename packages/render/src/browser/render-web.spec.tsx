@@ -4,9 +4,11 @@
 
 import { createElement } from 'react';
 import usePromise from 'react-promise-suspense';
+import type { Options } from '../shared/options';
 import { Preview } from '../shared/utils/preview';
 import { Template } from '../shared/utils/template';
 import { render } from './render';
+import { withRenderOptions } from '../shared/with-render-options';
 
 type Import = typeof import('react-dom/server') & {
   default: typeof import('react-dom/server');
@@ -145,5 +147,38 @@ describe('render on the browser environment', () => {
     // @ts-ignore we know this is not correct, and we want to test the error handling for it
     const element = createElement(undefined);
     await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  it('passes render options to components wrapped with withRenderOptions', async () => {
+    type TemplateWithOptionsProps = { id: string };
+    const TemplateWithOptions = withRenderOptions<TemplateWithOptionsProps>(
+      (props) => {
+        return JSON.stringify(props);
+      },
+    );
+
+    const actualOutput = await render(
+      <TemplateWithOptions id="acbb4738-5a5e-4243-9b29-02cee9b8db57" />,
+      { plainText: true },
+    );
+
+    const expectedOutput =
+      '"{"id":"acbb4738-5a5e-4243-9b29-02cee9b8db57","renderOptions":{"plainText":true}}"';
+    expect(actualOutput).toMatchInlineSnapshot(expectedOutput);
+  });
+
+  it('does not pass render options to components not wrapped with withRenderOptions', async () => {
+    type TemplateWithOptionsProps = { id: string };
+    const TemplateWithOptions = (props: TemplateWithOptionsProps) => {
+      return JSON.stringify(props);
+    };
+
+    const actualOutput = await render(
+      <TemplateWithOptions id="acbb4738-5a5e-4243-9b29-02cee9b8db57" />,
+      { plainText: true },
+    );
+
+    const expectedOutput = '"{"id":"acbb4738-5a5e-4243-9b29-02cee9b8db57"}"';
+    expect(actualOutput).toMatchInlineSnapshot(expectedOutput);
   });
 });
