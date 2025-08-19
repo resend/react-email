@@ -16,16 +16,16 @@ import { isComponent } from './is-component';
 export function mapReactTree(
   value: React.ReactNode,
   process: (node: React.ReactNode) => React.ReactNode,
-): React.ReactNode {
-  const mapped = React.Children.map(value, (node) => {
+): Promise<React.ReactNode> {
+  const mapped = React.Children.map(value, async (node) => {
     if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
       const newProps = { ...node.props };
 
       if (node.props.children && !isComponent(node)) {
-        newProps.children = mapReactTree(node.props.children, process);
+        newProps.children = await mapReactTree(node.props.children, process);
       }
 
-      const processed = process(
+      const processed = await process(
         React.cloneElement(node, newProps, newProps.children),
       );
 
@@ -41,8 +41,8 @@ export function mapReactTree(
               (processed.type.render as React.FC)
             : (processed.type as React.FC);
 
-        const rendered = OriginalComponent(processed.props);
-        const mappedRenderedNode = mapReactTree(rendered, process);
+        const rendered = await OriginalComponent(processed.props);
+        const mappedRenderedNode = await mapReactTree(rendered, process);
 
         return mappedRenderedNode;
       }
@@ -53,5 +53,9 @@ export function mapReactTree(
     return process(node);
   });
 
-  return mapped && mapped.length === 1 ? mapped[0] : mapped;
+  if (mapped) {
+    return mapped.length === 1 ? mapped[0] : Promise.all(mapped);
+  }
+
+  return Promise.resolve(mapped);
 }
