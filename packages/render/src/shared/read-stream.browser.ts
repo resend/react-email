@@ -1,33 +1,23 @@
-import type {
-  PipeableStream,
-  ReactDOMServerReadableStream,
-} from 'react-dom/server.browser';
+import type { ReactDOMServerReadableStream } from 'react-dom/server.browser';
 
 const decoder = new TextDecoder('utf-8');
 
-export const readStream = async (
-  stream: PipeableStream | ReactDOMServerReadableStream,
-) => {
+export const readStream = async (stream: ReactDOMServerReadableStream) => {
   const chunks: Uint8Array[] = [];
 
-  if ('pipeTo' in stream) {
-    // means it's a readable stream
-    const writableStream = new WritableStream({
-      write(chunk: Uint8Array) {
-        chunks.push(chunk);
-      },
-    });
-    await stream.pipeTo(writableStream);
-  } else {
-    throw new Error(
-      'For some reason, the Node version of `react-dom/server` has been imported and was read by a browser stream reading function.',
-      {
+  const writableStream = new WritableStream({
+    write(chunk: Uint8Array) {
+      chunks.push(chunk);
+    },
+    abort(reason) {
+      throw new Error('Stream aborted', {
         cause: {
-          stream,
+          reason,
         },
-      },
-    );
-  }
+      });
+    },
+  });
+  await stream.pipeTo(writableStream);
 
   let length = 0;
   chunks.forEach((item) => {
