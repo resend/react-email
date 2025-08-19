@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
-    "build:watch": "vite build --watch",
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
