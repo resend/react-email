@@ -1,0 +1,163 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "React Email",
+  "colors": {
+    "primary": "#06BCEE",
+    "light": "#81D7F7",
+    "dark": "#06A6D1"
+  },
+  "contextual": {
+    "options": ["copy", "chatgpt", "claude"]
+  },
+  "favicon": "/favicon.png",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "introduction",
+              "changelog",
+              "roadmap",
+              "cli",
+              "deployment"
+            ]
+          },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "getting-started/automatic-setup",
+              "getting-started/manual-setup",
+              {
+                "group": "Monorepo Setup",
+                "icon": "diagram-project",
+                "pages": [
+                  "getting-started/monorepo-setup/npm",
+                  "getting-started/monorepo-setup/pnpm",
+                  "getting-started/monorepo-setup/yarn",
+                  "getting-started/monorepo-setup/bun"
+                ]
+              },
+              "getting-started/migrating-to-react-email"
+            ]
+          },
+          {
+            "group": "Components",
+            "pages": [
+              "components/html",
+              "components/head",
+              "components/button",
+              "components/container",
+              "components/code-block",
+              "components/code-inline",
+              "components/column",
+              "components/row",
+              "components/font",
+              "components/heading",
+              "components/hr",
+              "components/image",
+              "components/link",
+              "components/markdown",
+              "components/preview",
+              "components/section",
+              "components/tailwind",
+              "components/text"
+            ]
+          },
+          {
+            "group": "Utilities",
+            "pages": ["utilities/render"]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/resend",
+              "integrations/nodemailer",
+              "integrations/sendgrid",
+              "integrations/postmark",
+              "integrations/aws-ses",
+              "integrations/mailersend",
+              "integrations/scaleway",
+              "integrations/plunk"
+            ]
+          },
+          {
+            "group": "Contributing",
+            "pages": [
+              "contributing/introduction",
+              "contributing/opening-issues",
+              "contributing/opening-pull-requests",
+              "contributing/codebase-overview",
+              {
+                "group": "Development workflow",
+                "icon": "arrow-progress",
+                "pages": [
+                  "contributing/development-workflow/1-setup",
+                  "contributing/development-workflow/2-running-tests",
+                  "contributing/development-workflow/3-linting",
+                  "contributing/development-workflow/4-building",
+                  "contributing/development-workflow/5-writing-docs",
+                  "contributing/development-workflow/6-editing-the-components"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Components",
+          "href": "https://react.email/components",
+          "icon": "grid-2-plus"
+        },
+        {
+          "anchor": "Templates",
+          "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
+          "icon": "arrow-pointer"
+        },
+        {
+          "anchor": "Discord",
+          "href": "https://react.email/discord",
+          "icon": "discord"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/resend/react-email",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "background": {
+    "image": "/images/background.png",
+    "color": {
+      "dark": "#111111"
+    }
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/resend/react-email"
+    }
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-2LXLLQLM5D"
+    }
+  }
+}

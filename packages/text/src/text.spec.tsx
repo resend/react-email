@@ -9,7 +9,7 @@ describe('<Text> component', () => {
   });
 
   it("gives priority to the user's style", async () => {
-    const style = { marginTop: '0px' };
+    const style = { margin: '12px', marginTop: '0px' };
     const html = await render(<Text style={style} />);
     expect(html).toMatchSnapshot();
   });

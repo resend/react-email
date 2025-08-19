@@ -1,4 +1,4 @@
-name: rsnd
+name: Build and Test
 on:
   push:
     branches:
@@ -10,7 +10,6 @@ permissions:
   pull-requests: read
 jobs:
   build-and-test:
-    name: build and test
     runs-on: buildjet-4vcpu-ubuntu-2204
     outputs:
       cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
@@ -20,10 +19,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: pnpm Cache
         id: pnpm-cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4
+        uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
         with:
           path: |
             ~/.pnpm-store
@@ -52,12 +51,3 @@ jobs:
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-  dependencies:
-    runs-on: buildjet-4vcpu-ubuntu-2204
-    container:
-      image: node:22
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Check for pinned dependencies
-        run: npx tsx ./scripts/check-dependency-versions.ts

@@ -1,5 +1,11 @@
 # @react-email/body
 
+## 0.1.0
+
+### Minor Changes
+
+- 00aa805: apply all styles of the body to an inner table cell for them to work on Yahoo and AOL
+
 ## 0.0.11
 
 ### Patch Changes

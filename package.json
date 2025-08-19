@@ -4,29 +4,29 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel --concurrency 25",
-    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
-    "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix",
     "lint": "biome check",
     "lint:fix": "biome check --write .",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test:watch": "turbo run test:watch",
+    "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0-beta.1",
-    "@changesets/cli": "2.29.2",
+    "@biomejs/biome": "2.0.5",
+    "@changesets/cli": "2.29.5",
     "@types/node": "22.14.1",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "happy-dom": "17.4.4",
-    "pkg-pr-new": "0.0.43",
+    "happy-dom": "18.0.1",
+    "pkg-pr-new": "0.0.54",
     "tsconfig": "workspace:*",
     "tsup": "8.4.0",
-    "turbo": "2.5.0",
-    "vite": "6.3.2",
-    "vitest": "3.1.1"
+    "tsx": "4.20.3",
+    "turbo": "2.5.4",
+    "vite": "7.0.4",
+    "vitest": "3.2.4"
   },
   "pnpm": {
     "overrides": {
@@ -36,5 +36,5 @@
       "@types/react-dom": "^19.0.1"
     }
   },
-  "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677"
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"
 }

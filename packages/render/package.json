@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
@@ -86,8 +86,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup-node",
+    "build:watch": "tsup-node --watch",
     "clean": "rm -rf dist",
-    "dev": "tsup-node --watch",
     "test": "vitest run",
     "test:watch": "vitest"
   },

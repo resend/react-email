@@ -1,14 +1,13 @@
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Link } from '@react-email/link';
 import { render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
+import { vi } from 'vitest';
 import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
@@ -22,6 +21,41 @@ describe('Tailwind component', () => {
         </ResponsiveRow>
       </Tailwind>,
     );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should work with blocklist', async () => {
+    const actualOutput = await render(
+      <Tailwind config={{ blocklist: ['bg-blue-600'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should warn about safelist not being supported', async () => {
+    const spy = vi.spyOn(console, 'warn');
+
+    const actualOutput = await render(
+      <Tailwind config={{ safelist: ['bg-red-500'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(spy).toHaveBeenCalled();
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -338,7 +372,7 @@ describe('Tailwind component', () => {
   });
 });
 
-describe('Responsive styles', () => {
+describe('non-inlinable styles', () => {
   /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
@@ -389,22 +423,25 @@ describe('Responsive styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="my-auto mx-auto bg-white font-sans md:px-[64px]">
-          <div className="md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();
   });
 
-  it('should add css to <head/> and keep responsive class names', async () => {
+  it('should add css to <head/> and keep class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
           <head />
           <body>
-            <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+            <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
           </body>
         </Tailwind>
       </html>,

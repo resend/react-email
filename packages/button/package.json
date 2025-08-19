@@ -1,6 +1,6 @@
 {
   "name": "@react-email/button",
-  "version": "0.0.19",
+  "version": "0.2.0",
   "description": "A link that is styled to look like a button",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -24,10 +24,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
-    "test:watch": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",

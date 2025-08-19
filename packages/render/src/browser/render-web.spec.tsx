@@ -2,8 +2,10 @@
  * @vitest-environment jsdom
  */
 
-import { Preview } from '../shared/utils/preview';
-import { Template } from '../shared/utils/template';
+import { createElement } from 'react';
+import usePromise from 'react-promise-suspense';
+import { Preview } from '../shared/utils/testing/preview';
+import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
 
 type Import = typeof import('react-dom/server') & {
@@ -121,5 +123,59 @@ describe('render on the browser environment', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
+  });
+
+  it('should properly wait for Suepsense boundaries to ending before resolving', async () => {
+    const EmailTemplate = () => {
+      const html = usePromise(
+        () => fetch('https://example.com').then((res) => res.text()),
+        [],
+      );
+
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await render(<EmailTemplate />);
+
+    expect(renderedTemplate).toMatchSnapshot();
+  });
+
+  // See https://github.com/resend/react-email/issues/2263
+  it('should throw error of rendering an invalid element instead of writing them into a template tag', async () => {
+    // @ts-ignore we know this is not correct, and we want to test the error handling for it
+    const element = createElement(undefined);
+    await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  /**
+   * Create a large email that would trigger React's streaming optimization
+   * if progressiveChunkSize wasn't set to Infinity
+   *
+   * @see https://github.com/resend/react-email/issues/2353
+   */
+  it('should render large emails without hydration markers', async () => {
+    const LargeEmailTemplate = () => {
+      const largeContent = Array(100)
+        .fill(null)
+        .map((_, i) => (
+          <p key={i}>
+            This is paragraph {i} with some content to make the email larger.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris.
+          </p>
+        ));
+
+      return (
+        <div>
+          <h1>Large Email Test</h1>
+          {largeContent}
+        </div>
+      );
+    };
+
+    const actualOutput = await render(<LargeEmailTemplate />);
+
+    expect(actualOutput).toMatchSnapshot();
   });
 });

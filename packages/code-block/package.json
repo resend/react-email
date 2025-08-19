@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-block",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -24,8 +24,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "clean": "rm -rf dist",
-    "dev": "tsup src/index.ts --format esm,cjs --dts --external react --watch"
+    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",

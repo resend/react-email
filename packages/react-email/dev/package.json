@@ -1,0 +1,10 @@
+{
+  "name": "email-dev",
+  "version": "0.0.1",
+  "bin": "index.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ."
+  }
+}

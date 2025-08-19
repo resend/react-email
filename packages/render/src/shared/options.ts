@@ -1,6 +1,6 @@
 import type { HtmlToTextOptions } from 'html-to-text';
-// biome-ignore lint/correctness/noUnusedImports: this is used in the deprecated doc
 import type { pretty } from './utils/pretty';
+import type { toPlainText } from './utils/to-plain-text';
 
 export type Options = {
   /**
@@ -9,9 +9,15 @@ export type Options = {
   pretty?: boolean;
 } & (
   | {
+      /**
+       * @deprecated use {@link toPlainText} instead
+       */
       plainText?: false;
     }
   | {
+      /**
+       * @deprecated use {@link toPlainText} instead
+       */
       plainText?: true;
       /**
        * These are options you can pass down directly to the library we use for

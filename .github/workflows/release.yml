@@ -1,0 +1,50 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  release:
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    permissions: 
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: pnpm setup
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
+      - name: pnpm Cache
+        id: pnpm-cache
+        uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+      - name: Install packages
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
+      - name: Exit prerelease mode
+        # This step errors if it is not in prerelease mode
+        continue-on-error: true
+        run: pnpm canary:exit
+      - name: Create "Version packages" PR or publish release
+        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
+        with:
+          version: pnpm run version
+          publish: pnpm run release
+          title: "chore(root): Version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

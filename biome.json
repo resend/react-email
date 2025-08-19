@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -10,7 +10,7 @@
   "vcs": {
     "enabled": true,
     "clientKind": "git",
-    "useIgnoreFile": true
+    "useIgnoreFile": false
   },
   "formatter": {
     "indentStyle": "space",
@@ -28,10 +28,8 @@
       "style": {
         "noNonNullAssertion": "off",
         "useLiteralEnumMembers": "error",
-        "noCommaOperator": "error",
         "useNodejsImportProtocol": "error",
         "useAsConstAssertion": "error",
-        "useNumericLiterals": "error",
         "useEnumInitializers": "error",
         "useSelfClosingElements": "error",
         "useConst": "error",
@@ -43,7 +41,6 @@
         "useTemplate": "error",
         "noParameterAssign": "error",
         "useDefaultParameterLast": "error",
-        "noArguments": "error",
         "useImportType": "error",
         "useExportType": "error",
         "noUselessElse": "error",
@@ -54,6 +51,7 @@
         "noDelete": "off"
       },
       "a11y": {
+        "noStaticElementInteractions": "off",
         "noSvgWithoutTitle": "off",
         "noAutofocus": "off"
       },
@@ -67,8 +65,11 @@
         "useSortedClasses": "off"
       },
       "complexity": {
+        "useNumericLiterals": "error",
         "noUselessFragments": "off",
-        "noForEach": "off"
+        "noForEach": "off",
+        "noCommaOperator": "error",
+        "noArguments": "error"
       },
       "suspicious": {
         "noArrayIndexKey": "off",
@@ -87,7 +88,7 @@
       "!**/pnpm-lock.yaml",
       "!**/.next",
       "!**/public",
-      "!packages/react-email/src/actions/email-validation/caniemail-data.ts",
+      "!packages/preview-server/src/actions/email-validation/caniemail-data.ts",
       "!**/.react-email/**/*",
       "!**/node_modules/**/*",
       "!**/*.d.ts",

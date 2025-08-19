@@ -84,6 +84,18 @@ This will generate the following output:
 </html>
 ```
 
+<Danger>
+    When running on the browser, to properly support Safari and browsers running on iOS, you will
+    need to polyfill the [ReadableByteStreamController API](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController#browser_compatibility).
+
+    We recommend [npm i web-streams-polyfill](https://www.npmjs.com/package/web-streams-polyfill),
+    and it can be applied as follows in some sort of root file for your website:
+
+    ```jsx
+    import "web-streams-polyfill/polyfill";
+    ```
+</Danger>
+
 ## 4. Convert to Plain Text
 
 Plain text versions of emails are important because they ensure that the message can be read by the recipient even if they are unable to view the HTML version of the email.
@@ -92,13 +104,16 @@ This is important because not all email clients and devices can display HTML ema
 
 Here's how to convert a React component into plain text.
 
+<Warning>
+The `plainText` option in the `render` function is deprecated since [@react-email/render@1.2.0](https://github.com/resend/react-email/releases/tag/%40react-email%2Frender%401.2.0). Use the `toPlainText` function instead.
+</Warning>
+
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { toPlainText, render } from '@react-email/render';
 
-const text = await render(<MyTemplate />, {
-  plainText: true,
-});
+const html = await render(<MyTemplate />);
+const text = toPlainText(html);
 
 console.log(text);
 ```
@@ -118,7 +133,7 @@ Click me [https://example.com]
 <ResponseField name="pretty" type="boolean" deprecated>
   Beautify HTML output
 </ResponseField>
-<ResponseField name="plainText" type="boolean">
+<ResponseField name="plainText" type="boolean" deprecated>
   Generate plain text version
 </ResponseField>
 <ResponseField name="htmlToTextOptions" type="HtmlToTextOptions">
