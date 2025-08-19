@@ -1,27 +1,12 @@
 import { Root } from 'postcss';
 import * as React from 'react';
-import type { Config as TailwindOriginalConfig } from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 import { minifyCss } from './utils/css/minify-css';
 import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
-export type TailwindConfig = Pick<
-  TailwindOriginalConfig,
-  | 'important'
-  | 'prefix'
-  | 'separator'
-  | 'safelist'
-  | 'blocklist'
-  | 'presets'
-  | 'future'
-  | 'experimental'
-  | 'darkMode'
-  | 'theme'
-  | 'corePlugins'
-  | 'plugins'
->;
+export type TailwindConfig = Config;
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -91,21 +76,19 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  const tailwind = setupTailwind(config ?? {});
-
+export const Tailwind: React.FC<TailwindProps> = async ({ children, config }) => {
   const nonInlineStylesRootToApply = new Root();
   let mediaQueryClassesForAllElement: string[] = [];
 
   let hasNonInlineStylesToApply = false as boolean;
 
-  let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
+  let mappedChildren: React.ReactNode = await mapReactTree(children, async (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       const {
         elementWithInlinedStyles,
         nonInlinableClasses,
         nonInlineStyleNodes,
-      } = cloneElementWithInlinedStyles(node, tailwind);
+      } = await cloneElementWithInlinedStyles(node, config ?? {});
       mediaQueryClassesForAllElement =
         mediaQueryClassesForAllElement.concat(nonInlinableClasses);
       nonInlineStylesRootToApply.append(nonInlineStyleNodes);
@@ -125,7 +108,7 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
-    mappedChildren = mapReactTree(mappedChildren, (node) => {
+    mappedChildren = await mapReactTree(mappedChildren, (node) => {
       if (hasAppliedNonInlineStyles) {
         return node;
       }
