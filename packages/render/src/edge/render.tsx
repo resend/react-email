@@ -14,7 +14,6 @@ export const render = async (
     // This is beacuse react-dom/server is CJS
     (m) => m.default,
   );
-  console.log(reactDOMServer);
 
   const html = await new Promise<string>((resolve, reject) => {
     reactDOMServer
