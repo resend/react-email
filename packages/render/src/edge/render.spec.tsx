@@ -2,8 +2,8 @@
  * @vitest-environment jsdom
  */
 
-import { Preview } from '../shared/utils/preview';
-import { Template } from '../shared/utils/template';
+import { Preview } from '../shared/utils/testing/preview';
+import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
 
 type Import = typeof import('react-dom/server') & {

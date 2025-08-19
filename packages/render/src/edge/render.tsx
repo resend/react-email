@@ -1,9 +1,8 @@
-import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import { pretty } from '../node';
 import type { Options } from '../shared/options';
-import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { readStream } from '../shared/read-stream.browser';
+import { toPlainText } from '../shared/utils/to-plain-text';
 import { importReactDOM } from './import-react-dom';
 
 export const render = async (
@@ -15,31 +14,23 @@ export const render = async (
     // This is beacuse react-dom/server is CJS
     (m) => m.default,
   );
+  console.log(reactDOMServer);
 
-  let html!: string;
-  if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
-    html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement),
-    );
-  } else {
-    await new Promise<void>((resolve, reject) => {
-      const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
-        async onAllReady() {
-          html = await readStream(stream);
-          resolve();
+  const html = await new Promise<string>((resolve, reject) => {
+    reactDOMServer
+      .renderToReadableStream(suspendedElement, {
+        onError(error: unknown) {
+          reject(error);
         },
-        onError(error) {
-          reject(error as Error);
-        },
-      });
-    });
-  }
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
+      })
+      .then(readStream)
+      .then(resolve)
+      .catch(reject);
+  });
 
   if (options?.plainText) {
-    return convert(html, {
-      selectors: plainTextSelectors,
-      ...options.htmlToTextOptions,
-    });
+    return toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =
