@@ -9,11 +9,6 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/discord',
-        destination: 'https://discord.com/invite/n2pWEjjNnD',
-        permanent: true,
-      },
-      {
         source: '/examples',
         destination: '/templates',
         permanent: true,

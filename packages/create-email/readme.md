@@ -4,11 +4,10 @@
 <div align="center">The easiest way to get started with React Email.</div>
 <br />
 <div align="center">
-<a href="https://react.email">Website</a> 
+<a href="https://react.email">Website</a>
 <span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a> 
-<span> · </span>
-<a href="https://react.email/discord">Discord</a>
+<a href="https://github.com/resend/react-email">GitHub</a>
+
 </div>
 
 ## Getting started
