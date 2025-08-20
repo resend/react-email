@@ -48,7 +48,7 @@ export const resolveAllCSSVariables = (root: Root) => {
             ) {
               if (
                 otherDecl.parent?.parent instanceof AtRule &&
-                otherDecl.parent?.parent.name !== 'layer' &&
+                otherDecl.parent?.parent.name === 'media' &&
                 otherDecl.parent !== declaration.parent
               ) {
                 const atRule = otherDecl.parent.parent;
