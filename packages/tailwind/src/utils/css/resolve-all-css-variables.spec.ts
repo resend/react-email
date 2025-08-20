@@ -16,6 +16,22 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
+  it('should work for variables across different CSS layers', () => {
+    const root = parse(`@layer base {
+      :root {
+        --width: 100px;
+      }
+    }
+
+    @layer utilities {
+      .box {
+        width: var(--width);
+      }
+    }`);
+
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+  });
+
   it('should work with multiple variables in the same declaration', () => {
     const root = parse(`:root {
       --top: 101px;
