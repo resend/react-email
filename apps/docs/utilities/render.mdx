@@ -125,6 +125,47 @@ Some title
 Click me [https://example.com]
 ```
 
+## 5. Using withRenderOptions
+
+The `withRenderOptions` higher-order function allows your email templates to access render options directly as props. This is useful when you want to customize the email content based on how it's being rendered.
+
+```tsx
+import { withRenderOptions } from '@react-email/render';
+import { Html, Text } from '@react-email/components';
+
+type MyTemplateProps = { name: string };
+
+export const MyTemplate = withRenderOptions<MyTemplateProps>(({ name, renderOptions }) => {
+  // Check if rendering as plain text
+  if (renderOptions?.plainText) {
+    return `Hello ${name}! This is the plain text version.`;
+  }
+
+  // Default HTML rendering
+  return (
+    <Html>
+      <Text>Hello {name}!</Text>
+      <Text>This is the HTML version with styling.</Text>
+    </Html>
+  );
+});
+```
+
+Now when you render this component:
+
+```tsx
+import { MyTemplate } from './email';
+import { render } from '@react-email/render';
+
+// HTML version
+const html = await render(<MyTemplate name="John" />);
+
+// Plain text version (component receives renderOptions.plainText = true)
+const text = await render(<MyTemplate name="John" />, { plainText: true });
+```
+
+The component will automatically receive the render options as the `renderOptions` prop, allowing you to conditionally render different content.
+
 ## Options
 
 <ResponseField name="pretty" type="boolean" deprecated>

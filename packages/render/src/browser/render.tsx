@@ -4,6 +4,7 @@ import type { ReactDOMServerReadableStream } from 'react-dom/server';
 import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { plainTextSelectors } from '../shared/plain-text-selectors';
+import { injectRenderOptions } from '../shared/with-render-options';
 
 const decoder = new TextDecoder('utf-8');
 
@@ -39,7 +40,8 @@ const readStream = async (stream: ReactDOMServerReadableStream) => {
 };
 
 export const render = async (node: React.ReactNode, options?: Options) => {
-  const suspendedElement = <Suspense>{node}</Suspense>;
+  const nodeWithRenderOptionsProps = injectRenderOptions(node, options);
+  const suspendedElement = <Suspense>{nodeWithRenderOptionsProps}</Suspense>;
   const reactDOMServer = await import('react-dom/server.browser').then(
     // This is beacuse react-dom/server is CJS
     (m) => m.default,
