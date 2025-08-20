@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.2.1
+
+### Patch Changes
+
+- 036c46c: fix MessageChannel errors on edge environments
+
 ## 1.2.0
 
 ### Minor Changes
