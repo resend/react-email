@@ -4,11 +4,10 @@
 <div align="center">A hyperlink to web pages, email addresses, or anything else a URL can address.</div>
 <br />
 <div align="center">
-<a href="https://react.email">Website</a> 
+<a href="https://react.email">Website</a>
 <span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a> 
-<span> · </span>
-<a href="https://react.email/discord">Discord</a>
+<a href="https://github.com/resend/react-email">GitHub</a>
+
 </div>
 
 ## Install
