@@ -1,11 +1,16 @@
 import { Suspense } from 'react';
-import { pretty, toPlainText } from '../node';
+import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
+import { toPlainText } from '../shared/utils/to-plain-text';
+import { importReactDOM } from './import-react-dom';
 
-export const render = async (node: React.ReactNode, options?: Options) => {
-  const suspendedElement = <Suspense>{node}</Suspense>;
-  const reactDOMServer = await import('react-dom/server.browser').then(
+export const render = async (
+  element: React.ReactElement,
+  options?: Options,
+) => {
+  const suspendedElement = <Suspense>{element}</Suspense>;
+  const reactDOMServer = await importReactDOM().then(
     // This is beacuse react-dom/server is CJS
     (m) => m.default,
   );
