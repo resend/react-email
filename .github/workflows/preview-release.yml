@@ -38,7 +38,7 @@ jobs:
           cache-prefix: ${{ runner.os }}-turbo-
           provider: github
       - name: Run Build
-        run: pnpm build
+        run: pnpm turbo build --filter=./packages/*
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
