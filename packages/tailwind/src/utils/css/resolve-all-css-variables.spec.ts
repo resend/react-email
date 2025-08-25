@@ -16,6 +16,22 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
+  it('should work for variables across different CSS layers', () => {
+    const root = parse(`@layer base {
+      :root {
+        --width: 100px;
+      }
+    }
+
+    @layer utilities {
+      .box {
+        width: var(--width);
+      }
+    }`);
+
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+  });
+
   it('should work with multiple variables in the same declaration', () => {
     const root = parse(`:root {
       --top: 101px;
@@ -66,6 +82,24 @@ describe('resolveAllCSSVariables', () => {
   }
 }
 `);
+  });
+
+  it.only('should work with a variable set in a layer, and used in another through a media query', () => {
+    const root = parse(`@layer theme {
+  :root {
+    --color-blue-300: blue;
+  }
+}
+
+.sm\:bg-blue-300 {
+  @media (width >= 40rem) {
+    background-color: var(--color-blue-300);
+  }
+}`);
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.sm\:bg-blue-300 {
+  @media (width >= 40rem) {
+    background-color: blue;
+}`);
   });
 
   it('should work with different values between media queries', () => {

@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`resolveAllCSSVariables > should work for variables across different CSS layers 1`] = `
+"@layer utilities {
+      .box {
+        width: 100px;
+      }
+    }"
+`;

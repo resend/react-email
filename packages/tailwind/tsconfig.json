@@ -10,6 +10,7 @@
     "integrations/nextjs"
   ],
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "strict": true,
     "noEmit": true
   }
