@@ -461,6 +461,6 @@ const css = `
   --radius: 0.25rem;
   --max-width-prose: 65ch;
 }
-`
+`;
 
 export default css;

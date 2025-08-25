@@ -76,32 +76,38 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export const Tailwind: React.FC<TailwindProps> = async ({ children, config }) => {
+export const Tailwind: React.FC<TailwindProps> = async ({
+  children,
+  config,
+}) => {
   const nonInlineStylesRootToApply = new Root();
   let mediaQueryClassesForAllElement: string[] = [];
 
   let hasNonInlineStylesToApply = false as boolean;
 
-  let mappedChildren: React.ReactNode = await mapReactTree(children, async (node) => {
-    if (React.isValidElement<EmailElementProps>(node)) {
-      const {
-        elementWithInlinedStyles,
-        nonInlinableClasses,
-        nonInlineStyleNodes,
-      } = await cloneElementWithInlinedStyles(node, config ?? {});
-      mediaQueryClassesForAllElement =
-        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-      nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+  let mappedChildren: React.ReactNode = await mapReactTree(
+    children,
+    async (node) => {
+      if (React.isValidElement<EmailElementProps>(node)) {
+        const {
+          elementWithInlinedStyles,
+          nonInlinableClasses,
+          nonInlineStyleNodes,
+        } = await cloneElementWithInlinedStyles(node, config ?? {});
+        mediaQueryClassesForAllElement =
+          mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+        nonInlineStylesRootToApply.append(nonInlineStyleNodes);
 
-      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-        hasNonInlineStylesToApply = true;
+        if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+          hasNonInlineStylesToApply = true;
+        }
+
+        return elementWithInlinedStyles;
       }
 
-      return elementWithInlinedStyles;
-    }
-
-    return node;
-  });
+      return node;
+    },
+  );
 
   removeRuleDuplicatesFromRoot(nonInlineStylesRootToApply);
 

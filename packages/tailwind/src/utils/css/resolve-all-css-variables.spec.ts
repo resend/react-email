@@ -58,7 +58,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
   });
-  
+
   it('should work with variables set in the same rule', () => {
     const root = parse(`.box {
   --width: 200px;
@@ -96,9 +96,7 @@ describe('resolveAllCSSVariables', () => {
     background-color: var(--color-blue-300);
   }
 }`);
-    expect(
-      resolveAllCSSVariables(root).toString(),
-    ).toBe(`.sm\:bg-blue-300 {
+    expect(resolveAllCSSVariables(root).toString()).toBe(`.sm\:bg-blue-300 {
   @media (width >= 40rem) {
     background-color: blue;
 }`);

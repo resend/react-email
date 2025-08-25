@@ -2,9 +2,11 @@ import { generateRootForClasses } from './generate-root-for-classes';
 
 test("tailwind's generateRootForClasses()", async () => {
   expect(
-    (await generateRootForClasses(
-      ['text-red-500', 'sm:bg-blue-300', 'bg-slate-900'],
-      {},
-    )).toString(),
+    (
+      await generateRootForClasses(
+        ['text-red-500', 'sm:bg-blue-300', 'bg-slate-900'],
+        {},
+      )
+    ).toString(),
   ).toMatchSnapshot();
 });
