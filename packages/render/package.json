@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
@@ -11,14 +11,14 @@
   ],
   "exports": {
     ".": {
-      "node": {
+      "workerd": {
         "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
         },
         "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
+          "types": "./dist/edge/index.d.ts",
+          "default": "./dist/edge/index.js"
         }
       },
       "deno": {
@@ -39,6 +39,26 @@
         "require": {
           "types": "./dist/browser/index.d.ts",
           "default": "./dist/browser/index.js"
+        }
+      },
+      "edge-light": {
+        "import": {
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge/index.d.ts",
+          "default": "./dist/edge/index.js"
+        }
+      },
+      "node": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
         }
       },
       "browser": {

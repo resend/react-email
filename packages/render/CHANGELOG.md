@@ -1,5 +1,17 @@
 # @react-email/render
 
+## 1.2.2
+
+### Patch Changes
+
+- 174f9cd: fix builds failing with esbuild and react-dom@18
+
+## 1.2.1
+
+### Patch Changes
+
+- 036c46c: fix MessageChannel errors on edge environments
+
 ## 1.2.0
 
 ### Minor Changes
