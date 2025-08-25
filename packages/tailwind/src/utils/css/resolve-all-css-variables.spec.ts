@@ -58,7 +58,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
   });
-
+  
   it('should work with variables set in the same rule', () => {
     const root = parse(`.box {
   --width: 200px;
@@ -82,6 +82,26 @@ describe('resolveAllCSSVariables', () => {
   }
 }
 `);
+  });
+
+  it.only('should work with a variable set in a layer, and used in another through a media query', () => {
+    const root = parse(`@layer theme {
+  :root {
+    --color-blue-300: blue;
+  }
+}
+
+.sm\:bg-blue-300 {
+  @media (width >= 40rem) {
+    background-color: var(--color-blue-300);
+  }
+}`);
+    expect(
+      resolveAllCSSVariables(root).toString(),
+    ).toBe(`.sm\:bg-blue-300 {
+  @media (width >= 40rem) {
+    background-color: blue;
+}`);
   });
 
   it('should work with different values between media queries', () => {

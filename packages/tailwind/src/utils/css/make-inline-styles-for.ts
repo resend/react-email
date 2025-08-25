@@ -5,11 +5,10 @@ import { unescapeClass } from '../compatibility/unescape-class';
 
 const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
   root.walkRules((rule) => {
-    /// Only ignore AtRules that are not @layer, but can be @layer base
+    // Only ignore AtRules that are not @layer, but can be @layer base
     if (
       rule.parent instanceof AtRule &&
-      rule.parent.name !== 'layer' &&
-      rule.parent.params !== 'base'
+      (rule.parent.name !== 'layer' || rule.parent.params === 'base')
     ) {
       return;
     }
@@ -31,7 +30,6 @@ export function makeInlineStylesFor(
   className: string,
   tailwindStylesRoot: Root,
 ) {
-  console.log(tailwindStylesRoot.toString());
   const classes = className.split(' ');
 
   let residualClasses = [...classes];
@@ -50,7 +48,6 @@ export function makeInlineStylesFor(
     });
 
     rule.walkDecls((declaration) => {
-      console.log(declaration.prop, declaration.value);
       styles[convertCssPropertyToReactProperty(declaration.prop)] =
         declaration.value + (declaration.important ? '!important' : '');
     });

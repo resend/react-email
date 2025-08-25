@@ -66,7 +66,9 @@ export async function generateRootForClasses(
   });
   const css = compiler.build(classes);
   const root = parse(css);
+  console.log(root.toString());
   resolveAllCSSVariables(root);
+  console.log(root.toString());
 
   return root;
 }

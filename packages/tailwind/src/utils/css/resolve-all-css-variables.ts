@@ -23,7 +23,7 @@ const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
 
 export const resolveAllCSSVariables = (root: Root) => {
   root.walkRules((rule) => {
-    const declarationsForAtRules = new Map<AtRule, Set<Declaration>>();
+    const declarationsForMediaQueries = new Map<AtRule, Set<Declaration>>();
     const valueReplacingInformation = new Set<{
       declaration: Declaration;
       replacing: string;
@@ -61,11 +61,12 @@ export const resolveAllCSSVariables = (root: Root) => {
                 );
                 clonedDeclaration.important = declaration.important;
 
-                const declarationForAtRule = declarationsForAtRules.get(atRule);
+                const declarationForAtRule =
+                  declarationsForMediaQueries.get(atRule);
                 if (declarationForAtRule) {
                   declarationForAtRule.add(clonedDeclaration);
                 } else {
-                  declarationsForAtRules.set(
+                  declarationsForMediaQueries.set(
                     otherDecl.parent.parent,
                     new Set([clonedDeclaration]),
                   );
@@ -92,7 +93,10 @@ export const resolveAllCSSVariables = (root: Root) => {
       declaration.value = declaration.value.replaceAll(replacing, replacement);
     }
 
-    for (const [atRule, declarations] of declarationsForAtRules.entries()) {
+    for (const [
+      atRule,
+      declarations,
+    ] of declarationsForMediaQueries.entries()) {
       const equivalentRule = createRule();
       equivalentRule.selector = rule.selector;
       equivalentRule.append(...declarations);
