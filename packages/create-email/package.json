@@ -30,7 +30,7 @@
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "react": "19.0.0",
+    "react": "19.1.1",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3"
   }
