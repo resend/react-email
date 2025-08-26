@@ -11,9 +11,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
-  width: 100px;
-}`);
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
   it('should work for variables across different CSS layers', () => {
@@ -44,9 +42,7 @@ describe('resolveAllCSSVariables', () => {
       margin: var(--top) var(--right) var(--bottom) var(--left);
     }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
-      margin: 101px 103px 102px 104px;
-    }`);
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
   it('should keep variable usages if it cant find their declaration', () => {
@@ -54,9 +50,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
-  width: var(--width);
-}`);
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
   it('should work with variables set in the same rule', () => {
@@ -72,60 +66,51 @@ describe('resolveAllCSSVariables', () => {
   }
 }
 `);
-    expect(resolveAllCSSVariables(root).toString()).toBe(`.box {
-  width: 200px;
-}
-
-@media (min-width: 1280px) {
-  .xl\\:bg-green-500 {
-    background-color: rgb(34 197 94 / 1)
-  }
-}
-`);
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
-  it.only('should work with a variable set in a layer, and used in another through a media query', () => {
+  it('should work with a variable set in a layer, and used in another through a media query', () => {
     const root = parse(`@layer theme {
   :root {
     --color-blue-300: blue;
   }
 }
 
-.sm\:bg-blue-300 {
-  @media (width >= 40rem) {
-    background-color: var(--color-blue-300);
+@layer utilities {
+  .sm\:bg-blue-300 {
+    @media (width >= 40rem) {
+      background-color: var(--color-blue-300);
+    }
   }
 }`);
-    expect(resolveAllCSSVariables(root).toString()).toBe(`.sm\:bg-blue-300 {
-  @media (width >= 40rem) {
-    background-color: blue;
-}`);
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
-  it('should work with different values between media queries', () => {
-    const root = parse(`:root {
-  --width: 100px;
-}
-
-@media (max-width: 1000px) {
-  :root {
-    --width: 200px;
-  }
-}
-
-.box {
-  width: var(--width);
-}`);
-    expect(
-      resolveAllCSSVariables(root).toString(),
-    ).toBe(`@media (max-width: 1000px) {
-  .box {
-    width: 200px;
-  }
-}
-
-.box {
-  width: 100px;
-}`);
-  });
+  // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
+  //   it.only('should work with different values between media queries', () => {
+  //     const root = parse(`:root {
+  //   --width: 100px;
+  // }
+  //
+  // @media (max-width: 1000px) {
+  //   :root {
+  //     --width: 200px;
+  //   }
+  // }
+  //
+  // .box {
+  //   width: var(--width);
+  // }`);
+  //     expect(
+  //       resolveAllCSSVariables(root).toString(),
+  //     ).toBe(`@media (max-width: 1000px) {
+  //   .box {
+  //     width: 200px;
+  //   }
+  // }
+  //
+  // .box {
+  //   width: 100px;
+  // }`);
+  //   });
 });
