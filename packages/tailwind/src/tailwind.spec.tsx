@@ -99,16 +99,14 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  describe('Inline styles', () => {
-    it('should render children with inline Tailwind styles', async () => {
-      const actualOutput = await render(
-        <Tailwind>
-          <div className="bg-white" />
-        </Tailwind>,
-      );
+  it('should render children with inline Tailwind styles', async () => {
+    const actualOutput = await render(
+      <Tailwind>
+        <div className="bg-white" />
+      </Tailwind>,
+    );
 
-      expect(actualOutput).not.toBeNull();
-    });
+    expect(actualOutput).toMatchSnapshot();
   });
 
   // test("with React context and custom components", () => {
