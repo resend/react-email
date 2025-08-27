@@ -6,7 +6,7 @@ import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 
-export type TailwindConfig = Config;
+export type TailwindConfig = Omit<Config, 'content'>;
 
 export interface TailwindProps {
   children: React.ReactNode;
