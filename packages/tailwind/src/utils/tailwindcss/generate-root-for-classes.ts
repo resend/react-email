@@ -6,7 +6,10 @@ import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
 
-const baseCss = `@import "tailwindcss";
+const baseCss = `
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 @config;
 `;
 
@@ -37,26 +40,26 @@ export async function generateRootForClasses(
         };
       }
 
-      if (id === 'tailwindcss/preflight') {
+      if (id === 'tailwindcss/preflight.css') {
         return {
           base,
-          path: 'tailwindcss/preflight.css',
+          path: id,
           content: preflightCss,
         };
       }
 
-      if (id === 'tailwindcss/theme') {
+      if (id === 'tailwindcss/theme.css') {
         return {
           base,
-          path: 'tailwindcss/theme.css',
+          path: id,
           content: themeCss,
         };
       }
 
-      if (id === 'tailwindcss/utilities') {
+      if (id === 'tailwindcss/utilities.css') {
         return {
           base,
-          path: 'tailwindcss/utilities.css',
+          path: id,
           content: utilitiesCss,
         };
       }
