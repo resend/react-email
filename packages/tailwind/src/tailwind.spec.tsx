@@ -4,7 +4,7 @@ import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Link } from '@react-email/link';
-import { render } from '@react-email/render';
+import { pretty, render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
 import type { TailwindConfig } from '.';
@@ -405,10 +405,7 @@ describe('non-inlinable styles', () => {
           <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
-      {
-        pretty: true,
-      },
-    );
+    ).then(pretty);
 
     expect(output).toMatchSnapshot();
   });
@@ -423,12 +420,12 @@ describe('non-inlinable styles', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should throw error when used without the head and with media query class names only very deeply nested', async () => {
+  it('should throw error when used without the head and with media query class names very deeply nested', async () => {
     const Component1 = (props: Record<string, any>) => {
       return (
         <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
@@ -478,7 +475,7 @@ describe('non-inlinable styles', () => {
       );
     };
 
-    expect(await render(<Email />)).toMatchSnapshot();
+    expect(await render(<Email />).then(pretty)).toMatchSnapshot();
   });
 
   it('should throw an error when used without a <head/>', async () => {
@@ -490,7 +487,7 @@ describe('non-inlinable styles', () => {
             <div className="bg-red-200 sm:bg-red-500" />
           </html>
         </Tailwind>,
-      );
+      ).then(pretty);
     }
     await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
   });
@@ -508,7 +505,7 @@ describe('non-inlinable styles', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -530,7 +527,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="bg-custom text-custom" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -552,7 +549,7 @@ describe('Custom theme config', () => {
         <div className="font-sans" />
         <div className="font-serif" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -571,7 +568,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="m-8xl" />
       </Tailwind>,
-    );
+    ).then(pretty);
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -589,7 +586,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>,
-    );
+    ).then(pretty);
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -608,7 +605,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -636,7 +633,7 @@ describe('Custom plugins config', () => {
       <Tailwind config={config}>
         <div className="border-custom" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -651,7 +648,7 @@ describe('Custom plugins config', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
