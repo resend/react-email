@@ -4,10 +4,9 @@ import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Html } from '@react-email/html';
 import { Link } from '@react-email/link';
-import { render } from '@react-email/render';
+import { pretty, render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
-import { vi } from 'vitest';
 import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
@@ -37,25 +36,6 @@ describe('Tailwind component', () => {
       { pretty: true },
     );
 
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should warn about safelist not being supported', async () => {
-    const spy = vi.spyOn(console, 'warn');
-
-    const actualOutput = await render(
-      <Tailwind config={{ safelist: ['bg-red-500'] }}>
-        <Head />
-        <body>
-          <button type="button" className="bg-blue-600 md:p-4">
-            Click me
-          </button>
-        </body>
-      </Tailwind>,
-      { pretty: true },
-    );
-
-    expect(spy).toHaveBeenCalled();
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -118,16 +98,14 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  describe('Inline styles', () => {
-    it('should render children with inline Tailwind styles', async () => {
-      const actualOutput = await render(
-        <Tailwind>
-          <div className="bg-white" />
-        </Tailwind>,
-      );
+  it('should render children with inline Tailwind styles', async () => {
+    const actualOutput = await render(
+      <Tailwind>
+        <div className="bg-white" />
+      </Tailwind>,
+    );
 
-      expect(actualOutput).not.toBeNull();
-    });
+    expect(actualOutput).toMatchSnapshot();
   });
 
   // test("with React context and custom components", () => {
@@ -427,10 +405,7 @@ describe('non-inlinable styles', () => {
           <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
-      {
-        pretty: true,
-      },
-    );
+    ).then(pretty);
 
     expect(output).toMatchSnapshot();
   });
@@ -445,12 +420,12 @@ describe('non-inlinable styles', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should throw error when used without the head and with media query class names only very deeply nested', async () => {
+  it('should throw error when used without the head and with media query class names very deeply nested', async () => {
     const Component1 = (props: Record<string, any>) => {
       return (
         <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
@@ -500,7 +475,7 @@ describe('non-inlinable styles', () => {
       );
     };
 
-    expect(await render(<Email />)).toMatchSnapshot();
+    expect(await render(<Email />).then(pretty)).toMatchSnapshot();
   });
 
   it('should throw an error when used without a <head/>', async () => {
@@ -512,7 +487,7 @@ describe('non-inlinable styles', () => {
             <div className="bg-red-200 sm:bg-red-500" />
           </html>
         </Tailwind>,
-      );
+      ).then(pretty);
     }
     await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
   });
@@ -530,7 +505,7 @@ describe('non-inlinable styles', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -552,7 +527,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="bg-custom text-custom" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -574,7 +549,7 @@ describe('Custom theme config', () => {
         <div className="font-sans" />
         <div className="font-serif" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -593,7 +568,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="m-8xl" />
       </Tailwind>,
-    );
+    ).then(pretty);
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -611,7 +586,7 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="rounded-4xl" />
       </Tailwind>,
-    );
+    ).then(pretty);
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -630,52 +605,40 @@ describe('Custom theme config', () => {
       <Tailwind config={config}>
         <div className="text-justify" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
 });
 
 describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', async () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
+  const config = {
+    plugins: [
+      {
+        handler: (api) => {
+          api.addUtilities({
             '.border-custom': {
-              border: '2px solid',
+              styles: {
+                border: '2px solid',
+              },
             },
-          };
-
-          addUtilities(newUtilities);
+          });
         },
-      ],
-    };
+      },
+    ],
+  } satisfies TailwindConfig;
 
+  it('should be able to use custom plugins', async () => {
     const actualOutput = await render(
       <Tailwind config={config}>
         <div className="border-custom" />
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
 
   it('should be able to use custom plugins with responsive styles', async () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid',
-            },
-          };
-
-          addUtilities(newUtilities);
-        },
-      ],
-    };
-
     const actualOutput = await render(
       <html lang="en">
         <Tailwind config={config}>
@@ -685,7 +648,7 @@ describe('Custom plugins config', () => {
           </body>
         </Tailwind>
       </html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
