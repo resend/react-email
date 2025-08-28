@@ -9,8 +9,7 @@ import { sanitizeClassName } from '../compatibility/sanitize-class-name';
  *
  * What it does is:
  * 1. Converts all declarations in all rules into being important ones
- * 2. Sanitizes all the selectors of all rules in the media queries
- * 3. Sanitizes all the selectors of all rules using pseudo classes
+ * 2. Sanitizes all the selectors of all non-inlinable rules
  * 4. Merges at rules that have equivalent parameters
  */
 export const sanitizeNonInlinableClasses = (root: Root) => {
@@ -21,6 +20,8 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
   // Process rules within at-rules (like media queries)
   root.walkAtRules((atRule) => {
+    if (atRule.name !== 'media') return;
+
     const sanitizedAtRule = atRule.clone();
 
     sanitizedAtRule.walkRules((rule) => {
@@ -51,7 +52,12 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
   // Process top-level rules
   root.walkRules((rule) => {
-    if (rule.parent && rule.parent.type !== 'root') return;
+    if (
+      rule.parent &&
+      rule.parent instanceof AtRule &&
+      rule.parent.name === 'media'
+    )
+      return;
 
     const selectorRoot = selectorProcessor.astSync(rule.selector);
 
