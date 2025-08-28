@@ -16,13 +16,10 @@ describe('sanitizeDeclarations', () => {
     });
 
     it('converts oklch with decimal values', () => {
-      const css = postcss.parse('div { color: oklch(92.6% 0.0546 218 / 50%); }');
+      const css = postcss.parse(
+        'div { color: oklch(92.6% 0.0546 218 / 50%); }',
+      );
       sanitizeDeclarations(css);
-      // 270 degrees = 3π/2, cos(3π/2) = 0, sin(3π/2) = -1
-      // l = 0.625, c = 0.25, h = 270°
-      // r = 0.625 + 0.25 * 0 = 0.625
-      // g = 0.625 + 0.25 * (-1) = 0.375
-      // b = 0.625
       expect(css.toString()).toBe('div { color: rgb(190.5,240.2,255,0.5); }');
     });
 
@@ -98,6 +95,144 @@ describe('sanitizeDeclarations', () => {
       const css = postcss.parse('div { color: rgb(255, 0, 128); }');
       sanitizeDeclarations(css);
       expect(css.toString()).toBe('div { color: rgb(255, 0, 128); }');
+    });
+  });
+
+  describe('hex to rgb conversion', () => {
+    it('converts 3-digit hex without alpha', () => {
+      const css = postcss.parse('div { color: #f0a; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,0,170); }');
+    });
+
+    it('converts 4-digit hex with alpha', () => {
+      const css = postcss.parse('div { color: #f0a8; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe(
+        'div { color: rgb(255,0,170,0.5333333333333333); }',
+      );
+    });
+
+    it('converts 6-digit hex without alpha', () => {
+      const css = postcss.parse('div { color: #ff00aa; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,0,170); }');
+    });
+
+    it('converts 8-digit hex with alpha', () => {
+      const css = postcss.parse('div { color: #ff00aa80; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe(
+        'div { color: rgb(255,0,170,0.5019607843137255); }',
+      );
+    });
+
+    it('converts black hex color', () => {
+      const css = postcss.parse('div { color: #000; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(0,0,0); }');
+    });
+
+    it('converts white hex color', () => {
+      const css = postcss.parse('div { color: #fff; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,255,255); }');
+    });
+
+    it('converts red hex color', () => {
+      const css = postcss.parse('div { color: #ff0000; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,0,0); }');
+    });
+
+    it('converts green hex color', () => {
+      const css = postcss.parse('div { color: #00ff00; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(0,255,0); }');
+    });
+
+    it('converts blue hex color', () => {
+      const css = postcss.parse('div { color: #0000ff; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(0,0,255); }');
+    });
+
+    it('converts hex with lowercase letters', () => {
+      const css = postcss.parse('div { color: #abcdef; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(171,205,239); }');
+    });
+
+    it('converts hex with uppercase letters', () => {
+      const css = postcss.parse('div { color: #ABCDEF; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(171,205,239); }');
+    });
+
+    it('converts hex with mixed case letters', () => {
+      const css = postcss.parse('div { color: #AbCdEf; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(171,205,239); }');
+    });
+
+    it('converts hex with full transparency', () => {
+      const css = postcss.parse('div { color: #ff000000; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,0,0,0); }');
+    });
+
+    it('converts hex with full opacity', () => {
+      const css = postcss.parse('div { color: #ff0000ff; }');
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe('div { color: rgb(255,0,0,1); }');
+    });
+
+    it('handles multiple hex colors in single declaration', () => {
+      const css = postcss.parse(
+        'div { background: linear-gradient(#ff0000, #00ff00, #0000ff); }',
+      );
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe(
+        'div { background: linear-gradient(rgb(255,0,0), rgb(0,255,0), rgb(0,0,255)); }',
+      );
+    });
+
+    it('handles hex colors mixed with other color formats', () => {
+      const css = postcss.parse(
+        'div { background: linear-gradient(#ff0000, rgb(0 255 0), oklch(50% 0.2 240)); }',
+      );
+      sanitizeDeclarations(css);
+      const result = css.toString();
+      expect(result).toContain('rgb(255,0,0)');
+      expect(result).toContain('rgb(0,255,0)');
+      expect(result).toContain('rgb(0,');
+    });
+
+    it('preserves non-hex hash values', () => {
+      const css = postcss.parse(
+        'div { content: "Visit our site at example.com#section"; }',
+      );
+      sanitizeDeclarations(css);
+      expect(css.toString()).toBe(
+        'div { content: "Visit our site at example.com#section"; }',
+      );
+    });
+
+    it('converts multiple hex values in different properties', () => {
+      const css = postcss.parse(`
+        div {
+          color: #ff0000;
+          background-color: #00ff00;
+          border-color: #0000ff;
+          box-shadow: 0 0 10px #333;
+        }
+      `);
+      sanitizeDeclarations(css);
+      const result = css.toString();
+      expect(result).toContain('color: rgb(255,0,0)');
+      expect(result).toContain('background-color: rgb(0,255,0)');
+      expect(result).toContain('border-color: rgb(0,0,255)');
+      expect(result).toContain('box-shadow: 0 0 10px rgb(51,51,51)');
     });
   });
 

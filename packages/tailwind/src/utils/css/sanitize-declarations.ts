@@ -1,4 +1,9 @@
-import type { AtRule, Root, Rule } from 'postcss';
+import {
+  type AtRule,
+  decl as createDeclaration,
+  type Root,
+  type Rule,
+} from 'postcss';
 
 const LAB_TO_LMS = {
   l: [0.3963377773761749, 0.2158037573099136],
@@ -71,8 +76,14 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
  * Meant to do all the things necessary, in a per-declaration basis, to have the best email client
  * support possible.
  *
- * Currently it only converts all `rgb` declaration values that use a space-based syntax
- * into a command based one since the space-based isn't well supported.
+ * Here's the transformations it does so far:
+ * - convert all `rgb` with space-based syntax into a comma based one;
+ * - convert all `oklch` values into `rgb`;
+ * - convert all hex values into `rgb`;
+ * - convert `padding-inline` into `padding-left` and `padding-right`;
+ * - convert `padding-block` into `padding-top` and `padding-bottom`;
+ * - convert `margin-inline` into `margin-left` and `margin-right`;
+ * - convert `margin-block` into `margin-top` and `margin-bottom`.
  */
 export const sanitizeDeclarations = (
   nodeContainingDeclarations: Rule | AtRule | Root,
@@ -82,6 +93,7 @@ export const sanitizeDeclarations = (
       /rgb\(\s*(\d+)\s*(\d+)\s*(\d+)(?:\s*\/\s*([\d%.]+))?\s*\)/g;
     const oklchParserRegex =
       /oklch\(\s*([\d.]+)(%)?\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+)(%)?)?\s*\)/g;
+    const hexParserRegex = /#([a-fA-F0-9]{3,8})/g;
 
     declaration.value = declaration.value
       .replaceAll(rgbParserRegex, (_match, r, g, b, a) => {
@@ -102,6 +114,83 @@ export const sanitizeDeclarations = (
             : '';
           return `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`;
         },
-      );
+      )
+      .replaceAll(hexParserRegex, (_match, hex: string) => {
+        if (hex.length === 3) {
+          const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
+          const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
+          const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+          return `rgb(${r},${g},${b})`;
+        }
+        if (hex.length === 4) {
+          const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
+          const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
+          const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+          const a = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16) / 255;
+          return `rgb(${r},${g},${b},${a})`;
+        }
+        if (hex.length === 5) {
+          const r = Number.parseInt(hex.slice(0, 2), 16);
+          const g = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+          const b = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16);
+          const a = Number.parseInt(hex.charAt(4) + hex.charAt(4), 16) / 255;
+          return `rgb(${r},${g},${b},${a})`;
+        }
+        if (hex.length === 6) {
+          const r = Number.parseInt(hex.slice(0, 2), 16);
+          const g = Number.parseInt(hex.slice(2, 4), 16);
+          const b = Number.parseInt(hex.slice(4, 6), 16);
+          return `rgb(${r},${g},${b})`;
+        }
+        if (hex.length === 7) {
+          const r = Number.parseInt(hex.slice(0, 2), 16);
+          const g = Number.parseInt(hex.slice(2, 4), 16);
+          const b = Number.parseInt(hex.slice(4, 6), 16);
+          const a = Number.parseInt(hex.charAt(6) + hex.charAt(6), 16) / 255;
+          return `rgb(${r},${g},${b},${a})`;
+        }
+        const r = Number.parseInt(hex.slice(0, 2), 16);
+        const g = Number.parseInt(hex.slice(2, 4), 16);
+        const b = Number.parseInt(hex.slice(4, 6), 16);
+        const a = Number.parseInt(hex.slice(6, 8), 16) / 255;
+        return `rgb(${r},${g},${b},${a})`;
+      });
+
+    if (declaration.prop === 'padding-inline') {
+      declaration.prop = 'padding-left';
+
+      const paddingRight = createDeclaration({
+        prop: 'padding-right',
+        value: declaration.value,
+      });
+      declaration.parent?.insertAfter(declaration, paddingRight);
+    }
+    if (declaration.prop === 'padding-block') {
+      declaration.prop = 'padding-top';
+
+      const paddingBottom = createDeclaration({
+        prop: 'padding-bottom',
+        value: declaration.value,
+      });
+      declaration.parent?.insertAfter(declaration, paddingBottom);
+    }
+    if (declaration.prop === 'margin-inline') {
+      declaration.prop = 'margin-left';
+
+      const marginRight = createDeclaration({
+        prop: 'margin-right',
+        value: declaration.value,
+      });
+      declaration.parent?.insertAfter(declaration, marginRight);
+    }
+    if (declaration.prop === 'margin-block') {
+      declaration.prop = 'margin-top';
+
+      const marginBottom = createDeclaration({
+        prop: 'margin-bottom',
+        value: declaration.value,
+      });
+      declaration.parent?.insertAfter(declaration, marginBottom);
+    }
   });
 };
