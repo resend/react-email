@@ -30,23 +30,50 @@ export function makeInlineStylesFor(
 
   let residualClasses = [...classes];
   const styles: Record<string, string> = {};
+  const classesWithNonInlinableStyles = new Set<string>();
 
-  walkInlinableRules(tailwindStylesRoot, (rule) => {
-    const classesOnSelector: string[] = [];
+  tailwindStylesRoot.walkRules((rule) => {
+    const isInAtRule = rule.parent?.type === 'atrule';
+
+    let hasPseudoSelectors = false;
     selectorParser((selector) => {
-      selector.walkClasses((v) => {
-        classesOnSelector.push(unescapeClass(v.value));
+      selector.walkPseudos(() => {
+        hasPseudoSelectors = true;
       });
     }).processSync(rule.selector);
 
-    residualClasses = residualClasses.filter((singleClass) => {
-      return !classesOnSelector.includes(singleClass);
-    });
+    const isNonInlinable = isInAtRule || hasPseudoSelectors;
+
+    if (isNonInlinable) {
+      selectorParser((selector) => {
+        selector.walkClasses((v) => {
+          classesWithNonInlinableStyles.add(unescapeClass(v.value));
+        });
+      }).processSync(rule.selector);
+    }
+  });
+
+  const inlinableClasses = new Set<string>();
+
+  walkInlinableRules(tailwindStylesRoot, (rule) => {
+    selectorParser((selector) => {
+      selector.walkClasses((v) => {
+        inlinableClasses.add(unescapeClass(v.value));
+      });
+    }).processSync(rule.selector);
 
     rule.walkDecls((declaration) => {
       styles[convertCssPropertyToReactProperty(declaration.prop)] =
         declaration.value + (declaration.important ? '!important' : '');
     });
+  });
+
+  residualClasses = residualClasses.filter((singleClass) => {
+    const isInlinable = inlinableClasses.has(singleClass);
+    const hasNonInlinableStyles =
+      classesWithNonInlinableStyles.has(singleClass);
+
+    return !isInlinable || hasNonInlinableStyles;
   });
 
   return {
