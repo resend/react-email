@@ -6,7 +6,9 @@ import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
 
-const baseCss = `@import "tailwindcss";`;
+const baseCss = `@import "tailwindcss";
+@config;
+`;
 
 export async function generateRootForClasses(
   classes: string[],
