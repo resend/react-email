@@ -7,7 +7,6 @@ import { Link } from '@react-email/link';
 import { render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
-import { vi } from 'vitest';
 import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
@@ -616,21 +615,23 @@ describe('Custom theme config', () => {
 });
 
 describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', async () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
+  const config = {
+    plugins: [
+      {
+        handler: (api) => {
+          api.addUtilities({
             '.border-custom': {
-              border: '2px solid',
+              styles: {
+                border: '2px solid',
+              },
             },
-          };
-
-          addUtilities(newUtilities);
+          });
         },
-      ],
-    };
+      },
+    ],
+  } satisfies TailwindConfig;
 
+  it('should be able to use custom plugins', async () => {
     const actualOutput = await render(
       <Tailwind config={config}>
         <div className="border-custom" />
@@ -641,20 +642,6 @@ describe('Custom plugins config', () => {
   });
 
   it('should be able to use custom plugins with responsive styles', async () => {
-    const config: TailwindConfig = {
-      plugins: [
-        ({ addUtilities }: any) => {
-          const newUtilities = {
-            '.border-custom': {
-              border: '2px solid',
-            },
-          };
-
-          addUtilities(newUtilities);
-        },
-      ],
-    };
-
     const actualOutput = await render(
       <html lang="en">
         <Tailwind config={config}>
