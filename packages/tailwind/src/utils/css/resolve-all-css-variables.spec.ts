@@ -86,31 +86,42 @@ describe('resolveAllCSSVariables', () => {
     expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
   });
 
+  it('should use fallback values when variable definition is not found', () => {
+    const root = parse(`.box {
+  width: var(--undefined-width, 150px);
+  height: var(--undefined-height, 200px);
+  margin: var(--undefined-margin, 10px 20px);
+}`);
+
+    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+  });
+
   // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
-  //   it.only('should work with different values between media queries', () => {
-  //     const root = parse(`:root {
-  //   --width: 100px;
-  // }
   //
-  // @media (max-width: 1000px) {
-  //   :root {
-  //     --width: 200px;
+  // it.only('should work with different values between media queries', () => {
+  //   const root = parse(`:root {
+  //     --width: 100px;
   //   }
-  // }
   //
-  // .box {
-  //   width: var(--width);
-  // }`);
-  //     expect(
-  //       resolveAllCSSVariables(root).toString(),
-  //     ).toBe(`@media (max-width: 1000px) {
+  //   @media (max-width: 1000px) {
+  //     :root {
+  //       --width: 200px;
+  //     }
+  //   }
+  //
   //   .box {
-  //     width: 200px;
+  //     width: var(--width);
+  //   }`);
+  //   expect(
+  //     resolveAllCSSVariables(root).toString(),
+  //   ).toBe(`@media (max-width: 1000px) {
+  //     .box {
+  //       width: 200px;
+  //     }
   //   }
-  // }
   //
-  // .box {
-  //   width: 100px;
-  // }`);
-  //   });
+  //   .box {
+  //     width: 100px;
+  //   }`);
+  // });
 });

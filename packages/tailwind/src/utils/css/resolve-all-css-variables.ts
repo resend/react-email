@@ -1,19 +1,16 @@
-import {
-  AtRule,
-  type Declaration,
-  type Root,
-  Rule,
-} from 'postcss';
+import { AtRule, type Declaration, type Root, Rule } from 'postcss';
 import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
 
 interface VariableUse {
   declaration: Declaration;
-  variable: string;
+  fallback?: string;
+  variableName: string;
+  raw: string;
 }
 
 interface VariableDefinition {
   declaration: Declaration;
-  variable: string;
+  variableName: string;
   definition: string;
 }
 
@@ -41,26 +38,27 @@ export const resolveAllCSSVariables = (root: Root) => {
     if (/--[^\s]+/.test(declaration.prop)) {
       variableDefinitions.add({
         declaration,
-        variable: `var(${declaration.prop})`,
+        variableName: `${declaration.prop}`,
         definition: declaration.value,
       });
     } else {
-      const variablesUsed = [
-        ...declaration.value.matchAll(/var\(--[^\s)]+\)/gm),
-      ].map((match) => match.toString());
-
-      for (const variable of variablesUsed) {
+      for (const [match, variableName, fallback] of declaration.value.matchAll(
+        /var\((--[^\s)]+)(?:,\s*([^)]+))?\)/gm,
+      )) {
         variableUses.add({
           declaration,
-          variable,
+          fallback,
+          variableName,
+          raw: match,
         });
       }
     }
   });
 
-  for (const definition of variableDefinitions) {
-    for (const use of variableUses) {
-      if (use.variable !== definition.variable) {
+  for (const use of variableUses) {
+    let hasReplaced = false;
+    for (const definition of variableDefinitions) {
+      if (use.variableName !== definition.variableName) {
         continue;
       }
 
@@ -74,10 +72,11 @@ export const resolveAllCSSVariables = (root: Root) => {
         )
       ) {
         use.declaration.value = use.declaration.value.replaceAll(
-          use.variable,
+          use.raw,
           definition.definition,
         );
-        continue;
+        hasReplaced = true;
+        break;
       }
 
       if (
@@ -89,95 +88,21 @@ export const resolveAllCSSVariables = (root: Root) => {
         )
       ) {
         use.declaration.value = use.declaration.value.replaceAll(
-          use.variable,
+          use.raw,
           definition.definition,
         );
+        hasReplaced = true;
+        break;
       }
     }
-  }
 
-  // root.walkRules((rule) => {
-  //   const declarationsForMediaQueries = new Map<AtRule, Set<Declaration>>();
-  //   const valueReplacingInformation = new Set<{
-  //     declaration: Declaration;
-  //     replacing: string;
-  //     replacement: string;
-  //   }>();
-  //
-  //   rule.walkDecls((declaration) => {
-  //     if () {
-  //       /**
-  //        * @example ['var(--width)', 'var(--length)']
-  //        */
-  //       const variablesUsed = [
-  //         ...declaration.value.matchAll(/var\(--[^\s)]+\)/gm),
-  //       ].map((match) => match.toString());
-  //
-  //       root.walkDecls((otherDecl) => {
-  //         if () {
-  //           const variable = `var(${otherDecl.prop})`;
-  //           if (
-  //             variablesUsed?.includes(variable) &&
-  //             areSelectingTheSame(declaration.parent, otherDecl.parent)
-  //           ) {
-  //             if (
-  //               otherDecl.parent?.parent instanceof AtRule &&
-  //               otherDecl.parent?.parent.name === 'media' &&
-  //               otherDecl.parent !== declaration.parent
-  //             ) {
-  //               const atRule = otherDecl.parent.parent;
-  //
-  //               const clonedDeclaration = createDeclaration();
-  //               clonedDeclaration.prop = declaration.prop;
-  //               clonedDeclaration.value = declaration.value.replaceAll(
-  //                 variable,
-  //                 otherDecl.value,
-  //               );
-  //               clonedDeclaration.important = declaration.important;
-  //
-  //               const declarationForAtRule =
-  //                 declarationsForMediaQueries.get(atRule);
-  //               if (declarationForAtRule) {
-  //                 declarationForAtRule.add(clonedDeclaration);
-  //               } else {
-  //                 declarationsForMediaQueries.set(
-  //                   otherDecl.parent.parent,
-  //                   new Set([clonedDeclaration]),
-  //                 );
-  //               }
-  //               return;
-  //             }
-  //
-  //             valueReplacingInformation.add({
-  //               declaration,
-  //               replacing: variable,
-  //               replacement: otherDecl.value,
-  //             });
-  //           }
-  //         }
-  //       });
-  //     }
-  //   });
-  //
-  //   for (const {
-  //     declaration,
-  //     replacing,
-  //     replacement,
-  //   } of valueReplacingInformation) {
-  //     declaration.value = declaration.value.replaceAll(replacing, replacement);
-  //   }
-  //
-  //   for (const [
-  //     atRule,
-  //     declarations,
-  //   ] of declarationsForMediaQueries.entries()) {
-  //     const equivalentRule = createRule();
-  //     equivalentRule.selector = rule.selector;
-  //     equivalentRule.append(...declarations);
-  //
-  //     atRule.append(equivalentRule);
-  //   }
-  // });
+    if (!hasReplaced && use.fallback) {
+      use.declaration.value = use.declaration.value.replaceAll(
+        use.raw,
+        use.fallback,
+      );
+    }
+  }
 
   for (const definition of variableDefinitions) {
     const parent = definition.declaration.parent;

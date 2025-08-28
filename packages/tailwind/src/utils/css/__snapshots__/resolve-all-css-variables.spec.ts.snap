@@ -6,6 +6,14 @@ exports[`resolveAllCSSVariables > should keep variable usages if it cant find th
 }"
 `;
 
+exports[`resolveAllCSSVariables > should use fallback values when variable definition is not found 1`] = `
+".box {
+  width: 150px;
+  height: 200px;
+  margin: 10px 20px;
+}"
+`;
+
 exports[`resolveAllCSSVariables > should work for variables across different CSS layers 1`] = `
 "@layer utilities {
       .box {
