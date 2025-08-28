@@ -4,11 +4,10 @@
 <div align="center">Display a predictable inline code HTML element that works on all email clients.</div>
 <br />
 <div align="center">
-<a href="https://react.email">Website</a> 
+<a href="https://react.email">Website</a>
 <span> · </span>
-<a href="https://github.com/resendlabs/react-email">GitHub</a> 
-<span> · </span>
-<a href="https://react.email/discord">Discord</a>
+<a href="https://github.com/resendlabs/react-email">GitHub</a>
+
 </div>
 
 ## Install

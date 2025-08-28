@@ -122,11 +122,6 @@
           "icon": "arrow-pointer"
         },
         {
-          "anchor": "Discord",
-          "href": "https://react.email/discord",
-          "icon": "discord"
-        },
-        {
           "anchor": "GitHub",
           "href": "https://github.com/resend/react-email",
           "icon": "github"
