@@ -1,4 +1,4 @@
-import { AtRule, type Root, type Rule } from 'postcss';
+import { AtRule, type Root, Rule } from 'postcss';
 import selectorParser from 'postcss-selector-parser';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 
@@ -18,62 +18,27 @@ export const sanitizeNonInlinableClasses = (root: Root) => {
 
   const selectorProcessor = selectorParser();
 
-  // Process rules within at-rules (like media queries)
-  root.walkAtRules((atRule) => {
-    if (atRule.name !== 'media') return;
-
-    const sanitizedAtRule = atRule.clone();
-
-    sanitizedAtRule.walkRules((rule) => {
-      const selectorRoot = selectorProcessor.astSync(rule.selector);
-      selectorRoot.walkClasses((className) => {
-        nonInlinableClasses.push(className.value);
-        sanitizeSelectorClassName(className);
-      });
-
-      const processedRule = rule.clone({ selector: selectorRoot.toString() });
-      processedRule.walkDecls((decl) => {
-        decl.important = true;
-      });
-
-      rule.replaceWith(processedRule);
-    });
-
-    const equivalentRule = sanitizedRules.find(
-      (r) => r instanceof AtRule && r.params === sanitizedAtRule.params,
-    );
-
-    if (equivalentRule) {
-      equivalentRule.append(sanitizedAtRule.nodes);
-    } else {
-      sanitizedRules.push(sanitizedAtRule);
-    }
-  });
-
-  // Process top-level rules
   root.walkRules((rule) => {
-    if (
-      rule.parent &&
-      rule.parent instanceof AtRule &&
-      rule.parent.name === 'media'
-    )
-      return;
-
     const selectorRoot = selectorProcessor.astSync(rule.selector);
+
+    let hasAtRuleInside = false;
+    rule.walkAtRules(() => {
+      hasAtRuleInside = true;
+    });
 
     let hasPseudoSelector = false as boolean;
     selectorRoot.walkPseudos(() => {
       hasPseudoSelector = true;
     });
 
-    if (!hasPseudoSelector) return;
+    const isInlinable = !hasAtRuleInside && !hasPseudoSelector;
 
-    selectorRoot.walkClasses((className) => {
-      nonInlinableClasses.push(className.value);
-      sanitizeSelectorClassName(className);
-    });
+    if (isInlinable) {
+      selectorRoot.walkClasses((className) => {
+        nonInlinableClasses.push(className.value);
+        sanitizeSelectorClassName(className);
+      });
 
-    if (hasPseudoSelector) {
       const processedRule = rule.clone({ selector: selectorRoot.toString() });
       processedRule.walkDecls((decl) => {
         decl.important = true;
