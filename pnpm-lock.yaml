@@ -771,9 +771,6 @@ importers:
       '@babel/traverse':
         specifier: ^7.27.0
         version: 7.27.0
-      chalk:
-        specifier: ^5.0.0
-        version: 5.4.0
       chokidar:
         specifier: ^4.0.3
         version: 4.0.3
