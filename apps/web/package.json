@@ -21,7 +21,7 @@
     "@vercel/analytics": "1.5.0",
     "framer-motion": "12.7.4",
     "lucide-react": "^0.492.0",
-    "next": "15.3.3",
+    "next": "15.4.7",
     "prism-react-renderer": "2.4.1",
     "react": "^19",
     "react-dom": "^19",
