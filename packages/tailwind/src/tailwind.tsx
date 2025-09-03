@@ -1,7 +1,6 @@
-import { Root } from 'postcss';
+import { generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
-import { minifyCss } from './utils/css/minify-css';
 import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
@@ -80,7 +79,10 @@ export const Tailwind: React.FC<TailwindProps> = async ({
   children,
   config,
 }) => {
-  const nonInlineStylesRootToApply = new Root();
+  const nonInlineStylesToApply: StyleSheet = {
+    type: 'StyleSheet',
+    children: new List(),
+  };
   let mediaQueryClassesForAllElement: string[] = [];
 
   let hasNonInlineStylesToApply = false as boolean;
@@ -96,7 +98,9 @@ export const Tailwind: React.FC<TailwindProps> = async ({
         } = await cloneElementWithInlinedStyles(node, config ?? {});
         mediaQueryClassesForAllElement =
           mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-        nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+        for (const node of nonInlineStyleNodes) {
+          nonInlineStylesToApply.children.appendData(node);
+        }
 
         if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
           hasNonInlineStylesToApply = true;
@@ -109,7 +113,7 @@ export const Tailwind: React.FC<TailwindProps> = async ({
     },
   );
 
-  removeRuleDuplicatesFromRoot(nonInlineStylesRootToApply);
+  removeRuleDuplicatesFromRoot(nonInlineStylesToApply);
 
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
@@ -125,9 +129,7 @@ export const Tailwind: React.FC<TailwindProps> = async ({
 
           /*                   only minify here since it is the only place that is going to be in the DOM */
           const styleElement = (
-            <style>
-              {minifyCss(nonInlineStylesRootToApply.toString().trim())}
-            </style>
+            <style>{generate(nonInlineStylesToApply)}</style>
           );
 
           return React.cloneElement(
