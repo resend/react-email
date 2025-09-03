@@ -1,4 +1,4 @@
-import { parse } from 'postcss';
+import { generate, parse } from 'css-tree';
 import { resolveAllCSSVariables } from './resolve-all-css-variables';
 
 describe('resolveAllCSSVariables', () => {
@@ -11,7 +11,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should work for variables across different CSS layers', () => {
@@ -27,7 +27,7 @@ describe('resolveAllCSSVariables', () => {
       }
     }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should work with multiple variables in the same declaration', () => {
@@ -42,7 +42,7 @@ describe('resolveAllCSSVariables', () => {
       margin: var(--top) var(--right) var(--bottom) var(--left);
     }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should keep variable usages if it cant find their declaration', () => {
@@ -50,7 +50,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should work with variables set in the same rule', () => {
@@ -66,7 +66,7 @@ describe('resolveAllCSSVariables', () => {
   }
 }
 `);
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should work with a variable set in a layer, and used in another through a media query', () => {
@@ -83,7 +83,7 @@ describe('resolveAllCSSVariables', () => {
     }
   }
 }`);
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   it('should use fallback values when variable definition is not found', () => {
@@ -93,7 +93,38 @@ describe('resolveAllCSSVariables', () => {
   margin: var(--undefined-margin, 10px 20px);
 }`);
 
-    expect(resolveAllCSSVariables(root).toString()).toMatchSnapshot();
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
+  });
+
+  it('should handle nested var() functions in fallbacks', () => {
+    const root = parse(`:root {
+  --fallback-width: 300px;
+}
+
+.box {
+  width: var(--undefined-width, var(--fallback-width));
+  height: var(--undefined-height, var(--also-undefined, 250px));
+}`);
+
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
+  });
+
+  it.only('should handle deeply nested var() functions with complex parentheses', () => {
+    const root = parse(`:root {
+  --primary: blue;
+  --secondary: red;
+  --fallback: green;
+  --size: 20px;
+}
+
+.box {
+  color: var(--primary, var(--secondary, var(--fallback)));
+  width: var(--size, calc(100px + var(--size, 20px)));
+  border: var(--border-width, var(--border-style, var(--border-color, 1px solid black)));
+  background: var(--bg-color, rgb(var(--r, 255), var(--g, 0), var(--b, 0)));
+}`);
+
+    expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
   // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
@@ -113,7 +144,7 @@ describe('resolveAllCSSVariables', () => {
   //     width: var(--width);
   //   }`);
   //   expect(
-  //     resolveAllCSSVariables(root).toString(),
+  //     generate(resolveAllCSSVariables(root)),
   //   ).toBe(`@media (max-width: 1000px) {
   //     .box {
   //       width: 200px;
