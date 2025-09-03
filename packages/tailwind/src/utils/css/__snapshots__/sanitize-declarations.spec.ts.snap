@@ -1,0 +1,71 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sanitizeDeclarations > complex scenarios > handles multiple declarations with different rgb formats 1`] = `"div{color:rgb(255,0,128,0.5);background-color:rgb(0,255,0);border-color:rgb(128,128,128)}"`;
+
+exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`;
+
+exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts 3-digit hex without alpha 1`] = `"div{color:rgb(255,0,170)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts 4-digit hex with alpha 1`] = `"div{color:rgb(255,0,170,0.5)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts 6-digit hex without alpha 1`] = `"div{color:rgb(255,0,170)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts 8-digit hex with alpha 1`] = `"div{color:rgb(255,0,170,0.5)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts black hex color 1`] = `"div{color:rgb(0,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts blue hex color 1`] = `"div{color:rgb(0,0,255)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts green hex color 1`] = `"div{color:rgb(0,255,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts hex with full opacity 1`] = `"div{color:rgb(255,0,0,1.0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts hex with full transparency 1`] = `"div{color:rgb(255,0,0,0.0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts hex with lowercase letters 1`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts hex with mixed case letters 1`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts hex with uppercase letters 1`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts multiple hex values in different properties 1`] = `"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255);box-shadow:0 0 10px rgb(51,51,51)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts red hex color 1`] = `"div{color:rgb(255,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > converts white hex color 1`] = `"div{color:rgb(255,255,255)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > handles hex colors mixed with other color formats 1`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,104.6,199))}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > handles multiple hex colors in single declaration 1`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion > preserves non-hex hash values 1`] = `"div{content:"Visit our site at example.com#section"}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch to rgb with alpha 1`] = `"div{color:rgb(255,250.7,125.6,0.8)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch to rgb without alpha 1`] = `"div{color:rgb(0,255,228.7)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch with 360 degree hue 1`] = `"div{color:rgb(254.6,192.6,249.8)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch with decimal values 1`] = `"div{color:rgb(190.5,240.2,255,0.5)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch with high chroma value 1`] = `"div{color:rgb(255,99.8,0.1)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion > converts oklch with zero hue 1`] = `"div{color:rgb(254.6,192.6,249.8)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with alpha value of 1 (omits alpha) 1`] = `"div{color:rgb(255,0,128)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax and alpha to comma syntax 1`] = `"div{color:rgb(255,0,128,0.5)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax and percentage alpha 1`] = `"div{color:rgb(255,0,128,50%)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax to comma syntax 1`] = `"div{color:rgb(255,0,128)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > handles multiple rgb values in single declaration 1`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > handles rgb values with extra whitespace 1`] = `"div{color:rgb(255,0,128,0.7)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > handles zero values 1`] = `"div{color:rgb(0,0,0)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > preserves already comma-separated rgb values 1`] = `"div{color:rgb(255,0,128)}"`;

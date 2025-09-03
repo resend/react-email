@@ -95,7 +95,7 @@ export const sanitizeDeclarations = (nodeContainingDeclarations: CssNode) => {
       const rgbParserRegex =
         /rgb\(\s*(\d+)\s*(\d+)\s*(\d+)(?:\s*\/\s*([\d%.]+))?\s*\)/g;
       const oklchParserRegex =
-        /oklch\(\s*([\d.]+)(%)?\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+)(%)?)?\s*\)/g;
+        /oklch\(\s*([\d.]+)(%)?\s*([\d.]+)\s*([\d.]+)(?:\s*\/\s*([\d.]+)(%)?)?\s*\)/g;
       const hexParserRegex = /#([a-fA-F0-9]{3,8})/g;
 
       declaration.value = parse(
