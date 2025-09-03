@@ -1,11 +1,10 @@
-import type { AtRule, Root, Rule } from 'postcss';
-import type selectorParser from 'postcss-selector-parser';
+import { type CssNode, clone, type Rule, walk } from 'css-tree';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
-import { isRuleInlinable, parseSelectors } from './is-rule-inlinable';
+import { isRuleInlinable } from './is-rule-inlinable';
 
 /**
  * This function goes through a few steps to ensure the best email client support and
- * to ensure that the media queries and pseudo classes are going to applied correctly alongisde
+ * to ensure that the media queries and pseudo classes are going to applied correctly alongside
  * the inline styles.
  *
  * What it does is:
@@ -13,38 +12,49 @@ import { isRuleInlinable, parseSelectors } from './is-rule-inlinable';
  * 2. Sanitizes all the selectors of all non-inlinable rules
  * 3. Merges at rules that have equivalent parameters
  */
-export const sanitizeNonInlinableClasses = (root: Root) => {
-  const sanitizedRules: (Rule | AtRule)[] = [];
+export const sanitizeNonInlinableClasses = (node: CssNode) => {
+  const sanitizedRules: Rule[] = [];
   const nonInlinableClasses: string[] = [];
 
-  root.walkRules((rule) => {
-    if (!isRuleInlinable(rule)) {
-      const selectorRoot = parseSelectors(rule);
+  let rootRule: Rule | undefined;
 
-      selectorRoot.walkClasses((className) => {
-        nonInlinableClasses.push(className.value);
-        sanitizeSelectorClassName(className);
-      });
+  walk(node, {
+    visit: 'Rule',
+    enter(rule) {
+      if (!rootRule) {
+        rootRule = rule;
+      }
+    },
+    leave(rule) {
+      if (rootRule === rule) {
+        rootRule = undefined;
+      }
+      if (!isRuleInlinable(rule)) {
+        const ruleToChange = !rootRule ? (clone(rule) as Rule) : rule;
 
-      const processedRule = rule.clone({ selector: selectorRoot.toString() });
-      processedRule.walkDecls((decl) => {
-        decl.important = true;
-      });
+        walk(ruleToChange.prelude, (node) => {
+          if (node.type === 'ClassSelector') {
+            nonInlinableClasses.push(node.name.replaceAll('\\', ''));
+            node.name = sanitizeClassName(node.name);
+          }
+        });
 
-      sanitizedRules.push(processedRule);
-    }
+        walk(ruleToChange, {
+          visit: 'Declaration',
+          enter(declaration) {
+            declaration.important = true;
+          },
+        });
+
+        if (!rootRule) {
+          sanitizedRules.push(ruleToChange);
+        }
+      }
+    },
   });
 
   return {
     nonInlinableClasses,
     sanitizedRules,
   };
-};
-
-const sanitizeSelectorClassName = (className: selectorParser.ClassName) => {
-  className.replaceWith(
-    className.clone({
-      value: sanitizeClassName(className.value),
-    }),
-  );
 };
