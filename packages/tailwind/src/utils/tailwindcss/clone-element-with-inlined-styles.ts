@@ -1,4 +1,4 @@
-import type { Node } from 'postcss';
+import type { CssNode } from 'css-tree';
 import React from 'react';
 import type { Config } from 'tailwindcss';
 import type { EmailElementProps } from '../../tailwind';
@@ -16,7 +16,7 @@ export const cloneElementWithInlinedStyles = async (
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
   let nonInlinableClasses: string[] = [];
-  let nonInlineStyleNodes: Node[] = [];
+  let nonInlineStyleNodes: CssNode[] = [];
 
   if (element.props.className) {
     const rootForClasses = await generateRootForClasses(
