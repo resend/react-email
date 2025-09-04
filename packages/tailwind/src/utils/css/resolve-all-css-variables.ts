@@ -56,6 +56,7 @@ export const resolveAllCSSVariables = (node: CssNode) => {
           definition: generate(declaration.value),
           remove() {
             ruleDeclarationList.remove(declarationItem);
+            // TODO: recursively remove the parent rule if it is empty
           },
         });
       } else {

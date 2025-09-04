@@ -109,7 +109,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(resolveAllCSSVariables(root))).toMatchSnapshot();
   });
 
-  it.only('should handle deeply nested var() functions with complex parentheses', () => {
+  it('should handle deeply nested var() functions with complex parentheses', () => {
     const root = parse(`:root {
   --primary: blue;
   --secondary: red;
