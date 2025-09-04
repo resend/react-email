@@ -1,5 +1,6 @@
-import { type CssNode, clone, type Rule, walk } from 'css-tree';
+import { type CssNode, type Rule, walk } from 'css-tree';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
+import { clone } from './clone';
 import { isRuleInlinable } from './is-rule-inlinable';
 
 /**
