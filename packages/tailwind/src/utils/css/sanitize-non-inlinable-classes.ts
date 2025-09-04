@@ -36,7 +36,7 @@ export const sanitizeNonInlinableClasses = (node: CssNode) => {
         walk(ruleToChange.prelude, (node) => {
           if (node.type === 'ClassSelector') {
             nonInlinableClasses.push(node.name.replaceAll('\\', ''));
-            node.name = sanitizeClassName(node.name);
+            node.name = sanitizeClassName(node.name.replaceAll('\\', ''));
           }
         });
 
