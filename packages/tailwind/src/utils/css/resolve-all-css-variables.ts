@@ -2,10 +2,13 @@ import {
   type CssNode,
   type Declaration,
   generate,
-  walk,
-  parse,
   lexer,
+  parse,
+  Raw,
+  Value,
+  walk,
 } from 'css-tree';
+import { populateParentsForNodeTree } from './populate-parents-for-node-tree';
 
 interface VariableUse {
   declaration: Declaration;
@@ -39,19 +42,20 @@ const doSelectorsIntersect = (first: string, second: string): boolean => {
 };
 
 export const resolveAllCSSVariables = (node: CssNode) => {
+  populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
   const variableUses = new Set<VariableUse>();
 
   walk(node, {
     visit: 'Declaration',
-    enter(declaration, item, list) {
+    enter(declaration, declarationItem, ruleDeclarationList) {
       if (/--[\S]+/.test(declaration.property)) {
         variableDefinitions.add({
           declaration,
           variableName: `${declaration.property}`,
           definition: generate(declaration.value),
           remove() {
-            list.remove(item);
+            ruleDeclarationList.remove(declarationItem);
           },
         });
       } else {
@@ -71,7 +75,7 @@ export const resolveAllCSSVariables = (node: CssNode) => {
                   declaration,
                   fallback,
                   variableName: name,
-                  raw: generate(node),
+                  raw: generate(funcNode),
                 });
 
                 if (fallback?.includes('var(')) {
@@ -91,57 +95,70 @@ export const resolveAllCSSVariables = (node: CssNode) => {
     },
   });
 
-  console.log(variableUses);
+  for (const use of variableUses) {
+    let hasReplaced = false;
 
-  /// YOU ARE HERE: just finished implementing the code to find the variable uses with css tree that is much more robust that using regex, now you were about to do the proper handling for resolving the variable uses
+    for (const definition of variableDefinitions) {
+      if (use.variableName !== definition.variableName) {
+        continue;
+      }
 
-  // for (const use of variableUses) {
-  //   for (const definition of variableDefinitions) {
-  //     if (use.variableName !== definition.variableName) {
-  //       continue;
-  //     }
-  //
-  //     if (
-  //       use.declaration.parent instanceof AtRule &&
-  //       use.declaration.parent.parent instanceof Rule &&
-  //       definition.declaration.parent instanceof Rule &&
-  //       doSelectorsIntersect(
-  //         use.declaration.parent.parent.selector,
-  //         definition.declaration.parent.selector,
-  //       )
-  //     ) {
-  //       use.declaration.value = use.declaration.value.replaceAll(
-  //         use.raw,
-  //         definition.definition,
-  //       );
-  //       hasReplaced = true;
-  //       break;
-  //     }
-  //
-  //     if (
-  //       use.declaration.parent instanceof Rule &&
-  //       definition.declaration.parent instanceof Rule &&
-  //       doSelectorsIntersect(
-  //         use.declaration.parent.selector,
-  //         definition.declaration.parent.selector,
-  //       )
-  //     ) {
-  //       use.declaration.value = use.declaration.value.replaceAll(
-  //         use.raw,
-  //         definition.definition,
-  //       );
-  //       hasReplaced = true;
-  //       break;
-  //     }
-  //   }
-  //
-  //   if (!hasReplaced && use.fallback) {
-  //     use.declaration.value = use.declaration.value.replaceAll(
-  //       use.raw,
-  //       use.fallback,
-  //     );
-  //   }
-  // }
+      if (
+        use.declaration.parent?.type === 'Block' &&
+        use.declaration.parent?.parent?.type === 'Atrule' &&
+        use.declaration.parent.parent?.parent?.type === 'Block' &&
+        use.declaration.parent.parent?.parent?.parent?.type === 'Rule' &&
+        definition.declaration.parent?.type === 'Block' &&
+        definition.declaration.parent?.parent?.type === 'Rule' &&
+        doSelectorsIntersect(
+          generate(use.declaration.parent.parent.parent.parent.prelude),
+          generate(definition.declaration.parent.parent.prelude),
+        )
+      ) {
+        use.declaration.value = parse(
+          generate(use.declaration.value).replaceAll(
+            use.raw,
+            definition.definition,
+          ),
+          {
+            context: 'value',
+          },
+        ) as Raw | Value;
+        hasReplaced = true;
+        break;
+      }
+
+      if (
+        use.declaration.parent?.type === 'Block' &&
+        use.declaration.parent?.parent?.type === 'Rule' &&
+        definition.declaration.parent?.type === 'Block' &&
+        definition.declaration.parent?.parent?.type === 'Rule' &&
+        doSelectorsIntersect(
+          generate(use.declaration.parent.parent.prelude),
+          generate(definition.declaration.parent.parent.prelude),
+        )
+      ) {
+        use.declaration.value = parse(
+          generate(use.declaration.value).replaceAll(
+            use.raw,
+            definition.definition,
+          ),
+          {
+            context: 'value',
+          },
+        ) as Raw | Value;
+        hasReplaced = true;
+        break;
+      }
+    }
+
+    if (!hasReplaced && use.fallback) {
+      use.declaration.value = parse(
+        generate(use.declaration.value).replaceAll(use.raw, use.fallback),
+        { context: 'value' },
+      ) as Raw | Value;
+    }
+  }
 
   for (const definition of variableDefinitions) {
     definition.remove();

@@ -1,5 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`resolveAllCSSVariables > should handle deeply nested var() functions with complex parentheses 1`] = `":root{}.box{color:blue;width:20px;border:1px solid black;background:rgb(100,0,10)}"`;
+
 exports[`resolveAllCSSVariables > should keep variable usages if it cant find their declaration 1`] = `
 ".box {
   width: var(--width);

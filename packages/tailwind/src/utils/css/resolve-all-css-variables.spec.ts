@@ -121,6 +121,8 @@ describe('resolveAllCSSVariables', () => {
   color: var(--primary, var(--secondary, var(--fallback)));
   width: var(--size, calc(100px + var(--size, 20px)));
   border: var(--border-width, var(--border-style, var(--border-color, 1px solid black)));
+  --r: 100;
+  --b: 10;
   background: var(--bg-color, rgb(var(--r, 255), var(--g, 0), var(--b, 0)));
 }`);
 
