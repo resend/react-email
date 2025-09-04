@@ -1,4 +1,4 @@
-import { parse } from 'postcss';
+import { parse } from 'css-tree';
 import { type Config, compile } from 'tailwindcss';
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
 import indexCss from './tailwind-stylesheets/index';
