@@ -11,8 +11,8 @@ export const readStream = async (
 ) => {
   let result = '';
 
-  if ('pipeTo' in stream) {
-    // means it's a readable stream
+  if ('pipeTo' in stream && typeof WritableStream !== 'undefined') {
+    // means it's a readable stream and WritableStream is available
     const writableStream = new WritableStream({
       write(chunk: BufferSource) {
         result += decoder.decode(chunk);
