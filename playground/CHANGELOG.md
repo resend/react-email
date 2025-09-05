@@ -1,5 +1,12 @@
 # playground
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [174f9cd]
+  - @react-email/render@1.2.2
+
 ## 0.0.3
 
 ### Patch Changes

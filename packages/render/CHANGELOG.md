@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.2.2
+
+### Patch Changes
+
+- 174f9cd: fix builds failing with esbuild and react-dom@18
+
 ## 1.2.1
 
 ### Patch Changes
