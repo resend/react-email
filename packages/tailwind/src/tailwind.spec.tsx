@@ -293,6 +293,14 @@ describe('Tailwind component', () => {
     expect(actualOutput).toContain('width:3rem');
   });
 
+  // test.only('temporary', async () => {
+  //   await render(
+  //     <Tailwind>
+  //       <div className="text-lg" />
+  //     </Tailwind>,
+  //   );
+  // });
+
   it('should preserve mso styles', async () => {
     const actualOutput = await render(
       <Html>
@@ -306,7 +314,7 @@ describe('Tailwind component', () => {
           <div className="custom-class bg-white sm:bg-red-50 sm:text-sm md:text-lg" />
         </Tailwind>
       </Html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -331,7 +339,7 @@ describe('Tailwind component', () => {
           <div className="2xl:bg-blue-500">Test</div>
         </Tailwind>
       </Html>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
@@ -344,14 +352,13 @@ describe('Tailwind component', () => {
           <div className="h-[200px]">something tall</div>
         </div>
       </Tailwind>,
-    );
+    ).then(pretty);
 
     expect(actualOutput).toMatchSnapshot();
   });
-});
 
-describe('non-inlinable styles', () => {
-  /*
+  describe('with non-inlinable styles', () => {
+    /*
     This test is because of https://github.com/resend/react-email/issues/1112
     which was being caused because we required to, either have our <Head> component,
     or a <head> element directly inside the <Tailwind> component for media queries to be applied
@@ -362,294 +369,296 @@ describe('non-inlinable styles', () => {
     and apply the styles there. This also fixes the issue where it would not be allowed to use
     Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
   */
-  it('should work with arbitrarily deep (in the React tree) <head> elements', async () => {
-    expect(
-      await render(
-        <Tailwind>
-          <html lang="en">
-            <head />
-            <body>
-              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
-            </body>
-          </html>
-        </Tailwind>,
-      ),
-    ).toMatchSnapshot();
+    it('should work with arbitrarily deep (in the React tree) <head> elements', async () => {
+      expect(
+        await render(
+          <Tailwind>
+            <html lang="en">
+              <head />
+              <body>
+                <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+              </body>
+            </html>
+          </Tailwind>,
+        ).then(pretty),
+      ).toMatchSnapshot();
 
-    const MyHead = (props: Record<string, any>) => {
-      return <head {...props} />;
-    };
+      const MyHead = (props: Record<string, any>) => {
+        return <head {...props} />;
+      };
 
-    expect(
-      await render(
-        <Tailwind>
-          <html lang="en">
-            <MyHead />
-            <body>
-              <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
-            </body>
-          </html>
-        </Tailwind>,
-      ),
-    ).toMatchSnapshot();
-  });
+      expect(
+        await render(
+          <Tailwind>
+            <html lang="en">
+              <MyHead />
+              <body>
+                <div className="bg-red-200 sm:bg-red-300 md:bg-red-400 lg:bg-red-500" />
+              </body>
+            </html>
+          </Tailwind>,
+        ),
+      ).toMatchSnapshot();
+    });
 
-  it('should not have duplicate media queries', async () => {
-    const Body = (props: { className: string; children: React.ReactNode }) => {
-      return <body className={props.className}>{props.children}</body>;
-    };
-    const output = await render(
-      <Tailwind>
-        <Head />
-        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
-          <div className="md:px-[64px] dark:text-green-500" />
-        </Body>
-      </Tailwind>,
-    ).then(pretty);
-
-    expect(output).toMatchSnapshot();
-  });
-
-  it('should add css to <head/> and keep class names', async () => {
-    const actualOutput = await render(
-      <html lang="en">
-        <Tailwind>
-          <head />
-          <body>
-            <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
-          </body>
-        </Tailwind>
-      </html>,
-    ).then(pretty);
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should throw error when used without the head and with media query class names very deeply nested', async () => {
-    const Component1 = (props: Record<string, any>) => {
-      return (
-        <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
-          {props.children}
-        </div>
-      );
-    };
-    const Component2 = (props: Record<string, any>) => {
-      return (
-        <div {...props}>
-          <Component1>{props.children}</Component1>
-        </div>
-      );
-    };
-    const Component3 = (props: Record<string, any>) => {
-      return (
-        <div {...props}>
-          <Component2>{props.children}</Component2>
-        </div>
-      );
-    };
-
-    function renderComplexEmailWithoutHead() {
-      return render(
-        <Tailwind>
-          <div className="bg-red-300">
-            <Component3 className="random-classname w-full">
-              <div className="w-50">Testing</div>
-            </Component3>
-          </div>
-        </Tailwind>,
-      );
-    }
-
-    await expect(
-      renderComplexEmailWithoutHead,
-    ).rejects.toThrowErrorMatchingSnapshot();
-  });
-
-  it('should work with relatively complex media query utilities', async () => {
-    const Email = () => {
-      return (
+    it('should not have duplicate media queries', async () => {
+      const Body = (props: {
+        className: string;
+        children: React.ReactNode;
+      }) => {
+        return <body className={props.className}>{props.children}</body>;
+      };
+      const output = await render(
         <Tailwind>
           <Head />
-          <p className="text-blue-700 max-sm:text-red-600">I am some text</p>
-        </Tailwind>
-      );
-    };
-
-    expect(await render(<Email />).then(pretty)).toMatchSnapshot();
-  });
-
-  it('should throw an error when used without a <head/>', async () => {
-    function noHead() {
-      return render(
-        <Tailwind>
-          <html lang="en">
-            {/* <Head></Head> */}
-            <div className="bg-red-200 sm:bg-red-500" />
-          </html>
+          <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+            <div className="md:px-[64px] dark:text-green-500" />
+          </Body>
         </Tailwind>,
       ).then(pretty);
-    }
-    await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
+
+      expect(output).toMatchSnapshot();
+    });
+
+    it('should add css to <head/> and keep class names', async () => {
+      const actualOutput = await render(
+        <html lang="en">
+          <Tailwind>
+            <head />
+            <body>
+              <div className="bg-red-200 hover:bg-red-600 focus:bg-red-700 sm:bg-red-300 sm:hover:bg-red-200 md:bg-red-400 lg:bg-red-500" />
+            </body>
+          </Tailwind>
+        </html>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchSnapshot();
+    });
+
+    it('should throw error when used without the head and with media query class names very deeply nested', async () => {
+      const Component1 = (props: Record<string, any>) => {
+        return (
+          <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
+            {props.children}
+          </div>
+        );
+      };
+      const Component2 = (props: Record<string, any>) => {
+        return (
+          <div {...props}>
+            <Component1>{props.children}</Component1>
+          </div>
+        );
+      };
+      const Component3 = (props: Record<string, any>) => {
+        return (
+          <div {...props}>
+            <Component2>{props.children}</Component2>
+          </div>
+        );
+      };
+
+      function renderComplexEmailWithoutHead() {
+        return render(
+          <Tailwind>
+            <div className="bg-red-300">
+              <Component3 className="random-classname w-full">
+                <div className="w-50">Testing</div>
+              </Component3>
+            </div>
+          </Tailwind>,
+        );
+      }
+
+      await expect(
+        renderComplexEmailWithoutHead,
+      ).rejects.toThrowErrorMatchingSnapshot();
+    });
+
+    it('should work with relatively complex media query utilities', async () => {
+      const Email = () => {
+        return (
+          <Tailwind>
+            <Head />
+            <p className="text-blue-700 max-sm:text-red-600">I am some text</p>
+          </Tailwind>
+        );
+      };
+
+      expect(await render(<Email />).then(pretty)).toMatchSnapshot();
+    });
+
+    it('should throw an error when used without a <head/>', async () => {
+      function noHead() {
+        return render(
+          <Tailwind>
+            <html lang="en">
+              {/* <Head></Head> */}
+              <div className="bg-red-200 sm:bg-red-500" />
+            </html>
+          </Tailwind>,
+        ).then(pretty);
+      }
+      await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
+    });
+
+    it('should persist existing <head/> elements', async () => {
+      const actualOutput = await render(
+        <html lang="en">
+          <Tailwind>
+            <head>
+              <style />
+              <link />
+            </head>
+            <body>
+              <div className="bg-red-200 sm:bg-red-500" />
+            </body>
+          </Tailwind>
+        </html>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchSnapshot();
+    });
   });
 
-  it('should persist existing <head/> elements', async () => {
-    const actualOutput = await render(
-      <html lang="en">
-        <Tailwind>
-          <head>
-            <style />
-            <link />
-          </head>
-          <body>
-            <div className="bg-red-200 sm:bg-red-500" />
-          </body>
-        </Tailwind>
-      </html>,
-    ).then(pretty);
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-});
-
-describe('Custom theme config', () => {
-  it('should be able to use custom colors', async () => {
-    const config: TailwindConfig = {
-      theme: {
-        extend: {
-          colors: {
-            custom: '#1fb6ff',
+  describe('with custom theme config', () => {
+    it('should be able to use custom colors', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            colors: {
+              custom: '#1fb6ff',
+            },
           },
         },
-      },
-    };
+      };
 
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="bg-custom text-custom" />
-      </Tailwind>,
-    ).then(pretty);
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="bg-custom text-custom" />
+        </Tailwind>,
+      ).then(pretty);
 
-    expect(actualOutput).toMatchSnapshot();
-  });
+      expect(actualOutput).toMatchSnapshot();
+    });
 
-  it('should be able to use custom fonts', async () => {
-    const config: TailwindConfig = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Graphik', 'sans-serif'],
-            serif: ['Merriweather', 'serif'],
+    it('should be able to use custom fonts', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Graphik', 'sans-serif'],
+              serif: ['Merriweather', 'serif'],
+            },
           },
         },
-      },
-    };
+      };
 
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="font-sans" />
-        <div className="font-serif" />
-      </Tailwind>,
-    ).then(pretty);
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="font-sans" />
+          <div className="font-serif" />
+        </Tailwind>,
+      ).then(pretty);
 
-    expect(actualOutput).toMatchSnapshot();
-  });
+      expect(actualOutput).toMatchSnapshot();
+    });
 
-  it('should be able to use custom spacing', async () => {
-    const config: TailwindConfig = {
-      theme: {
-        extend: {
-          spacing: {
-            '8xl': '96rem',
+    it('should be able to use custom spacing', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            spacing: {
+              '8xl': '96rem',
+            },
           },
         },
-      },
-    };
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="m-8xl" />
-      </Tailwind>,
-    ).then(pretty);
-    expect(actualOutput).toMatchSnapshot();
-  });
+      };
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="m-8xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchSnapshot();
+    });
 
-  it('should be able to use custom border radius', async () => {
-    const config: TailwindConfig = {
-      theme: {
-        extend: {
-          borderRadius: {
-            '4xl': '2rem',
+    it('should be able to use custom border radius', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            borderRadius: {
+              '4xl': '2rem',
+            },
           },
         },
-      },
-    };
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="rounded-4xl" />
-      </Tailwind>,
-    ).then(pretty);
-    expect(actualOutput).toMatchSnapshot();
-  });
+      };
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="rounded-4xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchSnapshot();
+    });
 
-  it('should be able to use custom text alignment', async () => {
-    const config: TailwindConfig = {
-      theme: {
-        extend: {
-          textAlign: {
-            justify: 'justify',
+    it('should be able to use custom text alignment', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            textAlign: {
+              justify: 'justify',
+            },
           },
         },
-      },
-    };
+      };
 
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="text-justify" />
-      </Tailwind>,
-    ).then(pretty);
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="text-justify" />
+        </Tailwind>,
+      ).then(pretty);
 
-    expect(actualOutput).toMatchSnapshot();
+      expect(actualOutput).toMatchSnapshot();
+    });
   });
-});
 
-describe('Custom plugins config', () => {
-  const config = {
-    plugins: [
-      {
-        handler: (api) => {
-          api.addUtilities({
-            '.border-custom': {
-              styles: {
+  describe('with custom plugins config', () => {
+    const config = {
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.border-custom': {
                 border: '2px solid',
               },
-            },
-          });
+            });
+          },
         },
-      },
-    ],
-  } satisfies TailwindConfig;
+      ],
+    } satisfies TailwindConfig;
 
-  it('should be able to use custom plugins', async () => {
-    const actualOutput = await render(
-      <Tailwind config={config}>
-        <div className="border-custom" />
-      </Tailwind>,
-    ).then(pretty);
-
-    expect(actualOutput).toMatchSnapshot();
-  });
-
-  it('should be able to use custom plugins with responsive styles', async () => {
-    const actualOutput = await render(
-      <html lang="en">
+    it('should be able to use custom plugins', async () => {
+      const actualOutput = await render(
         <Tailwind config={config}>
-          <head />
-          <body>
-            <div className="border-custom sm:border-custom" />
-          </body>
-        </Tailwind>
-      </html>,
-    ).then(pretty);
+          <div className="border-custom" />
+        </Tailwind>,
+      ).then(pretty);
 
-    expect(actualOutput).toMatchSnapshot();
+      expect(actualOutput).toMatchSnapshot();
+    });
+
+    it('should be able to use custom plugins with responsive styles', async () => {
+      const actualOutput = await render(
+        <html lang="en">
+          <Tailwind config={config}>
+            <head />
+            <body>
+              <div className="border-custom sm:border-custom" />
+            </body>
+          </Tailwind>
+        </html>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchSnapshot();
+    });
   });
 });

@@ -78,7 +78,25 @@ exports[`Tailwind component > should not override inline styles with Tailwind st
 
 exports[`Tailwind component > should preserve mso styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:640px){.sm_bg-red-50{background-color:rgb(254,242,242) !important}.sm_text-sm{font-size:0.875rem !important;line-height:1.25rem !important}}@media(min-width:768px){.md_text-lg{font-size:1.125rem !important;line-height:1.75rem !important}}</style></head><span><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span><div class="custom-class sm_bg-red-50 sm_text-sm md_text-lg" style="background-color:rgb(255,255,255)"></div><!--/$--></html>"`;
 
-exports[`Tailwind component > should recognize custom responsive screen 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class="xl_bg-green-500" style="background-color:rgb(254,226,226)">Test</div><div class="twoxl_bg-blue-500">Test</div><!--/$--></html>"`;
+exports[`Tailwind component > should recognize custom responsive screen 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <!--$-->
+    <style>
+      .xl_bg-green-500{@media(width >= 1280px){background-color:rgb(0,200.7,80.5) !important}}.twoxl_bg-blue-500{@media(width >= 1536px){background-color:rgb(43.2,127,255) !important}}
+    </style>
+  </head>
+  <div class="xl_bg-green-500" style="background-color:rgb(254.8,225.8,225.8)">
+    Test
+  </div>
+  <div class="twoxl_bg-blue-500">Test</div>
+  <!--/$-->
+</html>
+"
+`;
 
 exports[`Tailwind component > should render children with inline Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:#fff"></div><!--/$-->"`;
 
@@ -121,7 +139,22 @@ exports[`Tailwind component > should work with blocklist 1`] = `
 "
 `;
 
-exports[`Tailwind component > should work with calc() with + sign 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><!--$--><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem) !important}}</style></head><div class="lg_max-h-calc50pxplus5rem" style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px">something tall</div></div><!--/$-->"`;
+exports[`Tailwind component > should work with calc() with + sign 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <!--$-->
+  <style>
+    .lg_max-h-calc50pxplus5rem{@media(width >= 64rem){max-height:calc(50px + 5rem) !important}}
+  </style>
+</head>
+<div
+  class="lg_max-h-calc50pxplus5rem"
+  style="max-height:calc(50px + 3rem);background-color:rgb(254.8,225.8,225.8)">
+  <div style="height:200px">something tall</div>
+</div>
+<!--/$-->
+"
+`;
 
 exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(96,165,250);background-color:rgb(239,68,68)"></div><!--/$-->"`;
 
@@ -131,7 +164,209 @@ exports[`Tailwind component > should work with components that use React.forward
 
 exports[`Tailwind component > should work with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
 
-exports[`non-inlinable styles > should add css to <head/> and keep class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}.sm_hover_bg-red-200:hover{background-color:rgb(254,202,202) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+exports[`Tailwind component > with custom plugins config > should be able to use custom plugins 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="border:2px solid"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom plugins config > should be able to use custom plugins with responsive styles 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .sm_border-custom{@media(width >= 40rem){styles{border:2px solid !important}}}
+    </style>
+  </head>
+  <body>
+    <div class="sm_border-custom" style="border:2px solid"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`Tailwind component > with custom theme config > should be able to use custom border radius 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="border-radius:2rem"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom theme config > should be able to use custom colors 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom theme config > should be able to use custom fonts 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="font-family:Graphik,sans-serif"></div>
+<div style="font-family:Merriweather,serif"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom theme config > should be able to use custom spacing 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="margin:96rem"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom theme config > should be able to use custom text alignment 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="text-align:justify"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should add css to <head/> and keep class names 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .hover_bg-red-600{&:hover{@media(hover:hover){background-color:rgb(231.1,0,10.8) !important}}}&:focus{background-color:rgb(193,0,7.3) !important}.sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}
+    </style>
+  </head>
+  <body>
+    <div
+      class="hover_bg-red-600 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
+      style="background-color:rgb(193,0,7.3)"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should not have duplicate media queries 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    .md_px-64px{@media(width >= 48rem){padding-left:64px !important;padding-right:64px !important}}.dark_bg-black{@media(prefers-color-scheme:dark){background-color:rgb(0,0,0) !important}}.dark_text-green-500{@media(prefers-color-scheme:dark){color:rgb(0,200.7,80.5) !important}}
+  </style>
+</head>
+<body class="md_px-64px dark_bg-black dark_text-green-500">
+  <div class="md_px-64px dark_text-green-500"></div>
+  <!--/$-->
+</body>
+"
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should persist existing <head/> elements 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style></style>
+    <link />
+    <style>
+      .sm_bg-red-500{@media(width >= 40rem){background-color:rgb(250.6,43.8,54.3) !important}}
+    </style>
+  </head>
+  <body>
+    <div
+      class="sm_bg-red-500"
+      style="background-color:rgb(255,201.4,201.5)"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should throw an error when used without a <head/> 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:bg-red-500.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should throw error when used without the head and with media query class names very deeply nested 1`] = `
+[Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:h-10 sm:w-10.
+For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
+the Tailwind component tried finding a <head> element but just wasn't able to find it.
+
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+This can also be our <Head> component.
+
+If you do already have a <head> element at some depth, 
+please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}
+    </style>
+  </head>
+  <body>
+    <div
+      class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500"
+      style="background-color:rgb(255,201.4,201.5)"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201.4,201.5)"></div><!--/$--></body></html>"`;
+
+exports[`Tailwind component > with non-inlinable styles > should work with relatively complex media query utilities 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    .max-sm_text-red-600{@media(width < 40rem){color:rgb(231.1,0,10.8) !important}}
+  </style>
+</head>
+<p class="max-sm_text-red-600" style="color:rgb(19.9,71.2,230)">
+  I am some text
+</p>
+<!--/$-->
+"
+`;
+
+exports[`non-inlinable styles > should add css to <head/> and keep class names 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .hover_bg-red-600{&:hover{@media(hover:hover){background-color:rgb(231.1,0,10.8) !important}}}&:focus{background-color:rgb(193,0,7.3) !important}.sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}
+    </style>
+  </head>
+  <body>
+    <div
+      class="hover_bg-red-600 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
+      style="background-color:rgb(193,0,7.3)"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
 
 exports[`non-inlinable styles > should not have duplicate media queries 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -207,9 +442,26 @@ If you do already have a <head> element at some depth,
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
 `;
 
-exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}
+    </style>
+  </head>
+  <body>
+    <div
+      class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500"
+      style="background-color:rgb(255,201.4,201.5)"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
 
-exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
+exports[`non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201.4,201.5)"></div><!--/$--></body></html>"`;
 
 exports[`non-inlinable styles > should work with relatively complex media query utilities 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
