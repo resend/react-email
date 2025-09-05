@@ -1,4 +1,4 @@
-export const importReactDOM = () => {
+export const importReactDom = () => {
   // We don't use async here because tsup converts it to a generator syntax 
   // that esbuild doesn't understand as dealing with the import failing during
   // bundling: https://github.com/evanw/esbuild/issues/3216#issuecomment-1628913722

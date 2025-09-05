@@ -3,15 +3,15 @@ import { pretty } from '../node';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
 import { toPlainText } from '../shared/utils/to-plain-text';
-import { importReactDOM } from './import-react-dom';
+import { importReactDom } from './import-react-dom';
 
 export const render = async (
   element: React.ReactElement,
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await importReactDOM().then(
-    // This is beacuse react-dom/server is CJS
+  const reactDOMServer = await importReactDom().then(
+    // This is because react-dom/server is CJS
     (m) => m.default,
   );
 
