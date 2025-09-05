@@ -1,5 +1,6 @@
 import { Preview } from '../shared/utils/preview';
 import { Template } from '../shared/utils/template';
+import { readStream } from './read-stream';
 import { render } from './render';
 
 type Import = typeof import('react-dom/server') & {
@@ -7,6 +8,86 @@ type Import = typeof import('react-dom/server') & {
 };
 
 describe('render on the edge', () => {
+  it('should fallback to renderToPipeableStream when WritableStream is not available', async () => {
+    // Store original WritableStream
+    const originalWritableStream = globalThis.WritableStream;
+
+    // Remove WritableStream from global scope
+    // @ts-expect-error - intentionally removing WritableStream
+    delete globalThis.WritableStream;
+
+    try {
+      // This should still work using renderToPipeableStream fallback
+      const actualOutput = await render(<Template firstName="Jim" />);
+
+      expect(actualOutput).toContain('Welcome,');
+      expect(actualOutput).toContain('Jim');
+      expect(actualOutput).toContain('Thanks for trying our product');
+    } finally {
+      // Restore WritableStream
+      globalThis.WritableStream = originalWritableStream;
+    }
+  });
+
+  it('readStream should use Node.js Writable when WritableStream is not available', async () => {
+    // Store original WritableStream
+    const originalWritableStream = globalThis.WritableStream;
+
+    // Remove WritableStream from global scope
+    // @ts-expect-error - intentionally removing WritableStream
+    delete globalThis.WritableStream;
+
+    try {
+      // Create a mock readable stream that has pipeTo but no WritableStream available
+      const mockStream = {
+        pipeTo: vi
+          .fn()
+          .mockRejectedValue(new Error('WritableStream is not defined')),
+        pipe: vi.fn((writable) => {
+          // Simulate writing data to the writable stream
+          setImmediate(() => {
+            writable.write(Buffer.from('<h1>Test</h1>'), 'utf-8', () => {});
+            writable.end();
+          });
+        }),
+      };
+
+      // This should fall back to using Node.js Writable
+      const result = await readStream(mockStream as any);
+
+      expect(result).toBe('<h1>Test</h1>');
+      expect(mockStream.pipe).toHaveBeenCalled();
+      expect(mockStream.pipeTo).not.toHaveBeenCalled();
+    } finally {
+      // Restore WritableStream
+      globalThis.WritableStream = originalWritableStream;
+    }
+  });
+
+  it('readStream should use WritableStream when available', async () => {
+    // Ensure WritableStream is available
+    expect(typeof WritableStream).toBe('function');
+
+    // Create a mock readable stream with pipeTo
+    const mockStream = {
+      pipeTo: vi.fn(async (writable) => {
+        // Simulate the WritableStream write
+        const writer = writable.getWriter();
+        await writer.write(
+          new TextEncoder().encode('<h1>Test with WritableStream</h1>'),
+        );
+        await writer.close();
+      }),
+      pipe: vi.fn(),
+    };
+
+    // This should use WritableStream.pipeTo
+    const result = await readStream(mockStream as any);
+
+    expect(result).toBe('<h1>Test with WritableStream</h1>');
+    expect(mockStream.pipeTo).toHaveBeenCalled();
+    expect(mockStream.pipe).not.toHaveBeenCalled();
+  });
   it('converts a React component into HTML with Next 14 error stubs', async () => {
     vi.mock('react-dom/server', async () => {
       const ReactDOMServer = await vi.importActual<Import>('react-dom/server');
