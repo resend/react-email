@@ -13,7 +13,10 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   );
 
   let html!: string;
-  if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
+  if (
+    Object.hasOwn(reactDOMServer, 'renderToReadableStream') &&
+    typeof WritableStream !== 'undefined'
+  ) {
     html = await readStream(
       await reactDOMServer.renderToReadableStream(suspendedElement),
     );
