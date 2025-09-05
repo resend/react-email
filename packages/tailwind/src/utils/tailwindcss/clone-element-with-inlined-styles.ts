@@ -1,25 +1,27 @@
-import type { Node } from 'postcss';
+import type { CssNode } from 'css-tree';
 import React from 'react';
+import type { Config } from 'tailwindcss';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { sanitizeDeclarations } from '../css/sanitize-declarations';
 import { sanitizeNonInlinableClasses } from '../css/sanitize-non-inlinable-classes';
 import { isComponent } from '../react/is-component';
-import type { setupTailwind } from './setup-tailwind';
+import { generateRootForClasses } from './generate-root-for-classes';
 
-export const cloneElementWithInlinedStyles = (
+export const cloneElementWithInlinedStyles = async (
   element: React.ReactElement<EmailElementProps>,
-  tailwind: ReturnType<typeof setupTailwind>,
+  config: Config,
 ) => {
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
   let nonInlinableClasses: string[] = [];
-  let nonInlineStyleNodes: Node[] = [];
+  let nonInlineStyleNodes: CssNode[] = [];
 
   if (element.props.className) {
-    const rootForClasses = tailwind.generateRootForClasses(
+    const rootForClasses = await generateRootForClasses(
       element.props.className.split(' '),
+      config,
     );
     sanitizeDeclarations(rootForClasses);
 

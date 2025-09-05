@@ -1,0 +1,339 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`populateParentsForNodeTree 1`] = `
+{
+  "children": [
+    {
+      "block": {
+        "children": [
+          {
+            "important": false,
+            "loc": null,
+            "parent": [Circular],
+            "property": "color",
+            "type": "Declaration",
+            "value": {
+              "children": [
+                {
+                  "loc": null,
+                  "name": "red",
+                  "parent": [Circular],
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "Block",
+      },
+      "loc": null,
+      "parent": [Circular],
+      "prelude": {
+        "children": [
+          {
+            "children": [
+              {
+                "loc": null,
+                "name": "foo",
+                "parent": [Circular],
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "parent": [Circular],
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    {
+      "block": {
+        "children": [
+          {
+            "important": false,
+            "loc": null,
+            "parent": [Circular],
+            "property": "background",
+            "type": "Declaration",
+            "value": {
+              "children": [
+                {
+                  "loc": null,
+                  "name": "blue",
+                  "parent": [Circular],
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "Block",
+      },
+      "loc": null,
+      "parent": [Circular],
+      "prelude": {
+        "children": [
+          {
+            "children": [
+              {
+                "loc": null,
+                "name": "bar",
+                "parent": [Circular],
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "parent": [Circular],
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    {
+      "block": {
+        "children": [
+          {
+            "block": {
+              "children": [
+                {
+                  "important": false,
+                  "loc": null,
+                  "parent": [Circular],
+                  "property": "margin",
+                  "type": "Declaration",
+                  "value": {
+                    "children": [
+                      {
+                        "loc": null,
+                        "parent": [Circular],
+                        "type": "Dimension",
+                        "unit": "px",
+                        "value": "10",
+                      },
+                    ],
+                    "loc": null,
+                    "parent": [Circular],
+                    "type": "Value",
+                  },
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "Block",
+            },
+            "loc": null,
+            "parent": [Circular],
+            "prelude": {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "loc": null,
+                      "name": "baz",
+                      "parent": [Circular],
+                      "type": "ClassSelector",
+                    },
+                  ],
+                  "loc": null,
+                  "parent": [Circular],
+                  "type": "Selector",
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "SelectorList",
+            },
+            "type": "Rule",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "Block",
+      },
+      "loc": null,
+      "name": "media",
+      "parent": [Circular],
+      "prelude": {
+        "children": [
+          {
+            "children": [
+              {
+                "condition": {
+                  "children": [
+                    {
+                      "kind": "media",
+                      "loc": null,
+                      "name": "min-width",
+                      "parent": [Circular],
+                      "type": "Feature",
+                      "value": {
+                        "loc": null,
+                        "parent": [Circular],
+                        "type": "Dimension",
+                        "unit": "px",
+                        "value": "600",
+                      },
+                    },
+                  ],
+                  "kind": "media",
+                  "loc": null,
+                  "parent": [Circular],
+                  "type": "Condition",
+                },
+                "loc": null,
+                "mediaType": null,
+                "modifier": null,
+                "parent": [Circular],
+                "type": "MediaQuery",
+              },
+            ],
+            "loc": null,
+            "parent": [Circular],
+            "type": "MediaQueryList",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "AtrulePrelude",
+      },
+      "type": "Atrule",
+    },
+    {
+      "block": {
+        "children": [
+          {
+            "block": {
+              "children": [
+                {
+                  "important": false,
+                  "loc": null,
+                  "parent": [Circular],
+                  "property": "padding",
+                  "type": "Declaration",
+                  "value": {
+                    "children": [
+                      {
+                        "loc": null,
+                        "parent": [Circular],
+                        "type": "Dimension",
+                        "unit": "px",
+                        "value": "5",
+                      },
+                    ],
+                    "loc": null,
+                    "parent": [Circular],
+                    "type": "Value",
+                  },
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "Block",
+            },
+            "loc": null,
+            "name": "media",
+            "parent": [Circular],
+            "prelude": {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "condition": {
+                        "children": [
+                          {
+                            "kind": "media",
+                            "loc": null,
+                            "name": "hover",
+                            "parent": [Circular],
+                            "type": "Feature",
+                            "value": {
+                              "loc": null,
+                              "name": "hover",
+                              "parent": [Circular],
+                              "type": "Identifier",
+                            },
+                          },
+                        ],
+                        "kind": "media",
+                        "loc": null,
+                        "parent": [Circular],
+                        "type": "Condition",
+                      },
+                      "loc": null,
+                      "mediaType": null,
+                      "modifier": null,
+                      "parent": [Circular],
+                      "type": "MediaQuery",
+                    },
+                  ],
+                  "loc": null,
+                  "parent": [Circular],
+                  "type": "MediaQueryList",
+                },
+              ],
+              "loc": null,
+              "parent": [Circular],
+              "type": "AtrulePrelude",
+            },
+            "type": "Atrule",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "Block",
+      },
+      "loc": null,
+      "parent": [Circular],
+      "prelude": {
+        "children": [
+          {
+            "children": [
+              {
+                "loc": null,
+                "name": "qux",
+                "parent": [Circular],
+                "type": "ClassSelector",
+              },
+              {
+                "children": null,
+                "loc": null,
+                "name": "hover",
+                "parent": [Circular],
+                "type": "PseudoClassSelector",
+              },
+            ],
+            "loc": null,
+            "parent": [Circular],
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "parent": [Circular],
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+  ],
+  "loc": null,
+  "parent": undefined,
+  "type": "StyleSheet",
+}
+`;

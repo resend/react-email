@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`removeRuleDuplicatesFromRoot 1`] = `".a{color:red}.b{color:blue}"`;
