@@ -8,7 +8,7 @@ declare module 'css-tree' {
 }
 
 export function populateParentsForNodeTree(node: CssNode): void {
-  const parentPath: CssNode[] = []; 
+  const parentPath: CssNode[] = [];
   walk(node, {
     enter(child: CssNode) {
       child.parent = parentPath[0];
@@ -16,7 +16,6 @@ export function populateParentsForNodeTree(node: CssNode): void {
     },
     leave() {
       parentPath.shift();
-    }
+    },
   });
 }
-

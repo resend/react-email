@@ -1,8 +1,8 @@
 import { type CssNode, List } from 'css-tree';
 
 /**
-  * Slightly modified version of csstree's clone, with the difference that it ignores the `parent` property that we add in.
-  */
+ * Slightly modified version of csstree's clone, with the difference that it ignores the `parent` property that we add in.
+ */
 export function clone<T extends CssNode>(node: T): T {
   const result: Record<string, unknown> = {};
 

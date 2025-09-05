@@ -252,7 +252,7 @@ describe('sanitizeDeclarations', () => {
       `);
       sanitizeDeclarations(stylesheet);
       const result = generate(stylesheet);
-      expect(result).toMatchSnapshot();;
+      expect(result).toMatchSnapshot();
     });
   });
 });

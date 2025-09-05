@@ -2,10 +2,9 @@ import {
   type CssNode,
   type Declaration,
   generate,
-  lexer,
   parse,
-  Raw,
-  Value,
+  type Raw,
+  type Value,
   walk,
 } from 'css-tree';
 import { populateParentsForNodeTree } from './populate-parents-for-node-tree';
