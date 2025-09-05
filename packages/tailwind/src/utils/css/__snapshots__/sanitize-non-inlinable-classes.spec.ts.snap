@@ -1,3 +1,18 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`sanitizeNonInlinableClasses() 1`] = `".hover__text-sky-600{&:hover{@media (hover:hover){color:oklch(58.8%0.158 241.966)!important}}}.sm__mx-auto{@media (width>=40rem){margin-inline:auto!important}}.sm__max-w-lg{@media (width>=40rem){max-width:32rem!important}}.sm__rounded-lg{@media (width>=40rem){border-radius:0.5rem!important}}.sm__focus__outline-none{@media (width>=40rem){&:focus{--tw-outline-style: none!important;outline-style:none!important}}}.md__px-10{@media (width>=48rem){padding-inline:calc(0.25rem*10)!important}}.md__py-12{@media (width>=48rem){padding-block:calc(0.25rem*12)!important}}.md__hover__bg-gray-100{@media (width>=48rem){&:hover{@media (hover:hover){background-color:oklch(96.7%0.003 264.542)!important}}}}.lg__focus__underline{@media (width>=64rem){&:focus{text-decoration-line:underline!important}}}"`;
+exports[`sanitizeNonInlinableClasses() > should css nesting in hover pseudo styles 1`] = `":root,:host{}.hover_text-sky-600{&:hover{@media (hover:hover){color:oklch(58.8%0.158 241.966)!important}}}.sm_focus_outline-none{@media (width>=40rem){&:focus{outline-style:none!important}}}.md_hover_bg-gray-100{@media (width>=48rem){&:hover{@media (hover:hover){background-color:oklch(96.7%0.003 264.542)!important}}}}.lg_focus_underline{@media (width>=64rem){&:focus{text-decoration-line:underline!important}}}"`;
+
+exports[`sanitizeNonInlinableClasses() > should css nesting in hover pseudo styles 2`] = `
+[
+  "hover:text-sky-600",
+  "sm:focus:outline-none",
+  "md:hover:bg-gray-100",
+  "lg:focus:underline",
+]
+`;
+
+exports[`sanitizeNonInlinableClasses() > should handle rules that can be inlined 1`] = `""`;
+
+exports[`sanitizeNonInlinableClasses() > should handle rules that can be inlined 2`] = `[]`;
+
+exports[`sanitizeNonInlinableClasses() > shuold work with basic media query rules 1`] = `":root,:host{}.sm_mx-auto{@media (width>=40rem){margin-inline:auto!important}}.sm_max-w-lg{@media (width>=40rem){max-width:32rem!important}}.sm_rounded-lg{@media (width>=40rem){border-radius:0.5rem!important}}.md_px-10{@media (width>=48rem){padding-inline:calc(0.25rem*10)!important}}.md_py-12{@media (width>=48rem){padding-block:calc(0.25rem*12)!important}}"`;
