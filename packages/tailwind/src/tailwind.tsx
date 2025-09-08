@@ -1,7 +1,6 @@
 import { generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
-import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 

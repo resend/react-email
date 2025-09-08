@@ -29,9 +29,9 @@ export const resolveCalcExpressions = (node: CssNode) => {
               const value = String(
                 child.value === '*'
                   ? Number.parseFloat(left.data.value) *
-                  Number.parseFloat(right.data.value)
+                      Number.parseFloat(right.data.value)
                   : Number.parseFloat(left.data.value) /
-                  Number.parseFloat(right.data.value),
+                      Number.parseFloat(right.data.value),
               );
               if (
                 left.data.type === 'Dimension' &&

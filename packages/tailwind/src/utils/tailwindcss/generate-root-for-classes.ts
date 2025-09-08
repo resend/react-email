@@ -1,11 +1,11 @@
 import { parse } from 'css-tree';
 import { type Config, compile } from 'tailwindcss';
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
+import { resolveCalcExpressions } from '../css/resolve-calc-expressions';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
-import { resolveCalcExpressions } from '../css/resolve-calc-expressions';
 
 const baseCss = `
 @layer theme, base, components, utilities;
