@@ -178,7 +178,7 @@ exports[`Tailwind component > with custom plugins config > should be able to use
   <head>
     <!--$-->
     <style>
-      .sm_border-custom{@media(width >= 40rem){styles{border:2px solid !important}}}
+      .sm_border-custom{@media (width>=40rem){border:2px solid!important}}
     </style>
   </head>
   <body>
@@ -236,13 +236,13 @@ exports[`Tailwind component > with non-inlinable styles > should add css to <hea
   <head>
     <!--$-->
     <style>
-      .hover_bg-red-600{&:hover{@media(hover:hover){background-color:rgb(231.1,0,10.8) !important}}}&:focus{background-color:rgb(193,0,7.3) !important}.sm_bg-red-300{@media(width >= 40rem){background-color:rgb(255,161.8,162.3) !important}}.md_bg-red-400{@media(width >= 48rem){background-color:rgb(255,99.7,103) !important}}.lg_bg-red-500{@media(width >= 64rem){background-color:rgb(250.6,43.8,54.3) !important}}
+      :root,:host{}.hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231.1,0,10.8)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7.3)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201.4,201.5)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
   </head>
   <body>
     <div
-      class="hover_bg-red-600 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
-      style="background-color:rgb(193,0,7.3)"></div>
+      class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
+      style="background-color:rgb(255,201.4,201.5)"></div>
     <!--/$-->
   </body>
 </html>
@@ -274,7 +274,7 @@ exports[`Tailwind component > with non-inlinable styles > should persist existin
     <style></style>
     <link />
     <style>
-      .sm_bg-red-500{@media(width >= 40rem){background-color:rgb(250.6,43.8,54.3) !important}}
+      :root,:host{}.sm_bg-red-500{@media (width>=40rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
   </head>
   <body>
@@ -339,7 +339,7 @@ exports[`Tailwind component > with non-inlinable styles > should work with relat
   <meta name="x-apple-disable-message-reformatting" />
   <!--$-->
   <style>
-    .max-sm_text-red-600{@media(width < 40rem){color:rgb(231.1,0,10.8) !important}}
+    :root,:host{}.max-sm_text-red-600{@media (width<40rem){color:rgb(231.1,0,10.8)!important}}
   </style>
 </head>
 <p class="max-sm_text-red-600" style="color:rgb(19.9,71.2,230)">
