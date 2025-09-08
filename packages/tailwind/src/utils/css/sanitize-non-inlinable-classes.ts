@@ -36,7 +36,6 @@ export const sanitizeNonInlinableClasses = (node: CssNode) => {
         walk(ruleToChange.prelude, (node) => {
           if (node.type === 'ClassSelector') {
             const unescapedClassName = string.decode(node.name);
-            console.log(node.name, unescapedClassName);
             nonInlinableClasses.push(unescapedClassName);
             node.name = sanitizeClassName(unescapedClassName);
           }
