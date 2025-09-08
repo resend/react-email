@@ -5,6 +5,7 @@ import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
+import { resolveCalcExpressions } from '../css/resolve-calc-expressions';
 
 const baseCss = `
 @layer theme, base, components, utilities;
@@ -72,6 +73,7 @@ export async function generateRootForClasses(
   const css = compiler.build(classes);
   const root = parse(css);
   resolveAllCSSVariables(root);
+  resolveCalcExpressions(root);
 
   return root;
 }

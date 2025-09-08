@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`resolveCalcExpressions() > should not do anything to complex calc expressions 1`] = `
+".px-3{padding-inline:calc(0.25rem*(3 + 1px)}
+.py-2{padding-block:calc(0.25rem*2 + 1px)}}}"
+`;
+
+exports[`resolveCalcExpressions() > should resolve spacing calc expressions from tailwind v4 1`] = `
+".px-3{padding-inline:0.75rem}.py-2{padding-block:0.5rem}}
+  "
+`;
