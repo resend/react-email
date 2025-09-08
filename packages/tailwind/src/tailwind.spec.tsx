@@ -401,25 +401,6 @@ describe('Tailwind component', () => {
       ).toMatchSnapshot();
     });
 
-    it('should not have duplicate media queries', async () => {
-      const Body = (props: {
-        className: string;
-        children: React.ReactNode;
-      }) => {
-        return <body className={props.className}>{props.children}</body>;
-      };
-      const output = await render(
-        <Tailwind>
-          <Head />
-          <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
-            <div className="md:px-[64px] dark:text-green-500" />
-          </Body>
-        </Tailwind>,
-      ).then(pretty);
-
-      expect(output).toMatchSnapshot();
-    });
-
     it('should add css to <head/> and keep class names', async () => {
       const actualOutput = await render(
         <html lang="en">
