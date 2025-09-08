@@ -1,3 +1,3 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`tailwind's generateRootForClasses() 1`] = `"/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */@layer theme,base,components,utilities;@layer theme{:root,:host{}}@layer utilities{.bg-slate-900{background-color:oklch(20.8%0.042 265.755)}.text-red-500{color:oklch(63.7%0.237 25.331)}.sm\\:bg-blue-300{@media (width>=40rem){background-color:oklch(80.9%0.105 251.813)}}}"`;
+exports[`tailwind's generateRootForClasses() 1`] = `"/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */@layer theme,base,components,utilities;@layer utilities{.bg-slate-900{background-color:oklch(20.8%0.042 265.755)}.text-red-500{color:oklch(63.7%0.237 25.331)}.sm\\:bg-blue-300{@media (width>=40rem){background-color:oklch(80.9%0.105 251.813)}}}"`;

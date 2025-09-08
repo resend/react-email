@@ -20,7 +20,7 @@ exports[`Tailwind component > should preserve mso styles 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
     <style>
-      :root,:host{}.sm_bg-red-50{@media (width>=40rem){background-color:rgb(254.2,242.1,242.1)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+      .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254.2,242.1,242.1)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
     </style></head
   ><span
     ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
@@ -41,7 +41,7 @@ exports[`Tailwind component > should recognize custom responsive screen 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
     <style>
-      :root,:host{}.xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,200.7,80.5)!important}}:root,:host{}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43.2,127,255)!important}}
+      .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,200.7,80.5)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43.2,127,255)!important}}
     </style>
   </head>
   <div class="xl_bg-green-500" style="background-color:rgb(254.8,225.8,225.8)">
@@ -66,7 +66,7 @@ exports[`Tailwind component > should work with blocklist 1`] = `
   <meta name="x-apple-disable-message-reformatting" />
   <!--$-->
   <style>
-    :root,:host{}.md_p-4{@media (width>=48rem){padding:1rem!important}}
+    .md_p-4{@media (width>=48rem){padding:1rem!important}}
   </style>
 </head>
 <body>
@@ -81,7 +81,7 @@ exports[`Tailwind component > should work with calc() with + sign 1`] = `
 <head>
   <!--$-->
   <style>
-    :root,:host{}.lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
+    .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
   </style>
 </head>
 <div
@@ -173,7 +173,7 @@ exports[`Tailwind component > with non-inlinable styles > should add css to <hea
   <head>
     <!--$-->
     <style>
-      :root,:host{}.hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231.1,0,10.8)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7.3)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201.4,201.5)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231.1,0,10.8)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7.3)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201.4,201.5)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
   </head>
   <body>
@@ -192,7 +192,7 @@ exports[`Tailwind component > with non-inlinable styles > should persist existin
   <head>
     <!--$-->
     <style>
-      :root,:host{}.sm_bg-red-500{@media (width>=40rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .sm_bg-red-500{@media (width>=40rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
     <style></style>
     <link />
@@ -237,7 +237,7 @@ exports[`Tailwind component > with non-inlinable styles > should work with arbit
   <head>
     <!--$-->
     <style>
-      :root,:host{}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
   </head>
   <body>
@@ -250,7 +250,7 @@ exports[`Tailwind component > with non-inlinable styles > should work with arbit
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>:root,:host{}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201.4,201.5)"></div><!--/$--></body></html>"`;
+exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201.4,201.5)"></div><!--/$--></body></html>"`;
 
 exports[`Tailwind component > with non-inlinable styles > should work with relatively complex media query utilities 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -259,7 +259,7 @@ exports[`Tailwind component > with non-inlinable styles > should work with relat
   <meta name="x-apple-disable-message-reformatting" />
   <!--$-->
   <style>
-    :root,:host{}.max-sm_text-red-600{@media (width<40rem){color:rgb(231.1,0,10.8)!important}}
+    .max-sm_text-red-600{@media (width<40rem){color:rgb(231.1,0,10.8)!important}}
   </style>
 </head>
 <p class="max-sm_text-red-600" style="color:rgb(19.9,71.2,230)">
