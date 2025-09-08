@@ -2,7 +2,6 @@ import {
   type CssNode,
   type Declaration,
   generate,
-  List,
   parse,
   type Raw,
   type Value,
