@@ -1,7 +1,7 @@
 'use server';
 import fs from 'node:fs';
 import path from 'node:path';
-import chalk from 'chalk';
+import { styleText } from 'node:util';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
 import {
@@ -107,11 +107,11 @@ export const renderEmailByPath = async (
     const millisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${millisecondsToRendered.toFixed(0)}ms`;
     if (millisecondsToRendered <= 450) {
-      timeForConsole = chalk.green(timeForConsole);
+      timeForConsole = styleText('green', timeForConsole);
     } else if (millisecondsToRendered <= 1000) {
-      timeForConsole = chalk.yellow(timeForConsole);
+      timeForConsole = styleText('yellow', timeForConsole);
     } else {
-      timeForConsole = chalk.red(timeForConsole);
+      timeForConsole = styleText('red', timeForConsole);
     }
     spinner?.stopAndPersist({
       symbol: logSymbols.success,

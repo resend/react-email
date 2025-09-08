@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.9
+
+### Patch Changes
+
+- 1e53b4c: use `styleText` from `node:util` instead of `chalk`
+
 ## 4.2.8
 
 ### Patch Changes
