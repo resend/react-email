@@ -1,4 +1,4 @@
-import { type CssNode, type Rule, walk } from 'css-tree';
+import { type CssNode, type Rule, walk, string } from 'css-tree';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { clone } from './clone';
 import { isRuleInlinable } from './is-rule-inlinable';
@@ -35,8 +35,10 @@ export const sanitizeNonInlinableClasses = (node: CssNode) => {
 
         walk(ruleToChange.prelude, (node) => {
           if (node.type === 'ClassSelector') {
-            nonInlinableClasses.push(node.name.replaceAll('\\', ''));
-            node.name = sanitizeClassName(node.name.replaceAll('\\', ''));
+            const unescapedClassName = string.decode(node.name);
+            console.log(node.name, unescapedClassName);
+            nonInlinableClasses.push(unescapedClassName);
+            node.name = sanitizeClassName(unescapedClassName);
           }
         });
 
