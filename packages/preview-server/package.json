@@ -31,7 +31,6 @@
     "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.21",
-    "chalk": "4.1.2",
     "clsx": "2.1.1",
     "esbuild": "0.25.0",
     "framer-motion": "12.23.12",
