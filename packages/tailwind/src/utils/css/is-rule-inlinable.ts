@@ -5,7 +5,7 @@ export function isRuleInlinable(rule: Rule): boolean {
 
   const hasPseudoSelector =
     find(
-      rule.prelude,
+      rule,
       (node) =>
         node.type === 'PseudoClassSelector' ||
         node.type === 'PseudoElementSelector',
