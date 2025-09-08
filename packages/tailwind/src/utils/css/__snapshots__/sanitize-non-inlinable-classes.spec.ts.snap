@@ -15,4 +15,4 @@ exports[`sanitizeNonInlinableClasses() > should handle rules that can be inlined
 
 exports[`sanitizeNonInlinableClasses() > should handle rules that can be inlined 2`] = `[]`;
 
-exports[`sanitizeNonInlinableClasses() > shuold work with basic media query rules 1`] = `":root,:host{}.sm_mx-auto{@media (width>=40rem){margin-inline:auto!important}}.sm_max-w-lg{@media (width>=40rem){max-width:32rem!important}}.sm_rounded-lg{@media (width>=40rem){border-radius:0.5rem!important}}.md_px-10{@media (width>=48rem){padding-inline:calc(0.25rem*10)!important}}.md_py-12{@media (width>=48rem){padding-block:calc(0.25rem*12)!important}}"`;
+exports[`sanitizeNonInlinableClasses() > shuold work with basic media query rules 1`] = `":root,:host{}.sm_mx-auto{@media (width>=40rem){margin-inline:auto!important}}.sm_max-w-lg{@media (width>=40rem){max-width:32rem!important}}.sm_rounded-lg{@media (width>=40rem){border-radius:0.5rem!important}}.md_px-10{@media (width>=48rem){padding-inline:2.5rem!important}}.md_py-12{@media (width>=48rem){padding-block:3rem!important}}"`;

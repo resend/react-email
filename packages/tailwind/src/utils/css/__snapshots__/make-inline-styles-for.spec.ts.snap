@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`makeInlineStylesFor() 1`] = `
+{
+  "residualClassName": "sm:bg-blue-300 md:max-w-[400px] my-custom-class",
+  "styles": {
+    "backgroundColor": "oklch(63.7%0.237 25.331)",
+    "width": "100%",
+  },
+}
+`;
