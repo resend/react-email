@@ -8,7 +8,7 @@ export function clone<T extends CssNode>(node: T): T {
 
   for (const key of Object.keys(node)) {
     let value: any = node[key as keyof CssNode];
-    if (key === 'parent') {
+    if (key === 'parent' || key === 'parentList' || key === 'parentListItem') {
       continue;
     }
 
