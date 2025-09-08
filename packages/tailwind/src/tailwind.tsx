@@ -113,8 +113,6 @@ export const Tailwind: React.FC<TailwindProps> = async ({
     },
   );
 
-  removeRuleDuplicatesFromRoot(nonInlineStylesToApply);
-
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
