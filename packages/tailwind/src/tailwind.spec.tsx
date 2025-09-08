@@ -48,7 +48,7 @@ describe('Tailwind component', () => {
         props.style,
         'Styles should be generated the same for a component',
       ).toEqual({
-        color: 'rgb(96,165,250)',
+        color: 'rgb(80.5,162.1,255)',
         padding: '1rem',
       });
       return (
@@ -290,7 +290,7 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toContain('width:3rem');
+    expect(actualOutput).toMatchSnapshot();
   });
 
   // test.only('temporary', async () => {

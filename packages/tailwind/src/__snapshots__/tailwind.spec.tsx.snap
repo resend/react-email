@@ -12,7 +12,26 @@ exports[`Tailwind component > should not override inline styles with Tailwind st
 
 exports[`Tailwind component > should override component styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`;
 
-exports[`Tailwind component > should preserve mso styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>:root,:host{}.sm_bg-red-50{@media (width>=40rem){background-color:rgb(254.2,242.1,242.1)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}</style></head><span><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span><div class="custom-class sm_bg-red-50 sm_text-sm md_text-lg" style="background-color:rgb(255,255,255)"></div><!--/$--></html>"`;
+exports[`Tailwind component > should preserve mso styles 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <!--$-->
+    <style>
+      :root,:host{}.sm_bg-red-50{@media (width>=40rem){background-color:rgb(254.2,242.1,242.1)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+    </style></head
+  ><span
+    ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
+  >
+  <div
+    class="custom-class sm_bg-red-50 sm_text-sm md_text-lg"
+    style="background-color:rgb(255,255,255)"></div>
+  <!--/$-->
+</html>
+"
+`;
 
 exports[`Tailwind component > should recognize custom responsive screen 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -73,6 +92,8 @@ exports[`Tailwind component > should work with calc() with + sign 1`] = `
 <!--/$-->
 "
 `;
+
+exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(250.6,43.8,54.3);padding:4px;color:rgb(80.5,162.1,255)"></div><!--/$-->"`;
 
 exports[`Tailwind component > should work with components that return children 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-size:50px;font-weight:700">React Email</p></div><!--/$-->"`;
 
@@ -170,11 +191,11 @@ exports[`Tailwind component > with non-inlinable styles > should persist existin
 <html lang="en">
   <head>
     <!--$-->
-    <style></style>
-    <link />
     <style>
       :root,:host{}.sm_bg-red-500{@media (width>=40rem){background-color:rgb(250.6,43.8,54.3)!important}}
     </style>
+    <style></style>
+    <link />
   </head>
   <body>
     <div

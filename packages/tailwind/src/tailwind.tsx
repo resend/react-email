@@ -98,8 +98,8 @@ export const Tailwind: React.FC<TailwindProps> = async ({
         } = await cloneElementWithInlinedStyles(node, config ?? {});
         mediaQueryClassesForAllElement =
           mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-        for (const node of nonInlineStyleNodes) {
-          nonInlineStylesToApply.children.appendData(node);
+        for (const rule of nonInlineStyleNodes) {
+          nonInlineStylesToApply.children.appendData(rule);
         }
 
         if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
@@ -125,7 +125,6 @@ export const Tailwind: React.FC<TailwindProps> = async ({
         if (node.type === 'head') {
           hasAppliedNonInlineStyles = true;
 
-          /*                   only minify here since it is the only place that is going to be in the DOM */
           const styleElement = (
             <style>{generate(nonInlineStylesToApply)}</style>
           );
@@ -133,8 +132,8 @@ export const Tailwind: React.FC<TailwindProps> = async ({
           return React.cloneElement(
             node,
             node.props,
-            node.props.children,
             styleElement,
+            node.props.children,
           );
         }
       }
