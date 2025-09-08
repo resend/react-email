@@ -2,6 +2,7 @@ import {
   type CssNode,
   type Declaration,
   generate,
+  List,
   parse,
   type Raw,
   type Value,
@@ -40,6 +41,20 @@ const doSelectorsIntersect = (first: string, second: string): boolean => {
   return false;
 };
 
+const removeAndRepeatIfEmptyRecursively = (node: CssNode) => {
+  if (node.parent) {
+    if (node.containedIn && node.containingItem) {
+      node.containedIn.remove(node.containingItem);
+      if (node.containedIn.isEmpty) {
+        removeAndRepeatIfEmptyRecursively(node.parent);
+      }
+    } else {
+      // The node might not have any list of children, but the parent can (e.g. a Block)
+      removeAndRepeatIfEmptyRecursively(node.parent);
+    }
+  }
+};
+
 export const resolveAllCSSVariables = (node: CssNode) => {
   populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
@@ -47,15 +62,14 @@ export const resolveAllCSSVariables = (node: CssNode) => {
 
   walk(node, {
     visit: 'Declaration',
-    enter(declaration, declarationItem, ruleDeclarationList) {
+    enter(declaration) {
       if (/--[\S]+/.test(declaration.property)) {
         variableDefinitions.add({
           declaration,
           variableName: `${declaration.property}`,
           definition: generate(declaration.value),
           remove() {
-            ruleDeclarationList.remove(declarationItem);
-            // TODO: recursively remove the parent rule if it is empty
+            removeAndRepeatIfEmptyRecursively(declaration);
           },
         });
       } else {
@@ -163,6 +177,4 @@ export const resolveAllCSSVariables = (node: CssNode) => {
   for (const definition of variableDefinitions) {
     definition.remove();
   }
-
-  return node;
 };

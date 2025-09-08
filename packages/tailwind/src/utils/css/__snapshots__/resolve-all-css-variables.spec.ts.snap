@@ -1,19 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`resolveAllCSSVariables > should handle deeply nested var() functions with complex parentheses 1`] = `":root{}.box{color:blue;width:20px;border:1px solid black;background:rgb(100,0,10)}"`;
+exports[`resolveAllCSSVariables > should handle deeply nested var() functions with complex parentheses 1`] = `".box{color:blue;width:20px;border:1px solid black;background:rgb(100,0,10)}"`;
 
-exports[`resolveAllCSSVariables > should handle nested var() functions in fallbacks 1`] = `":root{}.box{width:300px;height:250px}"`;
+exports[`resolveAllCSSVariables > should handle nested var() functions in fallbacks 1`] = `".box{width:300px;height:250px}"`;
 
 exports[`resolveAllCSSVariables > should keep variable usages if it cant find their declaration 1`] = `".box{width:var(--width)}"`;
 
 exports[`resolveAllCSSVariables > should use fallback values when variable definition is not found 1`] = `".box{width:150px;height:200px;margin:10px 20px}"`;
 
-exports[`resolveAllCSSVariables > should work for variables across different CSS layers 1`] = `"@layer base{:root{}}@layer utilities{.box{width:100px}}"`;
+exports[`resolveAllCSSVariables > should work for variables across different CSS layers 1`] = `"@layer utilities{.box{width:100px}}"`;
 
-exports[`resolveAllCSSVariables > should work with a variable set in a layer, and used in another through a media query 1`] = `"@layer theme{:root{}}@layer utilities{.sm:bg-blue-300{@media (width>=40rem){background-color:blue}}}"`;
+exports[`resolveAllCSSVariables > should work with a variable set in a layer, and used in another through a media query 1`] = `"@layer utilities{.sm:bg-blue-300{@media (width>=40rem){background-color:blue}}}"`;
 
-exports[`resolveAllCSSVariables > should work with multiple variables in the same declaration 1`] = `":root{}.box{margin:101px 103px 102px 104px}"`;
+exports[`resolveAllCSSVariables > should work with multiple variables in the same declaration 1`] = `".box{margin:101px 103px 102px 104px}"`;
 
-exports[`resolveAllCSSVariables > should work with simple css variables on a :root 1`] = `":root{}.box{width:100px}"`;
+exports[`resolveAllCSSVariables > should work with simple css variables on a :root 1`] = `".box{width:100px}"`;
 
 exports[`resolveAllCSSVariables > should work with variables set in the same rule 1`] = `".box{width:200px}@media (min-width:1280px){.xl\\:bg-green-500{background-color:rgb(34 197 94/1)}}"`;
