@@ -107,4 +107,75 @@ describe('render on the edge', () => {
       `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
   });
+
+  /**
+   * Tests WritableStream availability check in render.tsx
+   * Ensures fallback to renderToPipeableStream when WritableStream is undefined
+   */
+  it('should fallback to renderToPipeableStream when WritableStream is undefined', async () => {
+    vi.stubGlobal('WritableStream', undefined);
+
+    const renderToReadableStreamSpy = vi.fn();
+    const renderToPipeableStreamSpy = vi.fn((_element, options) => {
+      const stream = {
+        pipe: vi.fn((writable) => {
+          writable.write(Buffer.from('<!DOCTYPE html><div>Test</div>'));
+          writable.end();
+        }),
+      };
+      // Call onAllReady after returning the stream
+      setImmediate(() => options?.onAllReady?.());
+      return stream;
+    });
+
+    vi.doMock('react-dom/server', () => ({
+      default: {
+        renderToReadableStream: renderToReadableStreamSpy,
+        renderToPipeableStream: renderToPipeableStreamSpy,
+      },
+    }));
+
+    const TestComponent = () => <div>Test</div>;
+    const result = await render(<TestComponent />);
+
+    expect(renderToReadableStreamSpy).not.toHaveBeenCalled();
+    expect(renderToPipeableStreamSpy).toHaveBeenCalled();
+    expect(result).toContain('<div>Test</div>');
+
+    vi.unstubAllGlobals();
+    vi.resetModules();
+    vi.resetAllMocks();
+  });
+
+  it('should use renderToReadableStream when WritableStream is available', async () => {
+    expect(typeof WritableStream).toBe('function');
+
+    const renderToReadableStreamSpy = vi.fn(async () => ({
+      pipeTo: vi.fn(async (writable) => {
+        const writer = writable.getWriter();
+        await writer.write(
+          new TextEncoder().encode('<!DOCTYPE html><div>Test</div>'),
+        );
+        await writer.close();
+      }),
+    }));
+    const renderToPipeableStreamSpy = vi.fn();
+
+    vi.doMock('react-dom/server', () => ({
+      default: {
+        renderToReadableStream: renderToReadableStreamSpy,
+        renderToPipeableStream: renderToPipeableStreamSpy,
+      },
+    }));
+
+    const TestComponent = () => <div>Test</div>;
+    const result = await render(<TestComponent />);
+
+    expect(renderToReadableStreamSpy).toHaveBeenCalled();
+    expect(renderToPipeableStreamSpy).not.toHaveBeenCalled();
+    expect(result).toContain('<div>Test</div>');
+
+    vi.resetModules();
+    vi.resetAllMocks();
+  });
 });
