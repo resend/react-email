@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.2.3
+
+### Patch Changes
+
+- 4e43552: use edge exports in convex runtime
+
 ## 1.2.2
 
 ### Patch Changes
