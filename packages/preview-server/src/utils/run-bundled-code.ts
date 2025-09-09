@@ -1,9 +1,17 @@
 import path from 'node:path';
+import url from 'node:url';
 import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
 export const createContext = (filename: string): vm.Context => {
+  const import_ = (specifier: string) => import(specifier);
+
+  import_.meta = {
+    url: url.pathToFileURL(filename),
+    filename: filename,
+    dirname: path.dirname(filename),
+  };
   return {
     ...global,
     console,
@@ -26,6 +34,7 @@ export const createContext = (filename: string): vm.Context => {
     module: {
       exports: {},
     },
+    import: import_,
     __filename: filename,
     __dirname: path.dirname(filename),
     require: (specifiedModule: string) => {
