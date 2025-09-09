@@ -16,10 +16,38 @@ const packageJson = JSON.parse(
 );
 
 const getLatestVersionOfTag = async (packageName, tag) => {
-  const response = await fetch(
-    `https://registry.npmjs.org/${packageName}/${tag}`,
+  const cacheFilename = `${packageName.replaceAll('/', '-')}-${tag}.json`;
+
+  const cacheDir = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    '..',
+    '.cache',
   );
-  const data = await response.json();
+
+  if (!fse.existsSync(cacheDir)) {
+    fse.mkdirSync(cacheDir, { recursive: true, mode: 0o700 });
+  }
+
+  const cachePath = path.join(cacheDir, cacheFilename);
+
+  let data;
+  try {
+    const response = await fetch(
+      `https://registry.npmjs.org/${packageName}/${tag}`,
+    );
+    data = await response.json();
+
+    fse.writeFileSync(cachePath, JSON.stringify(data), { mode: 0o600 });
+  } catch (exception) {
+    if (fse.existsSync(cachePath)) {
+      console.warn(
+        `${logSymbols.warning} Failed to fetch the latest version from npm, using a cache`,
+      );
+      data = fse.readJSONSync(cachePath);
+    } else {
+      throw exception;
+    }
+  }
 
   if (typeof data === 'string' && data.startsWith('version not found')) {
     console.error(`Tag ${tag} does not exist for ${packageName}.`);
