@@ -1,5 +1,7 @@
 # react-email
 
+## 4.2.10
+
 ## 4.2.9
 
 ### Patch Changes

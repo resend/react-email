@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.10
+
+### Patch Changes
+
+- ffdb3a0: Update nextjs to 15.5.2
+
 ## 4.2.9
 
 ### Patch Changes
