@@ -1,27 +1,10 @@
-import { Root } from 'postcss';
+import { generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
-import type { Config as TailwindOriginalConfig } from 'tailwindcss';
-import { minifyCss } from './utils/css/minify-css';
-import { removeRuleDuplicatesFromRoot } from './utils/css/remove-rule-duplicates-from-root';
+import type { Config } from 'tailwindcss';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
-export type TailwindConfig = Pick<
-  TailwindOriginalConfig,
-  | 'important'
-  | 'prefix'
-  | 'separator'
-  | 'safelist'
-  | 'blocklist'
-  | 'presets'
-  | 'future'
-  | 'experimental'
-  | 'darkMode'
-  | 'theme'
-  | 'corePlugins'
-  | 'plugins'
->;
+export type TailwindConfig = Omit<Config, 'content'>;
 
 export interface TailwindProps {
   children: React.ReactNode;
@@ -91,41 +74,48 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
-  const tailwind = setupTailwind(config ?? {});
-
-  const nonInlineStylesRootToApply = new Root();
+export const Tailwind: React.FC<TailwindProps> = async ({
+  children,
+  config,
+}) => {
+  const nonInlineStylesToApply: StyleSheet = {
+    type: 'StyleSheet',
+    children: new List(),
+  };
   let mediaQueryClassesForAllElement: string[] = [];
 
   let hasNonInlineStylesToApply = false as boolean;
 
-  let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
-    if (React.isValidElement<EmailElementProps>(node)) {
-      const {
-        elementWithInlinedStyles,
-        nonInlinableClasses,
-        nonInlineStyleNodes,
-      } = cloneElementWithInlinedStyles(node, tailwind);
-      mediaQueryClassesForAllElement =
-        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-      nonInlineStylesRootToApply.append(nonInlineStyleNodes);
+  let mappedChildren: React.ReactNode = await mapReactTree(
+    children,
+    async (node) => {
+      if (React.isValidElement<EmailElementProps>(node)) {
+        const {
+          elementWithInlinedStyles,
+          nonInlinableClasses,
+          nonInlineStyleNodes,
+        } = await cloneElementWithInlinedStyles(node, config ?? {});
+        mediaQueryClassesForAllElement =
+          mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+        for (const rule of nonInlineStyleNodes) {
+          nonInlineStylesToApply.children.appendData(rule);
+        }
 
-      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-        hasNonInlineStylesToApply = true;
+        if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+          hasNonInlineStylesToApply = true;
+        }
+
+        return elementWithInlinedStyles;
       }
 
-      return elementWithInlinedStyles;
-    }
-
-    return node;
-  });
-
-  removeRuleDuplicatesFromRoot(nonInlineStylesRootToApply);
+      return node;
+    },
+  );
 
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
-    mappedChildren = mapReactTree(mappedChildren, (node) => {
+    mappedChildren = await mapReactTree(mappedChildren, (node) => {
       if (hasAppliedNonInlineStyles) {
         return node;
       }
@@ -134,18 +124,15 @@ export const Tailwind: React.FC<TailwindProps> = ({ children, config }) => {
         if (node.type === 'head') {
           hasAppliedNonInlineStyles = true;
 
-          /*                   only minify here since it is the only place that is going to be in the DOM */
           const styleElement = (
-            <style>
-              {minifyCss(nonInlineStylesRootToApply.toString().trim())}
-            </style>
+            <style>{generate(nonInlineStylesToApply)}</style>
           );
 
           return React.cloneElement(
             node,
             node.props,
-            node.props.children,
             styleElement,
+            node.props.children,
           );
         }
       }
