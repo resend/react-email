@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.2.11
+
+### Patch Changes
+
+- 0700b91: fix data-source-\* attributes in the html code view
+
 ## 4.2.10
 
 ### Patch Changes

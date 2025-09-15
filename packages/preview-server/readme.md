@@ -2,11 +2,10 @@
 <div align="center">A live preview of your emails right in your browser.</div>
 <br />
 <div align="center">
-<a href="https://react.email">Website</a> 
+<a href="https://react.email">Website</a>
 <span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a> 
-<span> · </span>
-<a href="https://react.email/discord">Discord</a>
+<a href="https://github.com/resend/react-email">GitHub</a>
+
 </div>
 
 This package is used to store the preview server, it is also published and versioned so that it can be installed when the [CLI](../react-email) is being used.
