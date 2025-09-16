@@ -38,6 +38,9 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:packages/tsconfig
+      tsdown:
+        specifier: ^0.15.1
+        version: 0.15.1(typescript@5.8.3)
       tsx:
         specifier: 4.20.3
         version: 4.20.3
@@ -271,9 +274,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -290,9 +290,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -315,9 +312,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -335,7 +329,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsdown:
-        specifier: 0.15.1
+        specifier: ^0.15.1
         version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
@@ -353,9 +347,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -429,9 +420,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -448,9 +436,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -492,9 +477,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -511,9 +493,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -530,9 +509,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -549,9 +525,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -568,9 +541,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -587,9 +557,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -606,9 +573,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -628,9 +592,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -647,9 +608,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -878,7 +836,7 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       tsdown:
-        specifier: 0.15.1
+        specifier: ^0.15.1
         version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
@@ -926,7 +884,7 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsdown:
-        specifier: 0.15.1
+        specifier: ^0.15.1
         version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
@@ -944,9 +902,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -963,9 +918,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -1052,9 +1004,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      tsdown:
-        specifier: 0.15.1
-        version: 0.15.1(typescript@5.8.3)
       typescript:
         specifier: 5.8.3
         version: 5.8.3
