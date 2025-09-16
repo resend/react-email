@@ -39,7 +39,7 @@ importers:
         specifier: workspace:*
         version: link:packages/tsconfig
       tsdown:
-        specifier: ^0.15.1
+        specifier: 0.15.1
         version: 0.15.1(typescript@5.8.3)
       tsx:
         specifier: 4.20.3
