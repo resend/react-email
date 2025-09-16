@@ -95,8 +95,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup-node",
-    "build:watch": "tsup-node --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -130,7 +130,6 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
-    "tsup": "8.4.0",
     "typescript": "5.8.3"
   },
   "publishConfig": {

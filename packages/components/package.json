@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "build:watch": "tsup src/index.ts --format esm,cjs --dts --external react --watch",
+    "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist"
   },
   "repository": {
