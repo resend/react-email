@@ -930,6 +930,9 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.0.0
+      stylis:
+        specifier: 4.3.6
+        version: 4.3.6
       tailwindcss:
         specifier: 4.1.12
         version: 4.1.12
@@ -964,6 +967,9 @@ importers:
       '@types/shelljs':
         specifier: 0.8.15
         version: 0.8.15
+      '@types/stylis':
+        specifier: 4.2.7
+        version: 4.2.7
       '@vitejs/plugin-react':
         specifier: 4.4.1
         version: 4.4.1(vite@6.3.4(@types/node@22.14.1)(jiti@2.4.2)(terser@5.37.0)(tsx@4.20.3)(yaml@2.6.1))
@@ -4215,6 +4221,9 @@ packages:
 
   '@types/shelljs@0.8.15':
     resolution: {integrity: sha512-vzmnCHl6hViPu9GNLQJ+DZFd6BQI2DBTUeOvYHqkWQLMfKAAQYMb/xAmZkTogZI/vqXHCWkqDRymDI5p0QTi5Q==}
+
+  '@types/stylis@4.2.7':
+    resolution: {integrity: sha512-VgDNokpBoKF+wrdvhAAfS55OMQpL6QRglwTwNC3kIgBrzZxA4WsFj+2eLfEA/uMUDzBcEhYmjSbwQakn/i3ajA==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -8036,6 +8045,9 @@ packages:
         optional: true
       babel-plugin-macros:
         optional: true
+
+  stylis@4.3.6:
+    resolution: {integrity: sha512-yQ3rwFWRfwNUY7H5vpU0wfdkNSnvnJinhF9830Swlaxl03zsOjCfmX0ugac+3LtK0lYSgwL/KXc8oYL3mG4YFQ==}
 
   sucrase@3.35.0:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
@@ -12124,6 +12136,8 @@ snapshots:
     dependencies:
       '@types/glob': 7.2.0
       '@types/node': 22.14.1
+
+  '@types/stylis@4.2.7': {}
 
   '@types/unist@2.0.11': {}
 
@@ -16946,6 +16960,8 @@ snapshots:
       react: 19.0.0
     optionalDependencies:
       '@babel/core': 7.26.10
+
+  stylis@4.3.6: {}
 
   sucrase@3.35.0:
     dependencies:
