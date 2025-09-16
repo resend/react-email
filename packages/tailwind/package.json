@@ -63,7 +63,7 @@
     "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3",
-    "vite": "6.3.4",
+    "vite": "6.3.6",
     "vite-plugin-dts": "4.5.3",
     "yalc": "1.0.0-pre.53"
   },
