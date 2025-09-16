@@ -9,8 +9,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup-node src/index.tsx --format esm --target node20",
-    "dev": "tsup-node src/index.tsx --format esm --target node20 --watch",
+    "build": "tsdown src/index.tsx --format esm --target node20",
+    "dev": "tsdown src/index.tsx --format esm --target node20 --watch",
     "clean": "rm -rf dist"
   },
   "dependencies": {
@@ -20,7 +20,7 @@
     "react-dom": "^19"
   },
   "devDependencies": {
-    "tsup": "^8.0.0",
+    "tsdown": "^0.15.1",
     "typescript": "^4"
   }
 }
