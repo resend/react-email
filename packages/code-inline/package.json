@@ -39,7 +39,7 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsdown": "^0.15.1",
+    "tsdown": "0.15.1",
     "typescript": "5.8.3"
   }
 }
