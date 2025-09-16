@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup-node src/index.ts --format esm,cjs --dts",
-    "build:watch": "tsup-node src/index.ts --format esm,cjs --dts--watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
