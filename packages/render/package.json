@@ -130,7 +130,6 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
-    "tsdown": "^0.15.1",
     "typescript": "5.8.3"
   },
   "publishConfig": {
