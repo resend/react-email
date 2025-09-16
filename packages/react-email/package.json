@@ -7,8 +7,8 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsup-node",
-    "build:watch": "tsup-node --watch src",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -53,7 +53,7 @@
     "next": "^15.3.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "tsup": "8.4.0",
+    "tsdown": "^0.15.1",
     "typescript": "5.8.3"
   }
 }
