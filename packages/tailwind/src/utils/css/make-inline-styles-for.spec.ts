@@ -1,10 +1,13 @@
-import { generateRootForClasses } from '../tailwindcss/generate-root-for-classes';
+import { parse, type StyleSheet } from 'css-tree';
 import { makeInlineStylesFor } from './make-inline-styles-for';
 
 test('makeInlineStylesFor()', async () => {
-  const className =
-    'bg-red-500 sm:bg-blue-300 w-full md:max-w-[400px] my-custom-class';
-  const tailwindStyles = await generateRootForClasses(className.split(' '), {});
+  const tailwindStyles = parse(`
+    .bg-red-500 { background-color: #f56565; }
+    .w-full { width: 100%; }
+  `) as StyleSheet;
 
-  expect(makeInlineStylesFor(className, tailwindStyles)).toMatchSnapshot();
+  expect(
+    makeInlineStylesFor(tailwindStyles.children.toArray()),
+  ).toMatchSnapshot();
 });

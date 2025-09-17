@@ -1,23 +1,23 @@
-import { parse } from 'css-tree';
+import { type CssNode, parse } from 'css-tree';
 import { type Config, compile } from 'tailwindcss';
 import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
 import { resolveCalcExpressions } from '../css/resolve-calc-expressions';
+import { sanitizeDeclarations } from '../css/sanitize-declarations';
+import { sanitizeNonInlinableRules } from '../css/sanitize-non-inlinable-rules';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
 
-const baseCss = `
+export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
+
+export async function setupTailwind(config: Config) {
+  const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @config;
 `;
-
-export async function generateRootForClasses(
-  classes: string[],
-  config: Config,
-) {
   const compiler = await compile(baseCss, {
     async loadModule(id, base, resourceHint) {
       if (resourceHint === 'config') {
@@ -70,10 +70,21 @@ export async function generateRootForClasses(
       );
     },
   });
-  const css = compiler.build(classes);
-  const root = parse(css);
-  resolveAllCSSVariables(root);
-  resolveCalcExpressions(root);
 
-  return root;
+  return {
+    /**
+     * @description Given a list of Tailwind classes, it generates the corresponding CSS. Also resolves simple `calc` functions, and css variables.
+     * The returned CSS also includes the CSS generated from all previous calls to this function, this is internal to Tailwind.
+     */
+    aggregateIntoCss(classes: string[]) {
+      return parse(compiler.build(classes));
+    },
+    dealWithCompatibilityIssues(root: CssNode) {
+      resolveAllCSSVariables(root);
+      resolveCalcExpressions(root);
+      sanitizeDeclarations(root);
+      sanitizeNonInlinableRules(root);
+      return root;
+    },
+  };
 }
