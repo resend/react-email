@@ -17,6 +17,7 @@ const pathToLocalCliScript = path.resolve(
 
 const bench = new Bench({
   iterations: 30,
+  warmupIterations: 5,
 });
 
 const localServer = await runServer(pathToLocalCliScript);
@@ -28,9 +29,6 @@ bench
   .add('2.1.7-canary.2', async () => {
     await fetch(`${canaryServer.url}/preview/magic-links/notion-magic-link`);
   });
-
-await fetch(`${localServer.url}/preview/magic-links/notion-magic-link`);
-await fetch(`${canaryServer.url}/preview/magic-links/notion-magic-link`);
 
 await bench.run();
 
