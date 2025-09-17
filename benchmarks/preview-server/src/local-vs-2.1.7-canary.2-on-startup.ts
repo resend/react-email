@@ -4,13 +4,13 @@ import { Bench } from 'tinybench';
 import { runServer } from './utils/run-server';
 
 const pathToCanaryCliScript = path.resolve(
-  __dirname,
+  import.meta.dirname,
   '../',
   './node_modules/react-email-2.1.7-canary.2/cli/index.js',
 );
 
 const pathToLocalCliScript = path.resolve(
-  __dirname,
+  import.meta.dirname,
   '../',
   './node_modules/react-email/dist/cli/index.js',
 );
