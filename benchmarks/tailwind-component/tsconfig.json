@@ -7,7 +7,8 @@
     "target": "esnext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "nodenext",
+    "module": "esnext",
     "declarationMap": false,
     "declaration": false,
     "outDir": "dist"
