@@ -15,28 +15,26 @@ const pathToLocalCliScript = path.resolve(
   './node_modules/react-email/dist/cli/index.js',
 );
 
-(async () => {
-  const bench = new Bench({
-    iterations: 30,
+const bench = new Bench({
+  iterations: 30,
+});
+
+bench
+  .add('startup on local', async () => {
+    const server = await runServer(pathToLocalCliScript);
+    await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+    server.subprocess.kill();
+  })
+  .add('startup on 2.1.7-canary.2', async () => {
+    const server = await runServer(pathToCanaryCliScript);
+    await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+    server.subprocess.kill();
   });
 
-  bench
-    .add('startup on local', async () => {
-      const server = await runServer(pathToLocalCliScript);
-      await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
-      server.subprocess.kill();
-    })
-    .add('startup on 2.1.7-canary.2', async () => {
-      const server = await runServer(pathToCanaryCliScript);
-      await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
-      server.subprocess.kill();
-    });
+await bench.run();
 
-  await bench.run();
-
-  await fs.writeFile(
-    'startup-bench-results-30-iterations.json',
-    JSON.stringify(bench.results),
-    'utf8',
-  );
-})();
+await fs.writeFile(
+  'startup-bench-results-30-iterations.json',
+  JSON.stringify(bench.results),
+  'utf8',
+);

@@ -7,24 +7,16 @@ import EmailWithoutTailwind from './emails/without-tailwind.js';
 // import like this instead of installing from the workspace
 // to still be able to test versions that are already published
 
-async function main() {
-  const bench = new Bench({ time: 100 });
+const bench = new Bench({ time: 100 });
 
-  bench
-    .add('without tailwind', async () => {
-      await render(<EmailWithoutTailwind />);
-    })
-    .add('with current tailwind', async () => {
-      await render(<EmailWithTailwind Tailwind={CurrentTailwind} />);
-    });
-
-  await bench.run();
-
-  return bench;
-}
-
-main()
-  .then((bench) => {
-    console.table(bench.table());
+bench
+  .add('without tailwind', async () => {
+    await render(<EmailWithoutTailwind />);
   })
-  .catch(console.error);
+  .add('with current tailwind', async () => {
+    await render(<EmailWithTailwind Tailwind={CurrentTailwind} />);
+  });
+
+await bench.run();
+
+console.table(bench.table());

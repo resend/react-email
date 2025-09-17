@@ -2,6 +2,7 @@
   "name": "@benchmarks/preview-server",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "local-vs-2.1.7-canary.2": "tsx ./src/local-vs-2.1.7-canary.2.ts",
     "local-vs-2.1.7-canary.2-on-startup": "tsx ./src/local-vs-2.1.7-canary.2-on-startup.ts"
