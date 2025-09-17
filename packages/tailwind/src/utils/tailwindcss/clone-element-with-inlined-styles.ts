@@ -1,11 +1,11 @@
-import { generate, type CssNode } from 'css-tree';
+import type { CssNode } from 'css-tree';
 import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
+import { extractRulesMatchingStyles } from '../css/extract-rules-matching-classes';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { isComponent } from '../react/is-component';
 import type { TailwindSetup } from './setup-tailwind';
-import { extractRulesMatchingStyles } from '../css/extract-rules-matching-classes';
 
 export const cloneElementWithInlinedStyles = (
   element: React.ReactElement<EmailElementProps>,

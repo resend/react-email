@@ -1,7 +1,7 @@
 import { generate } from 'css-tree';
 import { setupTailwind } from './setup-tailwind';
 
-test("setupTailwind() and generateCssFrom()", async () => {
+test('setupTailwind() and generateCssFrom()', async () => {
   const { aggregateIntoCss } = await setupTailwind({});
 
   expect(
@@ -10,9 +10,5 @@ test("setupTailwind() and generateCssFrom()", async () => {
     ),
   ).toMatchSnapshot();
 
-  expect(
-    generate(
-      aggregateIntoCss(['bg-red-100']),
-    ),
-  ).toMatchSnapshot();
+  expect(generate(aggregateIntoCss(['bg-red-100']))).toMatchSnapshot();
 });

@@ -38,7 +38,7 @@ export function mapReactTree(
         const OriginalComponent =
           typeof processed.type === 'object'
             ? // @ts-expect-error - we know this is a component with a render function
-            (processed.type.render as React.FC)
+              (processed.type.render as React.FC)
             : (processed.type as React.FC);
 
         const rendered = OriginalComponent(processed.props);
