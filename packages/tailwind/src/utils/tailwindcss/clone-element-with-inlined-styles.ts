@@ -23,8 +23,6 @@ export const cloneElementWithInlinedStyles = (
 
     const rulePerClass = extractRulesMatchingStyles(classes, cssNode);
 
-    console.log(rulePerClass);
-
     /** Includes both user-defined classes that we need to persist, as well as classes for non-inlinable rules */
     const residualClasses: string[] = [];
     for (const className of classes) {
@@ -36,7 +34,6 @@ export const cloneElementWithInlinedStyles = (
         nonInlinableClasses.push(className);
       }
     }
-    console.log(residualClasses, nonInlinableClasses);
     const inlinableRules: CssNode[] = rulePerClass
       .values()
       .filter((r) => r.inlinable)
