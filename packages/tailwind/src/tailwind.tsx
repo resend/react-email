@@ -3,6 +3,7 @@ import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
+import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
@@ -78,6 +79,8 @@ export const Tailwind: React.FC<TailwindProps> = async ({
   children,
   config,
 }) => {
+  const tailwindSetup = await setupTailwind(config ?? {});
+
   const nonInlineStylesToApply: StyleSheet = {
     type: 'StyleSheet',
     children: new List(),
@@ -86,31 +89,25 @@ export const Tailwind: React.FC<TailwindProps> = async ({
 
   let hasNonInlineStylesToApply = false as boolean;
 
-  let mappedChildren: React.ReactNode = await mapReactTree(
-    children,
-    async (node) => {
-      if (React.isValidElement<EmailElementProps>(node)) {
-        const {
-          elementWithInlinedStyles,
-          nonInlinableClasses,
-          nonInlineStyleNodes,
-        } = await cloneElementWithInlinedStyles(node, config ?? {});
-        mediaQueryClassesForAllElement =
-          mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-        for (const rule of nonInlineStyleNodes) {
-          nonInlineStylesToApply.children.appendData(rule);
-        }
-
-        if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-          hasNonInlineStylesToApply = true;
-        }
-
-        return elementWithInlinedStyles;
+  let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
+    if (React.isValidElement<EmailElementProps>(node)) {
+      const { elementWithInlinedStyles, nonInlinableClasses, nonInlineRules } =
+        cloneElementWithInlinedStyles(node, tailwindSetup);
+      mediaQueryClassesForAllElement =
+        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
+      for (const rule of nonInlineRules) {
+        nonInlineStylesToApply.children.appendData(rule);
       }
 
-      return node;
-    },
-  );
+      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
+        hasNonInlineStylesToApply = true;
+      }
+
+      return elementWithInlinedStyles;
+    }
+
+    return node;
+  });
 
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
