@@ -9,10 +9,10 @@ determining the performance hits that the Tailwind component causes to try impro
 ├── package.json
 ├── src
 |  ├── emails
-|  ├── benchmark-0.0.12-vs-local-version.ts
-|  ├── benchmark-0.0.17-vs-local-version.ts
-|  ├── benchmark-with-vs-without.ts
-|  └── tailwind-render.ts
+|  ├── benchmark-0.0.12-vs-local-version.tsx
+|  ├── benchmark-0.0.17-vs-local-version.tsx
+|  ├── benchmark-with-vs-without.tsx
+|  └── tailwind-render.tsx
 ├── tailwind.config.js
 └── tsconfig.json
 ```
