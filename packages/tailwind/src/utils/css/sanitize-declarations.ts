@@ -88,81 +88,191 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
  * - convert `margin-inline` into `margin-left` and `margin-right`;
  * - convert `margin-block` into `margin-top` and `margin-bottom`.
  */
-export const sanitizeDeclarations = (nodeContainingDeclarations: CssNode) => {
+export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
   walk(nodeContainingDeclarations, {
     visit: 'Declaration',
     enter(declaration, item, list) {
-      const rgbParserRegex =
-        /rgb\(\s*(\d+)\s*(\d+)\s*(\d+)(?:\s*\/\s*([\d%.]+))?\s*\)/g;
-      const oklchParserRegex =
-        /oklch\(\s*([\d.]+)(%)?\s*([\d.]+)\s*([\d.]+)(?:\s*\/\s*([\d.]+)(%)?)?\s*\)/g;
-      const hexParserRegex = /#([a-fA-F0-9]{3,8})/g;
+      walk(declaration, {
+        visit: 'Function',
+        enter(func, funcParentListItem) {
+          const children = func.children.toArray();
+          if (func.name === 'oklch') {
+            let l: number | undefined;
+            let c: number | undefined;
+            let h: number | undefined;
+            let a: number | undefined;
+            for (const child of children) {
+              if (child.type === 'Number') {
+                if (l === undefined) {
+                  l = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (c === undefined) {
+                  c = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (h === undefined) {
+                  h = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value);
+                  continue;
+                }
+              }
+              if (child.type === 'Percentage') {
+                if (l === undefined) {
+                  l = Number.parseFloat(child.value) / 100;
+                  continue;
+                }
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value) / 100;
+                }
+              }
+            }
 
-      declaration.value = parse(
-        generate(declaration.value)
-          .replaceAll(rgbParserRegex, (_match, r, g, b, a) => {
-            const alpha = a === '1' || !a ? '' : `,${a}`;
-            return `rgb(${r},${g},${b}${alpha})`;
-          })
-          .replaceAll(
-            oklchParserRegex,
-            (_match, l, lPercentageSign: string, c, h, a, aPercentageSign) => {
-              const rgb = oklchToRgb({
-                l: lPercentageSign ? Number(l) / 100 : Number(l),
-                c: Number(c),
-                h: Number(h),
+            if (l === undefined || c === undefined || h === undefined) {
+              throw new Error(
+                'Could not determine the parameters of an oklch() function.',
+                {
+                  cause: declaration,
+                },
+              );
+            }
+
+            const rgb = oklchToRgb({
+              l,
+              c,
+              h,
+            });
+
+            const alphaString = a ? `,${a}` : '';
+
+            funcParentListItem.data = parse(
+              `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`,
+              {
+                context: 'value',
+              },
+            );
+          }
+
+          if (func.name === 'rgb') {
+            let r: number | undefined;
+            let g: number | undefined;
+            let b: number | undefined;
+            let a: number | undefined;
+            for (const child of children) {
+              if (child.type === 'Number') {
+                if (r === undefined) {
+                  r = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (g === undefined) {
+                  g = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (b === undefined) {
+                  b = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value);
+                  continue;
+                }
+              }
+              if (child.type === 'Percentage') {
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value) / 100;
+                }
+              }
+            }
+
+            if (r === undefined || g === undefined || b === undefined) {
+              throw new Error(
+                'Could not determine the parameters of an rgb() function.',
+                {
+                  cause: declaration,
+                },
+              );
+            }
+
+            if (a === undefined || a === 1) {
+              funcParentListItem.data = parse(`rgb(${r},${g},${b})`, {
+                context: 'value',
               });
-
-              const alphaString = a
-                ? `,${aPercentageSign ? Number(a) / 100 : a}`
-                : '';
-              return `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`;
-            },
-          )
-          .replaceAll(hexParserRegex, (_match, hex: string) => {
-            if (hex.length === 3) {
-              const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
-              const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
-              const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
-              return `rgb(${r},${g},${b})`;
+            } else {
+              funcParentListItem.data = parse(`rgb(${r},${g},${b},${a})`, {
+                context: 'value',
+              });
             }
-            if (hex.length === 4) {
-              const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
-              const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
-              const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
-              const a =
-                Number.parseInt(hex.charAt(3) + hex.charAt(3), 16) / 255;
-              return `rgb(${r},${g},${b},${a.toFixed(1)})`;
-            }
-            if (hex.length === 5) {
-              const r = Number.parseInt(hex.slice(0, 2), 16);
-              const g = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
-              const b = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16);
-              const a =
-                Number.parseInt(hex.charAt(4) + hex.charAt(4), 16) / 255;
-              return `rgb(${r},${g},${b},${a.toFixed(1)})`;
-            }
-            if (hex.length === 6) {
-              const r = Number.parseInt(hex.slice(0, 2), 16);
-              const g = Number.parseInt(hex.slice(2, 4), 16);
-              const b = Number.parseInt(hex.slice(4, 6), 16);
-              return `rgb(${r},${g},${b})`;
-            }
-            if (hex.length === 7) {
-              const r = Number.parseInt(hex.slice(0, 2), 16);
-              const g = Number.parseInt(hex.slice(2, 4), 16);
-              const b = Number.parseInt(hex.slice(4, 6), 16);
-              const a =
-                Number.parseInt(hex.charAt(6) + hex.charAt(6), 16) / 255;
-              return `rgb(${r},${g},${b},${a.toFixed(1)})`;
-            }
+          }
+        },
+      });
+      walk(declaration, {
+        visit: 'Hash',
+        enter(hash, hashParentListItem) {
+          const hex = hash.value.trim();
+          if (hex.length === 3) {
+            const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
+            const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
+            const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+            hashParentListItem.data = parse(`rgb(${r},${g},${b})`, {
+              context: 'value',
+            });
+            return;
+          }
+          if (hex.length === 4) {
+            const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
+            const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
+            const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+            const a = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16) / 255;
+            hashParentListItem.data = parse(
+              `rgb(${r},${g},${b},${a.toFixed(1)})`,
+              { context: 'value' },
+            );
+            return;
+          }
+          if (hex.length === 5) {
+            const r = Number.parseInt(hex.slice(0, 2), 16);
+            const g = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
+            const b = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16);
+            const a = Number.parseInt(hex.charAt(4) + hex.charAt(4), 16) / 255;
+            hashParentListItem.data = parse(
+              `rgb(${r},${g},${b},${a.toFixed(1)})`,
+              { context: 'value' },
+            );
+            return;
+          }
+          if (hex.length === 6) {
             const r = Number.parseInt(hex.slice(0, 2), 16);
             const g = Number.parseInt(hex.slice(2, 4), 16);
             const b = Number.parseInt(hex.slice(4, 6), 16);
-            const a = Number.parseInt(hex.slice(6, 8), 16) / 255;
-            return `rgb(${r},${g},${b},${a.toFixed(1)})`;
-          }),
-      ) as Raw | Value;
+            hashParentListItem.data = parse(`rgb(${r},${g},${b})`, {
+              context: 'value',
+            });
+            return;
+          }
+          if (hex.length === 7) {
+            const r = Number.parseInt(hex.slice(0, 2), 16);
+            const g = Number.parseInt(hex.slice(2, 4), 16);
+            const b = Number.parseInt(hex.slice(4, 6), 16);
+            const a = Number.parseInt(hex.charAt(6) + hex.charAt(6), 16) / 255;
+            hashParentListItem.data = parse(
+              `rgb(${r},${g},${b},${a.toFixed(1)})`,
+              { context: 'value' },
+            );
+            return;
+          }
+          const r = Number.parseInt(hex.slice(0, 2), 16);
+          const g = Number.parseInt(hex.slice(2, 4), 16);
+          const b = Number.parseInt(hex.slice(4, 6), 16);
+          const a = Number.parseInt(hex.slice(6, 8), 16) / 255;
+          hashParentListItem.data = parse(
+            `rgb(${r},${g},${b},${a.toFixed(1)})`,
+            { context: 'value' },
+          );
+        },
+      });
 
       if (declaration.property === 'padding-inline') {
         declaration.property = 'padding-left';
@@ -210,4 +320,4 @@ export const sanitizeDeclarations = (nodeContainingDeclarations: CssNode) => {
       }
     },
   });
-};
+}

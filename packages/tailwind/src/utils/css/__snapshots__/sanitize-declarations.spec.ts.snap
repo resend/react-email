@@ -58,7 +58,7 @@ exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > c
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax and alpha to comma syntax 1`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax and percentage alpha 1`] = `"div{color:rgb(255,0,128,50%)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax and percentage alpha 1`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion > converts rgb with space syntax to comma syntax 1`] = `"div{color:rgb(255,0,128)}"`;
 
