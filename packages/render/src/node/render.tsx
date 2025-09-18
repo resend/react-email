@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import reactDOMServer from 'react-dom/server';
 import type { Options } from '../shared/options';
 import { pretty } from '../shared/utils/pretty';
 import { toPlainText } from '../shared/utils/to-plain-text';
@@ -6,10 +7,6 @@ import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
   const suspendedElement = <Suspense>{node}</Suspense>;
-  const reactDOMServer = await import('react-dom/server').then(
-    // This is beacuse react-dom/server is CJS
-    (m) => m.default,
-  );
 
   let html!: string;
   if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
