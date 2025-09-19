@@ -1,45 +1,33 @@
-import type { CssNode } from 'css-tree';
+import type { Rule } from 'css-tree';
 import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
-import { extractRulesMatchingStyles } from '../css/extract-rules-matching-classes';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { isComponent } from '../react/is-component';
-import type { TailwindSetup } from './setup-tailwind';
 
 export function cloneElementWithInlinedStyles(
   element: React.ReactElement<EmailElementProps>,
-  tailwindSetup: TailwindSetup,
+  inlinableRules: Map<string, Rule>,
+  nonInlinableRules: Map<string, Rule>,
 ) {
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
-  const nonInlinableClasses: string[] = [];
-  const nonInlineRules: CssNode[] = [];
-
   if (element.props.className) {
     const classes = element.props.className.split(' ');
-    const cssNode = tailwindSetup.addUtilities(classes);
 
-    const rulePerClass = extractRulesMatchingStyles(classes, cssNode);
-
-    /** Includes both user-defined classes that we need to persist, as well as classes for non-inlinable rules */
     const residualClasses: string[] = [];
+
+    const rules: Rule[] = [];
     for (const className of classes) {
-      const item = rulePerClass.get(className);
-      if (item === undefined || !item.inlinable) {
+      const rule = inlinableRules.get(className);
+      if (rule) {
+        rules.push(rule);
+      } else {
         residualClasses.push(className);
       }
-      if (item && !item.inlinable) {
-        nonInlinableClasses.push(className);
-        nonInlineRules.push(item.rule);
-      }
     }
-    const inlinableRules: CssNode[] = rulePerClass
-      .values()
-      .filter((r) => r.inlinable)
-      .map((r) => r.rule)
-      .toArray();
-    const styles = makeInlineStylesFor(inlinableRules);
+
+    const styles = makeInlineStylesFor(rules);
     propsToOverwrite.style = {
       ...styles,
       ...element.props.style,
@@ -47,20 +35,14 @@ export function cloneElementWithInlinedStyles(
 
     if (!isComponent(element)) {
       if (residualClasses.length > 0) {
-        propsToOverwrite.className = residualClasses.join(' ');
-
-        /*
-          We sanitize only the class names of Tailwind classes that we are not going to inline
-          to avoid unpredictable behavior on the user's code. If we did sanitize all classes
-          a user-defined class could end up also being sanitized which would lead to unexpected
-          behavior and bugs that are hard to track.
-        */
-        for (const className of nonInlinableClasses) {
-          propsToOverwrite.className = propsToOverwrite.className.replace(
-            className,
-            sanitizeClassName(className),
-          );
-        }
+        propsToOverwrite.className = residualClasses
+          .map((className) => {
+            if (nonInlinableRules.has(sanitizeClassName(className))) {
+              return sanitizeClassName(className);
+            }
+            return className;
+          })
+          .join(' ');
       } else {
         propsToOverwrite.className = undefined;
       }
@@ -72,14 +54,5 @@ export function cloneElementWithInlinedStyles(
     ...propsToOverwrite,
   };
 
-  return {
-    elementWithInlinedStyles: React.cloneElement(
-      element,
-      newProps,
-      newProps.children,
-    ),
-
-    nonInlinableClasses,
-    nonInlineRules,
-  };
+  return React.cloneElement(element, newProps, newProps.children);
 }

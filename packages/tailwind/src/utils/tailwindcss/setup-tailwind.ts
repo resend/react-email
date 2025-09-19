@@ -72,32 +72,27 @@ export async function setupTailwind(config: Config) {
     },
   });
 
-  let addedUtilities: string[] = [];
-
-  let root: CssNode | undefined;
+  let css: string = baseCss;
 
   return {
     /**
      * @description Given a list of Tailwind classes, it generates the corresponding CSS. Also resolves simple `calc` functions, and css variables.
      * The returned CSS also includes the CSS generated from all previous calls to this function, this is internal to Tailwind.
      */
-    addUtilities: function addUtilities(
-      classes: string[],
-      { compatibilityFixes = true } = {},
-    ) {
-      if (!compatibilityFixes) {
-        return parse(compiler.build(classes));
-      }
-
-      if (classes.some((className) => !addedUtilities.includes(className))) {
-        addedUtilities = [...addedUtilities, ...classes];
-        root = parse(compiler.build(classes));
+    addUtilities: function addUtilities(candidates: string[]): void {
+      css = compiler.build(candidates);
+    },
+    getStyleSheet: function getCss({
+      compatibilityFixes = true,
+    } = {}): CssNode {
+      const root = parse(css);
+      if (compatibilityFixes) {
         resolveAllCSSVariables(root);
         resolveCalcExpressions(root);
         sanitizeDeclarations(root);
         sanitizeNonInlinableRules(root);
       }
-      return root!;
+      return root;
     },
   };
 }

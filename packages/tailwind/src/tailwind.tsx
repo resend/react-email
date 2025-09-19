@@ -1,6 +1,7 @@
-import { generate, List, type StyleSheet } from 'css-tree';
+import { type CssNode, generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
+import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
@@ -78,26 +79,50 @@ export const pixelBasedPreset: TailwindConfig = {
 export async function Tailwind({ children, config }: TailwindProps) {
   const tailwindSetup = await setupTailwind(config ?? {});
 
-  const nonInlineStylesToApply: StyleSheet = {
-    type: 'StyleSheet',
-    children: new List(),
-  };
-  let mediaQueryClassesForAllElement: string[] = [];
-
-  let hasNonInlineStylesToApply = false as boolean;
-
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
-      const { elementWithInlinedStyles, nonInlinableClasses, nonInlineRules } =
-        cloneElementWithInlinedStyles(node, tailwindSetup);
-      mediaQueryClassesForAllElement =
-        mediaQueryClassesForAllElement.concat(nonInlinableClasses);
-      for (const rule of nonInlineRules) {
-        nonInlineStylesToApply.children.appendData(rule);
+      if (node.props.className) {
+        tailwindSetup.addUtilities(node.props.className?.split(' '));
       }
+    }
 
-      if (nonInlinableClasses.length > 0 && !hasNonInlineStylesToApply) {
-        hasNonInlineStylesToApply = true;
+    return node;
+  });
+
+  const styleSheet = tailwindSetup.getStyleSheet();
+
+  const { inlinable: inlinableRules, nonInlinable: nonInlinableRules } =
+    extractRulesPerClass(styleSheet);
+
+  const nonInlineStyles: StyleSheet = {
+    type: 'StyleSheet',
+    children: new List<CssNode>().fromArray(
+      nonInlinableRules.values().toArray(),
+    ),
+  };
+
+  const hasNonInlineStylesToApply = nonInlinableRules.size > 0;
+  let appliedNonInlineStyles = false as boolean;
+
+  mappedChildren = mapReactTree(mappedChildren, (node) => {
+    if (React.isValidElement<EmailElementProps>(node)) {
+      const elementWithInlinedStyles = cloneElementWithInlinedStyles(
+        node,
+        inlinableRules,
+        nonInlinableRules,
+      );
+
+      if (elementWithInlinedStyles.type === 'head') {
+        appliedNonInlineStyles = true;
+
+        const styleElement = <style>{generate(nonInlineStyles)}</style>;
+
+        return React.cloneElement(
+          elementWithInlinedStyles,
+          elementWithInlinedStyles.props,
+          styleElement,
+          elementWithInlinedStyles.props.children,
+        );
       }
 
       return elementWithInlinedStyles;
@@ -106,39 +131,12 @@ export async function Tailwind({ children, config }: TailwindProps) {
     return node;
   });
 
-  if (hasNonInlineStylesToApply) {
-    let hasAppliedNonInlineStyles = false as boolean;
-
-    mappedChildren = mapReactTree(mappedChildren, (node) => {
-      if (hasAppliedNonInlineStyles) {
-        return node;
-      }
-
-      if (React.isValidElement<EmailElementProps>(node)) {
-        if (node.type === 'head') {
-          hasAppliedNonInlineStyles = true;
-
-          const styleElement = (
-            <style>{generate(nonInlineStylesToApply)}</style>
-          );
-
-          return React.cloneElement(
-            node,
-            node.props,
-            styleElement,
-            node.props.children,
-          );
-        }
-      }
-
-      return node;
-    });
-
-    if (!hasAppliedNonInlineStyles) {
-      throw new Error(
-        `You are trying to use the following Tailwind classes that cannot be inlined: ${mediaQueryClassesForAllElement.join(
-          ' ',
-        )}.
+  if (hasNonInlineStylesToApply && !appliedNonInlineStyles) {
+    throw new Error(
+      `You are trying to use the following Tailwind classes that cannot be inlined: ${nonInlinableRules
+        .keys()
+        .toArray()
+        .join(' ')}.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
 
@@ -147,8 +145,7 @@ This can also be our <Head> component.
 
 If you do already have a <head> element at some depth, 
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
-      );
-    }
+    );
   }
 
   return mappedChildren;

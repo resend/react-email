@@ -2,11 +2,13 @@ import { generate } from 'css-tree';
 import { setupTailwind } from './setup-tailwind';
 
 test('setupTailwind() and addUtilities()', async () => {
-  const { addUtilities } = await setupTailwind({});
+  const { addUtilities, getStyleSheet } = await setupTailwind({});
 
-  expect(
-    generate(addUtilities(['text-red-500', 'sm:bg-blue-300', 'bg-slate-900'])),
-  ).toMatchSnapshot();
+  addUtilities(['text-red-500', 'sm:bg-blue-300', 'bg-slate-900']);
 
-  expect(generate(addUtilities(['bg-red-100']))).toMatchSnapshot();
+  expect(generate(getStyleSheet())).toMatchSnapshot();
+
+  addUtilities(['bg-red-100']);
+
+  expect(generate(getStyleSheet())).toMatchSnapshot();
 });
