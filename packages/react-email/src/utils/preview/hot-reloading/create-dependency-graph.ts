@@ -34,10 +34,12 @@ const readAllFilesInsideDirectory = async (directory: string) => {
   return allFilePaths;
 };
 
+const javascriptExtensions = ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'];
+
 const isJavascriptModule = (filePath: string) => {
   const extensionName = path.extname(filePath);
 
-  return ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'].includes(extensionName);
+  return javascriptExtensions.includes(extensionName);
 };
 
 const checkFileExtensionsUntilItExists = (
@@ -144,12 +146,17 @@ export const createDependencyGraph = async (directory: string) => {
         const pathWithEnsuredExtension = (() => {
           if (
             extension.length > 0 &&
-            existsSync(pathToDependencyFromDirectory)
+            javascriptExtensions.includes(extension)
           ) {
-            return pathToDependencyFromDirectory;
+            if (existsSync(pathToDependencyFromDirectory)) {
+              return pathToDependencyFromDirectory;
+            }
+            return checkFileExtensionsUntilItExists(
+              pathToDependencyFromDirectory.replace(extension, ''),
+            );
           }
           return checkFileExtensionsUntilItExists(
-            pathToDependencyFromDirectory.replace(extension, ''),
+            pathToDependencyFromDirectory,
           );
         })();
 
@@ -299,19 +306,37 @@ export const createDependencyGraph = async (directory: string) => {
       }
     },
     {
-      resolveDependentsOf: function resolveDependentsOf(pathToModule: string) {
-        const moduleEntry = graph[pathToModule];
-        const dependentPaths: Array<string> = [];
+      /**
+       * Resolves all modules that depend on the specified module, directly or indirectly.
+       *
+       * @param pathToModule - The path to the module whose dependents we want to find
+       * @returns An array of paths to all modules that depend on the specified module
+       */
+      resolveDependentsOf: function resolveDependentsOf(
+        pathToModule: string,
+      ): string[] {
+        const dependentPaths = new Set<string>();
+        const stack: string[] = [pathToModule];
 
-        if (moduleEntry) {
+        while (stack.length > 0) {
+          const currentPath = stack.pop()!;
+          const moduleEntry = graph[currentPath];
+
+          if (!moduleEntry) continue;
+
           for (const dependentPath of moduleEntry.dependentPaths) {
-            const dependentsOfDependent = resolveDependentsOf(dependentPath);
-            dependentPaths.push(...dependentsOfDependent);
-            dependentPaths.push(dependentPath);
+            if (
+              dependentPaths.has(dependentPath) ||
+              dependentPath === pathToModule
+            )
+              continue;
+
+            dependentPaths.add(dependentPath);
+            stack.push(dependentPath);
           }
         }
 
-        return dependentPaths;
+        return [...dependentPaths.values()];
       },
     },
   ] as const;

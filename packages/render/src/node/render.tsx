@@ -1,8 +1,7 @@
-import { convert } from 'html-to-text';
 import { Suspense } from 'react';
 import type { Options } from '../shared/options';
-import { plainTextSelectors } from '../shared/plain-text-selectors';
 import { pretty } from '../shared/utils/pretty';
+import { toPlainText } from '../shared/utils/to-plain-text';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
@@ -15,7 +14,9 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   let html!: string;
   if (Object.hasOwn(reactDOMServer, 'renderToReadableStream')) {
     html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement),
+      await reactDOMServer.renderToReadableStream(suspendedElement, {
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
+      }),
     );
   } else {
     await new Promise<void>((resolve, reject) => {
@@ -27,15 +28,13 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         onError(error) {
           reject(error as Error);
         },
+        progressiveChunkSize: Number.POSITIVE_INFINITY,
       });
     });
   }
 
   if (options?.plainText) {
-    return convert(html, {
-      selectors: plainTextSelectors,
-      ...options.htmlToTextOptions,
-    });
+    return toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =

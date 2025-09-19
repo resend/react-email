@@ -21,9 +21,17 @@ const tailwindAtRulesRoot = parse(
 ).root();
 
 export function setupTailwind(config: TailwindConfig) {
+  // See https://github.com/resend/react-email/issues/1907#issuecomment-2668720428
+  if ('safelist' in config) {
+    console.warn(
+      'The `safelist` option is not supported in the `Tailwind` component, it will not change any behavior.',
+    );
+    delete config.safelist;
+  }
   const tailwindContext = setupTailwindContext(config);
   return {
     generateRootForClasses: (classes: string[]) => {
+      tailwindContext.candidateRuleCache = new Map();
       const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
         new Set(classes),
         tailwindContext,
@@ -42,8 +50,8 @@ export function setupTailwind(config: TailwindConfig) {
       evaluateTailwindFunctions(tailwindContext)(root);
       substituteScreenAtRules(tailwindContext)(root);
       resolveDefaultsAtRules(tailwindContext)(root);
-      collapseAdjacentRules(tailwindContext)(root);
-      collapseDuplicateDeclarations(tailwindContext)(root);
+      collapseAdjacentRules()(root);
+      collapseDuplicateDeclarations()(root);
 
       resolveAllCSSVariables(root);
 
