@@ -11,7 +11,7 @@ import { isRuleInlinable } from './is-rule-inlinable';
  * 1. Converts all declarations in all rules into being important ones
  * 2. Sanitizes all the selectors of all non-inlinable rules
  */
-export const sanitizeNonInlinableRules = (node: CssNode) => {
+export function sanitizeNonInlinableRules(node: CssNode) {
   walk(node, {
     visit: 'Rule',
     enter(rule) {

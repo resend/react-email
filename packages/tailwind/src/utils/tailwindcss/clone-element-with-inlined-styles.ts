@@ -7,10 +7,10 @@ import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { isComponent } from '../react/is-component';
 import type { TailwindSetup } from './setup-tailwind';
 
-export const cloneElementWithInlinedStyles = (
+export function cloneElementWithInlinedStyles(
   element: React.ReactElement<EmailElementProps>,
   tailwindSetup: TailwindSetup,
-) => {
+) {
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
   const nonInlinableClasses: string[] = [];

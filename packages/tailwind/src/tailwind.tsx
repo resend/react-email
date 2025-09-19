@@ -75,10 +75,7 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export const Tailwind: React.FC<TailwindProps> = async ({
-  children,
-  config,
-}) => {
+export async function Tailwind({ children, config }: TailwindProps) {
   const tailwindSetup = await setupTailwind(config ?? {});
 
   const nonInlineStylesToApply: StyleSheet = {
@@ -112,7 +109,7 @@ export const Tailwind: React.FC<TailwindProps> = async ({
   if (hasNonInlineStylesToApply) {
     let hasAppliedNonInlineStyles = false as boolean;
 
-    mappedChildren = await mapReactTree(mappedChildren, (node) => {
+    mappedChildren = mapReactTree(mappedChildren, (node) => {
       if (hasAppliedNonInlineStyles) {
         return node;
       }
@@ -155,4 +152,4 @@ please file a bug https://github.com/resend/react-email/issues/new?assignees=&la
   }
 
   return mappedChildren;
-};
+}

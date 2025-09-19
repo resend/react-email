@@ -2,10 +2,7 @@ import { type CssNode, generate, string, walk } from 'css-tree';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
 import { isRuleInlinable } from './is-rule-inlinable';
 
-export const extractRulesMatchingStyles = (
-  classes: string[],
-  root: CssNode,
-) => {
+export function extractRulesMatchingStyles(classes: string[], root: CssNode) {
   const rules = new Map<
     string,
     {
@@ -41,4 +38,4 @@ export const extractRulesMatchingStyles = (
     },
   });
   return rules;
-};
+}

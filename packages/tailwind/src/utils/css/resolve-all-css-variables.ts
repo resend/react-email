@@ -24,7 +24,7 @@ interface VariableDefinition {
   remove(): void;
 }
 
-const doSelectorsIntersect = (first: string, second: string): boolean => {
+function doSelectorsIntersect(first: string, second: string): boolean {
   if (first === second) {
     return true;
   }
@@ -38,9 +38,9 @@ const doSelectorsIntersect = (first: string, second: string): boolean => {
   }
 
   return false;
-};
+}
 
-const removeAndRepeatIfEmptyRecursively = (node: CssNode) => {
+function removeAndRepeatIfEmptyRecursively(node: CssNode) {
   if (node.parent) {
     if (node.containedIn && node.containingItem) {
       node.containedIn.remove(node.containingItem);
@@ -52,9 +52,9 @@ const removeAndRepeatIfEmptyRecursively = (node: CssNode) => {
       removeAndRepeatIfEmptyRecursively(node.parent);
     }
   }
-};
+}
 
-export const resolveAllCSSVariables = (node: CssNode) => {
+export function resolveAllCSSVariables(node: CssNode) {
   populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
   const variableUses = new Set<VariableUse>();
@@ -176,4 +176,4 @@ export const resolveAllCSSVariables = (node: CssNode) => {
   for (const definition of variableDefinitions) {
     definition.remove();
   }
-};
+}

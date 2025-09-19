@@ -3,7 +3,7 @@ import { type CssNode, walk } from 'css-tree';
 /**
  * Intentionally only resolves `*` and `/` operations without dealing with parenthesis, because this is the only thing required to run Tailwind v4
  */
-export const resolveCalcExpressions = (node: CssNode) => {
+export function resolveCalcExpressions(node: CssNode) {
   walk(node, {
     visit: 'Function',
     enter(func, funcListItem) {
@@ -29,9 +29,9 @@ export const resolveCalcExpressions = (node: CssNode) => {
               const value = String(
                 child.value === '*'
                   ? Number.parseFloat(left.data.value) *
-                      Number.parseFloat(right.data.value)
+                  Number.parseFloat(right.data.value)
                   : Number.parseFloat(left.data.value) /
-                      Number.parseFloat(right.data.value),
+                  Number.parseFloat(right.data.value),
               );
               if (
                 left.data.type === 'Dimension' &&
@@ -87,4 +87,4 @@ export const resolveCalcExpressions = (node: CssNode) => {
       }
     },
   });
-};
+}
