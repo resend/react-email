@@ -293,14 +293,6 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  // test.only('temporary', async () => {
-  //   await render(
-  //     <Tailwind>
-  //       <div className="text-lg" />
-  //     </Tailwind>,
-  //   );
-  // });
-
   it('should preserve mso styles', async () => {
     const actualOutput = await render(
       <Html>
