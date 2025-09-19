@@ -15,4 +15,4 @@ export function escapeClassName(className: string) {
       return `${prefixCharacter}\\`;
     },
   );
-};
+}

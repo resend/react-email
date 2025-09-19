@@ -32,4 +32,4 @@ export function sanitizeNonInlinableRules(node: CssNode) {
       }
     },
   });
-};
+}

@@ -1,12 +1,4 @@
-import {
-  type CssNode,
-  type Declaration,
-  generate,
-  parse,
-  type Raw,
-  type Value,
-  walk,
-} from 'css-tree';
+import { type CssNode, type Declaration, parse, walk } from 'css-tree';
 
 const LAB_TO_LMS = {
   l: [0.3963377773761749, 0.2158037573099136],

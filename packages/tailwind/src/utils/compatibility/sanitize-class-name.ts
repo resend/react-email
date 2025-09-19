@@ -33,4 +33,4 @@ export function sanitizeClassName(className: string) {
       return digitToNameMap[digit as keyof typeof digitToNameMap];
     })
     .replace(/[^a-zA-Z0-9\-_]/g, '_');
-};
+}

@@ -12,4 +12,4 @@ export function convertCssPropertyToReactProperty(prop: string) {
   }
 
   return fromDashCaseToCamelCase(modifiedProp);
-};
+}

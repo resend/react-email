@@ -82,4 +82,4 @@ export function cloneElementWithInlinedStyles(
     nonInlinableClasses,
     nonInlineRules,
   };
-};
+}
