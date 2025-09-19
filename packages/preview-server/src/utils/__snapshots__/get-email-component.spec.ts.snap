@@ -13,7 +13,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
     <!--$-->
   </head>
   <body
-    style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:8px;padding-right:8px;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
+    style='margin-right:auto;margin-left:auto;margin-bottom:auto;margin-top:auto;background-color:rgb(255,255,255);padding-right:8px;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
     <table
       border="0"
       width="100%"
@@ -24,7 +24,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
       <tbody>
         <tr>
           <td
-            style='margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);padding-left:8px;padding-right:8px;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'>
+            style='margin-right:auto;margin-left:auto;margin-bottom:auto;margin-top:auto;background-color:rgb(255,255,255);padding-right:8px;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
             <div
               style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
               data-skip-in-text="true">
@@ -36,11 +36,12 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
             <table
               align="center"
               width="100%"
+              class="border-[#eaeaea] border-solid"
               border="0"
               cellpadding="0"
               cellspacing="0"
               role="presentation"
-              style="margin-left:auto;margin-right:auto;margin-top:40px;margin-bottom:40px;max-width:465px;border-radius:0.25rem;border-width:1px;border-color:rgb(234,234,234);border-style:solid;padding:20px">
+              style="margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;max-width:465px;border-radius:0.25rem;border-color:rgb(234,234,234);padding:20px">
               <tbody>
                 <tr style="width:100%">
                   <td>
@@ -59,26 +60,26 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                               alt="Vercel Logo"
                               height="37"
                               src="/static/vercel-logo.png"
-                              style="margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;display:block;outline:none;border:none;text-decoration:none"
+                              style="margin-right:auto;margin-left:auto;margin-bottom:0;margin-top:0;display:block;outline:none;border:none;text-decoration:none"
                               width="40" />
                           </td>
                         </tr>
                       </tbody>
                     </table>
                     <h1
-                      style="margin-left:0;margin-right:0;margin-top:30px;margin-bottom:30px;padding:0;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
+                      style="margin-right:0;margin-left:0;margin-bottom:30px;margin-top:30px;padding:0;text-align:center;font-size:24px;font-weight:400;color:rgb(0,0,0)">
                       Join <strong>Enigma</strong> on <strong>Vercel</strong>
                     </h1>
                     <p
-                      style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                      style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                       Hello
                       <!-- -->alanturing<!-- -->,
                     </p>
                     <p
-                      style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                      style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                       <strong>Alan</strong> (<a
                         href="mailto:alan.turing@example.com"
-                        style="color:rgb(37,99,235);text-decoration-line:none"
+                        style="color:rgb(21.3,92.9,251.5);text-decoration-line:none"
                         target="_blank"
                         >alan.turing@example.com</a
                       >) has invited you to the <strong>Enigma</strong> team on<!-- -->
@@ -110,7 +111,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                                       alt="alanturing&#x27;s profile picture"
                                       height="64"
                                       src="/static/vercel-user.png"
-                                      style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
+                                      style="border-radius:calc(infinity*1px);display:block;outline:none;border:none;text-decoration:none"
                                       width="64" />
                                   </td>
                                   <td
@@ -130,7 +131,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                                       alt="Enigma team logo"
                                       height="64"
                                       src="/static/vercel-team.png"
-                                      style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
+                                      style="border-radius:calc(infinity*1px);display:block;outline:none;border:none;text-decoration:none"
                                       width="64" />
                                   </td>
                                 </tr>
@@ -153,7 +154,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                           <td>
                             <a
                               href="https://vercel.com"
-                              style="border-radius:0.25rem;background-color:rgb(0,0,0);padding-left:20px;padding-right:20px;padding-top:12px;padding-bottom:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px"
+                              style="border-radius:calc(infinity*1px);background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-size:12px;font-weight:600;color:rgb(255,255,255);text-decoration-line:none;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px"
                               target="_blank"
                               ><span
                                 ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
@@ -169,19 +170,20 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                       </tbody>
                     </table>
                     <p
-                      style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                      style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                       or copy and paste this URL into your browser:<!-- -->
                       <a
                         href="https://vercel.com"
-                        style="color:rgb(37,99,235);text-decoration-line:none"
+                        style="color:rgb(21.3,92.9,251.5);text-decoration-line:none"
                         target="_blank"
                         >https://vercel.com</a
                       >
                     </p>
                     <hr
-                      style="margin-left:0;margin-right:0;margin-top:26px;margin-bottom:26px;width:100%;border-width:1px;border-color:rgb(234,234,234);border-style:solid;border:none;border-top:1px solid #eaeaea" />
+                      class="border-[#eaeaea] border-solid"
+                      style="margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;width:100%;border-color:rgb(234,234,234);border:none;border-top:1px solid #eaeaea" />
                     <p
-                      style="color:rgb(102,102,102);font-size:12px;line-height:24px;margin-top:16px;margin-bottom:16px">
+                      style="font-size:12px;line-height:24px;color:rgb(102,102,102);margin-top:16px;margin-bottom:16px">
                       This invitation was intended for<!-- -->
                       <span style="color:rgb(0,0,0)">alanturing</span>. This
                       invite was sent from
