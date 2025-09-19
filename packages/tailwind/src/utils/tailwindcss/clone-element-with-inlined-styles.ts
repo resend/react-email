@@ -18,8 +18,7 @@ export const cloneElementWithInlinedStyles = (
 
   if (element.props.className) {
     const classes = element.props.className.split(' ');
-    const cssNode = tailwindSetup.aggregateIntoCss(classes);
-    tailwindSetup.dealWithCompatibilityIssues(cssNode);
+    const cssNode = tailwindSetup.addUtilities(classes);
 
     const rulePerClass = extractRulesMatchingStyles(classes, cssNode);
 

@@ -6,8 +6,7 @@ describe('extractRulesMatchingClasses()', async () => {
   it('should work just inlinable utilities', async () => {
     const tailwind = await setupTailwind({});
     const classes = ['text-center', 'bg-red-500'];
-    const cssNode = tailwind.aggregateIntoCss(classes);
-    tailwind.dealWithCompatibilityIssues(cssNode);
+    const cssNode = tailwind.addUtilities(classes);
     const rules = extractRulesMatchingStyles(classes, cssNode);
     const stringifiedRulesMap = Object.fromEntries(
       rules
@@ -21,8 +20,7 @@ describe('extractRulesMatchingClasses()', async () => {
   it('should work with non-inlinable utilities', async () => {
     const tailwind = await setupTailwind({});
     const classes = ['lg:w-1/2'];
-    const cssNode = tailwind.aggregateIntoCss(classes);
-    tailwind.dealWithCompatibilityIssues(cssNode);
+    const cssNode = tailwind.addUtilities(classes);
     const rules = extractRulesMatchingStyles(classes, cssNode);
     const stringifiedRulesMap = Object.fromEntries(
       rules
@@ -42,8 +40,7 @@ describe('extractRulesMatchingClasses()', async () => {
       'w-full',
       'lg:w-1/2',
     ];
-    const cssNode = tailwind.aggregateIntoCss(classes);
-    tailwind.dealWithCompatibilityIssues(cssNode);
+    const cssNode = tailwind.addUtilities(classes);
     const rules = extractRulesMatchingStyles(classes, cssNode);
     const stringifiedRulesMap = Object.fromEntries(
       rules
