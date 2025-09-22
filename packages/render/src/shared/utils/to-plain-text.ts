@@ -9,7 +9,7 @@ export const plainTextSelectors: SelectorDefinition[] = [
   { selector: '[data-skip-in-text=true]', format: 'skip' },
   {
     selector: 'a',
-    options: { linkBrackets: false },
+    options: { linkBrackets: false, hideLinkHrefIfSameAsText: true },
   },
 ];
 
