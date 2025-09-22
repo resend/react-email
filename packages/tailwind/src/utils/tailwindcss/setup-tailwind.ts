@@ -75,10 +75,6 @@ export async function setupTailwind(config: Config) {
   let css: string = baseCss;
 
   return {
-    /**
-     * @description Given a list of Tailwind classes, it generates the corresponding CSS. Also resolves simple `calc` functions, and css variables.
-     * The returned CSS also includes the CSS generated from all previous calls to this function, this is internal to Tailwind.
-     */
     addUtilities: function addUtilities(candidates: string[]): void {
       css = compiler.build(candidates);
     },
