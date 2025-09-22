@@ -12,3 +12,15 @@
 #__next {
   isolation: isolate;
 }
+
+.text-gradient {
+  background: linear-gradient(
+    to right bottom,
+    #fff 30%,
+    color-mix(in srgb, #fff 50%, transparent)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: unset;
+}
