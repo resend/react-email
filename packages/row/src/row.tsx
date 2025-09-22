@@ -29,4 +29,3 @@ export const Row = React.forwardRef<HTMLTableElement, RowProps>(
 );
 
 Row.displayName = 'Row';
-(Row as any).tailwindTreatAsElement = true;

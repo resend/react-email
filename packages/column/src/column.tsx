@@ -13,4 +13,3 @@ export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
 );
 
 Column.displayName = 'Column';
-(Column as any).tailwindTreatAsElement = true;
