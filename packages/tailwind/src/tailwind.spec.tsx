@@ -46,11 +46,9 @@ describe('Tailwind component', () => {
     }) => {
       expect(
         props.style,
-        'Styles should be generated the same for a component',
-      ).toEqual({
-        color: 'rgb(80.5,162.1,255)',
-        padding: '1rem',
-      });
+        'styles should not be generated for a component',
+      ).toBeUndefined();
+      expect(props.className).toBe('p-4 text-blue-400');
       return (
         <div
           className={`${props.className} bg-red-500`}
