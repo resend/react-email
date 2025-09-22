@@ -1,9 +1,5 @@
 import { type CssNode, parse } from 'css-tree';
 import { type Config, compile } from 'tailwindcss';
-import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
-import { resolveCalcExpressions } from '../css/resolve-calc-expressions';
-import { sanitizeDeclarations } from '../css/sanitize-declarations';
-import { sanitizeNonInlinableRules } from '../css/sanitize-non-inlinable-rules';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
