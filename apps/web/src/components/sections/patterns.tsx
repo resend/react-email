@@ -17,7 +17,10 @@ const PatternsSection = () => {
         <Content component="Text" />
         <Content component="Button" />
         <div className="relative grid grid-cols-1 gap-y-4 gap-x-1 pb-5 md:grid-cols-2 lg:grid-cols-3 -ml-5">
-          <div aria-hidden className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b" />
+          <div
+            aria-hidden
+            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b"
+          />
           {componentsStructure.slice(0, 6).map((category, index) => {
             const slug = slugify(category.name);
             const Illustration = dynamic(
@@ -89,13 +92,13 @@ const PatternsSection = () => {
 
 const Content = ({ component }: { component: string }) => {
   return (
-		<div className="relative">
-			<ContentComponent component={component} />
-			<div
-				aria-hidden
-				className="absolute pointer-events-none inset-0 border-y border-slate-4 w-[200dvw] -left-[100dvw]"
-			/>
-		</div>
+    <div className="relative">
+      <ContentComponent component={component} />
+      <div
+        aria-hidden
+        className="absolute pointer-events-none inset-0 border-y border-slate-4 w-[200dvw] -left-[100dvw]"
+      />
+    </div>
   );
 };
 
