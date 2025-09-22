@@ -13,3 +13,4 @@ export const Head = React.forwardRef<HTMLHeadElement, HeadProps>(
 );
 
 Head.displayName = 'Head';
+(Head as any).tailwindTreatAsElement = true;

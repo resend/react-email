@@ -12,7 +12,7 @@ export function cloneElementWithInlinedStyles(
 ) {
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
-  if (element.props.className) {
+  if (element.props.className && !isComponent(element)) {
     const classes = element.props.className.split(' ');
 
     const residualClasses: string[] = [];
@@ -33,19 +33,17 @@ export function cloneElementWithInlinedStyles(
       ...element.props.style,
     };
 
-    if (!isComponent(element)) {
-      if (residualClasses.length > 0) {
-        propsToOverwrite.className = residualClasses
-          .map((className) => {
-            if (nonInlinableRules.has(sanitizeClassName(className))) {
-              return sanitizeClassName(className);
-            }
-            return className;
-          })
-          .join(' ');
-      } else {
-        propsToOverwrite.className = undefined;
-      }
+    if (residualClasses.length > 0) {
+      propsToOverwrite.className = residualClasses
+        .map((className) => {
+          if (nonInlinableRules.has(sanitizeClassName(className))) {
+            return sanitizeClassName(className);
+          }
+          return className;
+        })
+        .join(' ');
+    } else {
+      propsToOverwrite.className = undefined;
     }
   }
 

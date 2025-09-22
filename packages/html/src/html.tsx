@@ -11,3 +11,4 @@ export const Html = React.forwardRef<HTMLHtmlElement, HtmlProps>(
 );
 
 Html.displayName = 'Html';
+(Html as any).tailwindTreatAsElement = true;

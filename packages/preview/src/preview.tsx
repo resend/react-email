@@ -36,6 +36,7 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
 );
 
 Preview.displayName = 'Preview';
+(Preview as any).tailwindTreatAsElement = true;
 
 const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
 export const renderWhiteSpace = (text: string) => {

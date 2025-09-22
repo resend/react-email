@@ -23,3 +23,4 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
 );
 
 Img.displayName = 'Img';
+(Img as any).tailwindTreatAsElement = true;

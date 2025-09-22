@@ -27,3 +27,4 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
 );
 
 Section.displayName = 'Section';
+(Section as any).tailwindTreatAsElement = true;
