@@ -78,17 +78,8 @@ export async function setupTailwind(config: Config) {
     addUtilities: function addUtilities(candidates: string[]): void {
       css = compiler.build(candidates);
     },
-    getStyleSheet: function getCss({
-      compatibilityFixes = true,
-    } = {}): CssNode {
-      const root = parse(css);
-      if (compatibilityFixes) {
-        resolveAllCSSVariables(root);
-        resolveCalcExpressions(root);
-        sanitizeDeclarations(root);
-        sanitizeNonInlinableRules(root);
-      }
-      return root;
+    getStyleSheet: function getCss(): CssNode {
+      return parse(css);
     },
   };
 }

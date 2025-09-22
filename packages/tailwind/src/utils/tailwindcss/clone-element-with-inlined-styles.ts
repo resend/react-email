@@ -36,7 +36,7 @@ export function cloneElementWithInlinedStyles(
     if (residualClasses.length > 0) {
       propsToOverwrite.className = residualClasses
         .map((className) => {
-          if (nonInlinableRules.has(sanitizeClassName(className))) {
+          if (nonInlinableRules.has(className)) {
             return sanitizeClassName(className);
           }
           return className;
