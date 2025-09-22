@@ -28,9 +28,44 @@ exports[`Tailwind component > should preserve mso styles 1`] = `"<!DOCTYPE html 
 
 exports[`Tailwind component > should recognize custom responsive screen 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:1280px){.xl_bg-green-500{background-color:rgb(34,197,94) !important}}@media(min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(59,130,246) !important}}</style></head><div class="xl_bg-green-500" style="background-color:rgb(254,226,226)">Test</div><div class="twoxl_bg-blue-500">Test</div><!--/$--></html>"`;
 
+exports[`Tailwind component > should warn about safelist not being supported 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_p-4{padding:1rem !important}}
+  </style>
+</head>
+<body>
+  <button type="button" class="md_p-4" style="background-color:rgb(37,99,235)">
+    Click me</button
+  ><!--/$-->
+</body>
+"
+`;
+
 exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(37,99,235);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
 
 exports[`Tailwind component > should work with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
+
+exports[`Tailwind component > should work with blocklist 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_p-4{padding:1rem !important}}
+  </style>
+</head>
+<body>
+  <button type="button" class="bg-blue-600 md_p-4">Click me</button
+  ><!--/$-->
+</body>
+"
+`;
 
 exports[`Tailwind component > should work with calc() with + sign 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><!--$--><style>@media(min-width:1024px){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem) !important}}</style></head><div class="lg_max-h-calc50pxplus5rem" style="max-height:calc(50px + 3rem);background-color:rgb(254,226,226)"><div style="height:200px">something tall</div></div><!--/$-->"`;
 
@@ -44,7 +79,22 @@ exports[`Tailwind component > should work with custom components with fragment a
 
 exports[`non-inlinable styles > should add css to <head/> and keep class names 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media(min-width:640px){.sm_bg-red-300{background-color:rgb(252,165,165) !important}.sm_hover_bg-red-200:hover{background-color:rgb(254,202,202) !important}}@media(min-width:768px){.md_bg-red-400{background-color:rgb(248,113,113) !important}}@media(min-width:1024px){.lg_bg-red-500{background-color:rgb(239,68,68) !important}}.hover_bg-red-600:hover{background-color:rgb(220,38,38) !important}.focus_bg-red-700:focus{background-color:rgb(185,28,28) !important}</style></head><body><div class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
 
-exports[`non-inlinable styles > should not have duplicate media queries 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}.hover_underline:hover{text-decoration-line:underline !important}</style></head><body class="hover_underline md_px-64px" style="margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;background-color:rgb(255,255,255);font-family:ui-sans-serif, system-ui, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;"><div class="hover_underline md_px-64px"></div><!--/$--></body>"`;
+exports[`non-inlinable styles > should not have duplicate media queries 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    @media(min-width:768px){.md_px-64px{padding-left:64px !important;padding-right:64px !important}}@media(prefers-color-scheme:dark){.dark_bg-black{background-color:rgb(0,0,0) !important}.dark_text-green-500{color:rgb(34,197,94) !important}}
+  </style>
+</head>
+<body class="md_px-64px dark_bg-black dark_text-green-500">
+  <div class="md_px-64px dark_text-green-500"></div>
+  <!--/$-->
+</body>
+"
+`;
 
 exports[`non-inlinable styles > should persist existing <head/> elements 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style></style><link/><style>@media(min-width:640px){.sm_bg-red-500{background-color:rgb(239,68,68) !important}}</style></head><body><div class="sm_bg-red-500" style="background-color:rgb(254,202,202)"></div><!--/$--></body></html>"`;
 

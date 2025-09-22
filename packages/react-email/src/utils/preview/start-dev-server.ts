@@ -1,7 +1,7 @@
 import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
-import chalk from 'chalk';
+import { styleText } from 'node:util';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
@@ -42,9 +42,6 @@ export const startDevServer = async (
 
   const previewServerLocation = await getPreviewServerLocation();
   const previewServer = createJiti(previewServerLocation);
-
-  const { default: next } =
-    await previewServer.import<typeof import('next')>('next');
 
   devServer = http.createServer((req, res) => {
     if (!req.url) {
@@ -88,7 +85,9 @@ export const startDevServer = async (
   if (!portAlreadyInUse) {
     // this errors when linting but doesn't on the editor so ignore the warning on this
     /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */
-    console.log(chalk.greenBright(`    React Email ${packageJson.version}`));
+    console.log(
+      styleText('greenBright', `    React Email ${packageJson.version}`),
+    );
     console.log(`    Running preview at:          http://localhost:${port}\n`);
   } else {
     const nextPortToTry = port + 1;
@@ -132,9 +131,17 @@ export const startDevServer = async (
     ...getEnvVariablesForPreviewApp(
       // If we don't do normalization here, stuff like https://github.com/resend/react-email/issues/1354 happens.
       path.normalize(emailsDirRelativePath),
+      previewServerLocation,
       process.cwd(),
     ),
   };
+
+  const next = await previewServer.import<typeof import('next')['default']>(
+    'next',
+    {
+      default: true,
+    },
+  );
 
   const app = next({
     // passing in env here does not get the environment variables there

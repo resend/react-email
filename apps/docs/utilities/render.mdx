@@ -104,13 +104,16 @@ This is important because not all email clients and devices can display HTML ema
 
 Here's how to convert a React component into plain text.
 
+<Warning>
+The `plainText` option in the `render` function is deprecated since [@react-email/render@1.2.0](https://github.com/resend/react-email/releases/tag/%40react-email%2Frender%401.2.0). Use the `toPlainText` function instead.
+</Warning>
+
 ```jsx
 import { MyTemplate } from './email';
-import { render } from '@react-email/render';
+import { toPlainText, render } from '@react-email/render';
 
-const text = await render(<MyTemplate />, {
-  plainText: true,
-});
+const html = await render(<MyTemplate />);
+const text = toPlainText(html);
 
 console.log(text);
 ```
@@ -130,7 +133,7 @@ Click me [https://example.com]
 <ResponseField name="pretty" type="boolean" deprecated>
   Beautify HTML output
 </ResponseField>
-<ResponseField name="plainText" type="boolean">
+<ResponseField name="plainText" type="boolean" deprecated>
   Generate plain text version
 </ResponseField>
 <ResponseField name="htmlToTextOptions" type="HtmlToTextOptions">
