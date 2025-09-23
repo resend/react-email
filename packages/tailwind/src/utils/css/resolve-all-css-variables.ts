@@ -54,7 +54,7 @@ function removeAndRepeatIfEmptyRecursively(node: CssNode) {
   }
 }
 
-export function resolveAllCSSVariables(node: CssNode) {
+export function resolveAllCssVariables(node: CssNode) {
   populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
   const variableUses = new Set<VariableUse>();

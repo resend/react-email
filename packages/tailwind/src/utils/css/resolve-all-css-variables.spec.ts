@@ -1,5 +1,5 @@
 import { generate, parse } from 'css-tree';
-import { resolveAllCSSVariables } from './resolve-all-css-variables';
+import { resolveAllCssVariables } from './resolve-all-css-variables';
 
 describe('resolveAllCSSVariables', () => {
   it('should work with simple css variables on a :root', () => {
@@ -10,7 +10,7 @@ describe('resolveAllCSSVariables', () => {
 .box {
   width: var(--width);
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -26,7 +26,7 @@ describe('resolveAllCSSVariables', () => {
         width: var(--width);
       }
     }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -42,7 +42,7 @@ describe('resolveAllCSSVariables', () => {
       margin: var(--top) var(--right) var(--bottom) var(--left);
     }`);
 
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -50,7 +50,7 @@ describe('resolveAllCSSVariables', () => {
     const root = parse(`.box {
   width: var(--width);
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -67,7 +67,7 @@ describe('resolveAllCSSVariables', () => {
   }
 }
 `);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -85,7 +85,7 @@ describe('resolveAllCSSVariables', () => {
     }
   }
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -95,7 +95,7 @@ describe('resolveAllCSSVariables', () => {
   height: var(--undefined-height, 200px);
   margin: var(--undefined-margin, 10px 20px);
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -108,7 +108,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--undefined-width, var(--fallback-width));
   height: var(--undefined-height, var(--also-undefined, 250px));
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 
@@ -128,7 +128,7 @@ describe('resolveAllCSSVariables', () => {
   --b: 10;
   background: var(--bg-color, rgb(var(--r, 255), var(--g, 0), var(--b, 0)));
 }`);
-    resolveAllCSSVariables(root);
+    resolveAllCssVariables(root);
     expect(generate(root)).toMatchSnapshot();
   });
 

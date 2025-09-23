@@ -2,7 +2,7 @@ import { type CssNode, generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
-import { resolveAllCSSVariables } from './utils/css/resolve-all-css-variables';
+import { resolveAllCssVariables } from './utils/css/resolve-all-css-variables';
 import { resolveCalcExpressions } from './utils/css/resolve-calc-expressions';
 import { sanitizeDeclarations } from './utils/css/sanitize-declarations';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules';
@@ -94,7 +94,7 @@ export async function Tailwind({ children, config }: TailwindProps) {
   });
 
   const styleSheet = tailwindSetup.getStyleSheet();
-  resolveAllCSSVariables(styleSheet);
+  resolveAllCssVariables(styleSheet);
   resolveCalcExpressions(styleSheet);
   sanitizeDeclarations(styleSheet);
 
