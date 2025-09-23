@@ -22,6 +22,7 @@ import { useResend } from './toolbar/resend';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 import { Button } from './button';
+import { toast } from 'sonner';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin' | 'resend';
 
@@ -109,6 +110,8 @@ const ToolbarInner = ({
 
   const [resendStatus, { load: loadResend, loading: resendLoading }] =
     useResend();
+
+  const [loadingExportTemplate, setLoadingExportTemplate] = React.useState(false);
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
@@ -290,9 +293,13 @@ const ToolbarInner = ({
                     Import your email using the Templates API.
                   </SuccessDescription>
                   <div className="flex gap-2">
-                    <Button onClick={() => {
-                      console.log('Uploading...');
-                      exportTemplateToResend();
+                    <Button loading={loadingExportTemplate} onClick={async () => {
+                      setLoadingExportTemplate(true);
+                      try {
+                        await exportTemplateToResend();
+                      } finally {
+                        setLoadingExportTemplate(false);
+                      }
                     }}>Upload</Button>
                     <Button appearance="gradient" className="mt-2 mb-4" onClick={() => {
                       console.log('Bulk uploading...');
@@ -403,12 +410,12 @@ export const Toolbar = ({
           });
 
           if (response.ok) {
-            console.log('Template exported successfully');
+            toast.success('Template exported successfully');
           } else {
-            console.error('Failed to export template');
+            toast.error('Failed to export template');
           }
         } catch (error) {
-          console.error('Error exporting template:', error);
+          toast.error('Error exporting template:', error);
         }
       }}
       serverLintingRows={serverLintingRows}
