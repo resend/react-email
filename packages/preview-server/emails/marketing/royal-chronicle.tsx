@@ -20,11 +20,10 @@ const RoyalKingdomNewsletter = () => {
     <Html lang="en" dir="ltr">
       <Tailwind>
         <Head />
-        <Body className="bg-gradient-to-b from-purple-900 to-indigo-900 font-sans py-[40px]">
+        <Body className="bg-gradient-to-b from-purple-900 to-indigo-900 font-sans">
           <Container className="bg-white max-w-[600px] mx-auto rounded-[12px] overflow-hidden shadow-2xl">
             {/* Royal Header */}
-            <Section className="bg-gradient-to-r from-purple-800 to-indigo-800 text-center py-[32px] px-[24px]">
-              <Text className="text-yellow-400 text-[48px] font-bold m-0 mb-[8px]">🏰</Text>
+            <Section className="bg-gradient-to-r from-purple-800 to-indigo-800 py-[32px] px-[24px]">
               <Heading className="text-red-500 text-[32px] font-bold m-0 mb-[8px] tracking-wide">
                 THE ROYAL CHRONICLE
               </Heading>
