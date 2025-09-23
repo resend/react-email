@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 declare module "tailwindcss/lib/lib/evaluateTailwindFunctions" {
   import type { JitContext } from "tailwindcss/lib/lib/setupContextUtils";
   import type { Root } from "postcss";

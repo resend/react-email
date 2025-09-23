@@ -64,7 +64,6 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
 
   React.useEffect(() => {
     setActiveView(activeView);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

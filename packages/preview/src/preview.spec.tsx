@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 import { render } from '@react-email/render';
 import { Preview, renderWhiteSpace } from './index';
 
@@ -37,7 +36,6 @@ describe('renderWhiteSpace', () => {
     const html = renderWhiteSpace(text);
     expect(html).not.toBeNull();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const actualTextContent = html?.props.children;
     const expectedTextContent = whiteSpaceCharacters.repeat(150 - text.length);
     expect(actualTextContent).toBe(expectedTextContent);
