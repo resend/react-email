@@ -192,7 +192,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               h,
             });
 
-            const alphaString = a ? `,${a}` : '';
+            const alphaString = a !== undefined ? `,${a}` : '';
 
             funcParentListItem.data = parse(
               `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`,
