@@ -8,6 +8,7 @@
     "clean": "rm -rf dist",
     "dev": "tsx ./scripts/dev.mts",
     "dev:seed": "tsx ./scripts/seed.mts",
+    "setup:resend": "tsx ./scripts/setup-resend.mts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -304,11 +304,9 @@ const ToolbarInner = ({
                 />
               ) : (
                 <SuccessWrapper>
-                  <SuccessTitle>Add Resend API Key</SuccessTitle>
+                  <SuccessTitle>Connect to Resend</SuccessTitle>
                   <SuccessDescription>
-                    Create a <CodeSnippet>.env</CodeSnippet> file and add your
-                    API Key using the <CodeSnippet>RESEND_API_KEY</CodeSnippet>{' '}
-                    environment variable.
+                    Run <CodeSnippet>pnpm setup:resend YOUR_API_KEY</CodeSnippet> to connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}
