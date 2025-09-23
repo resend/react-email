@@ -179,7 +179,7 @@ const ToolbarInner = ({
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
                   (activeTab === 'resend' &&
-                    'The Resend tab allows you to upload emails to Resend using the Templates API.') ||
+                    'The Resend tab allows you to upload emails using the Templates API.') ||
                   'Info'
                 }
               >
