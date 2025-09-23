@@ -11,6 +11,7 @@ export function Footer() {
           className="inline-flex items-center gap-2"
           href="https://resend.com"
           target="_blank"
+          rel="noopener noreferrer"
         >
           <Image
             alt=""

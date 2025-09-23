@@ -107,49 +107,51 @@ export const metadata: Metadata = {
 };
 
 export default function Templates() {
-  <>
-    <Image
-      alt=""
-      className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
-      fill
-      priority
-      src="/static/bg.png"
-    />
-    <PageTransition
-      className="mx-auto flex max-w-3xl flex-col justify-center px-1 py-10 md:px-0"
-      key="about"
-      tag="main"
-    >
-      <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
-        <Heading className="text-white" size="6">
-          Templates
-        </Heading>
-        <Text as="p" className="mt-4 text-slate-11" size="2">
-          {description}.
-        </Text>
-        <Text as="p" className="mt-2 text-slate-11" size="2">
-          Recreate an{' '}
-          <Anchor
-            href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
-            target="_blank"
-          >
-            existing email
-          </Anchor>{' '}
-          or submit a{' '}
-          <Anchor
-            href="https://github.com/resend/react-email/tree/main/demo"
-            target="_blank"
-          >
-            pull request
-          </Anchor>{' '}
-          to add your template here.
-        </Text>
-      </div>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {items.map((item) => (
-          <Template key={item.path} {...item} />
-        ))}
-      </div>
-    </PageTransition>
-  </>;
+  return (
+    <>
+      <Image
+        alt=""
+        className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
+        fill
+        priority
+        src="/static/bg.png"
+      />
+      <PageTransition
+        className="mx-auto flex max-w-3xl flex-col justify-center px-1 py-10 md:px-0"
+        key="about"
+        tag="main"
+      >
+        <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
+          <Heading className="text-white" size="6">
+            Templates
+          </Heading>
+          <Text as="p" className="mt-4 text-slate-11" size="2">
+            {description}.
+          </Text>
+          <Text as="p" className="mt-2 text-slate-11" size="2">
+            Recreate an{' '}
+            <Anchor
+              href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
+              target="_blank"
+            >
+              existing email
+            </Anchor>{' '}
+            or submit a{' '}
+            <Anchor
+              href="https://github.com/resend/react-email/tree/main/demo"
+              target="_blank"
+            >
+              pull request
+            </Anchor>{' '}
+            to add your template here.
+          </Text>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {items.map((item) => (
+            <Template key={item.path} {...item} />
+          ))}
+        </div>
+      </PageTransition>
+    </>
+  );
 }
