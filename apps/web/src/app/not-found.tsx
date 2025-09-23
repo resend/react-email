@@ -1,4 +1,4 @@
-import PageTransition from '@/components/page-transition';
+import { PageTransition } from '@/components/page-transition';
 
 export const metadata = {
   title: '404 Not found',
@@ -7,7 +7,7 @@ export const metadata = {
   },
 };
 
-const NotFound = () => (
+export default function NotFound() {
   <>
     <div className="pointer-events-none absolute inset-0 flex justify-center">
       <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
@@ -29,7 +29,5 @@ const NotFound = () => (
         <p>Please check the URL and try again.</p>
       </div>
     </PageTransition>
-  </>
-);
-
-export default NotFound;
+  </>;
+}

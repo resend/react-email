@@ -56,10 +56,7 @@ const TabContent: React.FC<{
   </Tabs.Content>
 );
 
-export const ComponentView: React.FC<ComponentViewProps> = ({
-  component,
-  className,
-}) => {
+export function ComponentView({ component, className }: ComponentViewProps) {
   const [activeView, setActiveView] = React.useState<ActiveView>('desktop');
 
   React.useEffect(() => {
@@ -128,4 +125,4 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
       </TooltipProvider>
     </Tabs.Root>
   );
-};
+}

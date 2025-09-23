@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import * as React from 'react';
 import type { As } from '../utils/as';
 import { unreachable } from '../utils/unreachable';
 
@@ -9,22 +8,21 @@ type TextColor = 'gray' | 'white';
 interface TextOwnProps {
   size?: TextSize;
   color?: TextColor;
+  ref?: React.RefObject<HTMLParagraphElement>;
 }
 
 type TextProps = As<'span', 'div', 'p'> & TextOwnProps;
 
-export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
-  (
-    {
-      as: Tag = 'span',
-      size = '2',
-      color = 'gray',
-      className,
-      children,
-      ...props
-    },
-    ref,
-  ) => (
+export function Text({
+  as: Tag = 'span',
+  size = '2',
+  color = 'gray',
+  className,
+  children,
+  ref,
+  ...props
+}: TextProps) {
+  return (
     <Tag
       className={classNames(
         className,
@@ -36,10 +34,8 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
     >
       {children}
     </Tag>
-  ),
-);
-
-Text.displayName = 'Text';
+  );
+}
 
 const getSizesClassNames = (size: TextSize) => {
   switch (size) {

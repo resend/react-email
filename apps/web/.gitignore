@@ -31,3 +31,5 @@ Thumbs.db
 ## Environment variables
 ### Prevent `.env` files from being tracked by Git to avoid exposing sensitive information.
 .env*
+
+next-env.d.ts

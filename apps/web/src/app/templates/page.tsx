@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Anchor } from '../../components/anchor';
 import { Heading } from '../../components/heading';
-import PageTransition from '../../components/page-transition';
+import { PageTransition } from '../../components/page-transition';
 import { Template } from '../../components/template';
 import { Text } from '../../components/text';
 
@@ -99,18 +99,14 @@ const items = [
   },
 ];
 
-const title = 'Templates — React Email';
 const description = 'Open source templates built with React Email';
+
 export const metadata: Metadata = {
-  title,
+  title: 'Templates — React Email',
   description,
-  openGraph: {
-    title,
-    description,
-  },
 };
 
-const Templates = () => (
+export default function Templates() {
   <>
     <Image
       alt=""
@@ -155,7 +151,5 @@ const Templates = () => (
         ))}
       </div>
     </PageTransition>
-  </>
-);
-
-export default Templates;
+  </>;
+}

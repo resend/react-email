@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { componentsStructure } from '../../../../components/structure';
 import { ComponentsView } from '../../../components/components-view';
 import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
-import PageTransition from '../../../components/page-transition';
+import { PageTransition } from '../../../components/page-transition';
 import { slugify } from '../../../utils/slugify';
 import { getImportedComponentsFor } from '../get-imported-components-for';
 
@@ -54,14 +54,16 @@ export const generateMetadata = async ({
   };
 };
 
-const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
+export default async function ComponentPage({ params }: ComponentPageParams) {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
   const foundCategory = componentsStructure.find(
     (category) => slugify(category.name) === slug,
   );
 
-  if (!foundCategory) return <p>Component category not found.</p>;
+  if (!foundCategory) {
+    return <p>Component category not found.</p>;
+  }
 
   const importedComponents = await getImportedComponentsFor(foundCategory);
   return (
@@ -93,6 +95,4 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
       </PageTransition>
     </>
   );
-};
-
-export default ComponentPage;
+}

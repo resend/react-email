@@ -6,10 +6,7 @@ type RootProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>;
 
 export type TooltipProps = RootProps;
 
-export const TooltipRoot: React.FC<Readonly<TooltipProps>> = ({
-  children,
-  ...props
-}) => <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>;
+export const TooltipRoot = TooltipPrimitive.Root;
 
 export const Tooltip = Object.assign(TooltipRoot, {
   Arrow: TooltipPrimitive.TooltipArrow,
