@@ -6,7 +6,7 @@ describe('sanitizeNonInlinableRules()', () => {
   it('should handle rules that can be inlined', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities(['bg-gray-900', 'text-red-300', 'text-lg']);
-    const stylesheet = tailwind.getStyleSheet({ compatibilityFixes: false });
+    const stylesheet = tailwind.getStyleSheet();
 
     sanitizeNonInlinableRules(stylesheet);
     expect(generate(stylesheet)).toMatchSnapshot();
@@ -21,13 +21,13 @@ describe('sanitizeNonInlinableRules()', () => {
       'lg:focus:underline',
     ]);
 
-    const stylesheet = tailwind.getStyleSheet({ compatibilityFixes: false });
+    const stylesheet = tailwind.getStyleSheet();
 
     sanitizeNonInlinableRules(stylesheet);
     expect(generate(stylesheet)).toMatchSnapshot();
   });
 
-  it('shuold work with basic media query rules', async () => {
+  it('should work with basic media query rules', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
       'sm:mx-auto',
@@ -36,7 +36,7 @@ describe('sanitizeNonInlinableRules()', () => {
       'md:px-10',
       'md:py-12',
     ]);
-    const stylesheet = tailwind.getStyleSheet({ compatibilityFixes: false });
+    const stylesheet = tailwind.getStyleSheet();
 
     sanitizeNonInlinableRules(stylesheet);
 
