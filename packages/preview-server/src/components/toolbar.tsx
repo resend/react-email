@@ -416,8 +416,7 @@ export const Toolbar = ({
     React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup, markup } =
-    renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, markup: htmlMarkup } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -432,7 +431,8 @@ export const Toolbar = ({
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              html: markup,
+              reactMarkup,
+              htmlMarkup,
               name: emailSlug,
             }),
           });
