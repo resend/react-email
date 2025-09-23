@@ -47,7 +47,6 @@ export const convertStackWithSourceMap = (
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
               // This can actually be null
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               positionWithError.source ?? stackFrame.file,
               positionWithError.line,
               positionWithError.column,

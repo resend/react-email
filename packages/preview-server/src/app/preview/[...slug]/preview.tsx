@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -16,7 +16,7 @@ import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
-import { PreviewContext } from '../../../contexts/preview';
+import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
 import { ErrorOverlay } from './error-overlay';
@@ -26,7 +26,7 @@ interface PreviewProps extends React.ComponentProps<'div'> {
 }
 
 const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
-  const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
+  const { renderingResult, renderedEmailMetadata } = usePreviewContext();
 
   const router = useRouter();
   const pathname = usePathname();
