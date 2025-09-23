@@ -13,7 +13,7 @@ export function cloneElementWithInlinedStyles(
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
   if (element.props.className && !isComponent(element)) {
-    const classes = element.props.className.split(' ');
+    const classes = element.props.className.trim().split(/\s+/);
 
     const residualClasses: string[] = [];
 
