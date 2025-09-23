@@ -858,6 +858,9 @@ importers:
       react-promise-suspense:
         specifier: ^0.3.4
         version: 0.3.4
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
     devDependencies:
       '@edge-runtime/vm':
         specifier: 5.0.0
@@ -880,9 +883,6 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
 
   packages/row:
     dependencies:
