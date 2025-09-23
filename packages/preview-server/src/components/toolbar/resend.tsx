@@ -103,6 +103,8 @@ export const Resend = ({
   htmlMarkup: string;
   reactMarkup: string;
 }) => {
+  console.log('emailPath', emailPath, emailSlug);
+
   const [items, setItems] = useState<ResendItem[]>([]);
 
   const { execute: exportSingle, isPending: isExportSinglePending } = useAction(

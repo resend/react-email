@@ -1,5 +1,7 @@
-import { DEFAULT_USER_FACING_ERROR_MESSAGE, UserFacingError } from '@/errors';
-import { createSafeActionClient } from 'next-safe-action';
+import {
+  createSafeActionClient,
+  DEFAULT_SERVER_ERROR_MESSAGE,
+} from 'next-safe-action';
 import { z } from 'zod';
 
 export const baseActionClient = createSafeActionClient({
@@ -8,11 +10,6 @@ export const baseActionClient = createSafeActionClient({
   },
   handleServerError(error, options) {
     console.error(`Action error: ${options.metadata.actionName}`, error);
-
-    if (error instanceof UserFacingError) {
-      return error.message;
-    }
-
-    return DEFAULT_USER_FACING_ERROR_MESSAGE;
+    return DEFAULT_SERVER_ERROR_MESSAGE;
   },
 });
