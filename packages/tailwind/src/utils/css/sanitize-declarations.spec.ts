@@ -2,7 +2,37 @@ import { generate, parse } from 'css-tree';
 import { sanitizeDeclarations } from './sanitize-declarations';
 
 describe('sanitizeDeclarations', () => {
-  it('should separation of margin-block and margin-inline', () => {
+  it('should do separation of padding-block and padding-inline', () => {
+    let root = parse(`.box {
+  padding-inline: 4px 14;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  padding-block: 10px 20%;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  padding-inline: 99rem;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  padding-block: 8px;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+  });
+
+  it('should do separation of margin-block and margin-inline', () => {
     let root = parse(`.box {
   margin-inline: 4px 14;
 }

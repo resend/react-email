@@ -67,6 +67,43 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
   };
 }
 
+function separteShorthandDeclaration(
+  shorthandToReplace: Declaration,
+  [start, end]: [string, string],
+): Declaration {
+  shorthandToReplace.property = start;
+
+  const values =
+    shorthandToReplace.value.type === 'Value'
+      ? shorthandToReplace.value.children
+        .toArray()
+        .filter(
+          (child) =>
+            child.type === 'Dimension' ||
+            child.type === 'Number' ||
+            child.type === 'Percentage',
+        )
+      : [shorthandToReplace.value];
+  let endValue = shorthandToReplace.value;
+  if (values.length === 2) {
+    endValue = {
+      type: 'Value',
+      children: new List<CssNode>().fromArray([values[1]]),
+    };
+    shorthandToReplace.value = {
+      type: 'Value',
+      children: new List<CssNode>().fromArray([values[0]]),
+    };
+  }
+
+  return {
+    type: 'Declaration',
+    property: end,
+    value: endValue,
+    important: shorthandToReplace.important,
+  };
+}
+
 /**
  * Meant to do all the things necessary, in a per-declaration basis, to have the best email client
  * support possible.
@@ -279,96 +316,33 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
       });
 
       if (declaration.property === 'padding-inline') {
-        declaration.property = 'padding-left';
-
-        const paddingRight: Declaration = {
-          type: 'Declaration',
-          property: 'padding-right',
-          value: declaration.value,
-          important: declaration.important,
-        };
+        const paddingRight = separteShorthandDeclaration(declaration, [
+          'padding-left',
+          'padding-right',
+        ]);
         list.insertData(paddingRight, item);
       }
       if (declaration.property === 'padding-block') {
-        declaration.property = 'padding-top';
-
-        const paddingBottom: Declaration = {
-          type: 'Declaration',
-          property: 'padding-bottom',
-          value: declaration.value,
-          important: declaration.important,
-        };
+        const paddingBottom = separteShorthandDeclaration(declaration, [
+          'padding-top',
+          'padding-bottom',
+        ]);
         list.insertData(paddingBottom, item);
       }
       if (declaration.property === 'margin-inline') {
-        declaration.property = 'margin-left';
-
-        const values =
-          declaration.value.type === 'Value'
-            ? declaration.value.children
-              .toArray()
-              .filter(
-                (child) =>
-                  child.type === 'Dimension' ||
-                  child.type === 'Number' ||
-                  child.type === 'Percentage',
-              )
-            : [declaration.value];
-
-        let marginRightValue = declaration.value;
-        if (values.length === 2) {
-          marginRightValue = {
-            type: 'Value',
-            children: new List<CssNode>().fromArray([values[1]]),
-          };
-          declaration.value = {
-            type: 'Value',
-            children: new List<CssNode>().fromArray([values[0]]),
-          };
-        }
-
-        const marginRight: Declaration = {
-          type: 'Declaration',
-          property: 'margin-right',
-          value: marginRightValue,
-          important: declaration.important,
-        };
+        const marginRight = separteShorthandDeclaration(declaration, [
+          'margin-left',
+          'margin-right',
+        ]);
         list.insertData(marginRight, item);
       }
       if (declaration.property === 'margin-block') {
-        declaration.property = 'margin-top';
+        const paddingBottom = separteShorthandDeclaration(declaration, [
+          'margin-top',
+          'margin-bottom',
+        ]);
 
-        const values =
-          declaration.value.type === 'Value'
-            ? declaration.value.children
-              .toArray()
-              .filter(
-                (child) =>
-                  child.type === 'Dimension' ||
-                  child.type === 'Number' ||
-                  child.type === 'Percentage',
-              )
-            : [declaration.value];
-
-        let marginBottomValue = declaration.value;
-        if (values.length === 2) {
-          marginBottomValue = {
-            type: 'Value',
-            children: new List<CssNode>().fromArray([values[1]]),
-          };
-          declaration.value = {
-            type: 'Value',
-            children: new List<CssNode>().fromArray([values[0]]),
-          };
-        }
-
-        const marginBottom: Declaration = {
-          type: 'Declaration',
-          property: 'margin-bottom',
-          value: marginBottomValue,
-          important: declaration.important,
-        };
-        list.insertData(marginBottom, item);
+        list.insertData(paddingBottom, item);
       }
     },
   });

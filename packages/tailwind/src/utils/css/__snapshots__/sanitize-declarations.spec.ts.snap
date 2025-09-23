@@ -70,10 +70,18 @@ exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 8`]
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 9`] = `"div{color:rgb(255,0,128)}"`;
 
-exports[`sanitizeDeclarations > should separation of margin-block and margin-inline 1`] = `".box{margin-right:14;margin-left:4px}"`;
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 1`] = `".box{margin-right:14;margin-left:4px}"`;
 
-exports[`sanitizeDeclarations > should separation of margin-block and margin-inline 2`] = `".box{margin-bottom:20%;margin-top:10px}"`;
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 2`] = `".box{margin-bottom:20%;margin-top:10px}"`;
 
-exports[`sanitizeDeclarations > should separation of margin-block and margin-inline 3`] = `".box{margin-right:99rem;margin-left:99rem}"`;
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 3`] = `".box{margin-right:99rem;margin-left:99rem}"`;
 
-exports[`sanitizeDeclarations > should separation of margin-block and margin-inline 4`] = `".box{margin-bottom:8px;margin-top:8px}"`;
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 4`] = `".box{margin-bottom:8px;margin-top:8px}"`;
+
+exports[`sanitizeDeclarations > should do separation of padding-block and padding-inline 1`] = `".box{padding-right:14;padding-left:4px}"`;
+
+exports[`sanitizeDeclarations > should do separation of padding-block and padding-inline 2`] = `".box{padding-bottom:20%;padding-top:10px}"`;
+
+exports[`sanitizeDeclarations > should do separation of padding-block and padding-inline 3`] = `".box{padding-right:99rem;padding-left:99rem}"`;
+
+exports[`sanitizeDeclarations > should do separation of padding-block and padding-inline 4`] = `".box{padding-bottom:8px;padding-top:8px}"`;
