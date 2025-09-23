@@ -72,7 +72,7 @@ export const useResend = ({
 interface ResendItem {
   status: 'uploading' | 'failed' | 'succeeded';
   name: string;
-  id: string;
+  id?: string;
 }
 
 // const items: ResendItem[] = [
@@ -111,13 +111,7 @@ export const Resend = ({
     exportSingleTemplate,
     {
       onSuccess: ({ data }) => {
-        setItems(
-          data.success.map((name) => ({
-            status: 'succeeded' as const,
-            name,
-            id: name,
-          })),
-        );
+        setItems(data);
       },
     },
   );
@@ -126,13 +120,7 @@ export const Resend = ({
     bulkExportTemplates,
     {
       onSuccess: ({ data }) => {
-        setItems(
-          data.success.map((name) => ({
-            status: 'succeeded' as const,
-            name,
-            id: name,
-          })),
-        );
+        setItems(data);
       },
     },
   );
@@ -149,10 +137,17 @@ export const Resend = ({
         <div className="flex gap-2">
           <Button
             onClick={() => {
+              setItems([
+                {
+                  status: 'uploading',
+                  name: emailSlug,
+                },
+              ]);
+
               exportSingle({
                 name: emailSlug,
                 html: htmlMarkup,
-                reactMarkup: reactMarkup,
+                reactMarkup,
               });
             }}
           >

@@ -36,13 +36,16 @@ export const exportSingleTemplate = baseActionClient
     });
 
     if (response.error) {
-      return {
-        success: [],
-        failed: [{ name: parsedInput.name, error: response.error.message }],
-      };
+      return [{ name: parsedInput.name, status: 'failed' as const }];
     }
 
-    return { success: [parsedInput.name], failed: [] };
+    return [
+      {
+        name: parsedInput.name,
+        status: 'succeeded' as const,
+        id: response.data.id,
+      },
+    ];
   });
 
 export const bulkExportTemplates = baseActionClient
@@ -62,10 +65,12 @@ export const bulkExportTemplates = baseActionClient
         throw new Error('No emails directory found');
       }
 
-      const results = {
-        success: [] as string[],
-        failed: [] as { name: string; error: string }[],
-      };
+      const results = [] as {
+        name: string;
+        status: 'succeeded' | 'failed';
+        id?: string;
+        error?: string;
+      }[];
 
       const processDirectoryMetadata = async (directory: EmailsDirectory) => {
         for (const filename of directory.emailFilenames) {
@@ -79,17 +84,30 @@ export const bulkExportTemplates = baseActionClient
               throw new Error(result.error.message);
             }
 
-            await resend.templates.create({
+            const response = await resend.templates.create({
               name: templateName,
               html: result.markup,
             });
 
-            results.success.push(templateName);
+            if (response.error) {
+              results.push({
+                name: templateName,
+                status: 'failed' as const,
+                error: response.error.message,
+              });
+            } else {
+              results.push({
+                name: templateName,
+                status: 'succeeded' as const,
+                id: response.data.id,
+              });
+            }
 
             await sleep(200);
           } catch (error) {
-            results.failed.push({
+            results.push({
               name: filename,
+              status: 'failed' as const,
               error: error instanceof Error ? error.message : 'Unknown error',
             });
           }
