@@ -1,19 +1,19 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
+import * as React from 'react';
 
 const RoyalCourtInvitation = (props) => {
   return (
@@ -33,11 +33,13 @@ const RoyalCourtInvitation = (props) => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Royal Seal & Invitation Header */}
             <Section className="px-[32px] py-[32px] text-center">
-              <Text className="text-yellow-600 text-[32px] m-0 mb-[16px]">🏰</Text>
+              <Text className="text-yellow-600 text-[32px] m-0 mb-[16px]">
+                🏰
+              </Text>
               <Text className="text-purple-800 text-[14px] font-semibold uppercase tracking-widest m-0 mb-[12px]">
                 Royal Proclamation
               </Text>
@@ -45,7 +47,8 @@ const RoyalCourtInvitation = (props) => {
                 Sir {props.knightName}, Knight of the Lake
               </Heading>
               <Text className="text-gray-600 text-[16px] m-0 mb-[24px] italic">
-                You are hereby cordially summoned to appear before the Royal Court
+                You are hereby cordially summoned to appear before the Royal
+                Court
               </Text>
             </Section>
 
@@ -58,13 +61,16 @@ const RoyalCourtInvitation = (props) => {
                   Greetings, Noble Sir {props.knightName},
                 </Text>
                 <Text className="text-gray-700 text-[16px] leading-relaxed m-0 mb-[20px]">
-                  His Royal Majesty King Arthur Pendragon, Sovereign of all Britain and Protector of the Realm,
-                  requests your esteemed presence at the Royal Court of Camelot for matters of great importance
-                  to the kingdom and the sacred fellowship of the Round Table.
+                  His Royal Majesty King Arthur Pendragon, Sovereign of all
+                  Britain and Protector of the Realm, requests your esteemed
+                  presence at the Royal Court of Camelot for matters of great
+                  importance to the kingdom and the sacred fellowship of the
+                  Round Table.
                 </Text>
                 <Text className="text-gray-700 text-[16px] leading-relaxed m-0 mb-[20px]">
-                  Your valor in recent quests and unwavering loyalty to the crown have not gone unnoticed.
-                  The King wishes to discuss your next noble mission and bestow upon you the recognition
+                  Your valor in recent quests and unwavering loyalty to the
+                  crown have not gone unnoticed. The King wishes to discuss your
+                  next noble mission and bestow upon you the recognition
                   befitting a knight of your distinguished service.
                 </Text>
                 <Text className="text-purple-700 text-[16px] font-semibold m-0 text-center">
@@ -152,19 +158,24 @@ const RoyalCourtInvitation = (props) => {
                 </Text>
 
                 <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                  • Arrive at the castle gates no later than 30 minutes before the appointed time
+                  • Arrive at the castle gates no later than 30 minutes before
+                  the appointed time
                 </Text>
                 <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                  • Present this royal summons to the castle guards for immediate entry
+                  • Present this royal summons to the castle guards for
+                  immediate entry
                 </Text>
                 <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                  • Bring your sword of knighthood and any battle honors for the ceremony
+                  • Bring your sword of knighthood and any battle honors for the
+                  ceremony
                 </Text>
                 <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                  • A royal feast will follow the court session in the Knights' Hall
+                  • A royal feast will follow the court session in the Knights'
+                  Hall
                 </Text>
                 <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                  • Quarters will be provided in the castle should you require overnight stay
+                  • Quarters will be provided in the castle should you require
+                  overnight stay
                 </Text>
               </Section>
 
@@ -174,7 +185,8 @@ const RoyalCourtInvitation = (props) => {
                   ⚔️ Confirm Your Attendance, Sir {props.knightName}
                 </Text>
                 <Text className="text-gray-600 text-[16px] m-0 mb-[24px]">
-                  The King awaits your response. Will you answer the call to serve the realm once more?
+                  The King awaits your response. Will you answer the call to
+                  serve the realm once more?
                 </Text>
                 <Button
                   href="#"
@@ -197,18 +209,31 @@ const RoyalCourtInvitation = (props) => {
                 </Text>
                 <Row>
                   <Column className="w-1/2">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Gawain of Orkney</Text>
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Percival the Pure</Text>
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Gareth the Courteous</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Gawain of Orkney
+                    </Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Percival the Pure
+                    </Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Gareth the Courteous
+                    </Text>
                   </Column>
                   <Column className="w-1/2">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Galahad the Perfect</Text>
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Tristan of Lyonesse</Text>
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">• Sir Bedivere the Loyal</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Galahad the Perfect
+                    </Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Tristan of Lyonesse
+                    </Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      • Sir Bedivere the Loyal
+                    </Text>
                   </Column>
                 </Row>
                 <Text className="text-center text-purple-600 text-[14px] m-0 mt-[16px] italic">
-                  The complete fellowship of the Round Table shall gather once more!
+                  The complete fellowship of the Round Table shall gather once
+                  more!
                 </Text>
               </Section>
 
@@ -218,9 +243,10 @@ const RoyalCourtInvitation = (props) => {
                   👑 Personal Message from King Arthur
                 </Text>
                 <Text className="text-gray-700 text-[14px] m-0 italic leading-relaxed">
-                  "Sir {props.knightName}, your courage in the face of darkness and your dedication to the
-                  ideals of chivalry continue to inspire all who serve under the banner of Camelot.
-                  I look forward to our reunion and the great deeds that lie ahead."
+                  "Sir {props.knightName}, your courage in the face of darkness
+                  and your dedication to the ideals of chivalry continue to
+                  inspire all who serve under the banner of Camelot. I look
+                  forward to our reunion and the great deeds that lie ahead."
                 </Text>
                 <Text className="text-purple-700 text-[14px] font-semibold m-0 mt-[12px]">
                   - Arthur Pendragon, King of all Britain
@@ -234,12 +260,27 @@ const RoyalCourtInvitation = (props) => {
                 📍 Royal Court of Camelot, Castle Grounds, Kingdom of Britain
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                This summons bears the Royal Seal and is issued by direct order of His Majesty.
+                This summons bears the Royal Seal and is issued by direct order
+                of His Majesty.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Court Protocol</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Castle Directions</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Royal Messenger</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Court Protocol
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Castle Directions
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Royal Messenger
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 Royal Court of Camelot. By divine right and noble decree.
@@ -253,10 +294,10 @@ const RoyalCourtInvitation = (props) => {
 };
 
 RoyalCourtInvitation.PreviewProps = {
-  knightName: "Lancelot",
-  courtDate: "The 15th Day of February, Year of Our Lord 2025",
-  courtTime: "High Noon",
-  occasion: "Round Table Council & Quest Assignment",
+  knightName: 'Lancelot',
+  courtDate: 'The 15th Day of February, Year of Our Lord 2025',
+  courtTime: 'High Noon',
+  occasion: 'Round Table Council & Quest Assignment',
 };
 
 export default RoyalCourtInvitation;

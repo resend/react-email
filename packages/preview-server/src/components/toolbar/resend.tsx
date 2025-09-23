@@ -138,9 +138,7 @@ export const Resend = ({
             appearance="gradient"
             className="mt-2 mb-4"
             onClick={() => {
-              exportBulk({
-                emailPath,
-              });
+              exportBulk();
             }}
           >
             Bulk Upload

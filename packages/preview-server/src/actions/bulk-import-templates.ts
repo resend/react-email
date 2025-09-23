@@ -3,6 +3,7 @@
 import path from 'node:path';
 import { getProperties } from '@react-email/render';
 import z from 'zod';
+import { emailsDirectoryAbsolutePath, emailsDirRelativePath } from '../app/env';
 import { resend } from '../lib/resend';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 import { getEmailsDirectoryMetadataAction } from './get-emails-directory-metadata-action';
@@ -51,17 +52,13 @@ export const exportSingleTemplate = baseActionClient
 
 export const bulkExportTemplates = baseActionClient
   .metadata({ actionName: 'bulkExportTemplates' })
-  .inputSchema(
-    z.object({
-      emailPath: z.string(),
-    }),
-  )
-  .action(async ({ parsedInput }) => {
+  .action(async () => {
     try {
       const emailsDirectory = await getEmailsDirectoryMetadataAction(
-        path.dirname(parsedInput.emailPath),
+        path.dirname(`${emailsDirectoryAbsolutePath}/emails`),
         true,
       );
+
       if (!emailsDirectory) {
         throw new Error('No emails directory found');
       }
@@ -73,7 +70,12 @@ export const bulkExportTemplates = baseActionClient
         error?: string;
       }[];
 
-      const processDirectoryMetadata = async (directory: EmailsDirectory) => {
+      const allDirectories = [
+        emailsDirectory,
+        ...emailsDirectory.subDirectories,
+      ];
+
+      for (const directory of allDirectories) {
         for (const filename of directory.emailFilenames) {
           try {
             const templateName = path.parse(filename).name;
@@ -113,13 +115,7 @@ export const bulkExportTemplates = baseActionClient
             });
           }
         }
-
-        for (const subDir of directory.subDirectories) {
-          await processDirectoryMetadata(subDir);
-        }
-      };
-
-      await processDirectoryMetadata(emailsDirectory);
+      }
 
       return results;
     } catch (error) {

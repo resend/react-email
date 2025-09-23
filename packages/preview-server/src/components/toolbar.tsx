@@ -306,7 +306,9 @@ const ToolbarInner = ({
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
                   <SuccessDescription>
-                    Run <CodeSnippet>pnpm setup:resend YOUR_API_KEY</CodeSnippet> to connect your Resend account.
+                    Run{' '}
+                    <CodeSnippet>pnpm setup:resend YOUR_API_KEY</CodeSnippet> to
+                    connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}

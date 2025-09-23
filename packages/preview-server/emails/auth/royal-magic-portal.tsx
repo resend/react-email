@@ -1,19 +1,19 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
+import * as React from 'react';
 
 const RoyalMagicLinkEmail = (props) => {
   return (
@@ -33,7 +33,7 @@ const RoyalMagicLinkEmail = (props) => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Main Content */}
             <Section className="px-[32px] py-[40px]">
@@ -46,8 +46,9 @@ const RoyalMagicLinkEmail = (props) => {
                   ✨ Your Magic Portal Awaits ✨
                 </Heading>
                 <Text className="text-gray-600 text-[16px] leading-relaxed m-0 mb-[32px]">
-                  By royal decree, you have been granted access to the kingdom's sacred portal.
-                  Use the enchanted code below to enter the realm and claim your rightful place among the nobility.
+                  By royal decree, you have been granted access to the kingdom's
+                  sacred portal. Use the enchanted code below to enter the realm
+                  and claim your rightful place among the nobility.
                 </Text>
               </Section>
 
@@ -60,7 +61,8 @@ const RoyalMagicLinkEmail = (props) => {
                   {props.authCode}
                 </Text>
                 <Text className="text-gray-600 text-[14px] m-0 mb-[24px]">
-                  This magical code is valid for 10 minutes and can only be used once.
+                  This magical code is valid for 10 minutes and can only be used
+                  once.
                 </Text>
                 <Button
                   href="#"
@@ -83,10 +85,12 @@ const RoyalMagicLinkEmail = (props) => {
                       • This magic link was requested from your trusted device
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                      • The enchantment expires in 10 minutes for your protection
+                      • The enchantment expires in 10 minutes for your
+                      protection
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                      • If you did not request access, please ignore this royal message
+                      • If you did not request access, please ignore this royal
+                      message
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
                       • Never share your authentication code with other subjects
@@ -101,9 +105,13 @@ const RoyalMagicLinkEmail = (props) => {
                   🔐 Having Trouble with the Portal?
                 </Text>
                 <Text className="text-gray-600 text-[14px] m-0 mb-[16px]">
-                  If the magic code doesn't work, you can request a new enchantment or contact the Royal Guard for assistance.
+                  If the magic code doesn't work, you can request a new
+                  enchantment or contact the Royal Guard for assistance.
                 </Text>
-                <Link href="#" className="text-purple-700 font-semibold text-[14px] no-underline">
+                <Link
+                  href="#"
+                  className="text-purple-700 font-semibold text-[14px] no-underline"
+                >
                   Request New Magic Link
                 </Link>
               </Section>
@@ -118,8 +126,16 @@ const RoyalMagicLinkEmail = (props) => {
                 This message was sent to protect your royal account security.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Privacy Policy</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Contact Royal Guard</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Privacy Policy
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Contact Royal Guard
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 The Royal Kingdom. All rights reserved.
@@ -133,7 +149,7 @@ const RoyalMagicLinkEmail = (props) => {
 };
 
 RoyalMagicLinkEmail.PreviewProps = {
-  authCode: "CROWN-2025",
+  authCode: 'CROWN-2025',
 };
 
 export default RoyalMagicLinkEmail;

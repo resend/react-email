@@ -20,10 +20,7 @@ const setupResend = async () => {
           `RESEND_API_KEY=${apiKey || ''}`,
         );
         fs.writeFileSync(envPath, newContent);
-        console.log(
-          logSymbols.success,
-          'Updated RESEND_API_KEY in .env file',
-        );
+        console.log(logSymbols.success, 'Updated RESEND_API_KEY in .env file');
       } else {
         // Append to existing file
         fs.appendFileSync(envPath, `\n${envContent}`);
@@ -35,10 +32,7 @@ const setupResend = async () => {
     } else {
       // Create new .env file
       fs.writeFileSync(envPath, envContent);
-      console.log(
-        logSymbols.success,
-        'Created .env file with RESEND_API_KEY',
-      );
+      console.log(logSymbols.success, 'Created .env file with RESEND_API_KEY');
     }
 
     if (!apiKey) {
@@ -51,7 +45,10 @@ const setupResend = async () => {
     // Restart the server by touching the .env file
     const now = new Date();
     fs.utimesSync(envPath, now, now);
-    console.log(logSymbols.success, 'Server will automatically refresh with new API key');
+    console.log(
+      logSymbols.success,
+      'Server will automatically refresh with new API key',
+    );
   } catch (error) {
     console.error(
       logSymbols.error,

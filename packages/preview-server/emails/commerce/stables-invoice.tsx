@@ -1,19 +1,19 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
+import * as React from 'react';
 
 const RoyalStableInvoice = (props) => {
   return (
@@ -33,7 +33,7 @@ const RoyalStableInvoice = (props) => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Invoice Header */}
             <Section className="px-[32px] py-[32px]">
@@ -145,37 +145,53 @@ const RoyalStableInvoice = (props) => {
 
                 <Row className="mb-[8px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Royal Saddle & Bridle Set</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Royal Saddle & Bridle Set
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-600 text-[14px] m-0">150 Gold</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      150 Gold
+                    </Text>
                   </Column>
                 </Row>
 
                 <Row className="mb-[8px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Health Certificate & Veterinary Check</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Health Certificate & Veterinary Check
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-600 text-[14px] m-0">75 Gold</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      75 Gold
+                    </Text>
                   </Column>
                 </Row>
 
                 <Row className="mb-[8px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Royal Delivery to Your Castle</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Royal Delivery to Your Castle
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-600 text-[14px] m-0">100 Gold</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      100 Gold
+                    </Text>
                   </Column>
                 </Row>
 
                 <Row className="mb-[8px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">30-Day Care Instructions Scroll</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      30-Day Care Instructions Scroll
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-600 text-[14px] m-0">25 Gold</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      25 Gold
+                    </Text>
                   </Column>
                 </Row>
               </Section>
@@ -208,7 +224,8 @@ const RoyalStableInvoice = (props) => {
                 🌟 Royal Care Instructions
               </Text>
               <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                • Your noble steed has been blessed by the court wizard for good fortune
+                • Your noble steed has been blessed by the court wizard for good
+                fortune
               </Text>
               <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
                 • Feed only the finest oats and hay from the royal granaries
@@ -227,7 +244,8 @@ const RoyalStableInvoice = (props) => {
                 🤝 Need Assistance with Your Steed?
               </Text>
               <Text className="text-gray-600 text-[14px] m-0 mb-[16px]">
-                Our master horsemen are available for training, care advice, and any equestrian needs.
+                Our master horsemen are available for training, care advice, and
+                any equestrian needs.
               </Text>
               <Button
                 href="#"
@@ -243,12 +261,27 @@ const RoyalStableInvoice = (props) => {
                 📍 Royal Stables Quarter, Kingdom Square, Enchanted Realm 12345
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                Thank you for choosing the Royal Stables for your equestrian needs.
+                Thank you for choosing the Royal Stables for your equestrian
+                needs.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Stable Services</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Horse Care Guide</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Contact Support</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Stable Services
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Horse Care Guide
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Contact Support
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 Royal Stables of Camelot. All rights reserved.
@@ -262,19 +295,19 @@ const RoyalStableInvoice = (props) => {
 };
 
 RoyalStableInvoice.PreviewProps = {
-  invoiceNumber: "2025-001",
-  invoiceDate: "January 15, 2025",
-  dueDate: "January 30, 2025",
-  customerName: "Sir Lancelot of the Lake",
-  customerAddress: "Castle Joyous Gard, Northern Kingdom",
-  customerEmail: "lancelot@roundtable.kingdom",
-  horseName: "Thunderbolt",
-  horseBreed: "Royal Destrier",
-  horseAge: "5",
-  horseColor: "Majestic Black",
-  horseTraining: "War-trained & Noble Riding",
-  horsePrice: "2,500",
-  totalAmount: "2,850",
+  invoiceNumber: '2025-001',
+  invoiceDate: 'January 15, 2025',
+  dueDate: 'January 30, 2025',
+  customerName: 'Sir Lancelot of the Lake',
+  customerAddress: 'Castle Joyous Gard, Northern Kingdom',
+  customerEmail: 'lancelot@roundtable.kingdom',
+  horseName: 'Thunderbolt',
+  horseBreed: 'Royal Destrier',
+  horseAge: '5',
+  horseColor: 'Majestic Black',
+  horseTraining: 'War-trained & Noble Riding',
+  horsePrice: '2,500',
+  totalAmount: '2,850',
 };
 
 export default RoyalStableInvoice;

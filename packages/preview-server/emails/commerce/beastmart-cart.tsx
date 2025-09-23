@@ -1,19 +1,19 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
+import * as React from 'react';
 
 const RoyalBeastmartCart = (props) => {
   return (
@@ -33,7 +33,7 @@ const RoyalBeastmartCart = (props) => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Cart Header */}
             <Section className="px-[32px] py-[24px]">
@@ -92,8 +92,12 @@ const RoyalBeastmartCart = (props) => {
                     </Text>
                   </Column>
                   <Column className="w-1/6 text-center">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">Qty</Text>
-                    <Text className="text-gray-800 text-[16px] font-bold m-0">1</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      Qty
+                    </Text>
+                    <Text className="text-gray-800 text-[16px] font-bold m-0">
+                      1
+                    </Text>
                   </Column>
                   <Column className="w-1/6 text-right">
                     <Text className="text-red-700 text-[18px] font-bold m-0">
@@ -125,8 +129,12 @@ const RoyalBeastmartCart = (props) => {
                     </Text>
                   </Column>
                   <Column className="w-1/6 text-center">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">Qty</Text>
-                    <Text className="text-gray-800 text-[16px] font-bold m-0">1</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      Qty
+                    </Text>
+                    <Text className="text-gray-800 text-[16px] font-bold m-0">
+                      1
+                    </Text>
                   </Column>
                   <Column className="w-1/6 text-right">
                     <Text className="text-purple-700 text-[18px] font-bold m-0">
@@ -158,8 +166,12 @@ const RoyalBeastmartCart = (props) => {
                     </Text>
                   </Column>
                   <Column className="w-1/6 text-center">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">Qty</Text>
-                    <Text className="text-gray-800 text-[16px] font-bold m-0">1</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      Qty
+                    </Text>
+                    <Text className="text-gray-800 text-[16px] font-bold m-0">
+                      1
+                    </Text>
                   </Column>
                   <Column className="w-1/6 text-right">
                     <Text className="text-orange-700 text-[18px] font-bold m-0">
@@ -191,8 +203,12 @@ const RoyalBeastmartCart = (props) => {
                     </Text>
                   </Column>
                   <Column className="w-1/6 text-center">
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">Qty</Text>
-                    <Text className="text-gray-800 text-[16px] font-bold m-0">1</Text>
+                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
+                      Qty
+                    </Text>
+                    <Text className="text-gray-800 text-[16px] font-bold m-0">
+                      1
+                    </Text>
                   </Column>
                   <Column className="w-1/6 text-right">
                     <Text className="text-amber-700 text-[18px] font-bold m-0">
@@ -209,44 +225,66 @@ const RoyalBeastmartCart = (props) => {
               <Section className="bg-purple-50 rounded-[12px] p-[24px] mb-[24px] border border-solid border-purple-200">
                 <Row className="mb-[12px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Subtotal (4 creatures)</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Subtotal (4 creatures)
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-800 text-[14px] m-0">9,600 Gold</Text>
+                    <Text className="text-gray-800 text-[14px] m-0">
+                      9,600 Gold
+                    </Text>
                   </Column>
                 </Row>
                 <Row className="mb-[12px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Royal Delivery & Handling</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Royal Delivery & Handling
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-800 text-[14px] m-0">300 Gold</Text>
+                    <Text className="text-gray-800 text-[14px] m-0">
+                      300 Gold
+                    </Text>
                   </Column>
                 </Row>
                 <Row className="mb-[12px]">
                   <Column className="w-2/3">
-                    <Text className="text-gray-600 text-[14px] m-0">Magical Creature Insurance</Text>
+                    <Text className="text-gray-600 text-[14px] m-0">
+                      Magical Creature Insurance
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-gray-800 text-[14px] m-0">480 Gold</Text>
+                    <Text className="text-gray-800 text-[14px] m-0">
+                      480 Gold
+                    </Text>
                   </Column>
                 </Row>
                 <Row className="mb-[12px]">
                   <Column className="w-2/3">
-                    <Text className="text-green-600 text-[14px] m-0">Noble Discount (-10%)</Text>
+                    <Text className="text-green-600 text-[14px] m-0">
+                      Noble Discount (-10%)
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-green-600 text-[14px] m-0">-960 Gold</Text>
+                    <Text className="text-green-600 text-[14px] m-0">
+                      -960 Gold
+                    </Text>
                   </Column>
                 </Row>
                 <Hr className="border-purple-300 border-solid my-[16px]" />
                 <Row>
                   <Column className="w-2/3">
-                    <Text className="text-purple-800 text-[20px] font-bold m-0">Total</Text>
+                    <Text className="text-purple-800 text-[20px] font-bold m-0">
+                      Total
+                    </Text>
                   </Column>
                   <Column className="w-1/3 text-right">
-                    <Text className="text-purple-800 text-[24px] font-bold m-0">9,420</Text>
-                    <Text className="text-purple-600 text-[14px] m-0">Gold Sovereigns</Text>
+                    <Text className="text-purple-800 text-[24px] font-bold m-0">
+                      9,420
+                    </Text>
+                    <Text className="text-purple-600 text-[14px] m-0">
+                      Gold Sovereigns
+                    </Text>
                   </Column>
                 </Row>
               </Section>
@@ -276,8 +314,8 @@ const RoyalBeastmartCart = (props) => {
                 🎁 Add Royal Care Package?
               </Text>
               <Text className="text-gray-600 text-[14px] m-0 mb-[16px]">
-                Get premium food, magical toys, and care guides for all your new companions.
-                Perfect for first-time magical creature owners!
+                Get premium food, magical toys, and care guides for all your new
+                companions. Perfect for first-time magical creature owners!
               </Text>
               <Text className="text-purple-700 text-[16px] font-bold m-0 mb-[16px]">
                 Only 500 Gold (Save 200 Gold!)
@@ -296,13 +334,16 @@ const RoyalBeastmartCart = (props) => {
                 🌟 Important Creature Care Notes
               </Text>
               <Text className="text-gray-600 text-[12px] leading-relaxed m-0 mb-[8px]">
-                • All creatures come with royal health certificates and magical lineage documentation
+                • All creatures come with royal health certificates and magical
+                lineage documentation
               </Text>
               <Text className="text-gray-600 text-[12px] leading-relaxed m-0 mb-[8px]">
-                • Delivery includes secure magical transport cages and comfort items
+                • Delivery includes secure magical transport cages and comfort
+                items
               </Text>
               <Text className="text-gray-600 text-[12px] leading-relaxed m-0 mb-[8px]">
-                • 30-day satisfaction guarantee with full creature whisperer support
+                • 30-day satisfaction guarantee with full creature whisperer
+                support
               </Text>
               <Text className="text-gray-600 text-[12px] leading-relaxed m-0">
                 • Royal veterinarian consultation included for first 90 days
@@ -315,12 +356,27 @@ const RoyalBeastmartCart = (props) => {
                 📍 Royal Beastmart, Creature Quarter, Enchanted Realm 12345
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                Questions about your magical menagerie? Our creature experts are here to help!
+                Questions about your magical menagerie? Our creature experts are
+                here to help!
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Creature Care Guide</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Support</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Track Order</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Creature Care Guide
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Support
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Track Order
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 Royal Beastmart. All creatures ethically sourced.
@@ -334,9 +390,9 @@ const RoyalBeastmartCart = (props) => {
 };
 
 RoyalBeastmartCart.PreviewProps = {
-  customerName: "Sir Gareth",
-  cartId: "BEAST-2025-001",
-  itemCount: "4",
+  customerName: 'Sir Gareth',
+  cartId: 'BEAST-2025-001',
+  itemCount: '4',
 };
 
 export default RoyalBeastmartCart;

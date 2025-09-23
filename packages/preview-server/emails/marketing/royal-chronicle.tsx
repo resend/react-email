@@ -1,19 +1,19 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
+import * as React from 'react';
 
 const RoyalKingdomNewsletter = () => {
   return (
@@ -33,7 +33,7 @@ const RoyalKingdomNewsletter = () => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Main Content */}
             <Section className="px-[32px] py-[40px]">
@@ -48,8 +48,10 @@ const RoyalKingdomNewsletter = () => {
                       His Majesty Announces the Grand Festival of Autumn
                     </Heading>
                     <Text className="text-gray-600 text-[16px] leading-relaxed m-0 mb-[24px]">
-                      By royal decree, the kingdom shall celebrate the bountiful harvest with three days of festivities.
-                      Join us for tournaments, feasts, and entertainment fit for nobility and commoners alike.
+                      By royal decree, the kingdom shall celebrate the bountiful
+                      harvest with three days of festivities. Join us for
+                      tournaments, feasts, and entertainment fit for nobility
+                      and commoners alike.
                     </Text>
                     <Button
                       href="#"
@@ -75,7 +77,9 @@ const RoyalKingdomNewsletter = () => {
                       🏰 Castle Renovations Complete
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      The eastern tower has been fully restored with new battlements and a magnificent view of the kingdom's valleys.
+                      The eastern tower has been fully restored with new
+                      battlements and a magnificent view of the kingdom's
+                      valleys.
                     </Text>
                   </Column>
                 </Row>
@@ -86,7 +90,8 @@ const RoyalKingdomNewsletter = () => {
                       🛡️ New Knights Inducted
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      Five brave souls have been honored with knighthood for their valor in protecting our trade routes from bandits.
+                      Five brave souls have been honored with knighthood for
+                      their valor in protecting our trade routes from bandits.
                     </Text>
                   </Column>
                 </Row>
@@ -97,7 +102,8 @@ const RoyalKingdomNewsletter = () => {
                       📜 Royal Library Expansion
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      Ancient scrolls from distant lands have been acquired, expanding our collection of magical and historical texts.
+                      Ancient scrolls from distant lands have been acquired,
+                      expanding our collection of magical and historical texts.
                     </Text>
                   </Column>
                 </Row>
@@ -111,8 +117,9 @@ const RoyalKingdomNewsletter = () => {
                   🎭 Join the Royal Court
                 </Text>
                 <Text className="text-gray-600 text-[16px] m-0 mb-[24px]">
-                  Become a member of our exclusive royal circle and receive invitations to private events,
-                  early access to kingdom announcements, and special privileges.
+                  Become a member of our exclusive royal circle and receive
+                  invitations to private events, early access to kingdom
+                  announcements, and special privileges.
                 </Text>
                 <Button
                   href="#"
@@ -129,11 +136,20 @@ const RoyalKingdomNewsletter = () => {
                 📍 Royal Palace, Kingdom Square, Enchanted Realm 12345
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                You are receiving this because you are a valued subject of our kingdom.
+                You are receiving this because you are a valued subject of our
+                kingdom.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Unsubscribe</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Update Preferences</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Unsubscribe
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Update Preferences
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 The Royal Kingdom. All rights reserved.
