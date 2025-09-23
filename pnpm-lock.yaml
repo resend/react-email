@@ -648,8 +648,8 @@ importers:
         specifier: 1.2.3
         version: 1.2.3(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/render':
-        specifier: ^1.3.0
-        version: 1.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: workspace:*
+        version: link:../render
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
@@ -712,7 +712,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       resend:
         specifier: https://pkg.pr.new/resend/resend-node/resend@7bfa20c
-        version: https://pkg.pr.new/resend/resend-node/resend@7bfa20c(@react-email/render@1.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: https://pkg.pr.new/resend/resend-node/resend@7bfa20c(@react-email/render@packages+render)
       sharp:
         specifier: 0.34.1
         version: 0.34.1
@@ -3497,13 +3497,6 @@ packages:
 
   '@react-email/render@1.0.6':
     resolution: {integrity: sha512-zNueW5Wn/4jNC1c5LFgXzbUdv5Lhms+FWjOvWAhal7gx5YVf0q6dPJ0dnR70+ifo59gcMLwCZEaTS9EEuUhKvQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
-
-  '@react-email/render@1.3.0':
-    resolution: {integrity: sha512-AuKT93RJO+eBg9FIo5+QzVCUTB62sBcKewtDwoKS46KMTRSHeLH0oi3k8+B3ag51zgxAmk6Dda2630KVKNaggg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -11487,14 +11480,6 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@1.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      html-to-text: 9.0.5
-      prettier: 3.5.3
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      react-promise-suspense: 0.3.4
-
   '@react-email/section@0.0.14(react@19.0.0)':
     dependencies:
       react: 19.0.0
@@ -16348,9 +16333,9 @@ snapshots:
       - react
       - react-dom
 
-  resend@https://pkg.pr.new/resend/resend-node/resend@7bfa20c(@react-email/render@1.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  resend@https://pkg.pr.new/resend/resend-node/resend@7bfa20c(@react-email/render@packages+render):
     optionalDependencies:
-      '@react-email/render': 1.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/render': link:packages/render
 
   resolve-alpn@1.2.1: {}
 

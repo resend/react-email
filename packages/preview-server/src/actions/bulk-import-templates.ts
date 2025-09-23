@@ -1,13 +1,13 @@
 'use server';
 
 import path from 'node:path';
+import { getProperties } from '@react-email/render';
+import z from 'zod';
 import { resend } from '../lib/resend';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 import { getEmailsDirectoryMetadataAction } from './get-emails-directory-metadata-action';
 import { renderEmailByPath } from './render-email-by-path';
 import { baseActionClient } from './safe-action';
-import z from 'zod';
-import { getProperties } from '@react-email/render';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
