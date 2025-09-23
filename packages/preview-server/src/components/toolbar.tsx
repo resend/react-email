@@ -182,7 +182,7 @@ const ToolbarInner = ({
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
                   (activeTab === 'resend' &&
-                    'The Resend tab allows you to upload emails to Resend using the Templates API.') ||
+                    'The Resend tab allows you to upload emails using the Templates API.') ||
                   'Info'
                 }
               >
@@ -285,15 +285,19 @@ const ToolbarInner = ({
                 <LoadingState message="Loading Resend API Key..." />
               ) : resendStatus?.hasApiKey ? (
                 <SuccessWrapper>
-                  <SuccessIcon />
-                  <SuccessTitle>Resend is configured</SuccessTitle>
+                  <SuccessTitle>Upload to Resend</SuccessTitle>
                   <SuccessDescription>
-                    You're ready to use Resend Templates.
-
-
-                    <Button onClick={exportTemplateToResend}>Export template to Resend</Button>
-
+                    Import your email using the Templates API.
                   </SuccessDescription>
+                  <div className="flex gap-2">
+                    <Button onClick={() => {
+                      console.log('Uploading...');
+                      exportTemplateToResend();
+                    }}>Upload</Button>
+                    <Button appearance="gradient" className="mt-2 mb-4" onClick={() => {
+                      console.log('Bulk uploading...');
+                    }}>Bulk Upload</Button>
+                  </div>
                 </SuccessWrapper>
               ) : (
                 <SuccessWrapper>
