@@ -1,4 +1,8 @@
 import { useRef, useState } from 'react';
+import { Results } from './results';
+import { IconCheck } from '../icons/icon-check';
+import { IconInfo } from '../icons/icon-info';
+import { IconWarning } from '../icons/icon-warning';
 
 export interface ResendStatus {
   hasApiKey: boolean;
@@ -39,7 +43,7 @@ export const useResend = ({
       if (response.status === 400) {
         const result: ResendStatus = {
           hasApiKey: false,
-          message: body?.message ?? 'Resend API Key is not set',
+          message: 'Resend API Key is not set',
         };
         setStatus(result);
         return result;
@@ -58,3 +62,64 @@ export const useResend = ({
 
   return [status, { loading, load }] as const;
 };
+
+interface ResendItem {
+  status: 'uploading' | 'failed' | 'succeeded';
+  name: string;
+  id: string;
+}
+
+interface ResendProps {
+  status: ResendStatus | undefined;
+}
+
+export const Resend = ({ status }: ResendProps) => {
+  const items: ResendItem[] = [
+    {
+      status: 'uploading',
+      name: 'account-confirmation',
+      id: '49a3999c-0ce1-4ea6-ab68-afcd6dc2e794',
+    },
+    {
+      status: 'succeeded',
+      name: 'forgot-password',
+      id: '4dd369bc-aa82-4ff3-97de-514ae3000ee0',
+    },
+    {
+      status: 'failed',
+      name: 'feedback-request',
+      id: 'd91cd9bd-1176-453e-8fc1-35364d380206',
+    }
+  ];
+
+  return (
+    <Results>
+      {items.map((item) => (
+        <Results.Row key={item.id}>
+          <Results.Column>
+            <span className="flex gap-2 items-center">
+              {item.status === 'uploading' ? <IconInfo /> : item.status === 'failed' ? <IconWarning /> : <IconCheck />}
+              {item.name}
+            </span>
+          </Results.Column>
+          <Results.Column>
+            {item.status === 'uploading' ? 'Uploading...' : item.status === 'failed' ? 'Failed to upload. Try again.' : 'Template uploaded successfully.'}
+          </Results.Column>
+          {item.status === 'succeeded' && (
+            <Results.Column>
+              <a
+                href={`https://resend.com/templates/${item.id}`}
+                className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors hover:text-slate-12"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Open in Resend ↗
+              </a>
+            </Results.Column>
+          )}
+        </Results.Row>
+      ))}
+    </Results>
+  );
+};
+
