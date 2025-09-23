@@ -21,6 +21,7 @@ import {
 import { useResend } from './toolbar/resend';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
+import { Button } from './button';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin' | 'resend';
 
@@ -282,11 +283,13 @@ const ToolbarInner = ({
                 <LoadingState message="Loading Resend API Key..." />
               ) : resendStatus?.hasApiKey ? (
                 <SuccessWrapper>
-                  <SuccessIcon />
-                  <SuccessTitle>Resend is configured</SuccessTitle>
+                  <SuccessTitle>Upload to Resend</SuccessTitle>
                   <SuccessDescription>
-                    You're ready to use Resend Templates.
+                    Import your email using the Templates API.
                   </SuccessDescription>
+                  <Button onClick={() => {
+                    console.log('Uploading...');
+                  }}>Upload</Button>
                 </SuccessWrapper>
               ) : (
                 <SuccessWrapper>
