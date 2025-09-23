@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Results } from './results';
-import { IconCheck } from '../icons/icon-check';
-import { IconInfo } from '../icons/icon-info';
-import { IconWarning } from '../icons/icon-warning';
+import { IconLoader } from '../icons/icon-loader';
+import { IconCloudCheck } from '../icons/icon-cloud-check';
+import { IconCloudAlert } from '../icons/icon-cloud-alert';
 
 export interface ResendStatus {
   hasApiKey: boolean;
@@ -97,10 +97,24 @@ export const Resend = ({ status }: ResendProps) => {
       {items.map((item) => (
         <Results.Row key={item.id}>
           <Results.Column>
-            <span className="flex gap-2 items-center">
-              {item.status === 'uploading' ? <IconInfo /> : item.status === 'failed' ? <IconWarning /> : <IconCheck />}
-              {item.name}
-            </span>
+            {item.status === 'uploading' && (
+              <span className="flex gap-2 items-center text-slate-12">
+                <IconLoader className="animate-spin" />
+                {item.name}
+              </span>
+            )}
+            {item.status === 'failed' && (
+              <span className="flex gap-2 items-center text-red-400">
+                <IconCloudAlert />
+                {item.name}
+              </span>
+            )}
+            {item.status === 'succeeded' && (
+              <span className="flex gap-2 items-center text-green-400">
+                <IconCloudCheck />
+                {item.name}
+              </span>
+            )}
           </Results.Column>
           <Results.Column>
             {item.status === 'uploading' ? 'Uploading...' : item.status === 'failed' ? 'Failed to upload. Try again.' : 'Template uploaded successfully.'}
