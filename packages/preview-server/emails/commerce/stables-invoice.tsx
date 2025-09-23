@@ -319,23 +319,4 @@ const RoyalStableInvoice = ({
   );
 };
 
-<<<<<<< HEAD
-RoyalStableInvoice.PreviewProps = {
-  invoiceNumber: '2025-001',
-  invoiceDate: 'January 15, 2025',
-  dueDate: 'January 30, 2025',
-  customerName: 'Sir Lancelot of the Lake',
-  customerAddress: 'Castle Joyous Gard, Northern Kingdom',
-  customerEmail: 'lancelot@roundtable.kingdom',
-  horseName: 'Thunderbolt',
-  horseBreed: 'Royal Destrier',
-  horseAge: '5',
-  horseColor: 'Majestic Black',
-  horseTraining: 'War-trained & Noble Riding',
-  horsePrice: '2,500',
-  totalAmount: '2,850',
-};
-
-=======
->>>>>>> d94698fe (refactor: improve email templates and resend export variable handling)
 export default RoyalStableInvoice;
