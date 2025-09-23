@@ -1,14 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`extractRulesPerClass() > should work just inlinable utilities 1`] = `
-{
-  "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
-  "text-center": ".text-center{text-align:center}",
-}
-`;
-
-exports[`extractRulesPerClass() > should work just inlinable utilities 2`] = `{}`;
-
 exports[`extractRulesPerClass() > should work with a mix of inlinable and non-inlinable utilities 1`] = `
 {
   "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
@@ -30,3 +21,12 @@ exports[`extractRulesPerClass() > should work with non-inlinable utilities 2`] =
   "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",
 }
 `;
+
+exports[`extractRulesPerClass() > works with just inlinable utilities 1`] = `
+{
+  "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
+  "text-center": ".text-center{text-align:center}",
+}
+`;
+
+exports[`extractRulesPerClass() > works with just inlinable utilities 2`] = `{}`;
