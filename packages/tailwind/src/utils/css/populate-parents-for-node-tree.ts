@@ -17,13 +17,13 @@ export function populateParentsForNodeTree(node: CssNode): void {
       parentListItem: ListItem<CssNode>,
       parentList: List<CssNode>,
     ) {
-      child.parent = parentPath[0];
+      child.parent = parentPath[parentPath.length - 1];
       child.containingItem = parentListItem;
       child.containedIn = parentList;
-      parentPath.unshift(child);
+      parentPath.push(child);
     },
     leave() {
-      parentPath.shift();
+      parentPath.pop();
     },
   });
 }
