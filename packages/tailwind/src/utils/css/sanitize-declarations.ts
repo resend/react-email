@@ -1,4 +1,4 @@
-import { type CssNode, type Declaration, parse, walk } from 'css-tree';
+import { type CssNode, type Declaration, List, parse, walk } from 'css-tree';
 
 const LAB_TO_LMS = {
   l: [0.3963377773761749, 0.2158037573099136],
@@ -303,10 +303,34 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
       if (declaration.property === 'margin-inline') {
         declaration.property = 'margin-left';
 
+        const values =
+          declaration.value.type === 'Value'
+            ? declaration.value.children
+              .toArray()
+              .filter(
+                (child) =>
+                  child.type === 'Dimension' ||
+                  child.type === 'Number' ||
+                  child.type === 'Percentage',
+              )
+            : [declaration.value];
+
+        let marginRightValue = declaration.value;
+        if (values.length === 2) {
+          marginRightValue = {
+            type: 'Value',
+            children: new List<CssNode>().fromArray([values[1]]),
+          };
+          declaration.value = {
+            type: 'Value',
+            children: new List<CssNode>().fromArray([values[0]]),
+          };
+        }
+
         const marginRight: Declaration = {
           type: 'Declaration',
           property: 'margin-right',
-          value: declaration.value,
+          value: marginRightValue,
           important: declaration.important,
         };
         list.insertData(marginRight, item);
@@ -314,10 +338,34 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
       if (declaration.property === 'margin-block') {
         declaration.property = 'margin-top';
 
+        const values =
+          declaration.value.type === 'Value'
+            ? declaration.value.children
+              .toArray()
+              .filter(
+                (child) =>
+                  child.type === 'Dimension' ||
+                  child.type === 'Number' ||
+                  child.type === 'Percentage',
+              )
+            : [declaration.value];
+
+        let marginBottomValue = declaration.value;
+        if (values.length === 2) {
+          marginBottomValue = {
+            type: 'Value',
+            children: new List<CssNode>().fromArray([values[1]]),
+          };
+          declaration.value = {
+            type: 'Value',
+            children: new List<CssNode>().fromArray([values[0]]),
+          };
+        }
+
         const marginBottom: Declaration = {
           type: 'Declaration',
           property: 'margin-bottom',
-          value: declaration.value,
+          value: marginBottomValue,
           important: declaration.important,
         };
         list.insertData(marginBottom, item);

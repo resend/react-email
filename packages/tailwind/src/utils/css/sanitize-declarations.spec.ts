@@ -2,6 +2,36 @@ import { generate, parse } from 'css-tree';
 import { sanitizeDeclarations } from './sanitize-declarations';
 
 describe('sanitizeDeclarations', () => {
+  it('should separation of margin-block and margin-inline', () => {
+    let root = parse(`.box {
+  margin-inline: 4px 14;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  margin-block: 10px 20%;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  margin-inline: 99rem;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+
+    root = parse(`.box {
+  margin-block: 8px;
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+  });
+
   test('oklch to rgb conversion', () => {
     let stylesheet = parse('div { color: oklch(90.5% 0.2 180); }');
     sanitizeDeclarations(stylesheet);
