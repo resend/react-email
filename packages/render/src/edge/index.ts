@@ -11,4 +11,5 @@ export const renderAsync = (element: React.ReactElement, options?: Options) => {
 export * from '../shared/options';
 export * from '../shared/utils/pretty';
 export * from '../shared/utils/to-plain-text';
+export * from '../shared/utils/to-resend-template';
 export * from './render';

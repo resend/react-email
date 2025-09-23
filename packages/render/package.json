@@ -116,7 +116,8 @@
   "dependencies": {
     "html-to-text": "^9.0.5",
     "prettier": "^3.5.3",
-    "react-promise-suspense": "^0.3.4"
+    "react-promise-suspense": "^0.3.4",
+    "typescript": "5.8.3"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
@@ -129,8 +130,7 @@
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
-    "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "tsconfig": "workspace:*"
   },
   "publishConfig": {
     "access": "public"
