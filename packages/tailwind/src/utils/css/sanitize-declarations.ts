@@ -1,4 +1,12 @@
-import { type CssNode, type Declaration, List, parse, walk } from 'css-tree';
+import {
+  type CssNode,
+  type Declaration,
+  generate,
+  List,
+  parse,
+  type Value,
+  walk,
+} from 'css-tree';
 
 const LAB_TO_LMS = {
   l: [0.3963377773761749, 0.2158037573099136],
@@ -121,6 +129,9 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
   walk(nodeContainingDeclarations, {
     visit: 'Declaration',
     enter(declaration, item, list) {
+      if (generate(declaration) === 'border-radius:calc(Infinity*1px)') {
+        declaration.value = parse('9999px', { context: 'value' }) as Value;
+      }
       walk(declaration, {
         visit: 'Function',
         enter(func, funcParentListItem) {

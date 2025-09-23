@@ -72,6 +72,8 @@ exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 8`]
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 9`] = `"div{color:rgb(255,0,128)}"`;
 
+exports[`sanitizeDeclarations > should convert border-radius:calc(Infinity * 1px) to border-radius:9999px 1`] = `".rounded-full{border-radius:9999px}"`;
+
 exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 1`] = `".box{margin-right:14;margin-left:4px}"`;
 
 exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 2`] = `".box{margin-bottom:20%;margin-top:10px}"`;

@@ -2,6 +2,15 @@ import { generate, parse } from 'css-tree';
 import { sanitizeDeclarations } from './sanitize-declarations';
 
 describe('sanitizeDeclarations', () => {
+  it('should convert border-radius:calc(Infinity * 1px) to border-radius:9999px', () => {
+    const root = parse(`.rounded-full {
+  border-radius: calc(Infinity * 1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchSnapshot();
+  });
+
   it('should do separation of padding-block and padding-inline', () => {
     let root = parse(`.box {
   padding-inline: 4px 14;
