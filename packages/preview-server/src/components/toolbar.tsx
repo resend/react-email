@@ -18,6 +18,7 @@ import {
   type SpamCheckingResult,
   useSpamAssassin,
 } from './toolbar/spam-assassin';
+import { useResend } from './toolbar/resend';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 
@@ -103,6 +104,9 @@ const ToolbarInner = ({
     initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
 
+  const [resendStatus, { load: loadResend, loading: resendLoading }] =
+    useResend();
+
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
@@ -116,6 +120,8 @@ const ToolbarInner = ({
 
         const compatibilityCheckingResults = await loadCompatibility();
         setCachedCompatibilityResults(compatibilityCheckingResults);
+
+        await loadResend();
       })();
     }, []);
   }
@@ -182,7 +188,7 @@ const ToolbarInner = ({
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={lintLoading || spamLoading}
+                  disabled={lintLoading || spamLoading || compatibilityLoading || resendLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -193,6 +199,8 @@ const ToolbarInner = ({
                       await loadLinting();
                     } else if (activeTab === 'compatibility') {
                       await loadCompatibility();
+                    } else if (activeTab === 'resend') {
+                      await loadResend();
                     }
                   }}
                 >
@@ -200,7 +208,7 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading || spamLoading,
+                        lintLoading || spamLoading || compatibilityLoading || resendLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -270,17 +278,23 @@ const ToolbarInner = ({
               )}
             </Tabs.Content>
             <Tabs.Content value="resend">
-              {spamLoading ? (
+              {resendLoading ? (
                 <LoadingState message="Loading Resend API Key..." />
-              ) : spamCheckingResult?.isSpam === false ? (
+              ) : resendStatus?.hasApiKey ? (
+                <SuccessWrapper>
+                  <SuccessIcon />
+                  <SuccessTitle>Resend is configured</SuccessTitle>
+                  <SuccessDescription>
+                    You're ready to use Resend Templates.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Add Resend API Key</SuccessTitle>
                   <SuccessDescription>
                     Create a <code className="text-slate-12">.env</code> file and add your API Key using the <code className="text-slate-12">RESEND_API_KEY</code> environment variable.
                   </SuccessDescription>
                 </SuccessWrapper>
-              ) : (
-                <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
           </div>
