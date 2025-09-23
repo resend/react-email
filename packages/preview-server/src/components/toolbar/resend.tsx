@@ -4,6 +4,7 @@ import {
   bulkExportTemplates,
   exportSingleTemplate,
 } from '../../actions/bulk-import-templates';
+import { useEmails } from '../../contexts/emails';
 import { Button } from '../button';
 import { IconCloudAlert } from '../icons/icon-cloud-alert';
 import { IconCloudCheck } from '../icons/icon-cloud-check';
@@ -86,6 +87,7 @@ export const Resend = ({
   htmlMarkup: string;
   reactMarkup: string;
 }) => {
+  const { emailsDirectoryMetadata } = useEmails();
   const [items, setItems] = useState<ResendItem[]>([]);
 
   const { execute: exportSingle, isPending: isExportSinglePending } = useAction(
@@ -138,6 +140,19 @@ export const Resend = ({
             appearance="gradient"
             className="mt-2 mb-4"
             onClick={() => {
+              // Get all email slugs from all directories
+              const allDirectories = [
+                emailsDirectoryMetadata,
+                ...emailsDirectoryMetadata.subDirectories,
+              ];
+              const allEmailSlugs = allDirectories.flatMap((dir) =>
+                dir.emailFilenames.map((filename) => ({
+                  name: filename,
+                  status: 'uploading' as const,
+                })),
+              );
+
+              setItems(allEmailSlugs);
               exportBulk();
             }}
           >
