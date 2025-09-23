@@ -86,8 +86,6 @@ export const Resend = ({
   htmlMarkup: string;
   reactMarkup: string;
 }) => {
-  console.log('emailPath', emailPath, emailSlug);
-
   const [items, setItems] = useState<ResendItem[]>([]);
 
   const { execute: exportSingle, isPending: isExportSinglePending } = useAction(
@@ -154,8 +152,8 @@ export const Resend = ({
 
   return (
     <Results>
-      {items.map((item) => (
-        <Results.Row key={item.id}>
+      {items.map((item, index) => (
+        <Results.Row key={item.id || index}>
           <Results.Column>
             {item.status === 'uploading' && (
               <span className="flex gap-2 items-center text-slate-12">
@@ -183,8 +181,8 @@ export const Resend = ({
                 ? 'Failed to upload. Try again.'
                 : 'Template uploaded successfully.'}
           </Results.Column>
-          {item.status === 'succeeded' && (
-            <Results.Column>
+          <Results.Column>
+            {item.status === 'succeeded' && (
               <a
                 href={`https://resend.com/templates/${item.id}/editor`}
                 className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors hover:text-slate-12"
@@ -193,8 +191,8 @@ export const Resend = ({
               >
                 Open in Resend ↗
               </a>
-            </Results.Column>
-          )}
+            )}
+          </Results.Column>
         </Results.Row>
       ))}
     </Results>
