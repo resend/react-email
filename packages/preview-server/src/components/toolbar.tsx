@@ -21,7 +21,7 @@ import {
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
+export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin' | 'resend';
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
@@ -156,6 +156,11 @@ const ToolbarInner = ({
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              <Tabs.Trigger asChild value="resend">
+                <ToolbarButton active={activeTab === 'resend'}>
+                  Resend
+                </ToolbarButton>
+              </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               <ToolbarButton
@@ -167,6 +172,8 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'resend' &&
+                    'The Resend tab allows you to upload emails to Resend using the Templates API.') ||
                   'Info'
                 }
               >
@@ -256,6 +263,20 @@ const ToolbarInner = ({
                   <SuccessTitle>10/10</SuccessTitle>
                   <SuccessDescription>
                     Your email is clean of abuse indicators.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              ) : (
+                <SpamAssassin result={spamCheckingResult} />
+              )}
+            </Tabs.Content>
+            <Tabs.Content value="resend">
+              {spamLoading ? (
+                <LoadingState message="Loading Resend API Key..." />
+              ) : spamCheckingResult?.isSpam === false ? (
+                <SuccessWrapper>
+                  <SuccessTitle>Add Resend API Key</SuccessTitle>
+                  <SuccessDescription>
+                    Create a <code className="text-slate-12">.env</code> file and add your API Key using the <code className="text-slate-12">RESEND_API_KEY</code> environment variable.
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : (
