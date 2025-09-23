@@ -84,13 +84,13 @@ function separteShorthandDeclaration(
   const values =
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
-          .toArray()
-          .filter(
-            (child) =>
-              child.type === 'Dimension' ||
-              child.type === 'Number' ||
-              child.type === 'Percentage',
-          )
+        .toArray()
+        .filter(
+          (child) =>
+            child.type === 'Dimension' ||
+            child.type === 'Number' ||
+            child.type === 'Percentage',
+        )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
   if (values.length === 2) {
@@ -129,7 +129,9 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
   walk(nodeContainingDeclarations, {
     visit: 'Declaration',
     enter(declaration, item, list) {
-      if (generate(declaration) === 'border-radius:calc(Infinity*1px)') {
+      if (
+        /border-radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(generate(declaration))
+      ) {
         declaration.value = parse('9999px', { context: 'value' }) as Value;
       }
       walk(declaration, {

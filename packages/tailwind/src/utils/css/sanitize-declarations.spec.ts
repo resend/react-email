@@ -2,13 +2,34 @@ import { generate, parse } from 'css-tree';
 import { sanitizeDeclarations } from './sanitize-declarations';
 
 describe('sanitizeDeclarations', () => {
-  it('should convert border-radius:calc(Infinity * 1px) to border-radius:9999px', () => {
-    const root = parse(`.rounded-full {
+  it('converts border-radius:calc(Infinity * 1px) to border-radius:9999px', () => {;
+    let root = parse(`.rounded-full {
   border-radius: calc(Infinity * 1px);
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
+
+    root = parse(`.rounded-full {
+  border-radius: calc(infinity * 1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
+
+    root = parse(`.rounded-full {
+  border-radius: calc(infinity*1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
+
+    root = parse(`.rounded-full {
+  border-radius: calc(Infinity*1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
   });
 
   it('should do separation of padding-block and padding-inline', () => {
