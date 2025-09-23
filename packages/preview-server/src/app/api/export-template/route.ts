@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     console.error('Failed to export template:', error);
     return NextResponse.json(
       { error: 'Failed to export template to Resend' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -5,9 +5,12 @@ export async function GET(req: NextRequest) {
     const apiKey = process.env.RESEND_API_KEY || '';
 
     if (!apiKey) {
-      return NextResponse.json({
-        status: 'error',
-      }, { status: 400 });
+      return NextResponse.json(
+        {
+          status: 'error',
+        },
+        { status: 400 },
+      );
     }
 
     return NextResponse.json({ status: 'success' });

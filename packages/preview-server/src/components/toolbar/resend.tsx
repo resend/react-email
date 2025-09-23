@@ -45,7 +45,9 @@ export const useResend = ({
         return result;
       }
 
-      console.error(body?.error ?? 'Unknown error while checking Resend API key');
+      console.error(
+        body?.error ?? 'Unknown error while checking Resend API key',
+      );
     } catch (exception) {
       console.error(exception);
     } finally {
@@ -56,5 +58,3 @@ export const useResend = ({
 
   return [status, { loading, load }] as const;
 };
-
-

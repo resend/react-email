@@ -3,28 +3,32 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
+import { toast } from 'sonner';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
+import { Button } from './button';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { useResend } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
   useSpamAssassin,
 } from './toolbar/spam-assassin';
-import { useResend } from './toolbar/resend';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
-import { Button } from './button';
-import { toast } from 'sonner';
 
-export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin' | 'resend';
+export type ToolbarTabValue =
+  | 'linter'
+  | 'compatibility'
+  | 'spam-assassin'
+  | 'resend';
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
@@ -111,7 +115,8 @@ const ToolbarInner = ({
   const [resendStatus, { load: loadResend, loading: resendLoading }] =
     useResend();
 
-  const [loadingExportTemplate, setLoadingExportTemplate] = React.useState(false);
+  const [loadingExportTemplate, setLoadingExportTemplate] =
+    React.useState(false);
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
@@ -194,7 +199,12 @@ const ToolbarInner = ({
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={lintLoading || spamLoading || compatibilityLoading || resendLoading}
+                  disabled={
+                    lintLoading ||
+                    spamLoading ||
+                    compatibilityLoading ||
+                    resendLoading
+                  }
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -214,7 +224,10 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading || spamLoading || compatibilityLoading || resendLoading,
+                        lintLoading ||
+                        spamLoading ||
+                        compatibilityLoading ||
+                        resendLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -293,24 +306,38 @@ const ToolbarInner = ({
                     Import your email using the Templates API.
                   </SuccessDescription>
                   <div className="flex gap-2">
-                    <Button loading={loadingExportTemplate} onClick={async () => {
-                      setLoadingExportTemplate(true);
-                      try {
-                        await exportTemplateToResend();
-                      } finally {
-                        setLoadingExportTemplate(false);
-                      }
-                    }}>Upload</Button>
-                    <Button appearance="gradient" className="mt-2 mb-4" onClick={() => {
-                      console.log('Bulk uploading...');
-                    }}>Bulk Upload</Button>
+                    <Button
+                      loading={loadingExportTemplate}
+                      onClick={async () => {
+                        setLoadingExportTemplate(true);
+                        try {
+                          await exportTemplateToResend();
+                        } finally {
+                          setLoadingExportTemplate(false);
+                        }
+                      }}
+                    >
+                      Upload
+                    </Button>
+                    <Button
+                      appearance="gradient"
+                      className="mt-2 mb-4"
+                      onClick={() => {
+                        console.log('Bulk uploading...');
+                      }}
+                    >
+                      Bulk Upload
+                    </Button>
                   </div>
                 </SuccessWrapper>
               ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Add Resend API Key</SuccessTitle>
                   <SuccessDescription>
-                    Create a <code className="text-slate-12">.env</code> file and add your API Key using the <code className="text-slate-12">RESEND_API_KEY</code> environment variable.
+                    Create a <code className="text-slate-12">.env</code> file
+                    and add your API Key using the{' '}
+                    <code className="text-slate-12">RESEND_API_KEY</code>{' '}
+                    environment variable.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}
@@ -389,7 +416,8 @@ export const Toolbar = ({
     React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup, markup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, markup } =
+    renderedEmailMetadata;
 
   return (
     <ToolbarInner
