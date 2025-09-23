@@ -1,7 +1,7 @@
 'use server';
 
 import path from 'node:path';
-import { getProperties } from '@react-email/render';
+import { getProperties, render } from '@react-email/render';
 import z from 'zod';
 import { emailsDirectoryAbsolutePath, emailsDirRelativePath } from '../app/env';
 import { resend } from '../lib/resend';
@@ -11,6 +11,18 @@ import { renderEmailByPath } from './render-email-by-path';
 import { baseActionClient } from './safe-action';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const applyVariableMarkup = (
+  html: string,
+  variables: { key: string; fallbackValue: string }[],
+) => {
+  return variables.reduce((acc, variable) => {
+    return acc.replace(
+      `${variable.fallbackValue}`,
+      `<span data-type="variable">{{{${variable.key}}}}</span>`,
+    );
+  }, html);
+};
 
 export const exportSingleTemplate = baseActionClient
   .metadata({
@@ -26,9 +38,17 @@ export const exportSingleTemplate = baseActionClient
   .action(async ({ parsedInput }) => {
     const extractedProperties = getProperties(parsedInput.reactMarkup) || [];
 
+    const appliedVariableMarkup = applyVariableMarkup(
+      parsedInput.html,
+      extractedProperties.map((variable) => ({
+        key: variable.key,
+        fallbackValue: variable.fallbackValue as string,
+      })),
+    );
+
     const response = await resend.templates.create({
       name: parsedInput.name,
-      html: parsedInput.html,
+      html: appliedVariableMarkup,
       variables: extractedProperties.map((variable) => ({
         key: variable.key,
         type: variable.type ?? 'string',

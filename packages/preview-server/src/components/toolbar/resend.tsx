@@ -77,7 +77,6 @@ interface ResendItem {
 }
 
 export const Resend = ({
-  emailPath,
   emailSlug,
   htmlMarkup,
   reactMarkup,

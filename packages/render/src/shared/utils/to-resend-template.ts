@@ -18,7 +18,7 @@ interface PropertyInfo {
   key: string;
   required: boolean;
   type: 'string' | 'number' | 'boolean' | null; // null for complex/ignored types
-  fallbackValue: string | null;
+  fallbackValue: string | number | boolean | null;
 }
 
 function getTypeFromTypeNode(
@@ -201,18 +201,20 @@ function inferTypeFromValue(
   return null;
 }
 
-function extractValueAsString(value: ts.Expression): string {
+function extractValueWithType(
+  value: ts.Expression,
+): string | number | boolean | null {
   if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) {
     return value.text;
   }
   if (ts.isNumericLiteral(value)) {
-    return value.text;
+    return Number(value.text);
   }
   if (value.kind === ts.SyntaxKind.TrueKeyword) {
-    return 'true';
+    return true;
   }
   if (value.kind === ts.SyntaxKind.FalseKeyword) {
-    return 'false';
+    return false;
   }
   if (
     ts.isNewExpression(value) &&
@@ -251,23 +253,29 @@ function analyzeJSXComponentProps(sourceFile: ts.SourceFile): PropertyInfo[] {
     string,
     {
       type: 'string' | 'number' | 'boolean' | null;
-      fallbackValue: string | null;
+      fallbackValue: string | number | boolean | null;
     }
   >();
 
   function extractPropsFromDestructuring(
     bindingPattern: ts.ObjectBindingPattern,
-  ): Array<{ name: string; defaultValue?: string }> {
-    const props: Array<{ name: string; defaultValue?: string }> = [];
+  ): Array<{ name: string; defaultValue?: string | number | boolean | null }> {
+    const props: Array<{
+      name: string;
+      defaultValue?: string | number | boolean | null;
+    }> = [];
     for (const element of bindingPattern.elements) {
       if (ts.isBindingElement(element) && ts.isIdentifier(element.name)) {
-        const propInfo: { name: string; defaultValue?: string } = {
+        const propInfo: {
+          name: string;
+          defaultValue?: string | number | boolean | null;
+        } = {
           name: element.name.text,
         };
 
         // Check if there's a default value
         if (element.initializer) {
-          propInfo.defaultValue = extractValueAsString(element.initializer);
+          propInfo.defaultValue = extractValueWithType(element.initializer);
         }
 
         props.push(propInfo);
@@ -289,7 +297,7 @@ function analyzeJSXComponentProps(sourceFile: ts.SourceFile): PropertyInfo[] {
       for (const prop of node.right.properties) {
         if (ts.isPropertyAssignment(prop) && ts.isIdentifier(prop.name)) {
           const type = inferTypeFromValue(prop.initializer);
-          const fallbackValue = extractValueAsString(prop.initializer);
+          const fallbackValue = extractValueWithType(prop.initializer);
           if (type) {
             previewPropsMap.set(prop.name.text, { type, fallbackValue });
           }
@@ -338,25 +346,37 @@ function analyzeInterfaceProperties(sourceFile: ts.SourceFile): PropertyInfo[] {
     string,
     { type: 'string' | 'number' | 'boolean' | null; required: boolean }
   >();
-  const componentDefaultsMap = new Map<string, string>();
+  const componentDefaultsMap = new Map<
+    string,
+    string | number | boolean | null
+  >();
   const previewPropsMap = new Map<
     string,
-    { type: 'string' | 'number' | 'boolean' | null; fallbackValue: string }
+    {
+      type: 'string' | 'number' | 'boolean' | null;
+      fallbackValue: string | number | boolean | null;
+    }
   >();
 
   function extractPropsFromDestructuring(
     bindingPattern: ts.ObjectBindingPattern,
-  ): Array<{ name: string; defaultValue?: string }> {
-    const props: Array<{ name: string; defaultValue?: string }> = [];
+  ): Array<{ name: string; defaultValue?: string | number | boolean | null }> {
+    const props: Array<{
+      name: string;
+      defaultValue?: string | number | boolean | null;
+    }> = [];
     for (const element of bindingPattern.elements) {
       if (ts.isBindingElement(element) && ts.isIdentifier(element.name)) {
-        const propInfo: { name: string; defaultValue?: string } = {
+        const propInfo: {
+          name: string;
+          defaultValue?: string | number | boolean | null;
+        } = {
           name: element.name.text,
         };
 
         // Check if there's a default value
         if (element.initializer) {
-          propInfo.defaultValue = extractValueAsString(element.initializer);
+          propInfo.defaultValue = extractValueWithType(element.initializer);
         }
 
         props.push(propInfo);
@@ -408,7 +428,7 @@ function analyzeInterfaceProperties(sourceFile: ts.SourceFile): PropertyInfo[] {
       for (const prop of node.right.properties) {
         if (ts.isPropertyAssignment(prop) && ts.isIdentifier(prop.name)) {
           const type = inferTypeFromValue(prop.initializer);
-          const fallbackValue = extractValueAsString(prop.initializer);
+          const fallbackValue = extractValueWithType(prop.initializer);
           if (type) {
             previewPropsMap.set(prop.name.text, { type, fallbackValue });
           }

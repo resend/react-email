@@ -15,7 +15,7 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-const RoyalWelcomeEmail = (props) => {
+const RoyalWelcomeEmail = () => {
   return (
     <Html lang="en" dir="ltr">
       <Tailwind>
@@ -43,7 +43,7 @@ const RoyalWelcomeEmail = (props) => {
                   Royal Proclamation
                 </Text>
                 <Heading className="text-gray-800 text-[32px] font-bold m-0 mb-[20px] leading-tight">
-                  Hail, Noble {props.firstName}! 🎉
+                  Hail, Noble Arthur! 🎉
                 </Heading>
                 <Text className="text-gray-600 text-[18px] leading-relaxed m-0 mb-[24px]">
                   By royal decree, you have been officially welcomed into our
@@ -67,9 +67,8 @@ const RoyalWelcomeEmail = (props) => {
                       👑 Noble Status Granted
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      You now hold the distinguished title of Noble{' '}
-                      {props.firstName}, with all the rights and privileges that
-                      come with it.
+                      You now hold the distinguished title of Noble Arthur, with
+                      all the rights and privileges that come with it.
                     </Text>
                   </Column>
                 </Row>
@@ -116,7 +115,7 @@ const RoyalWelcomeEmail = (props) => {
               {/* Getting Started */}
               <Section className="text-center bg-gradient-to-r from-purple-50 to-indigo-50 rounded-[12px] p-[32px] mb-[32px] border border-solid border-purple-200">
                 <Text className="text-[20px] font-bold text-purple-800 m-0 mb-[16px]">
-                  🚀 Ready to Begin Your Quest, {props.firstName}?
+                  🚀 Ready to Begin Your Quest, Arthur?
                 </Text>
                 <Text className="text-gray-600 text-[16px] m-0 mb-[24px]">
                   Complete your royal profile and explore all the wonders our
@@ -167,10 +166,9 @@ const RoyalWelcomeEmail = (props) => {
                   💌 A Personal Message from the Royal Council
                 </Text>
                 <Text className="text-gray-600 text-[14px] m-0 italic">
-                  "Dear {props.firstName}, we are thrilled to welcome you to our
-                  kingdom family. May your journey be filled with adventure,
-                  friendship, and countless magical moments. Welcome home, noble
-                  one!"
+                  "Dear Arthur, we are thrilled to welcome you to our kingdom
+                  family. May your journey be filled with adventure, friendship,
+                  and countless magical moments. Welcome home, noble one!"
                 </Text>
               </Section>
             </Section>
@@ -181,8 +179,8 @@ const RoyalWelcomeEmail = (props) => {
                 📍 Royal Palace, Kingdom Square, Enchanted Realm 12345
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                Welcome to the kingdom, {props.firstName}! We're honored to have
-                you with us.
+                Welcome to the kingdom, Arthur! We're honored to have you with
+                us.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
                 <Link href="#" className="text-purple-600 no-underline">
@@ -212,10 +210,6 @@ const RoyalWelcomeEmail = (props) => {
       </Tailwind>
     </Html>
   );
-};
-
-RoyalWelcomeEmail.PreviewProps = {
-  firstName: 'Arthur',
 };
 
 export default RoyalWelcomeEmail;

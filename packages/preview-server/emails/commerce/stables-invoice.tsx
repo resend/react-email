@@ -15,7 +15,35 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-const RoyalStableInvoice = (props) => {
+interface RoyalStableInvoiceProps {
+  invoiceNumber: string;
+  invoiceDate: string;
+  dueDate: string;
+  customerName: string;
+  customerAddress: string;
+  customerEmail: string;
+  horseName: string;
+  horseBreed: string;
+  horseColor: string;
+  horseTraining: string;
+  horsePrice: string;
+  totalAmount: string;
+}
+
+const RoyalStableInvoice = ({
+  invoiceNumber = '2025-001',
+  invoiceDate = 'January 15, 2025',
+  dueDate = 'January 30, 2025',
+  customerName = 'Sir Lancelot of the Lake',
+  customerAddress = 'Castle Joyous Gard, Northern Kingdom',
+  customerEmail = 'lancelot@roundtable.kingdom',
+  horseName = 'Thunderbolt',
+  horseBreed = 'Royal Destrier',
+  horseColor = 'Majestic Black',
+  horseTraining = 'War-trained & Noble Riding',
+  horsePrice = '$2,500',
+  totalAmount = '$2,850',
+}: RoyalStableInvoiceProps) => {
   return (
     <Html lang="en" dir="ltr">
       <Tailwind>
@@ -63,13 +91,13 @@ const RoyalStableInvoice = (props) => {
                     Invoice Details
                   </Text>
                   <Text className="text-gray-800 text-[16px] font-bold m-0 mb-[4px]">
-                    Invoice #RS-{props.invoiceNumber}
+                    Invoice #RS-{invoiceNumber}
                   </Text>
                   <Text className="text-gray-600 text-[14px] m-0 mb-[2px]">
-                    Date: {props.invoiceDate}
+                    Date: {invoiceDate}
                   </Text>
                   <Text className="text-gray-600 text-[14px] m-0 mb-[2px]">
-                    Due: {props.dueDate}
+                    Due: {dueDate}
                   </Text>
                   <Text className="text-purple-700 text-[14px] font-semibold m-0">
                     Status: PAID ✅
@@ -86,13 +114,13 @@ const RoyalStableInvoice = (props) => {
                 Sold To Noble Customer
               </Text>
               <Text className="text-gray-800 text-[16px] font-bold m-0 mb-[4px]">
-                {props.customerName}
+                {customerName}
               </Text>
               <Text className="text-gray-600 text-[14px] m-0 mb-[2px]">
-                {props.customerAddress}
+                {customerAddress}
               </Text>
               <Text className="text-gray-600 text-[14px] m-0">
-                {props.customerEmail}
+                {customerEmail}
               </Text>
             </Section>
 
@@ -108,19 +136,16 @@ const RoyalStableInvoice = (props) => {
                 <Row>
                   <Column className="w-2/3">
                     <Text className="text-purple-800 text-[20px] font-bold m-0 mb-[8px]">
-                      {props.horseName} 🐴
+                      {horseName} 🐴
                     </Text>
                     <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
-                      <strong>Breed:</strong> {props.horseBreed}
+                      <strong>Breed:</strong> {horseBreed}
                     </Text>
                     <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
-                      <strong>Age:</strong> {props.horseAge} years old
+                      <strong>Color:</strong> {horseColor}
                     </Text>
                     <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
-                      <strong>Color:</strong> {props.horseColor}
-                    </Text>
-                    <Text className="text-gray-600 text-[14px] m-0 mb-[4px]">
-                      <strong>Training:</strong> {props.horseTraining}
+                      <strong>Training:</strong> {horseTraining}
                     </Text>
                     <Text className="text-gray-600 text-[14px] m-0">
                       <strong>Pedigree:</strong> Royal Bloodline Certified
@@ -128,7 +153,7 @@ const RoyalStableInvoice = (props) => {
                   </Column>
                   <Column className="w-1/3 text-right">
                     <Text className="text-purple-800 text-[32px] font-bold m-0">
-                      {props.horsePrice}
+                      {horsePrice}
                     </Text>
                     <Text className="text-gray-600 text-[14px] m-0">
                       Gold Sovereigns
@@ -207,7 +232,7 @@ const RoyalStableInvoice = (props) => {
                 </Column>
                 <Column className="w-1/3 text-right">
                   <Text className="text-purple-800 text-[24px] font-bold m-0">
-                    {props.totalAmount}
+                    {totalAmount}
                   </Text>
                   <Text className="text-purple-600 text-[14px] m-0">
                     Gold Sovereigns
@@ -294,6 +319,7 @@ const RoyalStableInvoice = (props) => {
   );
 };
 
+<<<<<<< HEAD
 RoyalStableInvoice.PreviewProps = {
   invoiceNumber: '2025-001',
   invoiceDate: 'January 15, 2025',
@@ -310,4 +336,6 @@ RoyalStableInvoice.PreviewProps = {
   totalAmount: '2,850',
 };
 
+=======
+>>>>>>> d94698fe (refactor: improve email templates and resend export variable handling)
 export default RoyalStableInvoice;
