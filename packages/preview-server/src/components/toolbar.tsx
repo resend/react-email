@@ -287,9 +287,14 @@ const ToolbarInner = ({
                   <SuccessDescription>
                     Import your email using the Templates API.
                   </SuccessDescription>
-                  <Button onClick={() => {
-                    console.log('Uploading...');
-                  }}>Upload</Button>
+                  <div className="flex gap-2">
+                    <Button onClick={() => {
+                      console.log('Uploading...');
+                    }}>Upload</Button>
+                    <Button appearance="gradient" className="mt-2 mb-4" onClick={() => {
+                      console.log('Bulk uploading...');
+                    }}>Bulk Upload</Button>
+                  </div>
                 </SuccessWrapper>
               ) : (
                 <SuccessWrapper>
