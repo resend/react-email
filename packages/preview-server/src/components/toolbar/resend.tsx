@@ -75,23 +75,6 @@ interface ResendItem {
   id?: string;
 }
 
-// const items: ResendItem[] = [
-//   {
-//     status: 'uploading',
-//     name: 'account-confirmation',
-//     id: '49a3999c-0ce1-4ea6-ab68-afcd6dc2e794',
-//   },
-//   {
-//     status: 'succeeded',
-//     name: 'forgot-password',
-//     id: '4dd369bc-aa82-4ff3-97de-514ae3000ee0',
-//   },
-//   {
-//     status: 'failed',
-//     name: 'feedback-request',
-//     id: 'd91cd9bd-1176-453e-8fc1-35364d380206',
-//   }
-// ];
 export const Resend = ({
   emailPath,
   emailSlug,
@@ -203,7 +186,7 @@ export const Resend = ({
           {item.status === 'succeeded' && (
             <Results.Column>
               <a
-                href={`https://resend.com/templates/${item.id}`}
+                href={`https://resend.com/templates/${item.id}/editor`}
                 className="underline ml-2 decoration-slate-9 decoration-1 hover:decoration-slate-11 transition-colors hover:text-slate-12"
                 rel="noreferrer"
                 target="_blank"
