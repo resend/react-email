@@ -2,7 +2,7 @@ import { generate, parse } from 'css-tree';
 import { sanitizeDeclarations } from './sanitize-declarations';
 
 describe('sanitizeDeclarations', () => {
-  it('converts border-radius:calc(Infinity * 1px) to border-radius:9999px', () => {;
+  it('converts border-radius:calc(Infinity * 1px) to border-radius:9999px', () => {
     let root = parse(`.rounded-full {
   border-radius: calc(Infinity * 1px);
 }
