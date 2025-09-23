@@ -78,7 +78,7 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
         <div className="flex w-full flex-col gap-4 px-6 pt-16 pb-10 md:px-8">
           <div className="flex flex-inline">
             <Link
-              className="mr-2 flex scroll-m-2 items-center justify-center gap-2 self-start rounded-md px-2 py-1 text-slate-11 transition transition-colors duration-200 ease-in-out hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3"
+              className="mr-2 flex scroll-m-2 items-center justify-center gap-2 self-start rounded-md px-2 py-1 text-slate-11 transition-colors duration-200 ease-in-out hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3"
               href="/components"
             >
               <IconArrowLeft className="mt-[.0625rem]" size={14} />
