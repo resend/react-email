@@ -149,6 +149,12 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
                   continue;
                 }
               }
+              if (child.type === 'Dimension' && child.unit === 'deg') {
+                if (h === undefined) {
+                  h = Number.parseFloat(child.value);
+                  continue;
+                }
+              }
               if (child.type === 'Percentage') {
                 if (l === undefined) {
                   l = Number.parseFloat(child.value) / 100;

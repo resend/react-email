@@ -71,6 +71,10 @@ describe('sanitizeDeclarations', () => {
     sanitizeDeclarations(stylesheet);
     expect(generate(stylesheet), 'conversion with alpha').toMatchSnapshot();
 
+    stylesheet = parse('div { color: oklch(96.6% 0.147 107deg / 80%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'conversion with deg unit').toMatchSnapshot();
+
     stylesheet = parse('div { color: oklch(92.6% 0.0546 218 / 50%); }');
     sanitizeDeclarations(stylesheet);
     expect(generate(stylesheet)).toMatchSnapshot();

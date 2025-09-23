@@ -46,11 +46,13 @@ exports[`sanitizeDeclarations > oklch to rgb conversion 1`] = `"div{color:rgb(0,
 
 exports[`sanitizeDeclarations > oklch to rgb conversion 2`] = `"div{color:rgb(255,250.7,125.6,0.8)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 3`] = `"div{color:rgb(190.5,240.2,255,0.5)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 3`] = `"div{color:rgb(255,250.7,125.6,0.8)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 4`] = `"div{color:rgb(254.6,192.6,249.8)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 4`] = `"div{color:rgb(190.5,240.2,255,0.5)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 5`] = `"div{color:rgb(255,99.8,0.1)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 5`] = `"div{color:rgb(254.6,192.6,249.8)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 6`] = `"div{color:rgb(255,99.8,0.1)}"`;
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 1`] = `"div{color:rgb(255,0,128)}"`;
 
