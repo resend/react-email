@@ -48,7 +48,7 @@ jobs:
         with:
           version: pnpm run version
           publish: pnpm run release
-          title: "chore(root): version packages (canary)"
+          title: "chore(root): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
