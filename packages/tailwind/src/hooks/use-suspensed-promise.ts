@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-throw-literal */
 interface PromiseState {
   promise: Promise<unknown>;
   error?: unknown;

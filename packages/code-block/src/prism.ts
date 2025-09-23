@@ -1,4 +1,3 @@
-/* eslint-disable */
 // @ts-nocheck
 import * as PrismImport from "prismjs";
 // this avoids an issue that was happening when importing inside of

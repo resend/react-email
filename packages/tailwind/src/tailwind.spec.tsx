@@ -130,34 +130,6 @@ describe('Tailwind component', () => {
     });
   });
 
-  // test("with React context and custom components", () => {
-  //   const SharedDataContext = React.createContext<{ name: string } | undefined>(undefined);
-  //
-  //   const IsGreat = () => {
-  //     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //     const sharedData = React.useContext(SharedDataContext)!;
-  //
-  //     expect(sharedData).toBeDefined();
-  //
-  //     return <p className="text-red-500 sm:text-blue-300">
-  //       {sharedData.name} is great!
-  //     </p>;
-  //   };
-  //
-  //   render(
-  //     <Html>
-  //       <Tailwind>
-  //         <Head/>
-  //         <SharedDataContext.Provider value={{ name: 'React Email' }}>
-  //           <body className="bg-slate-900 text-gray-200">
-  //             <IsGreat/>
-  //           </body>
-  //         </SharedDataContext.Provider>
-  //       </Tailwind>
-  //     </Html>
-  //   );
-  // });
-
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
     const actualOutput = await render(
       <Tailwind>

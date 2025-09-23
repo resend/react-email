@@ -41,9 +41,6 @@ export function setupTailwind(config: TailwindConfig) {
         .clone()
         .append(...bigIntRuleTuples.map(([, rule]) => rule));
       partitionApplyAtRules()(root);
-      // This is fine because the internal await is never actually called out
-      // because of there not being any `changedContent` files on the context
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       expandTailwindAtRules(tailwindContext)(root);
       partitionApplyAtRules()(root);
       expandApplyAtRules(tailwindContext)(root);
