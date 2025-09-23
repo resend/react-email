@@ -4,6 +4,7 @@ import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 import { toast } from 'sonner';
+import { bulkImportTemplates } from '../actions/bulk-import-templates';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
@@ -323,8 +324,33 @@ const ToolbarInner = ({
                     <Button
                       appearance="gradient"
                       className="mt-2 mb-4"
-                      onClick={() => {
-                        console.log('Bulk uploading...');
+                      loading={loadingExportTemplate}
+                      onClick={async () => {
+                        setLoadingExportTemplate(true);
+                        try {
+                          const result = await bulkImportTemplates(emailPath);
+
+                          if (result.success.length > 0) {
+                            toast.success(
+                              `Successfully imported ${result.success.length} templates`,
+                            );
+                          }
+
+                          if (result.failed.length > 0) {
+                            toast.error(
+                              `Failed to import ${result.failed.length} templates`,
+                            );
+                            console.error('Failed imports:', result.failed);
+                          }
+                        } catch (error) {
+                          toast.error(
+                            error instanceof Error
+                              ? error.message
+                              : 'Failed to bulk import templates',
+                          );
+                        } finally {
+                          setLoadingExportTemplate(false);
+                        }
                       }}
                     >
                       Bulk Upload
