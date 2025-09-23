@@ -44,6 +44,7 @@
     "prism-react-renderer": "2.4.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "resend": "https://pkg.pr.new/resend/resend-node/resend@7bfa20c",
     "sharp": "0.34.1",
     "socket.io-client": "4.8.1",
     "sonner": "2.0.3",

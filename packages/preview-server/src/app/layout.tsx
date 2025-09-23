@@ -1,5 +1,6 @@
-import type { Metadata } from 'next';
 import './globals.css';
+
+import type { Metadata } from 'next';
 import { EmailsProvider } from '../contexts/emails';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
 import { emailsDirectoryAbsolutePath } from './env';
