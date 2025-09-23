@@ -21,6 +21,7 @@ import {
 import { useResend } from './toolbar/resend';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
+import { Button } from './button';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin' | 'resend';
 
@@ -47,12 +48,14 @@ const ToolbarInner = ({
   plainText,
   emailPath,
   emailSlug,
+  exportTemplateToResend,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
+  exportTemplateToResend: () => Promise<void>;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -286,6 +289,10 @@ const ToolbarInner = ({
                   <SuccessTitle>Resend is configured</SuccessTitle>
                   <SuccessDescription>
                     You're ready to use Resend Templates.
+
+
+                    <Button onClick={exportTemplateToResend}>Export template to Resend</Button>
+
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : (
@@ -371,7 +378,7 @@ export const Toolbar = ({
     React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, markup } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -380,6 +387,26 @@ export const Toolbar = ({
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
+      exportTemplateToResend={async () => {
+        try {
+          const response = await fetch('/api/export-template', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              html: markup,
+              name: emailSlug,
+            }),
+          });
+
+          if (response.ok) {
+            console.log('Template exported successfully');
+          } else {
+            console.error('Failed to export template');
+          }
+        } catch (error) {
+          console.error('Error exporting template:', error);
+        }
+      }}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
