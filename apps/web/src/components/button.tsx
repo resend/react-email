@@ -17,7 +17,6 @@ export function Button({
   className,
   children,
   size = '2',
-  ref,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : 'button';
@@ -30,7 +29,6 @@ export function Button({
         'inline-flex items-center justify-center border font-medium',
         className,
       )}
-      ref={ref}
       type="button"
       {...props}
     >

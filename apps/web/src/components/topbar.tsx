@@ -7,7 +7,7 @@ import { Menu } from './menu';
 export function Topbar({
   className,
   ...props
-}: React.ComponentProps<'header'>) {
+}: Omit<React.ComponentProps<'header'>, 'children'>) {
   return (
     <header
       className={classNames(
