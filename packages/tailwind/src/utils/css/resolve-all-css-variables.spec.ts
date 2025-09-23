@@ -89,7 +89,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should use fallback values when variable definition is not found', () => {
+  it('uses fallback values when variable definition is not found', () => {
     const root = parse(`.box {
   width: var(--undefined-width, 150px);
   height: var(--undefined-height, 200px);
