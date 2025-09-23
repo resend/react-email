@@ -39,6 +39,13 @@ describe('sanitizeDeclarations', () => {
       'conversion with space syntax and alpha',
     ).toMatchSnapshot();
 
+    stylesheet = parse('div { color: rgb(100% 0% 50% / 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'conversion with percentage values',
+    ).toMatchSnapshot();
+
     stylesheet = parse('div { color: rgb(255 0 128 / 50%); }');
     sanitizeDeclarations(stylesheet);
     expect(

@@ -56,14 +56,16 @@ exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 1`]
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 2`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 3`] = `"div{color:rgb(255,0,128,0.5)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 3`] = `"div{color:rgb(255,0,127.5,0.5)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 4`] = `"div{color:rgb(255,0,128)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 4`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 5`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 5`] = `"div{color:rgb(255,0,128)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 6`] = `"div{color:rgb(255,0,128,0.7)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 6`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 7`] = `"div{color:rgb(0,0,0)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 7`] = `"div{color:rgb(255,0,128,0.7)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 8`] = `"div{color:rgb(255,0,128)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 8`] = `"div{color:rgb(0,0,0)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 9`] = `"div{color:rgb(255,0,128)}"`;

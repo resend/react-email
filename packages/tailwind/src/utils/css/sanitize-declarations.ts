@@ -173,6 +173,18 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
                 }
               }
               if (child.type === 'Percentage') {
+                if (r === undefined) {
+                  r = (Number.parseFloat(child.value) * 255) / 100;
+                  continue;
+                }
+                if (g === undefined) {
+                  g = (Number.parseFloat(child.value) * 255) / 100;
+                  continue;
+                }
+                if (b === undefined) {
+                  b = (Number.parseFloat(child.value) * 255) / 100;
+                  continue;
+                }
                 if (a === undefined) {
                   a = Number.parseFloat(child.value) / 100;
                 }
