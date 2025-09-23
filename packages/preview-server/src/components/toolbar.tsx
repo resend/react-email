@@ -23,6 +23,7 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
+import CodeSnippet from './code-snippet';
 
 export type ToolbarTabValue =
   | 'linter'
@@ -334,9 +335,9 @@ const ToolbarInner = ({
                 <SuccessWrapper>
                   <SuccessTitle>Add Resend API Key</SuccessTitle>
                   <SuccessDescription>
-                    Create a <code className="text-slate-12">.env</code> file
+                    Create a <CodeSnippet>.env</CodeSnippet> file
                     and add your API Key using the{' '}
-                    <code className="text-slate-12">RESEND_API_KEY</code>{' '}
+                    <CodeSnippet>RESEND_API_KEY</CodeSnippet>{' '}
                     environment variable.
                   </SuccessDescription>
                 </SuccessWrapper>
