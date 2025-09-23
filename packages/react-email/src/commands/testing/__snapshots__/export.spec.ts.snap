@@ -105,7 +105,7 @@ exports[`email export 1`] = `
                                     <img
                                       alt="undefined&#x27;s profile picture"
                                       height="64"
-                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:calc(infinity*1px)"
+                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                       width="64" />
                                   </td>
                                   <td
@@ -124,7 +124,7 @@ exports[`email export 1`] = `
                                     <img
                                       alt="undefined team logo"
                                       height="64"
-                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:calc(infinity*1px)"
+                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                       width="64" />
                                   </td>
                                 </tr>

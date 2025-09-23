@@ -109,7 +109,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                                       alt="alanturing&#x27;s profile picture"
                                       height="64"
                                       src="/static/vercel-user.png"
-                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:calc(infinity*1px)"
+                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                       width="64" />
                                   </td>
                                   <td
@@ -129,7 +129,7 @@ exports[`getEmailComponent() > with a demo email template 1`] = `
                                       alt="Enigma team logo"
                                       height="64"
                                       src="/static/vercel-team.png"
-                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:calc(infinity*1px)"
+                                      style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                       width="64" />
                                   </td>
                                 </tr>
