@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.3.0-canary.0
+
+### Minor Changes
+
+- ca13220: fix link duplication in plain text mode
+
 ## 1.2.3
 
 ### Patch Changes
