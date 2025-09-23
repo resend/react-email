@@ -7,7 +7,7 @@ describe('extractRulesPerClass()', async () => {
     return Object.fromEntries(map.entries().map(([k, v]) => [k, generate(v)]));
   }
 
-  it('should work just inlinable utilities', async () => {
+  it('works with just inlinable utilities', async () => {
     const tailwind = await setupTailwind({});
     const classes = ['text-center', 'bg-red-500'];
     tailwind.addUtilities(classes);
