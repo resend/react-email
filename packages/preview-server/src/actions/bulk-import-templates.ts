@@ -36,6 +36,7 @@ export const exportSingleTemplate = baseActionClient
     });
 
     if (response.error) {
+      console.error(response.error);
       return [{ name: parsedInput.name, status: 'failed' as const }];
     }
 

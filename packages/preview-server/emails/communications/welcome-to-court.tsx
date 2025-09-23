@@ -1,18 +1,17 @@
-import * as React from 'react';
 import {
-  Html,
-  Head,
   Body,
-  Container,
-  Section,
-  Row,
-  Column,
-  Text,
-  Heading,
   Button,
+  Column,
+  Container,
+  Head,
+  Heading,
   Hr,
+  Html,
   Link,
+  Row,
+  Section,
   Tailwind,
+  Text,
 } from '@react-email/components';
 
 const RoyalWelcomeEmail = (props) => {
@@ -33,7 +32,7 @@ const RoyalWelcomeEmail = (props) => {
             </Section>
 
             {/* Decorative Border */}
-            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]"></Section>
+            <Section className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 h-[4px]" />
 
             {/* Main Content */}
             <Section className="px-[32px] py-[40px]">
@@ -46,8 +45,9 @@ const RoyalWelcomeEmail = (props) => {
                   Hail, Noble {props.firstName}! 🎉
                 </Heading>
                 <Text className="text-gray-600 text-[18px] leading-relaxed m-0 mb-[24px]">
-                  By royal decree, you have been officially welcomed into our magnificent kingdom!
-                  Your presence brings honor to our realm, and we are delighted to have you among our esteemed subjects.
+                  By royal decree, you have been officially welcomed into our
+                  magnificent kingdom! Your presence brings honor to our realm,
+                  and we are delighted to have you among our esteemed subjects.
                 </Text>
                 <Text className="text-purple-700 text-[16px] font-semibold m-0">
                   ⚔️ Your adventure in the kingdom starts now! ⚔️
@@ -66,7 +66,9 @@ const RoyalWelcomeEmail = (props) => {
                       👑 Noble Status Granted
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      You now hold the distinguished title of Noble {props.firstName}, with all the rights and privileges that come with it.
+                      You now hold the distinguished title of Noble{' '}
+                      {props.firstName}, with all the rights and privileges that
+                      come with it.
                     </Text>
                   </Column>
                 </Row>
@@ -77,7 +79,8 @@ const RoyalWelcomeEmail = (props) => {
                       🗝️ Access to Royal Chambers
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      Explore exclusive areas of the kingdom, including the Royal Library, Treasury, and private gardens.
+                      Explore exclusive areas of the kingdom, including the
+                      Royal Library, Treasury, and private gardens.
                     </Text>
                   </Column>
                 </Row>
@@ -88,7 +91,8 @@ const RoyalWelcomeEmail = (props) => {
                       📜 Royal Newsletter Subscription
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      Receive weekly updates about kingdom events, royal announcements, and exclusive invitations.
+                      Receive weekly updates about kingdom events, royal
+                      announcements, and exclusive invitations.
                     </Text>
                   </Column>
                 </Row>
@@ -99,7 +103,8 @@ const RoyalWelcomeEmail = (props) => {
                       🎭 VIP Event Access
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0">
-                      Priority invitations to royal banquets, tournaments, festivals, and other exclusive gatherings.
+                      Priority invitations to royal banquets, tournaments,
+                      festivals, and other exclusive gatherings.
                     </Text>
                   </Column>
                 </Row>
@@ -113,8 +118,9 @@ const RoyalWelcomeEmail = (props) => {
                   🚀 Ready to Begin Your Quest, {props.firstName}?
                 </Text>
                 <Text className="text-gray-600 text-[16px] m-0 mb-[24px]">
-                  Complete your royal profile and explore all the wonders our kingdom has to offer.
-                  Your fellow nobles are eager to meet you!
+                  Complete your royal profile and explore all the wonders our
+                  kingdom has to offer. Your fellow nobles are eager to meet
+                  you!
                 </Text>
                 <Button
                   href="#"
@@ -138,7 +144,8 @@ const RoyalWelcomeEmail = (props) => {
                       📚 New Noble's Guide
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
-                      • Visit the Royal Help Center for answers to common questions
+                      • Visit the Royal Help Center for answers to common
+                      questions
                     </Text>
                     <Text className="text-gray-600 text-[14px] leading-relaxed m-0 mb-[12px]">
                       • Join our community forums to connect with fellow nobles
@@ -159,9 +166,10 @@ const RoyalWelcomeEmail = (props) => {
                   💌 A Personal Message from the Royal Council
                 </Text>
                 <Text className="text-gray-600 text-[14px] m-0 italic">
-                  "Dear {props.firstName}, we are thrilled to welcome you to our kingdom family.
-                  May your journey be filled with adventure, friendship, and countless magical moments.
-                  Welcome home, noble one!"
+                  "Dear {props.firstName}, we are thrilled to welcome you to our
+                  kingdom family. May your journey be filled with adventure,
+                  friendship, and countless magical moments. Welcome home, noble
+                  one!"
                 </Text>
               </Section>
             </Section>
@@ -172,12 +180,27 @@ const RoyalWelcomeEmail = (props) => {
                 📍 Royal Palace, Kingdom Square, Enchanted Realm 12345
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0 mb-[8px]">
-                Welcome to the kingdom, {props.firstName}! We're honored to have you with us.
+                Welcome to the kingdom, {props.firstName}! We're honored to have
+                you with us.
               </Text>
               <Text className="text-center text-gray-500 text-[12px] m-0">
-                <Link href="#" className="text-purple-600 no-underline">Help Center</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Community</Link> |
-                <Link href="#" className="text-purple-600 no-underline ml-[8px]">Contact Support</Link>
+                <Link href="#" className="text-purple-600 no-underline">
+                  Help Center
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Community
+                </Link>{' '}
+                |
+                <Link
+                  href="#"
+                  className="text-purple-600 no-underline ml-[8px]"
+                >
+                  Contact Support
+                </Link>
               </Text>
               <Text className="text-center text-gray-400 text-[12px] m-0 mt-[16px]">
                 © 2025 The Royal Kingdom. All rights reserved.
@@ -191,7 +214,7 @@ const RoyalWelcomeEmail = (props) => {
 };
 
 RoyalWelcomeEmail.PreviewProps = {
-  firstName: "Arthur",
+  firstName: 'Arthur',
 };
 
 export default RoyalWelcomeEmail;
