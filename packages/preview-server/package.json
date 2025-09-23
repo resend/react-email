@@ -38,6 +38,7 @@
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
     "next": "15.5.2",
+    "next-safe-action": "^8.0.11",
     "node-html-parser": "7.0.1",
     "ora": "5.4.1",
     "pretty-bytes": "6.1.1",
@@ -54,7 +55,7 @@
     "tailwind-merge": "3.2.0",
     "tailwindcss": "3.4.0",
     "use-debounce": "10.0.4",
-    "zod": "3.24.3"
+    "zod": "4.1.11"
   },
   "devDependencies": {
     "@react-email/components": "workspace:*",

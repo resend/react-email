@@ -1,8 +1,14 @@
+import { useAction } from 'next-safe-action/hooks';
 import { useRef, useState } from 'react';
-import { Results } from './results';
-import { IconLoader } from '../icons/icon-loader';
-import { IconCloudCheck } from '../icons/icon-cloud-check';
+import {
+  bulkExportTemplates,
+  exportSingleTemplate,
+} from '../../actions/bulk-import-templates';
+import { Button } from '../button';
 import { IconCloudAlert } from '../icons/icon-cloud-alert';
+import { IconCloudCheck } from '../icons/icon-cloud-check';
+import { IconLoader } from '../icons/icon-loader';
+import { Results } from './results';
 
 export interface ResendStatus {
   hasApiKey: boolean;
@@ -69,28 +75,102 @@ interface ResendItem {
   id: string;
 }
 
-interface ResendProps {
-  status: ResendStatus | undefined;
-}
+// const items: ResendItem[] = [
+//   {
+//     status: 'uploading',
+//     name: 'account-confirmation',
+//     id: '49a3999c-0ce1-4ea6-ab68-afcd6dc2e794',
+//   },
+//   {
+//     status: 'succeeded',
+//     name: 'forgot-password',
+//     id: '4dd369bc-aa82-4ff3-97de-514ae3000ee0',
+//   },
+//   {
+//     status: 'failed',
+//     name: 'feedback-request',
+//     id: 'd91cd9bd-1176-453e-8fc1-35364d380206',
+//   }
+// ];
+export const Resend = ({
+  emailPath,
+  emailSlug,
+  htmlMarkup,
+  reactMarkup,
+}: {
+  emailPath: string;
+  emailSlug: string;
+  htmlMarkup: string;
+  reactMarkup: string;
+}) => {
+  const [items, setItems] = useState<ResendItem[]>([]);
 
-export const Resend = ({ status }: ResendProps) => {
-  const items: ResendItem[] = [
+  const { execute: exportSingle, isPending: isExportSinglePending } = useAction(
+    exportSingleTemplate,
     {
-      status: 'uploading',
-      name: 'account-confirmation',
-      id: '49a3999c-0ce1-4ea6-ab68-afcd6dc2e794',
+      onSuccess: ({ data }) => {
+        setItems(
+          data.success.map((name) => ({
+            status: 'succeeded' as const,
+            name,
+            id: name,
+          })),
+        );
+      },
     },
+  );
+
+  const { execute: exportBulk, isPending: isExportBulkPending } = useAction(
+    bulkExportTemplates,
     {
-      status: 'succeeded',
-      name: 'forgot-password',
-      id: '4dd369bc-aa82-4ff3-97de-514ae3000ee0',
+      onSuccess: ({ data }) => {
+        setItems(
+          data.success.map((name) => ({
+            status: 'succeeded' as const,
+            name,
+            id: name,
+          })),
+        );
+      },
     },
-    {
-      status: 'failed',
-      name: 'feedback-request',
-      id: 'd91cd9bd-1176-453e-8fc1-35364d380206',
-    }
-  ];
+  );
+
+  const loading = isExportSinglePending || isExportBulkPending;
+
+  if (items.length === 0 && !loading) {
+    return (
+      <SuccessWrapper>
+        <SuccessTitle>Upload to Resend</SuccessTitle>
+        <SuccessDescription>
+          Import your email using the Templates API.
+        </SuccessDescription>
+        <div className="flex gap-2">
+          <Button
+            onClick={() => {
+              exportSingle({
+                name: emailSlug,
+                html: htmlMarkup,
+                reactMarkup: reactMarkup,
+              });
+            }}
+          >
+            Upload
+          </Button>
+          <Button
+            appearance="gradient"
+            className="mt-2 mb-4"
+            onClick={() => {
+              exportBulk({
+                emailPath,
+              });
+            }}
+          >
+            Bulk Upload
+          </Button>
+        </div>
+      </SuccessWrapper>
+    );
+  }
 
   return (
     <Results>
@@ -117,7 +197,11 @@ export const Resend = ({ status }: ResendProps) => {
             )}
           </Results.Column>
           <Results.Column>
-            {item.status === 'uploading' ? 'Uploading...' : item.status === 'failed' ? 'Failed to upload. Try again.' : 'Template uploaded successfully.'}
+            {item.status === 'uploading'
+              ? 'Uploading...'
+              : item.status === 'failed'
+                ? 'Failed to upload. Try again.'
+                : 'Template uploaded successfully.'}
           </Results.Column>
           {item.status === 'succeeded' && (
             <Results.Column>
@@ -137,3 +221,24 @@ export const Resend = ({ status }: ResendProps) => {
   );
 };
 
+const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-col items-center justify-center pt-8">
+      {children}
+    </div>
+  );
+};
+
+const SuccessTitle = ({ children }) => {
+  return (
+    <h3 className="text-slate-12 font-medium text-base mb-1">{children}</h3>
+  );
+};
+
+const SuccessDescription = ({ children }) => {
+  return (
+    <p className="text-slate-11 text-sm text-center max-w-[320px]">
+      {children}
+    </p>
+  );
+};

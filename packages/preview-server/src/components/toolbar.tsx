@@ -1,22 +1,21 @@
 'use client';
+
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
-import { toast } from 'sonner';
-import { bulkImportTemplates } from '../actions/bulk-import-templates';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { PreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
-import { Button } from './button';
+import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
-import { useResend } from './toolbar/resend';
+import { Resend, useResend } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
@@ -24,7 +23,6 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
-import CodeSnippet from './code-snippet';
 
 export type ToolbarTabValue =
   | 'linter'
@@ -49,20 +47,19 @@ const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
-
   prettyMarkup,
   reactMarkup,
   plainText,
   emailPath,
   emailSlug,
-  exportTemplateToResend,
+  htmlMarkup,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
-  exportTemplateToResend: () => Promise<void>;
+  htmlMarkup: string;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -116,9 +113,6 @@ const ToolbarInner = ({
 
   const [resendStatus, { load: loadResend, loading: resendLoading }] =
     useResend();
-
-  const [loadingExportTemplate, setLoadingExportTemplate] =
-    React.useState(false);
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
@@ -302,68 +296,18 @@ const ToolbarInner = ({
               {resendLoading ? (
                 <LoadingState message="Loading Resend API Key..." />
               ) : resendStatus?.hasApiKey ? (
-                <SuccessWrapper>
-                  <SuccessTitle>Upload to Resend</SuccessTitle>
-                  <SuccessDescription>
-                    Import your email using the Templates API.
-                  </SuccessDescription>
-                  <div className="flex gap-2">
-                    <Button
-                      loading={loadingExportTemplate}
-                      onClick={async () => {
-                        setLoadingExportTemplate(true);
-                        try {
-                          await exportTemplateToResend();
-                        } finally {
-                          setLoadingExportTemplate(false);
-                        }
-                      }}
-                    >
-                      Upload
-                    </Button>
-                    <Button
-                      appearance="gradient"
-                      className="mt-2 mb-4"
-                      loading={loadingExportTemplate}
-                      onClick={async () => {
-                        setLoadingExportTemplate(true);
-                        try {
-                          const result = await bulkImportTemplates(emailPath);
-
-                          if (result.success.length > 0) {
-                            toast.success(
-                              `Successfully imported ${result.success.length} templates`,
-                            );
-                          }
-
-                          if (result.failed.length > 0) {
-                            toast.error(
-                              `Failed to import ${result.failed.length} templates`,
-                            );
-                            console.error('Failed imports:', result.failed);
-                          }
-                        } catch (error) {
-                          toast.error(
-                            error instanceof Error
-                              ? error.message
-                              : 'Failed to bulk import templates',
-                          );
-                        } finally {
-                          setLoadingExportTemplate(false);
-                        }
-                      }}
-                    >
-                      Bulk Upload
-                    </Button>
-                  </div>
-                </SuccessWrapper>
+                <Resend
+                  emailPath={emailPath}
+                  emailSlug={emailSlug}
+                  htmlMarkup={htmlMarkup}
+                  reactMarkup={reactMarkup}
+                />
               ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Add Resend API Key</SuccessTitle>
                   <SuccessDescription>
-                    Create a <CodeSnippet>.env</CodeSnippet> file
-                    and add your API Key using the{' '}
-                    <CodeSnippet>RESEND_API_KEY</CodeSnippet>{' '}
+                    Create a <CodeSnippet>.env</CodeSnippet> file and add your
+                    API Key using the <CodeSnippet>RESEND_API_KEY</CodeSnippet>{' '}
                     environment variable.
                   </SuccessDescription>
                 </SuccessWrapper>
@@ -443,7 +387,12 @@ export const Toolbar = ({
     React.use(PreviewContext)!;
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup, markup: htmlMarkup } = renderedEmailMetadata;
+  const {
+    prettyMarkup,
+    plainText,
+    reactMarkup,
+    markup: htmlMarkup,
+  } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -451,28 +400,8 @@ export const Toolbar = ({
       emailSlug={emailSlug}
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
+      htmlMarkup={htmlMarkup}
       plainText={plainText}
-      exportTemplateToResend={async () => {
-        try {
-          const response = await fetch('/api/export-template', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              reactMarkup,
-              htmlMarkup,
-              name: emailSlug,
-            }),
-          });
-
-          if (response.ok) {
-            toast.success('Template exported successfully');
-          } else {
-            toast.error('Failed to export template');
-          }
-        } catch (error) {
-          toast.error('Error exporting template:', error);
-        }
-      }}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
