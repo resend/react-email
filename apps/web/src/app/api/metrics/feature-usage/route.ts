@@ -15,7 +15,7 @@ const bodyScheam = z.object({
   ]),
 });
 
-export default async function POST(request: Request) {
+export async function POST(request: Request) {
   try {
     const body = bodyScheam.parse(await request.json());
     const timestamp = new Date();

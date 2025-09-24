@@ -12,13 +12,13 @@ const bodyScheam = z.object({
   templatesCount: z.number(),
 });
 
-export default async function POST(request: Request) {
+export async function POST(request: Request) {
   try {
     const body = bodyScheam.parse(await request.json());
     const timestamp = new Date();
 
     const response = await fetch(
-      'https://api.tinybird.co/v0/events?name=environments',
+      'https://api.us-east.aws.tinybird.co/v0/events?name=environments',
       {
         method: 'POST',
         headers: new Headers({
@@ -34,8 +34,10 @@ export default async function POST(request: Request) {
     if (response.ok) {
       return new Response(null, { status: 201 });
     }
-    return Response.json({ error: await response.json() }, { status: 500 });
+    console.log(await response.text());
+    return Response.json({ error: await response.text() }, { status: 500 });
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
