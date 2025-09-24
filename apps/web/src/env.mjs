@@ -3,13 +3,13 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
-    SPAM_ASSASSIN_HOST: z.string().url(),
-    SPAM_ASSASSIN_PORT: z.string(),
+    spamAssassinHost: z.string(),
+    spamAssassinPort: z.number(),
   },
 
   client: {},
   runtimeEnv: {
-    SPAM_ASSASSIN_HOST: process.env.SPAM_ASSASSIN_HOST,
-    SPAM_ASSASSIN_PORT: process.env.SPAM_ASSASSIN_PORT,
+    spamAssassinHost: process.env.SPAM_ASSASSIN_HOST,
+    spamAssassinPort: process.env.SPAM_ASSASSIN_PORT,
   },
 });

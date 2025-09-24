@@ -7,15 +7,15 @@ const timeout = 10_000;
 export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
     const connection = net.createConnection({
-      host: env.host,
-      port: Number.parseInt(env.port),
+      host: env.spamAssassinHost,
+      port: env.spamAssassinPort,
     });
     connection.setTimeout(timeout, () => {
       reject(
         new Error('Timed out trying to connect to spamc', {
           cause: {
-            host: env.host,
-            port: env.port,
+            host: env.spamAssassinHost,
+            port: env.spamAssassinPort,
           },
         }),
       );
