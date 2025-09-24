@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.3.1-canary.0
+
+### Patch Changes
+
+- e3f75cf: fixed multi-byte characters causing problems during stream reading
+
 ## 1.3.0
 
 ### Minor Changes
