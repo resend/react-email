@@ -1,36 +1,21 @@
 import crypto from 'node:crypto';
 import net from 'node:net';
+import { env } from '../../env.mjs';
 
-const host = process.env.SPAM_ASSASSIN_HOST;
-const port = process.env.SPAM_ASSASSIN_PORT;
 const timeout = 10_000;
 
 export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
-    if (!host || !port) {
-      reject(
-        new Error('Host and port for spam assassin must be specified', {
-          cause: {
-            host,
-            port,
-            html,
-            plainText,
-          },
-        }),
-      );
-      return;
-    }
-
     const connection = net.createConnection({
-      host,
-      port: Number.parseInt(port),
+      host: env.host,
+      port: Number.parseInt(env.port),
     });
     connection.setTimeout(timeout, () => {
       reject(
         new Error('Timed out trying to connect to spamc', {
           cause: {
-            port,
-            host,
+            host: env.host,
+            port: env.port,
           },
         }),
       );
