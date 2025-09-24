@@ -2,11 +2,8 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
-import { showDataCollectionWarning } from '../utils/show-data-collection-warning.js';
 
 export const start = async () => {
-  showDataCollectionWarning();
-
   try {
     const previewServerLocation = await getPreviewServerLocation();
 

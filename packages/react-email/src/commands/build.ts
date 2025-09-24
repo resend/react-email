@@ -9,7 +9,7 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
-import { showDataCollectionWarning } from '../utils/show-data-collection-warning.js';
+import { collectUsageData } from '../utils/collect-usage-data.js';
 
 interface Args {
   dir: string;
@@ -229,9 +229,9 @@ export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
 }: Args) => {
-  try {
-    showDataCollectionWarning();
+  collectUsageData(emailsDirRelativePath);
 
+  try {
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({

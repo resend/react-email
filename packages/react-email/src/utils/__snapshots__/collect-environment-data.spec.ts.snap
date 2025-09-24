@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getEnvironmentData in our demo 1`] = `
+{
+  "nodeVersion": "23.7.0",
+  "reactVersion": "^19",
+  "templatesCount": 22,
+  "usesTailwind": true,
+}
+`;

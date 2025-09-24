@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import {
   setupHotreloading,
-  showDataCollectionWarning,
   startDevServer,
 } from '../utils/index.js';
+import { collectUsageData } from '../utils/collect-usage-data.js';
 
 interface Args {
   dir: string;
@@ -11,9 +11,9 @@ interface Args {
 }
 
 export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
-  try {
-    showDataCollectionWarning();
+  collectUsageData(emailsDirRelativePath);
 
+  try {
     if (!fs.existsSync(emailsDirRelativePath)) {
       console.error(`Missing ${emailsDirRelativePath} folder`);
       process.exit(1);
