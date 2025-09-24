@@ -11,7 +11,7 @@ import { IconMonitor } from './icons/icon-monitor';
 import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
 import { TabTrigger } from './tab-trigger';
-import { Tooltip } from './tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 interface ComponentViewProps {
   component: ImportedComponent;
@@ -34,12 +34,12 @@ const TabTriggetWithTooltip = ({
   value: string;
 }) => (
   <Tooltip>
-    <Tooltip.Trigger asChild>
+    <TooltipTrigger asChild>
       <TabTrigger activeView={activeView} layoutId={layoutId} value={value}>
         {children}
       </TabTrigger>
-    </Tooltip.Trigger>
-    <Tooltip.Content>{tooltip}</Tooltip.Content>
+    </TooltipTrigger>
+    <TooltipContent>{tooltip}</TooltipContent>
   </Tooltip>
 );
 
@@ -56,10 +56,7 @@ const TabContent: React.FC<{
   </Tabs.Content>
 );
 
-export const ComponentView: React.FC<ComponentViewProps> = ({
-  component,
-  className,
-}) => {
+export function ComponentView({ component, className }: ComponentViewProps) {
   const [activeView, setActiveView] = React.useState<ActiveView>('desktop');
 
   React.useEffect(() => {
@@ -128,4 +125,4 @@ export const ComponentView: React.FC<ComponentViewProps> = ({
       </TooltipProvider>
     </Tabs.Root>
   );
-};
+}

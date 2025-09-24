@@ -82,7 +82,11 @@ export const viewport = {
   themeColor: '#25AEBA',
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       className={`${inter.variable} ${commitMono.variable} antialiased`}
@@ -102,6 +106,4 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

@@ -43,10 +43,7 @@ interface CodeBlockProps {
   language?: Language;
 }
 
-export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
-  children,
-  language = 'html',
-}) => {
+export function CodeBlock({ children, language = 'html' }: CodeBlockProps) {
   const value = children.trim();
 
   return (
@@ -105,4 +102,4 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
       )}
     </Highlight>
   );
-};
+}

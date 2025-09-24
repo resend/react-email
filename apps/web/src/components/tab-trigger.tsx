@@ -1,17 +1,23 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
-import * as React from 'react';
 
 interface TabTriggerProps {
   value: string;
   activeView: string;
   layoutId: string;
   children: React.ReactNode;
+  ref?: React.RefObject<HTMLButtonElement>;
 }
 
-export const TabTrigger = React.forwardRef<HTMLButtonElement, TabTriggerProps>(
-  ({ value, activeView, children, layoutId }: TabTriggerProps, ref) => (
+export function TabTrigger({
+  value,
+  activeView,
+  children,
+  ref,
+  layoutId,
+}: TabTriggerProps) {
+  return (
     <Tabs.Trigger
       className={classNames(
         'group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none',
@@ -39,5 +45,5 @@ export const TabTrigger = React.forwardRef<HTMLButtonElement, TabTriggerProps>(
       )}
       {children}
     </Tabs.Trigger>
-  ),
-);
+  );
+}

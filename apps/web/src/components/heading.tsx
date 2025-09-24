@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import * as React from 'react';
 import type { As } from '../utils/as';
 import { unreachable } from '../utils/unreachable';
 
@@ -15,19 +14,17 @@ interface HeadingOwnProps {
 
 type HeadingProps = As<'h1', 'h2', 'h3', 'h4', 'h5', 'h6'> & HeadingOwnProps;
 
-export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  (
-    {
-      as: Tag = 'h1',
-      size = '3',
-      className,
-      color = 'white',
-      children,
-      weight = 'bold',
-      ...props
-    },
-    ref,
-  ) => (
+export function Heading({
+  as: Tag = 'h1',
+  size = '3',
+  className,
+  color = 'white',
+  children,
+  weight = 'bold',
+  ref,
+  ...props
+}: HeadingProps) {
+  return (
     <Tag
       className={classNames(
         className,
@@ -40,8 +37,8 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     >
       {children}
     </Tag>
-  ),
-);
+  );
+}
 
 const getSizesClassNames = (size: HeadingSize) => {
   switch (size) {
@@ -94,5 +91,3 @@ const getWeightClassNames = (weight: HeadingWeight) => {
       return unreachable(weight);
   }
 };
-
-Heading.displayName = 'Heading';
