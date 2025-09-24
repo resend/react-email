@@ -21,7 +21,7 @@ export default async function POST(request: Request) {
     const timestamp = new Date();
 
     const response = await fetch(
-      'https://api.tinybird.co/v0/events?name=environments',
+      'https://api.tinybird.co/v0/events?name=feature_usage',
       {
         method: 'POST',
         headers: new Headers({
