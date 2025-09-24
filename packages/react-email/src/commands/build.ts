@@ -9,6 +9,7 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { showDataCollectionWarning } from '../utils/show-data-collection-warning.js';
 
 interface Args {
   dir: string;
@@ -229,6 +230,8 @@ export const build = async ({
   packageManager,
 }: Args) => {
   try {
+    showDataCollectionWarning();
+
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({

@@ -14,7 +14,7 @@ import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
-import { tree } from '../utils/index.js';
+import { showDataCollectionWarning, tree } from '../utils/index.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
@@ -48,6 +48,8 @@ export const exportTemplates = async (
   emailsDirectoryPath: string,
   options: ExportTemplatesOptions,
 ) => {
+  showDataCollectionWarning();
+
   /* Delete the out directory if it already exists */
   if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
     fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
