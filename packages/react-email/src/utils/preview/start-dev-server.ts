@@ -83,8 +83,6 @@ export const startDevServer = async (
   const { portAlreadyInUse } = await safeAsyncServerListen(devServer, port);
 
   if (!portAlreadyInUse) {
-    // this errors when linting but doesn't on the editor so ignore the warning on this
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */
     console.log(
       styleText('greenBright', `    React Email ${packageJson.version}`),
     );

@@ -7,7 +7,7 @@ import { Shell } from '../components/shell';
 import { emailsDirectoryAbsolutePath } from './env';
 import logo from './logo.png';
 
-const Home = () => {
+export default function Home() {
   const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);
 
   return (
@@ -41,6 +41,4 @@ const Home = () => {
       </div>
     </Shell>
   );
-};
-
-export default Home;
+}

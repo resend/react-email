@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const Logo = () => {
+export function Logo() {
   const id = React.useId();
   return (
     <svg
@@ -65,4 +65,4 @@ export const Logo = () => {
       </defs>
     </svg>
   );
-};
+}

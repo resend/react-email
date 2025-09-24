@@ -1,5 +1,17 @@
 # @react-email/render
 
+## 1.3.1
+
+### Patch Changes
+
+- e3f75cf: fixed multi-byte characters causing problems during stream reading
+
+## 1.3.0
+
+### Minor Changes
+
+- ca13220: fix link duplication in plain text mode
+
 ## 1.2.3
 
 ### Patch Changes

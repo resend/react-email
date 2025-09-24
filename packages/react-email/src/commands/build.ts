@@ -154,9 +154,9 @@ const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
   builtPreviewAppPath: string,
 ) => {
-  const emailDirectoryMetadata =
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    (await getEmailsDirectoryMetadata(emailsDirPath))!;
+  const emailDirectoryMetadata = (await getEmailsDirectoryMetadata(
+    emailsDirPath,
+  ))!;
 
   const parameters = getEmailSlugsFromEmailDirectory(
     emailDirectoryMetadata,

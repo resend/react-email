@@ -1,4 +1,5 @@
 'use client';
+
 import { createContext, useContext, useState } from 'react';
 import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
 import { isBuilding, isPreviewDevelopment } from '../app/env';
@@ -17,7 +18,7 @@ export const useEmails = () => {
 
   if (typeof providerValue === 'undefined') {
     throw new Error(
-      'Cannot call `useEmail()` outside of an EmailsContext provider!',
+      'Cannot call `useEmails` outside of an `EmailsContext` provider.',
     );
   }
 
@@ -48,11 +49,7 @@ export const EmailsProvider = (props: {
   }
 
   return (
-    <EmailsContext.Provider
-      value={{
-        emailsDirectoryMetadata,
-      }}
-    >
+    <EmailsContext.Provider value={{ emailsDirectoryMetadata }}>
       {props.children}
     </EmailsContext.Provider>
   );

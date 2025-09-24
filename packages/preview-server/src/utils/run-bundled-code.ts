@@ -35,13 +35,11 @@ export const createContext = (filename: string): vm.Context => {
       }
 
       if (m in staticNodeModulesForVM) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return staticNodeModulesForVM[m];
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
       return require(`${specifiedModule}`) as unknown;
-      // this stupid string templating was necessary to not have
+      // this string templating was necessary to not have
       // webpack warnings like:
       //
       // Import trace for requested module:
