@@ -1,10 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
-import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
 
 export function OPTIONS() {
-  return Promise.resolve(NextResponse.json({}));
+  return Promise.resolve(Response.json({}));
 }
 
 const bodySchema = z.object({
@@ -13,7 +12,7 @@ const bodySchema = z.object({
   html: z.string(),
 });
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;
@@ -55,13 +54,13 @@ export async function POST(req: NextRequest) {
 
     await Promise.all([savePromise, sendPromise]);
 
-    return NextResponse.json({ message: 'Test email sent' });
+    return Response.json({ message: 'Test email sent' });
   } catch (error) {
     if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return Response.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(
+    return Response.json(
       { error: 'Something went wrong' },
       { status: 500 },
     );
