@@ -11,6 +11,7 @@
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": false,
