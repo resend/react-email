@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { tmpdir } from 'node:os';
-import { styleText } from 'node:util';
 import path from 'node:path';
+import { styleText } from 'node:util';
 
 const firstRunFilepath = path.join(tmpdir(), 'react-email-first-run-date');
 
