@@ -8,7 +8,7 @@ export const sendToSpamd = (html: string, plainText: string) => {
   return new Promise<string>((resolve, reject) => {
     const connection = net.createConnection({
       host: env.spamAssassinHost,
-      port: env.spamAssassinPort,
+      port: Number.parseInt(env.spamAssassinPort, 10),
     });
     connection.setTimeout(timeout, () => {
       reject(

@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
   server: {
     spamAssassinHost: z.string(),
-    spamAssassinPort: z.number(),
+    spamAssassinPort: z.string(),
     tinybirdToken: z.string(),
   },
 
