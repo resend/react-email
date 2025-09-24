@@ -1,4 +1,5 @@
 'use server';
+
 import fs from 'node:fs';
 import path from 'node:path';
 import { styleText } from 'node:util';
@@ -40,9 +41,13 @@ export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
-  if (invalidatingCache) cache.delete(emailPath);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (cache.has(emailPath)) return cache.get(emailPath)!;
+  if (invalidatingCache) {
+    cache.delete(emailPath);
+  }
+
+  if (cache.has(emailPath)) {
+    return cache.get(emailPath)!;
+  }
 
   const timeBeforeEmailRendered = performance.now();
 
