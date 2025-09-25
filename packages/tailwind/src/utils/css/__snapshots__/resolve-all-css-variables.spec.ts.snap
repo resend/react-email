@@ -1,5 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`resolveAllCSSVariables > ignores @layer (properties) defined for browser compatibility 1`] = `"/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */@layer properties;@layer theme,base,components,utilities;@layer utilities{.mt-8{margin-top:calc(0.25rem*8)}.rounded-md{border-radius:0.375rem}.bg-blue-600{background-color:oklch(54.6%0.245 262.881)}.bg-red-500{background-color:oklch(63.7%0.237 25.331)}.bg-white{background-color:#fff}.p-4{padding:calc(0.25rem*4)}.px-3{padding-inline:calc(0.25rem*3)}.py-2{padding-block:calc(0.25rem*2)}.text-sm{font-size:0.875rem;line-height:calc(1.25/0.875)}.text-[14px]{font-size:14px}.leading-[24px]{line-height:24px}.text-black{color:#000}.text-blue-400{color:oklch(70.7%0.165 254.624)}.text-blue-600{color:oklch(54.6%0.245 262.881)}.text-gray-200{color:oklch(92.8%0.006 264.531)}.no-underline{text-decoration-line:none}}@property --tw-leading{syntax:"*";inherits:false}@layer properties{@supports ((-webkit-hyphens:none) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,::before,::after,::backdrop{--tw-leading: initial}}}"`;
+
 exports[`resolveAllCSSVariables > should handle deeply nested var() functions with complex parentheses 1`] = `".box{color:blue;width:20px;border:1px solid black;background:rgb(100,0,10)}"`;
 
 exports[`resolveAllCSSVariables > should handle nested var() functions in fallbacks 1`] = `".box{width:300px;height:250px}"`;

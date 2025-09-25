@@ -9,6 +9,7 @@ import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-ru
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
+import { useSuspensedPromise } from './hooks/use-suspended-promise';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
@@ -80,9 +81,12 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export async function Tailwind({ children, config }: TailwindProps) {
-  let classesUsed: string[] = []
-  const tailwindSetup = await setupTailwind(config ?? {});
+export function Tailwind({ children, config }: TailwindProps) {
+  const tailwindSetup = useSuspensedPromise(
+    () => setupTailwind(config ?? {}),
+    JSON.stringify(config),
+  );
+  let classesUsed: string[] = [];
 
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
