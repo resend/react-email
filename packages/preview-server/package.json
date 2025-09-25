@@ -42,7 +42,6 @@
     "clsx": "2.1.1",
     "esbuild": "0.25.0",
     "framer-motion": "12.23.12",
-    "json5": "2.2.3",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
     "node-html-parser": "7.0.1",
