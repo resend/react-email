@@ -18,8 +18,6 @@ const bodyScheam = z.object({
 export async function POST(request: Request) {
   try {
     const body = bodyScheam.parse(await request.json());
-    const timestamp = new Date();
-
     const response = await fetch(
       'https://api.us-east.aws.tinybird.co/v0/events?name=feature_usage',
       {
@@ -28,7 +26,7 @@ export async function POST(request: Request) {
           Authorization: `Bearer ${env.tinybirdToken}`,
         }),
         body: JSON.stringify({
-          timestamp: timestamp.toISOString(),
+          timestamp: new Date().toISOString(),
           feature: body.feature,
         }),
       },
