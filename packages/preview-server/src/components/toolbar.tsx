@@ -20,6 +20,7 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
+import { submitFeatureUsageTally } from '../utils/submit-feature-usage-tally';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
 
@@ -102,6 +103,16 @@ const ToolbarInner = ({
 
     initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
+
+  React.useEffect(() => {
+    if (activeTab === 'linter') {
+      submitFeatureUsageTally('image/link checking')
+    } else if (activeTab === 'spam-assassin') {
+      submitFeatureUsageTally('spam checking')
+    } else if (activeTab === 'compatibility') {
+      submitFeatureUsageTally('compatibility checking')
+    }
+  }, [activeTab]);
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime

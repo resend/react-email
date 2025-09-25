@@ -10,7 +10,6 @@ import { loadStream } from '../../utils/load-stream';
 import { IconWarning } from '../icons/icon-warning';
 import { CodePreviewLineLink } from './code-preview-line-link';
 import { Results } from './results';
-import { submitFeatureUsageTally } from '../../utils/submit-feature-usage-tally';
 
 export const useCompatibility = ({
   reactMarkup,
@@ -32,8 +31,6 @@ export const useCompatibility = ({
     if (isLoadingRef.current) return;
     isLoadingRef.current = true;
     setLoading(true);
-
-    submitFeatureUsageTally('compatibility checking');
 
     setResults([]);
     let rawResults: CompatibilityCheckingResult[] = [];

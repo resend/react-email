@@ -3,7 +3,6 @@ import { toast } from 'sonner';
 import { cn, sanitize } from '../../utils';
 import { IconWarning } from '../icons/icon-warning';
 import { Results } from './results';
-import { submitFeatureUsageTally } from '../../utils/submit-feature-usage-tally';
 
 interface SpamAssassinProps {
   result: SpamCheckingResult | undefined;
@@ -49,7 +48,6 @@ export const useSpamAssassin = ({
     setLoading(true);
 
     try {
-      submitFeatureUsageTally('spam checking');
       const response = await fetch('https://react.email/api/check-spam', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
