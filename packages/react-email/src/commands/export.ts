@@ -9,6 +9,7 @@ import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
+import { collectUsageData } from '../utils/collect-usage-data.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -16,7 +17,6 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { tree } from '../utils/index.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
-import { collectUsageData } from '../utils/collect-usage-data.js';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];

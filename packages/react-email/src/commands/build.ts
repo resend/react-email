@@ -3,13 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
+import { collectUsageData } from '../utils/collect-usage-data.js';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
-import { collectUsageData } from '../utils/collect-usage-data.js';
 
 interface Args {
   dir: string;

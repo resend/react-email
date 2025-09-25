@@ -12,5 +12,5 @@ export function submitFeatureUsageTally(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ feature }),
-  }).catch(() => { });
+  }).catch(() => {});
 }

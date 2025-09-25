@@ -1,9 +1,6 @@
 import fs from 'node:fs';
-import {
-  setupHotreloading,
-  startDevServer,
-} from '../utils/index.js';
 import { collectUsageData } from '../utils/collect-usage-data.js';
+import { setupHotreloading, startDevServer } from '../utils/index.js';
 
 interface Args {
   dir: string;

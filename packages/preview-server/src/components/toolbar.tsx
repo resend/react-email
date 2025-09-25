@@ -7,6 +7,7 @@ import type { CompatibilityCheckingResult } from '../actions/email-validation/ch
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
+import { submitFeatureUsageTally } from '../utils/submit-feature-usage-tally';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
@@ -20,7 +21,6 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
-import { submitFeatureUsageTally } from '../utils/submit-feature-usage-tally';
 
 export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
 
@@ -106,11 +106,11 @@ const ToolbarInner = ({
 
   React.useEffect(() => {
     if (activeTab === 'linter') {
-      submitFeatureUsageTally('image/link checking')
+      submitFeatureUsageTally('image/link checking');
     } else if (activeTab === 'spam-assassin') {
-      submitFeatureUsageTally('spam checking')
+      submitFeatureUsageTally('spam checking');
     } else if (activeTab === 'compatibility') {
-      submitFeatureUsageTally('compatibility checking')
+      submitFeatureUsageTally('compatibility checking');
     }
   }, [activeTab]);
 
