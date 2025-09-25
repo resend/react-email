@@ -1,5 +1,6 @@
 import { type CssNode, parse } from 'css-tree';
-import { type Config, compile } from 'tailwindcss';
+import { compile } from 'tailwindcss';
+import type { TailwindConfig } from '../../tailwind';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
@@ -7,7 +8,7 @@ import utilitiesCss from './tailwind-stylesheets/utilities';
 
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
-export async function setupTailwind(config: Config) {
+export async function setupTailwind(config: TailwindConfig) {
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
