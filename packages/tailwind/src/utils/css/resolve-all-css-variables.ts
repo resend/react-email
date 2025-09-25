@@ -54,6 +54,19 @@ function removeAndRepeatIfEmptyRecursively(node: CssNode) {
   }
 }
 
+function someParent(
+  node: CssNode,
+  predicate: (ancestor: CssNode) => boolean,
+): boolean {
+  if (node.parent) {
+    if (predicate(node.parent)) {
+      return true;
+    }
+    return someParent(node.parent, predicate);
+  }
+  return false;
+}
+
 export function resolveAllCssVariables(node: CssNode) {
   populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
@@ -62,6 +75,20 @@ export function resolveAllCssVariables(node: CssNode) {
   walk(node, {
     visit: 'Declaration',
     enter(declaration) {
+      // Ignores @layer (properties) { ... } to avoid variable resolution conflicts
+      if (
+        someParent(
+          declaration,
+          (ancestor) =>
+            ancestor.type === 'Atrule' &&
+            ancestor.name === 'layer' &&
+            ancestor.prelude !== null &&
+            generate(ancestor.prelude).includes('properties'),
+        )
+      ) {
+        return;
+      }
+
       if (/--[\S]+/.test(declaration.property)) {
         variableDefinitions.add({
           declaration,
