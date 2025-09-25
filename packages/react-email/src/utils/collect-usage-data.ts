@@ -94,7 +94,7 @@ export function collectUsageData(emailsDirectoryRelativePath: string) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      });
+      }).catch(() => { });
     })
     .catch(() => {
       // No-op: metric collection should not affect user experience
