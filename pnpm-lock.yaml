@@ -693,9 +693,6 @@ importers:
       framer-motion:
         specifier: 12.23.12
         version: 12.23.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      json5:
-        specifier: 2.2.3
-        version: 2.2.3
       log-symbols:
         specifier: 4.1.0
         version: 4.1.0
