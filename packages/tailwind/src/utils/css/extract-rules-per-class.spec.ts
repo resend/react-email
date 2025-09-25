@@ -14,7 +14,10 @@ describe('extractRulesPerClass()', async () => {
 
     const stylesheet = tailwind.getStyleSheet();
 
-    const { inlinable, nonInlinable } = extractRulesPerClass(stylesheet, classes);
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
 
     expect(convertToComparable(inlinable)).toMatchSnapshot();
     expect(convertToComparable(nonInlinable)).toMatchSnapshot();
@@ -27,7 +30,10 @@ describe('extractRulesPerClass()', async () => {
 
     const stylesheet = tailwind.getStyleSheet();
 
-    const { inlinable, nonInlinable } = extractRulesPerClass(stylesheet, classes);
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
 
     expect(convertToComparable(inlinable)).toMatchSnapshot();
     expect(convertToComparable(nonInlinable)).toMatchSnapshot();
@@ -45,7 +51,10 @@ describe('extractRulesPerClass()', async () => {
     tailwind.addUtilities(classes);
 
     const stylesheet = tailwind.getStyleSheet();
-    const { inlinable, nonInlinable } = extractRulesPerClass(stylesheet, classes);
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
     expect(convertToComparable(inlinable)).toMatchSnapshot();
     expect(convertToComparable(nonInlinable)).toMatchSnapshot();
   });

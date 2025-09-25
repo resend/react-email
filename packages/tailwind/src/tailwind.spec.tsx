@@ -25,9 +25,11 @@ describe('Tailwind component', () => {
 
   it('should work with blocklist', async () => {
     const actualOutput = await render(
-      <Tailwind config={{
-        blocklist: ['bg-blue-600'],
-      }}>
+      <Tailwind
+        config={{
+          blocklist: ['bg-blue-600'],
+        }}
+      >
         <Head />
         <body>
           <button type="button" className="bg-blue-600 md:p-4">
@@ -286,17 +288,19 @@ describe('Tailwind component', () => {
   it('should recognize custom responsive screen', async () => {
     const actualOutput = await render(
       <Html>
-        <Tailwind config={{
-          theme: {
-            screens: {
-              sm: { min: '640px' },
-              md: { min: '768px' },
-              lg: { min: '1024px' },
-              xl: { min: '1280px' },
-              '2xl': { min: '1536px' },
+        <Tailwind
+          config={{
+            theme: {
+              screens: {
+                sm: { min: '640px' },
+                md: { min: '768px' },
+                lg: { min: '1024px' },
+                xl: { min: '1280px' },
+                '2xl': { min: '1536px' },
+              },
             },
-          },
-        }}>
+          }}
+        >
           <Head />
           <div className="bg-red-100 xl:bg-green-500">Test</div>
           <div className="2xl:bg-blue-500">Test</div>

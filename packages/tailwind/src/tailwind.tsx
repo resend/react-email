@@ -1,6 +1,7 @@
 import { type CssNode, generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
+import { useSuspensedPromise } from './hooks/use-suspended-promise';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
 import { resolveAllCssVariables } from './utils/css/resolve-all-css-variables';
 import { resolveCalcExpressions } from './utils/css/resolve-calc-expressions';
@@ -9,7 +10,6 @@ import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-ru
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
-import { useSuspensedPromise } from './hooks/use-suspended-promise';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
