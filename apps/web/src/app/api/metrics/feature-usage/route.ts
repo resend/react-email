@@ -7,7 +7,6 @@ export function OPTIONS() {
 
 const bodyScheam = z.object({
   feature: z.union([
-    z.literal('toolbar'),
     z.literal('compatibility checking'),
     z.literal('spam checking'),
     z.literal('image/link checking'),

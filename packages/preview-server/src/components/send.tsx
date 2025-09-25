@@ -1,6 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 import { toast } from 'sonner';
+import { submitFeatureUsageTally } from '../utils/submit-feature-usage-tally';
 import { Button } from './button';
 import { Text } from './text';
 
@@ -11,6 +12,7 @@ export const Send = ({ markup }: { markup: string }) => {
   const [isPopOverOpen, setIsPopOverOpen] = React.useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
+    submitFeatureUsageTally('sending test email');
     try {
       e.preventDefault();
       setIsSending(true);

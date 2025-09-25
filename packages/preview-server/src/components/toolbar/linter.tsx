@@ -7,6 +7,7 @@ import { getLintingSources, loadLintingRowsFrom } from '../../utils/linting';
 import { IconWarning } from '../icons/icon-warning';
 import { CodePreviewLineLink } from './code-preview-line-link';
 import { Results } from './results';
+import { submitFeatureUsageTally } from '../../utils/submit-feature-usage-tally';
 
 export type LintingRow =
   | {
@@ -47,6 +48,8 @@ export const useLinter = ({
     if (isStreaming.current) return;
     isStreaming.current = true;
     setLoading(true);
+
+    submitFeatureUsageTally('image/link checking');
 
     setRows([]);
     try {
