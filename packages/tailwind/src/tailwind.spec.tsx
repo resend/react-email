@@ -7,10 +7,47 @@ import { Link } from '@react-email/link';
 import { pretty, render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
-import type { TailwindConfig } from '.';
-import { Tailwind } from '.';
+import { createTailwind, type Tailwind, type TailwindConfig } from '.';
 
 describe('Tailwind component', () => {
+  let Tailwind!: Tailwind;
+
+  beforeAll(async () => {
+    Tailwind = await createTailwind({
+      theme: {
+        extend: {
+          colors: {
+            custom: '#1fb6ff',
+          },
+          textAlign: {
+            justify: 'justify',
+          },
+          borderRadius: {
+            '4xl': '2rem',
+          },
+          spacing: {
+            '8xl': '96rem',
+          },
+          fontFamily: {
+            sans: ['Graphik', 'sans-serif'],
+            serif: ['Merriweather', 'serif'],
+          },
+        },
+      },
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.border-custom': {
+                border: '2px solid',
+              },
+            });
+          },
+        },
+      ],
+    });
+  });
+
   it('should allow for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
@@ -466,18 +503,8 @@ describe('Tailwind component', () => {
 
   describe('with custom theme config', () => {
     it('should be able to use custom colors', async () => {
-      const config: TailwindConfig = {
-        theme: {
-          extend: {
-            colors: {
-              custom: '#1fb6ff',
-            },
-          },
-        },
-      };
-
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="bg-custom text-custom" />
         </Tailwind>,
       ).then(pretty);
@@ -486,19 +513,8 @@ describe('Tailwind component', () => {
     });
 
     it('should be able to use custom fonts', async () => {
-      const config: TailwindConfig = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Graphik', 'sans-serif'],
-              serif: ['Merriweather', 'serif'],
-            },
-          },
-        },
-      };
-
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="font-sans" />
           <div className="font-serif" />
         </Tailwind>,
@@ -508,17 +524,8 @@ describe('Tailwind component', () => {
     });
 
     it('should be able to use custom spacing', async () => {
-      const config: TailwindConfig = {
-        theme: {
-          extend: {
-            spacing: {
-              '8xl': '96rem',
-            },
-          },
-        },
-      };
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="m-8xl" />
         </Tailwind>,
       ).then(pretty);
@@ -526,17 +533,8 @@ describe('Tailwind component', () => {
     });
 
     it('should be able to use custom border radius', async () => {
-      const config: TailwindConfig = {
-        theme: {
-          extend: {
-            borderRadius: {
-              '4xl': '2rem',
-            },
-          },
-        },
-      };
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="rounded-4xl" />
         </Tailwind>,
       ).then(pretty);
@@ -544,18 +542,8 @@ describe('Tailwind component', () => {
     });
 
     it('should be able to use custom text alignment', async () => {
-      const config: TailwindConfig = {
-        theme: {
-          extend: {
-            textAlign: {
-              justify: 'justify',
-            },
-          },
-        },
-      };
-
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="text-justify" />
         </Tailwind>,
       ).then(pretty);
@@ -565,23 +553,9 @@ describe('Tailwind component', () => {
   });
 
   describe('with custom plugins config', () => {
-    const config = {
-      plugins: [
-        {
-          handler: (api) => {
-            api.addUtilities({
-              '.border-custom': {
-                border: '2px solid',
-              },
-            });
-          },
-        },
-      ],
-    } satisfies TailwindConfig;
-
     it('should be able to use custom plugins', async () => {
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <Tailwind>
           <div className="border-custom" />
         </Tailwind>,
       ).then(pretty);
@@ -592,7 +566,7 @@ describe('Tailwind component', () => {
     it('should be able to use custom plugins with responsive styles', async () => {
       const actualOutput = await render(
         <html lang="en">
-          <Tailwind config={config}>
+          <Tailwind>
             <head />
             <body>
               <div className="border-custom sm:border-custom" />

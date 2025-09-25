@@ -1,7 +1,9 @@
 import { type CssNode, type Rule, string, walk } from 'css-tree';
 import { isRuleInlinable } from './is-rule-inlinable';
 
-export function extractRulesPerClass(root: CssNode) {
+export function extractRulesPerClass(root: CssNode, classes: string[]) {
+  const classSet = new Set(classes);
+
   const inlinableRules = new Map<string, Rule>();
   const nonInlinableRules = new Map<string, Rule>();
   walk(root, {
@@ -16,11 +18,15 @@ export function extractRulesPerClass(root: CssNode) {
       });
       if (isRuleInlinable(rule)) {
         for (const className of selectorClasses) {
-          inlinableRules.set(className, rule);
+          if (classSet.has(className)) {
+            inlinableRules.set(className, rule);
+          }
         }
       } else {
         for (const className of selectorClasses) {
-          nonInlinableRules.set(className, rule);
+          if (classSet.has(className)) {
+            nonInlinableRules.set(className, rule);
+          }
         }
       }
     },
