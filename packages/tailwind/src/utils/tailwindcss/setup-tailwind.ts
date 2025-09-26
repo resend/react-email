@@ -64,7 +64,7 @@ export async function setupTailwind(config: TailwindConfig) {
       }
 
       throw new Error(
-        'stylesheet not supported, you can only import tailwindcss',
+        'stylesheet not supported, you can only import the ones from tailwindcss',
       );
     },
   });
