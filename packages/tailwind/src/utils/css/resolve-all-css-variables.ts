@@ -4,6 +4,7 @@ import {
   generate,
   parse,
   type Raw,
+  type SelectorList,
   type Value,
   walk,
 } from 'css-tree';
@@ -24,16 +25,34 @@ interface VariableDefinition {
   remove(): void;
 }
 
-function doSelectorsIntersect(first: string, second: string): boolean {
-  if (first === second) {
+function doSelectorsIntersect(
+  first: SelectorList | Raw,
+  second: SelectorList | Raw,
+): boolean {
+  const firstStringified = generate(first);
+  const secondStringified = generate(second);
+  if (firstStringified === secondStringified) {
     return true;
   }
 
-  if (first.includes(':root') || second.includes(':root')) {
-    return true;
-  }
+  let hasSomeUniversal = false;
+  const walker = (node: CssNode) => {
+    if (hasSomeUniversal) return;
+    if (node.type === 'PseudoClassSelector' && node.name === 'root') {
+      hasSomeUniversal = true;
+    }
+    if (
+      node.type === 'TypeSelector' &&
+      node.name === '*' &&
+      node.containedIn?.size === 1
+    ) {
+      hasSomeUniversal = true;
+    }
+  };
+  walk(first, walker);
+  walk(second, walker);
 
-  if (first.includes('*') || second.includes('*')) {
+  if (hasSomeUniversal) {
     return true;
   }
 
@@ -151,8 +170,8 @@ export function resolveAllCssVariables(node: CssNode) {
         definition.declaration.parent?.type === 'Block' &&
         definition.declaration.parent?.parent?.type === 'Rule' &&
         doSelectorsIntersect(
-          generate(use.declaration.parent.parent.parent.parent.prelude),
-          generate(definition.declaration.parent.parent.prelude),
+          use.declaration.parent.parent.parent.parent.prelude,
+          definition.declaration.parent.parent.prelude,
         )
       ) {
         use.declaration.value = parse(
@@ -174,8 +193,8 @@ export function resolveAllCssVariables(node: CssNode) {
         definition.declaration.parent?.type === 'Block' &&
         definition.declaration.parent?.parent?.type === 'Rule' &&
         doSelectorsIntersect(
-          generate(use.declaration.parent.parent.prelude),
-          generate(definition.declaration.parent.parent.prelude),
+          use.declaration.parent.parent.prelude,
+          definition.declaration.parent.parent.prelude,
         )
       ) {
         use.declaration.value = parse(

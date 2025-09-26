@@ -219,6 +219,47 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
+  it('handles selectors with asterisks in attribute selectors and pseudo-functions', () => {
+    const root = parse(`* {
+  --global-color: red;
+}
+
+input[type="*"]:hover {
+  color: var(--global-color);
+}
+
+div:nth-child(2*n+1) {
+  background: var(--global-color);
+}
+
+.test[data-attr="value*test"] {
+  border-color: var(--global-color);
+}
+
+.universal-with-class-* {
+  --class-color: blue;
+  text-decoration: var(--class-color);
+}
+
+.normal {
+  color: var(--class-color);
+}`);
+
+    resolveAllCssVariables(root);
+    const result = generate(root);
+
+    // Variables from universal selector (*) should resolve to other selectors with actual universal selector
+    expect(result).toContain('input[type="*"]:hover{color:red}');
+    expect(result).toContain('div:nth-child(2*n+1){background:red}');
+    expect(result).toContain('.test[data-attr="value*test"]{border-color:red}');
+
+    // Variables from *.universal-with-class should resolve within the same selector and to .normal
+    expect(result).toContain('.universal-with-class-*{text-decoration:blue}');
+    expect(result).toContain('.normal{color:var(--class-color)}');
+
+    expect(result).not.toContain('var(--global-color)');
+  });
+
   // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
   //
   // it.only('should work with different values between media queries', () => {
