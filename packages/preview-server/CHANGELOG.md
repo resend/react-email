@@ -1,5 +1,7 @@
 # @react-email/preview-server
 
+## 4.2.12-canary.0
+
 ## 4.2.11
 
 ### Patch Changes
