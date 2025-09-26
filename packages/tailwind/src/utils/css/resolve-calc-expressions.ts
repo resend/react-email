@@ -29,9 +29,9 @@ export function resolveCalcExpressions(node: CssNode) {
               const value = String(
                 child.value === '*'
                   ? Number.parseFloat(left.data.value) *
-                      Number.parseFloat(right.data.value)
+                  Number.parseFloat(right.data.value)
                   : Number.parseFloat(left.data.value) /
-                      Number.parseFloat(right.data.value),
+                  Number.parseFloat(right.data.value),
               );
               if (
                 left.data.type === 'Dimension' &&
@@ -70,11 +70,18 @@ export function resolveCalcExpressions(node: CssNode) {
                 right.data.type === 'Dimension' &&
                 left.data.unit === right.data.unit
               ) {
-                item.data = {
-                  type: 'Dimension',
-                  unit: right.data.unit,
-                  value,
-                };
+                if (child.value === '/') {
+                  item.data = {
+                    type: 'Number',
+                    value,
+                  };
+                } else {
+                  item.data = {
+                    type: 'Dimension',
+                    unit: left.data.unit,
+                    value,
+                  };
+                }
                 func.children.remove(left);
                 func.children.remove(right);
               }
