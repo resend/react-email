@@ -915,9 +915,6 @@ importers:
 
   packages/tailwind:
     dependencies:
-      css-tree:
-        specifier: 3.1.0
-        version: 3.1.0
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -958,6 +955,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.4.1
         version: 4.4.1(vite@6.3.6(@types/node@22.14.1)(jiti@2.5.1)(terser@5.37.0)(tsx@4.20.3)(yaml@2.6.1))
+      css-tree:
+        specifier: 3.1.0
+        version: 3.1.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
