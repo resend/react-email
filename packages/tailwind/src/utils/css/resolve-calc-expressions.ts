@@ -30,7 +30,7 @@ export function resolveCalcExpressions(node: CssNode) {
                 if (child.value === '*') {
                   return String(
                     Number.parseFloat(left.data.value) *
-                    Number.parseFloat(right.data.value),
+                      Number.parseFloat(right.data.value),
                   );
                 }
                 if (right.data.value === '0') {
@@ -38,7 +38,7 @@ export function resolveCalcExpressions(node: CssNode) {
                 }
                 return String(
                   Number.parseFloat(left.data.value) /
-                  Number.parseFloat(right.data.value),
+                    Number.parseFloat(right.data.value),
                 );
               })();
               if (
