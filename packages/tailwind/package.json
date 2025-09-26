@@ -57,6 +57,7 @@
     "@types/css-tree": "2.3.10",
     "@types/shelljs": "0.8.15",
     "@vitejs/plugin-react": "4.4.1",
+    "css-tree": "3.1.0",
     "react-dom": "^19",
     "shelljs": "0.9.2",
     "tsconfig": "workspace:*",
@@ -69,7 +70,6 @@
     "access": "public"
   },
   "dependencies": {
-    "css-tree": "3.1.0",
     "tailwindcss": "4.1.12"
   }
 }
