@@ -26,13 +26,21 @@ export function resolveCalcExpressions(node: CssNode) {
             (right.data.type === 'Dimension' || right.data.type === 'Number')
           ) {
             if (child.value === '*' || child.value === '/') {
-              const value = String(
-                child.value === '*'
-                  ? Number.parseFloat(left.data.value) *
-                  Number.parseFloat(right.data.value)
-                  : Number.parseFloat(left.data.value) /
+              const value = (() => {
+                if (child.value === '*') {
+                  return String(
+                    Number.parseFloat(left.data.value) *
+                    Number.parseFloat(right.data.value),
+                  );
+                }
+                if (right.data.value === '0') {
+                  return '0';
+                }
+                return String(
+                  Number.parseFloat(left.data.value) /
                   Number.parseFloat(right.data.value),
-              );
+                );
+              })();
               if (
                 left.data.type === 'Dimension' &&
                 right.data.type === 'Number'
