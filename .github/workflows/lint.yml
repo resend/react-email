@@ -5,7 +5,10 @@ on:
       - main
       - canary
   pull_request:
-permissions: 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
   contents: read
   pull-requests: read
 jobs:

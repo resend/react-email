@@ -2,7 +2,10 @@ name: Pull Request Title Check
 on:
   pull_request:
     types: [opened, edited, synchronize]
-permissions: 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
   pull-requests: read
 jobs:
   pull-request-title-check:
