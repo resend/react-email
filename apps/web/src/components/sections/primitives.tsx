@@ -178,9 +178,9 @@ const Icons = {
       <path
         d="M260.75 197.25L345 260.25M345 260.25L176.5 407.25L8 260.25L92.25 197.25M345 260.25H176.5M176.5 260.25L8 134.25L176.5 8.25L345 134.25L176.5 260.25Z"
         stroke="#AFAFAF"
-        stroke-width="16"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="16"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
