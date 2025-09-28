@@ -116,17 +116,17 @@ export const InteractiveDemo = () => {
                     key={tool.title}
                     value={tool.value}
                     className={classNames(
-                      'relative capitalize px-1 text-sm font-normal text-slate-10 transition-colors',
+                      'relative capitalize px-1 text-sm font-normal transition-colors',
                       tool.value === activeTool
                         ? 'text-cyan-11'
-                        : 'hover:text-slate-12',
+                        : 'text-slate-10 hover:text-slate-12',
                     )}
                   >
                     {tool.value}
                     <AnimatePresence initial={false}>
                       {tool.value === activeTool && (
                         <motion.div
-                          layoutId="activeTab"
+                          layoutId="active-tab-tool"
                           className="-bottom-px absolute rounded-sm left-0 w-full bg-cyan-11 h-px"
                           transition={{
                             type: 'spring',

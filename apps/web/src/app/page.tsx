@@ -5,15 +5,15 @@ import PrimitivesSection from '@/components/sections/primitives';
 import TestimonialSection from '@/components/sections/testimonial';
 import ToolsSection from '@/components/sections/tools';
 
-export default function Home() {
-  return (
-    <main>
-      <HeroSection />
-      <PlaygroundSection />
-      <TestimonialSection />
-      <PatternsSection />
-      <PrimitivesSection />
-      <ToolsSection />
-    </main>
-  );
-}
+const Home = () => (
+  <main>
+    <HeroSection />
+    <PlaygroundSection />
+    <TestimonialSection />
+    <PatternsSection />
+    <PrimitivesSection />
+    <ToolsSection />
+  </main>
+);
+
+export default Home;
