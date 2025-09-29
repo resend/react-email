@@ -288,19 +288,19 @@ describe('Tailwind component', async () => {
 
   it('should recognize custom responsive screen', async () => {
     const CustomTailwind = await createTailwind({
-            theme: {
-              screens: {
-                sm: { min: '640px' },
-                md: { min: '768px' },
-                lg: { min: '1024px' },
-                xl: { min: '1280px' },
-                '2xl': { min: '1536px' },
-              },
-            },
-          });
+      theme: {
+        screens: {
+          sm: { min: '640px' },
+          md: { min: '768px' },
+          lg: { min: '1024px' },
+          xl: { min: '1280px' },
+          '2xl': { min: '1536px' },
+        },
+      },
+    });
     const actualOutput = await render(
       <Html>
-        <CustomTailwind >
+        <CustomTailwind>
           <Head />
           <div className="bg-red-100 xl:bg-green-500">Test</div>
           <div className="2xl:bg-blue-500">Test</div>
