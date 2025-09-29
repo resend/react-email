@@ -12,6 +12,7 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '@react-email/tailwind';
 
 interface LinearLoginCodeEmailProps {
   validationCode?: string;
