@@ -7,10 +7,10 @@ import {
   Hr,
   Html,
   Preview,
-  Tailwind,
   Text,
   vesper,
 } from '@react-email/components';
+import { Tailwind } from '../tailwind.config';
 
 interface WebhooksFailedProps {
   date: string;

@@ -7,9 +7,9 @@ import {
   Html,
   Preview,
   Section,
-  Tailwind,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '../tailwind.config';
 
 interface ChangelogProps {
   receiver: string;

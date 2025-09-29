@@ -9,9 +9,9 @@ import {
   Html,
   Preview,
   Row,
-  Tailwind,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '../tailwind.config';
 
 interface AccountConfirmationProps {
   confirmLink: string;

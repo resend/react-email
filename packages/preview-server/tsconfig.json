@@ -28,7 +28,7 @@
     "noEmit": true,
     "strict": false,
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "esnext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "types": ["vitest/globals"],
