@@ -1,5 +1,11 @@
 # react-email
 
+## 4.2.12
+
+### Patch Changes
+
+- 90f39d5: Normalize Windows paths in generated Next.js config
+
 ## 4.2.11
 
 ## 4.2.10
