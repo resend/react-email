@@ -20,7 +20,7 @@
     "@supabase/supabase-js": "2.49.4",
     "@vercel/analytics": "1.5.0",
     "framer-motion": "12.7.4",
-    "lucide-react": "^0.492.0",
+    "lucide-react": "^0.544.0",
     "next": "15.5.2",
     "prism-react-renderer": "2.4.1",
     "react": "^19",
