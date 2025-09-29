@@ -3,6 +3,7 @@ import {
   Button,
   Column,
   Container,
+  createTailwind,
   Head,
   Heading,
   Html,
@@ -12,7 +13,6 @@ import {
   pixelBasedPreset,
   Row,
   Section,
-  Tailwind,
   Text,
 } from '@react-email/components';
 import type * as React from 'react';
@@ -32,6 +32,23 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
+const CustomTailwind = await createTailwind({
+  presets: [pixelBasedPreset],
+  theme: {
+    extend: {
+      colors: {
+        brand: '#2250f4',
+        offwhite: '#fafbfb',
+      },
+      spacing: {
+        0: '0px',
+        20: '20px',
+        45: '45px',
+      },
+    },
+  },
+});
+
 export const NetlifyWelcomeEmail = ({
   steps,
   links,
@@ -39,24 +56,7 @@ export const NetlifyWelcomeEmail = ({
   return (
     <Html>
       <Head />
-      <Tailwind
-        config={{
-          presets: [pixelBasedPreset],
-          theme: {
-            extend: {
-              colors: {
-                brand: '#2250f4',
-                offwhite: '#fafbfb',
-              },
-              spacing: {
-                0: '0px',
-                20: '20px',
-                45: '45px',
-              },
-            },
-          },
-        }}
-      >
+      <CustomTailwind>
         <Preview>Netlify Welcome</Preview>
         <Body className="bg-offwhite font-sans text-base">
           <Img
@@ -124,7 +124,7 @@ export const NetlifyWelcomeEmail = ({
             </Text>
           </Container>
         </Body>
-      </Tailwind>
+      </CustomTailwind>
     </Html>
   );
 };

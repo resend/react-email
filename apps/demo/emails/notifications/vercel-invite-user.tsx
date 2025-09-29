@@ -10,12 +10,11 @@ import {
   Img,
   Link,
   Preview,
-  pixelBasedPreset,
   Row,
   Section,
-  Tailwind,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '../tailwind.config';
 
 interface VercelInviteUserEmailProps {
   username?: string;
@@ -49,11 +48,7 @@ export const VercelInviteUserEmail = ({
   return (
     <Html>
       <Head />
-      <Tailwind
-        config={{
-          presets: [pixelBasedPreset],
-        }}
-      >
+      <Tailwind>
         <Body className="mx-auto my-auto bg-white px-2 font-sans">
           <Preview>{previewText}</Preview>
           <Container className="mx-auto my-[40px] max-w-[465px] rounded border border-[#eaeaea] border-solid p-[20px]">

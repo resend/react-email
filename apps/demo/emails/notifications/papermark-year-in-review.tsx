@@ -10,9 +10,9 @@ import {
   Preview,
   Row,
   Section,
-  Tailwind,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '../tailwind.config';
 
 interface PapermarkYearInReviewEmailProps {
   year?: number;
