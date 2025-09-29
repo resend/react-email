@@ -13,9 +13,9 @@ import {
   pixelBasedPreset,
   Row,
   Section,
-  Tailwind,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '@react-email/tailwind';
 
 interface VercelInviteUserEmailProps {
   username?: string;
