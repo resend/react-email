@@ -13,6 +13,7 @@ import {
   Section,
   Text,
 } from '@react-email/components';
+import { Tailwind } from '@react-email/tailwind';
 import type * as React from 'react';
 
 const baseUrl = process.env.VERCEL_URL
