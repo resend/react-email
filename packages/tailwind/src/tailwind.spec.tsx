@@ -7,10 +7,11 @@ import { Link } from '@react-email/link';
 import { pretty, render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
-import type { TailwindConfig } from '.';
-import { Tailwind } from '.';
+import { createTailwind, type TailwindConfig } from '.';
 
-describe('Tailwind component', () => {
+describe('Tailwind component', async () => {
+  const Tailwind = await createTailwind();
+
   it('should allow for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
@@ -24,19 +25,19 @@ describe('Tailwind component', () => {
   });
 
   it('should work with blocklist', async () => {
+    const CustomTailwind = await createTailwind({
+      blocklist: ['bg-blue-600'],
+    });
+
     const actualOutput = await render(
-      <Tailwind
-        config={{
-          blocklist: ['bg-blue-600'],
-        }}
-      >
+      <CustomTailwind>
         <Head />
         <body>
           <button type="button" className="bg-blue-600 md:p-4">
             Click me
           </button>
         </body>
-      </Tailwind>,
+      </CustomTailwind>,
       { pretty: true },
     );
 
@@ -286,10 +287,7 @@ describe('Tailwind component', () => {
   });
 
   it('should recognize custom responsive screen', async () => {
-    const actualOutput = await render(
-      <Html>
-        <Tailwind
-          config={{
+    const CustomTailwind = await createTailwind({
             theme: {
               screens: {
                 sm: { min: '640px' },
@@ -299,12 +297,14 @@ describe('Tailwind component', () => {
                 '2xl': { min: '1536px' },
               },
             },
-          }}
-        >
+          });
+    const actualOutput = await render(
+      <Html>
+        <CustomTailwind >
           <Head />
           <div className="bg-red-100 xl:bg-green-500">Test</div>
           <div className="2xl:bg-blue-500">Test</div>
-        </Tailwind>
+        </CustomTailwind>
       </Html>,
     ).then(pretty);
 
@@ -471,7 +471,7 @@ describe('Tailwind component', () => {
 
   describe('with custom theme config', () => {
     it('should be able to use custom colors', async () => {
-      const config: TailwindConfig = {
+      const CustomTailwind = await createTailwind({
         theme: {
           extend: {
             colors: {
@@ -479,19 +479,19 @@ describe('Tailwind component', () => {
             },
           },
         },
-      };
+      });
 
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="bg-custom text-custom" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
 
       expect(actualOutput).toMatchSnapshot();
     });
 
     it('should be able to use custom fonts', async () => {
-      const config: TailwindConfig = {
+      const CustomTailwind = await createTailwind({
         theme: {
           extend: {
             fontFamily: {
@@ -500,20 +500,20 @@ describe('Tailwind component', () => {
             },
           },
         },
-      };
+      });
 
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="font-sans" />
           <div className="font-serif" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
 
       expect(actualOutput).toMatchSnapshot();
     });
 
     it('should be able to use custom spacing', async () => {
-      const config: TailwindConfig = {
+      const CustomTailwind = await createTailwind({
         theme: {
           extend: {
             spacing: {
@@ -521,17 +521,17 @@ describe('Tailwind component', () => {
             },
           },
         },
-      };
+      });
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="m-8xl" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
       expect(actualOutput).toMatchSnapshot();
     });
 
     it('should be able to use custom border radius', async () => {
-      const config: TailwindConfig = {
+      const CustomTailwind = await createTailwind({
         theme: {
           extend: {
             borderRadius: {
@@ -539,17 +539,17 @@ describe('Tailwind component', () => {
             },
           },
         },
-      };
+      });
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="rounded-4xl" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
       expect(actualOutput).toMatchSnapshot();
     });
 
     it('should be able to use custom text alignment', async () => {
-      const config: TailwindConfig = {
+      const CustomTailwind = await createTailwind({
         theme: {
           extend: {
             textAlign: {
@@ -557,12 +557,12 @@ describe('Tailwind component', () => {
             },
           },
         },
-      };
+      });
 
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="text-justify" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
 
       expect(actualOutput).toMatchSnapshot();
@@ -585,24 +585,27 @@ describe('Tailwind component', () => {
     } satisfies TailwindConfig;
 
     it('should be able to use custom plugins', async () => {
+      const CustomTailwind = await createTailwind(config);
+
       const actualOutput = await render(
-        <Tailwind config={config}>
+        <CustomTailwind>
           <div className="border-custom" />
-        </Tailwind>,
+        </CustomTailwind>,
       ).then(pretty);
 
       expect(actualOutput).toMatchSnapshot();
     });
 
     it('should be able to use custom plugins with responsive styles', async () => {
+      const CustomTailwind = await createTailwind(config);
       const actualOutput = await render(
         <html lang="en">
-          <Tailwind config={config}>
+          <CustomTailwind>
             <head />
             <body>
               <div className="border-custom sm:border-custom" />
             </body>
-          </Tailwind>
+          </CustomTailwind>
         </html>,
       ).then(pretty);
 
