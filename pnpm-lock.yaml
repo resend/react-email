@@ -57,8 +57,8 @@ importers:
   apps/demo:
     dependencies:
       '@react-email/components':
-        specifier: workspace:*
-        version: link:../../packages/components
+        specifier: '@react-email/components@1.0.0-tailwindv4.1'
+        version: link:@react-email/components@1.0.0-tailwindv4.1
       email-dev:
         specifier: workspace:*
         version: link:../../packages/react-email/dev
