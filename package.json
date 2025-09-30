@@ -20,7 +20,7 @@
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
     "happy-dom": "18.0.1",
-    "pkg-pr-new": "0.0.54",
+    "pkg-pr-new": "0.0.60",
     "tsconfig": "workspace:*",
     "tsdown": "0.15.1",
     "tsx": "4.20.3",
