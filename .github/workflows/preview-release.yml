@@ -45,7 +45,7 @@ jobs:
             # Add step to find changed package directories within ./packages
       - name: Find changed packages
         id: changed_packages
-        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c
+        uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0
         with:
           files: packages/**
           dir_names: true
