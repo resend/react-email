@@ -23,7 +23,7 @@
     "pkg-pr-new": "0.0.54",
     "tsconfig": "workspace:*",
     "tsdown": "0.15.1",
-    "tsx": "4.20.3",
+    "tsx": "4.20.6",
     "turbo": "2.5.4",
     "vite": "6.3.6",
     "vitest": "3.2.4"
