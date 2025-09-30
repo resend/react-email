@@ -15,7 +15,7 @@
     "@babel/parser": "7.27.0",
     "@babel/preset-typescript": "7.27.0",
     "@babel/traverse": "7.27.0",
-    "@react-email/components": "workspace:*",
+    "@react-email/components": "^0.5.1",
     "@responsive-email/react-email": "0.0.4",
     "@supabase/supabase-js": "2.49.4",
     "@vercel/analytics": "1.5.0",

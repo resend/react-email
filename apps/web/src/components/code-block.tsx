@@ -40,25 +40,35 @@ const theme = {
 interface CodeBlockProps {
   children: string;
   className?: string;
+  codeClassName?: string;
   language?: Language;
+  isGradientLine?: boolean;
 }
 
-export function CodeBlock({ children, language = 'html' }: CodeBlockProps) {
+export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
+  children,
+  language = 'html',
+  className,
+  codeClassName,
+  isGradientLine = true,
+}) => {
   const value = children.trim();
 
   return (
     <Highlight code={value} language={language} theme={theme}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
-          <div
-            className="absolute top-0 right-0 h-px w-[12.5rem]"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
-            }}
-          />
+          {isGradientLine && (
+            <div
+              className="absolute top-0 right-0 h-px w-[12.5rem]"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
+              }}
+            />
+          )}
 
-          <pre className="p-4 font-mono">
+          <pre className={classNames('p-4 font-mono', className)}>
             {tokens.map((line, i) => {
               const lineProps = getLineProps({ line, key: i });
 
@@ -66,7 +76,7 @@ export function CodeBlock({ children, language = 'html' }: CodeBlockProps) {
                 <div
                   key={i}
                   {...lineProps}
-                  className={classNames('whitespace-pre', {
+                  className={classNames('whitespace-pre', codeClassName, {
                     "before:mr-2 before:text-slate-11 before:content-['$']":
                       language === 'bash' && tokens.length === 1,
                   })}
@@ -91,15 +101,17 @@ export function CodeBlock({ children, language = 'html' }: CodeBlockProps) {
               );
             })}
           </pre>
-          <div
-            className="absolute bottom-0 left-0 h-px w-[12.5rem]"
-            style={{
-              background:
-                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
-            }}
-          />
+          {isGradientLine && (
+            <div
+              className="absolute bottom-0 left-0 h-px w-[12.5rem]"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
+              }}
+            />
+          )}
         </>
       )}
     </Highlight>
   );
-}
+};
