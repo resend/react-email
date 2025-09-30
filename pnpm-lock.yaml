@@ -447,7 +447,7 @@ importers:
         version: 11.3.2
       log-symbols:
         specifier: ^7.0.0
-        version: 7.0.0
+        version: 7.0.1
       ora:
         specifier: ^8.0.0
         version: 8.2.0
@@ -679,7 +679,7 @@ importers:
         version: 2.2.3
       log-symbols:
         specifier: 4.1.0
-        version: 4.1.0
+        version: 7.0.1
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
@@ -785,7 +785,7 @@ importers:
         version: 2.4.2
       log-symbols:
         specifier: ^7.0.0
-        version: 7.0.0
+        version: 7.0.1
       mime-types:
         specifier: ^3.0.0
         version: 3.0.1
@@ -6462,8 +6462,8 @@ packages:
     resolution: {integrity: sha512-i24m8rpwhmPIS4zscNzK6MSEhk0DUWa/8iYQWxhffV8jkI4Phvs3F+quL5xvS0gdQR0FyTCMMH33Y78dDTzzIw==}
     engines: {node: '>=18'}
 
-  log-symbols@7.0.0:
-    resolution: {integrity: sha512-zrc91EDk2M+2AXo/9BTvK91pqb7qrPg2nX/Hy+u8a5qQlbaOflCKO+6SqgZ+M+xUFxGdKTgwnGiL96b1W3ikRA==}
+  log-symbols@7.0.1:
+    resolution: {integrity: sha512-ja1E3yCr9i/0hmBVaM0bfwDjnGy8I/s6PP4DFp+yP+a+mrHO4Rm7DtmnqROTUkHIkqffC84YY7AeqX6oFk0WFg==}
     engines: {node: '>=18'}
 
   longest-streak@3.1.0:
@@ -8865,8 +8865,8 @@ packages:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
 
-  yoctocolors@2.1.1:
-    resolution: {integrity: sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ==}
+  yoctocolors@2.1.2:
+    resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
     engines: {node: '>=18'}
 
   zod-package-json@1.1.0:
@@ -14693,10 +14693,10 @@ snapshots:
       chalk: 5.4.0
       is-unicode-supported: 1.3.0
 
-  log-symbols@7.0.0:
+  log-symbols@7.0.1:
     dependencies:
       is-unicode-supported: 2.1.0
-      yoctocolors: 2.1.1
+      yoctocolors: 2.1.2
 
   longest-streak@3.1.0: {}
 
@@ -17975,7 +17975,7 @@ snapshots:
 
   yoctocolors-cjs@2.1.2: {}
 
-  yoctocolors@2.1.1: {}
+  yoctocolors@2.1.2: {}
 
   zod-package-json@1.1.0:
     dependencies:
