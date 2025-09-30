@@ -51,8 +51,8 @@
     "@types/mime-types": "2.1.4",
     "@types/prompts": "2.4.9",
     "next": "^15.3.2",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "typescript": "5.8.3"
   }
 }
