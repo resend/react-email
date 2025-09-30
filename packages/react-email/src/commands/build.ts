@@ -98,6 +98,8 @@ module.exports = {
       config.externals.push('esbuild');
     }
 
+    config.experiments.topLevelAwait = true;
+
     return config;
   },
   typescript: {

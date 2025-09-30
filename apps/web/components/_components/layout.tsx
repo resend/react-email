@@ -1,12 +1,14 @@
 import {
   Body,
   Container,
+  createTailwind,
   Font,
   Head,
   Html,
-  Tailwind,
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
+
+const Tailwind = await createTailwind(tailwindConfig);
 
 export const Layout = ({
   children,
@@ -68,7 +70,7 @@ export const Layout = ({
           );
 
           if (withTailwind) {
-            return <Tailwind config={tailwindConfig}>{container}</Tailwind>;
+            return <Tailwind>{container}</Tailwind>;
           }
 
           return container;

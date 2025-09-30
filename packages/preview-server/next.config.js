@@ -10,6 +10,8 @@ module.exports = {
       config.externals.push('esbuild');
     }
 
+    config.experiments.topLevelAwait = true;
+
     return config;
   },
   // Noticed an issue with typescript transpilation when going from Next 14.1.1 to 14.1.2
