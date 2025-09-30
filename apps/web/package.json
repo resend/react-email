@@ -32,10 +32,10 @@
   "devDependencies": {
     "@next/env": "15.3.1",
     "@radix-ui/colors": "3.0.0",
-    "@radix-ui/react-select": "2.2.2",
-    "@radix-ui/react-slot": "1.2.0",
+    "@radix-ui/react-select": "2.2.6",
+    "@radix-ui/react-slot": "1.2.3",
     "@radix-ui/react-tabs": "^1.1.0",
-    "@radix-ui/react-tooltip": "1.2.3",
+    "@radix-ui/react-tooltip": "1.2.8",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
     "@types/node": "^22.0.0",
