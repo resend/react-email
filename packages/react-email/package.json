@@ -38,7 +38,7 @@
     "log-symbols": "^7.0.0",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
-    "nypm": "0.6.0",
+    "nypm": "0.6.2",
     "ora": "^8.0.0",
     "prompts": "2.4.2",
     "socket.io": "^4.8.1",
