@@ -43,12 +43,12 @@ jobs:
         # This step errors if it is already in prerelease mode
         continue-on-error: true
         run: pnpm canary:enter
-      - name: Create "Version packages" PR or publish release
-        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
+      - name: Create "version packages" pull request or publish release
+        uses: changesets/action@04d574e831923498156e0b2b93152878063203a3
         with:
           version: pnpm run version
           publish: pnpm run release
-          title: "chore(root): Version packages"
+          title: "chore(root): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

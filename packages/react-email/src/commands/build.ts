@@ -78,13 +78,14 @@ const setNextEnvironmentVariablesForBuild = async (
   const nextConfigContents = `
 const path = require('path');
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
-const userProjectLocation = '${process.cwd()}';
+const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 module.exports = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
+    PREVIEW_SERVER_LOCATION: '${builtPreviewAppPath.replace(/\\/g, '/')}',
     USER_PROJECT_LOCATION: userProjectLocation
   },
   // this is needed so that the code for building emails works properly
@@ -153,9 +154,9 @@ const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
   builtPreviewAppPath: string,
 ) => {
-  const emailDirectoryMetadata =
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    (await getEmailsDirectoryMetadata(emailsDirPath))!;
+  const emailDirectoryMetadata = (await getEmailsDirectoryMetadata(
+    emailsDirPath,
+  ))!;
 
   const parameters = getEmailSlugsFromEmailDirectory(
     emailDirectoryMetadata,

@@ -26,11 +26,11 @@ export interface PreviewParams {
   slug: string[];
 }
 
-const Page = async ({
+export default async function Page({
   params: paramsPromise,
 }: {
   params: Promise<PreviewParams>;
-}) => {
+}) {
   const params = await paramsPromise;
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
@@ -71,7 +71,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       });
     }
     const lintingSources = getLintingSources(
-      serverEmailRenderingResult.markup,
+      serverEmailRenderingResult.prettyMarkup,
       '',
     );
     lintingRows = [];
@@ -103,7 +103,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        html: serverEmailRenderingResult.markup,
+        html: serverEmailRenderingResult.prettyMarkup,
         plainText: serverEmailRenderingResult.plainText,
       }),
     });
@@ -141,7 +141,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       </Shell>
     </PreviewProvider>
   );
-};
+}
 
 export async function generateMetadata({
   params,
@@ -152,5 +152,3 @@ export async function generateMetadata({
 
   return { title: `${path.basename(slug.join('/'))} — React Email` };
 }
-
-export default Page;

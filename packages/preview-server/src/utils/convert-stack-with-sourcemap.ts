@@ -1,14 +1,13 @@
 import path from 'node:path';
 import { type RawSourceMap, SourceMapConsumer } from 'source-map-js';
 import * as stackTraceParser from 'stacktrace-parser';
-import type { ErrorObject } from './types/error-object';
 
-export const improveErrorWithSourceMap = (
-  error: Error,
+export const convertStackWithSourceMap = (
+  rawStack: string | undefined,
 
   originalFilePath: string,
   sourceMapToOriginalFile: RawSourceMap,
-): ErrorObject => {
+): string | undefined => {
   let stack: string | undefined;
 
   const sourceRoot =
@@ -32,8 +31,8 @@ export const improveErrorWithSourceMap = (
         })`;
   };
 
-  if (typeof error.stack !== 'undefined') {
-    const parsedStack = stackTraceParser.parse(error.stack);
+  if (rawStack) {
+    const parsedStack = stackTraceParser.parse(rawStack);
     const sourceMapConsumer = new SourceMapConsumer(sourceMapToOriginalFile);
     const newStackLines = [] as string[];
     for (const stackFrame of parsedStack) {
@@ -48,7 +47,6 @@ export const improveErrorWithSourceMap = (
             getStackLineFromMethodNameAndSource(
               stackFrame.methodName,
               // This can actually be null
-              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               positionWithError.source ?? stackFrame.file,
               positionWithError.line,
               positionWithError.column,
@@ -77,9 +75,5 @@ export const improveErrorWithSourceMap = (
     stack = newStackLines.join('\n');
   }
 
-  return {
-    name: error.name,
-    message: error.message,
-    stack,
-  };
+  return stack;
 };

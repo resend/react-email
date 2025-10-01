@@ -1,14 +1,14 @@
 {
   "name": "react-email",
-  "version": "4.1.1",
+  "version": "4.2.12",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
   },
   "type": "module",
   "scripts": {
-    "build": "tsup-node",
-    "build:watch": "tsup-node --watch src",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -29,7 +29,6 @@
   "dependencies": {
     "@babel/parser": "^7.27.0",
     "@babel/traverse": "^7.27.0",
-    "chalk": "^5.0.0",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "debounce": "^2.0.0",
@@ -54,7 +53,6 @@
     "next": "^15.3.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "tsup": "8.4.0",
     "typescript": "5.8.3"
   }
 }

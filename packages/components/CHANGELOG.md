@@ -1,5 +1,227 @@
 # @react-email/components
 
+## 0.5.5
+
+### Patch Changes
+
+- Updated dependencies [e3f75cf]
+  - @react-email/render@1.3.1
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.5.4
+
+### Patch Changes
+
+- Updated dependencies [ca13220]
+  - @react-email/render@1.3.0
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.5.3
+
+### Patch Changes
+
+- Updated dependencies [4e43552]
+  - @react-email/render@1.2.3
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.5.2
+
+### Patch Changes
+
+- Updated dependencies [174f9cd]
+  - @react-email/render@1.2.2
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies [036c46c]
+  - @react-email/render@1.2.1
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.5.0
+
+### Minor Changes
+
+- fc2f407: add toPlainText utility and deprecate plainText option on `render`
+
+### Patch Changes
+
+- Updated dependencies [fc2f407]
+  - @react-email/render@1.2.0
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.4.0
+
+### Minor Changes
+
+- 00aa805: body: apply all styles of the body to an inner table cell for them to work on Yahoo and AOL
+
+### Patch Changes
+
+- Updated dependencies [00aa805]
+  - @react-email/body@0.1.0
+
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies [f5f35f1]
+  - @react-email/render@1.1.4
+  - @react-email/body@0.0.11
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.15
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@1.2.2
+  - @react-email/text@0.1.5
+
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies [7fa430d]
+  - @react-email/tailwind@1.2.2
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [86e66d8]
+  - @react-email/tailwind@1.2.1
+
+## 0.3.0
+
+### Minor Changes
+
+- ce78a04: tailwind: add pixelBasedPreset export directly
+
+### Patch Changes
+
+- Updated dependencies [ce78a04]
+  - @react-email/tailwind@1.2.0
+
 ## 0.2.0
 
 ### Minor Changes

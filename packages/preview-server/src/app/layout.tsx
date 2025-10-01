@@ -1,5 +1,6 @@
-import type { Metadata } from 'next';
 import './globals.css';
+
+import type { Metadata } from 'next';
 import { EmailsProvider } from '../contexts/emails';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
 import { emailsDirectoryAbsolutePath } from './env';
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic';
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,
   );
@@ -38,6 +43,4 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

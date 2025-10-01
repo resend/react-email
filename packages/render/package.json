@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "1.1.3",
+  "version": "1.3.1",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
@@ -11,14 +11,14 @@
   ],
   "exports": {
     ".": {
-      "node": {
+      "workerd": {
         "import": {
-          "types": "./dist/node/index.d.mts",
-          "default": "./dist/node/index.mjs"
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
         },
         "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
+          "types": "./dist/edge/index.d.ts",
+          "default": "./dist/edge/index.js"
         }
       },
       "deno": {
@@ -39,6 +39,36 @@
         "require": {
           "types": "./dist/browser/index.d.ts",
           "default": "./dist/browser/index.js"
+        }
+      },
+      "edge-light": {
+        "import": {
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge/index.d.ts",
+          "default": "./dist/edge/index.js"
+        }
+      },
+      "convex": {
+        "import": {
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge/index.d.ts",
+          "default": "./dist/edge/index.js"
+        }
+      },
+      "node": {
+        "import": {
+          "types": "./dist/node/index.d.mts",
+          "default": "./dist/node/index.mjs"
+        },
+        "require": {
+          "types": "./dist/node/index.d.ts",
+          "default": "./dist/node/index.js"
         }
       },
       "browser": {
@@ -65,8 +95,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsup-node",
-    "build:watch": "tsup-node --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -100,7 +130,6 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
-    "tsup": "8.4.0",
     "typescript": "5.8.3"
   },
   "publishConfig": {

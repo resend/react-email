@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
-import { PreviewContext } from '../contexts/preview';
+import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
@@ -41,13 +41,13 @@ const ToolbarInner = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 
-  markup,
+  prettyMarkup,
   reactMarkup,
   plainText,
   emailPath,
   emailSlug,
 }: ToolbarProps & {
-  markup: string;
+  prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
@@ -75,7 +75,7 @@ const ToolbarInner = ({
     );
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
-      markup,
+      markup: prettyMarkup,
       plainText,
 
       initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
@@ -85,7 +85,7 @@ const ToolbarInner = ({
     LintingRow[]
   >(`linter-${emailSlug.replaceAll('/', '-')}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
-    markup,
+    markup: prettyMarkup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
@@ -332,17 +332,16 @@ export const Toolbar = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 }: ToolbarProps) => {
-  const { emailPath, emailSlug, renderedEmailMetadata } =
-    React.use(PreviewContext)!;
+  const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const { markup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
       emailPath={emailPath}
       emailSlug={emailSlug}
-      markup={markup}
+      prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
       serverLintingRows={serverLintingRows}

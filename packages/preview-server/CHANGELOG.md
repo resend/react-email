@@ -1,5 +1,75 @@
 # @react-email/preview-server
 
+## 4.2.12
+
+## 4.2.11
+
+### Patch Changes
+
+- 0700b91: fix data-source-\* attributes in the html code view
+
+## 4.2.10
+
+### Patch Changes
+
+- ffdb3a0: Update nextjs to 15.5.2
+
+## 4.2.9
+
+### Patch Changes
+
+- 1e53b4c: use `styleText` from `node:util` instead of `chalk`
+
+## 4.2.8
+
+## 4.2.7
+
+### Patch Changes
+
+- 6997a9e: fix broken file tree animation on built preview server
+
+## 4.2.6
+
+### Patch Changes
+
+- d3cc64d: use unformmated markup to send emails, and to render into the iframe
+
+## 4.2.5
+
+## 4.2.4
+
+### Patch Changes
+
+- 57b8bb8: fix custom JSX runtime trying to be run as ESM on ESM projects
+
+## 4.2.3
+
+## 4.2.2
+
+## 4.2.1
+
+### Patch Changes
+
+- c273405: pin all dependencies to avoid compatibility issues of the built preview server
+
+## 4.2.0
+
+### Minor Changes
+
+- e52818c: add custom error handling for prettier's syntax errors
+
+## 4.1.3
+
+### Patch Changes
+
+- 09d7d9d: improved method of resolving tailwind configs when checking compatibility
+
+## 4.1.2
+
+### Patch Changes
+
+- a8f4796: fix rendering utilities exporter plugin not running for symlinks
+
 ## 4.1.1
 
 ## 4.1.0

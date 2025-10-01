@@ -46,11 +46,7 @@ const theme = {
   ],
 };
 
-export const Code: React.FC<Readonly<CodeProps>> = ({
-  children,
-  className,
-  language = 'html',
-}) => {
+export function Code({ children, className, language = 'html' }: CodeProps) {
   const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
 
@@ -130,4 +126,4 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
       )}
     </Highlight>
   );
-};
+}

@@ -3,11 +3,8 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export const runBundledCode = (
-  code: string,
-  filename: string,
-): Result<unknown, unknown> => {
-  const fakeContext = {
+export const createContext = (filename: string): vm.Context => {
+  return {
     ...global,
     console,
     Buffer,
@@ -18,6 +15,8 @@ export const runBundledCode = (
     Request,
     Response,
     TextDecoderStream,
+    SyntaxError,
+    Error,
     TextEncoder,
     TextEncoderStream,
     ReadableStream,
@@ -36,13 +35,11 @@ export const runBundledCode = (
       }
 
       if (m in staticNodeModulesForVM) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return staticNodeModulesForVM[m];
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-useless-template-literals
       return require(`${specifiedModule}`) as unknown;
-      // this stupid string templating was necessary to not have
+      // this string templating was necessary to not have
       // webpack warnings like:
       //
       // Import trace for requested module:
@@ -53,7 +50,13 @@ export const runBundledCode = (
     },
     process,
   };
+};
 
+export const runBundledCode = (
+  code: string,
+  filename: string,
+  fakeContext: vm.Context = createContext(filename),
+): Result<unknown, unknown> => {
   try {
     vm.runInNewContext(code, fakeContext, { filename });
   } catch (exception) {

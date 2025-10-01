@@ -9,7 +9,7 @@ interface SpotlightProps {
   className?: string;
 }
 
-export const Spotlight = ({ children, className }: SpotlightProps) => {
+export function Spotlight({ children, className }: SpotlightProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -40,4 +40,4 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
       />
     </div>
   );
-};
+}

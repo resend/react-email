@@ -1,5 +1,47 @@
 # @react-email/render
 
+## 1.3.1
+
+### Patch Changes
+
+- e3f75cf: fixed multi-byte characters causing problems during stream reading
+
+## 1.3.0
+
+### Minor Changes
+
+- ca13220: fix link duplication in plain text mode
+
+## 1.2.3
+
+### Patch Changes
+
+- 4e43552: use edge exports in convex runtime
+
+## 1.2.2
+
+### Patch Changes
+
+- 174f9cd: fix builds failing with esbuild and react-dom@18
+
+## 1.2.1
+
+### Patch Changes
+
+- 036c46c: fix MessageChannel errors on edge environments
+
+## 1.2.0
+
+### Minor Changes
+
+- fc2f407: add toPlainText utility and deprecate plainText option on `render`
+
+## 1.1.4
+
+### Patch Changes
+
+- f5f35f1: fix hydration markers on React canary/Next.js latest when rendering large email templates
+
 ## 1.1.3
 
 ### Patch Changes

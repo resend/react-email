@@ -7,6 +7,7 @@ import { Link } from '@react-email/link';
 import { render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
+import { vi } from 'vitest';
 import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
@@ -20,6 +21,41 @@ describe('Tailwind component', () => {
         </ResponsiveRow>
       </Tailwind>,
     );
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should work with blocklist', async () => {
+    const actualOutput = await render(
+      <Tailwind config={{ blocklist: ['bg-blue-600'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
+  it('should warn about safelist not being supported', async () => {
+    const spy = vi.spyOn(console, 'warn');
+
+    const actualOutput = await render(
+      <Tailwind config={{ safelist: ['bg-red-500'] }}>
+        <Head />
+        <body>
+          <button type="button" className="bg-blue-600 md:p-4">
+            Click me
+          </button>
+        </body>
+      </Tailwind>,
+      { pretty: true },
+    );
+
+    expect(spy).toHaveBeenCalled();
     expect(actualOutput).toMatchSnapshot();
   });
 
@@ -93,34 +129,6 @@ describe('Tailwind component', () => {
       expect(actualOutput).not.toBeNull();
     });
   });
-
-  // test("with React context and custom components", () => {
-  //   const SharedDataContext = React.createContext<{ name: string } | undefined>(undefined);
-  //
-  //   const IsGreat = () => {
-  //     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  //     const sharedData = React.useContext(SharedDataContext)!;
-  //
-  //     expect(sharedData).toBeDefined();
-  //
-  //     return <p className="text-red-500 sm:text-blue-300">
-  //       {sharedData.name} is great!
-  //     </p>;
-  //   };
-  //
-  //   render(
-  //     <Html>
-  //       <Tailwind>
-  //         <Head/>
-  //         <SharedDataContext.Provider value={{ name: 'React Email' }}>
-  //           <body className="bg-slate-900 text-gray-200">
-  //             <IsGreat/>
-  //           </body>
-  //         </SharedDataContext.Provider>
-  //       </Tailwind>
-  //     </Html>
-  //   );
-  // });
 
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
     const actualOutput = await render(
@@ -387,10 +395,13 @@ describe('non-inlinable styles', () => {
     const output = await render(
       <Tailwind>
         <Head />
-        <Body className="mx-auto my-auto bg-white font-sans hover:underline md:px-[64px]">
-          <div className="hover:underline md:px-[64px]" />
+        <Body className="md:px-[64px] dark:bg-black dark:text-green-500">
+          <div className="md:px-[64px] dark:text-green-500" />
         </Body>
       </Tailwind>,
+      {
+        pretty: true,
+      },
     );
 
     expect(output).toMatchSnapshot();

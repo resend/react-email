@@ -1,5 +1,5 @@
-import { Preview } from '../shared/utils/preview';
-import { Template } from '../shared/utils/template';
+import { Preview } from '../shared/utils/testing/preview';
+import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
 
 type Import = typeof import('react-dom/server') & {
@@ -177,5 +177,37 @@ describe('render on the edge', () => {
 
     vi.resetModules();
     vi.resetAllMocks();
+  });
+
+  /**
+   * Create a large email that would trigger React's streaming optimization
+   * if progressiveChunkSize wasn't set to Infinity
+   *
+   * @see https://github.com/resend/react-email/issues/2353
+   */
+  it('should render large emails without hydration markers', async () => {
+    const LargeEmailTemplate = () => {
+      const largeContent = Array(100)
+        .fill(null)
+        .map((_, i) => (
+          <p key={i}>
+            This is paragraph {i} with some content to make the email larger.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris.
+          </p>
+        ));
+
+      return (
+        <div>
+          <h1>Large Email Test</h1>
+          {largeContent}
+        </div>
+      );
+    };
+
+    const actualOutput = await render(<LargeEmailTemplate />);
+
+    expect(actualOutput).toMatchSnapshot();
   });
 });

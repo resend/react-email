@@ -5,14 +5,17 @@ on:
       - main
       - canary
   pull_request:
-permissions: 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
   contents: read
   pull-requests: read
 jobs:
   pin-dependencies-check:
-    runs-on: buildjet-4vcpu-ubuntu-2204
+    runs-on: buildjet-2vcpu-ubuntu-2204
     container:
-      image: node:22
+      image: node:22-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v4

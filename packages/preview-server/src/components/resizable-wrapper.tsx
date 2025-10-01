@@ -89,12 +89,13 @@ export const ResizableWrapper = ({
   };
 
   useEffect(() => {
-    if (!window.document) return;
+    if (!window.document) {
+      return;
+    }
 
     return () => {
       handleStopResizing();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -20,11 +20,11 @@ import { TabTrigger } from './tab-trigger';
 
 type ReactCodeVariant = Exclude<CodeVariant, 'html' | 'react'>;
 
-export const ComponentCodeView = ({
+export function ComponentCodeView({
   component,
 }: {
   component: ImportedComponent;
-}) => {
+}) {
   const [selectedReactCodeVariant, setSelectedReactCodeVariant] =
     useStoredState<ReactCodeVariant>('code-variant', 'tailwind');
 
@@ -146,7 +146,7 @@ export const ComponentCodeView = ({
       </div>
     </div>
   );
-};
+}
 
 const ReactVariantSelect = ({
   value,

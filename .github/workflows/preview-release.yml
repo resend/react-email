@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: pnpm Cache
         id: pnpm-cache
         uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
@@ -33,7 +33,7 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: turborepo Cache
-        uses: rharkor/caching-for-turbo@a1c4079258ae08389be75b57d4d7a70f23c1c66d
+        uses: rharkor/caching-for-turbo@8434baaaec555ed7ef66132f2e8a09e65ec68c19
         with:
           cache-prefix: ${{ runner.os }}-turbo-
           provider: github
@@ -45,7 +45,7 @@ jobs:
             # Add step to find changed package directories within ./packages
       - name: Find changed packages
         id: changed_packages
-        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c
+        uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0
         with:
           files: packages/**
           dir_names: true
