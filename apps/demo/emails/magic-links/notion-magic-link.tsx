@@ -10,6 +10,7 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
+import tailwindConfig from '../tailwind.config';
 
 interface NotionMagicLinkEmailProps {
   loginCode?: string;
@@ -24,7 +25,7 @@ export const NotionMagicLinkEmail = ({
 }: NotionMagicLinkEmailProps) => (
   <Html>
     <Head />
-    <Tailwind>
+    <Tailwind config={tailwindConfig}>
       <Body className="bg-white">
         <Preview>Log in with this magic link</Preview>
         <Container className="px-3 mx-auto">
