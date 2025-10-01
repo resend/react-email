@@ -9,7 +9,7 @@
     "export": "email-dev export"
   },
   "dependencies": {
-    "@react-email/components": "npm:@react-email/components@1.0.0-tailwindv4.2",
+    "@react-email/components": "npm:@react-email/components@1.0.0-tailwindv4.3",
     "react": "^19",
     "react-dom": "^19",
     "email-dev": "workspace:*"
