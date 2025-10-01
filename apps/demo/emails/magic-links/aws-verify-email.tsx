@@ -41,7 +41,7 @@ export default function AWSVerifyEmail({
                   alt="AWS's Logo"
                 />
               </Section>
-              <Section className="py-6 p-9">
+              <Section className="py-6 px-9">
                 <Heading className="text-[#333] text-xl font-bold mb-6">
                   Verify your email address
                 </Heading>
