@@ -10,9 +10,10 @@ import {
   Link,
   Preview,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
+import tailwindConfig from '../tailwind.config';
 
 interface LinearLoginCodeEmailProps {
   validationCode?: string;
@@ -27,33 +28,43 @@ export const LinearLoginCodeEmail = ({
 }: LinearLoginCodeEmailProps) => (
   <Html>
     <Head />
-    <Body style={main}>
-      <Preview>Your login code for Linear</Preview>
-      <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/linear-logo.png`}
-          width="42"
-          height="42"
-          alt="Linear"
-          style={logo}
-        />
-        <Heading style={heading}>Your login code for Linear</Heading>
-        <Section style={buttonContainer}>
-          <Button style={button} href="https://linear.app">
-            Login to Linear
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          This link and code will only be valid for the next 5 minutes. If the
-          link does not work, you can use the login verification code directly:
-        </Text>
-        <code style={code}>{validationCode}</code>
-        <Hr style={hr} />
-        <Link href="https://linear.app" style={reportLink}>
-          Linear
-        </Link>
-      </Container>
-    </Body>
+    <Tailwind config={tailwindConfig}>
+      <Body className="bg-white font-linear">
+        <Preview>Your login code for Linear</Preview>
+        <Container className="mx-auto my-0 max-w-[560px] px-0 pt-5 pb-12">
+          <Img
+            src={`${baseUrl}/static/linear-logo.png`}
+            width="42"
+            height="42"
+            alt="Linear"
+            className="rounded-3xl w-10.5 h-10.5"
+          />
+          <Heading className="text-2xl tracking-tight leading-[1.3] font-normal text-[#484848] pt-4 px-0 pb-0">
+            Your login code for Linear
+          </Heading>
+          <Section className="py-7 px-0">
+            <Button
+              className="bg-[#5e6ad2] rounded font-semibold text-white text-[15px] no-underline text-center block py-[11px] px-6"
+              href="https://linear.app"
+            >
+              Login to Linear
+            </Button>
+          </Section>
+          <Text className="mb-4 mx-0 mt-0 leading-[1.4] text-[14px] text-[#3c4149]">
+            This link and code will only be valid for the next 5 minutes. If the
+            link does not work, you can use the login verification code
+            directly:
+          </Text>
+          <code className="font-mono font-bold px-1 py-px bg-[#dfe1e4] text-[#3c4149] text-xl tracking-tight">
+            {validationCode}
+          </code>
+          <Hr className="border-[#dfe1e4] mt-10.5 mb-6.5" />
+          <Link href="https://linear.app" className="text-[#b4becc] text-sm">
+            Linear
+          </Link>
+        </Container>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
@@ -63,73 +74,3 @@ LinearLoginCodeEmail.PreviewProps = {
 
 export default LinearLoginCodeEmail;
 
-const logo = {
-  borderRadius: 21,
-  width: 42,
-  height: 42,
-};
-
-const main = {
-  backgroundColor: '#ffffff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  maxWidth: '560px',
-};
-
-const heading = {
-  fontSize: '24px',
-  letterSpacing: '-0.5px',
-  lineHeight: '1.3',
-  fontWeight: '400',
-  color: '#484848',
-  padding: '17px 0 0',
-};
-
-const paragraph = {
-  margin: '0 0 15px',
-  fontSize: '15px',
-  lineHeight: '1.4',
-  color: '#3c4149',
-};
-
-const buttonContainer = {
-  padding: '27px 0 27px',
-};
-
-const button = {
-  backgroundColor: '#5e6ad2',
-  borderRadius: '3px',
-  fontWeight: '600',
-  color: '#fff',
-  fontSize: '15px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '11px 23px',
-};
-
-const reportLink = {
-  fontSize: '14px',
-  color: '#b4becc',
-};
-
-const hr = {
-  borderColor: '#dfe1e4',
-  margin: '42px 0 26px',
-};
-
-const code = {
-  fontFamily: 'monospace',
-  fontWeight: '700',
-  padding: '1px 4px',
-  backgroundColor: '#dfe1e4',
-  letterSpacing: '-0.3px',
-  fontSize: '21px',
-  borderRadius: '4px',
-  color: '#3c4149',
-};
