@@ -57,8 +57,8 @@ importers:
   apps/demo:
     dependencies:
       '@react-email/components':
-        specifier: npm:@react-email/components@1.0.0-tailwindv4.1
-        version: 1.0.0-tailwindv4.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: npm:@react-email/components@1.0.0-tailwindv4.2
+        version: 1.0.0-tailwindv4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       email-dev:
         specifier: workspace:*
         version: link:../../packages/react-email/dev
@@ -3541,8 +3541,8 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  '@react-email/components@1.0.0-tailwindv4.1':
-    resolution: {integrity: sha512-DnJER/P5IOfP3BfrMJVqsd+3wnTyFG8DON4cAkt8Mu68JSitx2F4jC7c7Dtgkw8STHzLg6k05uXNn0RmKIjbCw==}
+  '@react-email/components@1.0.0-tailwindv4.2':
+    resolution: {integrity: sha512-B5qv8nWEs6tU1ncNd++2FElvvR7W2eVfoF0EVYFYtFvvlv7DbzYNzO6GOHP4SHHwCJ5AcdMOkEY1Orxhvsbrqg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -3650,8 +3650,8 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  '@react-email/tailwind@2.0.0-tailwindv4.0':
-    resolution: {integrity: sha512-TQGoXAZVslvJbGm9qA12K8NYT/37blcKaFxm4Hx9XfBH79v1DkPjrYrhwHxnNrSBBo5vVTd3GwCZSBFFlrtVAg==}
+  '@react-email/tailwind@2.0.0-tailwindv4.1':
+    resolution: {integrity: sha512-DaHoIbsb1lVZ4VRZ1j45p77C7Epbnx5t1rESDH+umiTyEect+1Ve9c5P70kjP/1AakNhchoQLtGLMoGDQzjyLQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -11722,7 +11722,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@react-email/components@1.0.0-tailwindv4.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-email/components@1.0.0-tailwindv4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-email/body': 0.1.0(react@19.0.0)
       '@react-email/button': 0.2.0(react@19.0.0)
@@ -11742,7 +11742,7 @@ snapshots:
       '@react-email/render': 1.3.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/row': 0.0.12(react@19.0.0)
       '@react-email/section': 0.0.16(react@19.0.0)
-      '@react-email/tailwind': 2.0.0-tailwindv4.0(react@19.0.0)
+      '@react-email/tailwind': 2.0.0-tailwindv4.1(react@19.0.0)
       '@react-email/text': 0.1.5(react@19.0.0)
       react: 19.0.0
     transitivePeerDependencies:
@@ -11829,7 +11829,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@react-email/tailwind@2.0.0-tailwindv4.0(react@19.0.0)':
+  '@react-email/tailwind@2.0.0-tailwindv4.1(react@19.0.0)':
     dependencies:
       react: 19.0.0
       tailwindcss: 4.1.12
