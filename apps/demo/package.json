@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "@react-email/preview-server": "workspace:*",
-    "next": "^15.3.2",
     "@types/react": "^19",
-    "@types/react-dom": "^19"
+    "@types/react-dom": "^19",
+    "next": "^15.3.2"
   }
 }
