@@ -11,21 +11,7 @@ import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
-export type TailwindConfig = Pick<
-  Config,
-  | 'important'
-  | 'prefix'
-  | 'separator'
-  | 'safelist'
-  | 'blocklist'
-  | 'presets'
-  | 'future'
-  | 'experimental'
-  | 'darkMode'
-  | 'theme'
-  | 'corePlugins'
-  | 'plugins'
->;
+export type TailwindConfig = Omit<Config, 'content'>;
 
 export interface TailwindProps {
   children: React.ReactNode;
