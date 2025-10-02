@@ -30,6 +30,7 @@ export default {
         'Helvetica Neue',
         'sans-serif',
       ],
+      apple: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
     },
   },
 } satisfies TailwindConfig;
