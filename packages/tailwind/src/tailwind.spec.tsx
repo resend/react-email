@@ -407,7 +407,7 @@ describe('non-inlinable styles', () => {
     expect(output).toMatchSnapshot();
   });
 
-  it('adds css to <head/> and keep class names', async () => {
+  it('adds css to <head/> and keeps class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
