@@ -55,7 +55,7 @@ export const LinearLoginCodeEmail = ({
             link does not work, you can use the login verification code
             directly:
           </Text>
-          <code className="font-mono font-bold px-1 py-px bg-[#dfe1e4] text-[#3c4149] text-xl tracking-tight">
+          <code className="font-mono font-bold px-1 py-px bg-[#dfe1e4] text-[#3c4149] text-xl tracking-tight rounded">
             {validationCode}
           </code>
           <Hr className="border-[#dfe1e4] mt-10.5 mb-6.5" />
