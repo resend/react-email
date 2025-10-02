@@ -73,4 +73,3 @@ PlaidVerifyIdentityEmail.PreviewProps = {
 } as PlaidVerifyIdentityEmailProps;
 
 export default PlaidVerifyIdentityEmail;
-
