@@ -38,7 +38,7 @@ export const AppleReceiptEmail = () => (
               </Column>
 
               <Column align="right" className="table-cell">
-                <Text className="text-3xl font-light text-[#888888] m-0 p-0 leading-[1.4]">
+                <Text className="text-[32px] font-light text-[#888888] my-4 p-0 leading-6">
                   Receipt
                 </Text>
               </Column>
