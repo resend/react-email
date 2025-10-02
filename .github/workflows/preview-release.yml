@@ -33,7 +33,7 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: turborepo Cache
-        uses: rharkor/caching-for-turbo@a1c4079258ae08389be75b57d4d7a70f23c1c66d
+        uses: rharkor/caching-for-turbo@8434baaaec555ed7ef66132f2e8a09e65ec68c19
         with:
           cache-prefix: ${{ runner.os }}-turbo-
           provider: github
@@ -45,7 +45,7 @@ jobs:
             # Add step to find changed package directories within ./packages
       - name: Find changed packages
         id: changed_packages
-        uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c
+        uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0
         with:
           files: packages/**
           dir_names: true

@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.5",
-    "@changesets/cli": "2.29.5",
+    "@changesets/cli": "2.29.7",
     "@types/node": "22.14.1",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
@@ -24,7 +24,7 @@
     "tsconfig": "workspace:*",
     "tsdown": "0.15.1",
     "tsx": "4.20.3",
-    "turbo": "2.5.4",
+    "turbo": "2.5.8",
     "vite": "6.3.6",
     "vitest": "3.2.4"
   },

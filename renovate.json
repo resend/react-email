@@ -2,7 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "ignorePaths": ["benchmarks"],
-  "schedule": ["before 3am on the first day of the month"],
-  "updateNotScheduled": false,
-  "rebaseWhen": "conflicted"
+  "rebaseWhen": "never"
 }
