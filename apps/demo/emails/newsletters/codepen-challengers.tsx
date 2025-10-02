@@ -24,7 +24,7 @@ export const CodepenChallengersEmail = () => (
   <Html>
     <Head />
     <Tailwind config={tailwindConfig}>
-      <Body className="font-codepen bg-[#505050]">
+      <Body className="font-codepen bg-[#505050] m-0">
         <Preview>#CodePenChallenge: Cubes</Preview>
         <Section className="w-full bg-[#191919] m-0 mx-auto pb-[30px] z-[999]">
           <Img
