@@ -86,6 +86,8 @@ export default {
       'dropbox-sans': ['Open Sans', 'Helvetica Neue', 'Arial'],
       codepen: '"Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif',
       plaid: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+      google:
+        '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
     },
   },
 } satisfies TailwindConfig;
