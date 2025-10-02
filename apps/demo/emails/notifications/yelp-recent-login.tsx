@@ -10,9 +10,9 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
 import tailwindConfig from '../tailwind.config';
 
 interface YelpRecentLoginEmailProps {
@@ -41,8 +41,8 @@ export const YelpRecentLoginEmail = ({
 
   return (
     <Html>
-      <Head />
       <Tailwind config={tailwindConfig}>
+        <Head />
         <Body className="bg-white font-yelp">
           <Preview>Yelp recent login</Preview>
           <Container>
