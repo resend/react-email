@@ -4,7 +4,7 @@ export default {
   presets: [pixelBasedPreset],
   theme: {
     fontFamily: {
-      plaid: 'HelveticaNeue,Helvetica,Arial,sans-serif'
-    }
-  }
+      plaid: 'HelveticaNeue,Helvetica,Arial,sans-serif',
+    },
+  },
 } satisfies TailwindConfig;
