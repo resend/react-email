@@ -11,9 +11,10 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
+import tailwindConfig from '../tailwind.config';
 
 interface StackOverflowTipsEmailProps {
   tips?: { id: number; description: string }[];
@@ -48,107 +49,143 @@ export const StackOverflowTipsEmail = ({
 }: StackOverflowTipsEmailProps) => (
   <Html>
     <Head />
-    <Body style={main}>
-      <Preview>Stack overflow tips for searching</Preview>
-      <Container style={container}>
-        <Section style={logo}>
-          <Img width={146} src={`${baseUrl}/static/stack-overflow-logo.png`} />
-        </Section>
-
-        <Section style={header}>
-          <Row>
-            <Column style={headerContent}>
-              <Heading style={headerContentTitle}>
-                Find what you want, faster
-              </Heading>
-              <Text style={headerContentSubtitle}>
-                Tips and tricks for searching on Stack Overflow
-              </Text>
-            </Column>
-            <Column style={headerImageContainer}>
-              <Img
-                style={headerImage}
-                width={340}
-                src={`${baseUrl}/static/stack-overflow-header.png`}
-              />
-            </Column>
-          </Row>
-        </Section>
-
-        <Section style={content}>
-          <Heading as="h2" style={title}>
-            Searching for solutions
-          </Heading>
-          <Text style={paragraph}>
-            With more than 18 million questions, it's possible that someone has
-            already provided a solution to the problem you're facing.{' '}
-          </Text>
-
-          <Hr style={divider} />
-
-          <Heading as="h2" style={title}>
-            Use the search bar at the top of the page to find what you need
-          </Heading>
-          <Text style={paragraph}>
-            Here are a few simple search tips to get you started:
-          </Text>
-          <ul>
-            {tips.map((tip) => (
-              <li key={tip.id}>
-                <Text style={paragraph}>{tip.description}</Text>
-              </li>
-            ))}
-          </ul>
-
-          <Text style={paragraph}>
-            The more information you can put in the search bar, the more likely
-            you will be to either find the answer you need or feel confident
-            that no one else has asked the question before.
-          </Text>
-
-          <Hr style={divider} />
-
-          <Heading as="h2" style={title}>
-            Take a break and read about the worst coder in the world
-          </Heading>
-
-          <Section style={buttonContainer}>
-            <Link style={button} href="https://stackoverflow.blog/2019/10/22/">
-              I need a break
-            </Link>
+    <Tailwind config={tailwindConfig}>
+      <Body className="bg-[#f3f3f5] font-stack-overflow">
+        <Preview>Stack overflow tips for searching</Preview>
+        <Container className="w-[680px] max-w-full mx-auto bg-white">
+          <Section className="flex bg-[#f3f3f5] p-5 px-8">
+            <Img
+              width={146}
+              src={`${baseUrl}/static/stack-overflow-logo.png`}
+            />
           </Section>
+
+          <Section className="rounded-t-md flex flex-col bg-[#2b2d6e]">
+            <Row>
+              <Column className="py-5 px-8 pb-4">
+                <Heading className="text-white text-3xl font-bold leading-tight">
+                  Find what you want, faster
+                </Heading>
+                <Text className="text-white text-lg">
+                  Tips and tricks for searching on Stack Overflow
+                </Text>
+              </Column>
+              <Column className="py-8 px-3">
+                <Img
+                  className="max-w-full"
+                  width={340}
+                  src={`${baseUrl}/static/stack-overflow-header.png`}
+                />
+              </Column>
+            </Row>
+          </Section>
+
+          <Section className="py-8 px-8 pb-10">
+            <Heading
+              as="h2"
+              className="mb-4 font-bold text-xl leading-tight text-[#0c0d0e]"
+            >
+              Searching for solutions
+            </Heading>
+            <Text className="text-base leading-6 text-[#3c3f44]">
+              With more than 18 million questions, it's possible that someone
+              has already provided a solution to the problem you're facing.{' '}
+            </Text>
+
+            <Hr className="my-8" />
+
+            <Heading
+              as="h2"
+              className="mb-4 font-bold text-xl leading-tight text-[#0c0d0e]"
+            >
+              Use the search bar at the top of the page to find what you need
+            </Heading>
+            <Text className="text-base leading-6 text-[#3c3f44]">
+              Here are a few simple search tips to get you started:
+            </Text>
+            <ul>
+              {tips.map((tip) => (
+                <li key={tip.id}>
+                  <Text className="text-base leading-6 text-[#3c3f44]">
+                    {tip.description}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+
+            <Text className="text-base leading-6 text-[#3c3f44]">
+              The more information you can put in the search bar, the more
+              likely you will be to either find the answer you need or feel
+              confident that no one else has asked the question before.
+            </Text>
+
+            <Hr className="my-8" />
+
+            <Heading
+              as="h2"
+              className="mb-4 font-bold text-xl leading-tight text-[#0c0d0e]"
+            >
+              Take a break and read about the worst coder in the world
+            </Heading>
+
+            <Section className="mt-6 block">
+              <Link
+                className="bg-[#0095ff] border border-[#0077cc] text-lg leading-tight py-3 px-4 rounded max-w-[120px] text-white"
+                href="https://stackoverflow.blog/2019/10/22/"
+              >
+                I need a break
+              </Link>
+            </Section>
+          </Section>
+        </Container>
+
+        <Section className="w-[680px] max-w-full mt-8 mx-auto px-8">
+          <Text className="text-xs leading-4 text-[#9199a1] m-0">
+            You're receiving this email because your Stack Overflow activity
+            triggered this tip or reminder.
+          </Text>
+
+          <Link
+            href="/"
+            className="inline-block text-[#9199a1] underline text-xs mr-3 mb-0 mt-2"
+          >
+            Unsubscribe from emails like this{' '}
+          </Link>
+          <Link
+            href="/"
+            className="inline-block text-[#9199a1] underline text-xs mr-3 mb-0 mt-2"
+          >
+            Edit email settings{' '}
+          </Link>
+          <Link
+            href="/"
+            className="inline-block text-[#9199a1] underline text-xs mr-3 mb-0 mt-2"
+          >
+            Contact us
+          </Link>
+          <Link
+            href="/"
+            className="inline-block text-[#9199a1] underline text-xs mr-3 mb-0 mt-2"
+          >
+            Privacy
+          </Link>
+
+          <Hr className="my-8 border-[#d6d8db]" />
+
+          <Img
+            width={111}
+            src={`${baseUrl}/static/stack-overflow-logo-sm.png`}
+          />
+          <Text className="my-1 text-xs leading-4 text-[#9199a1]">
+            <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New
+            York, NY 10038
+          </Text>
+          <Text className="rounded-sm border border-[#d6d9dc] py-1 px-1.5 text-xs leading-3 font-stack-overflow-mono text-[#e06c77] max-w-min m-0 mb-8">
+            {'<3'}
+          </Text>
         </Section>
-      </Container>
-
-      <Section style={footer}>
-        <Text style={footerText}>
-          You're receiving this email because your Stack Overflow activity
-          triggered this tip or reminder.
-        </Text>
-
-        <Link href="/" style={footerLink}>
-          Unsubscribe from emails like this{' '}
-        </Link>
-        <Link href="/" style={footerLink}>
-          Edit email settings{' '}
-        </Link>
-        <Link href="/" style={footerLink}>
-          Contact us
-        </Link>
-        <Link href="/" style={footerLink}>
-          Privacy
-        </Link>
-
-        <Hr style={footerDivider} />
-
-        <Img width={111} src={`${baseUrl}/static/stack-overflow-logo-sm.png`} />
-        <Text style={footerAddress}>
-          <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New
-          York, NY 10038
-        </Text>
-        <Text style={footerHeart}>{'<3'}</Text>
-      </Section>
-    </Body>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
@@ -157,136 +194,3 @@ StackOverflowTipsEmail.PreviewProps = {
 } as StackOverflowTipsEmailProps;
 
 export default StackOverflowTipsEmail;
-
-const main = {
-  backgroundColor: '#f3f3f5',
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
-};
-
-const headerContent = { padding: '20px 30px 15px' };
-
-const headerContentTitle = {
-  color: '#fff',
-  fontSize: '27px',
-  fontWeight: 'bold',
-  lineHeight: '27px',
-};
-
-const headerContentSubtitle = {
-  color: '#fff',
-  fontSize: '17px',
-};
-
-const headerImageContainer = {
-  padding: '30px 10px',
-};
-
-const headerImage = {
-  maxWidth: '100%',
-};
-
-const title = {
-  margin: '0 0 15px',
-  fontWeight: 'bold',
-  fontSize: '21px',
-  lineHeight: '21px',
-  color: '#0c0d0e',
-};
-
-const paragraph = {
-  fontSize: '15px',
-  lineHeight: '21px',
-  color: '#3c3f44',
-};
-
-const divider = {
-  margin: '30px 0',
-};
-
-const container = {
-  width: '680px',
-  maxWidth: '100%',
-  margin: '0 auto',
-  backgroundColor: '#ffffff',
-};
-
-const footer = {
-  width: '680px',
-  maxWidth: '100%',
-  margin: '32px auto 0 auto',
-  padding: '0 30px',
-};
-
-const content = {
-  padding: '30px 30px 40px 30px',
-};
-
-const logo = {
-  display: 'flex',
-  background: '#f3f3f5',
-  padding: '20px 30px',
-};
-
-const header = {
-  borderRadius: '5px 5px 0 0',
-  display: 'flex',
-  flexDireciont: 'column',
-  backgroundColor: '#2b2d6e',
-};
-
-const buttonContainer = {
-  marginTop: '24px',
-  display: 'block',
-};
-
-const button = {
-  backgroundColor: '#0095ff',
-  border: '1px solid #0077cc',
-  fontSize: '17px',
-  lineHeight: '17px',
-  padding: '13px 17px',
-  borderRadius: '4px',
-  maxWidth: '120px',
-  color: '#fff',
-};
-
-const footerDivider = {
-  ...divider,
-  borderColor: '#d6d8db',
-};
-
-const footerText = {
-  fontSize: '12px',
-  lineHeight: '15px',
-  color: '#9199a1',
-  margin: '0',
-};
-
-const footerLink = {
-  display: 'inline-block',
-  color: '#9199a1',
-  textDecoration: 'underline',
-  fontSize: '12px',
-  marginRight: '10px',
-  marginBottom: '0',
-  marginTop: '8px',
-};
-
-const footerAddress = {
-  margin: '4px 0',
-  fontSize: '12px',
-  lineHeight: '15px',
-  color: '#9199a1',
-};
-
-const footerHeart = {
-  borderRadius: '1px',
-  border: '1px solid #d6d9dc',
-  padding: '4px 6px 3px 6px',
-  fontSize: '11px',
-  lineHeight: '11px',
-  fontFamily: 'Consolas,monospace',
-  color: '#e06c77',
-  maxWidth: 'min-content',
-  margin: '0 0 32px 0',
-};
