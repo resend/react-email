@@ -45,7 +45,7 @@ export const AppleReceiptEmail = () => (
             </Row>
           </Section>
           <Section>
-            <Text className="text-center my-9 text-sm font-medium text-[#111111] m-0 p-0 leading-[1.4]">
+            <Text className="text-center m-0 my-9 text-sm font-medium text-[#111111] p-0 leading-[1.4]">
               Save 3% on all your Apple purchases with Apple Card.
               <sup className="font-light">1</sup>{' '}
               <Link href="https://www.apple.com/apple-card/">
