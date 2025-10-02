@@ -7,9 +7,10 @@ import {
   Img,
   Link,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind, Tailwind } from '@react-email/tailwind';
+import tailwindConfig from '../tailwind.config';
 
 interface PlaidVerifyIdentityEmailProps {
   validationCode?: string;
@@ -24,33 +25,46 @@ export const PlaidVerifyIdentityEmail = ({
 }: PlaidVerifyIdentityEmailProps) => (
   <Html>
     <Head />
-    <Body style={main}>
-      <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/plaid-logo.png`}
-          width="212"
-          height="88"
-          alt="Plaid"
-          style={logo}
-        />
-        <Text style={tertiary}>Verify Your Identity</Text>
-        <Heading style={secondary}>
-          Enter the following code to finish linking Venmo.
-        </Heading>
-        <Section style={codeContainer}>
-          <Text style={code}>{validationCode}</Text>
-        </Section>
-        <Text style={paragraph}>Not expecting this email?</Text>
-        <Text style={paragraph}>
-          Contact{' '}
-          <Link href="mailto:login@plaid.com" style={link}>
-            login@plaid.com
-          </Link>{' '}
-          if you did not request this code.
+    <Tailwind config={tailwindConfig}>
+      <Body className="bg-white font-plaid">
+        <Container className="bg-white border border-solid border-[#eee] rounded shadow-[rgba(20,50,70,.2)] shadow-md mt-5 max-w-[360px] mx-auto my-0 pt-17 px-0 pb-33">
+          <Img
+            src={`${baseUrl}/static/plaid-logo.png`}
+            width="212"
+            height="88"
+            alt="Plaid"
+            className="mx-auto my-0"
+          />
+          <Text className="text-[#0a85ea] text-xs font-bold h-4 tracking-[0] leading-4 mt-4 mb-2 mx-2 uppercase text-center">
+            Verify Your Identity
+          </Text>
+          <Heading className="text-black inline-block text-xl my-0 text-center">
+            Enter the following code to finish linking Venmo.
+          </Heading>
+          <Section className="bg-[rgba(0,0,0,.05)] rounded mx-auto mt-4 mb-3.5 align-middle w-[280px]">
+            <Text className="text-black text-3xl font-bold tracking-[6px] leading-10 py-2 mx-auto my-0 block text-center">
+              {validationCode}
+            </Text>
+          </Section>
+          <Text className="text-[#444] text-[15px] tracking-[0] py-0 px-10 m-0 text-center">
+            Not expecting this email?
+          </Text>
+          <Text className="text-[#444] text-[15px] tracking-[0] py-0 px-10 m-0 text-center">
+            Contact{' '}
+            <Link
+              href="mailto:login@plaid.com"
+              className="text-[#444] underline"
+            >
+              login@plaid.com
+            </Link>{' '}
+            if you did not request this code.
+          </Text>
+        </Container>
+        <Text className="text-black text-xs font-extrabold tracking-[0] leading-6 m-0 mt-4 text-center uppercase">
+          Securely powered by Plaid.
         </Text>
-      </Container>
-      <Text style={footer}>Securely powered by Plaid.</Text>
-    </Body>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
@@ -60,98 +74,3 @@ PlaidVerifyIdentityEmail.PreviewProps = {
 
 export default PlaidVerifyIdentityEmail;
 
-const main = {
-  backgroundColor: '#ffffff',
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
-};
-
-const container = {
-  backgroundColor: '#ffffff',
-  border: '1px solid #eee',
-  borderRadius: '5px',
-  boxShadow: '0 5px 10px rgba(20,50,70,.2)',
-  marginTop: '20px',
-  maxWidth: '360px',
-  margin: '0 auto',
-  padding: '68px 0 130px',
-};
-
-const logo = {
-  margin: '0 auto',
-};
-
-const tertiary = {
-  color: '#0a85ea',
-  fontSize: '11px',
-  fontWeight: 700,
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
-  height: '16px',
-  letterSpacing: '0',
-  lineHeight: '16px',
-  margin: '16px 8px 8px 8px',
-  textTransform: 'uppercase' as const,
-  textAlign: 'center' as const,
-};
-
-const secondary = {
-  color: '#000',
-  display: 'inline-block',
-  fontFamily: 'HelveticaNeue-Medium,Helvetica,Arial,sans-serif',
-  fontSize: '20px',
-  fontWeight: 500,
-  lineHeight: '24px',
-  marginBottom: '0',
-  marginTop: '0',
-  textAlign: 'center' as const,
-};
-
-const codeContainer = {
-  background: 'rgba(0,0,0,.05)',
-  borderRadius: '4px',
-  margin: '16px auto 14px',
-  verticalAlign: 'middle',
-  width: '280px',
-};
-
-const code = {
-  color: '#000',
-  fontFamily: 'HelveticaNeue-Bold',
-  fontSize: '32px',
-  fontWeight: 700,
-  letterSpacing: '6px',
-  lineHeight: '40px',
-  paddingBottom: '8px',
-  paddingTop: '8px',
-  margin: '0 auto',
-  display: 'block',
-  textAlign: 'center' as const,
-};
-
-const paragraph = {
-  color: '#444',
-  fontSize: '15px',
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
-  letterSpacing: '0',
-  lineHeight: '23px',
-  padding: '0 40px',
-  margin: '0',
-  textAlign: 'center' as const,
-};
-
-const link = {
-  color: '#444',
-  textDecoration: 'underline',
-};
-
-const footer = {
-  color: '#000',
-  fontSize: '12px',
-  fontWeight: 800,
-  letterSpacing: '0',
-  lineHeight: '23px',
-  margin: '0',
-  marginTop: '20px',
-  fontFamily: 'HelveticaNeue,Helvetica,Arial,sans-serif',
-  textAlign: 'center' as const,
-  textTransform: 'uppercase' as const,
-};
