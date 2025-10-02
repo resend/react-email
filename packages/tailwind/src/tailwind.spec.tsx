@@ -12,7 +12,7 @@ import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
 describe('Tailwind component', () => {
-  it('should allow for complex children manipulation', async () => {
+  it('allows for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
         <ResponsiveRow>
@@ -24,7 +24,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should work with blocklist', async () => {
+  it('works with blocklist', async () => {
     const actualOutput = await render(
       <Tailwind config={{ blocklist: ['bg-blue-600'] }}>
         <Head />
@@ -40,7 +40,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should warn about safelist not being supported', async () => {
+  it('warns about safelist not being supported', async () => {
     const spy = vi.spyOn(console, 'warn');
 
     const actualOutput = await render(
@@ -59,7 +59,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should work with class manipulation done on components', async () => {
+  it('works with class manipulation done on components', async () => {
     const MyComponnt = (props: {
       className?: string;
       style?: React.CSSProperties;
@@ -88,7 +88,7 @@ describe('Tailwind component', () => {
     ).toMatchSnapshot();
   });
 
-  it("should work properly with 'no-underline'", async () => {
+  it("works properly with 'no-underline'", async () => {
     const actualOutput = await render(
       <Html>
         <body>
@@ -119,7 +119,7 @@ describe('Tailwind component', () => {
   });
 
   describe('Inline styles', () => {
-    it('should render children with inline Tailwind styles', async () => {
+    it('renders children with inline Tailwind styles', async () => {
       const actualOutput = await render(
         <Tailwind>
           <div className="bg-white" />
@@ -143,7 +143,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should work with custom components with fragment at the root', async () => {
+  it('works with custom components with fragment at the root', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -181,7 +181,7 @@ describe('Tailwind component', () => {
     ).toMatchSnapshot();
   });
 
-  it('should work with components that return children', async () => {
+  it('works with components that return children', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -208,7 +208,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should work with Heading component', async () => {
+  it('works with Heading component', async () => {
     const EmailTemplate = () => {
       return (
         <Tailwind>
@@ -222,7 +222,7 @@ describe('Tailwind component', () => {
     expect(await render(<EmailTemplate />)).toMatchSnapshot();
   });
 
-  it('should work with components that use React.forwardRef', async () => {
+  it('works with components that use React.forwardRef', async () => {
     const Wrapper = (props: { children: React.ReactNode }) => {
       return <Tailwind>{props.children}</Tailwind>;
     };
@@ -254,7 +254,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use background image', async () => {
+  it('uses background image', async () => {
     const actualOutput = await render(
       <Tailwind>
         <div className="bg-[url(https://example.com/image.png)]" />
@@ -264,7 +264,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should not override inline styles with Tailwind styles', async () => {
+  it('does not override inline styles with Tailwind styles', async () => {
     const actualOutput = await render(
       <Tailwind>
         <div
@@ -277,7 +277,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should override component styles with Tailwind styles', async () => {
+  it('overrides component styles with Tailwind styles', async () => {
     const actualOutput = await render(
       <Tailwind>
         <Hr className="w-12" />
@@ -287,7 +287,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toContain('width:3rem');
   });
 
-  it('should preserve mso styles', async () => {
+  it('preserves mso styles', async () => {
     const actualOutput = await render(
       <Html>
         <Tailwind>
@@ -305,7 +305,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should recognize custom responsive screen', async () => {
+  it('recognizes custom responsive screen', async () => {
     const config: TailwindConfig = {
       theme: {
         screens: {
@@ -330,7 +330,7 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should work with calc() with + sign', async () => {
+  it('works with calc() with + sign', async () => {
     const actualOutput = await render(
       <Tailwind>
         <head />
@@ -356,7 +356,7 @@ describe('non-inlinable styles', () => {
     and apply the styles there. This also fixes the issue where it would not be allowed to use
     Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
   */
-  it('should work with arbitrarily deep (in the React tree) <head> elements', async () => {
+  it('works with arbitrarily deep (in the React tree) <head> elements', async () => {
     expect(
       await render(
         <Tailwind>
@@ -388,7 +388,7 @@ describe('non-inlinable styles', () => {
     ).toMatchSnapshot();
   });
 
-  it('should not have duplicate media queries', async () => {
+  it('does not have duplicate media queries', async () => {
     const Body = (props: { className: string; children: React.ReactNode }) => {
       return <body className={props.className}>{props.children}</body>;
     };
@@ -407,7 +407,7 @@ describe('non-inlinable styles', () => {
     expect(output).toMatchSnapshot();
   });
 
-  it('should add css to <head/> and keep class names', async () => {
+  it('adds css to <head/> and keep class names', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
@@ -422,7 +422,7 @@ describe('non-inlinable styles', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should throw error when used without the head and with media query class names only very deeply nested', async () => {
+  it('throws error when used without the head and with media query class names only very deeply nested', async () => {
     const Component1 = (props: Record<string, any>) => {
       return (
         <div {...props} className="h-30 w-40 sm:h-10 sm:w-10">
@@ -462,7 +462,7 @@ describe('non-inlinable styles', () => {
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 
-  it('should work with relatively complex media query utilities', async () => {
+  it('works with relatively complex media query utilities', async () => {
     const Email = () => {
       return (
         <Tailwind>
@@ -475,7 +475,7 @@ describe('non-inlinable styles', () => {
     expect(await render(<Email />)).toMatchSnapshot();
   });
 
-  it('should throw an error when used without a <head/>', async () => {
+  it('throws an error when used without a <head/>', async () => {
     function noHead() {
       return render(
         <Tailwind>
@@ -489,7 +489,7 @@ describe('non-inlinable styles', () => {
     await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
   });
 
-  it('should persist existing <head/> elements', async () => {
+  it('persists existing <head/> elements', async () => {
     const actualOutput = await render(
       <html lang="en">
         <Tailwind>
@@ -509,7 +509,7 @@ describe('non-inlinable styles', () => {
 });
 
 describe('Custom theme config', () => {
-  it('should be able to use custom colors', async () => {
+  it('uses custom colors', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -529,7 +529,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom fonts', async () => {
+  it('uses custom fonts', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -551,7 +551,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom spacing', async () => {
+  it('uses custom spacing', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -569,7 +569,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom border radius', async () => {
+  it('uses custom border radius', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -587,7 +587,7 @@ describe('Custom theme config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom text alignment', async () => {
+  it('uses custom text alignment', async () => {
     const config: TailwindConfig = {
       theme: {
         extend: {
@@ -609,7 +609,7 @@ describe('Custom theme config', () => {
 });
 
 describe('Custom plugins config', () => {
-  it('should be able to use custom plugins', async () => {
+  it('uses custom plugins', async () => {
     const config: TailwindConfig = {
       plugins: [
         ({ addUtilities }: any) => {
@@ -633,7 +633,7 @@ describe('Custom plugins config', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should be able to use custom plugins with responsive styles', async () => {
+  it('uses custom plugins with responsive styles', async () => {
     const config: TailwindConfig = {
       plugins: [
         ({ addUtilities }: any) => {

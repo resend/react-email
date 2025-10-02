@@ -2,7 +2,7 @@ import { parse } from 'postcss';
 import { resolveAllCSSVariables } from './resolve-all-css-variables';
 
 describe('resolveAllCSSVariables', () => {
-  it('should work with simple css variables on a :root', () => {
+  it('works with simple css variables on a :root', () => {
     const root = parse(`:root {
   --width: 100px;
 }
@@ -16,7 +16,7 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
-  it('should work with multiple variables in the same declaration', () => {
+  it('works with multiple variables in the same declaration', () => {
     const root = parse(`:root {
       --top: 101px;
       --bottom: 102px;
@@ -33,7 +33,7 @@ describe('resolveAllCSSVariables', () => {
     }`);
   });
 
-  it('should keep variable usages if it cant find their declaration', () => {
+  it('keeps variable usages if it cant find their declaration', () => {
     const root = parse(`.box {
   width: var(--width);
 }`);
@@ -43,7 +43,7 @@ describe('resolveAllCSSVariables', () => {
 }`);
   });
 
-  it('should work with variables set in the same rule', () => {
+  it('works with variables set in the same rule', () => {
     const root = parse(`.box {
   --width: 200px;
   width: var(--width);
@@ -68,7 +68,7 @@ describe('resolveAllCSSVariables', () => {
 `);
   });
 
-  it('should work with different values between media queries', () => {
+  it('works with different values between media queries', () => {
     const root = parse(`:root {
   --width: 100px;
 }
