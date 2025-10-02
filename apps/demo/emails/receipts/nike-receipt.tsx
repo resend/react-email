@@ -11,10 +11,10 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
-import type * as React from 'react';
+import tailwindConfig from '../tailwind.config';
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -23,442 +23,318 @@ const baseUrl = process.env.VERCEL_URL
 export const NikeReceiptEmail = () => (
   <Html>
     <Head />
-    <Body style={main}>
-      <Preview>
-        Get your order summary, estimated delivery date and more
-      </Preview>
-      <Container style={container}>
-        <Section style={track.container}>
-          <Row>
-            <Column>
-              <Text style={global.paragraphWithBold}>Tracking Number</Text>
-              <Text style={track.number}>1ZV218970300071628</Text>
-            </Column>
-            <Column align="right">
-              <Link style={global.button}>Track Package</Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={message}>
-          <Img
-            src={`${baseUrl}/static/nike-logo.png`}
-            width="66"
-            height="22"
-            alt="Nike"
-            style={{ margin: 'auto' }}
-          />
-          <Heading style={global.heading}>It's On Its Way.</Heading>
-          <Text style={global.text}>
-            You order's is on its way. Use the link above to track its progress.
-          </Text>
-          <Text style={{ ...global.text, marginTop: 24 }}>
-            We´ve also charged your payment method for the cost of your order
-            and will be removing any authorization holds. For payment details,
-            please visit your Orders page on Nike.com or in the Nike app.
-          </Text>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={global.defaultPadding}>
-          <Text style={adressTitle}>Shipping to: Alan Turing</Text>
-          <Text style={{ ...global.text, fontSize: 14 }}>
-            2125 Chestnut St, San Francisco, CA 94123
-          </Text>
-        </Section>
-        <Hr style={global.hr} />
-        <Section
-          style={{ ...paddingX, paddingTop: '40px', paddingBottom: '40px' }}
-        >
-          <Row>
-            <Column>
-              <Img
-                src={`${baseUrl}/static/nike-product.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                style={{ float: 'left' }}
-                width="260px"
-              />
-            </Column>
-            <Column style={{ verticalAlign: 'top', paddingLeft: '12px' }}>
-              <Text style={{ ...paragraph, fontWeight: '500' }}>
-                Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-              <Text style={global.text}>Size L (12–14)</Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={global.defaultPadding}>
-          <Row style={{ display: 'inline-flex', marginBottom: 40 }}>
-            <Column style={{ width: '170px' }}>
-              <Text style={global.paragraphWithBold}>Order Number</Text>
-              <Text style={track.number}>C0106373851</Text>
-            </Column>
-            <Column>
-              <Text style={global.paragraphWithBold}>Order Date</Text>
-              <Text style={track.number}>Sep 22, 2022</Text>
-            </Column>
-          </Row>
-          <Row>
-            <Column align="center">
-              <Link style={global.button}>Order Status</Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={paddingY}>
-          <Row>
-            <Text style={global.heading}>Top Picks For You</Text>
-          </Row>
-          <Row style={recomendations.container}>
-            <Column
-              style={{ ...recomendations.product, paddingLeft: '4px' }}
-              align="center"
-            >
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-1.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>
-                USWNT 2022/23 Stadium Home
-              </Text>
-              <Text style={recomendations.text}>
-                Women's Nike Dri-FIT Soccer Jersey
-              </Text>
-            </Column>
-            <Column style={recomendations.product} align="center">
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-2.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>
-                Brazil 2022/23 Stadium Goalkeeper
-              </Text>
-              <Text style={recomendations.text}>
-                Men's Nike Dri-FIT Short-Sleeve Football Shirt
-              </Text>
-            </Column>
-            <Column style={recomendations.product} align="center">
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>FFF</Text>
-              <Text style={recomendations.text}>Women's Soccer Jacket</Text>
-            </Column>
-            <Column
-              style={{ ...recomendations.product, paddingRight: '4px' }}
-              align="center"
-            >
-              <Img
-                src={`${baseUrl}/static/nike-recomendation-4.png`}
-                alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
-                width="100%"
-              />
-              <Text style={recomendations.title}>FFF</Text>
-              <Text style={recomendations.text}>
-                Women's Nike Pre-Match Football Top
-              </Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={menu.container}>
-          <Row>
-            <Text style={menu.title}>Get Help</Text>
-          </Row>
-          <Row style={menu.content}>
-            <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="https://www.nike.com/" style={menu.text}>
-                Shipping Status
-              </Link>
-            </Column>
-            <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="https://www.nike.com/" style={menu.text}>
-                Shipping & Delivery
-              </Link>
-            </Column>
-            <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="https://www.nike.com/" style={menu.text}>
-                Returns & Exchanges
-              </Link>
-            </Column>
-          </Row>
-          <Row style={{ ...menu.content, paddingTop: '0' }}>
-            <Column style={{ width: '33%' }} colSpan={1}>
-              <Link href="https://www.nike.com/" style={menu.text}>
-                How to Return
-              </Link>
-            </Column>
-            <Column style={{ width: '66%' }} colSpan={2}>
-              <Link href="https://www.nike.com/" style={menu.text}>
-                Contact Options
-              </Link>
-            </Column>
-          </Row>
-          <Hr style={global.hr} />
-          <Row style={menu.tel}>
-            <Column>
-              <Row>
-                <Column style={{ width: '16px' }}>
-                  <Img
-                    src={`${baseUrl}/static/nike-phone.png`}
-                    alt="Nike Phone"
-                    width="16px"
-                    height="26px"
-                    style={{ paddingRight: '14px' }}
-                  />
-                </Column>
-                <Column>
-                  <Text style={{ ...menu.text, marginBottom: '0' }}>
-                    1-800-806-6453
-                  </Text>
-                </Column>
-              </Row>
-            </Column>
-            <Column>
-              <Text
-                style={{
-                  ...menu.text,
-                  marginBottom: '0',
-                }}
-              >
-                4 am - 11 pm PT
-              </Text>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={global.hr} />
-        <Section style={paddingY}>
-          <Row>
-            <Text style={global.heading}>Nike.com</Text>
-          </Row>
-          <Row style={categories.container}>
-            <Column align="center">
-              <Link href="https://www.nike.com/" style={categories.text}>
-                Men
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="https://www.nike.com/" style={categories.text}>
-                Women
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="https://www.nike.com/" style={categories.text}>
-                Kids
-              </Link>
-            </Column>
-            <Column align="center">
-              <Link href="https://www.nike.com/" style={categories.text}>
-                Customize
-              </Link>
-            </Column>
-          </Row>
-        </Section>
-        <Hr style={{ ...global.hr, marginTop: '12px' }} />
-        <Section style={paddingY}>
-          <Row style={footer.policy}>
-            <Column>
-              <Text style={footer.text}>Web Version</Text>
-            </Column>
-            <Column>
-              <Text style={footer.text}>Privacy Policy</Text>
-            </Column>
-          </Row>
-          <Row>
-            <Text style={{ ...footer.text, paddingTop: 30, paddingBottom: 30 }}>
-              Please contact us if you have any questions. (If you reply to this
-              email, we won't be able to see it.)
+    <Tailwind config={tailwindConfig}>
+      <Body className="bg-white font-nike">
+        <Preview>
+          Get your order summary, estimated delivery date and more
+        </Preview>
+        <Container className="my-3 mx-auto w-[600px] max-w-full border border-[#E5E5E5]">
+          <Section className="py-6 px-10 bg-[#F7F7F7]">
+            <Row>
+              <Column>
+                <Text className="m-0 leading-8 font-bold">Tracking Number</Text>
+                <Text className="mt-3 mb-0 font-medium leading-[1.4] text-[#6F6F6F]">
+                  1ZV218970300071628
+                </Text>
+              </Column>
+              <Column align="right">
+                <Link className="border border-solid border-[#929292] text-base no-underline py-3 px-0 w-[220px] block text-center font-medium text-black">
+                  Track Package
+                </Link>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-10 px-20 text-center">
+            <Img
+              src={`${baseUrl}/static/nike-logo.png`}
+              width="66"
+              height="22"
+              alt="Nike"
+              className="mx-auto"
+            />
+            <Heading className="text-3xl leading-[1.3] font-bold text-center tracking-tight">
+              It's On Its Way.
+            </Heading>
+            <Text className="m-0 leading-8 text-[#747474] font-medium">
+              You order's is on its way. Use the link above to track its
+              progress.
             </Text>
-          </Row>
-          <Row>
-            <Text style={footer.text}>
-              © 2022 Nike, Inc. All Rights Reserved.
+            <Text className="m-0 leading-8 text-[#747474] font-medium mt-6">
+              We´ve also charged your payment method for the cost of your order
+              and will be removing any authorization holds. For payment details,
+              please visit your Orders page on Nike.com or in the Nike app.
             </Text>
-          </Row>
-          <Row>
-            <Text style={footer.text}>
-              NIKE, INC. One Bowerman Drive, Beaverton, Oregon 97005, USA.
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-6 px-10">
+            <Text className="m-0 leading-8 text-[15px] font-bold">
+              Shipping to: Alan Turing
             </Text>
-          </Row>
-        </Section>
-      </Container>
-    </Body>
+            <Text className="m-0 leading-8 text-[#747474] font-medium text-sm">
+              2125 Chestnut St, San Francisco, CA 94123
+            </Text>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-10 px-10">
+            <Row>
+              <Column>
+                <Img
+                  src={`${baseUrl}/static/nike-product.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  className="float-left"
+                  width="260px"
+                />
+              </Column>
+              <Column className="align-top pl-3">
+                <Text className="m-0 leading-8 font-medium">
+                  Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey
+                </Text>
+                <Text className="m-0 leading-8 text-[#747474] font-medium">
+                  Size L (12–14)
+                </Text>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-6 px-10">
+            <Row className="inline-flex mb-10">
+              <Column className="w-[170px]">
+                <Text className="m-0 leading-8 font-bold">Order Number</Text>
+                <Text className="mt-3 mb-0 font-medium leading-[1.4] text-[#6F6F6F]">
+                  C0106373851
+                </Text>
+              </Column>
+              <Column>
+                <Text className="m-0 leading-8 font-bold">Order Date</Text>
+                <Text className="mt-3 mb-0 font-medium leading-[1.4] text-[#6F6F6F]">
+                  Sep 22, 2022
+                </Text>
+              </Column>
+            </Row>
+            <Row>
+              <Column align="center">
+                <Link className="border border-[#929292] text-base no-underline py-3 px-0 w-[220px] block text-center font-medium text-black">
+                  Order Status
+                </Link>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-6">
+            <Row>
+              <Text className="text-3xl leading-[1.3] font-bold text-center tracking-tight">
+                Top Picks For You
+              </Text>
+            </Row>
+            <Row className="py-5">
+              <Column className="align-top text-left px-1 pl-1" align="center">
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-1.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="100%"
+                />
+                <Text className="m-0 text-[15px] leading-none px-3 pt-3 font-medium">
+                  USWNT 2022/23 Stadium Home
+                </Text>
+                <Text className="m-0 text-[15px] leading-none px-3 pt-1 text-[#747474]">
+                  Women's Nike Dri-FIT Soccer Jersey
+                </Text>
+              </Column>
+              <Column className="align-top text-left px-1" align="center">
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-2.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="100%"
+                />
+                <Text className="m-0 text-[15px] leading-none px-3 pt-3 font-medium">
+                  Brazil 2022/23 Stadium Goalkeeper
+                </Text>
+                <Text className="m-0 text-[15px] leading-none px-3 pt-1 text-[#747474]">
+                  Men's Nike Dri-FIT Short-Sleeve Football Shirt
+                </Text>
+              </Column>
+              <Column className="align-top text-left px-1" align="center">
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-4.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="100%"
+                />
+                <Text className="m-0 text-[15px] leading-none px-3 pt-3 font-medium">
+                  FFF
+                </Text>
+                <Text className="m-0 text-[15px] leading-none px-3 pt-1 text-[#747474]">
+                  Women's Soccer Jacket
+                </Text>
+              </Column>
+              <Column className="align-top text-left px-1 pr-1" align="center">
+                <Img
+                  src={`${baseUrl}/static/nike-recomendation-4.png`}
+                  alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
+                  width="100%"
+                />
+                <Text className="m-0 text-[15px] leading-none px-3 pt-3 font-medium">
+                  FFF
+                </Text>
+                <Text className="m-0 text-[15px] leading-none px-3 pt-1 text-[#747474]">
+                  Women's Nike Pre-Match Football Top
+                </Text>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="px-5 pt-5 bg-[#F7F7F7]">
+            <Row>
+              <Text className="px-5 font-bold">Get Help</Text>
+            </Row>
+            <Row className="py-6 px-5">
+              <Column className="w-1/3" colSpan={1}>
+                <Link
+                  href="https://www.nike.com/"
+                  className="text-[13.5px] mt-0 font-medium text-black"
+                >
+                  Shipping Status
+                </Link>
+              </Column>
+              <Column className="w-1/3" colSpan={1}>
+                <Link
+                  href="https://www.nike.com/"
+                  className="text-[13.5px] mt-0 font-medium text-black"
+                >
+                  Shipping & Delivery
+                </Link>
+              </Column>
+              <Column className="w-1/3" colSpan={1}>
+                <Link
+                  href="https://www.nike.com/"
+                  className="text-[13.5px] mt-0 font-medium text-black"
+                >
+                  Returns & Exchanges
+                </Link>
+              </Column>
+            </Row>
+            <Row className="pb-6 px-5 pt-0">
+              <Column className="w-1/3" colSpan={1}>
+                <Link
+                  href="https://www.nike.com/"
+                  className="text-[13.5px] mt-0 font-medium text-black"
+                >
+                  How to Return
+                </Link>
+              </Column>
+              <Column className="w-2/3" colSpan={2}>
+                <Link
+                  href="https://www.nike.com/"
+                  className="text-[13.5px] mt-0 font-medium text-black"
+                >
+                  Contact Options
+                </Link>
+              </Column>
+            </Row>
+            <Hr className="border-[#E5E5E5] m-0" />
+            <Row className="px-5 pt-8 pb-6">
+              <Column>
+                <Row>
+                  <Column className="w-4">
+                    <Img
+                      src={`${baseUrl}/static/nike-phone.png`}
+                      alt="Nike Phone"
+                      width="16px"
+                      height="26px"
+                      className="pr-4"
+                    />
+                  </Column>
+                  <Column>
+                    <Text className="text-[13.5px] mt-0 font-medium text-black mb-0">
+                      1-800-806-6453
+                    </Text>
+                  </Column>
+                </Row>
+              </Column>
+              <Column>
+                <Text className="text-[13.5px] mt-0 font-medium text-black mb-0">
+                  4 am - 11 pm PT
+                </Text>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0" />
+          <Section className="py-6">
+            <Row>
+              <Text className="text-3xl leading-[1.3] font-bold text-center tracking-tight">
+                Nike.com
+              </Text>
+            </Row>
+            <Row className="w-[370px] mx-auto pt-3">
+              <Column align="center">
+                <Link
+                  href="https://www.nike.com/"
+                  className="font-medium text-black"
+                >
+                  Men
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link
+                  href="https://www.nike.com/"
+                  className="font-medium text-black"
+                >
+                  Women
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link
+                  href="https://www.nike.com/"
+                  className="font-medium text-black"
+                >
+                  Kids
+                </Link>
+              </Column>
+              <Column align="center">
+                <Link
+                  href="https://www.nike.com/"
+                  className="font-medium text-black"
+                >
+                  Customize
+                </Link>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="border-[#E5E5E5] m-0 mt-3" />
+          <Section className="py-6">
+            <Row className="w-[166px] mx-auto">
+              <Column>
+                <Text className="m-0 text-[#AFAFAF] text-[13px] text-center">
+                  Web Version
+                </Text>
+              </Column>
+              <Column>
+                <Text className="m-0 text-[#AFAFAF] text-[13px] text-center">
+                  Privacy Policy
+                </Text>
+              </Column>
+            </Row>
+            <Row>
+              <Text className="m-0 text-[#AFAFAF] text-[13px] text-center py-8">
+                Please contact us if you have any questions. (If you reply to
+                this email, we won't be able to see it.)
+              </Text>
+            </Row>
+            <Row>
+              <Text className="m-0 text-[#AFAFAF] text-[13px] text-center">
+                © 2022 Nike, Inc. All Rights Reserved.
+              </Text>
+            </Row>
+            <Row>
+              <Text className="m-0 text-[#AFAFAF] text-[13px] text-center">
+                NIKE, INC. One Bowerman Drive, Beaverton, Oregon 97005, USA.
+              </Text>
+            </Row>
+          </Section>
+        </Container>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
 export default NikeReceiptEmail;
-
-const paddingX = {
-  paddingLeft: '40px',
-  paddingRight: '40px',
-};
-
-const paddingY = {
-  paddingTop: '22px',
-  paddingBottom: '22px',
-};
-
-const paragraph = {
-  margin: '0',
-  lineHeight: '2',
-};
-
-const global = {
-  paddingX,
-  paddingY,
-  defaultPadding: {
-    ...paddingX,
-    ...paddingY,
-  },
-  paragraphWithBold: { ...paragraph, fontWeight: 'bold' },
-  heading: {
-    fontSize: '32px',
-    lineHeight: '1.3',
-    fontWeight: '700',
-    textAlign: 'center',
-    letterSpacing: '-1px',
-  } as React.CSSProperties,
-  text: {
-    ...paragraph,
-    color: '#747474',
-    fontWeight: '500',
-  },
-  button: {
-    border: '1px solid #929292',
-    fontSize: '16px',
-    textDecoration: 'none',
-    padding: '10px 0px',
-    width: '220px',
-    display: 'block',
-    textAlign: 'center',
-    fontWeight: 500,
-    color: '#000',
-  } as React.CSSProperties,
-  hr: {
-    borderColor: '#E5E5E5',
-    margin: '0',
-  },
-};
-
-const main = {
-  backgroundColor: '#ffffff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const container = {
-  margin: '10px auto',
-  width: '600px',
-  maxWidth: '100%',
-  border: '1px solid #E5E5E5',
-};
-
-const track = {
-  container: {
-    padding: '22px 40px',
-    backgroundColor: '#F7F7F7',
-  },
-  number: {
-    margin: '12px 0 0 0',
-    fontWeight: 500,
-    lineHeight: '1.4',
-    color: '#6F6F6F',
-  },
-};
-
-const message = {
-  padding: '40px 74px',
-  textAlign: 'center',
-} as React.CSSProperties;
-
-const adressTitle = {
-  ...paragraph,
-  fontSize: '15px',
-  fontWeight: 'bold',
-};
-
-const recomendationsText = {
-  margin: '0',
-  fontSize: '15px',
-  lineHeight: '1',
-  paddingLeft: '10px',
-  paddingRight: '10px',
-};
-
-const recomendations = {
-  container: {
-    padding: '20px 0',
-  },
-  product: {
-    verticalAlign: 'top',
-    textAlign: 'left' as const,
-    paddingLeft: '2px',
-    paddingRight: '2px',
-  },
-  title: { ...recomendationsText, paddingTop: '12px', fontWeight: '500' },
-  text: {
-    ...recomendationsText,
-    paddingTop: '4px',
-    color: '#747474',
-  },
-};
-
-const menu = {
-  container: {
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    paddingTop: '20px',
-    backgroundColor: '#F7F7F7',
-  },
-  content: {
-    ...paddingY,
-    paddingLeft: '20px',
-    paddingRight: '20px',
-  },
-  title: {
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    fontWeight: 'bold',
-  },
-  text: {
-    fontSize: '13.5px',
-    marginTop: 0,
-    fontWeight: 500,
-    color: '#000',
-  },
-  tel: {
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    paddingTop: '32px',
-    paddingBottom: '22px',
-  },
-};
-
-const categories = {
-  container: {
-    width: '370px',
-    margin: 'auto',
-    paddingTop: '12px',
-  },
-  text: {
-    fontWeight: '500',
-    color: '#000',
-  },
-};
-
-const footer = {
-  policy: {
-    width: '166px',
-    margin: 'auto',
-  },
-  text: {
-    margin: '0',
-    color: '#AFAFAF',
-    fontSize: '13px',
-    textAlign: 'center',
-  } as React.CSSProperties,
-};
