@@ -82,13 +82,13 @@ function separteShorthandDeclaration(
   const values =
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
-        .toArray()
-        .filter(
-          (child) =>
-            child.type === 'Dimension' ||
-            child.type === 'Number' ||
-            child.type === 'Percentage',
-        )
+          .toArray()
+          .filter(
+            (child) =>
+              child.type === 'Dimension' ||
+              child.type === 'Number' ||
+              child.type === 'Percentage',
+          )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
   if (values.length === 2) {
