@@ -89,7 +89,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should work with simple css variables on a :root', () => {
+  it('works with simple css variables on a :root', () => {
     const root = parse(`:root {
   --width: 100px;
 }
@@ -101,7 +101,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should work for variables across different CSS layers', () => {
+  it('works for variables across different CSS layers', () => {
     const root = parse(`@layer base {
       :root {
         --width: 100px;
@@ -117,7 +117,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should work with multiple variables in the same declaration', () => {
+  it('works with multiple variables in the same declaration', () => {
     const root = parse(`:root {
       --top: 101px;
       --bottom: 102px;
@@ -133,7 +133,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should keep variable usages if it cant find their declaration', () => {
+  it('keeps variable usages if it cant find their declaration', () => {
     const root = parse(`.box {
   width: var(--width);
 }`);
@@ -141,7 +141,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should work with variables set in the same rule', () => {
+  it('works with variables set in the same rule', () => {
     const root = parse(`.box {
   --width: 200px;
   width: var(--width);
@@ -158,7 +158,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should work with a variable set in a layer, and used in another through a media query', () => {
+  it('works with a variable set in a layer, and used in another through a media query', () => {
     const root = parse(`@layer theme {
   :root {
     --color-blue-300: blue;
@@ -186,7 +186,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should handle nested var() functions in fallbacks', () => {
+  it('handles nested var() functions in fallbacks', () => {
     const root = parse(`:root {
   --fallback-width: 300px;
 }
@@ -199,7 +199,7 @@ describe('resolveAllCSSVariables', () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should handle deeply nested var() functions with complex parentheses', () => {
+  it('handles deeply nested var() functions with complex parentheses', () => {
     const root = parse(`:root {
   --primary: blue;
   --secondary: red;

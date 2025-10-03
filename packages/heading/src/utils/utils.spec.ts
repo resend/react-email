@@ -2,25 +2,25 @@ import type { Margin } from './spaces';
 import { withMargin, withSpace } from './spaces';
 
 describe('withMargin', () => {
-  it('should return an empty object for empty input', () => {
+  it('returns an empty object for empty input', () => {
     const marginProps: Margin = {};
     const result = withMargin(marginProps);
     expect(result).toEqual({});
   });
 
-  it('should apply margin to the top', () => {
+  it('applies margin to the top', () => {
     const marginProps: Margin = { mt: '10' };
     const result = withMargin(marginProps);
     expect(result).toEqual({ marginTop: '10px' });
   });
 
-  it('should apply margin to the left and right', () => {
+  it('applies margin to the left and right', () => {
     const marginProps: Margin = { mx: '20' };
     const result = withMargin(marginProps);
     expect(result).toEqual({ marginLeft: '20px', marginRight: '20px' });
   });
 
-  it('should apply margin to the top and bottom', () => {
+  it('applies margin to the top and bottom', () => {
     const marginProps: Margin = { my: '15' };
     const result = withMargin(marginProps);
     expect(result).toEqual({
@@ -29,7 +29,7 @@ describe('withMargin', () => {
     });
   });
 
-  it('should apply margin to all sides', () => {
+  it('applies margin to all sides', () => {
     const marginProps: Margin = { m: '25' };
     const result = withMargin(marginProps);
     expect(result).toEqual({
@@ -37,7 +37,7 @@ describe('withMargin', () => {
     });
   });
 
-  it('should apply margin to specified sides when provided', () => {
+  it('applies margin to specified sides when provided', () => {
     const marginProps: Margin = { mt: '5', mr: '10', mb: '15', ml: '20' };
     const result = withMargin(marginProps);
     expect(result).toEqual({
@@ -48,7 +48,7 @@ describe('withMargin', () => {
     });
   });
 
-  it('should ignore invalid margin values', () => {
+  it('ignores invalid margin values', () => {
     const marginProps: Margin = { m: 'invalid', mt: '5', mx: 'valid' };
     const result = withMargin(marginProps);
     expect(result).toEqual({
@@ -58,12 +58,12 @@ describe('withMargin', () => {
 });
 
 describe('withSpace', () => {
-  it('should return an empty object for undefined value', () => {
+  it('returns an empty object for undefined value', () => {
     const result = withSpace(undefined, ['margin']);
     expect(result).toEqual({});
   });
 
-  it('should apply space to the specified properties', () => {
+  it('applies space to the specified properties', () => {
     const result = withSpace(15, ['marginTop', 'marginLeft']);
     expect(result).toEqual({ marginTop: '15px', marginLeft: '15px' });
   });

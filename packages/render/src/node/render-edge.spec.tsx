@@ -43,7 +43,7 @@ describe('render on the edge', () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('should handle characters with a higher byte count gracefully in React 18', async () => {
+  it('handles characters with a higher byte count gracefully in React 18', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
@@ -142,7 +142,7 @@ describe('render on the edge', () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('should render large emails without hydration markers', async () => {
+  it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)

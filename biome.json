@@ -47,7 +47,6 @@
         "useShorthandFunctionType": "error"
       },
       "performance": {
-        "noAccumulatingSpread": "off",
         "noDelete": "off"
       },
       "a11y": {

@@ -7,7 +7,7 @@ vi.mock('@babel/traverse', async () => {
 });
 
 describe('getImportedModules()', () => {
-  it('should work with this test file', async () => {
+  it('works with this test file', async () => {
     const contents = await fs.readFile(import.meta.filename, 'utf8');
 
     expect(getImportedModules(contents)).toEqual([
@@ -16,7 +16,7 @@ describe('getImportedModules()', () => {
     ]);
   });
 
-  it('should work with direct exports', () => {
+  it('works with direct exports', () => {
     const contents = `export * from './component-a';
     export { ComponentB } from './component-b'; 
 
@@ -29,7 +29,7 @@ describe('getImportedModules()', () => {
     ]);
   });
 
-  it('should work with regular imports and double quotes', () => {
+  it('works with regular imports and double quotes', () => {
     const contents = `import {
   Body,
   Button,
@@ -59,7 +59,7 @@ import * as React from "react";
     ]);
   });
 
-  it('should work with regular imports and single quotes', () => {
+  it('works with regular imports and single quotes', () => {
     const contents = `import {
   Body,
   Button,
@@ -89,7 +89,7 @@ import * as React from 'react';
     ]);
   });
 
-  it('should work with commonjs require with double quotes', () => {
+  it('works with commonjs require with double quotes', () => {
     const contents = `const {
   Body,
   Button,
@@ -119,7 +119,7 @@ const React = require("react");
     ]);
   });
 
-  it('should work with commonjs require with single quotes', () => {
+  it('works with commonjs require with single quotes', () => {
     const contents = `const {
   Body,
   Button,

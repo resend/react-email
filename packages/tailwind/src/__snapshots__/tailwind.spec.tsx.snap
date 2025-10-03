@@ -2,17 +2,15 @@
 
 exports[`Tailwind component > <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md"> 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);color:rgb(229,231,235);font-size:0.875rem;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px">Testing button</span><span><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`;
 
-exports[`Tailwind component > it should not generate styles from text 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`;
+exports[`Tailwind component > allows for complex children manipulation 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`;
 
-exports[`Tailwind component > should allow for complex children manipulation 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`;
+exports[`Tailwind component > does not override inline styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`;
 
-exports[`Tailwind component > should be able to use background image 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-image:url(https://example.com/image.png)"></div><!--/$-->"`;
+exports[`Tailwind component > doesn't generate styles from text 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`;
 
-exports[`Tailwind component > should not override inline styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`;
+exports[`Tailwind component > overrides component styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:100%;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`;
 
-exports[`Tailwind component > should override component styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:100%;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`;
-
-exports[`Tailwind component > should preserve mso styles 1`] = `
+exports[`Tailwind component > preserves mso styles 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>
@@ -33,7 +31,7 @@ exports[`Tailwind component > should preserve mso styles 1`] = `
 "
 `;
 
-exports[`Tailwind component > should recognize custom responsive screen 1`] = `
+exports[`Tailwind component > recognizes custom responsive screen 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
   <head>
@@ -53,55 +51,11 @@ exports[`Tailwind component > should recognize custom responsive screen 1`] = `
 "
 `;
 
-exports[`Tailwind component > should render children with inline Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(255,255,255)"></div><!--/$-->"`;
+exports[`Tailwind component > renders children with inline Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(255,255,255)"></div><!--/$-->"`;
 
-exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
+exports[`Tailwind component > uses background image 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-image:url(https://example.com/image.png)"></div><!--/$-->"`;
 
-exports[`Tailwind component > should work with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
-
-exports[`Tailwind component > should work with blocklist 1`] = `
-"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  <meta name="x-apple-disable-message-reformatting" />
-  <!--$-->
-  <style>
-    .md_p-4{@media (width>=48rem){padding:1rem!important}}
-  </style>
-</head>
-<body>
-  <button type="button" class="bg-blue-600 md_p-4">Click me</button
-  ><!--/$-->
-</body>
-"
-`;
-
-exports[`Tailwind component > should work with calc() with + sign 1`] = `
-"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<head>
-  <!--$-->
-  <style>
-    .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
-  </style>
-</head>
-<div
-  class="lg_max-h-calc50pxplus5rem"
-  style="max-height:calc(50px + 3rem);background-color:rgb(255,226,226)">
-  <div style="height:200px">something tall</div>
-</div>
-<!--/$-->
-"
-`;
-
-exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`;
-
-exports[`Tailwind component > should work with components that return children 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
-
-exports[`Tailwind component > should work with components that use React.forwardRef 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
-
-exports[`Tailwind component > should work with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
-
-exports[`Tailwind component > with custom plugins config > should be able to use custom plugins 1`] = `
+exports[`Tailwind component > with custom plugins config > supports custom plugins 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="border:2px solid"></div>
@@ -109,7 +63,7 @@ exports[`Tailwind component > with custom plugins config > should be able to use
 "
 `;
 
-exports[`Tailwind component > with custom plugins config > should be able to use custom plugins with responsive styles 1`] = `
+exports[`Tailwind component > with custom plugins config > supports custom plugins with responsive styles 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
   <head>
@@ -126,7 +80,7 @@ exports[`Tailwind component > with custom plugins config > should be able to use
 "
 `;
 
-exports[`Tailwind component > with custom theme config > should be able to use custom border radius 1`] = `
+exports[`Tailwind component > with custom theme config > supports custom border radius 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="border-radius:2rem"></div>
@@ -134,7 +88,7 @@ exports[`Tailwind component > with custom theme config > should be able to use c
 "
 `;
 
-exports[`Tailwind component > with custom theme config > should be able to use custom colors 1`] = `
+exports[`Tailwind component > with custom theme config > supports custom colors 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>
@@ -142,7 +96,7 @@ exports[`Tailwind component > with custom theme config > should be able to use c
 "
 `;
 
-exports[`Tailwind component > with custom theme config > should be able to use custom fonts 1`] = `
+exports[`Tailwind component > with custom theme config > supports custom fonts 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="font-family:Graphik,sans-serif"></div>
@@ -151,7 +105,7 @@ exports[`Tailwind component > with custom theme config > should be able to use c
 "
 `;
 
-exports[`Tailwind component > with custom theme config > should be able to use custom spacing 1`] = `
+exports[`Tailwind component > with custom theme config > supports custom spacing 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="margin:96rem"></div>
@@ -159,7 +113,7 @@ exports[`Tailwind component > with custom theme config > should be able to use c
 "
 `;
 
-exports[`Tailwind component > with custom theme config > should be able to use custom text alignment 1`] = `
+exports[`Tailwind component > with custom theme config > supports custom text alignment 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="text-align:justify"></div>
@@ -167,7 +121,7 @@ exports[`Tailwind component > with custom theme config > should be able to use c
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should add css to <head/> and keep class names 1`] = `
+exports[`Tailwind component > with non-inlinable styles > adds css to <head/> and keep class names 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
   <head>
@@ -186,7 +140,7 @@ exports[`Tailwind component > with non-inlinable styles > should add css to <hea
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should persist existing <head/> elements 1`] = `
+exports[`Tailwind component > with non-inlinable styles > persists existing <head/> elements 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
   <head>
@@ -205,7 +159,7 @@ exports[`Tailwind component > with non-inlinable styles > should persist existin
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should throw an error when used without a <head/> 1`] = `
+exports[`Tailwind component > with non-inlinable styles > throws an error when used without a <head/> 1`] = `
 [Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:bg-red-500.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
@@ -217,7 +171,7 @@ If you do already have a <head> element at some depth,
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should throw error when used without the head and with media query class names very deeply nested 1`] = `
+exports[`Tailwind component > with non-inlinable styles > throws error when used without the head and with media query class names very deeply nested 1`] = `
 [Error: You are trying to use the following Tailwind classes that cannot be inlined: sm:h-10 sm:w-10.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
@@ -229,7 +183,7 @@ If you do already have a <head> element at some depth,
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.]
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 1`] = `
+exports[`Tailwind component > with non-inlinable styles > works with arbitrarily deep (in the React tree) <head> elements 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
   <head>
@@ -248,9 +202,9 @@ exports[`Tailwind component > with non-inlinable styles > should work with arbit
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`;
+exports[`Tailwind component > with non-inlinable styles > works with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`;
 
-exports[`Tailwind component > with non-inlinable styles > should work with relatively complex media query utilities 1`] = `
+exports[`Tailwind component > with non-inlinable styles > works with relatively complex media query utilities 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
@@ -264,3 +218,49 @@ exports[`Tailwind component > with non-inlinable styles > should work with relat
 <!--/$-->
 "
 `;
+
+exports[`Tailwind component > works properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
+
+exports[`Tailwind component > works with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
+
+exports[`Tailwind component > works with blocklist 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <!--$-->
+  <style>
+    .md_p-4{@media (width>=48rem){padding:1rem!important}}
+  </style>
+</head>
+<body>
+  <button type="button" class="bg-blue-600 md_p-4">Click me</button
+  ><!--/$-->
+</body>
+"
+`;
+
+exports[`Tailwind component > works with calc() with + sign 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <!--$-->
+  <style>
+    .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
+  </style>
+</head>
+<div
+  class="lg_max-h-calc50pxplus5rem"
+  style="max-height:calc(50px + 3rem);background-color:rgb(255,226,226)">
+  <div style="height:200px">something tall</div>
+</div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > works with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`;
+
+exports[`Tailwind component > works with components that return children 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`Tailwind component > works with components that use React.forwardRef 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`Tailwind component > works with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
