@@ -9,9 +9,10 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
+import tailwindConfig from '../tailwind.config';
 
 interface TwitchResetPasswordEmailProps {
   username?: string;
@@ -34,83 +35,85 @@ export const TwitchResetPasswordEmail = ({
   return (
     <Html>
       <Head />
-      <Body style={main}>
-        <Preview>You updated the password for your Twitch account</Preview>
-        <Container style={container}>
-          <Section style={logo}>
-            <Img
-              width={114}
-              src={`${baseUrl}/static/twitch-logo.png`}
-              alt="Twitch"
-              style={logoImg}
-            />
-          </Section>
-          <Section style={sectionsBorders}>
+      <Tailwind config={tailwindConfig}>
+        <Body className="bg-[#efeef1] font-twitch">
+          <Preview>You updated the password for your Twitch account</Preview>
+          <Container className="max-w-[580px] my-8 mx-auto bg-white">
+            <Section className="p-8">
+              <Img
+                width={114}
+                src={`${baseUrl}/static/twitch-logo.png`}
+                alt="Twitch"
+                className="mx-auto"
+              />
+            </Section>
+            <Section className="w-full">
+              <Row>
+                <Column className="border-b border-solid border-[rgb(238,238,238)] w-[249px]" />
+                <Column className="border-b border-solid border-[rgb(145,71,255)] w-[102px]" />
+                <Column className="border-b border-solid border-[rgb(238,238,238)] w-[249px]" />
+              </Row>
+            </Section>
+            <Section className="py-1.5 px-5 pb-2.5">
+              <Text className="leading-6 text-sm">Hi {username},</Text>
+              <Text className="leading-6 text-sm">
+                You updated the password for your Twitch account on{' '}
+                {formattedDate}. If this was you, then no further action is
+                required.
+              </Text>
+              <Text className="leading-6 text-sm">
+                However if you did NOT perform this password change, please{' '}
+                <Link href="https://www.twitch.tv" className="underline">
+                  reset your account password
+                </Link>{' '}
+                immediately.
+              </Text>
+              <Text className="leading-6 text-sm">
+                Remember to use a password that is both strong and unique to
+                your Twitch account. To learn more about how to create a strong
+                and unique password,{' '}
+                <Link href="https://www.twitch.tv" className="underline">
+                  click here.
+                </Link>
+              </Text>
+              <Text className="leading-6 text-sm">
+                Still have questions? Please contact{' '}
+                <Link href="https://www.twitch.tv" className="underline">
+                  Twitch Support
+                </Link>
+              </Text>
+              <Text className="leading-6 text-sm">
+                Thanks,
+                <br />
+                Twitch Support Team
+              </Text>
+            </Section>
+          </Container>
+
+          <Section className="max-w-[580px] mx-auto">
             <Row>
-              <Column style={sectionBorder} />
-              <Column style={sectionCenter} />
-              <Column style={sectionBorder} />
+              <Column align="right" className="w-1/2 pr-2">
+                <Img
+                  src={`${baseUrl}/static/twitch-icon-twitter.png`}
+                  alt="Twitter"
+                />
+              </Column>
+              <Column align="left" className="w-1/2 pl-2">
+                <Img
+                  src={`${baseUrl}/static/twitch-icon-facebook.png`}
+                  alt="Facebook"
+                />
+              </Column>
+            </Row>
+            <Row>
+              <Text className="text-center text-[#706a7b]">
+                © 2022 Twitch, All Rights Reserved <br />
+                350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
+              </Text>
             </Row>
           </Section>
-          <Section style={content}>
-            <Text style={paragraph}>Hi {username},</Text>
-            <Text style={paragraph}>
-              You updated the password for your Twitch account on{' '}
-              {formattedDate}. If this was you, then no further action is
-              required.
-            </Text>
-            <Text style={paragraph}>
-              However if you did NOT perform this password change, please{' '}
-              <Link href="https://www.twitch.tv" style={link}>
-                reset your account password
-              </Link>{' '}
-              immediately.
-            </Text>
-            <Text style={paragraph}>
-              Remember to use a password that is both strong and unique to your
-              Twitch account. To learn more about how to create a strong and
-              unique password,{' '}
-              <Link href="https://www.twitch.tv" style={link}>
-                click here.
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              Still have questions? Please contact{' '}
-              <Link href="https://www.twitch.tv" style={link}>
-                Twitch Support
-              </Link>
-            </Text>
-            <Text style={paragraph}>
-              Thanks,
-              <br />
-              Twitch Support Team
-            </Text>
-          </Section>
-        </Container>
-
-        <Section style={footer}>
-          <Row>
-            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-              <Img
-                src={`${baseUrl}/static/twitch-icon-twitter.png`}
-                alt="Twitter"
-              />
-            </Column>
-            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-              <Img
-                src={`${baseUrl}/static/twitch-icon-facebook.png`}
-                alt="Facebook"
-              />
-            </Column>
-          </Row>
-          <Row>
-            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-              © 2022 Twitch, All Rights Reserved <br />
-              350 Bush Street, 2nd Floor, San Francisco, CA, 94104 - USA
-            </Text>
-          </Row>
-        </Section>
-      </Body>
+        </Body>
+      </Tailwind>
     </Html>
   );
 };
@@ -120,57 +123,6 @@ TwitchResetPasswordEmail.PreviewProps = {
   updatedDate: new Date('June 23, 2022 4:06:00 pm UTC'),
 } as TwitchResetPasswordEmailProps;
 
+TwitchResetPasswordEmail.tailwindConfig = tailwindConfig;
+
 export default TwitchResetPasswordEmail;
-
-const fontFamily = 'HelveticaNeue,Helvetica,Arial,sans-serif';
-
-const main = {
-  backgroundColor: '#efeef1',
-  fontFamily,
-};
-
-const paragraph = {
-  lineHeight: 1.5,
-  fontSize: 14,
-};
-
-const container = {
-  maxWidth: '580px',
-  margin: '30px auto',
-  backgroundColor: '#ffffff',
-};
-
-const footer = {
-  maxWidth: '580px',
-  margin: '0 auto',
-};
-
-const content = {
-  padding: '5px 20px 10px 20px',
-};
-
-const logo = {
-  padding: 30,
-};
-
-const logoImg = {
-  margin: '0 auto',
-};
-
-const sectionsBorders = {
-  width: '100%',
-};
-
-const sectionBorder = {
-  borderBottom: '1px solid rgb(238,238,238)',
-  width: '249px',
-};
-
-const sectionCenter = {
-  borderBottom: '1px solid rgb(145,71,255)',
-  width: '102px',
-};
-
-const link = {
-  textDecoration: 'underline',
-};

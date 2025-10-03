@@ -5,6 +5,7 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
+      twitch: ['HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'],
     },
   },
 } satisfies TailwindConfig;
