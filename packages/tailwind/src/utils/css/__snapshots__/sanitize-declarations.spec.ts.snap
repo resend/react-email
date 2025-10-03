@@ -6,6 +6,8 @@ exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `
 
 exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
 
+exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21.3,92.9,251.5,0.6)}"`;
+
 exports[`sanitizeDeclarations > hex to rgb conversion 1`] = `"div{color:rgb(255,0,170)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 2`] = `"div{color:rgb(255,0,170,0.5)}"`;
