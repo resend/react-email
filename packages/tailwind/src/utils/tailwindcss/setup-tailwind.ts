@@ -29,7 +29,7 @@ export async function setupTailwind(config: TailwindConfig) {
         `NO-OP: should we implement support for ${resourceHint}?`,
       );
     },
-    polyfills: 3, // All
+    polyfills: 0, // All
     async loadStylesheet(id, base) {
       if (id === 'tailwindcss') {
         return {
