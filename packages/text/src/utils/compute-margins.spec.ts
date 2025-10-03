@@ -1,7 +1,7 @@
 import { computeMargins } from './compute-margins';
 
 describe('parseMargins()', () => {
-  it('should work with numeric and text margins', () => {
+  it('works with numeric and text margins', () => {
     expect(computeMargins({ margin: 24 })).toEqual({
       marginTop: 24,
       marginRight: 24,
@@ -24,7 +24,7 @@ describe('parseMargins()', () => {
     });
   });
 
-  it('should compute the margins according to the order of styles', () => {
+  it('computes the margins according to the order of styles', () => {
     expect(
       computeMargins({
         margin: 0,
