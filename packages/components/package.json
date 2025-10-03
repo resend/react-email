@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "1.0.0-tailwindv4.3",
+  "version": "1.0.0-tailwindv4.4",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
