@@ -9,8 +9,10 @@ import {
   Link,
   Preview,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
+import tailwindConfig from '../tailwind.config';
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -19,138 +21,98 @@ const baseUrl = process.env.VERCEL_URL
 export const StripeWelcomeEmail = () => (
   <Html>
     <Head />
-    <Body style={main}>
-      <Preview>You're now ready to make live transactions with Stripe!</Preview>
-      <Container style={container}>
-        <Section style={box}>
-          <Img
-            src={`${baseUrl}/static/stripe-logo.png`}
-            width="49"
-            height="21"
-            alt="Stripe"
-          />
-          <Hr style={hr} />
-          <Text style={paragraph}>
-            Thanks for submitting your account information. You're now ready to
-            make live transactions with Stripe!
-          </Text>
-          <Text style={paragraph}>
-            You can view your payments and a variety of other information about
-            your account right from your dashboard.
-          </Text>
-          <Button style={button} href="https://dashboard.stripe.com/login">
-            View your Stripe Dashboard
-          </Button>
-          <Hr style={hr} />
-          <Text style={paragraph}>
-            If you haven't finished your integration, you might find our{' '}
-            <Link
-              style={anchor}
-              href="https://docs.stripe.com/dashboard/basics"
+    <Tailwind config={tailwindConfig}>
+      <Body className="bg-[#f6f9fc] font-stripe">
+        <Preview>
+          You're now ready to make live transactions with Stripe!
+        </Preview>
+        <Container className="bg-white mx-auto py-5 pb-12 mb-16">
+          <Section className="px-12">
+            <Img
+              src={`${baseUrl}/static/stripe-logo.png`}
+              width="49"
+              height="21"
+              alt="Stripe"
+            />
+            <Hr className="border-[#e6ebf1] my-5" />
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              Thanks for submitting your account information. You're now ready
+              to make live transactions with Stripe!
+            </Text>
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              You can view your payments and a variety of other information
+              about your account right from your dashboard.
+            </Text>
+            <Button
+              className="bg-[#656ee8] rounded text-white text-base font-bold no-underline text-center block p-2.5"
+              href="https://dashboard.stripe.com/login"
             >
-              docs
-            </Link>{' '}
-            handy.
-          </Text>
-          <Text style={paragraph}>
-            Once you're ready to start accepting payments, you'll just need to
-            use your live{' '}
-            <Link
-              style={anchor}
-              href="https://dashboard.stripe.com/login?redirect=%2Fapikeys"
-            >
-              API keys
-            </Link>{' '}
-            instead of your test API keys. Your account can simultaneously be
-            used for both test and live requests, so you can continue testing
-            while accepting live payments. Check out our{' '}
-            <Link
-              style={anchor}
-              href="https://docs.stripe.com/dashboard/basics"
-            >
-              tutorial about account basics
-            </Link>
-            .
-          </Text>
-          <Text style={paragraph}>
-            Finally, we've put together a{' '}
-            <Link
-              style={anchor}
-              href="https://docs.stripe.com/get-started/checklist/website"
-            >
-              quick checklist
-            </Link>{' '}
-            to ensure your website conforms to card network standards.
-          </Text>
-          <Text style={paragraph}>
-            We'll be here to help you with any step along the way. You can find
-            answers to most questions and get in touch with us on our{' '}
-            <Link style={anchor} href="https://support.stripe.com">
-              support site
-            </Link>
-            .
-          </Text>
-          <Text style={paragraph}>— The Stripe team</Text>
-          <Hr style={hr} />
-          <Text style={footer}>
-            Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080
-          </Text>
-        </Section>
-      </Container>
-    </Body>
+              View your Stripe Dashboard
+            </Button>
+            <Hr className="border-[#e6ebf1] my-5" />
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              If you haven't finished your integration, you might find our{' '}
+              <Link
+                className="text-[#556cd6]"
+                href="https://docs.stripe.com/dashboard/basics"
+              >
+                docs
+              </Link>{' '}
+              handy.
+            </Text>
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              Once you're ready to start accepting payments, you'll just need to
+              use your live{' '}
+              <Link
+                className="text-[#556cd6]"
+                href="https://dashboard.stripe.com/login?redirect=%2Fapikeys"
+              >
+                API keys
+              </Link>{' '}
+              instead of your test API keys. Your account can simultaneously be
+              used for both test and live requests, so you can continue testing
+              while accepting live payments. Check out our{' '}
+              <Link
+                className="text-[#556cd6]"
+                href="https://docs.stripe.com/dashboard/basics"
+              >
+                tutorial about account basics
+              </Link>
+              .
+            </Text>
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              Finally, we've put together a{' '}
+              <Link
+                className="text-[#556cd6]"
+                href="https://docs.stripe.com/get-started/checklist/website"
+              >
+                quick checklist
+              </Link>{' '}
+              to ensure your website conforms to card network standards.
+            </Text>
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              We'll be here to help you with any step along the way. You can
+              find answers to most questions and get in touch with us on our{' '}
+              <Link
+                className="text-[#556cd6]"
+                href="https://support.stripe.com"
+              >
+                support site
+              </Link>
+              .
+            </Text>
+            <Text className="text-[#525f7f] text-base leading-6 text-left">
+              — The Stripe team
+            </Text>
+            <Hr className="border-[#e6ebf1] my-5" />
+            <Text className="text-[#8898aa] text-xs leading-4">
+              Stripe, 354 Oyster Point Blvd, South San Francisco, CA 94080
+            </Text>
+          </Section>
+        </Container>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
 export default StripeWelcomeEmail;
-
-const main = {
-  backgroundColor: '#f6f9fc',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
-};
-
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  marginBottom: '64px',
-};
-
-const box = {
-  padding: '0 48px',
-};
-
-const hr = {
-  borderColor: '#e6ebf1',
-  margin: '20px 0',
-};
-
-const paragraph = {
-  color: '#525f7f',
-
-  fontSize: '16px',
-  lineHeight: '24px',
-  textAlign: 'left' as const,
-};
-
-const anchor = {
-  color: '#556cd6',
-};
-
-const button = {
-  backgroundColor: '#656ee8',
-  borderRadius: '5px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '10px',
-};
-
-const footer = {
-  color: '#8898aa',
-  fontSize: '12px',
-  lineHeight: '16px',
-};
