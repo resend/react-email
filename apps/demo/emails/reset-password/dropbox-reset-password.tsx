@@ -8,9 +8,10 @@ import {
   Link,
   Preview,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
+import tailwindConfig from '../tailwind.config';
 
 interface DropboxResetPasswordEmailProps {
   userFirstname?: string;
@@ -28,39 +29,48 @@ export const DropboxResetPasswordEmail = ({
   return (
     <Html>
       <Head />
-      <Body style={main}>
-        <Preview>Dropbox reset your password</Preview>
-        <Container style={container}>
-          <Img
-            src={`${baseUrl}/static/dropbox-logo.png`}
-            width="40"
-            height="33"
-            alt="Dropbox"
-          />
-          <Section>
-            <Text style={text}>Hi {userFirstname},</Text>
-            <Text style={text}>
-              Someone recently requested a password change for your Dropbox
-              account. If this was you, you can set a new password here:
-            </Text>
-            <Button style={button} href={resetPasswordLink}>
-              Reset password
-            </Button>
-            <Text style={text}>
-              If you don&apos;t want to change your password or didn&apos;t
-              request this, just ignore and delete this message.
-            </Text>
-            <Text style={text}>
-              To keep your account secure, please don&apos;t forward this email
-              to anyone. See our Help Center for{' '}
-              <Link style={anchor} href={resetPasswordLink}>
-                more security tips.
-              </Link>
-            </Text>
-            <Text style={text}>Happy Dropboxing!</Text>
-          </Section>
-        </Container>
-      </Body>
+      <Tailwind config={tailwindConfig}>
+        <Body className="bg-[#f6f9fc] py-2.5">
+          <Preview>Dropbox reset your password</Preview>
+          <Container className="bg-white border border-[#f0f0f0] p-11">
+            <Img
+              src={`${baseUrl}/static/dropbox-logo.png`}
+              width="40"
+              height="33"
+              alt="Dropbox"
+            />
+            <Section>
+              <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
+                Hi {userFirstname},
+              </Text>
+              <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
+                Someone recently requested a password change for your Dropbox
+                account. If this was you, you can set a new password here:
+              </Text>
+              <Button
+                className="bg-[#007ee6] rounded text-white font-dropbox text-[15px] no-underline text-center block w-[210px] py-3.5 px-2"
+                href={resetPasswordLink}
+              >
+                Reset password
+              </Button>
+              <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
+                If you don&apos;t want to change your password or didn&apos;t
+                request this, just ignore and delete this message.
+              </Text>
+              <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
+                To keep your account secure, please don&apos;t forward this
+                email to anyone. See our Help Center for{' '}
+                <Link className="underline" href={resetPasswordLink}>
+                  more security tips.
+                </Link>
+              </Text>
+              <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
+                Happy Dropboxing!
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 };
@@ -70,41 +80,6 @@ DropboxResetPasswordEmail.PreviewProps = {
   resetPasswordLink: 'https://www.dropbox.com',
 } as DropboxResetPasswordEmailProps;
 
+DropboxResetPasswordEmail.tailwindConfig = tailwindConfig;
+
 export default DropboxResetPasswordEmail;
-
-const main = {
-  backgroundColor: '#f6f9fc',
-  padding: '10px 0',
-};
-
-const container = {
-  backgroundColor: '#ffffff',
-  border: '1px solid #f0f0f0',
-  padding: '45px',
-};
-
-const text = {
-  fontSize: '16px',
-  fontFamily:
-    "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
-  fontWeight: '300',
-  color: '#404040',
-  lineHeight: '26px',
-};
-
-const button = {
-  backgroundColor: '#007ee6',
-  borderRadius: '4px',
-  color: '#fff',
-  fontFamily: "'Open Sans', 'Helvetica Neue', Arial",
-  fontSize: '15px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  width: '210px',
-  padding: '14px 7px',
-};
-
-const anchor = {
-  textDecoration: 'underline',
-};

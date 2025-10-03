@@ -73,6 +73,16 @@ export default {
         'sans-serif',
       ],
       apple: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+      dropbox: [
+        'Open Sans',
+        'HelveticaNeue-Light',
+        'Helvetica Neue Light',
+        'Helvetica Neue',
+        'Helvetica',
+        'Arial',
+        'Lucida Grande',
+        'sans-serif',
+      ],
     },
   },
 } satisfies TailwindConfig;
