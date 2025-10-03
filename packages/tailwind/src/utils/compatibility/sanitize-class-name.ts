@@ -17,7 +17,7 @@ const digitToNameMap = {
  * @param className - This should not come with any escaped charcters, it should come the same
  * as is on the `className` attribute on React elements.
  */
-export const sanitizeClassName = (className: string) => {
+export function sanitizeClassName(className: string) {
   return className
     .replaceAll('+', 'plus')
     .replaceAll('[', '')
@@ -33,4 +33,4 @@ export const sanitizeClassName = (className: string) => {
       return digitToNameMap[digit as keyof typeof digitToNameMap];
     })
     .replace(/[^a-zA-Z0-9\-_]/g, '_');
-};
+}

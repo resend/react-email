@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`makeInlineStylesFor() 1`] = `
+{
+  "backgroundColor": "#f56565",
+  "width": "100%",
+}
+`;

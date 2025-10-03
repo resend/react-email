@@ -5,7 +5,7 @@
  * Also does a bit more trickery to avoid escaping already
  * escaped characters.
  */
-export const escapeClassName = (className: string) => {
+export function escapeClassName(className: string) {
   return className.replace(
     /*      we need this look ahead capturing group to avoid using negative look behinds */
     /([^\\]|^)(?=([^a-zA-Z0-9\-_]))/g,
@@ -15,4 +15,4 @@ export const escapeClassName = (className: string) => {
       return `${prefixCharacter}\\`;
     },
   );
-};
+}

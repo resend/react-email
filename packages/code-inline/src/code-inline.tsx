@@ -56,3 +56,4 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
 );
 
 CodeInline.displayName = 'CodeInline';
+(CodeInline as any).tailwindTreatAsElement = true;

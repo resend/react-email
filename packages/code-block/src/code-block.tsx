@@ -124,3 +124,4 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
 );
 
 CodeBlock.displayName = 'CodeBlock';
+(CodeBlock as any).tailwindTreatAsElement = true;
