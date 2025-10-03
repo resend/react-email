@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Tailwind component > <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md"> 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21.3,92.9,251.5);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229.1,231.1,235.3);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`;
+exports[`Tailwind component > <Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md"> 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);color:rgb(229,231,235);font-size:0.875rem;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px">Testing button</span><span><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`;
 
 exports[`Tailwind component > it should not generate styles from text 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`;
 
@@ -10,7 +10,7 @@ exports[`Tailwind component > should be able to use background image 1`] = `"<!D
 
 exports[`Tailwind component > should not override inline styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`;
 
-exports[`Tailwind component > should override component styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`;
+exports[`Tailwind component > should override component styles with Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:100%;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`;
 
 exports[`Tailwind component > should preserve mso styles 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,7 +20,7 @@ exports[`Tailwind component > should preserve mso styles 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
     <style>
-      .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254.2,242.1,242.1)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+      .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254,242,242)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
     </style></head
   ><span
     ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
@@ -41,10 +41,10 @@ exports[`Tailwind component > should recognize custom responsive screen 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
     <style>
-      .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,200.7,80.5)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43.2,127,255)!important}}
+      .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,201,80)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43,127,255)!important}}
     </style>
   </head>
-  <div class="xl_bg-green-500" style="background-color:rgb(254.8,225.8,225.8)">
+  <div class="xl_bg-green-500" style="background-color:rgb(255,226,226)">
     Test
   </div>
   <div class="twoxl_bg-blue-500">Test</div>
@@ -55,7 +55,7 @@ exports[`Tailwind component > should recognize custom responsive screen 1`] = `
 
 exports[`Tailwind component > should render children with inline Tailwind styles 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(255,255,255)"></div><!--/$-->"`;
 
-exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21.3,92.9,251.5);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21.3,92.9,251.5);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
+exports[`Tailwind component > should work properly with 'no-underline' 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:#067df7;text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`;
 
 exports[`Tailwind component > should work with Heading component 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`;
 
@@ -86,14 +86,14 @@ exports[`Tailwind component > should work with calc() with + sign 1`] = `
 </head>
 <div
   class="lg_max-h-calc50pxplus5rem"
-  style="max-height:calc(50px + 3rem);background-color:rgb(254.8,225.8,225.8)">
+  style="max-height:calc(50px + 3rem);background-color:rgb(255,226,226)">
   <div style="height:200px">something tall</div>
 </div>
 <!--/$-->
 "
 `;
 
-exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(80.5,162.1,255);background-color:rgb(250.6,43.8,54.3)"></div><!--/$-->"`;
+exports[`Tailwind component > should work with class manipulation done on components 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`;
 
 exports[`Tailwind component > should work with components that return children 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
 
@@ -173,13 +173,13 @@ exports[`Tailwind component > with non-inlinable styles > should add css to <hea
   <head>
     <!--$-->
     <style>
-      .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231.1,0,10.8)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7.3)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201.4,201.5)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201,201)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
     </style>
   </head>
   <body>
     <div
       class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
-      style="background-color:rgb(255,201.4,201.5)"></div>
+      style="background-color:rgb(255,201,201)"></div>
     <!--/$-->
   </body>
 </html>
@@ -192,15 +192,13 @@ exports[`Tailwind component > with non-inlinable styles > should persist existin
   <head>
     <!--$-->
     <style>
-      .sm_bg-red-500{@media (width>=40rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .sm_bg-red-500{@media (width>=40rem){background-color:rgb(251,44,54)!important}}
     </style>
     <style></style>
     <link />
   </head>
   <body>
-    <div
-      class="sm_bg-red-500"
-      style="background-color:rgb(255,201.4,201.5)"></div>
+    <div class="sm_bg-red-500" style="background-color:rgb(255,201,201)"></div>
     <!--/$-->
   </body>
 </html>
@@ -237,20 +235,20 @@ exports[`Tailwind component > with non-inlinable styles > should work with arbit
   <head>
     <!--$-->
     <style>
-      .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}
+      .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
     </style>
   </head>
   <body>
     <div
       class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500"
-      style="background-color:rgb(255,201.4,201.5)"></div>
+      style="background-color:rgb(255,201,201)"></div>
     <!--/$-->
   </body>
 </html>
 "
 `;
 
-exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,161.8,162.3)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,99.7,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(250.6,43.8,54.3)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201.4,201.5)"></div><!--/$--></body></html>"`;
+exports[`Tailwind component > with non-inlinable styles > should work with arbitrarily deep (in the React tree) <head> elements 2`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`;
 
 exports[`Tailwind component > with non-inlinable styles > should work with relatively complex media query utilities 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -259,12 +257,10 @@ exports[`Tailwind component > with non-inlinable styles > should work with relat
   <meta name="x-apple-disable-message-reformatting" />
   <!--$-->
   <style>
-    .max-sm_text-red-600{@media (width<40rem){color:rgb(231.1,0,10.8)!important}}
+    .max-sm_text-red-600{@media (width<40rem){color:rgb(231,0,11)!important}}
   </style>
 </head>
-<p class="max-sm_text-red-600" style="color:rgb(19.9,71.2,230)">
-  I am some text
-</p>
+<p class="max-sm_text-red-600" style="color:rgb(20,71,230)">I am some text</p>
 <!--/$-->
 "
 `;

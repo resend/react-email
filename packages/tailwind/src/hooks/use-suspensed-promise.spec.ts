@@ -1,5 +1,5 @@
 /** biome-ignore-all lint/correctness/useHookAtTopLevel: function is not a React hook */
-import { useSuspensedPromise } from './use-suspensed-promise';
+import { useSuspensedPromise } from './use-suspended-promise';
 
 describe('useSuspensedPromise', () => {
   beforeEach(() => {});

@@ -6,7 +6,7 @@ exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `
 
 exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
 
-exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21.3,92.9,251.5,0.6)}"`;
+exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21,93,252,0.6)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 1`] = `"div{color:rgb(255,0,170)}"`;
 
@@ -38,23 +38,23 @@ exports[`sanitizeDeclarations > hex to rgb conversion 14`] = `"div{color:rgb(255
 
 exports[`sanitizeDeclarations > hex to rgb conversion 15`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`;
 
-exports[`sanitizeDeclarations > hex to rgb conversion 16`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,104.6,199))}"`;
+exports[`sanitizeDeclarations > hex to rgb conversion 16`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,105,199))}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 17`] = `"div{content:"Visit our site at example.com#section"}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 18`] = `"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255);box-shadow:0 0 10px rgb(51,51,51)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 1`] = `"div{color:rgb(0,255,228.7)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 1`] = `"div{color:rgb(0,255,229)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 2`] = `"div{color:rgb(255,250.7,125.6,0.8)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 2`] = `"div{color:rgb(255,251,126,0.8)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 3`] = `"div{color:rgb(255,250.7,125.6,0.8)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 3`] = `"div{color:rgb(255,251,126,0.8)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 4`] = `"div{color:rgb(190.5,240.2,255,0.5)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 4`] = `"div{color:rgb(191,240,255,0.5)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 5`] = `"div{color:rgb(254.6,192.6,249.8)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 5`] = `"div{color:rgb(255,193,250)}"`;
 
-exports[`sanitizeDeclarations > oklch to rgb conversion 6`] = `"div{color:rgb(255,99.8,0.1)}"`;
+exports[`sanitizeDeclarations > oklch to rgb conversion 6`] = `"div{color:rgb(255,100,0)}"`;
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 1`] = `"div{color:rgb(255,0,128)}"`;
 

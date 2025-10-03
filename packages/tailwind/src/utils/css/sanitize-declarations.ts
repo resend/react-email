@@ -37,11 +37,6 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-function round(value: number, digits = 1) {
-  const factor = 10 ** digits;
-  return Math.round(value * factor) / factor;
-}
-
 function oklchToOklab(oklch: { l: number; c: number; h: number }) {
   return {
     l: oklch.l,
@@ -72,9 +67,9 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
     lrgbToRgb(LSM_TO_RGB.b[0] * l + LSM_TO_RGB.b[1] * m + LSM_TO_RGB.b[2] * s);
 
   return {
-    r: round(clamp(r, 0, 255)),
-    g: round(clamp(g, 0, 255)),
-    b: round(clamp(b, 0, 255)),
+    r: clamp(r, 0, 255).toFixed(0),
+    g: clamp(g, 0, 255).toFixed(0),
+    b: clamp(b, 0, 255).toFixed(0),
   };
 }
 
