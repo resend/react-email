@@ -108,7 +108,7 @@ export const ResizableWrapper = ({
         aria-valuenow={width}
         aria-valuemin={minWidth}
         aria-valuemax={maxWidth}
-        className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2 [user-drag:none]"
+        className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 -left-2 cursor-w-resize p-2 [user-drag:none]"
         onDragStart={(event) => event.preventDefault()}
         draggable="false"
         onMouseDown={() => {
@@ -117,7 +117,7 @@ export const ResizableWrapper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-8 w-1 rounded-md bg-black/30" />
+        <div className="h-8 w-1 rounded-md bg-black/50" />
       </div>
       <div
         aria-label="resize-east"
@@ -125,7 +125,7 @@ export const ResizableWrapper = ({
         aria-valuemin={minWidth}
         aria-valuemax={maxWidth}
         onDragStart={(event) => event.preventDefault()}
-        className="-translate-x-full -translate-y-1/2 absolute top-1/2 left-full cursor-e-resize p-2 [user-drag:none]"
+        className="translate-x-1/2 -translate-y-1/2 absolute top-1/2 -right-2 cursor-e-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('east');
@@ -133,7 +133,7 @@ export const ResizableWrapper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-8 w-1 rounded-md bg-black/30" />
+        <div className="h-8 w-1 rounded-md bg-black/50" />
       </div>
       <div
         aria-label="resize-north"
@@ -141,7 +141,7 @@ export const ResizableWrapper = ({
         aria-valuemin={minHeight}
         aria-valuemax={maxHeight}
         onDragStart={(event) => event.preventDefault()}
-        className="-translate-x-1/2 -translate-y-1/2 absolute top-0 left-1/2 cursor-n-resize p-2 [user-drag:none]"
+        className="-translate-x-1/2 -translate-y-1/2 absolute -top-2 left-1/2 cursor-n-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('north');
@@ -149,7 +149,7 @@ export const ResizableWrapper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-1 w-8 rounded-md bg-black/30" />
+        <div className="h-1 w-8 rounded-md bg-black/50" />
       </div>
       <div
         aria-label="resize-south"
@@ -157,7 +157,7 @@ export const ResizableWrapper = ({
         aria-valuemin={minHeight}
         aria-valuemax={maxHeight}
         onDragStart={(event) => event.preventDefault()}
-        className="-translate-x-1/2 -translate-y-1/2 absolute top-full left-1/2 cursor-s-resize p-2 [user-drag:none]"
+        className="-translate-x-1/2 translate-y-1/2 absolute -bottom-2 left-1/2 cursor-s-resize p-2 [user-drag:none]"
         draggable="false"
         onMouseDown={() => {
           handleStartResizing('south');
@@ -165,7 +165,7 @@ export const ResizableWrapper = ({
         role="slider"
         tabIndex={0}
       >
-        <div className="h-1 w-8 rounded-md bg-black/30" />
+        <div className="h-1 w-8 rounded-md bg-black/50" />
       </div>
 
       <Slot ref={resizableRef}>{children}</Slot>
