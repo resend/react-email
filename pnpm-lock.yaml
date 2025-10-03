@@ -57,8 +57,8 @@ importers:
   apps/demo:
     dependencies:
       '@react-email/components':
-        specifier: npm:@react-email/components@1.0.0-tailwindv4.3
-        version: 1.0.0-tailwindv4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: npm:@react-email/components@1.0.0-tailwindv4.4
+        version: 1.0.0-tailwindv4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       email-dev:
         specifier: workspace:*
         version: link:../../packages/react-email/dev
@@ -3541,8 +3541,8 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
-  '@react-email/components@1.0.0-tailwindv4.3':
-    resolution: {integrity: sha512-PZdaIQJTPau731Y+4g7WoJ06PpNoskD1XkqXLbq8T6sFKTfGcJoLUVWmEvLgwkxJUM5DMhRuWq42qbUwiMvk3Q==}
+  '@react-email/components@1.0.0-tailwindv4.4':
+    resolution: {integrity: sha512-po3ubz7xvhakpRG41/h+F8Y3C4qEKTtH8qgktKzsddRGApaK80VwgUzJJ2Q7o744f1ggPS3OB8+zEfn7hQa4CQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -3613,8 +3613,8 @@ packages:
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  '@react-email/render@1.3.1':
-    resolution: {integrity: sha512-BOc/kanieEVyiuldFFvceriiBGBBVhe4JWWXCXE2ehLIqz+gSWD4rgCoXAGbJRnnVyyp4joPqK62bSfa88yonA==}
+  '@react-email/render@1.3.2-canary.0':
+    resolution: {integrity: sha512-yMogfNCKyt9WttsQI/dGyFJwG5Pol+1H1m9UtWsQ/KN7zNsptgh59qB2oXBbzL+0VEPG4zgAkKoVbMYjykwsBg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -11722,7 +11722,7 @@ snapshots:
     dependencies:
       react: 19.0.0
 
-  '@react-email/components@1.0.0-tailwindv4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-email/components@1.0.0-tailwindv4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-email/body': 0.1.1-tailwindv4.0(react@19.0.0)
       '@react-email/button': 0.2.1-tailwindv4.0(react@19.0.0)
@@ -11739,7 +11739,7 @@ snapshots:
       '@react-email/link': 0.0.13-tailwindv4.0(react@19.0.0)
       '@react-email/markdown': 0.0.15(react@19.0.0)
       '@react-email/preview': 0.0.14-tailwindv4.0(react@19.0.0)
-      '@react-email/render': 1.3.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/render': 1.3.2-canary.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/row': 0.0.12(react@19.0.0)
       '@react-email/section': 0.0.16(react@19.0.0)
       '@react-email/tailwind': 2.0.0-tailwindv4.1(react@19.0.0)
@@ -11797,7 +11797,7 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@1.3.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-email/render@1.3.2-canary.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       html-to-text: 9.0.5
       prettier: 3.5.3
