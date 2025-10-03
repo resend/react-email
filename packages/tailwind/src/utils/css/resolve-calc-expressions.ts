@@ -13,6 +13,7 @@ export function resolveCalcExpressions(node: CssNode) {
             { type: 'Dimension', loc: null, value: '0.25', unit: 'rem' },
             { type: 'Operator', loc: null, value: '*' },
             { type: 'Number', loc: null, value: '2' }
+            { type: 'Percentage', loc: null, value: '2' }
           ]
         */
         func.children.forEach((child, item) => {
@@ -22,15 +23,19 @@ export function resolveCalcExpressions(node: CssNode) {
             left &&
             right &&
             child.type === 'Operator' &&
-            (left.data.type === 'Dimension' || left.data.type === 'Number') &&
-            (right.data.type === 'Dimension' || right.data.type === 'Number')
+            (left.data.type === 'Dimension' ||
+              left.data.type === 'Number' ||
+              left.data.type === 'Percentage') &&
+            (right.data.type === 'Dimension' ||
+              right.data.type === 'Number' ||
+              right.data.type === 'Percentage')
           ) {
             if (child.value === '*' || child.value === '/') {
               const value = (() => {
                 if (child.value === '*') {
                   return String(
                     Number.parseFloat(left.data.value) *
-                      Number.parseFloat(right.data.value),
+                    Number.parseFloat(right.data.value),
                   );
                 }
                 if (right.data.value === '0') {
@@ -38,7 +43,7 @@ export function resolveCalcExpressions(node: CssNode) {
                 }
                 return String(
                   Number.parseFloat(left.data.value) /
-                    Number.parseFloat(right.data.value),
+                  Number.parseFloat(right.data.value),
                 );
               })();
               if (
@@ -87,6 +92,43 @@ export function resolveCalcExpressions(node: CssNode) {
                   item.data = {
                     type: 'Dimension',
                     unit: left.data.unit,
+                    value,
+                  };
+                }
+                func.children.remove(left);
+                func.children.remove(right);
+              } else if (
+                left.data.type === 'Percentage' &&
+                right.data.type === 'Number'
+              ) {
+                item.data = {
+                  type: 'Percentage',
+                  value,
+                };
+                func.children.remove(left);
+                func.children.remove(right);
+              } else if (
+                left.data.type === 'Number' &&
+                right.data.type === 'Percentage'
+              ) {
+                item.data = {
+                  type: 'Percentage',
+                  value,
+                };
+                func.children.remove(left);
+                func.children.remove(right);
+              } else if (
+                left.data.type === 'Percentage' &&
+                right.data.type === 'Percentage'
+              ) {
+                if (child.value === '/') {
+                  item.data = {
+                    type: 'Number',
+                    value,
+                  };
+                } else {
+                  item.data = {
+                    type: 'Percentage',
                     value,
                   };
                 }

@@ -16,7 +16,7 @@ describe('resolveCalcExpressions()', async () => {
       .w-1\/3 { width: calc(0.3333333333333333*100%); }
     `);
     resolveCalcExpressions(root);
-    expect(generate(root)).toBe('');
+    expect(generate(root)).toMatchSnapshot();
   });
 
   it('should not do anything to complex calc expressions', () => {
