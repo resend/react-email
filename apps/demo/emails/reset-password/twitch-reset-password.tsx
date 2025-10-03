@@ -123,6 +123,4 @@ TwitchResetPasswordEmail.PreviewProps = {
   updatedDate: new Date('June 23, 2022 4:06:00 pm UTC'),
 } as TwitchResetPasswordEmailProps;
 
-TwitchResetPasswordEmail.tailwindConfig = tailwindConfig;
-
 export default TwitchResetPasswordEmail;
