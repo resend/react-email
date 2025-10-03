@@ -1,8 +1,11 @@
 import {
   type CssNode,
   type Declaration,
+  type FunctionNode,
+  find,
   generate,
   List,
+  type Percentage,
   parse,
   type Value,
   walk,
@@ -84,13 +87,13 @@ function separteShorthandDeclaration(
   const values =
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
-          .toArray()
-          .filter(
-            (child) =>
-              child.type === 'Dimension' ||
-              child.type === 'Number' ||
-              child.type === 'Percentage',
-          )
+        .toArray()
+        .filter(
+          (child) =>
+            child.type === 'Dimension' ||
+            child.type === 'Number' ||
+            child.type === 'Percentage',
+        )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
   if (values.length === 2) {
@@ -333,6 +336,39 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             `rgb(${r},${g},${b},${a.toFixed(1)})`,
             { context: 'value' },
           );
+        },
+      });
+
+      walk(declaration, {
+        visit: 'Function',
+        enter(func, parentListItem) {
+          if (func.name === 'color-mix') {
+            const originalColor = find(
+              func,
+              (node) => node.type === 'Function' && node.name === 'rgb',
+            ) as FunctionNode | null;
+            const percentage = find(
+              func,
+              (node) => node.type === 'Percentage',
+            ) as Percentage | null;
+            if (
+              func.children.last?.type === 'Identifier' &&
+              func.children.last.name === 'transparent' &&
+              originalColor &&
+              percentage
+            ) {
+              const alpha = Number.parseFloat(percentage.value) / 100;
+              originalColor.children.appendData({
+                type: 'Operator',
+                value: ',',
+              });
+              originalColor.children.appendData({
+                type: 'Number',
+                value: alpha.toString(),
+              });
+              parentListItem.data = originalColor;
+            }
+          }
         },
       });
 

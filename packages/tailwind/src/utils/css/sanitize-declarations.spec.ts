@@ -261,6 +261,17 @@ describe('sanitizeDeclarations', () => {
     expect(generate(stylesheet)).toMatchSnapshot();
   });
 
+  it('handles transparency generated with color-mix', () => {
+    const stylesheet = parse(`
+     .bg-blue-600\/50 {
+        background-color: color-mix(in oklab, oklch(54.6% 0.245 262.881) 60%, transparent);
+      }
+    `);
+    sanitizeDeclarations(stylesheet);
+    const result = generate(stylesheet);
+    expect(result).toMatchSnapshot();
+  });
+
   describe('complex scenarios', () => {
     it('handles multiple declarations with different rgb formats', () => {
       const stylesheet = parse(`
