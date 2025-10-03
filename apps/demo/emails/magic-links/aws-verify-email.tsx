@@ -105,4 +105,3 @@ export default function AWSVerifyEmail({
 AWSVerifyEmail.PreviewProps = {
   verificationCode: '596853',
 } satisfies AWSVerifyEmailProps;
-
