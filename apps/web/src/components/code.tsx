@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { CheckIcon, ClipboardIcon } from 'lucide-react';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
+import { CopyCode } from './copy-code';
 import { IconButton } from './icon-button';
 
 interface CodeProps {
@@ -47,7 +48,6 @@ const theme = {
 };
 
 export function Code({ children, className, language = 'html' }: CodeProps) {
-  const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
 
   return (
@@ -65,22 +65,11 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
             boxShadow: 'rgb(0 0 0 / 10%) 0rem .3125rem 1.875rem -0.3125rem',
           }}
         >
-          <IconButton
-            className="absolute right-3"
-            onClick={() => {
-              setIsCopied(true);
-              void navigator.clipboard.writeText(value);
-              setTimeout(() => {
-                setIsCopied(false);
-              }, 3000);
-            }}
-          >
-            {isCopied ? (
-              <CheckIcon className="mt-[-0.0938rem]" size={16} />
-            ) : (
-              <ClipboardIcon className="mt-[-0.0938rem]" size={16} />
-            )}
-          </IconButton>
+          <CopyCode
+            code={value}
+            className="absolute right-3 !p-1.5 !rounded-lg"
+            withBackground={false}
+          />
           <div
             className="absolute top-0 right-0 h-px w-[12.5rem]"
             style={{

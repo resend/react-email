@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { unreachable } from '../utils/unreachable';
 
 type Appearance = 'white' | 'gradient';
-type Size = '1' | '2' | '3' | '4';
+type Size = '1' | '2' | '3' | '4' | '5';
 
 interface ButtonProps extends React.ComponentProps<'button'> {
   asChild?: boolean;
@@ -61,11 +61,13 @@ const getSize = (size: Size) => {
     case '1':
       return '';
     case '2':
-      return 'h-8 gap-2 rounded-md px-3 text-[.875rem] transition-colors';
+      return 'h-8 gap-2 rounded-xl px-3 text-[.875rem] transition-colors';
     case '3':
-      return 'h-10 gap-2 rounded-md px-4 text-[.875rem] transition-colors';
+      return 'h-10 gap-2 rounded-xl px-4 text-[.875rem] transition-colors';
     case '4':
-      return 'h-11 gap-2 rounded-md px-4 text-base transition-colors';
+      return 'h-11 gap-2 rounded-xl px-4 text-base transition-colors';
+    case '5':
+      return 'h-12 gap-2 rounded-xl px-4 text-base transition-colors';
     default:
       unreachable(size);
   }

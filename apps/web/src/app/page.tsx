@@ -1,4 +1,5 @@
 import HeroSection from '@/components/sections/hero';
+import IntegrationSection from '@/components/sections/integration';
 import PatternsSection from '@/components/sections/patterns';
 import PlaygroundSection from '@/components/sections/playground';
 import PrimitivesSection from '@/components/sections/primitives';
@@ -13,6 +14,7 @@ const Home = () => (
     <PatternsSection />
     <PrimitivesSection />
     <ToolsSection />
+    <IntegrationSection />
   </main>
 );
 

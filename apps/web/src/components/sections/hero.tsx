@@ -17,7 +17,7 @@ const HeroSection = () => {
           priority
           src="/static/bg.png"
         />
-        <div className="max-w-full text-center md:max-w-[45rem] md:mx-auto">
+        <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto">
           <div className="mb-8 flex items-center justify-center">
             <Image
               alt="React Email Logo"
@@ -28,11 +28,12 @@ const HeroSection = () => {
           </div>
           <Heading
             className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails']"
+            weight="medium"
             size="10"
           >
             The next generation of writing emails
           </Heading>
-          <div className="sm:px-20">
+          <div className="sm:px-16">
             <Text size="5">
               A collection of high-quality, unstyled components for creating
               beautiful emails using React and TypeScript.
@@ -40,13 +41,13 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="mt-10 flex items-center justify-center gap-4">
-          <Button asChild size="4">
+          <Button asChild size="5">
             <Link href="/components">
               Explore components
               <ArrowRightIcon size={16} />
             </Link>
           </Button>
-          <Code className="md:!inline-flex hidden max-w-max">
+          <Code className="md:!inline-flex hidden max-w-max rounded-xl h-12">
             npx create-email@latest
           </Code>
         </div>
