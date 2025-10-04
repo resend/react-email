@@ -17,10 +17,7 @@ describe('getEmailComponent()', () => {
 
   test('with a demo email template', async () => {
     const result = await getEmailComponent(
-      path.resolve(
-        __dirname,
-        '../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',
-      ),
+      path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
       path.resolve(__dirname, '../../jsx-runtime'),
     );
 
