@@ -114,6 +114,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "html-entities": "^2.5.6",
     "html-to-text": "^9.0.5",
     "prettier": "^3.5.3",
     "react-promise-suspense": "^0.3.4"
