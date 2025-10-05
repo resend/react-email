@@ -6,10 +6,10 @@ interface PromiseState {
 
 const promiseStates = new Map<string, PromiseState>();
 
-export const useSuspensedPromise = <Result>(
+export function useSuspensedPromise<Result>(
   promiseFn: () => Promise<Result>,
   key: string,
-) => {
+) {
   const previousState = promiseStates.get(key);
   if (previousState) {
     if ('error' in previousState) {
@@ -31,4 +31,4 @@ export const useSuspensedPromise = <Result>(
   promiseStates.set(key, state);
 
   throw state.promise;
-};
+}

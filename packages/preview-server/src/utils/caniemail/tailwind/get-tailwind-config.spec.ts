@@ -5,7 +5,7 @@ import { pixelBasedPreset } from '@react-email/components';
 import { getTailwindConfig } from './get-tailwind-config';
 
 describe('getTailwindConfig()', () => {
-  it("should work on the demo's Vercel Invite template", async () => {
+  it("works on the demo's Vercel Invite template", async () => {
     const sourcePath = path.resolve(
       __dirname,
       '../../../../../../apps/demo/emails/notifications/vercel-invite-user.tsx',
@@ -23,7 +23,7 @@ describe('getTailwindConfig()', () => {
     });
   });
 
-  it('should work with email templates that import the tailwind config', async () => {
+  it('works with email templates that import the tailwind config', async () => {
     const sourcePath = path.resolve(
       __dirname,
       './tests/dummy-email-template.tsx',
