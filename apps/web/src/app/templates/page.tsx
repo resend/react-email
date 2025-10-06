@@ -122,7 +122,7 @@ export default function Templates() {
         tag="main"
       >
         <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
-          <Heading className="text-white" size="6">
+          <Heading className="text-white" weight="medium" size="6">
             Templates
           </Heading>
           <Text as="p" className="mt-4 text-slate-11" size="2">

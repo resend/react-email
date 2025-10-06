@@ -3,6 +3,7 @@
 import classnames from 'classnames';
 import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Drawer } from 'vaul';
 
@@ -16,16 +17,21 @@ interface MenuItemProps {
 const GITHUB_URL = 'https://github.com/resend/react-email';
 
 function MenuItem({ className, children, href, onClick }: MenuItemProps) {
+  const pathname = usePathname();
+  const [, activeItem] = pathname?.split('/') ?? [];
+
   return (
     <li className="inline-flex w-full items-center justify-center md:w-fit">
       <Link
         className={classnames(
           'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
+          'data-[active=true]:bg-slate-6 data-[active=true]:text-slate-12',
           className,
         )}
         href={href}
         onClick={onClick}
         tabIndex={0}
+        data-active={activeItem === href.replace('/', '')}
       >
         {children}
       </Link>
@@ -45,7 +51,7 @@ function MenuItems({ onItemClick }: { onItemClick: () => void }) {
       </MenuItem>
       <MenuItem
         className="w-full px-2 md:w-fit"
-        href="/examples"
+        href="/templates"
         onClick={onItemClick}
       >
         Templates
