@@ -1,5 +1,5 @@
 ---
-"@react-email/preview-server": patch
+"@react-email/preview-server": minor
 ---
 
-improved contrast for resizing handles, placed them around email template
+Added resize snapping, refined UI and improved presets
