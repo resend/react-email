@@ -33,7 +33,7 @@ const TestimonialSection = () => {
                   Lee Robinson
                 </a>
                 <span className="text-neutral-500 dark:text-neutral-400">
-                  VP of Developer Experience, Cursor
+                  VP of DX, Cursor
                 </span>
               </div>
             </div>
