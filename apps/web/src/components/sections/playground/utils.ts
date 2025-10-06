@@ -15,7 +15,7 @@ const WelcomeEmail = ({
           <Container className="mb-10 mx-auto p-5 w-[465px]">
             <Section className="mt-10">
               <Img
-                src={\`\${baseUrl}/brand/vercel.png\`}
+                src={\`\${baseUrl}/brand/sample-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
@@ -79,7 +79,7 @@ const WelcomeEmail = ({
           <Container style={{ marginBottom: '40px', marginLeft: 'auto', marginRight: 'auto', padding: '20px', width: '465px' }}>
             <Section style={{ marginTop: '40px' }}>
               <Img
-                src={\`\${baseUrl}/brand/vercel.png\`}
+                src={\`\${baseUrl}/brand/sample-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
