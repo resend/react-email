@@ -37,7 +37,7 @@ const PlaygroundSection = () => {
           >
             Style emails using your favorite tools
           </Heading>
-          <div className="px-4 md:px-20 text-balance">
+          <div className="px-4 md:px-40">
             <Text size="5">
               Make your emails look beautiful with Tailwind or inline CSS.
             </Text>
