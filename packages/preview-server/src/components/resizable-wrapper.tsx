@@ -94,7 +94,7 @@ export const ResizableWrapper = ({
         setIsResizing(true);
         setDirection(direction);
 
-        const threshold = 10;
+        const threshold = 12;
 
         for (let i = 0; i < VIEW_PRESETS.length; i++) {
           const preset = VIEW_PRESETS[i];
