@@ -9,7 +9,7 @@ const ToolsSection = () => {
     <section className="relative text-center space-y-24 my-56">
       <div className="space-y-8">
         <div className="max-w-full text-center space-y-6">
-          <Heading size="9" weight="medium" className="text-white/80">
+          <Heading size="8" weight="medium" className="text-white/80">
             Built-in deliverability tools
           </Heading>
           <div className="sm:px-20 md:max-w-2xl md:mx-auto">

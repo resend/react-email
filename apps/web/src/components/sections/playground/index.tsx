@@ -30,7 +30,11 @@ const PlaygroundSection = () => {
     <section className="relative min-h-screen my-24 text-center flex flex-col items-center justify-center">
       <div className="space-y-8">
         <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto space-y-6">
-          <Heading size="9" weight="medium" className="text-white/80">
+          <Heading
+            size="8"
+            weight="medium"
+            className="text-white/80 md:w-96 inline-block text-balance"
+          >
             Modern styling using your favorite tools
           </Heading>
           <div className="sm:px-20">
