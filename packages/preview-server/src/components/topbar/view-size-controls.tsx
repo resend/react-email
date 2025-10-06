@@ -98,9 +98,7 @@ export const ViewSizeControls = ({
               {preset.icon}
             </button>
           </Tooltip.Trigger>
-          <Tooltip.Content>
-            {preset.name}
-          </Tooltip.Content>
+          <Tooltip.Content>{preset.name}</Tooltip.Content>
         </Tooltip>
       ))}
 
