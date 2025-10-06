@@ -65,7 +65,7 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
         >
           <CopyCode
             code={value}
-            className="absolute right-1 shadow-none hover:text-white hover:[&_svg]:text-white enabled:hover:!bg-transparent"
+            className="absolute right-1 shadow-none hover:text-white hover:[&_svg]:text-white enabled:hover:!bg-transparent focus:ring-0"
           />
 
           <div
