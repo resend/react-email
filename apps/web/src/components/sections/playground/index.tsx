@@ -35,12 +35,11 @@ const PlaygroundSection = () => {
             weight="medium"
             className="text-white/80 md:w-96 inline-block text-balance max-md:max-w-lg max-md:mx-auto"
           >
-            Modern styling using your favorite tools
+            Style emails using your favorite tools
           </Heading>
           <div className="px-4 md:px-20">
             <Text size="5">
-              Style your emails with your favorite tools, including support for
-              Tailwind and inline CSS.
+              React Email includes support for Tailwind and inline CSS.
             </Text>
           </div>
         </div>
