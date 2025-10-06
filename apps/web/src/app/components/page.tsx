@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { Heading } from '@/components/heading';
 import { componentsStructure } from '../../../components/structure';
 import { PageTransition } from '../../components/page-transition';
 import { Spotlight } from '../../components/spotlight';
@@ -30,7 +31,9 @@ export default async function ComponentsPage() {
       </div>
       <PageTransition className="pb-10" key="about" tag="main">
         <div className="flex w-full flex-col gap-2 px-6 pt-16 pb-10 md:px-8">
-          <h1 className="font-bold text-2xl text-slate-12">Components</h1>
+          <Heading size="6" weight="medium" className="text-slate-12">
+            Components
+          </Heading>
           <p>
             Build beautiful emails with pre-built components that you can
             copy-and-paste into your app.
@@ -55,9 +58,9 @@ export default async function ComponentsPage() {
                 className={classNames(
                   'group relative isolate mt-7 cursor-pointer scroll-m-6 rounded-md focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-md md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus:before:border-slate-6 md:hover:before:border-slate-6',
                   {
-                    'md:ml-6': index % 3 === 0,
-                    'md:mx-3': index % 3 === 1,
-                    'md:mr-6': index % 3 === 2,
+                    'lg:ml-6': index % 3 === 0,
+                    'lg:mx-3': index % 3 === 1,
+                    'lg:mr-6': index % 3 === 2,
                   },
                 )}
                 href={`/components/${slug}`}

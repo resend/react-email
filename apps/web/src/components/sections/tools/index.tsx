@@ -6,7 +6,7 @@ import { InteractiveDemo } from './interactive-demo';
 
 const ToolsSection = () => {
   return (
-    <section className="relative text-center space-y-24 my-56">
+    <section className="relative text-center space-y-16 sm:space-y-24 max-md:mt-44 max-md:mb-24 my-56 max-md:px-4">
       <div className="space-y-8">
         <div className="max-w-full text-center space-y-6">
           <Heading size="8" weight="medium" className="text-white/80">

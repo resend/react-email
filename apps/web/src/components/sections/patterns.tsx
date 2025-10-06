@@ -11,15 +11,15 @@ import { slugify } from '../../utils/slugify';
 
 const PatternsSection = () => {
   return (
-    <section className="relative py-20 my-40">
-      <div className="max-w-full flex flex-col gap-4">
+    <section className="relative py-20 my-24 md:my-40">
+      <div className="flex flex-col gap-4 max-md:px-6">
         <Content component="Heading" />
         <Content component="Text" />
         <Content component="Button" />
-        <div className="relative grid grid-cols-1 gap-y-4 gap-x-1 pb-5 md:grid-cols-2 lg:grid-cols-3 -ml-5">
+        <div className="relative grid grid-cols-1 gap-y-4 gap-x-4 lg:gap-x-1 pb-5 md:grid-cols-2 lg:grid-cols-3 lg:-ml-5">
           <div
             aria-hidden
-            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-dashed border-b [mask-image:linear-gradient(to_right,transparent_0%,black_90%)]"
+            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-dashed border-b [mask-image:linear-gradient(to_right,transparent_0%,black_90%)] max-lg:hidden"
           />
           {componentsStructure.slice(0, 6).map((category, index) => {
             const slug = slugify(category.name);
@@ -37,9 +37,9 @@ const PatternsSection = () => {
                 className={classNames(
                   'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus:before:border-slate-6 md:hover:before:border-slate-6',
                   {
-                    'md:ml-6': index % 3 === 0,
-                    'md:mx-3': index % 3 === 1,
-                    'md:mr-6': index % 3 === 2,
+                    'lg:ml-6': index % 3 === 0,
+                    'lg:mx-3': index % 3 === 1,
+                    'lg:mr-6': index % 3 === 2,
                   },
                 )}
                 href={`/components/${slug}`}
@@ -81,7 +81,7 @@ const PatternsSection = () => {
       <BgGradient direction="right" />
       <Image
         alt=""
-        className="pointer-events-none absolute -translate-x-96 -top-40 z-[3] select-none mix-blend-lighten"
+        className="pointer-events-none absolute md:-translate-x-96 -top-40 z-[3] select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"
@@ -132,7 +132,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
     return (
       <div
         aria-hidden
-        className="absolute pointer-events-none [mask-image:linear-gradient(45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -left-12 -top-10 w-8 h-1/2 border-x border-dashed border-x-slate-3 bg-[size:10px_10px] bg-fixed"
+        className="absolute pointer-events-none [mask-image:linear-gradient(45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -left-12 -top-10 w-8 h-1/2 border-x border-dashed border-x-slate-3 bg-[size:10px_10px] bg-fixed max-lg:hidden"
       />
     );
   }
@@ -140,7 +140,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
   return (
     <div
       aria-hidden
-      className="absolute pointer-events-none [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -right-12 -bottom-40 w-8 h-2/3 border-x border-x-slate-3 border-dashed bg-[size:10px_10px] bg-fixed"
+      className="absolute pointer-events-none [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -right-12 -bottom-40 w-8 h-2/3 border-x border-x-slate-3 border-dashed bg-[size:10px_10px] bg-fixed max-lg:hidden"
     />
   );
 };

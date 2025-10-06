@@ -70,7 +70,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
 
           <pre className={classNames('p-4 font-mono', className)}>
             {tokens.map((line, i) => {
-              const lineProps = getLineProps({ line, key: i });
+              const { key: _, ...lineProps } = getLineProps({ line, key: i });
 
               return (
                 <div
@@ -82,7 +82,10 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
                   })}
                 >
                   {line.map((token, key) => {
-                    const tokenProps = getTokenProps({ token, key });
+                    const { key: _, ...tokenProps } = getTokenProps({
+                      token,
+                      key,
+                    });
 
                     const isException =
                       token.content === 'from' &&

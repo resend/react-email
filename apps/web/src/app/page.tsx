@@ -7,7 +7,7 @@ import TestimonialSection from '@/components/sections/testimonial';
 import ToolsSection from '@/components/sections/tools';
 
 const Home = () => (
-  <main>
+  <main className="max-lg:overflow-x-clip">
     <HeroSection />
     <PlaygroundSection />
     <TestimonialSection />

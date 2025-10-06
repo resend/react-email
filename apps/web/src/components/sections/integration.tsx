@@ -11,7 +11,7 @@ const IntegrationSection = () => {
   const mouseY = useMotionValue(0);
 
   return (
-    <section className="relative pt-12 pb-48">
+    <section className="relative pt-12 pb-28 md:pb-48 px-6">
       <div className="space-y-16">
         <div className="max-w-full text-center space-y-4">
           <Heading size="8" weight="medium" className="text-white/80">
@@ -24,7 +24,7 @@ const IntegrationSection = () => {
             </Text>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           {items.map((item, index) => (
             <Link
               key={index}
@@ -34,7 +34,7 @@ const IntegrationSection = () => {
                 mouseX.set(e.clientX - left);
                 mouseY.set(e.clientY - top);
               }}
-              className="group relative rounded-3xl bg-slate-4 p-px"
+              className="group relative min-w-full max-w-full sm:min-w-[250px] sm:max-w-[250px] md:min-w-[280px] md:max-w-[280px] rounded-3xl bg-slate-4 p-px"
               href={item.href}
             >
               <motion.div
@@ -43,8 +43,10 @@ const IntegrationSection = () => {
                   background: useMotionTemplate`radial-gradient(130px circle at ${mouseX}px ${mouseY}px, var(--color), transparent 80%)`,
                 }}
               />
-              <div className="relative z-[5] h-32 flex items-center justify-center py-4 px-24 rounded-3xl bg-black overflow-hidden">
-                <div className="relative mx-auto block w-fit">{item.logo}</div>
+              <div className="relative z-[5] h-28 sm:h-32 flex items-center justify-center py-4 rounded-3xl bg-black overflow-hidden">
+                <div className="relative mx-auto block w-fit max-sm:scale-90">
+                  {item.logo}
+                </div>
                 <Line />
                 <Blur />
               </div>
@@ -117,7 +119,7 @@ const Logos = {
   scaleway: () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="166"
+      width="150"
       height="32"
       viewBox="0 0 166 32"
       fill="none"

@@ -22,7 +22,7 @@ export const CodePreview = ({
   activeTab: string;
 }) => {
   return (
-    <div className="relative border border-zinc-800 rounded-[20px]">
+    <div className="relative border border-zinc-800 rounded-[20px] overflow-hidden">
       <CodePreviewHeader activeTab={activeTab} tabs={tabs} />
       <CodePreviewContent tabs={tabs} />
       <Line />
@@ -48,14 +48,19 @@ const CodePreviewHeader = ({
 }) => {
   return (
     <div className="flex items-center justify-between border-b border-zinc-800 h-14 px-2.5">
-      <div className="flex items-center gap-2 h-full ml-2">
+      <div className="flex items-center gap-1.5 sm:gap-2 h-full ml-2">
         {Array.from({ length: 3 }).map((_, index) => (
-          <div key={index} className="size-3 rounded-full bg-zinc-800" />
+          <div
+            key={index}
+            className="size-2.5 sm:size-3 rounded-full bg-zinc-800"
+          />
         ))}
       </div>
       <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
-        <IconFile className="size-4.5" />
-        <span className="text-slate-11 font-mono">email-template.tsx</span>
+        <IconFile className="size-4 sm:size-4.5" />
+        <span className="text-slate-11 font-mono text-xs sm:text-sm">
+          email-template.tsx
+        </span>
       </div>
       <div className="flex items-center gap-2">
         <CopyCode
@@ -79,13 +84,13 @@ const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-4 w-full">
-      <div className="col-span-2">
+    <div className="grid grid-cols-1 md:grid-cols-4 w-full">
+      <div className="md:col-span-2 max-md:border-b max-md:border-zinc-800">
         {tabs.map((tab) => (
           <Tabs.Content
             key={tab.value}
             value={tab.value}
-            className="h-[600px] overflow-auto"
+            className="h-[400px] md:h-[600px] overflow-auto"
             style={{
               maskImage: `
                 linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%),
@@ -98,6 +103,7 @@ const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
             <CodeBlock
               key={tab.value}
               children={tab.code}
+              className="max-md:px-2 max-md:py-3"
               codeClassName="w-fit"
               language="tsx"
               isGradientLine={false}
@@ -105,7 +111,7 @@ const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
           </Tabs.Content>
         ))}
       </div>
-      <div className="col-span-2 border-l border-zinc-800">
+      <div className="md:col-span-2 md:border-l border-zinc-800 h-[400px] md:h-auto">
         {emailOutput && (
           <iframe
             className="w-full h-full"

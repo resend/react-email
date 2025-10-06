@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Heading } from '@/components/heading';
 import { componentsStructure } from '../../../../components/structure';
 import { ComponentsView } from '../../../components/components-view';
 import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
@@ -85,9 +86,9 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
               <span>Back</span>
             </Link>
           </div>
-          <h1 className="font-bold text-2xl text-slate-12">
+          <Heading size="6" weight="medium" className="text-slate-12">
             {foundCategory.name}
-          </h1>
+          </Heading>
         </div>
         <div className="relative flex w-full flex-col gap-4 border-slate-4 border-y pt-3">
           <ComponentsView components={importedComponents} />

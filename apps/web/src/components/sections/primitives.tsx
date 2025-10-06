@@ -4,7 +4,7 @@ import { Text } from '@/components/text';
 
 const PrimitivesSection = () => {
   return (
-    <section className="relative py-20 my-40 space-y-16">
+    <section className="relative my-24 md:my-40 md:py-20 space-y-16 max-md:px-6">
       <div className="flex flex-col gap-4">
         <Heading size="8" weight="medium" className="text-white/80">
           Battle-tested Primitives
@@ -13,7 +13,7 @@ const PrimitivesSection = () => {
           All components are tested on the most popular email clients.
         </Text>
       </div>
-      <div className="flex items-center gap-16">
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-6 lg:gap-16 lg:max-w-4xl">
         {items.map((item, index) => (
           <div
             key={index}
@@ -33,7 +33,7 @@ const PrimitivesSection = () => {
       </div>
       <Image
         alt=""
-        className="pointer-events-none absolute -translate-x-48 -top-20 z-[3] scale-110 select-none mix-blend-lighten"
+        className="pointer-events-none absolute sm:-translate-x-48 -top-20 z-[3] scale-110 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"

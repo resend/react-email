@@ -5,12 +5,12 @@ import Image from 'next/image';
 const TestimonialSection = () => {
   return (
     <section className="relative z-[4] mt-48 bg-background">
-      <div className="relative [mask-image:linear-gradient(to_right,transparent,black_30%,black_70%,transparent)] overflow-hidden rounded-t-3xl border-t border-zinc-800 pt-16">
+      <div className="relative overflow-hidden rounded-t-3xl border-t border-zinc-800 pt-16 sm:[mask-image:linear-gradient(to_right,transparent,black_30%,black_70%,transparent)]">
         <Line />
         <Blur />
         <div className="flex flex-col items-center justify-center gap-14">
           <blockquote className="relative flex w-full max-w-xl flex-col gap-10">
-            <p className="text-center text-2xl font-medium leading-[1.4] tracking-[-0.01em] text-gradient text-balance">
+            <p className="text-center text-xl md:text-2xl font-medium leading-[1.4] tracking-[-0.01em] text-gradient text-balance">
               I've added emails to my site in 30 minutes. React Email is
               amazing.
             </p>

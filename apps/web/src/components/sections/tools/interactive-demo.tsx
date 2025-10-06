@@ -4,7 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
@@ -46,7 +46,7 @@ export const InteractiveDemo = () => {
   const [activeTool, setActiveTool] = useState<string>(tools[0].value);
 
   return (
-    <div className="flex justify-between gap-32">
+    <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-x-16 lg:gap-x-32 gap-y-14">
       <div className="flex flex-col shrink-0 text-start space-y-5">
         {tools.map((tool) => (
           <button
@@ -87,7 +87,7 @@ export const InteractiveDemo = () => {
           </button>
         ))}
       </div>
-      <div className="relative border border-slate-4 grow rounded-3xl overflow-hidden">
+      <div className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden">
         <div className="relative z-[2] flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
           <div className="flex items-center gap-2 h-full">
             {Array.from({ length: 3 }).map((_, index) => (
@@ -97,9 +97,9 @@ export const InteractiveDemo = () => {
           <Line />
         </div>
         <div>
-          <div className="absolute bottom-0 z-[1] min-w-full left-6 border-l border-slate-6 rounded-tl-2xl overflow-hidden">
-            <div className="flex p-4 bg-gray-200 h-[230px] overflow-hidden">
-              <div className="relative mx-auto my-auto -translate-y-[76%] translate-x-[10%]">
+          <div className="md:absolute bottom-0 z-[1] min-w-full left-6 md:border-l border-slate-6 overflow-hidden">
+            <div className="flex p-4 bg-gray-200 h-[260px] overflow-hidden">
+              <div className="relative mx-auto my-auto -translate-y-[76%] sm:translate-x-[10%]">
                 <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2">
                   <div className="h-8 w-1 rounded-md bg-black/30" />
                 </div>
@@ -164,17 +164,17 @@ export const InteractiveDemo = () => {
                       <h3 className="text-slate-12 font-medium text-base mb-1">
                         10/10
                       </h3>
-                      <p className="text-slate-11 text-sm text-center max-w-[320px]">
+                      <p className="text-slate-11 text-sm text-center max-w-[320px] min-w-[320px]">
                         Your email is clean of abuse indicators.
                       </p>
                     </div>
                   ) : (
                     <div className="relative text-left text-slate-10 text-sm">
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
                         data-status={tool.status}
                       >
-                        <div className="py-1.5 font-normal min-w-[160px]">
+                        <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">
                           <span className="flex uppercase gap-2 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
                             <Icons.warning />
                             {tool.value === 'linter'
@@ -205,16 +205,16 @@ export const InteractiveDemo = () => {
                           )}
                         </div>
                         {tool.value === 'compatibility' && (
-                          <span className="py-1.5 font-mono text-slate-11 appearance-none underline mx-2">
+                          <span className="py-1.5 font-mono text-slate-11 appearance-none underline mx-2 max-sm:hidden">
                             L164
                           </span>
                         )}
                       </div>
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
                         data-status={tool.status}
                       >
-                        <div className="py-1.5 font-normal min-w-[160px]">
+                        <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">
                           <span className="flex uppercase gap-2 items-center group-data-[status=error]/result:text-red-400 group-data-[status=warning]/result:text-orange-300">
                             <Icons.warning />
                             {tool.value === 'linter'
@@ -245,7 +245,7 @@ export const InteractiveDemo = () => {
                           )}
                         </div>
                         {tool.value === 'compatibility' && (
-                          <span className="py-1.5 font-mono text-slate-11 appearance-none underline mx-2">
+                          <span className="py-1.5 font-mono text-slate-11 appearance-none underline mx-2 max-sm:hidden">
                             L71
                           </span>
                         )}
@@ -280,32 +280,34 @@ const Line = () => {
 
 const Icons = {
   warning: () => (
-    <svg
-      width="13"
-      height="12"
-      viewBox="0 0 13 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10.8777 8.99999L6.87766 1.99999C6.79044 1.84609 6.66396 1.71808 6.51112 1.62902C6.35828 1.53997 6.18455 1.49304 6.00766 1.49304C5.83077 1.49304 5.65704 1.53997 5.5042 1.62902C5.35136 1.71808 5.22488 1.84609 5.13766 1.99999L1.13766 8.99999C1.0495 9.15267 1.00327 9.32594 1.00366 9.50224C1.00405 9.67855 1.05105 9.85161 1.13988 10.0039C1.22872 10.1562 1.35623 10.2823 1.50951 10.3694C1.66278 10.4565 1.83636 10.5016 2.01266 10.5H10.0127C10.1881 10.4998 10.3604 10.4535 10.5123 10.3656C10.6642 10.2778 10.7903 10.1515 10.8779 9.99955C10.9656 9.84756 11.0117 9.67518 11.0116 9.49973C11.0116 9.32428 10.9654 9.15193 10.8777 8.99999Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6.0127 4.5V6.5"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6.0127 8.5H6.01853"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <div className="flex-shrink-0">
+      <svg
+        width="13"
+        height="12"
+        viewBox="0 0 13 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.8777 8.99999L6.87766 1.99999C6.79044 1.84609 6.66396 1.71808 6.51112 1.62902C6.35828 1.53997 6.18455 1.49304 6.00766 1.49304C5.83077 1.49304 5.65704 1.53997 5.5042 1.62902C5.35136 1.71808 5.22488 1.84609 5.13766 1.99999L1.13766 8.99999C1.0495 9.15267 1.00327 9.32594 1.00366 9.50224C1.00405 9.67855 1.05105 9.85161 1.13988 10.0039C1.22872 10.1562 1.35623 10.2823 1.50951 10.3694C1.66278 10.4565 1.83636 10.5016 2.01266 10.5H10.0127C10.1881 10.4998 10.3604 10.4535 10.5123 10.3656C10.6642 10.2778 10.7903 10.1515 10.8779 9.99955C10.9656 9.84756 11.0117 9.67518 11.0116 9.49973C11.0116 9.32428 10.9654 9.15193 10.8777 8.99999Z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M6.0127 4.5V6.5"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M6.0127 8.5H6.01853"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   ),
   success: () => (
     <>
