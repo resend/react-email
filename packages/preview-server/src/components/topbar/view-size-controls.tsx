@@ -1,5 +1,4 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { motion } from 'framer-motion';
+import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 import { cn } from '../../utils';
 import { IconArrowDown } from '../icons/icon-arrow-down';
@@ -11,208 +10,103 @@ interface ViewDimensions {
 }
 
 interface ViewSizeControlsProps {
+  minWidth: number;
+  minHeight: number;
   viewWidth: number;
   setViewWidth: (width: number) => void;
   viewHeight: number;
   setViewHeight: (height: number) => void;
 }
 
-interface DimensionInputProps {
-  icon: React.ReactNode;
-  isActive: boolean;
-  label: string;
-  onBlur: () => void;
-  onChange: (value: number) => void;
-  setIsActive: (active: boolean) => void;
-  value: number;
-  hasBorder?: boolean;
-}
-
 interface PresetOption {
   name: string;
   dimensions: ViewDimensions;
+  icon: React.ReactNode;
 }
 
-interface PresetMenuItemProps {
-  name: string;
-  dimensions: ViewDimensions;
-  onSelect: (dimensions: ViewDimensions) => void;
-}
-
-const VIEW_PRESETS: PresetOption[] = [
-  { name: 'Desktop', dimensions: { width: 600, height: 1024 } },
-  { name: 'Mobile', dimensions: { width: 375, height: 812 } },
+export const VIEW_PRESETS: PresetOption[] = [
+  {
+    name: 'Desktop',
+    dimensions: { width: 1024, height: 600 },
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path
+          d="M1 3.25C1 3.11193 1.11193 3 1.25 3H13.75C13.8881 3 14 3.11193 14 3.25V10.75C14 10.8881 13.8881 11 13.75 11H1.25C1.11193 11 1 10.8881 1 10.75V3.25ZM1.25 2C0.559643 2 0 2.55964 0 3.25V10.75C0 11.4404 0.559644 12 1.25 12H5.07341L4.82991 13.2986C4.76645 13.6371 5.02612 13.95 5.37049 13.95H9.62951C9.97389 13.95 10.2336 13.6371 10.1701 13.2986L9.92659 12H13.75C14.4404 12 15 11.4404 15 10.75V3.25C15 2.55964 14.4404 2 13.75 2H1.25ZM9.01091 12H5.98909L5.79222 13.05H9.20778L9.01091 12Z"
+          fill="currentColor"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: 'Mobile',
+    dimensions: { width: 375, height: 667 },
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path
+          d="M4 2.5C4 2.22386 4.22386 2 4.5 2H10.5C10.7761 2 11 2.22386 11 2.5V12.5C11 12.7761 10.7761 13 10.5 13H4.5C4.22386 13 4 12.7761 4 12.5V2.5ZM4.5 1C3.67157 1 3 1.67157 3 2.5V12.5C3 13.3284 3.67157 14 4.5 14H10.5C11.3284 14 12 13.3284 12 12.5V2.5C12 1.67157 11.3284 1 10.5 1H4.5ZM6 11.65C5.8067 11.65 5.65 11.8067 5.65 12C5.65 12.1933 5.8067 12.35 6 12.35H9C9.1933 12.35 9.35 12.1933 9.35 12C9.35 11.8067 9.1933 11.65 9 11.65H6Z"
+          fill="currentColor"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      </svg>
+    ),
+  },
 ];
 
-const inputVariant = {
-  active: {
-    width: '3.5rem',
-    padding: '0 0 0 0.5rem',
-  },
-  inactive: {
-    width: '0',
-  },
-};
-
-const DimensionInput = ({
-  icon,
-  isActive,
-  label,
-  onBlur,
-  onChange,
-  setIsActive,
-  value,
-  hasBorder,
-}: DimensionInputProps) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => {
-    if (isActive && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isActive]);
-
-  const handleButtonClick = () => {
-    if (isActive) {
-      setIsActive(false);
-    } else {
-      setIsActive(true);
-    }
-  };
-
-  return (
-    <Tooltip.Provider>
-      <Tooltip>
-        <Tooltip.Trigger asChild>
-          <motion.button
-            onClick={handleButtonClick}
-            className={cn('relative flex items-center justify-center p-2', {
-              'border-slate-6 border-r': hasBorder,
-            })}
-          >
-            {icon}
-            <motion.input
-              ref={inputRef}
-              initial={false}
-              animate={isActive ? 'active' : 'inactive'}
-              className="arrow-hide relative flex h-8 items-center justify-center bg-black text-sm outline-none"
-              onChange={(e) => onChange(Number.parseInt(e.currentTarget.value))}
-              onBlur={onBlur}
-              type="number"
-              value={value}
-              variants={inputVariant}
-            />
-          </motion.button>
-        </Tooltip.Trigger>
-        <Tooltip.Content>
-          <span>{label}: </span>
-          <span className="font-mono">{value}px</span>
-        </Tooltip.Content>
-      </Tooltip>
-    </Tooltip.Provider>
-  );
-};
-
-const PresetMenuItem = ({
-  name,
-  dimensions,
-  onSelect,
-}: PresetMenuItemProps) => (
-  <DropdownMenu.Item
-    className="group flex w-full cursor-pointer select-none items-center justify-between rounded-md py-1.5 pr-1 pl-2 text-sm outline-none transition-colors data-[highlighted]:bg-slate-5"
-    onClick={() => onSelect(dimensions)}
-  >
-    {name}
-    <span className="flex h-fit items-center rounded-full bg-slate-6 px-2 py-1 font-medium text-slate-11 text-xs">
-      {dimensions.width}x{dimensions.height}
-    </span>
-  </DropdownMenu.Item>
-);
-
 export const ViewSizeControls = ({
+  minWidth,
+  minHeight,
   viewWidth,
   viewHeight,
   setViewWidth,
   setViewHeight,
 }: ViewSizeControlsProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
-  const [activeInput, setActiveInput] = React.useState<
-    'width' | 'height' | null
-  >(null);
+  const [internalWidth, setInternalWidth] = React.useState(viewWidth);
+  const [internalHeight, setInternalHeight] = React.useState(viewHeight);
 
   const handlePresetSelect = (dimensions: ViewDimensions) => {
     setViewWidth(dimensions.width);
     setViewHeight(dimensions.height);
   };
 
-  const handleBlur = () => {
-    setActiveInput(null);
-  };
+  React.useEffect(() => {
+    setInternalWidth(viewWidth);
+    setInternalHeight(viewHeight);
+  }, [viewWidth, viewHeight]);
 
   return (
-    <div className="relative flex h-9 w-fit overflow-hidden rounded-lg border border-slate-6 text-sm transition-colors duration-300 ease-in-out focus-within:border-slate-8 hover:border-slate-8">
-      <DimensionInput
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3" />
-            <path d="M21 16v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3" />
-            <path d="M4 12H2" />
-            <path d="M10 12H8" />
-            <path d="M16 12h-2" />
-            <path d="M22 12h-2" />
-          </svg>
-        }
-        value={viewWidth}
-        onChange={setViewWidth}
-        isActive={activeInput === 'width'}
-        setIsActive={(active) => setActiveInput(active ? 'width' : null)}
-        onBlur={handleBlur}
-        label="Width"
-        hasBorder
-      />
-      <DimensionInput
-        icon={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3" />
-            <path d="M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3" />
-            <path d="M12 20v2" />
-            <path d="M12 14v2" />
-            <path d="M12 8v2" />
-            <path d="M12 2v2" />
-          </svg>
-        }
-        value={viewHeight}
-        onChange={setViewHeight}
-        isActive={activeInput === 'height'}
-        setIsActive={(active) => setActiveInput(active ? 'height' : null)}
-        onBlur={handleBlur}
-        label="Height"
-      />
-      <DropdownMenu.Root open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenu.Trigger asChild>
+    <div className="relative flex h-9 w-fit overflow-hidden rounded-lg border border-slate-6 text-sm transition-colors duration-300 ease-in-out">
+      {VIEW_PRESETS.map((preset) => (
+        <Tooltip>
+          <Tooltip.Trigger asChild>
+            <button
+              key={preset.name}
+              onClick={() => handlePresetSelect(preset.dimensions)}
+              className={cn(
+                'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
+                {
+                  'bg-slate-4':
+                    viewWidth === preset.dimensions.width &&
+                    viewHeight === preset.dimensions.height,
+                },
+              )}
+              type="button"
+            >
+              {preset.icon}
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>{preset.name}</Tooltip.Content>
+        </Tooltip>
+      ))}
+
+      <Popover.Root open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+        <Popover.Trigger asChild>
           <button
             type="button"
-            className="relative flex items-center justify-center overflow-hidden bg-slate-5 p-2 text-slate-11 text-sm leading-none outline-none transition-colors ease-linear focus-within:text-slate-12 hover:text-slate-12 focus:text-slate-12"
+            className="relative flex items-center justify-center overflow-hidden w-9 text-slate-11 text-sm leading-none outline-none transition-colors ease-linear focus-within:text-slate-12 hover:text-slate-12 focus:text-slate-12"
           >
             <span className="sr-only">View presets</span>
             <IconArrowDown
@@ -224,24 +118,51 @@ export const ViewSizeControls = ({
               )}
             />
           </button>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Portal>
-          <DropdownMenu.Content
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Content
             align="end"
             className="flex min-w-[12rem] flex-col gap-2 rounded-md border border-slate-8 border-solid bg-black px-2 py-2 text-white"
             sideOffset={5}
           >
-            {VIEW_PRESETS.map((preset) => (
-              <PresetMenuItem
-                key={preset.name}
-                name={preset.name}
-                dimensions={preset.dimensions}
-                onSelect={handlePresetSelect}
+            <div className="flex w-full items-center justify-between text-sm gap-2">
+              <span className="font-medium text-slate-11 text-xs">Width</span>
+              <input
+                type="number"
+                value={internalWidth}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+
+                  setInternalWidth(value);
+
+                  if (value >= minWidth) {
+                    setViewWidth(value);
+                  }
+                }}
+                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               />
-            ))}
-          </DropdownMenu.Content>
-        </DropdownMenu.Portal>
-      </DropdownMenu.Root>
+            </div>
+
+            <div className="flex w-full items-center justify-between text-sm gap-2">
+              <span className="font-medium text-slate-11 text-xs">Height</span>
+              <input
+                type="number"
+                value={internalHeight}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+
+                  setInternalHeight(value);
+
+                  if (value >= minHeight) {
+                    setViewHeight(value);
+                  }
+                }}
+                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              />
+            </div>
+          </Popover.Content>
+        </Popover.Portal>
+      </Popover.Root>
     </div>
   );
 };
