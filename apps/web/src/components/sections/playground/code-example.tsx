@@ -13,8 +13,8 @@ import {
 } from '@react-email/components';
 
 const WelcomeEmail = ({
-  username = 'Steve',
-  company = 'Acme',
+  username = 'Nicole',
+  company = 'Helix',
 }: WelcomeEmailProps) => {
   const previewText = `Welcome to ${company}, ${username}!`;
 

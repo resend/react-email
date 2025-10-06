@@ -1,8 +1,8 @@
 export const tailwindCSSCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
 
 const WelcomeEmail = ({
-  username = 'Steve',
-  company = 'Resend',
+  username = 'Nicole',
+  company = 'Helix',
 }: WelcomeEmailProps) => {
   const previewText = \`Welcome to \${company}, \${username}!\`;
 
@@ -15,7 +15,7 @@ const WelcomeEmail = ({
           <Container className="mb-10 mx-auto p-5 w-[465px]">
             <Section className="mt-10">
               <Img
-                src={\`\${baseUrl}/brand/sample-logo.png\`}
+                src={\`\${baseUrl}/brand/example-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
@@ -65,8 +65,8 @@ export default WelcomeEmail;`;
 export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
 
 const WelcomeEmail = ({
-  username = 'Steve',
-  company = 'Resend',
+  username = 'Nicole',
+  company = 'Helix',
 }: WelcomeEmailProps) => {
   const previewText = \`Welcome to \${company}, \${username}!\`;
 
@@ -79,7 +79,7 @@ const WelcomeEmail = ({
           <Container style={{ marginBottom: '40px', marginLeft: 'auto', marginRight: 'auto', padding: '20px', width: '465px' }}>
             <Section style={{ marginTop: '40px' }}>
               <Img
-                src={\`\${baseUrl}/brand/sample-logo.png\`}
+                src={\`\${baseUrl}/brand/example-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
