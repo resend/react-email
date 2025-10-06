@@ -95,7 +95,7 @@ export function resolveAllCssVariables(node: CssNode) {
       if (/--[\S]+/.test(declaration.property)) {
         variableDefinitions.add({
           declaration,
-          variableName: `${declaration.property}`,
+          variableName: declaration.property,
           definition: generate(declaration.value),
         });
       } else {
