@@ -19,7 +19,7 @@ const PatternsSection = () => {
         <div className="relative grid grid-cols-1 gap-y-4 gap-x-1 pb-5 md:grid-cols-2 lg:grid-cols-3 -ml-5">
           <div
             aria-hidden
-            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b"
+            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-dashed border-b [mask-image:linear-gradient(to_right,transparent_0%,black_90%)]"
           />
           {componentsStructure.slice(0, 6).map((category, index) => {
             const slug = slugify(category.name);
@@ -96,7 +96,7 @@ const Content = ({ component }: { component: string }) => {
       <ContentComponent component={component} />
       <div
         aria-hidden
-        className="absolute pointer-events-none inset-0 border-y border-slate-4 w-[200dvw] -left-[100dvw]"
+        className="absolute pointer-events-none inset-0 border-y border-slate-4 border-dashed w-[200dvw] -left-[100dvw] [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)]"
       />
     </div>
   );
@@ -133,7 +133,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
     return (
       <div
         aria-hidden
-        className="absolute pointer-events-none [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] -left-12 top-0 w-8 h-full border-x border-x-slate-4 bg-[image:repeating-linear-gradient(315deg,_rgba(255,255,255,0.08)_0,_rgba(255,255,255,0.08)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed"
+        className="absolute pointer-events-none [mask-image:linear-gradient(45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -left-12 -top-10 w-8 h-1/2 border-x border-dashed border-x-slate-3 bg-[size:10px_10px] bg-fixed"
       />
     );
   }
@@ -141,7 +141,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
   return (
     <div
       aria-hidden
-      className="absolute pointer-events-none [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] -right-12 top-0 w-8 h-full border-x border-x-slate-4 bg-[image:repeating-linear-gradient(315deg,_rgba(255,255,255,0.08)_0,_rgba(255,255,255,0.08)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed"
+      className="absolute pointer-events-none [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -right-12 -bottom-40 w-8 h-2/3 border-x border-x-slate-3 border-dashed bg-[size:10px_10px] bg-fixed"
     />
   );
 };
