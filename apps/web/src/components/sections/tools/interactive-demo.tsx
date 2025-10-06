@@ -21,7 +21,7 @@ const tools: Tool[] = [
     title: 'Linter',
     value: 'linter',
     description:
-      "Analyze every link in your email to see if it's valid or not.",
+      "Analyze every link in your email to check that they're valid.",
     image: '/examples/linter.png',
     status: 'warning',
   },
@@ -29,7 +29,7 @@ const tools: Tool[] = [
     title: 'Compatibility Checker',
     value: 'compatibility',
     description:
-      'See how well the HTML/CSS is supported across popular mail clients.',
+      'See how well your HTML/CSS is supported across popular mail clients.',
     image: '/examples/compatibility.png',
     status: 'error',
   },
@@ -37,7 +37,7 @@ const tools: Tool[] = [
     title: 'Spam Score',
     value: 'spam',
     description:
-      'Look at your email content and use a robust scoring framework to determine if the email is likely to be spam.',
+      'Analyze your email content using a robust scoring framework to determine if the email is likely to be marked as spam.',
     image: '/examples/spam.png',
   },
 ];

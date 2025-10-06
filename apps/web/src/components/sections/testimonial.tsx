@@ -11,15 +11,13 @@ const TestimonialSection = () => {
         <div className="flex flex-col items-center justify-center gap-14">
           <blockquote className="relative flex w-full max-w-xl flex-col gap-10">
             <p className="text-center text-2xl font-medium leading-[1.4] tracking-[-0.01em] text-gradient text-balance">
-              With React Email, I can design and build beautiful, professional
-              emails that not only look great but also deliver exceptional
-              performance and speed, without any compromises.
+            I've added emails to my site in 30 minutes. React Email is amazing.
             </p>
             <div className="flex items-center justify-center gap-3">
               <div className="p-px rounded-full bg-gradient-to-tr from-transparent via-transparent to-neutral-300">
                 <Image
-                  src="/static/karri-saarinen.jpg"
-                  alt="Karri Saarinen's profile image"
+                  src="/static/lee-robinson.jpg"
+                  alt="Lee Robinson's profile image"
                   width={40}
                   height={40}
                   className="rounded-full object-cover"
@@ -32,10 +30,10 @@ const TestimonialSection = () => {
                   rel="noopener noreferrer"
                   className="text-lg font-medium leading-none text-neutral-300"
                 >
-                  Karri Saarinen
+                  Lee Robinson
                 </a>
                 <span className="text-neutral-500 dark:text-neutral-400">
-                  CEO, Linear
+                  VP of Developer Experience, Cursor
                 </span>
               </div>
             </div>

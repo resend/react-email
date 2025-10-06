@@ -12,7 +12,7 @@ import { cssCode, tailwindCSSCode } from './utils';
 
 const tabs = [
   {
-    label: 'Tailwind CSS',
+    label: 'Tailwind',
     value: 'tailwind',
     code: tailwindCSSCode,
   },
@@ -37,10 +37,10 @@ const PlaygroundSection = () => {
           >
             Modern styling using your favorite tools
           </Heading>
-          <div className="sm:px-20">
+          <div className="sm:px-20 text-balance">
             <Text size="5">
               Style your emails with your favorite tools, including support for
-              inline CSS or Tailwind CSS.
+              Tailwind and inline CSS.
             </Text>
           </div>
         </div>

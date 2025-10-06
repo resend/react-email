@@ -27,16 +27,16 @@ const HeroSection = () => {
             />
           </div>
           <Heading
-            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
+            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['Write_emails_as_modern_as_your_stack'] before:select-none before:pointer-events-none text-balance"
             weight="medium"
             size="10"
           >
-            The next generation of writing emails
+            Write emails as modern as your stack
           </Heading>
           <div className="sm:px-16">
-            <Text size="5" className="text-balance">
-              A collection of high-quality, unstyled components for creating
-              beautiful emails using React and TypeScript.
+            <Text size="5" className="text-pretty">
+              React Email is a next-generation collection of unstyled components for creating
+              beautiful emails using React, Tailwind, and TypeScript.
             </Text>
           </div>
         </div>

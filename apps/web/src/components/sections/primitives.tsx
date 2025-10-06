@@ -10,7 +10,7 @@ const PrimitivesSection = () => {
           Battle-tested Primitives
         </Heading>
         <Text size="5">
-          All components were tested using the most popular email clients.
+          All components are tested on the most popular email clients.
         </Text>
       </div>
       <div className="flex items-center gap-16">

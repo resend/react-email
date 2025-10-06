@@ -17,10 +17,9 @@ const IntegrationSection = () => {
           <Heading size="8" weight="medium" className="text-white/80">
             Integrate with any service
           </Heading>
-          <div className="sm:px-20 md:max-w-3xl md:mx-auto">
+          <div className="sm:px-20 md:max-w-3xl md:mx-auto text-balance">
             <Text size="4">
-              Convert the components made with React into a HTML or Plain Text
-              string. This is done using the render utility.
+              Convert your React code into HTML or Plain Text and send it with any email service provider.
             </Text>
           </div>
         </div>

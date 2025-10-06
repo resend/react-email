@@ -112,15 +112,14 @@ const ContentComponent = ({ component }: { component: string }) => {
       );
     case 'Text':
       return (
-        <Text size="5" className="block max-w-[500px]">
-          Just copy and paste, populate with your own data, and you will be
-          sending proper emails in no time.
+        <Text size="5" className="block max-w-[400px] text-balance">
+          Copy and paste. Add your own data. Send.
         </Text>
       );
     case 'Button':
       return (
         <Button asChild size="4" className="w-fit my-1.5 rounded-xl">
-          <Link href="/components">View all patterns</Link>
+          <Link href="/components">View all components</Link>
         </Button>
       );
     default:
