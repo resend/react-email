@@ -20,8 +20,6 @@ function MenuItem({ className, children, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
   const [, activeItem] = pathname?.split('/') ?? [];
 
-  console.log(activeItem, href);
-
   return (
     <li className="inline-flex w-full items-center justify-center md:w-fit">
       <Link
