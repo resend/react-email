@@ -31,7 +31,7 @@ const HeroSection = () => {
             weight="medium"
             size="10"
           >
-            Write emails as modern as your stack
+            The next generation of writing emails
           </Heading>
           <div className="sm:px-16">
             <Text size="5" className="text-pretty">
