@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "canary",
   "initialVersions": {
     "demo": "0.0.0",
@@ -35,5 +35,7 @@
     "tsconfig": "0.0.0",
     "playground": "0.0.7"
   },
-  "changesets": ["puny-tables-smell"]
+  "changesets": [
+    "puny-tables-smell"
+  ]
 }
