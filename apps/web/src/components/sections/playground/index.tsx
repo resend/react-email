@@ -37,9 +37,9 @@ const PlaygroundSection = () => {
           >
             Style emails using your favorite tools
           </Heading>
-          <div className="px-4 md:px-20">
+          <div className="px-4 md:px-20 text-balance">
             <Text size="5">
-              React Email includes support for Tailwind and inline CSS.
+              Make your emails look beautiful with Tailwind or inline CSS.
             </Text>
           </div>
         </div>
