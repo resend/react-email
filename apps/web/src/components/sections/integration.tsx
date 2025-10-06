@@ -19,7 +19,8 @@ const IntegrationSection = () => {
           </Heading>
           <div className="sm:px-20 md:max-w-3xl md:mx-auto text-balance">
             <Text size="4">
-              Convert your React code into HTML or Plain Text and send it with any email service provider.
+              Convert your React code into HTML or Plain&nbsp;Text and send it
+              with any email service provider.
             </Text>
           </div>
         </div>
