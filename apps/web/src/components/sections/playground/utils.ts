@@ -1,5 +1,10 @@
 export const tailwindCSSCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
 
+interface WelcomeEmailProps {
+  username?: string;
+  company?: string;
+}
+
 const WelcomeEmail = ({
   username = 'Nicole',
   company = 'Helix',
@@ -11,11 +16,11 @@ const WelcomeEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-white m-auto font-sans">
+        <Body className="bg-black m-auto font-sans">
           <Container className="mb-10 mx-auto p-5 w-[465px]">
             <Section className="mt-10">
               <Img
-                src={\`\${baseUrl}/brand/example-logo.png\`}
+                src={\`https://example.com/brand/example-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
@@ -36,7 +41,7 @@ const WelcomeEmail = ({
             <Section className="text-center mt-[32px] mb-[32px]">
               <Button
                 className="py-2.5 px-5 bg-white rounded-md text-black text-sm font-semibold no-underline text-center"
-                href={\`\${baseUrl}/get-started\`}
+                href={\`https://example.com/get-started\`}
               >
                 Get Started
               </Button>
@@ -53,16 +58,14 @@ const WelcomeEmail = ({
   );
 };
 
+export default WelcomeEmail;`;
+
+export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
+
 interface WelcomeEmailProps {
   username?: string;
   company?: string;
 }
-
-const baseUrl = process.env.URL ? \`https://\${process.env.URL}\` : '';
-
-export default WelcomeEmail;`;
-
-export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
 
 const WelcomeEmail = ({
   username = 'Nicole',
@@ -75,11 +78,11 @@ const WelcomeEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body style={{ backgroundColor: 'white', margin: 'auto', fontFamily: 'var(--font-sans)' }}>
+        <Body style={{ backgroundColor: 'black', margin: 'auto', fontFamily: 'var(--font-sans)' }}>
           <Container style={{ marginBottom: '40px', marginLeft: 'auto', marginRight: 'auto', padding: '20px', width: '465px' }}>
             <Section style={{ marginTop: '40px' }}>
               <Img
-                src={\`\${baseUrl}/brand/example-logo.png\`}
+                src={\`https://example.com/brand/example-logo.png\`}
                 width="60"
                 height="60"
                 alt="Logo Example"
@@ -100,7 +103,7 @@ const WelcomeEmail = ({
             <Section style={{ textAlign: 'center', marginTop: '32px', marginBottom: '32px' }}>
               <Button
                 style={{ padding: '10px 20px', backgroundColor: 'white', borderRadius: '6px', color: 'black', fontSize: '14px', fontWeight: 'semibold', textDecoration: 'none', textAlign: 'center' }}
-                href={\`\${baseUrl}/get-started\`}
+                href={\`https://example.com/get-started\`}
               >
                 Get Started
               </Button>
@@ -116,12 +119,5 @@ const WelcomeEmail = ({
     </Html>
   );
 };
-
-interface WelcomeEmailProps {
-  username?: string;
-  company?: string;
-}
-
-const baseUrl = process.env.URL ? \`https://\${process.env.URL}\` : '';
 
 export default WelcomeEmail;`;
