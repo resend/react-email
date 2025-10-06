@@ -2,6 +2,7 @@ import * as Popover from '@radix-ui/react-popover';
 import * as React from 'react';
 import { cn } from '../../utils';
 import { IconArrowDown } from '../icons/icon-arrow-down';
+import { Tooltip } from '../tooltip';
 
 interface ViewDimensions {
   width: number;
@@ -79,21 +80,28 @@ export const ViewSizeControls = ({
   return (
     <div className="relative flex h-9 w-fit overflow-hidden rounded-lg border border-slate-6 text-sm transition-colors duration-300 ease-in-out">
       {VIEW_PRESETS.map((preset) => (
-        <button
-          key={preset.name}
-          onClick={() => handlePresetSelect(preset.dimensions)}
-          className={cn(
-            'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
-            {
-              'bg-slate-4':
-                viewWidth === preset.dimensions.width &&
-                viewHeight === preset.dimensions.height,
-            },
-          )}
-          type="button"
-        >
-          {preset.icon}
-        </button>
+        <Tooltip>
+          <Tooltip.Trigger asChild>
+            <button
+              key={preset.name}
+              onClick={() => handlePresetSelect(preset.dimensions)}
+              className={cn(
+                'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
+                {
+                  'bg-slate-4':
+                    viewWidth === preset.dimensions.width &&
+                    viewHeight === preset.dimensions.height,
+                },
+              )}
+              type="button"
+            >
+              {preset.icon}
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            {preset.name}
+          </Tooltip.Content>
+        </Tooltip>
       ))}
 
       <Popover.Root open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
