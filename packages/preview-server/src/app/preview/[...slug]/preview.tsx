@@ -56,17 +56,17 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
-  const minWidth = 100;
-  const minHeight = 100;
+  const minWidth = 220;
+  const minHeight = minWidth * 1.6;
   const storedWidth = searchParams.get('width');
   const storedHeight = searchParams.get('height');
   const [width, setWidth] = useClampedState(
-    storedWidth ? Number.parseInt(storedWidth) : 600,
+    storedWidth ? Number.parseInt(storedWidth) : 1024,
     minWidth,
     maxWidth,
   );
   const [height, setHeight] = useClampedState(
-    storedHeight ? Number.parseInt(storedHeight) : 1024,
+    storedHeight ? Number.parseInt(storedHeight) : 600,
     minHeight,
     maxHeight,
   );
@@ -83,22 +83,26 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   return (
     <>
       <Topbar emailTitle={emailTitle}>
-        <ViewSizeControls
-          setViewHeight={(height) => {
-            setHeight(height);
-            flushSync(() => {
-              handleSaveViewSize();
-            });
-          }}
-          setViewWidth={(width) => {
-            setWidth(width);
-            flushSync(() => {
-              handleSaveViewSize();
-            });
-          }}
-          viewHeight={height}
-          viewWidth={width}
-        />
+        {activeView === 'preview' && (
+          <ViewSizeControls
+            setViewHeight={(height) => {
+              setHeight(height);
+              flushSync(() => {
+                handleSaveViewSize();
+              });
+            }}
+            setViewWidth={(width) => {
+              setWidth(width);
+              flushSync(() => {
+                handleSaveViewSize();
+              });
+            }}
+            viewHeight={height}
+            viewWidth={width}
+            minWidth={minWidth}
+            minHeight={minHeight}
+          />
+        )}
         <ActiveViewToggleGroup
           activeView={activeView}
           setActiveView={handleViewChange}
@@ -113,7 +117,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <div
         {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300',
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300 relative',
           activeView === 'preview' && 'bg-gray-200',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,

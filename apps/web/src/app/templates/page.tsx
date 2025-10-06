@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { PageWrapper } from '@/components/page-wrapper';
 import { Anchor } from '../../components/anchor';
 import { Heading } from '../../components/heading';
 import { PageTransition } from '../../components/page-transition';
@@ -108,7 +109,7 @@ export const metadata: Metadata = {
 
 export default function Templates() {
   return (
-    <>
+    <PageWrapper>
       <Image
         alt=""
         className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
@@ -122,7 +123,7 @@ export default function Templates() {
         tag="main"
       >
         <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
-          <Heading className="text-white" size="6">
+          <Heading className="text-white" weight="medium" size="6">
             Templates
           </Heading>
           <Text as="p" className="mt-4 text-slate-11" size="2">
@@ -152,6 +153,6 @@ export default function Templates() {
           ))}
         </div>
       </PageTransition>
-    </>
+    </PageWrapper>
   );
 }

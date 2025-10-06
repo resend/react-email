@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.3.0
+
+### Minor Changes
+
+- c0f6ec2: Added resize snapping, refined UI and improved presets
+
 ## 4.2.12
 
 ## 4.2.11

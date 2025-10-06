@@ -8,6 +8,7 @@ interface TabTriggerProps {
   layoutId: string;
   children: React.ReactNode;
   ref?: React.RefObject<HTMLButtonElement>;
+  className?: string;
 }
 
 export function TabTrigger({
@@ -16,11 +17,13 @@ export function TabTrigger({
   children,
   ref,
   layoutId,
+  className,
 }: TabTriggerProps) {
   return (
     <Tabs.Trigger
       className={classNames(
-        'group relative scroll-m-2 rounded-md px-3 py-1.5 focus:outline-none',
+        'relative scroll-m-2 rounded-md px-3 py-1.5',
+        className,
         {
           'text-slate-11': activeView !== value,
           'text-slate-12': activeView === value,
@@ -33,13 +36,13 @@ export function TabTrigger({
     >
       {activeView === value && (
         <motion.span
-          className="pointer-events-none absolute inset-0 z-[2] rounded-md bg-slate-6 group-focus:outline-none group-focus:ring group-focus:ring-slate-3"
+          className="pointer-events-none absolute inset-0 z-[2] rounded-lg bg-slate-6 group-focus:outline-none"
           initial={false}
           layoutId={layoutId}
           transition={{
             type: 'spring',
-            bounce: 0.18,
-            duration: 0.6,
+            bounce: 0,
+            duration: 0.3,
           }}
         />
       )}

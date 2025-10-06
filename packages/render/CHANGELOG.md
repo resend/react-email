@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.3.2
+
+### Patch Changes
+
+- afe328b: fallback to renderToPipeableSream when WritableStream is unavailable
+
 ## 1.3.2-canary.0
 
 ### Patch Changes
