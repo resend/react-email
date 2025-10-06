@@ -1,6 +1,8 @@
 'use client';
 
 import * as Tabs from '@radix-ui/react-tabs';
+import { render } from '@react-email/render';
+import React from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { CopyCode } from '@/components/copy-code';
 import { IconFile } from '@/components/icons/icon-file';
@@ -65,6 +67,17 @@ const CodePreviewHeader = ({
 };
 
 const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
+  const [emailOutput, setEmailOutput] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const renderEmail = async () => {
+      const html = await render(<WelcomeEmail />);
+      setEmailOutput(html);
+    };
+
+    renderEmail();
+  }, []);
+
   return (
     <div className="grid grid-cols-4 w-full">
       <div className="col-span-2">
@@ -93,7 +106,13 @@ const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
         ))}
       </div>
       <div className="col-span-2 border-l border-zinc-800">
-        <WelcomeEmail />
+        {emailOutput && (
+          <iframe
+            className="w-full h-full"
+            srcDoc={emailOutput}
+            title="Email Preview"
+          />
+        )}
       </div>
     </div>
   );

@@ -23,13 +23,13 @@ const WelcomeEmail = ({
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="m-auto">
+        <Body className="m-auto bg-black font-sans antialiased">
           <Container className="mb-10 mx-auto p-5 w-[465px]">
             <Section className="mt-10">
               <Img
                 src={`${baseUrl}/brand/vercel.png`}
                 width="60"
-                height="60"
+                height="52"
                 alt="Logo Example"
                 className="my-0 mx-auto"
               />

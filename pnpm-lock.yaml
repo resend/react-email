@@ -105,6 +105,9 @@ importers:
       '@react-email/components':
         specifier: workspace:*
         version: link:../../packages/components
+      '@react-email/render':
+        specifier: workspace:*
+        version: link:../../packages/render
       '@responsive-email/react-email':
         specifier: 0.0.4
         version: 0.0.4(react@19.0.0)

@@ -81,7 +81,9 @@ const PlaygroundSection = () => {
             </Tabs.List>
           </div>
 
-          <CodePreview tabs={tabs} activeTab={activeTab} />
+          <div>
+            <CodePreview tabs={tabs} activeTab={activeTab} />
+          </div>
         </Tabs.Root>
       </div>
 
