@@ -20,7 +20,7 @@ export const CodePreview = ({
   activeTab: string;
 }) => {
   return (
-    <div className="relative border border-zinc-800 rounded-3xl">
+    <div className="relative border border-zinc-800 rounded-[20px]">
       <CodePreviewHeader activeTab={activeTab} tabs={tabs} />
       <CodePreviewContent tabs={tabs} />
       <Line />
@@ -45,8 +45,8 @@ const CodePreviewHeader = ({
   tabs: Tab[];
 }) => {
   return (
-    <div className="flex items-center justify-between border-b border-zinc-800 h-14 px-4">
-      <div className="flex items-center gap-2 h-full">
+    <div className="flex items-center justify-between border-b border-zinc-800 h-14 px-2.5">
+      <div className="flex items-center gap-2 h-full ml-2">
         {Array.from({ length: 3 }).map((_, index) => (
           <div key={index} className="size-3 rounded-full bg-zinc-800" />
         ))}

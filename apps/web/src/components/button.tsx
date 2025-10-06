@@ -44,6 +44,7 @@ const getAppearance = (appearance: Appearance) => {
         'bg-white text-black',
         'hover:bg-white/90',
         'focus:ring-slate-8 focus:bg-white/90 focus:outline-none focus:ring-2',
+        'selection:text-black',
       ];
     case 'gradient':
       return [

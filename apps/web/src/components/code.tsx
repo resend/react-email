@@ -1,11 +1,9 @@
 'use client';
 
 import classNames from 'classnames';
-import { CheckIcon, ClipboardIcon } from 'lucide-react';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
 import { CopyCode } from './copy-code';
-import { IconButton } from './icon-button';
 
 interface CodeProps {
   children: string;
@@ -55,7 +53,7 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pr-11 pl-4 font-mono text-sm backdrop-blur-md',
+            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-xl border border-slate-6 pr-11 pl-4 font-mono text-sm backdrop-blur-md',
             className,
           )}
           style={{
@@ -67,9 +65,9 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
         >
           <CopyCode
             code={value}
-            className="absolute right-3 !p-1.5 !rounded-lg"
-            withBackground={false}
+            className="absolute right-1 shadow-none hover:text-white hover:[&_svg]:text-white enabled:hover:!bg-transparent"
           />
+
           <div
             className="absolute top-0 right-0 h-px w-[12.5rem]"
             style={{

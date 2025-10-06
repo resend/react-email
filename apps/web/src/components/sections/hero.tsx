@@ -17,7 +17,7 @@ const HeroSection = () => {
           priority
           src="/static/bg.png"
         />
-        <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto">
+        <div className="max-w-full text-center md:max-w-[45rem] md:mx-auto">
           <div className="mb-8 flex items-center justify-center">
             <Image
               alt="React Email Logo"
@@ -27,7 +27,7 @@ const HeroSection = () => {
             />
           </div>
           <Heading
-            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails']"
+            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none"
             weight="medium"
             size="10"
           >
@@ -47,7 +47,7 @@ const HeroSection = () => {
               <ArrowRightIcon size={16} />
             </Link>
           </Button>
-          <Code className="md:!inline-flex hidden max-w-max rounded-xl h-12">
+          <Code className="md:!inline-flex hidden max-w-max">
             npx create-email@latest
           </Code>
         </div>

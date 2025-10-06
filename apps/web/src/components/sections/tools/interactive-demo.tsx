@@ -4,7 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
@@ -52,26 +52,37 @@ export const InteractiveDemo = () => {
           <button
             type="button"
             key={tool.title}
-            className="relative p-6 max-w-md z-[2] cursor-pointer text-start"
+            className="relative p-6 max-w-md cursor-pointer text-start outline-none group"
             onClick={() => setActiveTool(tool.value)}
+            data-active={tool.value === activeTool}
           >
             <AnimatePresence initial={false}>
               {tool.value === activeTool && (
                 <motion.div
                   layoutId="background"
-                  className="absolute inset-0 -z-[1] bg-[#17171799] rounded-[20px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_#ffffff1a,inset_0px_1px_0px_#ffffff26]"
+                  className="absolute inset-0 -z-10 bg-[#17171799] rounded-[20px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_#ffffff1a,inset_0px_1px_0px_#ffffff26]"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ type: 'spring', duration: 0.4, bounce: 0 }}
+                  transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
                 />
               )}
             </AnimatePresence>
+
             <div className="relative flex flex-col gap-1.5">
-              <Heading size="5" weight="medium" className="text-white/80">
+              <Heading
+                size="5"
+                weight="medium"
+                className="text-white/80 group-data-[active='true']:text-white group-hover:text-white transition-colors"
+              >
                 {tool.title}
               </Heading>
-              <Text size="4">{tool.description}</Text>
+              <Text
+                size="4"
+                className="text-balance group-data-[active='true']:text-white/80 group-hover:text-white/80 transition-colors"
+              >
+                {tool.description}
+              </Text>
             </div>
           </button>
         ))}
@@ -130,7 +141,7 @@ export const InteractiveDemo = () => {
                           className="-bottom-px absolute rounded-sm left-0 w-full bg-cyan-11 h-px"
                           transition={{
                             type: 'spring',
-                            duration: 0.45,
+                            duration: 0.3,
                             bounce: 0,
                           }}
                         />

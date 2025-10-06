@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+[color-scheme="dark"] {
+  color-scheme: dark;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   * {
     scroll-behavior: smooth;
