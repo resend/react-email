@@ -17,12 +17,10 @@ interface VariableUse {
   raw: string;
 }
 
-interface VariableDefinition {
+export interface VariableDefinition {
   declaration: Declaration;
   variableName: string;
   definition: string;
-
-  remove(): void;
 }
 
 function doSelectorsIntersect(
@@ -57,20 +55,6 @@ function doSelectorsIntersect(
   }
 
   return false;
-}
-
-function removeAndRepeatIfEmptyRecursively(node: CssNode) {
-  if (node.parent) {
-    if (node.containedIn && node.containingItem) {
-      node.containedIn.remove(node.containingItem);
-      if (node.containedIn.isEmpty) {
-        removeAndRepeatIfEmptyRecursively(node.parent);
-      }
-    } else {
-      // The node might not have any list of children, but the parent can (e.g. a Block)
-      removeAndRepeatIfEmptyRecursively(node.parent);
-    }
-  }
 }
 
 function someParent(
@@ -113,9 +97,6 @@ export function resolveAllCssVariables(node: CssNode) {
           declaration,
           variableName: `${declaration.property}`,
           definition: generate(declaration.value),
-          remove() {
-            removeAndRepeatIfEmptyRecursively(declaration);
-          },
         });
       } else {
         function parseVariableUsesFrom(node: CssNode) {
@@ -217,9 +198,5 @@ export function resolveAllCssVariables(node: CssNode) {
         { context: 'value' },
       ) as Raw | Value;
     }
-  }
-
-  for (const definition of variableDefinitions) {
-    definition.remove();
   }
 }
