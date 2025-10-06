@@ -41,7 +41,7 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="mt-10 flex items-center justify-center gap-4">
-          <Button asChild size="5">
+          <Button asChild size="4">
             <Link href="/components">
               Explore components
               <ArrowRightIcon size={16} />
