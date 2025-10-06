@@ -24,7 +24,7 @@ const WelcomeEmail = ({
       <Preview>{previewText}</Preview>
       <Tailwind>
         <Body className="m-auto bg-black font-sans antialiased">
-          <Container className="mb-10 mx-auto p-5 w-[465px]">
+          <Container className="mb-10 mx-auto p-5 max-w-[465px]">
             <Section className="mt-10">
               <Img
                 src={`${baseUrl}/brand/example-logo.png`}
