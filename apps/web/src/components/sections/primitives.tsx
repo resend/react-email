@@ -13,7 +13,7 @@ const PrimitivesSection = () => {
           All components were tested using the most popular email clients.
         </Text>
       </div>
-      <div className="flex items-center gap-20">
+      <div className="flex items-center gap-16">
         {items.map((item, index) => (
           <div
             key={index}

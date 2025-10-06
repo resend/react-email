@@ -27,14 +27,14 @@ const HeroSection = () => {
             />
           </div>
           <Heading
-            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none"
+            className="!text-white/80 relative mb-8 before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
             weight="medium"
             size="10"
           >
             The next generation of writing emails
           </Heading>
           <div className="sm:px-16">
-            <Text size="5">
+            <Text size="5" className="text-balance">
               A collection of high-quality, unstyled components for creating
               beautiful emails using React and TypeScript.
             </Text>
