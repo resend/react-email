@@ -59,7 +59,7 @@ describe('render on the edge', () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('should handle characters with a higher byte count gracefully', async () => {
+  it('handles characters with a higher byte count gracefully', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
