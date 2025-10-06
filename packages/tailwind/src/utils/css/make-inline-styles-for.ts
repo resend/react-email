@@ -1,21 +1,42 @@
-import { type CssNode, generate, walk } from 'css-tree';
+import { type CssNode, type Declaration, generate, walk } from 'css-tree';
 import { getReactProperty } from '../compatibility/get-react-property';
-import type { VariableDefinition } from './resolve-all-css-variables';
 
 export function makeInlineStylesFor(inlinableRules: CssNode[]) {
   const styles: Record<string, string> = {};
 
+  const localVariableDeclarations = new Set<Declaration>();
   for (const rule of inlinableRules) {
-    const localVariableDefinitions = new Set<VariableDefinition>();
     walk(rule, {
       visit: 'Declaration',
       enter(declaration) {
         if (declaration.property.startsWith('--')) {
-          localVariableDefinitions.add({
-            declaration,
-            definition: generate(declaration.value).trim(),
-            variableName: declaration.property.trim(),
+          localVariableDeclarations.add(declaration);
+        }
+      },
+    });
+  }
+
+  for (const rule of inlinableRules) {
+    walk(rule, {
+      visit: 'Function',
+      enter(func, funcParentListItem) {
+        if (func.name === 'var') {
+          let variableName: string | undefined;
+          walk(func, {
+            visit: 'Identifier',
+            enter(identifier) {
+              variableName = identifier.name;
+              return this.break;
+            },
           });
+          if (variableName) {
+            const definition = Array.from(localVariableDeclarations).find(
+              (declaration) => variableName === declaration.property,
+            );
+            if (definition) {
+              funcParentListItem.data = definition.value;
+            }
+          }
         }
       },
     });
@@ -26,16 +47,9 @@ export function makeInlineStylesFor(inlinableRules: CssNode[]) {
         if (declaration.property.startsWith('--')) {
           return;
         }
-        let value =
+        styles[getReactProperty(declaration.property)] =
           generate(declaration.value) +
           (declaration.important ? '!important' : '');
-        for (const localVarDef of localVariableDefinitions) {
-          const varUsage = `var(${localVarDef.variableName})`;
-          if (value.includes(varUsage)) {
-            value = value.replaceAll(varUsage, localVarDef.definition);
-          }
-        }
-        styles[getReactProperty(declaration.property)] = value;
       },
     });
   }
