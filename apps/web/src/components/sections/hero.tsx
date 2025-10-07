@@ -40,7 +40,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <section className="w-px m-auto flex min-h-dvh relative">
+      <section className="px-8 lg:p-0 lg:w-px lg:m-auto flex lg:min-h-dvh relative">
         <Image
           alt=""
           className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten opacity-30"
@@ -50,7 +50,7 @@ const HeroSection = () => {
         />
 
         {/* Left Column - Content */}
-        <div className="absolute w-[44rem] z-10 -translate-x-[40rem] translate-y-1/3 md:px-12">
+        <div className="lg:absolute lg:w-[44rem] z-10 lg:-translate-x-[40rem] lg:translate-y-1/3 md:px-12">
           <div className="mb-8 flex items-center justify-start">
             <Image
               alt="React Email Logo"
