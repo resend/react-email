@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Heading } from '@/components/heading';
+import { PageWrapper } from '@/components/page-wrapper';
 import { componentsStructure } from '../../../components/structure';
 import { PageTransition } from '../../components/page-transition';
 import { Spotlight } from '../../components/spotlight';
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 
 export default async function ComponentsPage() {
   return (
-    <>
+    <PageWrapper>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />
@@ -98,6 +99,6 @@ export default async function ComponentsPage() {
           })}
         </div>
       </PageTransition>
-    </>
+    </PageWrapper>
   );
 }

@@ -5,16 +5,24 @@ import PlaygroundSection from '@/components/sections/playground';
 import PrimitivesSection from '@/components/sections/primitives';
 import TestimonialSection from '@/components/sections/testimonial';
 import ToolsSection from '@/components/sections/tools';
+import { Footer } from '@/components/footer';
+import { Topbar } from '@/components/topbar';
 
 const Home = () => (
   <main className="max-lg:overflow-x-clip">
+    <div className="relative mx-auto max-w-7xl px-2 md:max-w-7xl md:px-4">
+      <Topbar />
+    </div>
     <HeroSection />
-    <PlaygroundSection />
-    <TestimonialSection />
-    <PatternsSection />
-    <PrimitivesSection />
-    <ToolsSection />
-    <IntegrationSection />
+    <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
+      <PlaygroundSection />
+      <TestimonialSection />
+      <PatternsSection />
+      <PrimitivesSection />
+      <ToolsSection />
+      <IntegrationSection />
+      <Footer />
+    </div>
   </main>
 );
 
