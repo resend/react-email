@@ -81,7 +81,7 @@ export const AmazonReviewEmail = ({
                   />
                 </Column>
 
-                <Column className="pl-8">
+                <Column className="pl-[30px]">
                   <Text>
                     14 Habits of Highly Productive Developers (English Edition)
                   </Text>
