@@ -35,7 +35,7 @@ const PatternsSection = () => {
             return (
               <Link
                 className={classNames(
-                  'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus:ring focus:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus:before:border-slate-6 md:hover:before:border-slate-6',
+                  'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus-visible:before:border-slate-6 md:hover:before:border-slate-6',
                   {
                     'lg:ml-6': index % 3 === 0,
                     'lg:mx-3': index % 3 === 1,
@@ -48,7 +48,7 @@ const PatternsSection = () => {
               >
                 <Spotlight
                   className={classNames(
-                    'relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus:ring group-focus:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
+                    'relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus-visible:ring group-focus-visible:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
                     {
                       'md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2':
                         index % 3 === 0,
@@ -59,7 +59,7 @@ const PatternsSection = () => {
                     },
                   )}
                 >
-                  <div className="pointer-events-none absolute inset-0 rounded-lg border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
+                  <div className="pointer-events-none absolute inset-0 rounded-lg border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] md:group-hover:border-slate-6 md:group-focus:border-slate-6" />
                   <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     <Illustration />
@@ -92,7 +92,7 @@ const PatternsSection = () => {
 
 const Content = ({ component }: { component: string }) => {
   return (
-    <div className="relative">
+    <div className="relative flex flex-col max-md:items-center max-md:justify-center">
       <ContentComponent component={component} />
       <div
         aria-hidden

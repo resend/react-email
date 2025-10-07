@@ -12,7 +12,6 @@ type Tool = {
   title: string;
   value: string;
   description: string;
-  image: string;
   status?: 'warning' | 'error';
 };
 
@@ -22,7 +21,6 @@ const tools: Tool[] = [
     value: 'linter',
     description:
       "Analyze every link in your email to check that they're valid.",
-    image: '/examples/linter.png',
     status: 'warning',
   },
   {
@@ -30,7 +28,6 @@ const tools: Tool[] = [
     value: 'compatibility',
     description:
       'See how well your HTML/CSS is supported across popular mail clients.',
-    image: '/examples/compatibility.png',
     status: 'error',
   },
   {
@@ -38,7 +35,6 @@ const tools: Tool[] = [
     value: 'spam',
     description:
       'Analyze your email content using a robust scoring framework to determine if the email is likely to be marked as spam.',
-    image: '/examples/spam.png',
   },
 ];
 
@@ -46,14 +42,16 @@ export const InteractiveDemo = () => {
   const [activeTool, setActiveTool] = useState<string>(tools[0].value);
 
   return (
-    <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-x-16 lg:gap-x-32 gap-y-14">
-      <div className="flex flex-col shrink-0 text-start space-y-5">
+    <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-y-8 md:gap-x-16 lg:gap-x-32">
+      <div className="flex flex-col shrink-0 text-start space-y-2 md:space-y-5">
         {tools.map((tool) => (
           <button
             type="button"
             key={tool.title}
-            className="relative p-6 max-w-md cursor-pointer text-start outline-none group"
-            onClick={() => setActiveTool(tool.value)}
+            className="relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-none group"
+            onClick={() => {
+              setActiveTool(tool.value);
+            }}
             data-active={tool.value === activeTool}
           >
             <AnimatePresence initial={false}>
@@ -87,19 +85,27 @@ export const InteractiveDemo = () => {
           </button>
         ))}
       </div>
-      <div className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden">
+
+      <div
+        data-tool-scroll-target
+        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-none"
+      >
         <div className="relative z-[2] flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
-          <div className="flex items-center gap-2 h-full">
+          <div className="flex items-center gap-1.5 sm:gap-2 h-full">
             {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="size-3 rounded-full bg-zinc-800" />
+              <div
+                key={index}
+                className="size-2.5 sm:size-3 rounded-full bg-zinc-800"
+              />
             ))}
           </div>
           <Line />
         </div>
+
         <div>
-          <div className="md:absolute bottom-0 z-[1] min-w-full left-6 md:border-l border-slate-6 overflow-hidden">
-            <div className="flex p-4 bg-gray-200 h-[260px] overflow-hidden">
-              <div className="relative mx-auto my-auto -translate-y-[76%] sm:translate-x-[10%]">
+          <div className="md:absolute bottom-0 z-[1] min-w-full left-6 md:border-l border-slate-6 overflow-hidden [overflow-anchor:none]">
+            <div className="flex p-4 bg-gray-200 h-[260px] overflow-hidden [overflow-anchor:none]">
+              <div className="relative mx-auto my-auto -translate-y-[76%] sm:translate-x-[10%] [overflow-anchor:none]">
                 <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2">
                   <div className="h-8 w-1 rounded-md bg-black/30" />
                 </div>
@@ -117,6 +123,7 @@ export const InteractiveDemo = () => {
                   srcDoc="&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;&lt;html dir=&quot;ltr&quot; lang=&quot;en&quot;&gt;&lt;head&gt;&lt;link rel=&quot;preload&quot; as=&quot;image&quot; href=&quot;https://react-email-demo-mbr0z06jp-resend.vercel.app/static/aws-logo.png&quot;/&gt;&lt;meta content=&quot;text/html; charset=UTF-8&quot; http-equiv=&quot;Content-Type&quot;/&gt;&lt;meta name=&quot;x-apple-disable-message-reformatting&quot;/&gt;&lt;!--$--&gt;&lt;/head&gt;&lt;body style=&quot;background-color:#fff&quot;&gt;&lt;table border=&quot;0&quot; width=&quot;100%&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; align=&quot;center&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#fff;color:#212121&quot;&gt;&lt;div style=&quot;display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0&quot; data-skip-in-text=&quot;true&quot;&gt;AWS Email Verification&lt;div&gt;&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&nbsp;‌​‍‎‏﻿&lt;/div&gt;&lt;/div&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;max-width:37.5em;padding:20px;margin:0 auto;background-color:#eee&quot;&gt;&lt;tbody&gt;&lt;tr style=&quot;width:100%&quot;&gt;&lt;td&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;background-color:#fff&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;background-color:#252f3d;display:flex;padding:20px 0;align-items:center;justify-content:center&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;img alt=&quot;AWS&amp;#x27;s Logo&quot; height=&quot;45&quot; src=&quot;https://react-email-demo-mbr0z06jp-resend.vercel.app/static/aws-logo.png&quot; style=&quot;display:block;outline:none;border:none;text-decoration:none&quot; width=&quot;75&quot;/&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;padding:25px 35px&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;h1 style=&quot;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;font-size:20px;font-weight:bold;margin-bottom:15px&quot;&gt;Verify your email address&lt;/h1&gt;&lt;p style=&quot;font-size:14px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:24px 0;margin-bottom:14px;margin-top:24px;margin-right:0;margin-left:0&quot;&gt;Thanks for starting the new AWS account creation process. We want to make sure it&amp;#x27;s really you. Please enter the following verification code when prompted. If you don&amp;#x27;t want to create an account, you can ignore this message.&lt;/p&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;display:flex;align-items:center;justify-content:center&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p style=&quot;font-size:14px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:0;font-weight:bold;text-align:center;margin-top:0;margin-bottom:0;margin-left:0;margin-right:0&quot;&gt;Verification code&lt;/p&gt;&lt;p style=&quot;font-size:36px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:10px 0;font-weight:bold;text-align:center;margin-top:10px;margin-right:0;margin-bottom:10px;margin-left:0&quot;&gt;596853&lt;/p&gt;&lt;p style=&quot;font-size:14px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:0px;text-align:center;margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px&quot;&gt;(This code is valid for 10 minutes)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;hr style=&quot;width:100%;border:none;border-top:1px solid #eaeaea&quot;/&gt;&lt;table align=&quot;center&quot; width=&quot;100%&quot; border=&quot;0&quot; cellPadding=&quot;0&quot; cellSpacing=&quot;0&quot; role=&quot;presentation&quot; style=&quot;padding:25px 35px&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p style=&quot;font-size:14px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:0px;margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px&quot;&gt;Amazon Web Services will never email you and ask you to disclose or verify your password, credit card, or banking account number.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;font-size:12px;line-height:24px;color:#333;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;margin:24px 0;padding:0 20px;margin-top:24px;margin-right:0;margin-bottom:24px;margin-left:0&quot;&gt;This message was produced and distributed by Amazon Web Services, Inc., 410 Terry Ave. North, Seattle, WA 98109. © 2022, Amazon Web Services, Inc.. All rights reserved. AWS is a registered trademark of&lt;!-- --&gt; &lt;a href=&quot;https://amazon.com&quot; style=&quot;color:#2754C5;text-decoration-line:none;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;font-size:14px;text-decoration:underline&quot; target=&quot;_blank&quot;&gt;Amazon.com&lt;/a&gt;, Inc. View our&lt;!-- --&gt; &lt;a href=&quot;https://amazon.com&quot; style=&quot;color:#2754C5;text-decoration-line:none;font-family:-apple-system, BlinkMacSystemFont, &amp;#x27;Segoe UI&amp;#x27;, &amp;#x27;Roboto&amp;#x27;, &amp;#x27;Oxygen&amp;#x27;, &amp;#x27;Ubuntu&amp;#x27;, &amp;#x27;Cantarell&amp;#x27;, &amp;#x27;Fira Sans&amp;#x27;, &amp;#x27;Droid Sans&amp;#x27;, &amp;#x27;Helvetica Neue&amp;#x27;, sans-serif;font-size:14px;text-decoration:underline&quot; target=&quot;_blank&quot;&gt;privacy policy&lt;/a&gt;.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;!--/$--&gt;&lt;/body&gt;&lt;/html&gt;"
                   title="aws-verify-email.tsx"
                   style={{ width: '600px', height: '740px' }}
+                  tabIndex={-1}
                 />
               </div>
             </div>
@@ -154,7 +161,7 @@ export const InteractiveDemo = () => {
                 <Tabs.Content
                   key={tool.title}
                   value={tool.value}
-                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32"
+                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto"
                 >
                   {tool.value === 'spam' ? (
                     <div className="flex flex-col items-center justify-center pt-6">
@@ -169,9 +176,9 @@ export const InteractiveDemo = () => {
                       </p>
                     </div>
                   ) : (
-                    <div className="relative text-left text-slate-10 text-sm">
+                    <div className="relative text-left text-slate-10 text-sm max-md:min-w-max">
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-4"
                         data-status={tool.status}
                       >
                         <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">
@@ -211,7 +218,7 @@ export const InteractiveDemo = () => {
                         )}
                       </div>
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-4 max-sm:pl-4 max-sm:pr-4"
                         data-status={tool.status}
                       >
                         <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">

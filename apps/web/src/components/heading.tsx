@@ -57,7 +57,7 @@ const getSizesClassNames = (size: HeadingSize) => {
     case '7':
       return 'text-[28px] leading-[34px] tracking-[-0.416px]';
     case '8':
-      return 'text-[28px] sm:text-[42px] leading-[42px] tracking-[-0.025em]';
+      return 'text-[28px] leading-[38px] sm:text-[35px] sm:leading-[42px] tracking-[-0.025em]';
     case '9':
       return 'text-6xl leading-[64px] tracking-[-0.05em]';
     case '10':
