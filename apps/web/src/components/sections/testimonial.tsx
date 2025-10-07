@@ -11,8 +11,9 @@ const TestimonialSection = () => {
         <div className="flex flex-col items-center justify-center gap-14">
           <blockquote className="relative flex w-full max-w-xl flex-col gap-10">
             <p className="text-center text-xl md:text-2xl font-medium leading-[1.4] tracking-[-0.01em] text-gradient text-balance">
-              I've added emails to my site in 30 minutes. React Email is
-              amazing.
+              Building email UI is annoyingly difficult, especially trying to
+              make things look correct in all clients. React Email makes this
+              way easier.
             </p>
             <div className="flex items-center justify-center gap-3">
               <div className="p-px rounded-full bg-gradient-to-tr from-transparent via-transparent to-neutral-300">
