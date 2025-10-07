@@ -17,11 +17,12 @@ export const decodeAttributeEntities = (html: string): string => {
   };
 
   const decodeStyleValue = (value: string): string => {
-    // Decode quotes and ampersands in style attributes
-    // This is safe because CSS can contain quoted strings (e.g., font-family)
+    // Only decode ampersands and single quotes in style attributes
+    // Do NOT decode double quotes (&quot;) as they would break the attribute syntax
+    // For example: style="content: &quot;text&quot;" would become style="content: "text""
+    // which terminates the attribute early and creates malformed HTML
     return value
       .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
       .replace(/&#x27;/g, "'")
       .replace(/&#39;/g, "'");
   };

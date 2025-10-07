@@ -194,7 +194,7 @@ describe('render on node environments', () => {
     expect(html).not.toContain('&amp;other');
   });
 
-  it('decodes quotes in style attributes', async () => {
+  it('preserves encoded quotes in style attributes to maintain valid HTML', async () => {
     const component = (
       <div style={{ fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
         Test
@@ -202,10 +202,12 @@ describe('render on node environments', () => {
     );
     const html = await render(component);
 
-    // Should not contain encoded quotes in style attributes
-    expect(html).not.toContain('&quot;');
+    // Should keep &quot; encoded in style attributes to prevent breaking HTML syntax
+    // If we decoded them, style="font-family: "Helvetica Neue"" would terminate the
+    // attribute early and create malformed HTML
+    expect(html).toContain('&quot;');
 
-    // Should contain actual quotes in font-family
-    expect(html).toContain('"Helvetica Neue"');
+    // Should NOT contain unescaped quotes that would break the attribute
+    expect(html).not.toMatch(/style="[^"]*"[^"]*"/);
   });
 });
