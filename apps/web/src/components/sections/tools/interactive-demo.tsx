@@ -4,7 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
