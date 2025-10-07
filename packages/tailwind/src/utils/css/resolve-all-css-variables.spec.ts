@@ -254,7 +254,9 @@ div:nth-child(2*n+1) {
     expect(result).toContain('.test[data-attr="value*test"]{border-color:red}');
 
     // Variables from *.universal-with-class should resolve within the same selector and to .normal
-    expect(result).toContain('.universal-with-class-*{--class-color: blue;text-decoration:blue}');
+    expect(result).toContain(
+      '.universal-with-class-*{--class-color: blue;text-decoration:blue}',
+    );
     expect(result).toContain('.normal{color:var(--class-color)}');
   });
 
