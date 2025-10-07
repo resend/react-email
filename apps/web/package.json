@@ -28,7 +28,8 @@
     "react-dom": "^19",
     "react-email": "workspace:*",
     "resend": "4.3.0",
-    "vaul": "1.1.2"
+    "vaul": "1.1.2",
+    "web-streams-polyfill": "^4.2.0"
   },
   "devDependencies": {
     "@next/env": "15.3.1",

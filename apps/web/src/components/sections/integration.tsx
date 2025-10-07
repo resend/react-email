@@ -14,7 +14,11 @@ const IntegrationSection = () => {
     <section className="relative pt-12 pb-28 md:pb-48 px-6">
       <div className="space-y-16">
         <div className="max-w-full text-center space-y-4">
-          <Heading size="8" weight="medium" className="text-white/80">
+          <Heading
+            size="8"
+            weight="medium"
+            className="text-white/80 text-balance"
+          >
             Integrate with any service
           </Heading>
           <div className="sm:px-20 md:max-w-3xl md:mx-auto text-balance">

@@ -4,7 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
@@ -44,6 +44,15 @@ const tools: Tool[] = [
 
 export const InteractiveDemo = () => {
   const [activeTool, setActiveTool] = useState<string>(tools[0].value);
+  const toolsRef = useRef<HTMLDivElement>(null);
+
+  const goToActiveTool = useCallback(() => {
+    const div = toolsRef.current;
+
+    if (div) {
+      div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, []);
 
   return (
     <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-x-16 lg:gap-x-32 gap-y-14">
@@ -53,7 +62,10 @@ export const InteractiveDemo = () => {
             type="button"
             key={tool.title}
             className="relative p-6 max-w-md cursor-pointer text-start outline-none group"
-            onClick={() => setActiveTool(tool.value)}
+            onClick={() => {
+              setActiveTool(tool.value);
+              goToActiveTool();
+            }}
             data-active={tool.value === activeTool}
           >
             <AnimatePresence initial={false}>
@@ -87,11 +99,17 @@ export const InteractiveDemo = () => {
           </button>
         ))}
       </div>
-      <div className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden">
+      <div
+        ref={toolsRef}
+        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden"
+      >
         <div className="relative z-[2] flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
-          <div className="flex items-center gap-2 h-full">
+          <div className="flex items-center gap-1.5 sm:gap-2 h-full">
             {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="size-3 rounded-full bg-zinc-800" />
+              <div
+                key={index}
+                className="size-2.5 sm:size-3 rounded-full bg-zinc-800"
+              />
             ))}
           </div>
           <Line />
@@ -154,7 +172,7 @@ export const InteractiveDemo = () => {
                 <Tabs.Content
                   key={tool.title}
                   value={tool.value}
-                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32"
+                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto"
                 >
                   {tool.value === 'spam' ? (
                     <div className="flex flex-col items-center justify-center pt-6">
@@ -169,9 +187,9 @@ export const InteractiveDemo = () => {
                       </p>
                     </div>
                   ) : (
-                    <div className="relative text-left text-slate-10 text-sm">
+                    <div className="relative text-left text-slate-10 text-sm max-md:min-w-max">
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-4"
                         data-status={tool.status}
                       >
                         <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">
@@ -211,7 +229,7 @@ export const InteractiveDemo = () => {
                         )}
                       </div>
                       <div
-                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-9 max-sm:pl-4 max-sm:pr-9"
+                        className="border-b border-slate-6 last:border-b-0 group/result flex items-center gap-5 max-sm:-ml-4 max-sm:-mr-4 max-sm:pl-4 max-sm:pr-4"
                         data-status={tool.status}
                       >
                         <div className="py-1.5 font-normal max-w-[160px] min-w-[160px]">
