@@ -30,7 +30,7 @@ export const RaycastMagicLinkEmail = ({
     <Tailwind config={tailwindConfig}>
       <Body className="bg-white font-raycast">
         <Preview>Log in with this magic link.</Preview>
-        <Container className="mx-auto my-0 pt-5 px-6 pb-12 bg-[url('/static/raycast-bg.png')] [background-position:bottom] [background-repeat:no-repeat]">
+        <Container className="mx-auto my-0 pt-5 px-[25px] pb-12 bg-[url('/static/raycast-bg.png')] [background-position:bottom] [background-repeat:no-repeat]">
           <Img
             src={`${baseUrl}/static/raycast-logo.png`}
             width={48}
