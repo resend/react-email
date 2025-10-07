@@ -10,7 +10,7 @@ import { useCollageTexture } from '@/hooks/useCollageTexture';
 import { View } from '@/webgl/View';
 
 const COUNT = 12;
-const GAP = 2.8;
+const GAP = 3.5;
 
 function Loader() {
   return (
@@ -102,7 +102,7 @@ function SpinnableTower({ texture, dimensions }: any) {
         <Billboard
           key={`billboard-${index}`}
           radius={4}
-          rotation={[0, index * Math.PI * 0.5, 0.4]}
+          rotation={[0, index * Math.PI * 0.5, 0.25]}
           position={[0, (index - (Math.ceil(COUNT / 2) - 1)) * GAP, 0]}
           texture={texture}
           dimensions={dimensions}
