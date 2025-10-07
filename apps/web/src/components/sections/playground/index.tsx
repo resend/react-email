@@ -54,7 +54,7 @@ const PlaygroundSection = () => {
                 <Tabs.Trigger
                   key={tab.value}
                   value={tab.value}
-                  className="group relative px-3 py-2 md:px-4"
+                  className="group relative px-3 py-2 md:px-4 rounded-xl outline-none"
                 >
                   <span
                     className={classNames(
@@ -69,7 +69,7 @@ const PlaygroundSection = () => {
                   <AnimatePresence mode="wait" initial={false}>
                     {activeTab === tab.value && (
                       <motion.div
-                        className="absolute inset-0 size-full rounded-xl bg-gradient-to-b from-zinc-800 to-zinc-950 border border-zinc-800 z-0"
+                        className="absolute inset-0 size-full rounded-xl bg-gradient-to-b from-zinc-800 to-zinc-950 border border-zinc-800 group-focus-visible:ring-slate-8 group-focus-visible:ring-2 z-0"
                         layoutId="activeTab"
                         transition={{
                           type: 'spring',

@@ -38,7 +38,7 @@ const IntegrationSection = () => {
                 mouseX.set(e.clientX - left);
                 mouseY.set(e.clientY - top);
               }}
-              className="group relative min-w-full max-w-full sm:min-w-[250px] sm:max-w-[250px] md:min-w-[280px] md:max-w-[280px] rounded-3xl bg-slate-4 p-px"
+              className="group relative min-w-full max-w-full sm:min-w-[250px] sm:max-w-[250px] md:min-w-[280px] md:max-w-[280px] rounded-3xl bg-slate-4 p-px outline-none focus-visible:ring-slate-7 focus-visible:ring-1"
               href={item.href}
             >
               <motion.div

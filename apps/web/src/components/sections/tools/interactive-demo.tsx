@@ -48,7 +48,7 @@ export const InteractiveDemo = () => {
           <button
             type="button"
             key={tool.title}
-            className="relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-none group"
+            className="group relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-none rounded-[20px] focus-visible:ring-slate-8 focus-visible:ring-1"
             onClick={() => {
               setActiveTool(tool.value);
             }}
@@ -58,7 +58,11 @@ export const InteractiveDemo = () => {
               {tool.value === activeTool && (
                 <motion.div
                   layoutId="background"
-                  className="absolute inset-0 -z-10 bg-[#17171799] rounded-[20px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_#ffffff1a,inset_0px_1px_0px_#ffffff26]"
+                  className={classNames(
+                    'absolute inset-0 -z-10 bg-[#17171799] rounded-[20px]',
+                    'shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_#ffffff1a,inset_0px_1px_0px_#ffffff26]',
+                  )}
+                  onFocus={() => setActiveTool(tool.value)}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -134,7 +138,7 @@ export const InteractiveDemo = () => {
                     key={tool.title}
                     value={tool.value}
                     className={classNames(
-                      'relative capitalize px-1 text-sm font-normal transition-colors',
+                      'relative capitalize px-1 text-sm font-normal transition-colors outline-none focus-visible:ring-2 focus-visible:ring-slate-7',
                       tool.value === activeTool
                         ? 'text-cyan-11'
                         : 'text-slate-10 hover:text-slate-12',
@@ -161,7 +165,7 @@ export const InteractiveDemo = () => {
                 <Tabs.Content
                   key={tool.title}
                   value={tool.value}
-                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto"
+                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto outline-none"
                 >
                   {tool.value === 'spam' ? (
                     <div className="flex flex-col items-center justify-center pt-6">
