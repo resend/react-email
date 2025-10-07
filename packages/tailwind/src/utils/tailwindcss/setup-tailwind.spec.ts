@@ -1,15 +1,14 @@
+import { generate } from 'css-tree';
 import { setupTailwind } from './setup-tailwind';
 
-test("tailwind's generateRootForClasses()", () => {
-  const tailwind = setupTailwind({});
+test('setupTailwind() and addUtilities()', async () => {
+  const { addUtilities, getStyleSheet } = await setupTailwind({});
 
-  expect(
-    tailwind
-      .generateRootForClasses([
-        'text-red-500',
-        'sm:bg-blue-300',
-        'bg-slate-900',
-      ])
-      .toString(),
-  ).toMatchSnapshot();
+  addUtilities(['text-red-500', 'sm:bg-blue-300', 'bg-slate-900']);
+
+  expect(generate(getStyleSheet())).toMatchSnapshot();
+
+  addUtilities(['bg-red-100']);
+
+  expect(generate(getStyleSheet())).toMatchSnapshot();
 });

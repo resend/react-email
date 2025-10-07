@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`extractRulesMatchingClasses() > should work just inlinable utilities 1`] = `
+{
+  "bg-red-500": ".bg-red-500{background-color:rgb(250.6,43.8,54.3)}",
+  "text-center": ".text-center{text-align:center}",
+}
+`;
+
+exports[`extractRulesMatchingClasses() > should work with a mix of inlinable and non-inlinable utilities 1`] = `
+{
+  "bg-red-500": ".bg-red-500{background-color:rgb(250.6,43.8,54.3)}",
+  "lg:w-1/2": ".lg_w-1_2{@media (width>=64rem){width:calc(0.5*100%)!important}}",
+  "text-center": ".text-center{text-align:center}",
+  "w-full": ".w-full{width:100%}",
+}
+`;
+
+exports[`extractRulesMatchingClasses() > should work with non-inlinable utilities 1`] = `
+{
+  "lg:w-1/2": ".lg_w-1_2{@media (width>=64rem){width:calc(0.5*100%)!important}}",
+}
+`;

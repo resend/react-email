@@ -1,15 +1,32 @@
-import { setupTailwind } from '../tailwindcss/setup-tailwind';
+import { parse, type StyleSheet } from 'css-tree';
 import { makeInlineStylesFor } from './make-inline-styles-for';
 
-test('makeInlineStylesFor()', () => {
-  const tailwind = setupTailwind({});
+describe('makeInlineStylesFor()', async () => {
+  it('works in simple use case', () => {
+    const tailwindStyles = parse(`
+      .bg-red-500 { background-color: #f56565; }
+      .w-full { width: 100%; }
+    `) as StyleSheet;
 
-  const className =
-    'bg-red-500 sm:bg-blue-300 w-full md:max-w-[400px] my-custom-class';
-  const tailwindStyles = tailwind.generateRootForClasses(className.split(' '));
+    expect(
+      makeInlineStylesFor(tailwindStyles.children.toArray()),
+    ).toMatchSnapshot();
+  });
 
-  expect(makeInlineStylesFor(className, tailwindStyles)).toEqual({
-    styles: { backgroundColor: 'rgb(239 68 68 / 1)', width: '100%' },
-    residualClassName: 'sm:bg-blue-300 md:max-w-[400px] my-custom-class',
+  it('does basic local variable resolution', () => {
+    const tailwindStyles = parse(`
+      .btn {
+        --btn-bg: #3490dc;
+        --btn-text: #fff;
+        background-color: var(--btn-bg);
+        color: var(--btn-text);
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+      }
+    `) as StyleSheet;
+
+    expect(
+      makeInlineStylesFor(tailwindStyles.children.toArray()),
+    ).toMatchSnapshot();
   });
 });

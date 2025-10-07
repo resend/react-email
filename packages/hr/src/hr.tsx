@@ -18,3 +18,4 @@ export const Hr = React.forwardRef<HTMLHRElement, HrProps>(
 );
 
 Hr.displayName = 'Hr';
+(Hr as any).tailwindTreatAsElement = true;
