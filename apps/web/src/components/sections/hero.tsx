@@ -40,7 +40,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <section className="px-8 lg:p-0 lg:w-px lg:m-auto flex lg:min-h-dvh relative">
+      <section className="md:w-px m-auto flex min-h-dvh relative flex-col w-full pt-12 md:pt-0">
         <Image
           alt=""
           className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten opacity-30"
@@ -50,24 +50,24 @@ const HeroSection = () => {
         />
 
         {/* Left Column - Content */}
-        <div className="lg:absolute lg:w-[44rem] z-10 lg:-translate-x-[40rem] lg:translate-y-1/3 md:px-12">
-          <div className="mb-8 flex items-center justify-center md:justify-start">
+        <div className="md:absolute w-full md:w-[44rem] z-10 md:-translate-x-[40rem] md:-translate-y-[70%] md:top-1/2 px-12">
+          <div className="mb-8 flex justify-center md:justify-start block md:hidden">
             <Image
               alt="React Email Logo"
-              height="80"
+              height="100"
               src="/brand/logo.png"
-              width="80"
+              width="100"
             />
           </div>
           <Heading
-            className="!text-white/80 relative mb-8 text-left max-md:text-center before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
+            className="!text-white/80 relative mb-8 text-center md:text-left  before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
             weight="medium"
             size="10"
           >
             The next generation of writing emails
           </Heading>
-          <div className="max-w-xl max-md:mx-auto max-md:text-center">
-            <Text size="5" className="text-pretty text-left">
+          <div className="max-w-xl text-center md:text-left">
+            <Text size="5" className="text-pretty">
               React Email is a next-generation collection of unstyled components
               for creating beautiful emails using React, Tailwind, and
               TypeScript.

@@ -93,7 +93,7 @@ function SpinnableTower({ texture, dimensions }: any) {
       ref={groupRef}
       rotation={[-0.2, 0.5, 0.2]}
       position={[5, 0, 0]}
-      scale={1.4}
+      scale={1}
       onPointerDown={handlePointerDown}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
@@ -102,21 +102,21 @@ function SpinnableTower({ texture, dimensions }: any) {
         <Billboard
           key={`billboard-${index}`}
           radius={4}
-          rotation={[0, index * Math.PI * 0.5, 0]}
+          rotation={[0, index * Math.PI * 0.5, 0.4]}
           position={[0, (index - (Math.ceil(COUNT / 2) - 1)) * GAP, 0]}
           texture={texture}
           dimensions={dimensions}
         />,
-        <Banner
-          key={`banner-${index}`}
-          radius={4.1}
-          rotation={[0, 0, 0.075]}
-          position={[
-            0,
-            (index - (Math.ceil(COUNT / 2) - 1)) * GAP - GAP * 0.5,
-            0,
-          ]}
-        />,
+        // <Banner
+        //   key={`banner-${index}`}
+        //   radius={4.1}
+        //   rotation={[0, 0, 0.075]}
+        //   position={[
+        //     0,
+        //     (index - (Math.ceil(COUNT / 2) - 1)) * GAP - GAP * 0.5,
+        //     0,
+        //   ]}
+        // />,
       ])}
     </group>
   );
