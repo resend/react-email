@@ -417,7 +417,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-tailwindv4.1
+        specifier: workspace:2.0.0-tailwindv4.3
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.6-tailwindv4.0
