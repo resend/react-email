@@ -93,7 +93,7 @@ export const CodepenChallengersEmail = () => (
               alt="codepen"
             />
 
-            <Section className="mt-10 mb-6 text-center bg-[#0b112a] text-white py-[35px] px-5 border-[6px] border-solid border-[#2138c6]">
+            <Section className="mt-10 mb-6 text-center bg-[#0b112a] text-white pt-[35px] pb-[30px] px-5 border-[6px] border-solid border-[#2138c6]">
               <Img
                 className="mx-auto mb-[30px]"
                 src={`${baseUrl}/static/codepen-pro.png`}
@@ -112,7 +112,7 @@ export const CodepenChallengersEmail = () => (
             </Section>
           </Section>
 
-          <Text className="bg-[#f5d247] p-[30px] text-lg leading-6">
+          <Text className="bg-[#f5d247] p-[30px] text-lg leading-[1.5]">
             <strong>To participate:</strong>{' '}
             <Link className="text-[#15c] cursor-pointer">Create a Pen →</Link>{' '}
             and tag it{' '}
@@ -134,9 +134,9 @@ export const CodepenChallengersEmail = () => (
           <Section className="m-0 bg-white px-6">
             <Row>
               <Column className="w-1/2 pr-[10px]">
-                <Text className="font-black leading-[1.1] text-lg">IDEAS!</Text>
+                <Text className="font-black text-lg leading-[1.1]">IDEAS!</Text>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     This week we move from 2 dimensions to three! Maybe you
@@ -155,7 +155,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     There's more to cubes than just six square sides. There are
@@ -173,7 +173,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     Here's a mind-bending idea that can combine the round shapes
@@ -189,7 +189,7 @@ export const CodepenChallengersEmail = () => (
                 </Section>
               </Column>
               <Column className="w-1/2 pl-[10px]">
-                <Text className="font-black leading-[1.1] -mt-10 text-lg">
+                <Text className="font-black -mt-10 text-lg leading-[1.1]">
                   RESOURCES!
                 </Text>
 
@@ -209,7 +209,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
+                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
                   📖
                   <Text className="text-[13px] text-left">
                     Want to go beyond the square cube? Draw inspiration from
@@ -229,7 +229,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
+                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
                   📖
                   <Text className="text-[13px] text-left">
                     Did that spherical cubes concept pique your interest?
