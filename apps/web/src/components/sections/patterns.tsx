@@ -92,7 +92,7 @@ const PatternsSection = () => {
 
 const Content = ({ component }: { component: string }) => {
   return (
-    <div className="relative flex flex-col items-center justify-center">
+    <div className="relative flex flex-col max-md:items-center max-md:justify-center">
       <ContentComponent component={component} />
       <div
         aria-hidden
