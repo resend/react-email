@@ -109,8 +109,8 @@ function SpinnableTower({ texture, dimensions }: any) {
         />,
         <Banner
           key={`banner-${index}`}
-          radius={4.2}
-          rotation={[0, 0, 0.085]}
+          radius={4.1}
+          rotation={[0, 0, 0.075]}
           position={[
             0,
             (index - (Math.ceil(COUNT / 2) - 1)) * GAP - GAP * 0.5,
