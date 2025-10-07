@@ -41,25 +41,16 @@ const tools: Tool[] = [
 export const InteractiveDemo = () => {
   const [activeTool, setActiveTool] = useState<string>(tools[0].value);
 
-  const goToActiveTool = useCallback(() => {
-    const div = document.querySelector('[data-tool-scroll-target]');
-
-    if (div) {
-      div.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, []);
-
   return (
-    <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-x-16 lg:gap-x-32 gap-y-14">
-      <div className="flex flex-col shrink-0 text-start space-y-5">
+    <div className="flex max-md:flex-col max-md:items-center max-md:justify-center justify-between gap-y-8 md:gap-x-16 lg:gap-x-32">
+      <div className="flex flex-col shrink-0 text-start space-y-2 md:space-y-5">
         {tools.map((tool) => (
           <button
             type="button"
             key={tool.title}
-            className="relative p-6 max-w-md cursor-pointer text-start outline-none group"
+            className="relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-none group"
             onClick={() => {
               setActiveTool(tool.value);
-              goToActiveTool();
             }}
             data-active={tool.value === activeTool}
           >
@@ -94,9 +85,10 @@ export const InteractiveDemo = () => {
           </button>
         ))}
       </div>
+
       <div
         data-tool-scroll-target
-        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none]"
+        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-none"
       >
         <div className="relative z-[2] flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
           <div className="flex items-center gap-1.5 sm:gap-2 h-full">
@@ -109,6 +101,7 @@ export const InteractiveDemo = () => {
           </div>
           <Line />
         </div>
+
         <div>
           <div className="md:absolute bottom-0 z-[1] min-w-full left-6 md:border-l border-slate-6 overflow-hidden [overflow-anchor:none]">
             <div className="flex p-4 bg-gray-200 h-[260px] overflow-hidden [overflow-anchor:none]">
