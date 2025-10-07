@@ -4,7 +4,7 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import type { Group } from 'three';
-import { Banner, Billboard } from '@/components/webgl';
+import { Billboard } from '@/components/webgl';
 import images from '@/data/images';
 import { useCollageTexture } from '@/hooks/useCollageTexture';
 import { View } from '@/webgl/View';
@@ -107,16 +107,6 @@ function SpinnableTower({ texture, dimensions }: any) {
           texture={texture}
           dimensions={dimensions}
         />,
-        // <Banner
-        //   key={`banner-${index}`}
-        //   radius={4.1}
-        //   rotation={[0, 0, 0.075]}
-        //   position={[
-        //     0,
-        //     (index - (Math.ceil(COUNT / 2) - 1)) * GAP - GAP * 0.5,
-        //     0,
-        //   ]}
-        // />,
       ])}
     </group>
   );

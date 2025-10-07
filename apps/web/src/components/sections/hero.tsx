@@ -51,7 +51,7 @@ const HeroSection = () => {
 
         {/* Left Column - Content */}
         <div className="md:absolute w-full md:w-[44rem] z-10 md:-translate-x-[40rem] md:-translate-y-[70%] md:top-1/2 px-12">
-          <div className="mb-8 flex justify-center md:justify-start block md:hidden">
+          <div className="mb-8 flex justify-center md:justify-start">
             <Image
               alt="React Email Logo"
               height="100"
