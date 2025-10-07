@@ -48,8 +48,8 @@ export const SlackConfirmEmail = ({
             window and we'll help you get signed in.
           </Text>
 
-          <Section className="bg-[rgb(245,244,245)] rounded mb-7.5 py-10 px-2.5">
-            <Text className="text-3xl text-center align-middle">
+          <Section className="bg-[rgb(245,244,245)] rounded mb-[30px] py-10 px-[10px]">
+            <Text className="text-3xl leading-[24px] text-center align-middle">
               {validationCode}
             </Text>
           </Section>
@@ -139,7 +139,7 @@ export const SlackConfirmEmail = ({
             >
               Slack Community
             </Link>
-            <Text className="text-xs text-left mb-12.5 text-[#b7b7b7]">
+            <Text className="text-xs leading-[15px] text-left mb-[50px] text-[#b7b7b7]">
               ©2022 Slack Technologies, LLC, a Salesforce company. <br />
               500 Howard Street, San Francisco, CA 94105, USA <br />
               <br />
