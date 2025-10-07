@@ -165,4 +165,51 @@ describe('render on node environments', () => {
 
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('decodes ampersands in href attributes', async () => {
+    const component = (
+      <a href="https://example.com/page?param1=value1&param2=value2&param3=value3">
+        Click here
+      </a>
+    );
+    const html = await render(component);
+
+    // Should not contain encoded ampersands in href attributes
+    expect(html).not.toContain('&amp;param');
+
+    // Should contain actual ampersands in URLs
+    expect(html).toContain('param1=value1&param2=value2&param3=value3');
+  });
+
+  it('decodes various HTML entities in href attributes', async () => {
+    const component = (
+      <a href="https://example.com/page?param=<value>&other=>data">
+        Link with entities
+      </a>
+    );
+    const html = await render(component);
+
+    // Should decode &lt; and &gt; entities
+    expect(html).toContain('param=<value>&other=>data');
+
+    // Should not contain encoded entities
+    expect(html).not.toContain('&lt;');
+    expect(html).not.toContain('&gt;');
+    expect(html).not.toContain('&amp;');
+  });
+
+  it('decodes quotes in style attributes', async () => {
+    const component = (
+      <div style={{ fontFamily: '"Helvetica Neue", Arial, sans-serif' }}>
+        Test
+      </div>
+    );
+    const html = await render(component);
+
+    // Should not contain encoded quotes in style attributes
+    expect(html).not.toContain('&quot;');
+
+    // Should contain actual quotes in font-family
+    expect(html).toContain('"Helvetica Neue"');
+  });
 });
