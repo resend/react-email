@@ -46,11 +46,11 @@ export const YelpRecentLoginEmail = ({
         <Body className="bg-white font-yelp">
           <Preview>Yelp recent login</Preview>
           <Container>
-            <Section className="px-5 py-8">
+            <Section className="px-5 py-[30px]">
               <Img src={`${baseUrl}/static/yelp-logo.png`} alt="Yelp logo" />
             </Section>
 
-            <Section className="border border-black/10 rounded overflow-hidden">
+            <Section className="border border-solid border-black/10 rounded overflow-hidden">
               <Row>
                 <Img
                   className="max-w-full"
@@ -62,10 +62,10 @@ export const YelpRecentLoginEmail = ({
 
               <Row className="p-5 pb-0">
                 <Column>
-                  <Heading className="text-3xl font-bold text-center">
+                  <Heading className="text-[32px] font-bold text-center">
                     Hi {userFirstName},
                   </Heading>
-                  <Heading as="h2" className="text-2xl font-bold text-center">
+                  <Heading as="h2" className="text-[26px] font-bold text-center">
                     We noticed a recent login to your Yelp account.
                   </Heading>
 
@@ -73,15 +73,15 @@ export const YelpRecentLoginEmail = ({
                     <b>Time: </b>
                     {formattedDate}
                   </Text>
-                  <Text className="text-base -mt-1">
+                  <Text className="text-base -mt-[5px]">
                     <b>Device: </b>
                     {loginDevice}
                   </Text>
-                  <Text className="text-base -mt-1">
+                  <Text className="text-base -mt-[5px]">
                     <b>Location: </b>
                     {loginLocation}
                   </Text>
-                  <Text className="text-black/50 text-sm -mt-1">
+                  <Text className="text-black/50 text-sm leading-[24px] -mt-[5px]">
                     *Approximate geographic location based on IP address:
                     {loginIp}
                   </Text>
@@ -89,7 +89,7 @@ export const YelpRecentLoginEmail = ({
                   <Text className="text-base">
                     If this was you, there's nothing else you need to do.
                   </Text>
-                  <Text className="text-base -mt-1">
+                  <Text className="text-base -mt-[5px]">
                     If this wasn't you or if you have additional questions,
                     please see our support page.
                   </Text>
@@ -97,7 +97,7 @@ export const YelpRecentLoginEmail = ({
               </Row>
               <Row className="p-5 pt-0">
                 <Column className="text-center" colSpan={2}>
-                  <Button className="bg-[#e00707] rounded border border-black/10 text-white font-bold cursor-pointer inline-block px-8 py-3 no-underline">
+                  <Button className="bg-[#e00707] rounded border border-solid border-black/10 text-white font-bold cursor-pointer inline-block px-[30px] py-3 no-underline">
                     Learn More
                   </Button>
                 </Column>
@@ -113,7 +113,7 @@ export const YelpRecentLoginEmail = ({
               />
             </Section>
 
-            <Text className="text-center text-xs text-black/70">
+            <Text className="text-center text-xs leading-[24px] text-black/70">
               © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
               U.S.A. | www.yelp.com
             </Text>
