@@ -34,12 +34,13 @@ const HeroSection = () => {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(circle at center right, transparent 0%, rgba(0, 0, 0, 0.6) 30%, rgba(0, 0, 0, 0.95) 60%, #000 80%), linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0.8) 90%, #000 100%)',
+                'radial-gradient(circle at center right, transparent 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.95) 60%, #000 80%), linear-gradient(175deg, transparent 60%, black 100%), linear-gradient(to bottom, rgba(0, 0, 0, .8) 5%, transparent 30%)',
             }}
           />
         </div>
       </div>
-      <section className="relative mx-auto flex max-w-7xl items-center justify-between h-[calc(100vh-11rem)] px-6 lg:px-8">
+
+      <section className="w-px m-auto flex min-h-dvh relative">
         <Image
           alt=""
           className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten opacity-30"
@@ -49,7 +50,7 @@ const HeroSection = () => {
         />
 
         {/* Left Column - Content */}
-        <div className="flex-1 max-w-2xl z-10">
+        <div className="absolute w-[44rem] z-10 -translate-x-[40rem] translate-y-1/3 md:px-12">
           <div className="mb-8 flex items-center justify-start">
             <Image
               alt="React Email Logo"

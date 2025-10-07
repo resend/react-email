@@ -92,8 +92,8 @@ function SpinnableTower({ texture, dimensions }: any) {
     <group
       ref={groupRef}
       rotation={[-0.2, 0.5, 0.2]}
-      position={[4, 0, 0]}
-      scale={1.2}
+      position={[5, 0, 0]}
+      scale={1.4}
       onPointerDown={handlePointerDown}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}

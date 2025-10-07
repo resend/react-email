@@ -10,7 +10,7 @@ import { Topbar } from '@/components/topbar';
 
 const Home = () => (
   <main className="max-lg:overflow-x-clip">
-    <div className="relative mx-auto max-w-7xl px-2 md:max-w-7xl md:px-4">
+    <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
       <Topbar />
     </div>
     <HeroSection />
