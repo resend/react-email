@@ -236,7 +236,7 @@ export const AppleReceiptEmail = () => (
             </Row>
           </Section>
           <Hr className="my-16 mb-5" />
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             1. 3% savings is earned as Daily Cash and is transferred to your
             Apple Cash card when transactions post to your Apple Card account.
             If you do not have an Apple Cash card, Daily Cash can be applied by
@@ -245,28 +245,28 @@ export const AppleReceiptEmail = () => (
             Agreement for more details on Daily Cash and qualifying
             transactions.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             2. Subject to credit approval.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             To access and use all the features of Apple Card, you must add Apple
             Card to Wallet on an iPhone or iPad with iOS or iPadOS 13.2 or
             later. Update to the latest version of iOS or iPadOS by going to
             Settings &gt; General &gt; Software Update. Tap Download and
             Install.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             Available for qualifying applicants in the United States.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City
             Branch.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             If you reside in the US territories, please call Goldman Sachs at
             877-255-5923 with questions about Apple Card.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] my-5 text-center">
+          <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] my-5 text-center">
             Privacy: We use a
             <Link
               href="https://www.apple.com/"
@@ -277,7 +277,7 @@ export const AppleReceiptEmail = () => (
             </Link>
             to provide reports to developers.
           </Text>
-          <Text className="text-[12px] text-[rgb(102,102,102)] my-5 text-center">
+          <Text className="text-[12px] text-[rgb(102,102,102)] my-5 leading-[normal] text-center">
             Get help with subscriptions and purchases.
             <Link
               href="https://www.apple.com/"
@@ -286,7 +286,7 @@ export const AppleReceiptEmail = () => (
               Visit Apple Support.
             </Link>
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-auto text-center">
+          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-[normal] text-center">
             Learn how to{' '}
             <Link href="https://www.apple.com/">
               manage your password preferences
@@ -294,7 +294,7 @@ export const AppleReceiptEmail = () => (
             for iTunes, Apple Books, and App Store purchases.
           </Text>
 
-          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-auto text-center">
+          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-[normal] text-center">
             {' '}
             You have the option to stop receiving email receipts for your
             subscription renewals. If you have opted out, you can still view
