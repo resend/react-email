@@ -54,12 +54,12 @@ export const AppleReceiptEmail = () => (
               <sup className="font-light">2</sup>
             </Text>
           </Section>
-          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded leading-[1.4]">
+          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded">
             <Row className="min-h-[46px]">
               <Column colSpan={2}>
                 <Section>
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
+                    <Column className="pl-5 border-solid border-white border-r border-b">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         APPLE ID
                       </Text>
@@ -70,30 +70,30 @@ export const AppleReceiptEmail = () => (
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
-                      <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px]">
+                    <Column className="pl-5 border-solid border-white border-r border-b">
+                      <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         INVOICE DATE
                       </Text>
-                      <Text className="text-[12px] m-0 p-0">
+                      <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                         18 Jan 2023
                       </Text>
                     </Column>
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
-                      <Text className="m-0 p-0 text-[rgb(102,102,102)]">
+                    <Column className="pl-5 border-solid border-white border-r border-b">
+                      <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         ORDER ID
                       </Text>
-                      <Link className="text-[12px] m-0 p-0 text-[#15c] underline">
+                      <Link className="m-0 p-0 text-[#15c] underline text-[12px] leading-[1.4]">
                         ML4F5L8522
                       </Link>
                     </Column>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
-                      <Text className="m-0 p-0 text-[rgb(102,102,102)]">
+                    <Column className="pl-5 border-solid border-white border-r border-b">
+                      <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         DOCUMENT NO.
                       </Text>
-                      <Text className="text-[12px] m-0 p-0">
+                      <Text className="m-0 p-0 text-[10px] leading-[1.4]">
                         186623754793
                       </Text>
                     </Column>
@@ -104,26 +104,26 @@ export const AppleReceiptEmail = () => (
                 className="pl-5 border-solid border-white border-r border-b min-h-[44px]"
                 colSpan={2}
               >
-                <Text className="m-0 p-0 text-[rgb(102,102,102)]">
+                <Text className="m-0 k-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                   BILLED TO
                 </Text>
-                <Text className="text-[12px] m-0 p-0">
+                <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                   Visa .... 7461 (Apple Pay)
                 </Text>
-                <Text className="text-[12px] m-0 p-0">
+                <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                   Alan Turing
                 </Text>
-                <Text className="text-[12px] m-0 p-0">
+                <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                   2125 Chestnut St
                 </Text>
-                <Text className="text-[12px] m-0 p-0">
+                <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                   San Francisco, CA 94123
                 </Text>
-                <Text className="text-[12px] m-0 p-0">USA</Text>
+                <Text className="m-0 p-0 text-[12px] leading-[1.4]">USA</Text>
               </Column>
             </Row>
           </Section>
-          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded text-xs my-8 mb-4 min-h-[24px]">
+          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded text-xs mt-[30px] mb-[15px] min-h-[24px]">
             <Text className="bg-[#fafafa] pl-2 text-sm leading-[24px] font-medium m-0">
               App Store
             </Text>
