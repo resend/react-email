@@ -32,7 +32,7 @@ export const DropboxResetPasswordEmail = ({
       <Tailwind config={tailwindConfig}>
         <Body className="bg-[#f6f9fc] py-2.5">
           <Preview>Dropbox reset your password</Preview>
-          <Container className="bg-white border border-[#f0f0f0] p-11">
+          <Container className="bg-white border border-solid border-[#f0f0f0] p-[45px]">
             <Img
               src={`${baseUrl}/static/dropbox-logo.png`}
               width="40"
