@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { pretty, toPlainText } from '../node';
 import type { Options } from '../shared/options';
-import { decodeAttributeEntities } from '../shared/utils/decode-html-entities';
 import { readStream } from '../shared/read-stream.browser';
+import { decodeAttributeEntities } from '../shared/utils/decode-html-entities';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
   const suspendedElement = <Suspense>{node}</Suspense>;

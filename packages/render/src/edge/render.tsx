@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { pretty } from '../node';
 import type { Options } from '../shared/options';
-import { decodeAttributeEntities } from '../shared/utils/decode-html-entities';
 import { readStream } from '../shared/read-stream.browser';
+import { decodeAttributeEntities } from '../shared/utils/decode-html-entities';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { importReactDom } from './import-react-dom';
 
