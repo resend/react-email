@@ -1,13 +1,13 @@
 'use client';
 
-import { Billboard, Banner } from '@/components/webgl';
-import { View } from '@/webgl/View';
 import { PerspectiveCamera } from '@react-three/drei';
-import { useCollageTexture } from '@/hooks/useCollageTexture';
-import images from '@/data/images';
-import { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
 import type { Group } from 'three';
+import { Banner, Billboard } from '@/components/webgl';
+import images from '@/data/images';
+import { useCollageTexture } from '@/hooks/useCollageTexture';
+import { View } from '@/webgl/View';
 
 const COUNT = 12;
 const GAP = 2.8;

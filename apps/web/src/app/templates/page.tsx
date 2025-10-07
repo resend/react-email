@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { PageWrapper } from '@/components/page-wrapper';
 import { Anchor } from '../../components/anchor';
 import { Heading } from '../../components/heading';
-import { PageWrapper } from '@/components/page-wrapper';
 import { PageTransition } from '../../components/page-transition';
 import { Template } from '../../components/template';
 import { Text } from '../../components/text';

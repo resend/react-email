@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getCanvasTexture } from '@/components/webgl/getCanvasTexture';
 
 interface CollageImage {

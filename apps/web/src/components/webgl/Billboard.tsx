@@ -1,8 +1,8 @@
 'use client';
 
-import * as THREE from 'three';
-import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
+import * as THREE from 'three';
 
 import '@/webgl/materials/MeshImageMaterial';
 

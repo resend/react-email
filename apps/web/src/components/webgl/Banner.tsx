@@ -1,9 +1,9 @@
 'use client';
 
-import * as THREE from 'three';
 import { useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
+import * as THREE from 'three';
 
 import '@/webgl/materials/MeshBannerMaterial';
 

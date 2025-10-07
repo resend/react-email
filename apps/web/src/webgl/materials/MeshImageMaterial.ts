@@ -1,5 +1,5 @@
-import * as THREE from 'three';
 import { extend } from '@react-three/fiber';
+import * as THREE from 'three';
 
 export class MeshImageMaterial extends THREE.MeshBasicMaterial {
   constructor(parameters: THREE.MeshBasicMaterialParameters = {}) {

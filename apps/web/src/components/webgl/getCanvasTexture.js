@@ -1,11 +1,11 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 /**
  * Preloads an image and calculates its dimensions
  */
 async function preloadImage(imageUrl, axis, canvasHeight, canvasWidth) {
   const img = new Image();
-  img.crossOrigin = "anonymous";
+  img.crossOrigin = 'anonymous';
 
   await new Promise((resolve, reject) => {
     img.onload = () => resolve();
@@ -18,7 +18,7 @@ async function preloadImage(imageUrl, axis, canvasHeight, canvasWidth) {
   let calculatedWidth;
   let calculatedHeight;
 
-  if (axis === "x") {
+  if (axis === 'x') {
     // Horizontal layout: scale to fit canvasHeight
     calculatedHeight = canvasHeight;
     calculatedWidth = canvasHeight * aspectRatio;
@@ -36,21 +36,20 @@ function calculateCanvasDimensions(
   axis,
   gap,
   canvasHeight,
-  canvasWidth
+  canvasWidth,
 ) {
-  if (axis === "x") {
+  if (axis === 'x') {
     const totalWidth = imageData.reduce(
       (sum, data, index) => sum + data.width + (index > 0 ? gap : 0),
-      0
+      0,
     );
     return { totalWidth, totalHeight: canvasHeight };
-  } else {
-    const totalHeight = imageData.reduce(
-      (sum, data, index) => sum + data.height + (index > 0 ? gap : 0),
-      0
-    );
-    return { totalWidth: canvasWidth, totalHeight };
   }
+  const totalHeight = imageData.reduce(
+    (sum, data, index) => sum + data.height + (index > 0 ? gap : 0),
+    0,
+  );
+  return { totalWidth: canvasWidth, totalHeight };
 }
 
 function setupCanvas(canvasElement, context, dimensions) {
@@ -63,7 +62,7 @@ function setupCanvas(canvasElement, context, dimensions) {
 
   if (devicePixelRatio !== 1) context.scale(devicePixelRatio, devicePixelRatio);
 
-  context.fillStyle = "#ffffff";
+  context.fillStyle = '#ffffff';
   context.fillRect(0, 0, totalWidth, totalHeight);
 }
 
@@ -76,7 +75,7 @@ function drawImages(context, imageData, axis, gap) {
   for (const data of imageData) {
     context.drawImage(data.img, currentX, currentY, data.width, data.height);
 
-    if (axis === "x") currentX += data.width + gap;
+    if (axis === 'x') currentX += data.width + gap;
     else currentY += data.height + gap;
   }
 
@@ -109,21 +108,21 @@ export async function getCanvasTexture({
   canvasWidth = 512,
   canvas,
   ctx,
-  axis = "x",
+  axis = 'x',
 }) {
-  if (!images.length) throw new Error("No images");
+  if (!images.length) throw new Error('No images');
 
   // Create canvas and context if not provided
-  const canvasElement = canvas || document.createElement("canvas");
-  const context = ctx || canvasElement.getContext("2d");
+  const canvasElement = canvas || document.createElement('canvas');
+  const context = ctx || canvasElement.getContext('2d');
 
-  if (!context) throw new Error("No context");
+  if (!context) throw new Error('No context');
 
   // Preload all images in parallel
   const imageData = await Promise.all(
     images.map((image) =>
-      preloadImage(image.url, axis, canvasHeight, canvasWidth)
-    )
+      preloadImage(image.url, axis, canvasHeight, canvasWidth),
+    ),
   );
 
   // Calculate total canvas dimensions
@@ -132,7 +131,7 @@ export async function getCanvasTexture({
     axis,
     gap,
     canvasHeight,
-    canvasWidth
+    canvasWidth,
   );
 
   // Setup canvas
