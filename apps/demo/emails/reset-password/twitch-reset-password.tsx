@@ -38,8 +38,8 @@ export const TwitchResetPasswordEmail = ({
       <Tailwind config={tailwindConfig}>
         <Body className="bg-[#efeef1] font-twitch">
           <Preview>You updated the password for your Twitch account</Preview>
-          <Container className="max-w-[580px] my-8 mx-auto bg-white">
-            <Section className="p-8">
+          <Container className="max-w-[580px] my-[30px] mx-auto bg-white">
+            <Section className="p-[30px]">
               <Img
                 width={114}
                 src={`${baseUrl}/static/twitch-logo.png`}
@@ -49,26 +49,26 @@ export const TwitchResetPasswordEmail = ({
             </Section>
             <Section className="w-full">
               <Row>
-                <Column className="border-b border-solid border-[rgb(238,238,238)] w-[249px]" />
-                <Column className="border-b border-solid border-[rgb(145,71,255)] w-[102px]" />
-                <Column className="border-b border-solid border-[rgb(238,238,238)] w-[249px]" />
+                <Column className="[border-bottom:1px_solid_rgb(238,238,238)] w-[249px]" />
+                <Column className="[border-bottom:1px_solid_rgb(145,71,255)] w-[102px]" />
+                <Column className="[border-bottom:1px_solid_rgb(238,238,238)] w-[249px]" />
               </Row>
             </Section>
-            <Section className="py-1.5 px-5 pb-2.5">
-              <Text className="leading-6 text-sm">Hi {username},</Text>
-              <Text className="leading-6 text-sm">
+            <Section className="pt-[5px] px-5 pb-[10px]">
+              <Text className="text-[14px] leading-[1.5]">Hi {username},</Text>
+              <Text className="text-[14px] leading-[1.5]">
                 You updated the password for your Twitch account on{' '}
                 {formattedDate}. If this was you, then no further action is
                 required.
               </Text>
-              <Text className="leading-6 text-sm">
+              <Text className="text-[14px] leading-[1.5]">
                 However if you did NOT perform this password change, please{' '}
                 <Link href="https://www.twitch.tv" className="underline">
                   reset your account password
                 </Link>{' '}
                 immediately.
               </Text>
-              <Text className="leading-6 text-sm">
+              <Text className="text-[14px] leading-[1.5]">
                 Remember to use a password that is both strong and unique to
                 your Twitch account. To learn more about how to create a strong
                 and unique password,{' '}
@@ -76,13 +76,13 @@ export const TwitchResetPasswordEmail = ({
                   click here.
                 </Link>
               </Text>
-              <Text className="leading-6 text-sm">
+              <Text className="text-[14px] leading-[1.5]">
                 Still have questions? Please contact{' '}
                 <Link href="https://www.twitch.tv" className="underline">
                   Twitch Support
                 </Link>
               </Text>
-              <Text className="leading-6 text-sm">
+              <Text className="text-[14px] leading-[1.5]">
                 Thanks,
                 <br />
                 Twitch Support Team
