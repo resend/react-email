@@ -43,14 +43,14 @@ const getAppearance = (appearance: Appearance) => {
       return [
         'bg-white text-black',
         'hover:bg-white/90',
-        'focus:ring-slate-8 focus:bg-white/90 focus:outline-none focus:ring-2',
+        'focus-visible:ring-slate-10 focus-visible:bg-white/90 focus-visible:outline-none focus-visible:ring-2',
         'selection:text-black',
       ];
     case 'gradient':
       return [
         'bg-gradient border-[#34343A] backdrop-blur-[1.25rem]',
         'hover:bg-gradientHover',
-        'focus:bg-gradientHover focus:outline-none focus:ring-2 focus:ring-white/20',
+        'focus-visible:bg-gradientHover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20',
       ];
     default:
       unreachable(appearance);
