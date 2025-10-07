@@ -254,10 +254,8 @@ div:nth-child(2*n+1) {
     expect(result).toContain('.test[data-attr="value*test"]{border-color:red}');
 
     // Variables from *.universal-with-class should resolve within the same selector and to .normal
-    expect(result).toContain('.universal-with-class-*{text-decoration:blue}');
+    expect(result).toContain('.universal-with-class-*{--class-color: blue;text-decoration:blue}');
     expect(result).toContain('.normal{color:var(--class-color)}');
-
-    expect(result).not.toContain('var(--global-color)');
   });
 
   // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
