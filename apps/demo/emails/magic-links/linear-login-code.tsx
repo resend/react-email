@@ -59,7 +59,10 @@ export const LinearLoginCodeEmail = ({
             {validationCode}
           </code>
           <Hr className="border-[#dfe1e4] mt-[42px] mb-[26px]" />
-          <Link href="https://linear.app" className="text-[#b4becc] text-[14px]">
+          <Link
+            href="https://linear.app"
+            className="text-[#b4becc] text-[14px]"
+          >
             Linear
           </Link>
         </Container>
@@ -73,4 +76,3 @@ LinearLoginCodeEmail.PreviewProps = {
 } as LinearLoginCodeEmailProps;
 
 export default LinearLoginCodeEmail;
-
