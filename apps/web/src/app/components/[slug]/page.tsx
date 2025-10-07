@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Heading } from '@/components/heading';
+import { PageWrapper } from '@/components/page-wrapper';
 import { componentsStructure } from '../../../../components/structure';
 import { ComponentsView } from '../../../components/components-view';
 import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
@@ -68,7 +69,7 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
 
   const importedComponents = await getImportedComponentsFor(foundCategory);
   return (
-    <>
+    <PageWrapper>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />
@@ -94,6 +95,6 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
           <ComponentsView components={importedComponents} />
         </div>
       </PageTransition>
-    </>
+    </PageWrapper>
   );
 }

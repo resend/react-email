@@ -11,7 +11,7 @@ const IntegrationSection = () => {
   const mouseY = useMotionValue(0);
 
   return (
-    <section className="relative pt-12 pb-28 md:pb-48 px-6">
+    <section className="relative pt-12 pb-28 md:pb-80 px-6">
       <div className="space-y-16">
         <div className="max-w-full text-center space-y-4">
           <Heading
@@ -22,7 +22,7 @@ const IntegrationSection = () => {
             Integrate with any service
           </Heading>
           <div className="sm:px-20 md:max-w-3xl md:mx-auto text-balance">
-            <Text size="4">
+            <Text size="5" className="opacity-70">
               Convert your React code into HTML or Plain&nbsp;Text and send it
               with any email service provider.
             </Text>

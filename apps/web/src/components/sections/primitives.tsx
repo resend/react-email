@@ -9,7 +9,7 @@ const PrimitivesSection = () => {
         <Heading size="8" weight="medium" className="text-white/80">
           Battle-tested Primitives
         </Heading>
-        <Text size="5">
+        <Text size="5" className="opacity-70">
           All components are tested on the most popular email clients.
         </Text>
       </div>

@@ -112,7 +112,7 @@ const ContentComponent = ({ component }: { component: string }) => {
       );
     case 'Text':
       return (
-        <Text size="5" className="block max-w-[400px] text-balance">
+        <Text size="5" className="block max-w-[400px] text-balance opacity-70">
           Copy and paste. Add your own data. Send.
         </Text>
       );

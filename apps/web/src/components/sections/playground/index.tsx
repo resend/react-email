@@ -29,16 +29,16 @@ const PlaygroundSection = () => {
   return (
     <section className="relative min-h-screen my-24 text-center flex flex-col items-center justify-center">
       <div className="space-y-8 w-full">
-        <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto space-y-6">
+        <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto space-y-4">
           <Heading
             size="8"
             weight="medium"
-            className="text-white/80 md:w-96 inline-block text-balance max-md:max-w-lg max-md:mx-auto"
+            className="text-white/80 md:w-96 inline-block max-md:max-w-lg max-md:mx-auto"
           >
-            Style emails using your favorite tools
+            Style with any tools
           </Heading>
           <div className="px-4 md:px-40">
-            <Text size="5">
+            <Text size="5" className="opacity-70">
               Make your emails look beautiful with Tailwind or inline CSS.
             </Text>
           </div>

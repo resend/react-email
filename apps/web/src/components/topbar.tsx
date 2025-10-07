@@ -11,7 +11,7 @@ export function Topbar({
   return (
     <header
       className={classNames(
-        'z-[3] flex items-center justify-between px-6 py-8',
+        'relative z-50 flex items-center justify-between py-8 px-6 md:px-8',
         className,
       )}
       {...props}

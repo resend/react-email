@@ -63,7 +63,7 @@ const getSizesClassNames = (size: HeadingSize) => {
     case '10':
       return [
         'text-[40px] leading-[48px]',
-        'md:text-[64px] md:leading-[64px] tracking-[-0.05em]',
+        'md:text-[68px] md:leading-[64px] tracking-[-0.05em]',
       ];
     default:
       return unreachable(size);

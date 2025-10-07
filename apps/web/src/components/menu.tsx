@@ -122,7 +122,7 @@ export function Menu() {
             </Drawer.Trigger>
             <Drawer.Portal>
               <Drawer.Overlay className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-[2] h-[200dvh] w-[200dvw] bg-slate-800/50" />
-              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-[3] flex h-fit flex-col gap-8 rounded-t-xl bg-black p-8 pt-10">
+              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-50 flex h-fit flex-col gap-8 rounded-t-xl bg-black p-8 pt-10">
                 <ul className="flex w-full flex-col items-start gap-4">
                   <MenuItems onItemClick={handleItemClick} />
                 </ul>

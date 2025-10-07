@@ -13,7 +13,7 @@ const ToolsSection = () => {
             Built-in deliverability tools
           </Heading>
           <div className="sm:px-20 md:max-w-2xl md:mx-auto">
-            <Text size="5">
+            <Text size="5" className="opacity-70">
               Before you hit “send”, check how your email is doing with a set of
               tools to help you build better emails.
             </Text>
