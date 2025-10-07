@@ -38,14 +38,14 @@ export const AppleReceiptEmail = () => (
               </Column>
 
               <Column align="right" className="table-cell">
-                <Text className="text-[32px] font-light text-[#888888] my-4 p-0 leading-6">
+                <Text className="text-[32px] font-light text-[#888888] my-4 leading-6">
                   Receipt
                 </Text>
               </Column>
             </Row>
           </Section>
           <Section>
-            <Text className="text-center m-0 my-9 text-sm font-medium text-[#111111] p-0 leading-[24px]">
+            <Text className="text-center m-0 mt-9 mb-10 text-sm font-medium text-[#111111] leading-[24px]">
               Save 3% on all your Apple purchases with Apple Card.
               <sup className="font-light">1</sup>{' '}
               <Link href="https://www.apple.com/apple-card/">
@@ -54,12 +54,12 @@ export const AppleReceiptEmail = () => (
               <sup className="font-light">2</sup>
             </Text>
           </Section>
-          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded">
+          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded-[3px] text-[12px]">
             <Row className="min-h-[46px]">
               <Column colSpan={2}>
                 <Section>
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b">
+                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         APPLE ID
                       </Text>
@@ -70,7 +70,7 @@ export const AppleReceiptEmail = () => (
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b">
+                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         INVOICE DATE
                       </Text>
@@ -81,7 +81,7 @@ export const AppleReceiptEmail = () => (
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b">
+                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         ORDER ID
                       </Text>
@@ -89,11 +89,11 @@ export const AppleReceiptEmail = () => (
                         ML4F5L8522
                       </Link>
                     </Column>
-                    <Column className="pl-5 border-solid border-white border-r border-b">
+                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         DOCUMENT NO.
                       </Text>
-                      <Text className="m-0 p-0 text-[10px] leading-[1.4]">
+                      <Text className="m-0 p-0 text-[12px] leading-[1.4]">
                         186623754793
                       </Text>
                     </Column>
@@ -104,7 +104,7 @@ export const AppleReceiptEmail = () => (
                 className="pl-5 border-solid border-white border-r border-b min-h-[44px]"
                 colSpan={2}
               >
-                <Text className="m-0 k-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
+                <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                   BILLED TO
                 </Text>
                 <Text className="m-0 p-0 text-[12px] leading-[1.4]">
@@ -123,8 +123,8 @@ export const AppleReceiptEmail = () => (
               </Column>
             </Row>
           </Section>
-          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded text-xs mt-[30px] mb-[15px] min-h-[24px]">
-            <Text className="bg-[#fafafa] pl-2 text-sm leading-[24px] font-medium m-0">
+          <Section className="border-collapse border-spacing-0 text-[rgb(51,51,51)] bg-[rgb(250,250,250)] rounded-[3px] text-[12px] mt-[30px] mb-[15px] min-h-[24px]">
+            <Text className="bg-[#fafafa] pl-[10px] text-sm leading-[24px] font-medium m-0">
               App Store
             </Text>
           </Section>
@@ -139,7 +139,7 @@ export const AppleReceiptEmail = () => (
                   className="ml-5 rounded-[14px] border border-[rgb(242,242,242)]"
                 />
               </Column>
-              <Column className="pl-6">
+              <Column className="pl-[22px]">
                 <Text className="text-xs font-semibold m-0 p-0 leading-[1.4]">
                   HBO Max: Stream TV &amp; Movies
                 </Text>
@@ -151,7 +151,7 @@ export const AppleReceiptEmail = () => (
                 </Text>
                 <Link
                   href="https://www.apple.com/"
-                  className="text-xs text-[rgb(0,112,201)] no-underline"
+                  className="text-[12px] text-[rgb(0,112,201)] no-underline"
                 >
                   Write a Review
                 </Link>
@@ -160,7 +160,7 @@ export const AppleReceiptEmail = () => (
                 </span>
                 <Link
                   href="https://www.apple.com/"
-                  className="text-xs text-[rgb(0,112,201)] no-underline"
+                  className="text-[12px] text-[rgb(0,112,201)] no-underline"
                 >
                   Report a Problem
                 </Link>
@@ -170,27 +170,29 @@ export const AppleReceiptEmail = () => (
                 className="table-cell pr-5 w-[100px] align-top"
                 align="right"
               >
-                <Text className="text-xs font-semibold m-0">$14.99</Text>
-              </Column>
-            </Row>
-          </Section>
-          <Hr className="mt-8 mb-0" />
-          <Section align="right">
-            <Row>
-              <Column className="table-cell" align="right">
-                <Text className="m-0 text-[rgb(102,102,102)] text-[10px] font-semibold pr-8 text-right">
-                  TOTAL
-                </Text>
-              </Column>
-              <Column className="min-h-12 pt-12 border-l border-[rgb(238,238,238)]" />
-              <Column className="table-cell w-[90px]">
-                <Text className="mr-5 text-base font-semibold whitespace-nowrap text-right">
+                <Text className="text-[12px] leading-[24px] font-semibold m-0">
                   $14.99
                 </Text>
               </Column>
             </Row>
           </Section>
-          <Hr className="mb-20" />
+          <Hr className="mt-[30px] mb-0" />
+          <Section align="right">
+            <Row>
+              <Column className="table-cell" align="right">
+                <Text className="m-0 text-[rgb(102,102,102)] text-[10px] font-semibold pr-[30px] text-right">
+                  TOTAL
+                </Text>
+              </Column>
+              <Column className="min-h-12 pt-12 border-l border-solid border-[rgb(238,238,238)]" />
+              <Column className="table-cell w-[90px]">
+                <Text className="text-base font-semibold whitespace-nowrap m-0 mr-5 text-right">
+                  $14.99
+                </Text>
+              </Column>
+            </Row>
+          </Section>
+          <Hr className="mb-[75px]" />
           <Section>
             <Row>
               <Column align="center" className="block">
@@ -205,8 +207,8 @@ export const AppleReceiptEmail = () => (
           </Section>
           <Section>
             <Row>
-              <Column align="center" className="block mt-4">
-                <Text className="text-2xl font-medium">
+              <Column align="center" className="block mt-[15px]">
+                <Text className="text-[24px] leading-noen font-medium">
                   Save 3% on all your Apple purchases.
                 </Text>
               </Column>
@@ -214,7 +216,7 @@ export const AppleReceiptEmail = () => (
           </Section>
           <Section>
             <Row>
-              <Column align="center" className="table-cell mt-3">
+              <Column align="center" className="table-cell mt-[10px]">
                 <Link
                   href="https://www.apple.com/"
                   className="text-[rgb(0,126,255)] no-underline"
@@ -224,9 +226,9 @@ export const AppleReceiptEmail = () => (
                     width="28"
                     height="28"
                     alt="Apple Wallet"
-                    className="inline pr-2 align-middle"
+                    className="[display:inherit] pr-2 align-middle"
                   />
-                  <span className="text-sm font-normal no-underline">
+                  <span className="text-[14px] no-underline">
                     Apply and use in minutes
                   </span>
                 </Link>
@@ -234,7 +236,7 @@ export const AppleReceiptEmail = () => (
             </Row>
           </Section>
           <Hr className="my-16 mb-5" />
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             1. 3% savings is earned as Daily Cash and is transferred to your
             Apple Cash card when transactions post to your Apple Card account.
             If you do not have an Apple Cash card, Daily Cash can be applied by
@@ -243,28 +245,28 @@ export const AppleReceiptEmail = () => (
             Agreement for more details on Daily Cash and qualifying
             transactions.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             2. Subject to credit approval.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             To access and use all the features of Apple Card, you must add Apple
             Card to Wallet on an iPhone or iPad with iOS or iPadOS 13.2 or
             later. Update to the latest version of iOS or iPadOS by going to
             Settings &gt; General &gt; Software Update. Tap Download and
             Install.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             Available for qualifying applicants in the United States.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             Apple Card is issued by Goldman Sachs Bank USA, Salt Lake City
             Branch.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] m-0 leading-auto mb-4">
+          <Text className="text-[12px] text-[rgb(102,102,102)] m-0 mb-4">
             If you reside in the US territories, please call Goldman Sachs at
             877-255-5923 with questions about Apple Card.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-auto text-center">
+          <Text className="text-[12px] text-[rgb(102,102,102)] my-5 text-center">
             Privacy: We use a
             <Link
               href="https://www.apple.com/"
@@ -275,7 +277,7 @@ export const AppleReceiptEmail = () => (
             </Link>
             to provide reports to developers.
           </Text>
-          <Text className="text-xs text-[rgb(102,102,102)] my-5 leading-auto text-center">
+          <Text className="text-[12px] text-[rgb(102,102,102)] my-5 text-center">
             Get help with subscriptions and purchases.
             <Link
               href="https://www.apple.com/"
@@ -312,14 +314,14 @@ export const AppleReceiptEmail = () => (
               </Column>
             </Row>
           </Section>
-          <Text className="mt-2 text-center text-xs text-[rgb(102,102,102)]">
+          <Text className="m-0 mt-2 text-center text-[12px] leading-[24px] text-[rgb(102,102,102)]">
             <Link href="https://www.apple.com/">Account Settings</Link> •{' '}
             <Link href="https://www.apple.com/">Terms of Sale</Link> •{' '}
             <Link href="https://www.apple.com/legal/privacy/">
               Privacy Policy{' '}
             </Link>
           </Text>
-          <Text className="mt-6 text-center text-xs text-[rgb(102,102,102)]">
+          <Text className="m-0 mt-6 text-center text-[12px] leading-[24px] text-[rgb(102,102,102)]">
             Copyright © 2023 Apple Inc. <br />{' '}
             <Link href="https://www.apple.com/legal/">All rights reserved</Link>
           </Text>
