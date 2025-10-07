@@ -44,7 +44,7 @@ export const StripeWelcomeEmail = () => (
               about your account right from your dashboard.
             </Text>
             <Button
-              className="bg-[#656ee8] rounded text-white text-base font-bold no-underline text-center block p-2.5"
+              className="bg-[#656ee8] rounded-[3px] text-white text-[16px] font-bold no-underline text-center block p-[10px]"
               href="https://dashboard.stripe.com/login"
             >
               View your Stripe Dashboard
