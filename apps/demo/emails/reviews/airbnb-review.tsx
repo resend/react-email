@@ -76,7 +76,7 @@ export const AirbnbReviewEmail = ({
                 </Text>
 
                 <Button
-                  className="bg-[#ff5a5f] rounded-sm text-white text-lg py-5 px-8 no-underline text-center block"
+                  className="bg-[#ff5a5f] rounded-sm text-white text-[18px] py-[19px] px-[30px] no-underline text-center block"
                   href="https://www.airbnb.com"
                 >
                   Send My Feedback
@@ -116,12 +116,12 @@ export const AirbnbReviewEmail = ({
                   </Link>
                 </Text>
                 <Hr className="border-[#cccccc] my-5" />
-                <Text className="text-[#9ca299] text-sm mb-2.5">
+                <Text className="text-[#9ca299] text-[14px] leading-[24px] mb-2.5">
                   Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
                 </Text>
                 <Link
                   href="https://www.airbnb.com"
-                  className="text-sm text-[#9ca299] underline"
+                  className="text-[14px] text-[#9ca299] underline"
                 >
                   Report unsafe behavior
                 </Link>
