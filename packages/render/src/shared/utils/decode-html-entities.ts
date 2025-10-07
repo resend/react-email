@@ -5,11 +5,20 @@
  * - Links with query parameters (e.g., ?param1=value1&param2=value2)
  * - CSS font-family declarations with quotes
  *
- * Note: We only decode safe entities (quotes and ampersands) and avoid decoding
- * &lt; and &gt; to prevent breaking HTML structure
+ * Note: We only decode safe entities and avoid decoding &lt; and &gt; to prevent
+ * breaking HTML structure. Quotes are only decoded in style attributes to avoid
+ * breaking href attribute syntax.
  */
 export const decodeAttributeEntities = (html: string): string => {
-  const decodeAttributeValue = (value: string): string => {
+  const decodeHrefValue = (value: string): string => {
+    // Only decode ampersands in hrefs to fix URL query parameters
+    // Do NOT decode quotes to avoid breaking the attribute syntax
+    return value.replace(/&amp;/g, '&');
+  };
+
+  const decodeStyleValue = (value: string): string => {
+    // Decode quotes and ampersands in style attributes
+    // This is safe because CSS can contain quoted strings (e.g., font-family)
     return value
       .replace(/&amp;/g, '&')
       .replace(/&quot;/g, '"')
@@ -19,9 +28,9 @@ export const decodeAttributeEntities = (html: string): string => {
 
   return html
     .replace(/href="([^"]*)"/g, (_match, hrefContent) => {
-      return `href="${decodeAttributeValue(hrefContent)}"`;
+      return `href="${decodeHrefValue(hrefContent)}"`;
     })
     .replace(/style="([^"]*)"/g, (_match, styleContent) => {
-      return `style="${decodeAttributeValue(styleContent)}"`;
+      return `style="${decodeStyleValue(styleContent)}"`;
     });
 };
