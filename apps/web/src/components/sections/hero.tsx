@@ -26,10 +26,9 @@ const HeroSection = () => {
   return (
     <>
       {/* Right Column - Tower */}
-      <div className="w-screen h-screen max-lg:hidden z-[0] absolute right-0 top-0">
-        <div className="relative w-full h-full">
+      <div className="w-[100dvw] h-[100dvh] max-lg:hidden z-[0] absolute right-0 top-0">
+        <div className="w-full h-full">
           <Tower />
-          {/* Radial gradient mask */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -40,18 +39,18 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <section className="md:w-px m-auto flex min-h-dvh relative flex-col w-full pt-12 md:pt-0">
+      <section className="flex flex-col h-[calc(100dvh-11.5rem)] lg:max-w-7xl mx-auto max-lg:items-center justify-center relative w-full pt-12 lg:pt-0 pointer-events-none">
         <Image
           alt=""
-          className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten opacity-30"
+          className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten lg:opacity-30"
           fill
           priority
           src="/static/bg.png"
         />
 
         {/* Left Column - Content */}
-        <div className="md:absolute w-full md:w-[44rem] z-10 md:-translate-x-[40rem] md:-translate-y-[70%] md:top-1/2 px-12">
-          <div className="mb-8 flex justify-center md:justify-start">
+        <div className="w-full lg:w-[44rem] z-10 px-12 pointer-events-auto">
+          <div className="mb-8 flex justify-center lg:justify-start">
             <Image
               alt="React Email Logo"
               height="100"
@@ -60,27 +59,27 @@ const HeroSection = () => {
             />
           </div>
           <Heading
-            className="!text-white/80 relative mb-8 text-center md:text-left  before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
+            className="!text-white/80 relative mb-8 text-center lg:text-left before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_2s_ease-in-out] before:bg-[length:200%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
             weight="medium"
             size="10"
           >
             The next generation of writing emails
           </Heading>
-          <div className="max-w-xl text-center md:text-left">
+          <div className="max-w-xl max-lg:mx-auto text-center lg:text-left">
             <Text size="5" className="text-pretty">
               React Email is a next-generation collection of unstyled components
               for creating beautiful emails using React, Tailwind, and
               TypeScript.
             </Text>
           </div>
-          <div className="mt-10 flex items-center justify-center md:justify-start gap-4 flex-wrap">
+          <div className="mt-10 flex items-center justify-center lg:justify-start gap-4 flex-wrap">
             <Button asChild size="4">
               <Link href="/components">
                 Explore components
                 <ArrowRightIcon size={16} />
               </Link>
             </Button>
-            <Code className="md:!inline-flex hidden max-w-max">
+            <Code className="lg:!inline-flex hidden max-w-max">
               npx create-email@latest
             </Code>
           </div>
