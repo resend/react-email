@@ -15,10 +15,3 @@ exports[`makeInlineStylesFor() > works in simple use case 1`] = `
   "width": "100%",
 }
 `;
-
-exports[`makeInlineStylesFor() 1`] = `
-{
-  "backgroundColor": "#f56565",
-  "width": "100%",
-}
-`;
