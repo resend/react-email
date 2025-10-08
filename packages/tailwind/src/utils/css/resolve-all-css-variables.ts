@@ -2,16 +2,18 @@ import {
   type CssNode,
   type Declaration,
   generate,
+  type List,
+  type ListItem,
   parse,
   type Raw,
   type SelectorList,
   type Value,
   walk,
 } from 'css-tree';
-import { populateParentsForNodeTree } from './populate-parents-for-node-tree';
 
 interface VariableUse {
   declaration: Declaration;
+  path: CssNode[];
   fallback?: string;
   variableName: string;
   raw: string;
@@ -19,6 +21,7 @@ interface VariableUse {
 
 export interface VariableDefinition {
   declaration: Declaration;
+  path: CssNode[];
   variableName: string;
   definition: string;
 }
@@ -34,7 +37,11 @@ function doSelectorsIntersect(
   }
 
   let hasSomeUniversal = false;
-  const walker = (node: CssNode) => {
+  const walker = (
+    node: CssNode,
+    _parentListItem: ListItem<CssNode>,
+    parentList: List<CssNode>,
+  ) => {
     if (hasSomeUniversal) return;
     if (node.type === 'PseudoClassSelector' && node.name === 'root') {
       hasSomeUniversal = true;
@@ -42,7 +49,7 @@ function doSelectorsIntersect(
     if (
       node.type === 'TypeSelector' &&
       node.name === '*' &&
-      node.containedIn?.size === 1
+      parentList.size === 1
     ) {
       hasSomeUniversal = true;
     }
@@ -57,81 +64,77 @@ function doSelectorsIntersect(
   return false;
 }
 
-function someParent(
-  node: CssNode,
-  predicate: (ancestor: CssNode) => boolean,
-): boolean {
-  if (node.parent) {
-    if (predicate(node.parent)) {
-      return true;
-    }
-    return someParent(node.parent, predicate);
-  }
-  return false;
-}
-
 export function resolveAllCssVariables(node: CssNode) {
-  populateParentsForNodeTree(node);
   const variableDefinitions = new Set<VariableDefinition>();
   const variableUses = new Set<VariableUse>();
 
+  const path: CssNode[] = [];
+
   walk(node, {
-    visit: 'Declaration',
-    enter(declaration) {
-      // Ignores @layer (properties) { ... } to avoid variable resolution conflicts
-      if (
-        someParent(
-          declaration,
-          (ancestor) =>
-            ancestor.type === 'Atrule' &&
-            ancestor.name === 'layer' &&
-            ancestor.prelude !== null &&
-            generate(ancestor.prelude).includes('properties'),
-        )
-      ) {
-        return;
-      }
-
-      if (/--[\S]+/.test(declaration.property)) {
-        variableDefinitions.add({
-          declaration,
-          variableName: declaration.property,
-          definition: generate(declaration.value),
-        });
-      } else {
-        function parseVariableUsesFrom(node: CssNode) {
-          walk(node, {
-            visit: 'Function',
-            enter(funcNode) {
-              if (funcNode.name === 'var') {
-                const children = funcNode.children.toArray();
-                const name = generate(children[0]);
-                const fallback =
-                  // The second argument should be an "," Operator Node,
-                  // such that the actual fallback is only in the third argument
-                  children[2] ? generate(children[2]) : undefined;
-
-                variableUses.add({
-                  declaration,
-                  fallback,
-                  variableName: name,
-                  raw: generate(funcNode),
-                });
-
-                if (fallback?.includes('var(')) {
-                  const parsedFallback = parse(fallback, {
-                    context: 'value',
-                  });
-
-                  parseVariableUsesFrom(parsedFallback);
-                }
-              }
-            },
-          });
+    leave() {
+      path.shift();
+    },
+    enter(node: CssNode) {
+      if (node.type === 'Declaration') {
+        const declaration = node;
+        // Ignores @layer (properties) { ... } to avoid variable resolution conflicts
+        if (
+          path.some(
+            (ancestor) =>
+              ancestor.type === 'Atrule' &&
+              ancestor.name === 'layer' &&
+              ancestor.prelude !== null &&
+              generate(ancestor.prelude).includes('properties'),
+          )
+        ) {
+          path.unshift(node);
+          return;
         }
 
-        parseVariableUsesFrom(declaration.value);
+        if (/--[\S]+/.test(declaration.property)) {
+          variableDefinitions.add({
+            declaration,
+            path: [...path],
+            variableName: declaration.property,
+            definition: generate(declaration.value),
+          });
+        } else {
+          function parseVariableUsesFrom(node: CssNode) {
+            walk(node, {
+              visit: 'Function',
+              enter(funcNode) {
+                if (funcNode.name === 'var') {
+                  const children = funcNode.children.toArray();
+                  const name = generate(children[0]);
+                  const fallback =
+                    // The second argument should be an "," Operator Node,
+                    // such that the actual fallback is only in the third argument
+                    children[2] ? generate(children[2]) : undefined;
+
+                  variableUses.add({
+                    declaration,
+                    path: [...path],
+                    fallback,
+                    variableName: name,
+                    raw: generate(funcNode),
+                  });
+
+                  if (fallback?.includes('var(')) {
+                    const parsedFallback = parse(fallback, {
+                      context: 'value',
+                    });
+
+                    parseVariableUsesFrom(parsedFallback);
+                  }
+                }
+              },
+            });
+          }
+
+          parseVariableUsesFrom(declaration.value);
+        }
       }
+      path.unshift(node);
     },
   });
 
@@ -144,16 +147,13 @@ export function resolveAllCssVariables(node: CssNode) {
       }
 
       if (
-        use.declaration.parent?.type === 'Block' &&
-        use.declaration.parent?.parent?.type === 'Atrule' &&
-        use.declaration.parent.parent?.parent?.type === 'Block' &&
-        use.declaration.parent.parent?.parent?.parent?.type === 'Rule' &&
-        definition.declaration.parent?.type === 'Block' &&
-        definition.declaration.parent?.parent?.type === 'Rule' &&
-        doSelectorsIntersect(
-          use.declaration.parent.parent.parent.parent.prelude,
-          definition.declaration.parent.parent.prelude,
-        )
+        use.path[0]?.type === 'Block' &&
+        use.path[1]?.type === 'Atrule' &&
+        use.path[2]?.type === 'Block' &&
+        use.path[3]?.type === 'Rule' &&
+        definition.path[0].type === 'Block' &&
+        definition.path[1].type === 'Rule' &&
+        doSelectorsIntersect(use.path[3].prelude, definition.path[1].prelude)
       ) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
@@ -169,14 +169,11 @@ export function resolveAllCssVariables(node: CssNode) {
       }
 
       if (
-        use.declaration.parent?.type === 'Block' &&
-        use.declaration.parent?.parent?.type === 'Rule' &&
-        definition.declaration.parent?.type === 'Block' &&
-        definition.declaration.parent?.parent?.type === 'Rule' &&
-        doSelectorsIntersect(
-          use.declaration.parent.parent.prelude,
-          definition.declaration.parent.parent.prelude,
-        )
+        use.path[0]?.type === 'Block' &&
+        use.path[1]?.type === 'Rule' &&
+        definition.path[0]?.type === 'Block' &&
+        definition.path[1]?.type === 'Rule' &&
+        doSelectorsIntersect(use.path[1].prelude, definition.path[1].prelude)
       ) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
