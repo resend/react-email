@@ -1,16 +1,20 @@
 import { type CssNode, type Declaration, generate, walk } from 'css-tree';
 import { getReactProperty } from '../compatibility/get-react-property';
+import type { CustomProperties } from './get-custom-properties';
 
-export function makeInlineStylesFor(inlinableRules: CssNode[]) {
+export function makeInlineStylesFor(
+  inlinableRules: CssNode[],
+  customProperties: CustomProperties,
+) {
   const styles: Record<string, string> = {};
 
-  const localVariableDeclarations = new Set<Declaration>();
+  const localVariableDeclarations = new Map<string, Declaration>();
   for (const rule of inlinableRules) {
     walk(rule, {
       visit: 'Declaration',
       enter(declaration) {
         if (declaration.property.startsWith('--')) {
-          localVariableDeclarations.add(declaration);
+          localVariableDeclarations.set(declaration.property, declaration);
         }
       },
     });
@@ -30,11 +34,15 @@ export function makeInlineStylesFor(inlinableRules: CssNode[]) {
             },
           });
           if (variableName) {
-            const definition = Array.from(localVariableDeclarations).find(
-              (declaration) => variableName === declaration.property,
-            );
+            const definition = localVariableDeclarations.get(variableName);
             if (definition) {
               funcParentListItem.data = definition.value;
+            }
+            // For most variables tailwindcss defines, they also define a custom 
+            // property for them with an initial value that we can inline here
+            const customProperty = customProperties.get(variableName);
+            if (customProperty?.initialValue) {
+              funcParentListItem.data = customProperty.initialValue.value;
             }
           }
         }

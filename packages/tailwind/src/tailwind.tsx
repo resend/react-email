@@ -10,6 +10,7 @@ import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-ru
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
+import { getCustomProperties } from './utils/css/get-custom-properties';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
@@ -111,6 +112,8 @@ export function Tailwind({ children, config }: TailwindProps) {
     extractRulesPerClass(styleSheet, classesUsed);
   sanitizeNonInlinableRules(styleSheet);
 
+  const customProperties = getCustomProperties(styleSheet);
+
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
@@ -127,6 +130,7 @@ export function Tailwind({ children, config }: TailwindProps) {
         node,
         inlinableRules,
         nonInlinableRules,
+        customProperties,
       );
 
       if (elementWithInlinedStyles.type === 'head') {

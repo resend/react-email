@@ -2,6 +2,7 @@ import type { Rule } from 'css-tree';
 import React from 'react';
 import type { EmailElementProps } from '../../tailwind';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name';
+import type { CustomProperties } from '../css/get-custom-properties';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for';
 import { isComponent } from '../react/is-component';
 
@@ -9,6 +10,7 @@ export function cloneElementWithInlinedStyles(
   element: React.ReactElement<EmailElementProps>,
   inlinableRules: Map<string, Rule>,
   nonInlinableRules: Map<string, Rule>,
+  customProperties: CustomProperties,
 ) {
   const propsToOverwrite: Partial<EmailElementProps> = {};
 
@@ -27,7 +29,7 @@ export function cloneElementWithInlinedStyles(
       }
     }
 
-    const styles = makeInlineStylesFor(rules);
+    const styles = makeInlineStylesFor(rules, customProperties);
     propsToOverwrite.style = {
       ...styles,
       ...element.props.style,
