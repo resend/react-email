@@ -27,4 +27,3 @@ export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
 );
 
 Container.displayName = 'Container';
-(Container as any).tailwindTreatAsElement = true;

@@ -46,4 +46,3 @@ export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
 );
 
 Text.displayName = 'Text';
-(Text as any).tailwindTreatAsElement = true;

@@ -39,4 +39,3 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 );
 
 Body.displayName = 'Body';
-(Body as any).tailwindTreatAsElement = true;
