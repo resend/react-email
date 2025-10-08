@@ -27,4 +27,3 @@ export const Heading = React.forwardRef<
 );
 
 Heading.displayName = 'Heading';
-(Heading as any).tailwindTreatAsElement = true;

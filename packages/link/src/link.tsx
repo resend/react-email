@@ -20,4 +20,3 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = 'Link';
-(Link as any).tailwindTreatAsElement = true;

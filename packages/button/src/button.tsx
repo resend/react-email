@@ -110,4 +110,3 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-(Button as any).tailwindTreatAsElement = true;
