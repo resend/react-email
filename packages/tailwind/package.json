@@ -43,7 +43,49 @@
     "node": ">=18.0.0"
   },
   "peerDependencies": {
-    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "@react-email/button": "*",
+    "@react-email/body": "*",
+    "@react-email/code-block": "*",
+    "@react-email/code-inline": "*",
+    "@react-email/container": "*",
+    "@react-email/heading": "*",
+    "@react-email/hr": "*",
+    "@react-email/img": "*",
+    "@react-email/link": "*",
+    "@react-email/preview": "*"
+  },
+  "peerDependenciesMeta": {
+    "@react-email/button": {
+      "optional": true
+    },
+    "@react-email/body": {
+      "optional": true
+    },
+    "@react-email/code-block": {
+      "optional": true
+    },
+    "@react-email/code-inline": {
+      "optional": true
+    },
+    "@react-email/container": {
+      "optional": true
+    },
+    "@react-email/heading": {
+      "optional": true
+    },
+    "@react-email/hr": {
+      "optional": true
+    },
+    "@react-email/img": {
+      "optional": true
+    },
+    "@react-email/link": {
+      "optional": true
+    },
+    "@react-email/preview": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@react-email/button": "workspace:^",
