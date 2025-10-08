@@ -42,6 +42,11 @@ export function mapReactTree(
             : (processed.type as React.FC);
 
         const rendered = OriginalComponent(processed.props);
+        // Handle async Server Components
+        if (rendered && typeof rendered === 'object' && 'then' in rendered) {
+          // For now, return the unprocessed component for async components
+          return processed;
+        }
         const mappedRenderedNode = mapReactTree(rendered, process);
 
         return mappedRenderedNode;

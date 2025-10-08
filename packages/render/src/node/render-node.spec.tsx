@@ -192,14 +192,13 @@ describe('render on node environments', () => {
     // Should not contain encoded quotes in style attributes
     expect(html).not.toContain('&quot;');
 
-    // Should contain actual quotes in font-family
-    expect(html).toContain('"Helvetica Neue"');
+    // Should contain single quotes (converted from encoded double quotes)
+    // to avoid breaking the style="..." attribute syntax
+    expect(html).toContain("'Helvetica Neue'");
   });
 
   it('does not decode quotes in href attributes to avoid breaking HTML', async () => {
-    const component = (
-      <a href='https://example.com/page?foo="bar"'>Link</a>
-    );
+    const component = <a href='https://example.com/page?foo="bar"'>Link</a>;
     const html = await render(component);
 
     // Quotes in href should remain encoded to avoid breaking the attribute

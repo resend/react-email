@@ -17,20 +17,23 @@ export const decodeAttributeEntities = (html: string): string => {
   };
 
   const decodeStyleValue = (value: string): string => {
-    // Decode quotes and ampersands in style attributes
-    // This is safe because CSS can contain quoted strings (e.g., font-family)
+    // Decode entities in style attributes
+    // Note: We decode &quot; to single quotes to avoid breaking the style="..." syntax
+    // since the style attribute is wrapped in double quotes
     return value
       .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
+      .replace(/&quot;/g, "'")  // Decode to single quote to avoid breaking attribute
       .replace(/&#x27;/g, "'")
       .replace(/&#39;/g, "'");
   };
 
+  // Match href and style attributes more carefully to avoid breaking HTML structure
+  // Use a regex that matches the attribute name, =, opening quote, content, closing quote
   return html
-    .replace(/href="([^"]*)"/g, (_match, hrefContent) => {
+    .replace(/\bhref="([^"]*)"/g, (_match, hrefContent) => {
       return `href="${decodeHrefValue(hrefContent)}"`;
     })
-    .replace(/style="([^"]*)"/g, (_match, styleContent) => {
+    .replace(/\bstyle="([^"]*)"/g, (_match, styleContent) => {
       return `style="${decodeStyleValue(styleContent)}"`;
     });
 };
