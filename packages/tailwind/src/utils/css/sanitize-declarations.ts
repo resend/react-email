@@ -9,6 +9,7 @@ import {
   parse,
   type Value,
   walk,
+  Raw,
 } from 'css-tree';
 
 const LAB_TO_LMS = {
@@ -127,6 +128,11 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
   walk(nodeContainingDeclarations, {
     visit: 'Declaration',
     enter(declaration, item, list) {
+      if (declaration.value.type === 'Raw') {
+        declaration.value = parse(declaration.value.value, {
+          context: 'value'
+        }) as Value | Raw;
+      }
       if (
         /border-radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(
           generate(declaration),
