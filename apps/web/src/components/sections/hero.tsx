@@ -49,7 +49,7 @@ const HeroSection = () => {
         />
 
         {/* Left Column - Content */}
-        <div className="w-full lg:w-[44rem] z-10 px-12 pointer-events-auto">
+        <div className="w-full lg:w-[44rem] z-10 px-4 lg:px-12 pointer-events-auto">
           <div className="mb-8 flex justify-center lg:justify-start">
             <Image
               alt="React Email Logo"
