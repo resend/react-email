@@ -112,12 +112,16 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option(
+      '-e, --extension <extension>',
+      'Set a custom file extension for rendered emails (e.g. blade.php)',
+    )
+    .option(
       '-s, --silent',
       'To, or not to show a spinner with process information',
       false,
     )
-    .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
-      exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
+    .action(({ outDir, pretty, plainText, silent, dir: srcDir, extension }) =>
+      exportTemplates(outDir, srcDir, { silent, plainText, pretty, extension }),
     );
 
   const resend = program.command('resend');
