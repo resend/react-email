@@ -30,6 +30,7 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 };
 
 type ExportTemplatesOptions = Options & {
+  extension?: string;
   silent?: boolean;
   pretty?: boolean;
 };
@@ -115,6 +116,13 @@ export const exportTemplates = async (
     },
   );
 
+  const extension =
+    options.extension && options.extension.length > 0
+      ? `.${options.extension}`
+      : options.plainText
+        ? '.txt'
+        : '.html';
+
   for await (const template of allBuiltTemplates) {
     try {
       if (spinner) {
@@ -134,10 +142,7 @@ export const exportTemplates = async (
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
+      const htmlPath = template.replace('.cjs', extension);
       writeFileSync(htmlPath, rendered);
       unlinkSync(template);
     } catch (exception) {

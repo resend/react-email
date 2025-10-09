@@ -190,6 +190,10 @@ Generates the plain HTML files of your emails into a `out` directory.
 <ResponseField name="--dir" type="string" default="emails">
   Change the directory of your email templates.
 </ResponseField>
+<ResponseField name="--extension" type="string">
+  Set a custom file extension for rendered templates (for example, `blade.php`). When omitted,
+  the extension defaults to `.html`, or `.txt` when `--plainText` is enabled.
+</ResponseField>
 
 ## `email help <cmd>`
 
