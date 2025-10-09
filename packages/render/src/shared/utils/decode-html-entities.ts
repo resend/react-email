@@ -22,7 +22,7 @@ export const decodeAttributeEntities = (html: string): string => {
     // since the style attribute is wrapped in double quotes
     return value
       .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, "'")  // Decode to single quote to avoid breaking attribute
+      .replace(/&quot;/g, "'") // Decode to single quote to avoid breaking attribute
       .replace(/&#x27;/g, "'")
       .replace(/&#39;/g, "'");
   };
