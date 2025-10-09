@@ -118,7 +118,9 @@ export const exportTemplates = async (
 
   const extension =
     options.extension && options.extension.length > 0
-      ? `.${options.extension}`
+      ? options.extension.startsWith('.')
+        ? options.extension
+        : `.${options.extension}`
       : options.plainText
         ? '.txt'
         : '.html';
