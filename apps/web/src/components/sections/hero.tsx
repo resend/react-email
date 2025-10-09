@@ -10,17 +10,14 @@ import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
 // Dynamically import Tower component to avoid SSR issues with Three.js
-const Tower = dynamic(
-  () => import('@/components/tower').then((mod) => mod.Tower),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className="text-white/30">Loading...</div>
-      </div>
-    ),
-  },
-);
+const Tower = dynamic(() => import('@/webgl/tower').then((mod) => mod.Tower), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="text-white/30">Loading...</div>
+    </div>
+  ),
+});
 
 const HeroSection = () => {
   return (
