@@ -30,7 +30,7 @@ const HeroSection = () => {
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(circle at center right, transparent 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.95) 60%, #000 80%), linear-gradient(175deg, transparent 60%, black 100%), linear-gradient(to bottom, rgba(0, 0, 0, .8) 5%, transparent 30%)',
+                'radial-gradient(circle at center right, transparent 0%, rgba(0, 0, 0, 0.6) 40%, rgba(0, 0, 0, 0.95) 60%, #000 80%), linear-gradient(175deg, transparent 60%, black 97%), linear-gradient(to bottom, rgba(0, 0, 0, .8) 5%, transparent 30%)',
             }}
           />
         </div>
