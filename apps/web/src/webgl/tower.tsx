@@ -4,8 +4,8 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import type { Group } from 'three';
-import { Billboard } from '@/webgl/Billboard';
 import { useCollageTexture } from '@/hooks/useCollageTexture';
+import { Billboard } from '@/webgl/Billboard';
 import { View } from '@/webgl/View';
 
 const COUNT = 12;
