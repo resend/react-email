@@ -10,8 +10,10 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
+import tailwindConfig from '../tailwind.config';
 
 interface AirbnbReviewEmailProps {
   authorName?: string;
@@ -34,78 +36,100 @@ export const AirbnbReviewEmail = ({
     <Html>
       <Head />
 
-      <Body style={main}>
-        <Preview>{previewText}</Preview>
-        <Container style={container}>
-          <Section>
-            <Img
-              src={`${baseUrl}/static/airbnb-logo.png`}
-              width="96"
-              height="30"
-              alt="Airbnb"
-            />
-          </Section>
-          <Section>
-            <Img
-              src={authorImage}
-              width="96"
-              height="96"
-              alt={authorName}
-              style={userImage}
-            />
-          </Section>
-          <Section style={{ paddingBottom: '20px' }}>
-            <Row>
-              <Text style={heading}>Here's what {authorName} wrote</Text>
-              <Text style={review}>{reviewText}</Text>
-              <Text style={paragraph}>
-                Now that the review period is over, we’ve posted {authorName}
-                ’s review to your Airbnb profile.
-              </Text>
-              <Text style={{ ...paragraph, paddingBottom: '16px' }}>
-                While it’s too late to write a review of your own, you can send
-                your feedback to {authorName} using your Airbnb message thread.
-              </Text>
+      <Tailwind config={tailwindConfig}>
+        <Body className="bg-white font-airbnb">
+          <Preview>{previewText}</Preview>
+          <Container className="mx-auto py-5 pb-12 w-[580px] max-w-full">
+            <Section>
+              <Img
+                src={`${baseUrl}/static/airbnb-logo.png`}
+                width="96"
+                height="30"
+                alt="Airbnb"
+              />
+            </Section>
+            <Section>
+              <Img
+                src={authorImage}
+                width="96"
+                height="96"
+                alt={authorName}
+                className="mx-auto mb-4 rounded-full"
+              />
+            </Section>
+            <Section className="pb-5">
+              <Row>
+                <Text className="text-[32px] leading-[1.3] font-bold text-[#484848]">
+                  Here's what {authorName} wrote
+                </Text>
+                <Text className="text-lg leading-[1.4] text-[#484848] p-6 bg-[#f2f3f3] rounded">
+                  {reviewText}
+                </Text>
+                <Text className="text-lg leading-[1.4] text-[#484848]">
+                  Now that the review period is over, we've posted {authorName}
+                  's review to your Airbnb profile.
+                </Text>
+                <Text className="text-lg leading-[1.4] text-[#484848] pb-4">
+                  While it's too late to write a review of your own, you can
+                  send your feedback to {authorName} using your Airbnb message
+                  thread.
+                </Text>
 
-              <Button style={button} href="https://www.airbnb.com">
-                Send My Feedback
-              </Button>
-            </Row>
-          </Section>
+                <Button
+                  className="bg-[#ff5a5f] rounded-sm text-white text-[18px] py-[19px] px-[30px] no-underline text-center block"
+                  href="https://www.airbnb.com"
+                >
+                  Send My Feedback
+                </Button>
+              </Row>
+            </Section>
 
-          <Hr style={hr} />
+            <Hr className="border-[#cccccc] my-5" />
 
-          <Section>
-            <Row>
-              <Text style={{ ...paragraph, fontWeight: '700' }}>
-                Common questions
-              </Text>
-              <Text>
-                <Link href="https://www.airbnb.com" style={link}>
-                  How do reviews work?
+            <Section>
+              <Row>
+                <Text className="text-lg leading-[1.4] text-[#484848] font-bold">
+                  Common questions
+                </Text>
+                <Text>
+                  <Link
+                    href="https://www.airbnb.com"
+                    className="text-lg leading-[1.4] text-[#ff5a5f] block"
+                  >
+                    How do reviews work?
+                  </Link>
+                </Text>
+                <Text>
+                  <Link
+                    href="https://www.airbnb.com"
+                    className="text-lg leading-[1.4] text-[#ff5a5f] block"
+                  >
+                    How do star ratings work?
+                  </Link>
+                </Text>
+                <Text>
+                  <Link
+                    href="https://www.airbnb.com"
+                    className="text-lg leading-[1.4] text-[#ff5a5f] block"
+                  >
+                    Can I leave a review after 14 days?
+                  </Link>
+                </Text>
+                <Hr className="border-[#cccccc] my-5" />
+                <Text className="text-[#9ca299] text-[14px] leading-[24px] mb-2.5">
+                  Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
+                </Text>
+                <Link
+                  href="https://www.airbnb.com"
+                  className="text-[14px] text-[#9ca299] underline"
+                >
+                  Report unsafe behavior
                 </Link>
-              </Text>
-              <Text>
-                <Link href="https://www.airbnb.com" style={link}>
-                  How do star ratings work?
-                </Link>
-              </Text>
-              <Text>
-                <Link href="https://www.airbnb.com" style={link}>
-                  Can I leave a review after 14 days?
-                </Link>
-              </Text>
-              <Hr style={hr} />
-              <Text style={footer}>
-                Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103
-              </Text>
-              <Link href="https://www.airbnb.com" style={reportLink}>
-                Report unsafe behavior
-              </Link>
-            </Row>
-          </Section>
-        </Container>
-      </Body>
+              </Row>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 };
@@ -119,77 +143,6 @@ AirbnbReviewEmail.PreviewProps = {
     host!”`,
 } as AirbnbReviewEmailProps;
 
+AirbnbReviewEmail.tailwindConfig = tailwindConfig;
+
 export default AirbnbReviewEmail;
-
-const main = {
-  backgroundColor: '#ffffff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  width: '580px',
-  maxWidth: '100%',
-};
-
-const userImage = {
-  margin: '0 auto',
-  marginBottom: '16px',
-  borderRadius: '50%',
-};
-
-const heading = {
-  fontSize: '32px',
-  lineHeight: '1.3',
-  fontWeight: '700',
-  color: '#484848',
-};
-
-const paragraph = {
-  fontSize: '18px',
-  lineHeight: '1.4',
-  color: '#484848',
-};
-
-const review = {
-  ...paragraph,
-  padding: '24px',
-  backgroundColor: '#f2f3f3',
-  borderRadius: '4px',
-};
-
-const button = {
-  backgroundColor: '#ff5a5f',
-  borderRadius: '3px',
-  color: '#fff',
-  fontSize: '18px',
-  padding: '19px 30px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-};
-
-const link = {
-  ...paragraph,
-  color: '#ff5a5f',
-  display: 'block',
-};
-
-const reportLink = {
-  fontSize: '14px',
-  color: '#9ca299',
-  textDecoration: 'underline',
-};
-
-const hr = {
-  borderColor: '#cccccc',
-  margin: '20px 0',
-};
-
-const footer = {
-  color: '#9ca299',
-  fontSize: '14px',
-  marginBottom: '10px',
-};
