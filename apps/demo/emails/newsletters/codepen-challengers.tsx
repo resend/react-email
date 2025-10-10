@@ -46,7 +46,7 @@ export const CodepenChallengersEmail = () => (
             <Text className="text-[32px] mt-1 mb-0">Cubes</Text>
           </Heading>
 
-          <Section className="m-0 bg-white px-6">
+          <Section className="m-0 bg-white py-0 px-6">
             <Text className="text-base">The Shape challenge continues!</Text>
 
             <Text className="text-base">
@@ -136,7 +136,7 @@ export const CodepenChallengersEmail = () => (
               <Column className="w-1/2 pr-[10px]">
                 <Text className="font-black text-lg leading-[1.1]">IDEAS!</Text>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     This week we move from 2 dimensions to three! Maybe you
@@ -155,7 +155,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     There's more to cubes than just six square sides. There are
@@ -173,7 +173,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#fff4c8] border border-solid border-[#f4d247]">
                   🌟
                   <Text className="text-[13px] text-left">
                     Here's a mind-bending idea that can combine the round shapes
@@ -193,7 +193,7 @@ export const CodepenChallengersEmail = () => (
                   RESOURCES!
                 </Text>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-4xl text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
                   📖
                   <Text className="text-[13px] text-left">
                     Learn all about{' '}
@@ -209,7 +209,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
                   📖
                   <Text className="text-[13px] text-left">
                     Want to go beyond the square cube? Draw inspiration from
@@ -229,7 +229,7 @@ export const CodepenChallengersEmail = () => (
                   </Text>
                 </Section>
 
-                <Section className="p-5 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
+                <Section className="p-5 m-0 mb-5 rounded-[10px] text-[36px] text-center bg-[#d9f6ff] border border-solid border-[#92bfd0]">
                   📖
                   <Text className="text-[13px] text-left">
                     Did that spherical cubes concept pique your interest?
@@ -253,7 +253,7 @@ export const CodepenChallengersEmail = () => (
             </Row>
           </Section>
 
-          <Section className="my-10 mb-[120px] text-center">
+          <Section className="mt-[40px] mb-[120px] text-center">
             <Button className="text-[26px] text-[#15c] bg-[#222] rounded font-bold cursor-pointer py-[15px] px-[30px]">
               Go to Challenge Page
             </Button>
