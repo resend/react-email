@@ -38,7 +38,7 @@ export const PlaidVerifyIdentityEmail = ({
           <Text className="text-[#0a85ea] text-[11px] font-bold h-4 tracking-[0] leading-[16px] mt-4 mb-2 mx-2 uppercase text-center">
             Verify Your Identity
           </Text>
-          <Heading className="text-black font-medium inline-block text-[20px] leading-[24px] my-0 text-center">
+          <Heading className="text-black font-medium font-[HelveticaNeue-Medium,Helvetica,Arial,sans-serif] inline-block text-[20px] leading-[24px] my-0 text-center">
             Enter the following code to finish linking Venmo.
           </Heading>
           <Section className="bg-[rgba(0,0,0,.05)] rounded mx-auto font-[HelveticaNeue-Bold] mt-4 mb-3.5 align-middle w-[280px]">
