@@ -10,8 +10,10 @@ import {
   Preview,
   Row,
   Section,
+  Tailwind,
   Text,
 } from '@react-email/components';
+import tailwindConfig from '../tailwind.config';
 
 interface YelpRecentLoginEmailProps {
   userFirstName?: string;
@@ -39,106 +41,88 @@ export const YelpRecentLoginEmail = ({
 
   return (
     <Html>
-      <Head />
-      <Body style={main}>
-        <Preview>Yelp recent login</Preview>
-        <Container>
-          <Section style={logo}>
-            <Img src={`${baseUrl}/static/yelp-logo.png`} alt="Yelp logo" />
-          </Section>
+      <Tailwind config={tailwindConfig}>
+        <Head />
+        <Body className="bg-white font-yelp">
+          <Preview>Yelp recent login</Preview>
+          <Container>
+            <Section className="px-5 py-[30px]">
+              <Img src={`${baseUrl}/static/yelp-logo.png`} alt="Yelp logo" />
+            </Section>
 
-          <Section style={content}>
-            <Row>
+            <Section className="border border-solid border-black/10 rounded overflow-hidden">
+              <Row>
+                <Img
+                  className="max-w-full"
+                  width={620}
+                  src={`${baseUrl}/static/yelp-header.png`}
+                  alt="Yelp header illustration"
+                />
+              </Row>
+
+              <Row className="p-5 pb-0">
+                <Column>
+                  <Heading className="text-[32px] font-bold text-center">
+                    Hi {userFirstName},
+                  </Heading>
+                  <Heading
+                    as="h2"
+                    className="text-[26px] font-bold text-center"
+                  >
+                    We noticed a recent login to your Yelp account.
+                  </Heading>
+
+                  <Text className="text-base">
+                    <b>Time: </b>
+                    {formattedDate}
+                  </Text>
+                  <Text className="text-base -mt-[5px]">
+                    <b>Device: </b>
+                    {loginDevice}
+                  </Text>
+                  <Text className="text-base -mt-[5px]">
+                    <b>Location: </b>
+                    {loginLocation}
+                  </Text>
+                  <Text className="text-black/50 text-sm leading-[24px] -mt-[5px]">
+                    *Approximate geographic location based on IP address:
+                    {loginIp}
+                  </Text>
+
+                  <Text className="text-base">
+                    If this was you, there's nothing else you need to do.
+                  </Text>
+                  <Text className="text-base -mt-[5px]">
+                    If this wasn't you or if you have additional questions,
+                    please see our support page.
+                  </Text>
+                </Column>
+              </Row>
+              <Row className="p-5 pt-0">
+                <Column className="text-center" colSpan={2}>
+                  <Button className="bg-[#e00707] rounded border border-solid border-black/10 text-white font-bold cursor-pointer inline-block px-[30px] py-3 no-underline">
+                    Learn More
+                  </Button>
+                </Column>
+              </Row>
+            </Section>
+
+            <Section className="pt-[45px]">
               <Img
-                style={image}
+                className="max-w-full"
                 width={620}
-                src={`${baseUrl}/static/yelp-header.png`}
-                alt="Yelp header illustration"
+                src={`${baseUrl}/static/yelp-footer.png`}
+                alt="Yelp footer decoration"
               />
-            </Row>
+            </Section>
 
-            <Row style={{ ...boxInfos, paddingBottom: '0' }}>
-              <Column>
-                <Heading
-                  style={{
-                    fontSize: 32,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}
-                >
-                  Hi {userFirstName},
-                </Heading>
-                <Heading
-                  as="h2"
-                  style={{
-                    fontSize: 26,
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}
-                >
-                  We noticed a recent login to your Yelp account.
-                </Heading>
-
-                <Text style={paragraph}>
-                  <b>Time: </b>
-                  {formattedDate}
-                </Text>
-                <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Device: </b>
-                  {loginDevice}
-                </Text>
-                <Text style={{ ...paragraph, marginTop: -5 }}>
-                  <b>Location: </b>
-                  {loginLocation}
-                </Text>
-                <Text
-                  style={{
-                    color: 'rgb(0,0,0, 0.5)',
-                    fontSize: 14,
-                    marginTop: -5,
-                  }}
-                >
-                  *Approximate geographic location based on IP address:
-                  {loginIp}
-                </Text>
-
-                <Text style={paragraph}>
-                  If this was you, there's nothing else you need to do.
-                </Text>
-                <Text style={{ ...paragraph, marginTop: -5 }}>
-                  If this wasn't you or if you have additional questions, please
-                  see our support page.
-                </Text>
-              </Column>
-            </Row>
-            <Row style={{ ...boxInfos, paddingTop: '0' }}>
-              <Column style={buttonContainer} colSpan={2}>
-                <Button style={button}>Learn More</Button>
-              </Column>
-            </Row>
-          </Section>
-
-          <Section style={containerImageFooter}>
-            <Img
-              style={image}
-              width={620}
-              src={`${baseUrl}/static/yelp-footer.png`}
-              alt="Yelp footer decoration"
-            />
-          </Section>
-
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: 12,
-              color: 'rgb(0,0,0, 0.7)',
-            }}
-          >
-            © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
-            U.S.A. | www.yelp.com
-          </Text>
-        </Container>
-      </Body>
+            <Text className="text-center text-xs leading-[24px] text-black/70">
+              © 2022 | Yelp Inc., 350 Mission Street, San Francisco, CA 94105,
+              U.S.A. | www.yelp.com
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 };
@@ -152,51 +136,3 @@ YelpRecentLoginEmail.PreviewProps = {
 } as YelpRecentLoginEmailProps;
 
 export default YelpRecentLoginEmail;
-
-const main = {
-  backgroundColor: '#fff',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const paragraph = {
-  fontSize: 16,
-};
-
-const logo = {
-  padding: '30px 20px',
-};
-
-const buttonContainer = {
-  textAlign: 'center' as const,
-};
-
-const button = {
-  backgroundColor: '#e00707',
-  borderRadius: 3,
-  color: '#FFF',
-  fontWeight: 'bold',
-  border: '1px solid rgb(0,0,0, 0.1)',
-  cursor: 'pointer',
-  display: 'inline-block',
-  padding: '12px 30px',
-  textDecoration: 'none',
-};
-
-const content = {
-  border: '1px solid rgb(0,0,0, 0.1)',
-  borderRadius: '3px',
-  overflow: 'hidden',
-};
-
-const image = {
-  maxWidth: '100%',
-};
-
-const boxInfos = {
-  padding: '20px',
-};
-
-const containerImageFooter = {
-  padding: '45px 0 0 0',
-};
