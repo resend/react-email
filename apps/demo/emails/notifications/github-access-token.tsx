@@ -61,7 +61,8 @@ export const GithubAccessTokenEmail = ({
             <Link className="text-[#0366d6] text-[12px]">
               Your security audit log
             </Link>{' '}
-            ・ <Link className="text-[#0366d6] text-[12px]">Contact support</Link>
+            ・{' '}
+            <Link className="text-[#0366d6] text-[12px]">Contact support</Link>
           </Text>
 
           <Text className="text-[#6a737d] text-xs leading-[24px] text-center mt-[60px] mb-4">
