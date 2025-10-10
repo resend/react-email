@@ -130,7 +130,7 @@ export const StackOverflowTipsEmail = ({
 
             <Section className="mt-6 block">
               <Link
-                className="bg-[#0095ff] border border-[#0077cc] text-[17px] leading-none py-[13px] px-[17px] rounded max-w-[120px] text-white"
+                className="bg-[#0095ff] border border-solid border-[#0077cc] text-[17px] leading-[17px] py-[13px] px-[17px] rounded max-w-[120px] text-white"
                 href="https://stackoverflow.blog/2019/10/22/"
               >
                 I need a break
@@ -180,7 +180,7 @@ export const StackOverflowTipsEmail = ({
             <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New
             York, NY 10038
           </Text>
-          <Text className="rounded-sm border border-solid border-[#d6d9dc] pt-1 pb-[6px] px-[6px] text-[11px] leading-none font-stack-overflow-mono text-[#e06c77] max-w-min m-0 mb-8">
+          <Text className="rounded-sm border border-solid border-[#d6d9dc] pt-1 pb-[3px] px-[6px] text-[11px] leading-none font-stack-overflow-mono text-[#e06c77] max-w-min m-0 mb-8">
             {'<3'}
           </Text>
         </Section>
