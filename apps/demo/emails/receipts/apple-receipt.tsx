@@ -25,7 +25,7 @@ export const AppleReceiptEmail = () => (
     <Tailwind config={tailwindConfig}>
       <Body className="font-apple bg-white">
         <Preview>Apple Receipt</Preview>
-        <Container className="mx-auto py-5 pb-12 w-[660px] max-w-full">
+        <Container className="mx-auto px-0 pt-5 pb-12 w-[660px] max-w-full">
           <Section>
             <Row>
               <Column>
@@ -45,7 +45,7 @@ export const AppleReceiptEmail = () => (
             </Row>
           </Section>
           <Section>
-            <Text className="text-center m-0 mt-9 mb-10 text-sm font-medium text-[#111111] leading-[24px]">
+            <Text className="text-center m-0 mt-9 mb-10 text-[14px] leading-[24px] font-medium text-[#111111]">
               Save 3% on all your Apple purchases with Apple Card.
               <sup className="font-light">1</sup>{' '}
               <Link href="https://www.apple.com/apple-card/">
@@ -59,7 +59,7 @@ export const AppleReceiptEmail = () => (
               <Column colSpan={2}>
                 <Section>
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
+                    <Column className="pl-5 border-solid border-white border-0 border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         APPLE ID
                       </Text>
@@ -70,7 +70,7 @@ export const AppleReceiptEmail = () => (
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
+                    <Column className="pl-5 border-solid border-white border-0 border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         INVOICE DATE
                       </Text>
@@ -81,7 +81,7 @@ export const AppleReceiptEmail = () => (
                   </Row>
 
                   <Row>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
+                    <Column className="pl-5 border-solid border-white border-0 border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         ORDER ID
                       </Text>
@@ -89,7 +89,7 @@ export const AppleReceiptEmail = () => (
                         ML4F5L8522
                       </Link>
                     </Column>
-                    <Column className="pl-5 border-solid border-white border-r border-b min-h-[44px]">
+                    <Column className="pl-5 border-solid border-white border-0 border-r border-b min-h-[44px]">
                       <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
                         DOCUMENT NO.
                       </Text>
@@ -101,7 +101,7 @@ export const AppleReceiptEmail = () => (
                 </Section>
               </Column>
               <Column
-                className="pl-5 border-solid border-white border-r border-b min-h-[44px]"
+                className="pl-5 border-solid border-white border-0 border-r border-b min-h-[44px]"
                 colSpan={2}
               >
                 <Text className="m-0 p-0 text-[rgb(102,102,102)] text-[10px] leading-[1.4]">
@@ -136,7 +136,7 @@ export const AppleReceiptEmail = () => (
                   width="64"
                   height="64"
                   alt="HBO Max"
-                  className="ml-5 rounded-[14px] border border-[rgb(242,242,242)]"
+                  className="ml-5 rounded-[14px] border border-solid border-[rgb(242,242,242)]"
                 />
               </Column>
               <Column className="pl-[22px]">
@@ -180,11 +180,11 @@ export const AppleReceiptEmail = () => (
           <Section align="right">
             <Row>
               <Column className="table-cell" align="right">
-                <Text className="m-0 text-[rgb(102,102,102)] text-[10px] font-semibold pr-[30px] text-right">
+                <Text className="m-0 text-[rgb(102,102,102)] text-[10px] font-semibold p-0 pr-[30px] text-right">
                   TOTAL
                 </Text>
               </Column>
-              <Column className="min-h-12 pt-12 border-l border-solid border-[rgb(238,238,238)]" />
+              <Column className="min-h-12 pt-12 [border-left:1px_solid_rgb(238,238,238)]" />
               <Column className="table-cell w-[90px]">
                 <Text className="text-base font-semibold whitespace-nowrap m-0 mr-5 text-right">
                   $14.99
@@ -208,7 +208,7 @@ export const AppleReceiptEmail = () => (
           <Section>
             <Row>
               <Column align="center" className="block mt-[15px]">
-                <Text className="text-[24px] leading-noen font-medium">
+                <Text className="text-[24px] leading-none font-medium">
                   Save 3% on all your Apple purchases.
                 </Text>
               </Column>
@@ -228,14 +228,14 @@ export const AppleReceiptEmail = () => (
                     alt="Apple Wallet"
                     className="[display:inherit] pr-2 align-middle"
                   />
-                  <span className="text-[14px] no-underline">
+                  <span className="text-[14px] font-normal no-underline">
                     Apply and use in minutes
                   </span>
                 </Link>
               </Column>
             </Row>
           </Section>
-          <Hr className="my-16 mb-5" />
+          <Hr className="my-[65px] mb-5" />
           <Text className="text-[12px] leading-[normal] text-[rgb(102,102,102)] m-0 mb-4">
             1. 3% savings is earned as Daily Cash and is transferred to your
             Apple Cash card when transactions post to your Apple Card account.
@@ -321,7 +321,7 @@ export const AppleReceiptEmail = () => (
               Privacy Policy{' '}
             </Link>
           </Text>
-          <Text className="m-0 mt-6 text-center text-[12px] leading-[24px] text-[rgb(102,102,102)]">
+          <Text className="m-0 mt-[25px] text-center text-[12px] leading-[24px] text-[rgb(102,102,102)]">
             Copyright © 2023 Apple Inc. <br />{' '}
             <Link href="https://www.apple.com/legal/">All rights reserved</Link>
           </Text>
