@@ -5,6 +5,8 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
+      'stack-overflow': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      'stack-overflow-mono': 'Consolas,monospace',
       github:
         '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"',
       yelp: [
