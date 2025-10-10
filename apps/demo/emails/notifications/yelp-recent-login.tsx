@@ -65,7 +65,10 @@ export const YelpRecentLoginEmail = ({
                   <Heading className="text-[32px] font-bold text-center">
                     Hi {userFirstName},
                   </Heading>
-                  <Heading as="h2" className="text-[26px] font-bold text-center">
+                  <Heading
+                    as="h2"
+                    className="text-[26px] font-bold text-center"
+                  >
                     We noticed a recent login to your Yelp account.
                   </Heading>
 
