@@ -5,6 +5,8 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
+      slack:
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
       twitch: ['HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'],
       'stack-overflow': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
       'stack-overflow-mono': 'Consolas,monospace',
