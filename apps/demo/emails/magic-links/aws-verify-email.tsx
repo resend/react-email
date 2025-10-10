@@ -33,7 +33,7 @@ export default function AWSVerifyEmail({
           <Preview>AWS Email Verification</Preview>
           <Container className="p-5 mx-auto bg-[#eee]">
             <Section className="bg-white">
-              <Section className="bg-[#252f3d] flex p-5 items-center justify-center">
+              <Section className="bg-[#252f3d] flex py-5 items-center justify-center">
                 <Img
                   src={`${baseUrl}/static/aws-logo.png`}
                   width="75"
@@ -41,11 +41,11 @@ export default function AWSVerifyEmail({
                   alt="AWS's Logo"
                 />
               </Section>
-              <Section className="py-6 px-9">
-                <Heading className="text-[#333] text-[20px] font-bold mb-6">
+              <Section className="py-[25px] px-[35px]">
+                <Heading className="text-[#333] text-[20px] font-bold mb-[15px]">
                   Verify your email address
                 </Heading>
-                <Text className="text-[#333] text-[14px] mt-6 mb-3.5 mx-0">
+                <Text className="text-[#333] text-[14px] leading-[24px] mt-6 mb-[14px] mx-0">
                   Thanks for starting the new AWS account creation process. We
                   want to make sure it's really you. Please enter the following
                   verification code when prompted. If you don&apos;t want to
@@ -56,7 +56,7 @@ export default function AWSVerifyEmail({
                     Verification code
                   </Text>
 
-                  <Text className="text-[#333] text-[36px] my-2.5 mx-0 font-bold text-center">
+                  <Text className="text-[#333] text-[36px] my-[10px] mx-0 font-bold text-center">
                     {verificationCode}
                   </Text>
                   <Text className="text-[#333] text-[14px] m-0 text-center">
@@ -65,7 +65,7 @@ export default function AWSVerifyEmail({
                 </Section>
               </Section>
               <Hr />
-              <Section className="py-6 px-9">
+              <Section className="py-[25px] px-[35px]">
                 <Text className="text-[#333] text-[14px] m-0">
                   Amazon Web Services will never email you and ask you to
                   disclose or verify your password, credit card, or banking
@@ -73,7 +73,7 @@ export default function AWSVerifyEmail({
                 </Text>
               </Section>
             </Section>
-            <Text className="text-[#333] text-[12px] my-6 mx-0 px-5 py-0">
+            <Text className="text-[#333] text-[12px] my-[24px] mx-0 px-5 py-0">
               This message was produced and distributed by Amazon Web Services,
               Inc., 410 Terry Ave. North, Seattle, WA 98109. © 2022, Amazon Web
               Services, Inc.. All rights reserved. AWS is a registered trademark
@@ -81,7 +81,7 @@ export default function AWSVerifyEmail({
               <Link
                 href="https://amazon.com"
                 target="_blank"
-                className="text-[#2754C5] underline text-[12px]"
+                className="text-[#2754C5] underline text-[14px]"
               >
                 Amazon.com
               </Link>
@@ -89,7 +89,7 @@ export default function AWSVerifyEmail({
               <Link
                 href="https://amazon.com"
                 target="_blank"
-                className="text-[#2754C5] underline text-[12px]"
+                className="text-[#2754C5] underline text-[14px]"
               >
                 privacy policy
               </Link>
