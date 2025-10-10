@@ -5,7 +5,7 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
-      'stack-overflow': 'HelveticaNeue,Helvetica,Arial,sans-serif',
+      'stack-overflow': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
       'stack-overflow-mono': 'Consolas,monospace',
     },
   },
