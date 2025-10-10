@@ -137,10 +137,10 @@ export const AirbnbReviewEmail = ({
 AirbnbReviewEmail.PreviewProps = {
   authorName: 'Alex',
   authorImage: `${baseUrl}/static/airbnb-review-user.jpg`,
-  reviewText: `"Alan was a great guest! Easy communication, the apartment was left
+  reviewText: `“Alan was a great guest! Easy communication, the apartment was left
     in great condition, very polite, and respectful of all house rules.
-    He's welcome back anytime and would easily recommend him to any
-    host!"`,
+    He’s welcome back anytime and would easily recommend him to any
+    host!”`,
 } as AirbnbReviewEmailProps;
 
 AirbnbReviewEmail.tailwindConfig = tailwindConfig;
