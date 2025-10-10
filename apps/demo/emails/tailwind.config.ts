@@ -83,6 +83,7 @@ export default {
         'Lucida Grande',
         'sans-serif',
       ],
+      'dropbox-sans': ['Open Sans', 'Helvetica Neue', 'Arial'],
     },
   },
 } satisfies TailwindConfig;
