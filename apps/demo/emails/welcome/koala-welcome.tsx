@@ -40,7 +40,9 @@ export const KoalaWelcomeEmail = ({
             alt="Koala"
             className="mx-auto"
           />
-          <Text className="text-[16px] leading-[26px]">Hi {userFirstname},</Text>
+          <Text className="text-[16px] leading-[26px]">
+            Hi {userFirstname},
+          </Text>
           <Text className="text-[16px] leading-[26px]">
             Welcome to Koala, the sales intelligence platform that helps you
             uncover qualified leads and close deals faster.
