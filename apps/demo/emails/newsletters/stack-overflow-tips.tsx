@@ -176,11 +176,11 @@ export const StackOverflowTipsEmail = ({
             width={111}
             src={`${baseUrl}/static/stack-overflow-logo-sm.png`}
           />
-          <Text className="my-1 text-xs leading-4 text-[#9199a1]">
+          <Text className="my-1 text-[12px] leading-[15px] text-[#9199a1]">
             <strong>Stack Overflow</strong>, 110 William Street, 28th Floor, New
             York, NY 10038
           </Text>
-          <Text className="rounded-sm border border-solid border-[#d6d9dc] pt-1 pb-[3px] px-[6px] text-[11px] leading-none font-stack-overflow-mono text-[#e06c77] max-w-min m-0 mb-8">
+          <Text className="rounded-[1px] border border-solid border-[#d6d9dc] pt-1 pb-[3px] px-[6px] text-[11px] leading-none font-stack-overflow-mono text-[#e06c77] max-w-min m-0 mb-8">
             {'<3'}
           </Text>
         </Section>
