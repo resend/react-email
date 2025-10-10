@@ -5,6 +5,17 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
+      koala: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        'Segoe UI',
+        'Roboto',
+        'Oxygen-Sans',
+        'Ubuntu',
+        'Cantarell',
+        'Helvetica Neue',
+        'sans-serif',
+      ],
       raycast:
         '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
       slack:
@@ -53,12 +64,12 @@ export default {
       airbnb: [
         '-apple-system',
         'BlinkMacSystemFont',
-        'Segoe UI',
+        '"Segoe UI"',
         'Roboto',
         'Oxygen-Sans',
         'Ubuntu',
         'Cantarell',
-        'Helvetica Neue',
+        '"Helvetica Neue"',
         'sans-serif',
       ],
       apple: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
