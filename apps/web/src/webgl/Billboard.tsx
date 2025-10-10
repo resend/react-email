@@ -26,7 +26,7 @@ function setupCylinderTextureMapping(texture, dimensions, radius, height) {
   texture.offset.y = (1 - texture.repeat.y) / 2;
 }
 
-function Billboard({ texture, dimensions, radius = 5, ...props }) {
+export function Billboard({ texture, dimensions, radius = 5, ...props }) {
   const ref = useRef(null);
 
   setupCylinderTextureMapping(texture, dimensions, radius, 2);
@@ -46,5 +46,3 @@ function Billboard({ texture, dimensions, radius = 5, ...props }) {
     </mesh>
   );
 }
-
-export default Billboard;

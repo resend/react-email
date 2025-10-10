@@ -4,13 +4,24 @@ import { PerspectiveCamera } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 import type { Group } from 'three';
-import { Billboard } from '@/components/webgl';
-import images from '@/data/images';
 import { useCollageTexture } from '@/hooks/useCollageTexture';
+import { Billboard } from '@/webgl/Billboard';
 import { View } from '@/webgl/View';
 
 const COUNT = 12;
-const GAP = 2.8;
+const GAP = 3.5;
+const IMAGES = [
+  { url: '/static/components/0.jpeg' },
+  { url: '/static/components/1.jpeg' },
+  { url: '/static/components/2.jpeg' },
+  { url: '/static/components/3.jpeg' },
+  { url: '/static/components/4.jpeg' },
+  { url: '/static/components/0.jpeg' },
+  { url: '/static/components/1.jpeg' },
+  { url: '/static/components/2.jpeg' },
+  { url: '/static/components/3.jpeg' },
+  { url: '/static/components/4.jpeg' },
+];
 
 function Loader() {
   return (
@@ -102,7 +113,7 @@ function SpinnableTower({ texture, dimensions }: any) {
         <Billboard
           key={`billboard-${index}`}
           radius={4}
-          rotation={[0, index * Math.PI * 0.5, 0.4]}
+          rotation={[0, index * Math.PI * 0.5, 0.25]}
           position={[0, (index - (Math.ceil(COUNT / 2) - 1)) * GAP, 0]}
           texture={texture}
           dimensions={dimensions}
@@ -113,7 +124,7 @@ function SpinnableTower({ texture, dimensions }: any) {
 }
 
 export function Tower() {
-  const { texture, dimensions, isLoading } = useCollageTexture(images);
+  const { texture, dimensions, isLoading } = useCollageTexture(IMAGES);
 
   if (isLoading) return <Loader />;
 

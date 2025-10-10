@@ -86,7 +86,7 @@ export default async function ComponentsPage() {
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     <Illustration />
                   </div>
-                  <h3 className="relative z-[2] mt-4 font-semibold text-slate-12 capitalize leading-7 tracking-wide">
+                  <h3 className="relative z-[2] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
                     {category.name}
                   </h3>
                   <span className="relative z-[2] text-slate-11 text-xs">
