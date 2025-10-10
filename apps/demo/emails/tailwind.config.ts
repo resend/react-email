@@ -14,6 +14,17 @@ export default {
         'Ubuntu',
         'sans-serif',
       ],
+      dropbox: [
+        'Open Sans',
+        'HelveticaNeue-Light',
+        'Helvetica Neue Light',
+        'Helvetica Neue',
+        'Helvetica',
+        'Arial',
+        'Lucida Grande',
+        'sans-serif',
+      ],
+      'dropbox-sans': ['Open Sans', 'Helvetica Neue', 'Arial'],
     },
   },
 } satisfies TailwindConfig;
