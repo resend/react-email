@@ -48,7 +48,7 @@ export const DropboxResetPasswordEmail = ({
                 account. If this was you, you can set a new password here:
               </Text>
               <Button
-                className="bg-[#007ee6] rounded text-white font-dropbox text-[15px] no-underline text-center block w-[210px] py-3.5 px-2"
+                className="bg-[#007ee6] rounded text-white font-dropbox text-[15px] no-underline text-center block w-[210px] pt-[14px] pb-[7px] px-[7px]"
                 href={resetPasswordLink}
               >
                 Reset password
