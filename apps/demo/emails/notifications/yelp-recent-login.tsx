@@ -107,7 +107,7 @@ export const YelpRecentLoginEmail = ({
               </Row>
             </Section>
 
-            <Section className="pt-11">
+            <Section className="pt-[45px]">
               <Img
                 className="max-w-full"
                 width={620}
