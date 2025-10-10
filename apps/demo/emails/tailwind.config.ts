@@ -7,6 +7,15 @@ export default {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
       linear:
         '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+      stripe: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Ubuntu',
+        'sans-serif',
+      ],
     },
   },
 } satisfies TailwindConfig;
