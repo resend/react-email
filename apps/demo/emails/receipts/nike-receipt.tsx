@@ -32,7 +32,9 @@ export const NikeReceiptEmail = () => (
           <Section className="py-[22px] px-10 bg-[#F7F7F7]">
             <Row>
               <Column>
-                <Text className="m-0 text-[14px] leading-[2] font-bold">Tracking Number</Text>
+                <Text className="m-0 text-[14px] leading-[2] font-bold">
+                  Tracking Number
+                </Text>
                 <Text className="mt-3 mb-0 font-medium text-[14px] leading-[1.4] text-[#6F6F6F]">
                   1ZV218970300071628
                 </Text>
@@ -100,13 +102,17 @@ export const NikeReceiptEmail = () => (
           <Section className="py-[22px] px-10">
             <Row className="inline-flex mb-10">
               <Column className="w-[170px]">
-                <Text className="m-0 text-[14px] leading-[2] font-bold">Order Number</Text>
+                <Text className="m-0 text-[14px] leading-[2] font-bold">
+                  Order Number
+                </Text>
                 <Text className="mt-3 mb-0 font-medium text-[14px] leading-[1.4] text-[#6F6F6F]">
                   C0106373851
                 </Text>
               </Column>
               <Column>
-                <Text className="m-0 text-[14px] leading-[2] font-bold">Order Date</Text>
+                <Text className="m-0 text-[14px] leading-[2] font-bold">
+                  Order Date
+                </Text>
                 <Text className="mt-3 mb-0 font-medium text-[14px] leading-[1.4] text-[#6F6F6F]">
                   Sep 22, 2022
                 </Text>
@@ -128,7 +134,10 @@ export const NikeReceiptEmail = () => (
               </Text>
             </Row>
             <Row className="py-5">
-              <Column className="align-top text-left pl-1 pr-[2px]" align="center">
+              <Column
+                className="align-top text-left pl-1 pr-[2px]"
+                align="center"
+              >
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-1.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
@@ -141,7 +150,10 @@ export const NikeReceiptEmail = () => (
                   Women's Nike Dri-FIT Soccer Jersey
                 </Text>
               </Column>
-              <Column className="align-top text-left pl-[2px] pr-[2px]" align="center">
+              <Column
+                className="align-top text-left pl-[2px] pr-[2px]"
+                align="center"
+              >
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-2.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
@@ -154,7 +166,10 @@ export const NikeReceiptEmail = () => (
                   Men's Nike Dri-FIT Short-Sleeve Football Shirt
                 </Text>
               </Column>
-              <Column className="align-top text-left pl-[2px] pr-[2px]" align="center">
+              <Column
+                className="align-top text-left pl-[2px] pr-[2px]"
+                align="center"
+              >
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-4.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
@@ -167,7 +182,10 @@ export const NikeReceiptEmail = () => (
                   Women's Soccer Jacket
                 </Text>
               </Column>
-              <Column className="align-top text-left pl-[2px] pr-1" align="center">
+              <Column
+                className="align-top text-left pl-[2px] pr-1"
+                align="center"
+              >
                 <Img
                   src={`${baseUrl}/static/nike-recomendation-4.png`}
                   alt="Brazil 2022/23 Stadium Away Women's Nike Dri-FIT Soccer Jersey"
