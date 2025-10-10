@@ -38,7 +38,7 @@ export const GithubAccessTokenEmail = ({
             height="32"
             alt="Github"
           />
-          
+
           <Text className="text-[24px] leading-[1.25]">
             <strong>@{username}</strong>, a personal access was created on your
             account.
