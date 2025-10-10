@@ -1,13 +1,11 @@
 /**
- * Decodes HTML entities in href and style attributes
+ * Decodes HTML entities in href attributes
  * This is necessary because React's rendering encodes characters like ampersands
- * and quotes in attribute values, which can break:
- * - Links with query parameters (e.g., ?param1=value1&param2=value2)
- * - CSS font-family declarations with quotes
+ * in attribute values, which can break links with query parameters
+ * (e.g., ?param1=value1&param2=value2)
  *
  * Note: We only decode safe entities and avoid decoding &lt; and &gt; to prevent
- * breaking HTML structure. Quotes are only decoded in style attributes to avoid
- * breaking href attribute syntax.
+ * breaking HTML structure.
  */
 export const decodeAttributeEntities = (html: string): string => {
   const decodeHrefValue = (value: string): string => {
@@ -16,24 +14,9 @@ export const decodeAttributeEntities = (html: string): string => {
     return value.replace(/&amp;/g, '&');
   };
 
-  const decodeStyleValue = (value: string): string => {
-    // Decode entities in style attributes
-    // Note: We decode &quot; to single quotes to avoid breaking the style="..." syntax
-    // since the style attribute is wrapped in double quotes
-    return value
-      .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, "'") // Decode to single quote to avoid breaking attribute
-      .replace(/&#x27;/g, "'")
-      .replace(/&#39;/g, "'");
-  };
-
-  // Match href and style attributes more carefully to avoid breaking HTML structure
+  // Match href attributes carefully to avoid breaking HTML structure
   // Use a regex that matches the attribute name, =, opening quote, content, closing quote
-  return html
-    .replace(/\bhref="([^"]*)"/g, (_match, hrefContent) => {
-      return `href="${decodeHrefValue(hrefContent)}"`;
-    })
-    .replace(/\bstyle="([^"]*)"/g, (_match, styleContent) => {
-      return `style="${decodeStyleValue(styleContent)}"`;
-    });
+  return html.replace(/\bhref="([^"]*)"/g, (_match, hrefContent) => {
+    return `href="${decodeHrefValue(hrefContent)}"`;
+  });
 };
