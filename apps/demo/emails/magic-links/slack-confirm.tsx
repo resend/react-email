@@ -40,7 +40,7 @@ export const SlackConfirmEmail = ({
               alt="Slack"
             />
           </Section>
-          <Heading className="text-[#1d1c1d] text-4xl font-bold my-7.5 mx-0 p-0 leading-10.5">
+          <Heading className="text-[#1d1c1d] text-4xl font-bold my-[30px] mx-0 p-0 leading-[42px]">
             Confirm your email address
           </Heading>
           <Text className="text-xl mb-7.5">
@@ -157,4 +157,3 @@ SlackConfirmEmail.PreviewProps = {
 } as SlackConfirmEmailProps;
 
 export default SlackConfirmEmail;
-
