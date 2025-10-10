@@ -5,6 +5,7 @@ export default {
   theme: {
     fontFamily: {
       amazon: ['Ember', 'Helvetica', 'Arial', 'sans-serif'],
+      codepen: '"Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif',
     },
   },
 } satisfies TailwindConfig;
