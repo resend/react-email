@@ -2,13 +2,7 @@ import * as Select from '@radix-ui/react-select';
 import * as Tabs from '@radix-ui/react-tabs';
 import * as allReactEmailComponents from '@react-email/components';
 import * as allReactResponsiveComponents from '@responsive-email/react-email';
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ClipboardIcon,
-} from 'lucide-react';
-import * as React from 'react';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import type {
   CodeVariant,
   ImportedComponent,
