@@ -44,7 +44,7 @@ export const GithubAccessTokenEmail = ({
             account.
           </Text>
 
-          <Section className="p-6 text-sm leading-[24px] border border-solid border-[#dedede] rounded text-center">
+          <Section className="p-6 border border-solid border-[#dedede] rounded-[5px] text-center">
             <Text className="mb-[10px] mt-0 text-left">
               Hey <strong>{username}</strong>!
             </Text>
@@ -58,10 +58,10 @@ export const GithubAccessTokenEmail = ({
             </Button>
           </Section>
           <Text className="text-center">
-            <Link className="text-[#0366d6] text-xs">
+            <Link className="text-[#0366d6] text-[12px]">
               Your security audit log
             </Link>{' '}
-            ・ <Link className="text-[#0366d6] text-xs">Contact support</Link>
+            ・ <Link className="text-[#0366d6] text-[12px]">Contact support</Link>
           </Text>
 
           <Text className="text-[#6a737d] text-xs leading-[24px] text-center mt-[60px] mb-4">
