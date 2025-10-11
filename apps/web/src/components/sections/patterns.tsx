@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/button';
@@ -23,14 +22,6 @@ const PatternsSection = () => {
           />
           {componentsStructure.slice(0, 6).map((category, index) => {
             const slug = slugify(category.name);
-            const Illustration = dynamic(
-              () =>
-                import(
-                  `@/illustrations/${category.name
-                    .toLowerCase()
-                    .replace(/ /g, '-')}`
-                ),
-            );
 
             return (
               <Link
@@ -62,7 +53,7 @@ const PatternsSection = () => {
                   <div className="pointer-events-none absolute inset-0 rounded-lg border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] md:group-hover:border-slate-6 md:group-focus:border-slate-6" />
                   <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-                    <Illustration />
+                    <category.illustration />
                   </div>
                   <h3 className="relative z-[2] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
                     {category.name}

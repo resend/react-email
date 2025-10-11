@@ -1,7 +1,6 @@
 'use client';
 
 import classnames from 'classnames';
-import { MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -15,6 +14,16 @@ interface MenuItemProps {
 }
 
 const GITHUB_URL = 'https://github.com/resend/react-email';
+
+async function getRepoStarCount() {
+  const res = await fetch('https://api.github.com/repos/resend/react-email');
+  const data = await res.json();
+  const starCount = data.stargazers_count;
+  if (starCount > 999) {
+    return `${(starCount / 1000).toFixed(1)}K`;
+  }
+  return starCount;
+}
 
 function MenuItem({ className, children, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
@@ -67,10 +76,26 @@ function MenuItems({ onItemClick }: { onItemClick: () => void }) {
   );
 }
 
+function MenuIcon() {
+  return (
+    <div className="flex flex-col gap-2">
+      {Array.from({ length: 2 }).map((_, index) => (
+        <div key={index} className="w-5 h-px rounded-full bg-slate-11" />
+      ))}
+    </div>
+  );
+}
+
 function SocialIcons({ onItemClick }: { onItemClick: () => void }) {
+  const [starCount, setStarCount] = React.useState<string | number>('');
+
+  React.useEffect(() => {
+    getRepoStarCount().then(setStarCount);
+  }, []);
+
   return (
     <MenuItem
-      className="w-8 justify-center"
+      className="w-fit gap-1.5 justify-center px-2"
       href={GITHUB_URL}
       onClick={onItemClick}
     >
@@ -85,6 +110,7 @@ function SocialIcons({ onItemClick }: { onItemClick: () => void }) {
           fill="currentColor"
         />
       </svg>
+      {starCount && <span>{starCount}</span>}
     </MenuItem>
   );
 }
@@ -110,7 +136,8 @@ export function Menu() {
           <SocialIcons onItemClick={handleItemClick} />
         </ul>
       </nav>
-      <nav className="relative flex items-center gap-2 md:hidden">
+      <nav className="relative flex items-center gap-1 md:hidden">
+        <SocialIcons onItemClick={handleItemClick} />
         <ul className="flex gap-2">
           <Drawer.Root
             onOpenChange={setDrawerOpen}
@@ -121,13 +148,11 @@ export function Menu() {
               <MenuIcon />
             </Drawer.Trigger>
             <Drawer.Portal>
-              <Drawer.Overlay className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-[2] h-[200dvh] w-[200dvw] bg-slate-800/50" />
-              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-50 flex h-fit flex-col gap-8 rounded-t-xl bg-black p-8 pt-10">
+              <Drawer.Overlay className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 h-[200dvh] w-[200dvw] bg-black/80" />
+              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-[51] flex h-fit flex-col gap-8 rounded-t-xl bg-black border-t border-slate-5 p-8 pt-10">
+                <Drawer.Title className="sr-only">Menu</Drawer.Title>
                 <ul className="flex w-full flex-col items-start gap-4">
                   <MenuItems onItemClick={handleItemClick} />
-                </ul>
-                <ul className="flex w-fit gap-2">
-                  <SocialIcons onItemClick={handleItemClick} />
                 </ul>
               </Drawer.Content>
             </Drawer.Portal>

@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
@@ -45,14 +44,6 @@ export default async function ComponentsPage() {
           <div className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b" />
           {componentsStructure.map((category, index) => {
             const slug = slugify(category.name);
-            const Illustration = dynamic(
-              () =>
-                import(
-                  `@/illustrations/${category.name
-                    .toLowerCase()
-                    .replace(/ /g, '-')}`
-                ),
-            );
 
             return (
               <Link
@@ -84,7 +75,7 @@ export default async function ComponentsPage() {
                   <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
                   <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
-                    <Illustration />
+                    <category.illustration />
                   </div>
                   <h3 className="relative z-[2] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
                     {category.name}
