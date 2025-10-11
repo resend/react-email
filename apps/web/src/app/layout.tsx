@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import localFont from 'next/font/local';
+import { Topbar } from '@/components/topbar';
 
 const inter = localFont({
   display: 'swap',
@@ -95,6 +96,9 @@ export default function RootLayout({
         <script src="/js/web-streams-polyfill.js" />
       </head>
       <body className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12">
+        <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
+          <Topbar />
+        </div>
         {children}
         <Analytics />
       </body>

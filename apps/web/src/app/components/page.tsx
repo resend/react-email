@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default async function ComponentsPage() {
   return (
     <PageWrapper>
-      <div className="pointer-events-none absolute inset-0 flex justify-center">
+      <div className="pointer-events-none absolute inset-0 flex justify-center [mask-image:linear-gradient(to_bottom,transparent_0%,black_4%,black_96%,transparent_100%)]">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />
           <div className="border-r border-r-slate-4" />
@@ -40,8 +40,8 @@ export default async function ComponentsPage() {
           </p>
         </div>
         <div className="relative grid grid-cols-1 gap-x-4 px-1 pb-10 md:grid-cols-2 md:px-0 lg:grid-cols-3">
-          <div className="-translate-x-1/2 absolute top-0 left-1/2 h-px w-[100dvw] border-slate-4 border-t" />
-          <div className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b" />
+          <div className="-translate-x-1/2 absolute top-0 left-1/2 h-px w-[100dvw] border-slate-4 border-t xl:[mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)]" />
+          <div className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-b xl:[mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)]" />
           {componentsStructure.map((category, index) => {
             const slug = slugify(category.name);
 
