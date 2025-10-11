@@ -71,8 +71,8 @@ module.exports = {
       },
       keyframes: {
         shine: {
-          '0%': { backgroundPosition: '-100%' },
-          '100%': { backgroundPosition: '100%' },
+          '0%': { backgroundPosition: '0%' },
+          '100%': { backgroundPosition: '110%' },
         },
         dash: {
           '0%': { strokeDashoffset: 1000 },
