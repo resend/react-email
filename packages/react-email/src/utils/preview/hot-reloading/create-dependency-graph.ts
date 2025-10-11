@@ -42,6 +42,15 @@ const isJavascriptModule = (filePath: string) => {
   return javascriptExtensions.includes(extensionName);
 };
 
+const isInsideDirectory = (baseDirectory: string, targetPath: string) => {
+  const relativePath = path.relative(baseDirectory, targetPath);
+
+  return (
+    relativePath === '' ||
+    (!relativePath.startsWith('..') && !path.isAbsolute(relativePath))
+  );
+};
+
 const checkFileExtensionsUntilItExists = (
   pathWithoutExtension: string,
 ): string | undefined => {
@@ -79,6 +88,7 @@ const checkFileExtensionsUntilItExists = (
  * so that it doesn't need to recompute the entire dependency graph but only the parts changed.
  */
 export const createDependencyGraph = async (directory: string) => {
+  const normalizedDirectory = path.resolve(directory);
   const filePaths = await readAllFilesInsideDirectory(directory);
   const modulePaths = filePaths.filter(isJavascriptModule);
   const graph: DependencyGraph = Object.fromEntries(
@@ -136,9 +146,16 @@ export const createDependencyGraph = async (directory: string) => {
           if (pathWithExtension) {
             pathToDependencyFromDirectory = pathWithExtension;
           } else {
-            console.warn(
-              `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
-            );
+            if (
+              isInsideDirectory(
+                normalizedDirectory,
+                pathToDependencyFromDirectory,
+              )
+            ) {
+              console.warn(
+                `Could not find index file for directory at ${pathToDependencyFromDirectory}. This is probably going to cause issues with both hot reloading and your code.`,
+              );
+            }
           }
         }
 
@@ -163,9 +180,16 @@ export const createDependencyGraph = async (directory: string) => {
         if (pathWithEnsuredExtension) {
           pathToDependencyFromDirectory = pathWithEnsuredExtension;
         } else {
-          console.warn(
-            `Could not find file at ${pathToDependencyFromDirectory}`,
-          );
+          if (
+            isInsideDirectory(
+              normalizedDirectory,
+              pathToDependencyFromDirectory,
+            )
+          ) {
+            console.warn(
+              `Could not find file at ${pathToDependencyFromDirectory}`,
+            );
+          }
         }
 
         return pathToDependencyFromDirectory;
