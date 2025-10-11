@@ -40,7 +40,6 @@ export const parsePointingTableRows = (response: string) => {
     }
 
     if (match?.groups === undefined) {
-      console.log(line);
       throw new Error('Could not match the columns in the row', {
         cause: {
           line,
@@ -57,7 +56,6 @@ export const parsePointingTableRows = (response: string) => {
     }
     const parsedPoints = Number.parseFloat(pts);
     if (Number.isNaN(parsedPoints)) {
-      console.log(line);
       throw new Error('could not parse points to insert into rows array', {
         cause: {
           line,
