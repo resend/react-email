@@ -145,7 +145,7 @@ import {} from './file-b';
   });
 
   it.sequential(
-    'should not warn when dependency outside the directory is missing an index file',
+    'does not warn when dependency outside the directory is missing an index file',
     async () => {
       const pathToOutsideDirectory = path.resolve(
         testingDiretctory,
