@@ -2,10 +2,12 @@
 
 import * as Tabs from '@radix-ui/react-tabs';
 import { render } from '@react-email/render';
+import classNames from 'classnames';
 import React from 'react';
 import { CodeBlock } from '@/components/code-block';
 import { CopyCode } from '@/components/copy-code';
 import { IconFile } from '@/components/icons/icon-file';
+import { useScroll } from '@/utils/use-scroll';
 import WelcomeEmail from './code-example';
 
 type Tab = {
@@ -74,6 +76,8 @@ const CodePreviewHeader = ({
 const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
   const [emailOutput, setEmailOutput] = React.useState<string | null>(null);
 
+  const { isScrolling } = useScroll();
+
   React.useEffect(() => {
     const renderEmail = async () => {
       const html = await render(<WelcomeEmail />);
@@ -90,7 +94,10 @@ const CodePreviewContent = ({ tabs }: { tabs: Tab[] }) => {
           <Tabs.Content
             key={tab.value}
             value={tab.value}
-            className="h-[400px] md:h-[600px] overflow-auto"
+            className={classNames(
+              'h-[400px] md:h-[600px] overflow-auto',
+              isScrolling && 'pointer-events-none',
+            )}
             style={{
               maskImage: `
                 linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%),

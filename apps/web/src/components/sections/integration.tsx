@@ -12,7 +12,7 @@ const IntegrationSection = () => {
 
   return (
     <section className="relative pt-12 pb-28 md:pb-80 px-6">
-      <div className="space-y-16">
+      <div className="space-y-12 md:space-y-16">
         <div className="max-w-full text-center space-y-4">
           <Heading
             size="8"
