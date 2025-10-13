@@ -530,17 +530,17 @@ function lerp(
   target: number,
   rate: number,
   frameDelta?: number,
-  targetFps: number = 60
+  targetFps = 60,
 ): number {
   const _lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-  if (typeof frameDelta === "undefined") {
+  if (typeof frameDelta === 'undefined') {
     return _lerp(source, target, rate);
   }
 
   const relativeDelta = frameDelta / (1 / targetFps);
   const smoothing = 1 - rate;
-  return _lerp(source, target, 1 - Math.pow(smoothing, relativeDelta));
+  return _lerp(source, target, 1 - smoothing ** relativeDelta);
 }
 
 let gl: WebGLRenderingContext | null = null;
@@ -603,7 +603,7 @@ function createShader(type: number, source: string): WebGLShader | null {
 function initWebGL(offscreenCanvas: OffscreenCanvas, dpr: number) {
   canvas = offscreenCanvas;
 
-  gl = canvas.getContext("webgl", {
+  gl = canvas.getContext('webgl', {
     alpha: true,
     premultipliedAlpha: false,
     antialias: true,
@@ -611,7 +611,7 @@ function initWebGL(offscreenCanvas: OffscreenCanvas, dpr: number) {
 
   if (!gl) return false;
 
-  gl.getExtension("OES_standard_derivatives");
+  gl.getExtension('OES_standard_derivatives');
 
   canvas.width = canvas.width * dpr;
   canvas.height = canvas.height * dpr;
@@ -636,6 +636,7 @@ function initWebGL(offscreenCanvas: OffscreenCanvas, dpr: number) {
     return false;
   }
 
+  // biome-ignore lint/correctness/useHookAtTopLevel: gl.useProgram is a WebGL method, not a React hook
   gl.useProgram(program);
 
   const positions = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
@@ -643,67 +644,67 @@ function initWebGL(offscreenCanvas: OffscreenCanvas, dpr: number) {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 
-  const positionLocation = gl.getAttribLocation(program, "a_position");
+  const positionLocation = gl.getAttribLocation(program, 'a_position');
   gl.enableVertexAttribArray(positionLocation);
   gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-  resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-  timeLocation = gl.getUniformLocation(program, "u_time");
-  rotationLocation = gl.getUniformLocation(program, "u_rotation");
-  const textureLocation = gl.getUniformLocation(program, "u_texture");
+  resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+  timeLocation = gl.getUniformLocation(program, 'u_time');
+  rotationLocation = gl.getUniformLocation(program, 'u_rotation');
+  const textureLocation = gl.getUniformLocation(program, 'u_texture');
   textureDimensionsLocation = gl.getUniformLocation(
     program,
-    "u_textureDimensions"
+    'u_textureDimensions',
   );
-  fadeInLocation = gl.getUniformLocation(program, "u_fadeIn");
+  fadeInLocation = gl.getUniformLocation(program, 'u_fadeIn');
   gradientIntensityLocation = gl.getUniformLocation(
     program,
-    "u_gradientIntensity"
+    'u_gradientIntensity',
   );
 
   // Get lighting uniform locations
-  keyLightColorLocation = gl.getUniformLocation(program, "u_keyLightColor");
+  keyLightColorLocation = gl.getUniformLocation(program, 'u_keyLightColor');
   keyLightIntensityLocation = gl.getUniformLocation(
     program,
-    "u_keyLightIntensity"
+    'u_keyLightIntensity',
   );
-  fillLightColorLocation = gl.getUniformLocation(program, "u_fillLightColor");
+  fillLightColorLocation = gl.getUniformLocation(program, 'u_fillLightColor');
   fillLightIntensityLocation = gl.getUniformLocation(
     program,
-    "u_fillLightIntensity"
+    'u_fillLightIntensity',
   );
-  ambientSkyColorLocation = gl.getUniformLocation(program, "u_ambientSkyColor");
+  ambientSkyColorLocation = gl.getUniformLocation(program, 'u_ambientSkyColor');
   ambientGroundColorLocation = gl.getUniformLocation(
     program,
-    "u_ambientGroundColor"
+    'u_ambientGroundColor',
   );
   ambientLeftColorLocation = gl.getUniformLocation(
     program,
-    "u_ambientLeftColor"
+    'u_ambientLeftColor',
   );
   ambientRightColorLocation = gl.getUniformLocation(
     program,
-    "u_ambientRightColor"
+    'u_ambientRightColor',
   );
   softShadowSoftnessLocation = gl.getUniformLocation(
     program,
-    "u_softShadowSoftness"
+    'u_softShadowSoftness',
   );
-  innerAOBoostLocation = gl.getUniformLocation(program, "u_innerAOBoost");
+  innerAOBoostLocation = gl.getUniformLocation(program, 'u_innerAOBoost');
   cavityDarkeningAmountLocation = gl.getUniformLocation(
     program,
-    "u_cavityDarkeningAmount"
+    'u_cavityDarkeningAmount',
   );
-  rimIntensityLocation = gl.getUniformLocation(program, "u_rimIntensity");
-  fogStartLocation = gl.getUniformLocation(program, "u_fogStart");
-  fogEndLocation = gl.getUniformLocation(program, "u_fogEnd");
-  fogColorLocation = gl.getUniformLocation(program, "u_fogColor");
+  rimIntensityLocation = gl.getUniformLocation(program, 'u_rimIntensity');
+  fogStartLocation = gl.getUniformLocation(program, 'u_fogStart');
+  fogEndLocation = gl.getUniformLocation(program, 'u_fogEnd');
+  fogColorLocation = gl.getUniformLocation(program, 'u_fogColor');
 
   // Get texture uniform locations
-  textureDarknessLocation = gl.getUniformLocation(program, "u_textureDarkness");
+  textureDarknessLocation = gl.getUniformLocation(program, 'u_textureDarkness');
   textureSharpnessLocation = gl.getUniformLocation(
     program,
-    "u_textureSharpness"
+    'u_textureSharpness',
   );
 
   gl.uniform1i(textureLocation, 0);
@@ -738,7 +739,7 @@ function loadTexture(imageBitmapArray: ImageBitmap[]) {
   // Removed log: Atlas creation
 
   const collageCanvas = new OffscreenCanvas(textureWidth, textureHeight);
-  const ctx = collageCanvas.getContext("2d")!;
+  const ctx = collageCanvas.getContext('2d')!;
 
   ctx.clearRect(0, 0, textureWidth, textureHeight);
 
@@ -769,11 +770,11 @@ function loadTexture(imageBitmapArray: ImageBitmap[]) {
     gl.RGBA,
     gl.RGBA,
     gl.UNSIGNED_BYTE,
-    collageCanvas
+    collageCanvas,
   );
 
   textureLoaded = true;
-  self.postMessage({ type: "ready" });
+  self.postMessage({ type: 'ready' });
 }
 
 function render() {
@@ -864,37 +865,37 @@ self.onmessage = (e: MessageEvent) => {
   const { type, data } = e.data;
 
   switch (type) {
-    case "init":
+    case 'init':
       if (initWebGL(data.canvas, data.dpr)) {
         startTime = Date.now();
         lastFrameTime = Date.now();
       }
       break;
 
-    case "loadTexture":
+    case 'loadTexture':
       loadTexture(data.images);
       break;
 
-    case "startRender":
+    case 'startRender':
       if (animationId) {
         cancelAnimationFrame(animationId);
       }
       render();
       break;
 
-    case "stopRender":
+    case 'stopRender':
       if (animationId) {
         cancelAnimationFrame(animationId);
         animationId = 0;
       }
       break;
 
-    case "pointerDown":
+    case 'pointerDown':
       isDragging = true;
       velocity = 0;
       break;
 
-    case "pointerMove":
+    case 'pointerMove':
       if (isDragging) {
         const rotationDelta = data.deltaX * 0.00125;
         rotation += rotationDelta;
@@ -902,11 +903,11 @@ self.onmessage = (e: MessageEvent) => {
       }
       break;
 
-    case "pointerUp":
+    case 'pointerUp':
       isDragging = false;
       break;
 
-    case "resize":
+    case 'resize':
       handleResize(data.width, data.height, data.dpr);
       break;
   }

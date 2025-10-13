@@ -1,11 +1,11 @@
-import { ArrowRightIcon } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/button";
-import { Code } from "@/components/code";
-import { Heading } from "@/components/heading";
-import { Text } from "@/components/text";
-import { HeroCanvas } from "./hero-canvas";
+import { ArrowRightIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/button';
+import { Code } from '@/components/code';
+import { Heading } from '@/components/heading';
+import { Text } from '@/components/text';
+import { HeroCanvas } from './hero-canvas';
 
 const HeroSection = () => {
   return (

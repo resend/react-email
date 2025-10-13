@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 interface WebGLSceneProps {
   images: { url: string }[];
   className?: string;
 }
 
-const supportsOffscreenCanvas = typeof OffscreenCanvas !== "undefined";
-const supportsWorker = typeof Worker !== "undefined";
+const supportsOffscreenCanvas = typeof OffscreenCanvas !== 'undefined';
+const supportsWorker = typeof Worker !== 'undefined';
 
 const imageBitmapCache = new Map<string, Promise<ImageBitmap>>();
 
@@ -20,13 +20,13 @@ async function fetchImageBitmap(url: string): Promise<ImageBitmap> {
         const response = await fetch(url);
         const blob = await response.blob();
         return await createImageBitmap(blob);
-      })()
+      })(),
     );
   }
   return imageBitmapCache.get(url)!;
 }
 
-export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
+export function WebGLScene({ images, className = '' }: WebGLSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const workerRef = useRef<Worker | null>(null);
   const lastXRef = useRef(0);
@@ -34,20 +34,20 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     lastXRef.current = e.clientX;
-    workerRef.current?.postMessage({ type: "pointerDown" });
+    workerRef.current?.postMessage({ type: 'pointerDown' });
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     const deltaX = e.clientX - lastXRef.current;
     lastXRef.current = e.clientX;
     workerRef.current?.postMessage({
-      type: "pointerMove",
+      type: 'pointerMove',
       data: { deltaX },
     });
   };
 
   const handlePointerUp = () => {
-    workerRef.current?.postMessage({ type: "pointerUp" });
+    workerRef.current?.postMessage({ type: 'pointerUp' });
   };
 
   useEffect(() => {
@@ -57,14 +57,14 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
     const initWorker = async () => {
       try {
         const worker = new Worker(
-          new URL("./webgl-scene.worker.ts", import.meta.url)
+          new URL('./webgl-scene.worker.ts', import.meta.url),
         );
         workerRef.current = worker;
 
         worker.onmessage = (e: MessageEvent) => {
-          if (e.data.type === "ready") {
+          if (e.data.type === 'ready') {
             setIsReady(true);
-            worker.postMessage({ type: "startRender" });
+            worker.postMessage({ type: 'startRender' });
           }
         };
 
@@ -73,45 +73,41 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
 
         worker.postMessage(
           {
-            type: "init",
+            type: 'init',
             data: {
               canvas: offscreenCanvas,
               dpr,
             },
           },
-          [offscreenCanvas]
+          [offscreenCanvas],
         );
 
         const imageBitmaps = await Promise.all(
           images.map(async (img) => {
-            try {
-              const cachedBitmap = await fetchImageBitmap(img.url);
-              const canvas = document.createElement("canvas");
-              canvas.width = cachedBitmap.width;
-              canvas.height = cachedBitmap.height;
-              const ctx = canvas.getContext("2d")!;
-              ctx.drawImage(cachedBitmap, 0, 0);
-              const newBitmap = await createImageBitmap(canvas);
-              return newBitmap;
-            } catch (e) {
-              throw e;
-            }
-          })
+            const cachedBitmap = await fetchImageBitmap(img.url);
+            const canvas = document.createElement('canvas');
+            canvas.width = cachedBitmap.width;
+            canvas.height = cachedBitmap.height;
+            const ctx = canvas.getContext('2d')!;
+            ctx.drawImage(cachedBitmap, 0, 0);
+            const newBitmap = await createImageBitmap(canvas);
+            return newBitmap;
+          }),
         );
 
         worker.postMessage(
           {
-            type: "loadTexture",
+            type: 'loadTexture',
             data: { images: imageBitmaps },
           },
-          imageBitmaps
+          imageBitmaps,
         );
 
         const resizeObserver = new ResizeObserver((entries) => {
           for (const entry of entries) {
             const { width, height } = entry.contentRect;
             worker.postMessage({
-              type: "resize",
+              type: 'resize',
               data: { width, height, dpr },
             });
           }
@@ -120,23 +116,23 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
 
         const handleVisibilityChange = () => {
           if (document.hidden) {
-            worker.postMessage({ type: "stopRender" });
+            worker.postMessage({ type: 'stopRender' });
           } else {
-            worker.postMessage({ type: "startRender" });
+            worker.postMessage({ type: 'startRender' });
           }
         };
-        document.addEventListener("visibilitychange", handleVisibilityChange);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
 
         return () => {
           resizeObserver.disconnect();
           document.removeEventListener(
-            "visibilitychange",
-            handleVisibilityChange
+            'visibilitychange',
+            handleVisibilityChange,
           );
-          worker.postMessage({ type: "stopRender" });
+          worker.postMessage({ type: 'stopRender' });
           worker.terminate();
         };
-      } catch (error) {
+      } catch (_error) {
         // No console output
       }
     };
@@ -146,7 +142,7 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
     return () => {
       clearTimeout(timeoutId);
       if (workerRef.current) {
-        workerRef.current.postMessage({ type: "stopRender" });
+        workerRef.current.postMessage({ type: 'stopRender' });
         workerRef.current.terminate();
         workerRef.current = null;
       }
@@ -158,10 +154,10 @@ export function WebGLScene({ images, className = "" }: WebGLSceneProps) {
       aria-label="Three cylinders in a row rotating on their own axis"
       ref={canvasRef}
       className={`${className} cursor-grab active:cursor-grabbing transition-opacity duration-300 ${
-        isReady ? "opacity-100" : "opacity-0"
+        isReady ? 'opacity-100' : 'opacity-0'
       }`}
       style={{
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         opacity: isReady ? 1 : 0,
       }}
       onPointerDown={handlePointerDown}

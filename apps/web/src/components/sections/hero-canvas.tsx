@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import dynamic from "next/dynamic";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import dynamic from 'next/dynamic';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 const WebGLScene = dynamic(
-  () => import("@/webgl/webgl-scene").then((mod) => mod.WebGLScene),
+  () => import('@/webgl/webgl-scene').then((mod) => mod.WebGLScene),
   {
     ssr: false,
     loading: () => null,
-  }
+  },
 );
 
 const BILLBOARD_IMAGES = [
-  { url: "/static/components/0.jpeg" },
-  { url: "/static/components/1.jpeg" },
-  { url: "/static/components/2.jpeg" },
-  { url: "/static/components/3.jpeg" },
-  { url: "/static/components/4.jpeg" },
-  { url: "/static/components/0.jpeg" },
-  { url: "/static/components/1.jpeg" },
-  { url: "/static/components/2.jpeg" },
-  { url: "/static/components/3.jpeg" },
-  { url: "/static/components/4.jpeg" },
+  { url: '/static/components/0.jpeg' },
+  { url: '/static/components/1.jpeg' },
+  { url: '/static/components/2.jpeg' },
+  { url: '/static/components/3.jpeg' },
+  { url: '/static/components/4.jpeg' },
+  { url: '/static/components/0.jpeg' },
+  { url: '/static/components/1.jpeg' },
+  { url: '/static/components/2.jpeg' },
+  { url: '/static/components/3.jpeg' },
+  { url: '/static/components/4.jpeg' },
 ];
 
 export function HeroCanvas() {
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   if (!isDesktop) return null;
 
