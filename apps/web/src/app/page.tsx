@@ -1,12 +1,14 @@
-import { Footer } from '@/components/footer';
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/sections/hero';
-import IntegrationSection from '@/components/sections/integration';
-import PatternsSection from '@/components/sections/patterns';
-import PlaygroundSection from '@/components/sections/playground';
-import PrimitivesSection from '@/components/sections/primitives';
-import TestimonialSection from '@/components/sections/testimonial';
-import ToolsSection from '@/components/sections/tools';
 import { Topbar } from '@/components/topbar';
+
+const PlaygroundSection = dynamic(() => import('@/components/sections/playground'));
+const TestimonialSection = dynamic(() => import('@/components/sections/testimonial'));
+const PatternsSection = dynamic(() => import('@/components/sections/patterns'));
+const PrimitivesSection = dynamic(() => import('@/components/sections/primitives'));
+const ToolsSection = dynamic(() => import('@/components/sections/tools'));
+const IntegrationSection = dynamic(() => import('@/components/sections/integration'));
+const Footer = dynamic(() => import('@/components/footer').then((mod) => ({ default: mod.Footer })));
 
 const Home = () => (
   <main className="max-lg:overflow-x-clip">

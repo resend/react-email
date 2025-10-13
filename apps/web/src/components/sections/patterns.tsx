@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/button';
-import { Heading } from '@/components/heading';
-import { Text } from '@/components/text';
-import { componentsStructure } from '../../../components/structure';
-import { Spotlight } from '../../components/spotlight';
-import { slugify } from '../../utils/slugify';
+import classNames from "classnames";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/button";
+import { Heading } from "@/components/heading";
+import { Text } from "@/components/text";
+import { componentsStructure } from "../../../components/structure";
+import { Spotlight } from "../../components/spotlight";
+import { slugify } from "../../utils/slugify";
 
 const PatternsSection = () => {
   return (
@@ -28,19 +28,20 @@ const PatternsSection = () => {
                 import(
                   `@/illustrations/${category.name
                     .toLowerCase()
-                    .replace(/ /g, '-')}`
-                ),
+                    .replace(/ /g, "-")}`
+                )
             );
 
             return (
               <Link
+                draggable={false}
                 className={classNames(
-                  'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus-visible:before:border-slate-6 md:hover:before:border-slate-6',
+                  "group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus-visible:before:border-slate-6 md:hover:before:border-slate-6",
                   {
-                    'lg:ml-6': index % 3 === 0,
-                    'lg:mx-3': index % 3 === 1,
-                    'lg:mr-6': index % 3 === 2,
-                  },
+                    "lg:ml-6": index % 3 === 0,
+                    "lg:mx-3": index % 3 === 1,
+                    "lg:mr-6": index % 3 === 2,
+                  }
                 )}
                 href={`/components/${slug}`}
                 key={category.name}
@@ -48,19 +49,19 @@ const PatternsSection = () => {
               >
                 <Spotlight
                   className={classNames(
-                    'relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus-visible:ring group-focus-visible:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
+                    "relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus-visible:ring group-focus-visible:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]",
                     {
-                      'md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2':
+                      "md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus-visible:-translate-x-2 md:group-focus-visible:-translate-y-2":
                         index % 3 === 0,
-                      'md:group-hover:-translate-y-2 md:group-focus:-translate-y-2':
+                      "md:group-hover:-translate-y-2 md:group-focus-visible:-translate-y-2":
                         index % 3 === 1,
-                      'md:group-hover:-translate-y-2 md:group-focus:-translate-y-2 md:group-focus:translate-x-2 md:group-hover:translate-x-2':
+                      "md:group-hover:-translate-y-2 md:group-focus-visible:-translate-y-2 md:group-focus:translate-x-2 md:group-hover:translate-x-2":
                         index % 3 === 2,
-                    },
+                    }
                   )}
                 >
                   <div className="pointer-events-none absolute inset-0 rounded-lg border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] md:group-hover:border-slate-6 md:group-focus:border-slate-6" />
-                  <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
+                  <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300 select-none">
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     <Illustration />
                   </div>
@@ -69,7 +70,7 @@ const PatternsSection = () => {
                   </h3>
                   <span className="relative z-[2] text-slate-11 text-xs">
                     {category.components.length} component
-                    {category.components.length > 1 && 's'}
+                    {category.components.length > 1 && "s"}
                   </span>
                 </Spotlight>
               </Link>
@@ -81,6 +82,7 @@ const PatternsSection = () => {
       <BgGradient direction="right" />
       <Image
         alt=""
+        draggable={false}
         className="pointer-events-none absolute md:-translate-x-96 -top-40 z-[3] select-none mix-blend-lighten"
         fill
         priority
@@ -104,19 +106,19 @@ const Content = ({ component }: { component: string }) => {
 
 const ContentComponent = ({ component }: { component: string }) => {
   switch (component) {
-    case 'Heading':
+    case "Heading":
       return (
         <Heading size="8" weight="medium" className="text-white/80">
           Ready-to-use Components
         </Heading>
       );
-    case 'Text':
+    case "Text":
       return (
         <Text size="5" className="block max-w-[400px] text-balance opacity-70">
           Copy and paste. Add your own data. Send.
         </Text>
       );
-    case 'Button':
+    case "Button":
       return (
         <Button asChild size="4" className="w-fit my-1.5 rounded-xl">
           <Link href="/components">View all components</Link>
@@ -127,8 +129,8 @@ const ContentComponent = ({ component }: { component: string }) => {
   }
 };
 
-const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
-  if (direction === 'left') {
+const BgGradient = ({ direction }: { direction: "left" | "right" }) => {
+  if (direction === "left") {
     return (
       <div
         aria-hidden

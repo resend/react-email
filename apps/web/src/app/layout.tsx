@@ -6,9 +6,19 @@ import localFont from 'next/font/local';
 const inter = localFont({
   display: 'swap',
   preload: true,
-  src: '../../public/fonts/inter/inter.ttf',
+  src: [
+    {
+      path: '../../public/fonts/inter/Inter-Regular.woff2',
+      style: 'normal',
+      weight: '400',
+    },
+    {
+      path: '../../public/fonts/inter/Inter-Bold.woff2',
+      style: 'normal',
+      weight: '700',
+    },
+  ],
   variable: '--font-inter',
-  weight: '400 700',
 });
 
 const commitMono = localFont({
