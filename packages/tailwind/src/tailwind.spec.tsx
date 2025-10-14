@@ -43,6 +43,16 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  it('works with shadows', async () => {
+    expect(
+      await render(
+        <Tailwind>
+          <div className="shadow-[#555] shadow">shadow around here</div>
+        </Tailwind>,
+      ).then(pretty),
+    ).toMatchSnapshot();
+  });
+
   it('works with class manipulation done on components', async () => {
     const MyComponnt = (props: {
       className?: string;

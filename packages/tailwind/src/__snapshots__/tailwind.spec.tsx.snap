@@ -264,3 +264,14 @@ exports[`Tailwind component > works with components that return children 1`] = `
 exports[`Tailwind component > works with components that use React.forwardRef 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
 
 exports[`Tailwind component > works with custom components with fragment at the root 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`;
+
+exports[`Tailwind component > works with shadows 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div
+  style="box-shadow:0 0 rgb(0,0,0),0 0 rgb(0,0,0),0 0 rgb(0,0,0),0 0 rgb(0,0,0),0 1px 3px 0 rgb(85,85,85,100%),0 1px 2px -1px rgb(85,85,85,100%)">
+  shadow around here
+</div>
+<!--/$-->
+"
+`;
