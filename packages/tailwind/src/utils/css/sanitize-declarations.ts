@@ -7,10 +7,55 @@ import {
   List,
   type Percentage,
   parse,
+  type Raw,
   type Value,
   walk,
-  Raw,
 } from 'css-tree';
+
+function rgbNode(
+  r: number,
+  g: number,
+  b: number,
+  alpha?: number,
+): FunctionNode {
+  const children = new List<CssNode>();
+  children.appendData({
+    type: 'Number',
+    value: r.toFixed(),
+  });
+  children.appendData({
+    type: 'Operator',
+    value: ',',
+  });
+  children.appendData({
+    type: 'Number',
+    value: g.toString(),
+  });
+  children.appendData({
+    type: 'Operator',
+    value: ',',
+  });
+  children.appendData({
+    type: 'Number',
+    value: b.toString(),
+  });
+  if (alpha) {
+    children.appendData({
+      type: 'Operator',
+      value: ',',
+    });
+    children.appendData({
+      type: 'Number',
+      value: alpha.toFixed(1),
+    });
+  }
+
+  return {
+    type: 'Function',
+    name: 'rgb',
+    children,
+  };
+}
 
 const LAB_TO_LMS = {
   l: [0.3963377773761749, 0.2158037573099136],
@@ -130,7 +175,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
     enter(declaration, item, list) {
       if (declaration.value.type === 'Raw') {
         declaration.value = parse(declaration.value.value, {
-          context: 'value'
+          context: 'value',
         }) as Value | Raw;
       }
       if (
@@ -204,9 +249,6 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
 
             funcParentListItem.data = parse(
               `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`,
-              {
-                context: 'value',
-              },
             );
           }
 
@@ -263,13 +305,9 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             }
 
             if (a === undefined || a === 1) {
-              funcParentListItem.data = parse(`rgb(${r},${g},${b})`, {
-                context: 'value',
-              });
+              funcParentListItem.data = rgbNode(r, g, b);
             } else {
-              funcParentListItem.data = parse(`rgb(${r},${g},${b},${a})`, {
-                context: 'value',
-              });
+              funcParentListItem.data = rgbNode(r, g, b, a);
             }
           }
         },
@@ -282,9 +320,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             const r = Number.parseInt(hex.charAt(0) + hex.charAt(0), 16);
             const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
             const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
-            hashParentListItem.data = parse(`rgb(${r},${g},${b})`, {
-              context: 'value',
-            });
+            hashParentListItem.data = rgbNode(r, g, b);
             return;
           }
           if (hex.length === 4) {
@@ -292,10 +328,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             const g = Number.parseInt(hex.charAt(1) + hex.charAt(1), 16);
             const b = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
             const a = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16) / 255;
-            hashParentListItem.data = parse(
-              `rgb(${r},${g},${b},${a.toFixed(1)})`,
-              { context: 'value' },
-            );
+            hashParentListItem.data = rgbNode(r, g, b, a);
             return;
           }
           if (hex.length === 5) {
@@ -303,19 +336,14 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             const g = Number.parseInt(hex.charAt(2) + hex.charAt(2), 16);
             const b = Number.parseInt(hex.charAt(3) + hex.charAt(3), 16);
             const a = Number.parseInt(hex.charAt(4) + hex.charAt(4), 16) / 255;
-            hashParentListItem.data = parse(
-              `rgb(${r},${g},${b},${a.toFixed(1)})`,
-              { context: 'value' },
-            );
+            hashParentListItem.data = rgbNode(r, g, b, a);
             return;
           }
           if (hex.length === 6) {
             const r = Number.parseInt(hex.slice(0, 2), 16);
             const g = Number.parseInt(hex.slice(2, 4), 16);
             const b = Number.parseInt(hex.slice(4, 6), 16);
-            hashParentListItem.data = parse(`rgb(${r},${g},${b})`, {
-              context: 'value',
-            });
+            hashParentListItem.data = rgbNode(r, g, b);
             return;
           }
           if (hex.length === 7) {
@@ -323,20 +351,14 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             const g = Number.parseInt(hex.slice(2, 4), 16);
             const b = Number.parseInt(hex.slice(4, 6), 16);
             const a = Number.parseInt(hex.charAt(6) + hex.charAt(6), 16) / 255;
-            hashParentListItem.data = parse(
-              `rgb(${r},${g},${b},${a.toFixed(1)})`,
-              { context: 'value' },
-            );
+            hashParentListItem.data = rgbNode(r, g, b, a);
             return;
           }
           const r = Number.parseInt(hex.slice(0, 2), 16);
           const g = Number.parseInt(hex.slice(2, 4), 16);
           const b = Number.parseInt(hex.slice(4, 6), 16);
           const a = Number.parseInt(hex.slice(6, 8), 16) / 255;
-          hashParentListItem.data = parse(
-            `rgb(${r},${g},${b},${a.toFixed(1)})`,
-            { context: 'value' },
-          );
+          hashParentListItem.data = rgbNode(r, g, b, a);
         },
       });
 
@@ -344,30 +366,32 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
         visit: 'Function',
         enter(func, parentListItem) {
           if (func.name === 'color-mix') {
-            const originalColor = find(
-              func,
-              (node) => node.type === 'Function' && node.name === 'rgb',
-            ) as FunctionNode | null;
-            const percentage = find(
-              func,
-              (node) => node.type === 'Percentage',
-            ) as Percentage | null;
+            console.log('found color-mix', generate(func));
+            const children = func.children.toArray();
+            // We're expecting the children here to be something like:
+            // Identifier (in)
+            // Identifier (oklab)
+            // Operator (,)
+            // FunctionNode (rgb(...))
+            // Node (opacity)
+            // Operator (,)
+            // Identifier (transparent)
+            const color: CssNode | undefined = children[3];
+            const opacity: CssNode | undefined = children[4];
+            // console.log(JSON.stringify(color, null, 2));
             if (
               func.children.last?.type === 'Identifier' &&
               func.children.last.name === 'transparent' &&
-              originalColor &&
-              percentage
+              color?.type === 'Function' &&
+              color?.name === 'rgb' &&
+              opacity
             ) {
-              const alpha = Number.parseFloat(percentage.value) / 100;
-              originalColor.children.appendData({
+              color.children.appendData({
                 type: 'Operator',
                 value: ',',
               });
-              originalColor.children.appendData({
-                type: 'Number',
-                value: alpha.toString(),
-              });
-              parentListItem.data = originalColor;
+              color.children.appendData(opacity);
+              parentListItem.data = color;
             }
           }
         },
