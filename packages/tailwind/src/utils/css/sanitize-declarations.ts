@@ -2,10 +2,8 @@ import {
   type CssNode,
   type Declaration,
   type FunctionNode,
-  find,
   generate,
   List,
-  type Percentage,
   parse,
   type Raw,
   type Value,
@@ -21,7 +19,7 @@ function rgbNode(
   const children = new List<CssNode>();
   children.appendData({
     type: 'Number',
-    value: r.toFixed(),
+    value: r.toFixed(0),
   });
   children.appendData({
     type: 'Operator',
@@ -29,7 +27,7 @@ function rgbNode(
   });
   children.appendData({
     type: 'Number',
-    value: g.toString(),
+    value: g.toFixed(0),
   });
   children.appendData({
     type: 'Operator',
@@ -37,16 +35,16 @@ function rgbNode(
   });
   children.appendData({
     type: 'Number',
-    value: b.toString(),
+    value: b.toFixed(0),
   });
-  if (alpha) {
+  if (alpha !== 1 && alpha !== undefined) {
     children.appendData({
       type: 'Operator',
       value: ',',
     });
     children.appendData({
       type: 'Number',
-      value: alpha.toFixed(1),
+      value: alpha.toFixed(0),
     });
   }
 
