@@ -1,6 +1,7 @@
 import { type CssNode, type Declaration, generate, walk } from 'css-tree';
 import { getReactProperty } from '../compatibility/get-react-property';
 import type { CustomProperties } from './get-custom-properties';
+import { unwrapValue } from './unwrap-value';
 
 export function makeInlineStylesFor(
   inlinableRules: CssNode[],
@@ -36,13 +37,16 @@ export function makeInlineStylesFor(
           if (variableName) {
             const definition = localVariableDeclarations.get(variableName);
             if (definition) {
-              funcParentListItem.data = definition.value;
-            }
-            // For most variables tailwindcss defines, they also define a custom 
-            // property for them with an initial value that we can inline here
-            const customProperty = customProperties.get(variableName);
-            if (customProperty?.initialValue) {
-              funcParentListItem.data = customProperty.initialValue.value;
+              funcParentListItem.data = unwrapValue(definition.value);
+            } else {
+              // For most variables tailwindcss defines, they also define a custom
+              // property for them with an initial value that we can inline here
+              const customProperty = customProperties.get(variableName);
+              if (customProperty?.initialValue) {
+                funcParentListItem.data = unwrapValue(
+                  customProperty.initialValue.value,
+                );
+              }
             }
           }
         }
