@@ -128,13 +128,13 @@ function separteShorthandDeclaration(
   const values =
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
-          .toArray()
-          .filter(
-            (child) =>
-              child.type === 'Dimension' ||
-              child.type === 'Number' ||
-              child.type === 'Percentage',
-          )
+        .toArray()
+        .filter(
+          (child) =>
+            child.type === 'Dimension' ||
+            child.type === 'Number' ||
+            child.type === 'Percentage',
+        )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
   if (values.length === 2) {
@@ -366,7 +366,6 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
         visit: 'Function',
         enter(func, parentListItem) {
           if (func.name === 'color-mix') {
-            console.log('found color-mix', generate(func));
             const children = func.children.toArray();
             // We're expecting the children here to be something like:
             // Identifier (in)
@@ -378,7 +377,6 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             // Identifier (transparent)
             const color: CssNode | undefined = children[3];
             const opacity: CssNode | undefined = children[4];
-            // console.log(JSON.stringify(color, null, 2));
             if (
               func.children.last?.type === 'Identifier' &&
               func.children.last.name === 'transparent' &&
