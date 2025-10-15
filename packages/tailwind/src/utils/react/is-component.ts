@@ -7,8 +7,8 @@ import { Heading } from '@react-email/heading';
 import { Hr } from '@react-email/hr';
 import { Img } from '@react-email/img';
 import { Link } from '@react-email/link';
-import { Text } from '@react-email/text';
 import { Preview } from '@react-email/preview';
+import { Text } from '@react-email/text';
 
 const componentsToTreatAsElements: React.ReactElement['type'][] = [
   Body,
