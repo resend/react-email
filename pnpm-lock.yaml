@@ -928,23 +928,26 @@ importers:
   packages/tailwind:
     dependencies:
       '@react-email/body':
-        specifier: '*'
-        version: 0.1.0(react@19.0.0)
+        specifier: workspace:*
+        version: link:../body
       '@react-email/code-block':
-        specifier: '*'
-        version: 0.1.0(react@19.0.0)
+        specifier: workspace:*
+        version: link:../code-block
       '@react-email/code-inline':
-        specifier: '*'
-        version: 0.0.5(react@19.0.0)
+        specifier: workspace:*
+        version: link:../code-inline
       '@react-email/container':
-        specifier: '*'
-        version: 0.0.15(react@19.0.0)
+        specifier: workspace:*
+        version: link:../container
       '@react-email/img':
-        specifier: '*'
-        version: 0.0.11(react@19.0.0)
+        specifier: workspace:*
+        version: link:../img
       '@react-email/preview':
-        specifier: '*'
-        version: 0.0.13(react@19.0.0)
+        specifier: workspace:*
+        version: link:../preview
+      '@react-email/text':
+        specifier: workspace:*
+        version: link:../text
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -3523,41 +3526,6 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
-
-  '@react-email/body@0.1.0':
-    resolution: {integrity: sha512-o1bcSAmDYNNHECbkeyceCVPGmVsYvT+O3sSO/Ct7apKUu3JphTi31hu+0Nwqr/pgV5QFqdoT5vdS3SW5DJFHgQ==}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/code-block@0.1.0':
-    resolution: {integrity: sha512-jSpHFsgqnQXxDIssE4gvmdtFncaFQz5D6e22BnVjcCPk/udK+0A9jRwGFEG8JD2si9ZXBmU4WsuqQEczuZn4ww==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/code-inline@0.0.5':
-    resolution: {integrity: sha512-MmAsOzdJpzsnY2cZoPHFPk6uDO/Ncpb4Kh1hAt9UZc1xOW3fIzpe1Pi9y9p6wwUmpaeeDalJxAxH6/fnTquinA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/container@0.0.15':
-    resolution: {integrity: sha512-Qo2IQo0ru2kZq47REmHW3iXjAQaKu4tpeq/M8m1zHIVwKduL2vYOBQWbC2oDnMtWPmkBjej6XxgtZByxM6cCFg==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/img@0.0.11':
-    resolution: {integrity: sha512-aGc8Y6U5C3igoMaqAJKsCpkbm1XjguQ09Acd+YcTKwjnC2+0w3yGUJkjWB2vTx4tN8dCqQCXO8FmdJpMfOA9EQ==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-
-  '@react-email/preview@0.0.13':
-    resolution: {integrity: sha512-F7j9FJ0JN/A4d7yr+aw28p4uX7VLWs7hTHtLo7WRyw4G+Lit6Zucq4UWKRxJC8lpsUdzVmG7aBJnKOT+urqs/w==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
 
   '@react-email/render@1.0.6':
     resolution: {integrity: sha512-zNueW5Wn/4jNC1c5LFgXzbUdv5Lhms+FWjOvWAhal7gx5YVf0q6dPJ0dnR70+ifo59gcMLwCZEaTS9EEuUhKvQ==}
@@ -11616,31 +11584,6 @@ snapshots:
   '@radix-ui/rect@1.1.0': {}
 
   '@radix-ui/rect@1.1.1': {}
-
-  '@react-email/body@0.1.0(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-
-  '@react-email/code-block@0.1.0(react@19.0.0)':
-    dependencies:
-      prismjs: 1.30.0
-      react: 19.0.0
-
-  '@react-email/code-inline@0.0.5(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-
-  '@react-email/container@0.0.15(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-
-  '@react-email/img@0.0.11(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
-
-  '@react-email/preview@0.0.13(react@19.0.0)':
-    dependencies:
-      react: 19.0.0
 
   '@react-email/render@1.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
