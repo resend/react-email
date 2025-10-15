@@ -243,9 +243,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               h,
             });
 
-            funcParentListItem.data = rgbNode(
-              rgb.r, rgb.g, rgb.b, a,
-            );
+            funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
           }
 
           if (func.name === 'rgb') {
