@@ -259,33 +259,4 @@ div:nth-child(2*n+1) {
     );
     expect(result).toContain('.normal{color:var(--class-color)}');
   });
-
-  // this behavior is not supported anymore, since it doesn't seem like tailwindcss actually generates any CSS that uses the pattern of defining css variables from inside media queries
-  //
-  // it.only('should work with different values between media queries', () => {
-  //   const root = parse(`:root {
-  //     --width: 100px;
-  //   }
-  //
-  //   @media (max-width: 1000px) {
-  //     :root {
-  //       --width: 200px;
-  //     }
-  //   }
-  //
-  //   .box {
-  //     width: var(--width);
-  //   }`);
-  //   expect(
-  //     generate(resolveAllCSSVariables(root)),
-  //   ).toBe(`@media (max-width: 1000px) {
-  //     .box {
-  //       width: 200px;
-  //     }
-  //   }
-  //
-  //   .box {
-  //     width: 100px;
-  //   }`);
-  // });
 });
