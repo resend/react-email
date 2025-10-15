@@ -84,6 +84,7 @@ export default {
         'sans-serif',
       ],
       'dropbox-sans': ['Open Sans', 'Helvetica Neue', 'Arial'],
+      codepen: '"Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif',
     },
   },
 } satisfies TailwindConfig;
