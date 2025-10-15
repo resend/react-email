@@ -37,14 +37,14 @@ function rgbNode(
     type: 'Number',
     value: b.toFixed(0),
   });
-  if (alpha !== 1 && alpha !== undefined) {
+  if (alpha?.toFixed(1) !== '1.0' && alpha !== undefined) {
     children.appendData({
       type: 'Operator',
       value: ',',
     });
     children.appendData({
       type: 'Number',
-      value: alpha.toFixed(0),
+      value: alpha.toFixed(1),
     });
   }
 
@@ -111,9 +111,9 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
     lrgbToRgb(LSM_TO_RGB.b[0] * l + LSM_TO_RGB.b[1] * m + LSM_TO_RGB.b[2] * s);
 
   return {
-    r: clamp(r, 0, 255).toFixed(0),
-    g: clamp(g, 0, 255).toFixed(0),
-    b: clamp(b, 0, 255).toFixed(0),
+    r: clamp(r, 0, 255),
+    g: clamp(g, 0, 255),
+    b: clamp(b, 0, 255),
   };
 }
 
@@ -243,10 +243,8 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               h,
             });
 
-            const alphaString = a !== undefined ? `,${a}` : '';
-
-            funcParentListItem.data = parse(
-              `rgb(${rgb.r},${rgb.g},${rgb.b}${alphaString})`,
+            funcParentListItem.data = rgbNode(
+              rgb.r, rgb.g, rgb.b, a,
             );
           }
 

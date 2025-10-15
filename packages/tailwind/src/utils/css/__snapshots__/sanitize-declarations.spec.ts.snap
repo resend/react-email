@@ -4,9 +4,9 @@ exports[`sanitizeDeclarations > complex scenarios > handles multiple declaration
 
 exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`;
 
-exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
+exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0.0)}to{background:rgb(255,0,0)}}"`;
 
-exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21,93,252,0.6)}"`;
+exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 1`] = `"div{color:rgb(255,0,170)}"`;
 
@@ -34,7 +34,7 @@ exports[`sanitizeDeclarations > hex to rgb conversion 12`] = `"div{color:rgb(171
 
 exports[`sanitizeDeclarations > hex to rgb conversion 13`] = `"div{color:rgb(255,0,0,0.0)}"`;
 
-exports[`sanitizeDeclarations > hex to rgb conversion 14`] = `"div{color:rgb(255,0,0,1.0)}"`;
+exports[`sanitizeDeclarations > hex to rgb conversion 14`] = `"div{color:rgb(255,0,0)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 15`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`;
 
@@ -60,7 +60,7 @@ exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 1`]
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 2`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
-exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 3`] = `"div{color:rgb(255,0,127.5,0.5)}"`;
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 3`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
 exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 4`] = `"div{color:rgb(255,0,128,0.5)}"`;
 
