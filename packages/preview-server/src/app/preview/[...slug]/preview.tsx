@@ -36,7 +36,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const activeTheme: 'dark' | 'light' =
     searchParams.get('theme') === 'dark' ? 'dark' : 'light';
-  const activeView = searchParams.get('view') ?? 'desktop';
+  const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
   const handleThemeChange = (theme: 'dark' | 'light') => {

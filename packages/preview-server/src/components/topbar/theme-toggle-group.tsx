@@ -1,22 +1,27 @@
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
-import { Tooltip } from '../tooltip';
-import { cn } from '../../utils';
 import { motion } from 'framer-motion';
-import { IconMoon } from '../icons/icon-moon';
+import { useId } from 'react';
+import { cn } from '../../utils';
 import { tabTransition } from '../../utils/constants';
+import { IconMoon } from '../icons/icon-moon';
 import { IconSun } from '../icons/icon-sun';
+import { Tooltip } from '../tooltip';
 
 interface ThemeToggleGroupProps {
   active: 'light' | 'dark';
   onChange: (theme: 'light' | 'dark') => unknown;
 }
 
-export const ThemeToggleGroup = ({ active, onChange }: ThemeToggleGroupProps) => {
+export const ThemeToggleGroup = ({
+  active,
+  onChange,
+}: ThemeToggleGroupProps) => {
+  const id = useId();
   return (
     <ToggleGroup.Root
       aria-label="Color Scheme"
       className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
-      id="theme-toggle"
+      id={id}
       onValueChange={(value) => {
         if (value) onChange(value as 'light' | 'dark');
       }}
