@@ -19,7 +19,7 @@ describe('resolveCalcExpressions()', async () => {
     expect(generate(root)).toMatchSnapshot();
   });
 
-  it('should not do anything to complex calc expressions', () => {
+  it('does not modify complex calc expressions', () => {
     const root = parse(`
 .px-3{padding-inline:calc(0.25rem*(3 + 1px))}
 .py-2{padding-block:calc(0.25rem*(2 + 1px))}
