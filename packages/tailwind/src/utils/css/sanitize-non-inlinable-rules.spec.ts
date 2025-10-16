@@ -27,7 +27,7 @@ describe('sanitizeNonInlinableRules()', () => {
     expect(generate(stylesheet)).toMatchSnapshot();
   });
 
-  it('should work with basic media query rules', async () => {
+  it('supports basic media query rules', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
       'sm:mx-auto',
