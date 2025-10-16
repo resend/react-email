@@ -87,7 +87,9 @@ export const pixelBasedPreset: TailwindConfig = {
 export function Tailwind({ children, config }: TailwindProps) {
   const tailwindSetup = useSuspensedPromise(
     () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) => (typeof value === 'function' ? value.toString() : value)),
+    JSON.stringify(config, (_key, value) =>
+      typeof value === 'function' ? value.toString() : value,
+    ),
   );
   let classesUsed: string[] = [];
 
