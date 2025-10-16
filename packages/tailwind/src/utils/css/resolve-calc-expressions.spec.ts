@@ -1,7 +1,7 @@
 import { generate, parse } from 'css-tree';
 import { resolveCalcExpressions } from './resolve-calc-expressions';
 
-describe('resolveCalcExpressions()', async () => {
+describe('resolveCalcExpressions()', () => {
   it('resolves spacing calc expressions from tailwind v4', () => {
     const root = parse(`
 .px-3{padding-inline:calc(0.25rem*3)}
