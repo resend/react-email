@@ -1,7 +1,6 @@
 {
-  "name": "@react-email/ui",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@react-email/preview-server",
+  "version": "4.3.0",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "tsx ./scripts/build-preview-server.mts",
