@@ -117,7 +117,7 @@ export function Tailwind({ children, config }: TailwindProps) {
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
-      nonInlinableRules.values().toArray(),
+      Array.from(nonInlinableRules.values()),
     ),
   };
 
@@ -154,10 +154,9 @@ export function Tailwind({ children, config }: TailwindProps) {
 
   if (hasNonInlineStylesToApply && !appliedNonInlineStyles) {
     throw new Error(
-      `You are trying to use the following Tailwind classes that cannot be inlined: ${nonInlinableRules
-        .keys()
-        .toArray()
-        .join(' ')}.
+      `You are trying to use the following Tailwind classes that cannot be inlined: ${Array.from(
+        nonInlinableRules.keys(),
+      ).join(' ')}.
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
 
