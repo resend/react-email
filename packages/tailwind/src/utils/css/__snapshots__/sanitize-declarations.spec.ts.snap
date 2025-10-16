@@ -4,17 +4,17 @@ exports[`sanitizeDeclarations > complex scenarios > handles multiple declaration
 
 exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`;
 
-exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0.0)}to{background:rgb(255,0,0)}}"`;
+exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
 
 exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 1`] = `"div{color:rgb(255,0,170)}"`;
 
-exports[`sanitizeDeclarations > hex to rgb conversion 2`] = `"div{color:rgb(255,0,170,0.5)}"`;
+exports[`sanitizeDeclarations > hex to rgb conversion 2`] = `"div{color:rgb(255,0,170,0.5333333333333333)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 3`] = `"div{color:rgb(255,0,170)}"`;
 
-exports[`sanitizeDeclarations > hex to rgb conversion 4`] = `"div{color:rgb(255,0,170,0.5)}"`;
+exports[`sanitizeDeclarations > hex to rgb conversion 4`] = `"div{color:rgb(255,0,170,0.5019607843137255)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 5`] = `"div{color:rgb(0,0,0)}"`;
 
@@ -32,7 +32,7 @@ exports[`sanitizeDeclarations > hex to rgb conversion 11`] = `"div{color:rgb(171
 
 exports[`sanitizeDeclarations > hex to rgb conversion 12`] = `"div{color:rgb(171,205,239)}"`;
 
-exports[`sanitizeDeclarations > hex to rgb conversion 13`] = `"div{color:rgb(255,0,0,0.0)}"`;
+exports[`sanitizeDeclarations > hex to rgb conversion 13`] = `"div{color:rgb(255,0,0,0)}"`;
 
 exports[`sanitizeDeclarations > hex to rgb conversion 14`] = `"div{color:rgb(255,0,0)}"`;
 

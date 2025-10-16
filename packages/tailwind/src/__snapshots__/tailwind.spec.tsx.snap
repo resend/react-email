@@ -269,7 +269,7 @@ exports[`Tailwind component > works with shadows 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div
-  style="box-shadow:0 0 rgb(0,0,0,0.0),0 0 rgb(0,0,0,0.0),0 0 rgb(0,0,0,0.0),0 0 rgb(0,0,0,0.0),0 1px 3px 0 rgb(85,85,85,100%),0 1px 2px -1px rgb(85,85,85,100%)">
+  style="box-shadow:0 0 rgb(0,0,0,0),0 0 rgb(0,0,0,0),0 0 rgb(0,0,0,0),0 0 rgb(0,0,0,0),0 1px 3px 0 rgb(85,85,85,100%),0 1px 2px -1px rgb(85,85,85,100%)">
   shadow around here
 </div>
 <!--/$-->

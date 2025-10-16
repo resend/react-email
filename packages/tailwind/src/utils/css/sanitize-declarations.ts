@@ -37,14 +37,14 @@ function rgbNode(
     type: 'Number',
     value: b.toFixed(0),
   });
-  if (alpha?.toFixed(1) !== '1.0' && alpha !== undefined) {
+  if (alpha !== 1 && alpha !== undefined) {
     children.appendData({
       type: 'Operator',
       value: ',',
     });
     children.appendData({
       type: 'Number',
-      value: alpha.toFixed(1),
+      value: alpha.toString(),
     });
   }
 
