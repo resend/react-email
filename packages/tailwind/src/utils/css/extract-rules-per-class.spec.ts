@@ -39,7 +39,7 @@ describe('extractRulesPerClass()', async () => {
     expect(convertToComparable(nonInlinable)).toMatchSnapshot();
   });
 
-  it('should work with a mix of inlinable and non-inlinable utilities', async () => {
+  it('handles a mix of inlinable and non-inlinable utilities', async () => {
     const tailwind = await setupTailwind({});
     const classes = [
       'text-center',
