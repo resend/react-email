@@ -32,14 +32,14 @@
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "types": ["vitest/globals"],
-    "outDir": "dist"
+    "outDir": "../ui/disteact-email/preview-server/dist"
   },
   "include": [
-    "next-env.d.ts",
-    "tailwind-internals.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
+    "../ui/next-env.d.tsl/preview-server/next-env.d.ts",
+    "../ui/tailwind-internals.d.tsserver/tailwind-internals.d.ts",
+    "../ui/**/*.tst-email/preview-server/**/*.ts",
+    "../ui/**/*.tsx-email/preview-server/**/*.tsx",
+    "../ui/.next/types/**/*.tsiew-server/.next/types/**/*.ts"
   ],
-  "exclude": [".next", "dist", "node_modules"]
+  "exclude": ["../ui/.nextact-../ui/distl/pr../ui/node_modules/.next", "../react-email/preview-server/dist", "../react-email/preview-server/node_modules"]
 }
