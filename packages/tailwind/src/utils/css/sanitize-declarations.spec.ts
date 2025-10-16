@@ -32,7 +32,7 @@ describe('sanitizeDeclarations', () => {
     expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
   });
 
-  it('should do separation of padding-block and padding-inline', () => {
+  it('separates padding-block and padding-inline', () => {
     let root = parse(`.box {
   padding-inline: 4px 14;
 }
