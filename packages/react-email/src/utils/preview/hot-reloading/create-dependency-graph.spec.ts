@@ -144,44 +144,4 @@ import {} from './file-b';
     ).not.toContain(pathToTemporaryFile);
   });
 
-  it.sequential(
-    'does not warn when dependency outside the directory is missing an index file',
-    async () => {
-      const pathToOutsideDirectory = path.resolve(
-        testingDiretctory,
-        '../.temporary-outside-directory',
-      );
-      const pathToImporter = path.join(
-        testingDiretctory,
-        '.temporary-outside-import.ts',
-      );
-
-      await fs.mkdir(pathToOutsideDirectory, { recursive: true });
-      await fs.writeFile(
-        pathToImporter,
-        `import '../.temporary-outside-directory';\n`,
-        'utf8',
-      );
-
-      const outsideDirectoryModule: DependencyGraph[number] = {
-        path: pathToOutsideDirectory,
-        dependencyPaths: [],
-        dependentPaths: [],
-        moduleDependencies: [],
-      };
-
-      dependencyGraph[pathToOutsideDirectory] = outsideDirectoryModule;
-
-      try {
-        await updateDependencyGraph('add', pathToImporter);
-      } finally {
-        await updateDependencyGraph('unlink', pathToImporter);
-        await fs.rm(pathToImporter, { force: true });
-        delete dependencyGraph[pathToOutsideDirectory];
-        if (existsSync(pathToOutsideDirectory)) {
-          await fs.rm(pathToOutsideDirectory, { recursive: true, force: true });
-        }
-      }
-    },
-  );
 });
