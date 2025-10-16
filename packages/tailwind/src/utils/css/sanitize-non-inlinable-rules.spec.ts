@@ -3,7 +3,7 @@ import { setupTailwind } from '../tailwindcss/setup-tailwind';
 import { sanitizeNonInlinableRules } from './sanitize-non-inlinable-rules';
 
 describe('sanitizeNonInlinableRules()', () => {
-  it('should handle rules that can be inlined', async () => {
+  it('inlines rules that can be inlined', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities(['bg-gray-900', 'text-red-300', 'text-lg']);
     const stylesheet = tailwind.getStyleSheet();
