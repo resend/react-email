@@ -12,7 +12,7 @@ describe('sanitizeNonInlinableRules()', () => {
     expect(generate(stylesheet)).toMatchSnapshot();
   });
 
-  it('should css nesting in hover pseudo styles', async () => {
+  it('handles CSS nesting in hover pseudo styles', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
       'hover:text-sky-600',
