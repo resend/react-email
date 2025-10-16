@@ -23,7 +23,7 @@ describe('extractRulesPerClass()', async () => {
     expect(convertToComparable(nonInlinable)).toMatchSnapshot();
   });
 
-  it('should work with non-inlinable utilities', async () => {
+  it('handles non-inlinable utilities', async () => {
     const tailwind = await setupTailwind({});
     const classes = ['lg:w-1/2'];
     tailwind.addUtilities(classes);
