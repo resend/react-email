@@ -93,7 +93,7 @@ export async function installPreviewServer(directory: string, version: string) {
     await fs.promises.rm(tempDir, { recursive: true, force: true });
     spinner.stopAndPersist({
       symbol: logSymbols.success,
-      text: 'UI installed successfully',
+      text: `UI installed successfully (${directory})\n`,
     });
   }
 }
