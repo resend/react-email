@@ -301,4 +301,18 @@ export const componentsStructure: Category[] = [
       { slug: 'stats-stepped', title: 'Stats stepped' },
     ],
   },
+  {
+    name: 'Testimonials',
+    description: 'Testimonials components for displaying testimonials.',
+    components: [
+      {
+        slug: 'testimonial-with-large-avatar',
+        title: 'Testimonial with large avatar',
+      },
+      {
+        slug: 'testimonial-simple-centered',
+        title: 'Testimonial simple centered',
+      },
+    ],
+  },
 ];
