@@ -144,16 +144,15 @@ export const createDependencyGraph = async (directory: string) => {
 
         const extension = path.extname(pathToDependencyFromDirectory);
         const pathWithEnsuredExtension = (() => {
-          if (
-            extension.length > 0 &&
-            javascriptExtensions.includes(extension)
-          ) {
+          if (extension.length > 0) {
             if (existsSync(pathToDependencyFromDirectory)) {
               return pathToDependencyFromDirectory;
             }
-            return checkFileExtensionsUntilItExists(
-              pathToDependencyFromDirectory.replace(extension, ''),
-            );
+            if (javascriptExtensions.includes(extension)) {
+              return checkFileExtensionsUntilItExists(
+                pathToDependencyFromDirectory.replace(extension, ''),
+              );
+            }
           }
           return checkFileExtensionsUntilItExists(
             pathToDependencyFromDirectory,
