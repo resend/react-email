@@ -40,6 +40,9 @@ export const createContext = (filename: string): vm.Context => {
 
         return globalThis[property as keyof typeof globalThis];
       },
+      has(target, property: string) {
+        return property in target || property in globalThis;
+      },
     },
   );
 };
