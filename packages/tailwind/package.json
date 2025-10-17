@@ -57,7 +57,7 @@
     "@types/shelljs": "0.8.15",
     "@vitejs/plugin-react": "4.4.1",
     "cross-env": "10.0.0",
-    "postcss": "8.5.3",
+    "postcss": "8.5.6",
     "postcss-selector-parser": "7.1.0",
     "react-dom": "^19",
     "shelljs": "0.9.2",
