@@ -259,15 +259,10 @@ export const build = async ({
     spinner.text = 'Copying preview app from CLI to `.react-email`';
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
-      filter: (source: string) => {
-        // do not copy the CLI files
-        return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
-        );
-      },
+      filter: (source: string) =>
+        !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+        !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+        !/(\/|\\)node_modules(\/|\\)?$/.test(source),
     });
 
     if (fs.existsSync(staticPath)) {
