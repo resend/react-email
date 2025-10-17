@@ -193,7 +193,16 @@ export function generateStaticParams() {
 };
 
 const updatePackageJson = async (builtPreviewAppPath: string) => {
-  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+  /* @see ../utils/get-preview-server-location.ts */
+  await fs.promises.rm(path.resolve(builtPreviewAppPath, './package.json'));
+  await fs.promises.rename(
+    path.resolve(builtPreviewAppPath, './package.source.json'),
+    path.resolve(builtPreviewAppPath, './package.json'),
+  );
+  const packageJsonPath = path.resolve(
+    builtPreviewAppPath,
+    './package.json',
+  );
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
