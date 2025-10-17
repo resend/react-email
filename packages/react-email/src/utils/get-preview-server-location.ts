@@ -2,11 +2,11 @@ import child_process from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
 import { registerSpinnerAutostopping } from './register-spinner-autostopping.js';
-import logSymbols from 'log-symbols';
 
 export async function installPreviewServer(directory: string, version: string) {
   const spinner = ora({

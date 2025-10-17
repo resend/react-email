@@ -199,10 +199,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     path.resolve(builtPreviewAppPath, './package.source.json'),
     path.resolve(builtPreviewAppPath, './package.json'),
   );
-  const packageJsonPath = path.resolve(
-    builtPreviewAppPath,
-    './package.json',
-  );
+  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
