@@ -97,7 +97,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     };
 
     renderer.image = ({ href, text, title }) => {
-      return `<img src="${href}" alt="${text}"${
+      return `<img src="${href.replaceAll('"', '&quot;')}" alt="${text.replaceAll('"', '&quot;')}"${
         title ? ` title="${title}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.image) !== ''

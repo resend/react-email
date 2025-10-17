@@ -38,7 +38,6 @@ export function parseCssInJsToInlineCss(
     'bottom',
     'left',
     'fontSize',
-    'lineHeight',
     'letterSpacing',
     'wordSpacing',
     'maxWidth',

@@ -56,6 +56,7 @@ const codeInline = {
 
 const codeBlock = {
   ...codeInline,
+  display: 'block',
   paddingTop: 10,
   paddingRight: 10,
   paddingLeft: 10,
