@@ -2,36 +2,29 @@ import { Column, Row } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
-  <Row style={{ fontSize: '30px', fontWeight: 500, color: '#111827' }}>
+  <Row>
     <Column align="center">
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
         }}
       >
         <p
           style={{
-            fontFamily: 'monospace',
-            lineHeight: 1.625,
-            fontWeight: 700,
-            fontVariantNumeric: 'tabular-nums',
             margin: 0,
-            width: 'fit-content',
+            fontSize: '30px',
+            lineHeight: '1.625',
+            fontWeight: 'bold',
+            letterSpacing: '-0.025em',
+            color: '#111827',
+            fontVariantNumeric: 'tabular-nums',
           }}
         >
           42
         </p>
-        <p
-          style={{
-            fontSize: '12px',
-            color: '#6b7280',
-            margin: 0,
-            width: 'fit-content',
-          }}
-        >
+        <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
           The Answer
         </p>
       </div>
@@ -42,29 +35,22 @@ export const component = (
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
         }}
       >
         <p
           style={{
-            fontFamily: 'monospace',
-            lineHeight: 1.625,
-            fontWeight: 700,
-            fontVariantNumeric: 'tabular-nums',
             margin: 0,
-            width: 'fit-content',
+            fontSize: '30px',
+            lineHeight: '1.625',
+            fontWeight: 'bold',
+            letterSpacing: '-0.025em',
+            color: '#111827',
+            fontVariantNumeric: 'tabular-nums',
           }}
         >
           10M
         </p>
-        <p
-          style={{
-            fontSize: '12px',
-            color: '#6b7280',
-            margin: 0,
-            width: 'fit-content',
-          }}
-        >
+        <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
           Days for Earth Mark II
         </p>
       </div>
@@ -75,29 +61,22 @@ export const component = (
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
         }}
       >
         <p
           style={{
-            fontFamily: 'monospace',
-            lineHeight: 1.625,
-            fontWeight: 700,
-            fontVariantNumeric: 'tabular-nums',
             margin: 0,
-            width: 'fit-content',
+            fontSize: '30px',
+            lineHeight: '1.625',
+            fontWeight: 'bold',
+            letterSpacing: '-0.025em',
+            color: '#111827',
+            fontVariantNumeric: 'tabular-nums',
           }}
         >
           2^276,709:1
         </p>
-        <p
-          style={{
-            fontSize: '12px',
-            color: '#6b7280',
-            margin: 0,
-            width: 'fit-content',
-          }}
-        >
+        <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>
           Improbability Drive odds
         </p>
       </div>
