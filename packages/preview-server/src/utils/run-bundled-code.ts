@@ -43,6 +43,30 @@ export const createContext = (filename: string): vm.Context => {
       has(target, property: string) {
         return property in target || property in globalThis;
       },
+      set(target, property, value) {
+        target[property] = value;
+        return true;
+      },
+      getOwnPropertyDescriptor(target, property) {
+        return (
+          Object.getOwnPropertyDescriptor(target, property) ??
+          Object.getOwnPropertyDescriptor(globalThis, property)
+        );
+      },
+      ownKeys(target) {
+        const keys = new Set([
+          ...Reflect.ownKeys(globalThis),
+          ...Reflect.ownKeys(target),
+        ]);
+        return Array.from(keys);
+      },
+      defineProperty(target, property, descriptor) {
+        Object.defineProperty(target, property, descriptor);
+        return true;
+      },
+      deleteProperty(target, property) {
+        return delete target[property];
+      },
     },
   );
 };
