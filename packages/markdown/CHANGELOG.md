@@ -1,5 +1,11 @@
 # @react-email/markdown
 
+## 0.0.16-canary.0
+
+### Patch Changes
+
+- 02089b1: move out of md-to-react-email
+
 ## 0.0.15
 
 ### Patch Changes

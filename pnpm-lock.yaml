@@ -402,13 +402,13 @@ importers:
         specifier: workspace:0.0.12
         version: link:../link
       '@react-email/markdown':
-        specifier: workspace:0.0.15
+        specifier: workspace:0.0.16-canary.0
         version: link:../markdown
       '@react-email/preview':
         specifier: workspace:0.0.13
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.3.2
+        specifier: workspace:1.4.0-canary.0
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12

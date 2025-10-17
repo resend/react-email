@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 1.4.0-canary.0
+
+### Minor Changes
+
+- 4205615: disable wordwrap in `toPlainText` by default
+
 ## 1.3.2
 
 ### Patch Changes
