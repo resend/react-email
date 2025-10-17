@@ -1,6 +1,6 @@
 import { fromDashCaseToCamelCase } from '../text/from-dash-case-to-camel-case';
 
-export const convertCssPropertyToReactProperty = (prop: string) => {
+export function getReactProperty(prop: string) {
   const modifiedProp = prop.toLowerCase();
 
   if (modifiedProp.startsWith('--')) {
@@ -12,4 +12,4 @@ export const convertCssPropertyToReactProperty = (prop: string) => {
   }
 
   return fromDashCaseToCamelCase(modifiedProp);
-};
+}

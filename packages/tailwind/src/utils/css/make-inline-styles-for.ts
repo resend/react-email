@@ -1,56 +1,70 @@
-import type { Root, Rule } from 'postcss';
-import selectorParser from 'postcss-selector-parser';
-import { convertCssPropertyToReactProperty } from '../compatibility/convert-css-property-to-react-property';
-import { unescapeClass } from '../compatibility/unescape-class';
-
-const walkInlinableRules = (root: Root, callback: (rule: Rule) => void) => {
-  root.walkRules((rule) => {
-    if (rule.parent?.type === 'atrule') {
-      return;
-    }
-
-    selectorParser((selector) => {
-      let hasPseudoSelectors = false as boolean;
-      selector.walkPseudos(() => {
-        hasPseudoSelectors = true;
-      });
-
-      if (!hasPseudoSelectors) {
-        callback(rule);
-      }
-    }).processSync(rule.selector);
-  });
-};
+import { type CssNode, type Declaration, generate, walk } from 'css-tree';
+import { getReactProperty } from '../compatibility/get-react-property';
+import type { CustomProperties } from './get-custom-properties';
+import { unwrapValue } from './unwrap-value';
 
 export function makeInlineStylesFor(
-  className: string,
-  tailwindStylesRoot: Root,
+  inlinableRules: CssNode[],
+  customProperties: CustomProperties,
 ) {
-  const classes = className.split(' ');
-
-  let residualClasses = [...classes];
   const styles: Record<string, string> = {};
 
-  walkInlinableRules(tailwindStylesRoot, (rule) => {
-    const classesOnSelector: string[] = [];
-    selectorParser((selector) => {
-      selector.walkClasses((v) => {
-        classesOnSelector.push(unescapeClass(v.value));
-      });
-    }).processSync(rule.selector);
+  const localVariableDeclarations = new Map<string, Declaration>();
+  for (const rule of inlinableRules) {
+    walk(rule, {
+      visit: 'Declaration',
+      enter(declaration) {
+        if (declaration.property.startsWith('--')) {
+          localVariableDeclarations.set(declaration.property, declaration);
+        }
+      },
+    });
+  }
 
-    residualClasses = residualClasses.filter((singleClass) => {
-      return !classesOnSelector.includes(singleClass);
+  for (const rule of inlinableRules) {
+    walk(rule, {
+      visit: 'Function',
+      enter(func, funcParentListItem) {
+        if (func.name === 'var') {
+          let variableName: string | undefined;
+          walk(func, {
+            visit: 'Identifier',
+            enter(identifier) {
+              variableName = identifier.name;
+              return this.break;
+            },
+          });
+          if (variableName) {
+            const definition = localVariableDeclarations.get(variableName);
+            if (definition) {
+              funcParentListItem.data = unwrapValue(definition.value);
+            } else {
+              // For most variables tailwindcss defines, they also define a custom
+              // property for them with an initial value that we can inline here
+              const customProperty = customProperties.get(variableName);
+              if (customProperty?.initialValue) {
+                funcParentListItem.data = unwrapValue(
+                  customProperty.initialValue.value,
+                );
+              }
+            }
+          }
+        }
+      },
     });
 
-    rule.walkDecls((declaration) => {
-      styles[convertCssPropertyToReactProperty(declaration.prop)] =
-        declaration.value + (declaration.important ? '!important' : '');
+    walk(rule, {
+      visit: 'Declaration',
+      enter(declaration) {
+        if (declaration.property.startsWith('--')) {
+          return;
+        }
+        styles[getReactProperty(declaration.property)] =
+          generate(declaration.value) +
+          (declaration.important ? '!important' : '');
+      },
     });
-  });
+  }
 
-  return {
-    styles,
-    residualClassName: residualClasses.join(' '),
-  };
+  return styles;
 }
