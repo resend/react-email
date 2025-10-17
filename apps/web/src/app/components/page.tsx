@@ -70,7 +70,7 @@ export default async function ComponentsPage() {
               >
                 <Spotlight
                   className={classNames(
-                    'relative isolate flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 group-focus:ring group-focus:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
+                    'group-focus:ring-slate-2 relative isolate z-[2] flex cursor-pointer flex-col justify-end rounded-md bg-black p-4 group-focus:ring md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
                     {
                       'md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2':
                         index % 3 === 0,
@@ -86,10 +86,10 @@ export default async function ComponentsPage() {
                     <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
                     <Illustration />
                   </div>
-                  <h3 className="relative z-[2] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
+                  <h3 className="relative z-[3] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
                     {category.name}
                   </h3>
-                  <span className="relative z-[2] text-slate-11 text-xs">
+                  <span className="relative z-[3] text-slate-11 text-xs">
                     {category.components.length} component
                     {category.components.length > 1 && 's'}
                   </span>

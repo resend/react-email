@@ -5,7 +5,7 @@ const IllustrationGrid: React.FC = () => (
     <div className="col-span-1 h-full rounded-sm bg-slate-3" />
     <div className="col-span-1 h-full rounded-sm bg-gradient-to-l bg-slate-3 from-slate-1 to-slate-3" />
     <div className="col-span-1 h-full rounded-sm bg-gradient-to-b bg-slate-3 from-slate-3 to-slate-1" />
-    <div className="relative col-span-1 h-full rounded-sm border border-[#25AEBA] border-[#2EBDC9] border-[.1875rem] bg-slate-4 text-[#25AEBA] shadow-[0px_0px_9px_4px_rgba(37,174,186,0.10)] transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:scale-125">
+    <div className="relative col-span-1 h-full rounded-sm border-[#2EBDC9] border-[.1875rem] bg-slate-4 text-[#25AEBA] shadow-[0px_0px_9px_4px_rgba(37,174,186,0.10)] transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:translate-x-1 group-hover:translate-y-1 group-hover:scale-125">
       <MoveDownRightIcon
         className="absolute top-[calc(100%-.125rem)] left-[calc(100%-.125rem)]"
         size={14}
