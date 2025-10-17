@@ -1,33 +1,27 @@
-import { Column, Row } from '@react-email/components';
+import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (
-  <Row>
-    <Column align="center">
-      <div className="flex flex-col items-center [&>*]:m-0">
-        <p className="text-3xl leading-relaxed font-bold tracking-tight text-gray-900 tabular-nums">
-          42
-        </p>
-        <p className="text-sm text-gray-500">The Answer</p>
-      </div>
-    </Column>
-    <Column align="center">
-      <div className="flex flex-col items-center [&>*]:m-0">
-        <p className="text-3xl leading-relaxed font-bold tracking-tight text-gray-900 tabular-nums">
-          10M
-        </p>
-        <p className="text-sm text-gray-500">Days for Earth Mark II</p>
-      </div>
-    </Column>
-    <Column align="center">
-      <div className="flex flex-col items-center [&>*]:m-0">
-        <p className="text-3xl leading-relaxed font-bold tracking-tight text-gray-900 tabular-nums">
-          2^276,709:1
-        </p>
-        <p className="text-sm text-gray-500">Improbability Drive odds</p>
-      </div>
-    </Column>
-  </Row>
+  <ResponsiveRow className="text-left tabular-nums">
+    <ResponsiveColumn className="m-3 max-w-fit [&>*]:m-0">
+      <p className="text-2xl leading-relaxed font-bold tracking-tight text-gray-900">
+        42
+      </p>
+      <p className="text-sm text-gray-500">The Answer</p>
+    </ResponsiveColumn>
+    <ResponsiveColumn className="m-3 max-w-fit [&>*]:m-0">
+      <p className="text-2xl leading-relaxed font-bold tracking-tight text-gray-900">
+        10M
+      </p>
+      <p className="text-sm text-gray-500">Days for Earth Mark II</p>
+    </ResponsiveColumn>
+    <ResponsiveColumn className="m-3 max-w-fit [&>*]:m-0">
+      <p className="text-2xl leading-relaxed font-bold tracking-tight text-gray-900">
+        2^276,709:1
+      </p>
+      <p className="text-sm text-gray-500">Improbability Drive odds</p>
+    </ResponsiveColumn>
+  </ResponsiveRow>
 );
 
 export default () => {
