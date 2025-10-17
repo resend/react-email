@@ -239,6 +239,10 @@ export const build = async ({
 
     spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
     if (!fs.existsSync(emailsDirRelativePath)) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: `Directory does not exist: ${emailsDirRelativePath}`,
+      });
       process.exit(1);
     }
 
