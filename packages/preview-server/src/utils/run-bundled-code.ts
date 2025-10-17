@@ -4,52 +4,44 @@ import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
 export const createContext = (filename: string): vm.Context => {
-  return {
-    ...global,
-    console,
-    Buffer,
-    AbortSignal,
-    Event,
-    EventTarget,
-    TextDecoder,
-    Request,
-    Response,
-    TextDecoderStream,
-    SyntaxError,
-    Error,
-    TextEncoder,
-    TextEncoderStream,
-    ReadableStream,
-    URL,
-    URLSearchParams,
-    Headers,
-    module: {
-      exports: {},
-    },
-    __filename: filename,
-    __dirname: path.dirname(filename),
-    require: (specifiedModule: string) => {
-      let m = specifiedModule;
-      if (specifiedModule.startsWith('node:')) {
-        m = m.split(':')[1]!;
-      }
+  return new Proxy(
+    {
+      module: {
+        exports: {},
+      },
+      __filename: filename,
+      __dirname: path.dirname(filename),
+      require: (specifiedModule: string) => {
+        let m = specifiedModule;
+        if (specifiedModule.startsWith('node:')) {
+          m = m.split(':')[1]!;
+        }
 
-      if (m in staticNodeModulesForVM) {
-        return staticNodeModulesForVM[m];
-      }
+        if (m in staticNodeModulesForVM) {
+          return staticNodeModulesForVM[m];
+        }
 
-      return require(`${specifiedModule}`) as unknown;
-      // this string templating was necessary to not have
-      // webpack warnings like:
-      //
-      // Import trace for requested module:
-      // ./src/utils/get-email-component.tsx
-      // ./src/app/page.tsx
-      //  ⚠ ./src/utils/get-email-component.tsx
-      // Critical dependency: the request of a dependency is an expression
+        return require(`${specifiedModule}`) as unknown;
+        // this string templating was necessary to not have
+        // webpack warnings like:
+        //
+        // Import trace for requested module:
+        // ./src/utils/get-email-component.tsx
+        // ./src/app/page.tsx
+        //  ⚠ ./src/utils/get-email-component.tsx
+        // Critical dependency: the request of a dependency is an expression
+      },
     },
-    process,
-  };
+    {
+      get(target, property: string) {
+        if (property in target) {
+          return target[property];
+        }
+
+        return globalThis[property as keyof typeof globalThis];
+      },
+    },
+  );
 };
 
 export const runBundledCode = (
