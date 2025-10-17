@@ -2,10 +2,20 @@ import child_process from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import ora from 'ora';
 import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
+import { registerSpinnerAutostopping } from './register-spinner-autostopping.js';
+import logSymbols from 'log-symbols';
 
 export async function installPreviewServer(directory: string, version: string) {
+  const spinner = ora({
+    text: 'Installing UI',
+    prefixText: ' ',
+  });
+  spinner.start();
+
+  registerSpinnerAutostopping(spinner);
   if (fs.existsSync(directory)) {
     await fs.promises.rm(directory, { recursive: true });
   }
@@ -29,7 +39,11 @@ export async function installPreviewServer(directory: string, version: string) {
     );
 
     if (!tarball) {
-      throw new Error("Failed to download React Email's UI package", {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to install UI',
+      });
+      throw new Error('Failed to find tarball for UI', {
         cause: { tempDir, files },
       });
     }
@@ -44,7 +58,11 @@ export async function installPreviewServer(directory: string, version: string) {
         z: true,
       });
     } catch (exception) {
-      throw new Error("Failed to extract React Email's UI package", {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to install UI',
+      });
+      throw new Error('Failed to extract UI package', {
         cause: exception,
       });
     }
@@ -73,6 +91,10 @@ export async function installPreviewServer(directory: string, version: string) {
   } finally {
     // Clean up temp directory
     await fs.promises.rm(tempDir, { recursive: true, force: true });
+    spinner.stopAndPersist({
+      symbol: logSymbols.success,
+      text: 'UI installed successfully',
+    });
   }
 }
 
@@ -82,7 +104,9 @@ export async function getPreviewServerLocation() {
     await installPreviewServer(directory, packageJson.version);
   }
 
-  const { version } = (await import(directory)) as { version: string };
+  const { version } = (await import(path.join(directory, 'index.mjs'))) as {
+    version: string;
+  };
   if (version !== packageJson.version) {
     await installPreviewServer(directory, packageJson.version);
   }
