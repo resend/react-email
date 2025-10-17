@@ -295,8 +295,10 @@ export const componentsStructure: Category[] = [
   },
   {
     name: 'Stats',
-    description:
-      'Stats components for displaying statistics with numbers and bars.',
-    components: [{ slug: 'stats-simple', title: 'Stats simple' }],
+    description: 'Stats components for displaying statistics.',
+    components: [
+      { slug: 'stats-simple', title: 'Stats simple' },
+      { slug: 'stats-stepped', title: 'Stats stepped' },
+    ],
   },
 ];
