@@ -42,7 +42,7 @@ exports[`<Markdown> component renders correctly > renders the markdown in the co
 <li>Author</li>
 </ul>
 </blockquote>
-<h2 style="font-weight:500;padding-top:20px;font-size:2rem">Code Blocks</h2><pre style="color:#212529;font-size:87.5%;display:inline;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word"><code>function greet(name) {
+<h2 style="font-weight:500;padding-top:20px;font-size:2rem">Code Blocks</h2><pre style="color:#212529;font-size:87.5%;display:block;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word"><code>function greet(name) {
 console.log(\`Hello, \${name}!\`);
 }
 </code></pre>
