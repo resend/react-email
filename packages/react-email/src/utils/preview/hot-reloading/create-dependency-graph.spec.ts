@@ -143,4 +143,5 @@ import {} from './file-b';
       "should remove itself from dependents once it's unlinked",
     ).not.toContain(pathToTemporaryFile);
   });
+
 });
