@@ -1,50 +1,115 @@
+import child_process from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import url from 'node:url';
-import { createJiti } from 'jiti';
-import { addDevDependency } from 'nypm';
-import prompts from 'prompts';
+import logSymbols from 'log-symbols';
+import ora from 'ora';
+import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
+import { registerSpinnerAutostopping } from './register-spinner-autostopping.js';
 
-const ensurePreviewServerInstalled = async (
-  message: string,
-): Promise<never> => {
-  const response = await prompts({
-    type: 'confirm',
-    name: 'installPreviewServer',
-    message,
-    initial: true,
+export async function installPreviewServer(directory: string, version: string) {
+  const spinner = ora({
+    text: 'Installing UI',
+    prefixText: ' ',
   });
-  if (response.installPreviewServer) {
-    console.log('Installing "@react-email/preview-server"');
-    await addDevDependency(
-      `@react-email/preview-server@${packageJson.version}`,
-    );
-    process.exit(0);
-  } else {
-    process.exit(0);
-  }
-};
+  spinner.start();
 
-export const getPreviewServerLocation = async () => {
-  const usersProject = createJiti(process.cwd());
-  let previewServerLocation!: string;
+  registerSpinnerAutostopping(spinner);
+  if (fs.existsSync(directory)) {
+    await fs.promises.rm(directory, { recursive: true });
+  }
+  await fs.promises.mkdir(directory);
+  // Download and unpack the package
+  const tempDir = await fs.promises.mkdtemp(
+    path.join(os.tmpdir(), 'react-email-'),
+  );
   try {
-    previewServerLocation = path.dirname(
-      url.fileURLToPath(usersProject.esmResolve('@react-email/preview-server')),
+    // Download package using npm pack
+    child_process.execSync(`npm pack @react-email/preview-server@${version}`, {
+      cwd: tempDir,
+      stdio: 'ignore',
+    });
+
+    // Find the downloaded tarball
+    const files = await fs.promises.readdir(tempDir);
+    const tarball = files.find(
+      (file) =>
+        file.startsWith('react-email-preview-server-') && file.endsWith('.tgz'),
     );
-  } catch (_exception) {
-    await ensurePreviewServerInstalled(
-      'To run the preview server, the package "@react-email/preview-server" must be installed. Would you like to install it?',
+
+    if (!tarball) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to install UI',
+      });
+      throw new Error('Failed to find tarball for UI', {
+        cause: { tempDir, files },
+      });
+    }
+
+    // Extract tarball to directory using tar package
+    const tarballPath = path.join(tempDir, tarball);
+    try {
+      await extract({
+        cwd: directory,
+        strip: 1,
+        file: tarballPath,
+        z: true,
+      });
+    } catch (exception) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to install UI',
+      });
+      throw new Error('Failed to extract UI package', {
+        cause: exception,
+      });
+    }
+
+    const packageJsonPath = path.resolve(directory, './package.json');
+    await fs.promises.cp(
+      packageJsonPath,
+      path.resolve(directory, './package.source.json'),
     );
+    const packageJson = JSON.parse(
+      await fs.promises.readFile(packageJsonPath, 'utf8'),
+    );
+    packageJson.dependencies = {
+      next: packageJson.dependencies.next,
+    };
+    packageJson.devDependencies = {};
+    await fs.promises.writeFile(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2),
+      'utf8',
+    );
+    child_process.execSync('npm install --silent', {
+      stdio: 'ignore',
+      cwd: directory,
+    });
+  } finally {
+    // Clean up temp directory
+    await fs.promises.rm(tempDir, { recursive: true, force: true });
+    spinner.stopAndPersist({
+      symbol: logSymbols.success,
+      text: `UI installed successfully (${directory})\n`,
+    });
   }
-  const { version } = await usersProject.import<{
-    version: string;
-  }>('@react-email/preview-server');
-  if (version !== packageJson.version) {
-    await ensurePreviewServerInstalled(
-      `To run the preview server, the version of "@react-email/preview-server" must match the version of "react-email" (${packageJson.version}). Would you like to install it?`,
-    );
+}
+
+export async function getPreviewServerLocation() {
+  const directory = path.join(os.homedir(), '.react-email');
+  if (!fs.existsSync(directory)) {
+    await installPreviewServer(directory, packageJson.version);
   }
 
-  return previewServerLocation;
-};
+  const { version } = (await import(path.join(directory, 'index.mjs'))) as {
+    version: string;
+  };
+  if (version !== packageJson.version) {
+    await installPreviewServer(directory, packageJson.version);
+  }
+
+  return directory;
+}
