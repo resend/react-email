@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.3.1
+
+### Patch Changes
+
+- c4d149e: make everything in the global for the UI available to email contexts using a Proxy
+
 ## 4.3.0
 
 ### Minor Changes

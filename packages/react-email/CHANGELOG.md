@@ -1,5 +1,11 @@
 # react-email
 
+## 4.3.1
+
+### Patch Changes
+
+- 1e13d15: hot reloading errors when importing .json and other file extensions
+
 ## 4.3.0
 
 ## 4.2.12
