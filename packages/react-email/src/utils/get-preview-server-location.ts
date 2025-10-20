@@ -91,11 +91,11 @@ export async function installPreviewServer(directory: string, version: string) {
   } finally {
     // Clean up temp directory
     await fs.promises.rm(tempDir, { recursive: true, force: true });
-    spinner.stopAndPersist({
-      symbol: logSymbols.success,
-      text: `UI installed successfully (${directory})\n`,
-    });
   }
+  spinner.stopAndPersist({
+    symbol: logSymbols.success,
+    text: `UI installed successfully (${directory})\n`,
+  });
 }
 
 export async function getPreviewServerLocation() {
