@@ -378,6 +378,32 @@ describe('Tailwind component', () => {
       ).toMatchSnapshot();
     });
 
+    it('handles non-inlinable styles in custom utilities', async () => {
+      const actualOutput = await render(
+        <html lang="en">
+          <Tailwind config={{
+            plugins: [
+              {
+                handler: (api) => {
+                  api.addUtilities({
+                    '.text-body': {
+                      '@apply text-[green] sm:text-[darkgreen]': {},
+                    },
+                  });
+                }
+              }
+            ]
+          }}>
+            <head />
+            <body>
+              <div className="text-body" />
+            </body>
+          </Tailwind>
+        </html>,
+      ).then(pretty);
+      expect(actualOutput).toMatchSnapshot();
+    });
+
     it('adds css to <head/> and keep class names', async () => {
       const actualOutput = await render(
         <html lang="en">
