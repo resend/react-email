@@ -140,6 +140,23 @@ exports[`Tailwind component > with non-inlinable styles > adds css to <head/> an
 "
 `;
 
+exports[`Tailwind component > with non-inlinable styles > handles non-inlinable styles in custom utilities 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+  <head>
+    <!--$-->
+    <style>
+      .text-body{color:green!important;@media (width>=40rem){color:darkgreen!important}}
+    </style>
+  </head>
+  <body>
+    <div class="text-body"></div>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
 exports[`Tailwind component > with non-inlinable styles > persists existing <head/> elements 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
