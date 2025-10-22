@@ -1,20 +1,31 @@
 import type { HtmlToTextOptions } from 'html-to-text';
-import type { pretty } from './utils/pretty';
 import type { toPlainText } from './utils/to-plain-text';
 
 export type Options = {
   /**
-   * @deprecated use {@link pretty} instead
+   * @deprecated This option will be removed in a future major release.
+   * Please format the rendered HTML yourself instead of relying on this option.
+   *
+   * @example
+   * ```ts
+   * // Render the email to HTML
+   * const html = await render(email);
+   *
+   * // Format the HTML using your preferred formatter (e.g. Prettier)
+   * const formattedHtml = await format(html);
+   * ```
+   *
+   * @see https://github.com/resend/react-email/issues/2426
    */
   pretty?: boolean;
 } & (
-  | {
+    | {
       /**
        * @deprecated use {@link toPlainText} instead
        */
       plainText?: false;
     }
-  | {
+    | {
       /**
        * @deprecated use {@link toPlainText} instead
        */
@@ -27,4 +38,4 @@ export type Options = {
        */
       htmlToTextOptions?: HtmlToTextOptions;
     }
-);
+  );

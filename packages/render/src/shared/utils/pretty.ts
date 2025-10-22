@@ -92,6 +92,21 @@ const defaults: Options = {
   parser: 'html',
 };
 
+/**
+ * @deprecated This function will be removed in a future major release.
+ * Please format the rendered HTML yourself instead of relying on this function.
+ *
+ * @example
+ * ```ts
+ * // Render the email to HTML
+ * const html = await render(email);
+ *
+ * // Format the HTML using your preferred formatter (e.g. Prettier)
+ * const formattedHtml = await format(html);
+ * ```
+ *
+ * @see https://github.com/resend/react-email/issues/2426
+ */
 export const pretty = (str: string, options: Options = {}) => {
   return format(str.replaceAll('\0', ''), {
     ...defaults,
