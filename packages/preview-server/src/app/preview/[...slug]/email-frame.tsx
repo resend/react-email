@@ -2,12 +2,12 @@ import Color from 'color';
 import type { ComponentProps } from 'react';
 import { makeIframeDocumentBubbleEvents } from '../../../components/resizable-wrapper';
 
-function* walkDOM(element: Element): Generator<Element> {
+function* walkDom(element: Element): Generator<Element> {
   if (element.children.length > 0) {
     for (let i = 0; i < element.children.length; i++) {
       const child = element.children.item(i)!;
       yield child;
-      yield* walkDOM(child);
+      yield* walkDom(child);
     }
   }
 }
@@ -43,7 +43,7 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
     );
   }
 
-  for (const element of walkDOM(contentDocument.documentElement)) {
+  for (const element of walkDom(contentDocument.documentElement)) {
     if (
       element instanceof
       (contentWindow as unknown as typeof globalThis).HTMLElement
