@@ -1,5 +1,5 @@
 import Color from 'color';
-import { type RefObject, useRef, ComponentProps } from 'react';
+import { type ComponentProps, type RefObject, useRef } from 'react';
 import { makeIframeDocumentBubbleEvents } from '../../../components/resizable-wrapper';
 
 function* walkDOM(element: Element): Generator<Element> {

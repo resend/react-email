@@ -21,8 +21,8 @@ import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { cn } from '../../../utils';
-import { ErrorOverlay } from './error-overlay';
 import { EmailFrame } from './email-frame';
+import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
