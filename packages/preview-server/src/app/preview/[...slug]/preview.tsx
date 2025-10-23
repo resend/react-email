@@ -19,7 +19,6 @@ import { ThemeToggleGroup } from '../../../components/topbar/theme-toggle-group'
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
-import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { cn } from '../../../utils';
 import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
