@@ -1,5 +1,5 @@
 import Color from 'color';
-import { type ComponentProps, type RefObject, useRef } from 'react';
+import type { ComponentProps } from 'react';
 import { makeIframeDocumentBubbleEvents } from '../../../components/resizable-wrapper';
 
 function* walkDOM(element: Element): Generator<Element> {
@@ -36,6 +36,13 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow) return;
 
+  if (!contentDocument.body.style.color) {
+    contentDocument.body.style.color = invertColor(
+      'rgb(0, 0, 0)',
+      'foreground',
+    );
+  }
+
   for (const element of walkDOM(contentDocument.documentElement)) {
     if (
       element instanceof
@@ -48,6 +55,13 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
         );
         colorRegex.lastIndex = 0;
       }
+      if (element.style.background) {
+        element.style.background =
+          element.style.background.replaceAll(colorRegex, (color) =>
+            invertColor(color, 'background'),
+          );
+        colorRegex.lastIndex = 0;
+      }
       if (element.style.backgroundColor) {
         element.style.backgroundColor =
           element.style.backgroundColor.replaceAll(colorRegex, (color) =>
@@ -57,6 +71,13 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
       }
       if (element.style.borderColor) {
         element.style.borderColor = element.style.borderColor.replaceAll(
+          colorRegex,
+          (color) => invertColor(color, 'background'),
+        );
+        colorRegex.lastIndex = 0;
+      }
+      if (element.style.border) {
+        element.style.border = element.style.border.replaceAll(
           colorRegex,
           (color) => invertColor(color, 'background'),
         );
@@ -92,10 +113,6 @@ export function EmailFrame({
       ref={(iframe) => {
         if (!iframe) return;
 
-        if (theme === 'dark') {
-          applyColorInversion(iframe);
-        }
-
         const handleLoad = () => {
           if (theme === 'dark') {
             applyColorInversion(iframe);
@@ -104,16 +121,11 @@ export function EmailFrame({
 
         iframe.addEventListener('load', handleLoad);
 
-        let callback: () => void;
-        if (iframe) {
-          callback = makeIframeDocumentBubbleEvents(iframe);
-        }
+        const cleanupEventBubbling = makeIframeDocumentBubbleEvents(iframe);
 
         return () => {
-          callback?.();
-          if (iframe) {
-            iframe.removeEventListener('load', handleLoad);
-          }
+          cleanupEventBubbling();
+          iframe.removeEventListener('load', handleLoad);
         };
       }}
     />
