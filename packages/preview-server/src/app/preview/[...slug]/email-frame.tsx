@@ -80,13 +80,14 @@ export function EmailFrame({
   theme,
   ...rest
 }: EmailFrameProps) {
-
   return (
     <iframe
       srcDoc={markup}
       width={width}
       height={height}
       {...rest}
+      // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
+      // that the color changes in dark mode can be easily undone when switching to light mode.
       key={`iframe-on-${theme}-mode`}
       ref={(iframe) => {
         if (!iframe) return;
