@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.0-canary.0
+
+### Major Changes
+
+- 9360e39: update to using tailwindcss@v4
+
 ## 1.2.2
 
 ### Patch Changes

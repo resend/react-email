@@ -56,10 +56,10 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
         colorRegex.lastIndex = 0;
       }
       if (element.style.background) {
-        element.style.background =
-          element.style.background.replaceAll(colorRegex, (color) =>
-            invertColor(color, 'background'),
-          );
+        element.style.background = element.style.background.replaceAll(
+          colorRegex,
+          (color) => invertColor(color, 'background'),
+        );
         colorRegex.lastIndex = 0;
       }
       if (element.style.backgroundColor) {
