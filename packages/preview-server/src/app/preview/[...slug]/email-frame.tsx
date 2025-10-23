@@ -30,7 +30,7 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
 }
 
 const colorRegex =
-  /#[0-9a-zA-Z]{0,8}|rgba?\(.*?\)|hsl\(.*?\)|hsv\(.*?\)|oklab\(.*?\)|oklch\(.*?\)/g;
+  /#[0-9a-fA-F]{3,4}|#[0-9a-fA-F]{6,8}|rgba?\(.*?\)|hsl\(.*?\)|hsv\(.*?\)|oklab\(.*?\)|oklch\(.*?\)/g;
 
 function applyColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
