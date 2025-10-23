@@ -22,6 +22,7 @@ import { useClampedState } from '../../../hooks/use-clamped-state';
 import { useIframeColorScheme } from '../../../hooks/use-iframe-color-scheme';
 import { cn } from '../../../utils';
 import { ErrorOverlay } from './error-overlay';
+import { EmailFrame } from './email-frame';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
@@ -60,9 +61,6 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       `${pathname}?${params.toString()}${isSameLang ? location.hash : ''}`,
     );
   };
-
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  useIframeColorScheme(iframeRef, activeTheme);
 
   const hasRenderingMetadata = typeof renderedEmailMetadata !== 'undefined';
   const hasErrors = 'error' in renderingResult;
@@ -184,19 +182,12 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                 }}
                 width={width}
               >
-                <iframe
+                <EmailFrame
                   className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                  ref={(iframe) => {
-                    iframeRef.current = iframe;
-                    if (iframe) {
-                      return makeIframeDocumentBubbleEvents(iframe);
-                    }
-                  }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
+                  theme={activeTheme}
+                  markup={renderedEmailMetadata.markup}
+                  width={width}
+                  height={height}
                   title={emailTitle}
                 />
               </ResizableWrapper>
