@@ -113,6 +113,10 @@ export function EmailFrame({
       ref={(iframe) => {
         if (!iframe) return;
 
+        if (theme === 'dark') {
+          applyColorInversion(iframe);
+        }
+
         const handleLoad = () => {
           if (theme === 'dark') {
             applyColorInversion(iframe);
