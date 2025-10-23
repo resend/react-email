@@ -42,7 +42,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const handleThemeChange = (theme: 'dark' | 'light') => {
     const params = new URLSearchParams(searchParams);
     params.set('theme', theme);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
   const handleViewChange = (view: string) => {
