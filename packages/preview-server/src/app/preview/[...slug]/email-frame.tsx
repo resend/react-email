@@ -18,11 +18,11 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
   let lightness = color.lightness();
   if (mode === 'foreground') {
     if (lightness < 50) {
-      lightness = 100 - lightness;
+      lightness = 100 - lightness * 0.75;
     }
   } else if (mode === 'background') {
     if (lightness >= 50) {
-      lightness = 100 - lightness;
+      lightness = 100 - lightness * 0.75;
     }
   }
 
