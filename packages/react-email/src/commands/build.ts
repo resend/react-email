@@ -193,6 +193,12 @@ export function generateStaticParams() {
 };
 
 const updatePackageJson = async (builtPreviewAppPath: string) => {
+  /* @see ../utils/get-preview-server-location.ts */
+  await fs.promises.rm(path.resolve(builtPreviewAppPath, './package.json'));
+  await fs.promises.rename(
+    path.resolve(builtPreviewAppPath, './package.source.json'),
+    path.resolve(builtPreviewAppPath, './package.json'),
+  );
   const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
@@ -239,6 +245,10 @@ export const build = async ({
 
     spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
     if (!fs.existsSync(emailsDirRelativePath)) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: `Directory does not exist: ${emailsDirRelativePath}`,
+      });
       process.exit(1);
     }
 
@@ -255,15 +265,10 @@ export const build = async ({
     spinner.text = 'Copying preview app from CLI to `.react-email`';
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
-      filter: (source: string) => {
-        // do not copy the CLI files
-        return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
-        );
-      },
+      filter: (source: string) =>
+        !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+        !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+        !/(\/|\\)node_modules(\/|\\)?$/.test(source),
     });
 
     if (fs.existsSync(staticPath)) {
