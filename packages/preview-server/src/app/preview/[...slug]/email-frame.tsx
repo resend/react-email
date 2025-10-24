@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import Color from 'color';
+import Color from 'colorjs.io';
 import type { ComponentProps } from 'react';
 
 function* walkDom(element: Element): Generator<Element> {
@@ -13,21 +13,21 @@ function* walkDom(element: Element): Generator<Element> {
 }
 
 function invertColor(colorString: string, mode: 'foreground' | 'background') {
-  const color = Color(colorString);
+  const color = new Color(colorString).to("lch");
 
-  let lightness = color.lightness();
   if (mode === 'foreground') {
-    if (lightness < 50) {
-      lightness = 100 - lightness * 0.75;
+    if (color.lch.l! < 50) {
+      color.lch.l = 100 - color.lch.l! * 0.75;
     }
   } else if (mode === 'background') {
-    if (lightness >= 50) {
-      lightness = 100 - lightness * 0.75;
+    if (color.lch.l! >= 50) {
+      color.lch.l = 100 - color.lch.l! * 0.75;
     }
   }
-  const chroma = color.chroma() * 0.80;
+  
+  color.lch.c! *= 0.80;
 
-  return Color.lch(lightness, chroma, color.hue()).string();
+  return color.toString();
 }
 
 const colorRegex =
@@ -37,11 +37,12 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow) return;
 
+  if (contentDocument.body.hasAttribute('inverted-colors')) return;
+
+  contentDocument.body.setAttribute('inverted-colors', '');
+
   if (!contentDocument.body.style.color) {
-    contentDocument.body.style.color = invertColor(
-      'rgb(0, 0, 0)',
-      'foreground',
-    );
+    contentDocument.body.style.color = 'rgb(0, 0, 0)';
   }
 
   for (const element of walkDom(contentDocument.documentElement)) {

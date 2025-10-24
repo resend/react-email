@@ -32,7 +32,7 @@
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.21",
     "clsx": "2.1.1",
-    "color": "5.0.2",
+    "colorjs.io": "0.5.2",
     "esbuild": "0.25.10",
     "framer-motion": "12.23.22",
     "json5": "2.2.3",
