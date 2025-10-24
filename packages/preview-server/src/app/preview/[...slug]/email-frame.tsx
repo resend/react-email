@@ -13,7 +13,7 @@ function* walkDom(element: Element): Generator<Element> {
 }
 
 function invertColor(colorString: string, mode: 'foreground' | 'background') {
-  const color = new Color(colorString).to("lch");
+  const color = new Color(colorString).to('lch');
 
   if (mode === 'foreground') {
     if (color.lch.l! < 50) {
@@ -24,8 +24,8 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
       color.lch.l = 100 - color.lch.l! * 0.75;
     }
   }
-  
-  color.lch.c! *= 0.80;
+
+  color.lch.c! *= 0.8;
 
   return color.toString();
 }
