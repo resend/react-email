@@ -25,8 +25,9 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
       lightness = 100 - lightness * 0.75;
     }
   }
+  const chroma = color.chroma() * 0.80;
 
-  return Color.hsl(color.hue(), color.saturationl(), lightness).string();
+  return Color.lch(lightness, chroma, color.hue()).string();
 }
 
 const colorRegex =
