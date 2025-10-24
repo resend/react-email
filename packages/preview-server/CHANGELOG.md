@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 4.3.2
+
+### Patch Changes
+
+- f38ed50: fix imports of files with implicit extensions, and secondary segment like `.spec` failing to hot reload
+
 ## 4.3.1
 
 ### Patch Changes
