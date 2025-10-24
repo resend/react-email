@@ -1,7 +1,6 @@
+import { Slot } from '@radix-ui/react-slot';
 import Color from 'color';
 import type { ComponentProps } from 'react';
-import { makeIframeDocumentBubbleEvents } from '../../../components/resizable-wrapper';
-import { Slot } from '@radix-ui/react-slot';
 
 function* walkDom(element: Element): Generator<Element> {
   if (element.children.length > 0) {
@@ -107,8 +106,6 @@ export function EmailFrame({
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
 
-        const cleanupEventBubbling = makeIframeDocumentBubbleEvents(iframe);
-
         if (theme === 'dark') {
           applyColorInversion(iframe);
         }
@@ -120,9 +117,7 @@ export function EmailFrame({
         };
 
         iframe.addEventListener('load', handleLoad);
-
         return () => {
-          cleanupEventBubbling();
           iframe.removeEventListener('load', handleLoad);
         };
       }}

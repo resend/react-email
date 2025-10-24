@@ -188,6 +188,11 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                   width={width}
                   height={height}
                   title={emailTitle}
+                  ref={(iframe) => {
+                    if (!iframe) return;
+
+                    return makeIframeDocumentBubbleEvents(iframe);
+                  }}
                 />
               </ResizableWrapper>
             )}
