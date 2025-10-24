@@ -150,8 +150,13 @@ export const createDependencyGraph = async (directory: string) => {
           ) {
             return pathToDependencyFromDirectory;
           }
+          if (javascriptExtensions.includes(extension)) {
+            return checkFileExtensionsUntilItExists(
+              pathToDependencyFromDirectory.replace(extension, ''),
+            );
+          }
           return checkFileExtensionsUntilItExists(
-            pathToDependencyFromDirectory.replace(extension, ''),
+            pathToDependencyFromDirectory,
           );
         })();
 
