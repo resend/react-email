@@ -1,6 +1,7 @@
 import Color from 'color';
 import type { ComponentProps } from 'react';
 import { makeIframeDocumentBubbleEvents } from '../../../components/resizable-wrapper';
+import { Slot } from '@radix-ui/react-slot';
 
 function* walkDom(element: Element): Generator<Element> {
   if (element.children.length > 0) {
@@ -87,7 +88,7 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   }
 }
 
-interface EmailFrameProps extends Omit<ComponentProps<'iframe'>, 'ref'> {
+interface EmailFrameProps extends ComponentProps<'iframe'> {
   markup: string;
   width: number;
   height: number;
@@ -102,16 +103,11 @@ export function EmailFrame({
   ...rest
 }: EmailFrameProps) {
   return (
-    <iframe
-      srcDoc={markup}
-      width={width}
-      height={height}
-      {...rest}
-      // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
-      // that the color changes in dark mode can be easily undone when switching to light mode.
-      key={`iframe-on-${theme}-mode`}
-      ref={(iframe) => {
+    <Slot
+      ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
+
+        const cleanupEventBubbling = makeIframeDocumentBubbleEvents(iframe);
 
         if (theme === 'dark') {
           applyColorInversion(iframe);
@@ -125,13 +121,21 @@ export function EmailFrame({
 
         iframe.addEventListener('load', handleLoad);
 
-        const cleanupEventBubbling = makeIframeDocumentBubbleEvents(iframe);
-
         return () => {
           cleanupEventBubbling();
           iframe.removeEventListener('load', handleLoad);
         };
       }}
-    />
+    >
+      <iframe
+        srcDoc={markup}
+        width={width}
+        height={height}
+        {...rest}
+        // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
+        // that the color changes in dark mode can be easily undone when switching to light mode.
+        key={`iframe-on-${theme}-mode`}
+      />
+    </Slot>
   );
 }
