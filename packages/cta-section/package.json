@@ -1,0 +1,13 @@
+{
+  "name": "@react-email/cta-section",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  }
+}
