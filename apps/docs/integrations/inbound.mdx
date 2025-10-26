@@ -1,0 +1,99 @@
+---
+title: 'Send (& recieve) emails using Inbound'
+sidebarTitle: 'Inbound'
+description: 'Learn how to send and recieve emails using React Email and the Inbound Node.js SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Inbound Node.js SDK](https://www.npmjs.com/package/inboundemail).
+
+Make sure you have an account on [inbound](https://inbound.new), you will need an inbound API key.
+
+<CodeGroup>
+
+```sh npm
+npm install inboundemail @react-email/components
+```
+
+```sh yarn
+yarn add inboundemail @react-email/components
+```
+
+```sh pnpm
+pnpm add inboundemail @react-email/components
+```
+
+```sh bun
+bun add inboundemail @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from 'react';
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+
+export default Email;
+```
+
+## 3. Send email
+
+<Info>When integrating with other services, you need to convert your React template into HTML before sending. Inbound takes care of that for you. You can just directly pass the React template to the SDK.</Info>
+
+Import the email template you just built and use the Inbound SDK to send it.
+
+```tsx
+import { Inbound } from 'inboundemail';
+import { Email } from './email';
+
+const inbound = new Inbound(process.env.INBOUND_API_KEY);
+
+await inbound.emails.send({
+  from: 'you@example.com',
+  to: 'user@gmail.com',
+  subject: 'hello world',
+  react: <Email url="https://example.com" />,
+});
+```
+
+## 4. Reply to an email
+
+Use the Inbound SDK to reply to an email with the same template you just created.
+
+```tsx
+import { Inbound } from 'inboundemail';
+import { Email } from './email';
+
+const inbound = new Inbound(process.env.INBOUND_API_KEY);
+
+await inbound.emails.reply(email.id,{
+  react: <Email url="https://example.com" />,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Inbound example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/inboundemail/inbound"
+>
+  See the full source code.
+</Card>
