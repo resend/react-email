@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/nursery/noNestedComponentDefinitions: There are no components here, just visitor functions */
 import traverse from '@babel/traverse';
+import { inlineStyles } from '@react-email/tailwind';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
@@ -37,17 +38,15 @@ export const getUsedStyleProperties = async (
           path.traverse({
             StringLiteral(stringPath) {
               const className = stringPath.node.value;
-              const { rules } = generateTailwindCssRules(
-                className.split(' '),
-                tailwindMetadata.context,
+              const styles = inlineStyles(
+                tailwindMetadata.tailwindSetup,
+                className.split(/\s+/),
               );
-              for (const rule of rules) {
-                rule.walkDecls((decl) => {
-                  styleProperties.push({
-                    location: stringPath.node.loc,
-                    name: decl.prop,
-                    value: decl.value,
-                  });
+              for (const [name, value] of Object.entries(styles)) {
+                styleProperties.push({
+                  location: stringPath.node.loc,
+                  name,
+                  value,
                 });
               }
             },

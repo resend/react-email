@@ -25,6 +25,7 @@
     "@radix-ui/react-tabs": "1.1.13",
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
+    "@react-email/tailwind": "workspace:*",
     "@types/node": "22.14.1",
     "@types/normalize-path": "3.0.2",
     "@types/react": "19.0.10",

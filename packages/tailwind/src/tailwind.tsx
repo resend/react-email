@@ -1,9 +1,16 @@
-import { type CssNode, generate, List, type StyleSheet, Rule } from 'css-tree';
+import {
+  type CssNode,
+  generate,
+  List,
+  type Rule,
+  type StyleSheet,
+} from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { useSuspensedPromise } from './hooks/use-suspended-promise';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
 import { getCustomProperties } from './utils/css/get-custom-properties';
+import { makeInlineStylesFor } from './utils/css/make-inline-styles-for';
 import { resolveAllCssVariables } from './utils/css/resolve-all-css-variables';
 import { resolveCalcExpressions } from './utils/css/resolve-calc-expressions';
 import { sanitizeDeclarations } from './utils/css/sanitize-declarations';
@@ -14,7 +21,6 @@ import {
   setupTailwind,
   type TailwindSetup,
 } from './utils/tailwindcss/setup-tailwind';
-import { makeInlineStylesFor } from './utils/css/make-inline-styles-for';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
