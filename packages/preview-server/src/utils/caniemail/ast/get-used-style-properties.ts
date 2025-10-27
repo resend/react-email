@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/nursery/noNestedComponentDefinitions: There are no components here, just visitor functions */
-import traverse, { NodePath } from '@babel/traverse';
-import type { StyleSheet } from 'css-tree';
+import traverse, { type NodePath } from '@babel/traverse';
 import { inlineStyles, sanitizeStyleSheet } from '@react-email/tailwind';
+import type { StyleSheet } from 'css-tree';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';

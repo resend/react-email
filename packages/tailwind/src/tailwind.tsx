@@ -14,7 +14,10 @@ import { sanitizeDeclarations } from './utils/css/sanitize-declarations';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { setupTailwind, TailwindSetup } from './utils/tailwindcss/setup-tailwind';
+import {
+  setupTailwind,
+  TailwindSetup,
+} from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 

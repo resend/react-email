@@ -208,7 +208,9 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
   packageJson.name = 'preview-server';
 
-  for (const [dependency, version] of Object.entries(packageJson.dependencies)) {
+  for (const [dependency, version] of Object.entries(
+    packageJson.dependencies,
+  )) {
     packageJson.dependencies[dependency] = version.replace('workspace:*', '');
   }
 
