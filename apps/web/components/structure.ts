@@ -287,8 +287,8 @@ export const componentsStructure: Category[] = [
     description:
       'Components for displaying user avatars with different styles and sizes.',
     components: [
-      { slug: 'circular-avatars', title: 'Circular avatars' },
-      { slug: 'rounded-avatars', title: 'Rounded avatars' },
+      { slug: 'avatars-circular', title: 'Circular avatars' },
+      { slug: 'avatars-rounded', title: 'Rounded avatars' },
       { slug: 'avatars-group-stacked', title: 'Avatars group stacked' },
       { slug: 'avatars-with-text', title: 'Avatars with text' },
     ],
