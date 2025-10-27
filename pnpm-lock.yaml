@@ -765,9 +765,6 @@ importers:
       '@types/mime-types':
         specifier: 2.1.4
         version: 2.1.4
-      postcss:
-        specifier: 8.5.3
-        version: 8.5.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3

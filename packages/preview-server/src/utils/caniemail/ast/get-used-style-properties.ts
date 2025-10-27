@@ -2,7 +2,6 @@
 import traverse from '@babel/traverse';
 import { inlineStyles } from '@react-email/tailwind';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';
 
