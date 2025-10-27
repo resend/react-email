@@ -208,6 +208,10 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
   packageJson.name = 'preview-server';
 
+  for (const [dependency, version] of Object.entries(packageJson.dependencies)) {
+    packageJson.dependencies[dependency] = version.replace('workspace:*', '');
+  }
+
   // We remove this one to avoid having resolve issues on our demo build process.
   // This is only used in the `export` command so it's irrelevant to have it here.
   //
