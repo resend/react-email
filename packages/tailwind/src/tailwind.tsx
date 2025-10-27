@@ -88,8 +88,6 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export { setupTailwind };
-
 export function inlineStyles(
   tailwindSetup: TailwindSetup,
   classes: string[],
