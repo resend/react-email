@@ -98,6 +98,8 @@ export function inlineStyles(
   tailwindSetup: TailwindSetup,
   classes: string[],
 ): Record<string, string> {
+  tailwindSetup.addUtilities(classes);
+
   const styleSheet = tailwindSetup.getStyleSheet();
   resolveAllCssVariables(styleSheet);
   resolveCalcExpressions(styleSheet);
