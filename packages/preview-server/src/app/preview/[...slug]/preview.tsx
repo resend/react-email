@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -15,7 +15,7 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
-import { ThemeToggleGroup } from '../../../components/topbar/theme-toggle-group';
+import { EmulatedDarkModeToggle } from '../../../components/topbar/emulated-dark-mode-toggle';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
@@ -34,14 +34,17 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const activeTheme: 'dark' | 'light' =
-    searchParams.get('theme') === 'dark' ? 'dark' : 'light';
+  const isDarkModeEnabled = searchParams.get('dark') !== null;
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
 
-  const handleThemeChange = (theme: 'dark' | 'light') => {
+  const handleDarkModeChange = (enabled: boolean) => {
     const params = new URLSearchParams(searchParams);
-    params.set('theme', theme);
+    if (enabled) {
+      params.set('dark', '');
+    } else {
+      params.delete('dark');
+    }
     router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
@@ -113,9 +116,9 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
               minWidth={minWidth}
               minHeight={minHeight}
             />
-            <ThemeToggleGroup
-              active={activeTheme}
-              onChange={(theme) => handleThemeChange(theme)}
+            <EmulatedDarkModeToggle
+              enabled={isDarkModeEnabled}
+              onChange={(enabled) => handleDarkModeChange(enabled)}
             />
           </>
         ) : null}
@@ -183,7 +186,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
               >
                 <EmailFrame
                   className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                  theme={activeTheme}
+                  darkMode={isDarkModeEnabled}
                   markup={renderedEmailMetadata.markup}
                   width={width}
                   height={height}

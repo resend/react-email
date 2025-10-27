@@ -93,14 +93,14 @@ interface EmailFrameProps extends ComponentProps<'iframe'> {
   markup: string;
   width: number;
   height: number;
-  theme: 'dark' | 'light';
+  darkMode: boolean;
 }
 
 export function EmailFrame({
   markup,
   width,
   height,
-  theme,
+  darkMode,
   ...rest
 }: EmailFrameProps) {
   return (
@@ -108,12 +108,12 @@ export function EmailFrame({
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
 
-        if (theme === 'dark') {
+        if (darkMode) {
           applyColorInversion(iframe);
         }
 
         const handleLoad = () => {
-          if (theme === 'dark') {
+          if (darkMode) {
             applyColorInversion(iframe);
           }
         };
@@ -131,7 +131,7 @@ export function EmailFrame({
         {...rest}
         // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
         // that the color changes in dark mode can be easily undone when switching to light mode.
-        key={`iframe-on-${theme}-mode`}
+        key={darkMode ? 'iframe-inverted-colors' : 'iframe-normal-colors'}
       />
     </Slot>
   );
