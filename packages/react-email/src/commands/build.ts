@@ -211,7 +211,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   for (const [dependency, version] of Object.entries(
     packageJson.dependencies,
   )) {
-    packageJson.dependencies[dependency] = version.replace('workspace:*', '');
+    packageJson.dependencies[dependency] = version.replace('workspace:', '');
   }
 
   // We remove this one to avoid having resolve issues on our demo build process.
