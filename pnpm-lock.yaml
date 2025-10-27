@@ -759,6 +759,9 @@ importers:
       '@types/babel__traverse':
         specifier: 7.20.7
         version: 7.20.7
+      '@types/css-tree':
+        specifier: 2.3.10
+        version: 2.3.10
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
