@@ -2,7 +2,6 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { styleText } from 'node:util';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
 import {
@@ -15,6 +14,7 @@ import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import { styleText } from '../utils/style-text';
 import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
