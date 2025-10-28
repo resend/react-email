@@ -55,13 +55,9 @@ export const getUsedStyleProperties = async (
     for (const [className, nodePath] of pathClassNameMap.entries()) {
       const styles = inlineStyles(styleSheet, className.split(/\s+/));
       for (const [name, value] of Object.entries(styles)) {
-        const snakeCasedName = name.replaceAll(
-          /[A-Z]/g,
-          (capitalLetter) => `-${capitalLetter}`,
-        );
         styleProperties.push({
           location: nodePath.node.loc,
-          name: snakeCasedName,
+          name,
           value,
         });
       }
@@ -72,24 +68,65 @@ export const getUsedStyleProperties = async (
     JSXAttribute(path) {
       if (
         path.node.value?.type === 'JSXExpressionContainer' &&
-        path.node.value.expression.type === 'Identifier' &&
         path.node.name.name === 'style'
       ) {
-        const styleVariable = objectVariables[path.node.value.expression.name];
-        if (styleVariable) {
-          for (const property of styleVariable) {
-            if (
-              (property.key.type === 'StringLiteral' ||
-                property.key.type === 'Identifier') &&
-              property.value.type === 'StringLiteral'
-            ) {
-              const propertyName =
-                property.key.type === 'StringLiteral'
-                  ? property.key.value
-                  : property.key.name;
+        if (path.node.value.expression.type === 'Identifier') {
+          const styleVariable =
+            objectVariables[path.node.value.expression.name];
+          if (styleVariable) {
+            for (const property of styleVariable) {
+              if (
+                (property.key.type === 'StringLiteral' ||
+                  property.key.type === 'Identifier') &&
+                property.value.type === 'StringLiteral'
+              ) {
+                const propertyName =
+                  property.key.type === 'StringLiteral'
+                    ? property.key.value
+                    : property.key.name;
+                styleProperties.push({
+                  name: propertyName,
+                  value: property.value.value,
+                  location: property.loc,
+                });
+              }
+            }
+          }
+        } else if (path.node.value.expression.type === 'ObjectExpression') {
+          for (const property of path.node.value.expression.properties) {
+            if (property.type === 'ObjectProperty') {
+              if (property.computed) {
+                continue;
+              }
+
+              const name = (() => {
+                if (property.key.type === 'StringLiteral') {
+                  return property.key.value;
+                }
+                if (property.key.type === 'Identifier') {
+                  return property.key.name;
+                }
+              })();
+
+              if (name === undefined) {
+                continue;
+              }
+
+              const value = (() => {
+                if (property.value.type === 'StringLiteral') {
+                  return property.value.value;
+                }
+                if (property.value.type === 'NumericLiteral') {
+                  return property.value.value.toString();
+                }
+              })();
+              if (value === undefined) {
+                continue;
+              }
+
               styleProperties.push({
-                name: propertyName,
-                value: property.value.value,
+                name,
+                value,
                 location: property.loc,
               });
             }
