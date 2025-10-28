@@ -25,6 +25,7 @@
     "@radix-ui/react-tabs": "1.1.13",
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
+    "@react-email/tailwind": "workspace:2.0.0-canary.0",
     "@types/node": "22.14.1",
     "@types/normalize-path": "3.0.2",
     "@types/react": "19.0.10",
@@ -59,6 +60,7 @@
     "@react-email/components": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
+    "@types/css-tree": "2.3.10",
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
@@ -67,7 +69,6 @@
     "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.21",
-    "postcss": "8.5.3",
     "tailwindcss": "3.4.0",
     "typescript": "5.8.3"
   },
