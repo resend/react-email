@@ -61,7 +61,6 @@
     "@react-email/components": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
-    "@types/color": "4.2.0",
     "@types/fs-extra": "11.0.1",
     "@types/mime-types": "2.1.4",
     "@types/node": "22.10.2",
