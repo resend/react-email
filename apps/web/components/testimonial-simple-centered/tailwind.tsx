@@ -33,9 +33,7 @@ export const component = (
         <span className="text-[14px] leading-[20px] mr-[8px]">•</span>
       </Column>
       <Column valign="middle">
-        <p className="m-0 text-[14px] leading-[20px]">
-          Co-founder of Apple
-        </p>
+        <p className="m-0 text-[14px] leading-[20px]">Co-founder of Apple</p>
       </Column>
     </Row>
   </Section>
