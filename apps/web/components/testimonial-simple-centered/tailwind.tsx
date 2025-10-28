@@ -1,4 +1,4 @@
-import { Img, Section } from '@react-email/components';
+import { Column, Img, Row, Section } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
@@ -9,24 +9,35 @@ export const component = (
       are the ones who do. Innovation distinguishes between a leader and a
       follower.
     </p>
-    <div className="mt-8 flex items-center justify-center gap-3">
-      <div className="h-8 w-8 flex-shrink-0 rounded-full overflow-hidden bg-gray-600">
+    <Row width={undefined} align="center" className="mt-8">
+      <Column
+        valign="middle"
+        width="32"
+        height="32"
+        className="h-[32px] w-[32px] rounded-full overflow-hidden bg-gray-600"
+      >
         <Img
           src="/static/steve-jobs.jpg"
           width={32}
           height={32}
           alt="Steve Jobs"
-          className="h-full w-full object-cover"
+          className="h-[32px] w-[32px] object-cover"
         />
-      </div>
-      <div className="flex items-center gap-2">
-        <p className="m-0 text-[14px] leading-[20px] font-semibold text-gray-900">
+      </Column>
+      <Column valign="middle">
+        <p className="m-0 ml-[12px] text-[14px] leading-[20px] font-semibold text-gray-900 mr-[8px]">
           Steve Jobs
         </p>
-        <span className="text-[14px] leading-[20px]">•</span>
-        <p className="m-0 text-[14px] leading-[20px]">Co-founder of Apple</p>
-      </div>
-    </div>
+      </Column>
+      <Column valign="middle">
+        <span className="text-[14px] leading-[20px] mr-[8px]">•</span>
+      </Column>
+      <Column valign="middle">
+        <p className="m-0 text-[14px] leading-[20px]">
+          Co-founder of Apple
+        </p>
+      </Column>
+    </Row>
   </Section>
 );
 

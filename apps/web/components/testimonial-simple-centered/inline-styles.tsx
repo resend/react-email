@@ -1,4 +1,4 @@
-import { Img, Section } from '@react-email/components';
+import { Column, Img, Row, Section } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
@@ -24,51 +24,64 @@ export const component = (
       are the ones who do. Innovation distinguishes between a leader and a
       follower.
     </p>
-    <div
+    <Row
       style={{
         marginTop: '32px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '12px',
       }}
+      width={undefined}
+      align="center"
     >
-      <div
-        style={{
-          height: '32px',
-          width: '32px',
-          flexShrink: 0,
-          borderRadius: '9999px',
-          overflow: 'hidden',
-          backgroundColor: '#4b5563',
-        }}
-      >
-        <Img
-          src="/static/steve-jobs.jpg"
-          width={32}
-          height={32}
-          alt="Steve Jobs"
-          style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-        />
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <Column valign="middle">
+        <div
+          style={{
+            height: '32px',
+            width: '32px',
+            borderRadius: '9999px',
+            overflow: 'hidden',
+            backgroundColor: '#4b5563',
+          }}
+        >
+          <Img
+            src="/static/steve-jobs.jpg"
+            width={32}
+            height={32}
+            alt="Steve Jobs"
+            style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+          />
+        </div>
+      </Column>
+      <Column valign="middle">
+        <p
+          style={{
+            margin: 0,
+            marginLeft: '12px',
+            fontSize: '14px',
+            lineHeight: '20px',
+            fontWeight: 600,
+            color: '#111827',
+            marginRight: 8,
+          }}
+        >
+          Steve Jobs
+        </p>
+      </Column>
+      <Column valign="middle">
+        <span style={{ fontSize: '14px', lineHeight: '20px', marginRight: 8 }}>
+          •
+        </span>
+      </Column>
+      <Column valign="middle">
         <p
           style={{
             margin: 0,
             fontSize: '14px',
             lineHeight: '20px',
-            fontWeight: 600,
-            color: '#111827',
           }}
         >
-          Steve Jobs
-        </p>
-        <span style={{ fontSize: '14px', lineHeight: '20px' }}>•</span>
-        <p style={{ margin: 0, fontSize: '14px', lineHeight: '20px' }}>
           Co-founder of Apple
         </p>
-      </div>
-    </div>
+      </Column>
+    </Row>
   </Section>
 );
 
