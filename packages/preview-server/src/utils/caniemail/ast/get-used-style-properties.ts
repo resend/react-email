@@ -88,6 +88,10 @@ export const getUsedStyleProperties = async (
         } else if (path.node.value.expression.type === 'ObjectExpression') {
           for (const property of path.node.value.expression.properties) {
             if (property.type === 'ObjectProperty') {
+              if (property.computed) {
+                continue;
+              }
+
               const name = (() => {
                 if (property.key.type === 'StringLiteral') {
                   return property.key.value;
