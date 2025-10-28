@@ -5,15 +5,20 @@ import { Layout } from '../_components/layout';
 export const component = (
   <ResponsiveRow
     style={{
-      margin: '12px',
-      textAlign: 'left',
+      marginLeft: '12px',
+      marginRight: '12px',
+      marginTop: '16px',
+      marginBottom: '16px',
       fontSize: '14px',
-      color: '#6b7280',
+      color: '#4b5563',
     }}
   >
     <ResponsiveColumn
       style={{
-        margin: '0 24px 24px 0',
+        marginTop: '0',
+        marginRight: '24px',
+        marginBottom: '24px',
+        marginLeft: '0',
         width: '256px',
         overflow: 'hidden',
         borderRadius: '24px',
@@ -25,21 +30,25 @@ export const component = (
         height={320}
         alt="Steve Jobs"
         style={{
-          height: '100%',
+          height: '320px',
           width: '100%',
           objectFit: 'cover',
           objectPosition: 'center',
         }}
       />
     </ResponsiveColumn>
-    <ResponsiveColumn>
+    <ResponsiveColumn style={{ paddingRight: '24px' }}>
       <p
         style={{
-          margin: '0 0 24px 0',
+          marginLeft: '0',
+          marginRight: '0',
+          marginTop: '0',
+          marginBottom: '24px',
+          textAlign: 'left',
           fontSize: '16px',
           lineHeight: '1.625',
           fontWeight: '300',
-          color: '#1f2937',
+          color: '#374151',
         }}
       >
         Design is not just what it looks like and feels like. Design is how it
@@ -47,19 +56,30 @@ export const component = (
         world are the ones who do. Innovation distinguishes between a leader and
         a follower.
       </p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-        <p
-          style={{
-            margin: '0',
-            fontSize: '16px',
-            fontWeight: '600',
-            color: '#111827',
-          }}
-        >
-          Steve Jobs
-        </p>
-        <p style={{ margin: '0' }}>Co-founder of Apple</p>
-      </div>
+      <p
+        style={{
+          marginLeft: '0',
+          marginRight: '0',
+          marginTop: '0',
+          marginBottom: '4px',
+          textAlign: 'left',
+          fontSize: '16px',
+          fontWeight: '600',
+          color: '#1f2937',
+        }}
+      >
+        Steve Jobs
+      </p>
+      <p
+        style={{
+          margin: '0',
+          textAlign: 'left',
+          fontSize: '14px',
+          color: '#4b5563',
+        }}
+      >
+        Co-founder of Apple
+      </p>
     </ResponsiveColumn>
   </ResponsiveRow>
 );
