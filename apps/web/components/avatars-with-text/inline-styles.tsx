@@ -4,18 +4,25 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Row>
     <Column align="center">
-      <Link
-        href="https://github.com/zehfernandes"
-        style={{ display: 'block', width: 'fit-content' }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div
+      <Link href="https://github.com/zehfernandes">
+        <Row
+          style={{
+            width: 'auto',
+            tableLayout: 'fixed',
+            borderCollapse: 'collapse',
+            borderSpacing: 0,
+          }}
+        >
+          <Column
             style={{
-              display: 'inline-block',
-              height: '36px',
-              width: '36px',
+              height: '44px',
+              width: '44px',
               overflow: 'hidden',
-              borderRadius: '100%',
+              borderRadius: '9999px',
+              padding: 0,
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              lineHeight: '0px',
             }}
           >
             <Img
@@ -30,22 +37,22 @@ export const component = (
                 objectPosition: 'center',
               }}
             />
-          </div>
-          <div
+          </Column>
+          <Column
             style={{
-              marginLeft: '12px',
-              fontSize: '12px',
-              lineHeight: '1.625',
-              fontWeight: '500',
+              paddingLeft: '12px',
+              fontSize: '14px',
+              lineHeight: '20px',
+              fontWeight: 500,
               color: '#6b7280',
             }}
           >
-            <p style={{ margin: 0, fontSize: '14px', color: '#374151' }}>
-              Zeh Fernandes
+            <p style={{ margin: 0, color: '#374151' }}>Zeh Fernandes</p>
+            <p style={{ margin: 0, fontSize: '12px', lineHeight: '14px' }}>
+              Founding Designer
             </p>
-            <p style={{ margin: 0 }}>Founding Designer</p>
-          </div>
-        </div>
+          </Column>
+        </Row>
       </Link>
     </Column>
   </Row>
