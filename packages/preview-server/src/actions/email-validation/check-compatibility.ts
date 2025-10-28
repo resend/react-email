@@ -279,8 +279,8 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                snakeToCamel(property.name) ===
-                  snakeToCamel(entryFullProperty!.name) &&
+                property.name ===
+                snakeToCamel(entryFullProperty!.name) &&
                 property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
@@ -306,14 +306,16 @@ export const checkCompatibility = async (
                   break;
                 }
               }
-            } else if (
-              entryProperties.some(
-                (propertyName) =>
-                  snakeToCamel(property.name) === snakeToCamel(propertyName),
-              )
-            ) {
-              addToInsights(property);
-              break;
+            } else if (cssEntryType === 'property name') {
+              if (
+                entryProperties.some(
+                  (propertyName) =>
+                    snakeToCamel(propertyName) === property.name,
+                )
+              ) {
+                addToInsights(property);
+                break;
+              }
             }
           }
         }
