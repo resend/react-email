@@ -1,24 +1,20 @@
-import { Img } from '@react-email/components';
+import { Img, Section } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
-  <div
+  <Section
     style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '32px',
       textAlign: 'center',
       fontSize: '14px',
-      color: '#6b7280',
+      lineHeight: '20px',
+      color: '#4b5563',
     }}
   >
     <p
       style={{
         margin: 0,
         fontSize: '16px',
-        lineHeight: '1.625',
+        lineHeight: '24px',
         fontWeight: 300,
         color: '#1f2937',
       }}
@@ -30,56 +26,50 @@ export const component = (
     </p>
     <div
       style={{
+        marginTop: '32px',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '20px',
+        gap: '12px',
       }}
     >
       <div
         style={{
           height: '32px',
           width: '32px',
+          flexShrink: 0,
+          borderRadius: '9999px',
           overflow: 'hidden',
-          borderRadius: '100%',
           backgroundColor: '#4b5563',
         }}
       >
         <Img
           src="/static/steve-jobs.jpg"
-          width={320}
-          height={320}
+          width={32}
+          height={32}
           alt="Steve Jobs"
-          style={{
-            height: '100%',
-            width: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center',
-          }}
+          style={{ height: '100%', width: '100%', objectFit: 'cover' }}
         />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          width: 'fit-content',
-          gap: '8px',
-        }}
-      >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <p
           style={{
             margin: 0,
+            fontSize: '14px',
+            lineHeight: '20px',
             fontWeight: 600,
             color: '#111827',
           }}
         >
           Steve Jobs
         </p>
-        <span style={{ margin: 0 }}>•</span>
-        <p style={{ margin: 0 }}>Co-founder of Apple</p>
+        <span style={{ fontSize: '14px', lineHeight: '20px' }}>•</span>
+        <p style={{ margin: 0, fontSize: '14px', lineHeight: '20px' }}>
+          Co-founder of Apple
+        </p>
       </div>
     </div>
-  </div>
+  </Section>
 );
 
 export default () => {

@@ -1,31 +1,33 @@
-import { Img } from '@react-email/components';
+import { Img, Section } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
-  <div className="flex flex-col items-center justify-center gap-8 text-center text-sm text-gray-500">
-    <p className="m-0 text-base leading-relaxed font-light text-gray-800">
+  <Section className="text-center text-[14px] leading-[20px] text-gray-600">
+    <p className="m-0 text-[16px] leading-[24px] font-light text-gray-800">
       Design is not just what it looks like and feels like. Design is how it
       works. The people who are crazy enough to think they can change the world
       are the ones who do. Innovation distinguishes between a leader and a
       follower.
     </p>
-    <div className="flex flex-col items-center justify-center gap-5">
-      <div className="h-8 w-8 overflow-hidden rounded-full bg-gray-600">
+    <div className="mt-8 flex items-center justify-center gap-3">
+      <div className="h-8 w-8 flex-shrink-0 rounded-full overflow-hidden bg-gray-600">
         <Img
           src="/static/steve-jobs.jpg"
-          width={320}
-          height={320}
+          width={32}
+          height={32}
           alt="Steve Jobs"
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover"
         />
       </div>
-      <div className="flex w-fit gap-2 [&>*]:m-0">
-        <p className="font-semibold text-gray-900">Steve Jobs</p>
-        <span>•</span>
-        <p>Co-founder of Apple</p>
+      <div className="flex items-center gap-2">
+        <p className="m-0 text-[14px] leading-[20px] font-semibold text-gray-900">
+          Steve Jobs
+        </p>
+        <span className="text-[14px] leading-[20px]">•</span>
+        <p className="m-0 text-[14px] leading-[20px]">Co-founder of Apple</p>
       </div>
     </div>
-  </div>
+  </Section>
 );
 
 export default () => {
