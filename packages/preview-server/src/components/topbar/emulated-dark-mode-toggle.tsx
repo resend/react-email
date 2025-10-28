@@ -30,7 +30,8 @@ export const EmulatedDarkModeToggle = ({
         </Toggle.Root>
       </Tooltip.Trigger>
       <Tooltip.Content>
-        When enabled, inverts colors in the preview emulating what email clients do in dark mode.
+        When enabled, inverts colors in the preview emulating what email clients
+        do in dark mode.
       </Tooltip.Content>
     </Tooltip>
   );
