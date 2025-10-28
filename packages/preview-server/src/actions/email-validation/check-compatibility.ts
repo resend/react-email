@@ -279,8 +279,7 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                property.name ===
-                snakeToCamel(entryFullProperty!.name) &&
+                property.name === snakeToCamel(entryFullProperty!.name) &&
                 property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
