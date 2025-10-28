@@ -123,6 +123,9 @@ importers:
       '@vercel/analytics':
         specifier: 1.5.0
         version: 1.5.0(next@15.5.2(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      email-dev:
+        specifier: workspace:*
+        version: link:../../packages/react-email/dev
       framer-motion:
         specifier: 12.23.22
         version: 12.23.22(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -141,9 +144,6 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
-      react-email:
-        specifier: workspace:*
-        version: link:../../packages/react-email
       resend:
         specifier: 4.3.0
         version: 4.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
