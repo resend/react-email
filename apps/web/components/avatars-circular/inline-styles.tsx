@@ -13,7 +13,7 @@ export const component = (
           display: 'inline-block',
           width: '30px',
           height: '30px',
-          borderRadius: '100%',
+          borderRadius: '9999px',
         }}
       />
     </Column>
@@ -27,7 +27,7 @@ export const component = (
           display: 'inline-block',
           width: '42px',
           height: '42px',
-          borderRadius: '100%',
+          borderRadius: '9999px',
         }}
       />
     </Column>
@@ -41,7 +41,7 @@ export const component = (
           display: 'inline-block',
           width: '54px',
           height: '54px',
-          borderRadius: '100%',
+          borderRadius: '9999px',
         }}
       />
     </Column>
@@ -55,7 +55,7 @@ export const component = (
           display: 'inline-block',
           width: '66px',
           height: '66px',
-          borderRadius: '100%',
+          borderRadius: '9999px',
         }}
       />
     </Column>

@@ -51,7 +51,7 @@ export const component = (
                 height: 40,
                 width: 40,
                 backgroundColor: 'rgb(199,210,254)',
-                borderRadius: 9999,
+                borderRadius: '9999px',
                 padding: '0px',
               }}
             >
@@ -116,7 +116,7 @@ export const component = (
                 height: 40,
                 width: 40,
                 backgroundColor: 'rgb(199,210,254)',
-                borderRadius: 9999,
+                borderRadius: '9999px',
                 padding: '0px',
               }}
             >
@@ -181,7 +181,7 @@ export const component = (
                 height: 40,
                 width: 40,
                 backgroundColor: 'rgb(199,210,254)',
-                borderRadius: 9999,
+                borderRadius: '9999px',
                 padding: '0px',
               }}
             >
@@ -246,7 +246,7 @@ export const component = (
                 height: 40,
                 width: 40,
                 backgroundColor: 'rgb(199,210,254)',
-                borderRadius: 9999,
+                borderRadius: '9999px',
                 padding: '0px',
               }}
             >
