@@ -18,13 +18,11 @@ export const EmulatedDarkModeToggle = ({
         <Toggle.Root
           value="dark"
           className={cn(
-            'relative w-9 h-9 flex items-center justify-center border border-slate-6 text-sm rounded-lg transition duration-200 ease-in-out hover:text-slate-12',
-            {
-              'text-slate-11': !enabled,
-              'text-slate-12 bg-slate-4': enabled,
-            },
+            'relative w-9 h-9 flex items-center justify-center border border-slate-6 text-sm rounded-lg transition duration-200 ease-in-out',
+            'text-slate-11 hover:text-slate-12 aria-pressed:text-slate-12 aria-pressed:bg-slate-4',
           )}
-          onClick={() => onChange(!enabled)}
+          pressed={enabled}
+          onPressedChange={() => onChange(!enabled)}
         >
           <IconMoon />
         </Toggle.Root>
