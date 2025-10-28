@@ -35,5 +35,10 @@
     "tsconfig": "0.0.0",
     "playground": "0.0.9"
   },
-  "changesets": ["pink-rabbits-deny", "rich-files-stick"]
+  "changesets": [
+    "grumpy-banks-glow",
+    "pink-rabbits-deny",
+    "rich-files-stick",
+    "tasty-poets-slide"
+  ]
 }

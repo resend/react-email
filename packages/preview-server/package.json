@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "4.3.2",
+  "version": "5.0.0-canary.0",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "tsx ./scripts/build-preview-server.mts",
@@ -25,7 +25,7 @@
     "@radix-ui/react-tabs": "1.1.13",
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
-    "@react-email/tailwind": "workspace:2.0.0-canary.0",
+    "@react-email/tailwind": "workspace:2.0.0-canary.1",
     "@types/node": "22.14.1",
     "@types/normalize-path": "3.0.2",
     "@types/react": "19.0.10",
