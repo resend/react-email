@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/nursery/noNestedComponentDefinitions: There are no components here, just visitor functions */
 import traverse from '@babel/traverse';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
+import { snakeToCamel } from '../../snake-to-camel';
 import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';
@@ -45,7 +46,7 @@ export const getUsedStyleProperties = async (
                 rule.walkDecls((decl) => {
                   styleProperties.push({
                     location: stringPath.node.loc,
-                    name: decl.prop,
+                    name: snakeToCamel(decl.prop),
                     value: decl.value,
                   });
                 });

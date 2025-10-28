@@ -23,6 +23,7 @@ import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-
 import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import { getElementNames } from '../../utils/caniemail/get-element-names';
+import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
 
 export interface CompatibilityCheckingResult {
@@ -324,12 +325,6 @@ export const checkCompatibility = async (
   });
 
   return readableStream;
-};
-
-const snakeToCamel = (snakeStr: string) => {
-  return snakeStr
-    .toLowerCase()
-    .replace(/-+([a-z])/g, (_match, letter) => letter.toUpperCase());
 };
 
 export type AST = ReturnType<typeof parse>;
