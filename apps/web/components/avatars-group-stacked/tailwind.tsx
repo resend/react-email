@@ -2,8 +2,8 @@ import { Column, Img, Row } from '@react-email/components';
 import { Layout } from '../_components/layout';
 
 export const component = (
-  <Row className="w-auto table-fixed border-collapse border-spacing-0">
-    <Column className="h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
+  <Row width={undefined} className="border-collapse border-spacing-0">
+    <Column width="44" height="44" className="h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
       <div className="box-border h-full w-full overflow-hidden rounded-[100%] border-4 border-solid border-white bg-gray-950">
         <Img
           src="https://github.com/bukinoshita.png?size=100"
@@ -14,7 +14,7 @@ export const component = (
         />
       </div>
     </Column>
-    <Column className="relative left-[-12px] h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
+    <Column width="44" height="44" className="relative left-[-12px] h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
       <div className="box-border h-full w-full overflow-hidden rounded-[100%] border-4 border-solid border-white bg-gray-950">
         <Img
           src="https://github.com/bukinoshita.png?size=100"
@@ -25,7 +25,7 @@ export const component = (
         />
       </div>
     </Column>
-    <Column className="relative left-[-24px] h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
+    <Column width="44" height="44" className="relative left-[-24px] h-[44px] w-[44px] p-0 text-center align-middle leading-[0px]">
       <div className="box-border h-full w-full overflow-hidden rounded-[100%] border-4 border-solid border-white bg-gray-950">
         <Img
           src="https://github.com/bukinoshita.png?size=100"

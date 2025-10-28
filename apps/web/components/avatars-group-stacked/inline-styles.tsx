@@ -3,14 +3,16 @@ import { Layout } from '../_components/layout';
 
 export const component = (
   <Row
+    width={undefined}
     style={{
-      width: 'auto',
       tableLayout: 'fixed',
       borderCollapse: 'collapse',
       borderSpacing: 0,
     }}
   >
     <Column
+      width="44"
+      height="44"
       style={{
         height: '44px',
         width: '44px',
@@ -47,6 +49,8 @@ export const component = (
       </div>
     </Column>
     <Column
+      width="44"
+      height="44"
       style={{
         position: 'relative',
         left: '-12px',
@@ -85,6 +89,8 @@ export const component = (
       </div>
     </Column>
     <Column
+      width="44"
+      height="44"
       style={{
         position: 'relative',
         left: '-24px',
