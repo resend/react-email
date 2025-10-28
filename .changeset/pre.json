@@ -36,6 +36,7 @@
     "playground": "0.0.9"
   },
   "changesets": [
+    "eighty-ravens-juggle",
     "grumpy-banks-glow",
     "pink-rabbits-deny",
     "rich-files-stick",
