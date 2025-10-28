@@ -1,7 +1,8 @@
 /** biome-ignore-all lint/nursery/noNestedComponentDefinitions: There are no components here, just visitor functions */
-import traverse from '@babel/traverse';
+import traverse, { type NodePath } from '@babel/traverse';
+import { inlineStyles, sanitizeStyleSheet } from '@react-email/tailwind';
+import type { StyleSheet } from 'css-tree';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { generateTailwindCssRules } from '../tailwind/generate-tailwind-rules';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 import type { ObjectVariables, SourceLocation } from './get-object-variables';
 
@@ -31,30 +32,40 @@ export const getUsedStyleProperties = async (
   );
 
   if (tailwindMetadata.hasTailwind) {
+    const pathClassNameMap = new Map<string, NodePath>();
+
     traverse(ast, {
       JSXAttribute(path) {
         if (path.node.name.name === 'className') {
           path.traverse({
             StringLiteral(stringPath) {
               const className = stringPath.node.value;
-              const { rules } = generateTailwindCssRules(
-                className.split(' '),
-                tailwindMetadata.context,
-              );
-              for (const rule of rules) {
-                rule.walkDecls((decl) => {
-                  styleProperties.push({
-                    location: stringPath.node.loc,
-                    name: decl.prop,
-                    value: decl.value,
-                  });
-                });
-              }
+              pathClassNameMap.set(className, stringPath);
+              const candidates = className.split(/\s+/);
+              tailwindMetadata.tailwindSetup.addUtilities(candidates);
             },
           });
         }
       },
     });
+    const styleSheet =
+      tailwindMetadata.tailwindSetup.getStyleSheet() as StyleSheet;
+    sanitizeStyleSheet(styleSheet);
+
+    for (const [className, nodePath] of pathClassNameMap.entries()) {
+      const styles = inlineStyles(styleSheet, className.split(/\s+/));
+      for (const [name, value] of Object.entries(styles)) {
+        const snakeCasedName = name.replaceAll(
+          /[A-Z]/g,
+          (capitalLetter) => `-${capitalLetter}`,
+        );
+        styleProperties.push({
+          location: nodePath.node.loc,
+          name: snakeCasedName,
+          value,
+        });
+      }
+    }
   }
 
   traverse(ast, {
