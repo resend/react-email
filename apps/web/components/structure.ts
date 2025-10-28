@@ -282,4 +282,37 @@ export const componentsStructure: Category[] = [
       { slug: 'customer-reviews', title: 'Customer reviews' },
     ],
   },
+  {
+    name: 'Avatars',
+    description:
+      'Components for displaying user avatars with different styles and sizes.',
+    components: [
+      { slug: 'avatars-circular', title: 'Circular avatars' },
+      { slug: 'avatars-rounded', title: 'Rounded avatars' },
+      { slug: 'avatars-group-stacked', title: 'Avatars group stacked' },
+      { slug: 'avatars-with-text', title: 'Avatars with text' },
+    ],
+  },
+  {
+    name: 'Stats',
+    description: 'Stats components for displaying statistics.',
+    components: [
+      { slug: 'stats-simple', title: 'Stats simple' },
+      { slug: 'stats-stepped', title: 'Stats stepped' },
+    ],
+  },
+  {
+    name: 'Testimonials',
+    description: 'Testimonials components for displaying testimonials.',
+    components: [
+      {
+        slug: 'testimonial-with-large-avatar',
+        title: 'Testimonial with large avatar',
+      },
+      {
+        slug: 'testimonial-simple-centered',
+        title: 'Testimonial simple centered',
+      },
+    ],
+  },
 ];
