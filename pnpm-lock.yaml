@@ -417,7 +417,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.0
+        specifier: workspace:2.0.0-canary.1
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.5
@@ -659,6 +659,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/tailwind':
+        specifier: workspace:2.0.0-canary.1
+        version: link:../tailwind
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
@@ -756,15 +759,15 @@ importers:
       '@types/babel__traverse':
         specifier: 7.20.7
         version: 7.20.7
+      '@types/css-tree':
+        specifier: 2.3.10
+        version: 2.3.10
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
       '@types/mime-types':
         specifier: 2.1.4
         version: 2.1.4
-      postcss:
-        specifier: 8.5.3
-        version: 8.5.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3

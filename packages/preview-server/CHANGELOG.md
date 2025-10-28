@@ -1,5 +1,16 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.0
+
+### Major Changes
+
+- 442f5b6: only check compatibility with tailwindcss@4
+
+### Patch Changes
+
+- Updated dependencies [442f5b6]
+  - @react-email/tailwind@2.0.0-canary.1
+
 ## 4.3.2
 
 ### Patch Changes
