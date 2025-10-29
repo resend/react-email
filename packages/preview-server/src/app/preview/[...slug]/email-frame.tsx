@@ -16,13 +16,23 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
   try {
     const color = new Color(colorString).to('lch');
 
-    if (mode === 'foreground') {
-      if (color.lch.l! < 50) {
-        color.lch.l = 100 - color.lch.l! * 0.75;
-      }
-    } else if (mode === 'background') {
+    if (mode === 'background') {
+      // Keeps the same lightness if it's already dark. If it's bright inverts the lightness
+      // - This is a characteristic from Outlook iOS
+      // - Parcel does something very similar
+      // 
+      // The 0.75 factor ensures that, even if the lightness is 100%, the final inverted is going to be 25%
+      // - This is a characteristic from Apple Mail
+      //
+      // The two extra 50 terms are so that the lightness inversion doesn't become a step function
       if (color.lch.l! >= 50) {
-        color.lch.l = 100 - color.lch.l! * 0.75;
+        color.lch.l = 50 - (color.lch.l! - 50) * 0.75;
+      }
+    } else if (mode === 'foreground') {
+      // The same as what's done for background, but inverts the check for brightness.
+      // If the color is already bright, then it keeps the same. If the color is dark, then it inverts the brightness
+      if (color.lch.l! < 50) {
+        color.lch.l = 50 - (color.lch.l! - 50) * 0.75;
       }
     }
 
