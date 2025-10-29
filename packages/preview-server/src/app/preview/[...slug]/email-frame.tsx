@@ -13,21 +13,26 @@ function* walkDom(element: Element): Generator<Element> {
 }
 
 function invertColor(colorString: string, mode: 'foreground' | 'background') {
-  const color = new Color(colorString).to('lch');
+  try {
+    const color = new Color(colorString).to('lch');
 
-  if (mode === 'foreground') {
-    if (color.lch.l! < 50) {
-      color.lch.l = 100 - color.lch.l! * 0.75;
+    if (mode === 'foreground') {
+      if (color.lch.l! < 50) {
+        color.lch.l = 100 - color.lch.l! * 0.75;
+      }
+    } else if (mode === 'background') {
+      if (color.lch.l! >= 50) {
+        color.lch.l = 100 - color.lch.l! * 0.75;
+      }
     }
-  } else if (mode === 'background') {
-    if (color.lch.l! >= 50) {
-      color.lch.l = 100 - color.lch.l! * 0.75;
-    }
+
+    color.lch.c! *= 0.8;
+
+    return color.toString();
+  } catch (exception) {
+    console.error(`couldn't invert color ${colorString}`, exception);
+    return colorString;
   }
-
-  color.lch.c! *= 0.8;
-
-  return color.toString();
 }
 
 const colorRegex = () =>
