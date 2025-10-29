@@ -22,6 +22,7 @@ exports[`tree(__dirname, 2) 1`] = `
 ├── index.ts
 ├── packageJson.ts
 ├── register-spinner-autostopping.ts
+├── style-text.ts
 ├── tree.spec.ts
 └── tree.ts"
 `;

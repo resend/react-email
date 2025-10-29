@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.2
+
+### Patch Changes
+
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
 ## 5.0.0-canary.1
 
 ### Patch Changes

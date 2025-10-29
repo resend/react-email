@@ -8,7 +8,7 @@ import TestimonialSection from '@/components/sections/testimonial';
 import ToolsSection from '@/components/sections/tools';
 
 const Home = () => (
-  <main className="max-lg:overflow-x-clip">
+  <main className="overflow-x-clip">
     <HeroSection />
     <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
       <PlaygroundSection />
