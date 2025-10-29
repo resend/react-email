@@ -36,6 +36,8 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
       }
     }
 
+    // While not exactly, I've found that email clients generally tend to reduce the chrome by 20%.
+    // Apple Mail specifically reduces by exactly 20%, so we're closer to Apple Mail in this sense as well.
     color.lch.c! *= 0.8;
 
     return color.toString();
