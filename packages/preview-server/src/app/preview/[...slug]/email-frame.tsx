@@ -279,7 +279,9 @@ export function EmailFrame({
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
 
-        applyColorInversion(iframe);
+        if (darkMode) {
+          applyColorInversion(iframe);
+        }
       }}
     >
       <iframe
