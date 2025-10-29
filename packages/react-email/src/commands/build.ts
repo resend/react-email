@@ -88,18 +88,7 @@ module.exports = {
     PREVIEW_SERVER_LOCATION: '${builtPreviewAppPath.replace(/\\/g, '/')}',
     USER_PROJECT_LOCATION: userProjectLocation
   },
-  // this is needed so that the code for building emails works properly
-  webpack: (
-    /** @type {import('webpack').Configuration & { externals: string[] }} */
-    config,
-    { isServer }
-  ) => {
-    if (isServer) {
-      config.externals.push('esbuild');
-    }
-
-    return config;
-  },
+  serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
   },
@@ -112,7 +101,7 @@ module.exports = {
 }`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.js'),
+    path.resolve(builtPreviewAppPath, './next.config.ts'),
     nextConfigContents,
     'utf8',
   );
