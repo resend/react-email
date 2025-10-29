@@ -1,13 +1,13 @@
 import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
-import { styleText } from 'node:util';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
 import { getPreviewServerLocation } from '../get-preview-server-location.js';
 import { packageJson } from '../packageJson.js';
+import { styleText } from '../style-text.js';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
 import { serveStaticFile } from './serve-static-file.js';
 
