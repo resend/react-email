@@ -20,7 +20,7 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
       // Keeps the same lightness if it's already dark. If it's bright inverts the lightness
       // - This is a characteristic from Outlook iOS
       // - Parcel does something very similar
-      // 
+      //
       // The 0.75 factor ensures that, even if the lightness is 100%, the final inverted is going to be 25%
       // - This is a characteristic from Apple Mail
       //
