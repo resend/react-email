@@ -264,22 +264,19 @@ export function EmailFrame({
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
 
-        const handleLoad = () => {
-          if (darkMode) {
-            applyColorInversion(iframe);
-          }
-        };
-
-        iframe.addEventListener('load', handleLoad);
-        return () => {
-          iframe.removeEventListener('load', handleLoad);
-        };
+        applyColorInversion(iframe);
       }}
     >
       <iframe
         srcDoc={markup}
         width={width}
         height={height}
+        onLoad={(event) => {
+          if (darkMode) {
+            const iframe = event.currentTarget;
+            applyColorInversion(iframe);
+          }
+        }}
         {...rest}
         // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
         // that the color changes in dark mode can be easily undone when switching to light mode.
