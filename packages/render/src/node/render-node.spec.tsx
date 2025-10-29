@@ -2,8 +2,7 @@
  * @vitest-environment node
  */
 
-import { Suspense } from 'react';
-import usePromise from 'react-promise-suspense';
+import { Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -86,11 +85,9 @@ describe('render on node environments', () => {
   });
 
   it('that it properly waits for Suepsense boundaries to resolve before resolving', async () => {
+    const htmlPromise = fetch('https://example.com').then((res) => res.text());
     const EmailTemplate = () => {
-      const html = usePromise(
-        () => fetch('https://example.com').then((res) => res.text()),
-        [],
-      );
+      const html = use(htmlPromise);
 
       return <div dangerouslySetInnerHTML={{ __html: html }} />;
     };
