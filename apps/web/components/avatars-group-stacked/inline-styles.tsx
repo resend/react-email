@@ -28,7 +28,7 @@ export const component = (
           height: '100%',
           width: '100%',
           overflow: 'hidden',
-          borderRadius: '100%',
+          borderRadius: '9999px',
           border: '4px solid white',
           backgroundColor: '#030712',
         }}
@@ -68,7 +68,7 @@ export const component = (
           height: '100%',
           width: '100%',
           overflow: 'hidden',
-          borderRadius: '100%',
+          borderRadius: '9999px',
           border: '4px solid white',
           backgroundColor: '#030712',
         }}
@@ -108,7 +108,7 @@ export const component = (
           height: '100%',
           width: '100%',
           overflow: 'hidden',
-          borderRadius: '100%',
+          borderRadius: '9999px',
           border: '4px solid white',
           backgroundColor: '#030712',
         }}
