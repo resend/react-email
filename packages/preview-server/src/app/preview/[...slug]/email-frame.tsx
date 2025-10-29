@@ -30,7 +30,7 @@ function invertColor(colorString: string, mode: 'foreground' | 'background') {
   return color.toString();
 }
 
-const colorRegex =
+const colorRegex = () =>
   /#[0-9a-fA-F]{3,4}|#[0-9a-fA-F]{6,8}|rgba?\(.*?\)|hsl\(.*?\)|hsv\(.*?\)|oklab\(.*?\)|oklch\(.*?\)/g;
 
 function applyColorInversion(iframe: HTMLIFrameElement) {
@@ -52,38 +52,33 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
     ) {
       if (element.style.color) {
         element.style.color = element.style.color.replaceAll(
-          colorRegex,
+          colorRegex(),
           (color) => invertColor(color, 'foreground'),
         );
-        colorRegex.lastIndex = 0;
       }
       if (element.style.background) {
         element.style.background = element.style.background.replaceAll(
-          colorRegex,
+          colorRegex(),
           (color) => invertColor(color, 'background'),
         );
-        colorRegex.lastIndex = 0;
       }
       if (element.style.backgroundColor) {
         element.style.backgroundColor =
-          element.style.backgroundColor.replaceAll(colorRegex, (color) =>
+          element.style.backgroundColor.replaceAll(colorRegex(), (color) =>
             invertColor(color, 'background'),
           );
-        colorRegex.lastIndex = 0;
       }
       if (element.style.borderColor) {
         element.style.borderColor = element.style.borderColor.replaceAll(
-          colorRegex,
+          colorRegex(),
           (color) => invertColor(color, 'background'),
         );
-        colorRegex.lastIndex = 0;
       }
       if (element.style.border) {
         element.style.border = element.style.border.replaceAll(
-          colorRegex,
+          colorRegex(),
           (color) => invertColor(color, 'background'),
         );
-        colorRegex.lastIndex = 0;
       }
     }
   }
