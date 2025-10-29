@@ -25,7 +25,7 @@
     "email-dev": "workspace:*",
     "framer-motion": "12.23.22",
     "lucide-react": "^0.544.0",
-    "next": "15.5.2",
+    "next": "16.0.1",
     "prism-react-renderer": "2.4.1",
     "react": "^19",
     "react-dom": "^19",
