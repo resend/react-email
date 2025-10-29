@@ -189,13 +189,8 @@ const namedColorRegex = new RegExp(
 );
 
 function applyColorInversion(iframe: HTMLIFrameElement) {
-  console.time('applying color inversion');
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow) return;
-
-  if (contentDocument.body.hasAttribute('inverted-colors')) return;
-
-  contentDocument.body.setAttribute('inverted-colors', '');
 
   if (!contentDocument.body.style.color) {
     contentDocument.body.style.color = 'rgb(0, 0, 0)';
@@ -248,7 +243,6 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
       }
     }
   }
-  console.timeEnd('applying color inversion');
 }
 
 interface EmailFrameProps extends ComponentProps<'iframe'> {
@@ -269,10 +263,6 @@ export function EmailFrame({
     <Slot
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
-
-        if (darkMode) {
-          applyColorInversion(iframe);
-        }
 
         const handleLoad = () => {
           if (darkMode) {
