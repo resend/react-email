@@ -10,17 +10,15 @@ jobs:
     permissions: 
       contents: write
       pull-requests: write
+    container:
+      image: node:22-slim
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
       - name: pnpm setup
         uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
+      - name: Install packages
+        run: pnpm install --frozen-lockfile
       - name: Install packages
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
