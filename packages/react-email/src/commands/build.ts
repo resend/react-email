@@ -191,7 +191,8 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
-  packageJson.scripts.build = 'next build';
+  // Turbopack has some errors with the imports in @react-email/tailwind
+  packageJson.scripts.build = 'next build --webpack';
   packageJson.scripts.start = 'next start';
   delete packageJson.scripts.postbuild;
 
@@ -203,12 +204,6 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     packageJson.dependencies[dependency] = version.replace('workspace:', '');
   }
 
-  // We remove this one to avoid having resolve issues on our demo build process.
-  // This is only used in the `export` command so it's irrelevant to have it here.
-  //
-  // See `src/actions/render-email-by-path` for more info on how we render the
-  // email templates without `@react-email/render` being installed.
-  delete packageJson.devDependencies['@react-email/render'];
   delete packageJson.devDependencies['@react-email/components'];
   delete packageJson.scripts.prepare;
 
