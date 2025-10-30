@@ -12,7 +12,6 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 
 interface Args {
   dir: string;
-  packageManager?: string;
 }
 
 const buildPreviewApp = (absoluteDirectory: string) => {
@@ -183,14 +182,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
 export const build = async ({
   dir: emailsDirRelativePath,
-  packageManager,
 }: Args) => {
-  if (packageManager !== undefined) {
-    console.warn(
-      'The --packageManager flag is deprecated and is currently ignored. It will be removed in the next major version',
-    );
-  }
-
   try {
     const previewServerLocation = await getPreviewServerLocation();
 

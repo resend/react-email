@@ -24,10 +24,6 @@ program
   .command('build')
   .description('Copies the preview app for onto .react-email and builds it')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
-  .option(
-    '-p --packageManager <name>',
-    'Package manager to use when installing in .react-email (deprecated)',
-  )
   .action(build);
 
 program
