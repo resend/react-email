@@ -177,6 +177,9 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   for (const key in packageJson.dependencies) {
     packageJson.dependencies[key] = packageJson.dependencies[key]!.replace('workspace:', '');
   }
+  for (const key in packageJson.devDependencies) {
+    packageJson.devDependencies[key] = packageJson.devDependencies[key]!.replace('workspace:', '');
+  }
 
   await fs.promises.writeFile(
     packageJsonPath,
