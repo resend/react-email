@@ -269,6 +269,7 @@ export const build = async ({
 
     await installDependencies({
       cwd: builtPreviewAppPath,
+      packageManager: 'npm',
     });
     console.log('Dependencies installed successfully');
   } catch (error) {
