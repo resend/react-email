@@ -32,6 +32,7 @@
     "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
     "autoprefixer": "10.4.21",
+    "client-only": "0.0.1",
     "clsx": "2.1.1",
     "esbuild": "0.25.10",
     "framer-motion": "12.23.22",
