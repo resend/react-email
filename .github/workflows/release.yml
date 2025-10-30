@@ -19,9 +19,6 @@ jobs:
         uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: Install packages
         run: pnpm install --frozen-lockfile
-      - name: Install packages
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
-        run: pnpm install --frozen-lockfile
       - name: Exit prerelease mode
         # This step errors if it is not in prerelease mode
         continue-on-error: true
