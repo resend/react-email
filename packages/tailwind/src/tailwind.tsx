@@ -3,14 +3,21 @@ import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { useSuspensedPromise } from './hooks/use-suspended-promise';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
-import { getCustomProperties } from './utils/css/get-custom-properties';
+import {
+  CustomProperty,
+  getCustomProperties,
+} from './utils/css/get-custom-properties';
+import { makeInlineStylesFor } from './utils/css/make-inline-styles-for';
 import { resolveAllCssVariables } from './utils/css/resolve-all-css-variables';
 import { resolveCalcExpressions } from './utils/css/resolve-calc-expressions';
 import { sanitizeDeclarations } from './utils/css/sanitize-declarations';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
+import {
+  setupTailwind,
+  TailwindSetup,
+} from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
@@ -84,6 +91,29 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
+export function sanitizeStyleSheet(styleSheet: StyleSheet) {
+  resolveAllCssVariables(styleSheet);
+  resolveCalcExpressions(styleSheet);
+  sanitizeDeclarations(styleSheet);
+}
+
+export function inlineStyles(
+  styleSheet: StyleSheet,
+  classes: string[],
+): Record<string, string> {
+  const { inlinable: inlinableRules } = extractRulesPerClass(
+    styleSheet,
+    classes,
+  );
+
+  const customProperties = getCustomProperties(styleSheet);
+
+  return makeInlineStylesFor(
+    Array.from(inlinableRules.values()),
+    customProperties,
+  );
+}
+
 export function Tailwind({ children, config }: TailwindProps) {
   const tailwindSetup = useSuspensedPromise(
     () => setupTailwind(config ?? {}),
@@ -106,13 +136,10 @@ export function Tailwind({ children, config }: TailwindProps) {
   });
 
   const styleSheet = tailwindSetup.getStyleSheet();
-  resolveAllCssVariables(styleSheet);
-  resolveCalcExpressions(styleSheet);
-  sanitizeDeclarations(styleSheet);
+  sanitizeStyleSheet(styleSheet);
 
   const { inlinable: inlinableRules, nonInlinable: nonInlinableRules } =
     extractRulesPerClass(styleSheet, classesUsed);
-  sanitizeNonInlinableRules(styleSheet);
 
   const customProperties = getCustomProperties(styleSheet);
 
@@ -122,6 +149,7 @@ export function Tailwind({ children, config }: TailwindProps) {
       Array.from(nonInlinableRules.values()),
     ),
   };
+  sanitizeNonInlinableRules(nonInlineStyles);
 
   const hasNonInlineStylesToApply = nonInlinableRules.size > 0;
   let appliedNonInlineStyles = false as boolean;

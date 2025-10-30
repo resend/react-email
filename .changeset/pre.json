@@ -35,5 +35,13 @@
     "tsconfig": "0.0.0",
     "playground": "0.0.9"
   },
-  "changesets": ["pink-rabbits-deny", "rich-files-stick"]
+  "changesets": [
+    "eighty-ravens-juggle",
+    "famous-pandas-unite",
+    "grumpy-banks-glow",
+    "pink-rabbits-deny",
+    "quick-ways-cross",
+    "rich-files-stick",
+    "tasty-poets-slide"
+  ]
 }

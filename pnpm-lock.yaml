@@ -172,6 +172,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/preview-server':
+        specifier: workspace:*
+        version: link:../../packages/preview-server
       '@types/babel__core':
         specifier: 7.20.5
         version: 7.20.5
@@ -408,7 +411,7 @@ importers:
         specifier: workspace:0.0.13
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:1.4.0
+        specifier: workspace:2.0.0-canary.0
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12
@@ -417,7 +420,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.0
+        specifier: workspace:2.0.0-canary.1
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.5
@@ -659,6 +662,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-email/tailwind':
+        specifier: workspace:2.0.0-canary.1
+        version: link:../tailwind
       '@types/node':
         specifier: 22.14.1
         version: 22.14.1
@@ -756,15 +762,15 @@ importers:
       '@types/babel__traverse':
         specifier: 7.20.7
         version: 7.20.7
+      '@types/css-tree':
+        specifier: 2.3.10
+        version: 2.3.10
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
       '@types/mime-types':
         specifier: 2.1.4
         version: 2.1.4
-      postcss:
-        specifier: 8.5.3
-        version: 8.5.3
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -1195,11 +1201,6 @@ packages:
 
   '@babel/parser@7.27.0':
     resolution: {integrity: sha512-iaepho73/2Pz7w2eMS0Q5f83+0RKI7i4xmiYeBmDzfRVbQtTOG7Ts0S4HzJVsTMGI9keU8rNfuZr8DKfSt7Yyg==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
-  '@babel/parser@7.27.1':
-    resolution: {integrity: sha512-I0dZ3ZpCrJ1c04OqlNsQcKiZlsrXf/kkE4FXzID9rIOYICsAbA8mMDzhW/luRNAHdCNt7os/u8wenklZDlUVUQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -9335,7 +9336,7 @@ snapshots:
 
   '@babel/generator@7.27.1':
     dependencies:
-      '@babel/parser': 7.27.1
+      '@babel/parser': 7.28.4
       '@babel/types': 7.27.1
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
@@ -9462,10 +9463,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.27.1
 
-  '@babel/parser@7.27.1':
-    dependencies:
-      '@babel/types': 7.27.1
-
   '@babel/parser@7.28.4':
     dependencies:
       '@babel/types': 7.28.4
@@ -9533,7 +9530,7 @@ snapshots:
   '@babel/template@7.27.1':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/parser': 7.27.1
+      '@babel/parser': 7.28.4
       '@babel/types': 7.27.1
 
   '@babel/traverse@7.27.0':

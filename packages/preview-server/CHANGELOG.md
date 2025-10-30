@@ -1,5 +1,28 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.2
+
+### Patch Changes
+
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.1
+
+### Patch Changes
+
+- 18bc11a: fix compatibility checking not woring with inline object styles, and not working on properties such as `justifyContent`/`justify-content`
+
+## 5.0.0-canary.0
+
+### Major Changes
+
+- 442f5b6: only check compatibility with tailwindcss@4
+
+### Patch Changes
+
+- Updated dependencies [442f5b6]
+  - @react-email/tailwind@2.0.0-canary.1
+
 ## 4.3.2
 
 ### Patch Changes
