@@ -24,7 +24,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "bin": {
     "create-email": "src/index.js"

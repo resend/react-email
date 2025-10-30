@@ -37,7 +37,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "@react-email/body": "workspace:0.1.0",
