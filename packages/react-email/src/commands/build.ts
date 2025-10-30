@@ -233,6 +233,8 @@ export const build = async ({
       );
       await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
         recursive: true,
+        force: true,
+        dereference: true,
       });
     }
 
@@ -259,8 +261,6 @@ export const build = async ({
     await fs.promises.cp(
       modifiedPreviewAppPath,
       builtPreviewAppPath,
-      // path.join(modifiedPreviewAppPath/*, '.next'),
-      // path.join(builtPreviewAppPath, '.next'),
       {
         force: true,
         dereference: true,
