@@ -9,6 +9,7 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { installDependencies } from 'nypm';
 
 interface Args {
   dir: string;
@@ -233,8 +234,6 @@ export const build = async ({
       );
       await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
         recursive: true,
-        force: true,
-        dereference: true,
       });
     }
 
@@ -267,8 +266,13 @@ export const build = async ({
         recursive: true,
       },
     );
+
+    await installDependencies({
+      cwd: builtPreviewAppPath,
+    });
+    console.log('Dependencies installed successfully');
   } catch (error) {
-    console.log(error);
+    console.error('Error during build process:', error);
     process.exit(1);
   }
 };

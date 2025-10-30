@@ -683,9 +683,6 @@ importers:
       autoprefixer:
         specifier: 10.4.21
         version: 10.4.21(postcss@8.5.3)
-      client-only:
-        specifier: 0.0.1
-        version: 0.0.1
       clsx:
         specifier: 2.1.1
         version: 2.1.1
