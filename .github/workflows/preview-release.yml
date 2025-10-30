@@ -26,6 +26,8 @@ jobs:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
             # Add step to find changed package directories within ./packages
+      - name: Install git
+        run: sudo apt install git
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0
