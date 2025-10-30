@@ -92,16 +92,15 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true
   },
-  eslint: {
-    ignoreDuringBuilds: true
-  },
   experimental: {
     webpackBuildWorker: true
   },
 }`;
 
+  await fs.promises.rm(path.resolve(builtPreviewAppPath, './next.config.ts'));
+
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.ts'),
+    path.resolve(builtPreviewAppPath, './next.config.js'),
     nextConfigContents,
     'utf8',
   );
