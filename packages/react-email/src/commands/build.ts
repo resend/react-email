@@ -181,9 +181,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   );
 };
 
-export const build = async ({
-  dir: emailsDirRelativePath,
-}: Args) => {
+export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
 
@@ -250,6 +248,8 @@ export const build = async ({
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(modifiedPreviewAppPath);
 
+    installDependencies({});
+
     spinner.stopAndPersist({
       text: 'Ready for next build',
       symbol: logSymbols.success,
@@ -257,15 +257,11 @@ export const build = async ({
     await buildPreviewApp(modifiedPreviewAppPath);
 
     await fs.promises.mkdir(builtPreviewAppPath);
-    await fs.promises.cp(
-      modifiedPreviewAppPath,
-      builtPreviewAppPath,
-      {
-        force: true,
-        dereference: true,
-        recursive: true,
-      },
-    );
+    await fs.promises.cp(modifiedPreviewAppPath, builtPreviewAppPath, {
+      force: true,
+      dereference: true,
+      recursive: true,
+    });
   } catch (error) {
     console.error('Error during build process:', error);
     process.exit(1);
