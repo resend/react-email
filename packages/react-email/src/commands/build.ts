@@ -174,11 +174,6 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
   packageJson.name = 'preview-server';
 
-  packageJson.dependencies = {
-    'next': '16.0.1'
-  };
-  packageJson.devDependencies = {};
-
   await fs.promises.writeFile(
     packageJsonPath,
     JSON.stringify(packageJson),
@@ -271,12 +266,6 @@ export const build = async ({
         recursive: true,
       },
     );
-
-    await installDependencies({
-      cwd: builtPreviewAppPath,
-      packageManager: 'npm',
-    });
-    console.log('Dependencies installed successfully');
   } catch (error) {
     console.error('Error during build process:', error);
     process.exit(1);
