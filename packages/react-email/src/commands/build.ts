@@ -9,10 +9,10 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { installDependencies } from 'nypm';
 
 interface Args {
   dir: string;
-  packageManager: string;
 }
 
 const buildPreviewApp = (absoluteDirectory: string) => {
@@ -38,54 +38,21 @@ const buildPreviewApp = (absoluteDirectory: string) => {
   });
 };
 
-const npmInstall = async (
-  builtPreviewAppPath: string,
-  packageManager: string,
-) => {
-  return new Promise<void>((resolve, reject) => {
-    const childProc = spawn(
-      packageManager,
-      [
-        'install',
-        packageManager === 'deno' ? '' : '--include=dev',
-        packageManager === 'deno' ? '--quiet' : '--silent',
-      ],
-      {
-        cwd: builtPreviewAppPath,
-        shell: true,
-      },
-    );
-    childProc.stdout.pipe(process.stdout);
-    childProc.stderr.pipe(process.stderr);
-    childProc.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `Unable to install the dependencies and it exited with code: ${code}`,
-          ),
-        );
-      }
-    });
-  });
-};
-
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
-  builtPreviewAppPath: string,
+  userProjectPath: string,
+  modifiedPreviewAppPath: string,
 ) => {
   const nextConfigContents = `
 const path = require('path');
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
-const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-/** @type {import('next').NextConfig} */
+const userProjectLocation = '${userProjectPath}';
 module.exports = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
-    PREVIEW_SERVER_LOCATION: '${builtPreviewAppPath.replace(/\\/g, '/')}',
+    PREVIEW_SERVER_LOCATION: '${modifiedPreviewAppPath.replace(/\\/g, '/')}',
     USER_PROJECT_LOCATION: userProjectLocation
   },
   // this is needed so that the code for building emails works properly
@@ -112,7 +79,7 @@ module.exports = {
 }`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.js'),
+    path.resolve(modifiedPreviewAppPath, './next.config.js'),
     nextConfigContents,
     'utf8',
   );
@@ -204,24 +171,8 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   };
   packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
-  delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
-
-  for (const [dependency, version] of Object.entries(
-    packageJson.dependencies,
-  )) {
-    packageJson.dependencies[dependency] = version.replace('workspace:', '');
-  }
-
-  // We remove this one to avoid having resolve issues on our demo build process.
-  // This is only used in the `export` command so it's irrelevant to have it here.
-  //
-  // See `src/actions/render-email-by-path` for more info on how we render the
-  // email templates without `@react-email/render` being installed.
-  delete packageJson.devDependencies['@react-email/render'];
-  delete packageJson.devDependencies['@react-email/components'];
-  delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
     packageJsonPath,
@@ -230,10 +181,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   );
 };
 
-export const build = async ({
-  dir: emailsDirRelativePath,
-  packageManager,
-}: Args) => {
+export const build = async ({ dir: emailsDirRelativePath }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
 
@@ -251,63 +199,71 @@ export const build = async ({
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
     const staticPath = path.join(emailsDirPath, 'static');
 
+    const modifiedPreviewAppPath = path.resolve(
+      previewServerLocation,
+      '../.react-email',
+    );
+    if (fs.existsSync(modifiedPreviewAppPath)) {
+      spinner.text = 'Deleting pre-existing modified preview app folder';
+      await fs.promises.rm(modifiedPreviewAppPath, { recursive: true });
+    }
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
-
     if (fs.existsSync(builtPreviewAppPath)) {
-      spinner.text = 'Deleting pre-existing `.react-email` folder';
+      spinner.text = 'Deleting pre-existing .react-email folder';
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to `.react-email`';
-    await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
+    spinner.text = 'Copying preview app to modify it';
+    await fs.promises.cp(previewServerLocation, modifiedPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
-        // do not copy the CLI files
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source)
         );
       },
     });
 
     if (fs.existsSync(staticPath)) {
-      spinner.text =
-        'Copying `static` folder into `.react-email/public/static`';
-      const builtStaticDirectory = path.resolve(
-        builtPreviewAppPath,
+      spinner.text = 'Copying static directory';
+      const modifiedPreviewAppStaticDirectory = path.resolve(
+        modifiedPreviewAppPath,
         './public/static',
       );
-      await fs.promises.cp(staticPath, builtStaticDirectory, {
+      await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
         recursive: true,
       });
     }
 
-    spinner.text =
-      'Setting Next environment variables for preview app to work properly';
+    spinner.text = 'Setting Next environment variables';
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
-      builtPreviewAppPath,
+      process.cwd(),
+      modifiedPreviewAppPath,
     );
 
-    spinner.text = 'Setting server side generation for the email preview pages';
-    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
+    spinner.text = 'Setting up server side generation';
+    await forceSSGForEmailPreviews(emailsDirPath, modifiedPreviewAppPath);
 
     spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(builtPreviewAppPath);
+    await updatePackageJson(modifiedPreviewAppPath);
 
-    spinner.text = 'Installing dependencies on `.react-email`';
-    await npmInstall(builtPreviewAppPath, packageManager);
+    installDependencies({});
 
     spinner.stopAndPersist({
-      text: 'Successfully prepared `.react-email` for `next build`',
+      text: 'Ready for next build',
       symbol: logSymbols.success,
     });
+    await buildPreviewApp(modifiedPreviewAppPath);
 
-    await buildPreviewApp(builtPreviewAppPath);
+    await fs.promises.mkdir(builtPreviewAppPath);
+    await fs.promises.cp(modifiedPreviewAppPath, builtPreviewAppPath, {
+      force: true,
+      dereference: true,
+      recursive: true,
+    });
   } catch (error) {
-    console.log(error);
+    console.error('Error during build process:', error);
     process.exit(1);
   }
 };
