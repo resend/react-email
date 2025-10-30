@@ -174,12 +174,10 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
   packageJson.name = 'preview-server';
 
-  for (const key in packageJson.dependencies) {
-    packageJson.dependencies[key] = packageJson.dependencies[key]!.replace('workspace:', '');
-  }
-  for (const key in packageJson.devDependencies) {
-    packageJson.devDependencies[key] = packageJson.devDependencies[key]!.replace('workspace:', '');
-  }
+  packageJson.dependencies = {
+    'next': '16.0.1'
+  };
+  packageJson.devDependencies = {};
 
   await fs.promises.writeFile(
     packageJsonPath,
