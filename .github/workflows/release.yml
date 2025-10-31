@@ -11,7 +11,7 @@ jobs:
       contents: write
       pull-requests: write
     container:
-      image: node:22-slim
+      image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
