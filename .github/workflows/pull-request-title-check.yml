@@ -2,13 +2,16 @@ name: Pull Request Title Check
 on:
   pull_request:
     types: [opened, edited, synchronize]
-permissions: 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
   pull-requests: read
 jobs:
   pull-request-title-check:
-    runs-on: buildjet-4vcpu-ubuntu-2204
+    runs-on: buildjet-2vcpu-ubuntu-2204
     container:
-      image: node:22
+      image: node:22-slim
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

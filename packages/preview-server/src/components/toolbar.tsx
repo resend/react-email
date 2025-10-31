@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
-import { PreviewContext } from '../contexts/preview';
+import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -383,8 +383,7 @@ export const Toolbar = ({
   serverSpamCheckingResult,
   serverCompatibilityResults,
 }: ToolbarProps) => {
-  const { emailPath, emailSlug, renderedEmailMetadata } =
-    React.use(PreviewContext)!;
+  const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
   const {

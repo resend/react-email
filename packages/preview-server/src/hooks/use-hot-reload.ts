@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useRef } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import type { HotReloadChange } from '../utils/types/hot-reload-change';
@@ -8,8 +9,7 @@ import type { HotReloadChange } from '../utils/types/hot-reload-change';
  * and calls the received parameter callback
  */
 export const useHotreload = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onShouldReload: (changes: HotReloadChange[]) => any,
+  onShouldReload: (changes: HotReloadChange[]) => void,
 ) => {
   const socketRef = useRef<Socket | null>(null);
 

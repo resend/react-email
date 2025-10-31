@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
@@ -15,10 +15,12 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { EmulatedDarkModeToggle } from '../../../components/topbar/emulated-dark-mode-toggle';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
-import { PreviewContext } from '../../../contexts/preview';
+import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
+import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
@@ -26,14 +28,25 @@ interface PreviewProps extends React.ComponentProps<'div'> {
 }
 
 const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
-  const { renderingResult, renderedEmailMetadata } = use(PreviewContext)!;
+  const { renderingResult, renderedEmailMetadata } = usePreviewContext();
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const isDarkModeEnabled = searchParams.get('dark') !== null;
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
+
+  const handleDarkModeChange = (enabled: boolean) => {
+    const params = new URLSearchParams(searchParams);
+    if (enabled) {
+      params.set('dark', '');
+    } else {
+      params.delete('dark');
+    }
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
+  };
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
@@ -56,17 +69,17 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const [maxWidth, setMaxWidth] = useState(Number.POSITIVE_INFINITY);
   const [maxHeight, setMaxHeight] = useState(Number.POSITIVE_INFINITY);
-  const minWidth = 100;
-  const minHeight = 100;
+  const minWidth = 220;
+  const minHeight = minWidth * 1.6;
   const storedWidth = searchParams.get('width');
   const storedHeight = searchParams.get('height');
   const [width, setWidth] = useClampedState(
-    storedWidth ? Number.parseInt(storedWidth) : 600,
+    storedWidth ? Number.parseInt(storedWidth) : 1024,
     minWidth,
     maxWidth,
   );
   const [height, setHeight] = useClampedState(
-    storedHeight ? Number.parseInt(storedHeight) : 1024,
+    storedHeight ? Number.parseInt(storedHeight) : 600,
     minHeight,
     maxHeight,
   );
@@ -83,22 +96,32 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   return (
     <>
       <Topbar emailTitle={emailTitle}>
-        <ViewSizeControls
-          setViewHeight={(height) => {
-            setHeight(height);
-            flushSync(() => {
-              handleSaveViewSize();
-            });
-          }}
-          setViewWidth={(width) => {
-            setWidth(width);
-            flushSync(() => {
-              handleSaveViewSize();
-            });
-          }}
-          viewHeight={height}
-          viewWidth={width}
-        />
+        {activeView === 'preview' ? (
+          <>
+            <ViewSizeControls
+              setViewHeight={(height) => {
+                setHeight(height);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              setViewWidth={(width) => {
+                setWidth(width);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              viewHeight={height}
+              viewWidth={width}
+              minWidth={minWidth}
+              minHeight={minHeight}
+            />
+            <EmulatedDarkModeToggle
+              enabled={isDarkModeEnabled}
+              onChange={(enabled) => handleDarkModeChange(enabled)}
+            />
+          </>
+        ) : null}
         <ActiveViewToggleGroup
           activeView={activeView}
           setActiveView={handleViewChange}
@@ -113,7 +136,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <div
         {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300',
+          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300 relative',
           activeView === 'preview' && 'bg-gray-200',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
@@ -161,19 +184,18 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                 }}
                 width={width}
               >
-                <iframe
+                <EmailFrame
                   className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                  ref={(iframe) => {
-                    if (iframe) {
-                      return makeIframeDocumentBubbleEvents(iframe);
-                    }
-                  }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
+                  darkMode={isDarkModeEnabled}
+                  markup={renderedEmailMetadata.markup}
+                  width={width}
+                  height={height}
                   title={emailTitle}
+                  ref={(iframe) => {
+                    if (!iframe) return;
+
+                    return makeIframeDocumentBubbleEvents(iframe);
+                  }}
                 />
               </ResizableWrapper>
             )}

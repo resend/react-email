@@ -3,8 +3,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
 
-export const dynamic = 'force-dynamic';
-
 export function OPTIONS() {
   return Promise.resolve(NextResponse.json({}));
 }

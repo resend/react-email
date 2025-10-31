@@ -7,11 +7,11 @@ interface ComponentPreviewProps {
   html: string;
 }
 
-export const ComponentPreview = ({
+export function ComponentPreview({
   activeView,
   className,
   html,
-}: ComponentPreviewProps) => {
+}: ComponentPreviewProps) {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
 
   React.useEffect(() => {
@@ -57,4 +57,4 @@ export const ComponentPreview = ({
       title="Component preview"
     />
   );
-};
+}

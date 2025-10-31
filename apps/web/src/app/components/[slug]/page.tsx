@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Heading } from '@/components/heading';
+import { PageWrapper } from '@/components/page-wrapper';
 import { componentsStructure } from '../../../../components/structure';
 import { ComponentsView } from '../../../components/components-view';
 import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
-import PageTransition from '../../../components/page-transition';
+import { PageTransition } from '../../../components/page-transition';
 import { slugify } from '../../../utils/slugify';
 import { getImportedComponentsFor } from '../get-imported-components-for';
 
@@ -54,18 +56,20 @@ export const generateMetadata = async ({
   };
 };
 
-const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
+export default async function ComponentPage({ params }: ComponentPageParams) {
   const { slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
   const foundCategory = componentsStructure.find(
     (category) => slugify(category.name) === slug,
   );
 
-  if (!foundCategory) return <p>Component category not found.</p>;
+  if (!foundCategory) {
+    return <p>Component category not found.</p>;
+  }
 
   const importedComponents = await getImportedComponentsFor(foundCategory);
   return (
-    <>
+    <PageWrapper>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />
@@ -76,23 +80,21 @@ const ComponentPage: React.FC<ComponentPageParams> = async ({ params }) => {
         <div className="flex w-full flex-col gap-4 px-6 pt-16 pb-10 md:px-8">
           <div className="flex flex-inline">
             <Link
-              className="mr-2 flex scroll-m-2 items-center justify-center gap-2 self-start rounded-md px-2 py-1 text-slate-11 transition transition-colors duration-200 ease-in-out hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3"
+              className="-ml-2 flex scroll-m-2 items-center justify-center gap-2 self-start rounded-md px-2 py-1 text-slate-11 transition-colors duration-200 ease-in-out hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3"
               href="/components"
             >
               <IconArrowLeft className="mt-[.0625rem]" size={14} />
               <span>Back</span>
             </Link>
           </div>
-          <h1 className="font-bold text-2xl text-slate-12">
+          <Heading size="6" weight="medium" className="text-slate-12">
             {foundCategory.name}
-          </h1>
+          </Heading>
         </div>
         <div className="relative flex w-full flex-col gap-4 border-slate-4 border-y pt-3">
           <ComponentsView components={importedComponents} />
         </div>
       </PageTransition>
-    </>
+    </PageWrapper>
   );
-};
-
-export default ComponentPage;
+}

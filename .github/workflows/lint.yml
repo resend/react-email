@@ -5,32 +5,23 @@ on:
       - main
       - canary
   pull_request:
-permissions: 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
   contents: read
   pull-requests: read
 jobs:
   lint:
-    runs-on: buildjet-4vcpu-ubuntu-2204
+    runs-on: buildjet-2vcpu-ubuntu-2204
     container:
-      image: node:22
+      image: node:22-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
         uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
-      - name: pnpm Cache
-        id: pnpm-cache
-        uses: buildjet/cache@9347ea1c7c1f331d397aa98b3894420448373372
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
       - name: Install packages
-        if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: Run Lint
         run: pnpm lint

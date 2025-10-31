@@ -8,7 +8,7 @@ import * as React from 'react';
 import { Heading } from './heading';
 import { Text } from './text';
 
-export interface ExampleProps {
+interface TemplateProps {
   path: string;
   name: string;
   className?: string;
@@ -22,13 +22,13 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-export const Template: React.FC<Readonly<ExampleProps>> = ({
+export function Template({
   className,
   path,
   name,
   author,
   ...props
-}) => {
+}: TemplateProps) {
   const emailName = path.split('/').pop();
   if (!path || !emailName) {
     throw new Error('Cannot have an empty path for an Example!');
@@ -79,4 +79,4 @@ export const Template: React.FC<Readonly<ExampleProps>> = ({
       </div>
     </Link>
   );
-};
+}

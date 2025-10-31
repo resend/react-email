@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import localFont from 'next/font/local';
-import { Footer } from '@/components/footer';
 import { Topbar } from '@/components/topbar';
 
 const inter = localFont({
@@ -82,27 +81,30 @@ export const viewport = {
   themeColor: '#25AEBA',
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       className={`${inter.variable} ${commitMono.variable} antialiased`}
       lang="en"
       color-scheme="dark"
     >
-      <body className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12">
-        <div
-          className="relative mx-auto flex min-h-[100dvh] flex-col justify-between px-2 md:max-w-7xl md:px-4"
-          // eslint-disable-next-line react/no-unknown-property
-          vaul-drawer-wrapper=""
-        >
+      <head>
+        <script src="/js/web-streams-polyfill.js" />
+      </head>
+      <body
+        suppressHydrationWarning={true}
+        className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12"
+      >
+        <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
           <Topbar />
-          {children}
-          <Footer />
         </div>
+        {children}
         <Analytics />
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

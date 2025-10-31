@@ -39,7 +39,8 @@
     "tailwind-internals.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [".next", "dist", "node_modules"]
 }

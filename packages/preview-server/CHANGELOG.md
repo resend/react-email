@@ -1,5 +1,54 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.3
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+## 5.0.0-canary.2
+
+### Patch Changes
+
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.1
+
+### Patch Changes
+
+- 18bc11a: fix compatibility checking not woring with inline object styles, and not working on properties such as `justifyContent`/`justify-content`
+
+## 5.0.0-canary.0
+
+### Major Changes
+
+- 442f5b6: only check compatibility with tailwindcss@4
+
+### Patch Changes
+
+- Updated dependencies [442f5b6]
+  - @react-email/tailwind@2.0.0-canary.1
+
+## 4.3.2
+
+### Patch Changes
+
+- f38ed50: fix imports of files with implicit extensions, and secondary segment like `.spec` failing to hot reload
+
+## 4.3.1
+
+### Patch Changes
+
+- c4d149e: make everything in the global for the UI available to email contexts using a Proxy
+
+## 4.3.0
+
+### Minor Changes
+
+- c0f6ec2: Added resize snapping, refined UI and improved presets
+
+## 4.2.12
+
 ## 4.2.11
 
 ### Patch Changes

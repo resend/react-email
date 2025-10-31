@@ -60,7 +60,7 @@ describe('render on the browser environment', () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('should handle characters with a higher byte count gracefully', async () => {
+  it('handles characters with a higher byte count gracefully', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
@@ -125,7 +125,7 @@ describe('render on the browser environment', () => {
     );
   });
 
-  it('should properly wait for Suepsense boundaries to ending before resolving', async () => {
+  it('waits for Suspense boundaries to ending before resolving', async () => {
     const EmailTemplate = () => {
       const html = usePromise(
         () => fetch('https://example.com').then((res) => res.text()),
@@ -141,7 +141,7 @@ describe('render on the browser environment', () => {
   });
 
   // See https://github.com/resend/react-email/issues/2263
-  it('should throw error of rendering an invalid element instead of writing them into a template tag', async () => {
+  it('throws error of rendering an invalid element instead of writing them into a template tag', async () => {
     // @ts-ignore we know this is not correct, and we want to test the error handling for it
     const element = createElement(undefined);
     await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
@@ -153,7 +153,7 @@ describe('render on the browser environment', () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('should render large emails without hydration markers', async () => {
+  it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)

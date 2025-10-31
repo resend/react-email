@@ -2,13 +2,7 @@ import * as Select from '@radix-ui/react-select';
 import * as Tabs from '@radix-ui/react-tabs';
 import * as allReactEmailComponents from '@react-email/components';
 import * as allReactResponsiveComponents from '@responsive-email/react-email';
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ClipboardIcon,
-} from 'lucide-react';
-import * as React from 'react';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import type {
   CodeVariant,
   ImportedComponent,
@@ -16,23 +10,22 @@ import type {
 import { useStoredState } from '@/hooks/use-stored-state';
 import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import { CodeBlock } from './code-block';
+import { CopyCode } from './copy-code';
 import { TabTrigger } from './tab-trigger';
 
 type ReactCodeVariant = Exclude<CodeVariant, 'html' | 'react'>;
 
-export const ComponentCodeView = ({
+export function ComponentCodeView({
   component,
 }: {
   component: ImportedComponent;
-}) => {
+}) {
   const [selectedReactCodeVariant, setSelectedReactCodeVariant] =
     useStoredState<ReactCodeVariant>('code-variant', 'tailwind');
 
   const [selectedLanguage, setSelectedLanguage] = useStoredState<
     'html' | 'react'
   >('code-language', 'react');
-
-  const [isCopied, setIsCopied] = React.useState<boolean>(false);
 
   let code = component.code.html;
   if (selectedLanguage === 'react') {
@@ -73,23 +66,6 @@ export const ComponentCodeView = ({
     code = `${importStatements}\n${code}`;
   }
 
-  const onCopy = () => {
-    void navigator.clipboard.writeText(code);
-    setIsCopied(true);
-
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 1000);
-  };
-
-  const handleKeyUp: React.KeyboardEventHandler<HTMLButtonElement> = (
-    event,
-  ) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      onCopy();
-    }
-  };
-
   return (
     <div className="flex h-full w-full flex-col gap-2 bg-slate-3">
       <div className="relative flex w-full justify-between gap-4 border-slate-4 border-b border-solid p-4 text-xs">
@@ -127,16 +103,8 @@ export const ComponentCodeView = ({
               value={selectedReactCodeVariant}
             />
           ) : null}
-          <button
-            aria-label="Copy code"
-            className="flex h-8 w-8 items-center justify-center rounded-sm outline-0 focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50"
-            onClick={onCopy}
-            onKeyUp={handleKeyUp}
-            tabIndex={0}
-            type="button"
-          >
-            {isCopied ? <CheckIcon size={16} /> : <ClipboardIcon size={16} />}
-          </button>
+
+          <CopyCode className="shadow-none p-2 h-8 w-8" code={code} />
         </div>
       </div>
       <div className="h-full w-full overflow-auto">
@@ -146,7 +114,7 @@ export const ComponentCodeView = ({
       </div>
     </div>
   );
-};
+}
 
 const ReactVariantSelect = ({
   value,

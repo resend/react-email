@@ -1,4 +1,5 @@
 'use client';
+
 import type { ErrorObject } from '../../../utils/types/error-object';
 
 interface ErrorOverlayProps {

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import { render } from '@react-email/render';
 import { Row } from './index';
 

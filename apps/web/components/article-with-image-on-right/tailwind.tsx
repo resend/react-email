@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Img, Link, Section, Text } from '@react-email/components';
 import { Layout } from '../_components/layout';
 

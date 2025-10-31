@@ -43,7 +43,7 @@ describe('render on the edge', () => {
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('should handle characters with a higher byte count gracefully in React 18', async () => {
+  it('handles characters with a higher byte count gracefully in React 18', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
@@ -108,13 +108,41 @@ describe('render on the edge', () => {
     );
   });
 
+  describe('WritableStream availability', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      vi.doUnmock('react-dom/server');
+      vi.resetModules();
+    });
+
+    it('should fallback to renderToPipeableStream when WritableStream is not available', async () => {
+      vi.stubGlobal('WritableStream', undefined);
+
+      // Mock renderToReadableStream to simulate environments where it exists but WritableStream doesn't
+      vi.doMock('react-dom/server', async () => ({
+        default: {
+          ...(await vi.importActual<Import>('react-dom/server')).default,
+          renderToReadableStream: () => ({ pipeTo: async () => {} }),
+        },
+      }));
+
+      vi.resetModules();
+      const { render } = await import('./render');
+      const actualOutput = await render(<Template firstName="Jim" />);
+
+      expect(actualOutput).toMatchInlineSnapshot(
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
+      );
+    });
+  });
+
   /**
    * Create a large email that would trigger React's streaming optimization
    * if progressiveChunkSize wasn't set to Infinity
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('should render large emails without hydration markers', async () => {
+  it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)

@@ -2,8 +2,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { ZodError, z } from 'zod';
 import { checkSpam } from './check-spam';
 
-export const dynamic = 'force-dynamic';
-
 export function OPTIONS() {
   return Promise.resolve(NextResponse.json({}));
 }

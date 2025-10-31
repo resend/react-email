@@ -13,12 +13,12 @@ interface PageTransitionProps {
   key: string;
 }
 
-const PageTransition = ({
+export function PageTransition({
   tag = 'div',
   children,
   className = '',
   key,
-}: PageTransitionProps) => {
+}: PageTransitionProps) {
   const MotionComponent = motion[
     tag as MotionComponentType
   ] as React.ComponentType<HTMLMotionProps<'div'> | SVGMotionProps<'svg'>>;
@@ -42,6 +42,4 @@ const PageTransition = ({
       </MotionComponent>
     </AnimatePresence>
   );
-};
-
-export default PageTransition;
+}

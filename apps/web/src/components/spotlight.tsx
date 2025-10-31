@@ -9,7 +9,7 @@ interface SpotlightProps {
   className?: string;
 }
 
-export const Spotlight = ({ children, className }: SpotlightProps) => {
+export function Spotlight({ children, className }: SpotlightProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -35,9 +35,9 @@ export const Spotlight = ({ children, className }: SpotlightProps) => {
     >
       {children}
       <motion.div
-        className="-inset-px pointer-events-none absolute opacity-0 mix-blend-color-dodge transition duration-300 group-hover:opacity-100"
+        className="-inset-px pointer-events-none absolute opacity-0 mix-blend-color-dodge transition duration-300 group-hover:opacity-100 max-md:hidden"
         style={{ background }}
       />
     </div>
   );
-};
+}

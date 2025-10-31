@@ -31,7 +31,7 @@ describe('<Button> component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('should allow users to overwrite style props', async () => {
+  it('allows users to overwrite style props', async () => {
     const actualOutput = await render(
       <Button
         style={{

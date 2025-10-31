@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
@@ -76,4 +76,16 @@ export const PreviewProvider = ({
       {children}
     </PreviewContext.Provider>
   );
+};
+
+export const usePreviewContext = () => {
+  const previewContext = useContext(PreviewContext);
+
+  if (typeof previewContext === 'undefined') {
+    throw new Error(
+      'Cannot call `usePreviewContext` outside of an `PreviewContext` provider.',
+    );
+  }
+
+  return previewContext;
 };

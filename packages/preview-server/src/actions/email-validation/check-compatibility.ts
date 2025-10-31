@@ -1,4 +1,5 @@
 'use server';
+
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import {
@@ -22,6 +23,7 @@ import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-
 import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import { getElementNames } from '../../utils/caniemail/get-element-names';
+import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
 
 export interface CompatibilityCheckingResult {
@@ -278,8 +280,7 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                snakeToCamel(property.name) ===
-                  snakeToCamel(entryFullProperty!.name) &&
+                property.name === snakeToCamel(entryFullProperty!.name) &&
                 property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
@@ -305,14 +306,16 @@ export const checkCompatibility = async (
                   break;
                 }
               }
-            } else if (
-              entryProperties.some(
-                (propertyName) =>
-                  snakeToCamel(property.name) === snakeToCamel(propertyName),
-              )
-            ) {
-              addToInsights(property);
-              break;
+            } else if (cssEntryType === 'property name') {
+              if (
+                entryProperties.some(
+                  (propertyName) =>
+                    snakeToCamel(propertyName) === property.name,
+                )
+              ) {
+                addToInsights(property);
+                break;
+              }
             }
           }
         }
@@ -322,12 +325,6 @@ export const checkCompatibility = async (
   });
 
   return readableStream;
-};
-
-const snakeToCamel = (snakeStr: string) => {
-  return snakeStr
-    .toLowerCase()
-    .replace(/-+([a-z])/g, (_match, letter) => letter.toUpperCase());
 };
 
 export type AST = ReturnType<typeof parse>;

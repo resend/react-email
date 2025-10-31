@@ -3,7 +3,7 @@ import path from 'node:path';
 import { pretty } from './pretty';
 
 describe('pretty', () => {
-  it("should prettify Preview component's complex characters correctly", async () => {
+  it("prettifies Preview component's complex characters correctly", async () => {
     const stripeHTML = await fs.readFile(
       path.resolve(__dirname, './testing/stripe-email.html'),
       'utf8',

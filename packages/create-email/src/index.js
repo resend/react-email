@@ -85,7 +85,6 @@ const init = async (name, { tag }) => {
     text: 'React Email Starter files ready',
   });
 
-  // eslint-disable-next-line no-console
   console.info(
     await tree(resolvedProjectPath, 4, (dirent) => {
       return !path

@@ -30,7 +30,7 @@ export const ActiveViewToggleGroup = ({
           <Tooltip.Trigger asChild>
             <div
               className={cn(
-                'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                'w-9 flex items-center py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                 {
                   'text-slate-11': activeView !== 'desktop',
                   'text-slate-12': activeView === 'desktop',
@@ -47,7 +47,7 @@ export const ActiveViewToggleGroup = ({
                   transition={tabTransition}
                 />
               )}
-              <IconMonitor />
+              <IconMonitor className="m-auto" />
             </div>
           </Tooltip.Trigger>
           <Tooltip.Content>Preview</Tooltip.Content>
@@ -58,7 +58,7 @@ export const ActiveViewToggleGroup = ({
           <Tooltip.Trigger asChild>
             <div
               className={cn(
-                'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
+                'w-9 flex  py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                 {
                   'text-slate-11': activeView !== 'source',
                   'text-slate-12': activeView === 'source',
@@ -75,7 +75,7 @@ export const ActiveViewToggleGroup = ({
                   transition={tabTransition}
                 />
               )}
-              <IconSource />
+              <IconSource className="m-auto" />
             </div>
           </Tooltip.Trigger>
           <Tooltip.Content>Code</Tooltip.Content>

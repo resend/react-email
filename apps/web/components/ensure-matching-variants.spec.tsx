@@ -64,7 +64,6 @@ describe.skip('copy-paste components', () => {
     if (component.slug === 'simple-code-inline') continue;
     if (component.slug === 'code-inline-with-different-colors') continue;
 
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
     test(`${component.slug}'s variants should all match`, async () => {
       const componentPath = getComponentPathFromSlug(component.slug);
       const tailwindVariantPath = path.join(componentPath, 'tailwind.tsx');

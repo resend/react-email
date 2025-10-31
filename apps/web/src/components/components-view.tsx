@@ -5,9 +5,7 @@ interface ComponentsViewProps {
   components: ImportedComponent[];
 }
 
-export const ComponentsView: React.FC<ComponentsViewProps> = ({
-  components,
-}) => {
+export function ComponentsView({ components }: ComponentsViewProps) {
   return (
     <>
       {components.map((component, index) => (
@@ -19,4 +17,4 @@ export const ComponentsView: React.FC<ComponentsViewProps> = ({
       ))}
     </>
   );
-};
+}
