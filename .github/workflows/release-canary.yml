@@ -25,6 +25,8 @@ jobs:
         # This step errors if it is already in prerelease mode
         continue-on-error: true
         run: pnpm canary:enter
+      - name: check current version
+        run: cd $GITHUB_WORKSPACE
       - name: Create "version packages" pull request or publish release
         uses: changesets/action@v1.5.3
         with:
