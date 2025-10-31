@@ -11,21 +11,13 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    container:
+      image: node:22-slim
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-          pnpm config set script-shell "/usr/bin/bash"
+      - name: pnpm setup
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: Install packages
         run: pnpm install --frozen-lockfile
       - name: Enter prerelease mode

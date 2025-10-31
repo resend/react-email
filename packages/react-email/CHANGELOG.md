@@ -1,5 +1,11 @@
 # react-email
 
+## 5.0.0-canary.3
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
 ## 5.0.0-canary.2
 
 ### Patch Changes
