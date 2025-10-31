@@ -24,7 +24,7 @@ jobs:
         continue-on-error: true
         run: pnpm canary:exit
       - name: Create "version packages" pull request or publish release
-        uses: changesets/action@04d574e831923498156e0b2b93152878063203a3
+        uses: changesets/action@v1.5.3
         with:
           version: pnpm run version
           publish: pnpm run release
