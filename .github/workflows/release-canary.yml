@@ -15,6 +15,10 @@ jobs:
     container:
       image: node:22
     steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y git 
       - name: Checkout Repo
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: pnpm setup
@@ -26,7 +30,7 @@ jobs:
         continue-on-error: true
         run: pnpm canary:enter
       - name: list files
-        run: ls
+        run: ls -la
       - name: set git user
         run: git config user.name "github-actions[bot]"
       - name: Create "version packages" pull request or publish release
