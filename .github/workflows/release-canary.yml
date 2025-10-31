@@ -25,6 +25,8 @@ jobs:
         # This step errors if it is already in prerelease mode
         continue-on-error: true
         run: pnpm canary:enter
+      - name: list files
+        run: ls
       - name: set git user
         run: git config user.name "github-actions[bot]"
       - name: Create "version packages" pull request or publish release
