@@ -25,13 +25,14 @@ jobs:
         # This step errors if it is already in prerelease mode
         continue-on-error: true
         run: pnpm canary:enter
-      - name: check current version
-        run: cd $GITHUB_WORKSPACE
+      - name: set git user
+        run: git config user.name "github-actions[bot]"
       - name: Create "version packages" pull request or publish release
         uses: changesets/action@v1.5.3
         with:
           version: pnpm run version
           publish: pnpm run release
+          setupGitUser: false
           title: "chore(root): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
