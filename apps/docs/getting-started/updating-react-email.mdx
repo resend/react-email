@@ -1,0 +1,16 @@
+---
+title: 'Updating React Email'
+sidebarTitle: 'Updating React Email'
+description: 'How to update from React Email 4.0 to 5.0'
+'og:image': 'https://react.email/static/covers/react-email.png'
+icon: 'arrow-up-wide-short'
+---
+
+import NextSteps from '/snippets/next-steps.mdx';
+
+## Update from React Email 4.0 to 5.0
+
+1. Update your React Email packages: `npm install @react-email/components@latest react-email@latest`.
+2. Replace all `renderAsync` uses with `render`.
+
+Make sure you update `@react-email/components` alongside `react-email`. The compatibility checker now only supports Tailwind v4, so you need to update both in sync.
