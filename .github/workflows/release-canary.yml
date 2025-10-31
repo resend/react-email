@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - name: Configure git for container
-        run: git config --global --add safe.directory /github/workspace
       - name: pnpm setup
         uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: Install packages
@@ -27,7 +25,7 @@ jobs:
         continue-on-error: true
         run: pnpm canary:enter
       - name: Create "version packages" pull request or publish release
-        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
+        uses: changesets/action@08db1984284c015e83d9a2a416ace4d2b4c779aa
         with:
           version: pnpm run version
           publish: pnpm run release
