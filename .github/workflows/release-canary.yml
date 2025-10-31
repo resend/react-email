@@ -15,10 +15,6 @@ jobs:
     container:
       image: node:22
     steps:
-      - name: Install dependencies
-        run: |
-          apt-get update
-          apt-get install -y git 
       - name: Checkout Repo
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
       - name: pnpm setup
@@ -29,16 +25,12 @@ jobs:
         # This step errors if it is already in prerelease mode
         continue-on-error: true
         run: pnpm canary:enter
-      - name: list files
-        run: ls -la
-      - name: set git user
-        run: git config user.name "github-actions[bot]"
+      - run: git status
       - name: Create "version packages" pull request or publish release
         uses: changesets/action@v1.5.3
         with:
           version: pnpm run version
           publish: pnpm run release
-          setupGitUser: false
           title: "chore(root): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
