@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - canary
-      - fix/release-workflow
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
