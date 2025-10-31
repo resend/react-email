@@ -1,5 +1,17 @@
 # @react-email/tailwind
 
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- 442f5b6: expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+
+## 2.0.0-canary.0
+
+### Major Changes
+
+- 9360e39: update to using tailwindcss@v4
+
 ## 1.2.2
 
 ### Patch Changes

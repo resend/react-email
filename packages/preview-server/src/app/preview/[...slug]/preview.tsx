@@ -15,10 +15,12 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
+import { EmulatedDarkModeToggle } from '../../../components/topbar/emulated-dark-mode-toggle';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
+import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
@@ -32,8 +34,19 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const isDarkModeEnabled = searchParams.get('dark') !== null;
   const activeView = searchParams.get('view') ?? 'preview';
   const activeLang = searchParams.get('lang') ?? 'jsx';
+
+  const handleDarkModeChange = (enabled: boolean) => {
+    const params = new URLSearchParams(searchParams);
+    if (enabled) {
+      params.set('dark', '');
+    } else {
+      params.delete('dark');
+    }
+    router.push(`${pathname}?${params.toString()}${location.hash}`);
+  };
 
   const handleViewChange = (view: string) => {
     const params = new URLSearchParams(searchParams);
@@ -83,26 +96,32 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   return (
     <>
       <Topbar emailTitle={emailTitle}>
-        {activeView === 'preview' && (
-          <ViewSizeControls
-            setViewHeight={(height) => {
-              setHeight(height);
-              flushSync(() => {
-                handleSaveViewSize();
-              });
-            }}
-            setViewWidth={(width) => {
-              setWidth(width);
-              flushSync(() => {
-                handleSaveViewSize();
-              });
-            }}
-            viewHeight={height}
-            viewWidth={width}
-            minWidth={minWidth}
-            minHeight={minHeight}
-          />
-        )}
+        {activeView === 'preview' ? (
+          <>
+            <ViewSizeControls
+              setViewHeight={(height) => {
+                setHeight(height);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              setViewWidth={(width) => {
+                setWidth(width);
+                flushSync(() => {
+                  handleSaveViewSize();
+                });
+              }}
+              viewHeight={height}
+              viewWidth={width}
+              minWidth={minWidth}
+              minHeight={minHeight}
+            />
+            <EmulatedDarkModeToggle
+              enabled={isDarkModeEnabled}
+              onChange={(enabled) => handleDarkModeChange(enabled)}
+            />
+          </>
+        ) : null}
         <ActiveViewToggleGroup
           activeView={activeView}
           setActiveView={handleViewChange}
@@ -165,19 +184,18 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                 }}
                 width={width}
               >
-                <iframe
+                <EmailFrame
                   className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                  ref={(iframe) => {
-                    if (iframe) {
-                      return makeIframeDocumentBubbleEvents(iframe);
-                    }
-                  }}
-                  srcDoc={renderedEmailMetadata.markup}
-                  style={{
-                    width: `${width}px`,
-                    height: `${height}px`,
-                  }}
+                  darkMode={isDarkModeEnabled}
+                  markup={renderedEmailMetadata.markup}
+                  width={width}
+                  height={height}
                   title={emailTitle}
+                  ref={(iframe) => {
+                    if (!iframe) return;
+
+                    return makeIframeDocumentBubbleEvents(iframe);
+                  }}
                 />
               </ResizableWrapper>
             )}

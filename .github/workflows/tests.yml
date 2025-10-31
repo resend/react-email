@@ -1,4 +1,4 @@
-name: Build and Test
+name: Tests
 on:
   push:
     branches:
@@ -12,12 +12,12 @@ permissions:
   contents: read
   pull-requests: read
 jobs:
-  build-and-test:
+  tests:
     runs-on: buildjet-4vcpu-ubuntu-2204
     outputs:
       cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
     container:
-      image: node:22
+      image: node:22-slim
     steps:
       - name: Checkout
         uses: actions/checkout@v4
