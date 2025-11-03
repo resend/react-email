@@ -1,10 +1,12 @@
 import {
   Body,
+  Column,
   Container,
   Head,
   Heading,
   Html,
   Preview,
+  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -52,11 +54,27 @@ export const component = (
           },
         ].map((feature) => (
           <Section className="mb-[36px]">
-            <div className="mr-[32px] ml-[12px] inline-flex items-start">
-              <div className="mr-[18px] flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white text-[12px] leading-none">
-                {feature.number}
-              </div>
-              <div>
+            <Row className="pr-[32px] pl-[12px]">
+              <Column
+                width="24"
+                height="24"
+                align="center"
+                valign="top"
+                className="pr-[18px] h-[24px] w-[24px]"
+              >
+                <Row>
+                  <Column
+                    align="center"
+                    valign="middle"
+                    width="24"
+                    height="24"
+                    className="h-[24px] w-[24px] rounded-full bg-indigo-600 font-semibold text-white text-[12px] leading-none"
+                  >
+                    {feature.number}
+                  </Column>
+                </Row>
+              </Column>
+              <Column valign="top">
                 <Heading
                   as="h2"
                   className="mt-[0px] mb-[8px] text-gray-900 text-[18px] leading-[28px]"
@@ -66,8 +84,8 @@ export const component = (
                 <Text className="m-0 text-gray-500 text-[14px] leading-[24px]">
                   {feature.description}
                 </Text>
-              </div>
-            </div>
+              </Column>
+            </Row>
           </Section>
         ))}
       </Container>
