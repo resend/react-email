@@ -7,12 +7,12 @@ export const IconCloudAlert = React.forwardRef<
   Readonly<IconProps>
 >(({ ...props }, forwardedRef) => (
   <IconBase
+    {...props}
     ref={forwardedRef}
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    {...props}
   >
     <path d="M12 12v4" />
     <path d="M12 20h.01" />
