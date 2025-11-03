@@ -9,9 +9,20 @@ const setupResend = async () => {
   const envContent = `RESEND_API_KEY=${apiKey || ''}\n`;
 
   try {
-    if (fs.existsSync(envPath)) {
-      const currentContent = fs.readFileSync(envPath, 'utf-8');
+    let currentContent = '';
+    let fileExists = false;
 
+    try {
+      currentContent = fs.readFileSync(envPath, 'utf-8');
+      fileExists = true;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw error;
+      }
+      // File doesn't exist, will create it below
+    }
+
+    if (fileExists) {
       if (currentContent.includes('RESEND_API_KEY=')) {
         const newContent = currentContent.replace(
           /RESEND_API_KEY=.*/,
