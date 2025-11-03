@@ -24,12 +24,22 @@ const setupResend = async () => {
 
     if (fileExists) {
       if (currentContent.includes('RESEND_API_KEY=')) {
-        const newContent = currentContent.replace(
-          /RESEND_API_KEY=.*/,
-          `RESEND_API_KEY=${apiKey || ''}`,
-        );
-        fs.writeFileSync(envPath, newContent);
-        console.log(logSymbols.success, 'Updated RESEND_API_KEY in .env file');
+        if (!apiKey) {
+          console.log(
+            logSymbols.info,
+            'RESEND_API_KEY already exists in .env file',
+          );
+        } else {
+          const newContent = currentContent.replace(
+            /RESEND_API_KEY=.*/,
+            `RESEND_API_KEY=${apiKey}`,
+          );
+          fs.writeFileSync(envPath, newContent);
+          console.log(
+            logSymbols.success,
+            'Updated RESEND_API_KEY in .env file',
+          );
+        }
       } else {
         fs.appendFileSync(envPath, `\n${envContent}`);
         console.log(
