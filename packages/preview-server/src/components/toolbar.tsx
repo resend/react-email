@@ -54,14 +54,12 @@ const ToolbarInner = ({
   plainText,
   emailPath,
   emailSlug,
-  htmlMarkup,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
-  htmlMarkup: string;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -297,7 +295,7 @@ const ToolbarInner = ({
               {resendLoading ? (
                 <LoadingState message="Loading Resend API Key..." />
               ) : resendStatus?.hasApiKey ? (
-                <Resend emailSlug={emailSlug} htmlMarkup={htmlMarkup} />
+                <Resend emailSlug={emailSlug} htmlMarkup={prettyMarkup} />
               ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
@@ -382,12 +380,7 @@ export const Toolbar = ({
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const {
-    prettyMarkup,
-    plainText,
-    reactMarkup,
-    markup: htmlMarkup,
-  } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -395,7 +388,6 @@ export const Toolbar = ({
       emailSlug={emailSlug}
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
-      htmlMarkup={htmlMarkup}
       plainText={plainText}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
