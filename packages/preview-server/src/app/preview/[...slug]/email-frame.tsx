@@ -207,8 +207,8 @@ const namedColorRegex = new RegExp(
 
 type StringStyleProperty = {
   [K in keyof CSSStyleDeclaration]: CSSStyleDeclaration[K] extends string
-  ? K
-  : never;
+    ? K
+    : never;
 }[keyof CSSStyleDeclaration];
 
 // Each of the properties define a priority list, and if it finds one of the properties it
