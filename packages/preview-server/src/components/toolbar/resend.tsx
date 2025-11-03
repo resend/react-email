@@ -1,10 +1,10 @@
 import { useAction } from 'next-safe-action/hooks';
 import { useRef, useState } from 'react';
-import {
-  bulkExportTemplates,
-  exportSingleTemplate,
-} from '../../actions/bulk-import-templates';
+import { exportSingleTemplate } from '../../actions/export-single-template';
+import { getEmailPathFromSlug } from '../../actions/get-email-path-from-slug';
+import { renderEmailByPath } from '../../actions/render-email-by-path';
 import { useEmails } from '../../contexts/emails';
+import { sleep } from '../../utils/sleep';
 import { Button } from '../button';
 import { IconCloudAlert } from '../icons/icon-cloud-alert';
 import { IconCloudCheck } from '../icons/icon-cloud-check';
@@ -78,26 +78,18 @@ export const Resend = ({
 }) => {
   const { emailsDirectoryMetadata } = useEmails();
   const [items, setItems] = useState<ResendItem[]>([]);
+  const [isBulkProcessing, setIsBulkProcessing] = useState(false);
 
   const { execute: exportSingle, isPending: isExportSinglePending } = useAction(
     exportSingleTemplate,
     {
-      onSuccess: ({ data }) => {
-        setItems(data);
-      },
+      onSuccess: ({ data }) => setItems([data]),
     },
   );
 
-  const { execute: exportBulk, isPending: isExportBulkPending } = useAction(
-    bulkExportTemplates,
-    {
-      onSuccess: ({ data }) => {
-        setItems(data);
-      },
-    },
-  );
+  const { executeAsync: exportSingleAsync } = useAction(exportSingleTemplate);
 
-  const loading = isExportSinglePending || isExportBulkPending;
+  const loading = isExportSinglePending || isBulkProcessing;
 
   if (items.length === 0 && !loading) {
     return (
@@ -127,21 +119,90 @@ export const Resend = ({
           <Button
             appearance="gradient"
             className="mt-2 mb-4"
-            onClick={() => {
-              // Get all email slugs from all directories
+            onClick={async () => {
               const allDirectories = [
                 emailsDirectoryMetadata,
                 ...emailsDirectoryMetadata.subDirectories,
               ];
               const allEmailSlugs = allDirectories.flatMap((dir) =>
-                dir.emailFilenames.map((filename) => ({
-                  name: filename,
-                  status: 'uploading' as const,
-                })),
+                dir.emailFilenames.map((filename) => {
+                  const slug = dir.relativePath
+                    ? `${dir.relativePath}/${filename}`
+                    : filename;
+                  return {
+                    name: slug,
+                    status: 'uploading' as const,
+                  };
+                }),
               );
 
               setItems(allEmailSlugs);
-              exportBulk();
+              setIsBulkProcessing(true);
+
+              for (let i = 0; i < allEmailSlugs.length; i++) {
+                const emailItem = allEmailSlugs[i];
+                if (!emailItem) continue;
+
+                const emailSlug = emailItem.name;
+                // Remove file extension, keeping the directory structure
+                const templateName = emailSlug.replace(/\.[^/.]+$/, '');
+
+                try {
+                  const emailPath = await getEmailPathFromSlug(emailSlug);
+                  const renderResult = await renderEmailByPath(emailPath);
+
+                  if ('error' in renderResult) {
+                    setItems((prevItems) =>
+                      prevItems.map((item, index) =>
+                        index === i
+                          ? { ...item, status: 'failed' as const }
+                          : item,
+                      ),
+                    );
+                    continue;
+                  }
+
+                  const exportResult = await exportSingleAsync({
+                    name: templateName,
+                    html: renderResult.markup,
+                  });
+
+                  if (exportResult.data?.id) {
+                    setItems((prevItems) =>
+                      prevItems.map((item, index) =>
+                        index === i
+                          ? {
+                              ...item,
+                              status: 'succeeded',
+                              id: exportResult.data!.id,
+                            }
+                          : item,
+                      ),
+                    );
+                  } else {
+                    setItems((prevItems) =>
+                      prevItems.map((item, index) =>
+                        index === i
+                          ? { ...item, status: 'failed' as const }
+                          : item,
+                      ),
+                    );
+                  }
+
+                  await sleep(200);
+                } catch (error) {
+                  console.error(`Error processing ${emailSlug}:`, error);
+                  setItems((prevItems) =>
+                    prevItems.map((item, index) =>
+                      index === i
+                        ? { ...item, status: 'failed' as const }
+                        : item,
+                    ),
+                  );
+                }
+              }
+
+              setIsBulkProcessing(false);
             }}
           >
             Bulk Upload
