@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.5
+
+### Patch Changes
+
+- @react-email/tailwind@2.0.0-canary.3
+
 ## 5.0.0-canary.4
 
 ### Patch Changes
