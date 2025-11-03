@@ -12,6 +12,7 @@ import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
 import { TabTrigger } from './tab-trigger';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
+import { Send } from './send';
 
 interface ComponentViewProps {
   component: ImportedComponent;
@@ -111,6 +112,10 @@ export function ComponentView({ component, className }: ComponentViewProps) {
             >
               <IconSource />
             </TabTriggetWithTooltip>
+            <Send
+              markup={component.code.html}
+              defaultSubject={component.title}
+            />
           </Tabs.List>
           <div className="absolute right-0 bottom-0 h-px w-[100dvw] bg-slate-4" />
         </div>
