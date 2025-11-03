@@ -2,8 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { createElement } from 'react';
-import usePromise from 'react-promise-suspense';
+import { createElement, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -126,11 +125,9 @@ describe('render on the browser environment', () => {
   });
 
   it('waits for Suspense boundaries to ending before resolving', async () => {
+    const htmlPromise = fetch('https://example.com').then((res) => res.text());
     const EmailTemplate = () => {
-      const html = usePromise(
-        () => fetch('https://example.com').then((res) => res.text()),
-        [],
-      );
+      const html = use(htmlPromise);
 
       return <div dangerouslySetInnerHTML={{ __html: html }} />;
     };
