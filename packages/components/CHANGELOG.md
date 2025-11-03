@@ -1,5 +1,13 @@
 # @react-email/components
 
+## 1.0.0-canary.4
+
+### Patch Changes
+
+- 07d3c71: markdown: fix nested lists not working
+- Updated dependencies [07d3c71]
+  - @react-email/markdown@0.0.17-canary.0
+
 ## 1.0.0-canary.3
 
 ### Patch Changes
