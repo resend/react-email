@@ -1,16 +1,21 @@
 import * as Popover from '@radix-ui/react-popover';
+import classNames from 'classnames';
 import * as React from 'react';
 import { toast } from 'sonner';
 import { Button } from './button';
 import { Text } from './text';
 
+interface SendProps extends React.ComponentProps<'button'> {
+  markup: string;
+  defaultSubject?: string;
+}
+
 export const Send = ({
   markup,
   defaultSubject,
-}: {
-  markup: string;
-  defaultSubject?: string;
-}) => {
+  className,
+  ...rest
+}: SendProps) => {
   const [to, setTo] = React.useState('');
   const [subject, setSubject] = React.useState(defaultSubject ?? '');
   const [isSending, setIsSending] = React.useState(false);
@@ -62,8 +67,12 @@ export const Send = ({
     >
       <Popover.Trigger asChild>
         <button
-          className="box-border flex h-5 w-20 items-center justify-center self-center rounded-lg border border-slate-6 bg-slate-2 px-4 py-4 text-center font-sans text-sm text-slate-11 outline-none transition duration-300 ease-in-out hover:border-slate-10 hover:text-slate-12"
           type="submit"
+          {...rest}
+          className={classNames(
+            'flex items-center justify-center self-center rounded-lg bg-slate-6 border border-solid border-transparent px-3 py-1 h-full text-center font-sans text-sm text-slate-11 outline-none transition duration-300 ease-in-out hover:text-slate-12',
+            className,
+          )}
         >
           Send
         </button>

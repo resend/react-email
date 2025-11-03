@@ -113,6 +113,7 @@ export function ComponentView({ component, className }: ComponentViewProps) {
               <IconSource />
             </TabTriggetWithTooltip>
             <Send
+              className="ml-2"
               markup={component.code.html}
               defaultSubject={component.title}
             />
