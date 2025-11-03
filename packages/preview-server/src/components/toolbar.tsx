@@ -293,7 +293,7 @@ const ToolbarInner = ({
             </Tabs.Content>
             <Tabs.Content value="resend">
               {resendLoading ? (
-                <LoadingState message="Loading Resend API Key..." />
+                <LoadingState message="Checking Resend API Key..." />
               ) : resendStatus?.hasApiKey ? (
                 <Resend emailSlug={emailSlug} htmlMarkup={prettyMarkup} />
               ) : (
