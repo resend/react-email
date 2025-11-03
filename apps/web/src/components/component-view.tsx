@@ -10,9 +10,9 @@ import { ComponentPreview } from './component-preview';
 import { IconMonitor } from './icons/icon-monitor';
 import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
+import { Send } from './send';
 import { TabTrigger } from './tab-trigger';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
-import { Send } from './send';
 
 interface ComponentViewProps {
   component: ImportedComponent;
