@@ -50,10 +50,10 @@ describe('resolveAllCSSVariables', () => {
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  .text-[14px] {
+  .text-\\\\[14px\\\\] {
     font-size: 14px;
   }
-  .leading-[24px] {
+  .leading-\\\\[24px\\\\] {
     --tw-leading: 24px;
     line-height: 24px;
   }
@@ -148,7 +148,7 @@ describe('resolveAllCSSVariables', () => {
 }
 
 @media (min-width: 1280px) {
-  .xl\\:bg-green-500 {
+  .xl\\\\:bg-green-500 {
     --tw-bg-opacity: 1;
     background-color: rgb(34 197 94 / var(--tw-bg-opacity))
   }
@@ -166,7 +166,7 @@ describe('resolveAllCSSVariables', () => {
 }
 
 @layer utilities {
-  .sm:bg-blue-300 {
+  .sm\\\\:bg-blue-300 {
     @media (width >= 40rem) {
       background-color: var(--color-blue-300);
     }
