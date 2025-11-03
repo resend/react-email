@@ -2,6 +2,7 @@ import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
 import { createJiti } from 'jiti';
+import { config } from 'dotenv';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
@@ -119,6 +120,13 @@ export const startDevServer = async (
   registerSpinnerAutostopping(spinner);
   const timeBeforeNextReady = performance.now();
 
+  config({
+    path: [
+      path.resolve(process.cwd(), '.env'),
+      path.resolve(path.normalize(emailsDirRelativePath), '.env'),
+    ],
+  });
+
   // these environment variables are used on the next app
   // this is the most reliable way of communicating these paths through
   process.env = {
@@ -192,21 +200,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (codeSignalOrError: number | NodeJS.Signals | Error) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (codeSignalOrError instanceof Error) {
-      console.error(codeSignalOrError);
-    }
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());

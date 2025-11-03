@@ -32,6 +32,7 @@
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "debounce": "^2.0.0",
+    "dotenv": "17.2.3",
     "esbuild": "^0.25.0",
     "glob": "^11.0.0",
     "jiti": "2.4.2",
