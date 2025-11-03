@@ -263,7 +263,7 @@ describe('sanitizeDeclarations', () => {
 
   it('handles transparency generated with color-mix', () => {
     const stylesheet = parse(`
-     .bg-blue-600\/50 {
+     .bg-blue-600/50 {
         background-color: color-mix(in oklab, oklch(54.6% 0.245 262.881) 60%, transparent);
       }
     `);

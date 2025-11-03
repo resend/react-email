@@ -105,7 +105,6 @@ const ToolbarInner = ({
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
     React.useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
