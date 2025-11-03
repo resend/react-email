@@ -22,7 +22,7 @@
     "happy-dom": "18.0.1",
     "pkg-pr-new": "0.0.54",
     "tsconfig": "workspace:*",
-    "tsdown": "0.15.1",
+    "tsdown": "0.15.12",
     "tsx": "4.20.3",
     "turbo": "2.5.8",
     "vite": "6.3.6",
