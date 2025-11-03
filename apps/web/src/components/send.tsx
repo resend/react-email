@@ -36,12 +36,16 @@ export const Send = ({
         }),
       });
 
-      if (response.status === 429) {
-        const { error } = (await response.json()) as { error: string };
-        toast.error(error);
+      if (response.ok) {
+        toast.success('Email sent! Check your inbox.');
+      } else {
+        if (response.status === 429) {
+          const { error } = (await response.json()) as { error: string };
+          toast.error(error);
+        } else {
+          toast.error('Something went wrong. Please try again.');
+        }
       }
-
-      toast.success('Email sent! Check your inbox.');
     } catch (_exception) {
       toast.error('Something went wrong. Please try again.');
     } finally {
