@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.0-canary.2
+
+### Patch Changes
+
+- 1e76981: export granular APIs in a more tree shakeable way
+
 ## 2.0.0-canary.1
 
 ### Patch Changes
