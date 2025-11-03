@@ -84,7 +84,7 @@ describe('render on node environments', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('that it properly waits for Suepsense boundaries to resolve before resolving', async () => {
+  it('that it properly waits for Suspense boundaries to resolve before resolving', async () => {
     const htmlPromise = fetch('https://example.com').then((res) => res.text());
     const EmailTemplate = () => {
       const html = use(htmlPromise);
