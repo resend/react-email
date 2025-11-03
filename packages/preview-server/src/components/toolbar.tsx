@@ -1,4 +1,5 @@
 'use client';
+
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -7,12 +8,14 @@ import type { CompatibilityCheckingResult } from '../actions/email-validation/ch
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
+import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { Resend, useResend } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
@@ -21,10 +24,15 @@ import {
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
+export type ToolbarTabValue =
+  | 'linter'
+  | 'compatibility'
+  | 'spam-assassin'
+  | 'resend';
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
+
   const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
     | ToolbarTabValue
     | undefined;
@@ -46,12 +54,14 @@ const ToolbarInner = ({
   plainText,
   emailPath,
   emailSlug,
+  htmlMarkup,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
+  htmlMarkup: string;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -103,6 +113,9 @@ const ToolbarInner = ({
     initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
 
+  const [resendStatus, { load: loadResend, loading: resendLoading }] =
+    useResend();
+
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
@@ -116,6 +129,8 @@ const ToolbarInner = ({
 
         const compatibilityCheckingResults = await loadCompatibility();
         setCachedCompatibilityResults(compatibilityCheckingResults);
+
+        await loadResend();
       })();
     }, []);
   }
@@ -156,6 +171,11 @@ const ToolbarInner = ({
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              <Tabs.Trigger asChild value="resend">
+                <ToolbarButton active={activeTab === 'resend'}>
+                  Resend
+                </ToolbarButton>
+              </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               <ToolbarButton
@@ -167,6 +187,8 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'resend' &&
+                    'The Resend tab allows you to upload emails using the Templates API.') ||
                   'Info'
                 }
               >
@@ -175,7 +197,12 @@ const ToolbarInner = ({
               {isBuilding ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={lintLoading || spamLoading}
+                  disabled={
+                    lintLoading ||
+                    spamLoading ||
+                    compatibilityLoading ||
+                    resendLoading
+                  }
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -186,6 +213,8 @@ const ToolbarInner = ({
                       await loadLinting();
                     } else if (activeTab === 'compatibility') {
                       await loadCompatibility();
+                    } else if (activeTab === 'resend') {
+                      await loadResend();
                     }
                   }}
                 >
@@ -193,7 +222,10 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading || spamLoading,
+                        lintLoading ||
+                        spamLoading ||
+                        compatibilityLoading ||
+                        resendLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -260,6 +292,22 @@ const ToolbarInner = ({
                 </SuccessWrapper>
               ) : (
                 <SpamAssassin result={spamCheckingResult} />
+              )}
+            </Tabs.Content>
+            <Tabs.Content value="resend">
+              {resendLoading ? (
+                <LoadingState message="Loading Resend API Key..." />
+              ) : resendStatus?.hasApiKey ? (
+                <Resend emailSlug={emailSlug} htmlMarkup={htmlMarkup} />
+              ) : (
+                <SuccessWrapper>
+                  <SuccessTitle>Connect to Resend</SuccessTitle>
+                  <SuccessDescription>
+                    Run{' '}
+                    <CodeSnippet>pnpm setup:resend YOUR_API_KEY</CodeSnippet> to
+                    connect your Resend account.
+                  </SuccessDescription>
+                </SuccessWrapper>
               )}
             </Tabs.Content>
           </div>
@@ -335,7 +383,12 @@ export const Toolbar = ({
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
+  const {
+    prettyMarkup,
+    plainText,
+    reactMarkup,
+    markup: htmlMarkup,
+  } = renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -343,6 +396,7 @@ export const Toolbar = ({
       emailSlug={emailSlug}
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
+      htmlMarkup={htmlMarkup}
       plainText={plainText}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
