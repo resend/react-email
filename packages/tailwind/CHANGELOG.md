@@ -1,5 +1,12 @@
 # @react-email/tailwind
 
+## 2.0.0-canary.3
+
+### Patch Changes
+
+- Updated dependencies [4f858a3]
+  - @react-email/code-block@0.2.0-canary.0
+
 ## 2.0.0-canary.2
 
 ### Patch Changes
