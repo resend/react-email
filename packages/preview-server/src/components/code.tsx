@@ -58,9 +58,9 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     if (locationHash) {
       const match = locationHash.match(lineHashRegex);
       if (match?.groups?.start) {
-        const start = Number.parseInt(match.groups.start);
+        const start = Number.parseInt(match.groups.start, 10);
         const end = match.groups.end
-          ? Number.parseInt(match.groups.end)
+          ? Number.parseInt(match.groups.end, 10)
           : start;
         return [start, end] as const;
       }
