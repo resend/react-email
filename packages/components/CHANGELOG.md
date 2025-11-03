@@ -1,5 +1,17 @@
 # @react-email/components
 
+## 1.0.0-canary.6
+
+### Minor Changes
+
+- 4f858a3: code-block: deal with spark mail's compatibility issues
+
+### Patch Changes
+
+- Updated dependencies [4f858a3]
+  - @react-email/code-block@0.2.0-canary.0
+  - @react-email/tailwind@2.0.0-canary.3
+
 ## 1.0.0-canary.5
 
 ### Patch Changes
