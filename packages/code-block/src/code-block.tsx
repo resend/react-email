@@ -94,11 +94,12 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
       >
         <code>
           {tokensPerLine.map((tokensForLine, lineIndex) => (
-            <p key={lineIndex} style={{ margin: 0, minHeight: '1em' }}>
+            <>
               {lineNumbers ? (
                 <span
                   style={{
                     width: '2em',
+                    height: '1em',
                     display: 'inline-block',
                     fontFamily: fontFamily,
                   }}
@@ -115,7 +116,8 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
                   token={token}
                 />
               ))}
-            </p>
+              <br />
+            </>
           ))}
         </code>
       </pre>
