@@ -69,7 +69,11 @@ const CodeBlockLine = ({
     );
   }
 
-  return <span style={inheritedStyles}>{token}</span>;
+  return (
+    <span style={inheritedStyles}>
+      {token.replaceAll(' ', '\xA0\u200D\u200B')}
+    </span>
+  );
 };
 
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
