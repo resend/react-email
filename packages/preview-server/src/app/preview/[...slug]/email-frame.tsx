@@ -205,12 +205,70 @@ const namedColorRegex = new RegExp(
   'gi',
 );
 
+type StringStyleProperty = {
+  [K in keyof CSSStyleDeclaration]: CSSStyleDeclaration[K] extends string
+  ? K
+  : never;
+}[keyof CSSStyleDeclaration];
+
+// Each of the properties define a priority list, and if it finds one of the properties it
+// stops there and doesn't try to invert any of the other ones in the key
+const styleProperties = new Map<
+  StringStyleProperty[],
+  'background' | 'foreground'
+>([
+  [['background', 'backgroundColor'], 'background'],
+  [['border', 'borderColor'], 'background'],
+  [['color'], 'foreground'],
+]);
+
+function undoColorInversion(iframe: HTMLIFrameElement) {
+  const { contentDocument, contentWindow } = iframe;
+  if (!contentDocument || !contentWindow) return;
+
+  const appliedColorInversion = contentDocument.body.hasAttribute(
+    'data-applied-color-inversion',
+  );
+  if (!appliedColorInversion) return;
+
+  contentDocument.body.removeAttribute('data-applied-color-inversion');
+
+  for (const element of walkDom(contentDocument.documentElement)) {
+    if (
+      element instanceof
+      (contentWindow as unknown as typeof globalThis).HTMLElement
+    ) {
+      for (const properties of styleProperties.keys()) {
+        for (const property of properties) {
+          const original = element.getAttribute(`data-original-${property}`);
+          if (original) {
+            element.style[property] = original;
+          }
+          element.removeAttribute(`data-original-${property}`);
+        }
+      }
+    }
+  }
+}
+
 function applyColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow) return;
 
+  const appliedColorInversion = contentDocument.body.hasAttribute(
+    'data-applied-color-inversion',
+  );
+  if (appliedColorInversion) return;
+  contentDocument.body.setAttribute('data-applied-color-inversion', '');
+
   if (!contentDocument.body.style.color) {
     contentDocument.body.style.color = 'rgb(0, 0, 0)';
+  }
+  if (
+    !contentDocument.body.style.background &&
+    !contentDocument.body.style.backgroundColor
+  ) {
+    contentDocument.body.style.background = 'rgb(255, 255, 255)';
   }
 
   for (const element of walkDom(contentDocument.documentElement)) {
@@ -218,45 +276,20 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
       element instanceof
       (contentWindow as unknown as typeof globalThis).HTMLElement
     ) {
-      if (element.style.color) {
-        element.style.color = element.style.color
-          .replaceAll(colorRegex(), (color) => invertColor(color, 'foreground'))
-          .replaceAll(namedColorRegex, (namedColor) =>
-            invertColor(namedColors[namedColor], 'foreground'),
-          );
-        namedColorRegex.lastIndex = 0;
-      }
-      if (element.style.background) {
-        element.style.background = element.style.background
-          .replaceAll(colorRegex(), (color) => invertColor(color, 'background'))
-          .replaceAll(namedColorRegex, (namedColor) =>
-            invertColor(namedColors[namedColor], 'foreground'),
-          );
-        namedColorRegex.lastIndex = 0;
-      }
-      if (element.style.backgroundColor) {
-        element.style.backgroundColor = element.style.backgroundColor
-          .replaceAll(colorRegex(), (color) => invertColor(color, 'background'))
-          .replaceAll(namedColorRegex, (namedColor) =>
-            invertColor(namedColors[namedColor], 'foreground'),
-          );
-        namedColorRegex.lastIndex = 0;
-      }
-      if (element.style.borderColor) {
-        element.style.borderColor = element.style.borderColor
-          .replaceAll(colorRegex(), (color) => invertColor(color, 'background'))
-          .replaceAll(namedColorRegex, (namedColor) =>
-            invertColor(namedColors[namedColor], 'foreground'),
-          );
-        namedColorRegex.lastIndex = 0;
-      }
-      if (element.style.border) {
-        element.style.border = element.style.border
-          .replaceAll(colorRegex(), (color) => invertColor(color, 'background'))
-          .replaceAll(namedColorRegex, (namedColor) =>
-            invertColor(namedColors[namedColor], 'foreground'),
-          );
-        namedColorRegex.lastIndex = 0;
+      for (const [properties, type] of styleProperties.entries()) {
+        for (const property of properties) {
+          const value = element.style[property];
+          if (value && value.trim() !== '') {
+            element.setAttribute(`data-original-${property}`, value);
+            element.style[property] = value
+              .replaceAll(colorRegex(), (color) => invertColor(color, type))
+              .replaceAll(namedColorRegex, (namedColor) =>
+                invertColor(namedColors[namedColor], type),
+              );
+            namedColorRegex.lastIndex = 0;
+            break;
+          }
+        }
       }
     }
   }
@@ -283,6 +316,8 @@ export function EmailFrame({
 
         if (darkMode) {
           applyColorInversion(iframe);
+        } else {
+          undoColorInversion(iframe);
         }
       }}
     >
@@ -291,15 +326,14 @@ export function EmailFrame({
         width={width}
         height={height}
         onLoad={(event) => {
+          const iframe = event.currentTarget;
           if (darkMode) {
-            const iframe = event.currentTarget;
             applyColorInversion(iframe);
+          } else {
+            undoColorInversion(iframe);
           }
         }}
         {...rest}
-        // This key makes sure that the iframe itself remounts to the DOM when theme changes, so
-        // that the color changes in dark mode can be easily undone when switching to light mode.
-        key={darkMode ? 'iframe-inverted-colors' : 'iframe-normal-colors'}
       />
     </Slot>
   );
