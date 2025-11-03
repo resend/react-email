@@ -4,6 +4,7 @@ import { exportSingleTemplate } from '../../actions/export-single-template';
 import { getEmailPathFromSlug } from '../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../actions/render-email-by-path';
 import { useEmails } from '../../contexts/emails';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
 import { sleep } from '../../utils/sleep';
 import { Button } from '../button';
 import { IconCloudAlert } from '../icons/icon-cloud-alert';
@@ -89,6 +90,14 @@ export const Resend = ({
 
   const { executeAsync: exportSingleAsync } = useAction(exportSingleTemplate);
 
+  const getAllDirectories = (metadata: EmailsDirectory): EmailsDirectory[] => {
+    const result = [metadata];
+    for (const subDir of metadata.subDirectories) {
+      result.push(...getAllDirectories(subDir));
+    }
+    return result;
+  };
+
   const loading = isExportSinglePending || isBulkProcessing;
 
   if (items.length === 0 && !loading) {
@@ -120,10 +129,7 @@ export const Resend = ({
             appearance="gradient"
             className="mt-2 mb-4"
             onClick={async () => {
-              const allDirectories = [
-                emailsDirectoryMetadata,
-                ...emailsDirectoryMetadata.subDirectories,
-              ];
+              const allDirectories = getAllDirectories(emailsDirectoryMetadata);
               const allEmailSlugs = allDirectories.flatMap((dir) =>
                 dir.emailFilenames.map((filename) => {
                   const slug = dir.relativePath
