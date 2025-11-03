@@ -191,7 +191,7 @@ export const Resend = ({
 
                   await sleep(200);
                 } catch (error) {
-                  console.error(`Error processing ${emailSlug}:`, error);
+                  console.error('Error processing %s:', emailSlug, error);
                   setItems((prevItems) =>
                     prevItems.map((item, index) =>
                       index === i
