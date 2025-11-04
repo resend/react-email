@@ -13,6 +13,7 @@ import { IconSource } from './icons/icon-source';
 import { Send } from './send';
 import { TabTrigger } from './tab-trigger';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 
 interface ComponentViewProps {
   component: ImportedComponent;
@@ -114,7 +115,7 @@ export function ComponentView({ component, className }: ComponentViewProps) {
             </TabTriggetWithTooltip>
             <Send
               className="ml-2"
-              markup={component.code.html}
+              markup={convertUrisIntoUrls(component.code.html)}
               defaultSubject={component.title}
             />
           </Tabs.List>
