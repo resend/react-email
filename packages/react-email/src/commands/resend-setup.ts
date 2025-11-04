@@ -1,19 +1,15 @@
-import Conf from 'conf';
 import logSymbols from 'log-symbols';
 import prompts from 'prompts';
+import { conf } from '../utils/conf.js';
 import { styleText } from '../utils/style-text.js';
 
-// just simple encryption, this isn't completely safe because anyone can find this key here
-const encryptionKey = 'h2#x658}1#qY(@!:7,BD1J)q12$[tM25';
-
 export async function resendSetup(apiKey: string) {
-  const conf = new Conf({ projectName: 'react-email', encryptionKey });
-  const previousValue = conf.get('apiKey');
+  const previousValue = conf.get('resendApiKey');
   if (typeof previousValue === 'string' && previousValue.length > 0) {
     const response = await prompts({
       type: 'confirm',
       name: 'replaceApiKey',
-      message: `You already have an API Key configured (${styleText('grey', previousValue.slice(0, 11))}...). This will replace it, do you want to continue?`,
+      message: `You already have a Resend API Key configured (${styleText('grey', previousValue.slice(0, 11))}...). Do you want to replace it?`,
       initial: false,
     });
     if (!response.replaceApiKey) {
@@ -21,6 +17,6 @@ export async function resendSetup(apiKey: string) {
     }
   }
 
-  conf.set('apiKey', apiKey);
+  conf.set('resendApiKey', apiKey);
   console.info(`${logSymbols.success} Resend integration successfully set up`);
 }
