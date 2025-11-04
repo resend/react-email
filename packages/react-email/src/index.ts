@@ -3,6 +3,7 @@ import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
+import { resendSetup } from './commands/resend-setup.js';
 import { start } from './commands/start.js';
 import { packageJson } from './utils/packageJson.js';
 
@@ -51,5 +52,14 @@ program
   .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
     exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
   );
+
+program
+  .command('resend')
+  .command('setup')
+  .description(
+    'Sets up the integration between the React Email CLI, and your Resend account through an API Key',
+  )
+  .argument('apiKey', 'API Key for use setting up the integration')
+  .action(resendSetup);
 
 program.parse();

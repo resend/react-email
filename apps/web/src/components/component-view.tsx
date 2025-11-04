@@ -4,6 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import type { ImportedComponent } from '../app/components/get-imported-components-for';
 import { ComponentCodeView } from './component-code-view';
 import { ComponentPreview } from './component-preview';
@@ -114,7 +115,10 @@ export function ComponentView({ component, className }: ComponentViewProps) {
             </TabTriggetWithTooltip>
             <Send
               className="ml-2"
-              markup={component.code.html}
+              markup={convertUrisIntoUrls(component.code.html).replace(
+                /height\s*:\s*100vh;?/,
+                '',
+              )}
               defaultSubject={component.title}
             />
           </Tabs.List>

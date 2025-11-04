@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.6
+
+### Patch Changes
+
+- c6fa03e: improve color inversion code, don't remount iframe
+  - @react-email/tailwind@2.0.0-canary.4
+
 ## 5.0.0-canary.5
 
 ### Patch Changes
