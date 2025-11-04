@@ -10,6 +10,11 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
         style={{
           background: style?.background,
           backgroundColor: style?.backgroundColor,
+          // We reset the margin if the user sets it, this mimics the 
+          // same behavior that would happen if this was only using the body.
+          // This avoids the incoming margin summing up with the margin 
+          // defined by the email client on the body, or by the browser itself
+          margin: style?.margin !== undefined ? 0 : undefined,
         }}
         ref={ref}
       >
