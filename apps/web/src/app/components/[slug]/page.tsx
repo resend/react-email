@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
 import { componentsStructure } from '../../../../components/structure';
@@ -8,7 +9,6 @@ import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
 import { PageTransition } from '../../../components/page-transition';
 import { slugify } from '../../../utils/slugify';
 import { getImportedComponentsFor } from '../get-imported-components-for';
-import { Toaster } from 'sonner';
 
 interface ComponentPageParams {
   params: Promise<{
@@ -97,7 +97,7 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
         </div>
       </PageTransition>
 
-      <Toaster/>
+      <Toaster />
     </PageWrapper>
   );
 }
