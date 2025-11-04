@@ -300,10 +300,7 @@ const ToolbarInner = ({
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
                   <SuccessDescription>
-                    Run{' '}
-                    <CodeSnippet>
-                      email resend setup re_xxxxxx
-                    </CodeSnippet>{' '}
+                    Run <CodeSnippet>email resend setup re_xxxxxx</CodeSnippet>{' '}
                     to connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>

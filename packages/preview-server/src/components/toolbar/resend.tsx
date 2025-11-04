@@ -2,6 +2,7 @@ import { useAction } from 'next-safe-action/hooks';
 import { useRef, useState } from 'react';
 import { exportSingleTemplate } from '../../actions/export-single-template';
 import { getEmailPathFromSlug } from '../../actions/get-email-path-from-slug';
+import { hasResendApiKey } from '../../actions/has-resend-api-key';
 import { renderEmailByPath } from '../../actions/render-email-by-path';
 import { useEmails } from '../../contexts/emails';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
@@ -11,7 +12,6 @@ import { IconCloudAlert } from '../icons/icon-cloud-alert';
 import { IconCloudCheck } from '../icons/icon-cloud-check';
 import { IconLoader } from '../icons/icon-loader';
 import { Results } from './results';
-import { hasResendApiKey } from '../../actions/has-resend-api-key';
 
 export interface ResendStatus {
   hasApiKey: boolean;
