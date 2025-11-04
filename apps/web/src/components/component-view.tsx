@@ -4,6 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import type { ImportedComponent } from '../app/components/get-imported-components-for';
 import { ComponentCodeView } from './component-code-view';
 import { ComponentPreview } from './component-preview';
@@ -13,7 +14,6 @@ import { IconSource } from './icons/icon-source';
 import { Send } from './send';
 import { TabTrigger } from './tab-trigger';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
-import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 
 interface ComponentViewProps {
   component: ImportedComponent;
