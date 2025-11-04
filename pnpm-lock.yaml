@@ -372,7 +372,7 @@ importers:
   packages/components:
     dependencies:
       '@react-email/body':
-        specifier: workspace:0.1.0
+        specifier: workspace:0.2.0-canary.0
         version: link:../body
       '@react-email/button':
         specifier: workspace:0.2.0
@@ -426,7 +426,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.3
+        specifier: workspace:2.0.0-canary.4
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.5
@@ -672,7 +672,7 @@ importers:
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.3
+        specifier: workspace:2.0.0-canary.4
         version: link:../tailwind
       '@types/node':
         specifier: 22.14.1

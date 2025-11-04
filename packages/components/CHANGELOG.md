@@ -1,5 +1,17 @@
 # @react-email/components
 
+## 1.0.0-canary.7
+
+### Minor Changes
+
+- aa2bc86: body: reset the `margin` property in the `<body>` when it has a user definition
+
+### Patch Changes
+
+- Updated dependencies [aa2bc86]
+  - @react-email/body@0.2.0-canary.0
+  - @react-email/tailwind@2.0.0-canary.4
+
 ## 1.0.0-canary.6
 
 ### Minor Changes
