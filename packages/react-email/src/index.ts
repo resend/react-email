@@ -5,6 +5,7 @@ import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
 import { start } from './commands/start.js';
 import { packageJson } from './utils/packageJson.js';
+import { resendSetup } from './commands/resend-setup.js';
 
 const PACKAGE_NAME = 'react-email';
 
@@ -53,9 +54,10 @@ program
   );
 
 program
-  .command('resend setup')
+  .command('resend')
+  .command('setup')
   .description('Sets up the integration between the React Email CLI, and your Resend account through an API Key')
-  .option('-a, --api-key <key>', 'API Key for use setting up the integration')
-  .action(dev);
+  .argument('apiKey', 'API Key for use setting up the integration')
+  .action(resendSetup);
 
 program.parse();
