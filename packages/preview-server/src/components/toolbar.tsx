@@ -302,7 +302,7 @@ const ToolbarInner = ({
                   <SuccessDescription>
                     Run{' '}
                     <CodeSnippet>
-                      email resend setup [YOUR_API_KEY]
+                      email resend setup re_xxxxxx
                     </CodeSnippet>{' '}
                     to connect your Resend account.
                   </SuccessDescription>
