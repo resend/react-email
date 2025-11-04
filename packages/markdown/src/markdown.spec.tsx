@@ -111,4 +111,20 @@ console.log(\`Hello, $\{name}!\`);
     );
     expect(actualOutput).toMatchSnapshot();
   });
+
+  it('renders nested lists in the correct format for browsers', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {`
+- parent list item
+    - nested list item 1
+    - nested list item 2
+- another parent item
+    1. nested ordered item 1
+    2. nested ordered item 2
+       `}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchSnapshot();
+  });
 });

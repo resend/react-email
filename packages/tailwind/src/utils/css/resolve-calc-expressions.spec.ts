@@ -13,7 +13,7 @@ describe('resolveCalcExpressions()', () => {
 
   it('resolves calc expressions repeating decimals', () => {
     const root = parse(`
-      .w-1\/3 { width: calc(0.3333333333333333*100%); }
+      .w-1/3 { width: calc(0.3333333333333333*100%); }
     `);
     resolveCalcExpressions(root);
     expect(generate(root)).toMatchSnapshot();

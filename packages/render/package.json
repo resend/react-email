@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "2.0.0-canary.0",
+  "version": "2.0.0-canary.1",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
@@ -116,7 +116,6 @@
   "dependencies": {
     "html-to-text": "^9.0.5",
     "prettier": "^3.5.3",
-    "react-promise-suspense": "^0.3.4",
     "typescript": "5.8.3"
   },
   "peerDependencies": {
@@ -126,7 +125,6 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
-    "@types/prettier": "3.0.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",

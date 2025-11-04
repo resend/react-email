@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- dfe1477: Remove unused `react-promise-suspense`
+
 ## 2.0.0-canary.0
 
 ### Major Changes

@@ -115,23 +115,23 @@ const getEmailSlugsFromEmailDirectory = (
     .trim();
 
   const slugs = [] as Array<string>[];
-  emailDirectory.emailFilenames.forEach((filename) =>
+  for (const filename of emailDirectory.emailFilenames) {
     slugs.push(
       path
         .join(directoryPathRelativeToEmailsDirectory, filename)
         .split(path.sep)
         // sometimes it gets empty segments due to trailing slashes
         .filter((segment) => segment.length > 0),
-    ),
-  );
-  emailDirectory.subDirectories.forEach((directory) => {
+    );
+  }
+  for (const directory of emailDirectory.subDirectories) {
     slugs.push(
       ...getEmailSlugsFromEmailDirectory(
         directory,
         emailsDirectoryAbsolutePath,
       ),
     );
-  });
+  }
 
   return slugs;
 };

@@ -10,7 +10,8 @@ exports[`email export 1`] = `
     <meta name="x-apple-disable-message-reformatting" />
     <!--$-->
   </head>
-  <body style="background-color:rgb(255,255,255)">
+  <body
+    style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
     <table
       border="0"
       width="100%"
