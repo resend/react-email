@@ -11,6 +11,7 @@ import { IconCloudAlert } from '../icons/icon-cloud-alert';
 import { IconCloudCheck } from '../icons/icon-cloud-check';
 import { IconLoader } from '../icons/icon-loader';
 import { Results } from './results';
+import { hasResendApiKey } from '../../actions/has-resend-api-key';
 
 export interface ResendStatus {
   hasApiKey: boolean;
@@ -32,27 +33,11 @@ export const useResend = ({
     setLoading(true);
 
     try {
-      const response = await fetch('/api/has-resend-api-key', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
-
-      const body = (await response.json().catch(() => ({}))) as
-        | { ok: boolean; error: string | null }
-        | undefined;
-
-      if (response.ok && body?.ok) {
+      if (await hasResendApiKey()) {
         const result = { hasApiKey: true, error: null };
         setStatus(result);
         return result;
       }
-
-      const result = {
-        hasApiKey: false,
-        error: body?.error ?? 'Unknown error',
-      };
-      setStatus(result);
-      return result;
     } catch (exception) {
       console.error('Error checking Resend API key', exception);
     } finally {
