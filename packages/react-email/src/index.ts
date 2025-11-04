@@ -52,4 +52,10 @@ program
     exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
   );
 
+program
+  .command('resend setup')
+  .description('Sets up the integration between the React Email CLI, and your Resend account through an API Key')
+  .option('-a, --api-key <key>', 'API Key for use setting up the integration')
+  .action(dev);
+
 program.parse();
