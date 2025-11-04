@@ -8,6 +8,7 @@ import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
 import { PageTransition } from '../../../components/page-transition';
 import { slugify } from '../../../utils/slugify';
 import { getImportedComponentsFor } from '../get-imported-components-for';
+import { Toaster } from 'sonner';
 
 interface ComponentPageParams {
   params: Promise<{
@@ -95,6 +96,8 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
           <ComponentsView components={importedComponents} />
         </div>
       </PageTransition>
+
+      <Toaster/>
     </PageWrapper>
   );
 }
