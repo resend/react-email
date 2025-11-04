@@ -35,6 +35,8 @@ export function ComponentCodeView({
     } else if (component.code.react) {
       code = component.code.react;
     }
+  } else {
+    code = code.replace(/height\s*:\s*100vh;?/, '');
   }
   code = convertUrisIntoUrls(code);
 

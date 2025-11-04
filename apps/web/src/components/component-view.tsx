@@ -115,7 +115,10 @@ export function ComponentView({ component, className }: ComponentViewProps) {
             </TabTriggetWithTooltip>
             <Send
               className="ml-2"
-              markup={convertUrisIntoUrls(component.code.html)}
+              markup={convertUrisIntoUrls(component.code.html).replace(
+                /height\s*:\s*100vh;?/,
+                '',
+              )}
               defaultSubject={component.title}
             />
           </Tabs.List>
