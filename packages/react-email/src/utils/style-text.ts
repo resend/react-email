@@ -4,7 +4,7 @@
  */
 import * as nodeUtil from 'node:util';
 
-type StyleTextFunction = (style: string, text: string) => string;
+type StyleTextFunction = typeof nodeUtil.styleText;
 
 export const styleText: StyleTextFunction = (nodeUtil as any).styleText
   ? (nodeUtil as any).styleText
