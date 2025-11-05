@@ -41,7 +41,10 @@ export const Send = ({
       } else {
         if (response.status === 429) {
           const { error } = (await response.json()) as { error: string };
-          toast.error(error);
+          console.error(error);
+          toast.error(
+            'Too many test emails were sent, try again in a few seconds.',
+          );
         } else {
           toast.error('Something went wrong. Please try again.');
         }
