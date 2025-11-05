@@ -62,19 +62,27 @@ export const component = (
         ].map((step) => (
           <Section className="mb-[30px]">
             <Row className="mb-[24px]">
-              <Column className="w-2/5 pr-[24px]">
+              <Column width="40%" className="w-2/5 pr-[24px]">
                 <Img
                   src={step.imageUrl}
                   width="100%"
-                  height="168px"
+                  height="168"
                   alt={`Step image - ${step.number}`}
                   className="block w-full rounded-[4px] object-cover object-center"
                 />
               </Column>
-              <Column className="w-3/5 pr-[24px]">
-                <div className="mb-[18px] flex h-[24px] w-[24px] items-center justify-center rounded-full bg-indigo-600 font-semibold text-white text-[12px] leading-none">
-                  {step.number}
-                </div>
+              <Column width="60%" className="w-3/5 pr-[24px]">
+                <Row width="24" className="w-[24px] h-[24px] mb-[18px]" align={undefined}>
+                  <Column
+                    width="24"
+                    height="24"
+                    className="rounded-full h-[24px] w-[24px] bg-indigo-600 font-semibold text-white text-[12px] leading-none"
+                    align="center"
+                    valign="middle"
+                  >
+                    {step.number}
+                  </Column>
+                </Row>
                 <Heading
                   as="h2"
                   className="mt-0 mb-[8px] font-bold text-[20px] leading-none"

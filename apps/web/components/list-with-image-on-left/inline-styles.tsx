@@ -87,11 +87,14 @@ export const component = (
             }}
           >
             <Row style={{ marginBottom: '24px' }}>
-              <Column style={{ width: '40%', paddingRight: '24px' }}>
+              <Column
+                width="40%"
+                style={{ width: '40%', paddingRight: '24px' }}
+              >
                 <Img
                   src={step.imageUrl}
                   width="100%"
-                  height="168px"
+                  height="168"
                   alt={`Step image - ${step.number}`}
                   style={{
                     borderRadius: '4px',
@@ -102,25 +105,38 @@ export const component = (
                   }}
                 />
               </Column>
-              <Column style={{ width: '60%', paddingRight: '24px' }}>
-                <div
+              <Column
+                width="60%"
+                style={{ width: '60%', paddingRight: '24px' }}
+              >
+                <Row
+                  width="24"
                   style={{
-                    alignItems: 'center',
-                    backgroundColor: 'rgb(79,70,229)',
-                    borderRadius: '9999px',
-                    color: 'rgb(255,255,255)',
-                    display: 'flex',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    height: '24px',
-                    justifyContent: 'center',
-                    lineHeight: '1',
-                    marginBottom: '18px',
-                    width: '24px',
+                    width: 24,
+                    height: 24,
+                    marginBottom: 18,
                   }}
+                  align={undefined}
                 >
-                  {step.number}
-                </div>
+                  <Column
+                    width="24"
+                    height="24"
+                    style={{
+                      borderRadius: '9999px',
+                      height: 24,
+                      width: 24,
+                      backgroundColor: 'rgb(79,70,229)',
+                      color: 'rgb(255,255,255)',
+                      fontWeight: 600,
+                      fontSize: 12,
+                      lineHeight: 1,
+                    }}
+                    align="center"
+                    valign="middle"
+                  >
+                    {step.number}
+                  </Column>
+                </Row>
                 <Heading
                   as="h2"
                   style={{
