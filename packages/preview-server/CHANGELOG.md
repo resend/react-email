@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.9
+
+### Patch Changes
+
+- e1ef323: improve reading flow for resend integration setup instructions
+
 ## 5.0.0-canary.8
 
 ### Patch Changes
