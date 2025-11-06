@@ -1,5 +1,7 @@
 # react-email
 
+## 5.0.0-canary.11
+
 ## 5.0.0-canary.10
 
 ## 5.0.0-canary.9

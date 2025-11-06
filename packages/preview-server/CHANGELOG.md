@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.11
+
+### Patch Changes
+
+- 75d651b: reduce margins bellow buttons
+
 ## 5.0.0-canary.10
 
 ### Patch Changes
