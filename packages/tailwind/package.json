@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "1.2.2",
+  "version": "2.0.0-canary.4",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc && cross-env NODE_ENV=production vite build --mode production && node ./copy-tailwind-types.mjs",
-    "build:watch": "vite build --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -40,10 +40,53 @@
     "tailwind"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "peerDependencies": {
-    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "@react-email/body": "workspace:*",
+    "@react-email/button": "workspace:*",
+    "@react-email/code-block": "workspace:*",
+    "@react-email/code-inline": "workspace:*",
+    "@react-email/container": "workspace:*",
+    "@react-email/heading": "workspace:*",
+    "@react-email/hr": "workspace:*",
+    "@react-email/img": "workspace:*",
+    "@react-email/link": "workspace:*",
+    "@react-email/preview": "workspace:*",
+    "@react-email/text": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@react-email/button": {
+      "optional": true
+    },
+    "@react-email/body": {
+      "optional": true
+    },
+    "@react-email/code-block": {
+      "optional": true
+    },
+    "@react-email/code-inline": {
+      "optional": true
+    },
+    "@react-email/container": {
+      "optional": true
+    },
+    "@react-email/heading": {
+      "optional": true
+    },
+    "@react-email/hr": {
+      "optional": true
+    },
+    "@react-email/img": {
+      "optional": true
+    },
+    "@react-email/link": {
+      "optional": true
+    },
+    "@react-email/preview": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@react-email/button": "workspace:^",
@@ -54,14 +97,12 @@
     "@react-email/link": "workspace:*",
     "@react-email/render": "workspace:*",
     "@responsive-email/react-email": "0.0.4",
+    "@types/css-tree": "2.3.10",
     "@types/shelljs": "0.8.15",
     "@vitejs/plugin-react": "4.4.1",
-    "cross-env": "10.0.0",
-    "postcss": "8.5.3",
-    "postcss-selector-parser": "7.1.0",
+    "css-tree": "3.1.0",
     "react-dom": "^19",
     "shelljs": "0.9.2",
-    "tailwindcss": "3.4.10",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3",
     "vite": "6.3.6",
@@ -70,5 +111,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "tailwindcss": "4.1.12"
   }
 }

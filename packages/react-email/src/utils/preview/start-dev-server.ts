@@ -1,13 +1,14 @@
 import http from 'node:http';
 import path from 'node:path';
 import url from 'node:url';
-import { styleText } from 'node:util';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
+import { conf } from '../conf.js';
 import { getPreviewServerLocation } from '../get-preview-server-location.js';
 import { packageJson } from '../packageJson.js';
+import { styleText } from '../style-text.js';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
 import { serveStaticFile } from './serve-static-file.js';
 
@@ -33,9 +34,9 @@ export const startDevServer = async (
   port: number,
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
-  if (majorNodeVersion && Number.parseInt(majorNodeVersion) < 18) {
+  if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
     console.error(
-      ` ${logSymbols.error}  Node ${majorNodeVersion} is not supported. Please upgrade to Node 18 or higher.`,
+      ` ${logSymbols.error}  Node ${majorNodeVersion} is not supported. Please upgrade to Node 20 or higher.`,
     );
     process.exit(1);
   }
@@ -131,6 +132,7 @@ export const startDevServer = async (
       path.normalize(emailsDirRelativePath),
       previewServerLocation,
       process.cwd(),
+      conf.get('resendApiKey'),
     ),
   };
 

@@ -1,8 +1,7 @@
 import traverse from '@babel/traverse';
-import type { JitContext } from 'tailwindcss/lib/lib/setupContextUtils';
+import { setupTailwind, type TailwindSetup } from '@react-email/tailwind';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { getTailwindConfig, type TailwindConfig } from './get-tailwind-config';
-import { setupTailwindContext } from './setup-tailwind-context';
 
 export const getTailwindMetadata = async (
   ast: AST,
@@ -15,7 +14,7 @@ export const getTailwindMetadata = async (
   | {
       hasTailwind: true;
       config: TailwindConfig;
-      context: JitContext;
+      tailwindSetup: TailwindSetup;
     }
 > => {
   let hasTailwind = false as boolean;
@@ -35,11 +34,11 @@ export const getTailwindMetadata = async (
   }
 
   const config = await getTailwindConfig(sourceCode, ast, sourcePath);
-  const context = setupTailwindContext(config);
+  const tailwindSetup = await setupTailwind(config);
 
   return {
     hasTailwind: true,
     config,
-    context,
+    tailwindSetup,
   };
 };

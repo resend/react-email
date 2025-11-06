@@ -1,114 +1,199 @@
 import {
-  AtRule,
-  decl as createDeclaration,
-  rule as createRule,
+  type CssNode,
   type Declaration,
-  type Node,
-  type Root,
-  Rule,
-} from 'postcss';
-import { removeIfEmptyRecursively } from './remove-if-empty-recursively';
+  generate,
+  type List,
+  type ListItem,
+  parse,
+  type Raw,
+  type SelectorList,
+  type Value,
+  walk,
+} from 'css-tree';
 
-const doNodesMatch = (first: Node | undefined, second: Node | undefined) => {
-  if (first instanceof Rule && second instanceof Rule) {
-    return (
-      first.selector === second.selector ||
-      second.selector.includes('*') ||
-      second.selector.includes(':root')
-    );
+interface VariableUse {
+  declaration: Declaration;
+  path: CssNode[];
+  fallback?: string;
+  variableName: string;
+  raw: string;
+}
+
+export interface VariableDefinition {
+  declaration: Declaration;
+  path: CssNode[];
+  variableName: string;
+  definition: string;
+}
+
+function doSelectorsIntersect(
+  first: SelectorList | Raw,
+  second: SelectorList | Raw,
+): boolean {
+  const firstStringified = generate(first);
+  const secondStringified = generate(second);
+  if (firstStringified === secondStringified) {
+    return true;
   }
 
-  return first === second;
-};
+  let hasSomeUniversal = false;
+  const walker = (
+    node: CssNode,
+    _parentListItem: ListItem<CssNode>,
+    parentList: List<CssNode>,
+  ) => {
+    if (hasSomeUniversal) return;
+    if (node.type === 'PseudoClassSelector' && node.name === 'root') {
+      hasSomeUniversal = true;
+    }
+    if (
+      node.type === 'TypeSelector' &&
+      node.name === '*' &&
+      parentList.size === 1
+    ) {
+      hasSomeUniversal = true;
+    }
+  };
+  walk(first, walker);
+  walk(second, walker);
 
-export const resolveAllCSSVariables = (root: Root) => {
-  root.walkRules((rule) => {
-    const declarationsForAtRules = new Map<AtRule, Set<Declaration>>();
-    const valueReplacingInformation = new Set<{
-      declaration: Declaration;
-      replacing: string;
-      replacement: string;
-    }>();
+  if (hasSomeUniversal) {
+    return true;
+  }
 
-    rule.walkDecls((declaration) => {
-      if (/var\(--[^\s)]+\)/.test(declaration.value)) {
-        /**
-         * @example ['var(--width)', 'var(--length)']
-         */
-        const variablesUsed = [
-          ...declaration.value.matchAll(/var\(--[^\s)]+\)/gm),
-        ].map((match) => match.toString());
+  return false;
+}
 
-        root.walkDecls((otherDecl) => {
-          if (/--[^\s]+/.test(otherDecl.prop)) {
-            const variable = `var(${otherDecl.prop})`;
-            if (
-              variablesUsed?.includes(variable) &&
-              doNodesMatch(declaration.parent, otherDecl.parent)
-            ) {
-              if (
-                otherDecl.parent?.parent instanceof AtRule &&
-                otherDecl.parent !== declaration.parent
-              ) {
-                const atRule = otherDecl.parent.parent;
+export function resolveAllCssVariables(node: CssNode) {
+  const variableDefinitions = new Set<VariableDefinition>();
+  const variableUses = new Set<VariableUse>();
 
-                const clonedDeclaration = createDeclaration();
-                clonedDeclaration.prop = declaration.prop;
-                clonedDeclaration.value = declaration.value.replaceAll(
-                  variable,
-                  otherDecl.value,
-                );
-                clonedDeclaration.important = declaration.important;
+  const path: CssNode[] = [];
 
-                const declarationForAtRule = declarationsForAtRules.get(atRule);
-                if (declarationForAtRule) {
-                  declarationForAtRule.add(clonedDeclaration);
-                } else {
-                  declarationsForAtRules.set(
-                    otherDecl.parent.parent,
-                    new Set([clonedDeclaration]),
-                  );
+  walk(node, {
+    leave() {
+      path.shift();
+    },
+    enter(node: CssNode) {
+      if (node.type === 'Declaration') {
+        const declaration = node;
+        // Ignores @layer (properties) { ... } to avoid variable resolution conflicts
+        if (
+          path.some(
+            (ancestor) =>
+              ancestor.type === 'Atrule' &&
+              ancestor.name === 'layer' &&
+              ancestor.prelude !== null &&
+              generate(ancestor.prelude).includes('properties'),
+          )
+        ) {
+          path.unshift(node);
+          return;
+        }
+
+        if (/--[\S]+/.test(declaration.property)) {
+          variableDefinitions.add({
+            declaration,
+            path: [...path],
+            variableName: declaration.property,
+            definition: generate(declaration.value),
+          });
+        } else {
+          function parseVariableUsesFrom(node: CssNode) {
+            walk(node, {
+              visit: 'Function',
+              enter(funcNode) {
+                if (funcNode.name === 'var') {
+                  const children = funcNode.children.toArray();
+                  const name = generate(children[0]);
+                  const fallback =
+                    // The second argument should be an "," Operator Node,
+                    // such that the actual fallback is only in the third argument
+                    children[2] ? generate(children[2]) : undefined;
+
+                  variableUses.add({
+                    declaration,
+                    path: [...path],
+                    fallback,
+                    variableName: name,
+                    raw: generate(funcNode),
+                  });
+
+                  if (fallback?.includes('var(')) {
+                    const parsedFallback = parse(fallback, {
+                      context: 'value',
+                    });
+
+                    parseVariableUsesFrom(parsedFallback);
+                  }
                 }
-                return;
-              }
-
-              valueReplacingInformation.add({
-                declaration,
-                replacing: variable,
-                replacement: otherDecl.value,
-              });
-            }
+              },
+            });
           }
-        });
+
+          parseVariableUsesFrom(declaration.value);
+        }
       }
-    });
-
-    for (const {
-      declaration,
-      replacing,
-      replacement,
-    } of valueReplacingInformation) {
-      declaration.value = declaration.value.replaceAll(replacing, replacement);
-    }
-
-    for (const [atRule, declarations] of declarationsForAtRules.entries()) {
-      const equivalentRule = createRule();
-      equivalentRule.selector = rule.selector;
-      equivalentRule.append(...declarations);
-
-      atRule.append(equivalentRule);
-    }
+      path.unshift(node);
+    },
   });
 
-  root.walkDecls((decl) => {
-    if (/--[^\s]+/.test(decl.prop)) {
-      const parent = decl.parent;
-      decl.remove();
-      if (parent) {
-        removeIfEmptyRecursively(parent);
+  for (const use of variableUses) {
+    let hasReplaced = false;
+
+    for (const definition of variableDefinitions) {
+      if (use.variableName !== definition.variableName) {
+        continue;
+      }
+
+      if (
+        use.path[0]?.type === 'Block' &&
+        use.path[1]?.type === 'Atrule' &&
+        use.path[2]?.type === 'Block' &&
+        use.path[3]?.type === 'Rule' &&
+        definition.path[0].type === 'Block' &&
+        definition.path[1].type === 'Rule' &&
+        doSelectorsIntersect(use.path[3].prelude, definition.path[1].prelude)
+      ) {
+        use.declaration.value = parse(
+          generate(use.declaration.value).replaceAll(
+            use.raw,
+            definition.definition,
+          ),
+          {
+            context: 'value',
+          },
+        ) as Raw | Value;
+        hasReplaced = true;
+        break;
+      }
+
+      if (
+        use.path[0]?.type === 'Block' &&
+        use.path[1]?.type === 'Rule' &&
+        definition.path[0]?.type === 'Block' &&
+        definition.path[1]?.type === 'Rule' &&
+        doSelectorsIntersect(use.path[1].prelude, definition.path[1].prelude)
+      ) {
+        use.declaration.value = parse(
+          generate(use.declaration.value).replaceAll(
+            use.raw,
+            definition.definition,
+          ),
+          {
+            context: 'value',
+          },
+        ) as Raw | Value;
+        hasReplaced = true;
+        break;
       }
     }
-  });
 
-  return root;
-};
+    if (!hasReplaced && use.fallback) {
+      use.declaration.value = parse(
+        generate(use.declaration.value).replaceAll(use.raw, use.fallback),
+        { context: 'value' },
+      ) as Raw | Value;
+    }
+  }
+}

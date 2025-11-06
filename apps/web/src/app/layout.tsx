@@ -95,7 +95,10 @@ export default function RootLayout({
       <head>
         <script src="/js/web-streams-polyfill.js" />
       </head>
-      <body className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12">
+      <body
+        suppressHydrationWarning={true}
+        className="h-screen-ios overflow-x-hidden bg-black font-sans text-slate-11 text-sm selection:bg-cyan-5 selection:text-cyan-12"
+      >
         <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
           <Topbar />
         </div>

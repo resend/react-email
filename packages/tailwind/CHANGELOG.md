@@ -1,5 +1,37 @@
 # @react-email/tailwind
 
+## 2.0.0-canary.4
+
+### Patch Changes
+
+- Updated dependencies [aa2bc86]
+  - @react-email/body@0.2.0-canary.0
+
+## 2.0.0-canary.3
+
+### Patch Changes
+
+- Updated dependencies [4f858a3]
+  - @react-email/code-block@0.2.0-canary.0
+
+## 2.0.0-canary.2
+
+### Patch Changes
+
+- 1e76981: export granular APIs in a more tree shakeable way
+
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- 442f5b6: expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+
+## 2.0.0-canary.0
+
+### Major Changes
+
+- 9360e39: update to using tailwindcss@v4
+
 ## 1.2.2
 
 ### Patch Changes
