@@ -112,13 +112,26 @@ pnpm install
 pnpm build
 ```
 
-#### Run packages
+#### Development
+
+Run individual packages based on what you're developing:
 
 ```sh
-pnpm dev
-```
+# Preview server
+pnpm --filter @react-email/preview-server dev
 
-This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
+# Website (react.email)
+pnpm --filter web dev
+
+# Documentation site
+pnpm --filter docs dev
+
+# Demo app
+pnpm --filter demo start
+
+# Playground
+pnpm --filter playground dev
+```
 
 ## Contributing
 

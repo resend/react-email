@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  turbopack: {},
   // this is needed so that the code for building emails works properly
   webpack: (
     /** @type {import('webpack').Configuration & { externals: string[] }} */
