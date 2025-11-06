@@ -3,7 +3,8 @@ import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
-import { resendSetup } from './commands/resend-setup.js';
+import { resendReset } from './commands/resend/reset.js';
+import { resendSetup } from './commands/resend/setup.js';
 import { start } from './commands/start.js';
 import { packageJson } from './utils/packageJson.js';
 
@@ -60,5 +61,13 @@ program
     'Sets up the integration between the React Email CLI, and your Resend account through an API Key',
   )
   .action(resendSetup);
+
+program
+  .command('resend')
+  .command('reset')
+  .description(
+    'Deletes your API Key from the React Email configuration',
+  )
+  .action(resendReset);
 
 program.parse();
