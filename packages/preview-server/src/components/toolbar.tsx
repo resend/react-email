@@ -1,4 +1,5 @@
 'use client';
+
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -6,13 +7,16 @@ import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
+import { useToolbarContext } from '../contexts/toolbar';
 import { cn } from '../utils';
+import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
@@ -21,10 +25,15 @@ import {
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
+export type ToolbarTabValue =
+  | 'linter'
+  | 'compatibility'
+  | 'spam-assassin'
+  | 'resend';
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
+
   const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
     | ToolbarTabValue
     | undefined;
@@ -56,6 +65,8 @@ const ToolbarInner = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const { hasSetupResendIntegration } = useToolbarContext();
 
   const { activeTab, toggled } = useToolbarState();
 
@@ -155,6 +166,11 @@ const ToolbarInner = ({
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              <Tabs.Trigger asChild value="resend">
+                <ToolbarButton active={activeTab === 'resend'}>
+                  Resend
+                </ToolbarButton>
+              </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               <ToolbarButton
@@ -166,15 +182,17 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'resend' &&
+                    "The Resend tab allows you to upload your React Email's HTML using the Templates API. It does not yet upload with variables.") ||
                   'Info'
                 }
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding ? null : (
+              {isBuilding || activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={lintLoading || spamLoading}
+                  disabled={lintLoading || spamLoading || compatibilityLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -192,7 +210,7 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading || spamLoading,
+                        lintLoading || spamLoading || compatibilityLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -261,6 +279,22 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
+            <Tabs.Content value="resend">
+              {hasSetupResendIntegration ? (
+                <ResendIntegration
+                  emailSlug={emailSlug}
+                  htmlMarkup={prettyMarkup}
+                />
+              ) : (
+                <SuccessWrapper>
+                  <SuccessTitle>Connect to Resend</SuccessTitle>
+                  <SuccessDescription>
+                    Run <CodeSnippet>email resend setup re_xxxxxx</CodeSnippet>{' '}
+                    to connect your Resend account and refresh.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              )}
+            </Tabs.Content>
           </div>
         </div>
       </Tabs.Root>
@@ -326,11 +360,11 @@ interface ToolbarProps {
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
 }
 
-export const Toolbar = ({
+export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
-}: ToolbarProps) => {
+}: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
@@ -348,4 +382,4 @@ export const Toolbar = ({
       serverCompatibilityResults={serverCompatibilityResults}
     />
   );
-};
+}

@@ -8,6 +8,9 @@ export const previewServerLocation = process.env.PREVIEW_SERVER_LOCATION!;
 export const emailsDirectoryAbsolutePath =
   process.env.EMAILS_DIR_ABSOLUTE_PATH!;
 
+/** ONLY ACCESSIBLE ON THE SERVER */
+export const resendApiKey = process.env.RESEND_API_KEY;
+
 export const isBuilding = process.env.NEXT_PUBLIC_IS_BUILDING === 'true';
 
 export const isPreviewDevelopment =
