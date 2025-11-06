@@ -18,7 +18,7 @@ export const ActiveViewToggleGroup = ({
   return (
     <ToggleGroup.Root
       aria-label="View mode"
-      className="inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
+      className="lg:absolute lg:left-1/2 lg:-translate-x-1/2 inline-block items-center bg-slate-2 border border-slate-6 rounded-md overflow-hidden h-[36px]"
       onValueChange={(value) => {
         if (value) setActiveView(value);
       }}
@@ -32,8 +32,8 @@ export const ActiveViewToggleGroup = ({
               className={cn(
                 'w-9 flex items-center py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                 {
-                  'text-slate-11': activeView !== 'desktop',
-                  'text-slate-12': activeView === 'desktop',
+                  'text-slate-11': activeView !== 'preview',
+                  'text-slate-12': activeView === 'preview',
                 },
               )}
             >
