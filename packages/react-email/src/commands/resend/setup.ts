@@ -17,7 +17,13 @@ export async function resendSetup() {
     message: 'Enter your API Key (make sure it has "Full Access")',
   });
 
-  conf.set('resendApiKey', apiKey);
-  console.info(`${logSymbols.success} Resend integration successfully set up`);
-  console.info(`You can always remove it with ${styleText('green', 'npx react-email@latest resend reset')}`);
+  if (apiKey?.trim().length > 0) {
+    conf.set('resendApiKey', apiKey);
+    console.info(
+      `${logSymbols.success} Resend integration successfully set up`,
+    );
+    console.info(
+      `You can always remove it with ${styleText('green', 'npx react-email@latest resend reset')}`,
+    );
+  }
 }
