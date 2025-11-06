@@ -1,8 +1,7 @@
 import { useAction } from 'next-safe-action/hooks';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { exportSingleTemplate } from '../../actions/export-single-template';
 import { getEmailPathFromSlug } from '../../actions/get-email-path-from-slug';
-import { hasResendApiKey } from '../../actions/has-resend-api-key';
 import { renderEmailByPath } from '../../actions/render-email-by-path';
 import { useEmails } from '../../contexts/emails';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
@@ -18,50 +17,21 @@ export interface ResendStatus {
   error: string | null;
 }
 
-export const useResend = ({
-  initialStatus,
-}: {
-  initialStatus?: ResendStatus;
-} = {}) => {
-  const [status, setStatus] = useState<ResendStatus | undefined>(initialStatus);
-  const [loading, setLoading] = useState(false);
-  const isLoadingRef = useRef(false);
-
-  const load = async () => {
-    if (isLoadingRef.current) return;
-    isLoadingRef.current = true;
-    setLoading(true);
-
-    try {
-      if (await hasResendApiKey()) {
-        const result = { hasApiKey: true, error: null };
-        setStatus(result);
-        return result;
-      }
-    } catch (exception) {
-      console.error('Error checking Resend API key', exception);
-    } finally {
-      setLoading(false);
-      isLoadingRef.current = false;
-    }
-  };
-
-  return [status, { loading, load }] as const;
-};
-
 interface ResendItem {
   status: 'uploading' | 'failed' | 'succeeded';
   name: string;
   id?: string;
 }
 
-export const Resend = ({
-  emailSlug,
-  htmlMarkup,
-}: {
+type ResendIntegrationProps = {
   emailSlug: string;
   htmlMarkup: string;
-}) => {
+};
+
+export function ResendIntegration({
+  emailSlug,
+  htmlMarkup,
+}: ResendIntegrationProps) {
   const { emailsDirectoryMetadata } = useEmails();
   const [items, setItems] = useState<ResendItem[]>([]);
   const [isBulkProcessing, setIsBulkProcessing] = useState(false);
@@ -163,10 +133,10 @@ export const Resend = ({
                       prevItems.map((item, index) =>
                         index === i
                           ? {
-                              ...item,
-                              status: 'succeeded',
-                              id: exportResult.data!.id,
-                            }
+                            ...item,
+                            status: 'succeeded',
+                            id: exportResult.data!.id,
+                          }
                           : item,
                       ),
                     );
@@ -250,7 +220,7 @@ export const Resend = ({
       ))}
     </Results>
   );
-};
+}
 
 const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
   return (

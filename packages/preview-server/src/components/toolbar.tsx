@@ -7,6 +7,7 @@ import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
+import { useToolbarContext } from '../contexts/toolbar';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -15,7 +16,7 @@ import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
-import { Resend, useResend } from './toolbar/resend';
+import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
@@ -65,6 +66,8 @@ const ToolbarInner = ({
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const { hasSetupResendIntegration } = useToolbarContext();
+
   const { activeTab, toggled } = useToolbarState();
 
   const setActivePanelValue = (newValue: ToolbarTabValue | undefined) => {
@@ -111,9 +114,6 @@ const ToolbarInner = ({
     initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
 
-  const [resendStatus, { load: loadResend, loading: resendLoading }] =
-    useResend();
-
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     React.useEffect(() => {
@@ -126,8 +126,6 @@ const ToolbarInner = ({
 
         const compatibilityCheckingResults = await loadCompatibility();
         setCachedCompatibilityResults(compatibilityCheckingResults);
-
-        await loadResend();
       })();
     }, []);
   }
@@ -191,15 +189,10 @@ const ToolbarInner = ({
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding ? null : (
+              {isBuilding || activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={
-                    lintLoading ||
-                    spamLoading ||
-                    compatibilityLoading ||
-                    resendLoading
-                  }
+                  disabled={lintLoading || spamLoading || compatibilityLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -210,8 +203,6 @@ const ToolbarInner = ({
                       await loadLinting();
                     } else if (activeTab === 'compatibility') {
                       await loadCompatibility();
-                    } else if (activeTab === 'resend') {
-                      await loadResend();
                     }
                   }}
                 >
@@ -219,10 +210,7 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading ||
-                        spamLoading ||
-                        compatibilityLoading ||
-                        resendLoading,
+                        lintLoading || spamLoading || compatibilityLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -292,16 +280,17 @@ const ToolbarInner = ({
               )}
             </Tabs.Content>
             <Tabs.Content value="resend">
-              {resendLoading ? (
-                <LoadingState message="Checking Resend API Key..." />
-              ) : resendStatus?.hasApiKey ? (
-                <Resend emailSlug={emailSlug} htmlMarkup={prettyMarkup} />
+              {hasSetupResendIntegration ? (
+                <ResendIntegration
+                  emailSlug={emailSlug}
+                  htmlMarkup={prettyMarkup}
+                />
               ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
                   <SuccessDescription>
                     Run <CodeSnippet>email resend setup re_xxxxxx</CodeSnippet>{' '}
-                    to connect your Resend account.
+                    to connect your Resend account and refresh.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}
@@ -371,11 +360,11 @@ interface ToolbarProps {
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
 }
 
-export const Toolbar = ({
+export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
-}: ToolbarProps) => {
+}: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
@@ -393,4 +382,4 @@ export const Toolbar = ({
       serverCompatibilityResults={serverCompatibilityResults}
     />
   );
-};
+}
