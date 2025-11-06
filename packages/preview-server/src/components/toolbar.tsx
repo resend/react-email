@@ -293,8 +293,8 @@ const ToolbarInner = ({
                     Run{' '}
                     <CodeSnippet>
                       npx react-email@latest resend setup
-                    </CodeSnippet>{' '}
-                    on your terminal to connect your Resend account.
+                    </CodeSnippet>
+                    <br /> on your terminal to connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}
