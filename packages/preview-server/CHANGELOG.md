@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.10
+
+### Patch Changes
+
+- 397e98c: darken the canvas background when dark mode is enabled
+
 ## 5.0.0-canary.9
 
 ### Patch Changes
