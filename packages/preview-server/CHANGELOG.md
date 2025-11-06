@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.8
+
+### Patch Changes
+
+- b6b027c: advise `npx` to run email setup command
+
 ## 5.0.0-canary.7
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # react-email
 
+## 5.0.0-canary.8
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+
 ## 5.0.0-canary.7
 
 ## 5.0.0-canary.6
