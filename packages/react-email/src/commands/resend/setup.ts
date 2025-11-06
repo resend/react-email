@@ -19,4 +19,5 @@ export async function resendSetup() {
 
   conf.set('resendApiKey', apiKey);
   console.info(`${logSymbols.success} Resend integration successfully set up`);
+  console.info(`You can always remove it with ${styleText('green', 'npx react-email@latest resend reset')}`);
 }

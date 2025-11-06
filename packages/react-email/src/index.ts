@@ -54,16 +54,16 @@ program
     exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
   );
 
-program
-  .command('resend')
+const resend = program.command('resend');
+
+resend
   .command('setup')
   .description(
     'Sets up the integration between the React Email CLI, and your Resend account through an API Key',
   )
   .action(resendSetup);
 
-program
-  .command('resend')
+resend
   .command('reset')
   .description('Deletes your API Key from the React Email configuration')
   .action(resendReset);
