@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "dev": "turbo run dev",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
     "lint": "biome check",
