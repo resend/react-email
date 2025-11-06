@@ -57,11 +57,11 @@ export function ResendIntegration({
 
   if (items.length === 0 && !loading) {
     return (
-      <SuccessWrapper>
-        <SuccessTitle>Upload to Resend</SuccessTitle>
-        <SuccessDescription>
+      <div className="flex flex-col items-center justify-center pt-8">
+        <h3 className="text-slate-12 font-medium text-base mb-1">Upload to Resend</h3>
+        <p className="text-slate-11 text-sm text-center max-w-[320px]">
           Import your email using the Templates API.
-        </SuccessDescription>
+        </p>
         <div className="flex gap-2">
           <Button
             onClick={() => {
@@ -169,7 +169,7 @@ export function ResendIntegration({
             Bulk Upload
           </Button>
         </div>
-      </SuccessWrapper>
+      </div>
     );
   }
 
@@ -222,24 +222,3 @@ export function ResendIntegration({
   );
 }
 
-const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="flex flex-col items-center justify-center pt-8">
-      {children}
-    </div>
-  );
-};
-
-const SuccessTitle = ({ children }) => {
-  return (
-    <h3 className="text-slate-12 font-medium text-base mb-1">{children}</h3>
-  );
-};
-
-const SuccessDescription = ({ children }) => {
-  return (
-    <p className="text-slate-11 text-sm text-center max-w-[320px]">
-      {children}
-    </p>
-  );
-};
