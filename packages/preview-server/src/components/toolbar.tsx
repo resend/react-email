@@ -3,6 +3,7 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type { ComponentProps } from 'react';
 import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
@@ -183,7 +184,7 @@ const ToolbarInner = ({
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
                   (activeTab === 'resend' &&
-                    "The Resend tab allows you to upload your React Email code using the Resend Templates API.") ||
+                    'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
                   'Info'
                 }
               >
@@ -288,8 +289,11 @@ const ToolbarInner = ({
               ) : (
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
-                  <SuccessDescription>
-                    Run <CodeSnippet>npx react-email resend setup</CodeSnippet>{' '}
+                  <SuccessDescription className="max-w-lg">
+                    Run{' '}
+                    <CodeSnippet>
+                      npx react-email@latest resend setup
+                    </CodeSnippet>{' '}
                     on your terminal to connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>
@@ -340,15 +344,34 @@ const SuccessIcon = () => {
   );
 };
 
-const SuccessTitle = ({ children }) => {
+const SuccessTitle = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'h3'>) => {
   return (
-    <h3 className="text-slate-12 font-medium text-base mb-1">{children}</h3>
+    <h3
+      className={cn('text-slate-12 font-medium text-base mb-1', className)}
+      {...props}
+    >
+      {children}
+    </h3>
   );
 };
 
-const SuccessDescription = ({ children }) => {
+const SuccessDescription = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'p'>) => {
   return (
-    <p className="text-slate-11 text-sm text-center max-w-[320px]">
+    <p
+      className={cn(
+        'text-slate-11 text-sm text-center max-w-[320px]',
+        className,
+      )}
+      {...props}
+    >
       {children}
     </p>
   );
