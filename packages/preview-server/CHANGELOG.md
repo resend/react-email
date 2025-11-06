@@ -1,5 +1,15 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.7
+
+### Minor Changes
+
+- 161083a: Integrate with Templates API so users can easily turn React Email templates into actual Resend templates
+
+### Patch Changes
+
+- f43f1ce: show separate timings for bundling/rendering an email template
+
 ## 5.0.0-canary.6
 
 ### Patch Changes
