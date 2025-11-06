@@ -58,7 +58,9 @@ export function ResendIntegration({
   if (items.length === 0 && !loading) {
     return (
       <div className="flex flex-col items-center justify-center pt-8">
-        <h3 className="text-slate-12 font-medium text-base mb-1">Upload to Resend</h3>
+        <h3 className="text-slate-12 font-medium text-base mb-1">
+          Upload to Resend
+        </h3>
         <p className="text-slate-11 text-sm text-center max-w-[320px]">
           Import your email using the Templates API.
         </p>
@@ -133,10 +135,10 @@ export function ResendIntegration({
                       prevItems.map((item, index) =>
                         index === i
                           ? {
-                            ...item,
-                            status: 'succeeded',
-                            id: exportResult.data!.id,
-                          }
+                              ...item,
+                              status: 'succeeded',
+                              id: exportResult.data!.id,
+                            }
                           : item,
                       ),
                     );
@@ -221,4 +223,3 @@ export function ResendIntegration({
     </Results>
   );
 }
-

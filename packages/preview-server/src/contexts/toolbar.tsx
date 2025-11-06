@@ -4,8 +4,8 @@ import { createContext, use } from 'react';
 
 const ToolbarContext = createContext<
   | {
-    hasSetupResendIntegration: boolean;
-  }
+      hasSetupResendIntegration: boolean;
+    }
   | undefined
 >(undefined);
 
