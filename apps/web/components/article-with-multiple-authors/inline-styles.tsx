@@ -53,7 +53,7 @@ export const component = (
                 height={48}
                 src={author.imgSrc}
                 style={{
-                  borderRadius: 9999,
+                  borderRadius: '9999px',
                   display: 'block',
                   objectFit: 'cover',
                   objectPosition: 'center',

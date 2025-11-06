@@ -11,21 +11,14 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    container:
+      image: node:22
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Enable Corepack
-        id: pnpm-setup
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-          pnpm config set script-shell "/usr/bin/bash"
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: pnpm setup
+        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
       - name: Install packages
         run: pnpm install --frozen-lockfile
       - name: Enter prerelease mode
@@ -33,7 +26,7 @@ jobs:
         continue-on-error: true
         run: pnpm canary:enter
       - name: Create "version packages" pull request or publish release
-        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc
+        uses: changesets/action@v1.5.3
         with:
           version: pnpm run version
           publish: pnpm run release

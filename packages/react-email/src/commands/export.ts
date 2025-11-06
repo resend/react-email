@@ -19,12 +19,12 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
-  emailDirectory.emailFilenames.forEach((filename) =>
-    templatePaths.push(path.join(emailDirectory.absolutePath, filename)),
-  );
-  emailDirectory.subDirectories.forEach((directory) => {
+  for (const filename of emailDirectory.emailFilenames) {
+    templatePaths.push(path.join(emailDirectory.absolutePath, filename));
+  }
+  for (const directory of emailDirectory.subDirectories) {
     templatePaths.push(...getEmailTemplatesFromDirectory(directory));
-  });
+  }
 
   return templatePaths;
 };

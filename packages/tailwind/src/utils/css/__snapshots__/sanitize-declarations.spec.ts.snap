@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sanitizeDeclarations > complex scenarios > handles multiple declarations with different rgb formats 1`] = `"div{color:rgb(255,0,128,0.5);background-color:rgb(0,255,0);border-color:rgb(128,128,128)}"`;
+
+exports[`sanitizeDeclarations > complex scenarios > handles nested rules 1`] = `"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`;
+
+exports[`sanitizeDeclarations > complex scenarios > processes at-rule declarations 1`] = `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`;
+
+exports[`sanitizeDeclarations > handles transparency generated with color-mix 1`] = `".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 1`] = `"div{color:rgb(255,0,170)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 2`] = `"div{color:rgb(255,0,170,0.5333333333333333)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 3`] = `"div{color:rgb(255,0,170)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 4`] = `"div{color:rgb(255,0,170,0.5019607843137255)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 5`] = `"div{color:rgb(0,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 6`] = `"div{color:rgb(255,255,255)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 7`] = `"div{color:rgb(255,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 8`] = `"div{color:rgb(0,255,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 9`] = `"div{color:rgb(0,0,255)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 10`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 11`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 12`] = `"div{color:rgb(171,205,239)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 13`] = `"div{color:rgb(255,0,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 14`] = `"div{color:rgb(255,0,0)}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 15`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 16`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,105,199))}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 17`] = `"div{content:"Visit our site at example.com#section"}"`;
+
+exports[`sanitizeDeclarations > hex to rgb conversion 18`] = `"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255);box-shadow:0 0 10px rgb(51,51,51)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 1`] = `"div{color:rgb(0,255,229)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 2`] = `"div{color:rgb(255,251,126,0.8)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 3`] = `"div{color:rgb(255,251,126,0.8)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 4`] = `"div{color:rgb(191,240,255,0.5)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 5`] = `"div{color:rgb(255,193,250)}"`;
+
+exports[`sanitizeDeclarations > oklch to rgb conversion 6`] = `"div{color:rgb(255,100,0)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 1`] = `"div{color:rgb(255,0,128)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 2`] = `"div{color:rgb(255,0,128,0.5)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 3`] = `"div{color:rgb(255,0,128,0.5)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 4`] = `"div{color:rgb(255,0,128,0.5)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 5`] = `"div{color:rgb(255,0,128)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 6`] = `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 7`] = `"div{color:rgb(255,0,128,0.7)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 8`] = `"div{color:rgb(0,0,0)}"`;
+
+exports[`sanitizeDeclarations > rgba space syntax to comma syntax conversion 9`] = `"div{color:rgb(255,0,128)}"`;
+
+exports[`sanitizeDeclarations > separates padding-block and padding-inline 1`] = `".box{padding-right:14;padding-left:4px}"`;
+
+exports[`sanitizeDeclarations > separates padding-block and padding-inline 2`] = `".box{padding-bottom:20%;padding-top:10px}"`;
+
+exports[`sanitizeDeclarations > separates padding-block and padding-inline 3`] = `".box{padding-right:99rem;padding-left:99rem}"`;
+
+exports[`sanitizeDeclarations > separates padding-block and padding-inline 4`] = `".box{padding-bottom:8px;padding-top:8px}"`;
+
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 1`] = `".box{margin-right:14;margin-left:4px}"`;
+
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 2`] = `".box{margin-bottom:20%;margin-top:10px}"`;
+
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 3`] = `".box{margin-right:99rem;margin-left:99rem}"`;
+
+exports[`sanitizeDeclarations > should do separation of margin-block and margin-inline 4`] = `".box{margin-bottom:8px;margin-top:8px}"`;

@@ -1,5 +1,114 @@
 # @react-email/components
 
+## 1.0.0-canary.7
+
+### Minor Changes
+
+- aa2bc86: body: reset the `margin` property in the `<body>` when it has a user definition
+
+### Patch Changes
+
+- Updated dependencies [aa2bc86]
+  - @react-email/body@0.2.0-canary.0
+  - @react-email/tailwind@2.0.0-canary.4
+
+## 1.0.0-canary.6
+
+### Minor Changes
+
+- 4f858a3: code-block: deal with spark mail's compatibility issues
+
+### Patch Changes
+
+- Updated dependencies [4f858a3]
+  - @react-email/code-block@0.2.0-canary.0
+  - @react-email/tailwind@2.0.0-canary.3
+
+## 1.0.0-canary.5
+
+### Patch Changes
+
+- Updated dependencies [dfe1477]
+  - @react-email/render@2.0.0-canary.1
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.17-canary.0
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@2.0.0-canary.2
+  - @react-email/text@0.1.5
+
+## 1.0.0-canary.4
+
+### Patch Changes
+
+- 07d3c71: markdown: fix nested lists not working
+- Updated dependencies [07d3c71]
+  - @react-email/markdown@0.0.17-canary.0
+
+## 1.0.0-canary.3
+
+### Patch Changes
+
+- Updated dependencies [1e76981]
+  - @react-email/tailwind@2.0.0-canary.2
+
+## 1.0.0-canary.2
+
+### Patch Changes
+
+- Updated dependencies [84e4e9e]
+  - @react-email/render@2.0.0-canary.0
+  - @react-email/body@0.1.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.1.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.16
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@2.0.0-canary.1
+  - @react-email/text@0.1.5
+
+## 1.0.0-canary.1
+
+### Patch Changes
+
+- Updated dependencies [442f5b6]
+  - @react-email/tailwind@2.0.0-canary.1
+
+## 1.0.0-canary.0
+
+### Major Changes
+
+- 9360e39: tailwind: update to using tailwindcss@v4
+
+### Patch Changes
+
+- Updated dependencies [9360e39]
+  - @react-email/tailwind@2.0.0-canary.0
+
 ## 0.5.7
 
 ### Patch Changes

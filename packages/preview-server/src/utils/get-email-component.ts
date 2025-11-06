@@ -135,15 +135,17 @@ export const getEmailComponent = async (
 
   const { data: componentModule } = parseResult;
 
+  const typedRender = componentModule.render as typeof render;
+
   return {
     emailComponent: componentModule.default as EmailComponent,
-    renderWithReferences: (async (...args) => {
+    renderWithReferences: (async (...args: Parameters<typeof render>) => {
       context.shouldIncludeSourceReference = true;
-      const renderingResult = await componentModule.render(...args);
+      const renderingResult = await typedRender(...args);
       context.shouldIncludeSourceReference = false;
       return renderingResult;
     }) as typeof render,
-    render: componentModule.render as typeof render,
+    render: typedRender,
     createElement:
       componentModule.reactEmailCreateReactElement as typeof React.createElement,
 
