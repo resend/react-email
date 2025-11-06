@@ -183,7 +183,7 @@ const ToolbarInner = ({
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
                   (activeTab === 'resend' &&
-                    "The Resend tab allows you to upload your React Email's HTML using the Templates API. It does not yet upload with variables.") ||
+                    "The Resend tab allows you to upload your React Email code using the Resend Templates API.") ||
                   'Info'
                 }
               >
@@ -289,8 +289,8 @@ const ToolbarInner = ({
                 <SuccessWrapper>
                   <SuccessTitle>Connect to Resend</SuccessTitle>
                   <SuccessDescription>
-                    Run <CodeSnippet>email resend setup re_xxxxxx</CodeSnippet>{' '}
-                    to connect your Resend account and refresh.
+                    Run <CodeSnippet>npx react-email resend setup</CodeSnippet>{' '}
+                    on your terminal to connect your Resend account.
                   </SuccessDescription>
                 </SuccessWrapper>
               )}
