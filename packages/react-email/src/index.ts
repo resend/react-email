@@ -65,9 +65,7 @@ program
 program
   .command('resend')
   .command('reset')
-  .description(
-    'Deletes your API Key from the React Email configuration',
-  )
+  .description('Deletes your API Key from the React Email configuration')
   .action(resendReset);
 
 program.parse();
