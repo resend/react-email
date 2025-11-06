@@ -59,7 +59,6 @@ program
   .description(
     'Sets up the integration between the React Email CLI, and your Resend account through an API Key',
   )
-  .argument('apiKey', 'API Key for use setting up the integration')
   .action(resendSetup);
 
 program.parse();
