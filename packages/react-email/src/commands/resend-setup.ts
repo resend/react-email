@@ -14,7 +14,7 @@ export async function resendSetup() {
   const { apiKey } = await prompts({
     type: 'password',
     name: 'apiKey',
-    message: 'Enter your API Key (make sure it has "Full Access")'
+    message: 'Enter your API Key (make sure it has "Full Access")',
   });
 
   conf.set('resendApiKey', apiKey);
