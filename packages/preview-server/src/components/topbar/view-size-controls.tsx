@@ -88,9 +88,7 @@ export const ViewSizeControls = ({
               className={cn(
                 'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
                 {
-                  'bg-slate-4':
-                    viewWidth === preset.dimensions.width &&
-                    viewHeight === preset.dimensions.height,
+                  'bg-slate-4': viewWidth === preset.dimensions.width,
                 },
               )}
               type="button"
