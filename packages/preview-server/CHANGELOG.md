@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.1-canary.0
+
+### Patch Changes
+
+- 37b405b: Update link for Resend
+
 ## 5.0.0
 
 ### Major Changes

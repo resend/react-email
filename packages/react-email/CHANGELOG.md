@@ -1,5 +1,7 @@
 # react-email
 
+## 5.0.1-canary.0
+
 ## 5.0.0
 
 ### Minor Changes
