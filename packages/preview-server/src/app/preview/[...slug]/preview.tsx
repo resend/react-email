@@ -98,6 +98,10 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <Topbar emailTitle={emailTitle}>
         {activeView === 'preview' ? (
           <>
+            <EmulatedDarkModeToggle
+              enabled={isDarkModeEnabled}
+              onChange={(enabled) => handleDarkModeChange(enabled)}
+            />
             <ViewSizeControls
               setViewHeight={(height) => {
                 setHeight(height);
@@ -115,10 +119,6 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
               viewWidth={width}
               minWidth={minWidth}
               minHeight={minHeight}
-            />
-            <EmulatedDarkModeToggle
-              enabled={isDarkModeEnabled}
-              onChange={(enabled) => handleDarkModeChange(enabled)}
             />
           </>
         ) : null}
