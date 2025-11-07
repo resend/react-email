@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.1
+
+### Patch Changes
+
+- 37b405b: Update link for Resend
+- 56a696f: Increases the sleep time between bulk templates import to avoid exceeding the default API rate limit of 2 requests per second
+
 ## 5.0.0
 
 ### Major Changes
