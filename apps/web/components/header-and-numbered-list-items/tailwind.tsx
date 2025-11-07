@@ -1,6 +1,6 @@
 import { Column, Hr, Row, Section, Text } from '@react-email/components';
-import { Layout } from '../_components/layout';
 import { Fragment } from 'react/jsx-runtime';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section className="my-[16px]">
