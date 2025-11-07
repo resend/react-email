@@ -6,6 +6,85 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## November 7, 2025
+
+**React Email 5.0.0**
+
+- Dark mode switcher emulating email client color inversion
+- improved integration setup flow
+- fallback to not text coloring for Node.js < 20
+
+**Preview Server 5.0.0**
+
+- Integrate with Templates API so users can easily turn React Email templates into actual Resend templates
+- Dark mode switcher emulating email client color inversion
+- only check compatibility with tailwindcss@4
+- improve color inversion code, don't remount iframe
+- advise `npx` to run email setup command
+- fix compatibility checking not working with inline object styles, and not working on properties such as `justifyContent`/`justify-content`
+- improve reading flow for resend integration setup instructions
+- show separate timings for bundling/rendering an email template
+- darken the canvas background when dark mode is enabled
+- ui improvements
+- reduce margins bellow buttons
+- Updated dependencies
+    - @react-email/tailwind@2.0.0
+
+**Components 1.0.0**
+
+- tailwind: update to using tailwindcss@v4
+- code-block: deal with spark mail's compatibility issues
+- body: reset the `margin` property in the `<body>` when it has a user definition
+- markdown: fix nested lists not working
+- Updated dependencies
+    - @react-email/markdown@0.0.17
+    - @react-email/tailwind@2.0.0
+    - @react-email/code-block@0.2.0
+    - @react-email/body@0.2.0
+    - @react-email/render@2.0.0
+    - @react-email/button@0.2.0
+    - @react-email/code-inline@0.0.5
+    - @react-email/column@0.0.13
+    - @react-email/container@0.0.15
+    - @react-email/font@0.0.9
+    - @react-email/head@0.0.12
+    - @react-email/heading@0.0.15
+    - @react-email/hr@0.0.11
+    - @react-email/html@0.0.11
+    - @react-email/img@0.0.11
+    - @react-email/link@0.0.12
+    - @react-email/preview@0.0.13
+    - @react-email/row@0.0.12
+    - @react-email/section@0.0.16
+    - @react-email/text@0.1.5
+
+**Tailwind 2.0.0**
+
+- update to using tailwindcss@v4, don't inline styles on component props anymore
+- export granular APIs in a more tree shakeable way
+- expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+
+**Render 2.0.0**
+
+- Removes deprecated `renderAsync`
+- Remove unused `react-promise-suspense`
+
+**Code Block 0.2.0**
+
+- deal with spark mail's compatibility issues
+
+**Body 0.2.0**
+
+- reset the `margin` property in the `<body>` when it has a user definition
+
+**Button 0.2.0**
+
+- respect the order in which padding properties are defined
+
+**Markdown 0.0.17**
+
+- fix nested lists not working
+
 ## October 24, 2025
 
 **React Email 4.3.2**
