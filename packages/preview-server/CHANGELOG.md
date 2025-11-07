@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.0-canary.12
+
+### Patch Changes
+
+- ef8702b: ui improvements
+
 ## 5.0.0-canary.11
 
 ### Patch Changes
