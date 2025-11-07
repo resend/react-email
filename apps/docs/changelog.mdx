@@ -104,18 +104,58 @@ See [the migration guide](/getting-started/updating-react-email)
 
 - make everything in the global for the UI available to email contexts using a Proxy
 
+**Render 1.4.0**
+
+- disable wordwrap in toPlainText by default
+
+**Markdown 0.0.16**
+
+- move out of md-to-react-email
+
+**Components 0.5.7**
+
+- markdown: move out of md-to-react-email
+- render: disable wordwrap in toPlainText by default
+- Updated dependencies
+    - @react-email/markdown@0.0.16
+    - @react-email/render@1.4.0
+
 ## October 6, 2025
 
 **React Email 4.3.0**
 **Preview Server 4.3.0**
 
-- c0f6ec2: Added resize snapping, refined UI and improved presets
+- Added resize snapping, refined UI and improved presets
 
 ## September 26, 2025
 
 **React Email 4.2.12**
 
 - Normalize Windows paths in generated Next.js config
+
+## September 24, 2025
+
+**Render 1.3.1**
+
+- fixed multi-byte characters causing problems during stream reading
+
+**Components 0.5.5**
+
+- render: fixed multi-byte characters causing problems during stream reading
+- Updated dependencies
+    - @react-email/render@1.3.1
+
+## September 23, 2025
+
+**Render 1.3.0**
+
+- fix link duplication in plain text mode
+
+**Components 0.5.4** 
+
+- render: fix link duplication in plain text mode
+- Updated dependencies
+    - @react-email/render@1.3.0
 
 ## September 9, 2025
 
@@ -144,6 +184,42 @@ See [the migration guide](/getting-started/updating-react-email)
 **Preview Server 4.2.9**
 
 - use `styleText` from `node:util` instead of `chalk`
+
+## September 5, 2025
+
+**Render 1.2.2**
+
+- fix builds failing with esbuild and react-dom@18
+
+**Components 0.5.2**
+
+- render: fix builds failing with esbuild and react-dom@18
+- Updated dependencies
+    - @react-email/render@1.2.2
+
+## August 20, 2025
+
+**Render 1.2.1**
+
+- fix MessageChannel errors on edge environments
+
+**Components 0.5.1**
+
+- render: add toPlainText utility and deprecate plainText option on `render`
+- Updated dependencies
+    - @react-email/render@1.2.1
+
+## August 6, 2025
+
+**Render 1.2.0**
+
+- add toPlainText utility and deprecate plainText option on `render`
+
+**Components 0.5.0**
+
+- render: add toPlainText utility and deprecate plainText option on render
+- Updated dependencies
+    - @react-email/render@1.2.0
 
 ## August 5, 2025
 
@@ -175,6 +251,37 @@ See [the migration guide](/getting-started/updating-react-email)
 
 - apply all styles of the body to an inner table cell for them to work on Yahoo and AOL
 
+## July 30, 2025
+
+**Render 1.1.4**
+
+- fix hydration markers on React canary/Next.js latest when rendering large email templates
+
+**Components 0.3.3**
+
+- Updated dependencies
+    - @react-email/render@1.1.4
+    - @react-email/body@0.0.11
+    - @react-email/button@0.2.0
+    - @react-email/code-block@0.1.0
+    - @react-email/code-inline@0.0.5
+    - @react-email/column@0.0.13
+    - @react-email/container@0.0.15
+    - @react-email/font@0.0.9
+    - @react-email/head@0.0.12
+    - @react-email/heading@0.0.15
+    - @react-email/hr@0.0.11
+    - @react-email/html@0.0.11
+    - @react-email/img@0.0.11
+    - @react-email/link@0.0.12
+    - @react-email/markdown@0.0.15
+    - @react-email/preview@0.0.13
+    - @react-email/row@0.0.12
+    - @react-email/section@0.0.16
+    - @react-email/tailwind@1.2.2
+    - @react-email/text@0.1.5
+
+
 ## July 29, 2025
 
 **React Email 4.2.5**
@@ -187,6 +294,17 @@ See [the migration guide](/getting-started/updating-react-email)
 **Preview Server 4.2.4**
 
 - fix custom JSX runtime trying to be run as ESM on ESM projects
+
+## July 18, 2025
+
+**Tailwind 1.2.2**
+
+- Add a warning when using safelist and force it to change no behavior
+
+**Components 0.3.2**
+
+- Updated dependencies
+    - @react-email/tailwind@1.2.2
 
 ## July 17, 2025
 
