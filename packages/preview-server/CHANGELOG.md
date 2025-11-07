@@ -1,5 +1,72 @@
 # @react-email/preview-server
 
+## 5.0.0
+
+### Major Changes
+
+- 442f5b6: only check compatibility with tailwindcss@4
+
+### Minor Changes
+
+- 161083a: Integrate with Templates API so users can easily turn React Email templates into actual Resend templates
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+### Patch Changes
+
+- c6fa03e: improve color inversion code, don't remount iframe
+- b6b027c: advise `npx` to run email setup command
+- 18bc11a: fix compatibility checking not woring with inline object styles, and not working on properties such as `justifyContent`/`justify-content`
+- e1ef323: improve reading flow for resend integration setup instructions
+- 1b3176e: fallback to not text coloring for Node.js < 20
+- f43f1ce: show separate timings for bundling/rendering an email template
+- 397e98c: darken the canvas background when dark mode is enabled
+- ef8702b: ui improvements
+- 75d651b: reduce margins bellow buttons
+- Updated dependencies [1e76981]
+- Updated dependencies [442f5b6]
+- Updated dependencies [2452b7d]
+  - @react-email/tailwind@2.0.0
+
+## 5.0.0-canary.12
+
+### Patch Changes
+
+- ef8702b: ui improvements
+
+## 5.0.0-canary.11
+
+### Patch Changes
+
+- 75d651b: reduce margins bellow buttons
+
+## 5.0.0-canary.10
+
+### Patch Changes
+
+- 397e98c: darken the canvas background when dark mode is enabled
+
+## 5.0.0-canary.9
+
+### Patch Changes
+
+- e1ef323: improve reading flow for resend integration setup instructions
+
+## 5.0.0-canary.8
+
+### Patch Changes
+
+- b6b027c: advise `npx` to run email setup command
+
+## 5.0.0-canary.7
+
+### Minor Changes
+
+- 161083a: Integrate with Templates API so users can easily turn React Email templates into actual Resend templates
+
+### Patch Changes
+
+- f43f1ce: show separate timings for bundling/rendering an email template
+
 ## 5.0.0-canary.6
 
 ### Patch Changes

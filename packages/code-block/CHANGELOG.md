@@ -1,5 +1,11 @@
 # @react-email/code-block
 
+## 0.2.0
+
+### Minor Changes
+
+- 4f858a3: deal with spark mail's compatibility issues
+
 ## 0.2.0-canary.0
 
 ### Minor Changes

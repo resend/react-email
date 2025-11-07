@@ -71,7 +71,7 @@ const getAppearance = (appearance: Appearance | undefined) => {
         'border-white bg-white text-black transition-colors duration-200 ease-in-out',
         'hover:bg-white/90',
         'focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20',
-        'mt-2 mb-4 aria-disabled:border-transparent aria-disabled:bg-slate-11',
+        'mt-2 mb-2 aria-disabled:border-transparent aria-disabled:bg-slate-11',
       ];
     case 'gradient':
       return [

@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "5.0.0-canary.6",
+  "version": "5.0.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -31,6 +31,7 @@
     "@babel/traverse": "^7.27.0",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
+    "conf": "^15.0.2",
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
     "glob": "^11.0.0",

@@ -1,5 +1,11 @@
 # @react-email/body
 
+## 0.2.0
+
+### Minor Changes
+
+- aa2bc86: reset the `margin` property in the `<body>` when it has a user definition
+
 ## 0.2.0-canary.0
 
 ### Minor Changes

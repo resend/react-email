@@ -98,6 +98,10 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <Topbar emailTitle={emailTitle}>
         {activeView === 'preview' ? (
           <>
+            <EmulatedDarkModeToggle
+              enabled={isDarkModeEnabled}
+              onChange={(enabled) => handleDarkModeChange(enabled)}
+            />
             <ViewSizeControls
               setViewHeight={(height) => {
                 setHeight(height);
@@ -115,10 +119,6 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
               viewWidth={width}
               minWidth={minWidth}
               minHeight={minHeight}
-            />
-            <EmulatedDarkModeToggle
-              enabled={isDarkModeEnabled}
-              onChange={(enabled) => handleDarkModeChange(enabled)}
             />
           </>
         ) : null}
@@ -138,6 +138,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         className={cn(
           'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300 relative',
           activeView === 'preview' && 'bg-gray-200',
+          activeView === 'preview' && isDarkModeEnabled && 'bg-gray-400',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
