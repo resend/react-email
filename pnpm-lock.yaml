@@ -372,13 +372,13 @@ importers:
   packages/components:
     dependencies:
       '@react-email/body':
-        specifier: workspace:0.2.0-canary.0
+        specifier: workspace:0.2.0
         version: link:../body
       '@react-email/button':
         specifier: workspace:0.2.0
         version: link:../button
       '@react-email/code-block':
-        specifier: workspace:0.2.0-canary.0
+        specifier: workspace:0.2.0
         version: link:../code-block
       '@react-email/code-inline':
         specifier: workspace:0.0.5
@@ -411,13 +411,13 @@ importers:
         specifier: workspace:0.0.12
         version: link:../link
       '@react-email/markdown':
-        specifier: workspace:0.0.17-canary.0
+        specifier: workspace:0.0.17
         version: link:../markdown
       '@react-email/preview':
         specifier: workspace:0.0.13
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:2.0.0-canary.1
+        specifier: workspace:2.0.0
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.12
@@ -426,7 +426,7 @@ importers:
         specifier: workspace:0.0.16
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.4
+        specifier: workspace:2.0.0
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.5
@@ -672,7 +672,7 @@ importers:
         specifier: 1.2.8
         version: 1.2.8(@types/react-dom@19.0.1)(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-email/tailwind':
-        specifier: workspace:2.0.0-canary.4
+        specifier: workspace:2.0.0
         version: link:../tailwind
       '@types/node':
         specifier: 22.14.1
@@ -739,7 +739,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       resend:
         specifier: 6.4.0
-        version: 6.4.0(@react-email/render@1.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 6.4.0
       sharp:
         specifier: 0.34.4
         version: 0.34.4
@@ -864,7 +864,7 @@ importers:
         version: 2.4.9
       next:
         specifier: 16.0.1
-        version: 16.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 16.0.1(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -16385,29 +16385,6 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@16.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      '@next/env': 16.0.1
-      '@swc/helpers': 0.5.15
-      caniuse-lite: 1.0.30001743
-      postcss: 8.4.31
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      styled-jsx: 5.1.6(react@19.0.0)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 16.0.1
-      '@next/swc-darwin-x64': 16.0.1
-      '@next/swc-linux-arm64-gnu': 16.0.1
-      '@next/swc-linux-arm64-musl': 16.0.1
-      '@next/swc-linux-x64-gnu': 16.0.1
-      '@next/swc-linux-x64-musl': 16.0.1
-      '@next/swc-win32-arm64-msvc': 16.0.1
-      '@next/swc-win32-x64-msvc': 16.0.1
-      sharp: 0.34.4
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
-
   nice-try@1.0.5: {}
 
   nimma@0.2.3:
@@ -17345,11 +17322,9 @@ snapshots:
       - react
       - react-dom
 
-  resend@6.4.0(@react-email/render@1.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  resend@6.4.0:
     dependencies:
       svix: 1.76.1
-    optionalDependencies:
-      '@react-email/render': 1.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   resolve-alpn@1.2.1: {}
 
@@ -18018,11 +17993,6 @@ snapshots:
       react: 19.0.0
     optionalDependencies:
       '@babel/core': 7.26.10
-
-  styled-jsx@5.1.6(react@19.0.0):
-    dependencies:
-      client-only: 0.0.1
-      react: 19.0.0
 
   sucrase@3.35.0:
     dependencies:

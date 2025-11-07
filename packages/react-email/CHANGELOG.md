@@ -1,5 +1,16 @@
 # react-email
 
+## 5.0.0
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
 ## 5.0.0-canary.12
 
 ## 5.0.0-canary.11
