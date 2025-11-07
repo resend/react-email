@@ -29,7 +29,7 @@ export const component = (
       },
     ].map((author) => (
       <Fragment key={author.name}>
-        <Row align="left" width="186" className="pt-[16px] w-[186px]">
+        <Row align="left" width="288" className="pt-[16px] w-[288px]">
           <Column
             width="48"
             height="48"
@@ -44,7 +44,7 @@ export const component = (
               width={48}
             />
           </Column>
-          <Column width="120" className="pl-[18px]" align="left" valign="top">
+          <Column width="100%" className="pl-[18px] w-full" align="left" valign="top">
             <Heading
               as="h3"
               className="m-0 font-medium text-[14px] text-gray-900 leading-[20px]"
@@ -54,7 +54,7 @@ export const component = (
             <Text className="m-0 font-medium text-[12px] text-gray-500 leading-[14px]">
               {author.title}
             </Text>
-            <Row width={undefined} className="mt-[4px]" align="left">
+            <Row width={undefined} className="pt-[8px]" align="left">
               <Column width="12" height="12">
                 <Link className="h-[12px] w-[12px]" href="#">
                   <Img

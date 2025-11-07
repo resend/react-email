@@ -1,4 +1,5 @@
 import {
+  Column,
   Heading,
   Hr,
   Img,
@@ -8,9 +9,10 @@ import {
   Text,
 } from '@react-email/components';
 import { Layout } from '../_components/layout';
+import { Fragment } from 'react/jsx-runtime';
 
 export const component = (
-  <Row>
+  <Section>
     <Hr
       style={{
         borderColor: 'rgb(209,213,219) !important',
@@ -32,19 +34,20 @@ export const component = (
           imgSrc: '/static/steve-wozniak.jpg',
           showDivider: false,
         },
-      ].map((author, index) => (
-        <>
-          <Section
+      ].map((author) => (
+        <Fragment key={author.name}>
+          <Row
             align="left"
-            key={index}
-            style={{ marginTop: '16px', maxWidth: '288px' }}
+            width="288"
+            style={{ marginTop: '16px', width: '288px' }}
           >
-            <Section
+            <Column
+              width="48"
+              height="48"
               style={{
-                display: 'inline-block',
-                marginTop: '5px',
-                maxHeight: '48px',
-                maxWidth: '48px',
+                paddingTop: '5px',
+                height: '48px',
+                width: '48px',
                 textAlign: 'left',
               }}
             >
@@ -60,12 +63,12 @@ export const component = (
                 }}
                 width={48}
               />
-            </Section>
-            <Section
+            </Column>
+            <Column
+              width="100%"
               style={{
-                display: 'inline-block',
-                marginLeft: '18px',
-                maxWidth: '120px',
+                paddingLeft: '18px',
+                width: '100%',
                 textAlign: 'left',
                 verticalAlign: 'top',
               }}
@@ -93,41 +96,42 @@ export const component = (
               >
                 {author.title}
               </Text>
-              <Section style={{ marginTop: '4px' }}>
-                <Link
-                  href="#"
-                  style={{
-                    display: 'inline-flex',
-                    height: '12px',
-                    width: '12px',
-                  }}
-                >
-                  <Img
-                    alt="X"
-                    height={12}
-                    src="/static/x-icon.png"
-                    width={12}
-                  />
-                </Link>
-                <Link
-                  href="#"
-                  style={{
-                    display: 'inline-flex',
-                    height: '12px',
-                    marginLeft: '8px',
-                    width: '12px',
-                  }}
-                >
-                  <Img
-                    alt="LinkedIn"
-                    height={12}
-                    src="/static/in-icon.png"
-                    width={12}
-                  />
-                </Link>
-              </Section>
-            </Section>
-          </Section>
+              <Row width={undefined} style={{ paddingTop: '8px' }} align="left">
+                <Column width="12" height="12">
+                  <Link
+                    href="#"
+                    style={{
+                      height: '12px',
+                      width: '12px',
+                    }}
+                  >
+                    <Img
+                      alt="X"
+                      height={12}
+                      src="/static/x-icon.png"
+                      width={12}
+                    />
+                  </Link>
+                </Column>
+                <Column width="12" height="12" style={{ paddingLeft: 8 }}>
+                  <Link
+                    href="#"
+                    style={{
+                      height: '12px',
+                      width: '12px',
+                    }}
+                  >
+                    <Img
+                      alt="LinkedIn"
+                      height={12}
+                      src="/static/in-icon.png"
+                      width={12}
+                    />
+                  </Link>
+                </Column>
+              </Row>
+            </Column>
+          </Row>
           {author.showDivider ? (
             <Hr
               style={{
@@ -141,10 +145,10 @@ export const component = (
               }}
             />
           ) : null}
-        </>
+        </Fragment>
       ))}
     </Section>
-  </Row>
+  </Section>
 );
 
 export default () => {
