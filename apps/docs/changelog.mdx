@@ -90,6 +90,9 @@ See [the migration guide](/getting-started/updating-react-email)
 ## October 24, 2025
 
 **React Email 4.3.2**
+**Preview Server 4.3.2**
+
+- fix imports of files with implicit extensions, and secondary segment like `.spec` failing to hot reload
 
 ## October 17, 2025
 
@@ -97,9 +100,16 @@ See [the migration guide](/getting-started/updating-react-email)
 
 - hot reloading errors when importing .json and other file extensions
 
+**Preview Server 4.3.1**
+
+- make everything in the global for the UI available to email contexts using a Proxy
+
 ## October 6, 2025
 
 **React Email 4.3.0**
+**Preview Server 4.3.0**
+
+- c0f6ec2: Added resize snapping, refined UI and improved presets
 
 ## September 26, 2025
 
@@ -110,8 +120,14 @@ See [the migration guide](/getting-started/updating-react-email)
 ## September 9, 2025
 
 **React Email 4.2.11**
+**Preview Server 4.2.11**
+
+- fix data-source-\* attributes in the html code view
 
 **React Email 4.2.10**
+**Preview Server 4.2.10**
+
+- Update nextjs to 15.5.2
 
 **Render 1.2.3**
 
@@ -125,6 +141,7 @@ See [the migration guide](/getting-started/updating-react-email)
 ## September 8, 2025
 
 **React Email 4.2.9**
+**Preview Server 4.2.9**
 
 - use `styleText` from `node:util` instead of `chalk`
 
@@ -137,10 +154,16 @@ See [the migration guide](/getting-started/updating-react-email)
 ## August 1, 2025
 
 **React Email 4.2.7**
+**Preview Server 4.2.7**
+
+- fix broken file tree animation on built preview server
 
 ## July 31, 2025
 
 **React Email 4.2.6**
+**Preview Server 4.2.6**
+
+- d3cc64d: use unformmated markup to send emails, and to render into the iframe
 
 **Components 0.4.0**
 
@@ -161,6 +184,9 @@ See [the migration guide](/getting-started/updating-react-email)
 ## July 23, 2025
 
 **React Email 4.2.4**
+**Preview Server 4.2.4**
+
+- fix custom JSX runtime trying to be run as ESM on ESM projects
 
 ## July 17, 2025
 
@@ -174,6 +200,7 @@ See [the migration guide](/getting-started/updating-react-email)
 
 ## July 16, 2025
 
+**React Email 4.2.1**
 **Preview Server 4.2.1**
 
 - pin all dependencies to avoid compatibility issues of the built preview server
