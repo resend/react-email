@@ -1,17 +1,18 @@
-import { Column, Hr, Row, Section, Text } from '@react-email/components';
-import { Layout } from '../_components/layout';
+import { Column, Hr, Row, Section, Text } from "@react-email/components";
+import { Fragment } from "react/jsx-runtime";
+import { Layout } from "../_components/layout";
 
 export const component = (
-  <Section style={{ marginTop: 16, marginBottom: 16 }}>
-    <Section>
+  <Section style={{ marginTop: 16 }}>
+    <Section style={{ paddingBottom: 24 }}>
       <Row>
         <Text
           style={{
-            margin: '0px',
-            fontSize: 24,
-            lineHeight: '32px',
+            margin: 0,
             fontWeight: 600,
-            color: 'rgb(17,24,39)',
+            fontSize: 24,
+            color: "rgb(17,24,39)",
+            lineHeight: "32px",
           }}
         >
           Functional Style
@@ -20,8 +21,8 @@ export const component = (
           style={{
             marginTop: 8,
             fontSize: 16,
-            lineHeight: '24px',
-            color: 'rgb(107,114,128)',
+            color: "rgb(107,114,128)",
+            lineHeight: "24px",
           }}
         >
           Combine practicality and style effortlessly with our furniture,
@@ -29,278 +30,102 @@ export const component = (
         </Text>
       </Row>
     </Section>
-    <Hr
-      style={{
-        marginLeft: '0px',
-        marginRight: '0px',
-        marginTop: 24,
-        marginBottom: 24,
-        width: '100%',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgb(209,213,219) !important',
-      }}
-    />
-    <Section>
-      <Row>
-        <Column style={{ verticalAlign: 'baseline' }}>
-          <table style={{ textAlign: 'center' }}>
-            <td
-              align="center"
+    {[
+      {
+        title: "Vesatile Comfort",
+        description:
+          "Experience ultimate comfort and versatility with our furniture collection, designed to adapt to your ever-changing needs.",
+      },
+      {
+        title: "Luxurious Retreat",
+        description:
+          "Transform your space into a haven of relaxation with our indulgent furniture collection.",
+      },
+      {
+        title: "Unleash Creativity",
+        description:
+          "Unleash your inner designer with our customizable furniture options, allowing you to create a space that reflects your unique vision",
+      },
+      {
+        title: "Elevate Outdoor Living",
+        description:
+          "Take your outdoor space to new heights with our premium outdoor furniture, designed to elevate your alfresco experience.",
+      },
+    ].map((feature, index) => (
+      <Fragment key={feature.title}>
+        <Hr
+          style={{
+            border: "1px solid rgb(209, 213, 219)",
+            margin: 0,
+            width: "100%",
+          }}
+        />
+        <Section
+          style={{
+            paddingTop: 24,
+            paddingBottom: 24,
+          }}
+        >
+          <Row>
+            <Column
+              width="48"
+              height="40"
               style={{
-                height: 40,
                 width: 40,
-                backgroundColor: 'rgb(199,210,254)',
-                borderRadius: '9999px',
-                padding: '0px',
+                height: 40,
+                paddingRight: 8,
               }}
+              valign="baseline"
             >
+              <Row width="40" align="left">
+                <Column
+                  align="center"
+                  height="40"
+                  style={{
+                    backgroundColor: "rgb(199, 210, 254)",
+                    borderRadius: "9999px",
+                    color: "rgb(79, 70, 229)",
+                    fontWeight: 600,
+                    height: 40,
+                    padding: 0,
+                    width: 40,
+                  }}
+                  valign="middle"
+                  width="40"
+                >
+                  {index + 1}
+                </Column>
+              </Row>
+            </Column>
+            <Column width="100%" style={{ width: "100%" }}>
               <Text
                 style={{
+                  margin: 0,
                   fontWeight: 600,
-                  margin: '0px',
-                  color: 'rgb(79,70,229)',
+                  fontSize: 20,
+                  lineHeight: "28px",
+                  color: "rgb(17, 24, 39)",
                 }}
               >
-                1
+                {feature.title}
               </Text>
-            </td>
-          </table>
-        </Column>
-        <Column style={{ width: '90%' }}>
-          <Text
-            style={{
-              margin: '0px',
-              fontSize: 20,
-              lineHeight: '28px',
-              fontWeight: 600,
-              color: 'rgb(17,24,39)',
-            }}
-          >
-            Versatile Comfort
-          </Text>
-          <Text
-            style={{
-              margin: '0px',
-              marginTop: 8,
-              fontSize: 16,
-              lineHeight: '24px',
-              color: 'rgb(107,114,128)',
-            }}
-          >
-            Experience ultimate comfort and versatility with our furniture
-            collection, designed to adapt to your ever-changing needs.
-          </Text>
-        </Column>
-      </Row>
-    </Section>
-    <Hr
-      style={{
-        marginLeft: '0px',
-        marginRight: '0px',
-        marginTop: 24,
-        marginBottom: 24,
-        width: '100%',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgb(209,213,219) !important',
-      }}
-    />
-    <Section>
-      <Row>
-        <Column style={{ verticalAlign: 'baseline' }}>
-          <table style={{ textAlign: 'center' }}>
-            <td
-              align="center"
-              style={{
-                height: 40,
-                width: 40,
-                backgroundColor: 'rgb(199,210,254)',
-                borderRadius: '9999px',
-                padding: '0px',
-              }}
-            >
               <Text
                 style={{
+                  margin: 0,
                   fontWeight: 600,
-                  margin: '0px',
-                  color: 'rgb(79,70,229)',
+                  paddingTop: 8,
+                  fontSize: 16,
+                  lineHeight: "24px",
+                  color: "rgb(107, 114, 128)",
                 }}
               >
-                2
+                {feature.description}
               </Text>
-            </td>
-          </table>
-        </Column>
-        <Column style={{ width: '90%' }}>
-          <Text
-            style={{
-              margin: '0px',
-              fontSize: 20,
-              lineHeight: '28px',
-              fontWeight: 600,
-              color: 'rgb(17,24,39)',
-            }}
-          >
-            Luxurious Retreat
-          </Text>
-          <Text
-            style={{
-              margin: '0px',
-              marginTop: 8,
-              fontSize: 16,
-              lineHeight: '24px',
-              color: 'rgb(107,114,128)',
-            }}
-          >
-            Transform your space into a haven of relaxation with our indulgent
-            furniture collection.
-          </Text>
-        </Column>
-      </Row>
-    </Section>
-    <Hr
-      style={{
-        marginLeft: '0px',
-        marginRight: '0px',
-        marginTop: 24,
-        marginBottom: 24,
-        width: '100%',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgb(209,213,219) !important',
-      }}
-    />
-    <Section>
-      <Row>
-        <Column style={{ verticalAlign: 'baseline' }}>
-          <table style={{ textAlign: 'center' }}>
-            <td
-              align="center"
-              style={{
-                height: 40,
-                width: 40,
-                backgroundColor: 'rgb(199,210,254)',
-                borderRadius: '9999px',
-                padding: '0px',
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: 600,
-                  margin: '0px',
-                  color: 'rgb(79,70,229)',
-                }}
-              >
-                3
-              </Text>
-            </td>
-          </table>
-        </Column>
-        <Column style={{ width: '90%' }}>
-          <Text
-            style={{
-              margin: '0px',
-              fontSize: 20,
-              lineHeight: '28px',
-              fontWeight: 600,
-              color: 'rgb(17,24,39)',
-            }}
-          >
-            Unleash Creativity
-          </Text>
-          <Text
-            style={{
-              margin: '0px',
-              marginTop: 8,
-              fontSize: 16,
-              lineHeight: '24px',
-              color: 'rgb(107,114,128)',
-            }}
-          >
-            Unleash your inner designer with our customizable furniture options,
-            allowing you to create a space that reflects your unique vision
-          </Text>
-        </Column>
-      </Row>
-    </Section>
-    <Hr
-      style={{
-        marginLeft: '0px',
-        marginRight: '0px',
-        marginTop: 24,
-        marginBottom: 24,
-        width: '100%',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgb(209,213,219) !important',
-      }}
-    />
-    <Section>
-      <Row>
-        <Column style={{ verticalAlign: 'baseline' }}>
-          <table style={{ textAlign: 'center' }}>
-            <td
-              align="center"
-              style={{
-                height: 40,
-                width: 40,
-                backgroundColor: 'rgb(199,210,254)',
-                borderRadius: '9999px',
-                padding: '0px',
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: 600,
-                  margin: '0px',
-                  color: 'rgb(79,70,229)',
-                }}
-              >
-                4
-              </Text>
-            </td>
-          </table>
-        </Column>
-        <Column style={{ width: '90%' }}>
-          <Text
-            style={{
-              margin: '0px',
-              fontSize: 20,
-              lineHeight: '28px',
-              fontWeight: 600,
-              color: 'rgb(17,24,39)',
-            }}
-          >
-            Elevate Outdoor Living
-          </Text>
-          <Text
-            style={{
-              margin: '0px',
-              marginTop: 8,
-              fontSize: 16,
-              lineHeight: '24px',
-              color: 'rgb(107,114,128)',
-            }}
-          >
-            Take your outdoor space to new heights with our premium outdoor
-            furniture, designed to elevate your alfresco experience.
-          </Text>
-        </Column>
-      </Row>
-    </Section>
-    <Hr
-      style={{
-        marginLeft: '0px',
-        marginRight: '0px',
-        marginTop: 24,
-        marginBottom: 24,
-        width: '100%',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgb(209,213,219) !important',
-      }}
-    />
+            </Column>
+          </Row>
+        </Section>
+      </Fragment>
+    ))}
   </Section>
 );
 
