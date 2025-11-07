@@ -152,7 +152,7 @@ export function ResendIntegration({
                     );
                   }
 
-                  await sleep(200);
+                  await sleep(1_000);
                 } catch (error) {
                   console.error('Error processing %s:', emailSlug, error);
                   setItems((prevItems) =>
