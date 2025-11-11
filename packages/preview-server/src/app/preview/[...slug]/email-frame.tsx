@@ -224,7 +224,7 @@ const styleProperties = new Map<
 
 function undoColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
-  if (!contentDocument || !contentWindow) return;
+  if (!contentDocument || !contentWindow || !contentDocument.body) return;
 
   const appliedColorInversion = contentDocument.body.hasAttribute(
     'data-applied-color-inversion',
@@ -253,7 +253,7 @@ function undoColorInversion(iframe: HTMLIFrameElement) {
 
 function applyColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
-  if (!contentDocument || !contentWindow) return;
+  if (!contentDocument || !contentWindow || !contentDocument.body) return;
 
   const appliedColorInversion = contentDocument.body.hasAttribute(
     'data-applied-color-inversion',
