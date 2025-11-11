@@ -260,10 +260,7 @@ export const ResizableWrapper = ({
           />
         </div>
 
-        <Slot
-          ref={resizableRef}
-          className={isResizing ? 'select-none' : ''}
-        >
+        <Slot ref={resizableRef} className={isResizing ? 'select-none' : ''}>
           {children}
         </Slot>
       </div>
