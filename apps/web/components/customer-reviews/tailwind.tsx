@@ -1,12 +1,14 @@
 import {
   Body,
   Button,
+  Column,
   Container,
   Head,
   Heading,
   Hr,
   Html,
   Preview,
+  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -37,36 +39,51 @@ export const component = (
                 { rating: 2, count: 199 },
                 { rating: 1, count: 147 },
               ].map((count) => (
-                <div
+                <Row
                   key={count.rating}
-                  className="flex items-center text-[14px] leading-[20px]"
+                  className="text-[14px] leading-[20px]"
+                  align="center"
                 >
-                  <dt className="flex flex-1 items-center">
-                    <Text className="w-[12px] font-medium text-gray-500">
-                      {count.rating}
-                      <span className="hidden"> star reviews</span>
-                    </Text>
-                    <div
-                      aria-hidden="true"
-                      className="ml-[4px] flex flex-1 items-center"
-                    >
-                      <div className="relative ml-[12px] flex-1">
-                        <div className="h-[12px] rounded-[6px] border border-gray-200 bg-gray-100" />
-                        {count.count > 0 && (
-                          <div
-                            className="absolute top-0 bottom-0 rounded-[6px] bg-indigo-600"
-                            style={{
-                              width: `calc(${count.count} / ${1624} * 100%)`,
-                            }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </dt>
-                  <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
-                    {Math.round((count.count / 1624) * 100)}%
-                  </dd>
-                </div>
+                  <Column align="center" valign="middle">
+                    <dt>
+                      <Row>
+                        <Column width={undefined}>
+                          <Text className="w-[12px] font-medium text-gray-500">
+                            {count.rating}
+                            <span className="hidden"> star reviews</span>
+                          </Text>
+                        </Column>
+                        <Column
+                          width="264"
+                          height="12"
+                          className="w-[264px] h-[12px] pl-[12px]"
+                          aria-hidden="true"
+                          valign="middle"
+                        >
+                          <Row
+                            width="264"
+                            className="w-[264px] h-[12px] bg-gray-100 border-gray-200 border border-solid rounded-[6px]"
+                          >
+                            <Column
+                              height="12"
+                              className="h-[12px] bg-indigo-600 rounded-[6px]"
+                              width={(count.count / 1624) * 264}
+                              style={{
+                                width: `${(count.count / 1624) * 264}px`,
+                              }}
+                            />
+                            <Column />
+                          </Row>
+                        </Column>
+                        <Column width="100%" className="w-full">
+                          <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
+                            {Math.round((count.count / 1624) * 100)}%
+                          </dd>
+                        </Column>
+                      </Row>
+                    </dt>
+                  </Column>
+                </Row>
               ))}
             </dl>
             <Text className="mt-[14px] text-center text-gray-500 text-[12px] leading-[24px]">
