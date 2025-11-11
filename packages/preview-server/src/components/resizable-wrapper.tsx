@@ -142,7 +142,7 @@ export const ResizableWrapper = ({
 
   return (
     <>
-      <div className=" overflow-hidden absolute inset-0">
+      <div className="overflow-hidden absolute inset-0">
         <div className="absolute mx-auto box-content -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
           {VIEW_PRESETS.map((preset) => (
             <div
@@ -262,7 +262,7 @@ export const ResizableWrapper = ({
 
         <Slot
           ref={resizableRef}
-          className={isResizing ? 'pointer-events-none select-none' : ''}
+          className={isResizing ? 'select-none' : ''}
         >
           {children}
         </Slot>
