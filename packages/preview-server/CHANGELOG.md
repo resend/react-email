@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.2-canary.0
+
+### Patch Changes
+
+- e0b7efa: fix sidebar misalignment with the topbar
+
 ## 5.0.1
 
 ### Patch Changes
