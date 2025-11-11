@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.2
+
+### Patch Changes
+
+- e0b7efa: fix sidebar misalignment with the topbar
+- 872f33b: fix scrolling not working on email frame right after resizing
+
 ## 5.0.1
 
 ### Patch Changes
