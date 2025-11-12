@@ -17,7 +17,7 @@ export const component = (
     </Section>
     {[
       {
-        title: 'Vesatile Comfort',
+        title: 'Versatile Comfort',
         description:
           'Experience ultimate comfort and versatility with our furniture collection, designed to adapt to your ever-changing needs.',
       },
