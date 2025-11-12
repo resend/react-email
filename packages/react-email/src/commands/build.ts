@@ -76,7 +76,7 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
 ) => {
   const nextConfigContents = `
-const path = require('path');
+import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
