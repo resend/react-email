@@ -970,7 +970,7 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0
       tailwindcss:
-        specifier: 4.1.12
+        specifier: ^4.1.12
         version: 4.1.12
     devDependencies:
       '@react-email/button':
