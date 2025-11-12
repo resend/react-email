@@ -1,6 +1,6 @@
 /**
-  * @type {import('next').NextConfig}
-  */
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   serverExternalPackages: ['esbuild'],
   // Noticed an issue with typescript transpilation when going from Next 14.1.1 to 14.1.2
