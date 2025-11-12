@@ -39,56 +39,51 @@ export const component = (
                 { rating: 2, count: 199 },
                 { rating: 1, count: 147 },
               ].map(({ count, rating }) => (
-                <Row
-                  key={rating}
-                  className="text-[14px] leading-[20px]"
-                  align="center"
-                >
-                  <Column align="center" valign="middle">
-                    <dt>
-                      <Row>
-                        <Column width={undefined}>
-                          <Text className="w-[12px] font-medium text-gray-500">
-                            {rating}
-                            <span className="hidden"> star reviews</span>
-                          </Text>
-                        </Column>
-                        <Column
+                <>
+                  <dt key={`${rating}-dt`}>
+                    <Row className="text-[14px] leading-[20px]" align="center">
+                      <Column width={undefined}>
+                        <Text className="w-[12px] font-medium text-gray-500">
+                          {rating}
+                          <span className="hidden"> star reviews</span>
+                        </Text>
+                      </Column>
+                      <Column
+                        width="264"
+                        height="12"
+                        className="w-[264px] h-[12px] pl-[12px]"
+                        aria-hidden="true"
+                        valign="middle"
+                      >
+                        <Row
                           width="264"
-                          height="12"
-                          className="w-[264px] h-[12px] pl-[12px]"
-                          aria-hidden="true"
-                          valign="middle"
+                          className="w-[264px] h-[12px] bg-gray-100 border-gray-200 border border-solid rounded-[6px]"
                         >
-                          <Row
-                            width="264"
-                            className="w-[264px] h-[12px] bg-gray-100 border-gray-200 border border-solid rounded-[6px]"
-                          >
-                            <Column
-                              height="12"
-                              className="h-[12px] bg-indigo-600 rounded-[6px]"
-                              width={(count / 1624) * 264}
-                              style={{
-                                width: `${(count / 1624) * 264}px`,
-                              }}
-                            />
-                            <Column
-                              width={(1 - count / 1624) * 264}
-                              style={{
-                                width: `${(1 - count / 1624) * 264}px`,
-                              }}
-                            />
-                          </Row>
-                        </Column>
-                        <Column width="100%" className="w-full">
-                          <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
-                            {Math.round((count / 1624) * 100)}%
-                          </dd>
-                        </Column>
-                      </Row>
-                    </dt>
-                  </Column>
-                </Row>
+                          <Column
+                            height="12"
+                            className="h-[12px] bg-indigo-600 rounded-[6px]"
+                            width={(count / 1624) * 264}
+                            style={{
+                              width: `${(count / 1624) * 264}px`,
+                            }}
+                          />
+                          <Column
+                            width={(1 - count / 1624) * 264}
+                            style={{
+                              width: `${(1 - count / 1624) * 264}px`,
+                            }}
+                          />
+                        </Row>
+                      </Column>
+                    </Row>
+                  </dt>
+                  <dd
+                    key={`${rating}-dd`}
+                    className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none"
+                  >
+                    {Math.round((count / 1624) * 100)}%
+                  </dd>
+                </>
               ))}
             </dl>
             <Text className="mt-[14px] text-center text-gray-500 text-[12px] leading-[24px]">
