@@ -44,7 +44,12 @@ export const component = (
               width={48}
             />
           </Column>
-          <Column width="100%" className="pl-[18px] w-full" align="left" valign="top">
+          <Column
+            width="100%"
+            className="pl-[18px] w-full"
+            align="left"
+            valign="top"
+          >
             <Heading
               as="h3"
               className="m-0 font-medium text-[14px] text-gray-900 leading-[20px]"

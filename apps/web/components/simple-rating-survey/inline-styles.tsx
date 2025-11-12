@@ -86,10 +86,11 @@ export const component = (
             </Column>
           </Row>
         </Section>
-        <Section style={{ marginTop: '12px', marginBottom: '24px' }} align="center">
-          <Row
-            width={undefined}
-          >
+        <Section
+          style={{ marginTop: '12px', marginBottom: '24px' }}
+          align="center"
+        >
+          <Row width={undefined}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Column
                 key={i}

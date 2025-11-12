@@ -8,8 +8,8 @@ import {
   Section,
   Text,
 } from '@react-email/components';
-import { Layout } from '../_components/layout';
 import { Fragment } from 'react/jsx-runtime';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section>

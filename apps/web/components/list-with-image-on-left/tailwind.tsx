@@ -72,7 +72,11 @@ export const component = (
                 />
               </Column>
               <Column width="60%" className="w-3/5 pr-[24px]">
-                <Row width="24" className="w-[24px] h-[24px] mb-[18px]" align={undefined}>
+                <Row
+                  width="24"
+                  className="w-[24px] h-[24px] mb-[18px]"
+                  align={undefined}
+                >
                   <Column
                     width="24"
                     height="24"

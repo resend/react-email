@@ -1,6 +1,6 @@
-import { Column, Hr, Row, Section, Text } from "@react-email/components";
-import { Fragment } from "react/jsx-runtime";
-import { Layout } from "../_components/layout";
+import { Column, Hr, Row, Section, Text } from '@react-email/components';
+import { Fragment } from 'react/jsx-runtime';
+import { Layout } from '../_components/layout';
 
 export const component = (
   <Section style={{ marginTop: 16 }}>
@@ -11,8 +11,8 @@ export const component = (
             margin: 0,
             fontWeight: 600,
             fontSize: 24,
-            color: "rgb(17,24,39)",
-            lineHeight: "32px",
+            color: 'rgb(17,24,39)',
+            lineHeight: '32px',
           }}
         >
           Functional Style
@@ -21,8 +21,8 @@ export const component = (
           style={{
             marginTop: 8,
             fontSize: 16,
-            color: "rgb(107,114,128)",
-            lineHeight: "24px",
+            color: 'rgb(107,114,128)',
+            lineHeight: '24px',
           }}
         >
           Combine practicality and style effortlessly with our furniture,
@@ -32,32 +32,32 @@ export const component = (
     </Section>
     {[
       {
-        title: "Vesatile Comfort",
+        title: 'Vesatile Comfort',
         description:
-          "Experience ultimate comfort and versatility with our furniture collection, designed to adapt to your ever-changing needs.",
+          'Experience ultimate comfort and versatility with our furniture collection, designed to adapt to your ever-changing needs.',
       },
       {
-        title: "Luxurious Retreat",
+        title: 'Luxurious Retreat',
         description:
-          "Transform your space into a haven of relaxation with our indulgent furniture collection.",
+          'Transform your space into a haven of relaxation with our indulgent furniture collection.',
       },
       {
-        title: "Unleash Creativity",
+        title: 'Unleash Creativity',
         description:
-          "Unleash your inner designer with our customizable furniture options, allowing you to create a space that reflects your unique vision",
+          'Unleash your inner designer with our customizable furniture options, allowing you to create a space that reflects your unique vision',
       },
       {
-        title: "Elevate Outdoor Living",
+        title: 'Elevate Outdoor Living',
         description:
-          "Take your outdoor space to new heights with our premium outdoor furniture, designed to elevate your alfresco experience.",
+          'Take your outdoor space to new heights with our premium outdoor furniture, designed to elevate your alfresco experience.',
       },
     ].map((feature, index) => (
       <Fragment key={feature.title}>
         <Hr
           style={{
-            border: "1px solid rgb(209, 213, 219)",
+            border: '1px solid rgb(209, 213, 219)',
             margin: 0,
-            width: "100%",
+            width: '100%',
           }}
         />
         <Section
@@ -82,9 +82,9 @@ export const component = (
                   align="center"
                   height="40"
                   style={{
-                    backgroundColor: "rgb(199, 210, 254)",
-                    borderRadius: "9999px",
-                    color: "rgb(79, 70, 229)",
+                    backgroundColor: 'rgb(199, 210, 254)',
+                    borderRadius: '9999px',
+                    color: 'rgb(79, 70, 229)',
                     fontWeight: 600,
                     height: 40,
                     padding: 0,
@@ -97,14 +97,14 @@ export const component = (
                 </Column>
               </Row>
             </Column>
-            <Column width="100%" style={{ width: "100%" }}>
+            <Column width="100%" style={{ width: '100%' }}>
               <Text
                 style={{
                   margin: 0,
                   fontWeight: 600,
                   fontSize: 20,
-                  lineHeight: "28px",
-                  color: "rgb(17, 24, 39)",
+                  lineHeight: '28px',
+                  color: 'rgb(17, 24, 39)',
                 }}
               >
                 {feature.title}
@@ -115,8 +115,8 @@ export const component = (
                   fontWeight: 600,
                   paddingTop: 8,
                   fontSize: 16,
-                  lineHeight: "24px",
-                  color: "rgb(107, 114, 128)",
+                  lineHeight: '24px',
+                  color: 'rgb(107, 114, 128)',
                 }}
               >
                 {feature.description}

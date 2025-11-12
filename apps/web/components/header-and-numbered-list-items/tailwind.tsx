@@ -41,7 +41,12 @@ export const component = (
         <Hr className="!border-gray-300 m-0 w-full border border-solid" />
         <Section className="py-[24px]">
           <Row>
-            <Column width="48" height="40" className="w-[40px] h-[40px] pr-[8px]" valign="baseline">
+            <Column
+              width="48"
+              height="40"
+              className="w-[40px] h-[40px] pr-[8px]"
+              valign="baseline"
+            >
               <Row width="40" align="left">
                 <Column
                   align="center"
