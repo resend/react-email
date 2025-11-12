@@ -45,48 +45,52 @@ export const component = (
                   align="center"
                 >
                   <Column align="center" valign="middle">
-                    <dt>
-                      <Row>
-                        <Column width={undefined}>
-                          <Text className="w-[12px] font-medium text-gray-500">
-                            {rating}
-                            <span className="hidden"> star reviews</span>
-                          </Text>
-                        </Column>
-                        <Column
-                          width="264"
-                          height="12"
-                          className="w-[264px] h-[12px] pl-[12px]"
-                          aria-hidden="true"
-                          valign="middle"
-                        >
-                          <Row
-                            width="264"
-                            className="w-[264px] h-[12px] bg-gray-100 border-gray-200 border border-solid rounded-[6px]"
-                          >
+                    <Row>
+                      <Column>
+                        <dt>
+                          <Row>
+                            <Column width={undefined}>
+                              <Text className="w-[12px] font-medium text-gray-500">
+                                {rating}
+                                <span className="hidden"> star reviews</span>
+                              </Text>
+                            </Column>
                             <Column
+                              width="264"
                               height="12"
-                              className="h-[12px] bg-indigo-600 rounded-[6px]"
-                              width={(count / 1624) * 264}
-                              style={{
-                                width: `${(count / 1624) * 264}px`,
-                              }}
-                            />
-                            <Column
-                              width={(1 - count / 1624) * 264}
-                              style={{
-                                width: `${(1 - count / 1624) * 264}px`,
-                              }}
-                            />
+                              className="w-[264px] h-[12px] pl-[12px]"
+                              aria-hidden="true"
+                              valign="middle"
+                            >
+                              <Row
+                                width="264"
+                                className="w-[264px] h-[12px] bg-gray-100 border-gray-200 border border-solid rounded-[6px]"
+                              >
+                                <Column
+                                  height="12"
+                                  className="h-[12px] bg-indigo-600 rounded-[6px]"
+                                  width={(count / 1624) * 264}
+                                  style={{
+                                    width: `${(count / 1624) * 264}px`,
+                                  }}
+                                />
+                                <Column
+                                  width={(1 - count / 1624) * 264}
+                                  style={{
+                                    width: `${(1 - count / 1624) * 264}px`,
+                                  }}
+                                />
+                              </Row>
+                            </Column>
                           </Row>
-                        </Column>
-                        <Column width="100%" className="w-full">
-                          <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
-                            {Math.round((count / 1624) * 100)}%
-                          </dd>
-                        </Column>
-                      </Row>
-                    </dt>
+                        </dt>
+                      </Column>
+                      <Column width="100%" className="w-full">
+                        <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
+                          {Math.round((count / 1624) * 100)}%
+                        </dd>
+                      </Column>
+                    </Row>
                   </Column>
                 </Row>
               ))}

@@ -66,80 +66,84 @@ export const component = (
                   }}
                 >
                   <Column align="center" valign="middle">
-                    <dt>
-                      <Row>
-                        <Column width={undefined}>
-                          <Text
-                            style={{
-                              color: 'rgb(107,114,128)',
-                              fontWeight: '500',
-                              width: '12px',
-                            }}
-                          >
-                            {rating}
-                            <span style={{ display: 'none' }}>
-                              {' '}
-                              star reviews
-                            </span>
-                          </Text>
-                        </Column>
-                        <Column
-                          width="264"
-                          height="12"
-                          style={{
-                            width: 264,
-                            height: 12,
-                            paddingLeft: 12,
-                          }}
-                          aria-hidden="true"
-                          valign="middle"
-                        >
-                          <Row
-                            aria-hidden="true"
-                            width="264"
-                            style={{
-                              width: 264,
-                              height: 12,
-                              backgroundColor: 'rgb(243,244,246)',
-                              border: '1px solid rgb(229,231,235)',
-                              borderRadius: 6,
-                            }}
-                          >
+                    <Row>
+                      <Column>
+                        <dt>
+                          <Row>
+                            <Column width={undefined}>
+                              <Text
+                                style={{
+                                  color: 'rgb(107,114,128)',
+                                  fontWeight: '500',
+                                  width: '12px',
+                                }}
+                              >
+                                {rating}
+                                <span style={{ display: 'none' }}>
+                                  {' '}
+                                  star reviews
+                                </span>
+                              </Text>
+                            </Column>
                             <Column
+                              width="264"
                               height="12"
                               style={{
-                                backgroundColor: 'rgb(79,70,229)',
-                                borderRadius: 6,
+                                width: 264,
                                 height: 12,
-                                width: `${(count / 1624) * 264}px`,
+                                paddingLeft: 12,
                               }}
-                              width={(count / 1624) * 264}
-                            />
-                            <Column
-                              width={(1 - count / 1624) * 264}
-                              style={{
-                                width: `${(1 - count / 1624) * 264}px`,
-                              }}
-                            />
+                              aria-hidden="true"
+                              valign="middle"
+                            >
+                              <Row
+                                aria-hidden="true"
+                                width="264"
+                                style={{
+                                  width: 264,
+                                  height: 12,
+                                  backgroundColor: 'rgb(243,244,246)',
+                                  border: '1px solid rgb(229,231,235)',
+                                  borderRadius: 6,
+                                }}
+                              >
+                                <Column
+                                  height="12"
+                                  style={{
+                                    backgroundColor: 'rgb(79,70,229)',
+                                    borderRadius: 6,
+                                    height: 12,
+                                    width: `${(count / 1624) * 264}px`,
+                                  }}
+                                  width={(count / 1624) * 264}
+                                />
+                                <Column
+                                  width={(1 - count / 1624) * 264}
+                                  style={{
+                                    width: `${(1 - count / 1624) * 264}px`,
+                                  }}
+                                />
+                              </Row>
+                            </Column>
                           </Row>
-                        </Column>
-                        <Column width="100%" style={{ width: '100%' }}>
-                          <dd
-                            style={{
-                              color: 'rgb(107,114,128)',
-                              fontSize: '12px',
-                              fontVariantNumeric: 'tabular-nums',
-                              fontWeight: '500',
-                              lineHeight: '1',
-                              marginLeft: 12,
-                              textAlign: 'right',
-                            }}
-                          >
-                            {Math.round((count / 1624) * 100)}%
-                          </dd>
-                        </Column>
-                      </Row>
-                    </dt>
+                        </dt>
+                      </Column>
+                      <Column width="100%" style={{ width: '100%' }}>
+                        <dd
+                          style={{
+                            color: 'rgb(107,114,128)',
+                            fontSize: '12px',
+                            fontVariantNumeric: 'tabular-nums',
+                            fontWeight: '500',
+                            lineHeight: '1',
+                            marginLeft: 12,
+                            textAlign: 'right',
+                          }}
+                        >
+                          {Math.round((count / 1624) * 100)}%
+                        </dd>
+                      </Column>
+                    </Row>
                   </Column>
                 </Row>
               ))}
