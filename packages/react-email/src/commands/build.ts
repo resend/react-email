@@ -80,7 +80,7 @@ const path = require('path');
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
@@ -95,12 +95,12 @@ module.exports = {
   experimental: {
     webpackBuildWorker: true
   },
-}`;
+}
 
-  await fs.promises.rm(path.resolve(builtPreviewAppPath, './next.config.ts'));
+export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.js'),
+    path.resolve(builtPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
