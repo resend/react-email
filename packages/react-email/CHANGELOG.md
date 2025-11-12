@@ -1,5 +1,74 @@
 # react-email
 
+## 5.0.2
+
+## 5.0.1
+
+## 5.0.0
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.12
+
+## 5.0.0-canary.11
+
+## 5.0.0-canary.10
+
+## 5.0.0-canary.9
+
+## 5.0.0-canary.8
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+
+## 5.0.0-canary.7
+
+## 5.0.0-canary.6
+
+## 5.0.0-canary.5
+
+## 5.0.0-canary.4
+
+## 5.0.0-canary.3
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+## 5.0.0-canary.2
+
+### Patch Changes
+
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.1
+
+## 5.0.0-canary.0
+
+## 4.3.2
+
+## 4.3.1
+
+### Patch Changes
+
+- 1e13d15: hot reloading errors when importing .json and other file extensions
+
+## 4.3.0
+
+## 4.2.12
+
+### Patch Changes
+
+- 90f39d5: Normalize Windows paths in generated Next.js config
+
 ## 4.2.11
 
 ## 4.2.10

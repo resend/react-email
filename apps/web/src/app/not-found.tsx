@@ -1,4 +1,5 @@
 import { PageTransition } from '@/components/page-transition';
+import { PageWrapper } from '@/components/page-wrapper';
 
 export const metadata = {
   title: '404 Not found',
@@ -9,7 +10,7 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <>
+    <PageWrapper>
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />
@@ -30,6 +31,6 @@ export default function NotFound() {
           <p>Please check the URL and try again.</p>
         </div>
       </PageTransition>
-    </>
+    </PageWrapper>
   );
 }

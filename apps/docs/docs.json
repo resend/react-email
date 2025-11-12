@@ -42,7 +42,8 @@
                   "getting-started/monorepo-setup/bun"
                 ]
               },
-              "getting-started/migrating-to-react-email"
+              "getting-started/migrating-to-react-email",
+              "getting-started/updating-react-email"
             ]
           },
           {

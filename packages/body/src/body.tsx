@@ -1,18 +1,25 @@
 import * as React from 'react';
+import { marginProperties } from './margin-properties';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
+    const bodyStyle: Record<string, string | number | undefined> = {
+      background: style?.background,
+      backgroundColor: style?.backgroundColor,
+    };
+    if (style) {
+      for (const property of marginProperties) {
+        // We reset the margin if the user sets it, this mimics the
+        // same behavior that would happen if this was only using the body.
+        // This avoids the incoming margin summing up with the margin
+        // defined by the email client on the body, or by the browser itself
+        bodyStyle[property] = style[property] !== undefined ? 0 : undefined;
+      }
+    }
     return (
-      <body
-        {...props}
-        style={{
-          background: style?.background,
-          backgroundColor: style?.backgroundColor,
-        }}
-        ref={ref}
-      >
+      <body {...props} style={bodyStyle} ref={ref}>
         <table
           border={0}
           width="100%"

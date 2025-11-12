@@ -12,10 +12,15 @@ import { Toolbar } from '../../../components/toolbar';
 import type { LintingRow } from '../../../components/toolbar/linter';
 import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
 import { PreviewProvider } from '../../../contexts/preview';
+import { ToolbarProvider } from '../../../contexts/toolbar';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
-import { emailsDirectoryAbsolutePath, isBuilding } from '../../env';
+import {
+  emailsDirectoryAbsolutePath,
+  isBuilding,
+  resendApiKey,
+} from '../../env';
 import Preview from './preview';
 
 export const dynamicParams = true;
@@ -132,11 +137,13 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         <Suspense>
           <Preview emailTitle={path.basename(emailPath)} />
 
-          <Toolbar
-            serverLintingRows={lintingRows}
-            serverSpamCheckingResult={spamCheckingResult}
-            serverCompatibilityResults={compatibilityCheckingResults}
-          />
+          <ToolbarProvider hasApiKey={(resendApiKey ?? '').trim().length > 0}>
+            <Toolbar
+              serverLintingRows={lintingRows}
+              serverSpamCheckingResult={spamCheckingResult}
+              serverCompatibilityResults={compatibilityCheckingResults}
+            />
+          </ToolbarProvider>
         </Suspense>
       </Shell>
     </PreviewProvider>

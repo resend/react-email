@@ -1,10 +1,9 @@
 'use client';
 
 import classNames from 'classnames';
-import { CheckIcon, ClipboardIcon } from 'lucide-react';
 import { Highlight } from 'prism-react-renderer';
 import * as React from 'react';
-import { IconButton } from './icon-button';
+import { CopyCode } from './copy-code';
 
 interface CodeProps {
   children: string;
@@ -47,7 +46,6 @@ const theme = {
 };
 
 export function Code({ children, className, language = 'html' }: CodeProps) {
-  const [isCopied, setIsCopied] = React.useState(false);
   const value = children.trim();
 
   return (
@@ -55,7 +53,7 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
       {({ tokens, getLineProps, getTokenProps }) => (
         <pre
           className={classNames(
-            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-md border border-slate-6 pr-11 pl-4 font-mono text-sm backdrop-blur-md',
+            'relative inline-flex h-11 w-full items-center overflow-auto whitespace-pre rounded-xl border border-slate-6 pr-11 pl-4 font-mono text-sm backdrop-blur-md',
             className,
           )}
           style={{
@@ -65,22 +63,11 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
             boxShadow: 'rgb(0 0 0 / 10%) 0rem .3125rem 1.875rem -0.3125rem',
           }}
         >
-          <IconButton
-            className="absolute right-3"
-            onClick={() => {
-              setIsCopied(true);
-              void navigator.clipboard.writeText(value);
-              setTimeout(() => {
-                setIsCopied(false);
-              }, 3000);
-            }}
-          >
-            {isCopied ? (
-              <CheckIcon className="mt-[-0.0938rem]" size={16} />
-            ) : (
-              <ClipboardIcon className="mt-[-0.0938rem]" size={16} />
-            )}
-          </IconButton>
+          <CopyCode
+            code={value}
+            className="absolute right-1 shadow-none hover:text-white hover:[&_svg]:text-white enabled:hover:!bg-transparent focus:ring-0"
+          />
+
           <div
             className="absolute top-0 right-0 h-px w-[12.5rem]"
             style={{

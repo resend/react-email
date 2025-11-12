@@ -1,13 +1,14 @@
 ---
 title: 'Send email using Resend'
 sidebarTitle: 'Resend'
-description: 'Learn how to send an email using React Email and the Resend Node.js SDK.'
+description: 'Learn how to send an email and set up Templates using React Email and the Resend Node.js SDK.'
 'og:image': 'https://react.email/static/covers/react-email.png'
 ---
 
+##  Send email with Resend
 <Tip>Resend was built by the same team that created React Email, which makes this our recommendation to send emails.</Tip>
 
-## 1. Install dependencies
+### 1. Install dependencies
 
 Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Resend Node.js SDK](https://www.npmjs.com/package/resend).
 
@@ -27,7 +28,7 @@ pnpm add resend @react-email/components
 
 </CodeGroup>
 
-## 2. Create an email using React
+### 2. Create an email using React
 
 Start by building your email template in a `.jsx` or `.tsx` file.
 
@@ -48,7 +49,7 @@ export function Email(props) {
 export default Email;
 ```
 
-## 3. Send email
+### 3. Send email
 
 <Info>When integrating with other services, you need to convert your React template into HTML before sending. Resend takes care of that for you.</Info>
 
@@ -67,6 +68,37 @@ await resend.emails.send({
   react: <Email url="https://example.com" />,
 });
 ```
+
+## Set up Templates with Resend
+
+[Resend Templates](https://resend.com/docs/dashboard/templates/introduction) are a great way to collaborate on emails with your team, even if they're not technical. Upload a React Email Template to Resend and your entire team can collaborate in real-time in the visual editor.
+
+Here's how to get started.
+
+### 1. Add your Resend API Key
+
+First, sign up for a [free Resend account](https://resend.com/signup).
+
+Next, set up the Resend integration using the React Email CLI:
+
+```bash
+npx react-email@latest resend setup
+```
+
+This will prompt you to enter your Resend API Key. To get one, navigate to [API Keys](https://resend.com/api-keys) in your Resend dashboard, click **Create API key**, and ensure that the API Key is scoped to **Full Access**.
+
+Paste the API Key into the terminal and press enter.
+
+### 2. Upload a Template to Resend
+
+Run React Email and visit the **Resend** tab of the toolbar, located at the bottom of the window.
+
+Choose **Upload** or **Bulk Upload** to import your Template to Resend.
+
+<video src="https://cdn.resend.com/posts/react-email-resend-integration.mp4" autoPlay loop playsInline class="extraWidth"></video>
+
+If you want to remove the Resend integration, run `npx react-email@latest resend reset`.
+
 
 ## Try it yourself
 

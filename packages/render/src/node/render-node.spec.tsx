@@ -2,8 +2,7 @@
  * @vitest-environment node
  */
 
-import { Suspense } from 'react';
-import usePromise from 'react-promise-suspense';
+import { Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -50,7 +49,7 @@ describe('render on node environments', () => {
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
   // The error only happens with React 18, and thus is tested on React 18.
-  it('should handle characters with a higher byte count gracefully in React 18', async () => {
+  it('handles characters with a higher byte count gracefully in React 18', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
@@ -85,12 +84,10 @@ describe('render on node environments', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('that it properly waits for Suepsense boundaries to resolve before resolving', async () => {
+  it('that it properly waits for Suspense boundaries to resolve before resolving', async () => {
+    const htmlPromise = fetch('https://example.com').then((res) => res.text());
     const EmailTemplate = () => {
-      const html = usePromise(
-        () => fetch('https://example.com').then((res) => res.text()),
-        [],
-      );
+      const html = use(htmlPromise);
 
       return <div dangerouslySetInnerHTML={{ __html: html }} />;
     };
@@ -140,7 +137,7 @@ describe('render on node environments', () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('should render large emails without hydration markers', async () => {
+  it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)

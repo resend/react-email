@@ -9,7 +9,7 @@ export function Footer() {
         Brought to you by{' '}
         <Anchor
           className="inline-flex items-center gap-2"
-          href="https://resend.com"
+          href="https://go.resend.com/react-email"
           target="_blank"
           rel="noopener noreferrer"
         >

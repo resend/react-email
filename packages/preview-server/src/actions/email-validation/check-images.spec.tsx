@@ -3,7 +3,7 @@ import { checkImages, type ImageCheckingResult } from './check-images';
 test('checkImages()', async () => {
   const results: ImageCheckingResult[] = [];
   const html = `<div>
-  <img src="https://resend.com/static/brand/resend-icon-white.png" />,
+  <img src="https://cdn.resend.com/brand/resend-icon-black.png" />,
   <img src="/static/codepen-challengers.png" alt="codepen challenges" />,
 </div>`;
   const stream = await checkImages(html, 'https://demo.react.email');

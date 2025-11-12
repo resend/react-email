@@ -1,5 +1,5 @@
 const IllustrationArticles: React.FC = () => (
-  <div className="relative flex aspect-square w-[45%] translate-y-3 flex-col items-center gap-1.5 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/10 px-3 pt-2 pb-5 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] group-hover:skew-x-2">
+  <div className="relative flex aspect-square w-[45%] translate-y-3 flex-col items-center gap-1.5 rounded-md bg-[#0F0F10] bg-gradient-to-b from-transparent via-black/20 to-black/10 px-3 pt-2 pb-5 shadow-sm transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] md:group-hover:skew-x-2">
     <div className="aspect-video w-full rounded-sm bg-slate-4" />
     <div className="h-3 w-[66%] rounded-sm bg-slate-5" />
     <div className="h-3 w-[66%] rounded-sm bg-slate-5" />

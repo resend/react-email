@@ -1,6 +1,12 @@
 ## Getting Started
 
-First, run the development server:
+First, install dependencies and build in the root directory so that you have access to workspace packages.
+
+```bash
+pnpm i && pnpm build
+```
+
+Then, move back to `/apps/web` and run the development server:
 
 ```bash
 pnpm dev

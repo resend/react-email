@@ -5,19 +5,19 @@ import {
 import type { EmailsDirectory } from './get-emails-directory-metadata';
 
 describe('removeFilenameExtension()', () => {
-  it('should work with a single .', () => {
+  it('works with a single .', () => {
     expect(removeFilenameExtension('email-template.tsx')).toBe(
       'email-template',
     );
   });
 
-  it('should work with an example test file', () => {
+  it('works with an example test file', () => {
     expect(removeFilenameExtension('email-template.spec.tsx')).toBe(
       'email-template.spec',
     );
   });
 
-  it('should do nothing when there is no extension', () => {
+  it('does nothing when there is no extension', () => {
     expect(removeFilenameExtension('email-template')).toBe('email-template');
   });
 });
@@ -112,11 +112,11 @@ describe('containsEmailTemplate()', () => {
     ],
   };
 
-  it('should work with collapsed email directory', () => {
+  it('works with collapsed email directory', () => {
     expect(containsEmailTemplate('first/second/email', directory)).toBe(true);
   });
 
-  it('should work with email inside a single sub directory', () => {
+  it('works with email inside a single sub directory', () => {
     expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(
       true,
     );
@@ -125,7 +125,7 @@ describe('containsEmailTemplate()', () => {
     );
   });
 
-  it('should work with email inside a second sub directory', () => {
+  it('works with email inside a second sub directory', () => {
     expect(
       containsEmailTemplate('magic-links/resend/verify-email', directory),
     ).toBe(true);

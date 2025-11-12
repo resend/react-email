@@ -7,7 +7,7 @@ exports[`pretty > if mso syntax does not wrap 1`] = `
 "
 `;
 
-exports[`pretty > should prettify Preview component's complex characters correctly 1`] = `
+exports[`pretty > prettifies Preview component's complex characters correctly 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <html dir="ltr" lang="en">

@@ -11,13 +11,13 @@ export function Topbar({
   return (
     <header
       className={classNames(
-        'z-[3] flex items-center justify-between px-6 py-8',
+        'relative z-50 flex items-center justify-between py-8 px-6 md:px-8',
         className,
       )}
       {...props}
     >
       <Link
-        className="-ml-[.375rem] flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-none focus:ring focus:ring-slate-4"
+        className="-ml-[.375rem] flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-none focus-visible:ring focus-visible:ring-slate-4"
         href="/"
       >
         <Logo />

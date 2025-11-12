@@ -28,7 +28,7 @@ exports[`checkImages() 1`] = `
       },
       {
         "metadata": {
-          "byteCount": 26808,
+          "byteCount": 24534,
         },
         "passed": true,
         "type": "image_size",
@@ -38,7 +38,7 @@ exports[`checkImages() 1`] = `
       "column": 3,
       "line": 2,
     },
-    "source": "https://resend.com/static/brand/resend-icon-white.png",
+    "source": "https://cdn.resend.com/brand/resend-icon-black.png",
     "status": "warning",
   },
   {

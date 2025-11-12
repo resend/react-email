@@ -1,5 +1,53 @@
 # @react-email/render
 
+## 2.0.0
+
+### Major Changes
+
+- 84e4e9e: Removes deprecated `renderAsync`.
+
+  ## Migration
+
+  Replace `renderAsync` with `render`. It should be a drop-in replacement, without any issues.
+
+### Patch Changes
+
+- dfe1477: Remove unused `react-promise-suspense`
+
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- dfe1477: Remove unused `react-promise-suspense`
+
+## 2.0.0-canary.0
+
+### Major Changes
+
+- 84e4e9e: Removes deprecated `renderAsync`.
+
+  ## Migration
+
+  Replace `renderAsync` with `render`. It should be a drop-in replacement, without any issues.
+
+## 1.4.0
+
+### Minor Changes
+
+- 4205615: disable wordwrap in `toPlainText` by default
+
+## 1.3.2
+
+### Patch Changes
+
+- afe328b: fallback to renderToPipeableSream when WritableStream is unavailable
+
+## 1.3.2-canary.0
+
+### Patch Changes
+
+- afe328b: fallback to renderToPipeableSream when WritableStream is unavailable
+
 ## 1.3.1
 
 ### Patch Changes
