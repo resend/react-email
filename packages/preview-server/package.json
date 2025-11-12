@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "tsx ./scripts/build-preview-server.mts",
@@ -30,7 +30,7 @@
     "@radix-ui/react-toggle-group": "1.1.11",
     "@radix-ui/react-tooltip": "1.2.8",
     "@react-email/components": "workspace:*",
-    "@react-email/tailwind": "workspace:2.0.0",
+    "@react-email/tailwind": "workspace:2.0.1",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
     "@types/css-tree": "2.3.10",

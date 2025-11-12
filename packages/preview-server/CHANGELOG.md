@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.3
+
+### Patch Changes
+
+- 4861354: move most dependencies to devDependencies
+- 7ab924c: fix unwanted dependency installation when typescript's not installed
+
 ## 5.0.2
 
 ### Patch Changes
