@@ -38,9 +38,9 @@ export const component = (
                 { rating: 3, count: 97 },
                 { rating: 2, count: 199 },
                 { rating: 1, count: 147 },
-              ].map((count) => (
+              ].map(({ count, rating }) => (
                 <Row
-                  key={count.rating}
+                  key={rating}
                   className="text-[14px] leading-[20px]"
                   align="center"
                 >
@@ -49,7 +49,7 @@ export const component = (
                       <Row>
                         <Column width={undefined}>
                           <Text className="w-[12px] font-medium text-gray-500">
-                            {count.rating}
+                            {rating}
                             <span className="hidden"> star reviews</span>
                           </Text>
                         </Column>
@@ -67,17 +67,22 @@ export const component = (
                             <Column
                               height="12"
                               className="h-[12px] bg-indigo-600 rounded-[6px]"
-                              width={(count.count / 1624) * 264}
+                              width={(count / 1624) * 264}
                               style={{
-                                width: `${(count.count / 1624) * 264}px`,
+                                width: `${(count / 1624) * 264}px`,
                               }}
                             />
-                            <Column />
+                            <Column
+                              width={(1 - count / 1624) * 264}
+                              style={{
+                                width: `${(1 - count / 1624) * 264}px`,
+                              }}
+                            />
                           </Row>
                         </Column>
                         <Column width="100%" className="w-full">
                           <dd className="ml-[12px] text-right font-medium text-gray-500 text-[12px] [font-variant-numeric:tabular-nums] leading-none">
-                            {Math.round((count.count / 1624) * 100)}%
+                            {Math.round((count / 1624) * 100)}%
                           </dd>
                         </Column>
                       </Row>
