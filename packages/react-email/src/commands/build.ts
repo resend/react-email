@@ -76,11 +76,11 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
 ) => {
   const nextConfigContents = `
-const path = require('path');
+import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
@@ -95,12 +95,12 @@ module.exports = {
   experimental: {
     webpackBuildWorker: true
   },
-}`;
+}
 
-  await fs.promises.rm(path.resolve(builtPreviewAppPath, './next.config.ts'));
+export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.js'),
+    path.resolve(builtPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
@@ -198,9 +198,9 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   packageJson.name = 'preview-server';
 
   for (const [dependency, version] of Object.entries(
-    packageJson.dependencies,
+    packageJson.devDependencies,
   )) {
-    packageJson.dependencies[dependency] = version.replace('workspace:', '');
+    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
   }
 
   delete packageJson.devDependencies['@react-email/components'];

@@ -118,7 +118,7 @@ export const Send = ({ markup }: { markup: string }) => {
                 Powered by{' '}
                 <a
                   className="text-white/85 transition duration-300 ease-in-out hover:text-slate-12"
-                  href="https://resend.com"
+                  href="https://go.resend.com/react-email"
                   rel="noreferrer"
                   target="_blank"
                 >

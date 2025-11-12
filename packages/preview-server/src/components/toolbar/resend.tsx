@@ -152,7 +152,8 @@ export function ResendIntegration({
                     );
                   }
 
-                  await sleep(200);
+                  // This avoid exceeding the default rate limit of 2 requests per second
+                  await sleep(600);
                 } catch (error) {
                   console.error('Error processing %s:', emailSlug, error);
                   setItems((prevItems) =>

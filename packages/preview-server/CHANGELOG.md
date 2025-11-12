@@ -1,5 +1,26 @@
 # @react-email/preview-server
 
+## 5.0.3
+
+### Patch Changes
+
+- 4861354: move most dependencies to devDependencies
+- 7ab924c: fix unwanted dependency installation when typescript's not installed
+
+## 5.0.2
+
+### Patch Changes
+
+- e0b7efa: fix sidebar misalignment with the topbar
+- 872f33b: fix scrolling not working on email frame right after resizing
+
+## 5.0.1
+
+### Patch Changes
+
+- 37b405b: Update link for Resend
+- 56a696f: Increases the sleep time between bulk templates import to avoid exceeding the default API rate limit of 2 requests per second
+
 ## 5.0.0
 
 ### Major Changes

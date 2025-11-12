@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.1
+
+### Patch Changes
+
+- e25aaad: unpin tailwindcss to avoid duplicate dependencies
+
 ## 2.0.0
 
 ### Major Changes
