@@ -209,15 +209,15 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                       activeLang={activeLang}
                       markups={[
                         {
-                          language: 'jsx',
+                          language: renderedEmailMetadata.extname,
                           content: renderedEmailMetadata.reactMarkup,
                         },
                         {
-                          language: 'markup',
+                          language: 'html',
                           content: renderedEmailMetadata.prettyMarkup,
                         },
                         {
-                          language: 'markdown',
+                          language: 'md',
                           content: renderedEmailMetadata.plainText,
                         },
                       ]}

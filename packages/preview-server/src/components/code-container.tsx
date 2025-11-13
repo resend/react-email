@@ -13,6 +13,7 @@ import { Tooltip } from './tooltip';
 
 interface CodeContainerProps {
   markups: MarkupProps[];
+  filename: string;
   activeLang: string;
   setActiveLang: (lang: string) => void;
 }
@@ -24,6 +25,7 @@ interface MarkupProps {
 
 export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   markups,
+  filename,
   activeLang,
   setActiveLang,
 }) => {
@@ -56,9 +58,8 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
               const isCurrentLang = activeLang === language;
               return (
                 <motion.button
-                  className={`relative px-4 py-[8px] font-sans text-sm font-medium transition duration-200 ease-in-out hover:text-slate-12 ${
-                    activeLang !== language ? 'text-slate-11' : 'text-slate-12'
-                  }`}
+                  className={`relative px-4 py-[8px] font-sans text-sm font-medium transition duration-200 ease-in-out hover:text-slate-12 ${activeLang !== language ? 'text-slate-11' : 'text-slate-12'
+                    }`}
                   key={language}
                   onClick={() => {
                     setActiveLang(language);
@@ -83,7 +84,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         <CopyToClipboardButton content={activeMarkup.content} />
         <DownloadButton
           content={activeMarkup.content}
-          filename={`email.${activeMarkup.language}`}
+          filename={`${filename}.${activeMarkup.language}`}
         />
       </div>
       <div className="h-[calc(100%-2.25rem)]">
@@ -141,7 +142,7 @@ const DownloadButton = ({ content, filename }: DownloadButtonProps) => {
     return URL.createObjectURL(file);
   }, [content, filename]);
   const url = React.useSyncExternalStore(
-    () => () => {},
+    () => () => { },
     () => generatedUrl,
     () => undefined,
   );
