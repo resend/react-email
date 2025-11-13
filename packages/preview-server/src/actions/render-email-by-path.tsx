@@ -135,7 +135,7 @@ export const renderEmailByPath = async (
       reactMarkup,
 
       basename: path.basename(emailPath, path.extname(emailPath)),
-      extname: path.extname(emailPath),
+      extname: path.extname(emailPath).slice(1),
     };
 
     cache.set(emailPath, renderingResult);
