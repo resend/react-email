@@ -1,12 +1,14 @@
 import {
   Body,
   Button,
+  Column,
   Container,
   Head,
   Heading,
   Hr,
   Html,
   Preview,
+  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -54,87 +56,96 @@ export const component = (
                 { rating: 3, count: 97 },
                 { rating: 2, count: 199 },
                 { rating: 1, count: 147 },
-              ].map((count) => (
-                <div
-                  key={count.rating}
+              ].map(({ count, rating }) => (
+                <Row
+                  align="center"
+                  key={rating}
                   style={{
-                    alignItems: 'center',
-                    display: 'flex',
                     fontSize: '14px',
                     lineHeight: '20px',
                   }}
                 >
-                  <dt
-                    style={{
-                      alignItems: 'center',
-                      display: 'flex',
-                      flex: '1 1 0%',
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: 'rgb(107,114,128)',
-                        fontWeight: '500',
-                        width: '12px',
-                      }}
-                    >
-                      {count.rating}
-                      <span style={{ display: 'none' }}> star reviews</span>
-                    </Text>
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        alignItems: 'center',
-                        flex: '1 1 0%',
-                        display: 'flex',
-                        marginLeft: '4px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          flex: '1 1 0%',
-                          marginLeft: '12px',
-                          position: 'relative',
-                        }}
-                      >
-                        <div
+                  <Column align="center" valign="middle">
+                    <Row>
+                      <Column>
+                        <dt>
+                          <Row>
+                            <Column width={undefined}>
+                              <Text
+                                style={{
+                                  color: 'rgb(107,114,128)',
+                                  fontWeight: '500',
+                                  width: '12px',
+                                }}
+                              >
+                                {rating}
+                                <span style={{ display: 'none' }}>
+                                  {' '}
+                                  star reviews
+                                </span>
+                              </Text>
+                            </Column>
+                            <Column
+                              width="264"
+                              height="12"
+                              style={{
+                                width: 264,
+                                height: 12,
+                                paddingLeft: 12,
+                              }}
+                              aria-hidden="true"
+                              valign="middle"
+                            >
+                              <Row
+                                aria-hidden="true"
+                                width="264"
+                                style={{
+                                  width: 264,
+                                  height: 12,
+                                  backgroundColor: 'rgb(243,244,246)',
+                                  border: '1px solid rgb(229,231,235)',
+                                  borderRadius: 6,
+                                }}
+                              >
+                                <Column
+                                  height="12"
+                                  style={{
+                                    backgroundColor: 'rgb(79,70,229)',
+                                    borderRadius: 6,
+                                    height: 12,
+                                    width: `${(count / 1624) * 264}px`,
+                                  }}
+                                  width={(count / 1624) * 264}
+                                />
+                                <Column
+                                  width={(1 - count / 1624) * 264}
+                                  style={{
+                                    width: `${(1 - count / 1624) * 264}px`,
+                                  }}
+                                />
+                              </Row>
+                            </Column>
+                          </Row>
+                        </dt>
+                      </Column>
+                      <Column width="100%" style={{ width: '100%' }}>
+                        <dd
                           style={{
-                            backgroundColor: 'rgb(243,244,246)',
-                            borderColor: 'rgb(229,231,235)',
-                            borderRadius: '6px',
-                            borderWidth: '1px',
-                            height: '12px',
+                            color: 'rgb(107,114,128)',
+                            fontSize: '12px',
+                            fontVariantNumeric: 'tabular-nums',
+                            fontWeight: '500',
+                            lineHeight: '1',
+                            marginLeft: 12,
+                            textAlign: 'right',
                           }}
-                        />
-                        {count.count > 0 ? (
-                          <div
-                            style={{
-                              backgroundColor: 'rgb(79,70,229)',
-                              borderRadius: '6px',
-                              bottom: '0px',
-                              position: 'absolute',
-                              top: '0px',
-                              width: `calc(${count.count} / ${1624} * 100%)`,
-                            }}
-                          />
-                        ) : null}
-                      </div>
-                    </div>
-                  </dt>
-                  <dd
-                    style={{
-                      color: 'rgb(107,114,128)',
-                      fontSize: '12px',
-                      fontVariantNumeric: 'tabular-nums',
-                      fontWeight: '500',
-                      lineHeight: '1',
-                      marginLeft: '12px',
-                      textAlign: 'right',
-                    }}
-                  >
-                    {Math.round((count.count / 1624) * 100)}%
-                  </dd>
-                </div>
+                        >
+                          {Math.round((count / 1624) * 100)}%
+                        </dd>
+                      </Column>
+                    </Row>
+                  </Column>
+                </Row>
               ))}
             </dl>
             <Text

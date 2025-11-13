@@ -1,10 +1,12 @@
 import {
   Body,
+  Column,
   Container,
   Head,
   Heading,
   Html,
   Preview,
+  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -72,34 +74,45 @@ export const component = (
               marginBottom: '36px',
             }}
           >
-            <div
+            <Row
               style={{
-                alignItems: 'flex-start',
-                display: 'inline-flex',
-                marginLeft: '12px',
-                marginRight: '32px',
+                paddingLeft: '12px',
+                paddingRight: '32px',
               }}
             >
-              <div
+              <Column
+                width="24"
+                height="24"
+                valign="top"
+                align="center"
                 style={{
-                  alignItems: 'center',
-                  backgroundColor: 'rgb(79,70,229)',
-                  borderRadius: '9999px',
-                  color: 'rgb(255,255,255)',
-                  display: 'flex',
-                  flexShrink: '0',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  height: '24px',
-                  justifyContent: 'center',
-                  lineHeight: '1',
-                  marginRight: '18px',
                   width: '24px',
+                  height: '24px',
+                  paddingRight: '18px',
                 }}
               >
-                {feature.number}
-              </div>
-              <div>
+                <Row>
+                  <Column
+                    width="24"
+                    height="24"
+                    align="center"
+                    valign="middle"
+                    style={{
+                      width: '24px',
+                      height: '24px',
+                      backgroundColor: 'rgb(79,70,229)',
+                      borderRadius: '9999px',
+                      color: 'rgb(255,255,255)',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      lineHeight: '1',
+                    }}
+                  >
+                    {feature.number}
+                  </Column>
+                </Row>
+              </Column>
+              <Column>
                 <Heading
                   as="h2"
                   style={{
@@ -122,8 +135,8 @@ export const component = (
                 >
                   {feature.description}
                 </Text>
-              </div>
-            </div>
+              </Column>
+            </Row>
           </Section>
         ))}
       </Container>
