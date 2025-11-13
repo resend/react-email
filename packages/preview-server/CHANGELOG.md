@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.4
+
+### Patch Changes
+
+- 1d35e37: fix file names and extensions not being used in download
+
 ## 5.0.3
 
 ### Patch Changes
