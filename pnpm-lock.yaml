@@ -888,6 +888,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-markup:
+        specifier: 0.0.0-experimental-93fc5740-20251113
+        version: 0.0.0-experimental-93fc5740-20251113(react@19.0.0)
     devDependencies:
       '@edge-runtime/vm':
         specifier: 5.0.0
@@ -7703,6 +7706,11 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-markup@0.0.0-experimental-93fc5740-20251113:
+    resolution: {integrity: sha512-uFiNYKkRjK0UhHSgJviVQRkrdFkccyLDMMbflIIWWFIz4FlTKSd8h0+o5h5ojF0ktvcVcxZeUnl5ZfgrwR9s5A==}
+    peerDependencies:
+      react: ^19.0.0
 
   react-promise-suspense@0.3.4:
     resolution: {integrity: sha512-I42jl7L3Ze6kZaq+7zXWSunBa3b1on5yfvUW6Eo/3fFOj6dZ5Bqmcd264nJbTK/gn1HjjILAjSwnZbV4RpSaNQ==}
@@ -16841,6 +16849,10 @@ snapshots:
       - webpack-cli
 
   react-is@16.13.1: {}
+
+  react-markup@0.0.0-experimental-93fc5740-20251113(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   react-promise-suspense@0.3.4:
     dependencies:
