@@ -19,4 +19,10 @@ export default defineConfig([
     outDir: './dist/edge',
     format: ['cjs', 'esm'],
   },
+  {
+    dts: true,
+    entry: ['./src/react-server/index.ts'],
+    outDir: './dist/react-server',
+    format: ['cjs', 'esm'],
+  },
 ]);
