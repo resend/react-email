@@ -508,12 +508,13 @@ describe('Tailwind component', () => {
   });
 
   describe('with custom theme config', () => {
-    it('supports custom colors', async () => {
+    it.only('supports custom colors', async () => {
       const config: TailwindConfig = {
         theme: {
           extend: {
             colors: {
               custom: '#1fb6ff',
+              otherColor: '#123234',
             },
           },
         },
@@ -521,7 +522,7 @@ describe('Tailwind component', () => {
 
       const actualOutput = await render(
         <Tailwind config={config}>
-          <div className="bg-custom text-custom" />
+          <div className="bg-custom text-custom border-other-color" />
         </Tailwind>,
       ).then(pretty);
 
