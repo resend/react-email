@@ -2,6 +2,9 @@
   "name": "react-email-monorepo",
   "version": "0.0.0",
   "private": true,
+  "devEngines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "build": "turbo run build",
     "canary:enter": "changeset pre enter canary",

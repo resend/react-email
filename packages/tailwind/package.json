@@ -40,6 +40,9 @@
     "tailwind"
   ],
   "engines": {
+    "node": ">=20.0.0"
+  },
+  "devEngines": {
     "node": ">=22.0.0"
   },
   "peerDependencies": {

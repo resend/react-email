@@ -12,7 +12,7 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "benchmarks/preview-server"
   },
-  "engines": {
+  "devEngines": {
     "node": ">=22.0.0"
   },
   "dependencies": {
