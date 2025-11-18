@@ -24,7 +24,13 @@
     "email"
   ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "bin": {
     "create-email": "src/index.js"

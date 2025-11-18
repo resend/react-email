@@ -111,7 +111,13 @@
     "email"
   ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "dependencies": {
     "html-to-text": "^9.0.5",
