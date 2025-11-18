@@ -13,7 +13,10 @@
     "directory": "benchmarks/preview-server"
   },
   "devEngines": {
-    "node": ">=22.0.0"
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "dependencies": {
     "react-email": "workspace:*",

@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "devEngines": {
-    "node": ">=22.0.0"
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "scripts": {
     "build": "turbo run build",

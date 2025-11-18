@@ -27,7 +27,10 @@
     "node": ">=20.0.0"
   },
   "devEngines": {
-    "node": ">=22.0.0"
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "dependencies": {
     "@babel/parser": "^7.27.0",

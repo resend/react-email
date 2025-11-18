@@ -16,7 +16,10 @@
     "directory": "benchmarks/tailwind-component"
   },
   "devEngines": {
-    "node": ">=22.0.0"
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "dependencies": {
     "@react-email/components": "workspace:*",

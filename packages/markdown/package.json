@@ -42,7 +42,10 @@
     "node": ">=20.0.0"
   },
   "devEngines": {
-    "node": ">=22.0.0"
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "publishConfig": {
     "access": "public"
