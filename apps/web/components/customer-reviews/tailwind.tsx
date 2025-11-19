@@ -17,8 +17,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Customer Reviews</Preview>
     <Body>
+      <Preview>Customer Reviews</Preview>
       <Container className="mx-auto max-w-[400px] rounded-[8px] bg-white px-[42px] py-[24px]">
         <Section>
           <Heading as="h1" className="text-[24px] leading-[32px]">

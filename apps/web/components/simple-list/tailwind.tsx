@@ -15,8 +15,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Top 5 Features of Our Service</Preview>
     <Body>
+      <Preview>Top 5 Features of Our Service</Preview>
       <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white p-[24px]">
         <Heading className="mb-[42px] text-center text-[24px] leading-[32px]">
           Top 5 Features of Our Service

@@ -17,11 +17,11 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      How satisfied were you overall with the initial conversation about your
-      claim?
-    </Preview>
     <Body>
+      <Preview>
+        How satisfied were you overall with the initial conversation about your
+        claim?
+      </Preview>
       <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white px-[42px] py-[24px]">
         <Heading className="mb-[16px] text-[24px] leading-[32px]">
           How satisfied were you overall with the initial conversation about
