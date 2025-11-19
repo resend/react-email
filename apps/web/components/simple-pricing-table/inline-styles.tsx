@@ -14,10 +14,10 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      Exclusive Offer Just For You: Unlock Premium Features at $12/month
-    </Preview>
     <Body>
+      <Preview>
+        Exclusive Offer Just For You: Unlock Premium Features at $12/month
+      </Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',

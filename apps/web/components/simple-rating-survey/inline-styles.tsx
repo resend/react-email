@@ -17,11 +17,11 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      How satisfied were you overall with the initial conversation about your
-      claim?
-    </Preview>
     <Body>
+      <Preview>
+        How satisfied were you overall with the initial conversation about your
+        claim?
+      </Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',

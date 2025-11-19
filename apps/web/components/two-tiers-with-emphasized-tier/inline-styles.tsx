@@ -15,8 +15,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Choose the right plan for you</Preview>
     <Body>
+      <Preview>Choose the right plan for you</Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',
