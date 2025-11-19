@@ -36,8 +36,8 @@ export const GooglePlayPolicyUpdateEmailWithTailwind = ({
   >
     <Html>
       <Head />
-      <Preview>Google Play developers</Preview>
       <Body className="bg-[#dbddde] font-main">
+        <Preview>Google Play developers</Preview>
         <Container className="mx-auto my-7 w-[610px] overflow-hidden rounded-md bg-white">
           <Section>
             <Row>
