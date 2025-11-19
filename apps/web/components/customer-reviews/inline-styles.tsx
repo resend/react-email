@@ -17,8 +17,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Customer Reviews</Preview>
     <Body>
+      <Preview>Customer Reviews</Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',

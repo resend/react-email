@@ -17,8 +17,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>How Our Service Works: 5 Simple Steps</Preview>
     <Body className="bg-white">
+      <Preview>How Our Service Works: 5 Simple Steps</Preview>
       <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white px-[24px] pt-[24px] pb-0">
         <Heading
           as="h1"

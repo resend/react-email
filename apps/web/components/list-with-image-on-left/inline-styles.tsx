@@ -17,12 +17,12 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>How Our Service Works: 5 Simple Steps</Preview>
     <Body
       style={{
         backgroundColor: 'rgb(255,255,255)',
       }}
     >
+      <Preview>How Our Service Works: 5 Simple Steps</Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',
