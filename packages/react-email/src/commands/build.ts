@@ -79,15 +79,17 @@ const setNextEnvironmentVariablesForBuild = async (
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
+const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
-    PREVIEW_SERVER_LOCATION: '${builtPreviewAppPath.replace(/\\/g, '/')}',
+    PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: userProjectLocation
   },
+  outputFileTracingRoot: previewServerLocation,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
