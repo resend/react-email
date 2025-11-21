@@ -13,6 +13,7 @@ type SmartLinkProps = ComponentProps<typeof Link>;
  *
  * Context:
  * https://resend.slack.com/archives/C05R55V6GBF/p1763739968845719?thread_ts=1763732012.356639&cid=C05R55V6GBF
+ * https://github.com/vercel/next.js/issues/86385
  */
 export function SmartLink({ href, ...props }: SmartLinkProps) {
   const isExternalRewrite =
