@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.5
+
+### Patch Changes
+
+- d89af46: Broken links to React lines of code in the toolbar
+
 ## 5.0.4
 
 ### Patch Changes
