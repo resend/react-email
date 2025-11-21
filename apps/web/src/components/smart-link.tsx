@@ -21,7 +21,7 @@ export function SmartLink({ href, ...props }: SmartLinkProps) {
     EXTERNAL_REWRITE_PATHS.some((path) => href.startsWith(path));
 
   if (isExternalRewrite) {
-    return <a href={typeof href === 'string' ? href : href.toString()} {...(props as ComponentProps<'a'>)} />;
+    return <a href={href} {...(props as ComponentProps<'a'>)} />;
   }
 
   return <Link href={href} {...props} />;
