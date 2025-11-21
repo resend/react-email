@@ -1,10 +1,10 @@
 'use client';
 
 import classnames from 'classnames';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Drawer } from 'vaul';
+import { SmartLink } from './smart-link';
 
 interface MenuItemProps {
   className?: string;
@@ -31,7 +31,7 @@ function MenuItem({ className, children, href, onClick }: MenuItemProps) {
 
   return (
     <li className="inline-flex w-full items-center justify-center md:w-fit">
-      <Link
+      <SmartLink
         className={classnames(
           'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
           'data-[active=true]:bg-slate-6 data-[active=true]:text-slate-12',
@@ -43,7 +43,7 @@ function MenuItem({ className, children, href, onClick }: MenuItemProps) {
         data-active={activeItem === href.replace('/', '')}
       >
         {children}
-      </Link>
+      </SmartLink>
     </li>
   );
 }
