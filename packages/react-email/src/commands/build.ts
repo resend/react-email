@@ -76,11 +76,11 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
 ) => {
   const nextConfigContents = `
-const path = require('path');
+import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
@@ -88,31 +88,19 @@ module.exports = {
     PREVIEW_SERVER_LOCATION: '${builtPreviewAppPath.replace(/\\/g, '/')}',
     USER_PROJECT_LOCATION: userProjectLocation
   },
-  // this is needed so that the code for building emails works properly
-  webpack: (
-    /** @type {import('webpack').Configuration & { externals: string[] }} */
-    config,
-    { isServer }
-  ) => {
-    if (isServer) {
-      config.externals.push('esbuild');
-    }
-
-    return config;
-  },
+  serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
-  },
-  eslint: {
-    ignoreDuringBuilds: true
   },
   experimental: {
     webpackBuildWorker: true
   },
-}`;
+}
+
+export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.js'),
+    path.resolve(builtPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
@@ -127,23 +115,23 @@ const getEmailSlugsFromEmailDirectory = (
     .trim();
 
   const slugs = [] as Array<string>[];
-  emailDirectory.emailFilenames.forEach((filename) =>
+  for (const filename of emailDirectory.emailFilenames) {
     slugs.push(
       path
         .join(directoryPathRelativeToEmailsDirectory, filename)
         .split(path.sep)
         // sometimes it gets empty segments due to trailing slashes
         .filter((segment) => segment.length > 0),
-    ),
-  );
-  emailDirectory.subDirectories.forEach((directory) => {
+    );
+  }
+  for (const directory of emailDirectory.subDirectories) {
     slugs.push(
       ...getEmailSlugsFromEmailDirectory(
         directory,
         emailsDirectoryAbsolutePath,
       ),
     );
-  });
+  }
 
   return slugs;
 };
@@ -202,24 +190,19 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
-  packageJson.scripts.build = 'next build';
+  // Turbopack has some errors with the imports in @react-email/tailwind
+  packageJson.scripts.build = 'next build --webpack';
   packageJson.scripts.start = 'next start';
   delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
 
   for (const [dependency, version] of Object.entries(
-    packageJson.dependencies,
+    packageJson.devDependencies,
   )) {
-    packageJson.dependencies[dependency] = version.replace('workspace:', '');
+    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
   }
 
-  // We remove this one to avoid having resolve issues on our demo build process.
-  // This is only used in the `export` command so it's irrelevant to have it here.
-  //
-  // See `src/actions/render-email-by-path` for more info on how we render the
-  // email templates without `@react-email/render` being installed.
-  delete packageJson.devDependencies['@react-email/render'];
   delete packageJson.devDependencies['@react-email/components'];
   delete packageJson.scripts.prepare;
 

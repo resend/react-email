@@ -1,17 +1,8 @@
-/** @type {import('next').NextConfig} */
-module.exports = {
-  // this is needed so that the code for building emails works properly
-  webpack: (
-    /** @type {import('webpack').Configuration & { externals: string[] }} */
-    config,
-    { isServer },
-  ) => {
-    if (isServer) {
-      config.externals.push('esbuild');
-    }
-
-    return config;
-  },
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
+  serverExternalPackages: ['esbuild'],
   // Noticed an issue with typescript transpilation when going from Next 14.1.1 to 14.1.2
   // and I narrowed that down into this PR https://github.com/vercel/next.js/pull/62005
   //
@@ -20,3 +11,5 @@ module.exports = {
   // TODO: Open an issue on Nextjs about this.
   transpilePackages: ['react-email'],
 };
+
+export default nextConfig;

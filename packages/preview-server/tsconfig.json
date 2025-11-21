@@ -23,7 +23,7 @@
     "declaration": false,
     "declarationMap": false,
     "incremental": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext", "ESNext.AsyncIterable"],
     "noEmit": true,
     "strict": false,
@@ -39,7 +39,9 @@
     "tailwind-internals.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "next.config.mjs"
   ],
   "exclude": [".next", "dist", "node_modules"]
 }

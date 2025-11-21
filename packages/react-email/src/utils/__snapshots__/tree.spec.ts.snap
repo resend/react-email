@@ -16,6 +16,7 @@ exports[`tree(__dirname, 2) 1`] = `
 ├── types
 │   ├── hot-reload-change.ts
 │   └── hot-reload-event.ts
+├── conf.ts
 ├── get-emails-directory-metadata.spec.ts
 ├── get-emails-directory-metadata.ts
 ├── get-preview-server-location.ts

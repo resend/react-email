@@ -69,7 +69,11 @@ const CodeBlockLine = ({
     );
   }
 
-  return <span style={inheritedStyles}>{token}</span>;
+  return (
+    <span style={inheritedStyles}>
+      {token.replaceAll(' ', '\xA0\u200D\u200B')}
+    </span>
+  );
 };
 
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
@@ -94,11 +98,12 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
       >
         <code>
           {tokensPerLine.map((tokensForLine, lineIndex) => (
-            <p key={lineIndex} style={{ margin: 0, minHeight: '1em' }}>
+            <React.Fragment key={lineIndex}>
               {lineNumbers ? (
                 <span
                   style={{
                     width: '2em',
+                    height: '1em',
                     display: 'inline-block',
                     fontFamily: fontFamily,
                   }}
@@ -115,7 +120,8 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
                   token={token}
                 />
               ))}
-            </p>
+              <br />
+            </React.Fragment>
           ))}
         </code>
       </pre>

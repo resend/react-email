@@ -1,5 +1,17 @@
 # @react-email/markdown
 
+## 0.0.17
+
+### Patch Changes
+
+- 07d3c71: fix nested lists not working
+
+## 0.0.17-canary.0
+
+### Patch Changes
+
+- 07d3c71: fix nested lists not working
+
 ## 0.0.16
 
 ### Patch Changes

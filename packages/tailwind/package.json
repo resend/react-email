@@ -1,6 +1,6 @@
 {
   "name": "@react-email/tailwind",
-  "version": "2.0.0-canary.1",
+  "version": "2.0.1",
   "description": "A React component to wrap emails with Tailwind CSS",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -40,7 +40,13 @@
     "tailwind"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
@@ -113,6 +119,6 @@
     "access": "public"
   },
   "dependencies": {
-    "tailwindcss": "4.1.12"
+    "tailwindcss": "^4.1.12"
   }
 }

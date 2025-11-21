@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/nursery/noNestedComponentDefinitions: There are no components here, just visitor functions */
 import traverse, { type NodePath } from '@babel/traverse';
 import { inlineStyles, sanitizeStyleSheet } from '@react-email/tailwind';
 import type { StyleSheet } from 'css-tree';

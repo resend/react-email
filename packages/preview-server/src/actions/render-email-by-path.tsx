@@ -27,6 +27,9 @@ export interface RenderedEmailMetadata {
   markupWithReferences?: string;
   plainText: string;
   reactMarkup: string;
+
+  basename: string;
+  extname: string;
 }
 
 export type EmailRenderingResult =
@@ -49,8 +52,6 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
-  const timeBeforeEmailRendered = performance.now();
-
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
@@ -61,6 +62,7 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
+  const timeBeforeEmailBundled = performance.now();
   const originalJsxRuntimePath = path.resolve(
     previewServerLocation,
     'jsx-runtime',
@@ -70,6 +72,7 @@ export const renderEmailByPath = async (
     originalJsxRuntimePath,
   );
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
+  const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
   if ('error' in componentResult) {
     spinner?.stopAndPersist({
@@ -90,6 +93,7 @@ export const renderEmailByPath = async (
   const previewProps = Email.PreviewProps || {};
   const EmailComponent = Email as React.FC;
   try {
+    const timeBeforeEmailRendered = performance.now();
     const element = createElement(EmailComponent, previewProps);
     const markupWithReferences = await renderWithReferences(element, {
       pretty: true,
@@ -117,7 +121,7 @@ export const renderEmailByPath = async (
     }
     spinner?.stopAndPersist({
       symbol: logSymbols.success,
-      text: `Successfully rendered ${emailFilename} in ${timeForConsole}`,
+      text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
 
     const renderingResult: RenderedEmailMetadata = {
@@ -129,6 +133,9 @@ export const renderEmailByPath = async (
       markupWithReferences: markupWithReferences.replaceAll('\0', ''),
       plainText,
       reactMarkup,
+
+      basename: path.basename(emailPath, path.extname(emailPath)),
+      extname: path.extname(emailPath).slice(1),
     };
 
     cache.set(emailPath, renderingResult);

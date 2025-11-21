@@ -6,6 +6,306 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## November 7, 2025
+
+**React Email 5.0.0**
+
+- Dark mode switcher emulating email client color inversion
+- improved integration setup flow
+- fallback to not text coloring for Node.js < 20
+
+See [the migration guide](/getting-started/updating-react-email)
+
+**Preview Server 5.0.0**
+
+- Integrate with Templates API so users can easily turn React Email templates into actual Resend templates
+- Dark mode switcher emulating email client color inversion
+- only check compatibility with tailwindcss@4
+- improve color inversion code, don't remount iframe
+- advise `npx` to run email setup command
+- fix compatibility checking not working with inline object styles, and not working on properties such as `justifyContent`/`justify-content`
+- improve reading flow for resend integration setup instructions
+- show separate timings for bundling/rendering an email template
+- darken the canvas background when dark mode is enabled
+- ui improvements
+- reduce margins bellow buttons
+- Updated dependencies
+    - @react-email/tailwind@2.0.0
+
+**Components 1.0.0**
+
+- tailwind: update to using tailwindcss@v4
+- code-block: deal with spark mail's compatibility issues
+- body: reset the `margin` property in the `<body>` when it has a user definition
+- markdown: fix nested lists not working
+- Updated dependencies
+    - @react-email/markdown@0.0.17
+    - @react-email/tailwind@2.0.0
+    - @react-email/code-block@0.2.0
+    - @react-email/body@0.2.0
+    - @react-email/render@2.0.0
+    - @react-email/button@0.2.0
+    - @react-email/code-inline@0.0.5
+    - @react-email/column@0.0.13
+    - @react-email/container@0.0.15
+    - @react-email/font@0.0.9
+    - @react-email/head@0.0.12
+    - @react-email/heading@0.0.15
+    - @react-email/hr@0.0.11
+    - @react-email/html@0.0.11
+    - @react-email/img@0.0.11
+    - @react-email/link@0.0.12
+    - @react-email/preview@0.0.13
+    - @react-email/row@0.0.12
+    - @react-email/section@0.0.16
+    - @react-email/text@0.1.5
+
+**Tailwind 2.0.0**
+
+- update to using tailwindcss@v4, don't inline styles on component props anymore
+- export granular APIs in a more tree shakeable way
+- expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+
+**Render 2.0.0**
+
+- Removes deprecated `renderAsync`
+- Remove unused `react-promise-suspense`
+
+**Code Block 0.2.0**
+
+- deal with spark mail's compatibility issues
+
+**Body 0.2.0**
+
+- reset the `margin` property in the `<body>` when it has a user definition
+
+**Button 0.2.0**
+
+- respect the order in which padding properties are defined
+
+**Markdown 0.0.17**
+
+- fix nested lists not working
+
+## October 24, 2025
+
+**React Email 4.3.2**
+**Preview Server 4.3.2**
+
+- fix imports of files with implicit extensions, and secondary segment like `.spec` failing to hot reload
+
+## October 17, 2025
+
+**React Email 4.3.1**
+
+- hot reloading errors when importing .json and other file extensions
+
+**Preview Server 4.3.1**
+
+- make everything in the global for the UI available to email contexts using a Proxy
+
+**Render 1.4.0**
+
+- disable wordwrap in toPlainText by default
+
+**Markdown 0.0.16**
+
+- move out of md-to-react-email
+
+**Components 0.5.7**
+
+- markdown: move out of md-to-react-email
+- render: disable wordwrap in toPlainText by default
+- Updated dependencies
+    - @react-email/markdown@0.0.16
+    - @react-email/render@1.4.0
+
+## October 6, 2025
+
+**React Email 4.3.0**
+**Preview Server 4.3.0**
+
+- Added resize snapping, refined UI and improved presets
+
+## September 26, 2025
+
+**React Email 4.2.12**
+
+- Normalize Windows paths in generated Next.js config
+
+## September 24, 2025
+
+**Render 1.3.1**
+
+- fixed multi-byte characters causing problems during stream reading
+
+**Components 0.5.5**
+
+- render: fixed multi-byte characters causing problems during stream reading
+- Updated dependencies
+    - @react-email/render@1.3.1
+
+## September 23, 2025
+
+**Render 1.3.0**
+
+- fix link duplication in plain text mode
+
+**Components 0.5.4** 
+
+- render: fix link duplication in plain text mode
+- Updated dependencies
+    - @react-email/render@1.3.0
+
+## September 9, 2025
+
+**React Email 4.2.11**
+**Preview Server 4.2.11**
+
+- fix data-source-\* attributes in the html code view
+
+**React Email 4.2.10**
+**Preview Server 4.2.10**
+
+- Update nextjs to 15.5.2
+
+**Render 1.2.3**
+
+- use edge exports in convex runtime
+
+**Components 0.5.3**
+
+- Updated dependencies
+    - @react-email/render@1.2.3
+
+## September 8, 2025
+
+**React Email 4.2.9**
+**Preview Server 4.2.9**
+
+- use `styleText` from `node:util` instead of `chalk`
+
+## September 5, 2025
+
+**Render 1.2.2**
+
+- fix builds failing with esbuild and react-dom@18
+
+**Components 0.5.2**
+
+- render: fix builds failing with esbuild and react-dom@18
+- Updated dependencies
+    - @react-email/render@1.2.2
+
+## August 20, 2025
+
+**Render 1.2.1**
+
+- fix MessageChannel errors on edge environments
+
+**Components 0.5.1**
+
+- render: add toPlainText utility and deprecate plainText option on `render`
+- Updated dependencies
+    - @react-email/render@1.2.1
+
+## August 6, 2025
+
+**Render 1.2.0**
+
+- add toPlainText utility and deprecate plainText option on `render`
+
+**Components 0.5.0**
+
+- render: add toPlainText utility and deprecate plainText option on render
+- Updated dependencies
+    - @react-email/render@1.2.0
+
+## August 5, 2025
+
+**React Email 4.2.8**
+
+- fix hot reloading with circular dependencies
+
+## August 1, 2025
+
+**React Email 4.2.7**
+**Preview Server 4.2.7**
+
+- fix broken file tree animation on built preview server
+
+## July 31, 2025
+
+**React Email 4.2.6**
+**Preview Server 4.2.6**
+
+- d3cc64d: use unformmated markup to send emails, and to render into the iframe
+
+**Components 0.4.0**
+
+- body: apply all styles of the body to an inner table cell for them to work on Yahoo and AOL
+- Updated dependencies
+    - @react-email/body@0.1.0
+
+**Body 0.1.0**
+
+- apply all styles of the body to an inner table cell for them to work on Yahoo and AOL
+
+## July 30, 2025
+
+**Render 1.1.4**
+
+- fix hydration markers on React canary/Next.js latest when rendering large email templates
+
+**Components 0.3.3**
+
+- Updated dependencies
+    - @react-email/render@1.1.4
+    - @react-email/body@0.0.11
+    - @react-email/button@0.2.0
+    - @react-email/code-block@0.1.0
+    - @react-email/code-inline@0.0.5
+    - @react-email/column@0.0.13
+    - @react-email/container@0.0.15
+    - @react-email/font@0.0.9
+    - @react-email/head@0.0.12
+    - @react-email/heading@0.0.15
+    - @react-email/hr@0.0.11
+    - @react-email/html@0.0.11
+    - @react-email/img@0.0.11
+    - @react-email/link@0.0.12
+    - @react-email/markdown@0.0.15
+    - @react-email/preview@0.0.13
+    - @react-email/row@0.0.12
+    - @react-email/section@0.0.16
+    - @react-email/tailwind@1.2.2
+    - @react-email/text@0.1.5
+
+
+## July 29, 2025
+
+**React Email 4.2.5**
+
+- fix errors in `export` when without manual React import
+
+## July 23, 2025
+
+**React Email 4.2.4**
+**Preview Server 4.2.4**
+
+- fix custom JSX runtime trying to be run as ESM on ESM projects
+
+## July 18, 2025
+
+**Tailwind 1.2.2**
+
+- Add a warning when using safelist and force it to change no behavior
+
+**Components 0.3.2**
+
+- Updated dependencies
+    - @react-email/tailwind@1.2.2
+
 ## July 17, 2025
 
 **React Email 4.2.3**
@@ -18,6 +318,7 @@ icon: "list-check"
 
 ## July 16, 2025
 
+**React Email 4.2.1**
 **Preview Server 4.2.1**
 
 - pin all dependencies to avoid compatibility issues of the built preview server
