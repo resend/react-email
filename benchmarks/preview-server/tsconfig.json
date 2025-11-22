@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "tsconfig/react-library.json",
   "include": ["src"],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "esnext",
     "noUncheckedIndexedAccess": true,
