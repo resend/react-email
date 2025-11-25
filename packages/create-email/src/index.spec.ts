@@ -1,19 +1,19 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
+import { installDependencies, runScript } from 'nypm';
 
 describe('automatic setup', () => {
-  const starterPath = path.resolve(__dirname, '../.test');
+  const starterPath = path.resolve(import.meta.dirname, '../.test');
   test.sequential('creation', async () => {
     if (existsSync(starterPath)) {
       await fs.rm(starterPath, { recursive: true });
     }
 
     const createEmailProcess = spawnSync(
-      'node',
-      [path.resolve(__dirname, './index.js'), '.test'],
+      path.resolve(__dirname, './index.js'),
+      ['.test'],
       {
-        shell: true,
         cwd: path.resolve(__dirname, '../'),
         stdio: 'pipe',
       },
@@ -26,35 +26,26 @@ describe('automatic setup', () => {
     );
   });
 
-  test.sequential('install', { timeout: 40_000 }, () => {
-    const installProcess = spawnSync('npm', ['install'], {
-      shell: true,
-      cwd: path.resolve(starterPath),
-      stdio: 'pipe',
-    });
-    if (installProcess.stderr) {
-      console.log(installProcess.stderr.toString());
-    }
-    expect(installProcess.status, 'starter npm install should return 0').toBe(
-      0,
-    );
-  });
-
-  test.sequential('export', () => {
-    const exportProcess = spawnSync('npm', ['run export'], {
-      shell: true,
+  test.sequential('install', { timeout: 40_000 }, async () => {
+    await installDependencies({
       cwd: starterPath,
-      stdio: 'pipe',
+      packageManager: 'npm',
     });
-    if (exportProcess.stderr) {
-      console.log(exportProcess.stderr.toString());
-    }
-    expect(exportProcess.status, 'export should return status code 0').toBe(0);
   });
 
-  test.sequential('type checking', { timeout: 10_000 }, () => {
-    const typecheckingProcess = spawnSync('npx', ['tsc'], {
-      shell: true,
+  test.sequential('export', async () => {
+    await runScript('export', {
+      cwd: starterPath,
+      packageManager: 'npm',
+    });
+  });
+
+  test.sequential('type checking', { timeout: 10_000 }, async () => {
+    const tscBinary = path.resolve(
+      import.meta.dirname,
+      '../node_modules/.bin/tsc',
+    );
+    const typecheckingProcess = spawnSync(tscBinary, [], {
       cwd: starterPath,
       stdio: 'pipe',
     });
