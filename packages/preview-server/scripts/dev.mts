@@ -30,9 +30,10 @@ NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );
 
-const webServerProcess = child_process.spawn('next', ['dev'], {
+const next = path.resolve(dirname, '../node_modules/.bin/next');
+
+const webServerProcess = child_process.spawn(next, ['dev'], {
   cwd: previewServerRoot,
-  shell: true,
   stdio: 'inherit',
 });
 
