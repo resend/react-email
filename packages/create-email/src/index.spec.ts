@@ -11,10 +11,10 @@ describe('automatic setup', () => {
     }
 
     const createEmailProcess = spawnSync(
-      path.resolve(__dirname, './index.js'),
+      path.resolve(import.meta.dirname, './index.js'),
       ['.test'],
       {
-        cwd: path.resolve(__dirname, '../'),
+        cwd: path.resolve(import.meta.dirname, '../'),
         stdio: 'pipe',
       },
     );
