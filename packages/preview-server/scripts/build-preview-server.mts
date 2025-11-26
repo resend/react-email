@@ -4,7 +4,9 @@ import path from 'node:path';
 
 const nextBinaryPath = path.resolve(
   import.meta.dirname,
-  '../node_modules/.bin/next',
+  process.platform === 'win32'
+    ? '../node_modules/.bin/next.cmd'
+    : '../node_modules/.bin/next',
 );
 
 const nextBuildProcess = spawn(nextBinaryPath, ['build'], {

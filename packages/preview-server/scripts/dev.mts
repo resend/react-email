@@ -30,9 +30,14 @@ NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );
 
-const next = path.resolve(dirname, '../node_modules/.bin/next');
+const nextBinaryPath = path.resolve(
+  import.meta.dirname,
+  process.platform === 'win32'
+    ? '../node_modules/.bin/next.cmd'
+    : '../node_modules/.bin/next',
+);
 
-const webServerProcess = child_process.spawn(next, ['dev'], {
+const webServerProcess = child_process.spawn(nextBinaryPath, ['dev'], {
   cwd: previewServerRoot,
   stdio: 'inherit',
 });
