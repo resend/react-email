@@ -2,15 +2,9 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const nextBinaryPath = path.resolve(
-  import.meta.dirname,
-  process.platform === 'win32'
-    ? '../node_modules/.bin/next.cmd'
-    : '../node_modules/.bin/next',
-);
-
-const nextBuildProcess = spawn(nextBinaryPath, ['build'], {
+const nextBuildProcess = spawn('pnpm next build', {
   detached: true,
+  shell: true,
   stdio: 'inherit',
   cwd: path.resolve(import.meta.dirname, '../'),
 });

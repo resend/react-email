@@ -41,14 +41,9 @@ describe('automatic setup', () => {
   });
 
   test.sequential('type checking', { timeout: 10_000 }, async () => {
-    const tscBinary = path.resolve(
-      import.meta.dirname,
-      process.platform === 'win32'
-        ? '../node_modules/.bin/tsc.cmd'
-        : '../node_modules/.bin/tsc',
-    );
-    const typecheckingProcess = spawnSync(tscBinary, [], {
+    const typecheckingProcess = spawnSync('npx tsc', {
       cwd: starterPath,
+      shell: true,
       stdio: 'pipe',
     });
     if (typecheckingProcess.stderr) {
