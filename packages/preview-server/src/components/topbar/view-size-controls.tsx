@@ -80,7 +80,7 @@ export const ViewSizeControls = ({
   return (
     <div className="relative flex h-9 w-fit overflow-hidden rounded-lg border border-slate-6 text-sm transition-colors duration-300 ease-in-out">
       {VIEW_PRESETS.map((preset) => (
-        <Tooltip>
+        <Tooltip key={preset.name}>
           <Tooltip.Trigger asChild>
             <button
               key={preset.name}
@@ -88,9 +88,7 @@ export const ViewSizeControls = ({
               className={cn(
                 'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
                 {
-                  'bg-slate-4':
-                    viewWidth === preset.dimensions.width &&
-                    viewHeight === preset.dimensions.height,
+                  'bg-slate-4': viewWidth === preset.dimensions.width,
                 },
               )}
               type="button"

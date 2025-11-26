@@ -3,6 +3,8 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["dist", "build", "node_modules", ".test"],
   "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "noEmit": true,
     "types": ["vitest/globals"]
   }

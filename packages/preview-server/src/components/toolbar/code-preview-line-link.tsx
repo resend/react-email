@@ -19,7 +19,7 @@ export const CodePreviewLineLink = ({
   if (type === 'html') {
     newSearchParams.set('lang', 'markup');
   } else if (type === 'react') {
-    newSearchParams.set('lang', 'jsx');
+    newSearchParams.set('lang', 'tsx');
   }
 
   const fragmentIdentifier = `#L${line}`;

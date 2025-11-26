@@ -20,6 +20,7 @@ export const component = (
                 <Button href="https://react.email">
                   <Img
                     alt="Get it on Google Play button"
+                    width={182.5}
                     height={54}
                     src="/static/get-it-on-google-play.png"
                   />
@@ -29,6 +30,7 @@ export const component = (
                 <Button href="https://react.email">
                   <Img
                     alt="Download on the App Store button"
+                    width={164}
                     height={54}
                     src="/static/download-on-the-app-store.png"
                   />

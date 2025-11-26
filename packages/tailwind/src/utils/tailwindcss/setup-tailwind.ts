@@ -1,58 +1,82 @@
-import type { Rule } from 'postcss';
-import { parse } from 'postcss';
-import collapseAdjacentRules from 'tailwindcss/lib/lib/collapseAdjacentRules';
-import collapseDuplicateDeclarations from 'tailwindcss/lib/lib/collapseDuplicateDeclarations';
-import evaluateTailwindFunctions from 'tailwindcss/lib/lib/evaluateTailwindFunctions';
-import expandApplyAtRules from 'tailwindcss/lib/lib/expandApplyAtRules';
-import expandTailwindAtRules from 'tailwindcss/lib/lib/expandTailwindAtRules';
-import { generateRules as rawGenerateRules } from 'tailwindcss/lib/lib/generateRules';
-import partitionApplyAtRules from 'tailwindcss/lib/lib/partitionApplyAtRules';
-import resolveDefaultsAtRules from 'tailwindcss/lib/lib/resolveDefaultsAtRules';
-import substituteScreenAtRules from 'tailwindcss/lib/lib/substituteScreenAtRules';
+import { parse, type StyleSheet } from 'css-tree';
+import { compile } from 'tailwindcss';
 import type { TailwindConfig } from '../../tailwind';
-import { resolveAllCSSVariables } from '../css/resolve-all-css-variables';
-import { setupTailwindContext } from './setup-tailwind-context';
+import indexCss from './tailwind-stylesheets/index';
+import preflightCss from './tailwind-stylesheets/preflight';
+import themeCss from './tailwind-stylesheets/theme';
+import utilitiesCss from './tailwind-stylesheets/utilities';
 
-const tailwindAtRulesRoot = parse(
-  `
-  @tailwind base;
-  @tailwind components;
-`,
-).root();
+export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
-export function setupTailwind(config: TailwindConfig) {
-  // See https://github.com/resend/react-email/issues/1907#issuecomment-2668720428
-  if ('safelist' in config) {
-    console.warn(
-      'The `safelist` option is not supported in the `Tailwind` component, it will not change any behavior.',
-    );
-    delete config.safelist;
-  }
-  const tailwindContext = setupTailwindContext(config);
-  return {
-    generateRootForClasses: (classes: string[]) => {
-      tailwindContext.candidateRuleCache = new Map();
-      const bigIntRuleTuples: [bigint, Rule][] = rawGenerateRules(
-        new Set(classes),
-        tailwindContext,
+export async function setupTailwind(config: TailwindConfig) {
+  const baseCss = `
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@config;
+`;
+  const compiler = await compile(baseCss, {
+    async loadModule(id, base, resourceHint) {
+      if (resourceHint === 'config') {
+        return {
+          path: id,
+          base: base,
+          module: config,
+        };
+      }
+
+      throw new Error(
+        `NO-OP: should we implement support for ${resourceHint}?`,
       );
+    },
+    polyfills: 0, // All
+    async loadStylesheet(id, base) {
+      if (id === 'tailwindcss') {
+        return {
+          base,
+          path: 'tailwindcss/index.css',
+          content: indexCss,
+        };
+      }
 
-      const root = tailwindAtRulesRoot
-        .clone()
-        .append(...bigIntRuleTuples.map(([, rule]) => rule));
-      partitionApplyAtRules()(root);
-      expandTailwindAtRules(tailwindContext)(root);
-      partitionApplyAtRules()(root);
-      expandApplyAtRules(tailwindContext)(root);
-      evaluateTailwindFunctions(tailwindContext)(root);
-      substituteScreenAtRules(tailwindContext)(root);
-      resolveDefaultsAtRules(tailwindContext)(root);
-      collapseAdjacentRules()(root);
-      collapseDuplicateDeclarations()(root);
+      if (id === 'tailwindcss/preflight.css') {
+        return {
+          base,
+          path: id,
+          content: preflightCss,
+        };
+      }
 
-      resolveAllCSSVariables(root);
+      if (id === 'tailwindcss/theme.css') {
+        return {
+          base,
+          path: id,
+          content: themeCss,
+        };
+      }
 
-      return root;
+      if (id === 'tailwindcss/utilities.css') {
+        return {
+          base,
+          path: id,
+          content: utilitiesCss,
+        };
+      }
+
+      throw new Error(
+        'stylesheet not supported, you can only import the ones from tailwindcss',
+      );
+    },
+  });
+
+  let css: string = baseCss;
+
+  return {
+    addUtilities: function addUtilities(candidates: string[]): void {
+      css = compiler.build(candidates);
+    },
+    getStyleSheet: function getCss() {
+      return parse(css) as StyleSheet;
     },
   };
 }

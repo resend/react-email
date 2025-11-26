@@ -153,7 +153,6 @@ const Logos = {
         />
       </g>
       <defs>
-        {/** biome-ignore lint/nursery/useUniqueElementIds: explanation */}
         <clipPath id="clip0_1132_10">
           <rect width="490" height="107" fill="white" />
         </clipPath>

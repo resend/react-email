@@ -30,8 +30,8 @@ export const Email: FC<Readonly<EmailProps>> = ({
   return (
     <Html lang="en">
       <Head />
-      <Preview>{previewText}</Preview>
       <Body>
+        <Preview>{previewText}</Preview>
         <Container>
           <Section>
             <Img

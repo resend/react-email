@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Toaster } from 'sonner';
 import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
 import { componentsStructure } from '../../../../components/structure';
@@ -95,6 +96,8 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
           <ComponentsView components={importedComponents} />
         </div>
       </PageTransition>
+
+      <Toaster />
     </PageWrapper>
   );
 }

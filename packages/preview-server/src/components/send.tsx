@@ -25,12 +25,16 @@ export const Send = ({ markup }: { markup: string }) => {
         }),
       });
 
-      if (response.status === 429) {
-        const { error } = (await response.json()) as { error: string };
-        toast.error(error);
+      if (response.ok) {
+        toast.success('Email sent! Check your inbox.');
+      } else {
+        if (response.status === 429) {
+          const { error } = (await response.json()) as { error: string };
+          toast.error(error);
+        } else {
+          toast.error('Something went wrong. Please try again.');
+        }
       }
-
-      toast.success('Email sent! Check your inbox.');
     } catch (_exception) {
       toast.error('Something went wrong. Please try again.');
     } finally {
@@ -114,7 +118,7 @@ export const Send = ({ markup }: { markup: string }) => {
                 Powered by{' '}
                 <a
                   className="text-white/85 transition duration-300 ease-in-out hover:text-slate-12"
-                  href="https://resend.com"
+                  href="https://go.resend.com/react-email"
                   rel="noreferrer"
                   target="_blank"
                 >
