@@ -4,7 +4,7 @@
   "exclude": ["dist", "build", "node_modules", ".test"],
   "compilerOptions": {
     "moduleResolution": "nodenext",
-    "module": "node20",
+    "module": "nodenext",
     "noEmit": true,
     "types": ["vitest/globals"]
   }
