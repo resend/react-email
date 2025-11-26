@@ -1,7 +1,7 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
+import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -12,64 +12,8 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 
 interface Args {
   dir: string;
-  packageManager: string;
+  packageManager: PackageManagerName;
 }
-
-const buildPreviewApp = (absoluteDirectory: string) => {
-  return new Promise<void>((resolve, reject) => {
-    const nextBuild = spawn('npm', ['run', 'build'], {
-      cwd: absoluteDirectory,
-      shell: true,
-    });
-    nextBuild.stdout.pipe(process.stdout);
-    nextBuild.stderr.pipe(process.stderr);
-
-    nextBuild.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `Unable to build the Next app and it exited with code: ${code}`,
-          ),
-        );
-      }
-    });
-  });
-};
-
-const npmInstall = async (
-  builtPreviewAppPath: string,
-  packageManager: string,
-) => {
-  return new Promise<void>((resolve, reject) => {
-    const childProc = spawn(
-      packageManager,
-      [
-        'install',
-        packageManager === 'deno' ? '' : '--include=dev',
-        packageManager === 'deno' ? '--quiet' : '--silent',
-      ],
-      {
-        cwd: builtPreviewAppPath,
-        shell: true,
-      },
-    );
-    childProc.stdout.pipe(process.stdout);
-    childProc.stderr.pipe(process.stderr);
-    childProc.on('close', (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `Unable to install the dependencies and it exited with code: ${code}`,
-          ),
-        );
-      }
-    });
-  });
-};
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
@@ -283,14 +227,21 @@ export const build = async ({
     await updatePackageJson(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
-    await npmInstall(builtPreviewAppPath, packageManager);
+    await installDependencies({
+      cwd: builtPreviewAppPath,
+      silent: true,
+      packageManager,
+    });
 
     spinner.stopAndPersist({
       text: 'Successfully prepared `.react-email` for `next build`',
       symbol: logSymbols.success,
     });
 
-    await buildPreviewApp(builtPreviewAppPath);
+    await runScript('build', {
+      packageManager,
+      cwd: builtPreviewAppPath,
+    });
   } catch (error) {
     console.log(error);
     process.exit(1);
