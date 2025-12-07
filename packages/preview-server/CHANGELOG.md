@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.6
+
+### Patch Changes
+
+- f2bb9e9: add missing favicon
+- 1d14411: fix multiple lockfile warning during email build
+
 ## 5.0.5
 
 ### Patch Changes
