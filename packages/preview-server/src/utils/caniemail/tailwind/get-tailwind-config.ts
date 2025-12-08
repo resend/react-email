@@ -1,29 +1,13 @@
 import path from 'node:path';
 import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
+import type { TailwindConfig } from '@react-email/tailwind';
 import * as esbuild from 'esbuild';
 import type { RawSourceMap } from 'source-map-js';
-import type { Config as TailwindOriginalConfig } from 'tailwindcss';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { convertStackWithSourceMap } from '../../convert-stack-with-sourcemap';
 import { isErr } from '../../result';
 import { runBundledCode } from '../../run-bundled-code';
-
-export type TailwindConfig = Pick<
-  TailwindOriginalConfig,
-  | 'important'
-  | 'prefix'
-  | 'separator'
-  | 'safelist'
-  | 'blocklist'
-  | 'presets'
-  | 'future'
-  | 'experimental'
-  | 'darkMode'
-  | 'theme'
-  | 'corePlugins'
-  | 'plugins'
->;
 
 export const getTailwindConfig = async (
   sourceCode: string,
