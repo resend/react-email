@@ -17,8 +17,10 @@ export const WaitlistEmail: React.FC<Readonly<WaitlistEmailProps>> = ({
 }) => (
   <Html>
     <Head />
-    <Preview>Thank you for joining our waitlist and for your patience</Preview>
     <Body style={main}>
+      <Preview>
+        Thank you for joining our waitlist and for your patience
+      </Preview>
       <Container style={container}>
         <Heading style={h1}>Coming Soon.</Heading>
         <Text style={text}>

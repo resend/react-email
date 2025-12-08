@@ -1,3 +1,4 @@
+import { Body } from '@react-email/body';
 import { Button } from '@react-email/button';
 import { Head } from '@react-email/head';
 import { Heading } from '@react-email/heading';
@@ -7,6 +8,7 @@ import { Link } from '@react-email/link';
 import { pretty, render } from '@react-email/render';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import React from 'react';
+import plugin from 'tailwindcss/plugin';
 import type { TailwindConfig } from '.';
 import { Tailwind } from '.';
 
@@ -295,6 +297,32 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchSnapshot();
   });
 
+  // See https://github.com/resend/react-email/issues/2388
+  it('properly does not inline custom utilities', async () => {
+    const actualOutput = await render(
+      <Tailwind
+        config={{
+          plugins: [
+            plugin(({ addUtilities }) => {
+              addUtilities({
+                '.text-body': {
+                  '@apply text-[green] dark:text-[orange]': {},
+                },
+              });
+            }),
+          ],
+        }}
+      >
+        <Html>
+          <Head />
+          <Body className="text-body">this is the body</Body>
+        </Html>
+      </Tailwind>,
+    );
+
+    expect(actualOutput).toMatchSnapshot();
+  });
+
   it('recognizes custom responsive screen', async () => {
     const actualOutput = await render(
       <Html>
@@ -336,16 +364,16 @@ describe('Tailwind component', () => {
 
   describe('with non-inlinable styles', () => {
     /*
-    This test is because of https://github.com/resend/react-email/issues/1112
-    which was being caused because we required to, either have our <Head> component,
-    or a <head> element directly inside the <Tailwind> component for media queries to be applied
-    onto. The problem with this approach was that the check to see if an element was an instance of
-    the <Head> component fails after minification as we did it by the function name.
+      This test is because of https://github.com/resend/react-email/issues/1112
+      which was being caused because we required to, either have our <Head> component,
+      or a <head> element directly inside the <Tailwind> component for media queries to be applied
+      onto. The problem with this approach was that the check to see if an element was an instance of
+      the <Head> component fails after minification as we did it by the function name.
 
-    The best solution is to check for the Head element on arbitrarily deep levels of the React tree
-    and apply the styles there. This also fixes the issue where it would not be allowed to use
-    Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
-  */
+      The best solution is to check for the Head element on arbitrarily deep levels of the React tree
+      and apply the styles there. This also fixes the issue where it would not be allowed to use
+      Tailwind classes on the <html> element as the <head> would be required directly bellow Tailwind.
+    */
     it('works with arbitrarily deep (in the React tree) <head> elements', async () => {
       expect(
         await render(

@@ -1,5 +1,67 @@
 # @react-email/tailwind
 
+## 2.0.1
+
+### Patch Changes
+
+- e25aaad: unpin tailwindcss to avoid duplicate dependencies
+
+## 2.0.0
+
+### Major Changes
+
+- 2452b7d: update to using tailwindcss@v4, don't inline styles on component props anymore
+
+  ## Migration
+
+  - Check https://tailwindcss.com/docs/upgrade-guide#changes-from-v3 to see if you need to change utilities
+  - If you were merging utilities with the `style` prop, consider using [tailwind-merge](https://github.com/dcastil/tailwind-merge) instead.
+  - Configuration should remain in `config` prop
+
+### Patch Changes
+
+- 1e76981: export granular APIs in a more tree shakeable way
+- 442f5b6: expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+- Updated dependencies [4f858a3]
+- Updated dependencies [aa2bc86]
+  - @react-email/code-block@0.2.0
+  - @react-email/body@0.2.0
+  - @react-email/button@0.2.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/container@0.0.15
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/preview@0.0.13
+  - @react-email/text@0.1.5
+
+## 2.0.0-canary.4
+
+### Patch Changes
+
+- Updated dependencies [aa2bc86]
+  - @react-email/body@0.2.0-canary.0
+
+## 2.0.0-canary.3
+
+### Patch Changes
+
+- Updated dependencies [4f858a3]
+  - @react-email/code-block@0.2.0-canary.0
+
+## 2.0.0-canary.2
+
+### Patch Changes
+
+- 1e76981: export granular APIs in a more tree shakeable way
+
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- 442f5b6: expose `setupTailwind`, `sanitizeDeclarations` and `inlineStyles` for use in the preview server
+
 ## 2.0.0-canary.0
 
 ### Major Changes

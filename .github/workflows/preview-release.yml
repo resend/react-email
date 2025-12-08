@@ -17,15 +17,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
       - name: Install packages
         run: pnpm install --frozen-lockfile
       - name: Run Build
-        run: pnpm build
-        env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-            # Add step to find changed package directories within ./packages
+        run: pnpm turbo run build --filter=./packages/*
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0

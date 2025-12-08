@@ -16,12 +16,14 @@ exports[`tree(__dirname, 2) 1`] = `
 ├── types
 │   ├── hot-reload-change.ts
 │   └── hot-reload-event.ts
+├── conf.ts
 ├── get-emails-directory-metadata.spec.ts
 ├── get-emails-directory-metadata.ts
 ├── get-preview-server-location.ts
 ├── index.ts
 ├── packageJson.ts
 ├── register-spinner-autostopping.ts
+├── style-text.ts
 ├── tree.spec.ts
 └── tree.ts"
 `;

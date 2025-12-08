@@ -34,7 +34,7 @@ export const ToolbarButton = ({
             {children}
             {active ? (
               <motion.span
-                className="-bottom-px absolute rounded-sm left-0 w-full bg-cyan-11 h-px"
+                className="-bottom-px absolute rounded-xs left-0 w-full bg-cyan-11 h-px"
                 layoutId="active-toolbar-button"
                 transition={{
                   type: 'spring',

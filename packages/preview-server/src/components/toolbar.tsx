@@ -1,18 +1,23 @@
 'use client';
+
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import type { ComponentProps } from 'react';
 import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
+import { useToolbarContext } from '../contexts/toolbar';
 import { cn } from '../utils';
+import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
 import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
   type SpamCheckingResult,
@@ -21,10 +26,15 @@ import {
 import { ToolbarButton } from './toolbar/toolbar-button';
 import { useCachedState } from './toolbar/use-cached-state';
 
-export type ToolbarTabValue = 'linter' | 'compatibility' | 'spam-assassin';
+export type ToolbarTabValue =
+  | 'linter'
+  | 'compatibility'
+  | 'spam-assassin'
+  | 'resend';
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
+
   const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
     | ToolbarTabValue
     | undefined;
@@ -56,6 +66,8 @@ const ToolbarInner = ({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const { hasSetupResendIntegration } = useToolbarContext();
 
   const { activeTab, toggled } = useToolbarState();
 
@@ -105,7 +117,6 @@ const ToolbarInner = ({
 
   if (!isBuilding) {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Setters don't need dependencies
     React.useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
@@ -128,7 +139,7 @@ const ToolbarInner = ({
       className={cn(
         'absolute bottom-0 left-0 right-0',
         'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-52 transition-transform',
-        'data-[toggled=false]:translate-y-[10.625rem]',
+        'data-[toggled=false]:translate-y-42.5',
       )}
     >
       <Tabs.Root
@@ -139,7 +150,7 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full flex-shrink-0">
+          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full shrink-0">
             <LayoutGroup id={`toolbar-${id}`}>
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
@@ -156,6 +167,11 @@ const ToolbarInner = ({
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              <Tabs.Trigger asChild value="resend">
+                <ToolbarButton active={activeTab === 'resend'}>
+                  Resend
+                </ToolbarButton>
+              </Tabs.Trigger>
             </LayoutGroup>
             <div className="flex gap-0.5 ml-auto">
               <ToolbarButton
@@ -167,15 +183,17 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'resend' &&
+                    'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
                   'Info'
                 }
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding ? null : (
+              {isBuilding || activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
-                  disabled={lintLoading || spamLoading}
+                  disabled={lintLoading || spamLoading || compatibilityLoading}
                   onClick={async () => {
                     if (activeTab === undefined) {
                       setActivePanelValue('linter');
@@ -193,7 +211,7 @@ const ToolbarInner = ({
                     size={24}
                     className={cn({
                       'opacity-60 animate-spin-fast':
-                        lintLoading || spamLoading,
+                        lintLoading || spamLoading || compatibilityLoading,
                     })}
                   />
                 </ToolbarButton>
@@ -216,7 +234,7 @@ const ToolbarInner = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
+          <div className="grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
             <Tabs.Content value="linter">
               {lintLoading ? (
                 <LoadingState message="Analyzing your code for linting issues..." />
@@ -262,6 +280,25 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
+            <Tabs.Content value="resend">
+              {hasSetupResendIntegration ? (
+                <ResendIntegration
+                  emailSlug={emailSlug}
+                  htmlMarkup={prettyMarkup}
+                />
+              ) : (
+                <SuccessWrapper>
+                  <SuccessTitle>Connect to Resend</SuccessTitle>
+                  <SuccessDescription className="max-w-lg">
+                    Run{' '}
+                    <CodeSnippet>
+                      npx react-email@latest resend setup
+                    </CodeSnippet>
+                    <br /> on your terminal to connect your Resend account.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              )}
+            </Tabs.Content>
           </div>
         </div>
       </Tabs.Root>
@@ -273,7 +310,7 @@ const LoadingState = ({ message }: { message: string }) => {
   return (
     <div className="flex flex-col items-center justify-center pt-8">
       <div className="relative mb-8 flex items-center justify-center">
-        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-400/80 to-cyan-600/80 opacity-10 blur-xl absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+        <div className="h-12 w-12 rounded-full bg-linear-to-br from-cyan-400/80 to-cyan-600/80 opacity-10 blur-xl absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
         <div className="h-12 w-12 rounded-full border border-slate-4 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
         <div className="h-10 w-10 rounded-full flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="h-5 w-5 rounded-full border-2 border-white/50 border-t-transparent animate-spin-fast" />
@@ -298,24 +335,43 @@ const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
 const SuccessIcon = () => {
   return (
     <div className="relative mb-8 flex items-center justify-center">
-      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
-      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
-        <IconCheck size={24} className="text-white drop-shadow-sm" />
+      <div className="h-16 w-16 rounded-full bg-linear-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="h-12 w-12 rounded-full bg-linear-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
+      <div className="h-10 w-10 rounded-full bg-linear-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+        <IconCheck size={24} className="text-white drop-shadow-xs" />
       </div>
     </div>
   );
 };
 
-const SuccessTitle = ({ children }) => {
+const SuccessTitle = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'h3'>) => {
   return (
-    <h3 className="text-slate-12 font-medium text-base mb-1">{children}</h3>
+    <h3
+      className={cn('text-slate-12 font-medium text-base mb-1', className)}
+      {...props}
+    >
+      {children}
+    </h3>
   );
 };
 
-const SuccessDescription = ({ children }) => {
+const SuccessDescription = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<'p'>) => {
   return (
-    <p className="text-slate-11 text-sm text-center max-w-[320px]">
+    <p
+      className={cn(
+        'text-slate-11 text-sm text-center max-w-[320px]',
+        className,
+      )}
+      {...props}
+    >
       {children}
     </p>
   );
@@ -327,11 +383,11 @@ interface ToolbarProps {
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
 }
 
-export const Toolbar = ({
+export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
-}: ToolbarProps) => {
+}: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
@@ -349,4 +405,4 @@ export const Toolbar = ({
       serverCompatibilityResults={serverCompatibilityResults}
     />
   );
-};
+}
