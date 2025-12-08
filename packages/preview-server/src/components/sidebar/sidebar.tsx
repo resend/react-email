@@ -24,7 +24,7 @@ export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
       <div className="flex w-full h-full overflow-hidden flex-col border-slate-6 border-r">
         <div
           className={clsx(
-            'hidden min-h-14 flex-shrink items-center py-2 px-3 lg:flex border-b border-slate-4',
+            'hidden min-h-14 shrink items-center py-2 px-3 lg:flex border-b border-slate-4',
           )}
         >
           <h2>

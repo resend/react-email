@@ -60,7 +60,7 @@ export const Send = ({ markup }: { markup: string }) => {
     >
       <Popover.Trigger asChild>
         <button
-          className="box-border flex h-5 w-20 items-center justify-center self-center rounded-lg border border-slate-6 bg-slate-2 px-4 py-4 text-center font-sans text-sm text-slate-11 outline-none transition duration-300 ease-in-out hover:border-slate-10 hover:text-slate-12"
+          className="box-border flex h-5 w-20 items-center justify-center self-center rounded-lg border border-slate-6 bg-slate-2 px-4 py-4 text-center font-sans text-sm text-slate-11 outline-hidden transition duration-300 ease-in-out hover:border-slate-10 hover:text-slate-12"
           type="submit"
         >
           Send
@@ -82,7 +82,7 @@ export const Send = ({ markup }: { markup: string }) => {
             </label>
             <input
               autoFocus
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={to}
               id={toId}
               onChange={(e) => {
@@ -99,7 +99,7 @@ export const Send = ({ markup }: { markup: string }) => {
               Subject
             </label>
             <input
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={subject}
               id={subjectId}
               onChange={(e) => {

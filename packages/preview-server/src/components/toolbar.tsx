@@ -139,7 +139,7 @@ const ToolbarInner = ({
       className={cn(
         'absolute bottom-0 left-0 right-0',
         'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-52 transition-transform',
-        'data-[toggled=false]:translate-y-[10.625rem]',
+        'data-[toggled=false]:translate-y-42.5',
       )}
     >
       <Tabs.Root
@@ -150,7 +150,7 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full flex-shrink-0">
+          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full shrink-0">
             <LayoutGroup id={`toolbar-${id}`}>
               <Tabs.Trigger asChild value="linter">
                 <ToolbarButton active={activeTab === 'linter'}>
@@ -234,7 +234,7 @@ const ToolbarInner = ({
             </div>
           </Tabs.List>
 
-          <div className="flex-grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
+          <div className="grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
             <Tabs.Content value="linter">
               {lintLoading ? (
                 <LoadingState message="Analyzing your code for linting issues..." />
@@ -310,7 +310,7 @@ const LoadingState = ({ message }: { message: string }) => {
   return (
     <div className="flex flex-col items-center justify-center pt-8">
       <div className="relative mb-8 flex items-center justify-center">
-        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-400/80 to-cyan-600/80 opacity-10 blur-xl absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+        <div className="h-12 w-12 rounded-full bg-linear-to-br from-cyan-400/80 to-cyan-600/80 opacity-10 blur-xl absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
         <div className="h-12 w-12 rounded-full border border-slate-4 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
         <div className="h-10 w-10 rounded-full flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="h-5 w-5 rounded-full border-2 border-white/50 border-t-transparent animate-spin-fast" />
@@ -335,10 +335,10 @@ const SuccessWrapper = ({ children }: { children: React.ReactNode }) => {
 const SuccessIcon = () => {
   return (
     <div className="relative mb-8 flex items-center justify-center">
-      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
-      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
-        <IconCheck size={24} className="text-white drop-shadow-sm" />
+      <div className="h-16 w-16 rounded-full bg-linear-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="h-12 w-12 rounded-full bg-linear-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
+      <div className="h-10 w-10 rounded-full bg-linear-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+        <IconCheck size={24} className="text-white drop-shadow-xs" />
       </div>
     </div>
   );

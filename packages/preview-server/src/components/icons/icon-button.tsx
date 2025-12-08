@@ -11,7 +11,7 @@ export const IconButton = React.forwardRef<
     type="button"
     {...props}
     className={cn(
-      'focus:ring-gray-8 rounded text-slate-11 transition duration-200 ease-in-out hover:text-slate-12 focus:text-slate-12 focus:outline-none focus:ring-2',
+      'focus:ring-gray-8 rounded-sm text-slate-11 transition duration-200 ease-in-out hover:text-slate-12 focus:text-slate-12 focus:outline-hidden focus:ring-2',
       className,
     )}
     ref={forwardedRef}
