@@ -115,11 +115,7 @@ export const Send = ({ markup }: { markup: string }) => {
               </div>
               <Button
                 className="disabled:border-transparent disabled:bg-slate-11"
-                disabled={
-                  subject.length === 0 ||
-                  to.length === 0 ||
-                  isSending
-                }
+                disabled={subject.length === 0 || to.length === 0 || isSending}
                 type="submit"
               >
                 Send
