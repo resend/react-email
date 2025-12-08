@@ -1,17 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --background-image-gradient: linear-gradient(145.37deg,
-      rgba(255, 255, 255, 0.09) -8.75%,
-      rgba(255, 255, 255, 0.027) 83.95%);
-  --background-image-gradient-hover: linear-gradient(145.37deg,
-      rgba(255, 255, 255, 0.1) -8.75%,
-      rgba(255, 255, 255, 0.057) 83.95%);
-  --background-image-shine: linear-gradient(45deg,
-      rgba(255, 255, 255, 0) 45%,
-      rgba(255, 255, 255, 1) 50%,
-      rgba(255, 255, 255, 0) 55%,
-      rgba(255, 255, 255, 0) 100%);
+  --background-image-gradient: linear-gradient(
+    145.37deg,
+    rgba(255, 255, 255, 0.09) -8.75%,
+    rgba(255, 255, 255, 0.027) 83.95%
+  );
+  --background-image-gradient-hover: linear-gradient(
+    145.37deg,
+    rgba(255, 255, 255, 0.1) -8.75%,
+    rgba(255, 255, 255, 0.057) 83.95%
+  );
+  --background-image-shine: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
 
   --color-cyan-1: #0091f70a;
   --color-cyan-2: #02a7f211;
@@ -125,6 +131,6 @@ html {
   pointer-events: none;
 }
 
-nav>div>div>.line {
+nav > div > div > .line {
   display: none;
 }

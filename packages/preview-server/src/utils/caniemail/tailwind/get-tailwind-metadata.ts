@@ -1,5 +1,9 @@
 import traverse from '@babel/traverse';
-import { setupTailwind, type TailwindConfig, type TailwindSetup } from '@react-email/tailwind';
+import {
+  setupTailwind,
+  type TailwindConfig,
+  type TailwindSetup,
+} from '@react-email/tailwind';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { getTailwindConfig } from './get-tailwind-config';
 
