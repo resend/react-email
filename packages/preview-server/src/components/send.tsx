@@ -1,49 +1,35 @@
 import * as Popover from '@radix-ui/react-popover';
-import * as React from 'react';
+import { useId, useState } from 'react';
 import { toast } from 'sonner';
+import { sendTestEmail } from '../actions/send-test-email';
 import { Button } from './button';
 import { Text } from './text';
 
 export const Send = ({ markup }: { markup: string }) => {
-  const [to, setTo] = React.useState('');
-  const [subject, setSubject] = React.useState('Testing React Email');
-  const [isSending, setIsSending] = React.useState(false);
-  const [isPopOverOpen, setIsPopOverOpen] = React.useState(false);
+  const [to, setTo] = useState('');
+  const [subject, setSubject] = useState('Testing React Email');
+  const [isSending, setIsSending] = useState(false);
+  const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
   const onFormSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault();
-      setIsSending(true);
+    e.preventDefault();
+    setIsSending(true);
 
-      const response = await fetch('https://react.email/api/send/test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to,
-          subject,
-          html: markup,
-        }),
-      });
+    const response = await sendTestEmail(to, subject, markup);
 
-      if (response.ok) {
-        toast.success('Email sent! Check your inbox.');
-      } else {
-        if (response.status === 429) {
-          const { error } = (await response.json()) as { error: string };
-          toast.error(error);
-        } else {
-          toast.error('Something went wrong. Please try again.');
-        }
-      }
-    } catch (_exception) {
+    if (response.ok) {
+      toast.success('Email sent! Check your inbox.');
+    } else if (response.status === 429) {
+      toast.error('Too many requests. Try again in around 1 minute');
+    } else {
       toast.error('Something went wrong. Please try again.');
-    } finally {
-      setIsSending(false);
     }
+
+    setIsSending(false);
   };
 
-  const toId = React.useId();
-  const subjectId = React.useId();
+  const toId = useId();
+  const subjectId = useId();
 
   return (
     <Popover.Root
@@ -114,20 +100,26 @@ export const Send = ({ markup }: { markup: string }) => {
               type="checkbox"
             />
             <div className="mt-3 flex items-center justify-between">
-              <Text className="inline-block" size="1">
-                Powered by{' '}
-                <a
-                  className="text-white/85 transition duration-300 ease-in-out hover:text-slate-12"
-                  href="https://go.resend.com/react-email"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Resend
-                </a>
-              </Text>
+              <div className="flex flex-col inline-block">
+                <Text size="1">
+                  Powered by{' '}
+                  <a
+                    className="text-white/85 transition duration-300 ease-in-out hover:text-slate-12"
+                    href="https://go.resend.com/react-email"
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Resend
+                  </a>
+                </Text>
+              </div>
               <Button
                 className="disabled:border-transparent disabled:bg-slate-11"
-                disabled={subject.length === 0 || to.length === 0 || isSending}
+                disabled={
+                  subject.length === 0 ||
+                  to.length === 0 ||
+                  isSending
+                }
                 type="submit"
               >
                 Send
