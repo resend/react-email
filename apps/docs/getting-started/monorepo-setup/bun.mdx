@@ -46,24 +46,25 @@ Include the following script in your `package.json` file.
 
 Create a new folder called `emails`, create a file inside called `MyEmail.tsx` and add the following example code:
 
-```jsx packages/transactional/emails/MyEmail.tsx
-import { Button, Html } from "@react-email/components";
+```jsx packages/transactional/emails/email.tsx
+import { Button, Html, Head, Body } from "@react-email/components";
 import * as React from "react";
 
-export const MyEmail = () => {
+export default function Email() {
   return (
     <Html>
-      <Button
-        href="https://example.com"
-        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
-      >
-        Click me
-      </Button>
+      <Head />
+      <Body>
+        <Button
+          href="https://example.com"
+          style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+        >
+          Click me
+        </Button>
+      </Body>
     </Html>
   );
 }
-
-export default MyEmail;
 ```
 
 ## 5. Run preview server
@@ -79,7 +80,7 @@ bun dev
 Visit [localhost:3000](http://localhost:3000) and edit the `emails/MyEmail.tsx` file to see the changes.
 
 <Frame>
-  <img alt="Local Development" src="/images/local-dev.jpg" />
+  <img alt="Local Development" src="/images/manual-setup-dev.png" />
 </Frame>
 
 ## 7. Try it yourself
