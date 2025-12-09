@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.0.7
+
+### Patch Changes
+
+- 92f8afd: broken links to html code view tab
+- 6f5cb91: use tailwindcss v4 in the UI
+
 ## 5.0.6
 
 ### Patch Changes
