@@ -9,7 +9,7 @@ sidebarTitle: 'Inbound'
 
 Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Inbound Node.js SDK](https://www.npmjs.com/package/inboundemail).
 
-Make sure you have an account on [inbound](https://inbound.new), you will need an inbound API key.
+Make sure you have an account on [inbound](https://inbound.new?utm_source=react-email%20docs&utm_medium=email&utm_campaign=react_email_campaign), you will need an inbound API key.
 
 <CodeGroup>
 
@@ -80,20 +80,32 @@ Use the Inbound SDK to reply to an email with the same template you just created
 import { Inbound } from 'inboundemail';
 import { Email } from './email';
 
-const inbound = new Inbound(process.env.INBOUND_API_KEY);
-
-await inbound.emails.reply(email.id,{
-  react: <Email url="https://example.com" />,
+const inbound = new Inbound({
+    apiKey: process.env.INBOUND_API_KEY
 });
+
+// sending an email via inbound
+await inbound.emails.send(email.id,{
+  from: "React Email <react.email@inbound.new>",
+  react: <Email url="https://example.com" />
+});
+
+// replying to an email that was received via inbound
+await inbound.emails.reply(email.id,{
+  from: "React Email <react.email@inbound.new>",
+  react: <Email url="https://example.com" />
+});
+
+
 ```
 
 ## Try it yourself
 
 <Card
-  title="Inbound example"
+  title="Get started on Inbound"
   icon='arrow-up-right-from-square'
   iconType="duotone"
-  href="https://github.com/inboundemail/inbound"
+  href="https://inbound.new?utm_source=react-email%20docs&utm_medium=email&utm_campaign=react_email_campaign"
 >
-  See the full source code.
+  See it on our examples.
 </Card>
