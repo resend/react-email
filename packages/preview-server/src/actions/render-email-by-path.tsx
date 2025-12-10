@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
+import type React from 'react';
 import {
   isBuilding,
   isPreviewDevelopment,
@@ -55,6 +56,7 @@ export const renderEmailByPath = async (
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
+    process.stdout.cork();
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
@@ -79,6 +81,7 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
+    process.stdout.uncork();
     return { error: componentResult.error };
   }
 
@@ -91,7 +94,7 @@ export const renderEmailByPath = async (
   } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
-  const EmailComponent = Email as React.FC;
+  const EmailComponent = Email as React.FunctionComponent;
   try {
     const timeBeforeEmailRendered = performance.now();
     const element = createElement(EmailComponent, previewProps);
@@ -123,6 +126,7 @@ export const renderEmailByPath = async (
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
+    process.stdout.uncork();
 
     const renderingResult: RenderedEmailMetadata = {
       prettyMarkup,
