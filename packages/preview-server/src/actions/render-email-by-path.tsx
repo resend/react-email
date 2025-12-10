@@ -36,10 +36,26 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
+
+const createLogBufferer = (log: (...args: any[]) => void) => {
+  const logs: Array<any[]> = [];
+
+  return {
+    log: (...args: any[]) => {
+      logs.push(args);
+    },
+    original: log,
+    uncork: () => {
+      for (const logArgs of logs) {
+        log(...logArgs);
+      }
+    },
+  };
+};
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -53,13 +69,38 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
+  const {
+    log,
+    uncork: uncorkLog,
+    original: originalLog,
+  } = createLogBufferer(console.log);
+  console.log = log;
+  const {
+    log: error,
+    uncork: uncorkError,
+    original: originalError,
+  } = createLogBufferer(console.error);
+  console.error = error;
+  const {
+    log: info,
+    uncork: uncorkInfo,
+    original: originalInfo,
+  } = createLogBufferer(console.info);
+  console.info = info;
+  const {
+    log: warn,
+    uncork: uncorkWarn,
+    original: originalWarn,
+  } = createLogBufferer(console.warn);
+  console.warn = warn;
+
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
-    process.stdout.cork();
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
+      stream: process.stderr,
     }).start();
     registerSpinnerAutostopping(spinner);
   }
@@ -81,7 +122,14 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    process.stdout.uncork();
+    uncorkLog();
+    console.log = originalLog;
+    uncorkError();
+    console.error = originalError;
+    uncorkInfo();
+    console.info = originalInfo;
+    uncorkWarn();
+    console.warn = originalWarn;
     return { error: componentResult.error };
   }
 
@@ -126,7 +174,14 @@ export const renderEmailByPath = async (
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
-    process.stdout.uncork();
+    uncorkLog();
+    console.log = originalLog;
+    uncorkError();
+    console.error = originalError;
+    uncorkInfo();
+    console.info = originalInfo;
+    uncorkWarn();
+    console.warn = originalWarn;
 
     const renderingResult: RenderedEmailMetadata = {
       prettyMarkup,
@@ -152,6 +207,14 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
+    uncorkLog();
+    console.log = originalLog;
+    uncorkError();
+    console.error = originalError;
+    uncorkInfo();
+    console.info = originalInfo;
+    uncorkWarn();
+    console.warn = originalWarn;
 
     if (exception instanceof SyntaxError) {
       interface SpanPosition {
