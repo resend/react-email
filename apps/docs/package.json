@@ -2,11 +2,16 @@
   "name": "docs",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "mintlify dev"
+    "dev": "mintlify dev",
+    "generate-changelog": "tsx ./scripts/generate-changelog.ts"
   },
   "dependencies": {
     "mintlify": "4.2.218",
     "zod": "3.24.3"
+  },
+  "devDependencies": {
+    "tsx": "4.20.3"
   }
 }
