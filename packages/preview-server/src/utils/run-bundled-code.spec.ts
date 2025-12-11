@@ -6,11 +6,9 @@ describe('runBundledCode()', () => {
   it('instanceof with RegExp should work', () => {
     const result = runBundledCode(
       `
-      console.log(/.+/);
-      console.log(new RegExp('.+'));
-      console.log(new RegExp('.+') instanceof RegExp);
       module.exports = [
         /.+/ instanceof RegExp,
+        /.+/,
         RegExp,
       ]`,
       'file.cjs',
@@ -21,11 +19,15 @@ describe('runBundledCode()', () => {
       return;
     }
 
-    const [isInstanceOfRegExp, RegExpConstructor] = result.value as [
+    const [isInstanceOfRegExp, regex, RegExpConstructor] = result.value as [
       boolean,
       RegExp,
+      RegExpConstructor,
     ];
 
+    expect(Object.getOwnPropertyDescriptor(regex, 'protitype')).toBe(
+      Object.getOwnPropertyDescriptor(/.+/, 'protitype'),
+    );
     expect(RegExpConstructor).toBe(RegExp);
     expect(isInstanceOfRegExp, '/.+/ instanceof RegExp to be true').toBe(true);
   });
