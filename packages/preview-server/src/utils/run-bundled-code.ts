@@ -3,11 +3,7 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export async function runBundledCode(
-  code: string,
-  filename: string,
-  globalAddendum: Record<string, any> = {},
-): Promise<Result<unknown, unknown>> {
+export function createContext(globalAddendum: Record<string, any> = {}) {
   const globalToContextify = {
     ...globalAddendum,
     require(specifier: string) {
@@ -25,11 +21,18 @@ export async function runBundledCode(
       globalToContextify[key] = global[key];
     }
   }
-  const contextified = vm.createContext(globalToContextify);
+  return vm.createContext(globalToContextify);
+}
+
+export async function runBundledCode(
+  code: string,
+  filename: string,
+  context: vm.Context = createContext(),
+): Promise<Result<unknown, unknown>> {
   try {
     console.log(vm.SourceTextModule);
     const module = new vm.SourceTextModule(code, {
-      context: contextified,
+      context,
       identifier: filename,
       initializeImportMeta(meta) {
         meta.url = `file://${filename}`;
@@ -61,7 +64,7 @@ export async function runBundledCode(
             }
           },
           {
-            context: contextified,
+            context,
             identifier: specifier,
           },
         );
@@ -88,7 +91,7 @@ export async function runBundledCode(
           }
         },
         {
-          context: contextified,
+          context,
           identifier: specifier,
         },
       );
