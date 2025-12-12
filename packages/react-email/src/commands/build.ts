@@ -137,7 +137,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     devDependencies: Record<string, string>;
   };
   // Turbopack has some errors with the imports in @react-email/tailwind
-  packageJson.scripts.build = 'next build --webpack';
+  packageJson.scripts.build = 'next build';
   packageJson.scripts.start = 'next start';
   delete packageJson.scripts.postbuild;
 
