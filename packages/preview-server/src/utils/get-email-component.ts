@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { convertStackWithSourceMap } from './convert-stack-with-sourcemap';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 import { isErr } from './result';
-import { runBundledCode } from './run-bundled-code';
+import { createContext, runBundledCode } from './run-bundled-code';
 import type { EmailTemplate as EmailComponent } from './types/email-template';
 import type { ErrorObject } from './types/error-object';
 
@@ -22,19 +22,19 @@ export const getEmailComponent = async (
   jsxRuntimePath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      /**
-       * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
-       * used internally in the preview server and never shown to the user.
-       */
-      renderWithReferences: typeof render;
-      render: typeof render;
+    /**
+     * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
+     * used internally in the preview server and never shown to the user.
+     */
+    renderWithReferences: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -83,9 +83,9 @@ export const getEmailComponent = async (
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const context = {
+  const context = createContext({
     shouldIncludeSourceReference: false,
-  };
+  });
   const runningResult = await runBundledCode(
     builtEmailCode,
     emailPath,
