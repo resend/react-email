@@ -22,19 +22,19 @@ export const getEmailComponent = async (
   jsxRuntimePath: string,
 ): Promise<
   | {
-    emailComponent: EmailComponent;
+      emailComponent: EmailComponent;
 
-    createElement: typeof React.createElement;
+      createElement: typeof React.createElement;
 
-    /**
-     * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
-     * used internally in the preview server and never shown to the user.
-     */
-    renderWithReferences: typeof render;
-    render: typeof render;
+      /**
+       * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
+       * used internally in the preview server and never shown to the user.
+       */
+      renderWithReferences: typeof render;
+      render: typeof render;
 
-    sourceMapToOriginalFile: RawSourceMap;
-  }
+      sourceMapToOriginalFile: RawSourceMap;
+    }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];

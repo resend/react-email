@@ -11,14 +11,14 @@ export async function runBundledCode(
   const globalToContextify = {
     ...globalAddendum,
     require(specifier: string) {
-      let m = specifier; 
+      let m = specifier;
       if (specifier.startsWith('node:')) {
         m = m.split(':')[1]!;
       }
       if (m in staticNodeModulesForVM) {
         return staticNodeModulesForVM[m];
       }
-    }
+    },
   };
   for (const key of Reflect.ownKeys(global)) {
     if (typeof key === 'string') {
@@ -49,7 +49,7 @@ export async function runBundledCode(
         const exportKeys = Reflect.ownKeys(moduleExports).filter(
           (key) => typeof key === 'string',
         ) as string[];
-        
+
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
