@@ -1,5 +1,6 @@
 'use server';
 
+import { log } from 'node:console';
 import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
@@ -17,7 +18,6 @@ import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import { styleText } from '../utils/style-text';
 import type { ErrorObject } from '../utils/types/error-object';
-import { log } from 'node:console';
 
 export interface RenderedEmailMetadata {
   prettyMarkup: string;
@@ -37,8 +37,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-    error: ErrorObject;
-  };
+      error: ErrorObject;
+    };
 
 const cache = new Map<string, EmailRenderingResult>();
 
