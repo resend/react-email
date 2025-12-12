@@ -38,7 +38,8 @@ export async function runBundledCode(
         meta.url = `file://${filename}`;
         meta.filename = filename;
         meta.dirname = path.dirname(filename);
-        meta.resolve = import.meta.resolve;
+        meta.resolve = (specifier: string) =>
+          import.meta.resolve(specifier, meta.url);
       },
     });
     await module.link(async (specifier, _referencingModule, extra) => {
