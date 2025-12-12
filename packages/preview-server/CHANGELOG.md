@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.0.8
+
+### Patch Changes
+
+- 1ca1c1d: add better feedback for when test sending is rate limited
+
 ## 5.0.7
 
 ### Patch Changes
