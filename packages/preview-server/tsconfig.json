@@ -44,5 +44,5 @@
     ".next/dev/types/**/*.ts",
     "next.config.mjs"
   ],
-  "exclude": [".next", "dist", "node_modules"]
+  "exclude": [".next", "dist", "emails", "node_modules"]
 }
