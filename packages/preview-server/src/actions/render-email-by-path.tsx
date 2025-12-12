@@ -42,20 +42,44 @@ export type EmailRenderingResult =
 const cache = new Map<string, EmailRenderingResult>();
 
 const createLogBufferer = (log: (...args: any[]) => void) => {
-  const logs: Array<any[]> = [];
+  let logs: Array<any[]> = [];
 
-  return {
+  const bufferer = {
     log: (...args: any[]) => {
       logs.push(args);
     },
     original: log,
-    uncork: () => {
+    flush: () => {
       for (const logArgs of logs) {
         log(...logArgs);
       }
+      logs = [];
     },
   };
+
+  return bufferer;
 };
+
+const {
+  log,
+  flush: flushLog,
+  original: originalLog,
+} = createLogBufferer(console.log);
+const {
+  log: error,
+  flush: flushError,
+  original: originalError,
+} = createLogBufferer(console.error);
+const {
+  log: info,
+  flush: flushInfo,
+  original: originalInfo,
+} = createLogBufferer(console.info);
+const {
+  log: warn,
+  flush: flushWarn,
+  original: originalWarn,
+} = createLogBufferer(console.warn);
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -69,29 +93,9 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
-  const {
-    log,
-    uncork: uncorkLog,
-    original: originalLog,
-  } = createLogBufferer(console.log);
   console.log = log;
-  const {
-    log: error,
-    uncork: uncorkError,
-    original: originalError,
-  } = createLogBufferer(console.error);
-  console.error = error;
-  const {
-    log: info,
-    uncork: uncorkInfo,
-    original: originalInfo,
-  } = createLogBufferer(console.info);
   console.info = info;
-  const {
-    log: warn,
-    uncork: uncorkWarn,
-    original: originalWarn,
-  } = createLogBufferer(console.warn);
+  console.error = error;
   console.warn = warn;
 
   const emailFilename = path.basename(emailPath);
@@ -122,13 +126,13 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    uncorkLog();
+    flushLog();
     console.log = originalLog;
-    uncorkError();
+    flushError();
     console.error = originalError;
-    uncorkInfo();
+    flushInfo();
     console.info = originalInfo;
-    uncorkWarn();
+    flushWarn();
     console.warn = originalWarn;
     return { error: componentResult.error };
   }
@@ -174,13 +178,13 @@ export const renderEmailByPath = async (
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
-    uncorkLog();
+    flushLog();
     console.log = originalLog;
-    uncorkError();
+    flushError();
     console.error = originalError;
-    uncorkInfo();
+    flushInfo();
     console.info = originalInfo;
-    uncorkWarn();
+    flushWarn();
     console.warn = originalWarn;
 
     const renderingResult: RenderedEmailMetadata = {
@@ -207,13 +211,13 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    uncorkLog();
+    flushLog();
     console.log = originalLog;
-    uncorkError();
+    flushError();
     console.error = originalError;
-    uncorkInfo();
+    flushInfo();
     console.info = originalInfo;
-    uncorkWarn();
+    flushWarn();
     console.warn = originalWarn;
 
     if (exception instanceof SyntaxError) {
