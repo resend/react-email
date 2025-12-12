@@ -1,6 +1,6 @@
-import { err, isOk, ok } from './result';
-import { runBundledCode } from './run-bundled-code';
 import { z } from 'zod';
+import { err, isOk } from './result';
+import { runBundledCode } from './run-bundled-code';
 
 describe('runBundledCode()', () => {
   it('should run the bundled code in a VM context', async () => {
