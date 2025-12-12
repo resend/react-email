@@ -8,7 +8,10 @@ import { getCustomProperties } from './utils/css/get-custom-properties';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
-import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
+import {
+  setupTailwind,
+  type TailwindSetup,
+} from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
@@ -82,13 +85,13 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export function Tailwind({ children, config }: TailwindProps) {
-  const tailwindSetup = useSuspensedPromise(
-    () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) =>
-      typeof value === 'function' ? value.toString() : value,
-    ),
-  );
+function Inner({
+  children,
+  tailwindSetup,
+}: {
+  children: React.ReactNode;
+  tailwindSetup: TailwindSetup;
+}) {
   let classesUsed: string[] = [];
 
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
@@ -168,3 +171,26 @@ please file a bug https://github.com/resend/react-email/issues/new?assignees=&la
 
   return mappedChildren;
 }
+
+let Component: React.FunctionComponent<TailwindProps>;
+
+if (React.version.startsWith('19')) {
+  Component = async function Tailwind({ children, config }: TailwindProps) {
+    const tailwindSetup = await setupTailwind(config ?? {});
+
+    return <Inner children={children} tailwindSetup={tailwindSetup} />;
+  };
+} else {
+  Component = function Tailwind({ children, config }: TailwindProps) {
+    const tailwindSetup = useSuspensedPromise(
+      () => setupTailwind(config ?? {}),
+      JSON.stringify(config, (_key, value) =>
+        typeof value === 'function' ? value.toString() : value,
+      ),
+    );
+
+    return <Inner children={children} tailwindSetup={tailwindSetup} />;
+  };
+}
+
+export { Component as Tailwind };
