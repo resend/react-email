@@ -17,6 +17,7 @@ import { getEmailComponent } from '../utils/get-email-component';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import { styleText } from '../utils/style-text';
 import type { ErrorObject } from '../utils/types/error-object';
+import { log } from 'node:console';
 
 export interface RenderedEmailMetadata {
   prettyMarkup: string;
@@ -36,50 +37,55 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
-const createLogBufferer = (log: (...args: any[]) => void) => {
+const createLogBufferer = (
+  originalLogger: (...args: any[]) => void,
+  overwriteLogger: (logger: (...args: any[]) => void) => void,
+) => {
   let logs: Array<any[]> = [];
 
-  const bufferer = {
-    log: (...args: any[]) => {
-      logs.push(args);
+  let timesCorked = 0;
+
+  return {
+    buffer: () => {
+      timesCorked += 1;
+      overwriteLogger((...args: any[]) => logs.push(args));
     },
-    original: log,
     flush: () => {
-      for (const logArgs of logs) {
-        log(...logArgs);
+      timesCorked = Math.max(timesCorked - 1, 0);
+      // This ensures that, only once flushing has been called as many times as
+      // buffering, that the logs are actually flushed.
+      if (timesCorked === 0) {
+        for (const logArgs of logs) {
+          originalLogger(...logArgs);
+        }
+        logs = [];
+        overwriteLogger(originalLogger);
       }
-      logs = [];
     },
   };
-
-  return bufferer;
 };
 
-const {
-  log,
-  flush: flushLog,
-  original: originalLog,
-} = createLogBufferer(console.log);
-const {
-  log: error,
-  flush: flushError,
-  original: originalError,
-} = createLogBufferer(console.error);
-const {
-  log: info,
-  flush: flushInfo,
-  original: originalInfo,
-} = createLogBufferer(console.info);
-const {
-  log: warn,
-  flush: flushWarn,
-  original: originalWarn,
-} = createLogBufferer(console.warn);
+const logBufferer = createLogBufferer(
+  console.log,
+  (logger) => (console.log = logger),
+);
+const errorBufferer = createLogBufferer(
+  console.error,
+  (logger) => (console.error = logger),
+);
+const infoBufferer = createLogBufferer(
+  console.info,
+  (logger) => (console.info = logger),
+);
+const warnBufferer = createLogBufferer(
+  console.warn,
+  (logger) => (console.warn = logger),
+);
 
 export const renderEmailByPath = async (
   emailPath: string,
@@ -93,10 +99,10 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
-  console.log = log;
-  console.info = info;
-  console.error = error;
-  console.warn = warn;
+  logBufferer.buffer();
+  errorBufferer.buffer();
+  infoBufferer.buffer();
+  warnBufferer.buffer();
 
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
@@ -126,14 +132,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    flushLog();
-    console.log = originalLog;
-    flushError();
-    console.error = originalError;
-    flushInfo();
-    console.info = originalInfo;
-    flushWarn();
-    console.warn = originalWarn;
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
     return { error: componentResult.error };
   }
 
@@ -178,14 +180,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
-    flushLog();
-    console.log = originalLog;
-    flushError();
-    console.error = originalError;
-    flushInfo();
-    console.info = originalInfo;
-    flushWarn();
-    console.warn = originalWarn;
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
 
     const renderingResult: RenderedEmailMetadata = {
       prettyMarkup,
@@ -211,14 +209,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
-    flushLog();
-    console.log = originalLog;
-    flushError();
-    console.error = originalError;
-    flushInfo();
-    console.info = originalInfo;
-    flushWarn();
-    console.warn = originalWarn;
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
 
     if (exception instanceof SyntaxError) {
       interface SpanPosition {
