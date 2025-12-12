@@ -66,7 +66,7 @@ export { reactEmailTailwindConfigInternal };`,
     jsx: 'automatic',
     outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
     write: false,
-    format: 'cjs',
+    format: 'esm',
     logLevel: 'silent',
   });
   const sourceMapFile = configBuildResult.outputFiles[0]!;
@@ -77,7 +77,7 @@ export { reactEmailTailwindConfigInternal };`,
     );
   }
 
-  const configModule = runBundledCode(configFile.text, filepath);
+  const configModule = await runBundledCode(configFile.text, filepath);
   if (isErr(configModule)) {
     const sourceMap = JSON.parse(sourceMapFile.text) as RawSourceMap;
     // because it will have a path like <tsconfigLocation>/stdout/email.js.map
