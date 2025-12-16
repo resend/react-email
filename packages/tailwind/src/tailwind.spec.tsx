@@ -556,6 +556,26 @@ describe('Tailwind component', () => {
       expect(actualOutput).toMatchSnapshot();
     });
 
+    it('supports custom camelCased colors', async () => {
+      const config: TailwindConfig = {
+        theme: {
+          extend: {
+            colors: {
+              customColor: '#1fb6ff',
+            },
+          },
+        },
+      };
+
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="bg-customColor text-customColor" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchSnapshot();
+    });
+
     it('supports custom fonts', async () => {
       const config: TailwindConfig = {
         theme: {
