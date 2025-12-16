@@ -12,12 +12,6 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "benchmarks/preview-server"
   },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
-  },
   "dependencies": {
     "react-email": "workspace:*",
     "react-email-2.1.7-canary.2": "npm:react-email@2.1.7-canary.2",
