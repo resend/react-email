@@ -17,11 +17,11 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      How satisfied were you overall with the initial conversation about your
-      claim?
-    </Preview>
     <Body>
+      <Preview>
+        How satisfied were you overall with the initial conversation about your
+        claim?
+      </Preview>
       <Container className="mx-auto max-w-[600px] rounded-[8px] bg-white px-[42px] py-[24px]">
         <Heading className="mb-[16px] text-[24px] leading-[32px]">
           How satisfied were you overall with the initial conversation about
@@ -45,13 +45,20 @@ export const component = (
             </Column>
           </Row>
         </Section>
-        <Section className="mt-[12px] mb-[24px]">
-          <Row className="w-full max-w-[300px] table-fixed border-separate [border-spacing:12px]">
+        <Section className="mt-[12px] mb-[24px]" align="center">
+          <Row width={undefined}>
             {Array.from({ length: 5 }).map((_, i) => (
-              <Column key={i} className="rounded-[6px] bg-indigo-600">
+              <Column
+                key={i}
+                width="51"
+                height="43"
+                className="w-[51px] h-[43px] px-[4px]"
+                align="center"
+                valign="middle"
+              >
                 <Button
                   href={`?rating=${i + 1}`}
-                  className="flex box-border w-full items-center justify-center p-[12px] m-0 text-center font-semibold text-[16px] text-white leading-none"
+                  className="box-border w-[43px] h-[43px] rounded-[6px] bg-indigo-600 p-[12px] m-0 text-center font-semibold text-[16px] text-white leading-none"
                 >
                   {i + 1}
                 </Button>

@@ -59,7 +59,7 @@ export const NikeReceiptEmail = () => (
               It's On Its Way.
             </Heading>
             <Text className="m-0 text-[14px] leading-[2] text-[#747474] font-medium">
-              You order's is on its way. Use the link above to track its
+              Your order is on its way. Use the link above to track its
               progress.
             </Text>
             <Text className="m-0 text-[14px] leading-[2] text-[#747474] font-medium mt-6">

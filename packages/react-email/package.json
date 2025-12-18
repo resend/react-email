@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "5.0.3",
+  "version": "5.0.8",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -24,7 +24,13 @@
     "email"
   ],
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=20.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0"
+    }
   },
   "dependencies": {
     "@babel/parser": "^7.27.0",
@@ -51,7 +57,7 @@
     "@types/babel__traverse": "7.20.7",
     "@types/mime-types": "2.1.4",
     "@types/prompts": "2.4.9",
-    "next": "16.0.1",
+    "next": "16.0.10",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "typescript": "5.8.3"

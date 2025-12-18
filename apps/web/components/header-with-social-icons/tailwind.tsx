@@ -7,6 +7,7 @@ export const component = (
       <Column className="w-[80%]">
         <Img
           alt="React Email logo"
+          width="42"
           height="42"
           src="/static/logo-without-background.png"
         />

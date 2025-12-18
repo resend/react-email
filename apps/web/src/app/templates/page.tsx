@@ -130,16 +130,9 @@ export default function Templates() {
             {description}.
           </Text>
           <Text as="p" className="mt-2 text-slate-11" size="2">
-            Recreate an{' '}
+            Recreate an existing email or submit a{' '}
             <Anchor
-              href="https://github.com/resend/react-email/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+demo%22"
-              target="_blank"
-            >
-              existing email
-            </Anchor>{' '}
-            or submit a{' '}
-            <Anchor
-              href="https://github.com/resend/react-email/tree/main/demo"
+              href="https://github.com/resend/react-email/tree/main/apps/demo/emails"
               target="_blank"
             >
               pull request

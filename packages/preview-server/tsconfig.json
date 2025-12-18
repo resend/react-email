@@ -28,7 +28,7 @@
     "noEmit": true,
     "strict": false,
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "esnext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "types": ["vitest/globals"],
@@ -39,9 +39,10 @@
     "tailwind-internals.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.mts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "next.config.mjs"
   ],
-  "exclude": [".next", "dist", "node_modules"]
+  "exclude": [".next", "dist", "emails", "node_modules"]
 }

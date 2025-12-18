@@ -10,6 +10,7 @@ export const component = (
             alt="React Email logo"
             height="42"
             src="/static/logo-without-background.png"
+            width="42"
           />
         </td>
       </tr>

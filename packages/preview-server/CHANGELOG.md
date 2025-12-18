@@ -1,5 +1,37 @@
 # @react-email/preview-server
 
+## 5.0.8
+
+### Patch Changes
+
+- 1ca1c1d: add better feedback for when test sending is rate limited
+
+## 5.0.7
+
+### Patch Changes
+
+- 92f8afd: broken links to html code view tab
+- 6f5cb91: use tailwindcss v4 in the UI
+
+## 5.0.6
+
+### Patch Changes
+
+- f2bb9e9: add missing favicon
+- 1d14411: fix multiple lockfile warning during email build
+
+## 5.0.5
+
+### Patch Changes
+
+- d89af46: Broken links to React lines of code in the toolbar
+
+## 5.0.4
+
+### Patch Changes
+
+- 1d35e37: fix file names and extensions not being used in download
+
 ## 5.0.3
 
 ### Patch Changes

@@ -78,6 +78,7 @@
             "pages": [
               "integrations/overview",
               "integrations/resend",
+              "integrations/inbound",
               "integrations/nodemailer",
               "integrations/sendgrid",
               "integrations/postmark",

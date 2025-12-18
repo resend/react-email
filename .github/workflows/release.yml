@@ -14,10 +14,10 @@ jobs:
       image: node:22
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+        uses: actions/checkout@c2d88d3ecc89a9ef08eebf45d9637801dcee7eb5
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
-        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
       - name: Install packages
         run: pnpm install --frozen-lockfile
       - name: Exit prerelease mode

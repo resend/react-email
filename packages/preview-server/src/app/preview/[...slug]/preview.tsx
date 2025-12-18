@@ -36,7 +36,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const isDarkModeEnabled = searchParams.get('dark') !== null;
   const activeView = searchParams.get('view') ?? 'preview';
-  const activeLang = searchParams.get('lang') ?? 'jsx';
+  const activeLang = searchParams.get('lang') ?? 'tsx';
 
   const handleDarkModeChange = (enabled: boolean) => {
     const params = new URLSearchParams(searchParams);
@@ -207,17 +207,20 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                   <Tooltip.Provider>
                     <CodeContainer
                       activeLang={activeLang}
+                      basename={renderedEmailMetadata.basename}
                       markups={[
                         {
-                          language: 'jsx',
+                          language: 'tsx',
+                          extension: renderedEmailMetadata.extname,
                           content: renderedEmailMetadata.reactMarkup,
                         },
                         {
-                          language: 'markup',
+                          language: 'html',
                           content: renderedEmailMetadata.prettyMarkup,
                         },
                         {
                           language: 'markdown',
+                          extension: 'md',
                           content: renderedEmailMetadata.plainText,
                         },
                       ]}

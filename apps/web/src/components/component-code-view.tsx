@@ -15,6 +15,12 @@ import { TabTrigger } from './tab-trigger';
 
 type ReactCodeVariant = Exclude<CodeVariant, 'html' | 'react'>;
 
+export function wrapWithTailwind(jsx: string) {
+  return `<Tailwind>
+${jsx.replaceAll(/[^\n\r]*(\n|\r|\r\n)?/g, (match) => `  ${match}`)}
+</Tailwind>`;
+}
+
 export function ComponentCodeView({
   component,
 }: {
@@ -50,6 +56,11 @@ export function ComponentCodeView({
       code,
       Object.keys(allReactEmailComponents),
     );
+
+    if (selectedReactCodeVariant === 'tailwind') {
+      importsReactEmail.push('Tailwind');
+      code = wrapWithTailwind(code);
+    }
 
     let importStatements = '';
 

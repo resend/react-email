@@ -31,6 +31,8 @@ exports[`Tailwind component > preserves mso styles 1`] = `
 "
 `;
 
+exports[`Tailwind component > properly does not inline custom utilities 1`] = `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{color:green!important;@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>this is the body</td></tr></tbody></table><!--/$--></body></html>"`;
+
 exports[`Tailwind component > recognizes custom responsive screen 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" lang="en">
@@ -84,6 +86,14 @@ exports[`Tailwind component > with custom theme config > supports custom border 
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <div style="border-radius:2rem"></div>
+<!--/$-->
+"
+`;
+
+exports[`Tailwind component > with custom theme config > supports custom camelCased colors 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>
 <!--/$-->
 "
 `;
