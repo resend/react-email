@@ -1090,6 +1090,9 @@ importers:
       '@react-email/render':
         specifier: workspace:*
         version: link:../packages/render
+      '@react-email/tailwind':
+        specifier: workspace:*
+        version: link:../packages/tailwind
       react:
         specifier: ^19.0.0
         version: 19.0.0
