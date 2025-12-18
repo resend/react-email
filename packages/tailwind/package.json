@@ -42,12 +42,6 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
-  },
   "peerDependencies": {
     "@react-email/body": "workspace:*",
     "@react-email/button": "workspace:*",
