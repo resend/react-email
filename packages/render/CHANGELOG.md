@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.1-canary.0
+
+### Patch Changes
+
+- 42aca9f: add fallback for m.default when importing react-dom
+
 ## 2.0.0
 
 ### Major Changes
