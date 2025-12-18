@@ -62,7 +62,7 @@
     "next-safe-action": "8.0.11",
     "node-html-parser": "7.0.1",
     "ora": "5.4.1",
-    "postcss": "8.5.3",
+    "postcss": "8.5.6",
     "pretty-bytes": "6.1.1",
     "prism-react-renderer": "2.4.1",
     "react": "19.0.0",
