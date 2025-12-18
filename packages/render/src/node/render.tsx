@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import type { Options } from '../shared/options';
+import { renderToReadableStream } from '../shared/render-to-readable-stream';
 import { pretty } from '../shared/utils/pretty';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { readStream } from './read-stream';
@@ -18,17 +19,16 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     Object.hasOwn(reactDOMServer, 'renderToReadableStream') &&
     typeof WritableStream !== 'undefined'
   ) {
-    html = await readStream(
-      await reactDOMServer.renderToReadableStream(suspendedElement, {
-        progressiveChunkSize: Number.POSITIVE_INFINITY,
-      }),
-    );
+    html = await renderToReadableStream(suspendedElement, reactDOMServer);
   } else {
     await new Promise<void>((resolve, reject) => {
       const stream = reactDOMServer.renderToPipeableStream(suspendedElement, {
         async onAllReady() {
           html = await readStream(stream);
           resolve();
+        },
+        onShellError(error) {
+          reject(error as Error);
         },
         onError(error) {
           reject(error as Error);

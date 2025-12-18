@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { pretty } from '../node';
 import type { Options } from '../shared/options';
-import { readStream } from '../shared/read-stream.browser';
+import { renderToReadableStream } from '../shared/render-to-readable-stream';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { importReactDom } from './import-react-dom';
 
@@ -18,18 +18,7 @@ export const render = async (
     return m;
   });
 
-  const html = await new Promise<string>((resolve, reject) => {
-    reactDOMServer
-      .renderToReadableStream(suspendedElement, {
-        onError(error: unknown) {
-          reject(error);
-        },
-        progressiveChunkSize: Number.POSITIVE_INFINITY,
-      })
-      .then(readStream)
-      .then(resolve)
-      .catch(reject);
-  });
+  const html = await renderToReadableStream(suspendedElement, reactDOMServer);
 
   if (options?.plainText) {
     return toPlainText(html, options.htmlToTextOptions);
