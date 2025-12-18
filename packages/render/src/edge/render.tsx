@@ -10,15 +10,13 @@ export const render = async (
   options?: Options,
 ) => {
   const suspendedElement = <Suspense>{element}</Suspense>;
-  const reactDOMServer = await importReactDom().then(
-    (m) => {
-      if ('default' in m) {
-        return m.default;
-      }
+  const reactDOMServer = await importReactDom().then((m) => {
+    if ('default' in m) {
+      return m.default;
+    }
 
-      return m;
-    },
-  );
+    return m;
+  });
 
   const html = await new Promise<string>((resolve, reject) => {
     reactDOMServer
