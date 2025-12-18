@@ -124,6 +124,7 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
+    "@types/node": "^25.0.3",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "jsdom": "26.1.0",
