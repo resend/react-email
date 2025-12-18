@@ -1,3 +1,4 @@
+export * from '@react-email/tailwind';
 export * from '../packages/body/src';
 export * from '../packages/button/src';
 export * from '../packages/code-block/src';
@@ -15,5 +16,4 @@ export * from '../packages/markdown/src';
 export * from '../packages/preview/src';
 export * from '../packages/row/src';
 export * from '../packages/section/src';
-export * from '../packages/tailwind/src';
 export * from '../packages/text/src';
