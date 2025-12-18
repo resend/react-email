@@ -442,8 +442,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       typescript:
-        specifier: 5.8.3
-        version: 5.8.3
+        specifier: ^5.8.3
+        version: 5.9.3
 
   packages/container:
     dependencies:
