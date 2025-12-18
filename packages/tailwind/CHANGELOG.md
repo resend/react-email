@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.2
+
+### Patch Changes
+
+- 0e57e2a: update tailwindcss, fixing camelCased colors not working
+
 ## 2.0.1
 
 ### Patch Changes
