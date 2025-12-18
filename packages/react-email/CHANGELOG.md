@@ -1,5 +1,11 @@
 # react-email
 
+## 5.1.0-canary.0
+
+### Minor Changes
+
+- 3c2aa37: use turbo for `email build`
+
 ## 5.0.8
 
 ## 5.0.7

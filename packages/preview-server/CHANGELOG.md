@@ -1,5 +1,15 @@
 # @react-email/preview-server
 
+## 5.1.0-canary.0
+
+### Minor Changes
+
+- 3c2aa37: use turbo for `email build`
+
+### Patch Changes
+
+- ff89ad8: Buffer logs written to console.log,info,warn,error until spinner is done
+
 ## 5.0.8
 
 ### Patch Changes
