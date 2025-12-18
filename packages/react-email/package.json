@@ -45,21 +45,21 @@
     "log-symbols": "^7.0.0",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
-    "nypm": "0.6.0",
+    "nypm": "^0.6.0",
     "ora": "^8.0.0",
-    "prompts": "2.4.2",
+    "prompts": "^2.4.2",
     "socket.io": "^4.8.1",
-    "tsconfig-paths": "4.2.0"
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@react-email/components": "workspace:*",
-    "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "7.20.7",
-    "@types/mime-types": "2.1.4",
-    "@types/prompts": "2.4.9",
-    "next": "16.0.10",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "typescript": "5.8.3"
+    "@types/babel__core": "^7.20.5",
+    "@types/babel__traverse": "^7.20.7",
+    "@types/mime-types": "^2.1.4",
+    "@types/prompts": "^2.4.9",
+    "next": "^16.0.10",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.8.3"
   }
 }
