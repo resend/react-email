@@ -17,9 +17,6 @@ export function toPlainText(html: string, options?: HtmlToTextOptions) {
   return convert(html, {
     wordwrap: false,
     ...options,
-    selectors: [
-      ...plainTextSelectors,
-      ...(options?.selectors ?? []),
-    ],
+    selectors: [...plainTextSelectors, ...(options?.selectors ?? [])],
   });
 }

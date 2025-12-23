@@ -3,7 +3,8 @@ import { toPlainText } from './to-plain-text';
 describe('toPlainText', () => {
   describe('default behavior', () => {
     it('should skip images by default', () => {
-      const html = '<p>Hello</p><img src="test.jpg" alt="Test Image"><p>World</p>';
+      const html =
+        '<p>Hello</p><img src="test.jpg" alt="Test Image"><p>World</p>';
       const result = toPlainText(html);
 
       expect(result).not.toContain('Test Image');
@@ -13,7 +14,8 @@ describe('toPlainText', () => {
     });
 
     it('should skip elements with data-skip-in-text="true"', () => {
-      const html = '<p>Visible</p><span data-skip-in-text="true">Hidden</span><p>Also visible</p>';
+      const html =
+        '<p>Visible</p><span data-skip-in-text="true">Hidden</span><p>Also visible</p>';
       const result = toPlainText(html);
 
       expect(result).not.toContain('Hidden');
@@ -35,18 +37,21 @@ describe('toPlainText', () => {
       const html = '<a href="https://example.com">https://example.com</a>';
       const result = toPlainText(html);
 
-      // Should only appear once since text matches href
       expect(result.match(/https:\/\/example\.com/g)?.length).toBe(1);
     });
   });
 
   describe('custom selectors', () => {
     it('should preserve default img skipping when custom selectors are provided', () => {
-      const html = '<p>Hello</p><img src="test.jpg" alt="Test Image"><p>World</p>';
+      const html =
+        '<p>Hello</p><img src="test.jpg" alt="Test Image"><p>World</p>';
       const result = toPlainText(html, {
         selectors: [
-          { selector: 'p', options: { leadingLineBreaks: 1, trailingLineBreaks: 1 } }
-        ]
+          {
+            selector: 'p',
+            options: { leadingLineBreaks: 1, trailingLineBreaks: 1 },
+          },
+        ],
       });
 
       expect(result).not.toContain('Test Image');
@@ -57,8 +62,11 @@ describe('toPlainText', () => {
       const html = '<p>Visible</p><span data-skip-in-text="true">Hidden</span>';
       const result = toPlainText(html, {
         selectors: [
-          { selector: 'p', options: { leadingLineBreaks: 1, trailingLineBreaks: 1 } }
-        ]
+          {
+            selector: 'p',
+            options: { leadingLineBreaks: 1, trailingLineBreaks: 1 },
+          },
+        ],
       });
 
       expect(result).not.toContain('Hidden');
@@ -69,8 +77,11 @@ describe('toPlainText', () => {
       const html = '<p>Text</p><a href="https://example.com">Click here</a>';
       const result = toPlainText(html, {
         selectors: [
-          { selector: 'p', options: { leadingLineBreaks: 1, trailingLineBreaks: 1 } }
-        ]
+          {
+            selector: 'p',
+            options: { leadingLineBreaks: 1, trailingLineBreaks: 1 },
+          },
+        ],
       });
 
       expect(result).toContain('Click here');
@@ -81,9 +92,7 @@ describe('toPlainText', () => {
     it('should allow custom selectors to add new behavior', () => {
       const html = '<p>Normal</p><em>Emphasized text</em>';
       const result = toPlainText(html, {
-        selectors: [
-          { selector: 'em', format: 'skip' }
-        ]
+        selectors: [{ selector: 'em', format: 'skip' }],
       });
 
       expect(result).toContain('Normal');
@@ -93,9 +102,7 @@ describe('toPlainText', () => {
     it('should apply custom selectors for elements not covered by defaults', () => {
       const html = '<p>Text</p><div class="custom">Custom div</div>';
       const result = toPlainText(html, {
-        selectors: [
-          { selector: 'div.custom', format: 'skip' }
-        ]
+        selectors: [{ selector: 'div.custom', format: 'skip' }],
       });
 
       expect(result).toContain('Text');
@@ -103,4 +110,3 @@ describe('toPlainText', () => {
     });
   });
 });
-
