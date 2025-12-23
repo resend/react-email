@@ -15,8 +15,11 @@ export const plainTextSelectors: SelectorDefinition[] = [
 
 export function toPlainText(html: string, options?: HtmlToTextOptions) {
   return convert(html, {
-    selectors: plainTextSelectors,
     wordwrap: false,
     ...options,
+    selectors: [
+      ...plainTextSelectors,
+      ...(options?.selectors ?? []),
+    ],
   });
 }
