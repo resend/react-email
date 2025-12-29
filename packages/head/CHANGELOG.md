@@ -1,5 +1,11 @@
 # @react-email/head
 
+## 0.0.13-canary.0
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 0.0.12
 
 ### Patch Changes

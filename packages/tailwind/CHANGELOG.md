@@ -1,5 +1,23 @@
 # @react-email/tailwind
 
+## 2.0.3-canary.0
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+- Updated dependencies [8b7a660]
+  - @react-email/code-inline@0.0.6-canary.0
+  - @react-email/code-block@0.2.1-canary.0
+  - @react-email/container@0.0.16-canary.0
+  - @react-email/heading@0.0.16-canary.0
+  - @react-email/preview@0.0.14-canary.0
+  - @react-email/button@0.2.1-canary.0
+  - @react-email/body@0.2.1-canary.0
+  - @react-email/link@0.0.13-canary.0
+  - @react-email/text@0.1.6-canary.0
+  - @react-email/img@0.0.12-canary.0
+  - @react-email/hr@0.0.12-canary.0
+
 ## 2.0.2
 
 ### Patch Changes
