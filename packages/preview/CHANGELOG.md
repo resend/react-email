@@ -1,5 +1,11 @@
 # @react-email/preview
 
+## 0.0.14
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 0.0.13
 
 ### Patch Changes

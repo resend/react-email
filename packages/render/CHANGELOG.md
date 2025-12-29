@@ -1,5 +1,12 @@
 # @react-email/render
 
+## 2.0.1
+
+### Patch Changes
+
+- 42aca9f: add fallback for m.default when importing react-dom
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 2.0.1-canary.0
 
 ### Patch Changes
