@@ -29,33 +29,39 @@ describe('createDependencyGraph()', async () => {
     return path.resolve(testingDiretctory, relativePath);
   };
 
-  it.sequential('should resolve dependents when there are circular dependencies', async () => {
-    expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
-      toAbsolute('file-b.ts'),
-      toAbsolute('general-importing-file.ts'),
-    ]);
-  });
+  it.sequential(
+    'should resolve dependents when there are circular dependencies',
+    async () => {
+      expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
+        toAbsolute('file-b.ts'),
+        toAbsolute('general-importing-file.ts'),
+      ]);
+    },
+  );
 
-  it.sequential('should have the right initial value for the dependency graph', () => {
-    const relativePathDependencyGraph = Object.fromEntries(
-      Object.entries(dependencyGraph).map(([key, value]) => {
-        return [
-          path.relative(testingDiretctory, key),
-          {
-            path: path.relative(testingDiretctory, value.path),
-            dependentPaths: value.dependentPaths.map((p) =>
-              path.relative(testingDiretctory, p),
-            ),
-            dependencyPaths: value.dependencyPaths.map((p) =>
-              path.relative(testingDiretctory, p),
-            ),
-            moduleDependencies: value.moduleDependencies,
-          },
-        ];
-      }),
-    );
-    expect(relativePathDependencyGraph).toMatchSnapshot();
-  });
+  it.sequential(
+    'should have the right initial value for the dependency graph',
+    () => {
+      const relativePathDependencyGraph = Object.fromEntries(
+        Object.entries(dependencyGraph).map(([key, value]) => {
+          return [
+            path.relative(testingDiretctory, key),
+            {
+              path: path.relative(testingDiretctory, value.path),
+              dependentPaths: value.dependentPaths.map((p) =>
+                path.relative(testingDiretctory, p),
+              ),
+              dependencyPaths: value.dependencyPaths.map((p) =>
+                path.relative(testingDiretctory, p),
+              ),
+              moduleDependencies: value.moduleDependencies,
+            },
+          ];
+        }),
+      );
+      expect(relativePathDependencyGraph).toMatchSnapshot();
+    },
+  );
 
   it.sequential('should work when adding a new file', async () => {
     await fs.writeFile(
