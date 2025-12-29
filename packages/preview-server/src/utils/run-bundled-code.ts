@@ -30,7 +30,6 @@ export async function runBundledCode(
   context: vm.Context = createContext(),
 ): Promise<Result<unknown, unknown>> {
   try {
-    console.log(vm.SourceTextModule);
     const module = new vm.SourceTextModule(code, {
       context,
       identifier: filename,
