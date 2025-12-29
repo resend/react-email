@@ -1,4 +1,4 @@
-#!/usr/bin/env node --experimental-vm-modules
+#!/usr/bin/env node --experimental-vm-modules --disable-warning=ExperimentalWarning
 import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
