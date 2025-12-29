@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.3
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 1.2.2
 
 ### Patch Changes

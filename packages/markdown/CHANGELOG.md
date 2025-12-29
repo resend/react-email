@@ -1,5 +1,11 @@
 # @react-email/markdown
 
+## 0.0.18
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 0.0.17
 
 ### Patch Changes
