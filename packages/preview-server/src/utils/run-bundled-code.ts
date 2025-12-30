@@ -3,84 +3,114 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export const createContext = (filename: string): vm.Context => {
-  return new Proxy(
-    {
-      module: {
-        exports: {},
-      },
-      __filename: filename,
-      __dirname: path.dirname(filename),
-      require: (specifiedModule: string) => {
-        let m = specifiedModule;
-        if (specifiedModule.startsWith('node:')) {
-          m = m.split(':')[1]!;
-        }
-
-        if (m in staticNodeModulesForVM) {
-          return staticNodeModulesForVM[m];
-        }
-
-        return require(`${specifiedModule}`) as unknown;
-        // this string templating was necessary to not have
-        // webpack warnings like:
-        //
-        // Import trace for requested module:
-        // ./src/utils/get-email-component.tsx
-        // ./src/app/page.tsx
-        //  ⚠ ./src/utils/get-email-component.tsx
-        // Critical dependency: the request of a dependency is an expression
-      },
+export function createContext(
+  filename: string,
+  globalAddendum: Record<string, any> = {},
+) {
+  const globalToContextify = {
+    ...globalAddendum,
+    __filename: filename,
+    __dirname: path.dirname(filename),
+    module: {
+      exports: {},
     },
-    {
-      get(target, property: string) {
-        if (property in target) {
-          return target[property];
-        }
-
-        return globalThis[property as keyof typeof globalThis];
-      },
-      has(target, property: string) {
-        return property in target || property in globalThis;
-      },
-      set(target, property, value) {
-        target[property] = value;
-        return true;
-      },
-      getOwnPropertyDescriptor(target, property) {
-        return (
-          Object.getOwnPropertyDescriptor(target, property) ??
-          Object.getOwnPropertyDescriptor(globalThis, property)
-        );
-      },
-      ownKeys(target) {
-        const keys = new Set([
-          ...Reflect.ownKeys(globalThis),
-          ...Reflect.ownKeys(target),
-        ]);
-        return Array.from(keys);
-      },
-      defineProperty(target, property, descriptor) {
-        Object.defineProperty(target, property, descriptor);
-        return true;
-      },
-      deleteProperty(target, property) {
-        return delete target[property];
-      },
+    require(specifier: string) {
+      let m = specifier;
+      if (specifier.startsWith('node:')) {
+        m = m.split(':')[1]!;
+      }
+      if (m in staticNodeModulesForVM) {
+        return staticNodeModulesForVM[m];
+      }
+      return require(`${specifier}`);
     },
-  );
-};
+  };
+  for (const key of Reflect.ownKeys(global)) {
+    if (typeof key === 'string') {
+      globalToContextify[key] = global[key];
+    }
+  }
+  return vm.createContext(globalToContextify);
+}
 
-export const runBundledCode = (
+export async function runBundledCode(
   code: string,
   filename: string,
-  fakeContext: vm.Context = createContext(filename),
-): Result<unknown, unknown> => {
+  context: vm.Context = createContext(filename),
+): Promise<Result<unknown, unknown>> {
   try {
-    vm.runInNewContext(code, fakeContext, { filename });
+    const module = new vm.SourceTextModule(code, {
+      context,
+      identifier: filename,
+      initializeImportMeta(meta) {
+        meta.url = `file://${filename}`;
+        meta.filename = filename;
+        meta.dirname = path.dirname(filename);
+        meta.resolve = (specifier: string) =>
+          import.meta.resolve(specifier, meta.url);
+      },
+    });
+    await module.link(async (specifier, _referencingModule, extra) => {
+      let m = specifier;
+      if (specifier.startsWith('node:')) {
+        m = m.split(':')[1]!;
+      }
+
+      if (m in staticNodeModulesForVM) {
+        const moduleExports = staticNodeModulesForVM[m];
+        // Get all own property keys (including symbols and non-enumerable)
+        const exportKeys = Reflect.ownKeys(moduleExports).filter(
+          (key) => typeof key === 'string',
+        ) as string[];
+
+        // Create a SyntheticModule that exports the static module
+        const syntheticModule = new vm.SyntheticModule(
+          exportKeys,
+          function () {
+            // Set all exports from the static module
+            for (const key of exportKeys) {
+              this.setExport(key, moduleExports[key]);
+            }
+          },
+          {
+            context,
+            identifier: specifier,
+          },
+        );
+        return syntheticModule;
+      }
+
+      // For external modules, import them and create a SyntheticModule
+      const importedModule = await import(specifier, {
+        with: extra.attributes as ImportAttributes,
+      });
+
+      // Get all own property keys (including symbols and non-enumerable)
+      // Filter to only string keys as SyntheticModule only supports string export names
+      const exportKeys = Reflect.ownKeys(importedModule).filter(
+        (key) => typeof key === 'string',
+      ) as string[];
+
+      const syntheticModule = new vm.SyntheticModule(
+        exportKeys,
+        function () {
+          // Set all exports from the imported module
+          for (const key of exportKeys) {
+            this.setExport(key, importedModule[key]);
+          }
+        },
+        {
+          context,
+          identifier: specifier,
+        },
+      );
+      return syntheticModule;
+    });
+    await module.evaluate();
+    const exports = { default: context.module?.exports };
+    Object.assign(exports, module.namespace);
+    return ok(exports);
   } catch (exception) {
     return err(exception);
   }
-
-  return ok(fakeContext.module.exports as unknown);
-};
+}
