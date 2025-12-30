@@ -2,13 +2,12 @@
 
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
+import type {
+  SourceLocation,
+  StylePropertyUsage,
+} from '../../utils/caniemail/ast/get-used-style-properties';
 import {
   convertLocationIntoObject,
-  getObjectVariables,
-  type SourceLocation,
-} from '../../utils/caniemail/ast/get-object-variables';
-import type { StylePropertyUsage } from '../../utils/caniemail/ast/get-used-style-properties';
-import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';

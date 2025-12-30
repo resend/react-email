@@ -1,5 +1,4 @@
 import { parse } from '@babel/parser';
-import { getObjectVariables } from './get-object-variables';
 import { getUsedStyleProperties } from './get-used-style-properties';
 
 describe('getUsedStyleProperties()', async () => {
