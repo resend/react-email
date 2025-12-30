@@ -3,9 +3,17 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export function createContext(globalAddendum: Record<string, any> = {}) {
+export function createContext(
+  filename: string,
+  globalAddendum: Record<string, any> = {},
+) {
   const globalToContextify = {
     ...globalAddendum,
+    __filename: filename,
+    __dirname: path.dirname(filename),
+    module: {
+      exports: {},
+    },
     require(specifier: string) {
       let m = specifier;
       if (specifier.startsWith('node:')) {
@@ -27,7 +35,7 @@ export function createContext(globalAddendum: Record<string, any> = {}) {
 export async function runBundledCode(
   code: string,
   filename: string,
-  context: vm.Context = createContext(),
+  context: vm.Context = createContext(filename),
 ): Promise<Result<unknown, unknown>> {
   try {
     const module = new vm.SourceTextModule(code, {
@@ -57,7 +65,7 @@ export async function runBundledCode(
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
-          function () {
+          function() {
             // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
@@ -84,7 +92,7 @@ export async function runBundledCode(
 
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
-        function () {
+        function() {
           // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
@@ -98,6 +106,7 @@ export async function runBundledCode(
       return syntheticModule;
     });
     await module.evaluate();
+    console.log(module.namespace);
     return ok(module.namespace);
   } catch (exception) {
     return err(exception);

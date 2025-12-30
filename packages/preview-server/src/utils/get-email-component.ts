@@ -83,7 +83,7 @@ export const getEmailComponent = async (
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const context = createContext({
+  const context = createContext(emailPath, {
     shouldIncludeSourceReference: false,
   });
   const runningResult = await runBundledCode(
