@@ -66,7 +66,7 @@ export async function runBundledCode(
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
-          function() {
+          function () {
             // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
@@ -93,7 +93,7 @@ export async function runBundledCode(
 
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
-        function() {
+        function () {
           // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
