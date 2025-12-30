@@ -22,9 +22,14 @@ export function createContext(
       if (m in staticNodeModulesForVM) {
         return staticNodeModulesForVM[m];
       }
+      return require(`${specifier}`);
     },
   };
-  Object.assign(globalToContextify, global);
+  for (const key of Reflect.ownKeys(global)) {
+    if (typeof key === 'string') {
+      globalToContextify[key] = global[key];
+    }
+  }
   return vm.createContext(globalToContextify);
 }
 
@@ -102,8 +107,7 @@ export async function runBundledCode(
       return syntheticModule;
     });
     await module.evaluate();
-    const exports = {};
-    Object.assign(exports, context.module?.exports ?? {});
+    const exports = { default: context.module?.exports };
     Object.assign(exports, module.namespace);
     return ok(exports);
   } catch (exception) {
