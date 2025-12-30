@@ -50,7 +50,7 @@ export interface SourceLocation {
 
 type ObjectProperty = Node & { type: 'ObjectProperty' };
 
-function writtenMemberExpressionTo(
+export function writtenMemberExpressionTo(
   nodePath: NodePath | null | undefined,
   accumulated = '',
 ): string {
@@ -73,15 +73,7 @@ function writtenMemberExpressionTo(
       );
     }
   }
-  throw new Error(
-    'Unexpected style object structure, this is a bug in the compatibility checker',
-    {
-      cause: {
-        nodePath,
-        accumulated,
-      },
-    },
-  );
+  return accumulated;
 }
 
 export const getUsedStyleProperties = async (
@@ -213,10 +205,10 @@ export const getUsedStyleProperties = async (
           }
           const styleDefinition =
             possibleStyleObjects[
-              sourceCode.slice(
-                path.node.value.expression.start,
-                path.node.value.expression.end,
-              )
+            sourceCode.slice(
+              path.node.value.expression.start,
+              path.node.value.expression.end,
+            )
             ];
           if (styleDefinition) {
             for (const objectProperty of styleDefinition) {
