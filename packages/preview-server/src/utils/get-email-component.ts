@@ -22,19 +22,19 @@ export const getEmailComponent = async (
   jsxRuntimePath: string,
 ): Promise<
   | {
-      emailComponent: EmailComponent;
+    emailComponent: EmailComponent;
 
-      createElement: typeof React.createElement;
+    createElement: typeof React.createElement;
 
-      /**
-       * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
-       * used internally in the preview server and never shown to the user.
-       */
-      renderWithReferences: typeof render;
-      render: typeof render;
+    /**
+     * Renders the HTML with `data-source-file`/`data-source-line` attributes that should only be
+     * used internally in the preview server and never shown to the user.
+     */
+    renderWithReferences: typeof render;
+    render: typeof render;
 
-      sourceMapToOriginalFile: RawSourceMap;
-    }
+    sourceMapToOriginalFile: RawSourceMap;
+  }
   | { error: ErrorObject }
 > => {
   let outputFiles: OutputFile[];
@@ -49,7 +49,6 @@ export const getEmailComponent = async (
       jsxDev: true,
       jsxImportSource: jsxRuntimePath,
 
-      format: 'esm',
       jsx: 'automatic',
       logLevel: 'silent',
       // allows for using jsx on a .js file
@@ -74,6 +73,7 @@ export const getEmailComponent = async (
 
   const sourceMapFile = outputFiles[0]!;
   const bundledEmailFile = outputFiles[1]!;
+  console.log(bundledEmailFile.path);
   const builtEmailCode = bundledEmailFile.text;
 
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
@@ -83,7 +83,7 @@ export const getEmailComponent = async (
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const context = createContext(emailPath, {
+  const context = createContext({
     shouldIncludeSourceReference: false,
   });
   const runningResult = await runBundledCode(

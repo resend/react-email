@@ -3,17 +3,9 @@ import vm from 'node:vm';
 import { err, ok, type Result } from './result';
 import { staticNodeModulesForVM } from './static-node-modules-for-vm';
 
-export function createContext(
-  filename: string,
-  globalAddendum: Record<string, any> = {},
-) {
+export function createContext(globalAddendum: Record<string, any> = {}) {
   const globalToContextify = {
     ...globalAddendum,
-    __filename: filename,
-    __dirname: path.dirname(filename),
-    module: {
-      exports: {},
-    },
     require(specifier: string) {
       let m = specifier;
       if (specifier.startsWith('node:')) {
@@ -22,6 +14,7 @@ export function createContext(
       if (m in staticNodeModulesForVM) {
         return staticNodeModulesForVM[m];
       }
+      return require(`${specifier}`);
     },
   };
   for (const key of Reflect.ownKeys(global)) {
@@ -35,9 +28,22 @@ export function createContext(
 export async function runBundledCode(
   code: string,
   filename: string,
-  context: vm.Context = createContext(filename),
+  context: vm.Context = createContext(),
+  format: 'esm' | 'cjs' = 'esm',
 ): Promise<Result<unknown, unknown>> {
   try {
+    if (format === 'cjs') {
+      context.__filename = filename;
+      context.__dirname = path.dirname(filename);
+      context.module = {
+        exports: undefined,
+      };
+      vm.runInContext(code, context, {
+        filename,
+      });
+      return ok(context.module.exports);
+    }
+
     const module = new vm.SourceTextModule(code, {
       context,
       identifier: filename,
@@ -65,7 +71,7 @@ export async function runBundledCode(
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
-          function () {
+          function() {
             // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
@@ -92,7 +98,7 @@ export async function runBundledCode(
 
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
-        function () {
+        function() {
           // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
