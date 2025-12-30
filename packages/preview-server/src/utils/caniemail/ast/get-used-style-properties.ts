@@ -1,4 +1,4 @@
-import traverse, { type NodePath, type Node } from '@babel/traverse';
+import traverse, { type Node, type NodePath } from '@babel/traverse';
 import { inlineStyles, sanitizeStyleSheet } from '@react-email/tailwind';
 import type { StyleSheet } from 'css-tree';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
@@ -213,10 +213,10 @@ export const getUsedStyleProperties = async (
           }
           const styleDefinition =
             possibleStyleObjects[
-            sourceCode.slice(
-              path.node.value.expression.start,
-              path.node.value.expression.end,
-            )
+              sourceCode.slice(
+                path.node.value.expression.start,
+                path.node.value.expression.end,
+              )
             ];
           if (styleDefinition) {
             for (const objectProperty of styleDefinition) {
