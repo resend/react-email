@@ -106,7 +106,6 @@ export async function runBundledCode(
       return syntheticModule;
     });
     await module.evaluate();
-    console.log(module.namespace);
     return ok(module.namespace);
   } catch (exception) {
     return err(exception);
