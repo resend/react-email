@@ -37,8 +37,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -99,14 +99,13 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
-  logBufferer.buffer();
-  errorBufferer.buffer();
-  infoBufferer.buffer();
-  warnBufferer.buffer();
-
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
+    logBufferer.buffer();
+    errorBufferer.buffer();
+    infoBufferer.buffer();
+    warnBufferer.buffer();
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
