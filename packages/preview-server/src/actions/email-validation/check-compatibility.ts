@@ -140,12 +140,10 @@ export const checkCompatibility = async (
     return source;
   };
 
-  const objectVariables = getObjectVariables(ast);
   const usedStyleProperties = await getUsedStyleProperties(
     ast,
     reactCode,
     emailPath,
-    objectVariables,
   );
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
