@@ -49,6 +49,7 @@ export const getEmailComponent = async (
       jsxDev: true,
       jsxImportSource: jsxRuntimePath,
 
+      format: 'esm',
       jsx: 'automatic',
       logLevel: 'silent',
       // allows for using jsx on a .js file
@@ -73,17 +74,16 @@ export const getEmailComponent = async (
 
   const sourceMapFile = outputFiles[0]!;
   const bundledEmailFile = outputFiles[1]!;
-  console.log(bundledEmailFile.path);
   const builtEmailCode = bundledEmailFile.text;
 
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
-  // because it will have a path like <tsconfigLocation>/stdout/email.js.map
+  // Because it will have a path like `<tsconfigLocation>/stdout/email.js`
   sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const context = createContext({
+  const context = createContext(emailPath, {
     shouldIncludeSourceReference: false,
   });
   const runningResult = await runBundledCode(
@@ -111,7 +111,15 @@ export const getEmailComponent = async (
       };
     }
 
-    throw error;
+    console.error(error);
+    return {
+      error: {
+        name: 'Error',
+        message: `Unknown error occurred while running the email component at ${emailPath}`,
+        stack: new Error().stack,
+        cause: error,
+      },
+    };
   }
 
   const parseResult = EmailComponentModule.safeParse(runningResult.value);
