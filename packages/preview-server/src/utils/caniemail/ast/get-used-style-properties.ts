@@ -205,10 +205,10 @@ export const getUsedStyleProperties = async (
           }
           const styleDefinition =
             possibleStyleObjects[
-            sourceCode.slice(
-              path.node.value.expression.start,
-              path.node.value.expression.end,
-            )
+              sourceCode.slice(
+                path.node.value.expression.start,
+                path.node.value.expression.end,
+              )
             ];
           if (styleDefinition) {
             for (const objectProperty of styleDefinition) {
