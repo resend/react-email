@@ -116,4 +116,23 @@ const buttonStyle = {
       ]
     `);
   });
+
+  it('handles styles objects that are a property of another object', async () => {
+    const reactCode = `
+const styles = {
+  button: { borderRadius: '5px', "color": "#fff", padding: 10 },
+}
+<Button style={styles.button}>Click me</Button>
+`;
+    const ast = parse(reactCode, {
+      strictMode: false,
+      errorRecovery: true,
+      sourceType: 'unambiguous',
+      plugins: ['jsx', 'typescript', 'decorators'],
+    });
+    const objectVariables = getObjectVariables(ast);
+    expect(
+      await getUsedStyleProperties(ast, reactCode, '', objectVariables),
+    ).toMatchInlineSnapshot();
+  });
 });
