@@ -26,8 +26,14 @@ export function createContext(
     },
   };
   for (const key of Reflect.ownKeys(global)) {
-    if (typeof key === 'string') {
-      globalToContextify[key] = global[key];
+    const descriptor = Object.getOwnPropertyDescriptor(global, key);
+    if (key === 'RegExp') {
+      // Regexp isn't really needed from the global, and it actually can break code.
+      // See https://github.com/resend/react-email/issues/2688.
+      continue;
+    }
+    if (descriptor) {
+      Object.defineProperty(globalToContextify, key, descriptor);
     }
   }
   return vm.createContext(globalToContextify);
@@ -37,7 +43,7 @@ export async function runBundledCode(
   code: string,
   filename: string,
   context: vm.Context = createContext(filename),
-): Promise<Result<unknown, unknown>> {
+): Promise<Result<object, unknown>> {
   try {
     const module = new vm.SourceTextModule(code, {
       context,

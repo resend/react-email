@@ -7,11 +7,7 @@ describe('runBundledCode()', () => {
   it('instanceof with RegExp should work', async () => {
     const result = await runBundledCode(
       `
-      export default [
-        /.+/ instanceof RegExp,
-        /.+/,
-        RegExp,
-      ]`,
+      export default /.+/ instanceof RegExp`,
       'file.js',
     );
 
@@ -21,23 +17,16 @@ describe('runBundledCode()', () => {
       return;
     }
 
-    const exports = z
+    const { default: isInstanceOfRegExp } = z
       .object({
-        default: z.tuple([z.boolean(), z.any(), z.any()]),
+        default: z.boolean(),
       })
       .parse(result.value);
 
-    const [isInstanceOfRegExp, regex, regexConstructor] = exports.default as [
-      boolean,
-      RegExp,
-      RegExpConstructor,
-    ];
-
-    expect(/.+/).toBeInstanceOf(RegExp);
-    expect(Object.getOwnPropertyDescriptor(regex, 'protitype')).toBe(
-      Object.getOwnPropertyDescriptor(/.+/, 'protitype'),
-    );
-    expect(regexConstructor).toEqual(RegExp);
+    expect(
+      /.+/,
+      './+/ instanceof RegExp should work outside node:vm',
+    ).toBeInstanceOf(RegExp);
     expect(isInstanceOfRegExp, '/.+/ instanceof RegExp to be true').toBe(true);
   });
 
