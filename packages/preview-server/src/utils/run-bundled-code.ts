@@ -25,44 +25,56 @@ export function createContext(
       return require(`${specifier}`);
     },
   };
+  // - https://tc39.es/ecma262/#sec-well-known-intrinsic-objects
   const intrinsicJavascriptValues: Array<string | symbol> = [
-    'RegExp',
-    'Error',
-    'EvalError',
-    'RangeError',
-    'ReferenceError',
-    'SyntaxError',
-    'TypeError',
-    'URIError',
+    'AggregateError',
     'Array',
     'ArrayBuffer',
+    'Atomics',
+    'BigInt',
+    'BigInt64Array',
+    'BigUint64Array',
     'Boolean',
     'DataView',
     'Date',
+    'Error',
+    'EvalError',
+    'FinalizationRegistry',
+    'Float16Array',
     'Float32Array',
     'Float64Array',
     'Function',
-    'Int8Array',
     'Int16Array',
     'Int32Array',
+    'Int8Array',
+    'Intl',
+    'JSON',
     'Map',
+    'Math',
     'Number',
-    'BigInt',
     'Object',
     'Promise',
     'Proxy',
+    'RangeError',
+    'ReferenceError',
+    'Reflect',
+    'RegExp',
     'Set',
+    'SharedArrayBuffer',
     'String',
+    'SuppressedError',
     'Symbol',
-    'Uint8Array',
-    'Uint8ClampedArray',
+    'SyntaxError',
+    'TypeError',
+    'URIError',
     'Uint16Array',
     'Uint32Array',
+    'Uint8Array',
+    'Uint8ClampedArray',
     'WeakMap',
+    'WeakRef',
     'WeakSet',
-    'JSON',
-    'Math',
-    'Reflect',
+    'WebAssembly',
   ];
   for (const key of Reflect.ownKeys(global)) {
     const descriptor = Object.getOwnPropertyDescriptor(global, key);
@@ -113,7 +125,7 @@ export async function runBundledCode(
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
-          function () {
+          function() {
             // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
@@ -140,7 +152,7 @@ export async function runBundledCode(
 
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
-        function () {
+        function() {
           // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
