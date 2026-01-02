@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.0-canary.2
+
+### Patch Changes
+
+- d2d46c7: fix instanceof not working with regexes
+
 ## 5.2.0-canary.1
 
 ### Patch Changes
