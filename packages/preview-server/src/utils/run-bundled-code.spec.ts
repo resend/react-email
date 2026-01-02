@@ -4,7 +4,7 @@ import { runBundledCode } from './run-bundled-code';
 
 describe('runBundledCode()', () => {
   // See https://github.com/resend/react-email/issues/2688
-  it('instanceof with RegExp should work', async () => {
+  it('works with instanceof RegExp', async () => {
     const result = await runBundledCode(
       `
       export default [
