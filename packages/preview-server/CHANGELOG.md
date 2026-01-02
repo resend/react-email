@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.0-canary.1
+
+### Patch Changes
+
+- 5ea5d84: fix compatibility checking for styles nested in other objects
+
 ## 5.2.0-canary.0
 
 ### Minor Changes
