@@ -25,11 +25,50 @@ export function createContext(
       return require(`${specifier}`);
     },
   };
+  const intrinsicJavascriptValues: Array<string | symbol> = [
+    'RegExp',
+    'Error',
+    'EvalError',
+    'RangeError',
+    'ReferenceError',
+    'SyntaxError',
+    'TypeError',
+    'URIError',
+    'Array',
+    'ArrayBuffer',
+    'Boolean',
+    'DataView',
+    'Date',
+    'Float32Array',
+    'Float64Array',
+    'Function',
+    'Int8Array',
+    'Int16Array',
+    'Int32Array',
+    'Map',
+    'Number',
+    'BigInt',
+    'Object',
+    'Promise',
+    'Proxy',
+    'Set',
+    'String',
+    'Symbol',
+    'TypedArray',
+    'Uint8Array',
+    'Uint8ClampedArray',
+    'Uint16Array',
+    'Uint32Array',
+    'WeakMap',
+    'WeakSet',
+    'JSON',
+    'Math',
+    'Reflect',
+  ];
   for (const key of Reflect.ownKeys(global)) {
     const descriptor = Object.getOwnPropertyDescriptor(global, key);
-    if (key === 'RegExp') {
-      // Regexp isn't really needed from the global, and it actually can break code.
-      // See https://github.com/resend/react-email/issues/2688.
+    // V8 has these intrinsic values that if we overwrite here might perfectly valid code that might have undefined behavior because of the mismatch between intrinsic values and their equivalents
+    if (intrinsicJavascriptValues.includes(key)) {
       continue;
     }
     if (descriptor) {
@@ -72,7 +111,7 @@ export async function runBundledCode(
         // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
           exportKeys,
-          function () {
+          function() {
             // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
@@ -99,7 +138,7 @@ export async function runBundledCode(
 
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
-        function () {
+        function() {
           // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
