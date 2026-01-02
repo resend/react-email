@@ -11,6 +11,10 @@ const tsxPath = path.resolve(dirname, '../../../node_modules/.bin/tsx');
 
 const tsx = child_process.spawn(tsxPath, [root, ...process.argv.slice(2)], {
   cwd: process.cwd(),
+  env: {
+    ...process.env,
+    NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
+  },
   stdio: 'inherit',
 });
 

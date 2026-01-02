@@ -1,5 +1,15 @@
 # @react-email/preview-server
 
+## 5.2.0-canary.0
+
+### Minor Changes
+
+- ccd6f05: bundle emails for preview to ESM
+
+### Patch Changes
+
+- 2d1d3a0: fix property access on null during dark mode inversion
+
 ## 5.1.1
 
 ### Patch Changes

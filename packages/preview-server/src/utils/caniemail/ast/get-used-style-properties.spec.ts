@@ -1,5 +1,4 @@
 import { parse } from '@babel/parser';
-import { getObjectVariables } from './get-object-variables';
 import { getUsedStyleProperties } from './get-used-style-properties';
 
 describe('getUsedStyleProperties()', async () => {
@@ -17,9 +16,8 @@ const buttonStyle = {
       sourceType: 'unambiguous',
       plugins: ['jsx', 'typescript', 'decorators'],
     });
-    const objectVariables = getObjectVariables(ast);
     expect(
-      await getUsedStyleProperties(ast, reactCode, '', objectVariables),
+      await getUsedStyleProperties(ast, reactCode, ''),
     ).toMatchInlineSnapshot(`
       [
         {
@@ -54,9 +52,8 @@ const buttonStyle = {
       sourceType: 'unambiguous',
       plugins: ['jsx', 'typescript', 'decorators'],
     });
-    const objectVariables = getObjectVariables(ast);
     expect(
-      await getUsedStyleProperties(ast, reactCode, '', objectVariables),
+      await getUsedStyleProperties(ast, reactCode, ''),
     ).toMatchInlineSnapshot(`
       [
         {
@@ -108,6 +105,82 @@ const buttonStyle = {
               "column": 55,
               "index": 56,
               "line": 2,
+            },
+          },
+          "name": "padding",
+          "value": "10",
+        },
+      ]
+    `);
+  });
+
+  it('handles styles objects that are a property of another object', async () => {
+    const reactCode = `
+<Button style={styles.button}>Click me</Button>
+
+const styles = {
+  button: { borderRadius: '5px', "color": "#fff", padding: 10 }
+}
+`;
+    const ast = parse(reactCode, {
+      strictMode: false,
+      errorRecovery: true,
+      sourceType: 'unambiguous',
+      plugins: ['jsx', 'typescript', 'decorators'],
+    });
+    expect(
+      await getUsedStyleProperties(ast, reactCode, ''),
+    ).toMatchInlineSnapshot(`
+      [
+        {
+          "location": SourceLocation {
+            "end": Position {
+              "column": 31,
+              "index": 98,
+              "line": 5,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 12,
+              "index": 79,
+              "line": 5,
+            },
+          },
+          "name": "borderRadius",
+          "value": "5px",
+        },
+        {
+          "location": SourceLocation {
+            "end": Position {
+              "column": 48,
+              "index": 115,
+              "line": 5,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 33,
+              "index": 100,
+              "line": 5,
+            },
+          },
+          "name": "color",
+          "value": "#fff",
+        },
+        {
+          "location": SourceLocation {
+            "end": Position {
+              "column": 61,
+              "index": 128,
+              "line": 5,
+            },
+            "filename": undefined,
+            "identifierName": undefined,
+            "start": Position {
+              "column": 50,
+              "index": 117,
+              "line": 5,
             },
           },
           "name": "padding",
