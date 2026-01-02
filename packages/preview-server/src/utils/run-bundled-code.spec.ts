@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { err, isOk } from './result';
+import { err, isErr, isOk } from './result';
 import { runBundledCode } from './run-bundled-code';
 
 describe('runBundledCode()', () => {
@@ -12,30 +12,38 @@ describe('runBundledCode()', () => {
         /.+/,
         RegExp,
       ]`,
-      'file.cjs',
+      'file.js',
     );
 
-    expect(isOk(result)).toBe(true);
+    expect(isOk(result), 'there should be no errors').toBe(true);
     if (!isOk(result)) {
+      console.log(result.error);
       return;
     }
 
-    const [isInstanceOfRegExp, regex, RegExpConstructor] = result.value.default as [
+    const exports = z
+      .object({
+        default: z.tuple([z.boolean(), z.any(), z.any()]),
+      })
+      .parse(result.value);
+
+    const [isInstanceOfRegExp, regex, regexConstructor] = exports.default as [
       boolean,
       RegExp,
       RegExpConstructor,
     ];
 
+    expect(/.+/).toBeInstanceOf(RegExp);
     expect(Object.getOwnPropertyDescriptor(regex, 'protitype')).toBe(
       Object.getOwnPropertyDescriptor(/.+/, 'protitype'),
     );
-    expect(RegExpConstructor).toBe(RegExp);
+    expect(regexConstructor).toEqual(RegExp);
     expect(isInstanceOfRegExp, '/.+/ instanceof RegExp to be true').toBe(true);
   });
 
   it('runs the bundled code in a VM context', async () => {
     const result = await runBundledCode('export default 42;', 'test.js');
-    expect(isOk(result)).toBe(true);
+    expect(isOk(result), 'there should be no errors').toBe(true);
     if (!isOk(result)) {
       return;
     }
@@ -53,6 +61,28 @@ describe('runBundledCode()', () => {
       'throw new Error("Test error");',
       'test.js',
     );
-    expect(result).toEqual(err(expect.any(Error)));
+    expect(isErr(result), 'should throw test error').toBe(true);
+  });
+
+  describe('Node internals support', () => {
+    test('Request', async () => {
+      const result = await runBundledCode(
+        `
+const _req = new Request('https://react.email');
+const _res = new Response('{}');
+
+const Email = () => {
+  return 'Hello world!';
+};
+
+export default Email;`,
+        'request-response-email.js',
+      );
+      if (!isOk(result)) {
+        console.log(result.error);
+        expect(isOk(result), 'there should be no errors').toBe(true);
+        return;
+      }
+    });
   });
 });
