@@ -7,7 +7,10 @@ describe('runBundledCode()', () => {
   it('instanceof with RegExp should work', async () => {
     const result = await runBundledCode(
       `
-      export default /.+/ instanceof RegExp`,
+      export default [
+        /.+/ instanceof RegExp, 
+        [1, 2, 3] instanceof Array,
+      ]`,
       'file.js',
     );
 
@@ -17,9 +20,11 @@ describe('runBundledCode()', () => {
       return;
     }
 
-    const { default: isInstanceOfRegExp } = z
+    const {
+      default: [isInstanceOfRegExp, isArray],
+    } = z
       .object({
-        default: z.boolean(),
+        default: z.tuple([z.boolean(), z.boolean()]),
       })
       .parse(result.value);
 
@@ -28,6 +33,7 @@ describe('runBundledCode()', () => {
       './+/ instanceof RegExp should work outside node:vm',
     ).toBeInstanceOf(RegExp);
     expect(isInstanceOfRegExp, '/.+/ instanceof RegExp to be true').toBe(true);
+    expect(isArray, 'instanceof Array should work with arrays').toBe(true);
   });
 
   it('runs the bundled code in a VM context', async () => {
