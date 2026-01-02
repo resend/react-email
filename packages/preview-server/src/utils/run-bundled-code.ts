@@ -66,7 +66,10 @@ export function createContext(
   ];
   for (const key of Reflect.ownKeys(global)) {
     const descriptor = Object.getOwnPropertyDescriptor(global, key);
-    // V8 has these intrinsic values that if we overwrite here might perfectly valid code that might have undefined behavior because of the mismatch between intrinsic values and their equivalents
+    // V8 has intrinsic values that have equivalents in the global scope, but are not necessarily tied together.
+    // Meaning that if we define it there, it can break perfectly valid code.
+    //
+    // See https://github.com/resend/react-email/issues/2688
     if (intrinsicJavascriptValues.includes(key)) {
       continue;
     }
