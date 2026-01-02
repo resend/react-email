@@ -7,7 +7,7 @@ describe('runBundledCode()', () => {
   it('instanceof with RegExp should work', async () => {
     const result = await runBundledCode(
       `
-      module.exports = [
+      export default [
         /.+/ instanceof RegExp,
         /.+/,
         RegExp,
@@ -20,7 +20,7 @@ describe('runBundledCode()', () => {
       return;
     }
 
-    const [isInstanceOfRegExp, regex, RegExpConstructor] = result.value as [
+    const [isInstanceOfRegExp, regex, RegExpConstructor] = result.value.default as [
       boolean,
       RegExp,
       RegExpConstructor,
