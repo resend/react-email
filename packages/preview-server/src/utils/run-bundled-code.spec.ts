@@ -30,7 +30,7 @@ describe('runBundledCode()', () => {
 
     expect(
       /.+/,
-      './+/ instanceof RegExp should work outside node:vm',
+      '/.+/ instanceof RegExp should work outside node:vm',
     ).toBeInstanceOf(RegExp);
     expect(isInstanceOfRegExp, '/.+/ instanceof RegExp to be true').toBe(true);
     expect(isArray, 'instanceof Array should work with arrays').toBe(true);
