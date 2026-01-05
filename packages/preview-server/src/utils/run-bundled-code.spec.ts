@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { err, isErr, isOk } from './result';
+import { isErr, isOk } from './result';
 import { runBundledCode } from './run-bundled-code';
 
 describe('runBundledCode()', () => {

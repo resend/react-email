@@ -1,6 +1,5 @@
 'use server';
 
-import { log } from 'node:console';
 import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
