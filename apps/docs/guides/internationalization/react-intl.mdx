@@ -69,7 +69,7 @@ To get the most out of this guide, you’ll need to:
 +  locale: string;
  }
  
- export function WelcomeEmail({ 
+ function WelcomeEmail({ 
    name,
 +  locale,
  }: WelcomeEmailProps) {
@@ -98,53 +98,53 @@ Alongisde the equivalents for the other locales you want to support.
 
 ## 3. Use `createIntl` and `formatMessage`
 
-```tsx
-import { createIntl } from 'react-intl';
-
-async function WelcomeEmail({ 
- name,
- locale
-}: WelcomeEmailProps) {
-  const { formatMessage } = createIntl({
-    // This import might vary, this can be tweaked depending on how you are already loading messages
-    messages: await import(`messages/${locale}/welcome-email.json`)
-    locale,
-  });
-
-  return (
-    <Html>
-      <Head />
-      <Preview>{formatMessage({ id: 'header' })}</Preview>
-      <Tailwind>
-        <Body className="bg-gray-100 font-sans">
-          <Container className="mx-auto py-10 px-5">
-            <Section className="bg-white rounded-lg p-8">
-              <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
-                {formatMessage({ id: 'header' })}
-              </Heading>
-              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
-                {formatMessage({ id: 'hi' })} {name}
-              </Text>
-              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
-                {formatMessage({ id: 'thanks' })}
-              </Text>
-              <Button
-                href="https://example.com/dashboard"
-                className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
-              >
-                {formatMessage({ id: 'get-started' })}
-              </Button>
-              <Hr className="border-gray-200 my-6" />
-              <Text className="text-sm text-gray-400 m-0">
-                {formatMessage({ id: 'questions' })}
-              </Text
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
-    </Html>
-  );
-}
+```diff
++  const { formatMessage } = createIntl({
++    // This import might vary, this can be tweaked depending on how you are already loading messages
++    messages: await import(`messages/${locale}/welcome-email.json`),
++    locale,
++  });
+ 
+   return (
+     <Html>
+       <Head />
+-      <Preview>Welcome to Acme</Preview>
++      <Preview>{formatMessage({ id: 'header' })}</Preview>
+       <Tailwind>
+         <Body className="bg-gray-100 font-sans">
+           <Container className="mx-auto py-10 px-5">
+             <Section className="bg-white rounded-lg p-8">
+               <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
+-                Welcome to Acme
++                {formatMessage({ id: 'header' })}
+               </Heading>
+               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+-                Hi {name}
++                {formatMessage({ id: 'hi' })} {name}
+               </Text>
+               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+-                Thanks for signing up! We're excited to have you on board.
++                {formatMessage({ id: 'thanks' })}
+               </Text>
+               <Button
+                 href="https://example.com/dashboard"
+                 className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
+               >
+-                Get Started
++                {formatMessage({ id: 'get-started' })}
+               </Button>
+               <Hr className="border-gray-200 my-6" />
+               <Text className="text-sm text-gray-400 m-0">
+-                If you have any questions, reply to this email. We're here to help!
++                {formatMessage({ id: 'questions' })}
+               </Text>
+             </Section>
+           </Container>
+         </Body>
+       </Tailwind>
+     </Html>
+   );
+ }
 ```
 
 ## Try it yourself
