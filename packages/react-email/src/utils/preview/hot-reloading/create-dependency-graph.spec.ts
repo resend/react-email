@@ -40,14 +40,14 @@ describe('createDependencyGraph()', async () => {
     const relativePathDependencyGraph = Object.fromEntries(
       Object.entries(dependencyGraph).map(([key, value]) => {
         return [
-          path.relative(testingDiretctory, key),
+          path.relative(testingDiretctory, key).replace(/\\/g, '/'),
           {
-            path: path.relative(testingDiretctory, value.path),
+            path: path.relative(testingDiretctory, value.path).replace(/\\/g, '/'),
             dependentPaths: value.dependentPaths.map((p) =>
-              path.relative(testingDiretctory, p),
+              path.relative(testingDiretctory, p).replace(/\\/g, '/'),
             ),
             dependencyPaths: value.dependencyPaths.map((p) =>
-              path.relative(testingDiretctory, p),
+              path.relative(testingDiretctory, p).replace(/\\/g, '/'),
             ),
             moduleDependencies: value.moduleDependencies,
           },
