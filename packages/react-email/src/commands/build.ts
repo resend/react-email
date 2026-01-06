@@ -38,9 +38,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true
   },
-  experimental: {
-    webpackBuildWorker: true
-  },
+  staticPageGenerationTimeout: 600,
 }
 
 export default nextConfig`;
