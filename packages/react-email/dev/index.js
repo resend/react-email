@@ -1,5 +1,6 @@
 import child_process from 'node:child_process';
 import path from 'node:path';
+import { join } from 'shlex';
 import url from 'node:url';
 
 const filename = url.fileURLToPath(import.meta.url);
@@ -7,18 +8,18 @@ const dirname = path.dirname(filename);
 
 const root = path.resolve(dirname, '../src/index.ts');
 
-const args = ['tsx', root, ...process.argv.slice(2)];
-const command = `pnpm ${args.map((arg) => `"${arg.replaceAll('"', '\\"')}"`).join(' ')}`;
-
-const tsx = child_process.spawn(command, {
-  cwd: process.cwd(),
-  shell: true,
-  env: {
-    ...process.env,
-    NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
+const tsx = child_process.spawn(
+  `pnpm tsx ${join([root, ...process.argv.slice(2)])}`,
+  {
+    cwd: process.cwd(),
+    shell: true,
+    env: {
+      ...process.env,
+      NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
+    },
+    stdio: 'inherit',
   },
-  stdio: 'inherit',
-});
+);
 
 tsx.on('close', (code) => {
   process.exit(code);
