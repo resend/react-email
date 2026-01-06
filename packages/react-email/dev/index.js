@@ -1,7 +1,7 @@
 import child_process from 'node:child_process';
 import path from 'node:path';
-import { join } from 'shlex';
 import url from 'node:url';
+import { join } from 'shlex';
 
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
