@@ -42,7 +42,9 @@ describe('createDependencyGraph()', async () => {
         return [
           path.relative(testingDiretctory, key).replace(/\\/g, '/'),
           {
-            path: path.relative(testingDiretctory, value.path).replace(/\\/g, '/'),
+            path: path
+              .relative(testingDiretctory, value.path)
+              .replace(/\\/g, '/'),
             dependentPaths: value.dependentPaths.map((p) =>
               path.relative(testingDiretctory, p).replace(/\\/g, '/'),
             ),
