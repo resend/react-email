@@ -23,114 +23,229 @@ describe('removeFilenameExtension()', () => {
 });
 
 describe('containsEmailTemplate()', () => {
-  const directory: EmailsDirectory = {
-    absolutePath: '/fake/path/emails',
-    directoryName: 'emails',
-    relativePath: '',
-    emailFilenames: [],
-    subDirectories: [
-      {
-        absolutePath: '/fake/path/emails/magic-links',
-        directoryName: 'magic-links',
-        relativePath: 'magic-links',
-        emailFilenames: [
-          'aws-verify-email',
-          'linear-login-code',
-          'notion-magic-link',
-          'plaid-verify-identity',
-          'raycast-magic-link',
-          'slack-confirm',
-        ],
-        subDirectories: [
-          {
-            absolutePath: '/fake/path/emails/magic-links/resend',
-            directoryName: 'resend',
-            emailFilenames: ['verify-email'],
-            relativePath: 'magic-links/resend',
-            subDirectories: [],
-          },
-        ],
-      },
-      {
-        absolutePath: '/fake/path/emails/first/second',
-        directoryName: 'first/second',
-        relativePath: 'first/second',
-        emailFilenames: ['email'],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/newsletters',
-        directoryName: 'newsletters',
-        relativePath: 'newsletters',
-        emailFilenames: [
-          'codepen-challengers',
-          'google-play-policy-update',
-          'stack-overflow-tips',
-        ],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/notifications',
-        directoryName: 'notifications',
-        relativePath: 'notifications',
-        emailFilenames: [
-          'github-access-token',
-          'papermark-year-in-review',
-          'vercel-invite-user',
-          'yelp-recent-login',
-        ],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/receipts',
-        directoryName: 'receipts',
-        relativePath: 'receipts',
-        emailFilenames: ['apple-receipt', 'nike-receipt'],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/reset-password',
-        directoryName: 'reset-password',
-        relativePath: 'reset-password',
-        emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/reviews',
-        directoryName: 'reviews',
-        relativePath: 'reviews',
-        emailFilenames: ['airbnb-review', 'amazon-review'],
-        subDirectories: [],
-      },
-      {
-        absolutePath: '/fake/path/emails/welcome',
-        directoryName: 'welcome',
-        relativePath: 'welcome',
-        emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
-        subDirectories: [],
-      },
-    ],
-  };
+  describe('with Windows path separator', () => {
+    const directory: EmailsDirectory = {
+      absolutePath: 'C:\\fake\\path\\emails',
+      directoryName: 'emails',
+      relativePath: '',
+      emailFilenames: [],
+      subDirectories: [
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\magic-links',
+          directoryName: 'magic-links',
+          relativePath: 'magic-links',
+          emailFilenames: [
+            'aws-verify-email',
+            'linear-login-code',
+            'notion-magic-link',
+            'plaid-verify-identity',
+            'raycast-magic-link',
+            'slack-confirm',
+          ],
+          subDirectories: [
+            {
+              absolutePath: 'C:\\fake\\path\\emails\\magic-links\\resend',
+              directoryName: 'resend',
+              emailFilenames: ['verify-email'],
+              relativePath: 'magic-links\\resend',
+              subDirectories: [],
+            },
+          ],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\first\\second',
+          directoryName: 'first\\second',
+          relativePath: 'first\\second',
+          emailFilenames: ['email'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\newsletters',
+          directoryName: 'newsletters',
+          relativePath: 'newsletters',
+          emailFilenames: [
+            'codepen-challengers',
+            'google-play-policy-update',
+            'stack-overflow-tips',
+          ],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\notifications',
+          directoryName: 'notifications',
+          relativePath: 'notifications',
+          emailFilenames: [
+            'github-access-token',
+            'papermark-year-in-review',
+            'vercel-invite-user',
+            'yelp-recent-login',
+          ],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\receipts',
+          directoryName: 'receipts',
+          relativePath: 'receipts',
+          emailFilenames: ['apple-receipt', 'nike-receipt'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\reset-password',
+          directoryName: 'reset-password',
+          relativePath: 'reset-password',
+          emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\reviews',
+          directoryName: 'reviews',
+          relativePath: 'reviews',
+          emailFilenames: ['airbnb-review', 'amazon-review'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: 'C:\\fake\\path\\emails\\welcome',
+          directoryName: 'welcome',
+          relativePath: 'welcome',
+          emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+          subDirectories: [],
+        },
+      ],
+    };
 
-  it('works with collapsed email directory', () => {
-    expect(containsEmailTemplate('first/second/email', directory)).toBe(true);
+    it('works with collapsed email directory', () => {
+      expect(containsEmailTemplate('first\\second\\email.tsx', directory)).toBe(true);
+    });
+
+    it('works with email inside a single sub directory', () => {
+      expect(containsEmailTemplate('welcome\\koala-welcome.tsx', directory)).toBe(
+        true,
+      );
+      expect(containsEmailTemplate('welcome\\missing-template.tsx', directory)).toBe(
+        false,
+      );
+    });
+    
+    it('works with email inside a second sub directory', () => {
+      expect(
+        containsEmailTemplate('magic-links\\resend\\verify-email.tsx', directory),
+      ).toBe(true);
+      expect(
+        containsEmailTemplate('magic-links\\resend\\missing-template', directory),
+      ).toBe(false);
+    });
   });
 
-  it('works with email inside a single sub directory', () => {
-    expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(
-      true,
-    );
-    expect(containsEmailTemplate('welcome/missing-template', directory)).toBe(
-      false,
-    );
-  });
+  describe('with unix path separator', () => {
+    const directory: EmailsDirectory = {
+      absolutePath: '/fake/path/emails',
+      directoryName: 'emails',
+      relativePath: '',
+      emailFilenames: [],
+      subDirectories: [
+        {
+          absolutePath: '/fake/path/emails/magic-links',
+          directoryName: 'magic-links',
+          relativePath: 'magic-links',
+          emailFilenames: [
+            'aws-verify-email',
+            'linear-login-code',
+            'notion-magic-link',
+            'plaid-verify-identity',
+            'raycast-magic-link',
+            'slack-confirm',
+          ],
+          subDirectories: [
+            {
+              absolutePath: '/fake/path/emails/magic-links/resend',
+              directoryName: 'resend',
+              emailFilenames: ['verify-email'],
+              relativePath: 'magic-links/resend',
+              subDirectories: [],
+            },
+          ],
+        },
+        {
+          absolutePath: '/fake/path/emails/first/second',
+          directoryName: 'first/second',
+          relativePath: 'first/second',
+          emailFilenames: ['email'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/newsletters',
+          directoryName: 'newsletters',
+          relativePath: 'newsletters',
+          emailFilenames: [
+            'codepen-challengers',
+            'google-play-policy-update',
+            'stack-overflow-tips',
+          ],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/notifications',
+          directoryName: 'notifications',
+          relativePath: 'notifications',
+          emailFilenames: [
+            'github-access-token',
+            'papermark-year-in-review',
+            'vercel-invite-user',
+            'yelp-recent-login',
+          ],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/receipts',
+          directoryName: 'receipts',
+          relativePath: 'receipts',
+          emailFilenames: ['apple-receipt', 'nike-receipt'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/reset-password',
+          directoryName: 'reset-password',
+          relativePath: 'reset-password',
+          emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/reviews',
+          directoryName: 'reviews',
+          relativePath: 'reviews',
+          emailFilenames: ['airbnb-review', 'amazon-review'],
+          subDirectories: [],
+        },
+        {
+          absolutePath: '/fake/path/emails/welcome',
+          directoryName: 'welcome',
+          relativePath: 'welcome',
+          emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+          subDirectories: [],
+        },
+      ],
+    };
 
-  it('works with email inside a second sub directory', () => {
-    expect(
-      containsEmailTemplate('magic-links/resend/verify-email', directory),
-    ).toBe(true);
-    expect(
-      containsEmailTemplate('magic-links/resend/missing-template', directory),
-    ).toBe(false);
+    it('works with collapsed email directory', () => {
+      expect(containsEmailTemplate('first/second/email', directory)).toBe(true);
+    });
+
+    it('works with email inside a single sub directory', () => {
+      expect(containsEmailTemplate('welcome/koala-welcome', directory)).toBe(
+        true,
+      );
+      expect(containsEmailTemplate('welcome/missing-template', directory)).toBe(
+        false,
+      );
+    });
+    
+    it('works with email inside a second sub directory', () => {
+      expect(
+        containsEmailTemplate('magic-links/resend/verify-email', directory),
+      ).toBe(true);
+      expect(
+        containsEmailTemplate('magic-links/resend/missing-template', directory),
+      ).toBe(false);
+    });
   });
 });
