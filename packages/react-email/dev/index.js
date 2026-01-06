@@ -7,18 +7,18 @@ const dirname = path.dirname(filename);
 
 const root = path.resolve(dirname, '../src/index.ts');
 
-const tsx = child_process.spawn(
-  'pnpm',
-  ['tsx', root, ...process.argv.slice(2)],
-  {
-    cwd: process.cwd(),
-    env: {
-      ...process.env,
-      NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
-    },
-    stdio: 'inherit',
+const args = ['tsx', root, ...process.argv.slice(2)];
+const command = `pnpm ${args.map((arg) => `"${arg.replace('"', '\\"')}"`).join(' ')}`;
+
+const tsx = child_process.spawn(command, {
+  cwd: process.cwd(),
+  shell: true,
+  env: {
+    ...process.env,
+    NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
   },
-);
+  stdio: 'inherit',
+});
 
 tsx.on('close', (code) => {
   process.exit(code);
