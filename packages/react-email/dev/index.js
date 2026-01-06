@@ -8,7 +8,7 @@ const dirname = path.dirname(filename);
 const root = path.resolve(dirname, '../src/index.ts');
 
 const args = ['tsx', root, ...process.argv.slice(2)];
-const command = `pnpm ${args.map((arg) => `"${arg.replace('"', '\\"')}"`).join(' ')}`;
+const command = `pnpm ${args.map((arg) => `"${arg.replaceAll('"', '\\"')}"`).join(' ')}`;
 
 const tsx = child_process.spawn(command, {
   cwd: process.cwd(),
