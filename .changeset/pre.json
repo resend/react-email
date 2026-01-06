@@ -36,6 +36,7 @@
     "playground": "0.0.11"
   },
   "changesets": [
+    "brave-apes-stand",
     "five-wings-dress",
     "polite-rules-mate",
     "silly-chicken-juggle",
