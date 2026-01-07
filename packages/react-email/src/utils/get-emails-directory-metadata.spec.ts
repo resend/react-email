@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata.js';
+import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata';
 
 test('getEmailsDirectoryMetadata on demo emails', async () => {
   const emailsDirectoryPath = path.resolve(
