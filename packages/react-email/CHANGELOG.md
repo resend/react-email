@@ -1,5 +1,7 @@
 # react-email
 
+## 5.2.1-canary.0
+
 ## 5.2.0
 
 ### Patch Changes
