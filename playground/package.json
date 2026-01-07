@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.0.11",
+  "version": "0.0.12-canary.0",
   "private": true,
   "scripts": {
     "dev": "email dev",
@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@react-email/render": "workspace:*",
+    "@react-email/tailwind": "workspace:*",
     "react": "^19",
     "react-dom": "^19"
   },

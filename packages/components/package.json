@@ -1,6 +1,6 @@
 {
   "name": "@react-email/components",
-  "version": "1.0.3",
+  "version": "1.0.4-canary.0",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -55,7 +55,7 @@
     "@react-email/link": "workspace:0.0.13",
     "@react-email/markdown": "workspace:0.0.18",
     "@react-email/preview": "workspace:0.0.14",
-    "@react-email/render": "workspace:2.0.1",
+    "@react-email/render": "workspace:2.0.2-canary.0",
     "@react-email/row": "workspace:0.0.13",
     "@react-email/section": "workspace:0.0.17",
     "@react-email/tailwind": "workspace:2.0.3",

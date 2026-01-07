@@ -1,5 +1,17 @@
 # react-email
 
+## 5.2.0-canary.3
+
+### Patch Changes
+
+- 16cc7d1: increase timeout to 10 minutes by default, disable build workers
+
+## 5.2.0-canary.2
+
+## 5.2.0-canary.1
+
+## 5.2.0-canary.0
+
 ## 5.1.1
 
 ### Patch Changes
