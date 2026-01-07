@@ -1,5 +1,14 @@
 # playground
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [159f6e4]
+- Updated dependencies [12ff166]
+  - @react-email/render@2.0.2
+  - @react-email/tailwind@2.0.3
+
 ## 0.0.12-canary.0
 
 ### Patch Changes
