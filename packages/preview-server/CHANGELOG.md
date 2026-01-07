@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.2.1
+
+### Patch Changes
+
+- a6aed9e: fix toolbar loading spinner in the opposite direction
+- 462f60b: fix(preview-server): hot reloading on Windows
+
 ## 5.2.0
 
 ### Minor Changes
