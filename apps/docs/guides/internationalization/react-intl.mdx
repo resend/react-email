@@ -163,25 +163,28 @@ Alternatively, you can add locale-specific messages in the email file.
 
 Add the `locale` prop to the email template, interface, and test data.
 
-```diff
- interface WelcomeEmailProps {
-   name: string;
-+  locale: 'en' | 'es' | 'pt';
- }
+```tsx
+interface WelcomeEmailProps {
+  name: string;
+// [!code ++]
+  locale: 'en' | 'es' | 'pt';
+}
 
- function WelcomeEmail({
-   name,
-+  locale,
- }: WelcomeEmailProps) {
-   return (
-    ...
-   );
- }
+function WelcomeEmail({
+  name,
+// [!code ++]
+  locale,
+}: WelcomeEmailProps) {
+  return (
+   ...
+  );
+}
 
- WelcomeEmail.PreviewProps = {
-   name: 'John Lennon',
-+  locale: 'en',
- };
+WelcomeEmail.PreviewProps = {
+  name: 'John Lennon',
+// [!code ++]
+  locale: 'en',
+};
 ```
 
 
@@ -189,9 +192,9 @@ Add the `locale` prop to the email template, interface, and test data.
 
 In the email template, remove the hardcoded content and use `createIntl` to format the email message strings.
 
-```diff
-
-+  import { createIntl } from 'react-intl';
+```tsx
+// [!code ++]
+import { createIntl } from 'react-intl';
 
 interface WelcomeEmailProps {
   name: string;
@@ -202,57 +205,69 @@ function WelcomeEmail({
   name,
   locale,
 }: WelcomeEmailProps) {
+// [!code ++:4]
+  const { formatMessage } = createIntl({
+    messages: await import(`emails/welcome/${locale}.json`), // if using locale-specific files
+    locale,
+  });
 
-+  const { formatMessage } = createIntl({
-+    messages: await import(`emails/welcome/${locale}.json`), // if using locale-specific files
-+    locale,
-+  });
+  return (
+    <Html>
+      <Head />
+// [!code --]
+      <Preview>Welcome to Acme</Preview>
+// [!code ++]
+      <Preview>{formatMessage({ id: 'header' })}</Preview>
+      <Tailwind>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5">
+            <Section className="bg-white rounded-lg p-8">
+              <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
+// [!code --]
+                Welcome to Acme
+// [!code ++]
+                {formatMessage({ id: 'header' })}
+              </Heading>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+// [!code --]
+                Hi {name}
+// [!code ++]
+                {formatMessage({ id: 'hi' })} {name}
+              </Text>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+// [!code --]
+                Thanks for signing up! We're excited to have you on board.
+// [!code ++]
+                {formatMessage({ id: 'thanks' })}
+              </Text>
+              <Button
+                href="https://example.com/dashboard"
+                className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
+              >
+// [!code --]
+                Get Started
+// [!code ++]
+                {formatMessage({ id: 'get-started' })}
+              </Button>
+              <Hr className="border-gray-200 my-6" />
+              <Text className="text-sm text-gray-400 m-0">
+// [!code --]
+                If you have any questions, reply to this email. We're here to help!
+// [!code ++]
+                {formatMessage({ id: 'questions' })}
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
 
-   return (
-     <Html>
-       <Head />
--      <Preview>Welcome to Acme</Preview>
-+      <Preview>{formatMessage({ id: 'header' })}</Preview>
-       <Tailwind>
-         <Body className="bg-gray-100 font-sans">
-           <Container className="mx-auto py-10 px-5">
-             <Section className="bg-white rounded-lg p-8">
-               <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
--                Welcome to Acme
-+                {formatMessage({ id: 'header' })}
-               </Heading>
-               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
--                Hi {name}
-+                {formatMessage({ id: 'hi' })} {name}
-               </Text>
-               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
--                Thanks for signing up! We're excited to have you on board.
-+                {formatMessage({ id: 'thanks' })}
-               </Text>
-               <Button
-                 href="https://example.com/dashboard"
-                 className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
-               >
--                Get Started
-+                {formatMessage({ id: 'get-started' })}
-               </Button>
-               <Hr className="border-gray-200 my-6" />
-               <Text className="text-sm text-gray-400 m-0">
--                If you have any questions, reply to this email. We're here to help!
-+                {formatMessage({ id: 'questions' })}
-               </Text>
-             </Section>
-           </Container>
-         </Body>
-       </Tailwind>
-     </Html>
-   );
- }
-
- WelcomeEmail.PreviewProps = {
-   name: 'John Lennon',
-   locale: 'en',
- };
+WelcomeEmail.PreviewProps = {
+  name: 'John Lennon',
+  locale: 'en',
+};
 ```
 
 ### 4. Update any email calls
