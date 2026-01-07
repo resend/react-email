@@ -1,5 +1,17 @@
 # @react-email/preview-server
 
+## 5.2.0
+
+### Minor Changes
+
+- ccd6f05: bundle emails for preview to ESM
+
+### Patch Changes
+
+- 2d1d3a0: fix property access on null during dark mode inversion
+- 5ea5d84: fix compatibility checking for styles nested in other objects
+- d2d46c7: fix instanceof not working with regexes
+
 ## 5.2.0-canary.3
 
 ## 5.2.0-canary.2
