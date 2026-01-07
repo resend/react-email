@@ -201,7 +201,10 @@ interface WelcomeEmailProps {
   locale: 'en' | 'es' | 'pt';
 }
 
+// [!code --]
 function WelcomeEmail({
+// [!code ++]
+async function WelcomeEmail({
   name,
   locale,
 }: WelcomeEmailProps) {
