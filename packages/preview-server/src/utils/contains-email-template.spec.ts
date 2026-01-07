@@ -107,31 +107,43 @@ describe('containsEmailTemplate()', () => {
           absolutePath: 'C:\\fake\\path\\emails\\welcome',
           directoryName: 'welcome',
           relativePath: 'welcome',
-          emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+          emailFilenames: [
+            'koala-welcome',
+            'netlify-welcome',
+            'stripe-welcome',
+          ],
           subDirectories: [],
         },
       ],
     };
 
     it('works with collapsed email directory', () => {
-      expect(containsEmailTemplate('first\\second\\email.tsx', directory)).toBe(true);
+      expect(containsEmailTemplate('first\\second\\email.tsx', directory)).toBe(
+        true,
+      );
     });
 
     it('works with email inside a single sub directory', () => {
-      expect(containsEmailTemplate('welcome\\koala-welcome.tsx', directory)).toBe(
-        true,
-      );
-      expect(containsEmailTemplate('welcome\\missing-template.tsx', directory)).toBe(
-        false,
-      );
-    });
-    
-    it('works with email inside a second sub directory', () => {
       expect(
-        containsEmailTemplate('magic-links\\resend\\verify-email.tsx', directory),
+        containsEmailTemplate('welcome\\koala-welcome.tsx', directory),
       ).toBe(true);
       expect(
-        containsEmailTemplate('magic-links\\resend\\missing-template', directory),
+        containsEmailTemplate('welcome\\missing-template.tsx', directory),
+      ).toBe(false);
+    });
+
+    it('works with email inside a second sub directory', () => {
+      expect(
+        containsEmailTemplate(
+          'magic-links\\resend\\verify-email.tsx',
+          directory,
+        ),
+      ).toBe(true);
+      expect(
+        containsEmailTemplate(
+          'magic-links\\resend\\missing-template',
+          directory,
+        ),
       ).toBe(false);
     });
   });
@@ -220,7 +232,11 @@ describe('containsEmailTemplate()', () => {
           absolutePath: '/fake/path/emails/welcome',
           directoryName: 'welcome',
           relativePath: 'welcome',
-          emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+          emailFilenames: [
+            'koala-welcome',
+            'netlify-welcome',
+            'stripe-welcome',
+          ],
           subDirectories: [],
         },
       ],
@@ -238,7 +254,7 @@ describe('containsEmailTemplate()', () => {
         false,
       );
     });
-    
+
     it('works with email inside a second sub directory', () => {
       expect(
         containsEmailTemplate('magic-links/resend/verify-email', directory),
