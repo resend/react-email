@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { BorderWrapper, hasBorderAndBorderRadius } from './utils/border-wrapper.js';
+import {
+  BorderWrapper,
+  hasBorderAndBorderRadius,
+} from './utils/border-wrapper.js';
 
 export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 

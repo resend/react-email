@@ -19,10 +19,11 @@ export const component = (
         <Heading as="h1" style={{ textAlign: 'center', marginBottom: '32px' }}>
           Border + BorderRadius Compatibility Fix
         </Heading>
-        
+
         <Text style={{ marginBottom: '24px' }}>
-          This demo shows how the Section component now handles border + borderRadius combinations
-          with full email client compatibility using a wrapper table approach.
+          This demo shows how the Section component now handles border +
+          borderRadius combinations with full email client compatibility using a
+          wrapper table approach.
         </Text>
 
         {/* Example 1: Basic border + borderRadius */}
@@ -39,8 +40,8 @@ export const component = (
             Example 1: Basic border + borderRadius
           </Text>
           <Text style={{ margin: '8px 0 0 0', color: '#6b7280' }}>
-            This section uses both border and borderRadius, which now renders with a wrapper table
-            for full email client compatibility.
+            This section uses both border and borderRadius, which now renders
+            with a wrapper table for full email client compatibility.
           </Text>
         </Section>
 
@@ -60,8 +61,8 @@ export const component = (
             Example 2: Individual border properties
           </Text>
           <Text style={{ margin: '8px 0 0 0', color: '#1e40af' }}>
-            This section uses individual border properties (borderWidth, borderStyle, borderColor)
-            combined with borderRadius.
+            This section uses individual border properties (borderWidth,
+            borderStyle, borderColor) combined with borderRadius.
           </Text>
         </Section>
 
@@ -82,8 +83,8 @@ export const component = (
             Example 3: Different border radius values
           </Text>
           <Text style={{ margin: '8px 0 0 0', color: '#065f46' }}>
-            This section uses different border radius values for each corner, demonstrating
-            full support for complex border radius combinations.
+            This section uses different border radius values for each corner,
+            demonstrating full support for complex border radius combinations.
           </Text>
         </Section>
 
@@ -100,8 +101,8 @@ export const component = (
             Example 4: Border without borderRadius (no wrapper needed)
           </Text>
           <Text style={{ margin: '8px 0 0 0', color: '#6b7280' }}>
-            This section uses only border without borderRadius, so it renders normally
-            without the wrapper table.
+            This section uses only border without borderRadius, so it renders
+            normally without the wrapper table.
           </Text>
         </Section>
 
@@ -118,18 +119,19 @@ export const component = (
             Example 5: Only borderRadius (no wrapper needed)
           </Text>
           <Text style={{ margin: '8px 0 0 0', color: '#92400e' }}>
-            This section uses only borderRadius without border, so it renders normally
-            without the wrapper table.
+            This section uses only borderRadius without border, so it renders
+            normally without the wrapper table.
           </Text>
         </Section>
 
         <Text style={{ marginTop: '32px', fontSize: '14px', color: '#6b7280' }}>
-          The fix automatically detects when both border and borderRadius are used together
-          and applies the wrapper table approach for maximum email client compatibility.
+          The fix automatically detects when both border and borderRadius are
+          used together and applies the wrapper table approach for maximum email
+          client compatibility.
         </Text>
       </Container>
     </Body>
   </Html>
 );
 
-export default component; 
+export default component;
