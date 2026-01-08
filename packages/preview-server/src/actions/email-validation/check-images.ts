@@ -10,29 +10,29 @@ import { quickFetch } from './quick-fetch';
 
 export type ImageCheck = { passed: boolean } & (
   | {
-    type: 'accessibility';
-    metadata: {
-      alt: string | undefined;
-    };
-  }
+      type: 'accessibility';
+      metadata: {
+        alt: string | undefined;
+      };
+    }
   | {
-    type: 'fetch_attempt';
-    metadata: {
-      fetchStatusCode: number | undefined;
-    };
-  }
+      type: 'fetch_attempt';
+      metadata: {
+        fetchStatusCode: number | undefined;
+      };
+    }
   | {
-    type: 'image_size';
-    metadata: {
-      byteCount: number | undefined;
-    };
-  }
+      type: 'image_size';
+      metadata: {
+        byteCount: number | undefined;
+      };
+    }
   | {
-    type: 'syntax';
-  }
+      type: 'syntax';
+    }
   | {
-    type: 'security';
-  }
+      type: 'security';
+    }
 );
 
 export interface ImageCheckingResult {

@@ -16,7 +16,7 @@ vi.mock('./quick-fetch', () => ({
 
     return Promise.resolve({
       statusCode: response.statusCode,
-      resume: () => { },
+      resume: () => {},
     });
   }),
 }));
