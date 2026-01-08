@@ -829,8 +829,8 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
       use-debounce:
-        specifier: 10.0.4
-        version: 10.0.4(react@19.0.0)
+        specifier: 10.0.6
+        version: 10.0.6(react@19.0.0)
       zod:
         specifier: 4.1.12
         version: 4.1.12
@@ -9309,8 +9309,8 @@ packages:
       '@types/react':
         optional: true
 
-  use-debounce@10.0.4:
-    resolution: {integrity: sha512-6Cf7Yr7Wk7Kdv77nnJMf6de4HuDE4dTxKij+RqE9rufDsI6zsbjyAxcH5y2ueJCQAnfgKbzXbZHYlkFwmBlWkw==}
+  use-debounce@10.0.6:
+    resolution: {integrity: sha512-C5OtPyhAZgVoteO9heXMTdW7v/IbFI+8bSVKYCJrSmiWWCLsbUxiBSp4t9v0hNBTGY97bT72ydDIDyGSFWfwXg==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       react: ^19.0.0
@@ -19428,7 +19428,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.7
 
-  use-debounce@10.0.4(react@19.0.0):
+  use-debounce@10.0.6(react@19.0.0):
     dependencies:
       react: 19.0.0
 
