@@ -132,8 +132,7 @@ export const checkImages = async (code: string, base: string) => {
             if (responseSizeBytes > 1_048_576 && result.status !== 'error') {
               result.status = 'warning';
             }
-          } catch (exception) {
-            console.error(exception);
+          } catch {
             result.checks.push({
               type: 'fetch_attempt',
               passed: false,
@@ -143,8 +142,7 @@ export const checkImages = async (code: string, base: string) => {
             });
             result.status = 'error';
           }
-        } catch (exception) {
-          console.error(exception);
+        } catch {
           result.checks.push({
             passed: false,
             type: 'syntax',
