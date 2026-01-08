@@ -37,14 +37,8 @@ To get the most out of this guide, you’ll need to:
 
 This guide will use the following email template as a base.
 
-```tsx emails/welcome/index.tsx
-interface WelcomeEmailProps {
-  name: string;
-}
-
-function WelcomeEmail({
- name,
-}: WelcomeEmailProps) {
+```jsx emails/welcome.jsx
+export default function WelcomeEmail({ name }) {
   return (
     <Html>
       <Head />
@@ -95,7 +89,7 @@ For each locale, create a new JSON file containing the content of the email in t
 
 <CodeGroup>
 
-```json emails/welcome/en.json
+```json messages/en/welcome-email.json
 {
   "header": "Welcome to Acme",
   "hi": "Hi",
@@ -105,7 +99,7 @@ For each locale, create a new JSON file containing the content of the email in t
 }
 ```
 
-```json emails/welcome/es.json
+```json messages/es/welcome-email.json
 {
   "header": "Bienvenido a Acme",
   "hi": "Hola",
@@ -115,7 +109,7 @@ For each locale, create a new JSON file containing the content of the email in t
 }
 ```
 
-```json emails/welcome/pt.json
+```json messages/pt/welcome-email.json
 {
   "header": "Bem-vindo ao Acme",
   "hi": "Olá",
@@ -129,9 +123,7 @@ For each locale, create a new JSON file containing the content of the email in t
 
 Alternatively, you can add locale-specific messages in the email file.
 
-<Expandable title="Example">
-
-```tsx
+```jsx Example expandable
 const messages = {
   en: {
     header: 'Welcome to Acme',
@@ -156,25 +148,17 @@ const messages = {
   },
 };
 ```
-</Expandable>
 
 
 ### 2. Update the email props
 
 Add the `locale` prop to the email template, interface, and test data.
 
-```tsx
-interface WelcomeEmailProps {
-  name: string;
+```jsx emails/welcome.jsx 
+// [!code --]
+export default function WelcomeEmail({ name }) {
 // [!code ++]
-  locale: 'en' | 'es' | 'pt';
-}
-
-function WelcomeEmail({
-  name,
-// [!code ++]
-  locale,
-}: WelcomeEmailProps) {
+export default function WelcomeEmail({ name, locale }) {
   return (
    ...
   );
@@ -192,26 +176,15 @@ WelcomeEmail.PreviewProps = {
 
 In the email template, remove the hardcoded content and use `createIntl` to format the email message strings.
 
-```tsx
+```jsx emails/welcome.jsx
 // [!code ++]
 import { createIntl } from 'react-intl';
 
-interface WelcomeEmailProps {
-  name: string;
-  locale: 'en' | 'es' | 'pt';
-}
-
-// [!code --]
-function WelcomeEmail({
-// [!code ++]
-async function WelcomeEmail({
-  name,
-  locale,
-}: WelcomeEmailProps) {
+export default async function WelcomeEmail({ name, locale }) {
 // [!code ++:4]
   const { formatMessage } = createIntl({
-    messages: await import(`emails/welcome/${locale}.json`), // if using locale-specific files
     locale,
+    messages: await import(`../messages/${locale}/welcome-email.json`), // if using locale-specific files
   });
 
   return (
