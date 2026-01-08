@@ -48,7 +48,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "autoprefixer": "10.4.21",
+    "autoprefixer": "10.4.23",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
     "postcss": "8.5.6",
