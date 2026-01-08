@@ -1,4 +1,25 @@
+import { vi } from 'vitest';
 import { checkLinks, type LinkCheckingResult } from './check-links';
+
+vi.mock('./quick-fetch', () => ({
+  quickFetch: vi.fn((url: URL) => {
+    const mockResponses: Record<string, { statusCode: number }> = {
+      'https://resend.com/': { statusCode: 200 },
+      'https://notion.so/': { statusCode: 301 },
+      'http://react.email/': { statusCode: 308 },
+    };
+
+    const response = mockResponses[url.href];
+    if (!response) {
+      return Promise.reject(new Error(`Unexpected URL: ${url.href}`));
+    }
+
+    return Promise.resolve({
+      statusCode: response.statusCode,
+      resume: () => { },
+    });
+  }),
+}));
 
 test('checkLinks()', async () => {
   const results: LinkCheckingResult[] = [];
@@ -19,95 +40,97 @@ test('checkLinks()', async () => {
       break;
     }
   }
-  expect(results).toEqual([
-    {
-      status: 'error',
-      codeLocation: {
-        line: 2,
-        column: 3,
-      },
-      checks: [
-        {
-          type: 'syntax',
-          passed: false,
-        },
-      ],
-      link: '/',
-    },
-    {
-      status: 'success',
-      codeLocation: {
-        line: 3,
-        column: 3,
-      },
-      checks: [
-        {
-          type: 'syntax',
-          passed: true,
-        },
-        {
-          type: 'security',
-          passed: true,
-        },
-        {
-          type: 'fetch_attempt',
-          passed: true,
-          metadata: {
-            fetchStatusCode: 200,
+  expect(results).toMatchInlineSnapshot(`
+    [
+      {
+        "checks": [
+          {
+            "passed": false,
+            "type": "syntax",
           },
+        ],
+        "codeLocation": {
+          "column": 3,
+          "line": 2,
         },
-      ],
-      link: 'https://resend.com',
-    },
-    {
-      status: 'warning',
-      codeLocation: {
-        line: 4,
-        column: 3,
+        "link": "/",
+        "status": "error",
       },
-      checks: [
-        {
-          type: 'syntax',
-          passed: true,
-        },
-        {
-          type: 'security',
-          passed: true,
-        },
-        {
-          type: 'fetch_attempt',
-          metadata: {
-            fetchStatusCode: 301,
+      {
+        "checks": [
+          {
+            "passed": true,
+            "type": "syntax",
           },
-          passed: false,
+          {
+            "passed": true,
+            "type": "security",
+          },
+          {
+            "metadata": {
+              "fetchStatusCode": 200,
+            },
+            "passed": true,
+            "type": "fetch_attempt",
+          },
+        ],
+        "codeLocation": {
+          "column": 3,
+          "line": 3,
         },
-      ],
-      link: 'https://notion.so',
-    },
-    {
-      status: 'warning',
-      codeLocation: {
-        line: 5,
-        column: 3,
+        "link": "https://resend.com",
+        "status": "success",
       },
-      checks: [
-        {
-          type: 'syntax',
-          passed: true,
-        },
-        {
-          type: 'security',
-          passed: false,
-        },
-        {
-          type: 'fetch_attempt',
-          metadata: {
-            fetchStatusCode: 308,
+      {
+        "checks": [
+          {
+            "passed": true,
+            "type": "syntax",
           },
-          passed: false,
+          {
+            "passed": true,
+            "type": "security",
+          },
+          {
+            "metadata": {
+              "fetchStatusCode": 301,
+            },
+            "passed": false,
+            "type": "fetch_attempt",
+          },
+        ],
+        "codeLocation": {
+          "column": 3,
+          "line": 4,
         },
-      ],
-      link: 'http://react.email',
-    },
-  ] satisfies LinkCheckingResult[]);
+        "link": "https://notion.so",
+        "status": "warning",
+      },
+      {
+        "checks": [
+          {
+            "passed": true,
+            "type": "syntax",
+          },
+          {
+            "passed": false,
+            "type": "security",
+          },
+          {
+            "metadata": {
+              "fetchStatusCode": 308,
+            },
+            "passed": false,
+            "type": "fetch_attempt",
+          },
+        ],
+        "codeLocation": {
+          "column": 3,
+          "line": 5,
+        },
+        "link": "http://react.email",
+        "status": "warning",
+      },
+    ]
+  `);
 });
