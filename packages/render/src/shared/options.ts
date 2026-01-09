@@ -2,6 +2,10 @@ import type { HtmlToTextOptions } from 'html-to-text';
 import type { pretty } from './utils/pretty';
 import type { toPlainText } from './utils/to-plain-text';
 
+export type EmailComponent<P = Record<string, unknown>> = React.FC<P> & {
+  PreviewProps: P;
+};
+
 export type Options = {
   /**
    * @see {@link pretty}

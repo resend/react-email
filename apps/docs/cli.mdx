@@ -100,6 +100,30 @@ your email template when you make changes.
     <Email {...Email.PreviewProps} />;
     ```
 
+    For TypeScript users, you can use the `EmailComponent` type for type-safe preview props:
+
+    ```tsx Email template with TypeScript
+    import { EmailComponent } from "@react-email/components";
+
+    interface EmailProps {
+      source: string;
+    }
+
+    const Email: EmailComponent<EmailProps> = ({ source }) => {
+      return (
+        <div>
+          <a src={source}>click here if you want candy 👀</a>
+        </div>
+      );
+    };
+
+    Email.PreviewProps = {
+      source: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    };
+
+    export default Email;
+    ```
+
   </Accordion>
   <Accordion title="How to make the preview server ignore directories?">
     Once the preview server has started and is now open on `localhost`, the preview server
