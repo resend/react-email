@@ -1,8 +1,4 @@
-import type {
-  EmailClient,
-  Platform,
-  SupportEntry,
-} from '../../actions/email-validation/check-compatibility';
+import type { EmailClient, Platform, SupportEntry } from './email-clients';
 
 export type SupportStatus = DetailedSupportStatus['status'];
 

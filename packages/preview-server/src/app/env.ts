@@ -11,6 +11,14 @@ export const emailsDirectoryAbsolutePath =
 /** ONLY ACCESSIBLE ON THE SERVER */
 export const resendApiKey = process.env.RESEND_API_KEY;
 
+/**
+ * Comma-separated list of email clients to show compatibility warnings for.
+ * If not set, defaults to ['gmail', 'apple-mail', 'outlook', 'yahoo'].
+ * ONLY ACCESSIBLE ON THE SERVER
+ */
+export const compatibilityEmailClients =
+  process.env.COMPATIBILITY_EMAIL_CLIENTS;
+
 export const isBuilding = process.env.NEXT_PUBLIC_IS_BUILDING === 'true';
 
 export const isPreviewDevelopment =

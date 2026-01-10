@@ -32,6 +32,7 @@ export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
   port: number,
+  compatibilityClients?: string,
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
   if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
@@ -133,6 +134,7 @@ export const startDevServer = async (
       previewServerLocation,
       process.cwd(),
       conf.get('resendApiKey'),
+      compatibilityClients,
     ),
   };
 

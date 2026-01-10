@@ -2,6 +2,7 @@
 
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
+import { compatibilityEmailClients } from '../../app/env';
 import type {
   SourceLocation,
   StylePropertyUsage,
@@ -11,6 +12,11 @@ import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
+import {
+  allEmailClients,
+  type EmailClient,
+  type SupportEntry,
+} from '../../utils/caniemail/email-clients';
 import type {
   CompatibilityStats,
   SupportStatus,
@@ -33,89 +39,34 @@ export interface CompatibilityCheckingResult {
   statsPerEmailClient: CompatibilityStats['perEmailClient'];
 }
 
-export type EmailClient =
-  | 'gmail'
-  | 'outlook'
-  | 'yahoo'
-  | 'apple-mail'
-  | 'aol'
-  | 'thunderbird'
-  | 'microsoft'
-  | 'samsung-email'
-  | 'sfr'
-  | 'orange'
-  | 'protonmail'
-  | 'hey'
-  | 'mail-ru'
-  | 'fastmail'
-  | 'laposte'
-  | 't-online-de'
-  | 'free-fr'
-  | 'gmx'
-  | 'web-de'
-  | 'ionos-1and1'
-  | 'rainloop'
-  | 'wp-pl';
+// Types are now exported from '../../utils/caniemail/email-clients'
 
-export type Platform =
-  | 'desktop-app'
-  | 'desktop-webmail'
-  | 'mobile-webmail'
-  | 'webmail'
-  | 'ios'
-  | 'android'
-  | 'windows'
-  | 'macos'
-  | 'windows-mail'
-  | 'outlook-com';
-
-export type SupportEntryCategory = 'html' | 'css' | 'image' | 'others';
-
-export interface SupportEntry {
-  slug: string;
-  title: string;
-  description: string | null;
-  url: string;
-  category: SupportEntryCategory;
-  tags: string[];
-  keywords: string | null;
-  last_test_date: string;
-  test_url: string;
-  test_results_url: string | null;
-  stats: Partial<
-    Record<
-      EmailClient,
-      Partial<
-        Record<
-          Platform,
-          /*
-            This last Record<string, string> has only one key, as the
-            ordered version of caniemail's data is meant to be something like:
-           
-            [
-              { "1.0": "u" },
-              { "2.0": "y" },
-              { "3.0": "p #1" },
-            ]
-           
-            So only one key for each object inside of this array, TypeScript can't really
-            describe this though AFAIK.
-          */
-          Record</* version */ string, string>[]
-        >
-      >
-    >
-  >;
-  notes: string | null;
-  notes_by_num: Record<number, string> | null;
-}
-
-const relevantEmailClients: EmailClient[] = [
+const defaultEmailClients: EmailClient[] = [
   'gmail',
   'apple-mail',
   'outlook',
   'yahoo',
 ];
+
+/**
+ * Get the list of email clients to check compatibility for.
+ * Uses COMPATIBILITY_EMAIL_CLIENTS env var if set, otherwise defaults to
+ * ['gmail', 'apple-mail', 'outlook', 'yahoo'].
+ */
+const getRelevantEmailClients = (): EmailClient[] => {
+  if (!compatibilityEmailClients) {
+    return defaultEmailClients;
+  }
+
+  const clients = compatibilityEmailClients
+    .split(',')
+    .map((client) => client.trim().toLowerCase())
+    .filter((client): client is EmailClient =>
+      (allEmailClients as readonly string[]).includes(client),
+    );
+
+  return clients.length > 0 ? clients : defaultEmailClients;
+};
 
 export const checkCompatibility = async (
   reactCode: string,
@@ -144,6 +95,7 @@ export const checkCompatibility = async (
     reactCode,
     emailPath,
   );
+  const relevantEmailClients = getRelevantEmailClients();
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
       for (const entry of supportEntries) {

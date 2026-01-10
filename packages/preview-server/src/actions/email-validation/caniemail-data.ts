@@ -1,4 +1,4 @@
-import type { SupportEntry } from "./check-compatibility";
+import type { SupportEntry } from "../../utils/caniemail/email-clients";
 
 export const nicenames = {
   "family": {
