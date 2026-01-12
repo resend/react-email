@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import esbuild from 'esbuild';
 
-let jsxRuntimePathCache: string | undefined;
+let jsxRuntimePromiseCache: Promise<string> | undefined;
 
 /**
  * Bundles the JSX runtime with the specified {@link cwd}. This is needed because the JSX runtime
@@ -11,41 +11,45 @@ let jsxRuntimePathCache: string | undefined;
  *
  * It bundles into `/node_modules/.react-email-jsx-runtime` with the root being the {@link cwd}.
  */
-export const createJsxRuntime = async (
+export const createJsxRuntime = (
   cwd: string,
   originalJsxRuntimePath: string,
-) => {
-  if (jsxRuntimePathCache) return jsxRuntimePathCache;
-  const jsxRuntimePath = path.join(
-    cwd,
-    'node_modules',
-    '.react-email-jsx-runtime',
-  );
-  if (!fs.existsSync(jsxRuntimePath)) {
-    await fs.promises.mkdir(jsxRuntimePath, {
-      recursive: true,
-    });
-    await fs.promises.writeFile(
-      path.join(jsxRuntimePath, 'package.json'),
-      '{"type": "commonjs"}',
-      'utf8',
-    );
-  }
-  await esbuild.build({
-    bundle: true,
-    outfile: path.join(jsxRuntimePath, 'jsx-dev-runtime.js'),
-    format: 'cjs',
-    logLevel: 'silent',
-    stdin: {
-      resolveDir: cwd,
-      sourcefile: 'jsx-dev-runtime.js',
-      loader: 'js',
-      contents: await fs.promises.readFile(
-        path.join(originalJsxRuntimePath, 'jsx-dev-runtime.js'),
-      ),
-    },
-  });
+): Promise<string> => {
+  if (!jsxRuntimePromiseCache) {
+    jsxRuntimePromiseCache = (async () => {
+      const jsxRuntimePath = path.join(
+        cwd,
+        'node_modules',
+        '.react-email-jsx-runtime',
+      );
+      if (!fs.existsSync(jsxRuntimePath)) {
+        await fs.promises.mkdir(jsxRuntimePath, {
+          recursive: true,
+        });
+        await fs.promises.writeFile(
+          path.join(jsxRuntimePath, 'package.json'),
+          '{"type": "commonjs"}',
+          'utf8',
+        );
+      }
+      await esbuild.build({
+        bundle: true,
+        outfile: path.join(jsxRuntimePath, 'jsx-dev-runtime.js'),
+        format: 'cjs',
+        logLevel: 'silent',
+        stdin: {
+          resolveDir: cwd,
+          sourcefile: 'jsx-dev-runtime.js',
+          loader: 'js',
+          contents: await fs.promises.readFile(
+            path.join(originalJsxRuntimePath, 'jsx-dev-runtime.js'),
+          ),
+        },
+      });
 
-  jsxRuntimePathCache = jsxRuntimePath;
-  return jsxRuntimePath;
+      return jsxRuntimePath;
+    })();
+  }
+
+  return jsxRuntimePromiseCache!;
 };
