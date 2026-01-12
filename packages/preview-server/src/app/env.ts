@@ -10,11 +10,14 @@ export const env = createEnv({
     COMPATIBILITY_EMAIL_CLIENTS: z.string(),
   },
   client: {
-    NEXT_PUBLIC_IS_BUILDING: z.union([z.literal('true'), z.literal('false')]),
-    NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT: z.union([
-      z.literal('true'),
-      z.literal('false'),
-    ]),
+    NEXT_PUBLIC_IS_BUILDING: z
+      .union([z.literal('true'), z.literal('false')])
+      .optional()
+      .default('false'),
+    NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT: z
+      .union([z.literal('true'), z.literal('false')])
+      .optional()
+      .default('false'),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_IS_BUILDING: process.env.NEXT_PUBLIC_IS_BUILDING,
