@@ -184,7 +184,7 @@ i18next
     detection: {
       order: ['path', 'htmlTag', 'cookie', 'navigator']
     },
-    preload: typeof window === 'undefined' ? validLocales : [],
+    preload: typeof window === 'undefined' ? ['en', 'es', 'pt'] : [],
   });
 
 export { i18next };
