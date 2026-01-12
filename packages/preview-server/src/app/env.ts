@@ -19,6 +19,7 @@ export const env = createEnv({
       .optional()
       .default('false'),
   },
+  skipValidation: true,
   experimental__runtimeEnv: {
     NEXT_PUBLIC_IS_BUILDING: process.env.NEXT_PUBLIC_IS_BUILDING,
     NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT:
