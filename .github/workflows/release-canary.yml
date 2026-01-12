@@ -15,7 +15,7 @@ jobs:
       image: node:22
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        uses: actions/checkout@064fe7f3312418007dea2b49a19844a9ee378f49
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
