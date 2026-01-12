@@ -196,7 +196,7 @@ In the email template, remove the hardcoded content and use `getT`'s `t` to form
 
 ```jsx emails/welcome.jsx
 // [!code ++]
-import { getT } from 'get-t';
+import { getT } from '../get-t';
 
 export default async function WelcomeEmail({ name, locale }) {
 // [!code ++]
