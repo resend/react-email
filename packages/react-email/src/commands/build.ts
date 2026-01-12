@@ -9,15 +9,18 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { validateEmailClientList } from '../utils/validate-email-client-list.js';
 
 interface Args {
   dir: string;
   packageManager: PackageManagerName;
+  clients: string;
 }
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
+  compatibilityEmailClients: string[],
 ) => {
   const nextConfigContents = `
 import path from 'path';
@@ -32,6 +35,7 @@ const nextConfig = {
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: userProjectLocation
+    COMPATIBILITY_EMAIL_CLIENTS: '${compatibilityEmailClients.join(',')}',
   },
   outputFileTracingRoot: previewServerLocation,
   serverExternalPackages: ['esbuild'],
@@ -160,9 +164,12 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
+  clients,
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
+
+    const clientsArray = validateEmailClientList(clients);
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -216,6 +223,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      clientsArray,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
