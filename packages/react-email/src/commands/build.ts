@@ -34,7 +34,7 @@ const nextConfig = {
     EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     PREVIEW_SERVER_LOCATION: previewServerLocation,
-    USER_PROJECT_LOCATION: userProjectLocation
+    USER_PROJECT_LOCATION: userProjectLocation,
     COMPATIBILITY_EMAIL_CLIENTS: '${compatibilityEmailClients.join(',')}',
   },
   outputFileTracingRoot: previewServerLocation,
