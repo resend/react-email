@@ -113,7 +113,6 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const timeBeforeEmailBundled = performance.now();
   const originalJsxRuntimePath = path.resolve(
     previewServerLocation,
     'jsx-runtime',
@@ -122,6 +121,8 @@ export const renderEmailByPath = async (
     userProjectLocation,
     originalJsxRuntimePath,
   );
+
+  const timeBeforeEmailBundled = performance.now();
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
