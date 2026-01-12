@@ -14,7 +14,7 @@
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.10",
+    "@biomejs/biome": "2.3.11",
     "@changesets/cli": "2.29.8",
     "@types/node": "22.14.1",
     "@types/react": "19.2.7",
