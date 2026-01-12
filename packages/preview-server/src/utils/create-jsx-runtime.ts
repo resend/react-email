@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import esbuild from 'esbuild';
 
+let jsxRuntimePathCache: string | undefined;
+
 /**
  * Bundles the JSX runtime with the specified {@link cwd}. This is needed because the JSX runtime
  * imports React's which is forcefully the production one if the `NODE_ENV` is set to `production`,
@@ -13,6 +15,7 @@ export const createJsxRuntime = async (
   cwd: string,
   originalJsxRuntimePath: string,
 ) => {
+  if (jsxRuntimePathCache) return jsxRuntimePathCache;
   const jsxRuntimePath = path.join(
     cwd,
     'node_modules',
@@ -43,5 +46,6 @@ export const createJsxRuntime = async (
     },
   });
 
+  jsxRuntimePathCache = jsxRuntimePath;
   return jsxRuntimePath;
 };
