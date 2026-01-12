@@ -18,7 +18,7 @@ import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
 import { env } from '../../env';
 import Preview from './preview';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const dynamicParams = true;
 
