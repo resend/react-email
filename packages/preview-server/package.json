@@ -70,7 +70,7 @@
     "react-dom": "19.2.3",
     "resend": "6.4.0",
     "rimraf": "^6.1.2",
-    "sharp": "0.34.4",
+    "sharp": "0.34.5",
     "socket.io-client": "4.8.1",
     "sonner": "2.0.3",
     "source-map-js": "1.2.1",
