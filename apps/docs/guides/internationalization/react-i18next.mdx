@@ -121,34 +121,6 @@ For each locale, create a new JSON file containing the content of the email in t
 
 </CodeGroup>
 
-Alternatively, you can add locale-specific messages in the email file.
-
-```jsx Example expandable
-const messages = {
-  en: {
-    header: 'Welcome to Acme',
-    hi: 'Hi',
-    thanks: 'Thanks for signing up! We\'re excited to have you on board.',
-    'get-started': 'Get Started',
-    questions: 'If you have any questions, reply to this email. We\'re here to help!',
-  },
-  es: {
-    header: 'Bienvenido a Acme',
-    hi: 'Hola',
-    thanks: 'Gracias por registrarte! Estamos emocionados de tenerte en la plataforma.',
-    'get-started': 'Comenzar',
-    questions: 'Si tienes alguna pregunta, responde a este correo electrónico. Estamos aquí para ayudarte!',
-  },
-  pt: {
-    header: 'Bem-vindo ao Acme',
-    hi: 'Olá',
-    thanks: 'Obrigado por se inscrever! Estamos ansiosos para te receber na plataforma.',
-    'get-started': 'Começar',
-    questions: 'Se você tiver alguma dúvida, responda a este e-mail. Estamos aqui para ajudar!',
-  },
-};
-```
-
 
 ### 2. Update the email props
 
@@ -171,21 +143,64 @@ WelcomeEmail.PreviewProps = {
 };
 ```
 
+### 3. Setting up helpers
 
-### 3. Update the email template
+If you don't already, go ahead and create a `getT` helper meant for getting translations on the server:
 
-In the email template, remove the hardcoded content and use `createIntl` to format the email message strings.
+```js get-t.js expandable
+import { i18next } from './i18n';
+
+export async function getT(namespace, locale) {
+  if (locale && i18next.resolvedLanguage !== locale) {
+    await i18next.changeLanguage(locale)
+  }
+  if (namespace && !i18next.hasLoadedNamespace(namespace)) {
+    await i18next.loadNamespaces(namespace)
+  }
+  return {
+    t: i18next.getFixedT(
+      locale ?? i18next.resolvedLanguage,
+      Array.isArray(namespace) ? namespace[0] : namespace,
+    ),
+    i18n: i18next
+  }
+}
+```
+
+Where `./i18n` is where you would have setup your i18next, for example:
+
+```js i18n.js expandable
+import i18next, { loadNamespaces } from 'i18next';
+import resourcesToBackend from 'i18next-resources-to-backend';
+import { initReactI18next } from 'react-i18next';
+
+i18next
+  .use(initReactI18next)
+  .use(resourcesToBackend((language, namespace) => import(`messages/${language}/${namespace}.json`)))
+  .init({
+    supportedLngs: ['en', 'es', 'pt'],
+    fallbackLng: 'en',
+    lng: undefined,
+    detection: {
+      order: ['path', 'htmlTag', 'cookie', 'navigator']
+    },
+    preload: typeof window === 'undefined' ? validLocales : [],
+  });
+
+export { i18next };
+```
+
+### 4. Update the email template
+
+In the email template, remove the hardcoded content and use `getT`'s `t` to format the email message strings.
 
 ```jsx emails/welcome.jsx
 // [!code ++]
-import { createIntl } from 'react-intl';
+import { getT } from 'get-t';
 
 export default async function WelcomeEmail({ name, locale }) {
-// [!code ++:4]
-  const { formatMessage } = createIntl({
-    locale,
-    messages: await import(`../messages/${locale}/welcome-email.json`), // if using locale-specific files
-  });
+// [!code ++]
+  const { t } = getT(locale, 'welcome-email');
 
   return (
     <Html>
@@ -193,7 +208,7 @@ export default async function WelcomeEmail({ name, locale }) {
 // [!code --]
       <Preview>Welcome to Acme</Preview>
 // [!code ++]
-      <Preview>{formatMessage({ id: 'header' })}</Preview>
+      <Preview>{t('header')}</Preview>
       <Tailwind>
         <Body className="bg-gray-100 font-sans">
           <Container className="mx-auto py-10 px-5">
@@ -202,19 +217,19 @@ export default async function WelcomeEmail({ name, locale }) {
 // [!code --]
                 Welcome to Acme
 // [!code ++]
-                {formatMessage({ id: 'header' })}
+                {t('header')}
               </Heading>
               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
 // [!code --]
                 Hi {name}
 // [!code ++]
-                {formatMessage({ id: 'hi' })} {name}
+                {t('hi')} {name}
               </Text>
               <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
 // [!code --]
                 Thanks for signing up! We're excited to have you on board.
 // [!code ++]
-                {formatMessage({ id: 'thanks' })}
+                {t('thanks')}
               </Text>
               <Button
                 href="https://example.com/dashboard"
@@ -223,14 +238,14 @@ export default async function WelcomeEmail({ name, locale }) {
 // [!code --]
                 Get Started
 // [!code ++]
-                {formatMessage({ id: 'get-started' })}
+                {t('get-started')}
               </Button>
               <Hr className="border-gray-200 my-6" />
               <Text className="text-sm text-gray-400 m-0">
 // [!code --]
                 If you have any questions, reply to this email. We're here to help!
 // [!code ++]
-                {formatMessage({ id: 'questions' })}
+                {t('questions')}
               </Text>
             </Section>
           </Container>
@@ -246,7 +261,7 @@ WelcomeEmail.PreviewProps = {
 };
 ```
 
-### 4. Update any email calls
+### 5. Update any email calls
 
 When calling the email template, pass the `locale` prop to the email component.
 
