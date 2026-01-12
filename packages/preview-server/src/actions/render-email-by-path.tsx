@@ -86,6 +86,15 @@ const warnBufferer = createLogBufferer(
   (logger) => (console.warn = logger),
 );
 
+const originalJsxRuntimePath = path.resolve(
+  previewServerLocation,
+  'jsx-runtime',
+);
+const jsxRuntimePath = await createJsxRuntime(
+  userProjectLocation,
+  originalJsxRuntimePath,
+);
+
 export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
@@ -114,14 +123,6 @@ export const renderEmailByPath = async (
   }
 
   const timeBeforeEmailBundled = performance.now();
-  const originalJsxRuntimePath = path.resolve(
-    previewServerLocation,
-    'jsx-runtime',
-  );
-  const jsxRuntimePath = await createJsxRuntime(
-    userProjectLocation,
-    originalJsxRuntimePath,
-  );
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
