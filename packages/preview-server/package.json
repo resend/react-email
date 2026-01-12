@@ -71,7 +71,7 @@
     "resend": "6.4.0",
     "rimraf": "^6.1.2",
     "sharp": "0.34.5",
-    "socket.io-client": "4.8.1",
+    "socket.io-client": "4.8.3",
     "sonner": "2.0.3",
     "source-map-js": "1.2.1",
     "stacktrace-parser": "0.1.11",
