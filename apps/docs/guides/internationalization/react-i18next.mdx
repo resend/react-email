@@ -200,7 +200,7 @@ import { getT } from '../get-t';
 
 export default async function WelcomeEmail({ name, locale }) {
 // [!code ++]
-  const { t } = getT(locale, 'welcome-email');
+  const { t } = await getT('welcome-email', locale);
 
   return (
     <Html>
