@@ -26,7 +26,10 @@ await fs.writeFile(
 EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
 USER_PROJECT_LOCATION=${previewServerRoot}
 PREVIEW_SERVER_LOCATION=${previewServerRoot}
-NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
+NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true
+NEXT_PUBLIC_IS_BUILDING=false
+COMPATIBILITY_EMAIL_CLIENTS=gmail,apple-mail,outlook,yahoo
+`,
   'utf8',
 );
 

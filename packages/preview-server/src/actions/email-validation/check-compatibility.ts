@@ -2,7 +2,6 @@
 
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
-import { compatibilityEmailClients } from '../../app/env';
 import type {
   SourceLocation,
   StylePropertyUsage,
@@ -13,8 +12,7 @@ import {
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
 import {
-  allEmailClients,
-  type EmailClient,
+  relevantEmailClients,
   type SupportEntry,
 } from '../../utils/caniemail/email-clients';
 import type {
@@ -38,35 +36,6 @@ export interface CompatibilityCheckingResult {
   status: SupportStatus;
   statsPerEmailClient: CompatibilityStats['perEmailClient'];
 }
-
-// Types are now exported from '../../utils/caniemail/email-clients'
-
-const defaultEmailClients: EmailClient[] = [
-  'gmail',
-  'apple-mail',
-  'outlook',
-  'yahoo',
-];
-
-/**
- * Get the list of email clients to check compatibility for.
- * Uses COMPATIBILITY_EMAIL_CLIENTS env var if set, otherwise defaults to
- * ['gmail', 'apple-mail', 'outlook', 'yahoo'].
- */
-const getRelevantEmailClients = (): EmailClient[] => {
-  if (!compatibilityEmailClients) {
-    return defaultEmailClients;
-  }
-
-  const clients = compatibilityEmailClients
-    .split(',')
-    .map((client) => client.trim().toLowerCase())
-    .filter((client): client is EmailClient =>
-      (allEmailClients as readonly string[]).includes(client),
-    );
-
-  return clients.length > 0 ? clients : defaultEmailClients;
-};
 
 export const checkCompatibility = async (
   reactCode: string,
@@ -95,7 +64,6 @@ export const checkCompatibility = async (
     reactCode,
     emailPath,
   );
-  const relevantEmailClients = getRelevantEmailClients();
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
       for (const entry of supportEntries) {

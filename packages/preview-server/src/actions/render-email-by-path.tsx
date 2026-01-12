@@ -5,12 +5,7 @@ import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
-import {
-  isBuilding,
-  isPreviewDevelopment,
-  previewServerLocation,
-  userProjectLocation,
-} from '../app/env';
+import { env } from '../app/env';
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
@@ -36,8 +31,8 @@ export interface RenderedEmailMetadata {
 export type EmailRenderingResult =
   | RenderedEmailMetadata
   | {
-      error: ErrorObject;
-    };
+    error: ErrorObject;
+  };
 
 const cache = new Map<string, EmailRenderingResult>();
 
@@ -100,7 +95,10 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
-  if (!isBuilding && !isPreviewDevelopment) {
+  if (
+    env.NEXT_PUBLIC_IS_BUILDING === 'false' &&
+    env.NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT === 'false'
+  ) {
     logBufferer.buffer();
     errorBufferer.buffer();
     infoBufferer.buffer();
@@ -115,11 +113,11 @@ export const renderEmailByPath = async (
 
   const timeBeforeEmailBundled = performance.now();
   const originalJsxRuntimePath = path.resolve(
-    previewServerLocation,
+    env.PREVIEW_SERVER_LOCATION,
     'jsx-runtime',
   );
   const jsxRuntimePath = await createJsxRuntime(
-    userProjectLocation,
+    env.USER_PROJECT_LOCATION,
     originalJsxRuntimePath,
   );
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);

@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
-import { isBuilding } from '../app/env';
+import { env } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { useToolbarContext } from '../contexts/toolbar';
 import { cn } from '../utils';
@@ -115,7 +115,7 @@ const ToolbarInner = ({
     initialResults: serverCompatibilityResults ?? cachedCompatibilityResults,
   });
 
-  if (!isBuilding) {
+  if (env.NEXT_PUBLIC_IS_BUILDING === 'false') {
     // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     React.useEffect(() => {
       (async () => {
@@ -190,7 +190,8 @@ const ToolbarInner = ({
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding || activeTab === 'resend' ? null : (
+              {env.NEXT_PUBLIC_IS_BUILDING === 'true' ||
+                activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
                   disabled={lintLoading || spamLoading || compatibilityLoading}

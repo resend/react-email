@@ -13,6 +13,7 @@
   },
   "main": "./index.mjs",
   "dependencies": {
+    "@t3-oss/env-nextjs": "0.13.10",
     "next": "16.1.1"
   },
   "devDependencies": {
@@ -79,7 +80,7 @@
     "tailwindcss": "4.1.17",
     "typescript": "5.8.3",
     "use-debounce": "10.0.6",
-    "zod": "4.1.12"
+    "zod": "4.3.5"
   },
   "license": "MIT",
   "repository": {

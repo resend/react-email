@@ -8,7 +8,7 @@
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveWatchOutput": true,
@@ -24,14 +24,21 @@
     "declarationMap": false,
     "incremental": false,
     "jsx": "react-jsx",
-    "lib": ["dom", "dom.iterable", "esnext", "ESNext.AsyncIterable"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "ESNext.AsyncIterable"
+    ],
     "noEmit": true,
     "strict": false,
     "target": "ESNext",
     "module": "esnext",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "types": ["vitest/globals"],
+    "types": [
+      "vitest/globals"
+    ],
     "outDir": "dist"
   },
   "include": [
@@ -44,5 +51,10 @@
     ".next/dev/types/**/*.ts",
     "next.config.mjs"
   ],
-  "exclude": [".next", "dist", "emails", "node_modules"]
+  "exclude": [
+    ".next",
+    "dist",
+    "emails",
+    "node_modules"
+  ]
 }

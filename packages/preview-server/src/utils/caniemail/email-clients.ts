@@ -1,3 +1,5 @@
+import { env } from '../../app/env';
+
 /**
  * All supported email clients for compatibility checking.
  * This is used both as a type and as a runtime validation list.
@@ -26,6 +28,10 @@ export const allEmailClients = [
   'rainloop',
   'wp-pl',
 ] as const;
+
+export const relevantEmailClients = env.COMPATIBILITY_EMAIL_CLIENTS.split(
+  ',',
+) as EmailClient[];
 
 export type EmailClient = (typeof allEmailClients)[number];
 
