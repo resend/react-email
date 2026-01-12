@@ -29,9 +29,9 @@ export const allEmailClients = [
   'wp-pl',
 ] as const;
 
-export const relevantEmailClients = env.COMPATIBILITY_EMAIL_CLIENTS.split(
-  ',',
-) as EmailClient[];
+export const relevantEmailClients = (
+  env.COMPATIBILITY_EMAIL_CLIENTS ?? ''
+).split(',') as EmailClient[];
 
 export type EmailClient = (typeof allEmailClients)[number];
 
