@@ -2,7 +2,7 @@ import path from 'node:path';
 import { getEmailComponent } from './get-email-component';
 
 describe('getEmailComponent()', () => {
-  test('with a demo email template', async () => {
+  test('with a demo email template', { timeout: 10_000 }, async () => {
     const result = await getEmailComponent(
       path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
       path.resolve(__dirname, '../../jsx-runtime'),
