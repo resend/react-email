@@ -89,7 +89,7 @@ importers:
     dependencies:
       mintlify:
         specifier: 4.2.258
-        version: 4.2.258(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+        version: 4.2.258(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
       zod:
         specifier: 3.24.3
         version: 3.24.3
@@ -638,6 +638,9 @@ importers:
 
   packages/preview-server:
     dependencies:
+      '@t3-oss/env-nextjs':
+        specifier: 0.13.10
+        version: 0.13.10(arktype@2.1.27)(typescript@5.8.3)(zod@4.3.5)
       next:
         specifier: 16.1.1
         version: 16.1.1(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -832,8 +835,8 @@ importers:
         specifier: 10.0.6
         version: 10.0.6(react@19.0.0)
       zod:
-        specifier: 4.1.12
-        version: 4.1.12
+        specifier: 4.3.5
+        version: 4.3.5
 
   packages/react-email:
     dependencies:
@@ -4527,6 +4530,40 @@ packages:
   '@szmarczak/http-timer@5.0.1':
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
+
+  '@t3-oss/env-core@0.13.10':
+    resolution: {integrity: sha512-NNFfdlJ+HmPHkLi2HKy7nwuat9SIYOxei9K10lO2YlcSObDILY7mHZNSHsieIM3A0/5OOzw/P/b+yLvPdaG52g==}
+    peerDependencies:
+      arktype: ^2.1.0
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0 || ^4.0.0
+    peerDependenciesMeta:
+      arktype:
+        optional: true
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
+
+  '@t3-oss/env-nextjs@0.13.10':
+    resolution: {integrity: sha512-JfSA2WXOnvcc/uMdp31paMsfbYhhdvLLRxlwvrnlPE9bwM/n0Z+Qb9xRv48nPpvfMhOrkrTYw1I5Yc06WIKBJQ==}
+    peerDependencies:
+      arktype: ^2.1.0
+      typescript: '>=5.0.0'
+      valibot: ^1.0.0-beta.7 || ^1.0.0
+      zod: ^3.24.0 || ^4.0.0
+    peerDependenciesMeta:
+      arktype:
+        optional: true
+      typescript:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
 
   '@tailwindcss/node@4.1.17':
     resolution: {integrity: sha512-csIkHIgLb3JisEFQ0vxr2Y57GUNYh447C8xzwj89U/8fdW8LhProdxvnVH6U8M2Y73QKiTIH+LWbK3V2BBZsAg==}
@@ -9836,8 +9873,8 @@ packages:
   zod@3.24.3:
     resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
 
-  zod@4.1.12:
-    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
+  zod@4.3.5:
+    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
 
   zustand@4.5.7:
     resolution: {integrity: sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==}
@@ -11414,36 +11451,6 @@ snapshots:
       - acorn
       - supports-color
 
-  '@mdx-js/mdx@3.1.0(acorn@8.15.0)':
-    dependencies:
-      '@types/estree': 1.0.8
-      '@types/estree-jsx': 1.0.5
-      '@types/hast': 3.0.4
-      '@types/mdx': 2.0.13
-      collapse-white-space: 2.1.0
-      devlop: 1.1.0
-      estree-util-is-identifier-name: 3.0.0
-      estree-util-scope: 1.0.0
-      estree-walker: 3.0.3
-      hast-util-to-jsx-runtime: 2.3.3
-      markdown-extensions: 2.0.0
-      recma-build-jsx: 1.0.0
-      recma-jsx: 1.0.0(acorn@8.15.0)
-      recma-stringify: 1.0.0
-      rehype-recma: 1.0.0
-      remark-mdx: 3.1.0
-      remark-parse: 11.0.0
-      remark-rehype: 11.1.1
-      source-map: 0.7.4
-      unified: 11.0.5
-      unist-util-position-from-estree: 2.0.0
-      unist-util-stringify-position: 4.0.0
-      unist-util-visit: 5.0.0
-      vfile: 6.0.3
-    transitivePeerDependencies:
-      - acorn
-      - supports-color
-
   '@mdx-js/react@3.1.0(@types/react@19.2.7)(react@19.0.0)':
     dependencies:
       '@types/mdx': 2.0.13
@@ -11452,15 +11459,15 @@ snapshots:
 
   '@mediapipe/tasks-vision@0.10.17': {}
 
-  '@mintlify/cli@4.0.862(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
+  '@mintlify/cli@4.0.862(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
     dependencies:
       '@inquirer/prompts': 7.9.0(@types/node@22.14.1)
       '@mintlify/common': 1.0.651(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/link-rot': 3.0.802(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/link-rot': 3.0.802(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       '@mintlify/models': 0.0.250
-      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/previewing': 4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
-      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/previewing': 4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       adm-zip: 0.5.16
       chalk: 5.2.0
       color: 4.2.3
@@ -11551,12 +11558,12 @@ snapshots:
       - ts-node
       - typescript
 
-  '@mintlify/link-rot@3.0.802(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
+  '@mintlify/link-rot@3.0.802(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
     dependencies:
       '@mintlify/common': 1.0.651(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/previewing': 4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
-      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/previewing': 4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       fs-extra: 11.1.0
       unist-util-visit: 4.1.2
     transitivePeerDependencies:
@@ -11602,33 +11609,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@mintlify/mdx@3.0.4(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
-    dependencies:
-      '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@shikijs/transformers': 3.15.0
-      '@shikijs/twoslash': 3.15.0(typescript@5.9.3)
-      arktype: 2.1.27
-      hast-util-to-string: 3.0.1
-      mdast-util-from-markdown: 2.0.2
-      mdast-util-gfm: 3.1.0
-      mdast-util-mdx-jsx: 3.2.0
-      mdast-util-to-hast: 13.2.0
-      next-mdx-remote-client: 1.0.7(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      rehype-katex: 7.0.1
-      remark-gfm: 4.0.1
-      remark-math: 6.0.0
-      remark-smartypants: 3.0.2
-      shiki: 3.15.0
-      unified: 11.0.5
-      unist-util-visit: 5.0.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - acorn
-      - supports-color
-      - typescript
-
   '@mintlify/models@0.0.250':
     dependencies:
       axios: 1.10.0
@@ -11645,12 +11625,12 @@ snapshots:
       leven: 4.0.0
       yaml: 2.6.1
 
-  '@mintlify/prebuild@1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
+  '@mintlify/prebuild@1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
     dependencies:
       '@mintlify/common': 1.0.651(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       '@mintlify/openapi-parser': 0.0.8
       '@mintlify/scraping': 4.0.512(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       chalk: 5.3.0
       favicons: 7.2.0
       front-matter: 4.0.2
@@ -11676,11 +11656,11 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@mintlify/previewing@4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
+  '@mintlify/previewing@4.0.837(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
     dependencies:
       '@mintlify/common': 1.0.651(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/prebuild': 1.0.783(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
+      '@mintlify/validation': 0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       better-opn: 3.0.2
       chalk: 5.2.0
       chokidar: 3.5.3
@@ -11749,29 +11729,6 @@ snapshots:
   '@mintlify/validation@0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
     dependencies:
       '@mintlify/mdx': 3.0.4(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
-      '@mintlify/models': 0.0.250
-      arktype: 2.1.27
-      js-yaml: 4.1.0
-      lcm: 0.0.3
-      lodash: 4.17.21
-      object-hash: 3.0.0
-      openapi-types: 12.1.3
-      uuid: 11.1.0
-      zod: 3.21.4
-      zod-to-json-schema: 3.20.4(zod@3.21.4)
-    transitivePeerDependencies:
-      - '@radix-ui/react-popover'
-      - '@types/react'
-      - acorn
-      - debug
-      - react
-      - react-dom
-      - supports-color
-      - typescript
-
-  '@mintlify/validation@0.1.550(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)':
-    dependencies:
-      '@mintlify/mdx': 3.0.4(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       '@mintlify/models': 0.0.250
       arktype: 2.1.27
       js-yaml: 4.1.0
@@ -13562,6 +13519,20 @@ snapshots:
   '@szmarczak/http-timer@5.0.1':
     dependencies:
       defer-to-connect: 2.0.1
+
+  '@t3-oss/env-core@0.13.10(arktype@2.1.27)(typescript@5.8.3)(zod@4.3.5)':
+    optionalDependencies:
+      arktype: 2.1.27
+      typescript: 5.8.3
+      zod: 4.3.5
+
+  '@t3-oss/env-nextjs@0.13.10(arktype@2.1.27)(typescript@5.8.3)(zod@4.3.5)':
+    dependencies:
+      '@t3-oss/env-core': 0.13.10(arktype@2.1.27)(typescript@5.8.3)(zod@4.3.5)
+    optionalDependencies:
+      arktype: 2.1.27
+      typescript: 5.8.3
+      zod: 4.3.5
 
   '@tailwindcss/node@4.1.17':
     dependencies:
@@ -17178,9 +17149,9 @@ snapshots:
       minipass: 3.3.6
       yallist: 4.0.0
 
-  mintlify@4.2.258(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3):
+  mintlify@4.2.258(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3):
     dependencies:
-      '@mintlify/cli': 4.0.862(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+      '@mintlify/cli': 4.0.862(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.14.1)(@types/react@19.2.7)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
     transitivePeerDependencies:
       - '@radix-ui/react-popover'
       - '@types/node'
@@ -17246,22 +17217,6 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.27.1
       '@mdx-js/mdx': 3.1.0(acorn@8.11.2)
-      '@mdx-js/react': 3.1.0(@types/react@19.2.7)(react@19.0.0)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      remark-mdx-remove-esm: 1.1.0
-      serialize-error: 12.0.0
-      vfile: 6.0.3
-      vfile-matter: 5.0.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - acorn
-      - supports-color
-
-  next-mdx-remote-client@1.0.7(@types/react@19.2.7)(acorn@8.15.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      '@babel/code-frame': 7.27.1
-      '@mdx-js/mdx': 3.1.0(acorn@8.15.0)
       '@mdx-js/react': 3.1.0(@types/react@19.2.7)(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -18136,16 +18091,6 @@ snapshots:
   recma-jsx@1.0.0(acorn@8.11.2):
     dependencies:
       acorn-jsx: 5.3.2(acorn@8.11.2)
-      estree-util-to-js: 2.0.0
-      recma-parse: 1.0.0
-      recma-stringify: 1.0.0
-      unified: 11.0.5
-    transitivePeerDependencies:
-      - acorn
-
-  recma-jsx@1.0.0(acorn@8.15.0):
-    dependencies:
-      acorn-jsx: 5.3.2(acorn@8.15.0)
       estree-util-to-js: 2.0.0
       recma-parse: 1.0.0
       recma-stringify: 1.0.0
@@ -20167,7 +20112,7 @@ snapshots:
 
   zod@3.24.3: {}
 
-  zod@4.1.12: {}
+  zod@4.3.5: {}
 
   zustand@4.5.7(@types/react@19.0.1)(immer@9.0.21)(react@19.0.0):
     dependencies:

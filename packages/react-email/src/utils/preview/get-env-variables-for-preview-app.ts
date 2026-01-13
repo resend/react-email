@@ -4,6 +4,7 @@ export const getEnvVariablesForPreviewApp = (
   relativePathToEmailsDirectory: string,
   previewServerLocation: string,
   cwd: string,
+  compatibilityClients: string[],
   resendApiKey?: string,
 ) => {
   return {
@@ -12,5 +13,6 @@ export const getEnvVariablesForPreviewApp = (
     PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: cwd,
     RESEND_API_KEY: resendApiKey,
+    COMPATIBILITY_EMAIL_CLIENTS: compatibilityClients.join(','),
   } as const;
 };

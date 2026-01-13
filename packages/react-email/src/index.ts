@@ -20,6 +20,11 @@ program
   .description('Starts the preview email development app')
   .option('-d, --dir <path>', 'Directory with your email templates', './emails')
   .option('-p --port <port>', 'Port to run dev server on', '3000')
+  .option(
+    '-c, --clients <clients>',
+    'Comma-separated list of email clients to show compatibility warnings for (e.g., "outlook,gmail")',
+    'gmail,apple-mail,outlook,yahoo',
+  )
   .action(dev);
 
 program
@@ -30,6 +35,11 @@ program
     '-p --packageManager <name>',
     'Package name to use on installation on `.react-email`',
     'npm',
+  )
+  .option(
+    '-c, --clients <clients>',
+    'Comma-separated list of email clients to show compatibility warnings for (e.g., "outlook,gmail")',
+    'gmail,apple-mail,outlook,yahoo',
   )
   .action(build);
 

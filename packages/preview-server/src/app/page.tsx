@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { Button, Heading, Text } from '../components';
 import CodeSnippet from '../components/code-snippet';
 import { Shell } from '../components/shell';
-import { emailsDirectoryAbsolutePath } from './env';
+import { env } from './env';
 import logo from './logo.png';
 
 export default function Home() {
-  const baseEmailsDirectoryName = path.basename(emailsDirectoryAbsolutePath);
+  const baseEmailsDirectoryName = path.basename(env.EMAILS_DIR_ABSOLUTE_PATH);
 
   return (
     <Shell>

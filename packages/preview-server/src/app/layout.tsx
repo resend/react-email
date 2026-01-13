@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { EmailsProvider } from '../contexts/emails';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
-import { emailsDirectoryAbsolutePath } from './env';
+import { env } from './env';
 import { inter, sfMono } from './fonts';
 
 export const metadata: Metadata = {
@@ -18,12 +18,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
-    emailsDirectoryAbsolutePath,
+    env.EMAILS_DIR_ABSOLUTE_PATH,
   );
 
   if (typeof emailsDirectoryMetadata === 'undefined') {
     throw new Error(
-      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!`,
+      `Could not find the emails directory specified under ${env.EMAILS_DIR_ABSOLUTE_PATH}!`,
     );
   }
 

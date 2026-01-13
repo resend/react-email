@@ -1,17 +1,28 @@
-/** ONLY ACCESSIBLE ON THE SERVER */
-export const userProjectLocation = process.env.USER_PROJECT_LOCATION!;
+import { createEnv } from '@t3-oss/env-nextjs';
+import { z } from 'zod';
 
-/** ONLY ACCESSIBLE ON THE SERVER */
-export const previewServerLocation = process.env.PREVIEW_SERVER_LOCATION!;
-
-/** ONLY ACCESSIBLE ON THE SERVER */
-export const emailsDirectoryAbsolutePath =
-  process.env.EMAILS_DIR_ABSOLUTE_PATH!;
-
-/** ONLY ACCESSIBLE ON THE SERVER */
-export const resendApiKey = process.env.RESEND_API_KEY;
-
-export const isBuilding = process.env.NEXT_PUBLIC_IS_BUILDING === 'true';
-
-export const isPreviewDevelopment =
-  process.env.NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT === 'true';
+export const env = createEnv({
+  server: {
+    USER_PROJECT_LOCATION: z.string(),
+    PREVIEW_SERVER_LOCATION: z.string(),
+    EMAILS_DIR_ABSOLUTE_PATH: z.string(),
+    RESEND_API_KEY: z.string().optional(),
+    COMPATIBILITY_EMAIL_CLIENTS: z.string(),
+  },
+  client: {
+    NEXT_PUBLIC_IS_BUILDING: z
+      .union([z.literal('true'), z.literal('false')])
+      .optional()
+      .default('false'),
+    NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT: z
+      .union([z.literal('true'), z.literal('false')])
+      .optional()
+      .default('false'),
+  },
+  skipValidation: true,
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_IS_BUILDING: process.env.NEXT_PUBLIC_IS_BUILDING,
+    NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT:
+      process.env.NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT,
+  },
+});

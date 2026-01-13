@@ -32,6 +32,7 @@ export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
   port: number,
+  compatibilityClients: string[],
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
   if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
@@ -97,6 +98,7 @@ export const startDevServer = async (
       emailsDirRelativePath,
       staticBaseDirRelativePath,
       nextPortToTry,
+      compatibilityClients,
     );
   }
 
@@ -132,6 +134,7 @@ export const startDevServer = async (
       path.normalize(emailsDirRelativePath),
       previewServerLocation,
       process.cwd(),
+      compatibilityClients,
       conf.get('resendApiKey'),
     ),
   };
@@ -194,21 +197,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (codeSignalOrError: number | NodeJS.Signals | Error) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (codeSignalOrError instanceof Error) {
-      console.error(codeSignalOrError);
-    }
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());

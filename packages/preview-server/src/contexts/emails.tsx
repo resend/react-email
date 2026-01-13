@@ -2,14 +2,14 @@
 
 import { createContext, useContext, useState } from 'react';
 import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import { env } from '../app/env';
 import { useHotreload } from '../hooks/use-hot-reload';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 
 const EmailsContext = createContext<
   | {
-      emailsDirectoryMetadata: EmailsDirectory;
-    }
+    emailsDirectoryMetadata: EmailsDirectory;
+  }
   | undefined
 >(undefined);
 
@@ -32,7 +32,10 @@ export const EmailsProvider = (props: {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
-  if (!isBuilding && !isPreviewDevelopment) {
+  if (
+    env.NEXT_PUBLIC_IS_BUILDING === 'false' &&
+    env.NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT === 'false'
+  ) {
     // biome-ignore lint/correctness/useHookAtTopLevel: this will not change on runtime so it doesn't violate the rules of hooks
     useHotreload(async () => {
       const metadata = await getEmailsDirectoryMetadataAction(

@@ -16,12 +16,9 @@ import { ToolbarProvider } from '../../../contexts/toolbar';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
-import {
-  emailsDirectoryAbsolutePath,
-  isBuilding,
-  resendApiKey,
-} from '../../env';
+import { env } from '../../env';
 import Preview from './preview';
+import type { Metadata } from 'next';
 
 export const dynamicParams = true;
 
@@ -41,12 +38,12 @@ export default async function Page({
   // ex: ['authentication', 'verify-password.tsx']
   const slug = decodeURIComponent(params.slug.join('/'));
   const emailsDirMetadata = await getEmailsDirectoryMetadata(
-    emailsDirectoryAbsolutePath,
+    env.EMAILS_DIR_ABSOLUTE_PATH,
   );
 
   if (typeof emailsDirMetadata === 'undefined') {
     throw new Error(
-      `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!
+      `Could not find the emails directory specified under ${env.EMAILS_DIR_ABSOLUTE_PATH}!
 
 This is most likely not an issue with the preview server. Maybe there was a typo on the "--dir" flag?`,
     );
@@ -69,7 +66,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   let lintingRows: LintingRow[] | undefined;
   let compatibilityCheckingResults: CompatibilityCheckingResult[] | undefined;
 
-  if (isBuilding) {
+  if (env.NEXT_PUBLIC_IS_BUILDING === 'true') {
     if ('error' in serverEmailRenderingResult) {
       throw new Error(serverEmailRenderingResult.error.message, {
         cause: serverEmailRenderingResult.error,
@@ -137,7 +134,9 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         <Suspense>
           <Preview emailTitle={path.basename(emailPath)} />
 
-          <ToolbarProvider hasApiKey={(resendApiKey ?? '').trim().length > 0}>
+          <ToolbarProvider
+            hasApiKey={(env.RESEND_API_KEY ?? '').trim().length > 0}
+          >
             <Toolbar
               serverLintingRows={lintingRows}
               serverSpamCheckingResult={spamCheckingResult}
@@ -154,7 +153,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<PreviewParams>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
 
   return { title: `${path.basename(slug.join('/'))} — React Email` };
