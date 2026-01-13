@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.3-canary.0
+
+### Patch Changes
+
+- 7950b96: fix `email dev` not working
+
 ## 5.2.2
 
 ### Patch Changes
