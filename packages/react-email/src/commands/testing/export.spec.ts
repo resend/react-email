@@ -18,3 +18,22 @@ test('email export', { retry: 3 }, async () => {
     ),
   ).toMatchSnapshot();
 });
+
+test('email export with custom extension', { retry: 3 }, async () => {
+  const pathToEmailsDirectory = path.resolve(__dirname, './emails');
+  const pathToDumpMarkup = path.resolve(__dirname, './out');
+
+  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
+    silent: true,
+    pretty: true,
+    extension: 'blade.php',
+  });
+
+  const outputFile = path.resolve(
+    pathToDumpMarkup,
+    './vercel-invite-user.blade.php',
+  );
+
+  expect(fs.existsSync(outputFile)).toBe(true);
+  expect(await fs.promises.readFile(outputFile, 'utf8')).toMatchSnapshot();
+});
