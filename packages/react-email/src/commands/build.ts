@@ -238,6 +238,9 @@ export const build = async ({
 
     await runScript('build', {
       packageManager,
+      env: {
+        NODE_OPTIONS: process.env.NODE_OPTIONS ?? '',
+      },
       cwd: builtPreviewAppPath,
     });
   } catch (error) {
