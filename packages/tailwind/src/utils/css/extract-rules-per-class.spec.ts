@@ -25,7 +25,7 @@ describe('extractRulesPerClass()', async () => {
         "text-center": ".text-center{text-align:center}",
       }
     `);
-    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`{}`);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot('{}');
   });
 
   it('handles non-inlinable utilities', async () => {
@@ -40,7 +40,7 @@ describe('extractRulesPerClass()', async () => {
       classes,
     );
 
-    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`{}`);
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot('{}');
     expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
       {
         "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",

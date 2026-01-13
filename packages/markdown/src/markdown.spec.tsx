@@ -97,7 +97,9 @@ console.log(\`Hello, $\{name}!\`);
        `}
       </Markdown>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><h1 style="font-weight:500;padding-top:20px;font-size:2.5rem">Heading 1!</h1><h2 style="font-weight:500;padding-top:20px;font-size:2rem">Heading 2!</h2><h3 style="font-weight:500;padding-top:20px;font-size:1.75rem">Heading 3!</h3><h4 style="font-weight:500;padding-top:20px;font-size:1.5rem">Heading 4!</h4><h5 style="font-weight:500;padding-top:20px;font-size:1.25rem">Heading 5!</h5><h6 style="font-weight:500;padding-top:20px;font-size:1rem">Heading 6!</h6></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><h1 style="font-weight:500;padding-top:20px;font-size:2.5rem">Heading 1!</h1><h2 style="font-weight:500;padding-top:20px;font-size:2rem">Heading 2!</h2><h3 style="font-weight:500;padding-top:20px;font-size:1.75rem">Heading 3!</h3><h4 style="font-weight:500;padding-top:20px;font-size:1.5rem">Heading 4!</h4><h5 style="font-weight:500;padding-top:20px;font-size:1.25rem">Heading 5!</h5><h6 style="font-weight:500;padding-top:20px;font-size:1rem">Heading 6!</h6></div><!--/$-->"`,
+    );
   });
 
   it('renders text in the correct format for browsers', async () => {

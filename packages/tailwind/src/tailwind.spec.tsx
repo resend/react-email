@@ -22,7 +22,9 @@ describe('Tailwind component', () => {
         </ResponsiveRow>
       </Tailwind>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`,
+    );
   });
 
   it('works with blocklist', async () => {
@@ -103,7 +105,9 @@ describe('Tailwind component', () => {
           <MyComponnt className="p-4 text-blue-400" />
         </Tailwind>,
       ),
-    ).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`);
+    ).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`,
+    );
   });
 
   it("works properly with 'no-underline'", async () => {
@@ -133,7 +137,9 @@ describe('Tailwind component', () => {
         </body>
       </Html>,
     );
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`,
+    );
   });
 
   it('renders children with inline Tailwind styles', async () => {
@@ -143,7 +149,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(255,255,255)"></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(255,255,255)"></div><!--/$-->"`,
+    );
   });
 
   test('<Button className="px-3 py-2 mt-8 text-sm text-gray-200 bg-blue-600 rounded-md">', async () => {
@@ -156,7 +164,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
+    );
   });
 
   it('works with custom components with fragment at the root', async () => {
@@ -188,13 +198,17 @@ describe('Tailwind component', () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+    );
   });
 
   it("doesn't generate styles from text", async () => {
     expect(
       await render(<Tailwind>container bg-red-500 bg-blue-300</Tailwind>),
-    ).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`);
+    ).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->container bg-red-500 bg-blue-300<!--/$-->"`,
+    );
   });
 
   it('works with components that return children', async () => {
@@ -221,7 +235,9 @@ describe('Tailwind component', () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+    );
   });
 
   it('works with Heading component', async () => {
@@ -235,7 +251,9 @@ describe('Tailwind component', () => {
       );
     };
 
-    expect(await render(<EmailTemplate />)).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`);
+    expect(await render(<EmailTemplate />)).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`,
+    );
   });
 
   it('works with components that use React.forwardRef', async () => {
@@ -267,7 +285,9 @@ describe('Tailwind component', () => {
 
     const actualOutput = await render(EmailTemplate());
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+    );
   });
 
   it('uses background image', async () => {
@@ -277,7 +297,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-image:url(https://example.com/image.png)"></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-image:url(https://example.com/image.png)"></div><!--/$-->"`,
+    );
   });
 
   it('does not override inline styles with Tailwind styles', async () => {
@@ -290,7 +312,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:red;font-size:12px"></div><!--/$-->"`,
+    );
   });
 
   it('overrides component styles with Tailwind styles', async () => {
@@ -300,7 +324,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`,
+    );
   });
 
   it('preserves mso styles', async () => {
@@ -363,7 +389,9 @@ describe('Tailwind component', () => {
       </Tailwind>,
     );
 
-    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{color:green!important;@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>this is the body</td></tr></tbody></table><!--/$--></body></html>"`);
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{color:green!important;@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+    );
   });
 
   it('recognizes custom responsive screen', async () => {
@@ -496,7 +524,9 @@ describe('Tailwind component', () => {
             </html>
           </Tailwind>,
         ),
-      ).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`);
+      ).toMatchInlineSnapshot(
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
+      );
     });
 
     it('handles non-inlinable styles in custom utilities', async () => {

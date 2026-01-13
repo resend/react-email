@@ -38,28 +38,36 @@ describe('sanitizeDeclarations', () => {
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{padding-right:14;padding-left:4px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{padding-right:14;padding-left:4px}"`,
+    );
 
     root = parse(`.box {
   padding-block: 10px 20%;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{padding-bottom:20%;padding-top:10px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{padding-bottom:20%;padding-top:10px}"`,
+    );
 
     root = parse(`.box {
   padding-inline: 99rem;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{padding-right:99rem;padding-left:99rem}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{padding-right:99rem;padding-left:99rem}"`,
+    );
 
     root = parse(`.box {
   padding-block: 8px;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{padding-bottom:8px;padding-top:8px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{padding-bottom:8px;padding-top:8px}"`,
+    );
   });
 
   it('should do separation of margin-block and margin-inline', () => {
@@ -68,28 +76,36 @@ describe('sanitizeDeclarations', () => {
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{margin-right:14;margin-left:4px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{margin-right:14;margin-left:4px}"`,
+    );
 
     root = parse(`.box {
   margin-block: 10px 20%;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{margin-bottom:20%;margin-top:10px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{margin-bottom:20%;margin-top:10px}"`,
+    );
 
     root = parse(`.box {
   margin-inline: 99rem;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{margin-right:99rem;margin-left:99rem}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{margin-right:99rem;margin-left:99rem}"`,
+    );
 
     root = parse(`.box {
   margin-block: 8px;
 }
 `);
     sanitizeDeclarations(root);
-    expect(generate(root)).toMatchInlineSnapshot(`".box{margin-bottom:8px;margin-top:8px}"`);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{margin-bottom:8px;margin-top:8px}"`,
+    );
   });
 
   test('oklch to rgb conversion', () => {
@@ -102,10 +118,9 @@ describe('sanitizeDeclarations', () => {
 
     stylesheet = parse('div { color: oklch(96.6% 0.147 107 / 80%); }');
     sanitizeDeclarations(stylesheet);
-    expect(
-      generate(stylesheet),
-      'conversion with alpha',
-    ).toMatchInlineSnapshot(`"div{color:rgb(255,251,126,0.8)}"`);
+    expect(generate(stylesheet), 'conversion with alpha').toMatchInlineSnapshot(
+      `"div{color:rgb(255,251,126,0.8)}"`,
+    );
 
     stylesheet = parse('div { color: oklch(96.6% 0.147 107deg / 80%); }');
     sanitizeDeclarations(stylesheet);
@@ -116,15 +131,21 @@ describe('sanitizeDeclarations', () => {
 
     stylesheet = parse('div { color: oklch(92.6% 0.0546 218 / 50%); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(191,240,255,0.5)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(191,240,255,0.5)}"`,
+    );
 
     stylesheet = parse('div { color: oklch(88.3% 0.102 329); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,193,250)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,193,250)}"`,
+    );
 
     stylesheet = parse('div { color: oklch(69.3% 0.206 42.8); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,100,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,100,0)}"`,
+    );
   });
 
   test('rgba space syntax to comma syntax conversion', () => {
@@ -158,21 +179,29 @@ describe('sanitizeDeclarations', () => {
 
     stylesheet = parse('div { color: rgb(255 0 128 / 1); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,128)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,128)}"`,
+    );
 
     stylesheet = parse(
       'div { background: linear-gradient(rgb(255 0 0), rgb(0 255 0 / 0.8)); }',
     );
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0,0.8))}"`,
+    );
 
     stylesheet = parse('div { color: rgb(  255   0   128  /  0.7  ); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.7)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,128,0.7)}"`,
+    );
 
     stylesheet = parse('div { color: rgb(0 0 0); }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(0,0,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,0)}"`,
+    );
 
     stylesheet = parse('div { color: rgb(255, 0, 128); }');
     sanitizeDeclarations(stylesheet);
@@ -213,62 +242,88 @@ describe('sanitizeDeclarations', () => {
 
     stylesheet = parse('div { color: #000; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(0,0,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,0)}"`,
+    );
 
     stylesheet = parse('div { color: #fff; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,255,255)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,255,255)}"`,
+    );
 
     stylesheet = parse('div { color: #ff0000; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0)}"`,
+    );
 
     stylesheet = parse('div { color: #00ff00; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(0,255,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(0,255,0)}"`,
+    );
 
     stylesheet = parse('div { color: #0000ff; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(0,0,255)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,255)}"`,
+    );
 
     stylesheet = parse('div { color: #abcdef; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(171,205,239)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(171,205,239)}"`,
+    );
 
     stylesheet = parse('div { color: #ABCDEF; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(171,205,239)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(171,205,239)}"`,
+    );
 
     stylesheet = parse('div { color: #AbCdEf; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet), 'mixed casing').toMatchInlineSnapshot(`"div{color:rgb(171,205,239)}"`);
+    expect(generate(stylesheet), 'mixed casing').toMatchInlineSnapshot(
+      `"div{color:rgb(171,205,239)}"`,
+    );
 
     stylesheet = parse('div { color: #ff000000; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,0,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0,0)}"`,
+    );
 
     stylesheet = parse('div { color: #ff0000ff; }');
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,0)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0)}"`,
+    );
 
     stylesheet = parse(
       'div { background: linear-gradient(#ff0000, #00ff00, #0000ff); }',
     );
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,0,255))}"`,
+    );
 
     stylesheet = parse(
       'div { background: linear-gradient(#ff0000, rgb(0 255 0), oklch(50% 0.2 240)); }',
     );
     sanitizeDeclarations(stylesheet);
     const result = generate(stylesheet);
-    expect(result).toMatchInlineSnapshot(`"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,105,199))}"`);
+    expect(result).toMatchInlineSnapshot(
+      `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0),rgb(0,105,199))}"`,
+    );
 
     stylesheet = parse(
       'div { content: "Visit our site at example.com#section"; }',
     );
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{content:"Visit our site at example.com#section"}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{content:"Visit our site at example.com#section"}"`,
+    );
 
     stylesheet = parse(`
       div {
@@ -279,7 +334,9 @@ describe('sanitizeDeclarations', () => {
       }
     `);
     sanitizeDeclarations(stylesheet);
-    expect(generate(stylesheet)).toMatchInlineSnapshot(`"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255);box-shadow:0 0 10px rgb(51,51,51)}"`);
+    expect(generate(stylesheet)).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255);box-shadow:0 0 10px rgb(51,51,51)}"`,
+    );
   });
 
   it('handles transparency generated with color-mix', () => {
@@ -290,7 +347,9 @@ describe('sanitizeDeclarations', () => {
     `);
     sanitizeDeclarations(stylesheet);
     const result = generate(stylesheet);
-    expect(result).toMatchInlineSnapshot(`".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`);
+    expect(result).toMatchInlineSnapshot(
+      `".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`,
+    );
   });
 
   describe('complex scenarios', () => {
@@ -304,7 +363,9 @@ describe('sanitizeDeclarations', () => {
       `);
       sanitizeDeclarations(stylesheet);
       const result = generate(stylesheet);
-      expect(result).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5);background-color:rgb(0,255,0);border-color:rgb(128,128,128)}"`);
+      expect(result).toMatchInlineSnapshot(
+        `"div{color:rgb(255,0,128,0.5);background-color:rgb(0,255,0);border-color:rgb(128,128,128)}"`,
+      );
     });
 
     it('handles nested rules', () => {
@@ -314,7 +375,9 @@ describe('sanitizeDeclarations', () => {
         }
       `);
       sanitizeDeclarations(stylesheet);
-      expect(generate(stylesheet)).toMatchInlineSnapshot(`"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`);
+      expect(generate(stylesheet)).toMatchInlineSnapshot(
+        `"@media (min-width:768px){div{color:rgb(255,0,128,0.8)}}"`,
+      );
     });
 
     it('processes at-rule declarations', () => {
@@ -326,7 +389,9 @@ describe('sanitizeDeclarations', () => {
       `);
       sanitizeDeclarations(stylesheet);
       const result = generate(stylesheet);
-      expect(result).toMatchInlineSnapshot(`"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`);
+      expect(result).toMatchInlineSnapshot(
+        `"@keyframes fade{from{background:rgb(255,0,0,0)}to{background:rgb(255,0,0)}}"`,
+      );
     });
   });
 });
