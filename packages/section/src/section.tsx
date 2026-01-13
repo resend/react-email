@@ -1,9 +1,23 @@
 import * as React from 'react';
+import {
+  BorderWrapper,
+  hasBorderAndBorderRadius,
+} from './utils/border-wrapper.js';
 
 export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
   ({ children, style, ...props }, ref) => {
+    // Check if we need to use the border wrapper for compatibility
+    if (hasBorderAndBorderRadius(style)) {
+      return (
+        <BorderWrapper style={style} {...props} ref={ref}>
+          {children}
+        </BorderWrapper>
+      );
+    }
+
+    // Default rendering without border wrapper
     return (
       <table
         align="center"

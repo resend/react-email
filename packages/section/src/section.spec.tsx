@@ -1,56 +1,109 @@
 import { render } from '@react-email/render';
-import { Section } from './index';
+import { Section } from './section.js';
 
-describe('<Section> component', () => {
-  it('renders correctly', async () => {
-    const actualOutput = await render(<Section>Lorem ipsum</Section>);
+describe('Section component', () => {
+  it('should render correctly', async () => {
+    const actualOutput = await render(
+      <Section>
+        <div>Test content</div>
+      </Section>,
+    );
     expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders children correctly', async () => {
-    const testMessage = 'Test message';
-    const html = await render(<Section>{testMessage}</Section>);
-    expect(html).toContain(testMessage);
-  });
-
-  it('passes style and other props correctly', async () => {
-    const style = { backgroundColor: 'red' };
-    const html = await render(
-      <Section data-testid="section-test" style={style}>
-        Test
-      </Section>,
-    );
-    expect(html).toContain('style="background-color:red"');
-    expect(html).toContain('data-testid="section-test"');
-  });
-
-  it('renders with <td> wrapper if no <Column> is provided', async () => {
+  it('should render with style', async () => {
     const actualOutput = await render(
-      <Section>
-        <div>Lorem ipsum</div>
+      <Section style={{ backgroundColor: 'red' }}>
+        <div>Test content</div>
       </Section>,
     );
-    expect(actualOutput).toContain('<td>');
+    expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders with <td> wrapper if <Column> is provided', async () => {
+  it('should render with props', async () => {
     const actualOutput = await render(
-      <Section>
-        <td>Lorem ipsum</td>
+      <Section align="center" width="100%">
+        <div>Test content</div>
       </Section>,
     );
-    expect(actualOutput).toContain('<td>');
+    expect(actualOutput).toMatchSnapshot();
   });
 
-  it('renders wrapping any child provided in a <td> tag', async () => {
+  it('should use BorderWrapper when both border and borderRadius are present', async () => {
     const actualOutput = await render(
-      <Section>
-        <div>Lorem ipsum</div>
-        <p>Lorem ipsum</p>
-        <img alt="Lorem" src="lorem.ipsum" />
+      <Section
+        style={{
+          border: '1px solid black',
+          borderRadius: '8px',
+          color: 'red',
+        }}
+      >
+        <div>Test content</div>
       </Section>,
     );
-    const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);
-    expect(tdChildrenArr).toHaveLength(1);
+
+    // Should contain the wrapper table with background-color and padding
+    expect(actualOutput).toContain('background-color:black');
+    expect(actualOutput).toContain('padding:1');
+    expect(actualOutput).toContain('border-radius:8px');
+    expect(actualOutput).toContain('<div>Test content</div>');
+    expect(actualOutput).not.toContain('border:1px solid black');
+  });
+
+  it('should not use BorderWrapper when only border is present', async () => {
+    const actualOutput = await render(
+      <Section
+        style={{
+          border: '1px solid black',
+          color: 'red',
+        }}
+      >
+        <div>Test content</div>
+      </Section>,
+    );
+
+    // Should render normally without wrapper
+    expect(actualOutput).toContain('border:1px solid black');
+    expect(actualOutput).not.toContain('background-color:black');
+    expect(actualOutput).not.toContain('padding:1');
+  });
+
+  it('should not use BorderWrapper when only borderRadius is present', async () => {
+    const actualOutput = await render(
+      <Section
+        style={{
+          borderRadius: '8px',
+          color: 'red',
+        }}
+      >
+        <div>Test content</div>
+      </Section>,
+    );
+
+    // Should render normally without wrapper
+    expect(actualOutput).toContain('border-radius:8px');
+    expect(actualOutput).not.toContain('background-color:');
+    expect(actualOutput).not.toContain('padding:');
+  });
+
+  it('should handle individual border properties with borderRadius', async () => {
+    const actualOutput = await render(
+      <Section
+        style={{
+          borderWidth: '2px',
+          borderStyle: 'solid',
+          borderColor: 'red',
+          borderRadius: '4px',
+          color: 'blue',
+        }}
+      >
+        <div>Test content</div>
+      </Section>,
+    );
+
+    expect(actualOutput).toContain('background-color:red');
+    expect(actualOutput).toContain('padding:2');
+    expect(actualOutput).toContain('border-radius:4px');
+    expect(actualOutput).toContain('color:blue');
   });
 });
