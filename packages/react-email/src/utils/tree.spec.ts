@@ -3,7 +3,6 @@ import { tree } from './tree.js';
 test('tree(__dirname, 2)', async () => {
   expect(await tree(__dirname, 2)).toMatchInlineSnapshot(`
     "utils
-    ├── __snapshots__
     ├── esbuild
     │   ├── escape-string-for-regex.ts
     │   └── renderring-utilities-exporter.ts
