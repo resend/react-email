@@ -23,6 +23,8 @@ describe('<Img> component', () => {
     const actualOutput = await render(
       <Img alt="Cat" height="300" src="cat.jpg" width="300" />,
     );
-    expect(actualOutput).toMatchSnapshot();
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="cat.jpg"/><!--$--><img alt="Cat" height="300" src="cat.jpg" style="display:block;outline:none;border:none;text-decoration:none" width="300"/><!--/$-->"`,
+    );
   });
 });

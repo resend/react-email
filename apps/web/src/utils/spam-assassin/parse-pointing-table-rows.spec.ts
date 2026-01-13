@@ -85,7 +85,65 @@ Content-Type: text/html; charset="UTF-8"
 
 ------------=_67A9EF43.EC247F5D--
 `;
-    expect(parsePointingTableRows(spamdResponse)).toMatchSnapshot();
+    expect(parsePointingTableRows(spamdResponse)).toMatchInlineSnapshot(`
+      [
+        {
+          "description": "Missing Subject: header",
+          "pts": 1.8,
+          "ruleName": "MISSING_SUBJECT",
+        },
+        {
+          "description": "Missing Date: header",
+          "pts": 1.4,
+          "ruleName": "MISSING_DATE",
+        },
+        {
+          "description": "Missing Message-Id: header",
+          "pts": 0.1,
+          "ruleName": "MISSING_MID",
+        },
+        {
+          "description": "Missing From: header",
+          "pts": 1,
+          "ruleName": "MISSING_FROM",
+        },
+        {
+          "description": "Informational: message has no Received headers",
+          "pts": -0,
+          "ruleName": "NO_RECEIVED",
+        },
+        {
+          "description": "Missing To: header",
+          "pts": 1.2,
+          "ruleName": "MISSING_HEADERS",
+        },
+        {
+          "description": "Informational: message was not relayed via SMTP",
+          "pts": -0,
+          "ruleName": "NO_RELAYS",
+        },
+        {
+          "description": "BODY: Money back guarantee",
+          "pts": 2.5,
+          "ruleName": "MONEY_BACK",
+        },
+        {
+          "description": "BODY: HTML included in message",
+          "pts": 0,
+          "ruleName": "HTML_MESSAGE",
+        },
+        {
+          "description": "Message appears to be missing most RFC-822 headers",
+          "pts": 0,
+          "ruleName": "NO_HEADERS_MESSAGE",
+        },
+        {
+          "description": "Refers to an erectile drug",
+          "pts": 2.2,
+          "ruleName": "DRUGS_ERECTILE",
+        },
+      ]
+    `);
   });
 
   test('works with names that exceed the column length', () => {
@@ -110,7 +168,75 @@ Content-Type: text/html; charset="UTF-8"
  2.1 FONT_INVIS_LONG_LINE   Invisible text + long lines
  0.8 HTML_TEXT_INVISIBLE_FONT HTML hidden text - word obfuscation?`;
 
-    expect(parsePointingTableRows(partialSpamResponse)).toMatchSnapshot();
+    expect(parsePointingTableRows(partialSpamResponse)).toMatchInlineSnapshot(`
+      [
+        {
+          "description": "Missing Date: header",
+          "pts": 1.4,
+          "ruleName": "MISSING_DATE",
+        },
+        {
+          "description": "Missing From: header",
+          "pts": 1,
+          "ruleName": "MISSING_FROM",
+        },
+        {
+          "description": "Missing Message-Id: header",
+          "pts": 0.1,
+          "ruleName": "MISSING_MID",
+        },
+        {
+          "description": "Informational: message has no Received headers",
+          "pts": -0,
+          "ruleName": "NO_RECEIVED",
+        },
+        {
+          "description": "Missing Subject: header",
+          "pts": 1.8,
+          "ruleName": "MISSING_SUBJECT",
+        },
+        {
+          "description": "ADMINISTRATOR NOTICE: The query to dbl.spamhaus.org was blocked due to usage of an open resolver. See https://www.spamhaus.org/returnc/pub/ [URI: app.papermark.io]",
+          "pts": 0,
+          "ruleName": "URIBL_DBL_BLOCKED_OPENDNS",
+        },
+        {
+          "description": "Missing To: header",
+          "pts": 1.2,
+          "ruleName": "MISSING_HEADERS",
+        },
+        {
+          "description": "Informational: message was not relayed via SMTP",
+          "pts": -0,
+          "ruleName": "NO_RELAYS",
+        },
+        {
+          "description": "BODY: HTML included in message",
+          "pts": 0,
+          "ruleName": "HTML_MESSAGE",
+        },
+        {
+          "description": "Message appears to be missing most RFC-822 headers",
+          "pts": 0,
+          "ruleName": "NO_HEADERS_MESSAGE",
+        },
+        {
+          "description": "High bit body and no message ID header",
+          "pts": 3.7,
+          "ruleName": "DOS_BODY_HIGH_NO_MID",
+        },
+        {
+          "description": "Invisible text + long lines",
+          "pts": 2.1,
+          "ruleName": "FONT_INVIS_LONG_LINE",
+        },
+        {
+          "description": "HTML hidden text - word obfuscation?",
+          "pts": 0.8,
+          "ruleName": "HTML_TEXT_INVISIBLE_FONT",
+        },
+      ]
+    `);
   });
 
   test('works with a multiline description', () => {
@@ -145,6 +271,64 @@ it, it may be safer to save it to a file and open it with an editor.
 ------------=_67BF2F0C.CEF6CDE8
 Content-Type: message/rfc822; x-spam-type=original`;
 
-    expect(parsePointingTableRows(partialSpamResponse)).toMatchSnapshot();
+    expect(parsePointingTableRows(partialSpamResponse)).toMatchInlineSnapshot(`
+      [
+        {
+          "description": "Informational: message has no Received headers",
+          "pts": -0,
+          "ruleName": "NO_RECEIVED",
+        },
+        {
+          "description": "Missing Message-Id: header",
+          "pts": 0.1,
+          "ruleName": "MISSING_MID",
+        },
+        {
+          "description": "Missing Date: header",
+          "pts": 1.4,
+          "ruleName": "MISSING_DATE",
+        },
+        {
+          "description": "Missing From: header",
+          "pts": 1,
+          "ruleName": "MISSING_FROM",
+        },
+        {
+          "description": "Missing Subject: header",
+          "pts": 1.8,
+          "ruleName": "MISSING_SUBJECT",
+        },
+        {
+          "description": "Missing To: header",
+          "pts": 1.2,
+          "ruleName": "MISSING_HEADERS",
+        },
+        {
+          "description": "Informational: message was not relayed via SMTP",
+          "pts": -0,
+          "ruleName": "NO_RELAYS",
+        },
+        {
+          "description": "ADMINISTRATOR NOTICE: The query to URIBL was blocked. See http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block for more information. [URI: stripe.com]",
+          "pts": 0,
+          "ruleName": "URIBL_BLOCKED",
+        },
+        {
+          "description": "BODY: HTML included in message",
+          "pts": 0,
+          "ruleName": "HTML_MESSAGE",
+        },
+        {
+          "description": "Message appears to be missing most RFC-822 headers",
+          "pts": 0,
+          "ruleName": "NO_HEADERS_MESSAGE",
+        },
+        {
+          "description": "High bit body and no message ID header",
+          "pts": 3.9,
+          "ruleName": "DOS_BODY_HIGH_NO_MID",
+        },
+      ]
+    `);
   });
 });
