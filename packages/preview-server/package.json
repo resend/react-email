@@ -1,5 +1,5 @@
 {
-  "name": "@react-email/preview-server",
+  "name": "gabriel-react-email-preview-server-testing",
   "version": "5.2.2",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
