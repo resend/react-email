@@ -138,7 +138,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   packageJson.scripts.build =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
   packageJson.scripts.start =
-    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning"next start';
+    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
   delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
