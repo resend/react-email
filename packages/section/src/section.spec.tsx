@@ -4,7 +4,7 @@ import { Section } from './index';
 describe('<Section> component', () => {
   it('renders correctly', async () => {
     const actualOutput = await render(<Section>Lorem ipsum</Section>);
-    expect(actualOutput).toMatchSnapshot();
+    expect(actualOutput).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table><!--/$-->"`);
   });
 
   it('renders children correctly', async () => {
