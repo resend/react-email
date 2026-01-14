@@ -1,5 +1,17 @@
 # @react-email/preview-server
 
+## 5.2.3
+
+### Patch Changes
+
+- 7950b96: fix `email dev` not working
+
+## 5.2.2
+
+### Patch Changes
+
+- 93964a7: fix intermittent (void 0) is not a function errors
+
 ## 5.2.1
 
 ### Patch Changes
