@@ -160,7 +160,7 @@ In the email template, remove the hardcoded content and use `createTranslator` f
 import { createTranslator } from 'next-intl';
 
 export default async function WelcomeEmail({ name, locale }) {
-// [!code ++:4]
+// [!code ++:5]
   const { t } = createTranslator({
     messages: await import(`../messages/${locale}.json`),
     namespace: 'welcome-email',
