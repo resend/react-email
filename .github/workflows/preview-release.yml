@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: pnpm setup
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile
       - name: Run Build

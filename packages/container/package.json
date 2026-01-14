@@ -1,6 +1,6 @@
 {
   "name": "@react-email/container",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A layout component that centers all the email content",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -40,12 +40,6 @@
   ],
   "engines": {
     "node": ">=20.0.0"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"

@@ -29,39 +29,100 @@ describe('createDependencyGraph()', async () => {
     return path.resolve(testingDiretctory, relativePath);
   };
 
-  it.sequential(
-    'should resolve dependents when there are circular dependencies',
-    async () => {
-      expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
-        toAbsolute('file-b.ts'),
-        toAbsolute('general-importing-file.ts'),
-      ]);
-    },
-  );
+  it.sequential('should resolve dependents when there are circular dependencies', async () => {
+    expect(resolveDependentsOf(toAbsolute('file-a.ts'))).toEqual([
+      toAbsolute('file-b.ts'),
+      toAbsolute('general-importing-file.ts'),
+    ]);
+  });
 
-  it.sequential(
-    'should have the right initial value for the dependency graph',
-    () => {
-      const relativePathDependencyGraph = Object.fromEntries(
-        Object.entries(dependencyGraph).map(([key, value]) => {
-          return [
-            path.relative(testingDiretctory, key),
-            {
-              path: path.relative(testingDiretctory, value.path),
-              dependentPaths: value.dependentPaths.map((p) =>
-                path.relative(testingDiretctory, p),
-              ),
-              dependencyPaths: value.dependencyPaths.map((p) =>
-                path.relative(testingDiretctory, p),
-              ),
-              moduleDependencies: value.moduleDependencies,
-            },
-          ];
-        }),
-      );
-      expect(relativePathDependencyGraph).toMatchSnapshot();
-    },
-  );
+  it.sequential('should have the right initial value for the dependency graph', () => {
+    const relativePathDependencyGraph = Object.fromEntries(
+      Object.entries(dependencyGraph).map(([key, value]) => {
+        return [
+          path.relative(testingDiretctory, key).replace(/\\/g, '/'),
+          {
+            path: path
+              .relative(testingDiretctory, value.path)
+              .replace(/\\/g, '/'),
+            dependentPaths: value.dependentPaths.map((p) =>
+              path.relative(testingDiretctory, p).replace(/\\/g, '/'),
+            ),
+            dependencyPaths: value.dependencyPaths.map((p) =>
+              path.relative(testingDiretctory, p).replace(/\\/g, '/'),
+            ),
+            moduleDependencies: value.moduleDependencies,
+          },
+        ];
+      }),
+    );
+    expect(relativePathDependencyGraph).toMatchInlineSnapshot(`
+      {
+        "../outer.ts": {
+          "dependencyPaths": [
+            "outer-dependency.ts",
+          ],
+          "dependentPaths": [
+            "general-importing-file.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "../outer.ts",
+        },
+        "data-to-import.json": {
+          "dependencyPaths": [],
+          "dependentPaths": [
+            "general-importing-file.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "data-to-import.json",
+        },
+        "file-a.ts": {
+          "dependencyPaths": [
+            "file-b.ts",
+          ],
+          "dependentPaths": [
+            "file-b.ts",
+            "general-importing-file.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "file-a.ts",
+        },
+        "file-b.ts": {
+          "dependencyPaths": [
+            "file-a.ts",
+          ],
+          "dependentPaths": [
+            "file-a.ts",
+            "general-importing-file.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "file-b.ts",
+        },
+        "general-importing-file.ts": {
+          "dependencyPaths": [
+            "../outer.ts",
+            "data-to-import.json",
+            "file-a.ts",
+            "file-b.ts",
+          ],
+          "dependentPaths": [],
+          "moduleDependencies": [
+            "node:os",
+            "node:path",
+          ],
+          "path": "general-importing-file.ts",
+        },
+        "outer-dependency.ts": {
+          "dependencyPaths": [],
+          "dependentPaths": [
+            "../outer.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "outer-dependency.ts",
+        },
+      }
+    `);
+  });
 
   it.sequential('should work when adding a new file', async () => {
     await fs.writeFile(

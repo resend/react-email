@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A preview text that will be displayed in the inbox of the recipient",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -40,12 +40,6 @@
   ],
   "engines": {
     "node": ">=20.0.0"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"

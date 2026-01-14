@@ -1,5 +1,51 @@
 # react-email
 
+## 5.2.3
+
+### Patch Changes
+
+- 800c960: `email build` always failing
+
+## 5.2.2
+
+## 5.2.1
+
+## 5.2.0
+
+### Patch Changes
+
+- 16cc7d1: increase timeout to 10 minutes by default, disable build workers
+
+## 5.2.0-canary.3
+
+### Patch Changes
+
+- 16cc7d1: increase timeout to 10 minutes by default, disable build workers
+
+## 5.2.0-canary.2
+
+## 5.2.0-canary.1
+
+## 5.2.0-canary.0
+
+## 5.1.1
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
+## 5.1.0
+
+### Minor Changes
+
+- 3c2aa37: use turbo for `email build`
+
+## 5.0.8
+
+## 5.0.7
+
+## 5.0.6
+
 ## 5.0.5
 
 ## 5.0.4

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/link",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A hyperlink to web pages, email addresses, or anything else a URL can address",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -40,12 +40,6 @@
   ],
   "engines": {
     "node": ">=20.0.0"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"

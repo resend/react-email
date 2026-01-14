@@ -2,12 +2,6 @@
   "name": "react-email-monorepo",
   "version": "0.0.0",
   "private": true,
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": ">=22.0.0"
-    }
-  },
   "scripts": {
     "build": "turbo run build",
     "canary:enter": "changeset pre enter canary",
@@ -20,20 +14,20 @@
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.3",
-    "@changesets/cli": "2.29.7",
+    "@biomejs/biome": "2.3.11",
+    "@changesets/cli": "2.29.8",
     "@types/node": "22.14.1",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "happy-dom": "20.0.2",
-    "pkg-pr-new": "0.0.54",
+    "happy-dom": "20.0.11",
+    "pkg-pr-new": "0.0.62",
     "tsconfig": "workspace:*",
     "tsdown": "0.15.12",
-    "tsx": "4.20.3",
+    "tsx": "4.21.0",
     "turbo": "2.5.8",
     "typescript": "5.9.3",
     "vite": "6.4.1",
-    "vitest": "4.0.10"
+    "vitest": "4.0.17"
   },
   "pnpm": {
     "overrides": {

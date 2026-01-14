@@ -70,14 +70,14 @@ const getAppearance = (appearance: Appearance | undefined) => {
       return [
         'border-white bg-white text-black transition-colors duration-200 ease-in-out',
         'hover:bg-white/90',
-        'focus:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/20',
+        'focus:bg-white/90 focus:outline-hidden focus:ring-2 focus:ring-white/20',
         'mt-2 mb-2 aria-disabled:border-transparent aria-disabled:bg-slate-11',
       ];
     case 'gradient':
       return [
         'bg-gradient border-[#34343A] backdrop-blur-[1.25rem]',
-        'hover:bg-gradientHover',
-        'focus:bg-gradientHover focus:outline-none focus:ring-2 focus:ring-white/20',
+        'hover:bg-gradient-hover',
+        'focus:bg-gradient-hover focus:outline-hidden focus:ring-2 focus:ring-white/20',
       ];
     default:
       unreachable(appearance);

@@ -1,5 +1,119 @@
 # @react-email/components
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [159f6e4]
+- Updated dependencies [12ff166]
+  - @react-email/render@2.0.2
+  - @react-email/body@0.2.1
+  - @react-email/button@0.2.1
+  - @react-email/code-block@0.2.1
+  - @react-email/code-inline@0.0.6
+  - @react-email/column@0.0.14
+  - @react-email/container@0.0.16
+  - @react-email/font@0.0.10
+  - @react-email/head@0.0.13
+  - @react-email/heading@0.0.16
+  - @react-email/hr@0.0.12
+  - @react-email/html@0.0.12
+  - @react-email/img@0.0.12
+  - @react-email/link@0.0.13
+  - @react-email/markdown@0.0.18
+  - @react-email/preview@0.0.14
+  - @react-email/row@0.0.13
+  - @react-email/section@0.0.17
+  - @react-email/tailwind@2.0.3
+  - @react-email/text@0.1.6
+
+## 1.0.4-canary.0
+
+### Patch Changes
+
+- Updated dependencies [159f6e4]
+  - @react-email/render@2.0.2-canary.0
+  - @react-email/body@0.2.1
+  - @react-email/button@0.2.1
+  - @react-email/code-block@0.2.1
+  - @react-email/code-inline@0.0.6
+  - @react-email/column@0.0.14
+  - @react-email/container@0.0.16
+  - @react-email/font@0.0.10
+  - @react-email/head@0.0.13
+  - @react-email/heading@0.0.16
+  - @react-email/hr@0.0.12
+  - @react-email/html@0.0.12
+  - @react-email/img@0.0.12
+  - @react-email/link@0.0.13
+  - @react-email/markdown@0.0.18
+  - @react-email/preview@0.0.14
+  - @react-email/row@0.0.13
+  - @react-email/section@0.0.17
+  - @react-email/tailwind@2.0.3
+  - @react-email/text@0.1.6
+
+## 1.0.3
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+- Updated dependencies [42aca9f]
+- Updated dependencies [8b7a660]
+  - @react-email/render@2.0.1
+  - @react-email/code-inline@0.0.6
+  - @react-email/code-block@0.2.1
+  - @react-email/container@0.0.16
+  - @react-email/markdown@0.0.18
+  - @react-email/tailwind@2.0.3
+  - @react-email/heading@0.0.16
+  - @react-email/preview@0.0.14
+  - @react-email/section@0.0.17
+  - @react-email/button@0.2.1
+  - @react-email/column@0.0.14
+  - @react-email/body@0.2.1
+  - @react-email/font@0.0.10
+  - @react-email/head@0.0.13
+  - @react-email/html@0.0.12
+  - @react-email/link@0.0.13
+  - @react-email/text@0.1.6
+  - @react-email/img@0.0.12
+  - @react-email/row@0.0.13
+  - @react-email/hr@0.0.12
+
+## 1.0.3-canary.0
+
+### Patch Changes
+
+- Updated dependencies [42aca9f]
+  - @react-email/render@2.0.1-canary.0
+  - @react-email/body@0.2.0
+  - @react-email/button@0.2.0
+  - @react-email/code-block@0.2.0
+  - @react-email/code-inline@0.0.5
+  - @react-email/column@0.0.13
+  - @react-email/container@0.0.15
+  - @react-email/font@0.0.9
+  - @react-email/head@0.0.12
+  - @react-email/heading@0.0.15
+  - @react-email/hr@0.0.11
+  - @react-email/html@0.0.11
+  - @react-email/img@0.0.11
+  - @react-email/link@0.0.12
+  - @react-email/markdown@0.0.17
+  - @react-email/preview@0.0.13
+  - @react-email/row@0.0.12
+  - @react-email/section@0.0.16
+  - @react-email/tailwind@2.0.2
+  - @react-email/text@0.1.5
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [0e57e2a]
+  - @react-email/tailwind@2.0.2
+
 ## 1.0.1
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import ora, { type Ora } from 'ora';
+import type React from 'react';
 import {
   isBuilding,
   isPreviewDevelopment,
@@ -40,6 +41,51 @@ export type EmailRenderingResult =
 
 const cache = new Map<string, EmailRenderingResult>();
 
+const createLogBufferer = (
+  originalLogger: (...args: any[]) => void,
+  overwriteLogger: (logger: (...args: any[]) => void) => void,
+) => {
+  let logs: Array<any[]> = [];
+
+  let timesCorked = 0;
+
+  return {
+    buffer: () => {
+      timesCorked += 1;
+      overwriteLogger((...args: any[]) => logs.push(args));
+    },
+    flush: () => {
+      timesCorked = Math.max(timesCorked - 1, 0);
+      // This ensures that, only once flushing has been called as many times as
+      // buffering, that the logs are actually flushed.
+      if (timesCorked === 0) {
+        for (const logArgs of logs) {
+          originalLogger(...logArgs);
+        }
+        logs = [];
+        overwriteLogger(originalLogger);
+      }
+    },
+  };
+};
+
+const logBufferer = createLogBufferer(
+  console.log,
+  (logger) => (console.log = logger),
+);
+const errorBufferer = createLogBufferer(
+  console.error,
+  (logger) => (console.error = logger),
+);
+const infoBufferer = createLogBufferer(
+  console.info,
+  (logger) => (console.info = logger),
+);
+const warnBufferer = createLogBufferer(
+  console.warn,
+  (logger) => (console.warn = logger),
+);
+
 export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
@@ -55,14 +101,18 @@ export const renderEmailByPath = async (
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
+    logBufferer.buffer();
+    errorBufferer.buffer();
+    infoBufferer.buffer();
+    warnBufferer.buffer();
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
+      stream: process.stderr,
     }).start();
     registerSpinnerAutostopping(spinner);
   }
 
-  const timeBeforeEmailBundled = performance.now();
   const originalJsxRuntimePath = path.resolve(
     previewServerLocation,
     'jsx-runtime',
@@ -71,6 +121,8 @@ export const renderEmailByPath = async (
     userProjectLocation,
     originalJsxRuntimePath,
   );
+
+  const timeBeforeEmailBundled = performance.now();
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
@@ -79,6 +131,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
     return { error: componentResult.error };
   }
 
@@ -91,7 +147,7 @@ export const renderEmailByPath = async (
   } = componentResult;
 
   const previewProps = Email.PreviewProps || {};
-  const EmailComponent = Email as React.FC;
+  const EmailComponent = Email as React.FunctionComponent;
   try {
     const timeBeforeEmailRendered = performance.now();
     const element = createElement(EmailComponent, previewProps);
@@ -123,6 +179,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
 
     const renderingResult: RenderedEmailMetadata = {
       prettyMarkup,
@@ -148,6 +208,10 @@ export const renderEmailByPath = async (
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
 
     if (exception instanceof SyntaxError) {
       interface SpanPosition {

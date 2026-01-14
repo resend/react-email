@@ -1,5 +1,96 @@
 # @react-email/preview-server
 
+## 5.2.3
+
+### Patch Changes
+
+- 7950b96: fix `email dev` not working
+
+## 5.2.2
+
+### Patch Changes
+
+- 93964a7: fix intermittent (void 0) is not a function errors
+
+## 5.2.1
+
+### Patch Changes
+
+- a6aed9e: fix toolbar loading spinner in the opposite direction
+- 462f60b: fix(preview-server): hot reloading on Windows
+
+## 5.2.0
+
+### Minor Changes
+
+- ccd6f05: bundle emails for preview to ESM
+
+### Patch Changes
+
+- 2d1d3a0: fix property access on null during dark mode inversion
+- 5ea5d84: fix compatibility checking for styles nested in other objects
+- d2d46c7: fix instanceof not working with regexes
+
+## 5.2.0-canary.3
+
+## 5.2.0-canary.2
+
+### Patch Changes
+
+- d2d46c7: fix instanceof not working with regexes
+
+## 5.2.0-canary.1
+
+### Patch Changes
+
+- 5ea5d84: fix compatibility checking for styles nested in other objects
+
+## 5.2.0-canary.0
+
+### Minor Changes
+
+- ccd6f05: bundle emails for preview to ESM
+
+### Patch Changes
+
+- 2d1d3a0: fix property access on null during dark mode inversion
+
+## 5.1.1
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
+## 5.1.0
+
+### Minor Changes
+
+- 3c2aa37: use turbo for `email build`
+
+### Patch Changes
+
+- ff89ad8: Buffer logs written to console.log,info,warn,error until spinner is done
+
+## 5.0.8
+
+### Patch Changes
+
+- 1ca1c1d: add better feedback for when test sending is rate limited
+
+## 5.0.7
+
+### Patch Changes
+
+- 92f8afd: broken links to html code view tab
+- 6f5cb91: use tailwindcss v4 in the UI
+
+## 5.0.6
+
+### Patch Changes
+
+- f2bb9e9: add missing favicon
+- 1d14411: fix multiple lockfile warning during email build
+
 ## 5.0.5
 
 ### Patch Changes

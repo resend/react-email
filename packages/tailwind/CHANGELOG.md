@@ -1,5 +1,29 @@
 # @react-email/tailwind
 
+## 2.0.3
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+- Updated dependencies [8b7a660]
+  - @react-email/code-inline@0.0.6
+  - @react-email/code-block@0.2.1
+  - @react-email/container@0.0.16
+  - @react-email/heading@0.0.16
+  - @react-email/preview@0.0.14
+  - @react-email/button@0.2.1
+  - @react-email/body@0.2.1
+  - @react-email/link@0.0.13
+  - @react-email/text@0.1.6
+  - @react-email/img@0.0.12
+  - @react-email/hr@0.0.12
+
+## 2.0.2
+
+### Patch Changes
+
+- 0e57e2a: update tailwindcss, fixing camelCased colors not working
+
 ## 2.0.1
 
 ### Patch Changes

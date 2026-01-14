@@ -38,9 +38,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true
   },
-  experimental: {
-    webpackBuildWorker: true
-  },
+  staticPageGenerationTimeout: 600,
 }
 
 export default nextConfig`;
@@ -137,8 +135,10 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     devDependencies: Record<string, string>;
   };
   // Turbopack has some errors with the imports in @react-email/tailwind
-  packageJson.scripts.build = 'next build --webpack';
-  packageJson.scripts.start = 'next start';
+  packageJson.scripts.build =
+    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
+  packageJson.scripts.start =
+    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
   delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
