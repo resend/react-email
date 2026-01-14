@@ -24,7 +24,7 @@ jobs:
         run: pnpm turbo run build --filter=./packages/*
       - name: Find changed packages
         id: changed_packages
-        uses: tj-actions/changed-files@212f9a7760ad2b8eb511185b841f3725a62c2ae0
+        uses: tj-actions/changed-files@6da3c88b60ebf09464ada9b06fba5b6f2d34bb94
         with:
           files: packages/**
           dir_names: true
