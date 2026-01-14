@@ -1,5 +1,13 @@
 # react-email
 
+## 5.2.3
+
+### Patch Changes
+
+- 800c960: `email build` always failing
+
+## 5.2.2
+
 ## 5.2.1
 
 ## 5.2.0
