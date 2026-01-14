@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.4
+
+### Patch Changes
+
+- 26283f9: fix support for alpine
+
 ## 5.2.3
 
 ### Patch Changes
