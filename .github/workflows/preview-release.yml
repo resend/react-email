@@ -21,7 +21,7 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
       - name: Run Build
-        run: pnpm turbo run build --filter='...[HEAD^1]' --filter='./packages/*'
+        run: pnpm turbo run build --filter='./packages/*'
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@6da3c88b60ebf09464ada9b06fba5b6f2d34bb94

@@ -26,14 +26,14 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
       - name: Run Build
-        run: pnpm turbo run build --filter='...[HEAD^1]'
+        run: pnpm turbo run build
         # We include the environment variables here so that the cache for turborepo
         # is not invalidated and builds are re-ran
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
       - name: Run Tests
-        run: pnpm turbo run test --filter='...[HEAD^1]'
+        run: pnpm turbo run test
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
