@@ -477,8 +477,8 @@ importers:
         version: 8.2.0
     devDependencies:
       nypm:
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.6.2
+        version: 0.6.2
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -7644,11 +7644,6 @@ packages:
   nwsapi@2.2.20:
     resolution: {integrity: sha512-/ieB+mDe4MrrKMT8z+mQL8klXydZWGR5Dowt4RAGKbJ3kIGEx3X4ljUo+6V73IXtUPWgfOlU5B9MlGxFO5T+cA==}
 
-  nypm@0.6.0:
-    resolution: {integrity: sha512-mn8wBFV9G9+UFHIrq+pZ2r2zL4aPau/by3kJb3cM7+5tQHMt6HGQB8FDIeKFYp8o0D2pnH6nVsO88N4AmUxIWg==}
-    engines: {node: ^14.16.0 || >=16.10.0}
-    hasBin: true
-
   nypm@0.6.2:
     resolution: {integrity: sha512-7eM+hpOtrKrBDCh7Ypu2lJ9Z7PNZBdi/8AT3AX8xoCj43BBVHD0hPSTEvMtkMpfs8FCqBGhxB+uToIQimA111g==}
     engines: {node: ^14.16.0 || >=16.10.0}
@@ -8984,9 +8979,6 @@ packages:
   tinybench@3.1.0:
     resolution: {integrity: sha512-Km+oMh2xqNCxuyoUsqbRmHgFSd8sATh7v7xreP+kHN6x67w28Pawr83WmBxcaORvxkc0Ex6zgqK951yBnTFaaQ==}
     engines: {node: '>=18.0.0'}
-
-  tinyexec@0.3.2:
-    resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
   tinyexec@1.0.1:
     resolution: {integrity: sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==}
@@ -17136,14 +17128,6 @@ snapshots:
 
   nwsapi@2.2.20: {}
 
-  nypm@0.6.0:
-    dependencies:
-      citty: 0.1.6
-      consola: 3.4.2
-      pathe: 2.0.3
-      pkg-types: 2.3.0
-      tinyexec: 0.3.2
-
   nypm@0.6.2:
     dependencies:
       citty: 0.1.6
@@ -19029,8 +19013,6 @@ snapshots:
   tinybench@2.9.0: {}
 
   tinybench@3.1.0: {}
-
-  tinyexec@0.3.2: {}
 
   tinyexec@1.0.1: {}
 
