@@ -44,7 +44,7 @@
     "@react-email/text": "workspace:*",
     "@tailwindcss/postcss": "4.1.17",
     "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "7.20.7",
+    "@types/babel__traverse": "7.28.0",
     "@types/css-tree": "2.3.11",
     "@types/fs-extra": "11.0.4",
     "@types/mime-types": "2.1.4",
