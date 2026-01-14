@@ -7,8 +7,6 @@ export const getEnvVariablesForPreviewApp = (
   resendApiKey?: string,
 ) => {
   return {
-    NODE_OPTIONS:
-      '--experimental-vm-modules --disable-warning=ExperimentalWarning',
     EMAILS_DIR_RELATIVE_PATH: relativePathToEmailsDirectory,
     EMAILS_DIR_ABSOLUTE_PATH: path.resolve(cwd, relativePathToEmailsDirectory),
     PREVIEW_SERVER_LOCATION: previewServerLocation,
