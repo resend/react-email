@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata.js';
+import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata';
 
 test('getEmailsDirectoryMetadata on demo emails', async () => {
   const emailsDirectoryPath = path.resolve(
@@ -13,7 +13,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
     emailFilenames: [],
     subDirectories: [
       {
-        absolutePath: `${emailsDirectoryPath}/magic-links`,
+        absolutePath: path.join(emailsDirectoryPath, 'magic-links'),
         directoryName: 'magic-links',
         relativePath: 'magic-links',
         emailFilenames: [
@@ -27,7 +27,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/newsletters`,
+        absolutePath: path.join(emailsDirectoryPath, 'newsletters'),
         directoryName: 'newsletters',
         relativePath: 'newsletters',
         emailFilenames: [
@@ -38,7 +38,7 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/notifications`,
+        absolutePath: path.join(emailsDirectoryPath, 'notifications'),
         directoryName: 'notifications',
         relativePath: 'notifications',
         emailFilenames: [
@@ -50,28 +50,28 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/receipts`,
+        absolutePath: path.join(emailsDirectoryPath, 'receipts'),
         directoryName: 'receipts',
         relativePath: 'receipts',
         emailFilenames: ['apple-receipt', 'nike-receipt'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/reset-password`,
+        absolutePath: path.join(emailsDirectoryPath, 'reset-password'),
         directoryName: 'reset-password',
         relativePath: 'reset-password',
         emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/reviews`,
+        absolutePath: path.join(emailsDirectoryPath, 'reviews'),
         directoryName: 'reviews',
         relativePath: 'reviews',
         emailFilenames: ['airbnb-review', 'amazon-review'],
         subDirectories: [],
       },
       {
-        absolutePath: `${emailsDirectoryPath}/welcome`,
+        absolutePath: path.join(emailsDirectoryPath, 'welcome'),
         directoryName: 'welcome',
         relativePath: 'welcome',
         emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],

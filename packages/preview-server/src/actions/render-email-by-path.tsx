@@ -1,6 +1,5 @@
 'use server';
 
-import { log } from 'node:console';
 import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
@@ -99,14 +98,13 @@ export const renderEmailByPath = async (
     return cache.get(emailPath)!;
   }
 
-  logBufferer.buffer();
-  errorBufferer.buffer();
-  infoBufferer.buffer();
-  warnBufferer.buffer();
-
   const emailFilename = path.basename(emailPath);
   let spinner: Ora | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
+    logBufferer.buffer();
+    errorBufferer.buffer();
+    infoBufferer.buffer();
+    warnBufferer.buffer();
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
@@ -115,7 +113,6 @@ export const renderEmailByPath = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const timeBeforeEmailBundled = performance.now();
   const originalJsxRuntimePath = path.resolve(
     previewServerLocation,
     'jsx-runtime',
@@ -124,6 +121,8 @@ export const renderEmailByPath = async (
     userProjectLocation,
     originalJsxRuntimePath,
   );
+
+  const timeBeforeEmailBundled = performance.now();
   const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 

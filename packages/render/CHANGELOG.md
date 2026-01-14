@@ -1,5 +1,18 @@
 # @react-email/render
 
+## 2.0.2
+
+### Patch Changes
+
+- 159f6e4: fix custom selectors overwriting the ones we defined
+- 12ff166: fix pipeable stream errors not being handled
+
+## 2.0.2-canary.0
+
+### Patch Changes
+
+- 159f6e4: fix custom selectors overwriting the ones we defined
+
 ## 2.0.1
 
 ### Patch Changes

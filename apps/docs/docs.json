@@ -47,6 +47,16 @@
             ]
           },
           {
+            "group": "Guides",
+            "pages": [
+              {
+                "group": "Internationalization",
+                "icon": "earth-americas",
+                "pages": ["guides/internationalization/react-intl"]
+              }
+            ]
+          },
+          {
             "group": "Components",
             "pages": [
               "components/html",

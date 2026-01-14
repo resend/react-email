@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "5.1.1",
+  "version": "5.2.3",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/index.js"
@@ -54,6 +54,8 @@
     "next": "16.0.10",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "shlex": "3.0.0",
+    "tsx": "4.21.0",
     "typescript": "5.8.3"
   }
 }
