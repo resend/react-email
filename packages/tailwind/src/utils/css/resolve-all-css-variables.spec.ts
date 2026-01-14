@@ -86,7 +86,9 @@ describe('resolveAllCSSVariables', () => {
 }
 `);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `"/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */@layer properties;@layer theme,base,components,utilities;@layer theme{:root,:host{--color-red-500: oklch(63.7% 0.237 25.331);--color-blue-400: oklch(70.7% 0.165 254.624);--color-blue-600: oklch(54.6% 0.245 262.881);--color-gray-200: oklch(92.8% 0.006 264.531);--color-black: #000;--color-white: #fff;--spacing: 0.25rem;--text-sm: 0.875rem;--text-sm--line-height: calc(1.25 / 0.875);--radius-md: 0.375rem}}@layer utilities{.mt-8{margin-top:calc(0.25rem*8)}.rounded-md{border-radius:0.375rem}.bg-blue-600{background-color:oklch(54.6%0.245 262.881)}.bg-red-500{background-color:oklch(63.7%0.237 25.331)}.bg-white{background-color:#fff}.p-4{padding:calc(0.25rem*4)}.px-3{padding-inline:calc(0.25rem*3)}.py-2{padding-block:calc(0.25rem*2)}.text-sm{font-size:0.875rem;line-height:calc(1.25/0.875)}.text-\\\\[14px\\\\]{font-size:14px}.leading-\\\\[24px\\\\]{--tw-leading: 24px;line-height:24px}.text-black{color:#000}.text-blue-400{color:oklch(70.7%0.165 254.624)}.text-blue-600{color:oklch(54.6%0.245 262.881)}.text-gray-200{color:oklch(92.8%0.006 264.531)}.no-underline{text-decoration-line:none}}@property --tw-leading{syntax:"*";inherits:false}@layer properties{@supports ((-webkit-hyphens:none) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,::before,::after,::backdrop{--tw-leading: initial}}}"`,
+    );
   });
 
   it('works with simple css variables on a :root', () => {
@@ -98,7 +100,9 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--width: 100px}.box{width:100px}"`,
+    );
   });
 
   it('works for variables across different CSS layers', () => {
@@ -114,7 +118,9 @@ describe('resolveAllCSSVariables', () => {
       }
     }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `"@layer base{:root{--width: 100px}}@layer utilities{.box{width:100px}}"`,
+    );
   });
 
   it('works with multiple variables in the same declaration', () => {
@@ -130,7 +136,9 @@ describe('resolveAllCSSVariables', () => {
     }`);
 
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--top: 101px;--bottom: 102px;--right: 103px;--left: 104px}.box{margin:101px 103px 102px 104px}"`,
+    );
   });
 
   it('keeps variable usages if it cant find their declaration', () => {
@@ -138,7 +146,7 @@ describe('resolveAllCSSVariables', () => {
   width: var(--width);
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(`".box{width:var(--width)}"`);
   });
 
   it('works with variables set in the same rule', () => {
@@ -155,7 +163,9 @@ describe('resolveAllCSSVariables', () => {
 }
 `);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{--width: 200px;width:200px}@media (min-width:1280px){.xl\\\\:bg-green-500{--tw-bg-opacity: 1;background-color:rgb(34 197 94/1)}}"`,
+    );
   });
 
   it('works with a variable set in a layer, and used in another through a media query', () => {
@@ -173,7 +183,9 @@ describe('resolveAllCSSVariables', () => {
   }
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `"@layer theme{:root{--color-blue-300: blue}}@layer utilities{.sm\\\\:bg-blue-300{@media (width>=40rem){background-color:blue}}}"`,
+    );
   });
 
   it('uses fallback values when variable definition is not found', () => {
@@ -183,7 +195,9 @@ describe('resolveAllCSSVariables', () => {
   margin: var(--undefined-margin, 10px 20px);
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".box{width:150px;height:200px;margin:10px 20px}"`,
+    );
   });
 
   it('handles nested var() functions in fallbacks', () => {
@@ -196,7 +210,9 @@ describe('resolveAllCSSVariables', () => {
   height: var(--undefined-height, var(--also-undefined, 250px));
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--fallback-width: 300px}.box{width:300px;height:250px}"`,
+    );
   });
 
   it('handles deeply nested var() functions with complex parentheses', () => {
@@ -216,7 +232,9 @@ describe('resolveAllCSSVariables', () => {
   background: var(--bg-color, rgb(var(--r, 255), var(--g, 0), var(--b, 0)));
 }`);
     resolveAllCssVariables(root);
-    expect(generate(root)).toMatchSnapshot();
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--primary: blue;--secondary: red;--fallback: green;--size: 20px}.box{color:blue;width:20px;border:1px solid black;--r: 100;--b: 10;background:rgb(100,0,10)}"`,
+    );
   });
 
   it('handles selectors with asterisks in attribute selectors and pseudo-functions', () => {
