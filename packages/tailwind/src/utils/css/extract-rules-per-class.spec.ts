@@ -19,8 +19,13 @@ describe('extractRulesPerClass()', async () => {
       classes,
     );
 
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
+        "text-center": ".text-center{text-align:center}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot('{}');
   });
 
   it('handles non-inlinable utilities', async () => {
@@ -35,8 +40,12 @@ describe('extractRulesPerClass()', async () => {
       classes,
     );
 
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot('{}');
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",
+      }
+    `);
   });
 
   it('handles a mix of inlinable and non-inlinable utilities', async () => {
@@ -55,7 +64,17 @@ describe('extractRulesPerClass()', async () => {
       stylesheet,
       classes,
     );
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
+        "text-center": ".text-center{text-align:center}",
+        "w-full": ".w-full{width:100%}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",
+      }
+    `);
   });
 });
