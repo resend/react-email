@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.5
+
+### Patch Changes
+
+- 81aea00: revert changes to fix compatibility with alpine
+
 ## 5.2.4
 
 ### Patch Changes
