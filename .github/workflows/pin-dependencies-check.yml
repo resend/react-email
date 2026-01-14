@@ -19,5 +19,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: pnpm setup
+        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Check for pinned dependencies
-        run: npx tsx ./scripts/check-dependency-versions.ts
+        run: pnpm dlx tsx@4.21.0 ./scripts/check-dependency-versions.ts
