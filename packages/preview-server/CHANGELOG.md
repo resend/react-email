@@ -1,5 +1,7 @@
 # @react-email/preview-server
 
+## 5.2.5
+
 ## 5.2.4
 
 ## 5.2.3
