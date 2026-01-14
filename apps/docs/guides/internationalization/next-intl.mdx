@@ -226,7 +226,9 @@ WelcomeEmail.PreviewProps = {
 };
 ```
 
-### 5. Update any email calls
+You can't use other APIs here because the preview server will not have access to the next intl context that you might have defined in your Next.js app.
+
+### 4. Update any email calls
 
 When calling the email template, pass the `locale` prop to the email component.
 
