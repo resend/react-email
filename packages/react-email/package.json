@@ -1,7 +1,7 @@
 {
   "name": "react-email",
   "version": "5.2.5",
-  "description": "A live preview of your emails right in your browser.",
+  "description": "A live preview of your emails right in your browser. ",
   "bin": {
     "email": "./dist/index.js"
   },
