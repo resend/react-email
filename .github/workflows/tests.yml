@@ -16,8 +16,6 @@ jobs:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
       image: node:22
-    env:
-       GIT_CEILING_DIRECTORIES: /github/workspace
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -29,6 +27,7 @@ jobs:
         run: pnpm install --frozen-lockfile --shamefully-hoist --prefer-offline
       - name: Run Build
         run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
           pnpm build --filter=[HEAD^1]
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
@@ -37,6 +36,7 @@ jobs:
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       - name: Run Tests
         run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
           pnpm test --filter=[HEAD^1]
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
