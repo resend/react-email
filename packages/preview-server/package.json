@@ -48,7 +48,7 @@
     "@types/css-tree": "2.3.11",
     "@types/fs-extra": "11.0.4",
     "@types/mime-types": "2.1.4",
-    "@types/node": "22.19.6",
+    "@types/node": "22.19.7",
     "@types/normalize-path": "3.0.2",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
