@@ -15,7 +15,7 @@ jobs:
   tests:
     runs-on: buildjet-4vcpu-ubuntu-2204
     container:
-      image: node-slim:22
+      image: node:22-slim
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
