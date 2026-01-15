@@ -11,17 +11,16 @@ jobs:
     permissions: 
       contents: write
       pull-requests: write
-    container:
-      image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
-      - name: pnpm setup
-        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.6
       - name: Install packages
-        run: pnpm install --frozen-lockfile --shamefully-hoist --prefer-offline
+        run: bun install --frozen-lockfile
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@6da3c88b60ebf09464ada9b06fba5b6f2d34bb94
@@ -30,7 +29,7 @@ jobs:
           dir_names: true
           dir_names_max_depth: 2
       - name: Run Build
-        run: pnpm build --filter='${{ steps.changed_packages.outputs.all_changed_and_modified_files }}'
+        run: bun run build --filter='${{ steps.changed_packages.outputs.all_changed_and_modified_files }}'
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
@@ -38,4 +37,4 @@ jobs:
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm dlx pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
+        run: bun pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
