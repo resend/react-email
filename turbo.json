@@ -8,6 +8,9 @@
     "SPAM_ASSASSIN_HOST",
     "SPAM_ASSASSIN_PORT"
   ],
+  "remoteCache": {
+    "signature": true
+  },
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^postbuild"],
