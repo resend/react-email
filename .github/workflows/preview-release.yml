@@ -13,9 +13,6 @@ jobs:
       pull-requests: write
     container:
       image: node:22
-      credentials:
-        username: ${{ vars.DOCKER_HUB_USERNAME || '' }}
-        password: ${{ secrets.DOCKER_HUB_API_KEY || '' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
