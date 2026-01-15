@@ -54,7 +54,7 @@
     "@types/react-dom": "19.0.4",
     "@types/webpack": "5.28.5",
     "clsx": "2.1.1",
-    "colorjs.io": "0.5.2",
+    "colorjs.io": "0.6.0",
     "cross-env": "^10.1.0",
     "esbuild": "0.25.10",
     "framer-motion": "12.23.22",
