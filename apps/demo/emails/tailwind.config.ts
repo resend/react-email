@@ -88,6 +88,7 @@ export default {
       plaid: 'HelveticaNeue,Helvetica,Arial,sans-serif',
       google:
         '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+      'ai-calendar': ['Space Grotesk', 'sans-serif'],
     },
   },
 } satisfies TailwindConfig;
