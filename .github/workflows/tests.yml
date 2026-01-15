@@ -27,14 +27,16 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --shamefully-hoist --prefer-offline
       - name: Run Build
-        run: pnpm build --filter=[HEAD^1]
+        run: |
+          pnpm build --filter=[HEAD^1]
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       - name: Run Tests
-        run: pnpm test --filter=[HEAD^1]
+        run: |
+          pnpm test --filter=[HEAD^1]
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
