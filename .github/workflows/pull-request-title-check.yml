@@ -12,6 +12,9 @@ jobs:
     runs-on: buildjet-2vcpu-ubuntu-2204
     container:
       image: node:22-slim
+      credentials:
+        username: ${{ vars.DOCKER_HUB_USERNAME || '' }}
+        password: ${{ secrets.DOCKER_HUB_API_KEY || '' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

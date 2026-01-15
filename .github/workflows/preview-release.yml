@@ -13,15 +13,18 @@ jobs:
       pull-requests: write
     container:
       image: node:22
+      credentials:
+        username: ${{ vars.DOCKER_HUB_USERNAME || '' }}
+        password: ${{ secrets.DOCKER_HUB_API_KEY || '' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
-        run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
+        run: pnpm install --frozen-lockfile --no-optional --shamefully-hoist --prefer-offline
       - name: Run Build
-        run: pnpm turbo run build --filter='./packages/*'
+        run: pnpm -r --filter='./packages/*' build
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@6da3c88b60ebf09464ada9b06fba5b6f2d34bb94
@@ -29,6 +32,8 @@ jobs:
           files: packages/**
           dir_names: true
           dir_names_max_depth: 2
+      - name: Run Build
+        run: pnpm -r --filter='${{ steps.changed_packages.outputs.all_changed_and_modified_files }}' build
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: pnpm dlx pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}

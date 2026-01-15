@@ -14,26 +14,25 @@ permissions:
 jobs:
   tests:
     runs-on: buildjet-4vcpu-ubuntu-2204
-    outputs:
-      cache-hit: ${{ steps.pnpm-cache.outputs.cache-hit }}
     container:
       image: node:22-slim
+      credentials:
+        username: ${{ vars.DOCKER_HUB_USERNAME || '' }}
+        password: ${{ secrets.DOCKER_HUB_API_KEY || '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
-        run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
+        run: pnpm install --frozen-lockfile --no-optional --shamefully-hoist --prefer-offline
       - name: Run Build
-        run: pnpm turbo run build
-        # We include the environment variables here so that the cache for turborepo
-        # is not invalidated and builds are re-ran
+        run: pnpm -r build
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
       - name: Run Tests
-        run: pnpm turbo run test
+        run: pnpm -r test
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
