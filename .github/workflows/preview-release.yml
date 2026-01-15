@@ -32,7 +32,7 @@ jobs:
       - name: Run Build
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: |
-          FILTERS=$(echo "${{ steps.changed_packages.outputs.all_changed_and_modified_files }}" | sed 's| | ./|g' | sed 's|^|./|')
+          FILTERS=$(echo "${{ steps.changed_packages.outputs.all_changed_and_modified_files }}" | sed 's| |,./|g' | sed 's|^|./|')
           pnpm build --filter="$FILTERS"
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
