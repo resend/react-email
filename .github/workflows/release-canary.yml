@@ -19,15 +19,14 @@ jobs:
         with:
           fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.3.6
+      - name: pnpm setup
+        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
-        run: bun install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
       - name: Enter prerelease mode
         # This step errors if it is already in prerelease mode
         continue-on-error: true
-        run: bun canary:enter
+        run: pnpm canary:enter
       - name: Create "version packages" pull request or publish release
         uses: changesets/action@v1.5.3
         with:
