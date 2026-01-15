@@ -31,7 +31,7 @@
     "react": "^19",
     "react-dom": "^19",
     "resend": "4.3.0",
-    "sonner": "2.0.3",
+    "sonner": "2.0.7",
     "three": "^0.170.0",
     "vaul": "1.1.2"
   },
@@ -48,6 +48,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "0.170.0",
     "autoprefixer": "10.4.23",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
