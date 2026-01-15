@@ -1,5 +1,6 @@
 import { extend } from '@react-three/fiber';
 import * as THREE from 'three';
+import type { WebGLProgramParametersWithUniforms } from 'three/src/renderers/webgl/WebGLPrograms.js';
 
 interface MeshBannerMaterialParameters
   extends THREE.MeshBasicMaterialParameters {
@@ -15,7 +16,7 @@ export class MeshBannerMaterial extends THREE.MeshBasicMaterial {
     this.backfaceRepeatX = parameters.backfaceRepeatX ?? 1.0;
   }
 
-  onBeforeCompile = (shader: THREE.Shader) => {
+  onBeforeCompile = (shader: WebGLProgramParametersWithUniforms) => {
     shader.uniforms.repeatX = { value: this.backfaceRepeatX };
     shader.fragmentShader = shader.fragmentShader
       .replace(

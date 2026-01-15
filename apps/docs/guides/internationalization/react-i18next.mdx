@@ -1,0 +1,287 @@
+---
+title: 'react-i18next'
+sidebarTitle: 'react-i18next'
+description: 'Integrating React Email with react-i18next'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+React Email supports [react-i18next](https://react.i18next.com) for internationalization.
+
+This guide shows how to convert an English React Email template to support multiple locales.
+
+## Prerequisites
+
+To get the most out of this guide, you’ll need to:
+
+- [Set up React Email](/getting-started/automatic-setup)
+- [Install react-i18next](https://react.i18next.com/getting-started)
+
+<CodeGroup>
+  ```bash npm
+  npm i -S react-i18next i18next i18next-resources-to-backend
+  ```
+
+  ```bash bun
+  bun add react-i18next i18next i18next-resources-to-backend
+  ```
+
+  ```bash yarn
+  yarn add react-i18next i18next i18next-resources-to-backend
+  ```
+
+  ```bash pnpm
+  pnpm add react-i18next i18next i18next-resources-to-backend
+  ```
+</CodeGroup>
+
+
+This guide will use the following email template as a base.
+
+```jsx emails/welcome.jsx
+export default function WelcomeEmail({ name }) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Welcome to Acme</Preview>
+      <Tailwind>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5">
+            <Section className="bg-white rounded-lg p-8">
+              <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
+                Welcome to Acme
+              </Heading>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+                Hi {name}
+              </Text>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+                Thanks for signing up! We're excited to have you on board.
+              </Text>
+              <Button
+                href="https://example.com/dashboard"
+                className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
+              >
+                Get Started
+              </Button>
+              <Hr className="border-gray-200 my-6" />
+              <Text className="text-sm text-gray-400 m-0">
+                If you have any questions, reply to this email. We're here to help!
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+
+WelcomeEmail.PreviewProps = {
+  name: 'John Lennon',
+};
+```
+
+## Internationalization with react-i18next
+
+react-i18next is a library for internationalization and localization that provides a way to format messages in different languages.
+
+### 1. Create messages for each locale
+
+For each locale, create a new JSON file containing the content of the email in that locale.
+
+<CodeGroup>
+
+```json messages/en/welcome-email.json
+{
+  "header": "Welcome to Acme",
+  "hi": "Hi",
+  "thanks": "Thanks for signing up! We're excited to have you on board.",
+  "get-started": "Get Started",
+  "questions": "If you have any questions, reply to this email. We're here to help!"
+}
+```
+
+```json messages/es/welcome-email.json
+{
+  "header": "Bienvenido a Acme",
+  "hi": "Hola",
+  "thanks": "Gracias por registrarte! Estamos emocionados de tenerte en la plataforma.",
+  "get-started": "Comenzar",
+  "questions": "Si tienes alguna pregunta, responde a este correo electrónico. Estamos aquí para ayudarte!"
+}
+```
+
+```json messages/pt/welcome-email.json
+{
+  "header": "Bem-vindo ao Acme",
+  "hi": "Olá",
+  "thanks": "Obrigado por se inscrever! Estamos ansiosos para te receber na plataforma.",
+  "get-started": "Começar",
+  "questions": "Se você tiver alguma dúvida, responda a este e-mail. Estamos aqui para ajudar!"
+}
+```
+
+</CodeGroup>
+
+
+### 2. Update the email props
+
+Add the `locale` prop to the email template, interface, and test data.
+
+```jsx emails/welcome.jsx 
+// [!code --]
+export default function WelcomeEmail({ name }) {
+// [!code ++]
+export default function WelcomeEmail({ name, locale }) {
+  return (
+   ...
+  );
+}
+
+WelcomeEmail.PreviewProps = {
+  name: 'John Lennon',
+// [!code ++]
+  locale: 'en',
+};
+```
+
+### 3. Setting up helpers
+
+If you don't already, go ahead and create a `getT` helper meant for getting translations on the server:
+
+```js get-t.js expandable
+import { i18next } from './i18n';
+
+export async function getT(namespace, locale) {
+  if (locale && i18next.resolvedLanguage !== locale) {
+    await i18next.changeLanguage(locale)
+  }
+  if (namespace && !i18next.hasLoadedNamespace(namespace)) {
+    await i18next.loadNamespaces(namespace)
+  }
+  return {
+    t: i18next.getFixedT(
+      locale ?? i18next.resolvedLanguage,
+      Array.isArray(namespace) ? namespace[0] : namespace,
+    ),
+    i18n: i18next
+  }
+}
+```
+
+Where `./i18n` is where you would have setup your i18next, for example:
+
+```js i18n.js expandable
+import i18next, { loadNamespaces } from 'i18next';
+import resourcesToBackend from 'i18next-resources-to-backend';
+import { initReactI18next } from 'react-i18next';
+
+i18next
+  .use(initReactI18next)
+  .use(resourcesToBackend((language, namespace) => import(`messages/${language}/${namespace}.json`)))
+  .init({
+    supportedLngs: ['en', 'es', 'pt'],
+    fallbackLng: 'en',
+    lng: undefined,
+    detection: {
+      order: ['path', 'htmlTag', 'cookie', 'navigator']
+    },
+    preload: typeof window === 'undefined' ? ['en', 'es', 'pt'] : [],
+  });
+
+export { i18next };
+```
+
+### 4. Update the email template
+
+In the email template, remove the hardcoded content and use `getT`'s `t` to format the email message strings.
+
+```jsx emails/welcome.jsx
+// [!code ++]
+import { getT } from '../get-t';
+
+export default async function WelcomeEmail({ name, locale }) {
+// [!code ++]
+  const { t } = await getT('welcome-email', locale);
+
+  return (
+    <Html>
+      <Head />
+// [!code --]
+      <Preview>Welcome to Acme</Preview>
+// [!code ++]
+      <Preview>{t('header')}</Preview>
+      <Tailwind>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5">
+            <Section className="bg-white rounded-lg p-8">
+              <Heading className="text-2xl font-bold text-gray-900 m-0 mb-6">
+// [!code --]
+                Welcome to Acme
+// [!code ++]
+                {t('header')}
+              </Heading>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+// [!code --]
+                Hi {name}
+// [!code ++]
+                {t('hi')} {name}
+              </Text>
+              <Text className="text-base leading-6 text-gray-600 m-0 mb-4">
+// [!code --]
+                Thanks for signing up! We're excited to have you on board.
+// [!code ++]
+                {t('thanks')}
+              </Text>
+              <Button
+                href="https://example.com/dashboard"
+                className="bg-indigo-600 rounded-md text-white text-base font-semibold no-underline text-center block py-3 px-6 my-6"
+              >
+// [!code --]
+                Get Started
+// [!code ++]
+                {t('get-started')}
+              </Button>
+              <Hr className="border-gray-200 my-6" />
+              <Text className="text-sm text-gray-400 m-0">
+// [!code --]
+                If you have any questions, reply to this email. We're here to help!
+// [!code ++]
+                {t('questions')}
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+
+WelcomeEmail.PreviewProps = {
+  name: 'John Lennon',
+  locale: 'en',
+};
+```
+
+### 5. Update any email calls
+
+When calling the email template, pass the `locale` prop to the email component.
+
+## Try it yourself
+
+<CardGroup>
+  <Card
+    title="React Email with react-i18next example"
+    icon='arrow-up-right-from-square'
+    iconType="duotone"
+    href="https://github.com/resend/react-email-react-i18next-example"
+  >
+    See the full source code.
+  </Card>
+  <Card
+    title="Resend with react-i18next example"
+    icon='arrow-up-right-from-square'
+    iconType="duotone"
+    href="https://github.com/resend/resend-react-i18next-example"
+  >
+    See the full source code.
+  </Card>
+</CardGroup>
