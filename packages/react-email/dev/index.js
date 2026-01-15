@@ -9,7 +9,7 @@ const dirname = path.dirname(filename);
 const root = path.resolve(dirname, '../src/index.ts');
 
 const tsx = child_process.spawn(
-  `bun run ${root} ${join(process.argv.slice(2))}`,
+  `pnpm tsx ${root} ${join(process.argv.slice(2))}`,
   {
     cwd: process.cwd(),
     shell: true,
