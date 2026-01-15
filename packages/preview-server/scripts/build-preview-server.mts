@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const nextBuildProcess = spawn('pnpm next build', {
+const nextBuildProcess = spawn('bun next build', {
   detached: true,
   shell: true,
   stdio: 'inherit',
