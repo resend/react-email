@@ -23,8 +23,6 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --shamefully-hoist --prefer-offline
-      - name: Run Build
-        run: pnpm -r --filter='./packages/*' build
       - name: Find changed packages
         id: changed_packages
         uses: tj-actions/changed-files@6da3c88b60ebf09464ada9b06fba5b6f2d34bb94
@@ -33,7 +31,7 @@ jobs:
           dir_names: true
           dir_names_max_depth: 2
       - name: Run Build
-        run: pnpm -r --filter='${{ steps.changed_packages.outputs.all_changed_and_modified_files }}' build
+        run: pnpm build --filter='${{ steps.changed_packages.outputs.all_changed_and_modified_files }}'
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: pnpm dlx pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
