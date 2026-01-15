@@ -1,11 +1,12 @@
 import { extend } from '@react-three/fiber';
 import * as THREE from 'three';
+import type { WebGLProgramParametersWithUniforms } from 'three/src/renderers/webgl/WebGLPrograms.js';
 
 export class MeshImageMaterial extends THREE.MeshBasicMaterial {
   constructor(parameters: THREE.MeshBasicMaterialParameters = {}) {
     super(parameters);
   }
-  onBeforeCompile = (shader: THREE.Shader) => {
+  onBeforeCompile = (shader: WebGLProgramParametersWithUniforms) => {
     shader.fragmentShader = shader.fragmentShader.replace(
       '#include <color_fragment>',
       /* glsl */ `#include <color_fragment>
@@ -23,9 +24,6 @@ extend({ MeshImageMaterial });
 // Extend ThreeElements to include our custom material
 declare module '@react-three/fiber' {
   interface ThreeElements {
-    meshImageMaterial: THREE.Object3DNode<
-      MeshImageMaterial,
-      typeof MeshImageMaterial
-    >;
+    meshImageMaterial: Partial<THREE.MeshBasicMaterialParameters>;
   }
 }
