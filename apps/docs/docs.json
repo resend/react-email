@@ -53,8 +53,9 @@
                 "group": "Internationalization",
                 "icon": "earth-americas",
                 "pages": [
-                  "guides/internationalization/react-intl",
-                  "guides/internationalization/react-i18next"
+                  "guides/internationalization/next-intl",
+                  "guides/internationalization/react-i18next",
+                  "guides/internationalization/react-intl"
                 ]
               }
             ]

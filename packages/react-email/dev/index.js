@@ -13,6 +13,10 @@ const tsx = child_process.spawn(
   {
     cwd: process.cwd(),
     shell: true,
+    env: {
+      ...process.env,
+      NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
+    },
     stdio: 'inherit',
   },
 );
