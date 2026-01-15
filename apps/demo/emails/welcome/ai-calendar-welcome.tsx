@@ -14,7 +14,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarWelcomeEmailProps {
+interface AiCalendarWelcomeEmailProps {
   userFirstName?: string;
 }
 
@@ -22,9 +22,9 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const AICalendarWelcomeEmail = ({
-  userFirstName,
-}: AICalendarWelcomeEmailProps) => (
+export const AiCalendarWelcomeEmail = ({
+  userFirstName = 'there',
+}: AiCalendarWelcomeEmailProps) => (
   <Html>
     <Head />
     <Tailwind config={tailwindConfig}>
@@ -101,8 +101,8 @@ export const AICalendarWelcomeEmail = ({
   </Html>
 );
 
-AICalendarWelcomeEmail.PreviewProps = {
+AiCalendarWelcomeEmail.PreviewProps = {
   userFirstName: 'Alex',
-} as AICalendarWelcomeEmailProps;
+} as AiCalendarWelcomeEmailProps;
 
-export default AICalendarWelcomeEmail;
+export default AiCalendarWelcomeEmail;

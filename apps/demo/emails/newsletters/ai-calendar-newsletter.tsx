@@ -16,7 +16,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarNewsletterEmailProps {
+interface AiCalendarNewsletterEmailProps {
   features?: { id: number; title: string; description: string }[];
 }
 
@@ -24,7 +24,7 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-const PropDefaults: AICalendarNewsletterEmailProps = {
+const PropDefaults: AiCalendarNewsletterEmailProps = {
   features: [
     {
       id: 1,
@@ -47,9 +47,9 @@ const PropDefaults: AICalendarNewsletterEmailProps = {
   ],
 };
 
-export const AICalendarNewsletterEmail = ({
-  features = [],
-}: AICalendarNewsletterEmailProps) => (
+export const AiCalendarNewsletterEmail = ({
+  features = PropDefaults.features,
+}: AiCalendarNewsletterEmailProps) => (
   <Html>
     <Head />
     <Tailwind config={tailwindConfig}>
@@ -100,7 +100,7 @@ export const AICalendarNewsletterEmail = ({
 
             <Hr className="my-[30px] border-[#e5e5e5]" />
 
-            {features.map((feature) => (
+            {features?.map((feature) => (
               <Section key={feature.id} className="mb-6">
                 <Heading
                   as="h3"
@@ -190,8 +190,8 @@ export const AICalendarNewsletterEmail = ({
   </Html>
 );
 
-AICalendarNewsletterEmail.PreviewProps = {
+AiCalendarNewsletterEmail.PreviewProps = {
   features: PropDefaults.features,
-} as AICalendarNewsletterEmailProps;
+} as AiCalendarNewsletterEmailProps;
 
-export default AICalendarNewsletterEmail;
+export default AiCalendarNewsletterEmail;

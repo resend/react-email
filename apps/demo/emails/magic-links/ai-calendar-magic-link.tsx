@@ -12,7 +12,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarMagicLinkEmailProps {
+interface AiCalendarMagicLinkEmailProps {
   loginCode?: string;
 }
 
@@ -20,9 +20,9 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const AICalendarMagicLinkEmail = ({
-  loginCode,
-}: AICalendarMagicLinkEmailProps) => (
+export const AiCalendarMagicLinkEmail = ({
+  loginCode = '000000',
+}: AiCalendarMagicLinkEmailProps) => (
   <Html>
     <Head />
     <Tailwind config={tailwindConfig}>
@@ -83,8 +83,8 @@ export const AICalendarMagicLinkEmail = ({
   </Html>
 );
 
-AICalendarMagicLinkEmail.PreviewProps = {
+AiCalendarMagicLinkEmail.PreviewProps = {
   loginCode: '847293',
-} as AICalendarMagicLinkEmailProps;
+} as AiCalendarMagicLinkEmailProps;
 
-export default AICalendarMagicLinkEmail;
+export default AiCalendarMagicLinkEmail;

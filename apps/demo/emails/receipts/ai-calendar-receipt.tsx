@@ -15,7 +15,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarReceiptEmailProps {
+interface AiCalendarReceiptEmailProps {
   userFirstName?: string;
   invoiceNumber?: string;
   invoiceDate?: string;
@@ -29,15 +29,15 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const AICalendarReceiptEmail = ({
-  userFirstName,
-  invoiceNumber,
-  invoiceDate,
-  planName,
-  planPrice,
-  billingPeriod,
-  paymentMethod,
-}: AICalendarReceiptEmailProps) => {
+export const AiCalendarReceiptEmail = ({
+  userFirstName = 'there',
+  invoiceNumber = 'INV-000000',
+  invoiceDate = 'January 1, 2025',
+  planName = 'Pro Plan',
+  planPrice = '$0.00',
+  billingPeriod = 'Monthly',
+  paymentMethod = 'Card ending in ****',
+}: AiCalendarReceiptEmailProps) => {
   return (
     <Html>
       <Head />
@@ -190,7 +190,7 @@ export const AICalendarReceiptEmail = ({
   );
 };
 
-AICalendarReceiptEmail.PreviewProps = {
+AiCalendarReceiptEmail.PreviewProps = {
   userFirstName: 'Alex',
   invoiceNumber: 'INV-2025-001234',
   invoiceDate: 'January 16, 2025',
@@ -198,6 +198,6 @@ AICalendarReceiptEmail.PreviewProps = {
   planPrice: '$12.00',
   billingPeriod: 'Jan 16, 2025 - Feb 16, 2025',
   paymentMethod: 'Visa •••• 4242',
-} as AICalendarReceiptEmailProps;
+} as AiCalendarReceiptEmailProps;
 
-export default AICalendarReceiptEmail;
+export default AiCalendarReceiptEmail;

@@ -14,7 +14,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarNotificationEmailProps {
+interface AiCalendarNotificationEmailProps {
   userFirstName?: string;
   eventTitle?: string;
   eventTime?: string;
@@ -26,13 +26,13 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const AICalendarNotificationEmail = ({
-  userFirstName,
-  eventTitle,
-  eventTime,
-  eventDate,
+export const AiCalendarNotificationEmail = ({
+  userFirstName = 'there',
+  eventTitle = 'Upcoming Event',
+  eventTime = '10:00 AM',
+  eventDate = 'Today',
   notificationType = 'reminder',
-}: AICalendarNotificationEmailProps) => {
+}: AiCalendarNotificationEmailProps) => {
   const getNotificationMessage = () => {
     switch (notificationType) {
       case 'reminder':
@@ -127,12 +127,12 @@ export const AICalendarNotificationEmail = ({
   );
 };
 
-AICalendarNotificationEmail.PreviewProps = {
+AiCalendarNotificationEmail.PreviewProps = {
   userFirstName: 'Alex',
   eventTitle: 'Team Standup Meeting',
   eventTime: '10:00 AM',
   eventDate: 'Monday, January 20, 2025',
   notificationType: 'reminder',
-} as AICalendarNotificationEmailProps;
+} as AiCalendarNotificationEmailProps;
 
-export default AICalendarNotificationEmail;
+export default AiCalendarNotificationEmail;

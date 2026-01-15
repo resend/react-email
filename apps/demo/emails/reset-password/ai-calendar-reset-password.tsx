@@ -13,7 +13,7 @@ import {
 } from '@react-email/components';
 import tailwindConfig from '../tailwind.config';
 
-interface AICalendarResetPasswordEmailProps {
+interface AiCalendarResetPasswordEmailProps {
   userFirstName?: string;
   resetPasswordLink?: string;
 }
@@ -22,10 +22,10 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const AICalendarResetPasswordEmail = ({
-  userFirstName,
-  resetPasswordLink,
-}: AICalendarResetPasswordEmailProps) => {
+export const AiCalendarResetPasswordEmail = ({
+  userFirstName = 'there',
+  resetPasswordLink = 'https://aicalendar.app/reset-password',
+}: AiCalendarResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
@@ -86,9 +86,9 @@ export const AICalendarResetPasswordEmail = ({
   );
 };
 
-AICalendarResetPasswordEmail.PreviewProps = {
+AiCalendarResetPasswordEmail.PreviewProps = {
   userFirstName: 'Alex',
   resetPasswordLink: 'https://aicalendar.app/reset-password?token=abc123',
-} as AICalendarResetPasswordEmailProps;
+} as AiCalendarResetPasswordEmailProps;
 
-export default AICalendarResetPasswordEmail;
+export default AiCalendarResetPasswordEmail;
