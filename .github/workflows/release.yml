@@ -21,7 +21,7 @@ jobs:
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
-        run: pnpm install --frozen-lockfile --ignore-scripts --no-optional --shamefully-hoist --prefer-offline
+        run: pnpm install --frozen-lockfile --prefer-offline
       - name: Exit prerelease mode
         # This step errors if it is not in prerelease mode
         continue-on-error: true
