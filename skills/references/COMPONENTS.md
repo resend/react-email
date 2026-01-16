@@ -22,7 +22,7 @@ import { Html } from '@react-email/components';
 
 ### Head
 
-Contains meta elements, styles, and fonts.
+Contains meta elements, styles, and fonts. If using Tailwind, should be wrapped by `<Tailwind>`.
 
 ```jsx
 import { Head } from '@react-email/components';
@@ -46,12 +46,12 @@ import { Body } from '@react-email/components';
 
 ### Container
 
-Centers email content with max-width constraint.
+Centers email content using a table, and has a max-width constraint of `37.5em`.
 
 ```jsx
 import { Container } from '@react-email/components';
 
-<Container style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+<Container>
   {/* centered content */}
 </Container>
 ```
@@ -88,6 +88,7 @@ import { Row, Column } from '@react-email/components';
 ```
 
 **Column widths:**
+- Always define both the `width` HTML attribute and the `width` style attribute
 - Use percentage widths (e.g., "50%", "33.33%")
 - Or fixed pixel widths (e.g., "200px")
 - Total should add up to 100% or container width
@@ -107,7 +108,7 @@ import { Preview } from '@react-email/components';
 **Best practices:**
 - Keep under 140 characters
 - Make it compelling and action-oriented
-- Place near the top of your email (after `<Head>`)
+- Should always be the first element inside `<Body>`
 
 ### Heading
 
@@ -142,7 +143,7 @@ import { Text } from '@react-email/components';
 
 ### Button
 
-Styled link that looks like a button.
+Styled link that looks like a button. Has work around for padding issues in Outlook.
 
 ```jsx
 import { Button } from '@react-email/components';
@@ -249,7 +250,7 @@ console.log(greeting);`}
 **Props:**
 - `code` (required) - Code string to display
 - `language` (required) - Programming language (e.g., "javascript", "python", "typescript")
-- `theme` - Prism theme (dracula, github, etc.)
+- `theme` - (required) Prism theme (dracula, github, etc.)
 - `lineNumbers` - Boolean to show line numbers
 
 **Available themes:**
@@ -266,9 +267,6 @@ import { CodeInline } from '@react-email/components';
   Run <CodeInline>npm install</CodeInline> to get started.
 </Text>
 ```
-
-**Default styling:**
-Provides monospace font with subtle background.
 
 ### Markdown
 
@@ -348,10 +346,11 @@ import { Font } from '@react-email/components';
 Use Tailwind CSS utility classes.
 
 ```jsx
-import { Tailwind } from '@react-email/components';
+import { Tailwind, pixelBasedPreset } from '@react-email/components';
 
 <Tailwind
   config={{
+    presets: [pixelBasedPreset],
     theme: {
       extend: {
         colors: {
@@ -389,7 +388,7 @@ import { Tailwind } from '@react-email/components';
 - RGB color syntax is normalized for email client compatibility
 
 **Best practices:**
+- Use with care as it can increase render times and bundle size significantly
 - Wrap your entire email content in `<Tailwind>`
 - Custom config is optional - defaults work well
-- All Tailwind utilities are supported
-- Responsive classes (sm:, md:, lg:) work via media queries
+- Responsive classes (sm:, md:, lg:) work via media queries, but should be used with caution due to limited email client support 

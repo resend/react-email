@@ -19,12 +19,6 @@ Install React Email components:
 npm install @react-email/components -E
 ```
 
-For rendering to HTML:
-
-```bash
-npm install @react-email/render -E
-```
-
 ## Basic Email Template
 
 Create an email component with proper structure:
@@ -83,7 +77,9 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
 WelcomeEmail.PreviewProps = {
   name: 'John Doe',
   verificationUrl: 'https://example.com/verify/abc123'
-} as WelcomeEmailProps;
+} satisfies WelcomeEmailProps;
+
+export { WelcomeEmail };
 ```
 
 ## Essential Components
@@ -99,7 +95,7 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Row` & `Column` - Multi-column layouts
 
 **Content:**
-- `Preview` - Inbox preview text
+- `Preview` - Inbox preview text, always first in `Body`
 - `Heading` - h1-h6 headings
 - `Text` - Paragraphs
 - `Button` - Styled link buttons
@@ -119,8 +115,8 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 ### Convert to HTML
 
 ```tsx
-import { render } from '@react-email/render';
-import WelcomeEmail from './emails/welcome';
+import { render } from '@react-email/components';
+import { WelcomeEmail } from './emails/welcome';
 
 const html = await render(
   <WelcomeEmail name="John" verificationUrl="https://example.com/verify" />
@@ -134,8 +130,8 @@ const html = await render(
 When you have access to the Resend MCP tool:
 
 ```typescript
-import { render } from '@react-email/render';
-import WelcomeEmail from './emails/welcome';
+import { render } from '@react-email/components';
+import { WelcomeEmail } from './emails/welcome';
 
 // Render to HTML
 const html = await render(
@@ -158,7 +154,7 @@ The most convenient method - pass React components directly:
 
 ```tsx
 import { Resend } from 'resend';
-import WelcomeEmail from './emails/welcome';
+import { WelcomeEmail } from './emails/welcome';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -174,40 +170,14 @@ if (error) {
 }
 ```
 
-**Method 3: Resend Templates**
-
-For reusable templates stored in Resend:
-
-```tsx
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-await resend.emails.send({
-  from: 'Acme <onboarding@resend.dev>',
-  to: ['user@example.com'],
-  template: {
-    id: 'welcome-email',
-    variables: {
-      NAME: 'John',
-      VERIFY_URL: 'https://example.com/verify/abc123'
-    }
-  }
-});
-```
-
-Template variable best practices:
-- Use UPPERCASE names (e.g., `USER_NAME`, `PRODUCT_PRICE`)
-- Max 50 variables per template
-- Types: `string` or `number`
-- Reserved: `FIRST_NAME`, `LAST_NAME`, `EMAIL`, `RESEND_UNSUBSCRIBE_URL`, `contact`, `this`
+This handles the plain-text rendering and HTML rendering for you.
 
 ### Send with Other Providers
 
 **Nodemailer:**
 
 ```tsx
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -216,7 +186,7 @@ const transporter = nodemailer.createTransport({
   auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
 });
 
-const html = await render(<WelcomeEmail name="John" verificationUrl="..." />);
+const html = await render(<WelcomeEmail name="John" verificationUrl="https://example.com/verify" />);
 
 await transporter.sendMail({
   from: 'noreply@example.com',
@@ -229,12 +199,12 @@ await transporter.sendMail({
 **SendGrid:**
 
 ```tsx
-import { render } from '@react-email/render';
+import { render } from '@react-email/components';
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const html = await render(<WelcomeEmail name="John" verificationUrl="..." />);
+const html = await render(<WelcomeEmail name="John" verificationUrl="https://example.com/verify" />);
 
 await sgMail.send({
   to: 'user@example.com',
@@ -296,9 +266,9 @@ Message files (`messages/en.json`, `messages/es.json`, etc.):
 
 ## Email Best Practices
 
-1. **Always use inline styles** - Email clients have poor CSS class support. Use the `style` prop on all components.
+1. **Always use inline styles** - Email clients have poor CSS class support. Use the `style` prop on all components. The `Tailwind` component automatically inlines styles.
 
-2. **Test across email clients** - Test in Gmail, Outlook, Apple Mail, Yahoo Mail. Use services like Litmus or Email on Acid.
+2. **Test across email clients** - Test in Gmail, Outlook, Apple Mail, Yahoo Mail. Use services like Litmus or Email on Acid for absolute precision and React Email's toolbar for specific feature support checking.
 
 3. **Keep it responsive** - Max-width around 600px, test on mobile devices.
 
