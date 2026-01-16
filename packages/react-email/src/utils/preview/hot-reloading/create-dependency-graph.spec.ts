@@ -5,7 +5,10 @@ import {
   type DependencyGraph,
 } from './create-dependency-graph.js';
 
-const testingDiretctory = path.join(__dirname, './test/dependency-graph/inner');
+const testingDiretctory = path.join(
+  import.meta.dirname,
+  './test/dependency-graph/inner',
+);
 
 const pathToTemporaryFile = path.join(
   testingDiretctory,
@@ -58,6 +61,14 @@ describe('createDependencyGraph()', async () => {
     );
     expect(relativePathDependencyGraph).toMatchInlineSnapshot(`
       {
+        "../../some-file.ts": {
+          "dependencyPaths": [],
+          "dependentPaths": [
+            "path-aliases.ts",
+          ],
+          "moduleDependencies": [],
+          "path": "../../some-file.ts",
+        },
         "../outer.ts": {
           "dependencyPaths": [
             "outer-dependency.ts",
@@ -119,6 +130,14 @@ describe('createDependencyGraph()', async () => {
           ],
           "moduleDependencies": [],
           "path": "outer-dependency.ts",
+        },
+        "path-aliases.ts": {
+          "dependencyPaths": [
+            "../../some-file.ts",
+          ],
+          "dependentPaths": [],
+          "moduleDependencies": [],
+          "path": "path-aliases.ts",
         },
       }
     `);
