@@ -9,7 +9,7 @@ react-email/
 ├── SKILL.md                  # Main skill instructions
 └── references/
     ├── COMPONENTS.md         # Complete component reference
-    ├── I18N.md              # Internationalization guide  
+    ├── I18N.md              # Internationalization guide
     └── PATTERNS.md          # Common email patterns and examples
 ```
 
@@ -41,6 +41,6 @@ Agents load only what they need for each task.
 
 ## Learn More
 
-- [React Email Documentation](https://react.email)
+- [React Email Documentation](https://react.email/docs/llms.txt)
 - [Agent Skills Specification](https://agentskills.io/specification.md)
-- [Resend Documentation](https://resend.com/docs)
+- [Resend Documentation](https://resend.com/docs/llms.txt)

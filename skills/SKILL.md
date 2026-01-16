@@ -53,10 +53,10 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
           <Text style={{ fontSize: '16px', color: '#333' }}>
             Hi {name}, thanks for signing up!
           </Text>
-          <Button 
+          <Button
             href={verificationUrl}
-            style={{ 
-              backgroundColor: '#007bff', 
+            style={{
+              backgroundColor: '#007bff',
               color: '#fff',
               padding: '12px 20px',
               borderRadius: '4px',
