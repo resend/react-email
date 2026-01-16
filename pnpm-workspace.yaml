@@ -5,8 +5,6 @@ packages:
   - packages/react-email/dev
   - playground
 
-autoInstallPeers: true
-
 minimumReleaseAge: 1440 # 24 hours
 
 # This creates a lockfile for every git branch
