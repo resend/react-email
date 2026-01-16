@@ -6,3 +6,5 @@ packages:
   - playground
 
 autoInstallPeers: true
+
+minimumReleaseAge: 1440 # 24 hours
