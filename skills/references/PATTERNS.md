@@ -1,11 +1,23 @@
 # Common Email Patterns
 
-Real-world examples of common email templates using React Email.
+Real-world examples of common email templates using React Email with Tailwind CSS styling.
 
 ## Password Reset Email
 
 ```tsx
-import { Html, Head, Preview, Body, Container, Heading, Text, Button, Hr } from '@react-email/components';
+import {
+  Html,
+  Head,
+  Preview,
+  Body,
+  Container,
+  Heading,
+  Text,
+  Button,
+  Hr,
+  Tailwind,
+  pixelBasedPreset
+} from '@react-email/components';
 
 interface PasswordResetProps {
   resetUrl: string;
@@ -16,29 +28,36 @@ interface PasswordResetProps {
 export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: PasswordResetProps) {
   return (
     <Html lang="en">
-      <Head />
-      <Preview>Reset your password - Action required</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Heading style={h1}>Reset Your Password</Heading>
-          <Text style={text}>
-            A password reset was requested for your account: <strong>{email}</strong>
-          </Text>
-          <Text style={text}>
-            Click the button below to reset your password. This link expires in {expiryHours} hour{expiryHours > 1 ? 's' : ''}.
-          </Text>
-          <Button href={resetUrl} style={button}>
-            Reset Password
-          </Button>
-          <Hr style={hr} />
-          <Text style={footer}>
-            If you didn't request this, please ignore this email. Your password will remain unchanged.
-          </Text>
-          <Text style={footer}>
-            For security, this link will only work once.
-          </Text>
-        </Container>
-      </Body>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Head />
+        <Preview>Reset your password - Action required</Preview>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
+            <Heading className="text-2xl font-bold text-gray-800 mb-5">
+              Reset Your Password
+            </Heading>
+            <Text className="text-base leading-7 text-gray-800 my-4">
+              A password reset was requested for your account: <strong>{email}</strong>
+            </Text>
+            <Text className="text-base leading-7 text-gray-800 my-4">
+              Click the button below to reset your password. This link expires in {expiryHours} hour{expiryHours > 1 ? 's' : ''}.
+            </Text>
+            <Button
+              href={resetUrl}
+              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline"
+            >
+              Reset Password
+            </Button>
+            <Hr className="border-gray-200 my-6" />
+            <Text className="text-sm text-gray-500 leading-5 my-2">
+              If you didn't request this, please ignore this email. Your password will remain unchanged.
+            </Text>
+            <Text className="text-sm text-gray-500 leading-5 my-2">
+              For security, this link will only work once.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 }
@@ -48,32 +67,26 @@ PasswordReset.PreviewProps = {
   email: 'user@example.com',
   expiryHours: 1
 } as PasswordResetProps;
-
-const main = { backgroundColor: '#f6f9fc', fontFamily: 'Arial, sans-serif' };
-const container = { margin: '0 auto', padding: '40px 20px', maxWidth: '560px', backgroundColor: '#ffffff' };
-const h1 = { fontSize: '24px', fontWeight: 'bold', color: '#333', marginBottom: '20px' };
-const text = { fontSize: '16px', lineHeight: '26px', color: '#333', margin: '16px 0' };
-const button = {
-  backgroundColor: '#dc3545',
-  color: '#fff',
-  padding: '14px 28px',
-  borderRadius: '4px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  fontWeight: 'bold',
-  margin: '24px 0'
-};
-const hr = { borderColor: '#e6ebf1', margin: '24px 0' };
-const footer = { fontSize: '14px', color: '#8898aa', lineHeight: '20px', margin: '8px 0' };
 ```
 
 ## Order Confirmation with Product List
 
 ```tsx
-import { 
-  Html, Head, Preview, Body, Container, Section, Row, Column, 
-  Heading, Text, Img, Hr 
+import {
+  Html,
+  Head,
+  Preview,
+  Body,
+  Container,
+  Section,
+  Row,
+  Column,
+  Heading,
+  Text,
+  Img,
+  Hr,
+  Tailwind,
+  pixelBasedPreset
 } from '@react-email/components';
 
 interface Product {
@@ -114,105 +127,113 @@ export default function OrderConfirmation({
 }: OrderConfirmationProps) {
   return (
     <Html lang="en">
-      <Head />
-      <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Heading style={h1}>Order Confirmed</Heading>
-          <Text style={text}>Thank you for your order!</Text>
-          
-          <Section style={infoSection}>
-            <Row>
-              <Column>
-                <Text style={label}>Order Number</Text>
-                <Text style={value}>#{orderNumber}</Text>
-              </Column>
-              <Column>
-                <Text style={label}>Order Date</Text>
-                <Text style={value}>{orderDate.toLocaleDateString()}</Text>
-              </Column>
-            </Row>
-          </Section>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Head />
+        <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5 max-w-xl">
+            <Heading className="text-3xl font-bold text-gray-800 mb-2">
+              Order Confirmed
+            </Heading>
+            <Text className="text-base text-gray-500 mb-6">Thank you for your order!</Text>
 
-          <Hr style={hr} />
-
-          <Heading as="h2" style={h2}>Order Items</Heading>
-          
-          {items.map((item, index) => (
-            <Section key={index} style={productSection}>
+            <Section className="bg-gray-50 p-4 rounded mb-6">
               <Row>
-                <Column style={{ width: '80px', verticalAlign: 'top' }}>
-                  <Img 
-                    src={item.image} 
-                    alt={item.name}
-                    width="80" 
-                    height="80"
-                    style={productImage}
-                  />
+                <Column>
+                  <Text className="text-xs text-gray-500 uppercase mb-1">Order Number</Text>
+                  <Text className="text-base font-bold text-gray-800 m-0">#{orderNumber}</Text>
                 </Column>
-                <Column style={{ verticalAlign: 'top', paddingLeft: '16px' }}>
-                  <Text style={productName}>{item.name}</Text>
-                  {item.sku && <Text style={productSku}>SKU: {item.sku}</Text>}
-                  <Text style={productDetails}>
-                    Quantity: {item.quantity} × ${item.price.toFixed(2)}
-                  </Text>
-                </Column>
-                <Column style={{ width: '100px', textAlign: 'right', verticalAlign: 'top' }}>
-                  <Text style={productPrice}>
-                    ${(item.quantity * item.price).toFixed(2)}
-                  </Text>
+                <Column>
+                  <Text className="text-xs text-gray-500 uppercase mb-1">Order Date</Text>
+                  <Text className="text-base font-bold text-gray-800 m-0">{orderDate.toLocaleDateString()}</Text>
                 </Column>
               </Row>
             </Section>
-          ))}
 
-          <Hr style={hr} />
+            <Hr className="border-gray-200 my-6" />
 
-          <Section style={totalsSection}>
-            <Row>
-              <Column><Text style={totalsLabel}>Subtotal</Text></Column>
-              <Column style={{ textAlign: 'right' }}>
-                <Text style={totalsValue}>${subtotal.toFixed(2)}</Text>
-              </Column>
-            </Row>
-            <Row>
-              <Column><Text style={totalsLabel}>Shipping</Text></Column>
-              <Column style={{ textAlign: 'right' }}>
-                <Text style={totalsValue}>${shipping.toFixed(2)}</Text>
-              </Column>
-            </Row>
-            <Row>
-              <Column><Text style={totalsLabel}>Tax</Text></Column>
-              <Column style={{ textAlign: 'right' }}>
-                <Text style={totalsValue}>${tax.toFixed(2)}</Text>
-              </Column>
-            </Row>
-            <Hr style={thinHr} />
-            <Row>
-              <Column><Text style={totalLabel}>Total</Text></Column>
-              <Column style={{ textAlign: 'right' }}>
-                <Text style={totalValue}>${total.toFixed(2)}</Text>
-              </Column>
-            </Row>
-          </Section>
+            <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
+              Order Items
+            </Heading>
 
-          <Hr style={hr} />
+            {items.map((item, index) => (
+              <Section key={index} className="mb-4">
+                <Row>
+                  <Column className="w-20 align-top">
+                    <Img
+                      src={item.image}
+                      alt={item.name}
+                      width="80"
+                      height="80"
+                      className="rounded border border-gray-200"
+                    />
+                  </Column>
+                  <Column className="align-top pl-4">
+                    <Text className="text-base font-bold text-gray-800 m-0 mb-1">{item.name}</Text>
+                    {item.sku && <Text className="text-sm text-gray-400 m-0 mb-2">SKU: {item.sku}</Text>}
+                    <Text className="text-sm text-gray-500 m-0">
+                      Quantity: {item.quantity} × ${item.price.toFixed(2)}
+                    </Text>
+                  </Column>
+                  <Column className="w-24 text-right align-top">
+                    <Text className="text-base font-bold text-gray-800 m-0">
+                      ${(item.quantity * item.price).toFixed(2)}
+                    </Text>
+                  </Column>
+                </Row>
+              </Section>
+            ))}
 
-          <Heading as="h2" style={h2}>Shipping Address</Heading>
-          <Section style={addressSection}>
-            <Text style={addressText}>{shippingAddress.name}</Text>
-            <Text style={addressText}>{shippingAddress.street}</Text>
-            <Text style={addressText}>
-              {shippingAddress.city}, {shippingAddress.state} {shippingAddress.zip}
+            <Hr className="border-gray-200 my-6" />
+
+            <Section className="mt-6">
+              <Row>
+                <Column><Text className="text-sm text-gray-500 my-2">Subtotal</Text></Column>
+                <Column className="text-right">
+                  <Text className="text-sm text-gray-800 my-2">${subtotal.toFixed(2)}</Text>
+                </Column>
+              </Row>
+              <Row>
+                <Column><Text className="text-sm text-gray-500 my-2">Shipping</Text></Column>
+                <Column className="text-right">
+                  <Text className="text-sm text-gray-800 my-2">${shipping.toFixed(2)}</Text>
+                </Column>
+              </Row>
+              <Row>
+                <Column><Text className="text-sm text-gray-500 my-2">Tax</Text></Column>
+                <Column className="text-right">
+                  <Text className="text-sm text-gray-800 my-2">${tax.toFixed(2)}</Text>
+                </Column>
+              </Row>
+              <Hr className="border-gray-200 my-3" />
+              <Row>
+                <Column><Text className="text-lg font-bold text-gray-800 my-2">Total</Text></Column>
+                <Column className="text-right">
+                  <Text className="text-lg font-bold text-gray-800 my-2">${total.toFixed(2)}</Text>
+                </Column>
+              </Row>
+            </Section>
+
+            <Hr className="border-gray-200 my-6" />
+
+            <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
+              Shipping Address
+            </Heading>
+            <Section className="bg-gray-50 p-4 rounded">
+              <Text className="text-sm text-gray-800 my-1">{shippingAddress.name}</Text>
+              <Text className="text-sm text-gray-800 my-1">{shippingAddress.street}</Text>
+              <Text className="text-sm text-gray-800 my-1">
+                {shippingAddress.city}, {shippingAddress.state} {shippingAddress.zip}
+              </Text>
+              <Text className="text-sm text-gray-800 my-1">{shippingAddress.country}</Text>
+            </Section>
+
+            <Text className="text-sm text-gray-500 mt-8">
+              Questions about your order? Reply to this email and we'll help you out.
             </Text>
-            <Text style={addressText}>{shippingAddress.country}</Text>
-          </Section>
-
-          <Text style={footer}>
-            Questions about your order? Reply to this email and we'll help you out.
-          </Text>
-        </Container>
-      </Body>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 }
@@ -249,39 +270,26 @@ OrderConfirmation.PreviewProps = {
     country: 'USA'
   }
 } as OrderConfirmationProps;
-
-const main = { backgroundColor: '#f6f9fc', fontFamily: 'Arial, sans-serif' };
-const container = { margin: '0 auto', padding: '40px 20px', maxWidth: '600px' };
-const h1 = { fontSize: '28px', fontWeight: 'bold', color: '#333', marginBottom: '8px' };
-const h2 = { fontSize: '20px', fontWeight: 'bold', color: '#333', margin: '24px 0 16px 0' };
-const text = { fontSize: '16px', color: '#666', marginBottom: '24px' };
-const infoSection = { backgroundColor: '#f8f9fa', padding: '16px', borderRadius: '4px', marginBottom: '24px' };
-const label = { fontSize: '12px', color: '#666', textTransform: 'uppercase' as const, marginBottom: '4px' };
-const value = { fontSize: '16px', fontWeight: 'bold', color: '#333', margin: '0' };
-const hr = { borderColor: '#e6ebf1', margin: '24px 0' };
-const thinHr = { borderColor: '#e6ebf1', margin: '12px 0' };
-const productSection = { marginBottom: '16px' };
-const productImage = { borderRadius: '4px', border: '1px solid #e6ebf1' };
-const productName = { fontSize: '16px', fontWeight: 'bold', color: '#333', margin: '0 0 4px 0' };
-const productSku = { fontSize: '14px', color: '#999', margin: '0 0 8px 0' };
-const productDetails = { fontSize: '14px', color: '#666', margin: '0' };
-const productPrice = { fontSize: '16px', fontWeight: 'bold', color: '#333', margin: '0' };
-const totalsSection = { marginTop: '24px' };
-const totalsLabel = { fontSize: '14px', color: '#666', margin: '8px 0' };
-const totalsValue = { fontSize: '14px', color: '#333', margin: '8px 0' };
-const totalLabel = { fontSize: '18px', fontWeight: 'bold', color: '#333', margin: '8px 0' };
-const totalValue = { fontSize: '18px', fontWeight: 'bold', color: '#333', margin: '8px 0' };
-const addressSection = { backgroundColor: '#f8f9fa', padding: '16px', borderRadius: '4px' };
-const addressText = { fontSize: '14px', color: '#333', margin: '4px 0' };
-const footer = { fontSize: '14px', color: '#8898aa', marginTop: '32px' };
 ```
 
 ## Notification Email with Code Block
 
 ```tsx
-import { 
-  Html, Head, Preview, Body, Container, Heading, Text, 
-  CodeBlock, dracula, Hr, Link 
+import {
+  Html,
+  Head,
+  Preview,
+  Body,
+  Container,
+  Section,
+  Heading,
+  Text,
+  CodeBlock,
+  dracula,
+  Hr,
+  Link,
+  Tailwind,
+  pixelBasedPreset
 } from '@react-email/components';
 
 interface NotificationProps {
@@ -304,66 +312,83 @@ export default function Notification({
   actionLabel = 'View Details'
 }: NotificationProps) {
   const severityColors = {
-    info: '#0ea5e9',
-    warning: '#f59e0b',
-    error: '#ef4444',
-    success: '#22c55e'
+    info: 'bg-sky-500',
+    warning: 'bg-amber-500',
+    error: 'bg-red-500',
+    success: 'bg-green-500'
   };
 
-  const severityColor = severityColors[severity];
+  const severityBtnColors = {
+    info: 'bg-sky-500',
+    warning: 'bg-amber-500',
+    error: 'bg-red-500',
+    success: 'bg-green-500'
+  };
 
   return (
     <Html lang="en">
-      <Head />
-      <Preview>{title} - {severity}</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Section style={{ ...statusBar, backgroundColor: severityColor }} />
-          
-          <Heading style={h1}>{title}</Heading>
-          
-          <Text style={{ ...badge, backgroundColor: severityColor }}>
-            {severity.toUpperCase()}
-          </Text>
-          
-          <Text style={text}>{message}</Text>
-          
-          <Text style={timestamp}>
-            {new Date(timestamp).toLocaleString('en-US', {
-              dateStyle: 'long',
-              timeStyle: 'short'
-            })}
-          </Text>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Head />
+        <Preview>{title} - {severity}</Preview>
+        <Body className="bg-gray-100 font-mono">
+          <Container className="mx-auto max-w-xl bg-white border border-gray-200 rounded overflow-hidden">
+            <Section className={`h-1 w-full ${severityColors[severity]}`} />
 
-          {logData && (
-            <>
-              <Hr style={hr} />
-              <Heading as="h2" style={h2}>Log Details</Heading>
-              <CodeBlock
-                code={logData}
-                language="json"
-                theme={dracula}
-                lineNumbers
-                style={codeBlock}
-              />
-            </>
-          )}
+            <Heading className="text-2xl font-bold text-gray-800 mx-6 mt-6 mb-4">
+              {title}
+            </Heading>
 
-          {actionUrl && (
-            <>
-              <Hr style={hr} />
-              <Link href={actionUrl} style={{ ...button, backgroundColor: severityColor }}>
-                {actionLabel}
-              </Link>
-            </>
-          )}
+            <Text className={`inline-block px-3 py-1 text-xs font-bold text-white rounded-full mx-6 mb-4 ${severityBtnColors[severity]}`}>
+              {severity.toUpperCase()}
+            </Text>
 
-          <Hr style={hr} />
-          <Text style={footer}>
-            This is an automated notification. Please do not reply to this email.
-          </Text>
-        </Container>
-      </Body>
+            <Text className="text-base leading-6 text-gray-800 mx-6 mb-4">
+              {message}
+            </Text>
+
+            <Text className="text-sm text-gray-500 mx-6 mb-6">
+              {new Date(timestamp).toLocaleString('en-US', {
+                dateStyle: 'long',
+                timeStyle: 'short'
+              })}
+            </Text>
+
+            {logData && (
+              <>
+                <Hr className="border-gray-200 my-6" />
+                <Heading as="h2" className="text-lg font-bold text-gray-800 mx-6 my-4">
+                  Log Details
+                </Heading>
+                <Section className="mx-6">
+                  <CodeBlock
+                    code={logData}
+                    language="json"
+                    theme={dracula}
+                    lineNumbers
+                  />
+                </Section>
+              </>
+            )}
+
+            {actionUrl && (
+              <>
+                <Hr className="border-gray-200 my-6" />
+                <Link
+                  href={actionUrl}
+                  className={`inline-block px-6 py-3 text-base font-bold text-white rounded no-underline mx-6 mb-6 ${severityBtnColors[severity]}`}
+                >
+                  {actionLabel}
+                </Link>
+              </>
+            )}
+
+            <Hr className="border-gray-200 my-6" />
+            <Text className="text-xs text-gray-500 mx-6 mb-6">
+              This is an automated notification. Please do not reply to this email.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 }
@@ -382,58 +407,28 @@ Notification.PreviewProps = {
   actionUrl: 'https://example.com/deployments/123',
   actionLabel: 'View Deployment'
 } as NotificationProps;
-
-const main = { backgroundColor: '#f6f9fc', fontFamily: 'monospace, Arial, sans-serif' };
-const container = { 
-  margin: '0 auto', 
-  padding: '0',
-  maxWidth: '600px',
-  backgroundColor: '#ffffff',
-  border: '1px solid #e6ebf1',
-  borderRadius: '4px',
-  overflow: 'hidden'
-};
-const statusBar = { height: '4px', width: '100%' };
-const h1 = { fontSize: '24px', fontWeight: 'bold', color: '#333', margin: '24px 24px 16px 24px' };
-const h2 = { fontSize: '18px', fontWeight: 'bold', color: '#333', margin: '16px 24px' };
-const badge = {
-  display: 'inline-block',
-  padding: '4px 12px',
-  fontSize: '12px',
-  fontWeight: 'bold',
-  color: '#fff',
-  borderRadius: '12px',
-  marginLeft: '24px',
-  marginBottom: '16px'
-};
-const text = { fontSize: '16px', lineHeight: '24px', color: '#333', margin: '0 24px 16px 24px' };
-const timestamp = { fontSize: '14px', color: '#666', margin: '0 24px 24px 24px' };
-const hr = { borderColor: '#e6ebf1', margin: '24px 0' };
-const codeBlock = { margin: '0 24px' };
-const button = {
-  display: 'inline-block',
-  padding: '12px 24px',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  color: '#fff',
-  textDecoration: 'none',
-  borderRadius: '4px',
-  margin: '0 24px 24px 24px'
-};
-const footer = { fontSize: '12px', color: '#8898aa', margin: '0 24px 24px 24px' };
-
-// Need to define Section for this example
-const Section = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) => (
-  <div style={style}>{children}</div>
-);
 ```
 
 ## Multi-Column Newsletter
 
 ```tsx
-import { 
-  Html, Head, Preview, Body, Container, Section, Row, Column, 
-  Heading, Text, Img, Button, Hr, Link 
+import {
+  Html,
+  Head,
+  Preview,
+  Body,
+  Container,
+  Section,
+  Row,
+  Column,
+  Heading,
+  Text,
+  Img,
+  Button,
+  Hr,
+  Link,
+  Tailwind,
+  pixelBasedPreset
 } from '@react-email/components';
 
 interface Article {
@@ -453,114 +448,135 @@ interface NewsletterProps {
 export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps) {
   return (
     <Html lang="en">
-      <Head />
-      <Preview>Your weekly roundup of the latest articles</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          {/* Header */}
-          <Section style={header}>
-            <Img 
-              src="https://via.placeholder.com/150x50?text=Logo" 
-              alt="Company Logo"
-              width="150"
-              height="50"
-            />
-          </Section>
-
-          <Heading style={h1}>This Week's Highlights</Heading>
-          <Text style={intro}>
-            Here are the top articles from this week. Enjoy your reading!
-          </Text>
-
-          <Hr style={hr} />
-
-          {/* Featured Article */}
-          {articles[0] && (
-            <Section style={featuredSection}>
-              <Img 
-                src={articles[0].image} 
-                alt={articles[0].title}
-                width="600"
-                style={featuredImage}
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Head />
+        <Preview>Your weekly roundup of the latest articles</Preview>
+        <Body className="bg-white font-sans">
+          <Container className="mx-auto max-w-xl">
+            {/* Header */}
+            <Section className="pt-10 px-5 pb-5 text-center">
+              <Img
+                src="https://via.placeholder.com/150x50?text=Logo"
+                alt="Company Logo"
+                width="150"
+                height="50"
               />
-              <Heading as="h2" style={h2}>{articles[0].title}</Heading>
-              <Text style={excerpt}>{articles[0].excerpt}</Text>
-              <Text style={meta}>
-                By {articles[0].author} • {articles[0].date}
-              </Text>
-              <Button href={articles[0].url} style={button}>
-                Read More
-              </Button>
             </Section>
-          )}
 
-          <Hr style={hr} />
-
-          {/* Two-Column Articles */}
-          {articles.slice(1, 5).length > 0 && (
-            <>
-              <Heading as="h2" style={h2}>More From This Week</Heading>
-              {Array.from({ length: Math.ceil(articles.slice(1, 5).length / 2) }).map((_, rowIndex) => {
-                const leftArticle = articles[1 + rowIndex * 2];
-                const rightArticle = articles[2 + rowIndex * 2];
-                
-                return (
-                  <Section key={rowIndex} style={articleRow}>
-                    <Row>
-                      {leftArticle && (
-                        <Column style={articleColumn}>
-                          <Img 
-                            src={leftArticle.image} 
-                            alt={leftArticle.title}
-                            width="280"
-                            style={articleImage}
-                          />
-                          <Heading as="h3" style={h3}>{leftArticle.title}</Heading>
-                          <Text style={articleExcerpt}>{leftArticle.excerpt}</Text>
-                          <Link href={leftArticle.url} style={link}>
-                            Read article →
-                          </Link>
-                        </Column>
-                      )}
-                      
-                      {rightArticle && (
-                        <Column style={articleColumn}>
-                          <Img 
-                            src={rightArticle.image} 
-                            alt={rightArticle.title}
-                            width="280"
-                            style={articleImage}
-                          />
-                          <Heading as="h3" style={h3}>{rightArticle.title}</Heading>
-                          <Text style={articleExcerpt}>{rightArticle.excerpt}</Text>
-                          <Link href={rightArticle.url} style={link}>
-                            Read article →
-                          </Link>
-                        </Column>
-                      )}
-                    </Row>
-                  </Section>
-                );
-              })}
-            </>
-          )}
-
-          <Hr style={hr} />
-
-          {/* Footer */}
-          <Section style={footer}>
-            <Text style={footerText}>
-              You're receiving this because you subscribed to our newsletter.
+            <Heading className="text-3xl font-bold text-gray-900 mx-5 mb-4 text-center">
+              This Week's Highlights
+            </Heading>
+            <Text className="text-base leading-6 text-gray-500 mx-5 mb-6 text-center">
+              Here are the top articles from this week. Enjoy your reading!
             </Text>
-            <Link href={unsubscribeUrl} style={unsubscribeLink}>
-              Unsubscribe from this list
-            </Link>
-            <Text style={footerText}>
-              © 2026 Company Name. All rights reserved.
-            </Text>
-          </Section>
-        </Container>
-      </Body>
+
+            <Hr className="border-gray-200 mx-5 my-8" />
+
+            {/* Featured Article */}
+            {articles[0] && (
+              <Section className="px-5">
+                <Img
+                  src={articles[0].image}
+                  alt={articles[0].title}
+                  width="600"
+                  className="w-full rounded-lg mb-4"
+                />
+                <Heading as="h2" className="text-2xl font-bold text-gray-900 my-4">
+                  {articles[0].title}
+                </Heading>
+                <Text className="text-base leading-6 text-gray-500 my-4">
+                  {articles[0].excerpt}
+                </Text>
+                <Text className="text-sm text-gray-400 my-2">
+                  By {articles[0].author} • {articles[0].date}
+                </Text>
+                <Button
+                  href={articles[0].url}
+                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline"
+                >
+                  Read More
+                </Button>
+              </Section>
+            )}
+
+            <Hr className="border-gray-200 mx-5 my-8" />
+
+            {/* Two-Column Articles */}
+            {articles.slice(1, 5).length > 0 && (
+              <>
+                <Heading as="h2" className="text-2xl font-bold text-gray-900 mx-5 my-4">
+                  More From This Week
+                </Heading>
+                {Array.from({ length: Math.ceil(articles.slice(1, 5).length / 2) }).map((_, rowIndex) => {
+                  const leftArticle = articles[1 + rowIndex * 2];
+                  const rightArticle = articles[2 + rowIndex * 2];
+
+                  return (
+                    <Section key={rowIndex} className="px-5 mb-6">
+                      <Row>
+                        {leftArticle && (
+                          <Column className="w-1/2 align-top px-1">
+                            <Img
+                              src={leftArticle.image}
+                              alt={leftArticle.title}
+                              width="280"
+                              className="w-full rounded mb-3"
+                            />
+                            <Heading as="h3" className="text-lg font-bold text-gray-900 my-3">
+                              {leftArticle.title}
+                            </Heading>
+                            <Text className="text-sm leading-5 text-gray-500 my-2">
+                              {leftArticle.excerpt}
+                            </Text>
+                            <Link href={leftArticle.url} className="text-sm text-blue-600 no-underline font-semibold">
+                              Read article →
+                            </Link>
+                          </Column>
+                        )}
+
+                        {rightArticle && (
+                          <Column className="w-1/2 align-top px-1">
+                            <Img
+                              src={rightArticle.image}
+                              alt={rightArticle.title}
+                              width="280"
+                              className="w-full rounded mb-3"
+                            />
+                            <Heading as="h3" className="text-lg font-bold text-gray-900 my-3">
+                              {rightArticle.title}
+                            </Heading>
+                            <Text className="text-sm leading-5 text-gray-500 my-2">
+                              {rightArticle.excerpt}
+                            </Text>
+                            <Link href={rightArticle.url} className="text-sm text-blue-600 no-underline font-semibold">
+                              Read article →
+                            </Link>
+                          </Column>
+                        )}
+                      </Row>
+                    </Section>
+                  );
+                })}
+              </>
+            )}
+
+            <Hr className="border-gray-200 mx-5 my-8" />
+
+            {/* Footer */}
+            <Section className="bg-gray-50 p-8 mt-8 text-center">
+              <Text className="text-sm text-gray-500 my-2">
+                You're receiving this because you subscribed to our newsletter.
+              </Text>
+              <Link href={unsubscribeUrl} className="text-sm text-blue-600 underline block my-2">
+                Unsubscribe from this list
+              </Link>
+              <Text className="text-sm text-gray-500 my-2">
+                © 2026 Company Name. All rights reserved.
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 }
@@ -594,42 +610,25 @@ Newsletter.PreviewProps = {
   ],
   unsubscribeUrl: 'https://example.com/unsubscribe'
 } as NewsletterProps;
-
-const main = { backgroundColor: '#ffffff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' };
-const container = { margin: '0 auto', maxWidth: '600px' };
-const header = { padding: '40px 20px 20px 20px', textAlign: 'center' as const };
-const h1 = { fontSize: '32px', fontWeight: 'bold', color: '#1a1a1a', margin: '0 20px 16px 20px', textAlign: 'center' as const };
-const h2 = { fontSize: '24px', fontWeight: 'bold', color: '#1a1a1a', margin: '32px 20px 16px 20px' };
-const h3 = { fontSize: '18px', fontWeight: 'bold', color: '#1a1a1a', margin: '12px 0 8px 0' };
-const intro = { fontSize: '16px', lineHeight: '24px', color: '#666', margin: '0 20px 24px 20px', textAlign: 'center' as const };
-const hr = { borderColor: '#e6ebf1', margin: '32px 20px' };
-const featuredSection = { padding: '0 20px' };
-const featuredImage = { width: '100%', borderRadius: '8px', marginBottom: '16px' };
-const excerpt = { fontSize: '16px', lineHeight: '24px', color: '#666', margin: '16px 0' };
-const meta = { fontSize: '14px', color: '#999', margin: '8px 0 16px 0' };
-const button = {
-  backgroundColor: '#007bff',
-  color: '#fff',
-  padding: '12px 24px',
-  borderRadius: '4px',
-  textDecoration: 'none',
-  display: 'inline-block',
-  fontWeight: 'bold'
-};
-const articleRow = { padding: '0 20px', marginBottom: '24px' };
-const articleColumn = { width: '48%', verticalAlign: 'top' as const, padding: '0 1%' };
-const articleImage = { width: '100%', borderRadius: '4px', marginBottom: '12px' };
-const articleExcerpt = { fontSize: '14px', lineHeight: '20px', color: '#666', margin: '8px 0' };
-const link = { fontSize: '14px', color: '#007bff', textDecoration: 'none', fontWeight: '600' };
-const footer = { backgroundColor: '#f8f9fa', padding: '32px 20px', marginTop: '32px', textAlign: 'center' as const };
-const footerText = { fontSize: '14px', color: '#666', margin: '8px 0' };
-const unsubscribeLink = { fontSize: '14px', color: '#007bff', textDecoration: 'underline', margin: '8px 0', display: 'block' };
 ```
 
 ## Team Invitation Email
 
 ```tsx
-import { Html, Head, Preview, Body, Container, Heading, Text, Button, Hr } from '@react-email/components';
+import {
+  Html,
+  Head,
+  Preview,
+  Body,
+  Container,
+  Section,
+  Heading,
+  Text,
+  Button,
+  Hr,
+  Tailwind,
+  pixelBasedPreset
+} from '@react-email/components';
 
 interface TeamInvitationProps {
   inviterName: string;
@@ -650,40 +649,47 @@ export default function TeamInvitation({
 }: TeamInvitationProps) {
   return (
     <Html lang="en">
-      <Head />
-      <Preview>You've been invited to join {teamName}</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <Heading style={h1}>You're Invited!</Heading>
-          
-          <Text style={text}>
-            <strong>{inviterName}</strong> ({inviterEmail}) has invited you to join the{' '}
-            <strong>{teamName}</strong> team.
-          </Text>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
+        <Head />
+        <Preview>You've been invited to join {teamName}</Preview>
+        <Body className="bg-gray-100 font-sans">
+          <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
+            <Heading className="text-3xl font-bold text-gray-800 text-center mb-6">
+              You're Invited!
+            </Heading>
 
-          <Section style={infoBox}>
-            <Text style={infoLabel}>Role</Text>
-            <Text style={infoValue}>{role}</Text>
-          </Section>
+            <Text className="text-base leading-7 text-gray-800 my-4">
+              <strong>{inviterName}</strong> ({inviterEmail}) has invited you to join the{' '}
+              <strong>{teamName}</strong> team.
+            </Text>
 
-          <Text style={text}>
-            Click the button below to accept the invitation and get started.
-          </Text>
+            <Section className="bg-gray-50 p-5 rounded border border-gray-200 my-6">
+              <Text className="text-xs text-gray-500 uppercase font-bold mb-2">Role</Text>
+              <Text className="text-lg font-bold text-gray-800 m-0">{role}</Text>
+            </Section>
 
-          <Button href={inviteUrl} style={button}>
-            Accept Invitation
-          </Button>
+            <Text className="text-base leading-7 text-gray-800 my-4">
+              Click the button below to accept the invitation and get started.
+            </Text>
 
-          <Hr style={hr} />
+            <Button
+              href={inviteUrl}
+              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline"
+            >
+              Accept Invitation
+            </Button>
 
-          <Text style={footer}>
-            This invitation will expire in {expiryDays} day{expiryDays > 1 ? 's' : ''}.
-          </Text>
-          <Text style={footer}>
-            If you weren't expecting this invitation, you can safely ignore this email.
-          </Text>
-        </Container>
-      </Body>
+            <Hr className="border-gray-200 my-6" />
+
+            <Text className="text-sm text-gray-500 leading-5 my-2">
+              This invitation will expire in {expiryDays} day{expiryDays > 1 ? 's' : ''}.
+            </Text>
+            <Text className="text-sm text-gray-500 leading-5 my-2">
+              If you weren't expecting this invitation, you can safely ignore this email.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
     </Html>
   );
 }
@@ -696,51 +702,12 @@ TeamInvitation.PreviewProps = {
   inviteUrl: 'https://example.com/invite/abc123',
   expiryDays: 7
 } as TeamInvitationProps;
-
-const main = { backgroundColor: '#f6f9fc', fontFamily: 'Arial, sans-serif' };
-const container = { margin: '0 auto', padding: '40px 20px', maxWidth: '560px', backgroundColor: '#ffffff' };
-const h1 = { fontSize: '28px', fontWeight: 'bold', color: '#333', textAlign: 'center' as const, marginBottom: '24px' };
-const text = { fontSize: '16px', lineHeight: '26px', color: '#333', margin: '16px 0' };
-const infoBox = { 
-  backgroundColor: '#f8f9fa', 
-  padding: '20px', 
-  borderRadius: '4px', 
-  border: '1px solid #e6ebf1',
-  margin: '24px 0'
-};
-const infoLabel = { 
-  fontSize: '12px', 
-  color: '#666', 
-  textTransform: 'uppercase' as const,
-  fontWeight: 'bold',
-  marginBottom: '8px'
-};
-const infoValue = { fontSize: '18px', color: '#333', fontWeight: 'bold', margin: '0' };
-const button = {
-  backgroundColor: '#28a745',
-  color: '#fff',
-  padding: '14px 28px',
-  borderRadius: '4px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  fontWeight: 'bold',
-  fontSize: '16px',
-  margin: '24px 0'
-};
-const hr = { borderColor: '#e6ebf1', margin: '24px 0' };
-const footer = { fontSize: '14px', color: '#8898aa', lineHeight: '20px', margin: '8px 0' };
-
-// Define Section for this example
-const Section = ({ children, style }: { children?: React.ReactNode; style?: React.CSSProperties }) => (
-  <div style={style}>{children}</div>
-);
 ```
 
 These patterns demonstrate:
-- Proper component usage
+- Tailwind CSS utility classes for styling
+- Proper component usage with `pixelBasedPreset`
 - TypeScript typing
-- Inline styling
 - Preview props for testing
 - Responsive layouts
 - Common email scenarios
