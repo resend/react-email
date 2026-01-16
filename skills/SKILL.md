@@ -256,6 +256,7 @@ Use the Tailwind component for styling if the user is actively using Tailwind CS
 - Never use CSS/Tailwind media queries (sm:, md:, lg:, xl:) - not supported
 - Never use theme selectors (dark:, light:) - not supported
 - Always specify border type (border-solid, border-dashed, etc.)
+- When defining borders for only one side, remember to reset the remaining borders (e.g., border-none border-l)
 
 ### Component Structure
 - Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
