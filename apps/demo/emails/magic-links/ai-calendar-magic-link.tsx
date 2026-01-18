@@ -18,7 +18,7 @@ interface AiCalendarMagicLinkEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : '';
+  : 'https://react.email';
 
 export const AiCalendarMagicLinkEmail = ({
   loginCode = '000000',
@@ -49,13 +49,13 @@ export const AiCalendarMagicLinkEmail = ({
           <Text className="text-[#0a0a0b] text-[14px] my-6 mb-3.5">
             Or, copy and paste this verification code:
           </Text>
-          <code className="inline-block py-4 px-[4.5%] w-9/10 bg-[#fafafa] rounded-lg border border-solid border-[#e5e5e5] text-[#0a0a0b] text-[32px] font-semibold tracking-[0.25em] text-center">
+          <code className="inline-block py-4 px-[4.5%] w-[90%] bg-[#fafafa] rounded-lg border border-solid border-[#e5e5e5] text-[#0a0a0b] text-[32px] font-semibold tracking-[0.25em] text-center">
             {loginCode}
           </code>
           <Text className="text-[#737373] text-[14px] mt-6 mb-4">
             This code will expire in 10 minutes.
           </Text>
-          <Text className="text-[#a3a3a3] text-[14px] mt-3.5 mb-9.5">
+          <Text className="text-[#a3a3a3] text-[14px] mt-3.5 mb-[38px]">
             If you didn&apos;t request this code, you can safely ignore this
             email. Someone may have entered your email address by mistake.
           </Text>

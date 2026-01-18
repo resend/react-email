@@ -20,7 +20,7 @@ interface AiCalendarWelcomeEmailProps {
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : '';
+  : 'https://react.email';
 
 export const AiCalendarWelcomeEmail = ({
   userFirstName = 'there',
