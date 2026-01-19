@@ -429,7 +429,7 @@ importers:
         specifier: workspace:0.0.14
         version: link:../preview
       '@react-email/render':
-        specifier: workspace:2.0.2
+        specifier: workspace:2.0.3
         version: link:../render
       '@react-email/row':
         specifier: workspace:0.0.13
@@ -809,7 +809,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       resend:
         specifier: 6.4.0
-        version: 6.4.0(@react-email/render@2.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 6.4.0
       rimraf:
         specifier: ^6.1.2
         version: 6.1.2
@@ -3942,13 +3942,6 @@ packages:
   '@react-email/render@1.0.6':
     resolution: {integrity: sha512-zNueW5Wn/4jNC1c5LFgXzbUdv5Lhms+FWjOvWAhal7gx5YVf0q6dPJ0dnR70+ifo59gcMLwCZEaTS9EEuUhKvQ==}
     engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
-
-  '@react-email/render@2.0.2':
-    resolution: {integrity: sha512-AGuNo86TP9Y2JBUwFcT+z0frPDML4WLIFlnCi7laCPYJA+43kdim0y+qRNPxRxZkJiUz1JMPnE2M5HaNYhWwIg==}
-    engines: {node: '>=20.0.0'}
     peerDependencies:
       react: ^19.0.0
       react-dom: ^19.0.0
@@ -7982,11 +7975,6 @@ packages:
 
   prettier@3.5.3:
     resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
-    engines: {node: '>=14'}
-    hasBin: true
-
-  prettier@3.8.0:
-    resolution: {integrity: sha512-yEPsovQfpxYfgWNhCfECjG5AQaO+K3dp6XERmOepyPDVqcJm+bjyCVO3pmU+nAPe0N5dDvekfGezt/EIiRe1TA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -12897,14 +12885,6 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       react-promise-suspense: 0.3.4
 
-  '@react-email/render@2.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      html-to-text: 9.0.5
-      prettier: 3.8.0
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-    optional: true
-
   '@react-email/section@0.0.14(react@19.0.0)':
     dependencies:
       react: 19.0.0
@@ -17595,9 +17575,6 @@ snapshots:
 
   prettier@3.5.3: {}
 
-  prettier@3.8.0:
-    optional: true
-
   pretty-bytes@6.1.1: {}
 
   prism-react-renderer@2.1.0(react@19.0.0):
@@ -18145,11 +18122,9 @@ snapshots:
       - react
       - react-dom
 
-  resend@6.4.0(@react-email/render@2.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  resend@6.4.0:
     dependencies:
       svix: 1.76.1
-    optionalDependencies:
-      '@react-email/render': 2.0.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   resolve-alpn@1.2.1: {}
 
