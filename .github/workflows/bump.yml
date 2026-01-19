@@ -23,7 +23,7 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Create "version packages" pull request
-        uses: changesets/action@v1.5.3
+        uses: changesets/action@04d574e831923498156e0b2b93152878063203a3
         with:
           version: pnpm run version
           title: "chore(root): version packages"
