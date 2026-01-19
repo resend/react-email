@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "2.0.2",
+  "version": "2.0.3-canary.0",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.js",
