@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.3
+
+### Patch Changes
+
+- 366ae71: fix render going into client side rendering and breaking emails silently
+
 ## 2.0.2
 
 ### Patch Changes
