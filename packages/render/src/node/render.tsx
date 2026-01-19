@@ -53,9 +53,6 @@ export const render = async (node: React.ReactNode, options?: Options) => {
           onError(error) {
             reject(error);
           },
-          onShellError(error) {
-            reject(error);
-          },
           progressiveChunkSize: Number.POSITIVE_INFINITY,
         },
       );
