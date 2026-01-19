@@ -1,11 +1,11 @@
-name: Release
+name: Bump
 on:
   push:
     branches:
-      - main
+      - canary
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  release:
+  bump:
     runs-on: blacksmith-2vcpu-ubuntu-2204
     permissions: 
       contents: write
@@ -22,7 +22,10 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Publish stable release
-        run: pnpm run release
-        env: 
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create "version packages" pull request
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba
+        with:
+          version: pnpm run version
+          title: "chore(root): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
