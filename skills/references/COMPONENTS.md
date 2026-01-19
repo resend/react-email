@@ -1,6 +1,91 @@
 # React Email Components Reference
 
-Complete reference for all React Email components.
+Complete reference for all React Email components. All examples use the Tailwind component for styling.
+
+**Important:** Only import the components you need. Do not use components in the code if you are not importing them.
+
+## Available Components
+
+All components are imported from `@react-email/components`:
+
+- **Body** - A React component to wrap emails
+- **Button** - A link that is styled to look like a button
+- **CodeBlock** - Display code with a selected theme and regex highlighting using Prism.js
+- **CodeInline** - Display a predictable inline code HTML element that works on all email clients
+- **Column** - Display a column that separates content areas vertically in your email (must be used with Row)
+- **Container** - A layout component that centers your content horizontally on a breaking point
+- **Font** - A React Font component to set your fonts
+- **Head** - Contains head components, related to the document such as style and meta elements
+- **Heading** - A block of heading text
+- **Hr** - Display a divider that separates content areas in your email
+- **Html** - A React html component to wrap emails
+- **Img** - Display an image in your email
+- **Link** - A hyperlink to web pages, email addresses, or anything else a URL can address
+- **Markdown** - A Markdown component that converts markdown to valid react-email template code
+- **Preview** - A preview text that will be displayed in the inbox of the recipient
+- **Row** - Display a row that separates content areas horizontally in your email
+- **Section** - Display a section that can also be formatted using rows and columns
+- **Tailwind** - A React component to wrap emails with Tailwind CSS
+- **Text** - A block of text separated by blank spaces
+
+## Tailwind
+
+The recommended way to style React Email components. Wrap your email content and use utility classes.
+
+```tsx
+import { Tailwind, pixelBasedPreset, Html, Body, Container, Heading, Text, Button } from '@react-email/components';
+
+export default function Email() {
+  return (
+    <Html lang="en">
+      <Tailwind
+        config={{
+          presets: [pixelBasedPreset],
+          theme: {
+            extend: {
+              colors: {
+                brand: '#007bff',
+                accent: '#28a745'
+              },
+            },
+          },
+        }}
+      >
+        <Body className="bg-gray-100 font-sans">
+          <Container className="max-w-xl mx-auto p-5">
+            <Heading className="text-2xl font-bold text-brand mb-4">
+              Welcome!
+            </Heading>
+            <Text className="text-base text-gray-700 mb-4">
+              Your content here.
+            </Text>
+            <Button
+              href="https://example.com"
+              className="bg-brand text-white px-6 py-3 rounded-lg block text-center"
+            >
+              Get Started
+            </Button>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+**Props:**
+- `config` - Tailwind configuration object
+
+**How it works:**
+- Tailwind classes are converted to inline styles automatically
+- Media queries are extracted to `<style>` tag in `<head>`
+- CSS variables are resolved
+- RGB color syntax is normalized for email client compatibility
+
+**Important:**
+- Always use `pixelBasedPreset` - email clients don't support `rem` units
+- Custom config is optional - defaults work well
+- Responsive classes (sm:, md:, lg:) work via media queries, but should be used with caution due to limited email client support
 
 ## Structural Components
 
@@ -8,11 +93,13 @@ Complete reference for all React Email components.
 
 Root wrapper for the email. Always use as the outermost component.
 
-```jsx
-import { Html } from '@react-email/components';
+```tsx
+import { Html, Tailwind, pixelBasedPreset } from '@react-email/components';
 
 <Html lang="en" dir="ltr">
-  {/* email content */}
+  <Tailwind config={{ presets: [pixelBasedPreset] }}>
+    {/* email content */}
+  </Tailwind>
 </Html>
 ```
 
@@ -22,9 +109,9 @@ import { Html } from '@react-email/components';
 
 ### Head
 
-Contains meta elements, styles, and fonts. If using Tailwind, should be wrapped by `<Tailwind>`.
+Contains head components, related to the document such as style and meta elements. Place inside `<Tailwind>`.
 
-```jsx
+```tsx
 import { Head } from '@react-email/components';
 
 <Head>
@@ -34,53 +121,53 @@ import { Head } from '@react-email/components';
 
 ### Body
 
-Main email body wrapper.
+A React component to wrap emails.
 
-```jsx
+```tsx
 import { Body } from '@react-email/components';
 
-<Body style={{ backgroundColor: '#f6f9fc', fontFamily: 'Arial, sans-serif' }}>
+<Body className="bg-gray-100 font-sans">
   {/* email content */}
 </Body>
 ```
 
 ### Container
 
-Centers email content using a table, and has a max-width constraint of `37.5em`.
+A layout component that centers your content horizontally on a breaking point. Has a max-width constraint of `37.5em`.
 
-```jsx
+```tsx
 import { Container } from '@react-email/components';
 
-<Container>
+<Container className="max-w-xl mx-auto p-5">
   {/* centered content */}
 </Container>
 ```
 
 ### Section
 
-Layout section that can contain rows and columns.
+Display a section that can also be formatted using rows and columns.
 
-```jsx
+```tsx
 import { Section } from '@react-email/components';
 
-<Section style={{ padding: '20px', backgroundColor: '#fff' }}>
+<Section className="p-5 bg-white">
   {/* section content */}
 </Section>
 ```
 
 ### Row & Column
 
-Multi-column layouts using table-based rendering.
+Row displays content areas horizontally, Column displays content areas vertically. A Column needs to be used in combination with a Row component.
 
-```jsx
-import { Row, Column } from '@react-email/components';
+```tsx
+import { Section, Row, Column } from '@react-email/components';
 
 <Section>
   <Row>
-    <Column style={{ width: '50%', padding: '10px' }}>
+    <Column className="w-1/2 p-2 align-top">
       Left column content
     </Column>
-    <Column style={{ width: '50%', padding: '10px' }}>
+    <Column className="w-1/2 p-2 align-top">
       Right column content
     </Column>
   </Row>
@@ -88,18 +175,17 @@ import { Row, Column } from '@react-email/components';
 ```
 
 **Column widths:**
-- Always define both the `width` HTML attribute and the `width` style attribute
-- Use percentage widths (e.g., "50%", "33.33%")
-- Or fixed pixel widths (e.g., "200px")
+- Use percentage widths (e.g., "w-1/2", "w-1/3")
+- Or use Tailwind's width utilities
 - Total should add up to 100% or container width
 
 ## Content Components
 
 ### Preview
 
-Preview text shown in email inbox before opening.
+A preview text that will be displayed in the inbox of the recipient.
 
-```jsx
+```tsx
 import { Preview } from '@react-email/components';
 
 <Preview>Welcome to our platform - Get started today!</Preview>
@@ -112,16 +198,16 @@ import { Preview } from '@react-email/components';
 
 ### Heading
 
-Heading text (h1-h6).
+A block of heading text (h1-h6).
 
-```jsx
+```tsx
 import { Heading } from '@react-email/components';
 
-<Heading as="h1" style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>
+<Heading as="h1" className="text-2xl font-bold text-gray-800 mb-4">
   Welcome to Acme
 </Heading>
 
-<Heading as="h2" style={{ fontSize: '20px', fontWeight: '600', color: '#666' }}>
+<Heading as="h2" className="text-xl font-semibold text-gray-600 mb-3">
   Getting Started
 </Heading>
 ```
@@ -131,35 +217,27 @@ import { Heading } from '@react-email/components';
 
 ### Text
 
-Paragraph text component.
+A block of text separated by blank spaces.
 
-```jsx
+```tsx
 import { Text } from '@react-email/components';
 
-<Text style={{ fontSize: '16px', lineHeight: '24px', color: '#333' }}>
+<Text className="text-base leading-6 text-gray-800 my-4">
   Your paragraph content here.
 </Text>
 ```
 
 ### Button
 
-Styled link that looks like a button. Has work around for padding issues in Outlook.
+A link that is styled to look like a button. Has workaround for padding issues in Outlook.
 
-```jsx
+```tsx
 import { Button } from '@react-email/components';
 
-<Button 
+<Button
   href="https://example.com/verify"
   target="_blank"
-  style={{ 
-    backgroundColor: '#007bff', 
-    color: '#ffffff',
-    padding: '12px 20px',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    textAlign: 'center',
-    display: 'block'
-  }}
+  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium"
 >
   Verify Email Address
 </Button>
@@ -170,19 +248,18 @@ import { Button } from '@react-email/components';
 - `target` - Default is "_blank"
 
 **Styling tips:**
-- Always set `display: block` for full-width buttons
-- Use `textAlign: center` for centered text
-- Set explicit `backgroundColor` and `color`
-- Add `textDecoration: none` to remove underline
+- Use `block` for full-width buttons
+- Use `text-center` for centered text
+- Add `no-underline` to remove underline
 
 ### Link
 
-Standard hyperlink.
+A hyperlink to web pages, email addresses, or anything else a URL can address.
 
-```jsx
+```tsx
 import { Link } from '@react-email/components';
 
-<Link href="https://example.com" target="_blank" style={{ color: '#007bff' }}>
+<Link href="https://example.com" target="_blank" className="text-blue-600 underline">
   Visit our website
 </Link>
 ```
@@ -193,17 +270,17 @@ import { Link } from '@react-email/components';
 
 ### Img
 
-Image component.
+Display an image in your email.
 
-```jsx
+```tsx
 import { Img } from '@react-email/components';
 
-<Img 
-  src="https://example.com/logo.png" 
+<Img
+  src="https://example.com/logo.png"
   alt="Company Logo"
   width="150"
   height="50"
-  style={{ display: 'block', margin: '0 auto' }}
+  className="block mx-auto"
 />
 ```
 
@@ -217,106 +294,116 @@ import { Img } from '@react-email/components';
 - Always use absolute URLs hosted on CDN
 - Always include alt text
 - Specify width and height to prevent layout shift
-- Use `display: block` to avoid spacing issues
+- Use `block` class to avoid spacing issues
 
 ### Hr
 
-Horizontal divider line.
+Display a divider that separates content areas in your email.
 
-```jsx
+```tsx
 import { Hr } from '@react-email/components';
 
-<Hr style={{ borderColor: '#e6e6e6', margin: '20px 0' }} />
+<Hr className="border-gray-200 my-5" />
 ```
 
 ## Specialized Components
 
 ### CodeBlock
 
-Syntax-highlighted code blocks using Prism.js.
+Display code with a selected theme and regex highlighting using Prism.js.
 
-```jsx
+```tsx
 import { CodeBlock, dracula } from '@react-email/components';
 
-<CodeBlock
-  code={`const greeting = "Hello World";
-console.log(greeting);`}
-  language="javascript"
-  theme={dracula}
-  lineNumbers
-/>
+const Email = () => {
+  const code = `export default async (req, res) => {
+  try {
+    const html = await renderAsync(
+      EmailTemplate({ firstName: 'John' })
+    );
+    return NextResponse.json({ html });
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
+}`;
+
+  return (
+    <div className="overflow-auto">
+      <CodeBlock
+        fontFamily="monospace"
+        theme={dracula}
+        language="javascript"
+        code={code}
+      />
+    </div>
+  );
+};
 ```
 
 **Props:**
-- `code` (required) - Code string to display
-- `language` (required) - Programming language (e.g., "javascript", "python", "typescript")
-- `theme` - (required) Prism theme (dracula, github, etc.)
-- `lineNumbers` - Boolean to show line numbers
+- `code` (required) - The actual code to render in the code block. Just a plain string, with the proper indentation included
+- `language` (required) - The language under the supported languages defined in PrismLanguage (e.g., "javascript", "python", "typescript")
+- `theme` (required) - The theme to use for the code block (import from "@react-email/components": dracula, github, nord, etc.)
+- `fontFamily` (optional) - The font family to use for the code block (e.g., "monospace")
+- `lineNumbers` (optional) - Whether or not to automatically include line numbers on the rendered code block (boolean, default: false)
 
-**Available themes:**
-Import from `@react-email/components`: dracula, github, nord, etc.
+**Important:**
+- By default, do not use the `lineNumbers` prop unless specifically requested
+- Always wrap the `CodeBlock` component in a `div` tag with the `overflow-auto` class to avoid padding overflow
 
 ### CodeInline
 
-Inline code within text.
+Display a predictable inline code HTML element that works on all email clients.
 
-```jsx
-import { CodeInline } from '@react-email/components';
+```tsx
+import { Text, CodeInline } from '@react-email/components';
 
-<Text>
-  Run <CodeInline>npm install</CodeInline> to get started.
+<Text className="text-base text-gray-800">
+  Run <CodeInline className="bg-gray-100 px-1 rounded">npm install</CodeInline> to get started.
 </Text>
 ```
 
 ### Markdown
 
-Render Markdown content as HTML.
+A Markdown component that converts markdown to valid react-email template code.
 
-```jsx
-import { Markdown } from '@react-email/components';
+```tsx
+import { Html, Markdown } from '@react-email/components';
 
-<Markdown
-  markdownCustomStyles={{
-    h1: { color: '#333', fontSize: '24px' },
-    h2: { color: '#666', fontSize: '20px' },
-    p: { fontSize: '16px', lineHeight: '24px' },
-    a: { color: '#007bff' },
-    code: { backgroundColor: '#f4f4f4', padding: '2px 4px' }
-  }}
-  markdownContainerStyles={{
-    padding: '20px',
-    backgroundColor: '#fff'
-  }}
->
-{`# Hello World
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Markdown
+        markdownCustomStyles={{
+          h1: { color: "red" },
+          h2: { color: "blue" },
+          codeInline: { background: "grey" },
+        }}
+        markdownContainerStyles={{
+          padding: "12px",
+          border: "solid 1px black",
+        }}
+      >{`# Hello, World!`}</Markdown>
 
-This is **bold** and this is *italic*.
+      {/* OR */}
 
-- List item 1
-- List item 2
-
-[Link text](https://example.com)
-
-\`inline code\`
-
-\`\`\`javascript
-const code = "block";
-\`\`\`
-`}
-</Markdown>
+      <Markdown children={`# This is a ~~strikethrough~~`} />
+    </Html>
+  );
+};
 ```
 
 **Props:**
 - `children` (required) - Markdown string
-- `markdownCustomStyles` - Style overrides for HTML elements
+- `markdownCustomStyles` - Style overrides for HTML elements (h1, h2, p, a, codeInline, etc.)
 - `markdownContainerStyles` - Styles for container div
 
 ### Font
 
-Custom web fonts.
+A React Font component to set your fonts.
 
-```jsx
-import { Font } from '@react-email/components';
+```tsx
+import { Head, Font } from '@react-email/components';
 
 <Head>
   <Font
@@ -340,55 +427,3 @@ import { Font } from '@react-email/components';
 - woff
 - truetype
 - opentype
-
-### Tailwind
-
-Use Tailwind CSS utility classes.
-
-```jsx
-import { Tailwind, pixelBasedPreset } from '@react-email/components';
-
-<Tailwind
-  config={{
-    presets: [pixelBasedPreset],
-    theme: {
-      extend: {
-        colors: {
-          brand: '#007bff',
-          accent: '#28a745'
-        },
-        spacing: {
-          '128': '32rem'
-        }
-      }
-    }
-  }}
->
-  <Container className="max-w-2xl mx-auto p-4">
-    <Heading className="text-2xl font-bold text-brand mb-4">
-      Welcome!
-    </Heading>
-    <Text className="text-base text-gray-700 mb-4">
-      Your content here.
-    </Text>
-    <Button className="bg-brand text-white px-6 py-3 rounded-lg">
-      Get Started
-    </Button>
-  </Container>
-</Tailwind>
-```
-
-**Props:**
-- `config` - Tailwind configuration object
-
-**How it works:**
-- Tailwind classes are converted to inline styles automatically
-- Media queries are extracted to `<style>` tag in `<head>`
-- CSS variables are resolved
-- RGB color syntax is normalized for email client compatibility
-
-**Best practices:**
-- Use with care as it can increase render times and bundle size significantly
-- Wrap your entire email content in `<Tailwind>`
-- Custom config is optional - defaults work well
-- Responsive classes (sm:, md:, lg:) work via media queries, but should be used with caution due to limited email client support 

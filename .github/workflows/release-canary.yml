@@ -5,10 +5,9 @@ on:
       - canary
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  release:
-    name: release canary
+  release-canary:
     runs-on: blacksmith-2vcpu-ubuntu-2204
-    permissions:
+    permissions: 
       contents: write
       pull-requests: write
     container:
@@ -23,16 +22,7 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Enter prerelease mode
-        # This step errors if it is already in prerelease mode
-        continue-on-error: true
-        run: pnpm canary:enter
-      - name: Create "version packages" pull request or publish release
-        uses: changesets/action@v1.5.3
-        with:
-          version: pnpm run version
-          publish: pnpm run release
-          title: "chore(root): version packages"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish canary release
+        run: pnpm tsx ./scripts/release-only-canary.ts
+        env: 
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
