@@ -23,6 +23,6 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Publish canary release
-        run: tsx ./scripts/release-only-canary.ts
+        run: pnpm tsx ./scripts/release-only-canary.ts
         env: 
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
