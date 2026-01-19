@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { pretty, toPlainText } from '../node';
+import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
-  const suspendedElement = <Suspense>{node}</Suspense>;
   const reactDOMServer = await import('react-dom/server').then((m) => {
     if ('default' in m) {
       return m.default;
@@ -13,13 +13,19 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   });
 
   const html = await new Promise<string>((resolve, reject) => {
+    const ErrorBoundary = createErrorBoundary(reject);
     reactDOMServer
-      .renderToReadableStream(suspendedElement, {
-        onError(error: unknown) {
-          reject(error);
+      .renderToReadableStream(
+        <Suspense>
+          <ErrorBoundary>{node}</ErrorBoundary>
+        </Suspense>,
+        {
+          onError(error: unknown) {
+            reject(error);
+          },
+          progressiveChunkSize: Number.POSITIVE_INFINITY,
         },
-        progressiveChunkSize: Number.POSITIVE_INFINITY,
-      })
+      )
       .then(readStream)
       .then(resolve)
       .catch(reject);
