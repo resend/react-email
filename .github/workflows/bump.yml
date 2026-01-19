@@ -29,5 +29,3 @@ jobs:
           title: "chore(root): version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish canary release
-        run: tsx ./scripts/release-only-canary.ts
