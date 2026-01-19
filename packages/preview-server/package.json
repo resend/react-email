@@ -19,7 +19,7 @@
     "@babel/core": "7.26.10",
     "@babel/parser": "7.27.0",
     "@babel/traverse": "7.27.0",
-    "@lottiefiles/dotlottie-react": "0.13.3",
+    "@lottiefiles/dotlottie-react": "0.17.13",
     "@radix-ui/colors": "3.0.0",
     "@radix-ui/react-collapsible": "1.1.12",
     "@radix-ui/react-dropdown-menu": "2.1.16",

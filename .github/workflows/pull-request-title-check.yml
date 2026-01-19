@@ -9,7 +9,7 @@ permissions:
   pull-requests: read
 jobs:
   pull-request-title-check:
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     container:
       image: node:22-slim
     steps:

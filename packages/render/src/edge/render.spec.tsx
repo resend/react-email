@@ -58,6 +58,14 @@ describe('render on the edge', () => {
     );
   });
 
+  it('properly handles component throw error', async () => {
+    function ThrowingComponent(): React.ReactNode {
+      throw new Error('This should be trown by render');
+    }
+
+    await expect(render(<ThrowingComponent />)).rejects.toThrow();
+  });
+
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
   it('handles characters with a higher byte count gracefully', async () => {
     const actualOutput = await render(
