@@ -73,6 +73,9 @@ export const CopyCode = ({
           </motion.span>
         )}
       </AnimatePresence>
+      <span className="sr-only" aria-live="polite">
+        {isCopied ? 'Copied' : 'Copy to clipboard'}
+      </span>
     </IconButton>
   );
 };
