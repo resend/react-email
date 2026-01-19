@@ -42,6 +42,14 @@ describe('render on the edge', () => {
     vi.resetAllMocks();
   });
 
+  it('properly handles component throw error', async () => {
+    function ThrowingComponent(): React.ReactNode {
+      throw new Error('This should be trown by render');
+    }
+
+    await expect(render(<ThrowingComponent />)).rejects.toThrow();
+  });
+
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
   it('handles characters with a higher byte count gracefully in React 18', async () => {
     const actualOutput = await render(
@@ -124,7 +132,7 @@ describe('render on the edge', () => {
       vi.doMock('react-dom/server', async () => ({
         default: {
           ...(await vi.importActual<Import>('react-dom/server')).default,
-          renderToReadableStream: () => ({ pipeTo: async () => {} }),
+          renderToReadableStream: () => ({ pipeTo: async () => { } }),
         },
       }));
 
