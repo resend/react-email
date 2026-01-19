@@ -1,11 +1,11 @@
-name: Release
+name: Release Canary
 on:
   push:
     branches:
-      - main
+      - canary
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  release:
+  release-canary:
     runs-on: blacksmith-2vcpu-ubuntu-2204
     permissions: 
       contents: write
@@ -22,7 +22,7 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Publish stable release
-        run: pnpm run release
+      - name: Publish canary release
+        run: tsx ./scripts/release-only-canary.ts
         env: 
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
