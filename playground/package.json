@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.0.13",
+  "version": "0.0.12",
   "private": true,
   "scripts": {
     "dev": "email dev",
