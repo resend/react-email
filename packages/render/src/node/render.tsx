@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
+import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { pretty } from '../shared/utils/pretty';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { readStream } from './read-stream';
-import { createErrorBoundary } from '../shared/error-boundary';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
   const reactDOMServer = await import('react-dom/server').then((m) => {

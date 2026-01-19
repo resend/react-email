@@ -132,7 +132,7 @@ describe('render on the edge', () => {
       vi.doMock('react-dom/server', async () => ({
         default: {
           ...(await vi.importActual<Import>('react-dom/server')).default,
-          renderToReadableStream: () => ({ pipeTo: async () => { } }),
+          renderToReadableStream: () => ({ pipeTo: async () => {} }),
         },
       }));
 
