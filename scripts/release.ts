@@ -1,9 +1,9 @@
-// Most of this code was adapted from https://github.com/changesets/action, 
+// Most of this code was adapted from https://github.com/changesets/action,
 // which unfortunately doesn't support more granular usage of their code,
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
-import { exec } from '@actions/exec';
+import { exec, getExecOutput } from '@actions/exec';
 import * as github from '@actions/github';
 import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
@@ -99,7 +99,29 @@ const createRelease = async ({
 };
 
 (async () => {
+  const changesetPublishOutput = await getExecOutput('pnpm release');
+
   const { packages } = await getPackages(process.cwd());
+
+  const newTagRegex = /New tag:\s+(@[^/]+\/[^@]+|[^/]+)@([^\s]+)/;
+  const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
+
+  const releasedPackages: Package[] = [];
+  for (const line of changesetPublishOutput.stdout.split('\n')) {
+    const match = line.match(newTagRegex);
+    if (match === null) {
+      continue;
+    }
+    const pkgName = match[1];
+    const pkg = packagesByName.get(pkgName);
+    if (pkg === undefined) {
+      throw new Error(
+        `Package "${pkgName}" not found.` +
+        'This is probably a bug in the action, please open an issue',
+      );
+    }
+    releasedPackages.push(pkg);
+  }
 
   await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
   await exec('git', [
@@ -107,10 +129,8 @@ const createRelease = async ({
     'user.email',
     `"41898282+github-actions[bot]@users.noreply.github.com"`,
   ]);
-  for (const pkg of packages) {
+  for (const pkg of releasedPackages) {
     const tagName = `${pkg.packageJson.name}@${pkg.packageJson.version}`;
-    console.log(`Creating release for ${tagName}`);
-    await createRelease({ pkg, tagName });
     octokit.rest.git
       .createRef({
         ...github.context.repo,
@@ -121,5 +141,8 @@ const createRelease = async ({
         core.warning(`Failed to create tag ${tagName}: ${error}`);
       });
     await exec('git', ['push', 'origin', tagName]);
+
+    console.log(`Creating release for ${tagName}`);
+    await createRelease({ pkg, tagName });
   }
 })();
