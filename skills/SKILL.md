@@ -40,7 +40,7 @@ mkdir emails
 ```json
 {
   "scripts": {
-    "email": "email dev --dir ./emails --port 3000"
+    "email": "email dev"
   }
 }
 ```
@@ -70,6 +70,7 @@ Ask the user for:
    - Logo image URL (must be absolute URL, PNG or JPEG)
    - Logo dimensions or aspect ratio preference
    - Logo placement preference (centered, left-aligned)
+   - Ask user for file and path of the local file if the logo is not a publicly accessible URL.
 
 3. **Typography** (optional)
    - Preferred font family (default: system fonts)
@@ -79,6 +80,7 @@ Ask the user for:
    - Modern/minimal vs. classic/traditional
    - Rounded corners vs. sharp edges
    - Spacing density (compact vs. spacious)
+   - Never add emojis unless the user explicitly requests them.
 
 ### Brand Configuration Pattern
 
@@ -122,6 +124,7 @@ export const brandTailwindTheme = {
 ### Using Brand Config in Templates
 
 ```tsx
+import * as React from "react";
 import { brandConfig, brandTailwindTheme } from './brand-config';
 import { Tailwind, pixelBasedPreset, Img } from '@react-email/components';
 
@@ -163,6 +166,7 @@ Replace the sample email templates. Here is how to create a new email template:
 Create an email component with proper structure using the Tailwind component for styling:
 
 ```tsx
+import * as React from "react";
 import {
   Html,
   Head,
@@ -336,6 +340,7 @@ React Email supports sending with any email service provider. If the user wants 
 Quick example using the Resend SDK for Node.js:
 
 ```tsx
+import * as React from "react";
 import { Resend } from 'resend';
 import { WelcomeEmail } from './emails/welcome';
 
@@ -364,6 +369,7 @@ React Email supports three i18n libraries: next-intl, react-i18next, and react-i
 ### Quick Example (next-intl)
 
 ```tsx
+import * as React from "react";
 import { createTranslator } from 'next-intl';
 import {
   Html,
