@@ -8,7 +8,7 @@
     "canary:exit": "changeset pre exit",
     "lint": "biome check",
     "lint:fix": "biome check --write .",
-    "release": "turbo run build --filter=./packages/* && pnpm changeset publish && pnpm tsx ./scripts/release.ts",
+    "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"

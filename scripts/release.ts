@@ -1,11 +1,5 @@
 // Most of this code was adapted from https://github.com/changesets/action, 
 // which unfortunately doesn't support more granular usage of their code,
-//
-// To test this script without actually creating releases, set DRY_RUN=true:
-//   DRY_RUN=true tsx scripts/release.ts
-// or
-//   DRY_RUN=1 tsx scripts/release.ts
-//
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
@@ -15,8 +9,7 @@ import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
 import { remark } from 'remark';
 
-const DRY_RUN = process.env.DRY_RUN === 'true' || process.env.DRY_RUN === '1';
-const octokit = DRY_RUN ? null : github.getOctokit(process.env.GITHUB_TOKEN || '');
+const octokit = github.getOctokit(process.env.GITHUB_TOKEN || '');
 
 const processor = remark();
 
@@ -96,18 +89,7 @@ const createRelease = async ({
     );
   }
 
-  if (DRY_RUN) {
-    console.log('[DRY RUN] Would create release:', {
-      name: tagName,
-      tag_name: tagName,
-      body: changelogEntry.content.substring(0, 100) + '...',
-      prerelease: pkg.packageJson.version.includes('-'),
-      repo: github.context.repo,
-    });
-    return;
-  }
-
-  await octokit!.rest.repos.createRelease({
+  await octokit.rest.repos.createRelease({
     name: tagName,
     tag_name: tagName,
     body: changelogEntry.content,
@@ -117,42 +99,27 @@ const createRelease = async ({
 };
 
 (async () => {
-  if (DRY_RUN) {
-    console.log('[DRY RUN MODE] No actual releases, tags, or git operations will be performed');
-  }
-
   const { packages } = await getPackages(process.cwd());
 
-  if (!DRY_RUN) {
-    await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
-    await exec('git', [
-      'config',
-      'user.email',
-      `"41898282+github-actions[bot]@users.noreply.github.com"`,
-    ]);
-  } else {
-    console.log('[DRY RUN] Would configure git user');
-  }
-
+  await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
+  await exec('git', [
+    'config',
+    'user.email',
+    `"41898282+github-actions[bot]@users.noreply.github.com"`,
+  ]);
   for (const pkg of packages) {
     const tagName = `${pkg.packageJson.name}@${pkg.packageJson.version}`;
     console.log(`Creating release for ${tagName}`);
     await createRelease({ pkg, tagName });
-    
-    if (DRY_RUN) {
-      console.log(`[DRY RUN] Would create git tag: ${tagName}`);
-      console.log(`[DRY RUN] Would push tag to origin: ${tagName}`);
-    } else {
-      octokit!.rest.git
-        .createRef({
-          ...github.context.repo,
-          ref: `refs/tags/${tagName}`,
-          sha: github.context.sha,
-        })
-        .catch((error: unknown) => {
-          core.warning(`Failed to create tag ${tagName}: ${error}`);
-        });
-      await exec('git', ['push', 'origin', tagName]);
-    }
+    octokit.rest.git
+      .createRef({
+        ...github.context.repo,
+        ref: `refs/tags/${tagName}`,
+        sha: github.context.sha,
+      })
+      .catch((error: unknown) => {
+        core.warning(`Failed to create tag ${tagName}: ${error}`);
+      });
+    await exec('git', ['push', 'origin', tagName]);
   }
 })();
