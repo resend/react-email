@@ -1,8 +1,8 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
+import { runScript } from 'nypm';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -18,15 +18,14 @@ interface Args {
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
-  previewAppPath: string,
-  previewServerLocation: string,
+  modifiedPreviewAppPath: string,
   rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = '${previewServerLocation.replace(/\\/g, '/')}';
+const previewServerLocation = '${modifiedPreviewAppPath.replace(/\\/g, '/')}';
 const rootDirectory = '${rootDirectory}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -51,7 +50,7 @@ const nextConfig = {
 export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(previewAppPath, './next.config.mjs'),
+    path.resolve(modifiedPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
@@ -192,14 +191,22 @@ export const build = async ({
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
     const staticPath = path.join(emailsDirPath, 'static');
 
+    const modifiedPreviewAppPath = path.resolve(
+      previewServerLocation,
+      '../.react-email',
+    );
+    if (fs.existsSync(modifiedPreviewAppPath)) {
+      spinner.text = 'Deleting pre-existing modified preview app folder';
+      await fs.promises.rm(modifiedPreviewAppPath, { recursive: true });
+    }
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
     if (fs.existsSync(builtPreviewAppPath)) {
       spinner.text = 'Deleting pre-existing .react-email folder';
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to .react-email';
-    await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
+    spinner.text = 'Copying preview app from CLI to modify it';
+    await fs.promises.cp(previewServerLocation, modifiedPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
         return (
@@ -213,7 +220,7 @@ export const build = async ({
     if (fs.existsSync(staticPath)) {
       spinner.text = 'Copying static directory';
       const modifiedPreviewAppStaticDirectory = path.resolve(
-        builtPreviewAppPath,
+        modifiedPreviewAppPath,
         './public/static',
       );
       await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
@@ -224,39 +231,43 @@ export const build = async ({
     spinner.text = 'Setting Next environment variables';
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
-      builtPreviewAppPath,
-      previewServerLocation,
+      modifiedPreviewAppPath,
       rootDirectory,
     );
 
     spinner.text = 'Setting up server side generation';
-    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
+    await forceSSGForEmailPreviews(emailsDirPath, modifiedPreviewAppPath);
 
     spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(builtPreviewAppPath);
+    await updatePackageJson(modifiedPreviewAppPath);
 
     spinner.stopAndPersist({
       text: 'Ready for next build',
       symbol: logSymbols.success,
     });
+    await runScript('build', {
+      cwd: modifiedPreviewAppPath,
+      packageManager: 'npm',
+    });
 
-    // Build the app in-place under the user's `.react-email` folder, but execute
-    // the `next` binary from the installed preview-server directory. This avoids
-    // forcing an install inside `.react-email` and ensures Next's build output
-    // (file tracing, manifests, appDir paths) matches the deployed `.react-email`
-    // location (important for environments like Vercel).
-    await new Promise<void>((resolve, reject) => {
-      const nextBuild = spawn('npx', ['next', 'build', builtPreviewAppPath], {
-        cwd: previewServerLocation,
-        shell: true,
-        stdio: 'inherit',
-      });
+    await fs.promises.mkdir(builtPreviewAppPath);
+    await fs.promises.cp(
+      path.join(modifiedPreviewAppPath, '.next'),
+      path.join(builtPreviewAppPath, '.next'),
+      {
+        recursive: true,
+      },
+    );
+    await fs.promises.cp(
+      path.join(modifiedPreviewAppPath, 'public'),
+      path.join(builtPreviewAppPath, 'public'),
+      {
+        recursive: true,
+      },
+    );
 
-      nextBuild.on('exit', (code) => {
-        if (code === 0) resolve();
-        reject(new Error(`next build exited with code ${code ?? 'unknown'}`));
-      });
-      nextBuild.on('error', reject);
+    await fs.promises.rm(modifiedPreviewAppPath, {
+      recursive: true,
     });
   } catch (error) {
     console.log(error);
