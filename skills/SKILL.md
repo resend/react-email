@@ -425,19 +425,17 @@ Message files (\`messages/en.json\`, \`messages/es.json\`, etc.):
 
 2. **Keep it responsive** - Max-width around 600px, test on mobile devices.
 
-3. **Use absolute image URLs** - Host on reliable CDN, always include \`alt\` text.
+3. **Use absolute image URLs** - Host on reliable CDN, always include `alt` text.
 
-4. **Provide plain text version** - Required for accessibility and some email clients.
+4. **Provide plain text version** - Required for accessibility and some email clients. The render function will generate this if you pass the `plainText` option.
 
 5. **Keep file size under 102KB** - Gmail clips larger emails.
 
 6. **Add proper TypeScript types** - Define interfaces for all email props.
 
-7. **Include preview props** - Add \`.PreviewProps\` to components for development testing.
+7. **Include preview props** - Add `.PreviewProps` to components for development testing.
 
 8. **Handle errors** - Always check for errors when sending emails.
-
-9.  **Use verified domains** - For production, use verified domains in \`from\` addresses.
 
 ## Common Patterns
 
