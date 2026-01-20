@@ -52,6 +52,110 @@ npm run email
 
 The `--dir` flag specifies where email templates are stored. Adjust the path to match your project structure (e.g., `src/emails`, `app/emails`).
 
+## Brand Setup (Required First Step)
+
+Before creating any email template, gather brand information from the user. This ensures visual consistency across all emails.
+
+### Required Brand Information
+
+Ask the user for:
+
+1. **Brand colors**
+   - Primary color (main brand color for buttons, links, accents)
+   - Secondary color (supporting color for backgrounds, borders)
+   - Text color (default: `#1a1a1a` for light mode)
+   - Background color (default: `#f4f4f5` for light mode)
+
+2. **Logo**
+   - Logo image URL (must be absolute URL, PNG or JPEG)
+   - Logo dimensions or aspect ratio preference
+   - Logo placement preference (centered, left-aligned)
+
+3. **Typography** (optional)
+   - Preferred font family (default: system fonts)
+   - Custom web font URL if applicable
+
+4. **Style preferences** (optional)
+   - Modern/minimal vs. classic/traditional
+   - Rounded corners vs. sharp edges
+   - Spacing density (compact vs. spacious)
+
+### Brand Configuration Pattern
+
+Once gathered, define a reusable brand configuration:
+
+```tsx
+// brand-config.ts - Create this file in your emails directory
+export const brandConfig = {
+  colors: {
+    primary: '#007bff',      // User's primary brand color
+    secondary: '#6c757d',    // User's secondary color
+    text: '#1a1a1a',         // Main text color
+    textMuted: '#6b7280',    // Secondary text color
+    background: '#f4f4f5',   // Email background
+    surface: '#ffffff',      // Container background
+  },
+  logo: {
+    src: 'https://example.com/logo.png',  // User's logo URL
+    alt: 'Company Name',
+    width: 120,
+  },
+  styles: {
+    borderRadius: 'rounded',  // or 'rounded-lg', 'rounded-none'
+    buttonStyle: 'rounded px-5 py-3',
+  },
+};
+
+// Tailwind theme extension
+export const brandTailwindTheme = {
+  extend: {
+    colors: {
+      brand: {
+        primary: brandConfig.colors.primary,
+        secondary: brandConfig.colors.secondary,
+      },
+    },
+  },
+};
+```
+
+### Using Brand Config in Templates
+
+```tsx
+import { brandConfig, brandTailwindTheme } from './brand-config';
+import { Tailwind, pixelBasedPreset, Img } from '@react-email/components';
+
+<Tailwind config={{ presets: [pixelBasedPreset], theme: brandTailwindTheme }}>
+  <Body className="bg-gray-100 font-sans">
+    <Container className="max-w-xl mx-auto bg-white p-6">
+      <Img
+        src={brandConfig.logo.src}
+        alt={brandConfig.logo.alt}
+        width={brandConfig.logo.width}
+        className="mx-auto mb-6"
+      />
+      <Button className={`bg-brand-primary text-white ${brandConfig.styles.buttonStyle}`}>
+        Call to Action
+      </Button>
+    </Container>
+  </Body>
+</Tailwind>
+```
+
+### Asset Locations
+
+Direct users to place brand assets in appropriate locations:
+
+- **Logo and images**: Host on a CDN or public URL. For local development, place in `public/static/` and use the dev server URL.
+- **Custom fonts**: Use the `Font` component with a web font URL (Google Fonts, Adobe Fonts, or self-hosted).
+
+**Example prompt for gathering brand info:**
+> "Before I create your email template, I need some brand information to ensure consistency. Could you provide:
+> 1. Your primary brand color (hex code, e.g., #007bff)
+> 2. Your logo URL (must be a publicly accessible PNG or JPEG)
+> 3. Any secondary colors you'd like to use
+> 4. Style preference (modern/minimal or classic/traditional)"
+
 ## Basic Email Template
 
 Replace the sample email templates. Here is how to create a new email template:
@@ -152,11 +256,20 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Markdown` - Render markdown
 - `Font` - Custom web fonts
 
-## Behavioral guidelines
-- When re-iterating over the code, make sure you are only updating what the user asked for and keeping the rest of the code intact;
-- If the user is asking to use media queries, inform them that email clients do not support them, and suggest a different approach;
+## Behavioral Guidelines
+
+### Brand-First Workflow
+- **Always gather brand information before creating the first email template.** Do not skip this step.
+- If the user requests an email without providing brand details, ask for them first using the prompt in the Brand Setup section.
+- If a `brand-config.ts` file exists in the emails directory, use it for all new templates.
+- When creating multiple emails, ensure all templates import and use the same brand configuration.
+- If the user provides new brand assets or colors mid-project, update `brand-config.ts` and offer to update existing templates.
+
+### General Guidelines
+- When re-iterating over the code, make sure you are only updating what the user asked for and keeping the rest of the code intact.
+- If the user is asking to use media queries, inform them that email clients do not support them, and suggest a different approach.
 - Never use template variables (like {{name}}) directly in TypeScript code. Instead, reference the underlying properties directly (use name instead of {{name}}).
-- - For example, if the user explicitly asks for a variable following the pattern {{variableName}}, you should return something like this:
+  - For example, if the user explicitly asks for a variable following the pattern {{variableName}}, you should return something like this:
 
 ```typescript
 const EmailTemplate = (props) => {
