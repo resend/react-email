@@ -25,7 +25,7 @@ const setNextEnvironmentVariablesForBuild = async (
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = import.meta.dirname.replace(/\\/g, '/');
+const previewServerLocation = import.meta.dirname.replace(/\\\\/g, '/');
 const rootDirectory = '${rootDirectory}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
