@@ -28,9 +28,9 @@ export function getChangelogEntry(changelog: string, version: string) {
   const nodes = ast.children;
   let headingStartInfo:
     | {
-      index: number;
-      depth: number;
-    }
+        index: number;
+        depth: number;
+      }
     | undefined;
   let endIndex: number | undefined;
 
@@ -117,7 +117,7 @@ const createRelease = async ({
     if (pkg === undefined) {
       throw new Error(
         `Package "${pkgName}" not found.` +
-        'This is probably a bug in the action, please open an issue',
+          'This is probably a bug in the action, please open an issue',
       );
     }
     releasedPackages.push(pkg);
