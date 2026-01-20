@@ -32,4 +32,4 @@ jobs:
       - name: Publish stable release
         run: pnpm run release
         env: 
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
