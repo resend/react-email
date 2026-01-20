@@ -30,6 +30,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish stable release
-        run: pnpm run release
+        run: pnpm tsx ./scripts/release.ts
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
