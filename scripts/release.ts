@@ -5,6 +5,7 @@ import path from 'node:path';
 import * as core from '@actions/core';
 import { exec, getExecOutput } from '@actions/exec';
 import * as github from '@actions/github';
+import { readPreState } from '@changesets/pre';
 import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
 import { remark } from 'remark';
@@ -28,9 +29,9 @@ export function getChangelogEntry(changelog: string, version: string) {
   const nodes = ast.children;
   let headingStartInfo:
     | {
-        index: number;
-        depth: number;
-      }
+      index: number;
+      depth: number;
+    }
     | undefined;
   let endIndex: number | undefined;
 
@@ -99,6 +100,35 @@ const createRelease = async ({
 };
 
 (async () => {
+  // Validate we have the necessary GitHub context
+  if (!github.context.repo.owner || !github.context.repo.repo) {
+    throw new Error(
+      'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
+    );
+  }
+
+  const isCanaryBranch = github.context.ref === 'refs/heads/canary';
+  const isMainBranch = github.context.ref === 'refs/heads/main';
+
+  if (isCanaryBranch) {
+    console.log('Detected running in canary branch, checking prerelease state');
+    const preState = await readPreState(process.cwd());
+    if (preState?.mode !== 'pre') {
+      console.log(
+        'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
+      );
+    }
+    console.log('Is in prerelease mode, proceeding with automated release');
+  } else if (isMainBranch) {
+    console.log(
+      'Detected running in main branch, proceeding with stable release',
+    );
+  } else {
+    throw new Error(
+      `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
+    );
+  }
+
   const changesetPublishOutput = await getExecOutput('pnpm release');
 
   const { packages } = await getPackages(process.cwd());
@@ -117,7 +147,7 @@ const createRelease = async ({
     if (pkg === undefined) {
       throw new Error(
         `Package "${pkgName}" not found.` +
-          'This is probably a bug in the action, please open an issue',
+        'This is probably a bug in the action, please open an issue',
       );
     }
     releasedPackages.push(pkg);
