@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - canary
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
@@ -16,7 +17,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
-          fetch-depth: 2
+          fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
@@ -30,6 +31,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish stable release
-        run: pnpm run release
+        run: pnpm tsx ./scripts/release.ts
         env: 
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
