@@ -82,7 +82,7 @@ const createRelease = async ({
   );
   const changelogEntry = getChangelogEntry(changelog, pkg.packageJson.version);
   if (!changelogEntry) {
-    // we can find a changelog but not the entry for this version
+    // We can find a changelog but not the entry for this version
     // if this is true, something has probably gone wrong
     throw new Error(
       `Could not find changelog entry for ${pkg.packageJson.name}@${pkg.packageJson.version}`,
