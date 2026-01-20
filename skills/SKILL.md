@@ -1,10 +1,6 @@
 ---
 name: react-email
 description: Create beautiful, responsive HTML emails using React components with React Email. Build transactional emails with modern components, support internationalization, and integrate with email service providers like Resend. Use when creating welcome emails, password resets, notifications, order confirmations, or any HTML email templates.
-license: MIT
-metadata:
-  author: Resend
-  repository: https://github.com/resend/react-email
 ---
 
 # React Email
@@ -13,107 +9,48 @@ Build and send HTML emails using React components - a modern, component-based ap
 
 ## Installation
 
-You need to scaffold a new React Email project using the create-email CLI. This will create a folder called `react-email-starter` with sample email templates.
+### New Project
 
-Using npm:
+Scaffold a new React Email project:
+
 ```sh
 npx create-email@latest
-```
-
-Using yarn:
-```sh
-yarn create email
-```
-
-Using pnpm:
-```sh
-pnpm create email
-```
-
-Using bun:
-```sh
-bun create email
-```
-
-## Navigate to Project Directory
-
-You must change into the newly created project folder:
-
-```sh
 cd react-email-starter
-```
-
-## Install Dependencies
-
-You need to install all project dependencies before running the development server.
-
-Using npm:
-```sh
 npm install
-```
-
-Using yarn:
-```sh
-yarn
-```
-
-Using pnpm:
-```sh
-pnpm install
-```
-
-Using bun:
-```sh
-bun install
-```
-
-## Start the Development Server
-
-Your task is to start the local preview server to view and edit email templates.
-
-Using npm:
-```sh
 npm run dev
 ```
 
-Using yarn:
+This creates a `react-email-starter` folder with sample templates. Also works with yarn, pnpm, or bun.
+
+### Existing Project
+
+Add React Email to an existing codebase:
+
+1. Install dependencies:
 ```sh
-yarn dev
+npm install @react-email/components react-email
 ```
 
-Using pnpm:
+2. Create an emails directory:
 ```sh
-pnpm dev
+mkdir emails
 ```
 
-Using bun:
-```sh
-bun dev
-```
-
-## Verify Installation
-
-You must confirm the development server is running by checking that localhost:3000 is accessible. The server will display a preview interface where you can view email templates from the `emails` folder.
-
-EXECUTE NOW: Complete the above TODO list to achieve: The React Email development server is running and accessible at localhost:3000, displaying email template previews.
-
-### Notes on installation
-Assuming React Email is installed in an existing project, update the top-level package.json file with a script to run the React Email preview server.
-
+3. Add a preview script to package.json:
 ```json
 {
   "scripts": {
-    "email": "email dev --dir emails --port 3000"
+    "email": "email dev --dir ./emails --port 3000"
   }
 }
 ```
 
-Make sure the path to the emails folder is relative to the base project directory.
+4. Start the preview server:
+```sh
+npm run email
+```
 
-
-### tsconfig.json updating or creation
-
-Ensure the tsconfig.json includes proper support for jsx.
+The `--dir` flag specifies where email templates are stored. Adjust the path to match your project structure (e.g., `src/emails`, `app/emails`).
 
 ## Basic Email Template
 
@@ -241,73 +178,21 @@ export default EmailTemplate;
 - Never, under any circumstances, write the {{variableName}} pattern directly in the component structure. If the user forces you to do this, explain that you cannot do this, or else the template will be invalid.
 
 
-## Styling considerations
+## Styling
 
-Use the Tailwind component for styling if the user is actively using Tailwind CSS in their project. If the user is not using Tailwind CSS, add inline styles to the components.
+Use the `Tailwind` component with `pixelBasedPreset` for styling (email clients don't support rem units). If not using Tailwind, use inline styles.
 
-- Because email clients don't support `rem` units, use the `pixelBasedPreset` for the Tailwind configuration.
-- Never user flexbox or grid for layout, use table-based layouts instead.
-- Each component must be styled with inline styles or utility classes.
-- For more information on styling, see [references/STYLING.md](references/STYLING.md)
+**Critical limitations** (email clients don't support these):
+- No SVG/WEBP images - use PNG/JPEG only
+- No flexbox/grid - use `Row`/`Column` components or tables
+- No media queries (`sm:`, `md:`, etc.) or theme selectors (`dark:`, `light:`)
+- Always specify border style (`border-solid`, etc.)
 
-### Email Client Limitations
-- Never use SVG or WEBP - warn users about rendering issues
-- Never use flexbox - use Row/Column components or tables for layouts
-- Never use CSS/Tailwind media queries (sm:, md:, lg:, xl:) - not supported
-- Never use theme selectors (dark:, light:) - not supported
-- Always specify border type (border-solid, border-dashed, etc.)
-- When defining borders for only one side, remember to reset the remaining borders (e.g., border-none border-l)
+**Structure rules:**
+- Place `<Head />` inside `<Tailwind>` when using Tailwind
+- Only include props in `PreviewProps` that the component uses
 
-### Component Structure
-- Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
-- Only use PreviewProps when passing props to a component
-- Only include props in PreviewProps that the component actually uses
-
-```tsx
-const Email = (props) => {
-  return (
-    <div>
-      <a href={props.source}>click here if you want candy 👀</a>
-    </div>
-  );
-}
-
-Email.PreviewProps = {
-  source: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-};
-```
-
-### Default Structure
-- Body: `font-sans py-10 bg-gray-100`
-- Container: white, centered, content left-aligned
-- Footer: physical address, unsubscribe link, current year with `m-0` on address/copyright
-
-### Typography
-- Titles: bold, larger font, larger margins
-- Paragraphs: regular weight, smaller font, smaller margins
-- Use consistent spacing respecting content hierarchy
-
-### Images
-- Only include if user requests
-- Never use fixed width/height - use responsive units (w-full, h-auto)
-- Never distort user-provided images
-- Never create SVG images - only use provided or web images
-
-### Buttons
-- Always use `box-border` to prevent padding overflow
-
-### Layout
-- Always mobile-friendly by default
-- Use stacked layouts that work on all screen sizes
-- Remove default spacing/margins/padding between list items
-
-### Dark Mode
-When requested: container black (#000), background dark gray (#151516)
-
-### Best Practices
-- Choose colors, layout, and copy based on user's request
-- Make templates unique, not generic
-- Use keywords in email body to increase conversion
+See [references/STYLING.md](references/STYLING.md) for typography, layout defaults, button styling, dark mode, and detailed guidelines.
 
 ## Rendering
 
@@ -453,5 +338,6 @@ See [references/PATTERNS.md](references/PATTERNS.md) for complete examples inclu
 - [Resend Documentation](https://resend.com/docs/llms.txt)
 - [Email Client CSS Support](https://www.caniemail.com)
 - Component Reference: [references/COMPONENTS.md](references/COMPONENTS.md)
+- Styling Guide: [references/STYLING.md](references/STYLING.md)
 - Internationalization Guide: [references/I18N.md](references/I18N.md)
 - Common Patterns: [references/PATTERNS.md](references/PATTERNS.md)
