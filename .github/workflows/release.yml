@@ -22,6 +22,13 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish stable release
         run: pnpm run release
         env: 
