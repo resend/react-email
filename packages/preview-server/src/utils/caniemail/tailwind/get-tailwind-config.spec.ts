@@ -23,4 +23,23 @@ describe('getTailwindConfig()', () => {
       presets: [pixelBasedPreset],
     });
   });
+
+  it('works with email templates that define the config as a variable in the component', async () => {
+    const sourcePath = path.resolve(
+      __dirname,
+      './tests/config-define-in-variable-in-componen.tsx',
+    );
+    const sourceCode = await fs.readFile(sourcePath, 'utf8');
+    const ast = parse(sourceCode, {
+      strictMode: false,
+      errorRecovery: true,
+      sourceType: 'unambiguous',
+      plugins: ['jsx', 'typescript', 'decorators'],
+    });
+
+    expect(await getTailwindConfig(sourceCode, ast, sourcePath)).toEqual({
+      theme: {},
+      presets: [pixelBasedPreset],
+    });
+  });
 });
