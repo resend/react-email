@@ -100,7 +100,6 @@ const createRelease = async ({
 };
 
 (async () => {
-  // Validate we have the necessary GitHub context
   if (!github.context.repo.owner || !github.context.repo.repo) {
     throw new Error(
       'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
@@ -117,6 +116,7 @@ const createRelease = async ({
       console.log(
         'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
       );
+      return;
     }
     console.log('Is in prerelease mode, proceeding with automated release');
   } else if (isMainBranch) {
