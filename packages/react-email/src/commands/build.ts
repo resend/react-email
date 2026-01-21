@@ -191,22 +191,14 @@ export const build = async ({
     const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
     const staticPath = path.join(emailsDirPath, 'static');
 
-    const modifiedPreviewAppPath = path.resolve(
-      previewServerLocation,
-      '../.react-email',
-    );
-    if (fs.existsSync(modifiedPreviewAppPath)) {
-      spinner.text = 'Deleting pre-existing modified preview app folder';
-      await fs.promises.rm(modifiedPreviewAppPath, { recursive: true });
-    }
     const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
     if (fs.existsSync(builtPreviewAppPath)) {
       spinner.text = 'Deleting pre-existing .react-email folder';
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to modify it';
-    await fs.promises.cp(previewServerLocation, modifiedPreviewAppPath, {
+    spinner.text = 'Copying preview application';
+    await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
         return (
@@ -220,7 +212,7 @@ export const build = async ({
     if (fs.existsSync(staticPath)) {
       spinner.text = 'Copying static directory';
       const modifiedPreviewAppStaticDirectory = path.resolve(
-        modifiedPreviewAppPath,
+        builtPreviewAppPath,
         './public/static',
       );
       await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
@@ -231,78 +223,24 @@ export const build = async ({
     spinner.text = 'Setting Next environment variables';
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
-      modifiedPreviewAppPath,
+      builtPreviewAppPath,
       rootDirectory,
     );
 
     spinner.text = 'Setting up server side generation';
-    await forceSSGForEmailPreviews(emailsDirPath, modifiedPreviewAppPath);
+    await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
     spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(modifiedPreviewAppPath);
+    await updatePackageJson(builtPreviewAppPath);
 
     spinner.stopAndPersist({
       text: 'Ready for next build',
       symbol: logSymbols.success,
     });
     await runScript('build', {
-      cwd: modifiedPreviewAppPath,
+      cwd: builtPreviewAppPath,
       packageManager: 'npm',
     });
-
-    await fs.promises.mkdir(builtPreviewAppPath);
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, '.next'),
-      path.join(builtPreviewAppPath, '.next'),
-      {
-        recursive: true,
-      },
-    );
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, 'public'),
-      path.join(builtPreviewAppPath, 'public'),
-      {
-        recursive: true,
-      },
-    );
-    // Copy package.json and next.config.mjs so Vercel can resolve dependencies
-    // and run the Next.js server without needing to reinstall packages
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, 'package.json'),
-      path.join(builtPreviewAppPath, 'package.json'),
-    );
-    await fs.promises.cp(
-      path.join(modifiedPreviewAppPath, 'next.config.mjs'),
-      path.join(builtPreviewAppPath, 'next.config.mjs'),
-    );
-
-    await fs.promises.rm(modifiedPreviewAppPath, {
-      recursive: true,
-    });
-    let filesPath = path.join(
-      builtPreviewAppPath,
-      '.next/next-minimal-server.js.nft.json',
-    );
-    let filesJson: { version: string; files: string[] } = JSON.parse(
-      await fs.promises.readFile(filesPath, 'utf8'),
-    );
-    for (const [i, file] of filesJson.files.entries()) {
-      filesJson.files[i] = path.relative(
-        path.resolve(modifiedPreviewAppPath, '.next'),
-        file,
-      );
-    }
-    await fs.promises.writeFile(filesPath, JSON.stringify(filesJson), 'utf8');
-
-    filesPath = path.join(builtPreviewAppPath, '.next/next-server.js.nft.json');
-    filesJson = JSON.parse(await fs.promises.readFile(filesPath, 'utf8'));
-    for (const [i, file] of filesJson.files.entries()) {
-      filesJson.files[i] = path.relative(
-        path.resolve(modifiedPreviewAppPath, '.next'),
-        file,
-      );
-    }
-    await fs.promises.writeFile(filesPath, JSON.stringify(filesJson), 'utf8');
   } catch (error) {
     console.log(error);
     process.exit(1);
