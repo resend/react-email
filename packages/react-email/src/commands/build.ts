@@ -202,7 +202,6 @@ export const build = async ({
       recursive: true,
       filter: (source: string) => {
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
           !/(\/|\\)\.turbo(\/|\\)?/.test(source)
         );
