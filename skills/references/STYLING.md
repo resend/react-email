@@ -101,7 +101,7 @@ Email.PreviewProps = {
 ### Container
 White background, centered, left-aligned content:
 ```tsx
-<Container className="max-w-xl mx-auto bg-white p-6 rounded">
+<Container className="mx-auto bg-white p-6 rounded">
 ```
 
 ### Footer
@@ -110,7 +110,7 @@ Include physical address, unsubscribe link, current year:
 <Section className="text-center text-gray-500 text-sm">
   <Text className="m-0">123 Main St, City, State 12345</Text>
   <Text className="m-0">&copy; {new Date().getFullYear()} Company Name</Text>
-  <Link href="{{unsubscribeUrl}}">Unsubscribe</Link>
+  <Link href={unsubscribeUrl}>Unsubscribe</Link>
 </Section>
 ```
 
