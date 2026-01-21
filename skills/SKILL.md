@@ -28,7 +28,8 @@ Add React Email to an existing codebase:
 
 1. Install dependencies:
 ```sh
-npm install @react-email/components react-email
+npm install @react-email/components
+npm install react-email @react-email/preview-server -D
 ```
 
 2. Create an emails directory:
