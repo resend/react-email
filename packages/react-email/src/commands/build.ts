@@ -140,17 +140,14 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
-  // Turbopack has some errors with the imports in @react-email/tailwind
-  packageJson.scripts.build =
-    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
-  packageJson.scripts.start =
-    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
-  delete packageJson.scripts.postbuild;
+
+  packageJson.scripts = {
+    crossEnvNextBuild:
+      'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build',
+  };
 
   packageJson.name = 'preview-server';
-
   delete packageJson.devDependencies['@react-email/components'];
-  delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
     packageJsonPath,
@@ -241,7 +238,7 @@ export const build = async ({
       symbol: logSymbols.success,
     });
 
-    await runScript('build', {
+    await runScript('crossEnvNextBuild', {
       packageManager,
       cwd: builtPreviewAppPath,
     });
