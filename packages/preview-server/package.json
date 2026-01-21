@@ -79,8 +79,7 @@
     "use-debounce": "10.0.6",
     "zod": "4.1.12"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "license": "MIT",
   "repository": {
     "type": "git",
