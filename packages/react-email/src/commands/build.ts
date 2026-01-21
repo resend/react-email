@@ -265,6 +265,16 @@ export const build = async ({
         recursive: true,
       },
     );
+    // Copy package.json and next.config.mjs so Vercel can resolve dependencies
+    // and run the Next.js server without needing to reinstall packages
+    await fs.promises.cp(
+      path.join(modifiedPreviewAppPath, 'package.json'),
+      path.join(builtPreviewAppPath, 'package.json'),
+    );
+    await fs.promises.cp(
+      path.join(modifiedPreviewAppPath, 'next.config.mjs'),
+      path.join(builtPreviewAppPath, 'next.config.mjs'),
+    );
 
     await fs.promises.rm(modifiedPreviewAppPath, {
       recursive: true,
