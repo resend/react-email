@@ -1,5 +1,4 @@
 packages:
-  - "!packages/.react-email"
   - "apps/*"
   - "benchmarks/*"
   - "packages/*"
