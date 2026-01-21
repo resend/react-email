@@ -211,11 +211,11 @@ export const build = async ({
 
     if (fs.existsSync(staticPath)) {
       spinner.text = 'Copying static directory';
-      const modifiedPreviewAppStaticDirectory = path.resolve(
+      const builtPreviewAppStaticDirectory = path.resolve(
         builtPreviewAppPath,
         './public/static',
       );
-      await fs.promises.cp(staticPath, modifiedPreviewAppStaticDirectory, {
+      await fs.promises.cp(staticPath, builtPreviewAppStaticDirectory, {
         recursive: true,
       });
     }
