@@ -668,10 +668,6 @@ importers:
 
   packages/preview-server:
     dependencies:
-      next:
-        specifier: 16.0.10
-        version: 16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    devDependencies:
       '@babel/core':
         specifier: 7.26.10
         version: 7.26.10
@@ -723,9 +719,6 @@ importers:
       '@react-email/code-inline':
         specifier: workspace:*
         version: link:../code-inline
-      '@react-email/components':
-        specifier: workspace:*
-        version: link:../components
       '@react-email/container':
         specifier: workspace:*
         version: link:../container
@@ -753,36 +746,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.1.17
         version: 4.1.17
-      '@types/babel__core':
-        specifier: 7.20.5
-        version: 7.20.5
-      '@types/babel__traverse':
-        specifier: 7.20.7
-        version: 7.20.7
-      '@types/css-tree':
-        specifier: 2.3.11
-        version: 2.3.11
-      '@types/fs-extra':
-        specifier: 11.0.4
-        version: 11.0.4
-      '@types/mime-types':
-        specifier: 2.1.4
-        version: 2.1.4
-      '@types/node':
-        specifier: 22.19.7
-        version: 22.19.7
-      '@types/normalize-path':
-        specifier: 3.0.2
-        version: 3.0.2
-      '@types/react':
-        specifier: ^19.0.1
-        version: 19.0.1
-      '@types/react-dom':
-        specifier: ^19.0.1
-        version: 19.0.1
-      '@types/webpack':
-        specifier: 5.28.5
-        version: 5.28.5(esbuild@0.25.10)
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -804,6 +767,9 @@ importers:
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
+      next:
+        specifier: 16.0.10
+        version: 16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-safe-action:
         specifier: 8.0.11
         version: 8.0.11(next@16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -855,15 +821,49 @@ importers:
       tailwindcss:
         specifier: 4.1.17
         version: 4.1.17
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
       use-debounce:
         specifier: 10.0.6
         version: 10.0.6(react@19.0.0)
       zod:
         specifier: 4.1.12
         version: 4.1.12
+    devDependencies:
+      '@react-email/components':
+        specifier: workspace:*
+        version: link:../components
+      '@types/babel__core':
+        specifier: 7.20.5
+        version: 7.20.5
+      '@types/babel__traverse':
+        specifier: 7.20.7
+        version: 7.20.7
+      '@types/css-tree':
+        specifier: 2.3.11
+        version: 2.3.11
+      '@types/fs-extra':
+        specifier: 11.0.4
+        version: 11.0.4
+      '@types/mime-types':
+        specifier: 2.1.4
+        version: 2.1.4
+      '@types/node':
+        specifier: 22.19.7
+        version: 22.19.7
+      '@types/normalize-path':
+        specifier: 3.0.2
+        version: 3.0.2
+      '@types/react':
+        specifier: ^19.0.1
+        version: 19.0.1
+      '@types/react-dom':
+        specifier: ^19.0.1
+        version: 19.0.1
+      '@types/webpack':
+        specifier: 5.28.5
+        version: 5.28.5(esbuild@0.25.10)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
 
   packages/react-email:
     dependencies:
