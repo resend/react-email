@@ -64,7 +64,6 @@
     "stacktrace-parser": "0.1.11",
     "tailwind-merge": "3.4.0",
     "tailwindcss": "4.1.17",
-    "typescript": "5.8.3",
     "use-debounce": "10.0.6",
     "zod": "4.1.12"
   },
@@ -79,7 +78,8 @@
     "@types/normalize-path": "3.0.2",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
-    "@types/webpack": "5.28.5"
+    "@types/webpack": "5.28.5",
+    "typescript": "5.8.3"
   },
   "license": "MIT",
   "repository": {
