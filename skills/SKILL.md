@@ -150,7 +150,7 @@ import { Tailwind, pixelBasedPreset, Img } from '@react-email/components';
 
 Direct users to place brand assets in appropriate locations:
 
-- **Logo and images**: Host on a CDN or public URL. For local development, place in `public/static/` and use the dev server URL.
+- **Logo and images**: Host on a CDN or public URL. For local development, place in `emails/static/`.
 - **Custom fonts**: Use the `Font` component with a web font URL (Google Fonts, Adobe Fonts, or self-hosted).
 
 **Example prompt for gathering brand info:**
