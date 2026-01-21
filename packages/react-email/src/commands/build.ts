@@ -208,6 +208,17 @@ export const build = async ({
       },
     });
 
+    if (!fs.existsSync(path.resolve(builtPreviewAppPath, 'node_modules'))) {
+      spinner.text = 'Copying node_modules to preview application';
+      await fs.promises.cp(
+        path.resolve(rootDirectory, 'node_modules'),
+        path.resolve(builtPreviewAppPath, 'node_modules'),
+        {
+          recursive: true,
+        },
+      );
+    }
+
     if (fs.existsSync(staticPath)) {
       spinner.text = 'Copying static directory';
       const builtPreviewAppStaticDirectory = path.resolve(
