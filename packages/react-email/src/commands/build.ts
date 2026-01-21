@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
+import { getPackages } from '@manypkg/get-packages';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -18,12 +19,14 @@ interface Args {
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
+  rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
+const rootDirectory = '${rootDirectory}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -33,7 +36,10 @@ const nextConfig = {
     PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: userProjectLocation
   },
-  outputFileTracingRoot: previewServerLocation,
+  turbopack: {
+    root: rootDirectory,
+  },
+  outputFileTracingRoot: rootDirectory,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -166,6 +172,8 @@ export const build = async ({
   try {
     const previewServerLocation = await getPreviewServerLocation();
 
+    const { rootDir: rootDirectory } = await getPackages(process.cwd());
+
     const spinner = ora({
       text: 'Starting build process...',
       prefixText: '  ',
@@ -218,6 +226,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
