@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
-import { getPackages } from '@manypkg/get-packages';
 import ora from 'ora';
 import {
   type EmailsDirectory,
