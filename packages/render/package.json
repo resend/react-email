@@ -124,11 +124,11 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

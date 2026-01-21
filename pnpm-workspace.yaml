@@ -6,4 +6,22 @@ packages:
   - packages/react-email/dev
   - playground
 
+catalog:
+  typescript: 5.8.3
+  react: 19.0.0
+  log-symbols: 7.0.0
+  ora: 8.0.0
+  react-dom: 19.0.0
+  "@types/react": 19.0.10
+  "@types/react-dom": 19.0.4
+  next: 16.0.10
+  "@babel/parser": 7.27.0
+  "@babel/traverse": 7.27.0
+  "@types/babel__core": 7.20.5
+  "@types/babel__traverse": 7.20.7
+  "@types/node": 22.19.7
+  tailwindcss: 4.1.18
+  zod: 4.1.12
+  yalc: 1.0.0-pre.53
+
 autoInstallPeers: true

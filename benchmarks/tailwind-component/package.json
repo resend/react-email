@@ -19,8 +19,8 @@
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "workspace:*",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "tailwind-0.0.12": "npm:@react-email/tailwind@0.0.12",
     "tailwind-0.0.17": "npm:@react-email/tailwind@0.0.17",
     "tinybench": "3.1.0"
@@ -29,6 +29,6 @@
     "@biomejs/biome": "2.0.0",
     "flamebearer": "1.1.3",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }
