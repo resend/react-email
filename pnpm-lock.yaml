@@ -188,7 +188,7 @@ importers:
         specifier: workspace:*
         version: link:../../../packages/preview
       '@react-email/tailwind':
-        specifier: workspace:2.0.4
+        specifier: workspace:2.0.3
         version: link:../../../packages/tailwind
       '@react-email/text':
         specifier: workspace:*
