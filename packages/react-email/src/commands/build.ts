@@ -149,12 +149,6 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
 
   packageJson.name = 'preview-server';
 
-  for (const [dependency, version] of Object.entries(
-    packageJson.devDependencies,
-  )) {
-    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
-  }
-
   delete packageJson.devDependencies['@react-email/components'];
   delete packageJson.scripts.prepare;
 
