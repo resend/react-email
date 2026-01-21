@@ -48,7 +48,7 @@ mkdir emails
 
 4. Start the preview server:
 ```sh
-npm run email
+npm run email:dev
 ```
 
 The `--dir` flag specifies where email templates are stored. Adjust the path to match your project structure (e.g., `src/emails`, `app/emails`).
