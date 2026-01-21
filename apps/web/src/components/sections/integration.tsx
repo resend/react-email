@@ -15,6 +15,7 @@ const IntegrationSection = () => {
       <div className="space-y-12 md:space-y-16">
         <div className="max-w-full text-center space-y-4">
           <Heading
+            as="h2"
             size="8"
             weight="medium"
             className="text-white/80 text-balance"

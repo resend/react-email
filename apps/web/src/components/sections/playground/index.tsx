@@ -31,6 +31,7 @@ const PlaygroundSection = () => {
       <div className="space-y-8 w-full">
         <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto space-y-4">
           <Heading
+            as="h2"
             size="8"
             weight="medium"
             className="text-white/80 md:w-96 inline-block max-md:max-w-lg max-md:mx-auto"

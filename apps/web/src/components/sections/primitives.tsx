@@ -6,7 +6,7 @@ const PrimitivesSection = () => {
   return (
     <section className="relative md:my-40 md:py-20 space-y-16 max-md:px-6">
       <div className="flex flex-col gap-4">
-        <Heading size="8" weight="medium" className="text-white/80">
+        <Heading as="h2" size="8" weight="medium" className="text-white/80">
           Battle-tested Primitives
         </Heading>
         <Text size="5" className="opacity-70">
