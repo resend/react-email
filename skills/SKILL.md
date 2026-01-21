@@ -41,7 +41,7 @@ mkdir emails
 ```json
 {
   "scripts": {
-    "email": "email dev"
+    "email:dev": "email dev"
   }
 }
 ```
