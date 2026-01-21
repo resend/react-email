@@ -668,10 +668,6 @@ importers:
 
   packages/preview-server:
     dependencies:
-      next:
-        specifier: 16.0.10
-        version: 16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    devDependencies:
       '@babel/core':
         specifier: 7.26.10
         version: 7.26.10
@@ -804,6 +800,9 @@ importers:
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
+      next:
+        specifier: 16.0.10
+        version: 16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-safe-action:
         specifier: 8.0.11
         version: 8.0.11(next@16.0.10(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

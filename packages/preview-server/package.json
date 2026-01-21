@@ -13,9 +13,7 @@
   },
   "main": "./index.mjs",
   "dependencies": {
-    "next": "16.0.10"
-  },
-  "devDependencies": {
+    "next": "16.0.10",
     "@babel/core": "7.26.10",
     "@babel/parser": "7.27.0",
     "@babel/traverse": "7.27.0",
@@ -80,6 +78,8 @@
     "typescript": "5.8.3",
     "use-debounce": "10.0.6",
     "zod": "4.1.12"
+  },
+  "devDependencies": {
   },
   "license": "MIT",
   "repository": {
