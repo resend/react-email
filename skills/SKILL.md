@@ -85,60 +85,53 @@ Ask the user for:
 
 ### Brand Configuration Pattern
 
-Once gathered, define a reusable brand configuration:
+Once gathered, define a reusable Tailwind configuration. Using `satisfies TailwindConfig` provides intellisense support for all configuration options:
 
 ```tsx
-// brand-config.ts - Create this file in your emails directory
-export const brandConfig = {
-  colors: {
-    primary: '#007bff',      // User's primary brand color
-    secondary: '#6c757d',    // User's secondary color
-    text: '#1a1a1a',         // Main text color
-    textMuted: '#6b7280',    // Secondary text color
-    background: '#f4f4f5',   // Email background
-    surface: '#ffffff',      // Container background
+// emails/tailwind.config.ts
+import { pixelBasedPreset, type TailwindConfig } from '@react-email/components';
+
+export default {
+  presets: [pixelBasedPreset],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          primary: '#007bff',      // User's primary brand color
+          secondary: '#6c757d',    // User's secondary color
+        },
+      },
+    },
   },
+} satisfies TailwindConfig;
+
+// For non-Tailwind brand assets (optional)
+export const brandAssets = {
   logo: {
     src: 'https://example.com/logo.png',  // User's logo URL
     alt: 'Company Name',
     width: 120,
   },
-  styles: {
-    borderRadius: 'rounded',  // or 'rounded-lg', 'rounded-none'
-    buttonStyle: 'rounded px-5 py-3',
-  },
-};
-
-// Tailwind theme extension
-export const brandTailwindTheme = {
-  extend: {
-    colors: {
-      brand: {
-        primary: brandConfig.colors.primary,
-        secondary: brandConfig.colors.secondary,
-      },
-    },
-  },
 };
 ```
 
-### Using Brand Config in Templates
+### Using Tailwind Config in Templates
 
 ```tsx
 import * as React from "react";
-import { brandConfig, brandTailwindTheme } from './brand-config';
-import { Tailwind, pixelBasedPreset, Img } from '@react-email/components';
+import tailwindConfig, { brandAssets } from './tailwind.config';
+import { Tailwind, Img } from '@react-email/components';
 
-<Tailwind config={{ presets: [pixelBasedPreset], theme: brandTailwindTheme }}>
+<Tailwind config={tailwindConfig}>
   <Body className="bg-gray-100 font-sans">
     <Container className="max-w-xl mx-auto bg-white p-6">
       <Img
-        src={brandConfig.logo.src}
-        alt={brandConfig.logo.alt}
-        width={brandConfig.logo.width}
+        src={brandAssets.logo.src}
+        alt={brandAssets.logo.alt}
+        width={brandAssets.logo.width}
         className="mx-auto mb-6"
       />
-      <Button className={`bg-brand-primary text-white ${brandConfig.styles.buttonStyle}`}>
+      <Button className="bg-brand-primary text-white rounded px-5 py-3">
         Call to Action
       </Button>
     </Container>
@@ -266,9 +259,9 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 ### Brand-First Workflow
 - **Always gather brand information before creating the first email template.** Do not skip this step.
 - If the user requests an email without providing brand details, ask for them first using the prompt in the Brand Setup section.
-- If a `brand-config.ts` file exists in the emails directory, use it for all new templates.
+- If a `tailwind.config.ts` file exists in the emails directory, use it for all new templates.
 - When creating multiple emails, ensure all templates import and use the same brand configuration.
-- If the user provides new brand assets or colors mid-project, update `brand-config.ts` and offer to update existing templates.
+- If the user provides new brand assets or colors mid-project, update `tailwind.config.ts` and offer to update existing templates.
 
 ### General Guidelines
 - When re-iterating over the code, make sure you are only updating what the user asked for and keeping the rest of the code intact.

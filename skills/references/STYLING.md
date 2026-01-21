@@ -203,55 +203,49 @@ Before creating emails, collect these colors from the user:
 - **Background**: Email body background (suggest `#f4f4f5`)
 - **Surface**: Container/card background (typically `#ffffff`)
 
-### Brand Configuration File
+### Tailwind Configuration File
 
-Create a centralized brand config file that all email templates import:
+Create a centralized Tailwind config file that all email templates import. Using `satisfies TailwindConfig` provides intellisense support for all configuration options:
 
 ```tsx
-// emails/brand-config.ts
-export const brandConfig = {
-  colors: {
-    primary: '#007bff',
-    secondary: '#6c757d',
-    text: '#1a1a1a',
-    textMuted: '#6b7280',
-    background: '#f4f4f5',
-    surface: '#ffffff',
+// emails/tailwind.config.ts
+import { pixelBasedPreset, type TailwindConfig } from '@react-email/components';
+
+export default {
+  presets: [pixelBasedPreset],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          primary: '#007bff',
+          secondary: '#6c757d',
+        },
+      },
+    },
   },
+} satisfies TailwindConfig;
+
+// For non-Tailwind brand assets (optional)
+export const brandAssets = {
   logo: {
     src: 'https://example.com/logo.png',
     alt: 'Company Name',
     width: 120,
   },
-  styles: {
-    borderRadius: 'rounded',
-    buttonStyle: 'rounded px-5 py-3 box-border block text-center no-underline',
-  },
-};
-
-export const brandTailwindTheme = {
-  extend: {
-    colors: {
-      brand: {
-        primary: brandConfig.colors.primary,
-        secondary: brandConfig.colors.secondary,
-      },
-    },
-  },
 };
 ```
 
-### Using Brand Config
+### Using Tailwind Config
 
 Import the shared config in every email template:
 
 ```tsx
-import { brandConfig, brandTailwindTheme } from './brand-config';
+import tailwindConfig, { brandAssets } from './tailwind.config';
 
-<Tailwind config={{ presets: [pixelBasedPreset], theme: brandTailwindTheme }}>
-  <Body style={{ backgroundColor: brandConfig.colors.background }}>
-    <Container style={{ backgroundColor: brandConfig.colors.surface }}>
-      <Text style={{ color: brandConfig.colors.text }}>Content</Text>
+<Tailwind config={tailwindConfig}>
+  <Body className="bg-gray-100 font-sans">
+    <Container className="bg-white p-6">
+      <Img src={brandAssets.logo.src} alt={brandAssets.logo.alt} width={brandAssets.logo.width} />
       <Button className="bg-brand-primary text-white">Action</Button>
     </Container>
   </Body>
@@ -261,7 +255,7 @@ import { brandConfig, brandTailwindTheme } from './brand-config';
 ### Maintaining Consistency
 
 - **Always use the brand config** - Never hardcode colors in individual templates
-- **Update config, not templates** - When colors change, update `brand-config.ts` only
+- **Update config, not templates** - When colors change, update `tailwind.config.ts` only
 - **Use semantic names** - `bg-brand-primary` not `bg-[#007bff]`
 - **Ensure contrast** - Test that text is readable against backgrounds (WCAG AA: 4.5:1 ratio)
 
