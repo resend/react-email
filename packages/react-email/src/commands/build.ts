@@ -130,10 +130,15 @@ export function generateStaticParams() {
   );
 };
 
-const updatePackageJson = async (builtPreviewAppPath: string) => {
-  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+const addPackageJson = async (
+  previewServerLocation: string,
+  builtPreviewAppPath: string,
+) => {
   const packageJson = JSON.parse(
-    await fs.promises.readFile(packageJsonPath, 'utf8'),
+    await fs.promises.readFile(
+      path.resolve(previewServerLocation, './package.json'),
+      'utf8',
+    ),
   ) as {
     name: string;
     scripts: Record<string, string>;
@@ -150,7 +155,7 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   delete packageJson.devDependencies['@react-email/components'];
 
   await fs.promises.writeFile(
-    packageJsonPath,
+    path.resolve(builtPreviewAppPath, './package.json'),
     JSON.stringify(packageJson),
     'utf8',
   );
@@ -195,10 +200,14 @@ export const build = async ({
           !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
           !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source) &&
+          !/package.json$/.test(source)
         );
       },
     });
+
+    spinner.text = "Updating package.json's build and start scripts";
+    await addPackageJson(previewServerLocation, builtPreviewAppPath);
 
     if (fs.existsSync(staticPath)) {
       spinner.text =
@@ -211,9 +220,6 @@ export const build = async ({
         recursive: true,
       });
     }
-
-    spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(builtPreviewAppPath);
 
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
