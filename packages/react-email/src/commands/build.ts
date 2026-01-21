@@ -18,7 +18,7 @@ interface Args {
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
-  modifiedPreviewAppPath: string,
+  buildPreviewAppPath: string,
   rootDirectory: string,
 ) => {
   const nextConfigContents = `
@@ -50,7 +50,7 @@ const nextConfig = {
 export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(modifiedPreviewAppPath, './next.config.mjs'),
+    path.resolve(buildPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
