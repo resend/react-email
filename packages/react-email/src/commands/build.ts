@@ -269,6 +269,20 @@ export const build = async ({
     await fs.promises.rm(modifiedPreviewAppPath, {
       recursive: true,
     });
+    const filesPath = path.join(
+      builtPreviewAppPath,
+      '.next/next-minimal-server.js.nft.json',
+    );
+    const filesJson: { version: string; files: string[] } = JSON.parse(
+      await fs.promises.readFile(filesPath, 'utf8'),
+    );
+    for (const [i, file] of filesJson.files.entries()) {
+      filesJson.files[i] = path.relative(
+        path.resolve(modifiedPreviewAppPath, '.next'),
+        file,
+      );
+    }
+    await fs.promises.writeFile(filesPath, JSON.stringify(filesJson), 'utf8');
   } catch (error) {
     console.log(error);
     process.exit(1);
