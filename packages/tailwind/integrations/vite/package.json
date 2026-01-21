@@ -12,15 +12,15 @@
   "dependencies": {
     "@react-email/components": "0.0.36",
     "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.2.2",
+    "typescript": "catalog:",
     "vite": "^6.3.2",
-    "yalc": "1.0.0-pre.53"
+    "yalc": "catalog:"
   }
 }

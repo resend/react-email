@@ -11,8 +11,8 @@
   "dependencies": {
     "commander": "^13.0.0",
     "fs-extra": "^11.3.3",
-    "log-symbols": "^7.0.0",
-    "ora": "^8.0.0"
+    "log-symbols": "catalog:",
+    "ora": "catalog:"
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "nypm": "0.6.2",
-    "react": "19.0.0",
+    "react": "catalog:",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }

@@ -46,7 +46,7 @@
     "@react-email/render": "workspace:*",
     "@types/prismjs": "1.26.5",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

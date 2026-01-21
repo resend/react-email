@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "mintlify": "4.2.280",
-    "zod": "3.24.3"
+    "zod": "catalog:"
   }
 }
