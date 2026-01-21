@@ -212,6 +212,9 @@ export const build = async ({
       });
     }
 
+    spinner.text = "Updating package.json's build and start scripts";
+    await updatePackageJson(builtPreviewAppPath);
+
     spinner.text =
       'Setting Next environment variables for preview app to work properly';
     await setNextEnvironmentVariablesForBuild(
@@ -222,9 +225,6 @@ export const build = async ({
 
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
-
-    spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
     await installDependencies({
