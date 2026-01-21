@@ -239,7 +239,6 @@ export const build = async ({
     });
     await runScript('build', {
       cwd: builtPreviewAppPath,
-      packageManager: 'npm',
     });
   } catch (error) {
     console.log(error);
