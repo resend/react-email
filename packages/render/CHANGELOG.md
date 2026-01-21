@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.4
+
+### Patch Changes
+
+- 635dc8f: fix ErrorBoundary breaking server rendering
+
 ## 2.0.3
 
 ### Patch Changes
