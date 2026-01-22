@@ -16,7 +16,7 @@ export const start = async () => {
       process.exit(1);
     }
 
-    await runScript('start', {
+    await runScript('crossEnvStart', {
       cwd: builtPreviewPath,
     });
   } catch (error) {

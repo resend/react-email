@@ -235,7 +235,7 @@ export const build = async ({
       text: 'Ready for next build',
       symbol: logSymbols.success,
     });
-    await runScript('build', {
+    await runScript('crossEnvBuild', {
       cwd: modifiedPreviewAppPath,
     });
 
