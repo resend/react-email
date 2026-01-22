@@ -2,6 +2,7 @@ import child_process from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import url from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies } from 'nypm';
@@ -103,14 +104,15 @@ export async function getPreviewServerLocation() {
   }
 
   let version: string;
+  const indexUrl = url.pathToFileURL(path.join(directory, 'index.mjs')).href;
   try {
-    ({ version } = (await import(path.join(directory, 'index.mjs'))) as {
+    ({ version } = (await import(indexUrl)) as {
       version: string;
     });
   } catch {
     console.warn('UI installation seems broken, reinstalling');
     await installPreviewServer(directory, packageJson.version);
-    ({ version } = (await import(path.join(directory, 'index.mjs'))) as {
+    ({ version } = (await import(indexUrl)) as {
       version: string;
     });
   }
