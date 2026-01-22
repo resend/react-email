@@ -58,9 +58,9 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
     if (locationHash) {
       const match = locationHash.match(lineHashRegex);
       if (match?.groups?.start) {
-        const start = Number.parseInt(match.groups.start);
+        const start = Number.parseInt(match.groups.start, 10);
         const end = match.groups.end
-          ? Number.parseInt(match.groups.end)
+          ? Number.parseInt(match.groups.end, 10)
           : start;
         return [start, end] as const;
       }
@@ -129,8 +129,8 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                       scroll={false}
                       aria-selected={isHighlighted}
                       className={cn(
-                        'text-[#49494f] relative text-[13px] font-light font-[MonoLisa,_Menlo,_monospace] align-middle scroll-mt-[325px] select-none pr-3 cursor-pointer hover:text-slate-12 transition-colors',
-                        'aria-selected:text-cyan-11 aria-selected:hover:text-cyan-11 aria-selected:bg-cyan-5 [&+*]:aria-selected:bg-cyan-5',
+                        'text-[#49494f] relative text-[13px] font-light font-[MonoLisa,Menlo,monospace] align-middle scroll-mt-[325px] select-none pr-3 cursor-pointer hover:text-slate-12 transition-colors',
+                        'aria-selected:text-cyan-11 aria-selected:hover:text-cyan-11 aria-selected:bg-cyan-5 aria-selected:[&+*]:bg-cyan-5',
                         isHighlightStart && 'rounded-tl-sm',
                         isHighlightEnd && 'rounded-bl-sm',
                       )}

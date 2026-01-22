@@ -1,5 +1,122 @@
 # react-email
 
+## 5.2.5
+
+### Patch Changes
+
+- 81aea00: revert changes to fix compatibility with alpine
+
+## 5.2.4
+
+### Patch Changes
+
+- 26283f9: fix support for alpine
+
+## 5.2.3
+
+### Patch Changes
+
+- 800c960: `email build` always failing
+
+## 5.2.2
+
+## 5.2.1
+
+## 5.2.0
+
+### Patch Changes
+
+- 16cc7d1: increase timeout to 10 minutes by default, disable build workers
+
+## 5.2.0-canary.3
+
+### Patch Changes
+
+- 16cc7d1: increase timeout to 10 minutes by default, disable build workers
+
+## 5.2.0-canary.2
+
+## 5.2.0-canary.1
+
+## 5.2.0-canary.0
+
+## 5.1.1
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
+## 5.1.0
+
+### Minor Changes
+
+- 3c2aa37: use turbo for `email build`
+
+## 5.0.8
+
+## 5.0.7
+
+## 5.0.6
+
+## 5.0.5
+
+## 5.0.4
+
+## 5.0.3
+
+## 5.0.2
+
+## 5.0.1
+
+## 5.0.0
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.12
+
+## 5.0.0-canary.11
+
+## 5.0.0-canary.10
+
+## 5.0.0-canary.9
+
+## 5.0.0-canary.8
+
+### Patch Changes
+
+- b6b027c: improved integration setup flow
+
+## 5.0.0-canary.7
+
+## 5.0.0-canary.6
+
+## 5.0.0-canary.5
+
+## 5.0.0-canary.4
+
+## 5.0.0-canary.3
+
+### Minor Changes
+
+- 95c7417: Dark mode switcher emulating email client color inversion
+
+## 5.0.0-canary.2
+
+### Patch Changes
+
+- 1b3176e: fallback to not text coloring for Node.js < 20
+
+## 5.0.0-canary.1
+
+## 5.0.0-canary.0
+
 ## 4.3.2
 
 ## 4.3.1

@@ -13,17 +13,20 @@ import { Tooltip } from './tooltip';
 
 interface CodeContainerProps {
   markups: MarkupProps[];
+  basename: string;
   activeLang: string;
   setActiveLang: (lang: string) => void;
 }
 
 interface MarkupProps {
   language: Language;
+  extension?: string;
   content: string;
 }
 
 export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
   markups,
+  basename: filename,
   activeLang,
   setActiveLang,
 }) => {
@@ -83,7 +86,7 @@ export const CodeContainer: React.FC<Readonly<CodeContainerProps>> = ({
         <CopyToClipboardButton content={activeMarkup.content} />
         <DownloadButton
           content={activeMarkup.content}
-          filename={`email.${activeMarkup.language}`}
+          filename={`${filename}.${activeMarkup.extension || activeMarkup.language}`}
         />
       </div>
       <div className="h-[calc(100%-2.25rem)]">

@@ -1,0 +1,31 @@
+name: Bump
+on:
+  push:
+    branches:
+      - canary
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+jobs:
+  bump:
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    permissions: 
+      contents: write
+      pull-requests: write
+    container:
+      image: node:22
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: pnpm setup
+        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Create "version packages" pull request
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba
+        with:
+          version: pnpm run version
+          title: "chore(root): version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

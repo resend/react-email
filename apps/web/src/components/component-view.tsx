@@ -4,12 +4,14 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import * as React from 'react';
+import { convertUrisIntoUrls } from '@/utils/convert-uris-into-urls';
 import type { ImportedComponent } from '../app/components/get-imported-components-for';
 import { ComponentCodeView } from './component-code-view';
 import { ComponentPreview } from './component-preview';
 import { IconMonitor } from './icons/icon-monitor';
 import { IconPhone } from './icons/icon-phone';
 import { IconSource } from './icons/icon-source';
+import { Send } from './send';
 import { TabTrigger } from './tab-trigger';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
@@ -111,6 +113,14 @@ export function ComponentView({ component, className }: ComponentViewProps) {
             >
               <IconSource />
             </TabTriggetWithTooltip>
+            <Send
+              className="ml-2"
+              markup={convertUrisIntoUrls(component.code.html).replace(
+                /height\s*:\s*100vh;?/,
+                '',
+              )}
+              defaultSubject={component.title}
+            />
           </Tabs.List>
           <div className="absolute right-0 bottom-0 h-px w-[100dvw] bg-slate-4" />
         </div>

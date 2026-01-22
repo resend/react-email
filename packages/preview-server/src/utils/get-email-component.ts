@@ -49,7 +49,7 @@ export const getEmailComponent = async (
       jsxDev: true,
       jsxImportSource: jsxRuntimePath,
 
-      format: 'cjs',
+      format: 'esm',
       jsx: 'automatic',
       logLevel: 'silent',
       // allows for using jsx on a .js file
@@ -77,15 +77,20 @@ export const getEmailComponent = async (
   const builtEmailCode = bundledEmailFile.text;
 
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
-  // because it will have a path like <tsconfigLocation>/stdout/email.js.map
+  // Because it will have a path like `<tsconfigLocation>/stdout/email.js`
   sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
     path.resolve(sourceMapFile.path, '..', source),
   );
 
-  const context = createContext(emailPath);
-  context.shouldIncludeSourceReference = false;
-  const runningResult = runBundledCode(builtEmailCode, emailPath, context);
+  const context = createContext(emailPath, {
+    shouldIncludeSourceReference: false,
+  });
+  const runningResult = await runBundledCode(
+    builtEmailCode,
+    emailPath,
+    context,
+  );
 
   if (isErr(runningResult)) {
     const { error } = runningResult;
@@ -106,7 +111,15 @@ export const getEmailComponent = async (
       };
     }
 
-    throw error;
+    console.error(error);
+    return {
+      error: {
+        name: 'Error',
+        message: `Unknown error occurred while running the email component at ${emailPath}`,
+        stack: new Error().stack,
+        cause: error,
+      },
+    };
   }
 
   const parseResult = EmailComponentModule.safeParse(runningResult.value);
@@ -135,15 +148,17 @@ export const getEmailComponent = async (
 
   const { data: componentModule } = parseResult;
 
+  const typedRender = componentModule.render as typeof render;
+
   return {
     emailComponent: componentModule.default as EmailComponent,
-    renderWithReferences: (async (...args) => {
+    renderWithReferences: (async (...args: Parameters<typeof render>) => {
       context.shouldIncludeSourceReference = true;
-      const renderingResult = await componentModule.render(...args);
+      const renderingResult = await typedRender(...args);
       context.shouldIncludeSourceReference = false;
       return renderingResult;
     }) as typeof render,
-    render: componentModule.render as typeof render,
+    render: typedRender,
     createElement:
       componentModule.reactEmailCreateReactElement as typeof React.createElement,
 

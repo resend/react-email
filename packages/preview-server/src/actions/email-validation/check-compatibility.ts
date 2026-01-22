@@ -2,13 +2,12 @@
 
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
+import type {
+  SourceLocation,
+  StylePropertyUsage,
+} from '../../utils/caniemail/ast/get-used-style-properties';
 import {
   convertLocationIntoObject,
-  getObjectVariables,
-  type SourceLocation,
-} from '../../utils/caniemail/ast/get-object-variables';
-import type { StylePropertyUsage } from '../../utils/caniemail/ast/get-used-style-properties';
-import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
@@ -23,6 +22,7 @@ import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-
 import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import { getElementNames } from '../../utils/caniemail/get-element-names';
+import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
 
 export interface CompatibilityCheckingResult {
@@ -139,12 +139,10 @@ export const checkCompatibility = async (
     return source;
   };
 
-  const objectVariables = getObjectVariables(ast);
   const usedStyleProperties = await getUsedStyleProperties(
     ast,
     reactCode,
     emailPath,
-    objectVariables,
   );
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
@@ -279,8 +277,7 @@ export const checkCompatibility = async (
 
             if (cssEntryType === 'full property') {
               if (
-                snakeToCamel(property.name) ===
-                  snakeToCamel(entryFullProperty!.name) &&
+                property.name === snakeToCamel(entryFullProperty!.name) &&
                 property.value === entryFullProperty!.value
               ) {
                 addToInsights(property);
@@ -306,14 +303,16 @@ export const checkCompatibility = async (
                   break;
                 }
               }
-            } else if (
-              entryProperties.some(
-                (propertyName) =>
-                  snakeToCamel(property.name) === snakeToCamel(propertyName),
-              )
-            ) {
-              addToInsights(property);
-              break;
+            } else if (cssEntryType === 'property name') {
+              if (
+                entryProperties.some(
+                  (propertyName) =>
+                    snakeToCamel(propertyName) === property.name,
+                )
+              ) {
+                addToInsights(property);
+                break;
+              }
             }
           }
         }
@@ -323,12 +322,6 @@ export const checkCompatibility = async (
   });
 
   return readableStream;
-};
-
-const snakeToCamel = (snakeStr: string) => {
-  return snakeStr
-    .toLowerCase()
-    .replace(/-+([a-z])/g, (_match, letter) => letter.toUpperCase());
 };
 
 export type AST = ReturnType<typeof parse>;

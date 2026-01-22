@@ -30,7 +30,7 @@ NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );
 
-const webServerProcess = child_process.spawn('next', ['dev'], {
+const webServerProcess = child_process.spawn('pnpm next dev', {
   cwd: previewServerRoot,
   shell: true,
   stdio: 'inherit',

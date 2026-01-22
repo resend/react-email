@@ -1,8 +1,10 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --experimental-vm-modules --disable-warning=ExperimentalWarning
 import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
+import { resendReset } from './commands/resend/reset.js';
+import { resendSetup } from './commands/resend/setup.js';
 import { start } from './commands/start.js';
 import { packageJson } from './utils/packageJson.js';
 
@@ -51,5 +53,19 @@ program
   .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
     exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
   );
+
+const resend = program.command('resend');
+
+resend
+  .command('setup')
+  .description(
+    'Sets up the integration between the React Email CLI, and your Resend account through an API Key',
+  )
+  .action(resendSetup);
+
+resend
+  .command('reset')
+  .description('Deletes your API Key from the React Email configuration')
+  .action(resendReset);
 
 program.parse();

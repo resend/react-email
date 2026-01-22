@@ -15,9 +15,6 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "benchmarks/tailwind-component"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "dependencies": {
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",

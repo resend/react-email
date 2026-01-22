@@ -1,6 +1,9 @@
 packages:
-  - "apps/*"
-  - "benchmarks/*"
-  - "packages/*"
-  - "packages/react-email/dev"
-  - "playground"
+  - .github/actions/*
+  - apps/*
+  - benchmarks/*
+  - packages/*
+  - packages/react-email/dev
+  - playground
+
+autoInstallPeers: true

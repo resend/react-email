@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  transpilePackages: ['prettier'],
 };
 
 export default nextConfig;

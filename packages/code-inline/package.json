@@ -1,6 +1,6 @@
 {
   "name": "@react-email/code-inline",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Display a predictable inline code HTML element that works on all email clients",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -28,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "publishConfig": {
     "access": "public"

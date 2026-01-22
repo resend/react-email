@@ -1,5 +1,6 @@
 import { render } from '@react-email/render';
 import { Body } from './index';
+import { marginProperties } from './margin-properties';
 
 describe('<Body> component', () => {
   it('renders children correctly', async () => {
@@ -21,6 +22,19 @@ describe('<Body> component', () => {
 
   it('renders correctly', async () => {
     const actualOutput = await render(<Body>Lorem ipsum</Body>);
-    expect(actualOutput).toMatchSnapshot();
+    expect(actualOutput).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><body><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>Lorem ipsum</td></tr></tbody></table><!--/$--></body>"`,
+    );
+  });
+
+  describe('margin resetting behavior', () => {
+    for (const property of marginProperties) {
+      it(`should reset the ${property} property when it comes from props`, async () => {
+        const actualOutput = await render(
+          <Body style={{ [property]: 10 }}>Random text</Body>,
+        );
+        expect(actualOutput).toMatchSnapshot();
+      });
+    }
   });
 });

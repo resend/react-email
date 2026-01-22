@@ -1,6 +1,6 @@
 {
   "name": "@react-email/button",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A link that is styled to look like a button",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -39,7 +39,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"

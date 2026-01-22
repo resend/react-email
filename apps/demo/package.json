@@ -18,6 +18,6 @@
     "@react-email/preview-server": "workspace:*",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "next": "^15.3.2"
+    "next": "16.0.10"
   }
 }

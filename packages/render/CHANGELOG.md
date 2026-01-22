@@ -1,5 +1,73 @@
 # @react-email/render
 
+## 2.0.4
+
+### Patch Changes
+
+- 635dc8f: fix ErrorBoundary breaking server rendering
+
+## 2.0.3
+
+### Patch Changes
+
+- 366ae71: fix render going into client side rendering and breaking emails silently
+
+## 2.0.2
+
+### Patch Changes
+
+- 159f6e4: fix custom selectors overwriting the ones we defined
+- 12ff166: fix pipeable stream errors not being handled
+
+## 2.0.2-canary.0
+
+### Patch Changes
+
+- 159f6e4: fix custom selectors overwriting the ones we defined
+
+## 2.0.1
+
+### Patch Changes
+
+- 42aca9f: add fallback for m.default when importing react-dom
+- 8b7a660: remove use of devEngines which npm detects
+
+## 2.0.1-canary.0
+
+### Patch Changes
+
+- 42aca9f: add fallback for m.default when importing react-dom
+
+## 2.0.0
+
+### Major Changes
+
+- 84e4e9e: Removes deprecated `renderAsync`.
+
+  ## Migration
+
+  Replace `renderAsync` with `render`. It should be a drop-in replacement, without any issues.
+
+### Patch Changes
+
+- dfe1477: Remove unused `react-promise-suspense`
+
+## 2.0.0-canary.1
+
+### Patch Changes
+
+- dfe1477: Remove unused `react-promise-suspense`
+
+## 2.0.0-canary.0
+
+### Major Changes
+
+- 84e4e9e: Removes deprecated `renderAsync`.
+
+  ## Migration
+
+  Replace `renderAsync` with `render`. It should be a drop-in replacement, without any issues.
+
 ## 1.4.0
 
 ### Minor Changes
