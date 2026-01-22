@@ -180,7 +180,7 @@ export const build = async ({
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to `.react-email`';
+    spinner.text = 'Copying UI source to `.react-email`';
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
