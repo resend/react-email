@@ -17,13 +17,13 @@ interface Args {
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
-  builtPreviewAppPath: string,
+  appPath: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
+const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -44,7 +44,7 @@ const nextConfig = {
 export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(builtPreviewAppPath, './next.config.mjs'),
+    path.resolve(appPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
@@ -84,7 +84,7 @@ const getEmailSlugsFromEmailDirectory = (
 // after build
 const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
-  builtPreviewAppPath: string,
+  appPath: string,
 ) => {
   const emailDirectoryMetadata = (await getEmailsDirectoryMetadata(
     emailsDirPath,
@@ -104,15 +104,13 @@ const forceSSGForEmailPreviews = async (
       'utf8',
     );
   };
+  await removeForceDynamic(path.resolve(appPath, './src/app/layout.tsx'));
   await removeForceDynamic(
-    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
-  );
-  await removeForceDynamic(
-    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
+    path.resolve(appPath, './src/app/preview/[...slug]/page.tsx'),
   );
 
   await fs.promises.appendFile(
-    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
+    path.resolve(appPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
 export function generateStaticParams() { 
@@ -124,14 +122,14 @@ export function generateStaticParams() {
   );
 };
 
-const updatePackageJson = async (builtPreviewAppPath: string) => {
+const updatePackageJson = async (appPath: string) => {
   /* @see ../utils/get-preview-server-location.ts */
-  await fs.promises.rm(path.resolve(builtPreviewAppPath, './package.json'));
+  await fs.promises.rm(path.resolve(appPath, './package.json'));
   await fs.promises.rename(
-    path.resolve(builtPreviewAppPath, './package.source.json'),
-    path.resolve(builtPreviewAppPath, './package.json'),
+    path.resolve(appPath, './package.source.json'),
+    path.resolve(appPath, './package.json'),
   );
-  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+  const packageJsonPath = path.resolve(appPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
@@ -200,10 +198,13 @@ export const build = async ({
     spinner.text = 'Copying preview app from CLI to `.react-email`';
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
-      filter: (source: string) =>
-        !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-        !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-        !/(\/|\\)node_modules(\/|\\)?$/.test(source),
+      filter: (source: string) => {
+        const relativeSource = path.relative(previewServerLocation, source);
+        return (
+          !/\.next?/.test(relativeSource) &&
+          !/\.turbo/.test(relativeSource)
+        );
+      },
     });
 
     if (fs.existsSync(staticPath)) {
@@ -230,13 +231,6 @@ export const build = async ({
 
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);
-
-    spinner.text = 'Installing dependencies on `.react-email`';
-    await installDependencies({
-      cwd: builtPreviewAppPath,
-      silent: true,
-      packageManager,
-    });
 
     spinner.stopAndPersist({
       text: 'Successfully prepared `.react-email` for `next build`',
