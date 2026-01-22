@@ -213,6 +213,7 @@ export const build = async ({
     await fs.promises.symlink(
       path.resolve(rootDirectory, 'node_modules'),
       path.resolve(builtPreviewAppPath, 'node_modules'),
+      'junction'
     );
 
     if (fs.existsSync(staticPath)) {
