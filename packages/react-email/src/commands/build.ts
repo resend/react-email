@@ -143,8 +143,6 @@ const updatePackageJson = async (appPath: string) => {
   packageJson.scripts.start =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
 
-  packageJson.name = 'preview-server';
-
   delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
