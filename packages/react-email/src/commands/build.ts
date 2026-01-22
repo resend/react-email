@@ -191,10 +191,25 @@ export const build = async ({
       filter: (source: string) => {
         const relativeSource = path.relative(previewServerLocation, source);
         return (
-          !/\.next/.test(relativeSource) && !/\.turbo/.test(relativeSource)
+          !/\.next/.test(relativeSource) &&
+          !/\.turbo/.test(relativeSource) &&
+          !/node_modules\/.bin/.test(relativeSource)
         );
       },
     });
+
+    await fs.promises.cp(
+      path.resolve(previewServerLocation, 'node_modules/.bin'),
+      path.resolve(builtPreviewAppPath, 'node_modules/.bin'),
+      {
+        recursive: true,
+        // With this enabled, means the symlinks remain relative, which is
+        // what we want for copying it over. If we don't enable this,
+        // it resolves the symlink to the original location on disk,
+        // which ends up causing unexpected errors.
+        verbatimSymlinks: true,
+      },
+    );
 
     if (fs.existsSync(staticPath)) {
       spinner.text =
