@@ -89,7 +89,6 @@ export async function getPreviewServerLocation() {
     const { packages } = await getPackages(process.cwd());
     for (const pkg of packages) {
       if (pkg.packageJson.name === '@react-email/preview-server') {
-        console.log(pkg.dir);
         return pkg.dir;
       }
     }
