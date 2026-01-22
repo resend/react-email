@@ -203,19 +203,22 @@ export const build = async ({
       filter: (source: string) => {
         return (
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source)
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+          !/(\/|\\)node_modules(\/|\\)?/.test(source)
         );
       },
     });
 
-    if (!fs.existsSync(path.resolve(builtPreviewAppPath, 'node_modules'))) {
-      spinner.text = 'Copying node_modules to preview application';
-      await fs.promises.cp(
+    spinner.text = 'Copying node_modules to preview application';
+    if (fs.existsSync(path.resolve(previewServerLocation, 'node_modules'))) {
+      await fs.promises.symlink(
+        path.resolve(previewServerLocation, 'node_modules'),
+        path.resolve(builtPreviewAppPath, 'node_modules'),
+      );
+    } else {
+      await fs.promises.symlink(
         path.resolve(rootDirectory, 'node_modules'),
         path.resolve(builtPreviewAppPath, 'node_modules'),
-        {
-          recursive: true,
-        },
       );
     }
 
