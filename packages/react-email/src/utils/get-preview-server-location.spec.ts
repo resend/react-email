@@ -8,7 +8,7 @@ test.sequential('installPreviewServer()', { timeout: 10_000 }, async () => {
   await installPreviewServer(testDirectory, packageJson.version);
   expect(fs.existsSync(testDirectory)).toBe(true);
 
-  // @ts-ignore The directory should exist at this point
+  // @ts-expect-error The directory should exist at this point
   const importedModule = await import(path.join(testDirectory, 'index.mjs'));
   expect({ ...importedModule }).toEqual({
     version: packageJson.version,

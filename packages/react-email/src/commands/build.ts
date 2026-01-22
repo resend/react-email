@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
-import { installDependencies, type PackageManagerName, runScript } from 'nypm';
+import { type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -18,12 +19,14 @@ interface Args {
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   appPath: string,
+  rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
+const rootDirectory = '${rootDirectory.replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -33,7 +36,10 @@ const nextConfig = {
     PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: userProjectLocation
   },
-  outputFileTracingRoot: previewServerLocation,
+  turbopack: {
+    root: rootDirectory,
+  },
+  outputFileTracingRoot: rootDirectory,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -154,6 +160,7 @@ export const build = async ({
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
+    const { rootDir: rootDirectory } = await getPackages(process.cwd());
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -186,8 +193,7 @@ export const build = async ({
       filter: (source: string) => {
         const relativeSource = path.relative(previewServerLocation, source);
         return (
-          !/\.next/.test(relativeSource) &&
-          !/\.turbo/.test(relativeSource)
+          !/\.next/.test(relativeSource) && !/\.turbo/.test(relativeSource)
         );
       },
     });
@@ -209,6 +215,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';

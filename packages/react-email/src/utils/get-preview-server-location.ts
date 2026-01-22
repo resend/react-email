@@ -2,12 +2,15 @@ import child_process from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies } from 'nypm';
 import ora from 'ora';
 import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
 import { registerSpinnerAutostopping } from './register-spinner-autostopping.js';
+
+const isInMonorepo = !import.meta.dirname.includes('node_modules');
 
 export async function installPreviewServer(directory: string, version: string) {
   const spinner = ora({
@@ -22,26 +25,16 @@ export async function installPreviewServer(directory: string, version: string) {
     await fs.promises.rm(directory, { recursive: true });
   }
   await fs.promises.mkdir(directory);
-  // Download and unpack the package
+
   const tempDir = await fs.promises.mkdtemp(
     path.join(os.tmpdir(), 'react-email-'),
   );
   try {
-    // Download package using npm pack
-    const npmPack = child_process.execSync(
-      `npm pack @react-email/preview-server@${version}`,
-      {
-        cwd: tempDir,
-        stdio: 'pipe',
-      },
-    );
-    if (npmPack.toString().startsWith('npm error code ETARGET')) {
-      throw new Error(
-        "TODO: this most likely means we're running things in our workspace, load the preview server from the workspace somehow",
-      );
-    }
+    child_process.execSync(`npm pack @react-email/preview-server@${version}`, {
+      cwd: tempDir,
+      stdio: 'pipe',
+    });
 
-    // Find the downloaded tarball
     const files = await fs.promises.readdir(tempDir);
     const tarball = files.find(
       (file) =>
@@ -92,8 +85,19 @@ export async function installPreviewServer(directory: string, version: string) {
 }
 
 export async function getPreviewServerLocation() {
-  if (!import.meta.dirname.includes('node_modules')) {
+  if (isInMonorepo) {
+    const { packages } = await getPackages(process.cwd());
+    for (const pkg of packages) {
+      if (pkg.packageJson.name === '@react-email/preview-server') {
+        console.log(pkg.dir);
+        return pkg.dir;
+      }
+    }
+    throw new Error(
+      "Couldn't find the preview server package in the monorepo. Is this not React Email's monorepo, or is the package missing?",
+    );
   }
+
   const directory = path.join(os.homedir(), '.react-email');
   if (!fs.existsSync(directory)) {
     await installPreviewServer(directory, packageJson.version);
