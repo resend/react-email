@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
+import { installDependencies } from 'nypm';
 import ora from 'ora';
 import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
@@ -17,6 +18,7 @@ export async function installPreviewServer(directory: string, version: string) {
 
   registerSpinnerAutostopping(spinner);
   if (fs.existsSync(directory)) {
+    spinner.text = 'Deleting previous instalaltion, please wait...';
     await fs.promises.rm(directory, { recursive: true });
   }
   await fs.promises.mkdir(directory);
@@ -26,10 +28,13 @@ export async function installPreviewServer(directory: string, version: string) {
   );
   try {
     // Download package using npm pack
-    child_process.execSync(`npm pack @react-email/preview-server@${version}`, {
+    const npmPack = child_process.spawnSync(`npm pack @react-email/preview-server@${version}`, {
       cwd: tempDir,
       stdio: 'ignore',
     });
+    if (npmPack.stderr.toString().startsWith('npm error code ETARGET')) {
+      throw new Error('TODO: this most likely means we\'re running things in our workspace, load the preview server from the workspace somehow');
+    }
 
     // Find the downloaded tarball
     const files = await fs.promises.readdir(tempDir);
@@ -39,10 +44,6 @@ export async function installPreviewServer(directory: string, version: string) {
     );
 
     if (!tarball) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: 'Failed to install UI',
-      });
       throw new Error('Failed to find tarball for UI', {
         cause: { tempDir, files },
       });
@@ -58,40 +59,26 @@ export async function installPreviewServer(directory: string, version: string) {
         z: true,
       });
     } catch (exception) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: 'Failed to install UI',
-      });
       throw new Error('Failed to extract UI package', {
         cause: exception,
       });
     }
 
-    const packageJsonPath = path.resolve(directory, './package.json');
-    await fs.promises.cp(
-      packageJsonPath,
-      path.resolve(directory, './package.source.json'),
-    );
-    const packageJson = JSON.parse(
-      await fs.promises.readFile(packageJsonPath, 'utf8'),
-    );
-    packageJson.dependencies = {
-      next: packageJson.dependencies.next,
-    };
-    packageJson.devDependencies = {};
-    await fs.promises.writeFile(
-      packageJsonPath,
-      JSON.stringify(packageJson, null, 2),
-      'utf8',
-    );
-    child_process.execSync('npm install --silent', {
-      stdio: 'ignore',
-      cwd: directory,
+    await installDependencies({
+      packageManager: 'npm',
+      silent: true,
     });
+  } catch (exception) {
+    spinner.stopAndPersist({
+      symbol: logSymbols.error,
+      text: 'Failed to install UI',
+    });
+    throw exception;
   } finally {
     // Clean up temp directory
     await fs.promises.rm(tempDir, { recursive: true, force: true });
   }
+
   spinner.stopAndPersist({
     symbol: logSymbols.success,
     text: `UI installed successfully (${directory})\n`,
@@ -108,6 +95,9 @@ export async function getPreviewServerLocation() {
     version: string;
   };
   if (version !== packageJson.version) {
+    console.warn(
+      'Found a version mismatch with the preview server UI, reinstalling',
+    );
     await installPreviewServer(directory, packageJson.version);
   }
 
