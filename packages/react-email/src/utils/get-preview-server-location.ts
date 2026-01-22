@@ -21,7 +21,7 @@ export async function installPreviewServer(directory: string, version: string) {
 
   registerSpinnerAutostopping(spinner);
   if (fs.existsSync(directory)) {
-    spinner.text = 'Deleting previous instalaltion, please wait...';
+    spinner.text = 'Deleting previous installation, please wait...';
     await fs.promises.rm(directory, { recursive: true });
   }
   await fs.promises.mkdir(directory);
