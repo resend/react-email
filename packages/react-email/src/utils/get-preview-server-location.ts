@@ -28,12 +28,17 @@ export async function installPreviewServer(directory: string, version: string) {
   );
   try {
     // Download package using npm pack
-    const npmPack = child_process.spawnSync(`npm pack @react-email/preview-server@${version}`, {
-      cwd: tempDir,
-      stdio: 'ignore',
-    });
-    if (npmPack.stderr.toString().startsWith('npm error code ETARGET')) {
-      throw new Error('TODO: this most likely means we\'re running things in our workspace, load the preview server from the workspace somehow');
+    const npmPack = child_process.execSync(
+      `npm pack @react-email/preview-server@${version}`,
+      {
+        cwd: tempDir,
+        stdio: 'pipe',
+      },
+    );
+    if (npmPack.toString().startsWith('npm error code ETARGET')) {
+      throw new Error(
+        "TODO: this most likely means we're running things in our workspace, load the preview server from the workspace somehow",
+      );
     }
 
     // Find the downloaded tarball
@@ -66,6 +71,7 @@ export async function installPreviewServer(directory: string, version: string) {
 
     await installDependencies({
       packageManager: 'npm',
+      cwd: directory,
       silent: true,
     });
   } catch (exception) {
@@ -86,14 +92,25 @@ export async function installPreviewServer(directory: string, version: string) {
 }
 
 export async function getPreviewServerLocation() {
+  if (!import.meta.dirname.includes('node_modules')) {
+  }
   const directory = path.join(os.homedir(), '.react-email');
   if (!fs.existsSync(directory)) {
     await installPreviewServer(directory, packageJson.version);
   }
 
-  const { version } = (await import(path.join(directory, 'index.mjs'))) as {
-    version: string;
-  };
+  let version: string;
+  try {
+    ({ version } = (await import(path.join(directory, 'index.mjs'))) as {
+      version: string;
+    });
+  } catch {
+    console.warn('UI installation seems broken, reinstalling');
+    await installPreviewServer(directory, packageJson.version);
+    ({ version } = (await import(path.join(directory, 'index.mjs'))) as {
+      version: string;
+    });
+  }
   if (version !== packageJson.version) {
     console.warn(
       'Found a version mismatch with the preview server UI, reinstalling',
