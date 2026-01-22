@@ -123,12 +123,6 @@ export function generateStaticParams() {
 };
 
 const updatePackageJson = async (appPath: string) => {
-  /* @see ../utils/get-preview-server-location.ts */
-  await fs.promises.rm(path.resolve(appPath, './package.json'));
-  await fs.promises.rename(
-    path.resolve(appPath, './package.source.json'),
-    path.resolve(appPath, './package.json'),
-  );
   const packageJsonPath = path.resolve(appPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
@@ -138,22 +132,13 @@ const updatePackageJson = async (appPath: string) => {
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
-  // Turbopack has some errors with the imports in @react-email/tailwind
   packageJson.scripts.build =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
   packageJson.scripts.start =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
-  delete packageJson.scripts.postbuild;
 
   packageJson.name = 'preview-server';
 
-  for (const [dependency, version] of Object.entries(
-    packageJson.devDependencies,
-  )) {
-    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
-  }
-
-  delete packageJson.devDependencies['@react-email/components'];
   delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
@@ -201,7 +186,7 @@ export const build = async ({
       filter: (source: string) => {
         const relativeSource = path.relative(previewServerLocation, source);
         return (
-          !/\.next?/.test(relativeSource) &&
+          !/\.next/.test(relativeSource) &&
           !/\.turbo/.test(relativeSource)
         );
       },
