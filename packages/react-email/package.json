@@ -35,15 +35,15 @@
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
     "glob": "^11.0.0",
-    "jiti": "2.4.2",
+    "jiti": "^2.4.2",
     "log-symbols": "^7.0.0",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
     "ora": "^8.0.0",
-    "prompts": "2.4.2",
+    "prompts": "^2.4.2",
     "socket.io": "^4.8.1",
     "tar": "^7.5.1",
-    "tsconfig-paths": "4.2.0"
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@react-email/components": "workspace:*",
