@@ -265,6 +265,44 @@ Email.PreviewProps = {
 
 When requested: container black (#000), background dark gray (#151516)
 
+### Using Tailwind Config in Templates
+
+```tsx
+import * as React from "react";
+import tailwindConfig, { brandAssets } from './tailwind.config';
+import { Tailwind, Img } from '@react-email/components';
+
+<Tailwind config={tailwindConfig}>
+  <Body className="bg-gray-100 font-sans">
+    <Container className="max-w-xl mx-auto bg-white p-6">
+      <Img
+        src={brandAssets.logo.src}
+        alt={brandAssets.logo.alt}
+        width={brandAssets.logo.width}
+        className="mx-auto mb-6"
+      />
+      <Button className="bg-brand-primary text-white rounded px-5 py-3">
+        Call to Action
+      </Button>
+    </Container>
+  </Body>
+</Tailwind>
+```
+
+### Asset Locations
+
+Direct users to place brand assets in appropriate locations:
+
+- **Logo and images**: Host on a CDN or public URL. For local development, place in `emails/static/`.
+- **Custom fonts**: Use the `Font` component with a web font URL (Google Fonts, Adobe Fonts, or self-hosted).
+
+**Example prompt for gathering brand info:**
+> "Before I create your email template, I need some brand information to ensure consistency. Could you provide:
+> 1. Your primary brand color (hex code, e.g., #007bff)
+> 2. Your logo URL (must be a publicly accessible PNG or JPEG)
+> 3. Any secondary colors you'd like to use
+> 4. Style preference (modern/minimal or classic/traditional)"
+
 ## Rendering
 
 ### Convert to HTML
@@ -389,7 +427,7 @@ Message files (`messages/en.json`, `messages/es.json`, etc.):
 
 1. **Test across clients** - Gmail, Outlook, Apple Mail, Yahoo. Use Litmus or Email on Acid for precision.
 2. **Keep it responsive** - Max-width ~600px, test on mobile.
-3. **Use absolute image URLs** - Host on reliable CDN, always include `alt` text.
+3. **Use absolute image URLs** - Host on reliable CDN, always include `alt` text. If local development, copy to `emails/static/`.
 4. **Provide plain text version** - Required for accessibility.
 5. **Add TypeScript types** - Define interfaces for all email props.
 6. **Include PreviewProps** - For development testing.
