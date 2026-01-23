@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -18,12 +19,14 @@ interface Args {
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
+  rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
+const rootDirectory = '${rootDirectory}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -33,7 +36,10 @@ const nextConfig = {
     PREVIEW_SERVER_LOCATION: previewServerLocation,
     USER_PROJECT_LOCATION: userProjectLocation
   },
-  outputFileTracingRoot: previewServerLocation,
+  turbopack: {
+    root: rootDirectory,
+  },
+  outputFileTracingRoot: rootDirectory,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -124,36 +130,32 @@ export function generateStaticParams() {
   );
 };
 
-const updatePackageJson = async (builtPreviewAppPath: string) => {
-  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+const addPackageJson = async (
+  previewServerLocation: string,
+  builtPreviewAppPath: string,
+) => {
   const packageJson = JSON.parse(
-    await fs.promises.readFile(packageJsonPath, 'utf8'),
+    await fs.promises.readFile(
+      path.resolve(previewServerLocation, './package.json'),
+      'utf8',
+    ),
   ) as {
     name: string;
     scripts: Record<string, string>;
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
-  // Turbopack has some errors with the imports in @react-email/tailwind
-  packageJson.scripts.build =
-    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
-  packageJson.scripts.start =
-    'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
-  delete packageJson.scripts.postbuild;
+
+  packageJson.scripts = {
+    crossEnvNextBuild:
+      'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build',
+  };
 
   packageJson.name = 'preview-server';
-
-  for (const [dependency, version] of Object.entries(
-    packageJson.devDependencies,
-  )) {
-    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
-  }
-
   delete packageJson.devDependencies['@react-email/components'];
-  delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
-    packageJsonPath,
+    path.resolve(builtPreviewAppPath, './package.json'),
     JSON.stringify(packageJson),
     'utf8',
   );
@@ -165,6 +167,8 @@ export const build = async ({
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
+
+    const { rootDir: rootDirectory } = await getPackages(process.cwd());
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -191,15 +195,18 @@ export const build = async ({
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
-        // do not copy the CLI files
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
           !/(\/|\\)\.next(\/|\\)?/.test(source) &&
           !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source) &&
+          !/\.spec/.test(source) &&
+          !/package.json$/.test(source)
         );
       },
     });
+
+    spinner.text = "Updating package.json's build and start scripts";
+    await addPackageJson(previewServerLocation, builtPreviewAppPath);
 
     if (fs.existsSync(staticPath)) {
       spinner.text =
@@ -218,13 +225,11 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
-
-    spinner.text = "Updating package.json's build and start scripts";
-    await updatePackageJson(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
     await installDependencies({
@@ -238,7 +243,7 @@ export const build = async ({
       symbol: logSymbols.success,
     });
 
-    await runScript('build', {
+    await runScript('crossEnvNextBuild', {
       packageManager,
       cwd: builtPreviewAppPath,
     });

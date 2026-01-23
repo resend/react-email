@@ -29,6 +29,7 @@
   "dependencies": {
     "@babel/parser": "^7.27.0",
     "@babel/traverse": "^7.27.0",
+    "@manypkg/get-packages": "3.1.0",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "conf": "^15.0.2",

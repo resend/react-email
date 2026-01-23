@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "email-dev build",
+    "build": "email-dev build --packageManager pnpm",
     "dev": "email-dev dev",
     "start": "email-dev start",
     "export": "email-dev export"

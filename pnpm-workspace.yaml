@@ -1,6 +1,6 @@
 packages:
-  - .github/actions/*
   - apps/*
+  - apps/demo/.react-email
   - benchmarks/*
   - packages/*
   - packages/react-email/dev
